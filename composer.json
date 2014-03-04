@@ -19,7 +19,8 @@
         "sensio/framework-extra-bundle": "~3.0",
         "sensio/generator-bundle": "~2.3",
         "symfony/security-bundle": "2.5.*@dev",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+	"ircmaxell/password-compat": "~1.0.3"
     },
     "scripts": {
         "post-install-cmd": [
