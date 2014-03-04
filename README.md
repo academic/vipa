@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ojstr/ojs.png?branch=master)](https://travis-ci.org/ojstr/ojs)
+[![Build Status](https://travis-ci.org/okulbilisim/ojs.png?branch=master)](https://travis-ci.org/okulbilisim/ojs)
 #Open Journal Systems
 
 **Open Journal Systems (OJS)** is a journal management and publishing system with **Symfony 2 Framework** that has been developed by the Public Knowledge Project through its federally funded efforts to expand and improve access to research.
