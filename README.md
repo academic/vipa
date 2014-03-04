@@ -43,7 +43,12 @@ Then, use the `update` command to generate a new Symfony application:
 
     php composer.phar update
 
-Run
+Generate shemas : 
+
+    php app/console doctrine:schema:update --force
+
+
+Run : 
 
     php app/console server:run
 
