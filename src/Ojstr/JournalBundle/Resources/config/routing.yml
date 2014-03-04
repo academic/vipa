@@ -1,0 +1,3 @@
+ojstr_journal_homepage:
+    pattern:  /
+    defaults: { _controller: OjstrJournalBundle:Default:index }

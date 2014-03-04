@@ -1,0 +1,12 @@
+ojstr_user:
+    resource: "@OjstrUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ojstr_journal:
+    resource: "@OjstrJournalBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+auth:
+    resource: "@OjstrUserBundle/Controller/SecurityController.php"
+    type:     annotation
