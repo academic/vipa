@@ -5,9 +5,11 @@ assetic:
     #use_controller: true
     filters:
         uglifyjs2:
-            bin: %kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
+            bin: /usr/local/bin/uglifyjs
+            #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
         uglifycss:
-            bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
+            bin: /usr/local/bin/uglifycss
+            # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
         jquery_foundation:
             inputs:
