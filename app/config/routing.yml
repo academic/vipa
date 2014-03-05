@@ -8,5 +8,4 @@ ojstr_journal:
     prefix:   /
     
 auth:
-    resource: "@OjstrUserBundle/Controller/SecurityController.php"
-    type:     annotation
+    resource: "@OjstrUserBundle/Resources/config/routing.yml"

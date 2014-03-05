@@ -3,34 +3,30 @@
 namespace Ojstr\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends Controller {
 
-    /**
-     * @Route("/login")
-     * @Method({"GET"})
-     */
-    public function postLogin() {
-        return new Response("login with callback " . $callback_uri);
-    }
+    public function loginAction(Request $request) {
+        $session = $request->getSession();
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                    SecurityContext::AUTHENTICATION_ERROR
+            );
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
 
-    /**
-     * @Route("/check_login")
-     * @Method({"GET"})
-     */
-    public function getCheckLogin($callback_uri = NULL) {
-        return new Response("check login with callback " . $callback_uri);
-    }
-
-    /**
-     * @Route("/logout")
-     * @Method({"GET"})
-     */
-    public function getLogout($callback_uri = NULL) {
-        return new Response("logout with callback " . $callback_uri);
+        return $this->render(
+                        'OjstrUserBundle:Security:login.html.twig', array(
+                    // last username entered by the user
+                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'error' => $error,
+                        )
+        );
     }
 
 }

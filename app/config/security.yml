@@ -1,28 +1,38 @@
 security:
     encoders:
         Ojstr\UserBundle\Entity\User:
-            algorithm: bcrypt
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        administrators:
-            entity: { class: OjstrUserBundle:User }
-
+        user_db:
+            entity: {  class: Ojstr\UserBundle\Entity\User, property: username }
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        secured_area:
-            pattern:    ^/
-            anonymous: ~
-            form_login:
-                check_path: login_check
-                login_path: login
+            
+        main:
+            pattern: /.*
+            provider: user_db
+            form_login: ~
             logout:
-                path:   logout
+                path: /logout
+                target: /
+            remember_me:
+                key: df716bb554af3c6f04c34e0c6518253b
+                lifetime: 1800
+                path: /.*
+                domain: ~
+            security: true
+            anonymous: true
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /user, roles: ROLE_USER }
+        - { path: /manager, roles: ROLE_ADMIN }
+        - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
