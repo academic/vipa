@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/SymfonyRequirements.php';
+require_once dirname(__FILE__) . '/SymfonyRequirements.php';
 
 $symfonyRequirements = new SymfonyRequirements();
 
@@ -26,6 +26,17 @@ echo "*  from your web server using the web/config.php script.\n";
 echo_title('Mandatory requirements');
 
 $checkPassed = true;
+$symfonyRequirements->addRecommendation(
+        file_exists('/usr/bin/uglifycss'), 
+        'uglifycss npm package', 
+        '***RUN : npm install -g uglifycss'
+);
+$symfonyRequirements->addRecommendation(
+        file_exists('/usr/bin/uglifyjs'), 
+        'uglifyjs npm package', 
+        '***RUN : npm install -g uglify-js'
+);
+
 foreach ($symfonyRequirements->getRequirements() as $req) {
     /** @var $req Requirement */
     echo_requirement($req);
@@ -45,8 +56,7 @@ exit($checkPassed ? 0 : 1);
 /**
  * Prints a Requirement instance
  */
-function echo_requirement(Requirement $requirement)
-{
+function echo_requirement(Requirement $requirement) {
     $result = $requirement->isFulfilled() ? 'OK' : ($requirement->isOptional() ? 'WARNING' : 'ERROR');
     echo ' ' . str_pad($result, 9);
     echo $requirement->getTestMessage() . "\n";
@@ -56,7 +66,6 @@ function echo_requirement(Requirement $requirement)
     }
 }
 
-function echo_title($title)
-{
+function echo_title($title) {
     echo "\n** $title **\n\n";
 }
