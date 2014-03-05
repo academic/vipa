@@ -21,3 +21,5 @@ files
 /composer.phar
 /composer.lock
 /nbproject/private/
+
+/web/assetic/
