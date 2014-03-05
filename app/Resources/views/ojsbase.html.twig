@@ -16,7 +16,7 @@
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
         {% block javascripts %}
-            {% javascripts '@jquery_foundation' filter='?uglifyjs2'%}
+            {% javascripts '@jquery_foundation' filter='?uglifyjs2' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}  
 
