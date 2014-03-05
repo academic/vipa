@@ -1,6 +1,21 @@
 imports:
     - { resource: config.yml }
-
+#assetic named assets should be redefined
+assetic:
+    #use_controller: true
+    filters:
+        uglifyjs2:
+            bin: %kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
+        uglifycss:
+            bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
+    assets:
+        jquery_foundation:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/js/vendor/*'
+                - '%kernel.root_dir%/../web/assets/js/*'
+        base_ui:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/css/*'
 #framework:
 #    validation:
 #        cache: apc

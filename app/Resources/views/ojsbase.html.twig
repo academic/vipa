@@ -3,8 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <style type="text/css"> body { color: #336699; } </style>
+        {% block stylesheets %}
+        {% stylesheets '@base_ui' filter='?uglifycss' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+       {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
@@ -12,6 +15,11 @@
             {% block body %}{% endblock %}
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {% javascripts '@jquery_foundation' filter='?uglifyjs2'%}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}  
+
+        {% endblock %}
     </body>
 </html>
