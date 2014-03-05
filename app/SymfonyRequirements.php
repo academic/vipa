@@ -198,9 +198,9 @@ class RequirementCollection implements IteratorAggregate
      * @param string      $helpHtml    The help text formatted in HTML for resolving the problem
      * @param string|null $helpText    The help text (when null, it will be inferred from $helpHtml, i.e. stripped from HTML tags)
      */
-    public function addRequirement($fulfilled, $testMessage, $helpHtml, $helpText = null)
+    public function addRequirement($fulfilled, $testMessage, $helpHtml, $helpText = null,$isOptional=FALSE)
     {
-        $this->add(new Requirement($fulfilled, $testMessage, $helpHtml, $helpText, false));
+        $this->add(new Requirement($fulfilled, $testMessage, $helpHtml, $helpText, $isOptional));
     }
 
     /**
@@ -387,6 +387,16 @@ class SymfonyRequirements extends RequirementCollection
 
         $installedPhpVersion = phpversion();
 
+	$this->addRequirement(
+		file_exists('/usr/bin/uglifycss'),
+		'You should install uglifycss npm package','***RUN : npm install -g uglifycss',null,TRUE
+	);
+
+	$this->addRequirement(
+                file_exists('/usr/bin/uglifyjs'),
+                'You should install uglifyjs npm package','***RUN : npm install -g uglify-js',null,TRUE
+        );
+		
         $this->addRequirement(
             version_compare($installedPhpVersion, self::REQUIRED_PHP_VERSION, '>='),
             sprintf('PHP version must be at least %s (%s installed)', self::REQUIRED_PHP_VERSION, $installedPhpVersion),
