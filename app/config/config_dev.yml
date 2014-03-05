@@ -6,7 +6,7 @@ assetic:
     filters:
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
-            #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
+            #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs 
         uglifycss:
             bin: /usr/local/bin/uglifycss
             # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss

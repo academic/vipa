@@ -53,6 +53,11 @@ Run :
     php app/console server:run
 
 
+Ps : run assetic:dump to generate asset files
+
+    sudo php app/console assetic:dump --env=dev
+
+
 
 2) Checking your System Configuration
 -------------------------------------
