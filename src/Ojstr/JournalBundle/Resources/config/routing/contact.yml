@@ -1,0 +1,30 @@
+contact:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:Contact:index" }
+
+contact_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:Contact:show" }
+
+contact_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:Contact:new" }
+
+contact_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:Contact:create" }
+    requirements: { _method: post }
+
+contact_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:Contact:edit" }
+
+contact_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:Contact:update" }
+    requirements: { _method: post|put }
+
+contact_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:Contact:delete" }
+    requirements: { _method: post|delete }

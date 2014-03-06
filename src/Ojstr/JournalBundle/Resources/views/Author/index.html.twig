@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Author list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Middlename</th>
+                <th>Lastname</th>
+                <th>Firstnametranslated</th>
+                <th>Middlenametranslated</th>
+                <th>Lastnametranslated</th>
+                <th>Initials</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Institutionid</th>
+                <th>Country</th>
+                <th>Summary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('admin_author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.firstName }}</td>
+                <td>{{ entity.middleName }}</td>
+                <td>{{ entity.lastName }}</td>
+                <td>{{ entity.firstNameTranslated }}</td>
+                <td>{{ entity.middleNameTranslated }}</td>
+                <td>{{ entity.lastNameTranslated }}</td>
+                <td>{{ entity.initials }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.address }}</td>
+                <td>{{ entity.institutionId }}</td>
+                <td>{{ entity.country }}</td>
+                <td>{{ entity.summary }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_author_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_author_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('admin_author_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

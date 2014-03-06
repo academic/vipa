@@ -4,12 +4,37 @@ ojstr_journal_homepage:
     
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
-    prefix:   /journal
+    prefix:   /admin/journal
 
 ojstr__issue:
     resource: "@OjstrJournalBundle/Resources/config/routing/issue.yml"
-    prefix:   /issue
+    prefix:   /admin/issue
 
 ojstr_theme:
     resource: "@OjstrJournalBundle/Resources/config/routing/theme.yml"
-    prefix:   /theme
+    prefix:   /admin/theme
+
+ojstr_institution_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/institution.yml"
+    prefix:   /admin/institution
+
+ojstr_institution_types_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/institutiontypes.yml"
+    prefix:   /admin/institution_types
+
+
+ojstr_contact_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/contact.yml"
+    prefix:   /admin/contact
+
+ojstr__contacttypes_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/contacttypes.yml"
+    prefix:   /admin/contacttypes
+    
+ojstr_article_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/article.yml"
+    prefix:   /admin/article
+    
+ojstr_author_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
+    prefix:   /admin/author

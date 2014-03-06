@@ -1,0 +1,38 @@
+Ojstr\JournalBundle\Entity\Contact:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+        address:
+            type: text
+        country:
+            type: integer
+        city:
+            type: string
+            length: 255
+        phone:
+            type: string
+            length: 255
+        fax:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

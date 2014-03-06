@@ -1,0 +1,52 @@
+Ojstr\JournalBundle\Entity\Author:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\AuthorRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+        middleName:
+            type: string
+            length: 255
+            column: middle_name
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+        firstNameTranslated:
+            type: string
+            length: 255
+            column: first_name_translated
+        middleNameTranslated:
+            type: string
+            length: 255
+            column: middle_name_translated
+        lastNameTranslated:
+            type: string
+            length: 255
+            column: last_name_translated
+        initials:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+        address:
+            type: string
+            length: 255
+        institutionId:
+            type: integer
+            column: institution_id
+        country:
+            type: integer
+        summary:
+            type: text
+    lifecycleCallbacks: {  }

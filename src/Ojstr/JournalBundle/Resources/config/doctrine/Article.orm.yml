@@ -1,0 +1,64 @@
+Ojstr\JournalBundle\Entity\Article:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        doi:
+            type: string
+            length: 255
+        otherId:
+            type: string
+            length: 255
+            column: other_id
+        journalId:
+            type: integer
+            column: journal_id
+        title:
+            type: string
+            length: 255
+        titleTranslated:
+            type: string
+            length: 255
+            column: title_translated
+        subtitle:
+            type: string
+            length: 255
+        isAnonymous:
+            type: boolean
+            column: is_anonymous
+        pubdate:
+            type: datetime
+        pubdateSeason:
+            type: string
+            length: 255
+            column: pubdate_season
+        volume:
+            type: string
+            length: 255
+        issue:
+            type: string
+            length: 255
+        part:
+            type: string
+            length: 255
+        firstPage:
+            type: integer
+            column: first_page
+        lastPage:
+            type: integer
+            column: last_page
+        uri:
+            type: string
+            length: 255
+        abstract:
+            type: text
+        abstractTranslated:
+            type: text
+            column: abstract_translated
+    lifecycleCallbacks: {  }

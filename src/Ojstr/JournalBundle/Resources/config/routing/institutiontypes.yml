@@ -1,0 +1,30 @@
+institution_types:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:index" }
+
+institution_types_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:show" }
+
+institution_types_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:new" }
+
+institution_types_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:create" }
+    requirements: { _method: post }
+
+institution_types_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:edit" }
+
+institution_types_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:update" }
+    requirements: { _method: post|put }
+
+institution_types_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:delete" }
+    requirements: { _method: post|delete }

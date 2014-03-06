@@ -1,0 +1,36 @@
+Ojstr\JournalBundle\Entity\Institution:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\InstitutionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        address:
+            type: text
+        country:
+            type: integer
+        addressLat:
+            type: string
+            length: 255
+            column: address_lat
+        addressLong:
+            type: string
+            length: 255
+            column: address_long
+        phone:
+            type: string
+            length: 255
+        fax:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

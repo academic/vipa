@@ -1,0 +1,96 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>Article</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Doi</th>
+                <td>{{ entity.doi }}</td>
+            </tr>
+            <tr>
+                <th>Otherid</th>
+                <td>{{ entity.otherId }}</td>
+            </tr>
+            <tr>
+                <th>Journalid</th>
+                <td>{{ entity.journalId }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Titletranslated</th>
+                <td>{{ entity.titleTranslated }}</td>
+            </tr>
+            <tr>
+                <th>Subtitle</th>
+                <td>{{ entity.subtitle }}</td>
+            </tr>
+            <tr>
+                <th>Isanonymous</th>
+                <td>{{ entity.isAnonymous }}</td>
+            </tr>
+            <tr>
+                <th>Pubdate</th>
+                <td>{{ entity.pubdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Pubdateseason</th>
+                <td>{{ entity.pubdateSeason }}</td>
+            </tr>
+            <tr>
+                <th>Volume</th>
+                <td>{{ entity.volume }}</td>
+            </tr>
+            <tr>
+                <th>Issue</th>
+                <td>{{ entity.issue }}</td>
+            </tr>
+            <tr>
+                <th>Part</th>
+                <td>{{ entity.part }}</td>
+            </tr>
+            <tr>
+                <th>Firstpage</th>
+                <td>{{ entity.firstPage }}</td>
+            </tr>
+            <tr>
+                <th>Lastpage</th>
+                <td>{{ entity.lastPage }}</td>
+            </tr>
+            <tr>
+                <th>Uri</th>
+                <td>{{ entity.uri }}</td>
+            </tr>
+            <tr>
+                <th>Abstract</th>
+                <td>{{ entity.abstract }}</td>
+            </tr>
+            <tr>
+                <th>Abstracttranslated</th>
+                <td>{{ entity.abstractTranslated }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_article') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
