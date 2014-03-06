@@ -1,0 +1,59 @@
+Ojstr\JournalBundle\Entity\Journal:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\JournalRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        titleAbbr:
+            type: string
+            length: 255
+            column: title_abbr
+        titleTranslated:
+            type: string
+            length: 255
+            column: title_translated
+        subtitle:
+            type: string
+            length: 255
+        issn:
+            type: string
+            length: '11'
+        eissn:
+            type: string
+            length: '11'
+        firstPublishDate:
+            type: datetime
+            column: first_publish_date
+        period:
+            type: string
+            length: 255
+        url:
+            type: string
+            length: 255
+        country:
+            type: integer
+        publishStatus:
+            type: integer
+            column: publish_status
+        status:
+            type: integer
+        coverImage:
+            type: string
+            length: 255
+            column: cover_image
+        scope:
+            type: text
+        mission:
+            type: text
+        themeId:
+            type: integer
+            column: theme_id
+    lifecycleCallbacks: {  }
