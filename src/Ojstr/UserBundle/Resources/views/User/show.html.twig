@@ -1,0 +1,50 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body %}
+<h1>User : {{entity.username}}</h1>
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ entity.username }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ entity.password }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Isactive</th>
+            <td>{{ entity.isActive }}</td>
+        </tr>
+
+        <tr>
+            <th>Roles (<a href="#">manage</a>)</th>
+            <td>
+                {% for role in entity.roles %}
+                    {{role.name}}(<strong>{{role.role}}</strong>) <br/>
+                {% endfor %}
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+<div class="record_actions">
+    <a href="{{ path('user') }}" class="button success">
+        Back to the list
+    </a>
+    <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="button warning">
+        Edit
+    </a>
+     {{ form(delete_form) }}
+
+</div>
+{% endblock %}
