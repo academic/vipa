@@ -1,0 +1,30 @@
+institution:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:Institution:index" }
+
+institution_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:Institution:show" }
+
+institution_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:Institution:new" }
+
+institution_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:Institution:create" }
+    requirements: { _method: post }
+
+institution_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:Institution:edit" }
+
+institution_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:Institution:update" }
+    requirements: { _method: post|put }
+
+institution_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:Institution:delete" }
+    requirements: { _method: post|delete }
