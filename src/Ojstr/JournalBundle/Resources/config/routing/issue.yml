@@ -1,0 +1,30 @@
+issue:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:Issue:index" }
+
+issue_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:Issue:show" }
+
+issue_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:Issue:new" }
+
+issue_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:Issue:create" }
+    requirements: { _method: post }
+
+issue_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:Issue:edit" }
+
+issue_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:Issue:update" }
+    requirements: { _method: post|put }
+
+issue_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:Issue:delete" }
+    requirements: { _method: post|delete }

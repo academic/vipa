@@ -1,0 +1,33 @@
+Ojstr\JournalBundle\Entity\Issue:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\IssueRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        journalId:
+            type: integer
+            column: journal_id
+        volume:
+            type: string
+            length: 255
+        number:
+            type: string
+            length: 255
+        title:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        year:
+            type: string
+            length: 255
+        datePublished:
+            type: datetime
+            column: date_published
+    lifecycleCallbacks: {  }
