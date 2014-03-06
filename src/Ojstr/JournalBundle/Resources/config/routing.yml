@@ -3,5 +3,9 @@ ojstr_journal_homepage:
     defaults: { _controller: OjstrJournalBundle:Default:index }
     
 ojstr_journal_crud:
-        resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
-        prefix:   /journal
+    resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
+    prefix:   /journal
+
+ojstr__issue:
+    resource: "@OjstrJournalBundle/Resources/config/routing/issue.yml"
+    prefix:   /issue
