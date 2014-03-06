@@ -9,3 +9,7 @@ ojstr_journal_crud:
 ojstr__issue:
     resource: "@OjstrJournalBundle/Resources/config/routing/issue.yml"
     prefix:   /issue
+
+ojstr_theme:
+    resource: "@OjstrJournalBundle/Resources/config/routing/theme.yml"
+    prefix:   /theme

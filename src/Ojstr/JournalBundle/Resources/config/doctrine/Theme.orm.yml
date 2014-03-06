@@ -1,0 +1,20 @@
+Ojstr\JournalBundle\Entity\Theme:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\ThemeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        content:
+            type: text
+        baseTheme:
+            type: boolean
+            column: base_theme
+    lifecycleCallbacks: {  }
