@@ -1,0 +1,30 @@
+theme:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:Theme:index" }
+
+theme_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:Theme:show" }
+
+theme_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:Theme:new" }
+
+theme_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:Theme:create" }
+    requirements: { _method: post }
+
+theme_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:Theme:edit" }
+
+theme_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:Theme:update" }
+    requirements: { _method: post|put }
+
+theme_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:Theme:delete" }
+    requirements: { _method: post|delete }
