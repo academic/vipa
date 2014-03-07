@@ -3,6 +3,8 @@
 namespace Ojstr\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -10,8 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Ojstr\UserBundle\Entity\UserRepository")
  */
-class User
-{
+class User implements UserInterface, \Serializable {
+
     /**
      * @var integer
      *
@@ -49,14 +51,27 @@ class User
      */
     private $isActive;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
+     *
+     */
+    private $roles;
+
+    public function __construct() {
+        $this->isActive = true;
+        $this->roles = new ArrayCollection();
+    }
+
+    public function getRoles() {
+        return $this->roles->toArray();
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,8 +81,7 @@ class User
      * @param string $username
      * @return User
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
@@ -78,8 +92,7 @@ class User
      *
      * @return string 
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -89,8 +102,7 @@ class User
      * @param string $password
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -101,8 +113,7 @@ class User
      *
      * @return string 
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -112,8 +123,7 @@ class User
      * @param string $email
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -124,8 +134,7 @@ class User
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -135,8 +144,7 @@ class User
      * @param boolean $isActive
      * @return User
      */
-    public function setIsActive($isActive)
-    {
+    public function setIsActive($isActive) {
         $this->isActive = $isActive;
 
         return $this;
@@ -147,8 +155,64 @@ class User
      *
      * @return boolean 
      */
-    public function getIsActive()
-    {
+    public function getIsActive() {
         return $this->isActive;
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials() {
+        
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized) {
+        list (
+                $this->id,
+                $this->username,
+                $this->password
+                ) = unserialize($serialized);
+    }
+
+
+    /**
+     * Add roles
+     *
+     * @param \Ojstr\UserBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Ojstr\UserBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Ojstr\UserBundle\Entity\Role $roles
+     */
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
     }
 }

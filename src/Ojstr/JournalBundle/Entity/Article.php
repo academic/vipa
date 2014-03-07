@@ -448,4 +448,49 @@ class Article {
         return $this->abstractTranslated;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $keywords;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add keywords
+     *
+     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
+     * @return Article
+     */
+    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
+    {
+        $this->keywords[] = $keywords;
+
+        return $this;
+    }
+
+    /**
+     * Remove keywords
+     *
+     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
+     */
+    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
+    {
+        $this->keywords->removeElement($keywords);
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
 }
