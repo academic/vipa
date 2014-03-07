@@ -17,4 +17,5 @@ Ojstr\JournalBundle\Entity\Subject:
             length: 255
         description:
             type: text
+            nullable: TRUE
     lifecycleCallbacks: {  }

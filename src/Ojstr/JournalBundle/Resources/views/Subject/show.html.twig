@@ -1,36 +1,38 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Subject</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Subject</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Subject</th>
-                <td>{{ entity.subject }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <table class="record_properties" style="width:100%">
+                <tbody>
+                    <tr>
+                        <th width="200px">Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subject</th>
+                        <td>{{ entity.subject }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ entity.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_subject') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <div class="record_actions">
+                <a href="{{ path('admin_subject') }}" class="button">
+                    Back to the list
+                </a>
+                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}" class="button">
+                    Edit
+                </a>
+                {{ form(delete_form) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

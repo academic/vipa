@@ -1,43 +1,43 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Subject list</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Subject list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.subject }}</td>
-                <td>{{ entity.description }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="records_list" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Subject</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.subject }}</td>
+                        <td>{{ entity.description }}</td>
+                        <td>
+                            <small>
+                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">show</a>
+                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">edit</a>
+                            </small>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('admin_subject_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endblock %}
+            <div>
+                <a href="{{ path('admin_subject_new') }}" class="button success">
+                     + Create a new entry
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,15 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Journal creation</h1>
-
-    {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('journal') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Journal creation</h1>
+            {{ form(form) }}
+            <div class="record_actions">
+                <a href="{{ path('journal') }}" class="button success">
+                    Back to the list
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

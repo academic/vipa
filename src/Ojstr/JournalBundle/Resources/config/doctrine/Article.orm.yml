@@ -1,85 +1,108 @@
-Ojstr\JournalBundle\Entity\Article:
-    type: entity
-    table: null
-    manyToMany:
-        keywords:
-          targetEntity: Keyword
-          joinTable:
-            name: Article_Keyword
-            joinColumns:
-              article_id:
-                referencedColumnName: id
-            inverseJoinColumns:
-              keyword_id:
-                referencedColumnName: id
-        subjects:
-          targetEntity: Subject
-          joinTable:
-            name: Article_Subject
-            joinColumns:
-              article_id:
-                referencedColumnName: id
-            inverseJoinColumns:
-              subject_id:
-                referencedColumnName: id
-    repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
-    id:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-    fields:
-        doi:
-            type: string
-            length: 255
-        otherId:
-            type: string
-            length: 255
-            column: other_id
-        journalId:
-            type: integer
-            column: journal_id
-        title:
-            type: string
-            length: 255
-        titleTranslated:
-            type: string
-            length: 255
-            column: title_translated
-        subtitle:
-            type: string
-            length: 255
-        isAnonymous:
-            type: boolean
-            column: is_anonymous
-        pubdate:
-            type: datetime
-        pubdateSeason:
-            type: string
-            length: 255
-            column: pubdate_season
-        volume:
-            type: string
-            length: 255
-        issue:
-            type: string
-            length: 255
-        part:
-            type: string
-            length: 255
-        firstPage:
-            type: integer
-            column: first_page
-        lastPage:
-            type: integer
-            column: last_page
-        uri:
-            type: string
-            length: 255
-        abstract:
-            type: text
-        abstractTranslated:
-            type: text
-            column: abstract_translated
-    lifecycleCallbacks: {  }
+Ojstr\JournalBundle\Entity\Article: 
+
+  id: 
+    id: 
+      generator: 
+        strategy: AUTO
+      id: true
+      type: integer
+  lifecycleCallbacks: {}
+  
+  manyToMany: 
+    keywords: 
+      targetEntity: Keyword
+      inversedBy: articles
+      joinTable: 
+        inverseJoinColumns: 
+          keyword_id: 
+            referencedColumnName: id
+        joinColumns: 
+          article_id: 
+            referencedColumnName: id
+        name: Article_Keyword
+    subjects: 
+      targetEntity: Subject
+      inversedBy: subjects
+      joinTable: 
+        inverseJoinColumns: 
+          subject_id: 
+            referencedColumnName: id
+        joinColumns: 
+          article_id: 
+            referencedColumnName: id
+        name: Article_Subject
+      
+  repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
+  table: ~
+  type: entity
+  fields: 
+    abstract: 
+      type: text
+      nullable: TRUE
+    abstractTranslated: 
+      column: abstract_translated
+      type: text
+      nullable: TRUE
+    doi: 
+      length: 255
+      type: string
+      nullable: TRUE
+    firstPage: 
+      column: first_page
+      type: integer
+      nullable: TRUE
+    isAnonymous: 
+      column: is_anonymous
+      type: boolean
+      options: 
+          default: 0
+      nullable: TRUE
+    issue: 
+      length: 255
+      type: string
+      nullable: TRUE
+    journalId: 
+      column: journal_id
+      type: integer
+      nullable: TRUE
+    lastPage: 
+      column: last_page
+      type: integer
+      nullable: TRUE
+    otherId: 
+      column: other_id
+      length: 255
+      type: string
+      nullable: TRUE
+    part: 
+      length: 255
+      type: string
+      nullable: TRUE
+    pubdate: 
+      type: datetime
+      nullable: TRUE
+    pubdateSeason: 
+      column: pubdate_season
+      length: 255
+      type: string
+      nullable: TRUE
+    subtitle: 
+      length: 255
+      type: string
+      nullable: TRUE
+    title: 
+      length: 255
+      type: string
+    titleTranslated: 
+      column: title_translated
+      length: 255
+      type: string
+      nullable: TRUE
+    uri: 
+      length: 255
+      type: string
+      nullable: TRUE
+    volume: 
+      length: 255
+      type: string
+      nullable: TRUE

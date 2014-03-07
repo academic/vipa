@@ -21,17 +21,22 @@ Ojstr\JournalBundle\Entity\Contact:
             column: last_name
         address:
             type: text
+            nullable: TRUE
         country:
             type: integer
+            nullable: TRUE
         city:
             type: string
             length: 255
+            nullable: TRUE
         phone:
             type: string
             length: 255
+            nullable: TRUE
         fax:
             type: string
             length: 255
+            nullable: TRUE
         email:
             type: string
             length: 255

@@ -1,15 +1,19 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Subject creation</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Subject creation</h1>
 
     {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_subject') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+            <hr>
+            <div class="record_actions">
+                <a href="{{ path('admin_subject') }}" class="button">
+                    Back to the list
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
