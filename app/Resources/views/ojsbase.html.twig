@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-        {% stylesheets '@base_ui' filter='?uglifycss' %}
+        {% stylesheets '@base_ui' filter='?uglifycss' output='c/c.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
        {% endstylesheets %}
         {% endblock %}
@@ -16,7 +16,7 @@
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
         {% block javascripts %}
-            {% javascripts '@jquery_foundation' filter='?uglifyjs2' %}
+            {% javascripts '@jquery_foundation' filter='?uglifyjs2' output='c/app.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}  
 

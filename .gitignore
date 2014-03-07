@@ -8,6 +8,7 @@ files
 .settings
 
 
+
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
@@ -22,4 +23,6 @@ files
 /composer.lock
 /nbproject/private/
 
+
+/web/c/
 /web/assetic/
