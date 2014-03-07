@@ -1,16 +1,20 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Article edit</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Article edit</h1>
 
-    {{ form(edit_form) }}
+            {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_article') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <div class="record_actions">
+                <a href="{{ path('admin_article') }}" class="button">
+                    Back to the list
+                </a>
+                  {{ form(delete_form) }} 
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

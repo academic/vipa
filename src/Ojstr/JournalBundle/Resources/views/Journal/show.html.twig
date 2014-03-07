@@ -1,92 +1,96 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Journal</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Journal</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Titleabbr</th>
-                <td>{{ entity.titleAbbr }}</td>
-            </tr>
-            <tr>
-                <th>Titletranslated</th>
-                <td>{{ entity.titleTranslated }}</td>
-            </tr>
-            <tr>
-                <th>Subtitle</th>
-                <td>{{ entity.subtitle }}</td>
-            </tr>
-            <tr>
-                <th>Issn</th>
-                <td>{{ entity.issn }}</td>
-            </tr>
-            <tr>
-                <th>Eissn</th>
-                <td>{{ entity.eissn }}</td>
-            </tr>
-            <tr>
-                <th>Firstpublishdate</th>
-                <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Period</th>
-                <td>{{ entity.period }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ entity.url }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>Publishstatus</th>
-                <td>{{ entity.publishStatus }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-            <tr>
-                <th>Coverimage</th>
-                <td>{{ entity.coverImage }}</td>
-            </tr>
-            <tr>
-                <th>Scope</th>
-                <td>{{ entity.scope }}</td>
-            </tr>
-            <tr>
-                <th>Mission</th>
-                <td>{{ entity.mission }}</td>
-            </tr>
-            <tr>
-                <th>Themeid</th>
-                <td>{{ entity.themeId }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <table class="record_properties" style="width:100%">
+                
+                <tbody>
+                    <tr>
+                        <th width="300px">Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ entity.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titleabbr</th>
+                        <td>{{ entity.titleAbbr }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titletranslated</th>
+                        <td>{{ entity.titleTranslated }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subtitle</th>
+                        <td>{{ entity.subtitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Issn</th>
+                        <td>{{ entity.issn }}</td>
+                    </tr>
+                    <tr>
+                        <th>Eissn</th>
+                        <td>{{ entity.eissn }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstpublishdate</th>
+                        <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Period</th>
+                        <td>{{ entity.period }}</td>
+                    </tr>
+                    <tr>
+                        <th>Url</th>
+                        <td>{{ entity.url }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{ entity.country }}</td>
+                    </tr>
+                    <tr>
+                        <th>Publishstatus</th>
+                        <td>{{ entity.publishStatus }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ entity.status }}</td>
+                    </tr>
+                    <tr>
+                        <th>Coverimage</th>
+                        <td>{{ entity.coverImage }}</td>
+                    </tr>
+                    <tr>
+                        <th>Scope</th>
+                        <td>{{ entity.scope }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mission</th>
+                        <td>{{ entity.mission }}</td>
+                    </tr>
+                    <tr>
+                        <th>Themeid</th>
+                        <td>{{ entity.themeId }}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('journal') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('journal_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            <div class="record_actions">
+                <a href="{{ path('journal') }}" class="button success">
+                    Back to the list
+                </a>
+                <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="button">
+                    Edit
+                </a>
+
+                    {{ form(delete_form) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -20,17 +20,22 @@ Ojstr\JournalBundle\Entity\Institution:
             type: string
             length: 255
             column: address_lat
+            nullable: TRUE
         addressLong:
             type: string
             length: 255
             column: address_long
+            nullable: TRUE
         phone:
             type: string
             length: 255
+            nullable: TRUE
         fax:
             type: string
             length: 255
+            nullable: TRUE
         email:
             type: string
             length: 255
+            nullable: TRUE
     lifecycleCallbacks: {  }

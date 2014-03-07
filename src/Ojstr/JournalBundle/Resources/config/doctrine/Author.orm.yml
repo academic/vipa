@@ -17,6 +17,7 @@ Ojstr\JournalBundle\Entity\Author:
             type: string
             length: 255
             column: middle_name
+            nullable: TRUE
         lastName:
             type: string
             length: 255
@@ -25,28 +26,36 @@ Ojstr\JournalBundle\Entity\Author:
             type: string
             length: 255
             column: first_name_translated
+            nullable: TRUE
         middleNameTranslated:
             type: string
             length: 255
             column: middle_name_translated
+            nullable: TRUE
         lastNameTranslated:
             type: string
             length: 255
             column: last_name_translated
+            nullable: TRUE
         initials:
             type: string
             length: 255
         email:
             type: string
             length: 255
+            nullable: TRUE
         address:
             type: string
             length: 255
+            nullable: TRUE
         institutionId:
             type: integer
             column: institution_id
+            nullable: TRUE
         country:
             type: integer
+            nullable: TRUE
         summary:
             type: text
+            nullable: TRUE
     lifecycleCallbacks: {  }
