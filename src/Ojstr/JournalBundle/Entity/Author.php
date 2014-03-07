@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Author
  */
-class Author
-{
+class Author {
+
     /**
      * @var integer
      */
@@ -74,14 +74,12 @@ class Author
      */
     private $summary;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -91,10 +89,8 @@ class Author
      * @param string $firstName
      * @return Author
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -103,8 +99,7 @@ class Author
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -114,10 +109,8 @@ class Author
      * @param string $middleName
      * @return Author
      */
-    public function setMiddleName($middleName)
-    {
+    public function setMiddleName($middleName) {
         $this->middleName = $middleName;
-
         return $this;
     }
 
@@ -126,8 +119,7 @@ class Author
      *
      * @return string 
      */
-    public function getMiddleName()
-    {
+    public function getMiddleName() {
         return $this->middleName;
     }
 
@@ -137,10 +129,8 @@ class Author
      * @param string $lastName
      * @return Author
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -149,8 +139,7 @@ class Author
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -160,10 +149,8 @@ class Author
      * @param string $firstNameTranslated
      * @return Author
      */
-    public function setFirstNameTranslated($firstNameTranslated)
-    {
+    public function setFirstNameTranslated($firstNameTranslated) {
         $this->firstNameTranslated = $firstNameTranslated;
-
         return $this;
     }
 
@@ -172,8 +159,7 @@ class Author
      *
      * @return string 
      */
-    public function getFirstNameTranslated()
-    {
+    public function getFirstNameTranslated() {
         return $this->firstNameTranslated;
     }
 
@@ -183,10 +169,8 @@ class Author
      * @param string $middleNameTranslated
      * @return Author
      */
-    public function setMiddleNameTranslated($middleNameTranslated)
-    {
+    public function setMiddleNameTranslated($middleNameTranslated) {
         $this->middleNameTranslated = $middleNameTranslated;
-
         return $this;
     }
 
@@ -195,8 +179,7 @@ class Author
      *
      * @return string 
      */
-    public function getMiddleNameTranslated()
-    {
+    public function getMiddleNameTranslated() {
         return $this->middleNameTranslated;
     }
 
@@ -206,10 +189,8 @@ class Author
      * @param string $lastNameTranslated
      * @return Author
      */
-    public function setLastNameTranslated($lastNameTranslated)
-    {
+    public function setLastNameTranslated($lastNameTranslated) {
         $this->lastNameTranslated = $lastNameTranslated;
-
         return $this;
     }
 
@@ -218,8 +199,7 @@ class Author
      *
      * @return string 
      */
-    public function getLastNameTranslated()
-    {
+    public function getLastNameTranslated() {
         return $this->lastNameTranslated;
     }
 
@@ -229,10 +209,8 @@ class Author
      * @param string $initials
      * @return Author
      */
-    public function setInitials($initials)
-    {
+    public function setInitials($initials) {
         $this->initials = $initials;
-
         return $this;
     }
 
@@ -241,8 +219,7 @@ class Author
      *
      * @return string 
      */
-    public function getInitials()
-    {
+    public function getInitials() {
         return $this->initials;
     }
 
@@ -252,10 +229,8 @@ class Author
      * @param string $email
      * @return Author
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
-
         return $this;
     }
 
@@ -264,8 +239,7 @@ class Author
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -275,10 +249,8 @@ class Author
      * @param string $address
      * @return Author
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-
         return $this;
     }
 
@@ -287,8 +259,7 @@ class Author
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -298,10 +269,8 @@ class Author
      * @param integer $institutionId
      * @return Author
      */
-    public function setInstitutionId($institutionId)
-    {
+    public function setInstitutionId($institutionId) {
         $this->institutionId = $institutionId;
-
         return $this;
     }
 
@@ -310,8 +279,7 @@ class Author
      *
      * @return integer 
      */
-    public function getInstitutionId()
-    {
+    public function getInstitutionId() {
         return $this->institutionId;
     }
 
@@ -321,10 +289,8 @@ class Author
      * @param integer $country
      * @return Author
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
-
         return $this;
     }
 
@@ -333,8 +299,7 @@ class Author
      *
      * @return integer 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -344,10 +309,8 @@ class Author
      * @param string $summary
      * @return Author
      */
-    public function setSummary($summary)
-    {
+    public function setSummary($summary) {
         $this->summary = $summary;
-
         return $this;
     }
 
@@ -356,8 +319,8 @@ class Author
      *
      * @return string 
      */
-    public function getSummary()
-    {
+    public function getSummary() {
         return $this->summary;
     }
+
 }

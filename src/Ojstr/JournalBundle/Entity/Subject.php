@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Subject
  */
-class Subject
-{
+class Subject {
+
     /**
      * @var integer
      */
@@ -24,14 +24,12 @@ class Subject
      */
     private $description;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -41,10 +39,8 @@ class Subject
      * @param string $subject
      * @return Subject
      */
-    public function setSubject($subject)
-    {
+    public function setSubject($subject) {
         $this->subject = $subject;
-
         return $this;
     }
 
@@ -53,8 +49,7 @@ class Subject
      *
      * @return string 
      */
-    public function getSubject()
-    {
+    public function getSubject() {
         return $this->subject;
     }
 
@@ -64,10 +59,8 @@ class Subject
      * @param string $description
      * @return Subject
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-
         return $this;
     }
 
@@ -76,8 +69,8 @@ class Subject
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
+
 }

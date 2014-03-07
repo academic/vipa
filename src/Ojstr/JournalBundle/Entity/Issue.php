@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Issue
  */
-class Issue
-{
+class Issue {
+
     /**
      * @var integer
      */
@@ -49,14 +49,12 @@ class Issue
      */
     private $datePublished;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -66,10 +64,8 @@ class Issue
      * @param integer $journalId
      * @return Issue
      */
-    public function setJournalId($journalId)
-    {
+    public function setJournalId($journalId) {
         $this->journalId = $journalId;
-
         return $this;
     }
 
@@ -78,8 +74,7 @@ class Issue
      *
      * @return integer 
      */
-    public function getJournalId()
-    {
+    public function getJournalId() {
         return $this->journalId;
     }
 
@@ -89,10 +84,8 @@ class Issue
      * @param string $volume
      * @return Issue
      */
-    public function setVolume($volume)
-    {
+    public function setVolume($volume) {
         $this->volume = $volume;
-
         return $this;
     }
 
@@ -101,8 +94,7 @@ class Issue
      *
      * @return string 
      */
-    public function getVolume()
-    {
+    public function getVolume() {
         return $this->volume;
     }
 
@@ -112,10 +104,8 @@ class Issue
      * @param string $number
      * @return Issue
      */
-    public function setNumber($number)
-    {
+    public function setNumber($number) {
         $this->number = $number;
-
         return $this;
     }
 
@@ -124,8 +114,7 @@ class Issue
      *
      * @return string 
      */
-    public function getNumber()
-    {
+    public function getNumber() {
         return $this->number;
     }
 
@@ -135,10 +124,8 @@ class Issue
      * @param string $title
      * @return Issue
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
-
         return $this;
     }
 
@@ -147,8 +134,7 @@ class Issue
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -158,10 +144,8 @@ class Issue
      * @param string $description
      * @return Issue
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-
         return $this;
     }
 
@@ -170,8 +154,7 @@ class Issue
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -181,10 +164,8 @@ class Issue
      * @param string $year
      * @return Issue
      */
-    public function setYear($year)
-    {
+    public function setYear($year) {
         $this->year = $year;
-
         return $this;
     }
 
@@ -193,8 +174,7 @@ class Issue
      *
      * @return string 
      */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 
@@ -204,10 +184,8 @@ class Issue
      * @param \DateTime $datePublished
      * @return Issue
      */
-    public function setDatePublished($datePublished)
-    {
+    public function setDatePublished($datePublished) {
         $this->datePublished = $datePublished;
-
         return $this;
     }
 
@@ -216,8 +194,8 @@ class Issue
      *
      * @return \DateTime 
      */
-    public function getDatePublished()
-    {
+    public function getDatePublished() {
         return $this->datePublished;
     }
+
 }

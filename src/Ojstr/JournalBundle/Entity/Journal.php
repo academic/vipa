@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Journal
  */
-class Journal
-{
+class Journal {
+
     /**
      * @var integer
      */
@@ -94,14 +94,12 @@ class Journal
      */
     private $themeId;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -111,10 +109,8 @@ class Journal
      * @param string $title
      * @return Journal
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
-
         return $this;
     }
 
@@ -123,8 +119,7 @@ class Journal
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -134,10 +129,8 @@ class Journal
      * @param string $titleAbbr
      * @return Journal
      */
-    public function setTitleAbbr($titleAbbr)
-    {
+    public function setTitleAbbr($titleAbbr) {
         $this->titleAbbr = $titleAbbr;
-
         return $this;
     }
 
@@ -146,8 +139,7 @@ class Journal
      *
      * @return string 
      */
-    public function getTitleAbbr()
-    {
+    public function getTitleAbbr() {
         return $this->titleAbbr;
     }
 
@@ -157,10 +149,8 @@ class Journal
      * @param string $titleTranslated
      * @return Journal
      */
-    public function setTitleTranslated($titleTranslated)
-    {
+    public function setTitleTranslated($titleTranslated) {
         $this->titleTranslated = $titleTranslated;
-
         return $this;
     }
 
@@ -169,8 +159,7 @@ class Journal
      *
      * @return string 
      */
-    public function getTitleTranslated()
-    {
+    public function getTitleTranslated() {
         return $this->titleTranslated;
     }
 
@@ -180,10 +169,8 @@ class Journal
      * @param string $subtitle
      * @return Journal
      */
-    public function setSubtitle($subtitle)
-    {
+    public function setSubtitle($subtitle) {
         $this->subtitle = $subtitle;
-
         return $this;
     }
 
@@ -192,8 +179,7 @@ class Journal
      *
      * @return string 
      */
-    public function getSubtitle()
-    {
+    public function getSubtitle() {
         return $this->subtitle;
     }
 
@@ -203,10 +189,8 @@ class Journal
      * @param string $issn
      * @return Journal
      */
-    public function setIssn($issn)
-    {
+    public function setIssn($issn) {
         $this->issn = $issn;
-
         return $this;
     }
 
@@ -215,8 +199,7 @@ class Journal
      *
      * @return string 
      */
-    public function getIssn()
-    {
+    public function getIssn() {
         return $this->issn;
     }
 
@@ -226,10 +209,8 @@ class Journal
      * @param string $eissn
      * @return Journal
      */
-    public function setEissn($eissn)
-    {
+    public function setEissn($eissn) {
         $this->eissn = $eissn;
-
         return $this;
     }
 
@@ -238,8 +219,7 @@ class Journal
      *
      * @return string 
      */
-    public function getEissn()
-    {
+    public function getEissn() {
         return $this->eissn;
     }
 
@@ -249,10 +229,8 @@ class Journal
      * @param \DateTime $firstPublishDate
      * @return Journal
      */
-    public function setFirstPublishDate($firstPublishDate)
-    {
+    public function setFirstPublishDate($firstPublishDate) {
         $this->firstPublishDate = $firstPublishDate;
-
         return $this;
     }
 
@@ -261,8 +239,7 @@ class Journal
      *
      * @return \DateTime 
      */
-    public function getFirstPublishDate()
-    {
+    public function getFirstPublishDate() {
         return $this->firstPublishDate;
     }
 
@@ -272,10 +249,8 @@ class Journal
      * @param string $period
      * @return Journal
      */
-    public function setPeriod($period)
-    {
+    public function setPeriod($period) {
         $this->period = $period;
-
         return $this;
     }
 
@@ -284,8 +259,7 @@ class Journal
      *
      * @return string 
      */
-    public function getPeriod()
-    {
+    public function getPeriod() {
         return $this->period;
     }
 
@@ -295,10 +269,8 @@ class Journal
      * @param string $url
      * @return Journal
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
-
         return $this;
     }
 
@@ -307,8 +279,7 @@ class Journal
      *
      * @return string 
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -318,10 +289,8 @@ class Journal
      * @param integer $country
      * @return Journal
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
-
         return $this;
     }
 
@@ -330,8 +299,7 @@ class Journal
      *
      * @return integer 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -341,10 +309,8 @@ class Journal
      * @param integer $publishStatus
      * @return Journal
      */
-    public function setPublishStatus($publishStatus)
-    {
+    public function setPublishStatus($publishStatus) {
         $this->publishStatus = $publishStatus;
-
         return $this;
     }
 
@@ -353,8 +319,7 @@ class Journal
      *
      * @return integer 
      */
-    public function getPublishStatus()
-    {
+    public function getPublishStatus() {
         return $this->publishStatus;
     }
 
@@ -364,10 +329,8 @@ class Journal
      * @param integer $status
      * @return Journal
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
-
         return $this;
     }
 
@@ -376,8 +339,7 @@ class Journal
      *
      * @return integer 
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
@@ -387,10 +349,8 @@ class Journal
      * @param string $coverImage
      * @return Journal
      */
-    public function setCoverImage($coverImage)
-    {
+    public function setCoverImage($coverImage) {
         $this->coverImage = $coverImage;
-
         return $this;
     }
 
@@ -399,8 +359,7 @@ class Journal
      *
      * @return string 
      */
-    public function getCoverImage()
-    {
+    public function getCoverImage() {
         return $this->coverImage;
     }
 
@@ -410,10 +369,8 @@ class Journal
      * @param string $scope
      * @return Journal
      */
-    public function setScope($scope)
-    {
+    public function setScope($scope) {
         $this->scope = $scope;
-
         return $this;
     }
 
@@ -422,8 +379,7 @@ class Journal
      *
      * @return string 
      */
-    public function getScope()
-    {
+    public function getScope() {
         return $this->scope;
     }
 
@@ -433,10 +389,8 @@ class Journal
      * @param string $mission
      * @return Journal
      */
-    public function setMission($mission)
-    {
+    public function setMission($mission) {
         $this->mission = $mission;
-
         return $this;
     }
 
@@ -445,8 +399,7 @@ class Journal
      *
      * @return string 
      */
-    public function getMission()
-    {
+    public function getMission() {
         return $this->mission;
     }
 
@@ -456,10 +409,8 @@ class Journal
      * @param integer $themeId
      * @return Journal
      */
-    public function setThemeId($themeId)
-    {
+    public function setThemeId($themeId) {
         $this->themeId = $themeId;
-
         return $this;
     }
 
@@ -468,8 +419,8 @@ class Journal
      *
      * @return integer 
      */
-    public function getThemeId()
-    {
+    public function getThemeId() {
         return $this->themeId;
     }
+
 }
