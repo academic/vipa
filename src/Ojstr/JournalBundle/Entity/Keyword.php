@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Keyword
  */
-class Keyword
-{
+class Keyword {
+
     /**
      * @var integer
      */
@@ -24,14 +24,12 @@ class Keyword
      */
     private $langId;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -41,10 +39,8 @@ class Keyword
      * @param string $keyword
      * @return Keyword
      */
-    public function setKeyword($keyword)
-    {
+    public function setKeyword($keyword) {
         $this->keyword = $keyword;
-
         return $this;
     }
 
@@ -53,8 +49,7 @@ class Keyword
      *
      * @return string 
      */
-    public function getKeyword()
-    {
+    public function getKeyword() {
         return $this->keyword;
     }
 
@@ -64,10 +59,8 @@ class Keyword
      * @param integer $langId
      * @return Keyword
      */
-    public function setLangId($langId)
-    {
+    public function setLangId($langId) {
         $this->langId = $langId;
-
         return $this;
     }
 
@@ -76,8 +69,8 @@ class Keyword
      *
      * @return integer 
      */
-    public function getLangId()
-    {
+    public function getLangId() {
         return $this->langId;
     }
+
 }

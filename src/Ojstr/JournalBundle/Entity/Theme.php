@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Theme
  */
-class Theme
-{
+class Theme {
+
     /**
      * @var integer
      */
@@ -29,14 +29,12 @@ class Theme
      */
     private $baseTheme;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -46,10 +44,8 @@ class Theme
      * @param string $name
      * @return Theme
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -58,8 +54,7 @@ class Theme
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -69,10 +64,8 @@ class Theme
      * @param string $content
      * @return Theme
      */
-    public function setContent($content)
-    {
+    public function setContent($content) {
         $this->content = $content;
-
         return $this;
     }
 
@@ -81,8 +74,7 @@ class Theme
      *
      * @return string 
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->content;
     }
 
@@ -92,10 +84,8 @@ class Theme
      * @param boolean $baseTheme
      * @return Theme
      */
-    public function setBaseTheme($baseTheme)
-    {
+    public function setBaseTheme($baseTheme) {
         $this->baseTheme = $baseTheme;
-
         return $this;
     }
 
@@ -104,8 +94,8 @@ class Theme
      *
      * @return boolean 
      */
-    public function getBaseTheme()
-    {
+    public function getBaseTheme() {
         return $this->baseTheme;
     }
+
 }

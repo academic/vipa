@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Language
  */
-class Language
-{
+class Language {
+
     /**
      * @var integer
      */
@@ -29,14 +29,12 @@ class Language
      */
     private $code;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -46,10 +44,8 @@ class Language
      * @param string $language
      * @return Language
      */
-    public function setLanguage($language)
-    {
+    public function setLanguage($language) {
         $this->language = $language;
-
         return $this;
     }
 
@@ -58,8 +54,7 @@ class Language
      *
      * @return string 
      */
-    public function getLanguage()
-    {
+    public function getLanguage() {
         return $this->language;
     }
 
@@ -69,10 +64,8 @@ class Language
      * @param string $languageTranslated
      * @return Language
      */
-    public function setLanguageTranslated($languageTranslated)
-    {
+    public function setLanguageTranslated($languageTranslated) {
         $this->languageTranslated = $languageTranslated;
-
         return $this;
     }
 
@@ -81,8 +74,7 @@ class Language
      *
      * @return string 
      */
-    public function getLanguageTranslated()
-    {
+    public function getLanguageTranslated() {
         return $this->languageTranslated;
     }
 
@@ -92,10 +84,8 @@ class Language
      * @param string $code
      * @return Language
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
-
         return $this;
     }
 
@@ -104,8 +94,8 @@ class Language
      *
      * @return string 
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
+
 }

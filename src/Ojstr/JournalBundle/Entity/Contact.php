@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contact
  */
-class Contact
-{
+class Contact {
+
     /**
      * @var integer
      */
@@ -59,14 +59,12 @@ class Contact
      */
     private $email;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -76,10 +74,8 @@ class Contact
      * @param string $title
      * @return Contact
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
-
         return $this;
     }
 
@@ -88,8 +84,7 @@ class Contact
      *
      * @return string 
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -99,10 +94,8 @@ class Contact
      * @param string $firstName
      * @return Contact
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
-
         return $this;
     }
 
@@ -111,8 +104,7 @@ class Contact
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -122,10 +114,8 @@ class Contact
      * @param string $lastName
      * @return Contact
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
-
         return $this;
     }
 
@@ -134,8 +124,7 @@ class Contact
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -145,10 +134,8 @@ class Contact
      * @param string $address
      * @return Contact
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-
         return $this;
     }
 
@@ -157,8 +144,7 @@ class Contact
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -168,10 +154,8 @@ class Contact
      * @param integer $country
      * @return Contact
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
-
         return $this;
     }
 
@@ -180,8 +164,7 @@ class Contact
      *
      * @return integer 
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -191,10 +174,8 @@ class Contact
      * @param string $city
      * @return Contact
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
-
         return $this;
     }
 
@@ -203,8 +184,7 @@ class Contact
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -214,10 +194,8 @@ class Contact
      * @param string $phone
      * @return Contact
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
-
         return $this;
     }
 
@@ -226,8 +204,7 @@ class Contact
      *
      * @return string 
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -237,10 +214,8 @@ class Contact
      * @param string $fax
      * @return Contact
      */
-    public function setFax($fax)
-    {
+    public function setFax($fax) {
         $this->fax = $fax;
-
         return $this;
     }
 
@@ -249,8 +224,7 @@ class Contact
      *
      * @return string 
      */
-    public function getFax()
-    {
+    public function getFax() {
         return $this->fax;
     }
 
@@ -260,10 +234,8 @@ class Contact
      * @param string $email
      * @return Contact
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
-
         return $this;
     }
 
@@ -272,8 +244,8 @@ class Contact
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
+
 }

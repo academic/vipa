@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ContactTypes
  */
-class ContactTypes
-{
+class ContactTypes {
+
     /**
      * @var integer
      */
@@ -24,14 +24,12 @@ class ContactTypes
      */
     private $description;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -41,10 +39,8 @@ class ContactTypes
      * @param string $name
      * @return ContactTypes
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -53,8 +49,7 @@ class ContactTypes
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -64,10 +59,8 @@ class ContactTypes
      * @param string $description
      * @return ContactTypes
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-
         return $this;
     }
 
@@ -76,8 +69,8 @@ class ContactTypes
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
+
 }
