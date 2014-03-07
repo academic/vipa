@@ -97,4 +97,37 @@ class Role implements RoleInterface {
         return $this->role;
     }
 
+
+    /**
+     * Add users
+     *
+     * @param \Ojstr\UserBundle\Entity\User $users
+     * @return Role
+     */
+    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Ojstr\UserBundle\Entity\User $users
+     */
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
 }

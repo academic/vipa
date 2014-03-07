@@ -192,4 +192,27 @@ class User implements UserInterface, \Serializable {
                 ) = unserialize($serialized);
     }
 
+
+    /**
+     * Add roles
+     *
+     * @param \Ojstr\UserBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Ojstr\UserBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Ojstr\UserBundle\Entity\Role $roles
+     */
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
 }

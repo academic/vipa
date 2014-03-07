@@ -1,6 +1,17 @@
 Ojstr\JournalBundle\Entity\Article:
     type: entity
     table: null
+    manyToMany:
+        keywords:
+          targetEntity: Keyword
+          joinTable:
+            name: Article_Keyword
+            joinColumns:
+              article_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              keyword_id:
+                referencedColumnName: id
     repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
     id:
         id:
