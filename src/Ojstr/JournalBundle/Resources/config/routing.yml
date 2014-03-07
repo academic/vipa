@@ -1,7 +1,8 @@
 ojstr_journal_homepage:
     pattern:  /
     defaults: { _controller: OjstrJournalBundle:Default:index }
-    
+
+#Crud pages
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
     prefix:   /admin/journal
@@ -38,3 +39,16 @@ ojstr_article_crud:
 ojstr_author_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
     prefix:   /admin/author
+    
+ostr_subject_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
+    prefix:   /admin/subject
+
+ojstr_keyword_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/keyword.yml"
+    prefix:   /admin/keyword
+
+ojstr_language_crud:
+    resource: "@OjstrJournalBundle/Resources/config/routing/language.yml"
+    prefix:   /admin/language
+

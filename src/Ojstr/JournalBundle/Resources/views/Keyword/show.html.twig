@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Keyword</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Keyword</th>
+                <td>{{ entity.keyword }}</td>
+            </tr>
+            <tr>
+                <th>Langid</th>
+                <td>{{ entity.langId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('keyword') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('keyword_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

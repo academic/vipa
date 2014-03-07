@@ -1,0 +1,17 @@
+Ojstr\JournalBundle\Entity\Keyword:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        keyword:
+            type: string
+            length: 255
+        langId:
+            type: integer
+            column: lang_id
+    lifecycleCallbacks: {  }

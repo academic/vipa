@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Keyword creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('keyword') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
