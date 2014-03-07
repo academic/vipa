@@ -12,6 +12,16 @@ Ojstr\JournalBundle\Entity\Article:
             inverseJoinColumns:
               keyword_id:
                 referencedColumnName: id
+        subjects:
+          targetEntity: Subject
+          joinTable:
+            name: Article_Subject
+            joinColumns:
+              article_id:
+                referencedColumnName: id
+            inverseJoinColumns:
+              subject_id:
+                referencedColumnName: id
     repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
     id:
         id:

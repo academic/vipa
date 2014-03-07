@@ -493,4 +493,42 @@ class Article {
     {
         return $this->keywords;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $subjects;
+
+
+    /**
+     * Add subjects
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
+     * @return Article
+     */
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
+    {
+        $this->subjects[] = $subjects;
+
+        return $this;
+    }
+
+    /**
+     * Remove subjects
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
+     */
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
+    {
+        $this->subjects->removeElement($subjects);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
+    }
 }
