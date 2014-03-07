@@ -73,4 +73,49 @@ class Subject {
         return $this->description;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @return Subject
+     */
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     */
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
 }
