@@ -90,12 +90,17 @@ If you get any warnings or recommendations, fix them before moving on.
 You may have a look at [Symfony2 cheatsheet](http://www.symfony2cheatsheet.com/)
 
 
+4) Documentation
+-------------------------------------
+
+There is no documentation yet. 
+
+Db schema can be viewed at http://dbpatterns.com/documents/531096ba9785db3d7764801e/edit .
 
 
-4) RoadMap
+5) RoadMap
 -------------------------------------
 
 1. TODO
-
 
 
