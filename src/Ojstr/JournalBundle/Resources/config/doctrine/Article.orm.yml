@@ -7,7 +7,10 @@ Ojstr\JournalBundle\Entity\Article:
       id: true
       type: integer
   lifecycleCallbacks: {}
-  
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      inversedBy: articles        
   manyToMany: 
     keywords: 
       targetEntity: Keyword
@@ -22,7 +25,7 @@ Ojstr\JournalBundle\Entity\Article:
         name: Article_Keyword
     subjects: 
       targetEntity: Subject
-      inversedBy: subjects
+      inversedBy: articles
       joinTable: 
         inverseJoinColumns: 
           subject_id: 
