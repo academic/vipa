@@ -6,7 +6,7 @@ php:
 before_script:
   - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
   - sudo /etc/init.d/apache2 restart 
-  - composer install -n --dev --prefer-dist
+  - composer install -n 
   - app/console do:da:cr -e=test > /dev/null
   - app/console do:sc:cr -e=test > /dev/null
   - chmod -R 777 app/cache app/logs
