@@ -14,7 +14,44 @@
                     </tr>
                     <tr>
                         <th>Doi</th>
-                        <td>{{ entity.doi }}</td>
+                        <td>
+                        {{ entity.doi }}   
+                            <a href="#" onclick="$('#doiform').submit();">
+                                <span class="label small info" >
+                                    Check
+                                </span>
+                            </a>
+
+                            <form action="http://dx.doi.org/" method="POST" id="doiform">
+                                <input type="hidden" name="hdl" value="{{ entity.doi }}" />
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Journal</th>
+                        <td>
+                            <a href="{{path("journal_show",{'id':entity.journal.id})}}">
+                                {{ entity.journal.title }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Subjects</th>
+                        <td>
+                            {% for subject in entity.subjects %}
+                            <a href="{{path("admin_subject_show",{'id':entity.journal.id})}}">
+                                <span class="label">{{ subject.subject }}</span>
+                            </a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Keywords</th>
+                        <td>
+                            {% for keyword in entity.keywords %}
+                            <a href="#"><span class="label">{{ keyword.keyword }}</span></a>
+                            {% endfor %}
+                        </td>
                     </tr>
                     <tr>
                         <th>Otherid</th>
