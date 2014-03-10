@@ -3,6 +3,14 @@ language: php
 php:
   - 5.4
 
-before_script: composer install -n
+before_script:
+  - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+  - sudo /etc/init.d/apache2 restart 
+  - composer install -n --dev --prefer-dist
+  - app/console do:da:cr -e=test > /dev/null
+  - app/console do:sc:cr -e=test > /dev/null
+  - chmod -R 777 app/cache app/logs
+  - app/console --env=test cache:warmup
+  - chmod -R 777 app/cache app/logs
 
 script: phpunit -c app
