@@ -15,13 +15,14 @@
                     <tr>
                         <th>Doi</th>
                         <td>
-                        {{ entity.doi }}   
+                            {{ entity.doi }}   
+                            {% if entity.doi %}
                             <a href="#" onclick="$('#doiform').submit();">
                                 <span class="label small info" >
                                     Check
                                 </span>
                             </a>
-
+                            {% endif %}
                             <form action="http://dx.doi.org/" method="POST" id="doiform">
                                 <input type="hidden" name="hdl" value="{{ entity.doi }}" />
                             </form>

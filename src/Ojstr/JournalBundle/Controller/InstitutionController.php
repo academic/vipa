@@ -1,10 +1,8 @@
 <?php
 
 namespace Ojstr\JournalBundle\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojstr\JournalBundle\Entity\Institution;
 use Ojstr\JournalBundle\Form\InstitutionType;
 

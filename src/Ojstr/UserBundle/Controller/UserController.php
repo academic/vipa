@@ -1,7 +1,6 @@
 <?php
 
 namespace Ojstr\UserBundle\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\UserBundle\Entity\User;
