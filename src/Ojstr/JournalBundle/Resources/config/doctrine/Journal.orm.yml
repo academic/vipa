@@ -2,6 +2,12 @@ Ojstr\JournalBundle\Entity\Journal:
     type: entity
     table: null
     repositoryClass: Ojstr\JournalBundle\Entity\JournalRepository
+    oneToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: journal
+          cascade: ["persist", "merge"]
+          fetch: LAZY
     id:
         id:
             type: integer
