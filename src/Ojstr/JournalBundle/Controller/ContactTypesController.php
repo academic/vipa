@@ -1,10 +1,8 @@
 <?php
 
 namespace Ojstr\JournalBundle\Controller;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojstr\JournalBundle\Entity\ContactTypes;
 use Ojstr\JournalBundle\Form\ContactTypesType;
 
