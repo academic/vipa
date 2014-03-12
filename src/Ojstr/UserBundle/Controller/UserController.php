@@ -1,6 +1,7 @@
 <?php
 
 namespace Ojstr\UserBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\UserBundle\Entity\User;
@@ -61,6 +62,12 @@ class UserController extends Controller {
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
+        $user = new User();
+        $form->add('roles', 'entity', array(
+            'class' => 'OjstrUserBundle:User',
+            'property' => 'role',
+            'choices' => array($user->getRoles()))
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -206,8 +213,8 @@ class UserController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('user_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete User', 
-                            'attr' => array('class' => 'button alert','onclick'=>'return confirm("Are you sure?");')))
+                        ->add('submit', 'submit', array('label' => 'Delete User',
+                            'attr' => array('class' => 'button alert', 'onclick' => 'return confirm("Are you sure?");')))
                         ->getForm()
         ;
     }
