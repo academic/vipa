@@ -13,11 +13,11 @@ assetic:
     assets:
         jquery_foundation:
             inputs:
-                - '%kernel.root_dir%/../web/assets/js/vendor/*'
-                - '%kernel.root_dir%/../web/assets/js/*'
+                - '%kernel.root_dir%/../assets/js/vendor/*'
+                - '%kernel.root_dir%/../assets/js/*'
         base_ui:
             inputs:
-                - '%kernel.root_dir%/../web/assets/css/*'
+                - '%kernel.root_dir%/../assets/css/*'
 #framework:
 #    validation:
 #        cache: apc

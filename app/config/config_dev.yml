@@ -13,11 +13,11 @@ assetic:
     assets:
         jquery_foundation:
             inputs:
-                - '%kernel.root_dir%/../web/assets/js/vendor/jquery.js'
-                - '%kernel.root_dir%/../web/assets/js/foundation.min.js'
+                - '%kernel.root_dir%/../assets/js/vendor/jquery.js'
+                - '%kernel.root_dir%/../assets/js/foundation.min.js'
         base_ui:
             inputs:
-                - '%kernel.root_dir%/../web/assets/css/*'
+                - '%kernel.root_dir%/../assets/css/*'
 framework:
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"
