@@ -1,6 +1,6 @@
 user_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
-    prefix:   /user
+    prefix:   /admin/user
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
