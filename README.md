@@ -48,19 +48,16 @@ Then, use the `update` command to generate a new Symfony application:
 
     php composer.phar update
 
+
 Generate shemas after installation : 
 
     php app/console doctrine:schema:update --force
 
 
-Run : 
+
+Run on your local environment : 
 
     php app/console server:run
-
-
-Ps : run assetic:dump to generate asset files
-
-    sudo php app/console assetic:dump --env=dev
 
 
 
