@@ -18,8 +18,8 @@ class UserController extends Controller {
      *
      */
     public function indexAction() {
-        $em = $this->getDoctrine()->getManager();
 
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:User')->findAll();
 
         return $this->render('OjstrUserBundle:User:index.html.twig', array(
@@ -214,7 +214,10 @@ class UserController extends Controller {
                         ->setAction($this->generateUrl('user_delete', array('id' => $id)))
                         ->setMethod('DELETE')
                         ->add('submit', 'submit', array('label' => 'Delete User',
-                            'attr' => array('class' => 'button alert', 'onclick' => 'return confirm("Are you sure?");')))
+                            'attr' => array(
+                                'class' => 'button alert',
+                                'onclick' => 'return confirm("Are you sure?");')
+                        ))
                         ->getForm()
         ;
     }

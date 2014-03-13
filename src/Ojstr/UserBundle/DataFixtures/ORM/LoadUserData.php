@@ -9,16 +9,7 @@ use Ojstr\UserBundle\Entity\User;
 class LoadUserData implements FixtureInterface {
 
     public function load(ObjectManager $manager) {
-
-        /*
-          $userAdmin = new User();
-          $userAdmin->setUsername('editor');
-          $userAdmin->setPassword('editor');
-
-          $manager->persist($userAdmin);
-          $manager->flush();
-         * 
-         */
+        
     }
 
 }

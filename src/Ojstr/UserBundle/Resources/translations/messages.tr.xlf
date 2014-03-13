@@ -3,9 +3,14 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>Symfony2 is great</source>
-                <target>J'aime Symfony2</target>
+                <source>New User</source>
+                <target>Yeni Kullanıcı</target>
             </trans-unit>
+            <trans-unit id="2">
+                <source>New Role</source>
+                <target>Yeni Rol</target>
+            </trans-unit>
+            
         </body>
     </file>
 </xliff>
