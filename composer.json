@@ -20,7 +20,9 @@
         "sensio/generator-bundle": "~2.3",
         "symfony/security-bundle": "2.5.*@dev",
         "incenteev/composer-parameter-handler": "~2.0",
-	"ircmaxell/password-compat": "~1.0.3"
+	"ircmaxell/password-compat": "~1.0.3",
+	"doctrine/doctrine-fixtures-bundle": "2.2.*",
+	"symfony/console":"*"
     },
     "scripts": {
         "post-install-cmd": [

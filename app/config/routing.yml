@@ -1,3 +1,7 @@
+ojstr_cli:
+    resource: "@OjstrCliBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ojstr_user:
     resource: "@OjstrUserBundle/Controller/"
     type:     annotation
