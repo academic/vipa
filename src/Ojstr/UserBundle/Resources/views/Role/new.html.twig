@@ -1,15 +1,19 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Role creation</h1>
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>{% trans %}New Role{% endtrans %}</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_role') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+        <div class="record_actions">
+
+            <a href="{{ path('admin_role') }}" class="button">
+                Back to the list
+            </a>
+
+        </div>
+    </div>
+</div>
 {% endblock %}

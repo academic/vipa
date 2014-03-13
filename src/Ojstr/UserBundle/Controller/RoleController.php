@@ -9,7 +9,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Ojstr\UserBundle\Entity\Role;
 use Ojstr\UserBundle\Entity\User;
-
 use Ojstr\UserBundle\Form\RoleType;
 
 /**
@@ -159,7 +158,7 @@ class RoleController extends Controller {
             'action' => $this->generateUrl('admin_role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('attr'=>array('label ' => 'Update')));
+        $form->add('submit', 'submit', array('attr' => array('label ' => 'Update')));
 
         return $form;
     }
@@ -233,7 +232,11 @@ class RoleController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_role_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->add('submit', 'submit', array('label' => 'Delete',
+                            'attr' => array(
+                                'class' => 'button alert',
+                                'onclick' => 'return confirm("Are you sure?");')
+                        ))
                         ->getForm()
         ;
     }

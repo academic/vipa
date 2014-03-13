@@ -1,41 +1,45 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>User list</h1>
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>User list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>Email</th>
-                <th>Isactive</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Email</th>
+                    <th>Isactive</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.username }}</td>
-                <td>{{ entity.password }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.isActive }}</td>
-                <td> 
+                <tr>
+                    <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.username }}</td>
+                    <td>{{ entity.password }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.isActive }}</td>
+                    <td> 
                         <a href="{{ path('user_show', { 'id': entity.id }) }}"
-                           class="button success">show</a>
-                    
+                           class="button success">{% trans %}Show{% endtrans %}</a>
+
                         <a href="{{ path('user_edit', { 'id': entity.id }) }}"
-                           class="button alert">edit</a>
-                     
-                </td>
-            </tr>
+                           class="button alert">{% trans %}Edit{% endtrans %}</a>
+
+                    </td>
+                </tr>
         {% endfor %}
-        </tbody>
-    </table>
- 
-            <a href="{{ path('user_new') }}" class="button">
-                + Create a new entry
-            </a> 
+            </tbody>
+        </table>
+
+        <a href="{{ path('user_new') }}" class="button">
+            + {% trans %}Create New{% endtrans %}
+        </a> 
+    </div>
+</div>
     {% endblock %}

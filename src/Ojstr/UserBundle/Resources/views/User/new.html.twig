@@ -1,15 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>User creation</h1>
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>{% trans %}New User{% endtrans %}</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('user') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+        <div class="record_actions">
+            <a class="button" href="{{ path('user') }}">
+                {% trans %}Back to list{% endtrans %}
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -17,12 +17,16 @@
             <tbody>
         {% for entity in entities %}
                 <tr>
-                    <td><a class="label" href="{{ path('admin_role_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>
+                        <a href="{{ path('admin_role_show', { 'id': entity.id }) }}">
+                            <span class="label" >#{{ entity.id }}</span>
+                        </a>
+                    </td>
                     <td>{{ entity.name }}</td>
                     <td><span>{{ entity.role }}</span></td>
                     <td> 
                         <a href="{{ path('admin_role_show', { 'id': entity.id }) }}">show</a> 
-                        | 
+                        <br>
                         <a href="{{ path('admin_role_edit', { 'id': entity.id }) }}">edit</a>
 
                     </td>
@@ -30,9 +34,9 @@
         {% endfor %}
             </tbody>
         </table> 
-                <a class="button success" href="{{ path('admin_role_new') }}">
-                   + Create a new role
-                </a> 
+        <a class="button success" href="{{ path('admin_role_new') }}">
+            + Create a new role
+        </a> 
     </div>
 </div>
     {% endblock %}

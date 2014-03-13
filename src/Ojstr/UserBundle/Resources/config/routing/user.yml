@@ -10,11 +10,6 @@ user_new:
     pattern:  /new
     defaults: { _controller: "OjstrUserBundle:User:new" }
 
-user_create:
-    pattern:  /create
-    defaults: { _controller: "OjstrUserBundle:User:create" }
-    requirements: { _method: post }
-
 user_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "OjstrUserBundle:User:edit" }
