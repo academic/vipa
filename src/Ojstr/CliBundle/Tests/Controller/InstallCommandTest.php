@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * @todo write tests
  */
-class ManagerCommandTest extends WebTestCase {
+class InstallCommandTest extends WebTestCase {
 
     public function testIndex() {
 
