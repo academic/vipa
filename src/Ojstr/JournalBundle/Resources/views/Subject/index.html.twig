@@ -23,8 +23,8 @@
                         <td>{{ entity.description }}</td>
                         <td>
                             <small>
-                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">show</a>
-                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">edit</a>
+                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a>
+                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
                             </small>
                         </td>
                     </tr>
@@ -34,7 +34,7 @@
 
             <div>
                 <a href="{{ path('admin_subject_new') }}" class="button success">
-                     + Create a new entry
+                     {% trans %}Create New{% endtrans %}
                 </a>
             </div>
         </div>

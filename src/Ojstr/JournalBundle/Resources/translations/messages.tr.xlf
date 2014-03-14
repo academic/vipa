@@ -23,6 +23,13 @@
                 <source>Edit</source>
                 <target>Düzenle</target>
             </trans-unit>
+            
+            <trans-unit id="6">
+                <source>Are you sure?</source>
+                <target>Emin misiniz?</target>
+            </trans-unit>
+            
+            
         </body>
     </file>
 </xliff>

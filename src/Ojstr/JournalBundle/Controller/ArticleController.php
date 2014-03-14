@@ -1,6 +1,7 @@
 <?php
 
 namespace Ojstr\JournalBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Article;
@@ -202,8 +203,9 @@ class ArticleController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_article_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete',
-                            'attr' => array('onclick' => 'return confirm("Are you sure?");')))
+                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
+                            'attr' => array('onclick' => 'return confirm("' .
+                                $this->get('translator')->trans('Are you sure?') . '"); ')))
                         ->getForm()
         ;
     }

@@ -216,7 +216,7 @@ class UserController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete User',
                             'attr' => array(
                                 'class' => 'button alert',
-                                'onclick' => 'return confirm("Are you sure?");')
+                                'onclick' => 'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')
                         ))
                         ->getForm()
         ;

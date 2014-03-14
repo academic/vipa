@@ -39,7 +39,7 @@
 
 <div class="record_actions">
     <a href="{{ path('user') }}" class="button success">
-        Back to the list
+        {% trans %}Back to list{% endtrans %}
     </a>
     <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="button warning">
         Edit
