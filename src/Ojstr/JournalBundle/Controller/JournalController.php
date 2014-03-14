@@ -206,8 +206,8 @@ class JournalController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('journal_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete',
-                            'attr' => array('onclick' => 'return confirm("Are you sure?");')))
+                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
+                            'attr' => array('onclick' => 'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')))
                         ->getForm()
         ;
     }

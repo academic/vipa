@@ -123,7 +123,7 @@
 
             <div class="record_actions">
                 <a class="button" href="{{ path('admin_article') }}">
-                    Back to the list
+                    {% trans %}Back to list{% endtrans %}
                 </a>
                 <a class="button" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
                     Edit

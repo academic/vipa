@@ -4,13 +4,13 @@
 <div class="row">
     <div class="large-12 columns">
         <div class="panel">
-            <h1>Article edit</h1>
+            <h1>{%trans%}Edit{%endtrans%}</h1>
 
             {{ form(edit_form) }}
 
             <div class="record_actions">
                 <a href="{{ path('admin_article') }}" class="button">
-                    Back to the list
+                    {% trans %}Back to list{% endtrans %}
                 </a>
                   {{ form(delete_form) }} 
             </div>

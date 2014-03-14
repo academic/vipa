@@ -24,7 +24,7 @@
 
         <div  class="button-group">
             <a href="{{ path('admin_role') }}" class="button">
-                Back to the list
+                {% trans %}Back to list{% endtrans %}
             </a>  
             <a  class="button" href="{{ path('admin_role_edit', { 'id': entity.id }) }}">
                 Edit

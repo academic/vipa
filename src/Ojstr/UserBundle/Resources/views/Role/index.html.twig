@@ -25,9 +25,9 @@
                     <td>{{ entity.name }}</td>
                     <td><span>{{ entity.role }}</span></td>
                     <td> 
-                        <a href="{{ path('admin_role_show', { 'id': entity.id }) }}">show</a> 
+                        <a href="{{ path('admin_role_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a> 
                         <br>
-                        <a href="{{ path('admin_role_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('admin_role_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
 
                     </td>
                 </tr>
@@ -35,7 +35,7 @@
             </tbody>
         </table> 
         <a class="button success" href="{{ path('admin_role_new') }}">
-            + Create a new role
+            {% trans %}Create New{% endtrans %}
         </a> 
     </div>
 </div>

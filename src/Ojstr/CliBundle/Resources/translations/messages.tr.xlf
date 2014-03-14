@@ -7,13 +7,36 @@
                 <target>Ojs yüklemesi başladı</target>
             </trans-unit>
             <trans-unit id="2">
-                <source>Inserting users to db</source>
-                <target>Veritabanına kullanıcılar ekleniyor</target>
+                <source>Inserting system admin user to db</source>
+                <target>Veritabanına sistem yönetici kullanıcısı ekleniyor</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>Inserting roles to db</source>
                 <target>Veritabanına roller ekleniyor</target>
             </trans-unit>
+            <trans-unit id="4">
+                <source>Set the system admin username</source>
+                <target>Sistem yöneticisi için kullanıcı adı belirleyin</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Set the system admin email</source>
+                <target>Sistem yöneticisi için email belirleyin</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Set the system admin password</source>
+                <target>Sistem yöneticisi için şifre belirleyin</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Ojs installation</source>
+                <target>Ojs yüklemesi</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Confirm installation?</source>
+                <target>Yüklemeye başlanacak?</target>
+            </trans-unit>
+            
+            
+            
         </body>
     </file>
 </xliff>

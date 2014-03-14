@@ -42,8 +42,8 @@
                     <td>{{ entity.themeId }}</td>
                     <td>
                             <small>
-                                <a href="{{ path('journal_show', { 'id': entity.id }) }}">-show</a>
-                                <a href="{{ path('journal_edit', { 'id': entity.id }) }}">-edit</a>
+                                <a href="{{ path('journal_show', { 'id': entity.id }) }}">-{% trans %}Show{% endtrans %}</a>
+                                <a href="{{ path('journal_edit', { 'id': entity.id }) }}">-{% trans %}Edit{% endtrans %}</a>
                             </small>
                         </div
                     </td>
@@ -54,7 +54,7 @@
 
         <div>
                  <a href="{{ path('journal_new') }}" class="button success">
-                    + Create a new entry
+                    {% trans %}Create New{% endtrans %}
                 </a>
          </div>
     </div>
