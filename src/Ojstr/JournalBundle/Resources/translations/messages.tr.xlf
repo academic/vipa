@@ -29,6 +29,12 @@
                 <target>Emin misiniz?</target>
             </trans-unit>
             
+            <trans-unit id="6">
+                <source>Added</source>
+                <target>Eklendi</target>
+            </trans-unit>
+            
+            
             
         </body>
     </file>
