@@ -19,6 +19,21 @@
                     <th>Role</th>
                     <td>{{ entity.role }}</td>
                 </tr>
+
+                <tr>
+                    <th>Users</th>
+                    <td>
+                {% for user in entity.users %}
+                        <a href="{{ path('user_show', { 'id': user.id }) }}">
+                     {{user.username}}</a>
+                        <a href="mailto:{{user.email}}">
+                            (<strong>{{user.email}}</strong>)
+                        </a><hr>
+                        
+                {% endfor %}
+                    </td>
+
+                </tr>
             </tbody>
         </table>
 
