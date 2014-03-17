@@ -26,6 +26,7 @@ class InstallCommand extends ContainerAwareCommand {
         $dialog = $this->getHelperSet()->get('dialog');
 
         //$translator->setLocale('tr_TR');
+        $output->writeln($this->printWelcome());
         $output->writeln('<info>' .
                 $translator->trans('Ojs Installation') .
                 '</info>');
@@ -112,11 +113,27 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
         $user->setIsActive(TRUE);
-        $role = $doctrine->getRepository('OjstrUserBundle:Role')->findOneByRole('ROLE_SYSTEM_ADMIN');
-        $user->addRole($role);
+        $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
+        $role_sys_admin = $role_repo->findOneByRole('ROLE_SYSTEM_ADMIN');
+        $role_admin = $role_repo->findOneByRole('ROLE_ADMIN');
+        $user->addRole($role_sys_admin);
+        $user->addRole($role_admin);
 
         $em->persist($user);
         $em->flush();
+    }
+
+    protected function printWelcome() {
+        return '
+ _____    _____  ____       
+/\  __`\ /\___ \/\  _`\     
+\ \ \/\ \\/__/\ \ \,\L\_\   
+ \ \ \ \ \  _\ \ \/_\__ \   
+  \ \ \_\ \/\ \_\ \/\ \L\ \ 
+   \ \_____\ \____/\ `\____\
+    \/_____/\/___/  \/_____/
+                            
+                            ';
     }
 
 }

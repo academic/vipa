@@ -10,16 +10,19 @@ use Doctrine\ORM\Mapping as ORM;
 class Article {
 
     /**
+     * auto-incremented article unique id 
      * @var integer
      */
     private $id;
 
     /**
+     * (optional)
      * @var string
      */
     private $doi;
 
     /**
+     * Could contain any article ID used by the provider
      * @var string
      */
     private $otherId;
@@ -30,11 +33,13 @@ class Article {
     private $journalId;
 
     /**
+     * Original article title
      * @var string
      */
     private $title;
 
     /**
+     * English translated title
      * @var string
      */
     private $titleTranslated;
@@ -45,6 +50,7 @@ class Article {
     private $subtitle;
 
     /**
+     * Some artilce carries no authorship
      * @var boolean
      */
     private $isAnonymous;
@@ -90,11 +96,13 @@ class Article {
     private $uri;
 
     /**
+     * Original abstract
      * @var string
      */
     private $abstract;
 
     /**
+     * (optional) English translated abstract
      * @var string
      */
     private $abstractTranslated;
