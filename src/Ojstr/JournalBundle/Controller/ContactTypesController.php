@@ -96,7 +96,7 @@ class ContactTypesController extends Controller
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ContactTypes entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -117,7 +117,7 @@ class ContactTypesController extends Controller
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ContactTypes entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $editForm = $this->createEditForm($entity);
@@ -159,7 +159,7 @@ class ContactTypesController extends Controller
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ContactTypes entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -192,7 +192,7 @@ class ContactTypesController extends Controller
             $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ContactTypes entity.');
+                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
 
             $em->remove($entity);

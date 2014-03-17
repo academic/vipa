@@ -10,9 +10,9 @@
                 <tr>
                     <th>Id</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Email</th>
-                    <th>Isactive</th>
+                    <th>IsActive</th>
+                    <th>Roles</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -21,9 +21,12 @@
                 <tr>
                     <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.username }}</td>
-                    <td>{{ entity.password }}</td>
                     <td>{{ entity.email }}</td>
                     <td>{{ entity.isActive }}</td>
+                    <td>{% for role in entity.roles %}
+                        <span class="label">{{role.role}}</span>
+                        {% endfor %}
+                    </td>
                     <td> 
                         <a href="{{ path('user_show', { 'id': entity.id }) }}"
                            class="button success">{% trans %}Show{% endtrans %}</a>

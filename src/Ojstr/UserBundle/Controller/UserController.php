@@ -63,12 +63,6 @@ class UserController extends Controller {
             'method' => 'POST',
         ));
         $user = new User();
-        $form->add('roles', 'entity', array(
-            'class' => 'OjstrUserBundle:User',
-            'property' => 'role',
-            'choices' => array($user->getRoles()))
-        );
-
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -94,11 +88,10 @@ class UserController extends Controller {
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -114,11 +107,9 @@ class UserController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
-
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $editForm = $this->createEditForm($entity);
@@ -144,7 +135,8 @@ class UserController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' =>
+            $this->get('translator')->trans('Update')));
 
         return $form;
     }
@@ -159,7 +151,7 @@ class UserController extends Controller {
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -192,7 +184,7 @@ class UserController extends Controller {
             $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find User entity.');
+                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
 
             $em->remove($entity);
@@ -210,13 +202,15 @@ class UserController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
+        $t = $this->get('translator');
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('user_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete User',
+                        ->add('submit', 'submit', array(
+                            'label' => $t->trans('Delete User Record'),
                             'attr' => array(
                                 'class' => 'button alert',
-                                'onclick' => 'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')
+                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
                         ))
                         ->getForm()
         ;

@@ -109,7 +109,7 @@ class RoleController extends Controller {
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Role entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -133,7 +133,7 @@ class RoleController extends Controller {
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Role entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $editForm = $this->createEditForm($entity);
@@ -158,7 +158,9 @@ class RoleController extends Controller {
             'action' => $this->generateUrl('admin_role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('attr' => array('label ' => 'Update')));
+        $form->add('submit', 'submit', array('attr' => array('label ' =>
+                $this->get('translator')->translate('Update'))
+        ));
 
         return $form;
     }
@@ -176,7 +178,7 @@ class RoleController extends Controller {
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Role entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -211,7 +213,7 @@ class RoleController extends Controller {
             $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Role entity.');
+                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
 
             $em->remove($entity);
@@ -229,13 +231,15 @@ class RoleController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
+        $this->get('translator');
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_role_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
+                        ->add('submit', 'submit', array('label' =>
+                            $t->trans('Delete'),
                             'attr' => array(
                                 'class' => 'button alert',
-                                'onclick' => 'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')
+                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
                         ))
                         ->getForm()
         ;
