@@ -42,7 +42,7 @@
         {% trans %}Back to list{% endtrans %}
     </a>
     <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="button warning">
-        Edit
+        {% trans %}Edit{% endtrans %}
     </a>
      {{ form(delete_form) }}
 

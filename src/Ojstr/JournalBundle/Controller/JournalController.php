@@ -91,7 +91,7 @@ class JournalController extends Controller {
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Journal entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -111,7 +111,7 @@ class JournalController extends Controller {
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Journal entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,7 +152,7 @@ class JournalController extends Controller {
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Journal entity.');
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -185,7 +185,7 @@ class JournalController extends Controller {
             $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Journal entity.');
+                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
 
             $em->remove($entity);

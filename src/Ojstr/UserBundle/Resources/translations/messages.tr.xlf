@@ -10,6 +10,14 @@
                 <source>New Role</source>
                 <target>Yeni Rol</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>Delete User Record</source>
+                <target>Kullanıcı Kaydını Sil</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Delete Role Record</source>
+                <target>Rol Kaydını Sil</target>
+            </trans-unit>
             
         </body>
     </file>
