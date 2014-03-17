@@ -66,8 +66,10 @@ class InstallCommand extends ContainerAwareCommand {
         $translator = $this->getContainer()->get('translator');
         $em = $doctrine->getEntityManager();
         $roles = array(
-            'ROLE_ADMIN' => 'ADministrator',
+            'ROLE_ADMIN' => 'Administrator',
             'ROLE_SYSTEM_ADMIN' => 'System Administrator',
+            'ROLE_SUPER_EDITOR' => 'Super Editor. Editor for all journals',
+            'ROLE_SUPER_AUTHOR' => 'Super Author. Author for all journals',
             'ROLE_JOURNAL_MANAGER' => 'Journal Manager',
             'ROLE_SUBSCRIPTION_MANAGER' => 'Subscription Manager',
             'ROLE_EDITOR' => 'Editor',
@@ -109,7 +111,7 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setEmail($email);
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
-        $user->setIsActive(1);
+        $user->setIsActive(TRUE);
         $role = $doctrine->getRepository('OjstrUserBundle:Role')->findOneByRole('ROLE_SYSTEM_ADMIN');
         $user->addRole($role);
 
