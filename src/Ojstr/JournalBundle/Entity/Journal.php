@@ -454,7 +454,7 @@ class Journal {
     /**
      * Remove articles
      *
-     * @param \Ojstr\UserBundle\Entity\User $user
+     * @param \Ojstr\UserBundle\Entity\User $users
      */
     public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
         $this->users->removeElement($users);
@@ -472,7 +472,7 @@ class Journal {
     /**
      * Add articles
      *
-     * @param \Ojstr\UserBundle\Entity\User $user
+     * @param \Ojstr\UserBundle\Entity\User $users
      * @return Journal
      */
     public function addUser(\Ojstr\UserBundle\Entity\User $users) {
