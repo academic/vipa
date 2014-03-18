@@ -24,6 +24,12 @@ class UserType extends AbstractType {
                     'multiple' => true,
                     'expanded' => false,
                 ))
+                ->add('journals', 'entity', array(
+                    'class' => 'Ojstr\JournalBundle\Entity\Journal',
+                    'property' => 'title',
+                    'multiple' => true,
+                    'expanded' => false,
+                ))
         ;
     }
 

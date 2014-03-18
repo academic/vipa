@@ -7,7 +7,7 @@
             <h1>Journal</h1>
 
             <table class="record_properties" style="width:100%">
-                
+
                 <tbody>
                     <tr>
                         <th width="300px">Id</th>
@@ -76,6 +76,13 @@
                     <tr>
                         <th>Themeid</th>
                         <td>{{ entity.themeId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Users</th>
+                        <td>{% for user in entity.users %}
+                            <span class="label">{{user.username}}</span>
+                        {% endfor %}
+                        </td>
                     </tr>
                 </tbody>
             </table>

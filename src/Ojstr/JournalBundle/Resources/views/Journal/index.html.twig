@@ -15,12 +15,9 @@
                     <th>Issn</th>
                     <th>Eissn</th>
                     <th>Firstpublishdate</th>
-                    <th>Period</th>
                     <th>Url</th>
                     <th>Publishstatus</th>
                     <th>Status</th>
-                    <th>Coverimage</th> 
-                    <th>Themeid</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,20 +28,17 @@
                     <td>{{ entity.title }}</td>
                     <td>{{ entity.titleAbbr }}</td>
                     <td>{{ entity.titleTranslated }}</td>
-                     <td>{{ entity.issn }}</td>
+                    <td>{{ entity.issn }}</td>
                     <td>{{ entity.eissn }}</td>
                     <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{{ entity.period }}</td>
                     <td>{{ entity.url }}</td>
-                     <td>{{ entity.publishStatus }}</td>
+                    <td>{{ entity.publishStatus }}</td>
                     <td>{{ entity.status }}</td>
-                    <td>{{ entity.coverImage }}</td> 
-                    <td>{{ entity.themeId }}</td>
                     <td>
-                            <small>
-                                <a href="{{ path('journal_show', { 'id': entity.id }) }}">-{% trans %}Show{% endtrans %}</a>
-                                <a href="{{ path('journal_edit', { 'id': entity.id }) }}">-{% trans %}Edit{% endtrans %}</a>
-                            </small>
+                        <small>
+                            <a href="{{ path('journal_show', { 'id': entity.id }) }}"> {% trans %}Show{% endtrans %}</a> <br>
+                            <a href="{{ path('journal_edit', { 'id': entity.id }) }}"> {% trans %}Edit{% endtrans %}</a>
+                        </small>
                         </div
                     </td>
                 </tr>
@@ -53,10 +47,10 @@
         </table>
 
         <div>
-                 <a href="{{ path('journal_new') }}" class="button success">
+            <a href="{{ path('journal_new') }}" class="button success">
                     {% trans %}Create New{% endtrans %}
-                </a>
-         </div>
+            </a>
+        </div>
     </div>
 </div>
     {% endblock %}

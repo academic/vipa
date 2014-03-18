@@ -100,6 +100,19 @@ class Journal {
     private $users;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -429,18 +442,6 @@ class Journal {
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articles;
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-     }
-
-    /**
      * Add articles
      *
      * @param \Ojstr\JournalBundle\Entity\Article $articles
@@ -448,6 +449,36 @@ class Journal {
      */
     public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
         $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Ojstr\UserBundle\Entity\User $user
+     */
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers() {
+        return $this->users;
+    }
+    
+    /**
+     * Add articles
+     *
+     * @param \Ojstr\UserBundle\Entity\User $user
+     * @return Journal
+     */
+    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
+        $this->users[] = $users;
 
         return $this;
     }
@@ -469,7 +500,5 @@ class Journal {
     public function getArticles() {
         return $this->articles;
     }
-
-     
 
 }
