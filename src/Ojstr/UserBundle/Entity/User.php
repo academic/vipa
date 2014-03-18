@@ -43,17 +43,24 @@ class User implements UserInterface, \Serializable {
      */
     private $roles;
 
-    
+    /**
+     * @var \Doctrine\Common\Collections\Collection     
+     */
+    private $journals;
 
     public function __construct() {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
+        $this->journals = new ArrayCollection();
     }
 
     public function getRoles() {
         return $this->roles->toArray();
     }
- 
+
+    public function getJournals() {
+        return $this->journals->toArray();
+    }
 
     /**
      * Get id
@@ -201,6 +208,26 @@ class User implements UserInterface, \Serializable {
     public function removeRole(\Ojstr\UserBundle\Entity\Role $roles) {
         $this->roles->removeElement($roles);
     }
- 
+
+    /**
+     * Add journals
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journals
+     * @return User
+     */
+    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journals) {
+        $this->journals[] = $journals;
+
+        return $this;
+    }
+
+    /**
+     * Remove journals
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journals
+     */
+    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journals) {
+        $this->journals->removeElement($journals);
+    }
 
 }
