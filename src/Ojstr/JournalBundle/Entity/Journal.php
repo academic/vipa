@@ -2,8 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Journal
  */
@@ -470,7 +468,7 @@ class Journal {
     public function getUsers() {
         return $this->users;
     }
-    
+
     /**
      * Add articles
      *

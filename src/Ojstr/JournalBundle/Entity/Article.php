@@ -2,8 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Article
  */
@@ -464,8 +462,7 @@ class Article {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -475,8 +472,7 @@ class Article {
      * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
      * @return Article
      */
-    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
-    {
+    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
         $this->keywords[] = $keywords;
 
         return $this;
@@ -487,8 +483,7 @@ class Article {
      *
      * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
      */
-    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
-    {
+    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
         $this->keywords->removeElement($keywords);
     }
 
@@ -497,15 +492,14 @@ class Article {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getKeywords()
-    {
+    public function getKeywords() {
         return $this->keywords;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $subjects;
-
 
     /**
      * Add subjects
@@ -513,8 +507,7 @@ class Article {
      * @param \Ojstr\JournalBundle\Entity\Subject $subjects
      * @return Article
      */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
-    {
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
         $this->subjects[] = $subjects;
 
         return $this;
@@ -525,8 +518,7 @@ class Article {
      *
      * @param \Ojstr\JournalBundle\Entity\Subject $subjects
      */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
-    {
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
         $this->subjects->removeElement($subjects);
     }
 
@@ -535,15 +527,14 @@ class Article {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getSubjects()
-    {
+    public function getSubjects() {
         return $this->subjects;
     }
+
     /**
      * @var \Ojstr\JournalBundle\Entity\Journal
      */
     private $journal;
-
 
     /**
      * Set journal
@@ -551,8 +542,7 @@ class Article {
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
      * @return Article
      */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null)
-    {
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
         $this->journal = $journal;
 
         return $this;
@@ -563,8 +553,8 @@ class Article {
      *
      * @return \Ojstr\JournalBundle\Entity\Journal 
      */
-    public function getJournal()
-    {
+    public function getJournal() {
         return $this->journal;
     }
+
 }
