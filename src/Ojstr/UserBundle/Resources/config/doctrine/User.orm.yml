@@ -1,0 +1,65 @@
+Ojstr\UserBundle\Entity\User:
+    type: entity
+    table: User
+    repositoryClass: Ojstr\UserBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        password:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        email:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        isActive:
+            type: boolean
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+    manyToMany:
+        roles:
+            targetEntity: Ojstr\UserBundle\Entity\Role
+            cascade: {  }
+            mappedBy: null
+            inversedBy: users
+            joinTable:
+                name: User_Role
+                joinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: role_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+    
+    lifecycleCallbacks: {  }

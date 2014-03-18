@@ -159,7 +159,7 @@ class RoleController extends Controller {
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('attr' => array('label ' =>
-                $this->get('translator')->translate('Update'))
+                $this->get('translator')->trans('Update'))
         ));
 
         return $form;
@@ -231,7 +231,7 @@ class RoleController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
-        $this->get('translator');
+        $t = $this->get('translator');
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_role_delete', array('id' => $id)))
                         ->setMethod('DELETE')
