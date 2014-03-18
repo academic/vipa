@@ -2,60 +2,48 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ojstr\UserBundle\Entity\UserRepository")
  */
 class User implements UserInterface, \Serializable {
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role", inversedBy="users")
-     *
+     * @var \Doctrine\Common\Collections\Collection     
      */
     private $roles;
+
+    
 
     public function __construct() {
         $this->isActive = true;
@@ -65,6 +53,7 @@ class User implements UserInterface, \Serializable {
     public function getRoles() {
         return $this->roles->toArray();
     }
+ 
 
     /**
      * Get id
@@ -192,15 +181,13 @@ class User implements UserInterface, \Serializable {
                 ) = unserialize($serialized);
     }
 
-
     /**
      * Add roles
      *
      * @param \Ojstr\UserBundle\Entity\Role $roles
      * @return User
      */
-    public function addRole(\Ojstr\UserBundle\Entity\Role $roles)
-    {
+    public function addRole(\Ojstr\UserBundle\Entity\Role $roles) {
         $this->roles[] = $roles;
 
         return $this;
@@ -211,8 +198,9 @@ class User implements UserInterface, \Serializable {
      *
      * @param \Ojstr\UserBundle\Entity\Role $roles
      */
-    public function removeRole(\Ojstr\UserBundle\Entity\Role $roles)
-    {
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $roles) {
         $this->roles->removeElement($roles);
     }
+ 
+
 }

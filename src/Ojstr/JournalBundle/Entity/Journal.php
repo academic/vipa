@@ -95,6 +95,11 @@ class Journal {
     private $themeId;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -431,10 +436,9 @@ class Journal {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+     }
 
     /**
      * Add articles
@@ -442,8 +446,7 @@ class Journal {
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      * @return Journal
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles)
-    {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
         $this->articles[] = $articles;
 
         return $this;
@@ -454,8 +457,7 @@ class Journal {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles)
-    {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
         $this->articles->removeElement($articles);
     }
 
@@ -464,8 +466,10 @@ class Journal {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getArticles()
-    {
+    public function getArticles() {
         return $this->articles;
     }
+
+     
+
 }

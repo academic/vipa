@@ -8,9 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Role
- *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Ojstr\UserBundle\Entity\RoleRepository")
  */
 class Role implements RoleInterface {
 
@@ -25,20 +22,16 @@ class Role implements RoleInterface {
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=50)
      */
     private $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
 
@@ -97,15 +90,13 @@ class Role implements RoleInterface {
         return $this->role;
     }
 
-
     /**
      * Add users
      *
      * @param \Ojstr\UserBundle\Entity\User $users
      * @return Role
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users)
-    {
+    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
         $this->users[] = $users;
 
         return $this;
@@ -116,8 +107,7 @@ class Role implements RoleInterface {
      *
      * @param \Ojstr\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
-    {
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
         $this->users->removeElement($users);
     }
 
@@ -126,8 +116,8 @@ class Role implements RoleInterface {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
+
 }

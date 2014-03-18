@@ -8,6 +8,7 @@ Ojstr\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
+     
     id:
         id:
             type: integer
