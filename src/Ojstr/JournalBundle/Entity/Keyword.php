@@ -2,8 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Keyword
  */
@@ -81,8 +79,7 @@ class Keyword {
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -92,8 +89,7 @@ class Keyword {
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      * @return Keyword
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles)
-    {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
         $this->articles[] = $articles;
 
         return $this;
@@ -104,8 +100,7 @@ class Keyword {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles)
-    {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
         $this->articles->removeElement($articles);
     }
 
@@ -114,8 +109,8 @@ class Keyword {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getArticles()
-    {
+    public function getArticles() {
         return $this->articles;
     }
+
 }

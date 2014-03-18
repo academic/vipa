@@ -62,9 +62,7 @@ class UserController extends Controller {
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
         ));
-        $user = new User();
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
