@@ -1,7 +1,6 @@
 <?php
 
 namespace Ojstr\JournalBundle\Entity;
-
 /**
  * Journal
  */
