@@ -48,6 +48,8 @@ class User implements UserInterface, \Serializable {
      */
     private $journals;
 
+   
+
     public function __construct() {
         $this->isActive = true;
         $this->roles = new ArrayCollection();

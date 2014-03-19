@@ -15,7 +15,7 @@ Ojstr\JournalBundle\Entity\Journal:
             mappedBy: journals
             inversedBy: null
             joinTable: {  }
-            orderBy: null
+            orderBy: null 
     id:
         id:
             type: integer

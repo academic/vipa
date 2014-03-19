@@ -80,7 +80,8 @@
                     <tr>
                         <th>Users</th>
                         <td>{% for user in entity.users %}
-                            <span class="label">{{user.username}}</span>
+                            <a href="{{ path('user_show', { 'id': user.id }) }}">
+                                <span class="label">{{user.username}}</span></a>
                         {% endfor %}
                         </td>
                     </tr>
