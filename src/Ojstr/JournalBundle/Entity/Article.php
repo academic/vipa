@@ -71,7 +71,7 @@ class Article {
     /**
      * @var string
      */
-    private $issue;
+    private $issueId;
 
     /**
      * @var string
@@ -557,4 +557,45 @@ class Article {
         return $this->journal;
     }
 
+    /**
+     * @var \Ojstr\JournalBundle\Entity\Issue
+     */
+    private $issue;
+
+
+    /**
+     * Set issueId
+     *
+     * @param integer $issueId
+     * @return Article
+     */
+    public function setIssueId($issueId)
+    {
+        $this->issueId = $issueId;
+
+        return $this;
+    }
+
+    /**
+     * Get issueId
+     *
+     * @return integer 
+     */
+    public function getIssueId()
+    {
+        return $this->issueId;
+    }
+
+    /**
+     * Set subjects
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
+     * @return Article
+     */
+    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null)
+    {
+        $this->subjects = $subjects;
+
+        return $this;
+    }
 }
