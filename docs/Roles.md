@@ -1,9 +1,8 @@
 Roles
 -----
 
-Ojs has  types of role definition.
+Ojs has 14 types of role definition.
 
------------------------------------------------------------------------------
 | Role Name 					| Role Description							|
 |-------------------------------|-------------------------------------------|
 | ROLE_ADMIN 					| Administrator								|
