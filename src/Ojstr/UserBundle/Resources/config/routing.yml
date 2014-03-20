@@ -10,3 +10,8 @@ login_check:
 user_create:
     pattern: /user_create
     defaults: { _controller: OjstrUserBundle:Security:createUser }
+
+
+OjstrUserBundle_userjournalrole:
+    resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
+    prefix:   /adimin/userjournalrole

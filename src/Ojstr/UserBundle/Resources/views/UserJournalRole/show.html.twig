@@ -1,0 +1,44 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>UserJournalRole</h1>
+
+        <table class="record_properties">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Userid</th>
+                    <td>{{ entity.userId }}</td>
+                </tr>
+                <tr>
+                    <th>Journalid</th>
+                    <td>{{ entity.journalId }}</td>
+                </tr>
+                <tr>
+                    <th>Roleid</th>
+                    <td>{{ entity.roleId }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('userjournalrole') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('userjournalrole_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

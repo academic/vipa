@@ -1,0 +1,19 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>UserJournalRole creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('userjournalrole') }}">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

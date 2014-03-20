@@ -1,0 +1,30 @@
+userjournalrole:
+    pattern:  /
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:index" }
+
+userjournalrole_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:show" }
+
+userjournalrole_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:new" }
+
+userjournalrole_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:create" }
+    requirements: { _method: post }
+
+userjournalrole_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:edit" }
+
+userjournalrole_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:update" }
+    requirements: { _method: post|put }
+
+userjournalrole_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:delete" }
+    requirements: { _method: post|delete }
