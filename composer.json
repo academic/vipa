@@ -4,7 +4,7 @@
     "type": "project",
     "description": "Open Journal Systems",
     "version": "0.0.1-alpha",
-    "keywords": "ojs, journal system,open journal system",
+    "keywords": ["ojs", "journal system","open journal system"],
     "support": {
         "email": "bilgi@okulbilisim.com"
     },
