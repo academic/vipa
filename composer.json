@@ -1,8 +1,13 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "okulbilisim/ojs",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Open Journal Systems",
+    "version": "0.0.1-alpha",
+    "keywords": "ojs, journal system,open journal system",
+    "support": {
+        "email": "bilgi@okulbilisim.com"
+    },
     "autoload": {
         "psr-0": { "": "src/" }
     },
