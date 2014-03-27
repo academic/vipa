@@ -7,7 +7,7 @@ files
 .buildpath
 .settings
 
-
+/.idea/
 
 /web/bundles/
 /app/bootstrap.php.cache
