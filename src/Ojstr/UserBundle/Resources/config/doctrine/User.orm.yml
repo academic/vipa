@@ -81,3 +81,5 @@ Ojstr\UserBundle\Entity\User:
             orderBy: null
     
     lifecycleCallbacks: {  }
+
+
