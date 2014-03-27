@@ -42,6 +42,13 @@ Ojstr\UserBundle\Entity\User:
             unique: false
             nullable: false
             precision: 0
+        status:
+            type: integer
+            scale: 0
+            length: 5
+            unique: false
+            nullable: false
+            precision: 0
     manyToMany:
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
