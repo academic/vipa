@@ -27,7 +27,10 @@
         "incenteev/composer-parameter-handler": "~2.0",
 	"ircmaxell/password-compat": "~1.0.3",
 	"doctrine/doctrine-fixtures-bundle": "2.2.*",
-	"symfony/console":"*"
+	"symfony/console":"*",
+        "friendsofsymfony/rest-bundle": "@dev",
+        "jms/serializer-bundle": "@dev",
+        "nelmio/api-doc-bundle": "@dev"
     },
     "scripts": {
         "post-install-cmd": [

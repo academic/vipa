@@ -1,0 +1,4 @@
+users : 
+  type: rest
+  resource:     "OjstrUserBundle:UserRest"
+  name_prefix:  api_

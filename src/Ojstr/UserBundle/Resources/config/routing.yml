@@ -14,4 +14,4 @@ user_create:
 
 OjstrUserBundle_userjournalrole:
     resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
-    prefix:   /adimin/userjournalrole
+    prefix:   /admin/userjournalrole
