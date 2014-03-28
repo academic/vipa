@@ -48,11 +48,12 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      */
-    public function getUsersAction()
+    public function getUsersAction(Request $request)
     {
-        $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findAll();
+        $limit = $request->get('limit');
+        $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array(), array(), $limit);
         if (!is_array($users)) {
-            throw new HttpException(404, 'User not found!');
+            $this->notFound();
         }
         return $users;
     }
@@ -84,6 +85,46 @@ class UserRestController extends FOSRestController
         } else {
             $em->remove($user);
         }
+        $em->flush();
+    }
+
+
+    public function putUserAction($user_id)
+    {
+    }
+
+    public function postUsersAction(Request $request)
+    {
+    }
+
+    public function patchUsersAction(Request $request)
+    {
+    }
+
+
+    /**
+     *
+     * @ApiDoc(
+     *  description="Change user status",
+     *  requirements={
+     *      {
+     *          "name"="status",
+     *          "dataType"="integer",
+     *          "requirement"="\d+",
+     *          "description"="new user status"
+     *      }
+     *  }
+     * )
+     * @RestView()
+     */
+    public function statusUsersAction(Request $request, $user_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
+        if (!is_object($user)) {
+            $this->notFound();
+        }
+        $user->setStatus($request->get('status'));
         $em->flush();
     }
 
