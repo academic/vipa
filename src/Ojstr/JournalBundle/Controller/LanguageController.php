@@ -1,6 +1,6 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Language;
@@ -12,7 +12,6 @@ use Ojstr\JournalBundle\Form\LanguageType;
  */
 class LanguageController extends Controller
 {
-
     /**
      * Lists all Language entities.
      *
@@ -20,13 +19,12 @@ class LanguageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:Language')->findAll();
-
         return $this->render('OjstrJournalBundle:Language:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Language entity.
      *
@@ -36,37 +34,32 @@ class LanguageController extends Controller
         $entity = new Language();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('admin_language_show', array('id' => $entity->getId())));
         }
-
         return $this->render('OjstrJournalBundle:Language:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Language entity.
-    *
-    * @param Language $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Language entity.
+     *
+     * @param Language $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Language $entity)
     {
         $form = $this->createForm(new LanguageType(), $entity, array(
             'action' => $this->generateUrl('admin_language_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -77,11 +70,10 @@ class LanguageController extends Controller
     public function newAction()
     {
         $entity = new Language();
-        $form   = $this->createCreateForm($entity);
-
+        $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:Language:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -92,18 +84,14 @@ class LanguageController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Language')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Language:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -113,41 +101,36 @@ class LanguageController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Language')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Language:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Language entity.
-    *
-    * @param Language $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Language entity.
+     *
+     * @param Language $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Language $entity)
     {
         $form = $this->createForm(new LanguageType(), $entity, array(
             'action' => $this->generateUrl('admin_language_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Language entity.
      *
@@ -155,29 +138,24 @@ class LanguageController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Language')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('admin_language_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Language:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Language entity.
      *
@@ -186,19 +164,15 @@ class LanguageController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Language')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('admin_language'));
     }
 
@@ -214,8 +188,7 @@ class LanguageController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('admin_language_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),'attr'=>array('onclick'=>'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
 }

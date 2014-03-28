@@ -1,6 +1,6 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Theme;
@@ -12,7 +12,6 @@ use Ojstr\JournalBundle\Form\ThemeType;
  */
 class ThemeController extends Controller
 {
-
     /**
      * Lists all Theme entities.
      *
@@ -20,13 +19,12 @@ class ThemeController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:Theme')->findAll();
-
         return $this->render('OjstrJournalBundle:Theme:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Theme entity.
      *
@@ -36,37 +34,32 @@ class ThemeController extends Controller
         $entity = new Theme();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('theme_show', array('id' => $entity->getId())));
         }
-
         return $this->render('OjstrJournalBundle:Theme:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Theme entity.
-    *
-    * @param Theme $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Theme entity.
+     *
+     * @param Theme $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Theme $entity)
     {
         $form = $this->createForm(new ThemeType(), $entity, array(
             'action' => $this->generateUrl('theme_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -77,11 +70,10 @@ class ThemeController extends Controller
     public function newAction()
     {
         $entity = new Theme();
-        $form   = $this->createCreateForm($entity);
-
+        $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:Theme:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -92,18 +84,14 @@ class ThemeController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Theme')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Theme:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -113,41 +101,36 @@ class ThemeController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Theme')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Theme:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Theme entity.
-    *
-    * @param Theme $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Theme entity.
+     *
+     * @param Theme $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Theme $entity)
     {
         $form = $this->createForm(new ThemeType(), $entity, array(
             'action' => $this->generateUrl('theme_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Theme entity.
      *
@@ -155,29 +138,24 @@ class ThemeController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Theme')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('theme_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Theme:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Theme entity.
      *
@@ -186,19 +164,15 @@ class ThemeController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Theme')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('theme'));
     }
 
@@ -214,8 +188,7 @@ class ThemeController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('theme_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),'attr'=>array('onclick'=>'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
 }
