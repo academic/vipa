@@ -8,6 +8,7 @@ before_script:
   - sudo apt-get update > /dev/null
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
 
+# New Virtual Host
   - sudo apt-get install apache2
   - sudo a2enmod actions
   - sudo a2enmod rewrite
@@ -20,12 +21,11 @@ before_script:
   - echo "127.0.0.1 app.dev" | sudo tee -a /etc/hosts
 
 
-
 # Update composer
   - composer self-update
   - composer install --dev --prefer-dist
 
-
+  - app/console --env=test cache:warmup
   - app/console doctrine:database:create  -e=test > /dev/null
   - app/console doctrine:migrations:migrate -e=test > /dev/null
   - app/console doctrine:schema:create -e=test > /dev/null
