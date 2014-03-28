@@ -19,9 +19,7 @@ class ArticleController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findAll();
-
         return $this->render('OjstrJournalBundle:Article:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -35,7 +33,6 @@ class ArticleController extends Controller {
         $entity = new Article();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -43,7 +40,6 @@ class ArticleController extends Controller {
 
             return $this->redirect($this->generateUrl('admin_article_show', array('id' => $entity->getId())));
         }
-
         return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -75,7 +71,6 @@ class ArticleController extends Controller {
     public function newAction() {
         $entity = new Article();
         $form = $this->createCreateForm($entity);
-
         return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -104,16 +99,12 @@ class ArticleController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -145,13 +136,10 @@ class ArticleController extends Controller {
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -161,7 +149,6 @@ class ArticleController extends Controller {
 
             return $this->redirect($this->generateUrl('admin_article_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -176,19 +163,15 @@ class ArticleController extends Controller {
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('admin_article'));
     }
 
