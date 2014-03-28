@@ -1,5 +1,4 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +10,18 @@ use Ojstr\JournalBundle\Form\KeywordType;
  * Keyword controller.
  *
  */
-class KeywordController extends Controller {
-
+class KeywordController extends Controller
+{
     /**
      * Lists all Keyword entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Keyword')->findAll();
         return $this->render('OjstrJournalBundle:Keyword:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -29,7 +29,8 @@ class KeywordController extends Controller {
      * Creates a new Keyword entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Keyword();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -37,12 +38,11 @@ class KeywordController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('keyword_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Keyword:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -53,7 +53,8 @@ class KeywordController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Keyword $entity) {
+    private function createCreateForm(Keyword $entity)
+    {
         $form = $this->createForm(new KeywordType(), $entity, array(
             'action' => $this->generateUrl('keyword_create'),
             'method' => 'POST',
@@ -66,12 +67,13 @@ class KeywordController extends Controller {
      * Displays a form to create a new Keyword entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Keyword();
         $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:Keyword:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -79,7 +81,8 @@ class KeywordController extends Controller {
      * Finds and displays a Keyword entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Keyword')->find($id);
         if (!$entity) {
@@ -87,15 +90,16 @@ class KeywordController extends Controller {
         }
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Keyword:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Keyword entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Keyword')->find($id);
         if (!$entity) {
@@ -104,9 +108,9 @@ class KeywordController extends Controller {
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Keyword:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -117,13 +121,13 @@ class KeywordController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Keyword $entity) {
+    private function createEditForm(Keyword $entity)
+    {
         $form = $this->createForm(new KeywordType(), $entity, array(
             'action' => $this->generateUrl('keyword_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -131,7 +135,8 @@ class KeywordController extends Controller {
      * Edits an existing Keyword entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Keyword')->find($id);
         if (!$entity) {
@@ -140,17 +145,14 @@ class KeywordController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('keyword_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Keyword:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -158,17 +160,16 @@ class KeywordController extends Controller {
      * Deletes a Keyword entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Keyword')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
@@ -182,13 +183,12 @@ class KeywordController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('keyword_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('keyword_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
-
 }

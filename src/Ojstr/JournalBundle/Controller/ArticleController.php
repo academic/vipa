@@ -1,5 +1,4 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +10,18 @@ use Ojstr\JournalBundle\Form\ArticleType;
  * Article controller.
  *
  */
-class ArticleController extends Controller {
-
+class ArticleController extends Controller
+{
     /**
      * Lists all Article entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findAll();
         return $this->render('OjstrJournalBundle:Article:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -29,7 +29,8 @@ class ArticleController extends Controller {
      * Creates a new Article entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Article();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -37,12 +38,11 @@ class ArticleController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('admin_article_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -53,14 +53,13 @@ class ArticleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Article $entity) {
+    private function createCreateForm(Article $entity)
+    {
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('admin_article_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -68,12 +67,13 @@ class ArticleController extends Controller {
      * Displays a form to create a new Article entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Article();
         $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -81,7 +81,8 @@ class ArticleController extends Controller {
      * Finds and displays a Article entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         if (!$entity) {
@@ -89,15 +90,16 @@ class ArticleController extends Controller {
         }
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Article:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Article entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         if (!$entity) {
@@ -106,9 +108,9 @@ class ArticleController extends Controller {
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -119,14 +121,13 @@ class ArticleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Article $entity) {
+    private function createEditForm(Article $entity)
+    {
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('admin_article_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -134,7 +135,8 @@ class ArticleController extends Controller {
      * Edits an existing Article entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         if (!$entity) {
@@ -143,16 +145,14 @@ class ArticleController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('admin_article_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -160,7 +160,8 @@ class ArticleController extends Controller {
      * Deletes a Article entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -182,15 +183,14 @@ class ArticleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('admin_article_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
-                            'attr' => array('onclick' => 'return confirm("' .
-                                $this->get('translator')->trans('Are you sure?') . '"); ')))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('admin_article_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
+                'attr' => array('onclick' => 'return confirm("' .
+                    $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
-
 }

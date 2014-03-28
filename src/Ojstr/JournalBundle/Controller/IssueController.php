@@ -1,6 +1,6 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Issue;
@@ -12,7 +12,6 @@ use Ojstr\JournalBundle\Form\IssueType;
  */
 class IssueController extends Controller
 {
-
     /**
      * Lists all Issue entities.
      *
@@ -20,13 +19,12 @@ class IssueController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:Issue')->findAll();
-
         return $this->render('OjstrJournalBundle:Issue:index.html.twig', array(
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Issue entity.
      *
@@ -36,37 +34,32 @@ class IssueController extends Controller
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('issue_show', array('id' => $entity->getId())));
         }
-
         return $this->render('OjstrJournalBundle:Issue:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Issue entity.
-    *
-    * @param Issue $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Issue entity.
+     *
+     * @param Issue $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Issue $entity)
     {
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -77,11 +70,10 @@ class IssueController extends Controller
     public function newAction()
     {
         $entity = new Issue();
-        $form   = $this->createCreateForm($entity);
-
+        $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:Issue:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -92,18 +84,14 @@ class IssueController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Issue:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -113,41 +101,36 @@ class IssueController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Issue entity.
-    *
-    * @param Issue $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Issue entity.
+     *
+     * @param Issue $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Issue $entity)
     {
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
+
     /**
      * Edits an existing Issue entity.
      *
@@ -155,29 +138,24 @@ class IssueController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Issue entity.
      *
@@ -186,19 +164,15 @@ class IssueController extends Controller
     {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('issue'));
     }
 
@@ -214,8 +188,7 @@ class IssueController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('issue_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),'attr'=>array('onclick'=>'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')))
-            ->getForm()
-        ;
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
 }

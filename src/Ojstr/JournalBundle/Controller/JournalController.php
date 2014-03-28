@@ -1,6 +1,6 @@
 <?php
-
 namespace Ojstr\JournalBundle\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Journal;
@@ -10,19 +10,18 @@ use Ojstr\JournalBundle\Form\JournalType;
  * Journal controller.
  *
  */
-class JournalController extends Controller {
-
+class JournalController extends Controller
+{
     /**
      * Lists all Journal entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:Journal')->findAll();
-
         return $this->render('OjstrJournalBundle:Journal:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -30,22 +29,20 @@ class JournalController extends Controller {
      * Creates a new Journal entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
-
         return $this->render('OjstrJournalBundle:Journal:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -56,14 +53,13 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Journal $entity) {
+    private function createCreateForm(Journal $entity)
+    {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
             'method' => 'POST',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -71,13 +67,13 @@ class JournalController extends Controller {
      * Displays a form to create a new Journal entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
-
         return $this->render('OjstrJournalBundle:Journal:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -85,42 +81,36 @@ class JournalController extends Controller {
      * Finds and displays a Journal entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Journal:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Journal entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:Journal:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -131,14 +121,13 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Journal $entity) {
+    private function createEditForm(Journal $entity)
+    {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -146,29 +135,24 @@ class JournalController extends Controller {
      * Edits an existing Journal entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('journal_edit', array('id' => $id)));
         }
-
         return $this->render('OjstrJournalBundle:Journal:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -176,22 +160,19 @@ class JournalController extends Controller {
      * Deletes a Journal entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
-
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('journal'));
     }
 
@@ -202,14 +183,13 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('journal_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
-                            'attr' => array('onclick' => 'return confirm("'.$this->get('translator')->trans('Are you sure?').'"); ')))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('journal_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
+                'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
+            ->getForm();
     }
-
 }
