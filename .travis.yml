@@ -20,9 +20,6 @@ before_script:
   - echo "127.0.0.1 app.dev" | sudo tee -a /etc/hosts
 
 
-#Copy skeleton parameters file
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
-
 
 # Update composer
   - composer self-update
