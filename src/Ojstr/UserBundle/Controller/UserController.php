@@ -11,19 +11,22 @@ use Ojstr\UserBundle\Form\UserType;
  * User controller.
  *
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
+
 
     /**
      * Lists all User entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:User')->findAll();
 
         return $this->render('OjstrUserBundle:User:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -31,7 +34,8 @@ class UserController extends Controller {
      * Creates a new User entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -45,8 +49,8 @@ class UserController extends Controller {
         }
 
         return $this->render('OjstrUserBundle:User:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -57,7 +61,8 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(User $entity) {
+    private function createCreateForm(User $entity)
+    {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
@@ -70,13 +75,14 @@ class UserController extends Controller {
      * Displays a form to create a new User entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new User();
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjstrUserBundle:User:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -84,7 +90,8 @@ class UserController extends Controller {
      * Finds and displays a User entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
 
@@ -95,15 +102,16 @@ class UserController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrUserBundle:User:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing User entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
         if (!$entity) {
@@ -114,9 +122,9 @@ class UserController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrUserBundle:User:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -127,7 +135,8 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(User $entity) {
+    private function createEditForm(User $entity)
+    {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -143,7 +152,8 @@ class UserController extends Controller {
      * Edits an existing User entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
@@ -163,9 +173,9 @@ class UserController extends Controller {
         }
 
         return $this->render('OjstrUserBundle:User:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -173,19 +183,23 @@ class UserController extends Controller {
      * Deletes a User entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            /**
+             * @var  User $entity
+             */
             $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
-
-            $em->remove($entity);
+            $entity->setStatus(-1);
+            //$em->remove($entity);
             $em->flush();
         }
 
@@ -199,19 +213,19 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $t = $this->get('translator');
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array(
-                            'label' => $t->trans('Delete User Record'),
-                            'attr' => array(
-                                'class' => 'button alert',
-                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
-                        ))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array(
+                'label' => $t->trans('Delete User Record'),
+                'attr' => array(
+                    'class' => 'button alert',
+                    'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
+            ))
+            ->getForm();
     }
 
 }
