@@ -67,35 +67,6 @@ Ojstr\UserBundle\Entity\User:
                         name: role_id
                         referencedColumnName: id
                         onDelete: CASCADE
-            orderBy: null 
-        journals:
-            targetEntity: Ojstr\JournalBundle\Entity\Journal
-            cascade: {  }
-            mappedBy: null
-            inversedBy: users
-            joinTable:
-                name: User_Journal
-                joinColumns:
-                    -
-                        name: user_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-                inverseJoinColumns:
-                    -
-                        name: journal_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-            orderBy: null
+            orderBy: null  
     
     lifecycleCallbacks: {  }
-    
-    exclusion_policy: ALL
-    properties:
-        id:
-            expose: true
-        username:
-            expose: true
-        email:
-            expose: true
-
-

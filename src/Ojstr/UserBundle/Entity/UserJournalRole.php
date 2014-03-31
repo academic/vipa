@@ -29,6 +29,11 @@ class UserJournalRole {
      */
     private $roleId;
 
+    public function __construct() {
+        $this->user = new \Ojstr\UserBundle\Entity\User();
+        $this->role = new \Ojstr\UserBundle\Entity\Role();
+        $this->journal = new \Ojstr\JournalBundle\Entity\Journal();
+    }
 
     /**
      * Get id
@@ -125,7 +130,6 @@ class UserJournalRole {
      */
     public function setUser(\Ojstr\UserBundle\Entity\User $user = null) {
         $this->user = $user;
-
         return $this;
     }
 
