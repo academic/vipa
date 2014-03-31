@@ -1,0 +1,32 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>Journals of User</h1>
+
+        <table class="records_list">
+            <thead>
+                <tr>
+                    <th>Journal Id</th>
+                    <th>Journal Name</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a></td>
+                    <td>{{ entity.journal.title}} / {{ entity.journal.titleTranslated}}</td>
+                    <td>{{ entity.role.name }} </td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="button" href="{{ path('ujr_new') }}">
+            Create a new entry
+        </a> 
+    </div>
+</div>
+    {% endblock %}

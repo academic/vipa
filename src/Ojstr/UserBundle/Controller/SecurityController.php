@@ -1,11 +1,11 @@
 <?php
 
 namespace Ojstr\UserBundle\Controller;
+
 use \Ojstr\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends Controller {
@@ -28,6 +28,12 @@ class SecurityController extends Controller {
                     'error' => $error,
                         )
         );
+    }
+
+    public function logoutAction(Request $request) {
+        $this->get('security.context')->setToken(null);
+        $this->get('request')->getSession()->invalidate();
+        return $this->redirect($this->generateUrl('login'));
     }
 
     public function createUserAction(Request $request) {

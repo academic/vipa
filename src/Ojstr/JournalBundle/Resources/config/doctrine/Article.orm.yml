@@ -23,12 +23,6 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Keyword
-  oneToOne:
-    issue:
-      targetEntity: Issue
-      joinColumn:
-        name: issueId
-        referencedColumnName: id
     subjects: 
       targetEntity: Subject
       inversedBy: articles
@@ -65,10 +59,6 @@ Ojstr\JournalBundle\Entity\Article:
       type: boolean
       options: 
           default: 0
-      nullable: TRUE
-    issueId:
-      column: issue_id
-      type: integer
       nullable: TRUE
     journalId: 
       column: journal_id
@@ -108,10 +98,6 @@ Ojstr\JournalBundle\Entity\Article:
       type: string
       nullable: TRUE
     uri: 
-      length: 255
-      type: string
-      nullable: TRUE
-    volume: 
       length: 255
       type: string
       nullable: TRUE

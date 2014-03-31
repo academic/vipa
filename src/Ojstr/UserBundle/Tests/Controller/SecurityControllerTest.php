@@ -6,9 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SecurityControllerTest extends WebTestCase {
 
-    public function testAuth() {
+    public function testStatus()
+    {
         $client = static::createClient();
-        $client->request('GET', '/user/');
+        $client->request('GET', '/admin/user/');
         $this->assertEquals(302, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /user/");
     }
 
