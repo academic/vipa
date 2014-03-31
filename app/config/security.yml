@@ -31,7 +31,8 @@ security:
             anonymous: true
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: /user, roles: ROLE_USER }
+        - { path: /user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }        
+        - { path: /api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /admin, roles: ROLE_USER }
         - { path: /manager, roles: ROLE_ADMIN }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

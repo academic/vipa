@@ -88,5 +88,14 @@ Ojstr\UserBundle\Entity\User:
             orderBy: null
     
     lifecycleCallbacks: {  }
+    
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        username:
+            expose: true
+        email:
+            expose: true
 
 

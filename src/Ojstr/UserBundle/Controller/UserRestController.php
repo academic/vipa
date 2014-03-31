@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojstr\UserBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -10,8 +11,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 
-class UserRestController extends FOSRestController
-{
+class UserRestController extends FOSRestController {
+
     /**
      *
      * @ApiDoc(
@@ -22,8 +23,7 @@ class UserRestController extends FOSRestController
      *  }
      * )
      */
-    public function getUserAction($username)
-    {
+    public function getUserAction($username) {
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneByUsername($username);
         if (!is_object($user)) {
             $this->notFound();
@@ -31,33 +31,33 @@ class UserRestController extends FOSRestController
         return $user;
     }
 
-
     /**
      *
      * @ApiDoc(
      *  resource=true,
      *  description="Get Users Action",
-     *  requirements={
+     *  parameters={
      *      {
      *          "name"="limit",
      *          "dataType"="integer",
-     *          "requirement"="\d+",
+     *          "required"="true",
      *          "description"="how many objects to return"
      *      }
      *  }
      * )
      * @RestView()
      */
-    public function getUsersAction(Request $request)
-    {
+    public function getUsersAction(Request $request) {
         $limit = $request->get('limit');
+        if (empty($limit)) {
+            throw new HttpException(400, 'Missing parameter : limit');
+        }
         $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array(), array(), $limit);
         if (!is_array($users)) {
             $this->notFound();
         }
         return $users;
     }
-
 
     /**
      *
@@ -70,8 +70,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView(statusCode=204)
      */
-    public function deleteUserAction($user_id, $soft_delete = TRUE)
-    {
+    public function deleteUserAction($user_id, $soft_delete = TRUE) {
         $em = $this->getDoctrine()->getManager();
         /**
          * @var User $user
@@ -88,19 +87,17 @@ class UserRestController extends FOSRestController
         $em->flush();
     }
 
-
-    public function putUserAction($user_id)
-    {
+    public function putUserAction($user_id) {
+        
     }
 
-    public function postUsersAction(Request $request)
-    {
+    public function postUsersAction(Request $request) {
+        
     }
 
-    public function patchUsersAction(Request $request)
-    {
+    public function patchUsersAction(Request $request) {
+        
     }
-
 
     /**
      *
@@ -117,8 +114,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      */
-    public function statusUsersAction(Request $request, $user_id)
-    {
+    public function statusUsersAction(Request $request, $user_id) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
@@ -128,8 +124,8 @@ class UserRestController extends FOSRestController
         $em->flush();
     }
 
-    private function notFound()
-    {
-        throw new HttpException(404, 'User not found');
+    private function notFound() {
+        throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
     }
+
 }
