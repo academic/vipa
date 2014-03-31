@@ -1,0 +1,7 @@
+parameters:
+#    ojstr_journal.example.class: Ojstr\JournalBundle\Example
+
+services:
+#    ojstr_journal.example:
+#        class: %ojstr_journal.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
