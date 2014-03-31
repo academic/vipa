@@ -18,17 +18,17 @@
             <tbody>
         {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('userjournalrole_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td><a href="{{ path('ujr_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.userId }}</td>
                     <td>{{ entity.journalId }}</td>
                     <td>{{ entity.roleId }}</td>
                     <td>
                         <ul>
                             <li>
-                                <a href="{{ path('userjournalrole_show', { 'id': entity.id }) }}">show</a>
+                                <a href="{{ path('ujr_show', { 'id': entity.id }) }}">show</a>
                             </li>
                             <li>
-                                <a href="{{ path('userjournalrole_edit', { 'id': entity.id }) }}">edit</a>
+                                <a href="{{ path('ujr_edit', { 'id': entity.id }) }}">edit</a>
                             </li>
                         </ul>
                     </td>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
 
-        <a class="button" href="{{ path('userjournalrole_new') }}">
+        <a class="button" href="{{ path('ujr_new') }}">
             Create a new entry
         </a> 
     </div>

@@ -15,7 +15,7 @@ class UserType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('username')
-                ->add('password', 'text', array('attr' => array('style' => 'color:#898989;font-size:80%')))
+                ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
                 ->add('email')
                 ->add('isActive')
                 ->add('roles', 'entity', array(
@@ -24,12 +24,12 @@ class UserType extends AbstractType {
                     'multiple' => true,
                     'expanded' => false,
                 ))
-                ->add('journals', 'entity', array(
-                    'class' => 'Ojstr\JournalBundle\Entity\Journal',
-                    'property' => 'title',
-                    'multiple' => true,
-                    'expanded' => false,
-                ))
+//                ->add('journals', 'entity', array(
+//                    'class' => 'Ojstr\JournalBundle\Entity\Journal',
+//                    'property' => 'title',
+//                    'multiple' => true,
+//                    'expanded' => false,
+//                ))
         ;
     }
 

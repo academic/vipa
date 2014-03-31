@@ -4,13 +4,15 @@ user_crud:
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
+logout:
+    path: /logout
+    defaults: { _controller: OjstrUserBundle:Security:logout }
 login_check:
     path: /login_check 
     
 user_create:
     pattern: /user_create
     defaults: { _controller: OjstrUserBundle:Security:createUser }
-
 
 OjstrUserBundle_userjournalrole:
     resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"

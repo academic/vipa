@@ -8,9 +8,10 @@ Ojstr\UserBundle\Entity\UserJournalRole:
             id: true
             generator:
                 strategy: AUTO
-    oneToOne:
+
+    manyToOne:
         user:
-          targetEntity: User
+          targetEntity: Ojstr\UserBundle\Entity\User 
           joinColumn:
             name: user_id
             referencedColumnName: id
@@ -20,7 +21,7 @@ Ojstr\UserBundle\Entity\UserJournalRole:
             name: journal_id
             referencedColumnName: id
         role:
-          targetEntity: Role
+          targetEntity: Ojstr\UserBundle\Entity\Role
           joinColumn:
             name: role_id
             referencedColumnName: id

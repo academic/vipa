@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -24,17 +24,14 @@ class ArticleType extends AbstractType
             ->add('isAnonymous')
             ->add('pubdate')
             ->add('pubdateSeason')
-            ->add('volume')
-            ->add('issue')
             ->add('part')
             ->add('firstPage')
             ->add('lastPage')
             ->add('uri')
             ->add('abstract')
-            ->add('abstractTranslated')
-        ;
+            ->add('abstractTranslated');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

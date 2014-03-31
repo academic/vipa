@@ -39,35 +39,29 @@ class User implements UserInterface, \Serializable {
     private $isActive;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection     
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $roles;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection     
+     * @var integer
+     *
      */
-    private $journals;
-
-   
+    private $status = 1;
 
     public function __construct() {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
-        $this->journals = new ArrayCollection();
     }
 
     public function getRoles() {
         return $this->roles->toArray();
     }
 
-    public function getJournals() {
-        return $this->journals->toArray();
-    }
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId() {
         return $this->id;
@@ -88,10 +82,31 @@ class User implements UserInterface, \Serializable {
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername() {
         return $this->username;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return User
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus() {
+        return $this->status;
     }
 
     /**
@@ -109,7 +124,7 @@ class User implements UserInterface, \Serializable {
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword() {
         return $this->password;
@@ -130,7 +145,7 @@ class User implements UserInterface, \Serializable {
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail() {
         return $this->email;
@@ -151,7 +166,7 @@ class User implements UserInterface, \Serializable {
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive() {
         return $this->isActive;
@@ -209,27 +224,6 @@ class User implements UserInterface, \Serializable {
      */
     public function removeRole(\Ojstr\UserBundle\Entity\Role $roles) {
         $this->roles->removeElement($roles);
-    }
-
-    /**
-     * Add journals
-     *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journals
-     * @return User
-     */
-    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journals) {
-        $this->journals[] = $journals;
-
-        return $this;
-    }
-
-    /**
-     * Remove journals
-     *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journals
-     */
-    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journals) {
-        $this->journals->removeElement($journals);
     }
 
 }
