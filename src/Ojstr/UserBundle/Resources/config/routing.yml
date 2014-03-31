@@ -4,6 +4,9 @@ user_crud:
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
+logout:
+    path: /logout
+    defaults: { _controller: OjstrUserBundle:Security:logout }
 login_check:
     path: /login_check 
     
