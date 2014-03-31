@@ -8,14 +8,6 @@ Ojstr\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
-    manyToMany:
-        users:
-            targetEntity: Ojstr\UserBundle\Entity\User
-            cascade: {  }
-            mappedBy: journals
-            inversedBy: null
-            joinTable: {  }
-            orderBy: null 
     id:
         id:
             type: integer

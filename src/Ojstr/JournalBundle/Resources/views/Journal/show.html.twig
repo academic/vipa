@@ -79,10 +79,7 @@
                     </tr>
                     <tr>
                         <th>Users</th>
-                        <td>{% for user in entity.users %}
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">
-                                <span class="label">{{user.username}}</span></a>
-                        {% endfor %}
+                        <td><a href="{{ path('ujr_show_journals_of_users',{ 'id': entity.id }) }}">Show Users</a>
                         </td>
                     </tr>
                 </tbody>
