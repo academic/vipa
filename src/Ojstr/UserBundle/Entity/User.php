@@ -4,42 +4,51 @@ namespace Ojstr\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * User
+ * @ExclusionPolicy("all") 
  */
 class User implements UserInterface, \Serializable {
 
     /**
      * @var integer
+     * @Expose
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     * @Expose
      */
-    private $username;
+    protected $username;
 
     /**
      * @var string
-     *
+     * @Expose
      */
-    private $password;
+    protected $password;
 
     /**
      * @var string
-     *
+     * @Expose
      */
-    private $email;
+    protected $email;
 
     /**
      * @var boolean
+     * @Expose
      *
      */
-    private $isActive;
+    protected $isActive;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
      */
     private $roles;
 
@@ -47,7 +56,7 @@ class User implements UserInterface, \Serializable {
      * @var integer
      *
      */
-    private $status = 1;
+    protected $status = 1;
 
     public function __construct() {
         $this->isActive = true;
@@ -96,7 +105,6 @@ class User implements UserInterface, \Serializable {
      */
     public function setStatus($status) {
         $this->status = $status;
-
         return $this;
     }
 

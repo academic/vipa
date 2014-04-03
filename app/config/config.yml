@@ -89,4 +89,11 @@ sensio_framework_extra:
   view:
     annotations: false
 
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "%kernel.root_dir%/serializer/FOSUserBundle"
+                
 nelmio_api_doc: ~

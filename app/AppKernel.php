@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Ojstr\CliBundle\OjstrCliBundle(),
             new FOS\RestBundle\FOSRestBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Ojstr\ManagerBundle\OjstrManagerBundle(),
         );
