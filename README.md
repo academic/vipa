@@ -51,8 +51,7 @@ Then, use the `update` command to generate a new Symfony application:
 
 Generate shemas after installation : 
 
-    php app/console doctrine:schema:update --force
-
+    php app/console ojs:install
 
 
 Run on your local environment : 
