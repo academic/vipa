@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Util\Codes;
+use Ojstr\UserBundle\Form\UserRestType;
 
 class UserRestController extends FOSRestController {
 
@@ -70,29 +72,74 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView(statusCode=204)
      */
-    public function deleteUserAction($user_id, $soft_delete = TRUE) {
+    public function deleteUserAction(Request $request, $user_id) {
+        $destroy = $request->get('destroy'); 
         $em = $this->getDoctrine()->getManager();
         /**
          * @var User $user
          */
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
+        $user = $this->getUserEntity($user_id);
         if (!is_object($user)) {
             $this->notFound();
         }
-        if ($soft_delete) {
+        if (!$destroy) {
             $user->setStatus(-1);
         } else {
             $em->remove($user);
         }
         $em->flush();
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 
-    public function putUserAction($user_id) {
-        
+    /**
+     * @todo not implemented !
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Update User Action",
+     *  requirements={
+     *      {
+     *          "name"="user_id",
+     *          "dataType"="integer",
+     *          "requirement"="\d+",
+     *          "description"="user id"
+     *      }
+     * }
+     * )
+     * @RestView()
+     */
+    public function putUserAction(Request $request, $user_id) {
+        $entity = $this->getUserEntity($user_id);
+        $form = $this->createForm(new UserRestType(), $entity);
+        $form->bind($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            return $this->view(null, Codes::HTTP_NO_CONTENT);
+        }
+        throw new HttpException(400, 'Missing parameter');
     }
 
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Delete User Action"
+     *  
+     * )
+     * @RestView()
+     */
     public function postUsersAction(Request $request) {
-        
+        $entity = new User();
+        $form = $this->createForm(new UserRestType(), $entity);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            return $this->redirect($this->generateUrl('api_get_user', array('username' => $entity->getUsername())));
+        }
+        throw new HttpException(400, 'Missing parameter');
     }
 
     public function patchUsersAction(Request $request) {
@@ -103,6 +150,7 @@ class UserRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  description="Change user status",
+     *  method="PATCH",
      *  requirements={
      *      {
      *          "name"="status",
@@ -110,7 +158,10 @@ class UserRestController extends FOSRestController {
      *          "requirement"="\d+",
      *          "description"="new user status"
      *      }
-     *  }
+     *  },
+     * filters={
+     *      {"name"="user_id", "dataType"="integer"}
+     * }
      * )
      * @RestView()
      */
@@ -122,10 +173,51 @@ class UserRestController extends FOSRestController {
         }
         $user->setStatus($request->get('status'));
         $em->flush();
+        return $user;
+    }
+
+    /**
+     *
+     * @ApiDoc(
+     *  description="Change user 'isActive'",
+     *  method="PATCH",
+     *  requirements={
+     *      {
+     *          "name"="isActive",
+     *          "dataType"="boolean",
+     *          "requirement"="\d+",
+     *          "description"="0|1"
+     *      }
+     *  },
+     * filters={
+     *      {"name"="user_id", "dataType"="integer"}
+     * }
+     * )
+     * @RestView()
+     */
+    public function activeUsersAction(Request $request, $user_id) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
+        if (!is_object($user)) {
+            $this->notFound();
+        }
+        /* @var  $user \Ojstr\UserBundle\Entity\User */
+        $user->setIsActive($request->get('isActive'));
+        $em->flush();
+        return $user;
     }
 
     private function notFound() {
         throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+    }
+
+    protected function getUserEntity($id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
+        if (!$entity) {
+            $this->notFound();
+        }
+        return $entity;
     }
 
 }
