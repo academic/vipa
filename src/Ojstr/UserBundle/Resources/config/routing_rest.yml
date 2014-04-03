@@ -2,3 +2,8 @@ users :
   type: rest
   resource:     "OjstrUserBundle:UserRest"
   name_prefix:  api_
+  
+roles : 
+  type: rest
+  resource:     "OjstrUserBundle:RoleRest"
+  name_prefix:  api_
