@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Ojstr\ManagerBundle\OjstrManagerBundle(),
+            new Ojstr\ApiBundle\OjstrApiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

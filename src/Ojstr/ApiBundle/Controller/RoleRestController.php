@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\UserBundle\Controller;
+namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View as RestView;

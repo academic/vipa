@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\UserBundle\Controller;
+namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
@@ -32,7 +32,30 @@ class UserRestController extends FOSRestController {
         }
         return $user;
     }
+    
+     /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get User Journals"
+     * 
+     * )    
+     */
+    public function getUserJournalsAction($userid) {
+         
+    }
 
+     /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get User Roles"
+     * 
+     * )    
+     */
+    public function getUserRolesAction($userid) {
+         
+    }
     /**
      *
      * @ApiDoc(
