@@ -4,39 +4,37 @@ namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
-use Ojstr\UserBundle\Entity\Role;
+use Ojstr\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
-use Ojstr\UserBundle\Form\RoleRestType;
+use FOS\RestBundle\Util\Codes;
+use Ojstr\UserBundle\Form\UserRestType;
 
-class RoleRestController extends FOSRestController {
+class JournalRestController extends FOSRestController {
 
     /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Role Action",
-     *  filters={
-     *      {"name"="id", "dataType"="integer"}
-     *  }
+     *  description="Get Journal Action"
      * )
      */
-    public function getRoleAction($id) {
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
-        if (!is_object($user)) {
+    public function getJournalAction($id) {
+        $journal = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->find($id);
+        if (!is_object($journal)) {
             $this->notFound();
         }
-        return $user;
+        return $journal;
     }
 
     /**
-     * @todo not implemented yet
+     *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Users wtih this role",
+     *  description="Get Journal Users Action",
      *  parameters={
      *      {
      *          "name"="page",
@@ -53,12 +51,8 @@ class RoleRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getRoleUsersAction($id) {
+    public function getJournalUsersAction($id) {
         
-    }
-
-    private function notFound() {
-        throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
     }
 
 }

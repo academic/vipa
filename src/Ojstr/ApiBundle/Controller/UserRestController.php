@@ -38,7 +38,20 @@ class UserRestController extends FOSRestController {
      * @ApiDoc(
      *  resource=true,
      *  description="Get User Journals"
-     * 
+     *  parameters={
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="offset page"
+     *      },
+     *      {
+     *          "name"="limit",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="limit"
+     *      }
+     *  }
      * )    
      */
     public function getUserJournalsAction($userid) {
