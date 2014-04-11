@@ -8,7 +8,12 @@ roles :
   type: rest
   resource:     "OjstrApiBundle:RoleRest"
   name_prefix:  api_
-     
+
+journals : 
+  type: rest
+  resource:     "OjstrApiBundle:JournalRest"
+  name_prefix:  api_
+  
 ojstr_api_homepage:
   pattern:  /
   defaults: { _controller: OjstrApiBundle:Default:index }
