@@ -46,7 +46,7 @@ http://getcomposer.org/ or just run the following command:
 
 Then, use the `update` command to generate a new Symfony application:
 
-    php composer.phar update
+    php composer.phar update doctrine/doctrine-fixtures-bundle
 
 
 Generate shemas after installation : 
