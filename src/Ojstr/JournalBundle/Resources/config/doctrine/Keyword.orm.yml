@@ -28,4 +28,11 @@ Ojstr\JournalBundle\Entity\Keyword:
             gedmo:
               timestampable:
                 on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
     lifecycleCallbacks: {  }
