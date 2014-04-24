@@ -48,7 +48,7 @@ class InstallCommand extends ContainerAwareCommand {
                 $translator->trans('Creating/updating db schema!') .
                 '</info>');
         $application->run(new \Symfony\Component\Console\Input\StringInput($command));
-        exit();
+        
 
         $admin_username = $dialog->ask(
                 $output, '<info>' .
