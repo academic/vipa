@@ -17,4 +17,14 @@ Ojstr\JournalBundle\Entity\Theme:
         baseTheme:
             type: boolean
             column: base_theme
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

@@ -18,4 +18,14 @@ Ojstr\JournalBundle\Entity\Language:
         code:
             type: string
             length: 255
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

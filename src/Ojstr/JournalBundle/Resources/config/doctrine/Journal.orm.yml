@@ -62,4 +62,14 @@ Ojstr\JournalBundle\Entity\Journal:
         themeId:
             type: integer
             column: theme_id
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

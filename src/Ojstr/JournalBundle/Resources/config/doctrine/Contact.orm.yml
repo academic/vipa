@@ -40,4 +40,14 @@ Ojstr\JournalBundle\Entity\Contact:
         email:
             type: string
             length: 255
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }
