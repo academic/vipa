@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Article
  */
-class Article extends \Ojstr\Entity\TimestampableEntity {
+class Article extends \Ojstr\Entity\GenericEntity {
 
     /**
      * auto-incremented article unique id
@@ -114,6 +114,11 @@ class Article extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     public function getUpdated() {
         return $this->updated;

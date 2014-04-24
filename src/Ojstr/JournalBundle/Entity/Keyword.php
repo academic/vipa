@@ -7,11 +7,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Keyword
  */
-class Keyword extends \Ojstr\Entity\TimestampableEntity {
+class Keyword extends \Ojstr\Entity\GenericEntity {
 
     /**
-     * @ORM\Id @ORM\GeneratedValue 
-     * @ORM\Column(type="integer") 
      * @var integer
      */
     private $id;
@@ -43,6 +41,11 @@ class Keyword extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     public function getUpdated() {
         return $this->updated;

@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Journal
  */
-class Journal extends \Ojstr\Entity\TimestampableEntity {
+class Journal extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var integer
@@ -121,6 +121,11 @@ class Journal extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     /**
      * Constructor
