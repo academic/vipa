@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Author
  */
-class Author extends \Ojstr\Entity\TimestampableEntity {
+class Author extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var integer
@@ -91,6 +91,11 @@ class Author extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     /**
      * Get id

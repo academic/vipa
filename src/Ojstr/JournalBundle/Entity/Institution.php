@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Institution
  */
-class Institution extends \Ojstr\Entity\TimestampableEntity {
+class Institution extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var integer
@@ -71,6 +71,11 @@ class Institution extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     /**
      * Get id

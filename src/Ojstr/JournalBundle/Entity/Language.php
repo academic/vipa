@@ -4,7 +4,7 @@ namespace Ojstr\JournalBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
-class Language extends \Ojstr\Entity\TimestampableEntity {
+class Language extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var integer
@@ -43,6 +43,11 @@ class Language extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     /**
      * Get id

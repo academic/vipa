@@ -4,7 +4,7 @@ namespace Ojstr\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
-class TimestampableEntity {
+class GenericEntity {
 
     public function getCreated() {
         return $this->created;
@@ -16,6 +16,14 @@ class TimestampableEntity {
 
     public function getContentChanged() {
         return $this->contentChanged;
+    }
+
+    public function getDeletedAt() {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt($deletedAt) {
+        $this->deletedAt = $deletedAt;
     }
 
 }
