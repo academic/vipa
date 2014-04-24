@@ -49,11 +49,13 @@ Then, use the `update` command to generate a new Symfony application:
     php composer.phar update
 
 
-Generate shemas after installation : 
+Ojs first run configuration : 
 
-    php app/console doctrine:schema:update --force
+    php app/console ojs:install
 
+Ojs sample data :
 
+    php app/console doctrine:fixtures:load
 
 Run on your local environment : 
 

@@ -14,4 +14,14 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
             length: 255
         description:
             type: text
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

@@ -2,10 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Theme
  */
-class Theme {
+class Theme extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer
@@ -26,6 +28,24 @@ class Theme {
      * @var boolean
      */
     private $baseTheme;
+
+    /**
+     * @var datetime $created 
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable
+     */
+    private $updated;
+
+    /**
+     * @var datetime $contentChanged
+     * @Gedmo\Timestampable()
+     */
+    private $contentChanged;
 
     /**
      * Get id

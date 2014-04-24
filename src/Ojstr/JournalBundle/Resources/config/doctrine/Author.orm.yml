@@ -58,4 +58,14 @@ Ojstr\JournalBundle\Entity\Author:
         summary:
             type: text
             nullable: TRUE
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

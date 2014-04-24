@@ -2,12 +2,16 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Keyword
  */
-class Keyword {
+class Keyword extends \Ojstr\Entity\TimestampableEntity {
 
     /**
+     * @ORM\Id @ORM\GeneratedValue 
+     * @ORM\Column(type="integer") 
      * @var integer
      */
     private $id;
@@ -21,6 +25,32 @@ class Keyword {
      * @var integer
      */
     private $langId;
+
+    /**
+     * @var datetime $created 
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable
+     */
+    private $updated;
+
+    /**
+     * @var datetime $contentChanged
+     * @Gedmo\Timestampable()
+     */
+    private $contentChanged;
+
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    public function getContentChanged() {
+        return $this->contentChanged;
+    }
 
     /**
      * Get id

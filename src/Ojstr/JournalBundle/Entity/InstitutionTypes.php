@@ -2,10 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * InstitutionTypes
  */
-class InstitutionTypes {
+class InstitutionTypes extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer
@@ -21,6 +23,24 @@ class InstitutionTypes {
      * @var string
      */
     private $description;
+
+    /**
+     * @var datetime $created 
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable
+     */
+    private $updated;
+
+    /**
+     * @var datetime $contentChanged
+     * @Gedmo\Timestampable()
+     */
+    private $contentChanged;
 
     /**
      * Get id

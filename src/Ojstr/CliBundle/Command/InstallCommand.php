@@ -39,6 +39,17 @@ class InstallCommand extends ContainerAwareCommand {
             return;
         }
 
+        $kernel = $this->getContainer()->get('kernel');
+        $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
+        $application->setAutoExit(false);
+        $command = 'doctrine:schema:update --force';
+
+        $output->writeln('<info>' .
+                $translator->trans('Creating/updating db schema!') .
+                '</info>');
+        $application->run(new \Symfony\Component\Console\Input\StringInput($command));
+        
+
         $admin_username = $dialog->ask(
                 $output, '<info>' .
                 $translator->trans('Set system admin username') .

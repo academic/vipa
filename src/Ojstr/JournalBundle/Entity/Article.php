@@ -2,11 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Article
  */
-class Article
-{
+class Article extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * auto-incremented article unique id
@@ -64,7 +65,6 @@ class Article
      */
     private $pubdateSeason;
 
-
     /**
      * @var string
      */
@@ -98,12 +98,37 @@ class Article
     private $abstractTranslated;
 
     /**
+     * @var datetime $created 
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable
+     */
+    private $updated;
+
+    /**
+     * @var datetime $contentChanged
+     * @Gedmo\Timestampable()
+     */
+    private $contentChanged;
+
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    public function getContentChanged() {
+        return $this->contentChanged;
+    }
+
+    /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -113,8 +138,7 @@ class Article
      * @param string $doi
      * @return Article
      */
-    public function setDoi($doi)
-    {
+    public function setDoi($doi) {
         $this->doi = $doi;
         return $this;
     }
@@ -124,8 +148,7 @@ class Article
      *
      * @return string
      */
-    public function getDoi()
-    {
+    public function getDoi() {
         return $this->doi;
     }
 
@@ -135,8 +158,7 @@ class Article
      * @param string $otherId
      * @return Article
      */
-    public function setOtherId($otherId)
-    {
+    public function setOtherId($otherId) {
         $this->otherId = $otherId;
         return $this;
     }
@@ -146,8 +168,7 @@ class Article
      *
      * @return string
      */
-    public function getOtherId()
-    {
+    public function getOtherId() {
         return $this->otherId;
     }
 
@@ -157,8 +178,7 @@ class Article
      * @param integer $journalId
      * @return Article
      */
-    public function setJournalId($journalId)
-    {
+    public function setJournalId($journalId) {
         $this->journalId = $journalId;
         return $this;
     }
@@ -168,8 +188,7 @@ class Article
      *
      * @return integer
      */
-    public function getJournalId()
-    {
+    public function getJournalId() {
         return $this->journalId;
     }
 
@@ -179,8 +198,7 @@ class Article
      * @param string $title
      * @return Article
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
         return $this;
     }
@@ -190,8 +208,7 @@ class Article
      *
      * @return string
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
     }
 
@@ -201,8 +218,7 @@ class Article
      * @param string $titleTranslated
      * @return Article
      */
-    public function setTitleTranslated($titleTranslated)
-    {
+    public function setTitleTranslated($titleTranslated) {
         $this->titleTranslated = $titleTranslated;
         return $this;
     }
@@ -212,8 +228,7 @@ class Article
      *
      * @return string
      */
-    public function getTitleTranslated()
-    {
+    public function getTitleTranslated() {
         return $this->titleTranslated;
     }
 
@@ -223,8 +238,7 @@ class Article
      * @param string $subtitle
      * @return Article
      */
-    public function setSubtitle($subtitle)
-    {
+    public function setSubtitle($subtitle) {
         $this->subtitle = $subtitle;
         return $this;
     }
@@ -234,8 +248,7 @@ class Article
      *
      * @return string
      */
-    public function getSubtitle()
-    {
+    public function getSubtitle() {
         return $this->subtitle;
     }
 
@@ -245,8 +258,7 @@ class Article
      * @param boolean $isAnonymous
      * @return Article
      */
-    public function setIsAnonymous($isAnonymous)
-    {
+    public function setIsAnonymous($isAnonymous) {
         $this->isAnonymous = $isAnonymous;
         return $this;
     }
@@ -256,8 +268,7 @@ class Article
      *
      * @return boolean
      */
-    public function getIsAnonymous()
-    {
+    public function getIsAnonymous() {
         return $this->isAnonymous;
     }
 
@@ -267,8 +278,7 @@ class Article
      * @param \DateTime $pubdate
      * @return Article
      */
-    public function setPubdate($pubdate)
-    {
+    public function setPubdate($pubdate) {
         $this->pubdate = $pubdate;
         return $this;
     }
@@ -278,8 +288,7 @@ class Article
      *
      * @return \DateTime
      */
-    public function getPubdate()
-    {
+    public function getPubdate() {
         return $this->pubdate;
     }
 
@@ -289,8 +298,7 @@ class Article
      * @param string $pubdateSeason
      * @return Article
      */
-    public function setPubdateSeason($pubdateSeason)
-    {
+    public function setPubdateSeason($pubdateSeason) {
         $this->pubdateSeason = $pubdateSeason;
         return $this;
     }
@@ -300,8 +308,7 @@ class Article
      *
      * @return string
      */
-    public function getPubdateSeason()
-    {
+    public function getPubdateSeason() {
         return $this->pubdateSeason;
     }
 
@@ -311,8 +318,7 @@ class Article
      * @param string $part
      * @return Article
      */
-    public function setPart($part)
-    {
+    public function setPart($part) {
         $this->part = $part;
         return $this;
     }
@@ -322,8 +328,7 @@ class Article
      *
      * @return string
      */
-    public function getPart()
-    {
+    public function getPart() {
         return $this->part;
     }
 
@@ -333,8 +338,7 @@ class Article
      * @param integer $firstPage
      * @return Article
      */
-    public function setFirstPage($firstPage)
-    {
+    public function setFirstPage($firstPage) {
         $this->firstPage = $firstPage;
         return $this;
     }
@@ -344,8 +348,7 @@ class Article
      *
      * @return integer
      */
-    public function getFirstPage()
-    {
+    public function getFirstPage() {
         return $this->firstPage;
     }
 
@@ -355,8 +358,7 @@ class Article
      * @param integer $lastPage
      * @return Article
      */
-    public function setLastPage($lastPage)
-    {
+    public function setLastPage($lastPage) {
         $this->lastPage = $lastPage;
         return $this;
     }
@@ -366,8 +368,7 @@ class Article
      *
      * @return integer
      */
-    public function getLastPage()
-    {
+    public function getLastPage() {
         return $this->lastPage;
     }
 
@@ -377,8 +378,7 @@ class Article
      * @param string $uri
      * @return Article
      */
-    public function setUri($uri)
-    {
+    public function setUri($uri) {
         $this->uri = $uri;
         return $this;
     }
@@ -388,8 +388,7 @@ class Article
      *
      * @return string
      */
-    public function getUri()
-    {
+    public function getUri() {
         return $this->uri;
     }
 
@@ -399,8 +398,7 @@ class Article
      * @param string $abstract
      * @return Article
      */
-    public function setAbstract($abstract)
-    {
+    public function setAbstract($abstract) {
         $this->abstract = $abstract;
         return $this;
     }
@@ -410,8 +408,7 @@ class Article
      *
      * @return string
      */
-    public function getAbstract()
-    {
+    public function getAbstract() {
         return $this->abstract;
     }
 
@@ -421,8 +418,7 @@ class Article
      * @param string $abstractTranslated
      * @return Article
      */
-    public function setAbstractTranslated($abstractTranslated)
-    {
+    public function setAbstractTranslated($abstractTranslated) {
         $this->abstractTranslated = $abstractTranslated;
         return $this;
     }
@@ -432,8 +428,7 @@ class Article
      *
      * @return string
      */
-    public function getAbstractTranslated()
-    {
+    public function getAbstractTranslated() {
         return $this->abstractTranslated;
     }
 
@@ -445,8 +440,7 @@ class Article
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -456,8 +450,7 @@ class Article
      * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
      * @return Article
      */
-    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
-    {
+    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
         $this->keywords[] = $keywords;
 
         return $this;
@@ -468,8 +461,7 @@ class Article
      *
      * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
      */
-    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords)
-    {
+    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
         $this->keywords->removeElement($keywords);
     }
 
@@ -478,8 +470,7 @@ class Article
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getKeywords()
-    {
+    public function getKeywords() {
         return $this->keywords;
     }
 
@@ -494,8 +485,7 @@ class Article
      * @param \Ojstr\JournalBundle\Entity\Subject $subjects
      * @return Article
      */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
-    {
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
         $this->subjects[] = $subjects;
 
         return $this;
@@ -506,8 +496,7 @@ class Article
      *
      * @param \Ojstr\JournalBundle\Entity\Subject $subjects
      */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects)
-    {
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
         $this->subjects->removeElement($subjects);
     }
 
@@ -516,8 +505,7 @@ class Article
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubjects()
-    {
+    public function getSubjects() {
         return $this->subjects;
     }
 
@@ -532,8 +520,7 @@ class Article
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
      * @return Article
      */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null)
-    {
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
         $this->journal = $journal;
 
         return $this;
@@ -544,11 +531,9 @@ class Article
      *
      * @return \Ojstr\JournalBundle\Entity\Journal
      */
-    public function getJournal()
-    {
+    public function getJournal() {
         return $this->journal;
     }
-
 
     /**
      * Set subjects
@@ -556,10 +541,10 @@ class Article
      * @param \Ojstr\JournalBundle\Entity\Subject $subjects
      * @return Article
      */
-    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null)
-    {
+    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null) {
         $this->subjects = $subjects;
 
         return $this;
     }
+
 }

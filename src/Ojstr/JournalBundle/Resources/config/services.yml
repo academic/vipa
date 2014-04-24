@@ -5,3 +5,9 @@ services:
 #    ojstr_journal.example:
 #        class: %ojstr_journal.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    gedmo.listener.softdeleteable:
+      class: Gedmo\SoftDeleteable\SoftDeleteableListener
+      tags:
+          - { name: doctrine.event_subscriber, connection: default }
+      calls:
+          - [ setAnnotationReader, [ @annotation_reader ] ]
