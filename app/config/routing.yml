@@ -9,7 +9,7 @@ ojstr_user:
 
 ojstr_journal:
     resource: "@OjstrJournalBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /manager/
     
 auth:
     resource: "@OjstrUserBundle/Resources/config/routing.yml"

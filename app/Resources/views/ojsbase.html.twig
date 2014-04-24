@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-        {% stylesheets '@base_ui' filter='?uglifycss' output='c/c.css' %}
+        {% stylesheets '@base_ui' filter='?uglifycss' output='c.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
        {% endstylesheets %}
         {% endblock %}

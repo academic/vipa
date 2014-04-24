@@ -1,3 +1,7 @@
-ojstr_manager:
+ojstr_index:
     pattern:  /manager
+    defaults: { _controller: OjstrManagerBundle:Manager:getManager }
+ojstr_manager:
+    pattern:  /
     defaults: { _controller: OjstrManagerBundle:Manager:index }
+
