@@ -52,7 +52,25 @@ class JournalRestController extends FOSRestController {
      * )
      */
     public function getJournalUsersAction($id) {
-        
+        $limit = $request->get('limit');
+        $page = $request->get('page');
+        if (empty($limit)) {
+            throw new HttpException(400, 'Missing parameter : limit');
+        }
+        if (empty($page)) {
+            throw new HttpException(400, 'Missing parameter : page');
+        }
+        $user = $this->getDoctrine()->
+                getRepository('OjstrUserBundle:UserJournalRole')
+                ->createQueryBuilder()
+                ->where('journal_id > :id')
+                ->setParameter('id', $id)
+                //->orderBy('id', 'ASC')
+                ->setMaxResults($limit)
+                ->setFirstResult($page)
+                ->getQuery()
+                ->getResults();
+        return $users;
     }
 
 }

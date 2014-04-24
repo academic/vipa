@@ -32,12 +32,12 @@ class UserRestController extends FOSRestController {
         }
         return $user;
     }
-    
-     /**
+
+    /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get User Journals"
+     *  description="Get User Journals",
      *  parameters={
      *      {
      *          "name"="page",
@@ -55,10 +55,10 @@ class UserRestController extends FOSRestController {
      * )    
      */
     public function getUserJournalsAction($userid) {
-         
+        
     }
 
-     /**
+    /**
      *
      * @ApiDoc(
      *  resource=true,
@@ -67,14 +67,21 @@ class UserRestController extends FOSRestController {
      * )    
      */
     public function getUserRolesAction($userid) {
-         
+        
     }
+
     /**
      *
      * @ApiDoc(
      *  resource=true,
      *  description="Get Users Action",
      *  parameters={
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="offset page"
+     *      },
      *      {
      *          "name"="limit",
      *          "dataType"="integer",
@@ -87,8 +94,12 @@ class UserRestController extends FOSRestController {
      */
     public function getUsersAction(Request $request) {
         $limit = $request->get('limit');
+        $page = $request->get('page');
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
+        }
+        if (empty($page)) {
+            throw new HttpException(400, 'Missing parameter : page');
         }
         $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array(), array(), $limit);
         if (!is_array($users)) {
@@ -109,7 +120,7 @@ class UserRestController extends FOSRestController {
      * @RestView(statusCode=204)
      */
     public function deleteUserAction(Request $request, $user_id) {
-        $destroy = $request->get('destroy'); 
+        $destroy = $request->get('destroy');
         $em = $this->getDoctrine()->getManager();
         /**
          * @var User $user
