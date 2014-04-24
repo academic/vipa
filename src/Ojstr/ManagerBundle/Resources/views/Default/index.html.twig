@@ -1,12 +1,19 @@
 {% extends "::ojsbase.html.twig" %}
 
 {% block body %}
-<h1>Default</h1>
-<p class="important">
-    Default 
-</p>
+<div class="container">
+    <h1>Default</h1>
+    <p class="important">
+        Default Home Page
+    </p>
+    <a class="btn btn-info" href="/login"><i class="glyphicon glyphicon-log-in"></i> 
+        Login</a>
+    <a class="btn btn-success" href="/manager"><i class="glyphicon glyphicon-flag"></i> 
+        Manager Dashboard</a>
+
+</div>
 {% endblock %}
 
 {% block footer %}
- &copy; Ojs-tr demo
+&copy; Ojs-tr demo
 {% endblock %}

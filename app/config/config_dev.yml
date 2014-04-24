@@ -11,10 +11,9 @@ assetic:
             bin: /usr/local/bin/uglifycss
             # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
-        jquery_foundation:
+        jslibs:
             inputs:
-                - '%kernel.root_dir%/../assets/js/vendor/jquery.js'
-                - '%kernel.root_dir%/../assets/js/bootstrap.min.js'
+                - '%kernel.root_dir%/../assets/js/*'
         base_ui:
             inputs:
                 - '%kernel.root_dir%/../assets/css/*'
