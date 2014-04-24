@@ -1,53 +1,49 @@
-ojstr_journal_homepage:
-    pattern:  /
-    defaults: { _controller: OjstrJournalBundle:Default:index }
-
 #Crud pages
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
-    prefix:   /admin/journal
+    prefix:   /journal
 
 ojstr__issue:
     resource: "@OjstrJournalBundle/Resources/config/routing/issue.yml"
-    prefix:   /admin/issue
+    prefix:   /issue
 
 ojstr_theme:
     resource: "@OjstrJournalBundle/Resources/config/routing/theme.yml"
-    prefix:   /admin/theme
+    prefix:   /theme
 
 ojstr_institution_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/institution.yml"
-    prefix:   /admin/institution
+    prefix:   /institution
 
 ojstr_institution_types_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/institutiontypes.yml"
-    prefix:   /admin/institution_types
+    prefix:   /institution_types
 
 
 ojstr_contact_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/contact.yml"
-    prefix:   /admin/contact
+    prefix:   /contact
 
 ojstr__contacttypes_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/contacttypes.yml"
-    prefix:   /admin/contacttypes
+    prefix:   /contacttypes
     
 ojstr_article_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/article.yml"
-    prefix:   /admin/article
+    prefix:   /article
     
 ojstr_author_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
-    prefix:   /admin/author
+    prefix:   /author
     
 ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
-    prefix:   /admin/subject
+    prefix:   /subject
 
 ojstr_keyword_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/keyword.yml"
-    prefix:   /admin/keyword
+    prefix:   /keyword
 
 ojstr_language_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/language.yml"
-    prefix:   /admin/language
+    prefix:   /language
