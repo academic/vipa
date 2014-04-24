@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Article
  */
-class Article extends TimestampableEntity {
+class Article extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * auto-incremented article unique id

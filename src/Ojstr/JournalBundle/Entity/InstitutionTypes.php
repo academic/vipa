@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * InstitutionTypes
  */
-class InstitutionTypes extends TimestampableEntity {
+class InstitutionTypes extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer

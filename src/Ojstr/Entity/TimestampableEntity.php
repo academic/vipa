@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\JournalBundle\Entity;
+namespace Ojstr\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 

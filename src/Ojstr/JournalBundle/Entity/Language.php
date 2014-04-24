@@ -4,7 +4,7 @@ namespace Ojstr\JournalBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
-class Language extends TimestampableEntity {
+class Language extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer
