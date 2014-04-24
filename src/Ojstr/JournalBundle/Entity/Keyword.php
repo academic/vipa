@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Keyword
  */
-class Keyword extends TimestampableEntity {
+class Keyword extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @ORM\Id @ORM\GeneratedValue 

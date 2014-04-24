@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ContactTypes
  */
-class ContactTypes extends TimestampableEntity {
+class ContactTypes extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer
