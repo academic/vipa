@@ -31,4 +31,14 @@ Ojstr\JournalBundle\Entity\Issue:
         datePublished:
             type: datetime
             column: date_published
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
     lifecycleCallbacks: {  }

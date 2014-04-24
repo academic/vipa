@@ -101,3 +101,13 @@ Ojstr\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+    created:
+        type: datetime
+        gedmo:
+          timestampable:
+            on: create
+    updated:
+        type: datetime
+        gedmo:
+          timestampable:
+            on: update
