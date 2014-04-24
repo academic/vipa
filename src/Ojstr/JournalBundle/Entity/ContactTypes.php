@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ContactTypes
  */
-class ContactTypes extends \Ojstr\Entity\TimestampableEntity {
+class ContactTypes extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var integer
@@ -41,6 +41,11 @@ class ContactTypes extends \Ojstr\Entity\TimestampableEntity {
      * @Gedmo\Timestampable()
      */
     private $contentChanged;
+
+    /**
+     * @var datetime
+     */
+    private $deletedAt;
 
     /**
      * Get id
