@@ -1,1 +1,24 @@
-Manager home page
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <h1>Manager Dashboard</h1>
+    <p class="important"></p>
+    <ul class="list-group col-md-4">
+        <li class="list-group-item"><a href="/manager/article">Articles</a></li>
+        <li class="list-group-item"><a href="/manager/author">Authors</a></li>
+        <li class="list-group-item"><a href="/manager/contact">Contacts</a></li>
+        <li class="list-group-item"><a href="">Contact Types</a></li>
+        <li class="list-group-item"><a href="">Institutions</a></li>
+        <li class="list-group-item"><a href="">Institution Types</a></li>
+        <li class="list-group-item"><a href="">Issues</a></li>
+        <li class="list-group-item"><a href="">Journals</a></li>
+        <li class="list-group-item"><a href="">Keywords</a></li>
+        <li class="list-group-item"><a href="">Languages</a></li>
+        <li class="list-group-item"><a href="">Subjects</a></li>
+        <li class="list-group-item"><a href="">Tehemes</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
