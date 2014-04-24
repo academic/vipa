@@ -10,8 +10,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Keyword extends \Ojstr\Entity\TimestampableEntity {
 
     /**
-     * @ORM\Id @ORM\GeneratedValue 
-     * @ORM\Column(type="integer") 
      * @var integer
      */
     private $id;
