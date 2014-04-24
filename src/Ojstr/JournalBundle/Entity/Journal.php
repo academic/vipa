@@ -1,10 +1,13 @@
 <?php
 
 namespace Ojstr\JournalBundle\Entity;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * Journal
  */
-class Journal {
+class Journal extends \Ojstr\Entity\TimestampableEntity {
 
     /**
      * @var integer
@@ -100,6 +103,24 @@ class Journal {
      * @var \Doctrine\Common\Collections\Collection
      */
     private $articles;
+
+    /**
+     * @var datetime $created 
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $created;
+
+    /**
+     * @var datetime $updated
+     * @Gedmo\Timestampable
+     */
+    private $updated;
+
+    /**
+     * @var datetime $contentChanged
+     * @Gedmo\Timestampable()
+     */
+    private $contentChanged;
 
     /**
      * Constructor

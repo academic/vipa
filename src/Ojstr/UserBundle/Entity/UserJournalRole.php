@@ -145,7 +145,7 @@ class UserJournalRole {
     /**
      * Set journal
      *
-     * @param \Ojstr\UserBundle\Entity\Journal $journal
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
      * @return UserJournalRole
      */
     public function setJournal(\Ojstr\UserBundle\Entity\Journal $journal = null) {

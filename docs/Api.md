@@ -1,0 +1,1 @@
+Api documentation can be found under "http://<ojshost>/api/doc/", after installation.
