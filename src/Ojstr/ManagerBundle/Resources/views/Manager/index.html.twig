@@ -3,21 +3,33 @@
 {% block body %}
 <div class="container">
     <h1>Manager Dashboard</h1>
-    <p class="important"></p>
-    <ul class="list-group col-md-4">
-        <li class="list-group-item"><a href="/manager/article">Articles</a></li>
-        <li class="list-group-item"><a href="/manager/author">Authors</a></li>
-        <li class="list-group-item"><a href="/manager/contact">Contacts</a></li>
-        <li class="list-group-item"><a href="">Contact Types</a></li>
-        <li class="list-group-item"><a href="">Institutions</a></li>
-        <li class="list-group-item"><a href="">Institution Types</a></li>
-        <li class="list-group-item"><a href="">Issues</a></li>
-        <li class="list-group-item"><a href="">Journals</a></li>
-        <li class="list-group-item"><a href="">Keywords</a></li>
-        <li class="list-group-item"><a href="">Languages</a></li>
-        <li class="list-group-item"><a href="">Subjects</a></li>
-        <li class="list-group-item"><a href="">Tehemes</a></li>
-    </ul>
+    <div class="col-md-6">
+        <h2>Objects</h2>
+        <ul class="list-group">
+
+            <li class="list-group-item"><a href="/manager/article">Articles</a></li>
+            <li class="list-group-item"><a href="/manager/author">Authors</a></li>
+            <li class="list-group-item"><a href="/manager/contact">Contacts</a></li>
+            <li class="list-group-item"><a href="/manager/contacttype">Contact Types</a></li>
+            <li class="list-group-item"><a href="/manager/institution">Institutions</a></li>
+            <li class="list-group-item"><a href="/manager/institutiontype">Institution Types</a></li>
+            <li class="list-group-item"><a href="/manager/issue">Issues</a></li>
+            <li class="list-group-item"><a href="/manager/journal">Journals</a></li>
+            <li class="list-group-item"><a href="/manager/keyword">Keywords</a></li>
+            <li class="list-group-item"><a href="/manager/language">Languages</a></li>
+            <li class="list-group-item"><a href="/manager/subject">Subjects</a></li>
+            <li class="list-group-item"><a href="/manager/teheme">Tehemes</a></li>
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h2>System Operations</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/manager/user">User</a></li>
+            <li class="list-group-item"><a href="/manager/role">Role</a></li>
+
+        </ul>
+    </div>
 </div>
 {% endblock %}
 

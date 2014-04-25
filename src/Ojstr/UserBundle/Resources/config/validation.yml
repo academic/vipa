@@ -6,4 +6,3 @@ Ojstr\UserBundle\Entity\User:
             - NotBlank: ~
         email:
             - NotBlank: ~
-            - Type: \Email
