@@ -10,6 +10,10 @@ user_new:
     pattern:  /new
     defaults: { _controller: "OjstrUserBundle:User:new" }
 
+user_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrUserBundle:User:create" }
+
 user_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "OjstrUserBundle:User:edit" }
