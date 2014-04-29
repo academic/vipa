@@ -133,3 +133,9 @@ jms_serializer:
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
                 
 nelmio_api_doc: ~
+
+services:
+    ojstr.twig.ojs_extension:
+        class: Ojstr\Twig\OjsExtension
+        tags:
+            - { name: twig.extension }
