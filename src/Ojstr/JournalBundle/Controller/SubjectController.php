@@ -35,7 +35,7 @@ class SubjectController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->setTranslatableLocale('de');
+            $entity->setTranslatableLocale($request->getLocale());
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('admin_subject_show', array('id' => $entity->getId())));

@@ -28,7 +28,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
+    globals:
+        languages : "%languages%"
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -119,7 +120,7 @@ sensio_framework_extra:
     annotations: false
 
 stof_doctrine_extensions:
-    default_locale: en
+    default_locale: "%locale%"
     translation_fallback: true
     orm:
         default:
@@ -135,6 +136,11 @@ jms_serializer:
 nelmio_api_doc: ~
 
 services:
+    acme_locale.locale_listener:
+        class: Ojstr\Common\Listener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
         class: Ojstr\Twig\OjsExtension
         tags:

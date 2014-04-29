@@ -11,8 +11,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div id="main-container">
-            <strong>{{ app.request.locale }}</strong>
+        <div class="content col-md-12">
+{%include '::language_selector.html.twig'%}
             {% block body %}{% endblock %}
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
