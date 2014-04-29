@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * Journal
  */
-class Journal extends \Ojstr\Entity\GenericEntity {
+class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -106,19 +104,16 @@ class Journal extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
     /**
      * @var datetime $updated
-     * @Gedmo\Timestampable
      */
     private $updated;
 
     /**
      * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
      */
     private $contentChanged;
 

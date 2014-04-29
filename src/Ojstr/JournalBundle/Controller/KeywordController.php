@@ -140,6 +140,7 @@ class KeywordController extends Controller {
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $entity->setTranslatableLocale($request->getLocale());
             $em->flush();
             return $this->redirect($this->generateUrl('keyword_edit', array('id' => $id)));
         }
@@ -163,6 +164,7 @@ class KeywordController extends Controller {
             if (!$entity) {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
+            $entity->setTranslatableLocale($request->getLocale());
             $em->remove($entity);
             $em->flush();
         }

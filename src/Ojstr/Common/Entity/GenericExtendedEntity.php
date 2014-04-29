@@ -1,13 +1,13 @@
 <?php
 
-namespace Ojstr\Entity;
+namespace Ojstr\Common\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Some common properties and functions for JournalBundle Entities
  */
-class GenericEntity {
+class GenericExtendedEntity {
 
     public function getCreated() {
         return $this->created;

@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Theme
  */
-class Theme extends \Ojstr\Entity\GenericEntity {
+class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer

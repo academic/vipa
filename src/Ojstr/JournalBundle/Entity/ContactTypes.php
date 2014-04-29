@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * ContactTypes
  */
-class ContactTypes extends \Ojstr\Entity\GenericEntity {
+class ContactTypes extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -26,19 +24,16 @@ class ContactTypes extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
     /**
      * @var datetime $updated
-     * @Gedmo\Timestampable
      */
     private $updated;
 
     /**
      * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
      */
     private $contentChanged;
 
