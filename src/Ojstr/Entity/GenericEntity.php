@@ -4,6 +4,9 @@ namespace Ojstr\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 
+/**
+ * Some common properties and functions for JournalBundle Entities
+ */
 class GenericEntity {
 
     public function getCreated() {

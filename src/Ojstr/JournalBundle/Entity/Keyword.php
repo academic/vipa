@@ -3,11 +3,12 @@
 namespace Ojstr\JournalBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Keyword
  */
-class Keyword extends \Ojstr\Entity\GenericEntity {
+class Keyword extends \Ojstr\Entity\GenericEntity implements Translatable {
 
     /**
      * @var integer
@@ -15,6 +16,7 @@ class Keyword extends \Ojstr\Entity\GenericEntity {
     private $id;
 
     /**
+     * @Gedmo\Translatable
      * @var string
      */
     private $keyword;
@@ -23,6 +25,11 @@ class Keyword extends \Ojstr\Entity\GenericEntity {
      * @var integer
      */
     private $langId;
+
+    /**
+     * @Gedmo\Locale
+     */
+    private $locale;
 
     /**
      * @var datetime $created 
@@ -53,6 +60,10 @@ class Keyword extends \Ojstr\Entity\GenericEntity {
 
     public function getContentChanged() {
         return $this->contentChanged;
+    }
+
+    public function setTranslatableLocale($locale) {
+        $this->locale = $locale;
     }
 
     /**
