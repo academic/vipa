@@ -118,3 +118,6 @@ Ojstr\JournalBundle\Entity\Article:
     soft_deleteable:
       field_name: deletedAt
       time_aware: false
+  indexes:
+    doix:
+      columns: doi

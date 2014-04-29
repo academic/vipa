@@ -119,9 +119,12 @@ sensio_framework_extra:
     annotations: false
 
 stof_doctrine_extensions:
+    default_locale: %locale%
+    translation_fallback: true
     orm:
         default:
             timestampable: true
+            translatable: true
 jms_serializer:
     metadata:
         directories:
