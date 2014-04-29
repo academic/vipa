@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * Article
  */
-class Article extends \Ojstr\Entity\GenericEntity {
+class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * auto-incremented article unique id
@@ -99,19 +97,16 @@ class Article extends \Ojstr\Entity\GenericEntity {
 
     /**
      * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
     /**
      * @var datetime $updated
-     * @Gedmo\Timestampable
      */
     private $updated;
 
     /**
      * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
      */
     private $contentChanged;
 

@@ -1,24 +1,23 @@
-{% extends '::base.html.twig' %}
-
+{% extends '::ojsbase.html.twig' %}
 {% block body -%}
-    <h1>Keyword list</h1>
+<h1>Keyword list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Keyword</th>
-                <th>Langid</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Keyword</th>
+            <th>Langid</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('keyword_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.keyword }}</td>
-                <td>{{ entity.langId }}</td>
-                <td>
+        <tr>
+            <td><a href="{{ path('keyword_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.keyword }}</td>
+            <td>{{ entity.langId }}</td>
+            <td>
                 <ul>
                     <li>
                         <a href="{{ path('keyword_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a>
@@ -27,17 +26,17 @@
                         <a href="{{ path('keyword_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
                     </li>
                 </ul>
-                </td>
-            </tr>
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-        <ul>
-        <li>
-            <a href="{{ path('keyword_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+<ul>
+    <li>
+        <a href="{{ path('keyword_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
     {% endblock %}

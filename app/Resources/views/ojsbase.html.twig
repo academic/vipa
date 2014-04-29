@@ -12,6 +12,7 @@
     </head>
     <body>
         <div id="main-container">
+            <strong>{{ app.request.locale }}</strong>
             {% block body %}{% endblock %}
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>

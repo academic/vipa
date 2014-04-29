@@ -70,7 +70,7 @@ class LanguageController extends Controller
     public function newAction()
     {
         $entity = new Language();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity,array("languages"=>array("tr","ru")));
         return $this->render('OjstrJournalBundle:Language:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
