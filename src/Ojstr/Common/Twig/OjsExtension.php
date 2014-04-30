@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Twig;
+namespace Ojstr\Common\Twig;
 
 class OjsExtension extends \Twig_Extension {
 
