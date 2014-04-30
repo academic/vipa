@@ -23,8 +23,8 @@
                         <td>{{ entity.description }}</td>
                         <td>
                             <small>
-                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a>
-                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
+                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
+                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
                             </small>
                         </td>
                     </tr>
