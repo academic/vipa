@@ -35,10 +35,8 @@
                     <td>{{ entity.publishStatus }}</td>
                     <td>{{ entity.status }}</td>
                     <td>
-                        <small>
-                            <a href="{{ path('journal_show', { 'id': entity.id }) }}"> {% trans %}Show{% endtrans %}</a> <br>
-                            <a href="{{ path('journal_edit', { 'id': entity.id }) }}"> {% trans %}Edit{% endtrans %}</a>
-                        </small>
+                            <a href="{{ path('journal_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Show{% endtrans %}</a> <br>
+                            <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Edit{% endtrans %}</a>
                         </div
                     </td>
                 </tr>
@@ -47,7 +45,7 @@
         </table>
 
         <div>
-            <a href="{{ path('journal_new') }}" class="button success">
+            <a href="{{ path('journal_new') }}" class="btn btn-success">
                     {% trans %}Create New{% endtrans %}
             </a>
         </div>

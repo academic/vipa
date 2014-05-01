@@ -2,12 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Theme
  */
-class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable {
 
     /**
      * @var integer
@@ -31,19 +31,16 @@ class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
      */
     private $created;
 
     /**
      * @var datetime $updated
-     * @Gedmo\Timestampable
      */
     private $updated;
 
     /**
      * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
      */
     private $contentChanged;
 
@@ -51,6 +48,23 @@ class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var datetime
      */
     private $deletedAt;
+
+    public function getUpdated() {
+        return $this->updated;
+    }
+
+    public function getContentChanged() {
+        return $this->contentChanged;
+    }
+
+    /**
+     * Translateable locale field
+     */
+    private $locale;
+
+    public function setTranslatableLocale($locale) {
+        $this->locale = $locale;
+    }
 
     /**
      * Get id
