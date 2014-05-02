@@ -12,8 +12,12 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
         name:
             type: string
             length: 255
+            gedmo:
+                - translatable
         description:
             type: text
+            gedmo:
+                - translatable
         created:
             type: datetime
             gedmo:
@@ -24,4 +28,13 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
             gedmo:
               timestampable:
                 on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+          locale: locale
     lifecycleCallbacks: {  }

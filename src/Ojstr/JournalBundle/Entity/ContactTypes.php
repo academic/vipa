@@ -28,21 +28,6 @@ class ContactTypes extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $created;
 
     /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    /**
      * Get id
      *
      * @return integer 

@@ -2,7 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-
 /**
  * Contact
  */
@@ -57,26 +56,6 @@ class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var string
      */
     private $email;
-
-    /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
 
     /**
      * Get id

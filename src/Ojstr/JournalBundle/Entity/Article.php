@@ -96,34 +96,6 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $abstractTranslated;
 
     /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    public function getUpdated() {
-        return $this->updated;
-    }
-
-    public function getContentChanged() {
-        return $this->contentChanged;
-    }
-
-    /**
      * Get id
      *
      * @return integer

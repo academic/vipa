@@ -11,6 +11,8 @@ Ojstr\JournalBundle\Entity\Contact:
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
         firstName:
             type: string
             length: 255
@@ -57,4 +59,6 @@ Ojstr\JournalBundle\Entity\Contact:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
     lifecycleCallbacks: {  }

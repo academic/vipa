@@ -51,27 +51,7 @@ class Institution extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      */
-    private $email;
-
-    /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
+    private $email; 
 
     /**
      * Get id
