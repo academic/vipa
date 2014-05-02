@@ -1,5 +1,5 @@
 ojstr_index:
-    pattern:  /manager
+    pattern:  /manager/
     defaults: { _controller: OjstrManagerBundle:Manager:getManager }
 ojstr_manager:
     pattern:  /
