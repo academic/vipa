@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
     <h1>ContactTypes list</h1>
@@ -35,8 +35,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('contacttypes_new') }}">
-                Create a new entry
+            <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
+{% trans %}Create New{% endtrans %}
             </a>
         </li>
     </ul>
