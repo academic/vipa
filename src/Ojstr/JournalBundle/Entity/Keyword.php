@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Translatable\Translatable;
-
 /**
  * Keyword
  */
-class Keyword extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable {
+class Keyword extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -23,43 +21,6 @@ class Keyword extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @var integer
      */
     private $langId;
-
-    /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    public function getUpdated() {
-        return $this->updated;
-    }
-
-    public function getContentChanged() {
-        return $this->contentChanged;
-    }
-
-    /**
-     * Translateable locale field
-     */
-    private $locale;
-
-    public function setTranslatableLocale($locale) {
-        $this->locale = $locale;
-    }
 
     /**
      * Get id

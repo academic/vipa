@@ -75,4 +75,6 @@ Ojstr\JournalBundle\Entity\Author:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
     lifecycleCallbacks: {  }

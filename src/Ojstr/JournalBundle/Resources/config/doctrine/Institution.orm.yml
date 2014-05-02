@@ -12,6 +12,8 @@ Ojstr\JournalBundle\Entity\Institution:
         name:
             type: string
             length: 255
+            gedmo:
+                - translatable
         address:
             type: text
         country:
@@ -55,4 +57,6 @@ Ojstr\JournalBundle\Entity\Institution:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
     lifecycleCallbacks: {  }

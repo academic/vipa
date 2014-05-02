@@ -73,26 +73,6 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $summary;
 
     /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    /**
      * Get id
      *
      * @return integer 

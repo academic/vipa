@@ -42,6 +42,8 @@ Ojstr\JournalBundle\Entity\Article:
     abstract: 
       type: text
       nullable: TRUE
+      gedmo:
+        - translatable
     abstractTranslated: 
       column: abstract_translated
       type: text
@@ -89,9 +91,13 @@ Ojstr\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+        - translatable
     title: 
       length: 255
       type: string
+      gedmo:
+        - translatable
     titleTranslated: 
       column: title_translated
       length: 255
@@ -118,6 +124,8 @@ Ojstr\JournalBundle\Entity\Article:
     soft_deleteable:
       field_name: deletedAt
       time_aware: false
+    translation:
+            locale: locale
   indexes:
     doix:
       columns: doi

@@ -142,6 +142,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
-        class: Ojstr\Twig\OjsExtension
+        class: Ojstr\Common\Twig\OjsExtension
         tags:
             - { name: twig.extension }

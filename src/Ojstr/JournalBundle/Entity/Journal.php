@@ -105,43 +105,6 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $articles;
 
     /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    public function getUpdated() {
-        return $this->updated;
-    }
-
-    public function getContentChanged() {
-        return $this->contentChanged;
-    }
-
-    /**
-     * Translateable locale field
-     */
-    private $locale;
-
-    public function setTranslatableLocale($locale) {
-        $this->locale = $locale;
-    }
-
-    /**
      * Constructor
      */
     public function __construct() {

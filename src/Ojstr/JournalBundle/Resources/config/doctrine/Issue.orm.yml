@@ -21,10 +21,14 @@ Ojstr\JournalBundle\Entity\Issue:
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
         description:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
         year:
             type: string
             length: 255
@@ -48,4 +52,6 @@ Ojstr\JournalBundle\Entity\Issue:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
     lifecycleCallbacks: {  }
