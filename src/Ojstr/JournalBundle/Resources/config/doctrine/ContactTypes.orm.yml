@@ -13,6 +13,7 @@ Ojstr\JournalBundle\Entity\ContactTypes:
             length: 255
             gedmo:
                 - translatable
+                - versioned
         description:
             type: string
             length: 255
@@ -37,4 +38,5 @@ Ojstr\JournalBundle\Entity\ContactTypes:
           time_aware: false
         translation:
             locale: locale
+        loggable: true
     lifecycleCallbacks: {  }

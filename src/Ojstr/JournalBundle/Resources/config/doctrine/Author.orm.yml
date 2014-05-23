@@ -13,15 +13,21 @@ Ojstr\JournalBundle\Entity\Author:
             type: string
             length: 255
             column: first_name
+            gedmo:
+                - versioned
         middleName:
             type: string
             length: 255
             column: middle_name
             nullable: TRUE
+            gedmo:
+                - versioned
         lastName:
             type: string
             length: 255
             column: last_name
+            gedmo:
+                - versioned
         firstNameTranslated:
             type: string
             length: 255
@@ -77,4 +83,5 @@ Ojstr\JournalBundle\Entity\Author:
           time_aware: false
         translation:
             locale: locale
+        loggable: true
     lifecycleCallbacks: {  }

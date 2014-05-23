@@ -21,26 +21,8 @@ class InstitutionTypes extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var string
      */
     private $description;
-
-    /**
-     * @var datetime $created 
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
+ 
+ 
 
     /**
      * Get id

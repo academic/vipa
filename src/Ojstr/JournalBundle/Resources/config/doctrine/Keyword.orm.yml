@@ -17,6 +17,7 @@ Ojstr\JournalBundle\Entity\Keyword:
             length: 255
             gedmo:
                 - translatable
+                - versioned
         langId:
             type: integer
             column: lang_id
@@ -33,10 +34,20 @@ Ojstr\JournalBundle\Entity\Keyword:
         deletedAt:
             type: date
             nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     gedmo:
         soft_deleteable:
             field_name: deletedAt
             time_aware: false
-        translation:
-            locale: locale
+        loggable: true
+    #changeTrackingPolicy: NOTIFY
     lifecycleCallbacks: {  }

@@ -44,18 +44,25 @@ Ojstr\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
         - translatable
+        - versioned
     abstractTranslated: 
       column: abstract_translated
       type: text
       nullable: TRUE
+      gedmo:
+          - versioned
     doi: 
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+          - versioned
     firstPage: 
       column: first_page
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     isAnonymous: 
       column: is_anonymous
       type: boolean
@@ -66,10 +73,14 @@ Ojstr\JournalBundle\Entity\Article:
       column: journal_id
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     lastPage: 
       column: last_page
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     otherId: 
       column: other_id
       length: 255
@@ -82,6 +93,8 @@ Ojstr\JournalBundle\Entity\Article:
     pubdate: 
       type: datetime
       nullable: TRUE
+      gedmo:
+          - versioned
     pubdateSeason: 
       column: pubdate_season
       length: 255
@@ -93,11 +106,13 @@ Ojstr\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
         - translatable
+        - versioned
     title: 
       length: 255
       type: string
       gedmo:
         - translatable
+        - versioned
     titleTranslated: 
       column: title_translated
       length: 255
@@ -126,6 +141,7 @@ Ojstr\JournalBundle\Entity\Article:
       time_aware: false
     translation:
             locale: locale
+    loggable: true
   indexes:
     doix:
       columns: doi

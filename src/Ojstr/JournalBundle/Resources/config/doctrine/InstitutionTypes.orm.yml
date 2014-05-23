@@ -14,6 +14,7 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
             length: 255
             gedmo:
                 - translatable
+                - versioned
         description:
             type: text
             gedmo:
@@ -37,4 +38,5 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
           time_aware: false
         translation:
           locale: locale
+        loggable: true
     lifecycleCallbacks: {  }

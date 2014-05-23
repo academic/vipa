@@ -126,6 +126,8 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             translatable: true
+            blameable: true
+            loggable: true
 jms_serializer:
     metadata:
         directories:
