@@ -34,6 +34,17 @@ class GenericExtendedEntity implements Translatable {
      */
     protected $deletedAt;
 
+    /**
+     *
+     * @var String
+     */
+    protected $createdBy;
+
+    /**
+     * @var String
+     */
+    protected $updatedBy;
+
     public function setTranslatableLocale($locale) {
         $this->locale = $locale;
     }
@@ -56,6 +67,14 @@ class GenericExtendedEntity implements Translatable {
 
     public function setDeletedAt($deletedAt) {
         $this->deletedAt = $deletedAt;
+    }
+
+    public function getCreatedBy() {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy() {
+        return $this->updatedBy;
     }
 
 }
