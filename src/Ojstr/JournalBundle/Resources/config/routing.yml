@@ -40,6 +40,3 @@ ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
     prefix:   /subject
 
-ojstr_keyword_crud:
-    resource: "@OjstrJournalBundle/Resources/config/routing/keyword.yml"
-    prefix:   /keyword

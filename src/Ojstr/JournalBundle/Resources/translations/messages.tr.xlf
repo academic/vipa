@@ -44,6 +44,22 @@
                 <target>Bulunamadı</target>
             </trans-unit>
             
+            <trans-unit id="10">
+                <source>Waiting</source>
+                <target>Bekliyor</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Published</source>
+                <target>Yayından</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Unpublished</source>
+                <target>Yayından Kaldırılmış</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Spam</source>
+                <target>Spam</target>
+            </trans-unit> 
             
         </body>
     </file>

@@ -12,17 +12,6 @@ Ojstr\JournalBundle\Entity\Article:
       targetEntity: Journal
       inversedBy: articles        
   manyToMany: 
-    keywords: 
-      targetEntity: Keyword
-      inversedBy: articles
-      joinTable: 
-        inverseJoinColumns: 
-          keyword_id: 
-            referencedColumnName: id
-        joinColumns: 
-          article_id: 
-            referencedColumnName: id
-        name: Article_Keyword
     subjects: 
       targetEntity: Subject
       inversedBy: articles
@@ -39,6 +28,14 @@ Ojstr\JournalBundle\Entity\Article:
   table: ~
   type: entity
   fields: 
+    status:
+        type: integer
+        options: 
+          default: 0
+        nullable: TRUE
+    keywords:
+        type: text
+        nullable: TRUE
     abstract: 
       type: text
       nullable: TRUE
