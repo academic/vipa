@@ -11,9 +11,14 @@ Ojstr\JournalBundle\Entity\ContactTypes:
         name:
             type: string
             length: 255
+            gedmo:
+                - translatable
+                - versioned
         description:
             type: string
             length: 255
+            gedmo:
+                - translatable
         created:
             type: datetime
             gedmo:
@@ -31,4 +36,7 @@ Ojstr\JournalBundle\Entity\ContactTypes:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
+        loggable: true
     lifecycleCallbacks: {  }

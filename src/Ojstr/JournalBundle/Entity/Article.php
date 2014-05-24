@@ -2,18 +2,21 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * Article
  */
-class Article extends \Ojstr\Entity\GenericEntity {
+class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * auto-incremented article unique id
      * @var integer
      */
     private $id;
+
+    /**
+     * * @var integer
+     */
+    private $status;
 
     /**
      * (optional)
@@ -48,6 +51,11 @@ class Article extends \Ojstr\Entity\GenericEntity {
      * @var string
      */
     private $subtitle;
+
+    /**
+     * @var string
+     */
+    private $keywords;
 
     /**
      * Some artilce carries no authorship
@@ -98,43 +106,39 @@ class Article extends \Ojstr\Entity\GenericEntity {
     private $abstractTranslated;
 
     /**
-     * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     * @Gedmo\Timestampable
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
-
-    public function getUpdated() {
-        return $this->updated;
-    }
-
-    public function getContentChanged() {
-        return $this->contentChanged;
-    }
-
-    /**
      * Get id
      *
      * @return integer
      */
     public function getId() {
         return $this->id;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * 
+     * @param bool $translate
+     * @return string
+     */
+    public function getStatusText() {
+        return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+        return $status;
+    }
+
+    public function getKeywords() {
+        return $this->keywords;
+    }
+
+    public function setKeywords($keywords) {
+        $this->keywords = $keywords;
+        return $keywords;
     }
 
     /**
@@ -438,45 +442,10 @@ class Article extends \Ojstr\Entity\GenericEntity {
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $keywords;
-
-    /**
      * Constructor
      */
     public function __construct() {
-        $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add keywords
-     *
-     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
-     * @return Article
-     */
-    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
-        $this->keywords[] = $keywords;
-
-        return $this;
-    }
-
-    /**
-     * Remove keywords
-     *
-     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
-     */
-    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
-        $this->keywords->removeElement($keywords);
-    }
-
-    /**
-     * Get keywords
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getKeywords() {
-        return $this->keywords;
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

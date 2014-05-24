@@ -12,17 +12,6 @@ Ojstr\JournalBundle\Entity\Article:
       targetEntity: Journal
       inversedBy: articles        
   manyToMany: 
-    keywords: 
-      targetEntity: Keyword
-      inversedBy: articles
-      joinTable: 
-        inverseJoinColumns: 
-          keyword_id: 
-            referencedColumnName: id
-        joinColumns: 
-          article_id: 
-            referencedColumnName: id
-        name: Article_Keyword
     subjects: 
       targetEntity: Subject
       inversedBy: articles
@@ -39,21 +28,38 @@ Ojstr\JournalBundle\Entity\Article:
   table: ~
   type: entity
   fields: 
+    status:
+        type: integer
+        options: 
+          default: 0
+        nullable: TRUE
+    keywords:
+        type: text
+        nullable: TRUE
     abstract: 
       type: text
       nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
     abstractTranslated: 
       column: abstract_translated
       type: text
       nullable: TRUE
+      gedmo:
+          - versioned
     doi: 
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+          - versioned
     firstPage: 
       column: first_page
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     isAnonymous: 
       column: is_anonymous
       type: boolean
@@ -64,10 +70,14 @@ Ojstr\JournalBundle\Entity\Article:
       column: journal_id
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     lastPage: 
       column: last_page
       type: integer
       nullable: TRUE
+      gedmo:
+          - versioned
     otherId: 
       column: other_id
       length: 255
@@ -80,6 +90,8 @@ Ojstr\JournalBundle\Entity\Article:
     pubdate: 
       type: datetime
       nullable: TRUE
+      gedmo:
+          - versioned
     pubdateSeason: 
       column: pubdate_season
       length: 255
@@ -89,9 +101,15 @@ Ojstr\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
     title: 
       length: 255
       type: string
+      gedmo:
+        - translatable
+        - versioned
     titleTranslated: 
       column: title_translated
       length: 255
@@ -118,3 +136,9 @@ Ojstr\JournalBundle\Entity\Article:
     soft_deleteable:
       field_name: deletedAt
       time_aware: false
+    translation:
+            locale: locale
+    loggable: true
+  indexes:
+    doix:
+      columns: doi

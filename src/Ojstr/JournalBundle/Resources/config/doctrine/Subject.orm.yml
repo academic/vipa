@@ -15,11 +15,17 @@ Ojstr\JournalBundle\Entity\Subject:
         subject:
             type: string
             length: 255
+            gedmo:
+                - translatable
+                - versioned
         description:
             type: text
             nullable: TRUE
+            gedmo:
+                - translatable
         created:
             type: datetime
+            nullable: true
             gedmo:
               timestampable:
                 on: create
@@ -31,8 +37,19 @@ Ojstr\JournalBundle\Entity\Subject:
         deletedAt:
             type: date
             nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     gedmo:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        loggable: true
     lifecycleCallbacks: {  }
