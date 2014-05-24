@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <div class="row">
-        <div class="large-12 columns">
-            <div class="panel">
-                <h1>Article Detail</h1>
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Article Detail</h1>
 
-                <table class="record_properties" style="width:100%">
-                    <tbody>
+            <table class="record_properties" style="width:100%">
+                <tbody>
                     <tr>
-                        <th width="300px">Id</th>
+                        <td width="300px">Id</td>
                         <td>{{ entity.id }}</td>
                     </tr>
                     <tr>
@@ -17,11 +17,11 @@
                         <td>
                             {{ entity.doi }}
                             {% if entity.doi %}
-                                <a href="#" onclick="$('#doiform').submit();">
-                                <span class="label small info">
+                            <a href="#" onclick="$('#doiform').submit();">
+                                <small>
                                     Check
-                                </span>
-                                </a>
+                                </small>
+                            </a>
                             {% endif %}
                             <form action="http://dx.doi.org/" method="POST" id="doiform">
                                 <input type="hidden" name="hdl" value="{{ entity.doi }}"/>
@@ -39,20 +39,17 @@
                         <th>Subjects</th>
                         <td>
                             {% for subject in entity.subjects %}
-                                <a href="{{ path("admin_subject_show",{'id':entity.journal.id}) }}">
-                                    <span class="label">{{ subject.subject }}</span>
-                                </a>
+                            <a href="{{ path("admin_subject_show",{'id':subject.id}) }}" 
+                               class="btn btn-info btn-sm">
+                                <span>{{ subject.subject }}</span> 
+                            </a> 
                             {% endfor %}
                         </td>
                     </tr>
 
                     <tr>
                         <th>Keywords</th>
-                        <td>
-                            {% for keyword in entity.keywords %}
-                                <a href="#"><span class="label">{{ keyword.keyword }}</span></a>
-                            {% endfor %}
-                        </td>
+                        <td> {{ entity.keywords }} </td>
                     </tr>
                     <tr>
                         <th>Otherid</th>
@@ -110,20 +107,20 @@
                         <th>Abstracttranslated</th>
                         <td>{{ entity.abstractTranslated }}</td>
                     </tr>
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
-                <div class="record_actions">
-                    <a class="button" href="{{ path('admin_article') }}">
+            <div class="record_actions">
+                <a class="button" href="{{ path('admin_article') }}">
                         {% trans %}Back to list{% endtrans %}
-                    </a>
-                    <a class="button" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
-                        Edit
-                    </a>
+                </a>
+                <a class="button" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
                     {{ form(delete_form) }}
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

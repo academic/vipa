@@ -14,6 +14,11 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $id;
 
     /**
+     * * @var integer
+     */
+    private $status;
+
+    /**
      * (optional)
      * @var string
      */
@@ -46,6 +51,11 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var string
      */
     private $subtitle;
+
+    /**
+     * @var string
+     */
+    private $keywords;
 
     /**
      * Some artilce carries no authorship
@@ -102,6 +112,33 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getId() {
         return $this->id;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * 
+     * @param bool $translate
+     * @return string
+     */
+    public function getStatusText() {
+        return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+        return $status;
+    }
+
+    public function getKeywords() {
+        return $this->keywords;
+    }
+
+    public function setKeywords($keywords) {
+        $this->keywords = $keywords;
+        return $keywords;
     }
 
     /**
@@ -405,45 +442,10 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $keywords;
-
-    /**
      * Constructor
      */
     public function __construct() {
-        $this->keywords = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add keywords
-     *
-     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
-     * @return Article
-     */
-    public function addKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
-        $this->keywords[] = $keywords;
-
-        return $this;
-    }
-
-    /**
-     * Remove keywords
-     *
-     * @param \Ojstr\JournalBundle\Entity\Keyword $keywords
-     */
-    public function removeKeyword(\Ojstr\JournalBundle\Entity\Keyword $keywords) {
-        $this->keywords->removeElement($keywords);
-    }
-
-    /**
-     * Get keywords
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getKeywords() {
-        return $this->keywords;
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
