@@ -1,0 +1,16 @@
+<div class="dropdown">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        Change Language [{{ app.request.locale }}]
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+
+
+{% for lang in languages%}
+        <li class="{% if app.request.locale == lang.code %}disabled{%endif%}"
+            ><a href="{{ path('change_locale', { 'code': lang.code }) }}">{{lang.name}}</a>
+        </li>
+{% endfor %}
+    </ul>
+</div>
+

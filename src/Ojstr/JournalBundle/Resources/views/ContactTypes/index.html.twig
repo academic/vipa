@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
     <h1>ContactTypes list</h1>
@@ -21,10 +21,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('contacttypes_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a>
+                        <a href="{{ path('contacttypes_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
                     </li>
                     <li>
-                        <a href="{{ path('contacttypes_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
+                        <a href="{{ path('contacttypes_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
                     </li>
                 </ul>
                 </td>
@@ -35,8 +35,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('contacttypes_new') }}">
-                Create a new entry
+            <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
+{% trans %}Create New{% endtrans %}
             </a>
         </li>
     </ul>

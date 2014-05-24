@@ -14,6 +14,8 @@ Ojstr\JournalBundle\Entity\Theme:
             length: 255
         content:
             type: text
+            gedmo:
+                - translatable
         baseTheme:
             type: boolean
             column: base_theme
@@ -34,4 +36,6 @@ Ojstr\JournalBundle\Entity\Theme:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
     lifecycleCallbacks: {  }

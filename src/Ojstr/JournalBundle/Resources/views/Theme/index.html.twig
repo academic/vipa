@@ -23,10 +23,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('theme_show', { 'id': entity.id }) }}">{% trans %}Show{% endtrans %}</a>
+                        <a href="{{ path('theme_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
                     </li>
                     <li>
-                        <a href="{{ path('theme_edit', { 'id': entity.id }) }}">{% trans %}Edit{% endtrans %}</a>
+                        <a href="{{ path('theme_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
                     </li>
                 </ul>
                 </td>
@@ -37,8 +37,8 @@
 
         <ul>
         <li>
-            <a href="{{ path('theme_new') }}">
-                Create a new entry
+            <a href="{{ path('theme_new') }}" class="btn btn-success">
+{% trans %}Create New{% endtrans %}
             </a>
         </li>
     </ul>

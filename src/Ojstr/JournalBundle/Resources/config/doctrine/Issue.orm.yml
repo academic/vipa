@@ -12,22 +12,35 @@ Ojstr\JournalBundle\Entity\Issue:
         journalId:
             type: integer
             column: journal_id
+            gedmo:
+                - versioned
         volume:
             type: string
             length: 255
+            gedmo:
+                - versioned
         number:
             type: string
             length: 255
+            gedmo:
+                - versioned
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
+                - versioned
         description:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
         year:
             type: string
             length: 255
+            gedmo:
+                - versioned
         datePublished:
             type: datetime
             column: date_published
@@ -48,4 +61,7 @@ Ojstr\JournalBundle\Entity\Issue:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
+        loggable: true
     lifecycleCallbacks: {  }

@@ -1,3 +1,5 @@
+.records_list ul{list-style: none;}
+.records_list ul li{display: inline; padding:2px;}
 @import url("//fonts.googleapis.com/css?family=Raleway:400,700");/*!
  * Bootswatch v3.1.1+1
  * Homepage: http://bootswatch.com

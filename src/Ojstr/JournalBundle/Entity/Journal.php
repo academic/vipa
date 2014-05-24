@@ -2,12 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Journal
  */
-class Journal extends \Ojstr\Entity\GenericEntity {
+class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable {
 
     /**
      * @var integer
@@ -103,29 +103,6 @@ class Journal extends \Ojstr\Entity\GenericEntity {
      * @var \Doctrine\Common\Collections\Collection
      */
     private $articles;
-
-    /**
-     * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     * @Gedmo\Timestampable
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
 
     /**
      * Constructor

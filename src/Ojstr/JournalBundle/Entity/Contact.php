@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-
 /**
  * Contact
  */
-class Contact extends \Ojstr\Entity\GenericEntity {
+class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -58,29 +56,6 @@ class Contact extends \Ojstr\Entity\GenericEntity {
      * @var string
      */
     private $email;
-
-    /**
-     * @var datetime $created 
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created;
-
-    /**
-     * @var datetime $updated
-     * @Gedmo\Timestampable
-     */
-    private $updated;
-
-    /**
-     * @var datetime $contentChanged
-     * @Gedmo\Timestampable()
-     */
-    private $contentChanged;
-
-    /**
-     * @var datetime
-     */
-    private $deletedAt;
 
     /**
      * Get id

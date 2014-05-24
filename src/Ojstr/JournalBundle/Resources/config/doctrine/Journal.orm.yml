@@ -18,6 +18,9 @@ Ojstr\JournalBundle\Entity\Journal:
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
+                - versioned
         titleAbbr:
             type: string
             length: 255
@@ -29,12 +32,19 @@ Ojstr\JournalBundle\Entity\Journal:
         subtitle:
             type: string
             length: 255
+            gedmo:
+                - translatable
+                - versioned
         issn:
             type: string
             length: '11'
+            gedmo:
+                - versioned
         eissn:
             type: string
             length: '11'
+            gedmo:
+                - versioned
         firstPublishDate:
             type: datetime
             column: first_publish_date
@@ -49,16 +59,25 @@ Ojstr\JournalBundle\Entity\Journal:
         publishStatus:
             type: integer
             column: publish_status
+            gedmo:
+                - versioned
         status:
             type: integer
+            gedmo:
+                - versioned
         coverImage:
             type: string
             length: 255
             column: cover_image
         scope:
             type: text
+            gedmo:
+                - translatable
+                - versioned
         mission:
             type: text
+            gedmo:
+                - translatable
         themeId:
             type: integer
             column: theme_id
@@ -79,4 +98,7 @@ Ojstr\JournalBundle\Entity\Journal:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
+        translation:
+            locale: locale
+        loggable: true
     lifecycleCallbacks: {  }
