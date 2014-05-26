@@ -213,14 +213,7 @@ class UserRestController extends FOSRestController {
      * @RestView()
      */
     public function statusUsersAction(Request $request, $user_id) {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
-        if (!is_object($user)) {
-            $this->notFound();
-        }
-        $user->setStatus($request->get('status'));
-        $em->flush();
-        return $user;
+        return $this->patch('status', $user_id,$request);
     }
 
     /**
@@ -243,13 +236,26 @@ class UserRestController extends FOSRestController {
      * @RestView()
      */
     public function activeUsersAction(Request $request, $user_id) {
+        return $this->patch('active', $user_id,$request);
+    }
+
+    protected function patch($field, $user_id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
             $this->notFound();
-        }
+        } 
         /* @var  $user \Ojstr\UserBundle\Entity\User */
-        $user->setIsActive($request->get('isActive'));
+        switch ($field) {
+            case 'active':
+                $user->setIsActive($request->get('isActive'));
+                break;
+            case 'active':
+                $user->setStatus($request->get('status'));
+                break;
+            default:
+                break;
+        }
         $em->flush();
         return $user;
     }
