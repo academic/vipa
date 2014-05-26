@@ -156,13 +156,13 @@ class UserRestController extends FOSRestController {
      */
     public function putUserAction(Request $request, $user_id) {
         $entity = $this->getUserEntity($user_id);
-        $form = $this->createForm(new UserRestType(), $entity);
+        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->bind($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->view(null, Codes::HTTP_NO_CONTENT);
+            return $this->view(null, Codes::HTTP_NO_CONTENT); 
         }
         throw new HttpException(400, 'Missing parameter');
     }
@@ -178,7 +178,7 @@ class UserRestController extends FOSRestController {
      */
     public function postUsersAction(Request $request) {
         $entity = new User();
-        $form = $this->createForm(new UserRestType(), $entity);
+        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
