@@ -4,64 +4,71 @@ namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojstr\JournalBundle\Entity\ArticleFile;
 use Ojstr\JournalBundle\Form\ArticleFileType;
+use Gedmo\Uploadable\FileInfo\FileInfoArray;
 
 /**
  * ArticleFile controller.
  *
  */
-class ArticleFileController extends Controller
-{
+class ArticleFileController extends Controller {
 
     /**
      * Lists all ArticleFile entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrJournalBundle:ArticleFile')->findAll();
 
         return $this->render('OjstrJournalBundle:ArticleFile:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new ArticleFile entity.
      *
      */
-    public function createAction(Request $request)
-    {
-        $entity = new ArticleFile();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('articlefile_show', array('id' => $entity->getId())));
+    public function createAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $file = new ArticleFile();
+        $form = $this->createCreateForm($file);
+        if (isset($_FILES['articlefile'])) {
+            $form->handleRequest($request);
+            $data = $form->getData();
+            //$listener->addEntityFileInfo($file, $fileInfo);
+            $listener = $this->get('stof_doctrine_extensions.listener.uploadable');
+            $listener->addEntityFileInfo($file, new FileInfoArray($_FILES['articlefile']));
+            $file->setArticleId($data->getArticleId());
+            $em->persist($file);
         }
 
-        return $this->render('OjstrJournalBundle:ArticleFile:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        $em->flush();
+//        $form = $this->createCreateForm($entity);
+//        $form->handleRequest($request);
+//
+//        if ($form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($entity);
+//            $em->flush();
+//
+//            return $this->redirect($this->generateUrl('articlefile_show', array('id' => $entity->getId())));
+//        } 
+
+        return $this->redirect($this->generateUrl('articlefile_show', array('id' => $file->getId())));
     }
 
     /**
-    * Creates a form to create a ArticleFile entity.
-    *
-    * @param ArticleFile $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(ArticleFile $entity)
-    {
+     * Creates a form to create a ArticleFile entity.
+     *
+     * @param ArticleFile $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(ArticleFile $entity) {
         $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_create'),
             'method' => 'POST',
@@ -76,14 +83,13 @@ class ArticleFileController extends Controller
      * Displays a form to create a new ArticleFile entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new ArticleFile();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OjstrJournalBundle:ArticleFile:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +97,7 @@ class ArticleFileController extends Controller
      * Finds and displays a ArticleFile entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
@@ -104,16 +109,15 @@ class ArticleFileController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrJournalBundle:ArticleFile:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing ArticleFile entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
@@ -126,21 +130,20 @@ class ArticleFileController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrJournalBundle:ArticleFile:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a ArticleFile entity.
-    *
-    * @param ArticleFile $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(ArticleFile $entity)
-    {
+     * Creates a form to edit a ArticleFile entity.
+     *
+     * @param ArticleFile $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(ArticleFile $entity) {
         $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -150,12 +153,12 @@ class ArticleFileController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing ArticleFile entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
@@ -175,17 +178,17 @@ class ArticleFileController extends Controller
         }
 
         return $this->render('OjstrJournalBundle:ArticleFile:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a ArticleFile entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -211,13 +214,13 @@ class ArticleFileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('articlefile_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('articlefile_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

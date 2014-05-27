@@ -1,11 +1,19 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>ArticleFile creation</h1>
+<h1>ArticleFile creation</h1>
 
-    {{ form(form) }}
+ {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+        {{ form_errors(form) }}
 
-        <ul class="record_actions">
+<div>
+    <input type="file" name="articlefile">
+</div> 
+
+
+    {{ form_end(form) }} 
+
+<ul class="record_actions">
     <li>
         <a href="{{ path('articlefile') }}">
             Back to the list

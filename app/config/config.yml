@@ -88,7 +88,7 @@ doctrine:
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+                enabled: true 
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -128,6 +128,7 @@ stof_doctrine_extensions:
             translatable: true
             blameable: true
             loggable: true
+            uploadable: true
 jms_serializer:
     metadata:
         directories:
