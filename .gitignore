@@ -9,6 +9,7 @@ files
 
 /.idea/
 
+/web/uploads/*
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
