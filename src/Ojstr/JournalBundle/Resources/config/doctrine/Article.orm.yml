@@ -134,11 +134,11 @@ Ojstr\JournalBundle\Entity\Article:
         nullable: true
   gedmo:
     soft_deleteable:
-      field_name: deletedAt
-      time_aware: false
+        field_name: deletedAt
+        time_aware: false
     translation:
-            locale: locale
-    loggable: true
+        locale: locale
+    loggable: true 
   indexes:
     doix:
       columns: doi
