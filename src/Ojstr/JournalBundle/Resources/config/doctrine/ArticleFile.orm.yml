@@ -1,0 +1,53 @@
+Ojstr\JournalBundle\Entity\ArticleFile:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\ArticleFileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: text
+        name:
+            type: string
+            length: 255
+        mimeType:
+            type: string
+            length: 255
+            column: mime_type
+        size:
+            type: decimal
+        articleId:
+            type: integer
+            column: article_id
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
+        translation:
+            locale: locale
+        loggable: true
+        uploadable:
+            allowOverwrite: true
+            appendNumber: true
+            path: '/my/path'
+            pathMethod: getPath
+            callback: callbackMethod
+            filenameGenerator: SHA1
+    lifecycleCallbacks: {  }
