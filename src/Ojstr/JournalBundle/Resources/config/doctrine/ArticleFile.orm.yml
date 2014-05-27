@@ -10,19 +10,28 @@ Ojstr\JournalBundle\Entity\ArticleFile:
                 strategy: AUTO
     fields:
         path:
-            type: text
+            type: string
+            gedmo:
+                - uploadableFilePath
         name:
             type: string
             length: 255
+            gedmo:
+                - uploadableFileName
         mimeType:
             type: string
             length: 255
             column: mime_type
+            gedmo:
+                - uploadableFileMimeType
         size:
             type: decimal
+            gedmo:
+                - uploadableFileSize
         articleId:
             type: integer
             column: article_id
+            nullable: TRUE
         created:
            type: datetime
            gedmo:
@@ -45,9 +54,10 @@ Ojstr\JournalBundle\Entity\ArticleFile:
         loggable: true
         uploadable:
             allowOverwrite: true
+            disallowedTypes: exe, php, sh, bat, msi
             appendNumber: true
-            path: '/my/path'
+            path: '/home/tayyar/Dropbox/okulbilisim/ojssf/web/uploads'
             pathMethod: getPath
-            callback: callbackMethod
+            callback: articleFileCallback
             filenameGenerator: SHA1
     lifecycleCallbacks: {  }

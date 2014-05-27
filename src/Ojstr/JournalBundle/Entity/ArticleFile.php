@@ -151,4 +151,23 @@ class ArticleFile extends \Ojstr\Common\Entity\GenericExtendedEntity {
         return $this->articleId;
     }
 
+    /**
+     * callback - This option allows you to set a method name. 
+     * If this option is set, the method will be called after the file is moved. Default value: "". 
+     * As first argument, this method can receive an array with information about the uploaded file, 
+     * which includes the following keys:
+     * 
+     * - fileName: The filename.
+     * - fileExtension: The extension of the file (including the dot). Example: .jpg
+     * - fileWithoutExt: The filename without the extension.
+     * - filePath: The file path. Example: /my/path/filename.jpg
+     * - fileMimeType: The mime-type of the file. Example: text/plain.
+     * - fileSize: Size of the file in bytes. Example: 140000.
+     * 
+     * @param array $info
+     */
+    public function articleFileCallback(array $info) {
+        // Do some stuff with the file..
+    }
+
 }
