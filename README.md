@@ -56,7 +56,7 @@ Ojs first run configuration :
 
 Ojs sample data :
 
-    php app/console doctrine:fixtures:load
+    php app/console doctrine:fixtures:load --append
 
 Run on your local environment : 
 
