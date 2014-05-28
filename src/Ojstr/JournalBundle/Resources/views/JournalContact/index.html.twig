@@ -7,6 +7,9 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Journalid</th>
+                <th>Contactid</th>
+                <th>Contacttypeid</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -14,6 +17,9 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('journalcontact_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.journalId }}</td>
+                <td>{{ entity.contactId }}</td>
+                <td>{{ entity.contactTypeId }}</td>
                 <td>
                 <ul>
                     <li>
