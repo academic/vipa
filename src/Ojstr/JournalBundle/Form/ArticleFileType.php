@@ -13,12 +13,12 @@ class ArticleFileType extends AbstractType {
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder
+            $builder
 //                ->add('path')
 //                ->add('name')
 //                ->add('mimeType')
 //                ->add('size')
-                ->add('articleId');
+                  ->add('articleId');
     }
 
     /**

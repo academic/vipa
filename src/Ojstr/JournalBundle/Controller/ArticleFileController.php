@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\ArticleFile;
 use Ojstr\JournalBundle\Form\ArticleFileType;
 use Gedmo\Uploadable\FileInfo\FileInfoArray;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * ArticleFile controller.
@@ -83,12 +84,17 @@ class ArticleFileController extends Controller {
      * Displays a form to create a new ArticleFile entity.
      *
      */
-    public function newAction() {
-        $entity = new ArticleFile();
-        $form = $this->createCreateForm($entity);
+    public function newAction($articleId = NULL) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Article')->find($articleId);
+        if (empty($entity)) {
+            throw new NotFoundHttpException('Article not found!');
+        }
+        $form = $this->createCreateForm(new ArticleFile());
 
         return $this->render('OjstrJournalBundle:ArticleFile:new.html.twig', array(
-                    'entity' => $entity,
+                    //'entity' => $entity,
+                    'articleId' => $entity ? $entity->getId() : NULL,
                     'form' => $form->createView(),
         ));
     }
