@@ -17,6 +17,7 @@ Ojstr\JournalBundle\Entity\ContactTypes:
         description:
             type: string
             length: 255
+            nullable: TRUE
             gedmo:
                 - translatable
         created:

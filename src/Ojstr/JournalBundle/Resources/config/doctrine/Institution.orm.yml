@@ -19,6 +19,7 @@ Ojstr\JournalBundle\Entity\Institution:
             type: text
         country:
             type: integer
+            nullable: TRUE
         addressLat:
             type: string
             length: 255
