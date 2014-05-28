@@ -1,30 +1,30 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>ArticleFile list</h1>
+<h1>ArticleFile list</h1>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Path</th>
-                <th>Name</th>
-                <th>Mimetype</th>
-                <th>Size</th>
-                <th>Articleid</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+
+            <th>Name</th>
+            <th>Mimetype</th>
+            <th>Size</th>
+            <th>Articleid</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('articlefile_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.path }}</td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.mimeType }}</td>
-                <td>{{ entity.size }}</td>
-                <td>{{ entity.articleId }}</td>
-                <td>
+        <tr>
+            <td><a href="{{ path('articlefile_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.mimeType }}</td>
+            <td>{{ entity.size }}</td>
+            <td>{{ entity.articleId }}</td>
+            <td>
                 <ul>
                     <li>
                         <a href="{{ path('articlefile_show', { 'id': entity.id }) }}">show</a>
@@ -33,17 +33,10 @@
                         <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
-                </td>
-            </tr>
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-        <ul>
-        <li>
-            <a href="{{ path('articlefile_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

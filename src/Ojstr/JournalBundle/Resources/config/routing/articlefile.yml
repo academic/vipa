@@ -7,7 +7,7 @@ articlefile_show:
     defaults: { _controller: "OjstrJournalBundle:ArticleFile:show" }
 
 articlefile_new:
-    pattern:  /new
+    pattern:  /new/article/{articleId}
     defaults: { _controller: "OjstrJournalBundle:ArticleFile:new" }
 
 articlefile_create:
