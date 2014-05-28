@@ -29,9 +29,11 @@ Ojstr\JournalBundle\Entity\Journal:
             type: string
             length: 255
             column: title_translated
+            nullable: true
         subtitle:
             type: string
             length: 255
+            nullable: true
             gedmo:
                 - translatable
                 - versioned
@@ -43,44 +45,61 @@ Ojstr\JournalBundle\Entity\Journal:
         eissn:
             type: string
             length: '11'
+            nullable: true
             gedmo:
                 - versioned
         firstPublishDate:
             type: datetime
             column: first_publish_date
+            nullable: true
         period:
             type: string
             length: 255
+            nullable: true
         url:
             type: string
             length: 255
+            nullable: true
         country:
             type: integer
+            nullable: true
         publishStatus:
             type: integer
             column: publish_status
             gedmo:
                 - versioned
+            nullable: true
+            options:
+                default: 0
         status:
             type: integer
             gedmo:
                 - versioned
+            nullable: true
+            options:
+                default: 0
         coverImage:
             type: string
             length: 255
             column: cover_image
+            nullable: true
         scope:
             type: text
+            nullable: true
             gedmo:
                 - translatable
                 - versioned
         mission:
             type: text
+            nullable: true
             gedmo:
                 - translatable
         themeId:
             type: integer
             column: theme_id
+            nullable: true
+            options:
+                default: 0
         created:
             type: datetime
             gedmo:

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\UserBundle\DataFixtures\ORM;
+namespace Ojstr\JournalBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -33,6 +33,10 @@ class LoadJournalData implements FixtureInterface {
           $manager->persist($article);
           $manager->flush();
          * */
+    }
+
+    public function getOrder() {
+        return 2;
     }
 
 }
