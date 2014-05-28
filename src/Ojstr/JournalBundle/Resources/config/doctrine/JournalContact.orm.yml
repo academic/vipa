@@ -1,0 +1,11 @@
+Ojstr\JournalBundle\Entity\JournalContact:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\JournalContactRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

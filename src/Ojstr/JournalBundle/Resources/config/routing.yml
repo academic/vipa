@@ -43,4 +43,8 @@ ostr_subject_crud:
 ostr_articlefile:
     resource: "@OjstrJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile
+    
+ojs_journalcontact:
+    resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
+    prefix:   /journalcontact
 
