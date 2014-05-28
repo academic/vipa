@@ -1,7 +1,7 @@
 parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
-    database_port:     ~
+    database_port:     3306
     database_name:     ojs
     database_user:     ojs
     database_password: ojs
