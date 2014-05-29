@@ -42,8 +42,8 @@ Ojstr\JournalBundle\Entity\Article:
       gedmo:
         - translatable
         - versioned
-    abstractTranslated: 
-      column: abstract_translated
+    abstractTransliterated: 
+      column: abstract_transliterated
       type: text
       nullable: TRUE
       gedmo:
@@ -110,8 +110,8 @@ Ojstr\JournalBundle\Entity\Article:
       gedmo:
         - translatable
         - versioned
-    titleTranslated: 
-      column: title_translated
+    titleTransliterated: 
+      column: title_transliterated
       length: 255
       type: string
       nullable: TRUE

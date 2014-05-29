@@ -25,10 +25,10 @@ Ojstr\JournalBundle\Entity\Journal:
             type: string
             length: 255
             column: title_abbr
-        titleTranslated:
+        titleTransliterated:
             type: string
             length: 255
-            column: title_translated
+            column: title_transliterated
             nullable: true
         subtitle:
             type: string

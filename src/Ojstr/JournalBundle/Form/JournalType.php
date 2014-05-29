@@ -17,7 +17,7 @@ class JournalType extends AbstractType
         $builder
             ->add('title')
             ->add('titleAbbr')
-            ->add('titleTranslated')
+            ->add('titleTransliterated')
             ->add('subtitle')
             ->add('issn')
             ->add('eissn')
