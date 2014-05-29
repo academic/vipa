@@ -27,7 +27,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     /**
      * @var string
      */
-    private $titleTranslated;
+    private $titleTransliterated;
 
     /**
      * @var string
@@ -162,23 +162,23 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * Set titleTranslated
+     * Set titleTransliterated
      *
-     * @param string $titleTranslated
+     * @param string $titleTransliterated
      * @return Journal
      */
-    public function setTitleTranslated($titleTranslated) {
-        $this->titleTranslated = $titleTranslated;
+    public function setTitleTransliterated($titleTransliterated) {
+        $this->titleTransliterated = $titleTransliterated;
         return $this;
     }
 
     /**
-     * Get titleTranslated
+     * Get titleTransliterated
      *
      * @return string 
      */
-    public function getTitleTranslated() {
-        return $this->titleTranslated;
+    public function getTitleTransliterated() {
+        return $this->titleTransliterated;
     }
 
     /**

@@ -42,10 +42,10 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $title;
 
     /**
-     * English translated title
+     * Roman transliterated title
      * @var string
      */
-    private $titleTranslated;
+    private $titleTransliterated;
 
     /**
      * @var string
@@ -100,10 +100,10 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $abstract;
 
     /**
-     * (optional) English translated abstract
+     * (optional) English transliterated abstract
      * @var string
      */
-    private $abstractTranslated;
+    private $abstractTransliterated;
 
     /**
      * Get id
@@ -222,23 +222,23 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set titleTranslated
+     * Set titleTransliterated
      *
-     * @param string $titleTranslated
+     * @param string $titleTransliterated
      * @return Article
      */
-    public function setTitleTranslated($titleTranslated) {
-        $this->titleTranslated = $titleTranslated;
+    public function setTitleTransliterated($titleTransliterated) {
+        $this->titleTransliterated = $titleTransliterated;
         return $this;
     }
 
     /**
-     * Get titleTranslated
+     * Get titleTransliterated
      *
      * @return string
      */
-    public function getTitleTranslated() {
-        return $this->titleTranslated;
+    public function getTitleTransliterated() {
+        return $this->titleTransliterated;
     }
 
     /**
@@ -422,23 +422,23 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set abstractTranslated
+     * Set abstractTransliterated
      *
-     * @param string $abstractTranslated
+     * @param string $abstractTransliterated
      * @return Article
      */
-    public function setAbstractTranslated($abstractTranslated) {
-        $this->abstractTranslated = $abstractTranslated;
+    public function setAbstractTransliterated($abstractTransliterated) {
+        $this->abstractTransliterated = $abstractTransliterated;
         return $this;
     }
 
     /**
-     * Get abstractTranslated
+     * Get abstractTransliterated
      *
      * @return string
      */
-    public function getAbstractTranslated() {
-        return $this->abstractTranslated;
+    public function getAbstractTransliterated() {
+        return $this->abstractTransliterated;
     }
 
     /**
