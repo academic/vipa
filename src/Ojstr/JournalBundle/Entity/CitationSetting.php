@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CitationSetting
  */
-class CitationSetting
-{
+class CitationSetting {
+
     /**
      * @var integer
      */
@@ -29,14 +29,18 @@ class CitationSetting
      */
     private $value;
 
+    /**
+     *
+     * @var \Ojstr\JournalBundle\Entity\Citation 
+     */
+    protected $citation;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -46,8 +50,7 @@ class CitationSetting
      * @param integer $citationId
      * @return CitationSetting
      */
-    public function setCitationId($citationId)
-    {
+    public function setCitationId($citationId) {
         $this->citationId = $citationId;
 
         return $this;
@@ -58,8 +61,7 @@ class CitationSetting
      *
      * @return integer 
      */
-    public function getCitationId()
-    {
+    public function getCitationId() {
         return $this->citationId;
     }
 
@@ -69,8 +71,7 @@ class CitationSetting
      * @param string $setting
      * @return CitationSetting
      */
-    public function setSetting($setting)
-    {
+    public function setSetting($setting) {
         $this->setting = $setting;
 
         return $this;
@@ -81,8 +82,7 @@ class CitationSetting
      *
      * @return string 
      */
-    public function getSetting()
-    {
+    public function getSetting() {
         return $this->setting;
     }
 
@@ -92,8 +92,7 @@ class CitationSetting
      * @param string $value
      * @return CitationSetting
      */
-    public function setValue($value)
-    {
+    public function setValue($value) {
         $this->value = $value;
 
         return $this;
@@ -104,8 +103,8 @@ class CitationSetting
      *
      * @return string 
      */
-    public function getValue()
-    {
+    public function getValue() {
         return $this->value;
     }
+
 }

@@ -2,6 +2,10 @@ Ojstr\JournalBundle\Entity\CitationSetting:
     type: entity
     table: null
     repositoryClass: Ojstr\JournalBundle\Entity\CitationSettingRepository
+    manyToOne:
+        citation:
+                targetEntity: Ojstr\JournalBundle\Entity\Citation
+                inversedBy: Citation 
     id:
         id:
             type: integer

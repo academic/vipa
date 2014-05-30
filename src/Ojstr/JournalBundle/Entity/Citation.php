@@ -58,6 +58,10 @@ class Citation {
     public function getSettings() {
         return $this->settings;
     }
+    
+    public function getSetting($key) {
+        return $this->settings[$key];
+    }
 
     /**
      * Add setting
