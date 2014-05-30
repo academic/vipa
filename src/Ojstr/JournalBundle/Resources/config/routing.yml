@@ -48,3 +48,10 @@ ojs_journalcontact:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
     prefix:   /journalcontact
 
+ojs_citation:
+    resource: "@OjstrJournalBundle/Resources/config/routing/citation.yml"
+    prefix:   /citation
+
+ojs_citationsetting:
+    resource: "@OjstrJournalBundle/Resources/config/routing/citationsetting.yml"
+    prefix:   /citationsetting

@@ -1,0 +1,26 @@
+Ojstr\JournalBundle\Entity\Citation:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\CitationRepository
+    oneToMany:
+        settings:
+          targetEntity: Ojstr\JournalBundle\Entity\CitationSetting
+          mappedBy: citation
+          cascade: ["persist", "merge"]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        source:
+            type: string
+            length: 255
+        type:
+            type: string
+            length: '20'
+        orderNum:
+            type: integer
+            column: order_num
+    lifecycleCallbacks: {  }

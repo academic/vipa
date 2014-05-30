@@ -1,0 +1,30 @@
+citationsetting:
+    pattern:  /
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:index" }
+
+citationsetting_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:show" }
+
+citationsetting_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:new" }
+
+citationsetting_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:create" }
+    requirements: { _method: post }
+
+citationsetting_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:edit" }
+
+citationsetting_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:update" }
+    requirements: { _method: post|put }
+
+citationsetting_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:delete" }
+    requirements: { _method: post|delete }

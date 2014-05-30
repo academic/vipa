@@ -1,0 +1,20 @@
+Ojstr\JournalBundle\Entity\CitationSetting:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\JournalBundle\Entity\CitationSettingRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        citationId:
+            type: integer
+            column: citation_id
+        setting:
+            type: string
+            length: '50'
+        value:
+            type: text
+    lifecycleCallbacks: {  }
