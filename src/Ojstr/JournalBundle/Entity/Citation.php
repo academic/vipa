@@ -65,7 +65,7 @@ class Citation {
      * @param \Ojstr\JournalBundle\Entity\CitationSetting $setting
      * @return Citation
      */
-    public function addUser(\Ojstr\JournalBundle\Entity\CitationSetting $setting) {
+    public function addSetting(\Ojstr\JournalBundle\Entity\CitationSetting $setting) {
         $this->settings[] = $setting;
 
         return $this;
