@@ -2,12 +2,10 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Citation
  */
-class Citation {
+class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
