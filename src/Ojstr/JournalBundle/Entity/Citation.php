@@ -41,7 +41,8 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * 
      */
     public function __construct() {
-        $this->settings = $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->settings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

@@ -33,6 +33,25 @@ class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     protected $citation;
 
+    
+    /**
+     * 
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @return \Ojstr\JournalBundle\Entity\CitationSetting
+     */
+    public function setCitation($citation) {
+        $this->citation = $citation;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return \Ojstr\JournalBundle\Entity\Citation
+     */
+    public function getCitation() {
+        return $this->citation;
+    }
+
     /**
      * Get id
      *
