@@ -106,6 +106,82 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $abstractTransliterated;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $subjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $citations;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->subjects = $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     * @return Article
+     */
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects() {
+        return $this->subjects;
+    }
+
+    /**
+     * Add citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @return Article
+     */
+    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations[] = $citation;
+        return $this;
+    }
+
+    /**
+     * Remove citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     */
+    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations->removeElement($citation);
+    }
+
+    /**
+     * Get citations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCitations() {
+        return $this->citations;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -439,48 +515,6 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getAbstractTransliterated() {
         return $this->abstractTransliterated;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $subjects;
-
-    /**
-     * Add subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     * @return Article
-     */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
-        $this->subjects[] = $subjects;
-
-        return $this;
-    }
-
-    /**
-     * Remove subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
-        $this->subjects->removeElement($subjects);
-    }
-
-    /**
-     * Get subjects
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubjects() {
-        return $this->subjects;
     }
 
     /**
