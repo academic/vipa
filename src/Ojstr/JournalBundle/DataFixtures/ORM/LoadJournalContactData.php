@@ -2,11 +2,12 @@
 
 namespace Ojstr\JournalBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\JournalContact;
 
-class LoadJournalContactData implements FixtureInterface {
+class LoadJournalContactData extends AbstractFixture implements OrderedFixtureInterface {
 
     /**
      * run after contact, contacttype and journal datafixtures executed
@@ -15,23 +16,26 @@ class LoadJournalContactData implements FixtureInterface {
     public function load(ObjectManager $manager) {
         $jcontact = new JournalContact();
 
-        // get first journal record       
-        $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOne();
+        // get first journal record
+        $journal = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Journal c')
+                        ->setMaxResults(1)->getResult();
         // get first contacttype record
-        $contactType = $em->getRepository('OjstrJournalBundle:ContactType')->findOne();
+        $contactType = $manager->createQuery('SELECT c FROM OjstrJournalBundle:ContactTypes c ')
+                        ->setMaxResults(1)->getResult();
         //get first contact record
-        $contact = $em->getRepository('OjstrJournalBundle:Contact')->findOne();
+        $contact = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Contact c')
+                        ->setMaxResults(1)->getResult();
 
-        $jcontact->setJournal($journal);
-        $jcontact->setContactType($contactType);
-        $jcontact->setContact($contact);
+        $jcontact->setJournal($journal[0]);
+        $jcontact->setContactType($contactType[0]);
+        $jcontact->setContact($contact[0]);
         $manager->persist($jcontact);
-        
+
         $manager->flush();
     }
 
     public function getOrder() {
-        return 3;
+        return 9;
     }
 
 }
