@@ -2,11 +2,12 @@
 
 namespace Ojstr\JournalBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Journal;
 
-class LoadJournalData implements FixtureInterface {
+class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
         $journal = new Journal();
@@ -25,7 +26,7 @@ class LoadJournalData implements FixtureInterface {
     }
 
     public function getOrder() {
-        return 2;
+        return 8;
     }
 
 }

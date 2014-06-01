@@ -2,11 +2,12 @@
 
 namespace Ojstr\JournalBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\ContactTypes;
 
-class LoadContactTypesData implements FixtureInterface {
+class LoadContactTypesData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
         $ctype = new ContactTypes();
@@ -23,7 +24,7 @@ class LoadContactTypesData implements FixtureInterface {
     }
 
     public function getOrder() {
-        return 1;
+        return 3;
     }
 
 }
