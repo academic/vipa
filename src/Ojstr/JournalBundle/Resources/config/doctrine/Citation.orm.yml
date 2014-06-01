@@ -7,6 +7,10 @@ Ojstr\JournalBundle\Entity\Citation:
           targetEntity: Ojstr\JournalBundle\Entity\CitationSetting
           mappedBy: citation
           cascade: ["persist", "merge"]
+    manyToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: citations
     id:
         id:
             type: integer

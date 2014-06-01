@@ -35,10 +35,45 @@ class Citation {
     protected $settings;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles;
+
+    /**
      * 
      */
     public function __construct() {
-        $this->settings = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->settings = $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @return Subject
+     */
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     */
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles() {
+        return $this->articles;
     }
 
     /**
@@ -58,7 +93,7 @@ class Citation {
     public function getSettings() {
         return $this->settings;
     }
-    
+
     public function getSetting($key) {
         return $this->settings[$key];
     }

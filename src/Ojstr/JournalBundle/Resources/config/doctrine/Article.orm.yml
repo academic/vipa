@@ -23,6 +23,17 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Subject
+    citations: 
+      targetEntity: Citation
+      inversedBy: articles
+      joinTable: 
+        inverseJoinColumns: 
+          citation_id: 
+            referencedColumnName: id
+        joinColumns: 
+          article_id: 
+            referencedColumnName: id
+        name: Article_Citation
       
   repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
   table: ~
