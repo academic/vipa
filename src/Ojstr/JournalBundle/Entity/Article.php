@@ -119,7 +119,8 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * Constructor
      */
     public function __construct() {
-        $this->subjects = $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

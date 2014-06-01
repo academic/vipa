@@ -18,7 +18,7 @@ Ojstr\JournalBundle\Entity\CitationSetting:
             column: citation_id
         setting:
             type: string
-            length: '50'
+            length: 50
         value:
             type: text
             gedmo:
