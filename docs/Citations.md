@@ -1,13 +1,13 @@
 Citation
 --------
 
-- ** source  **
-- ** type **
+- **source **
+- **type**
     - common citation types :
         - book
         - journal
         - article 
-- ** orderNum **
+- **orderNum**
 
 
 
@@ -16,9 +16,9 @@ CitationSetting
 ----------------
 A key-value citation metadata container
 
-- ** citationId  **
-- ** setting **
-- ** value **
+- **citationId **
+- **setting**
+- **value**
 
 **Sample Record**
 
@@ -34,7 +34,7 @@ Description of Citation Types
 -----------------------------
 
 
-- ** article **
+- **article**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_ARTICLE  
 
 An article from a journal or magazine.
@@ -43,7 +43,7 @@ Required fields: author, title, journal, year
 
 Optional fields: volume, number, pages, month, note, key
 
-- ** book **
+- **book**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_BOOK 
 
 A book with an explicit publisher.
@@ -52,7 +52,7 @@ Required fields: author/editor, title, publisher, year
 
 Optional fields: volume/number, series, address, edition, month, note, key
 
-- ** booklet **
+- **booklet**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_BOOKLET 
 
 A work that is printed and bound, but without a named publisher or sponsoring institution.
@@ -61,12 +61,12 @@ Required fields: title
 
 Optional fields: author, howpublished, address, month, year, note, key
 
-- ** conference **
+- **conference**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_CONFERENCE 
 
 The same as inproceedings, included for Scribe compatibility.
 
-- ** inbook **
+- **inbook**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_INBOOK 
 
 A part of a book, usually untitled. May be a chapter (or section, etc.) and/or a range of pages.
@@ -75,7 +75,7 @@ Required fields: author/editor, title, chapter/pages, publisher, year
 
 Optional fields: volume/number, series, type, address, edition, month, note, key
 
-- ** incollection **
+- **incollection**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_INCOLLECTION 
 
 A part of a book having its own title.
@@ -84,7 +84,7 @@ Required fields: author, title, booktitle, publisher, year
 
 Optional fields: editor, volume/number, series, type, chapter, pages, address, edition, month, note, key
 
-- ** inproceedings **
+- **inproceedings**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_INPROCEEDINGS 
 
 An article in a conference proceedings.
@@ -93,7 +93,7 @@ Required fields: author, title, booktitle, year
 
 Optional fields: editor, volume/number, series, pages, address, month, organization, publisher, note, key
 
-- ** manual **
+- **manual**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_MANUAL 
 
 Technical documentation.
@@ -102,7 +102,7 @@ Required fields: title
 
 Optional fields: author, organization, address, edition, month, year, note, key
 
-- ** mastersthesis **
+- **mastersthesis**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_MASTERTHESIS 
 
 A Master's thesis.
@@ -111,7 +111,7 @@ Required fields: author, title, school, year
 
 Optional fields: type, address, month, note, key
 
-- ** misc **
+- **misc**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_MISC 
 
 For use when nothing else fits.
@@ -120,7 +120,7 @@ Required fields: none
 
 Optional fields: author, title, howpublished, month, year, note, key
 
-- ** phdthesis **
+- **phdthesis**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_PHDTHESIS 
 
 A Ph.D. thesis.
@@ -129,7 +129,7 @@ Required fields: author, title, school, year
 
 Optional fields: type, address, month, note, key
 
-- ** proceedings **
+- **proceedings**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_PROCEEDINGS 
 
 The proceedings of a conference.
@@ -138,7 +138,7 @@ Required fields: title, year
 
 Optional fields: editor, volume/number, series, address, month, publisher, organization, note, key
 
-- ** techreport **
+- **techreport**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_TECHREPORT 
 
 A report published by a school or other institution, usually numbered within a series.
@@ -147,7 +147,7 @@ Required fields: author, title, institution, year
 
 Optional fields: type, number, address, month, note, key
 
-- ** unpublished **
+- **unpublished**
         Ojstr\Common\Params\CitationParams::$CITATION_TYPE_UNPUBLISHED 
 
 A document having an author and title, but not formally published.
