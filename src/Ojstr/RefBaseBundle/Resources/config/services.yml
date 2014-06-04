@@ -1,0 +1,7 @@
+parameters:
+#    ojstr_ref_base.example.class: Ojstr\RefBaseBundle\Example
+
+services:
+#    ojstr_ref_base.example:
+#        class: %ojstr_ref_base.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

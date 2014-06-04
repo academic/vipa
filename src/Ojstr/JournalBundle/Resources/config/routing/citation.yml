@@ -6,6 +6,10 @@ citation_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjstrJournalBundle:Citation:show" }
 
+citation_article_new:
+    pattern:  /new/{article_id}
+    defaults: { _controller: "OjstrJournalBundle:Citation:article" }
+
 citation_new:
     pattern:  /new
     defaults: { _controller: "OjstrJournalBundle:Citation:new" }
