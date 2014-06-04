@@ -46,13 +46,13 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Add articles
+     * Add article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @param \Ojstr\JournalBundle\Entity\Article $article
      * @return Subject
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
-        $this->articles[] = $articles;
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles[] = $article;
 
         return $this;
     }

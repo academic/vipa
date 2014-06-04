@@ -25,6 +25,7 @@ class AppKernel extends Kernel {
             new Ojstr\ManagerBundle\OjstrManagerBundle(),
             new Ojstr\ApiBundle\OjstrApiBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Ojstr\RefBaseBundle\OjstrRefBaseBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
