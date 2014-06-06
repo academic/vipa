@@ -15,6 +15,7 @@ assetic:
             inputs:
                 - '%kernel.root_dir%/../assets/js/jquery-1.11.0.min.js'
                 - '%kernel.root_dir%/../assets/js/bootstrap.min.js'
+                - '%kernel.root_dir%/../assets/js/common.js'
         base_ui:
             inputs:
                 - '%kernel.root_dir%/../assets/css/*'
