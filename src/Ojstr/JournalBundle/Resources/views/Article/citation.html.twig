@@ -1,0 +1,53 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h2>Add Citation <small>{{  item.getTitle() }}</h2> 
+            <div>
+
+                <div class="col-md-12 form-inline">
+
+
+                </div>
+                <form name="input" action="" class="form-inline" method="post">
+                    <p>Yeni Alıntı
+                        <button class="btn btn-info" id="addArticleCitationInline">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        </button> 
+                    </p>
+                    <br>
+                    <div id="citationContainer"></div>
+                    <button class="form-control btn btn-default">Save</button>
+                </form>
+
+                <div class="hide" id="citationInfoFields">
+                    <div class="form-row well">
+                        <input type="number" class="form-control" style="width:80px" name="orderNum" placeholder="Order">
+                        <input type="text" class="form-control" name="source" placeholder="Source">
+                        <select class="form-control" name="type"> 
+                        {% for type in citationTypes %}
+                            <option value="{{type}}">{{type}}</option>
+                        {%endfor%}
+                        </select>
+
+                        <a class="btn btn-warning removeArticleCitationInline">
+                            <i class="glyphicon glyphicon-minus-sign"></i>
+                        </a> 
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts -%}
+{{  parent()  }}
+<script src="/assets/js/journalbundle/article_cite.js"></script>
+{% endblock %}

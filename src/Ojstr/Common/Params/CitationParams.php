@@ -6,7 +6,7 @@ class CitationParams {
 
     public static $CITATION_TYPE_BOOK = "book";
     public static $CITATION_TYPE_JOURNAL = "journal";
-    public static $CITATION_TYPE_CONFERENCE= "conference";
+    public static $CITATION_TYPE_CONFERENCE = "conference";
     public static $CITATION_TYPE_ARTICLE = "article";
     public static $CITATION_TYPE_MASTERTHESIS = "mastersthesis";
     public static $CITATION_TYPE_PHDTHESIS = "phdthesis";
@@ -17,8 +17,12 @@ class CitationParams {
     public static $CITATION_TYPE_INCOLLECTION = "incollection";
     public static $CITATION_TYPE_INBOOK = "inbook";
     public static $CITATION_TYPE_BOOKLET = "booklet";
-    public static $CITATION_TYPE_MANUAL= "manual";
+    public static $CITATION_TYPE_MANUAL = "manual";
     public static $CITATION_TYPE_MISC = "misc";
-    
+
+    public static function getTypes() {
+        $vars = get_class_vars('\Ojstr\Common\Params\CitationParams');
+        return $vars;
+    }
 
 }

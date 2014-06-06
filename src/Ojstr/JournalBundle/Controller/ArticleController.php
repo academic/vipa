@@ -13,6 +13,22 @@ use Ojstr\JournalBundle\Form\ArticleType;
  */
 class ArticleController extends Controller {
 
+    public function citationAction($id = NULL) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        $post = Request::createFromGlobals();
+
+        if ($post->request->has('submit')) {
+            
+        } else {
+            
+        }
+        return $this->render('OjstrJournalBundle:Article:citation.html.twig', array(
+                    'item' => $article,
+                    'citationTypes' => \Ojstr\Common\Params\CitationParams::getTypes()
+        ));
+    }
+
     /**
      * Lists all Article entities.
      *
