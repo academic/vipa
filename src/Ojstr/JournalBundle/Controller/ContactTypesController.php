@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -10,18 +11,17 @@ use Ojstr\JournalBundle\Form\ContactTypesType;
  * ContactTypes controller.
  *
  */
-class ContactTypesController extends Controller
-{
+class ContactTypesController extends Controller {
+
     /**
      * Lists all ContactTypes entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:ContactTypes')->findAll();
         return $this->render('OjstrJournalBundle:ContactTypes:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
 
@@ -29,8 +29,7 @@ class ContactTypesController extends Controller
      * Creates a new ContactTypes entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -41,8 +40,8 @@ class ContactTypesController extends Controller
             return $this->redirect($this->generateUrl('contacttypes_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:ContactTypes:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -53,8 +52,7 @@ class ContactTypesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ContactTypes $entity)
-    {
+    private function createCreateForm(ContactTypes $entity) {
         $form = $this->createForm(new ContactTypesType(), $entity, array(
             'action' => $this->generateUrl('contacttypes_create'),
             'method' => 'POST',
@@ -67,13 +65,12 @@ class ContactTypesController extends Controller
      * Displays a form to create a new ContactTypes entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
         return $this->render('OjstrJournalBundle:ContactTypes:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -81,8 +78,7 @@ class ContactTypesController extends Controller
      * Finds and displays a ContactTypes entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
         if (!$entity) {
@@ -90,16 +86,15 @@ class ContactTypesController extends Controller
         }
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:ContactTypes:show.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing ContactTypes entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
         if (!$entity) {
@@ -108,9 +103,9 @@ class ContactTypesController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:ContactTypes:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -121,8 +116,7 @@ class ContactTypesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ContactTypes $entity)
-    {
+    private function createEditForm(ContactTypes $entity) {
         $form = $this->createForm(new ContactTypesType(), $entity, array(
             'action' => $this->generateUrl('contacttypes_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -135,8 +129,7 @@ class ContactTypesController extends Controller
      * Edits an existing ContactTypes entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
         if (!$entity) {
@@ -150,9 +143,9 @@ class ContactTypesController extends Controller
             return $this->redirect($this->generateUrl('contacttypes_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:ContactTypes:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -160,8 +153,7 @@ class ContactTypesController extends Controller
      * Deletes a ContactTypes entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -183,12 +175,16 @@ class ContactTypesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('contacttypes_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'), 'attr' => array('onclick' => 'return confirm("' . $this->get('translator')->trans('Are you sure?') . '"); ')))
-            ->getForm();
+                        ->setAction($this->generateUrl('contacttypes_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array(
+                            'label' => $this->get('translator')->trans('Delete'),
+                            'attr' => array('class' => 'btn btn-danger', 'onclick' => 'return confirm("' .
+                                $this->get('translator')->trans('Are you sure?') . '"); ')
+                        ))
+                        ->getForm();
     }
+
 }

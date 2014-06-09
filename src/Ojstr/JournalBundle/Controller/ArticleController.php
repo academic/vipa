@@ -19,7 +19,9 @@ class ArticleController extends Controller {
         $post = Request::createFromGlobals();
 
         if ($post->request->has('submit')) {
-            
+            echo "<pre>";
+            print_r($_POST);
+            exit();
         } else {
             
         }
@@ -196,9 +198,11 @@ class ArticleController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_article_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
-                            'attr' => array('onclick' => 'return confirm("' .
-                                $this->get('translator')->trans('Are you sure?') . '"); ')))
+                        ->add('submit', 'submit', array(
+                            'label' => $this->get('translator')->trans('Delete'),
+                            'attr' => array('class' => 'btn btn-danger', 'onclick' => 'return confirm("' .
+                                $this->get('translator')->trans('Are you sure?') . '"); ')
+                        ))
                         ->getForm();
     }
 

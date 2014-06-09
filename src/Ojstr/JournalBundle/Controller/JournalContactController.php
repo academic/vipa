@@ -4,7 +4,6 @@ namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojstr\JournalBundle\Entity\JournalContact;
 use Ojstr\JournalBundle\Form\JournalContactType;
 
@@ -12,29 +11,27 @@ use Ojstr\JournalBundle\Form\JournalContactType;
  * JournalContact controller.
  *
  */
-class JournalContactController extends Controller
-{
+class JournalContactController extends Controller {
 
     /**
      * Lists all JournalContact entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrJournalBundle:JournalContact')->findAll();
 
         return $this->render('OjstrJournalBundle:JournalContact:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new JournalContact entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -48,20 +45,19 @@ class JournalContactController extends Controller
         }
 
         return $this->render('OjstrJournalBundle:JournalContact:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a JournalContact entity.
-    *
-    * @param JournalContact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(JournalContact $entity)
-    {
+     * Creates a form to create a JournalContact entity.
+     *
+     * @param JournalContact $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(JournalContact $entity) {
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_create'),
             'method' => 'POST',
@@ -76,14 +72,13 @@ class JournalContactController extends Controller
      * Displays a form to create a new JournalContact entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new JournalContact();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OjstrJournalBundle:JournalContact:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +86,7 @@ class JournalContactController extends Controller
      * Finds and displays a JournalContact entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -104,16 +98,15 @@ class JournalContactController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrJournalBundle:JournalContact:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing JournalContact entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -126,21 +119,20 @@ class JournalContactController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrJournalBundle:JournalContact:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a JournalContact entity.
-    *
-    * @param JournalContact $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(JournalContact $entity)
-    {
+     * Creates a form to edit a JournalContact entity.
+     *
+     * @param JournalContact $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(JournalContact $entity) {
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -150,12 +142,12 @@ class JournalContactController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing JournalContact entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -175,17 +167,17 @@ class JournalContactController extends Controller
         }
 
         return $this->render('OjstrJournalBundle:JournalContact:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a JournalContact entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -211,13 +203,17 @@ class JournalContactController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('journalcontact_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('journalcontact_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array(
+                            'label' => $this->get('translator')->trans('Delete'),
+                            'attr' => array('class' => 'btn btn-danger', 'onclick' => 'return confirm("' .
+                                $this->get('translator')->trans('Are you sure?') . '"); ')
+                        ))
+                        ->getForm()
         ;
     }
+
 }
