@@ -1,11 +1,4 @@
 parameters:
-    languages:
-            -
-                name: English
-                code: en
-            -
-                name: Türkçe
-                code: tr
     citation_types :
          # ref : http://en.wikipedia.org/wiki/BibTeX
             - 
@@ -17,7 +10,8 @@ parameters:
                     - year
                 should :
                     - editor
-                    - volume/number
+                    - volume
+                    - number
                     - series
                     - address
                     - edition
@@ -174,7 +168,8 @@ parameters:
                 must :
                     -  author
                     - title
-                    - chapter/pages
+                    - chapter
+                    - pages
                     - publisher
                     - year
                 should :
