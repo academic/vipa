@@ -80,13 +80,9 @@ $(document).ready(function() {
 
             }
         });
-        $.post("", {cites: JSON.stringify(citeDetails)}, function(resp) {
+        $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function(resp) {
             resp = JSON.parse(resp);
-            if (resp.redirect){
-                window.location.href = resp.redirect;
-            }else{
-                
-            }
+            consolelog(resp);
         });
     });
 });
