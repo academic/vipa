@@ -6,9 +6,9 @@ parameters:
             -
                 name: Türkçe
                 code: tr
-    citation_types :
-            # ref : http://en.wikipedia.org/wiki/BibTeX
-            - book: 
+    citation_params :
+         # ref : http://en.wikipedia.org/wiki/BibTeX
+            - 
                 name : book
                 must :
                     - author 
@@ -24,15 +24,13 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - journal:
+            - 
                 name : journal
                 must :
                     - title
                 should :
                     - abstract
-            
-            - conference:
+            - 
                 name: conference
                 must :
                     - author
@@ -51,8 +49,7 @@ parameters:
                     - publisher
                     - note
                     - key
-            
-            - article:
+            - 
                 name: article
                 must :
                     - author
@@ -66,8 +63,7 @@ parameters:
                     - month 
                     - note 
                     - key
-            
-            - mastersthesis:
+            - 
                 name: mastersthesis
                 must :
                     - author
@@ -80,8 +76,7 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - phdthesis:
+            - 
                 name: phdthesis
                 must :
                     - author
@@ -94,8 +89,7 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - proceedings:
+            - 
                 name: proceedings
                 must :
                     - title
@@ -111,8 +105,7 @@ parameters:
                     - organization
                     - note
                     - key
-            
-            - techreport:
+            - 
                 name: techreport
                 must :
                     - author
@@ -126,8 +119,7 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - unpublished:
+            - 
                 name: unpublished
                 must :
                     - author
@@ -137,8 +129,7 @@ parameters:
                     - month
                     - year
                     - key
-            
-            - inproceedings: 
+            - 
                 name: inproceedings
                 must :
                     - author
@@ -157,8 +148,7 @@ parameters:
                     - publisher
                     - note
                     - key
-            
-            - incollection:
+            - 
                 name: incollection
                 must :
                     - author
@@ -179,8 +169,7 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - inbook:
+            - 
                 name: inbook
                 must :
                     -  author
@@ -198,8 +187,7 @@ parameters:
                     - month
                     - note
                     - key
-            
-            - booklet:
+            - 
                 name: booklet
                 must :
                     - title
@@ -211,8 +199,7 @@ parameters:
                     - year
                     - note
                     - key
-            
-            - manual:
+            - 
                 name: manual
                 must :
                     - title
@@ -225,8 +212,7 @@ parameters:
                     - year
                     - note
                     - key
-            
-            - misc:
+            - 
                 name: misc
                 must :
                     - title
