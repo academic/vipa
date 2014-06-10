@@ -26,7 +26,7 @@ class ArticleController extends Controller {
         }
         return $this->render('OjstrJournalBundle:Article:citation.html.twig', array(
                     'item' => $article,
-                    'citationTypes' => $this->container->getParameter('citation_params')
+                    'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
