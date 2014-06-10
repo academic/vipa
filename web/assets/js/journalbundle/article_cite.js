@@ -81,7 +81,7 @@ $(document).ready(function() {
             }
         });
         $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function(resp) {
-            resp = JSON.parse(resp);
+            //resp = JSON.parse(resp);
             consolelog(resp);
         });
     });
