@@ -12,42 +12,57 @@
 
                 </div>
                 <form name="input" action="" class="form-inline" method="post">
-                    <p>Yeni Alıntı
+                    <p>
                         <button class="btn btn-info" id="addArticleCitationInline">
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                        </button> 
+                            <i class="glyphicon glyphicon-plus-sign"></i> New Citation
+                        </button>  
+
                     </p>
                     <br>
                     <div id="citationContainer"></div>
-                    <button class="form-control btn btn-default">Save</button>
+                    <input type="submit" class="form-control btn btn-default" value="Save" name="submit" />
                 </form>
 
                 <div class="hide" id="citationInfoFields">
                     <div class="form-row well">
-                        <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
-                        <input type="text" class="form-control" name="source" placeholder="Source">
-                        <select class="form-control" name="type"> 
-                        {% for type in citationTypes %}
-                            <option value="{{type}}">{{type}}</option>
-                        {%endfor%}
-                        </select>
+                        <input type="hidden" name="citation_id[]" value="">
+                        <input type="number" class="form-control" style="width:80px" name="orderNum[]" value="0" placeholder="Order">
+                        <input type="text" class="form-control" name="raw[]" placeholder="Citation"> 
 
                         <a class="btn btn-warning removeArticleCitationInline">
                             <i class="glyphicon glyphicon-minus-sign"></i>
                         </a> 
+                        <a href="#details" class="addCitationDetails">Details</a>
+
+                        <div class="citationDetails well">
+                            <select class="form-control" name="type[]"> 
+                                {% for type in citationTypes %}
+                                <option value="{{type.name}}">{{type.name}}</option>
+                                {%endfor%}
+                            </select>
+                            <input type="text" class="form-control" name="" placeholder="Year" name="setting_year" />
+                            <input type="text" class="form-control" name="" placeholder="Volume" name="setting_volume" />
+                            <input type="text" class="form-control" name="" placeholder="Url" name="setting_url" />
+                            <input type="text" class="form-control" name="" placeholder="Url" name="setting_url" />
+
+                        </div>
                     </div>
+
+
+
                 </div>
 
-
-
             </div>
-
         </div>
     </div>
-</div>
+
+
 {% endblock %}
 
 {% block javascripts -%}
 {{  parent()  }}
-<script src="/assets/js/journalbundle/article_cite.js"></script>
+    <script src="/assets/js/jquery.leanModal.min.js"></script>
+    <script src="/assets/js/journalbundle/article_cite.js"></script>
+
+
 {% endblock %}

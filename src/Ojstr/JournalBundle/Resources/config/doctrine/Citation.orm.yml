@@ -18,7 +18,7 @@ Ojstr\JournalBundle\Entity\Citation:
             generator:
                 strategy: AUTO
     fields:
-        source:
+        raw:
             type: string
             length: 255
             gedmo:
