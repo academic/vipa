@@ -15,7 +15,7 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      */
-    private $source;
+    private $raw;
 
     /**
      * @var string
@@ -119,24 +119,24 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set source
+     * Set raw
      *
-     * @param string $source
+     * @param string $raw
      * @return Citation
      */
-    public function setSource($source) {
-        $this->source = $source;
+    public function setRaw($raw) {
+        $this->raw = $raw;
 
         return $this;
     }
 
     /**
-     * Get source
+     * Get raw
      *
      * @return string 
      */
-    public function getSource() {
-        return $this->source;
+    public function getRaw() {
+        return $this->raw;
     }
 
     /**

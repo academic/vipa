@@ -17,7 +17,6 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $post = Request::createFromGlobals();
-
         if ($post->request->has('submit')) {
             echo "<pre>";
             print_r($_POST);
@@ -27,7 +26,7 @@ class ArticleController extends Controller {
         }
         return $this->render('OjstrJournalBundle:Article:citation.html.twig', array(
                     'item' => $article,
-                    'citationTypes' => \Ojstr\Common\Params\CitationParams::getTypes()
+                    'citationTypes' => $this->container->getParameter('citation_params')
         ));
     }
 
