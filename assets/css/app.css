@@ -1,6 +1,8 @@
 .records_list ul{list-style: none;}
 .records_list ul li{display: inline; padding:2px}
 .citationDetails{ margin-top:10px; display: none;}
+textarea.citationPasteTextArea{}
+#citationPasteField{display: none;}
 #lean_overlay {
     position: fixed;
     z-index:100;
