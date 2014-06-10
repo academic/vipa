@@ -6,7 +6,7 @@ parameters:
             -
                 name: Türkçe
                 code: tr
-    citation_params :
+    citation_types :
          # ref : http://en.wikipedia.org/wiki/BibTeX
             - 
                 name : book
