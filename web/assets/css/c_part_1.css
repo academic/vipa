@@ -1,5 +1,41 @@
 .records_list ul{list-style: none;}
-.records_list ul li{display: inline; padding:2px;}
+.records_list ul li{display: inline; padding:2px}
+.citationDetails{ margin-top:10px; display: none;}
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none
+}
+.modal_standart {
+    width: 600px;
+    padding: 30px; 
+    display:none;
+    background: #FFF;
+    border-radius: 5px; 
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7); 
+    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.7); 
+    -moz-box-shadow: 0 0px 4px rgba(0,0,0,0.7)
+}
+
+.modal_close { 
+    cursor:pointer; 
+    position: absolute; 
+    top: 12px; right: 12px;
+    display: block;
+    width: 14px; 
+    height: 14px; 
+    z-index: 2
+}
+.modal_close:after{content:"x"};
+
+
 @import url("//fonts.googleapis.com/css?family=Raleway:400,700");/*!
  * Bootswatch v3.1.1+1
  * Homepage: http://bootswatch.com
