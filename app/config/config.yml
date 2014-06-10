@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
 
 framework:
     #esi:             ~
