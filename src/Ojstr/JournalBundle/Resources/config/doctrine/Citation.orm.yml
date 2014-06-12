@@ -7,6 +7,7 @@ Ojstr\JournalBundle\Entity\Citation:
           targetEntity: Ojstr\JournalBundle\Entity\CitationSetting
           mappedBy: citation
           cascade: ["persist", "merge"]
+          fetch: EXTRA_LAZY
     manyToMany:
         articles:
           targetEntity: Article

@@ -10,7 +10,9 @@ Ojstr\JournalBundle\Entity\Article:
   manyToOne:
     journal:
       targetEntity: Journal
-      inversedBy: articles        
+      inversedBy: articles   
+      #cascade: ["persist", "merge"]
+      fetch: EXTRA_LAZY
   manyToMany: 
     subjects: 
       targetEntity: Subject

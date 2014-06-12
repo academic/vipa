@@ -14,6 +14,18 @@ journals :
   resource:     "OjstrApiBundle:JournalRest"
   name_prefix:  api_
   
+article : 
+  type: rest
+  resource:     "OjstrApiBundle:ArticleRest"
+  name_prefix:  api_
+  
+citation : 
+  type: rest
+  resource:     "OjstrApiBundle:CitationRest"
+  name_prefix:  api_
+  
+  
+  
 ojstr_api_homepage:
   pattern:  /
   defaults: { _controller: OjstrApiBundle:Default:index }
