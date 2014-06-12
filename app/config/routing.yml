@@ -1,7 +1,3 @@
-ojstr_ref_base:
-    resource: "@OjstrRefBaseBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ojstr_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
     prefix:   /

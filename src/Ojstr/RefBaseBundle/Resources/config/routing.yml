@@ -1,3 +1,0 @@
-ojstr_ref_base_homepage:
-    pattern:  /refbase
-    defaults: { _controller: OjstrRefBaseBundle:Default:index }
