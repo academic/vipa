@@ -13,11 +13,3 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
-    languages: 
-        - 
-            name: "English"
-            code: "en"
-        - 
-            name: "Türkçe"
-            code: "tr"
-
