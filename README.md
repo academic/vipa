@@ -9,12 +9,19 @@
 
 **Open Journal Systems (OJS)** is a journal management and publishing system with **Symfony 2 Framework** that has been developed by the Public Knowledge Project through its federally funded efforts to expand and improve access to research.
 
-We fork [PKP/OJS](http://pkp.sfu.ca/ojs/)
+As a company we [OkulBilişim](http://www.okulbilisim.com), analyze [PKP/OJS](http://pkp.sfu.ca/ojs/) and make it: harder, better, faster and stronger with [SF2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing).
 
-please do fork us
+- please do [fork](https://github.com/okulbilisim/ojs/fork) us
+- please [open](https://github.com/okulbilisim/ojs/issues/new) a issue for improvement/feature/bug  
 
 
 ##OJS Features
+
+OJS is open source software made freely available to journals worldwide for the purpose of making open access publishing a viable option for more journals, as open access can increase a journal’s readership as well as its contribution to the public good on a global scale.
+
+OJS assists with every stage of the refereed publishing process, from submissions through to online publication and indexing. Through its management systems, its finely grained indexing of research, and the context it provides for research, OJS seeks to improve both the scholarly and public quality of refereed research.
+
+##### Main Features
 
 1. OJS is installed locally and locally controlled.
 2. Editors configure requirements, sections, review process, etc.
@@ -25,17 +32,24 @@ please do fork us
 7. Email notification and commenting ability for readers.
 8. Complete context-sensitive online Help support.
 
-OJS assists with every stage of the refereed publishing process, from submissions through to online publication and indexing. Through its management systems, its finely grained indexing of research, and the context it provides for research, OJS seeks to improve both the scholarly and public quality of refereed research.
+##### Platform Feautures
 
-OJS is open source software made freely available to journals worldwide for the purpose of making open access publishing a viable option for more journals, as open access can increase a journal’s readership as well as its contribution to the public good on a global scale (see PKP Publications).
+1. PHP +5.4
+2. Doctrine ORM
+3. Composer
+4. PHPunit
+5. 
 
-1) Installing
-----------------------------------
+
+
+
+## 1) Installing
+
 
 When it comes to installing the Symfony Standard Edition, you have the
 following options.
 
-### Use Composer (*recommended*)
+#### Using Composer ( _recommended_ )
 
 As Symfony uses [Composer][2] to manage its dependencies, the recommended way
 to create a new project is to use it.
@@ -43,63 +57,73 @@ to create a new project is to use it.
 If you don't have Composer yet, download it following the instructions on
 http://getcomposer.org/ or just run the following command:
 
+```bash
     curl -s http://getcomposer.org/installer | php
+```
 
 Then, use the `update` command to generate a new Symfony application:
 
+```bash
     php composer.phar update
-
+```
 
 Ojs first run configuration : 
 
+```bash
     php app/console ojs:install
+```
 
 Ojs sample data :
-
+ 
+ 
+```bash
     php app/console doctrine:fixtures:load --append
+```  
 
 Run on your local environment : 
 
+```bash
     php app/console server:run
+``` 
 
 
-
-2) Checking your System Configuration
--------------------------------------
+## 2) Checking System Configuration
 
 Before starting coding, make sure that your local system is properly
 configured for Symfony.
 
 Execute the `check.php` script from the command line:
 
+```bash
     php app/check.php
+```
 
 The script returns a status code of `0` if all mandatory requirements are met,
 `1` otherwise.
 
 Access the `config.php` script from a browser:
-
+```bash
     http://localhost/path/to/symfony/app/web/config.php
+```
 
 If you get any warnings or recommendations, fix them before moving on.
 
 
-3) Symfony 2 Framework
--------------------------------------
+## 3) Framework
 
 You may have a look at [Symfony2 cheatsheet](http://www.symfony2cheatsheet.com/)
 
+### 3.1. API
+### 3.2. UI
+### 3.3. DB
+Db schema can be viewed at [dbpatterns.com](http://dbpatterns.com/documents/531096ba9785db3d7764801e/edit) .
+### 3.4. Search
+### 3.5. Log
 
-4) Documentation
--------------------------------------
-
-There is no documentation yet. 
-
-Db schema can be viewed at http://dbpatterns.com/documents/531096ba9785db3d7764801e/edit .
 
 
-5) RoadMap
--------------------------------------
+## 4) RoadMap
+
 
 1. TODO
 
