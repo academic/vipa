@@ -17,9 +17,9 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $post = Request::createFromGlobals();
-        if ($post->request->has('submit')) {
+        if ($post->request->has('cites')) {
             echo "<pre>";
-            print_r($_POST);
+            print_r(json_decode($_POST['cites']));
             exit();
         } else {
             

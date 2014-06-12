@@ -7,11 +7,9 @@ use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Ojstr\UserBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
-use Ojstr\UserBundle\Form\UserRestType;
 
 class ArticleRestController extends FOSRestController {
 
@@ -86,8 +84,10 @@ class ArticleRestController extends FOSRestController {
         $citation->setRaw($request->get('raw'));
         $citation->setOrderNum($request->get('orderNum', 0));
         $citation->setType($request->get('type'));
-        $citation->addArticle($article);
-        $em->persist($article);
+        $em->persist($citation);
+        $em->flush();
+        $article->addCitation($citation);
+        $em->persist($citation);
         $em->flush();
         foreach ($citationSettingKeys as $key => $v) {
             $param = $request->get('setting_' . $key);
@@ -100,6 +100,7 @@ class ArticleRestController extends FOSRestController {
                 $em->flush();
             }
         }
+        return $article;
     }
 
     /**
@@ -111,7 +112,12 @@ class ArticleRestController extends FOSRestController {
      * )
      */
     public function getArticleCitationsAction($id, Request $request) {
-        
+        $em = $this->getDoctrine()->getManager();
+        $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
+        // check and insert citation 
+        /* @var $article \Ojstr\JournalBundle\Entity\Article  */
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        return $article->getCitations();
     }
 
 }
