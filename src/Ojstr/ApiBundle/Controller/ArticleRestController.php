@@ -43,7 +43,7 @@ class ArticleRestController extends FOSRestController {
      *      }
      *  },
      *  statusCodes={
-     *         200="Returned when successful"
+     *         204="Returned when successful"
      *  }
      * )
      */
@@ -52,10 +52,18 @@ class ArticleRestController extends FOSRestController {
         if (empty($citesStr)) {
             throw new HttpException(400, 'Missing parameter : cites ');
         }
-        $cites = json_decode($citesStr);
-        echo "<pre>";
-        print_r($cites);
-        exit();
+        $cites = json_decode($citesStr, TRUE);
+        if (empty($cites) || !is_array($cites)) {
+            throw new HttpException(400, 'Missing parameter : cites ');
+        }
+        foreach ($cites as $cite) {
+            $citation = new \Ojstr\JournalBundle\Entity\Citation();
+            $citation->setRaw($cite['raw']);
+            $citation->setOrderNum(isset($cite['orderNum']) ? $cite['orderNum'] : 0);
+            $citation->setType($cite['type']);
+            $settings = $cite['settings'];
+            $this->addCitation2Article($id, $citation, $settings);
+        }
     }
 
     /**
@@ -75,31 +83,11 @@ class ArticleRestController extends FOSRestController {
      * )
      */
     public function postArticleCitationAction($id, Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
-        // check and insert citation 
-        /* @var $article \Ojstr\JournalBundle\Entity\Article  */
-        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $citation = new \Ojstr\JournalBundle\Entity\Citation();
         $citation->setRaw($request->get('raw'));
         $citation->setOrderNum($request->get('orderNum', 0));
         $citation->setType($request->get('type'));
-        $em->persist($citation);
-        $em->flush();
-        $article->addCitation($citation);
-        $em->persist($citation);
-        $em->flush();
-        foreach ($citationSettingKeys as $key => $v) {
-            $param = $request->get('setting_' . $key);
-            if (!empty($param)) {
-                $citationSetting = new \Ojstr\JournalBundle\Entity\CitationSetting();
-                $citationSetting->setCitation($citation);
-                $citationSetting->setSetting($key);
-                $citationSetting->setValue($param);
-                $em->persist($citationSetting);
-                $em->flush();
-            }
-        }
+        $article = $this->addCitation2Article($id, $citation, $request);
         return $article;
     }
 
@@ -111,13 +99,42 @@ class ArticleRestController extends FOSRestController {
      *  method="POST"
      * )
      */
-    public function getArticleCitationsAction($id, Request $request) {
+    public function getArticleCitationsAction($id) {
         $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        return $article->getCitations();
+    }
+
+    /**
+     * 
+     * @param integer $id
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @param Request|array $request
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
+    private function addCitation2Article($id, \Ojstr\JournalBundle\Entity\Citation $citation, $request) {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($citation);
+        $em->flush();
         $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
         // check and insert citation 
         /* @var $article \Ojstr\JournalBundle\Entity\Article  */
         $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-        return $article->getCitations();
+        $article->addCitation($citation);
+        $em->persist($citation);
+        $em->flush();
+        foreach ($citationSettingKeys as $key => $desc) {
+            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : NULL) : $request->get('setting_' . $key);
+            if (!empty($param)) {
+                $citationSetting = new \Ojstr\JournalBundle\Entity\CitationSetting();
+                $citationSetting->setCitation($citation);
+                $citationSetting->setSetting($key);
+                $citationSetting->setValue($param);
+                $em->persist($citationSetting);
+                $em->flush();
+            }
+        }
+        return $article;
     }
 
 }
