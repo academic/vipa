@@ -27,7 +27,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     /**
      * @var string
      */
-    private $titleTranslated;
+    private $titleTransliterated;
 
     /**
      * @var string
@@ -105,11 +105,17 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $articles;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $issues;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -162,23 +168,23 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * Set titleTranslated
+     * Set titleTransliterated
      *
-     * @param string $titleTranslated
+     * @param string $titleTransliterated
      * @return Journal
      */
-    public function setTitleTranslated($titleTranslated) {
-        $this->titleTranslated = $titleTranslated;
+    public function setTitleTransliterated($titleTransliterated) {
+        $this->titleTransliterated = $titleTransliterated;
         return $this;
     }
 
     /**
-     * Get titleTranslated
+     * Get titleTransliterated
      *
      * @return string 
      */
-    public function getTitleTranslated() {
-        return $this->titleTranslated;
+    public function getTitleTransliterated() {
+        return $this->titleTransliterated;
     }
 
     /**
@@ -447,10 +453,56 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      * @return Journal
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
-        $this->articles[] = $articles;
-
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles[] = $article;
         return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $article
+     */
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles() {
+        return $this->articles;
+    }
+
+    /**
+     * Add issue
+     *
+     * @param \Ojstr\JournalBundle\Entity\Issue $issues
+     * @return Journal
+     */
+    public function addIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+        $this->issues[] = $issue;
+        return $this;
+    }
+
+    /**
+     * Remove issue
+     *
+     * @param \Ojstr\JournalBundle\Entity\Issue $issue
+     */
+    public function removeIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+        $this->issues->removeElement($issue);
+    }
+
+    /**
+     * Get issues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIssues() {
+        return $this->issues;
     }
 
     /**
@@ -481,24 +533,6 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
         $this->users[] = $users;
 
         return $this;
-    }
-
-    /**
-     * Remove articles
-     *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
-     */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
-        $this->articles->removeElement($articles);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getArticles() {
-        return $this->articles;
     }
 
 }

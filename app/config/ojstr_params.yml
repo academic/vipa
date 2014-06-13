@@ -1,0 +1,9 @@
+# This is common Ojstr app parameters
+parameters:
+    languages:
+            -
+                name: English
+                code: en
+            -
+                name: Türkçe
+                code: tr

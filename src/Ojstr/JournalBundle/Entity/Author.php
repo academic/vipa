@@ -30,17 +30,17 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      */
-    private $firstNameTranslated;
+    private $firstNameTransliterated;
 
     /**
      * @var string
      */
-    private $middleNameTranslated;
+    private $middleNameTransliterated;
 
     /**
      * @var string
      */
-    private $lastNameTranslated;
+    private $lastNameTransliterated;
 
     /**
      * @var string
@@ -142,63 +142,63 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set firstNameTranslated
+     * Set firstNameTransliterated
      *
-     * @param string $firstNameTranslated
+     * @param string $firstNameTransliterated
      * @return Author
      */
-    public function setFirstNameTranslated($firstNameTranslated) {
-        $this->firstNameTranslated = $firstNameTranslated;
+    public function setFirstNameTransliterated($firstNameTransliterated) {
+        $this->firstNameTransliterated = $firstNameTransliterated;
         return $this;
     }
 
     /**
-     * Get firstNameTranslated
+     * Get firstNameTransliterated
      *
      * @return string 
      */
-    public function getFirstNameTranslated() {
-        return $this->firstNameTranslated;
+    public function getFirstNameTransliterated() {
+        return $this->firstNameTransliterated;
     }
 
     /**
-     * Set middleNameTranslated
+     * Set middleNameTransliterated
      *
-     * @param string $middleNameTranslated
+     * @param string $middleNameTransliterated
      * @return Author
      */
-    public function setMiddleNameTranslated($middleNameTranslated) {
-        $this->middleNameTranslated = $middleNameTranslated;
+    public function setMiddleNameTransliterated($middleNameTransliterated) {
+        $this->middleNameTransliterated = $middleNameTransliterated;
         return $this;
     }
 
     /**
-     * Get middleNameTranslated
+     * Get middleNameTransliterated
      *
      * @return string 
      */
-    public function getMiddleNameTranslated() {
-        return $this->middleNameTranslated;
+    public function getMiddleNameTransliterated() {
+        return $this->middleNameTransliterated;
     }
 
     /**
-     * Set lastNameTranslated
+     * Set lastNameTransliterated
      *
-     * @param string $lastNameTranslated
+     * @param string $lastNameTransliterated
      * @return Author
      */
-    public function setLastNameTranslated($lastNameTranslated) {
-        $this->lastNameTranslated = $lastNameTranslated;
+    public function setLastNameTransliterated($lastNameTransliterated) {
+        $this->lastNameTransliterated = $lastNameTransliterated;
         return $this;
     }
 
     /**
-     * Get lastNameTranslated
+     * Get lastNameTransliterated
      *
      * @return string 
      */
-    public function getLastNameTranslated() {
-        return $this->lastNameTranslated;
+    public function getLastNameTransliterated() {
+        return $this->lastNameTransliterated;
     }
 
     /**

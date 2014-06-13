@@ -1,6 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: ojstr_params.yml }
+    - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
 
 framework:
     #esi:             ~
@@ -88,7 +90,7 @@ doctrine:
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
-                enabled: true
+                enabled: true 
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -128,6 +130,7 @@ stof_doctrine_extensions:
             translatable: true
             blameable: true
             loggable: true
+            uploadable: true
 jms_serializer:
     metadata:
         directories:

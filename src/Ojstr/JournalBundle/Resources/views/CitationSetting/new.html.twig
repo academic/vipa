@@ -1,0 +1,15 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>CitationSetting creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('citationsetting') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

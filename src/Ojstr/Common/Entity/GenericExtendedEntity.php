@@ -3,9 +3,15 @@
 namespace Ojstr\Common\Entity;
 
 use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Some common properties and functions for JournalBundle Entities
+ *
+ * @ExclusionPolicy("all") 
  */
 class GenericExtendedEntity implements Translatable {
 
@@ -38,12 +44,12 @@ class GenericExtendedEntity implements Translatable {
      *
      * @var String
      */
-    protected $createdBy;
+    protected $createdBy = "";
 
     /**
      * @var String
      */
-    protected $updatedBy;
+    protected $updatedBy = "";
 
     public function setTranslatableLocale($locale) {
         $this->locale = $locale;

@@ -156,13 +156,13 @@ class UserRestController extends FOSRestController {
      */
     public function putUserAction(Request $request, $user_id) {
         $entity = $this->getUserEntity($user_id);
-        $form = $this->createForm(new UserRestType(), $entity);
+        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->bind($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->view(null, Codes::HTTP_NO_CONTENT);
+            return $this->view(null, Codes::HTTP_NO_CONTENT); 
         }
         throw new HttpException(400, 'Missing parameter');
     }
@@ -178,7 +178,7 @@ class UserRestController extends FOSRestController {
      */
     public function postUsersAction(Request $request) {
         $entity = new User();
-        $form = $this->createForm(new UserRestType(), $entity);
+        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -213,14 +213,7 @@ class UserRestController extends FOSRestController {
      * @RestView()
      */
     public function statusUsersAction(Request $request, $user_id) {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
-        if (!is_object($user)) {
-            $this->notFound();
-        }
-        $user->setStatus($request->get('status'));
-        $em->flush();
-        return $user;
+        return $this->patch('status', $user_id,$request);
     }
 
     /**
@@ -243,13 +236,26 @@ class UserRestController extends FOSRestController {
      * @RestView()
      */
     public function activeUsersAction(Request $request, $user_id) {
+        return $this->patch('active', $user_id,$request);
+    }
+
+    protected function patch($field, $user_id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
             $this->notFound();
-        }
+        } 
         /* @var  $user \Ojstr\UserBundle\Entity\User */
-        $user->setIsActive($request->get('isActive'));
+        switch ($field) {
+            case 'active':
+                $user->setIsActive($request->get('isActive'));
+                break;
+            case 'active':
+                $user->setStatus($request->get('status'));
+                break;
+            default:
+                break;
+        }
         $em->flush();
         return $user;
     }

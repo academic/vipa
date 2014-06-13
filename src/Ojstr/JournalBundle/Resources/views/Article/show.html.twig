@@ -64,8 +64,8 @@
                         <td>{{ entity.title }}</td>
                     </tr>
                     <tr>
-                        <th>Titletranslated</th>
-                        <td>{{ entity.titleTranslated }}</td>
+                        <th>Titletransliterated</th>
+                        <td>{{ entity.titleTransliterated }}</td>
                     </tr>
                     <tr>
                         <th>Subtitle</th>
@@ -104,19 +104,27 @@
                         <td>{{ entity.abstract }}</td>
                     </tr>
                     <tr>
-                        <th>Abstracttranslated</th>
-                        <td>{{ entity.abstractTranslated }}</td>
+                        <th>Abstracttransliterated</th>
+                        <td>{{ entity.abstractTransliterated }}</td>
+                    </tr>
+                    <tr>
+                        <th>Citations</th>
+                        <td> @todo </td>
                     </tr>
                 </tbody>
             </table>
 
+            
             <div class="record_actions">
-                <a class="button" href="{{ path('admin_article') }}">
+                <a class="btn btn-info" href="{{ path('admin_article_citation', { 'id': entity.id }) }}">
+                    <i class="glyphicon glyphicon-asterisk"></i> Citation Editor</a>
+                <a class="btn btn-default" href="{{ path('admin_article') }}">
                         {% trans %}Back to list{% endtrans %}
                 </a>
-                <a class="button" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
+                <a class="btn btn-warning" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
                     Edit
                 </a>
+                    <br><br>
                     {{ form(delete_form) }}
 
             </div>

@@ -19,6 +19,9 @@ Ojstr\JournalBundle\Entity\Theme:
         baseTheme:
             type: boolean
             column: base_theme
+            nullable: true
+            option:
+                default: false
         created:
             type: datetime
             gedmo:
