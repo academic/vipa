@@ -1,1 +1,0 @@
-var REST_API_BASEURL = "/api/";
