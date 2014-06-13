@@ -2,6 +2,10 @@ Ojstr\JournalBundle\Entity\Issue:
     type: entity
     table: null
     repositoryClass: Ojstr\JournalBundle\Entity\IssueRepository
+    manyToOne:
+        journal:
+          targetEntity: Journal
+          inversedBy: issues  
     id:
         id:
             type: integer

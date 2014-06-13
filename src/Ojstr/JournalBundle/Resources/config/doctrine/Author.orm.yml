@@ -28,20 +28,20 @@ Ojstr\JournalBundle\Entity\Author:
             column: last_name
             gedmo:
                 - versioned
-        firstNameTranslated:
+        firstNameTransliterated:
             type: string
             length: 255
-            column: first_name_translated
+            column: first_name_transliterated
             nullable: TRUE
-        middleNameTranslated:
+        middleNameTransliterated:
             type: string
             length: 255
-            column: middle_name_translated
+            column: middle_name_transliterated
             nullable: TRUE
-        lastNameTranslated:
+        lastNameTransliterated:
             type: string
             length: 255
-            column: last_name_translated
+            column: last_name_transliterated
             nullable: TRUE
         initials:
             type: string

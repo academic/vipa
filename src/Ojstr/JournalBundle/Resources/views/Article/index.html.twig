@@ -14,7 +14,7 @@
                     <th>Otherid</th>
                     <th>Journalid</th>
                     <th>Title</th>
-                    <th>Titletranslated</th>
+                    <th>Titletransliterated</th>
                     <th>Isanonymous</th>
                     <th>Pubdate</th>
                     <th>Pubdateseason</th>
@@ -33,7 +33,7 @@
                         <td>{{ entity.otherId }}</td>
                         <td>{{ entity.journalId }}</td>
                         <td>{{ entity.title }}</td>
-                        <td>{{ entity.titleTranslated }}</td>
+                        <td>{{ entity.titleTransliterated }}</td>
                         <td>{{ entity.isAnonymous }}</td>
                         <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td>{{ entity.pubdateSeason }}</td>
