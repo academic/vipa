@@ -4,23 +4,27 @@ imports:
 assetic:
     #use_controller: true
     filters:
-        uglifyjs2:
-            bin: /usr/local/bin/uglifyjs
+        uglifyjs:
+            bin: /usr/bin/uglifyjs
             #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
         uglifycss:
-            bin: /usr/local/bin/uglifycss
+            bin: /usr/bin/uglifycss
             # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
-        jslibs:
-            inputs:
-                - '%kernel.root_dir%/../assets/js/jsglobals.js'
-                - '%kernel.root_dir%/../assets/js/jquery-1.11.0.min.js'
-                - '%kernel.root_dir%/../assets/js/bootstrap.min.js'
-                - '%kernel.root_dir%/../assets/js/common.js'
-                - '%kernel.root_dir%/../assets/js/jquery.leanModal.min.js'
-        base_ui:
-            inputs:
-                - '%kernel.root_dir%/../assets/css/*'
+        jquery_js_only:
+                inputs:
+                    - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
+        main_js:
+                inputs:
+                    - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery-leanmodal/jquery.leanModal.js 
+                    - %kernel.root_dir%/../web/assets/js/jsglobals.js
+                    - %kernel.root_dir%/../web/assets/js/common.js
+        main_css:
+                inputs:
+                    - %kernel.root_dir%/../web/assets/css/app.css
+                    - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.css
 #framework:
 #    validation:
 #        cache: apc

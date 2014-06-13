@@ -4,9 +4,12 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-        {% stylesheets '@base_ui' filter='?uglifycss' output='assets/css/pack/c.css' %}
+        {% stylesheets
+           '@main_css'  filter='cssrewrite' output="c/combined.css" 
+        %}   
         <link rel="stylesheet" href="{{ asset_url }}" />
-       {% endstylesheets %}
+       {% endstylesheets %} 
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -17,9 +20,10 @@
             <div id="footer">{% block footer %}{% endblock %}</div>
         </div>
         {% block javascripts %}
-            {% javascripts '@jslibs' filter='?uglifyjs2' output='assets/js/pack/app.js' %}
+
+        {% javascripts '@main_js' filter="uglifyjs" output="c/compiled.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}  
+        {% endjavascripts %}  
 
         {% endblock %}
     </body>
