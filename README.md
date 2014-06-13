@@ -61,23 +61,27 @@ http://getcomposer.org/ or just run the following command:
     curl -s http://getcomposer.org/installer | php
 ```
 
-Then, use the `update` command to generate a new Symfony application:
 
 ```bash
-    php composer.phar update
-```
+# get composer packages
+$ php composer.phar update
 
-Ojs first run configuration : 
+# get bower packages
+$ bower install
 
-```bash
-    php app/console ojs:install
+# generate assets
+$ php app/console assets:install web --symlink
+$ php app/console assetic:dump
+
+# Ojs first run configuration  
+$ php app/console ojs:install
 ```
 
 Ojs sample data :
  
  
 ```bash
-    php app/console doctrine:fixtures:load --append
+$ php app/console doctrine:fixtures:load --append
 ```  
 
 Run on your local environment : 
