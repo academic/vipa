@@ -1,0 +1,26 @@
+Ojstr\UserBundle\Entity\EventLog:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\UserBundle\Entity\EventLogRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        eventInfo:
+            type: text
+            column: event_info
+        eventDate:
+            type: datetime
+            column: event_date
+            nullabel: true
+            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ip:
+            type: string
+            length: '50'
+        userId:
+            type: integer
+            column: user_id
+    lifecycleCallbacks: {  }

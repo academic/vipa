@@ -1,11 +1,19 @@
 user_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
     prefix:   /manager/user
+
 role_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/role.yml"
     prefix:   /manager/role
-    
-    
+
+ojstr_userjournalrole:
+    resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
+    prefix:   /manager/userjournalrole
+
+ojstr_eventlog:
+        resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
+        prefix:   /eventlog
+
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
@@ -15,6 +23,3 @@ logout:
 login_check:
     path: /login_check 
 
-OjstrUserBundle_userjournalrole:
-    resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
-    prefix:   /manager/userjournalrole
