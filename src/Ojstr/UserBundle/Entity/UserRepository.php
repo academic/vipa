@@ -17,7 +17,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
      * @return type
      * @throws UsernameNotFoundException
      */
-    public function loadUserByAny($username) {
+    public function loadUserByUsername($username) {
         $q = $this
                 ->createQueryBuilder('u')
                 ->select('u, r')
@@ -36,15 +36,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
         }
         return $user;
     }
-    
-    /**
-     * @param string $username
-     * @return \Application\UserBundle\Entity\User
-     */
-    public function loadUserByUsername($username)
-    {
-        return $this->findOneBy(array('username' => $username));
-    }
+   
 
     public function refreshUser(UserInterface $user) {
         $class = get_class($user);
