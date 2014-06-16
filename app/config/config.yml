@@ -141,12 +141,13 @@ jms_serializer:
 nelmio_api_doc: ~
 
 services:
-    acme_locale.locale_listener:
+    ojstr_locale.locale_listener:
         class: Ojstr\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
         class: Ojstr\Common\Twig\OjsExtension
+        arguments: [@service_container]
         tags:
             - { name: twig.extension }
