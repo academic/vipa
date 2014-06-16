@@ -20,7 +20,8 @@ class OjsExtension extends \Twig_Extension {
 
     public function getFunctions() {
         return array(
-            'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html')))
+            'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
+            'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html')))
         );
     }
 
@@ -38,12 +39,27 @@ class OjsExtension extends \Twig_Extension {
     }
 
     /**
+     * @return \Ojstr\UserBundle\Entity\User
+     */
+    public function isSystemAdmin() {
+        $user = $this->checkUser();
+        if ($user) {
+            foreach ($user->getRoles() as $role) {
+                if ($role->getRole() == 'ROLE_SYSTEM_ADMIN') {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    /**
      * @todo reformat and validate given issn and output with/without errors
      * @param string $issn
      * @return string
      */
     public function issnValidateFilter($issn, $withErrors = FALSE) {
-        return $issn . "---";
+        return $issn;
     }
 
     public function getName() {
