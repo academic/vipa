@@ -47,6 +47,11 @@ class User implements UserInterface, \Serializable {
     protected $isActive;
 
     /**
+     * @var \DateTime
+     */
+    protected $lastlogin;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
@@ -178,6 +183,20 @@ class User implements UserInterface, \Serializable {
      */
     public function getIsActive() {
         return $this->isActive;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastogin() {
+        return $this->lastlogin;
+    }
+
+    /**
+     * @param \DateTime $lastlogin
+     */
+    public function setLastlogin(\DateTime $lastlogin) {
+        $this->lastlogin = $lastlogin;
     }
 
     public function getSalt() {
