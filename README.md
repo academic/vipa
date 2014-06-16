@@ -74,7 +74,6 @@ $ php app/console assets:install web --symlink
 $ php app/console assetic:dump
 
 # Ojs first run configuration  
-$ php app/console doctrine:database:create
 $ php app/console ojs:install
 ```
 
