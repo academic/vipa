@@ -1,5 +1,7 @@
+
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="left-side sidebar-offcanvas">
+    {% if ojsuser %}
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         {%if ojsuser%}
@@ -50,20 +52,26 @@
                     <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
                 </ul>
             </li>
-
+                {% if isSystemAdmin() %}
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Admin </span>
+                    <i class="fa fa-folder"></i> <span>Admin</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Users</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Roles</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Themes</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
+                    <li><a href="/manager/user"><i class="fa fa-angle-double-right"></i> Users</a></li>
+                    <li><a href="/manager/role"><i class="fa fa-angle-double-right"></i> Roles</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/manager/theme"><i class="fa fa-angle-double-right"></i> Themes</a></li>
+                    <li><a href="/manager/institution"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
+                    <li><a href="/manager/eventlog"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
                 </ul>
             </li>
+
+                {% endif %}
+
         </ul>
     </section>
     <!-- /.sidebar -->
+    {% endif %}
 </aside>
