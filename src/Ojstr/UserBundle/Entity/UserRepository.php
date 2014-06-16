@@ -11,7 +11,13 @@ use Doctrine\ORM\NoResultException;
 
 class UserRepository extends EntityRepository implements UserProviderInterface {
 
-    public function loadUserByUsername($username) {
+    /**
+     * Load by email or username
+     * @param type $username
+     * @return type
+     * @throws UsernameNotFoundException
+     */
+    public function loadUserByAny($username) {
         $q = $this
                 ->createQueryBuilder('u')
                 ->select('u, r')
@@ -29,6 +35,15 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
             throw new UsernameNotFoundException($message, 0, $e);
         }
         return $user;
+    }
+    
+    /**
+     * @param string $username
+     * @return \Application\UserBundle\Entity\User
+     */
+    public function loadUserByUsername($username)
+    {
+        return $this->findOneBy(array('username' => $username));
     }
 
     public function refreshUser(UserInterface $user) {

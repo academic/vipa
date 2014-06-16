@@ -141,12 +141,18 @@ jms_serializer:
 nelmio_api_doc: ~
 
 services:
-    acme_locale.locale_listener:
+    ojstr_locale.locale_listener:
         class: Ojstr\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
         class: Ojstr\Common\Twig\OjsExtension
+        arguments: [@service_container]
         tags:
             - { name: twig.extension }
+    ojstr.loginlistener:
+        class: Ojstr\UserBundle\Listeners\LoginListener
+        arguments: [@doctrine.orm.entity_manager,@service_container]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login } 
