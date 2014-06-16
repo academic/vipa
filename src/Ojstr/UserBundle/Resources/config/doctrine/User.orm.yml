@@ -49,6 +49,10 @@ Ojstr\UserBundle\Entity\User:
             unique: false
             nullable: false
             precision: 0
+        lastlogin:
+            type: datetime  
+            unique: false
+            nullable: true 
     manyToMany:
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
