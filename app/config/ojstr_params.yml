@@ -1,9 +1,53 @@
 # This is common Ojstr app parameters
 parameters:
     languages:
-            -
-                name: English
-                code: en
-            -
-                name: Türkçe
-                code: tr
+        -
+            name: English
+            code: en
+        -
+            name: Türkçe
+            code: tr
+    roles:
+        #dont delete any of these roles
+        - 
+            role: ROLE_USER
+            desc: Default registered user 
+        - 
+            role: ROLE_SUPER_ADMIN
+            desc: System Super Administrator
+        - 
+            role: ROLE_SUPER_EDITOR
+            desc: Super Editor. Editor for all journals
+        - 
+            role: ROLE_SUPER_AUTHOR
+            desc: Super Author. Author for all journals
+        - 
+            role: ROLE_JOURNAL_MANAGER
+            desc: Journal Manager
+        - 
+            role: ROLE_SUBSCRIPTION_MANAGER
+            desc: Subscription Manager
+        - 
+            role: ROLE_EDITOR
+            desc: Editor
+        - 
+            role: ROLE_SECTION_EDITOR
+            desc: Section Editor
+        - 
+            role: ROLE_LAYOUT_EDITOR
+            desc: Layout Editor
+        - 
+            role: ROLE_REVIEWER
+            desc: Reviewer
+        - 
+            role: ROLE_COPYEDITOR
+            desc: Copyeditor
+        - 
+            role: ROLE_PROOFREADER
+            desc: Proofreader
+        - 
+            role: ROLE_AUTHOR
+            desc: Author
+        - 
+            role: ROLE_READER
+            desc: Reader
