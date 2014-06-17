@@ -1,12 +1,34 @@
 {% extends '::ojsbase.html.twig' %}
+{% block stylesheets %}
+        {{parent()}}
+        {% stylesheets '@upload_css' filter="uglifycss" output="c/upload.css" %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}  
+{% endblock %}
+
 
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
         <h1>{% trans %}New User{% endtrans %}</h1>
 
-    {{ form(form) }}
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+        {{ form_errors(form) }}
 
+        <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select image file...</span>
+            <input id="fileupload" type="file" name="avatar" data-url="{{ oneup_uploader_endpoint('avatars') }}">
+        </span> 
+        <div id="avatar_upload_progress" class="label label-info">
+
+        </div>
+        <div id="files" class="files"></div>
+        <br>
+
+        <br>
+
+         {{ form_end(form) }} 
         <div class="record_actions">
             <a class="button" href="{{ path('user') }}">
                 {% trans %}Back to list{% endtrans %}
@@ -17,4 +39,22 @@
 <style> 
     select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
 </style>
+{% endblock %}
+
+{% block javascripts %}
+        {{parent()}}
+        {% javascripts '@upload_js' filter="uglifyjs" output="c/upload.js" %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}  
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#fileupload').fileupload({});
+        $('#fileupload').bind('fileuploadsend', function(e, data) {
+            $('#avatar_upload_progress').html("Uploading...");
+        }).bind('fileuploaddone', function(e, data) {
+            $('#avatar_upload_progress').html("Done.");
+        });
+    });
+</script>
 {% endblock %}

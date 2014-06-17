@@ -54,7 +54,7 @@ Ojstr\JournalBundle\Entity\ArticleFile:
         loggable: true
         uploadable:
             allowOverwrite: true
-            disallowedTypes: exe, php, sh, bat, msi
+            disallowedTypes: exe, php, sh, bat, msi, html, xhtml, htm, bash
             appendNumber: true
             path: '/home/tayyar/Dropbox/okulbilisim/ojssf/web/uploads'
             pathMethod: getPath

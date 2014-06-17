@@ -31,7 +31,8 @@
         "friendsofsymfony/rest-bundle": "@dev",
         "jms/serializer-bundle": "@dev",
         "nelmio/api-doc-bundle": "@dev",
-	"stof/doctrine-extensions-bundle": "~1.1@dev"
+	"stof/doctrine-extensions-bundle": "~1.1@dev",
+	"oneup/uploader-bundle": "1.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
