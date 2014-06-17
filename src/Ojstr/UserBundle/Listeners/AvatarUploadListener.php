@@ -18,11 +18,9 @@ class AvatarUploadListener {
     public function onUpload(PostPersistEvent $event) {
         $request = $event->getRequest();
         $response = $event->getResponse();
-        $session = $request->getSession();
-
-        $gallery = $request->get('avatars');
+        //$session = $request->getSession();
+        //$gallery = $request->get('avatars');
         $file = $event->getFile();
-
         $helper = new ImageUploadHelper($this->container, array(
             'imageName' => $file->getFileName(),
             'upload_dir' => $this->container->get('kernel')->getRootDir() . '/../web/uploads/avatars/',

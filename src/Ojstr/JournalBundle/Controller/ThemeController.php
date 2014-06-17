@@ -176,15 +176,8 @@ class ThemeController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('theme_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array(
-                            'label' => $this->get('translator')->trans('Delete'),
-                            'attr' => array('class' => 'btn btn-danger', 'onclick' => 'return confirm("' .
-                                $this->get('translator')->trans('Are you sure?') . '"); ')
-                        ))
-                        ->getForm();
+        $formHelper = new CommonFormHelper();
+        return $formHelper->createDeleteForm($this, $id);
     }
 
 }
