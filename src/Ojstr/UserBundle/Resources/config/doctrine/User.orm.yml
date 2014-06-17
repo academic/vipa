@@ -53,6 +53,24 @@ Ojstr\UserBundle\Entity\User:
             type: datetime  
             unique: false
             nullable: true 
+        avatar:
+            type: string
+            nullable: true
+            gedmo:
+                - uploadableFilePath
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
     manyToMany:
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
@@ -72,5 +90,10 @@ Ojstr\UserBundle\Entity\User:
                         referencedColumnName: id
                         onDelete: CASCADE
             orderBy: null  
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false 
+        loggable: true 
     
     lifecycleCallbacks: {  }

@@ -18,6 +18,7 @@ class UserType extends AbstractType {
                 ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
                 ->add('email')
                 ->add('isActive')
+                //->add('avatar', 'file')
                 ->add('status')
                 ->add('roles', 'entity', array(
                     'class' => 'Ojstr\UserBundle\Entity\Role',
