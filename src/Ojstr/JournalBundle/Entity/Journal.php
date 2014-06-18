@@ -3,39 +3,48 @@
 namespace Ojstr\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Journal
+ * @ExclusionPolicy("all")
  */
 class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      */
     private $title;
 
     /**
      * @var string
+     * @Expose
      */
     private $titleAbbr;
 
     /**
      * @var string
+     * @Expose
      */
     private $titleTransliterated;
 
     /**
      * @var string
+     * @Expose
      */
     private $subtitle;
 
     /**
      * @var string
+     * @Expose
      */
     private $issn;
 
@@ -46,51 +55,61 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
 
     /**
      * @var \DateTime
+     * @Expose
      */
     private $firstPublishDate;
 
     /**
      * @var string
+     * @Expose
      */
     private $period;
 
     /**
      * @var string
+     * @Expose
      */
     private $url;
 
     /**
      * @var integer
+     * @Expose
      */
     private $country;
 
     /**
      * @var integer
+     * @Expose
      */
     private $publishStatus;
 
     /**
      * @var integer
+     * @Expose
      */
     private $status;
 
     /**
      * @var string
+     * @Expose
      */
     private $coverImage;
 
     /**
      * @var string
+     * @Expose
      */
     private $scope;
 
     /**
      * @var string
+     * @Expose
      */
     private $mission;
 
     /**
      * @var integer
+     * @Expose
      */
     private $themeId;
 

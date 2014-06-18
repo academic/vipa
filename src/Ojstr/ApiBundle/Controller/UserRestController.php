@@ -28,7 +28,7 @@ class UserRestController extends FOSRestController {
     public function getUserAction($username) {
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneByUsername($username);
         if (!is_object($user)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $user;
     }
@@ -103,7 +103,7 @@ class UserRestController extends FOSRestController {
         }
         $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array(), array(), $limit);
         if (!is_array($users)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $users;
     }
@@ -127,7 +127,7 @@ class UserRestController extends FOSRestController {
          */
         $user = $this->getUserEntity($user_id);
         if (!is_object($user)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         if (!$destroy) {
             $user->setStatus(-1);
@@ -243,7 +243,7 @@ class UserRestController extends FOSRestController {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         } 
         /* @var  $user \Ojstr\UserBundle\Entity\User */
         switch ($field) {
@@ -260,15 +260,12 @@ class UserRestController extends FOSRestController {
         return $user;
     }
 
-    private function notFound() {
-        throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
-    }
 
     protected function getUserEntity($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
         if (!$entity) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $entity;
     }

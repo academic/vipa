@@ -159,7 +159,7 @@ class UserController extends Controller {
                 throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
             }
             $entity->setStatus(-1);
-            //$em->remove($entity);
+            $em->remove($entity);
             $em->flush();
         }
         return $this->redirect($this->generateUrl('user'));
