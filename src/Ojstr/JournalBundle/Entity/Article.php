@@ -2,118 +2,148 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
  * Article
+ * @ExclusionPolicy("all")
  */
 class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * auto-incremented article unique id
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
-     * * @var integer
+     * @var integer
+     * @Expose
      */
     private $status;
 
     /**
      * (optional)
      * @var string
+     * @Expose
      */
     private $doi;
 
     /**
      * Could contain any article ID used by the provider
      * @var string
+     * @Expose
      */
     private $otherId;
 
     /**
      * @var integer
+     * @Expose
      */
     private $journalId;
 
     /**
      * Original article title
      * @var string
+     * @Expose
      */
     private $title;
 
     /**
      * Roman transliterated title
      * @var string
+     * @Expose
      */
     private $titleTransliterated;
 
     /**
      * @var string
+     * @Expose
      */
     private $subtitle;
 
     /**
      * @var string
+     * @Expose
      */
     private $keywords;
 
     /**
      * Some artilce carries no authorship
      * @var boolean
+     * @Expose
      */
     private $isAnonymous;
 
     /**
      * @var \DateTime
+     * @Expose
      */
     private $pubdate;
 
     /**
      * @var string
+     * @Expose
      */
     private $pubdateSeason;
 
     /**
      * @var string
+     * @Expose
      */
     private $part;
 
     /**
      * @var integer
+     * @Expose
      */
     private $firstPage;
 
     /**
      * @var integer
+     * @Expose
      */
     private $lastPage;
 
     /**
      * @var string
+     * @Expose
      */
     private $uri;
 
     /**
      * Original abstract
      * @var string
+     * @Expose
      */
     private $abstract;
 
     /**
      * (optional) English transliterated abstract
      * @var string
+     * @Expose
      */
     private $abstractTransliterated;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
      */
     private $subjects;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
      */
     private $citations;
+
+    /**
+     * @var \Ojstr\JournalBundle\Entity\Journal
+     * @Expose
+     */
+    private $journal;
 
     /**
      * Constructor
@@ -517,11 +547,6 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function getAbstractTransliterated() {
         return $this->abstractTransliterated;
     }
-
-    /**
-     * @var \Ojstr\JournalBundle\Entity\Journal
-     */
-    private $journal;
 
     /**
      * Set journal
