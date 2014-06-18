@@ -14,6 +14,15 @@ assetic:
         jquery_js_only:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
+        upload_js:
+            inputs:
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.iframe-transport.js
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.fileupload.js
+        upload_css:
+            inputs:
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload.css
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload-ui.css
         main_js:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js

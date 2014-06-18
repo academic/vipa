@@ -42,13 +42,18 @@ class InstallCommand extends ContainerAwareCommand {
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
-        $command = 'doctrine:schema:update --force';
+        $command1 = 'doctrine:database:create';
+        $command2 = 'doctrine:schema:update --force';
 
         $output->writeln('<info>' .
-                $translator->trans('Creating/updating db schema!') .
+                $translator->trans('Creating db schema!') .
                 '</info>');
-        $application->run(new \Symfony\Component\Console\Input\StringInput($command));
-        
+        $application->run(new \Symfony\Component\Console\Input\StringInput($command1));
+        $output->writeln('<info>' .
+                $translator->trans('Updating db schema!') .
+                '</info>');
+        $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
+
 
         $admin_username = $dialog->ask(
                 $output, '<info>' .
@@ -77,35 +82,20 @@ class InstallCommand extends ContainerAwareCommand {
         $doctrine = $this->getContainer()->get('doctrine');
         $translator = $this->getContainer()->get('translator');
         $em = $doctrine->getEntityManager();
-        $roles = array(
-            'ROLE_ADMIN' => 'Administrator',
-            'ROLE_SYSTEM_ADMIN' => 'System Administrator',
-            'ROLE_SUPER_EDITOR' => 'Super Editor. Editor for all journals',
-            'ROLE_SUPER_AUTHOR' => 'Super Author. Author for all journals',
-            'ROLE_JOURNAL_MANAGER' => 'Journal Manager',
-            'ROLE_SUBSCRIPTION_MANAGER' => 'Subscription Manager',
-            'ROLE_EDITOR' => 'Editor',
-            'ROLE_SECTION_EDITOR' => 'Section Editor',
-            'ROLE_LAYOUT_EDITOR' => 'Layout Editor',
-            'ROLE_REVIEWER' => 'Reviewer',
-            'ROLE_COPYEDITOR ' => 'Copyeditor',
-            'ROLE_PROOFREADER' => 'Proofreader',
-            'ROLE_AUTHOR' => 'Author',
-            'ROLE_READER' => 'Reader',
-        );
+        $roles = $this->getContainer()->getParameter('roles');
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
-        foreach ($roles as $role => $role_name) {
+        foreach ($roles as $role) {
             $new_role = new Role();
-            $check = $role_repo->findOneByRole($role);
+            $check = $role_repo->findOneByRole($role['role']);
             if (!empty($check)) {
                 $output->writeln('<error>' .
                         $translator->trans('This role record already exists on db') .
-                        '</error>' . ' : <info>' . $role . '</info>');
+                        '</error>' . ' : <info>' . $role['role'] . '</info>');
                 continue;
             }
-            $output->writeln('<info>' . $translator->trans('Added ') . ' : ' . $role . '</info>');
-            $new_role->setName($role_name);
-            $new_role->setRole($role);
+            $output->writeln('<info>' . $translator->trans('Added ') . ' : ' . $role['role'] . '</info>');
+            $new_role->setName($role['desc']);
+            $new_role->setRole($role['role']);
             $em->persist($new_role);
         }
         return $em->flush();
@@ -125,8 +115,8 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setUsername($username);
         $user->setIsActive(TRUE);
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
-        $role_sys_admin = $role_repo->findOneByRole('ROLE_SYSTEM_ADMIN');
-        $role_admin = $role_repo->findOneByRole('ROLE_ADMIN');
+        $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
+        $role_admin = $role_repo->findOneByRole('ROLE_USER');
         $user->addRole($role_sys_admin);
         $user->addRole($role_admin);
 

@@ -16,9 +16,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1",
-    "bootstrap": "~3.1.1",
+    	"jquery": "~2.1.1",
+    	"bootstrap": "~3.1.1",
 	"font-awesome":"*",
-    "jquery-leanmodal":"*"
-  }
+    	"jquery-leanmodal":"*",
+  	"jquery-file-upload":"*"
+	}
 }

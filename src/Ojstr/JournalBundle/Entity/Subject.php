@@ -2,25 +2,37 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
  * Subject
+ * @ExclusionPolicy("all")
  */
 class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      */
     private $subject;
 
     /**
      * @var string
+     * @Expose
      */
     private $description;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles;
 
     /**
      * Get id
@@ -70,11 +82,6 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function getDescription() {
         return $this->description;
     }
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articles;
 
     /**
      * Constructor

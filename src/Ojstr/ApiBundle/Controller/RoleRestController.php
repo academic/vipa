@@ -27,7 +27,7 @@ class RoleRestController extends FOSRestController {
     public function getRoleAction($id) {
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
         if (!is_object($user)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $user;
     }

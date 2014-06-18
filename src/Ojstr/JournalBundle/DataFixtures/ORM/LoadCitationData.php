@@ -16,8 +16,8 @@ class LoadCitationData extends AbstractFixture implements OrderedFixtureInterfac
             $c = new Citation();
             $c->addArticle($article[0]);
             $c->setOrderNum(0);
-            $c->setSource("Citation source");
-            $c->setType(\Ojstr\Common\Params\CitationParams::$CITATION_TYPE_ARTICLE);
+            $c->setRaw("Citation raw");
+            $c->setType('article');
             $manager->persist($c);
             $manager->flush();
         }
