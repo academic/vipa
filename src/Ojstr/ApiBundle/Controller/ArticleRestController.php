@@ -23,13 +23,13 @@ class ArticleRestController extends FOSRestController {
      * )
      * @Get("/articles/bulk/{page}/{limit}")
      */
-    public function getArticleListAction($page = 0, $limit = 10) {
-        $q = Doctrine_Query::create()
-                ->from('OjstrJournalBundle:Article')
-                ->page($page)
-                ->limit($limit);
-        $articles = $q->execute();
-        if (!is_object($articles)) {
+    public function getArticlesAction($page = 0, $limit = 10) { 
+        $articles = $this->getDoctrine()->getManager()
+                ->createQuery('SELECT a FROM OjstrJournalBundle:Article a')
+                ->setFirstResult($page)
+                ->setMaxResults($limit)
+                ->getResult();
+        if (!is_array($articles)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $articles;
