@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 
 class ArticleRestController extends FOSRestController {
 
@@ -17,13 +19,34 @@ class ArticleRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
+     *  description="Get Articles"
+     * )
+     * @Get("/articles/bulk/{page}/{limit}")
+     */
+    public function getArticleListAction($page = 0, $limit = 10) {
+        $q = Doctrine_Query::create()
+                ->from('OjstrJournalBundle:Article')
+                ->page($page)
+                ->limit($limit);
+        $articles = $q->execute();
+        if (!is_object($articles)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        return $articles;
+    }
+
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
      *  description="Get Article Action"
      * )
+     * 
      */
     public function getArticleAction($id) {
         $article = $this->getDoctrine()->getRepository('OjstrJournalBundle:Article')->find($id);
         if (!is_object($article)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $article;
     }

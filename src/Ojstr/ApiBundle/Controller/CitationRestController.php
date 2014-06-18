@@ -28,7 +28,7 @@ class CitationRestController extends FOSRestController {
     public function getCitationAction($id, Request $request) {
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $citation;
     }
