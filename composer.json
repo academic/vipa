@@ -32,7 +32,8 @@
         "jms/serializer-bundle": "@dev",
         "nelmio/api-doc-bundle": "@dev",
 	"stof/doctrine-extensions-bundle": "~1.1@dev",
-	"oneup/uploader-bundle": "1.0.*@dev"
+	"oneup/uploader-bundle": "1.0.*@dev",
+	"avalanche123/imagine-bundle": "v2.1"
     },
     "scripts": {
         "post-install-cmd": [
