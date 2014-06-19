@@ -334,14 +334,11 @@ class ImageResizeHelper {
                     $file_path, $src_func
             );
         }
-        $max_width = $img_width = imagesx($src_img);
-        $max_height = $img_height = imagesy($src_img);
-        if (!empty($options['max_width'])) {
-            $max_width = $options['max_width'];
-        }
-        if (!empty($options['max_height'])) {
-            $max_height = $options['max_height'];
-        }
+        $img_width = imagesx($src_img);
+        $img_height = imagesy($src_img);
+        $max_height = !empty($options['max_height']) ? $options['max_height'] : $img_height;
+        $max_width = !empty($options['max_width']) ? $options['max_width'] : $img_width;
+
         $scale = min(
                 $max_width / $img_width, $max_height / $img_height
         );
@@ -466,19 +463,13 @@ class ImageResizeHelper {
         if (!empty($options['auto_orient'])) {
             $image_oriented = $this->imagick_orient_image($image);
         }
-        $new_width = $max_width = $img_width = $image->getImageWidth();
-        $new_height = $max_height = $img_height = $image->getImageHeight();
-        if (!empty($options['max_width'])) {
-            $new_width = $max_width = $options['max_width'];
-        }
-        if (!empty($options['max_height'])) {
-            $new_height = $max_height = $options['max_height'];
-        }
+        $img_width = $image->getImageWidth();
+        $img_height = $image->getImageHeight();
+
+        $new_width = $max_width = !empty($options['max_width']) ? $options['max_width'] : $img_width;
+        $new_height = $max_height = !empty($options['max_height']) ? $options['max_height'] : $img_height;
         if (!($image_oriented || $max_width < $img_width || $max_height < $img_height)) {
-            if ($file_path !== $new_file_path) {
-                return copy($file_path, $new_file_path);
-            }
-            return true;
+            return ($file_path !== $new_file_path) ? copy($file_path, $new_file_path) : true;
         }
         $crop = !empty($options['crop']);
         if ($crop) {
@@ -491,7 +482,7 @@ class ImageResizeHelper {
             }
         }
         $success = $image->resizeImage(
-                $new_width, $new_height, isset($options['filter']) ? $options['filter'] : \imagick::FILTER_LANCZOS, isset($options['blur']) ? $options['blur'] : 1, $new_width && $new_height // fit image into constraints if not to be cropped
+                $new_width, $new_height, isset($options['filter']) ? $options['filter'] : \imagick:: FILTER_LANCZOS, isset($options['blur']) ? $options['blur'] : 1, $new_width && $new_height // fit image into constraints if not to be cropped
         );
         if ($success && $crop) {
             $success = $image->cropImage(
@@ -502,14 +493,9 @@ class ImageResizeHelper {
             }
         }
         $type = strtolower(substr(strrchr($file_name, '.'), 1));
-        switch ($type) {
-            case 'jpg':
-            case 'jpeg':
-                if (!empty($options['jpeg_quality'])) {
-                    $image->setImageCompression(\imagick::COMPRESSION_JPEG);
-                    $image->setImageCompressionQuality($options['jpeg_quality']);
-                }
-                break;
+        if (($type === 'jpeg' || $type === 'jpg') && !empty($options['jpeg_quality'])) {
+            $image->setImageCompression(\imagick::COMPRESSION_JPEG);
+            $image->setImageCompressionQuality($options['jpeg_quality']);
         }
         if (!empty($options['strip'])) {
             $image->stripImage();
