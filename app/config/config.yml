@@ -146,6 +146,31 @@ oneup_uploader:
             enable_progress: true
             frontend: blueimp
             
+            
+avalanche_imagine:
+    filters:
+        avatar_thumb:
+            type:    thumbnail
+            options: { start : [0,0], size: [200, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+        avatar_thumb_crop:
+            type:    crop
+            options: { start : [0,0], size: [200, 200],  quality: 90, cache_type: public, cache_expires: 2 weeks }
+        medium:
+            type:    resize
+            options: { size: [800,600], mode: outbound, quality: 90}
+        
+        height_60:
+            type:    relative_resize
+            options: { heighten: 60 }  
+        height_200:
+            type:    relative_resize
+            options: { heighten: 200 }  
+        height_60:
+            type:    relative_resize
+            options: { heighten: 60 } 
+        wide_100:
+            type:    relative_resize
+            options: { widen: 100 }   
 services:
     ojstr_locale.locale_listener:
         class: Ojstr\Common\Listener\LocaleListener

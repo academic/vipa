@@ -4,27 +4,21 @@ namespace Ojstr\Common\Helper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class ImageUploadHelper {
+class ImageResizeHelper {
 
-    private $container;
     protected $options;
     protected $imagePath;
     protected $error_messages = array();
     protected $image_objects = array();
 
-    function __construct(Container $container = null, $options = null) {
-        $this->container = $container;
+    function __construct($options = null) {
         $this->options = array(
             'imageName' => '',
-            'upload_dir' => $this->container->get('kernel')->getRootDir() . '/../web/uploads/',
+            'upload_dir' => 'web/uploads/',
             'upload_url' => '/uploads/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
-            // is enabled, set to 0 to disable chunked reading of files:
-            'readfile_chunk_size' => 10 * 1024 * 1024, // 10 MiB
-            // Defines which files (based on their names) are accepted for upload:
             'accept_file_types' => '/.+$/i',
-            // Defines which files are handled as image files:
             'image_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Image resolution restrictions:
             'max_width' => 4000,
@@ -33,7 +27,6 @@ class ImageUploadHelper {
             'min_height' => 10,
             // Set to 0 to use the GD library to scale and orient images,
             // set to 1 to use imagick (if installed, falls back to GD),
-            // set to 2 to use the ImageMagick convert binary directly:
             'image_library' => 1,
             // Uncomment the following to define an array of resource limits
             // for imagick:
@@ -43,16 +36,6 @@ class ImageUploadHelper {
               imagick::RESOURCETYPE_MEMORY => 32
               ),
              */
-            // Command or path for to the ImageMagick convert binary:
-            'convert_bin' => 'convert',
-            // Uncomment the following to add parameters in front of each
-            // ImageMagick convert call (the limit constraints seem only
-            // to have an effect if put in front):
-            /*
-              'convert_params' => '-limit memory 32MiB -limit map 32MiB',
-             */
-            // Command or path for to the ImageMagick identify binary:
-            'identify_bin' => 'identify',
             'image_versions' => array(
                 // The empty image version key defines options for the original image:
                 'big' => array(
@@ -72,15 +55,6 @@ class ImageUploadHelper {
                     'max_height' => 240
                 ),
                 'thumbnail' => array(
-                    // Uncomment the following to use a defined directory for the thumbnails
-                    // instead of a subdirectory based on the version identifier.
-                    // Make sure that this directory doesn't allow execution of files if you
-                    // don't pose any restrictions on the type of uploaded files, e.g. by
-                    // copying the .htaccess file from the files directory for Apache:
-                    //'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/thumb/',
-                    //'upload_url' => $this->get_full_url().'/thumb/',
-                    // Uncomment the following to force the max
-                    // dimensions and e.g. create square thumbnails:
                     'crop' => true,
                     'max_width' => 80,
                     'max_height' => 80
@@ -110,10 +84,7 @@ class ImageUploadHelper {
     // Fix for overflowing signed 32 bit integers,
     // works for sizes up to 2^32-1 bytes (4 GiB - 1):
     protected function fix_integer_overflow($size) {
-        if ($size < 0) {
-            $size += 2.0 * (PHP_INT_MAX + 1);
-        }
-        return $size;
+        return $size < 0 ? ($size + (2.0 * (PHP_INT_MAX + 1))) : $size;
     }
 
     protected function get_file_size($file_path, $clear_stat_cache = false) {
@@ -136,26 +107,27 @@ class ImageUploadHelper {
     }
 
     protected function get_file_object($file_name) {
-        if ($this->is_valid_file_object($file_name)) {
-            $file = new \stdClass();
-            $file->name = $file_name;
-            $file->size = $this->get_file_size(
-                    $this->get_upload_path($file_name)
-            );
-            $file->url = $this->get_download_url($file->name);
-            foreach ($this->options['image_versions'] as $version => $options) {
-                if (!empty($version)) {
-                    if (is_file($this->get_upload_path($file_name, $version))) {
-                        $file->{$version . 'Url'} = $this->get_download_url(
-                                $file->name, $version
-                        );
-                    }
-                }
-            }
-            $this->set_additional_file_properties($file);
-            return $file;
+        if (!$this->is_valid_file_object($file_name)) {
+            return null;
         }
-        return null;
+        $file = new \stdClass();
+        $file->name = $file_name;
+        $file->size = $this->get_file_size(
+                $this->get_upload_path($file_name)
+        );
+        $file->url = $this->get_download_url($file->name);
+        foreach ($this->options['image_versions'] as $version => $options) {
+            if (empty($version)) {
+                continue;
+            }
+            if (is_file($this->get_upload_path($file_name, $version))) {
+                $file->{$version . 'Url'} = $this->get_download_url(
+                        $file->name, $version
+                );
+            }
+        }
+        $this->set_additional_file_properties($file);
+        return $file;
     }
 
     protected function get_file_objects($iteration_method = 'get_file_object') {
@@ -510,8 +482,6 @@ class ImageUploadHelper {
         }
         $crop = !empty($options['crop']);
         if ($crop) {
-            $x = 0;
-            $y = 0;
             if (($img_width / $img_height) >= ($max_width / $max_height)) {
                 $new_width = 0; // Enables proportional scaling based on max_height
                 $x = ($img_width / ($img_height / $max_height) - $max_width) / 2;
@@ -525,7 +495,7 @@ class ImageUploadHelper {
         );
         if ($success && $crop) {
             $success = $image->cropImage(
-                    $max_width, $max_height, $x, $y
+                    $max_width, $max_height, isset($x) ? $x : 0, isset($y) ? $y : 0
             );
             if ($success) {
                 $success = $image->setImagePage($max_width, $max_height, 0, 0);
@@ -547,49 +517,6 @@ class ImageUploadHelper {
         return $success && $image->writeImage($new_file_path);
     }
 
-    protected function imagemagick_create_scaled_image($file_name, $version, $options) {
-        list($file_path, $new_file_path) = $this->get_scaled_image_file_paths($file_name, $version);
-        $resize = @$options['max_width']
-                . (empty($options['max_height']) ? '' : 'X' . $options['max_height']);
-        if (!$resize && empty($options['auto_orient'])) {
-            if ($file_path !== $new_file_path) {
-                return copy($file_path, $new_file_path);
-            }
-            return true;
-        }
-        $cmd = $this->options['convert_bin'];
-        if (!empty($this->options['convert_params'])) {
-            $cmd .= ' ' . $this->options['convert_params'];
-        }
-        $cmd .= ' ' . escapeshellarg($file_path);
-        if (!empty($options['auto_orient'])) {
-            $cmd .= ' -auto-orient';
-        }
-        if ($resize) {
-            // Handle animated GIFs:
-            $cmd .= ' -coalesce';
-            if (empty($options['crop'])) {
-                $cmd .= ' -resize ' . escapeshellarg($resize . '>');
-            } else {
-                $cmd .= ' -resize ' . escapeshellarg($resize . '^');
-                $cmd .= ' -gravity center';
-                $cmd .= ' -crop ' . escapeshellarg($resize . '+0+0');
-            }
-            // Make sure the page dimensions are correct (fixes offsets of animated GIFs):
-            $cmd .= ' +repage';
-        }
-        if (!empty($options['convert_params'])) {
-            $cmd .= ' ' . $options['convert_params'];
-        }
-        $cmd .= ' ' . escapeshellarg($new_file_path);
-        exec($cmd, $output, $error);
-        if ($error) {
-            error_log(implode('\n', $output));
-            return false;
-        }
-        return true;
-    }
-
     protected function get_image_size($file_path) {
         if ($this->options['image_library']) {
             if (extension_loaded('imagick')) {
@@ -605,18 +532,6 @@ class ImageUploadHelper {
                     error_log($e->getMessage());
                 }
             }
-            if ($this->options['image_library'] === 2) {
-                $cmd = $this->options['identify_bin'];
-                $cmd .= ' -ping ' . escapeshellarg($file_path);
-                exec($cmd, $output, $error);
-                if (!$error && !empty($output)) {
-                    // image.jpg JPEG 1920x1080 1920x1080+0+0 8-bit sRGB 465KB 0.000u 0:00.000
-                    $infos = preg_split('/\s+/', $output[0]);
-                    $dimensions = preg_split('/x/', $infos[2]);
-                    return $dimensions;
-                }
-                return false;
-            }
         }
         if (!function_exists('getimagesize')) {
             error_log('Function not found: getimagesize');
@@ -626,9 +541,6 @@ class ImageUploadHelper {
     }
 
     protected function create_scaled_image($file_name, $version, $options) {
-        if ($this->options['image_library'] === 2) {
-            return $this->imagemagick_create_scaled_image($file_name, $version, $options);
-        }
         if ($this->options['image_library'] && extension_loaded('imagick')) {
             return $this->imagick_create_scaled_image($file_name, $version, $options);
         }
@@ -650,22 +562,6 @@ class ImageUploadHelper {
         }
         $image_info = $this->get_image_size($file_path);
         return $image_info && $image_info[0] && $image_info[1];
-    }
-
-    protected function readfile($file_path) {
-        $file_size = $this->get_file_size($file_path);
-        $chunk_size = $this->options['readfile_chunk_size'];
-        if ($chunk_size && $file_size > $chunk_size) {
-            $handle = fopen($file_path, 'rb');
-            while (!feof($handle)) {
-                echo fread($handle, $chunk_size);
-                ob_flush();
-                flush();
-            }
-            fclose($handle);
-            return $file_size;
-        }
-        return readfile($file_path);
     }
 
 }

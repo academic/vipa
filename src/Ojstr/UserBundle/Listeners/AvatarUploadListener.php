@@ -4,7 +4,7 @@ namespace Ojstr\UserBundle\Listeners;
 
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use Ojstr\Common\Helper\ImageUploadHelper as ImageUploadHelper;
+use Ojstr\Common\Helper\ImageResizeHelper as ImageResizeHelper;
 
 class AvatarUploadListener {
 
@@ -21,7 +21,7 @@ class AvatarUploadListener {
         //$session = $request->getSession();
         //$gallery = $request->get('avatars');
         $file = $event->getFile();
-        $helper = new ImageUploadHelper($this->container, array(
+        $helper = new ImageResizeHelper(array(
             'imageName' => $file->getFileName(),
             'upload_dir' => $this->container->get('kernel')->getRootDir() . '/../web/uploads/avatars/',
             'upload_url' => '/uploads/avatars/'
