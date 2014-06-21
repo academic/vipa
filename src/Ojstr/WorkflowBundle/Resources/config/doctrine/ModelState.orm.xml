@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Ojstr\WorkflowBundle\Entity\ModelState"
+            table="workflow_model_state"
+            repository-class="Ojstr\WorkflowBundle\Model\ModelStateRepository">
+
+        <indexes>
+            <index name="identifier_idx" columns="workflow_identifier"/>
+        </indexes>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="workflowIdentifier" column="workflow_identifier" type="string" length="255" />
+
+        <field name="processName" column="process_name" type="string" length="255" />
+
+        <field name="stepName" column="step_name" type="string" length="255" />
+
+        <field name="successful" column="successful" type="boolean" />
+
+        <field name="createdAt" column="created_at" type="datetime" />
+
+        <field name="data" column="data" type="text" nullable="true" />
+
+        <field name="errors" column="errors" type="text" nullable="true" />
+
+        <one-to-many field="next" target-entity="Ojstr\WorkflowBundle\Entity\ModelState" mapped-by="previous" />
+
+        <many-to-one field="previous" target-entity="Ojstr\WorkflowBundle\Entity\ModelState" inversed-by="next">
+            <join-column name="previous_id" referenced-column-name="id" on-delete="SET NULL" />
+        </many-to-one>
+
+    </entity>
+</doctrine-mapping>

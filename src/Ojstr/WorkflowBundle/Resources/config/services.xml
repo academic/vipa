@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="workflow.process_aggregator.class">Ojstr\WorkflowBundle\Handler\ProcessAggregator</parameter>
+        <parameter key="workflow.model_storage.class">Ojstr\WorkflowBundle\Model\ModelStorage</parameter>
+        <parameter key="workflow.model_state.class">Ojstr\WorkflowBundle\Entity\ModelState</parameter>
+    </parameters>
+
+    <services>
+        <service id="workflow.process_aggregator" class="%workflow.process_aggregator.class%">
+            <argument type="collection" />
+        </service>
+
+        <service id="workflow.model_storage" class="%workflow.model_storage.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%workflow.model_state.class%</argument>
+        </service>
+
+        <!-- Twig extension -->
+        <service id="workflow.twig.workflow_extension" class="Ojstr\WorkflowBundle\Twig\Extension\WorkflowExtension" public="false">
+            <argument type="service" id="workflow.process_aggregator" />
+            <tag name="twig.extension" />
+        </service>
+    </services>
+
+</container>
