@@ -1,3 +1,0 @@
-ojstr_workflow_homepage:
-    pattern:  /workflow
-    defaults: { _controller: OjstrWorkflowBundle:Default:index }
