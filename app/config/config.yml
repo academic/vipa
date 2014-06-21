@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: ojstr_params.yml }
     - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
-    - { resource: workflow.yml }
+    #- { resource: "../../src/Ojstr/ArticleProcessBundle/Resources/config/workflow.yml" }
 
 framework:
     #esi:             ~
