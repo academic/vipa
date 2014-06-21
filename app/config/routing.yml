@@ -1,3 +1,7 @@
+ojstr_workflow:
+    resource: "@OjstrWorkflowBundle/Resources/config/routing.yml"
+    prefix:   / 
+
 ojstr_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
     prefix:   /
@@ -9,9 +13,8 @@ ojstr_user:
 
 ojstr_journal:
     resource: "@OjstrJournalBundle/Resources/config/routing.yml"
-    prefix:   /manager/
-
-
+    prefix:   /manager/ 
+    
 oneup_uploader:
     resource: .
     type: uploader
