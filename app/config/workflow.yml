@@ -1,0 +1,40 @@
+lexik_workflow:
+    processes:
+        article_publication:
+            start: submitted
+            end:   [ deleted ]
+            steps:
+                submitted:
+                    label: "Article Submitted"
+                    roles: [ ROLE_USER ]
+                    #model_status: [ setStatus, Project\Bundle\SuperBundle\Entity\Post::STATUS_DRAFT ]
+                    next_states:
+                        validate: { type: step, target: validated_by_admin } # you can omit "type: step" as "step" is the default value of the "type" node. Soon, you'll be able to use "type: process".
+                validated_by_admin:
+                    label: "Post validated"
+                    roles: [ ROLE_ADMIN ]
+                    #model_status: [ setStatus, Project\Bundle\SuperBundle\Entity\Post::STATUS_VALIDATED ]
+                    next_states:
+                        publish: { target: published }
+
+                published:
+                    label: "Post published"
+                    roles: [ ROLE_USER ]
+                    #model_status: [ setStatus, Project\Bundle\SuperBundle\Entity\Post::STATUS_PUBLISHED ]
+                    on_invalid: draft_created # will try to reach the "draft_created" step in case validations to reach "published" fail.
+                    next_states:
+                        unpublish: { target: unpublished }
+
+                unpublished:
+                    label: "Post unpublished"
+                    roles: [ ROLE_USER ]
+                    #model_status: [ setStatus, Project\Bundle\SuperBundle\Entity\Post::STATUS_UNPUBLISHED ]
+                    next_states:
+                        delete:  { target: deleted }
+                        publish: { target: published }
+
+                deleted:
+                    label: "Post deleted"
+                    roles: [ ROLE_ADMIN ]
+                    #model_status: [ setStatus, Project\Bundle\SuperBundle\Entity\Post::STATUS_DELETED ]
+                    next_states: ~

@@ -33,7 +33,10 @@
         "nelmio/api-doc-bundle": "@dev",
 	"stof/doctrine-extensions-bundle": "~1.1@dev",
 	"oneup/uploader-bundle": "1.0.*@dev",
-	"avalanche123/imagine-bundle": "v2.1"
+	"avalanche123/imagine-bundle": "v2.1",
+	"caseyamcl/Phpoaipmh": "dev-master",
+	"knplabs/knp-paginator-bundle": "~2.4",
+	"lexik/workflow-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

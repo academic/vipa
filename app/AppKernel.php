@@ -27,7 +27,10 @@ class AppKernel extends Kernel {
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
-        );
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+	    new Lexik\Bundle\WorkflowBundle\LexikWorkflowBundle(),
+            new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),
+	);
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
