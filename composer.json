@@ -36,7 +36,7 @@
 	"avalanche123/imagine-bundle": "v2.1",
 	"caseyamcl/Phpoaipmh": "dev-master",
 	"knplabs/knp-paginator-bundle": "~2.4",
-	"hasantayyar/workflowbundle": "0.1.*@dev"	
+	"hasantayyar/workflowbundle": "*"	
 },
     "scripts": {
         "post-install-cmd": [
