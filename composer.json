@@ -36,8 +36,8 @@
 	"avalanche123/imagine-bundle": "v2.1",
 	"caseyamcl/Phpoaipmh": "dev-master",
 	"knplabs/knp-paginator-bundle": "~2.4",
-	"lexik/workflow-bundle": "dev-master"
-    },
+	"hasantayyar/workflowbundle": "0.3.*@dev"	
+},
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
