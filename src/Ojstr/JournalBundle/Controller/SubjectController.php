@@ -179,7 +179,7 @@ class SubjectController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'admin_subject_delete');
     }
 
 }

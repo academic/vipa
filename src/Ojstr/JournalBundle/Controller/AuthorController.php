@@ -178,7 +178,7 @@ class AuthorController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'admin_author_delete');
     }
 
 }

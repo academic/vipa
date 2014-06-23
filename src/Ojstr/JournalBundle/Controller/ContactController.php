@@ -178,7 +178,6 @@ class ContactController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
     }
 
 }
