@@ -8,6 +8,7 @@ use Ojstr\JournalBundle\Entity\ArticleFile;
 use Ojstr\JournalBundle\Form\ArticleFileType;
 use Gedmo\Uploadable\FileInfo\FileInfoArray;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * ArticleFile controller.
@@ -44,7 +45,7 @@ class ArticleFileController extends Controller {
             $listener = $this->get('stof_doctrine_extensions.listener.uploadable');
             $listener->addEntityFileInfo($file, new FileInfoArray($_FILES['articlefile']));
             $file->setArticleId($data->getArticleId());
-            $em->persist($file);
+            $em->persist($file); 
         }
 
         $em->flush();
