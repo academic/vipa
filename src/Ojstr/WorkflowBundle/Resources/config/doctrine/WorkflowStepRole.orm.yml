@@ -1,0 +1,25 @@
+Ojstr\WorkflowBundle\Entity\WorkflowStepRole:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\WorkflowBundle\Entity\WorkflowStepRoleRepository
+    manyToOne:
+        step:
+            targetEntity: Ojstr\WorkflowBundle\Entity\WorkflowStep
+            inversedBy: workflowstep 
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        stepId:
+            type: integer
+            column: step_id
+        roleName:
+            type: string
+            length: 255
+            column: role_name
+        description:
+            type: text
+    lifecycleCallbacks: {  }

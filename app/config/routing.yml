@@ -1,6 +1,6 @@
 ojstr_workflow:
     resource: "@OjstrWorkflowBundle/Resources/config/routing.yml"
-    prefix:   /workflow/
+    prefix:   /workflow
 
 ojstr_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
