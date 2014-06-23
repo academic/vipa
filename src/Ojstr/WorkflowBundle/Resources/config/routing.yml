@@ -1,0 +1,12 @@
+ojstr_workflow_homepage:
+    pattern:  /
+    defaults: { _controller: OjstrWorkflowBundle:Default:index }
+    
+OjstrWorkflowBundle_workflowstep:
+        resource: "@OjstrWorkflowBundle/Resources/config/routing/workflowstep.yml"
+        prefix:   /workflowstep
+        
+OjstrWorkflowBundle_workflowsteprole:
+        resource: "@OjstrWorkflowBundle/Resources/config/routing/workflowsteprole.yml"
+        prefix:   /workflowsteprole
+        
