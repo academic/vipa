@@ -29,6 +29,7 @@ class AppKernel extends Kernel {
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
