@@ -27,6 +27,16 @@ framework:
     fragments:       ~
     http_method_override: true
 
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: ojs
+    document_managers:
+        default:
+            auto_mapping: true
+            
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
