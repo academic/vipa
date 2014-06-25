@@ -35,9 +35,16 @@ class UserJournalRoleController extends Controller {
         $entity = new UserJournalRole();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($data->getJournalId());
+            $user = $em->getRepository('OjstrUserBundle:User')->findOneById($data->getUserId());
+            $role = $em->getRepository('OjstrUserBundle:Role')->findOneById($data->getUserId());
+            $entity->setUser($user);
+            $entity->setJournal($journal);
+            $entity->setRole($role);
+
             $em->persist($entity);
             $em->flush();
 
@@ -106,7 +113,7 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a Users of a Journal with roles  (ungrouped).
      * @param int $journal_id
      */
-    public function showUsersAction($journal_id) {
+    public function showUsersOfJournalAction($journal_id) {
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
@@ -122,7 +129,7 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a Journals of a user with roles.
      * @param int $journal_id
      */
-    public function showJournalsAction($user_id) {
+    public function showJournalsOfUserAction($user_id) {
 
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByUserId($user_id);

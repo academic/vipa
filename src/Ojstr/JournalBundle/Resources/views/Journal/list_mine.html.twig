@@ -1,0 +1,43 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>Journal List</h1>
+        <div class="panel">
+            <a class="btn btn-default" href="{{path('journal')}}">
+                <i class="glyphicon glyphicon-asterisk"></i> All journals</a>
+            <a class="btn btn-info" href="{{path('myjournals')}}">
+                <i class="glyphicon glyphicon-user"></i> Your journals</a>
+        </div>
+
+        <div class="large-12 columns">
+            <div class="panel">
+                <h1>Journals of User</h1>
+
+                <table class="records_list  table">
+                    <thead>
+                        <tr>
+                            <th>Journal Id</th>
+                            <th>Journal Name</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        {% for entity in entities %}
+                        <tr>
+                            <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a></td>
+                            <td>{{ entity.journal.title}} / {{ entity.journal.titleTransliterated}}</td>
+                            <td>{{ entity.role.name }} </td>
+                        </tr>
+        {% endfor %}
+                    </tbody>
+                </table>
+
+                
+            </div>
+        </div>
+ 
+    </div>
+</div>
+    {% endblock %}

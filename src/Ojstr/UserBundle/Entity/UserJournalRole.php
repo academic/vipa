@@ -2,8 +2,6 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * UserJournalRole
  */
@@ -148,7 +146,7 @@ class UserJournalRole {
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
      * @return UserJournalRole
      */
-    public function setJournal(\Ojstr\UserBundle\Entity\Journal $journal = null) {
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
         $this->journal = $journal;
 
         return $this;
@@ -157,7 +155,7 @@ class UserJournalRole {
     /**
      * Get journal
      *
-     * @return \Ojstr\UserBundle\Entity\Journal 
+     * @return \Ojstr\Journalundle\Entity\Journal 
      */
     public function getJournal() {
         return $this->journal;

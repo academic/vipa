@@ -5,7 +5,7 @@
     <div class="panel">
         <h1>Journals of User</h1>
 
-        <table class="records_list">
+        <table class="records_list  table">
             <thead>
                 <tr>
                     <th>Journal Id</th>
@@ -17,7 +17,7 @@
         {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a></td>
-                    <td>{{ entity.journal.title}} / {{ entity.journal.titleTranslated}}</td>
+                    <td>{{ entity.journal.title}} / {{ entity.journal.titleTransliterated}}</td>
                     <td>{{ entity.role.name }} </td>
                 </tr>
         {% endfor %}

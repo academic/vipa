@@ -3,17 +3,19 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>Journal list</h1>
-
+        <h1>Journal List</h1>
+        <div class="panel">
+            <a class="btn btn-info" href="{{path('journal')}}">
+                <i class="glyphicon glyphicon-asterisk"></i> All journals</a>
+            <a class="btn btn-default" href="{{path('myjournals')}}">
+                <i class="glyphicon glyphicon-user"></i> Your journals</a>
+        </div>
         <table class="records_list  table" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Title</th>
-                    <th>Titleabbr</th>
-                    <th>Titletransliterated</th> 
                     <th>Issn</th>
-                    <th>Eissn</th>
                     <th>Firstpublishdate</th>
                     <th>Url</th>
                     <th>Publishstatus</th>
@@ -26,17 +28,14 @@
                 <tr>
                     <td><a href="{{ path('journal_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.title }}</td>
-                    <td>{{ entity.titleAbbr }}</td>
-                    <td>{{ entity.titleTransliterated }}</td>
                     <td>{{ entity.issn }}</td>
-                    <td>{{ entity.eissn }}</td>
                     <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ entity.url }}</td>
                     <td>{{ entity.publishStatus }}</td>
                     <td>{{ entity.status }}</td>
                     <td>
-                            <a href="{{ path('journal_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Show{% endtrans %}</a> <br>
-                            <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Edit{% endtrans %}</a>
+                        <a href="{{ path('journal_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Show{% endtrans %}</a> <br>
+                        <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Edit{% endtrans %}</a>
                         </div
                     </td>
                 </tr>

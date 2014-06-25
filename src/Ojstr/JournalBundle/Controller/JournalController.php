@@ -19,11 +19,20 @@ class JournalController extends Controller {
      *
      */
     public function indexAction() {
+        $request = $this->container->get('request');
+        $routeName = $request->get('_route');
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrJournalBundle:Journal')->findAll();
-        return $this->render('OjstrJournalBundle:Journal:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        if ($routeName == "myjournals") {
+            $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByUserId($this->container->get('security.context')->getToken()->getUser());
+            return $this->render('OjstrJournalBundle:Journal:list_mine.html.twig', array(
+                        'entities' => $entities,
+            ));
+        } else {
+            $entities = $this->getDoctrine()->getManager()->getRepository('OjstrJournalBundle:Journal')->findAll();
+            return $this->render('OjstrJournalBundle:Journal:index.html.twig', array(
+                        'entities' => $entities,
+            ));
+        }
     }
 
     /**
@@ -178,7 +187,7 @@ class JournalController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id,'journal_delete');
+        return $formHelper->createDeleteForm($this, $id, 'journal_delete');
     }
 
 }
