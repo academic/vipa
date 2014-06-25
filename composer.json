@@ -13,7 +13,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.4.5",
+        "symfony/symfony": "2.5.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -35,7 +35,9 @@
 	"oneup/uploader-bundle": "1.0.*@dev",
 	"avalanche123/imagine-bundle": "v2.1",
 	"caseyamcl/Phpoaipmh": "dev-master",
-	"knplabs/knp-paginator-bundle": "~2.4"
+	"knplabs/knp-paginator-bundle": "~2.4",
+        "doctrine/mongodb-odm": "1.0.*@dev",
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
 },
     "scripts": {
         "post-install-cmd": [
