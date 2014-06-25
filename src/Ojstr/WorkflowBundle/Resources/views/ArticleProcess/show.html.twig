@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>WorkflowStepRole</h1>
+    <h1>ArticleProcess</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,28 +10,24 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
+                <th>Articleid</th>
+                <td>{{ entity.articleId }}</td>
+            </tr>
+            <tr>
                 <th>Stepid</th>
                 <td>{{ entity.stepId }}</td>
-            </tr>
-            <tr>
-                <th>Rolename</th>
-                <td>{{ entity.roleName }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('workflowsteprole') }}">
+        <a href="{{ path('articleprocess') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('workflowsteprole_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('articleprocess_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

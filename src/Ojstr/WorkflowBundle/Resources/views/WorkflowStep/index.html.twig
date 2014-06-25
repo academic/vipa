@@ -3,15 +3,15 @@
 {% block body -%}
     <h1>WorkflowStep list</h1>
 
-    <table class="records_list">
+    <table class="records_list table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Journalid</th>
+                <th>#Id</th>
+                <th>Journal</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Nextid</th>
-                <th>Previd</th>
+                <th>Next Step</th>
+                <th>Previous Step</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -42,7 +42,7 @@
         <ul>
         <li>
             <a href="{{ path('workflowstep_new') }}">
-                Create a new entry
+                {% trans %}Create New{% endtrans %}
             </a>
         </li>
     </ul>

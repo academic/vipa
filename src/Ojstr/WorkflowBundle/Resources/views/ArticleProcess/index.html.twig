@@ -1,32 +1,30 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>WorkflowStepRole list</h1>
+    <h1>ArticleProcess list</h1>
 
     <table class="records_list  table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Articleid</th>
                 <th>Stepid</th>
-                <th>Rolename</th>
-                <th>Description</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('workflowsteprole_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('articleprocess_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.articleId }}</td>
                 <td>{{ entity.stepId }}</td>
-                <td>{{ entity.roleName }}</td>
-                <td>{{ entity.description }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('workflowsteprole_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('articleprocess_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('workflowsteprole_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('articleprocess_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -37,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('workflowsteprole_new') }}">
+            <a href="{{ path('articleprocess_new') }}">
                 Create a new entry
             </a>
         </li>
