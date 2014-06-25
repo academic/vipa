@@ -8,5 +8,5 @@ OjstrWorkflowBundle_workflowstep:
         
 OjstrWorkflowBundle_workflowsteprole:
         resource: "@OjstrWorkflowBundle/Resources/config/routing/workflowsteprole.yml"
-        prefix:   /workflowsteprole
+        prefix:   /workflowsteprole 
         
