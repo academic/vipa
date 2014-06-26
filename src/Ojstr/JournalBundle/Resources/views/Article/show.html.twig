@@ -114,18 +114,16 @@
                 </tbody>
             </table>
 
-            
+
             <div class="record_actions">
                 <a class="btn btn-info" href="{{ path('admin_article_citation', { 'id': entity.id }) }}">
-                    <i class="glyphicon glyphicon-asterisk"></i> Citation Editor</a>
-                <a class="btn btn-default" href="{{ path('admin_article') }}">
-                        {% trans %}Back to list{% endtrans %}
-                </a>
-                <a class="btn btn-warning" href="{{ path('admin_article_edit', { 'id': entity.id }) }}">
-                    Edit
-                </a>
-                    <br><br>
-                    {{ form(delete_form) }}
+                    <i class="glyphicon glyphicon-asterisk"></i> 
+                    Citation Editor</a>
+
+                    {% set back_path = 'admin_article' %}
+                    {% set edit_path = 'admin_article_edit' %}
+                    {% set delete_path = 'admin_article_delete' %}
+                    {% include '::actionbtns.html.twig' %}
 
             </div>
         </div>

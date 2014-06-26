@@ -32,17 +32,10 @@
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('articlefile') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+<div class="record_actions">
+    {% set back_path = 'articlefile' %}
+    {% set edit_path = 'articlefile_edit' %}
+    {% set delete_path = 'articlefile_delete' %}
+    {% include '::actionbtns.html.twig' %}
+</div>
 {% endblock %}

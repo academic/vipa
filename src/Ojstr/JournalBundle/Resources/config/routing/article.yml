@@ -33,4 +33,4 @@ admin_article_update:
 admin_article_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrJournalBundle:Article:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get|post|delete }
