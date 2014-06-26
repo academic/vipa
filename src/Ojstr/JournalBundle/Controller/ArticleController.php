@@ -55,7 +55,7 @@ class ArticleController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_article_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
                     'entity' => $entity,
@@ -72,7 +72,7 @@ class ArticleController extends Controller {
      */
     private function createCreateForm(Article $entity) {
         $form = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('admin_article_create'),
+            'action' => $this->generateUrl('article_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -133,7 +133,7 @@ class ArticleController extends Controller {
      */
     private function createEditForm(Article $entity) {
         $form = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('admin_article_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -154,7 +154,7 @@ class ArticleController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_article_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
                     'entity' => $entity,
@@ -174,7 +174,7 @@ class ArticleController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_article'));
+        return $this->redirect($this->generateUrl('article'));
     }
 
     /**
@@ -186,7 +186,7 @@ class ArticleController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id, 'admin_article_delete');
+        return $formHelper->createDeleteForm($this, $id, 'article_delete');
     }
 
 }

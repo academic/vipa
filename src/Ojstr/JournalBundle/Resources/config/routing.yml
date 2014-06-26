@@ -1,57 +1,57 @@
 #Crud pages
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
-    prefix:   /journal
+    prefix:   /admin/journal
 
 ojstr__issue:
     resource: "@OjstrJournalBundle/Resources/config/routing/issue.yml"
-    prefix:   /issue
+    prefix:   /admin/issue
 
 ojstr_theme:
     resource: "@OjstrJournalBundle/Resources/config/routing/theme.yml"
-    prefix:   /theme
+    prefix:   /admin/theme
 
 ojstr_institution_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/institution.yml"
-    prefix:   /institution
+    prefix:   /admin/institution
 
 ojstr_institution_types_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/institutiontypes.yml"
-    prefix:   /institution_types
+    prefix:   /admin/institution_types
 
 
 ojstr_contact_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/contact.yml"
-    prefix:   /contact
+    prefix:   /admin/contact
 
 ojstr__contacttypes_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/contacttypes.yml"
-    prefix:   /contacttypes
+    prefix:   /admin/contacttypes
     
 ojstr_article_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/article.yml"
-    prefix:   /article
+    prefix:   /admin/article
     
 ojstr_author_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
-    prefix:   /author
+    prefix:   /admin/author
     
 ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
-    prefix:   /subject
+    prefix:   /admin/subject
     
 ostr_articlefile:
     resource: "@OjstrJournalBundle/Resources/config/routing/articlefile.yml"
-    prefix:   /articlefile
+    prefix:   /admin/articlefile
     
 ojs_journalcontact:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
-    prefix:   /journalcontact
+    prefix:   /admin/journalcontact
 
 ojs_citation:
     resource: "@OjstrJournalBundle/Resources/config/routing/citation.yml"
-    prefix:   /citation
+    prefix:   /admin/citation
 
 ojs_citationsetting:
     resource: "@OjstrJournalBundle/Resources/config/routing/citationsetting.yml"
-    prefix:   /citationsetting
+    prefix:   /admin/citationsetting

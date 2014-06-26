@@ -1,29 +1,29 @@
-admin_author:
+author:
     pattern:  /
     defaults: { _controller: "OjstrJournalBundle:Author:index" }
 
-admin_author_show:
+author_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjstrJournalBundle:Author:show" }
 
-admin_author_new:
+author_new:
     pattern:  /new
     defaults: { _controller: "OjstrJournalBundle:Author:new" }
 
-admin_author_create:
+author_create:
     pattern:  /create
     defaults: { _controller: "OjstrJournalBundle:Author:create" }
     requirements: { _method: post }
 
-admin_author_edit:
+author_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "OjstrJournalBundle:Author:edit" }
 
-admin_author_update:
+author_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjstrJournalBundle:Author:update" }
     requirements: { _method: post|put }
 
-admin_author_delete:
+author_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrJournalBundle:Author:delete" } 

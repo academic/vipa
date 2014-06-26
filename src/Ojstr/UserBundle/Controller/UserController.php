@@ -33,6 +33,10 @@ class UserController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($entity);
+            $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+            $entity->setPassword($password);
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
@@ -133,6 +137,10 @@ class UserController extends Controller {
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($entity);
+            $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+            $entity->setPassword($password);
             $em->flush();
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }

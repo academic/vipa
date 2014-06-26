@@ -1,18 +1,18 @@
 user_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
-    prefix:   /manager/user
+    prefix:   /admin/user
 
 role_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/role.yml"
-    prefix:   /manager/role
+    prefix:   /admin/role
 
 ojstr_userjournalrole:
     resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
-    prefix:   /manager/userjournalrole
+    prefix:   /admin/userjournalrole
 
 ojstr_eventlog:
         resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
-        prefix:   /eventlog
+        prefix:   /admin/eventlog
 
 login:
     path: /login

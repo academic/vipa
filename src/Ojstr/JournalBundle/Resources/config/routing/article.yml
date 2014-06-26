@@ -1,36 +1,36 @@
-admin_article:
+article:
     pattern:  /
     defaults: { _controller: "OjstrJournalBundle:Article:index" }
 
-admin_article_show:
+article_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjstrJournalBundle:Article:show" }
 
-admin_article_new:
+article_new:
     pattern:  /new
     defaults: { _controller: "OjstrJournalBundle:Article:new" }
 
 
-admin_article_citation:
+article_citation:
     pattern:  /{id}/citation
     defaults: { _controller: "OjstrJournalBundle:Article:citation" }
     
     
-admin_article_create:
+article_create:
     pattern:  /create
     defaults: { _controller: "OjstrJournalBundle:Article:create" }
     requirements: { _method: post }
 
-admin_article_edit:
+article_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "OjstrJournalBundle:Article:edit" }
 
-admin_article_update:
+article_update:
     pattern:  /{id}/update
     defaults: { _controller: "OjstrJournalBundle:Article:update" }
     requirements: { _method: post|put }
 
-admin_article_delete:
+article_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrJournalBundle:Article:delete" }
     requirements: { _method: get|post|delete }
