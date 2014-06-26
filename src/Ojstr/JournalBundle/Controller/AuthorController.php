@@ -155,17 +155,13 @@ class AuthorController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('admin_author'));
     }
 
@@ -178,7 +174,7 @@ class AuthorController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id,'admin_author_delete');
+        return $formHelper->createDeleteForm($this, $id, 'admin_author_delete');
     }
 
 }
