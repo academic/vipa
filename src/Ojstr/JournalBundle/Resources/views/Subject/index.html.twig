@@ -18,13 +18,13 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('admin_subject_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td><a href="{{ path('subject_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                         <td>{{ entity.subject }}</td>
                         <td>{{ entity.description }}</td>
                         <td>
                             <small>
-                                <a href="{{ path('admin_subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
+                                <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
+                                <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
                             </small>
                         </td>
                     </tr>
@@ -33,7 +33,7 @@
             </table>
 
             <div>
-                <a href="{{ path('admin_subject_new') }}" class="btn btn-success">
+                <a href="{{ path('subject_new') }}" class="btn btn-success">
                      {% trans %}Create New{% endtrans %}
                 </a>
             </div>

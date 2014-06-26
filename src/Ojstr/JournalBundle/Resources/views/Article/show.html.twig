@@ -39,7 +39,7 @@
                         <th>Subjects</th>
                         <td>
                             {% for subject in entity.subjects %}
-                            <a href="{{ path("admin_subject_show",{'id':subject.id}) }}" 
+                            <a href="{{ path("subject_show",{'id':subject.id}) }}" 
                                class="btn btn-info btn-sm">
                                 <span>{{ subject.subject }}</span> 
                             </a> 
@@ -116,13 +116,13 @@
 
 
             <div class="record_actions">
-                <a class="btn btn-info" href="{{ path('admin_article_citation', { 'id': entity.id }) }}">
+                <a class="btn btn-info" href="{{ path('article_citation', { 'id': entity.id }) }}">
                     <i class="glyphicon glyphicon-asterisk"></i> 
                     Citation Editor</a>
 
-                    {% set back_path = 'admin_article' %}
-                    {% set edit_path = 'admin_article_edit' %}
-                    {% set delete_path = 'admin_article_delete' %}
+                    {% set back_path = 'article' %}
+                    {% set edit_path = 'article_edit' %}
+                    {% set delete_path = 'article_delete' %}
                     {% include '::actionbtns.html.twig' %}
 
             </div>

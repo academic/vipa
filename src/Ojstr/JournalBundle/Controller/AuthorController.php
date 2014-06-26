@@ -38,7 +38,7 @@ class AuthorController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_author_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Author:new.html.twig', array(
                     'entity' => $entity,
@@ -55,7 +55,7 @@ class AuthorController extends Controller {
      */
     private function createCreateForm(Author $entity) {
         $form = $this->createForm(new AuthorType(), $entity, array(
-            'action' => $this->generateUrl('admin_author_create'),
+            'action' => $this->generateUrl('author_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -119,7 +119,7 @@ class AuthorController extends Controller {
      */
     private function createEditForm(Author $entity) {
         $form = $this->createForm(new AuthorType(), $entity, array(
-            'action' => $this->generateUrl('admin_author_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('author_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -141,7 +141,7 @@ class AuthorController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_author_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
@@ -162,7 +162,7 @@ class AuthorController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_author'));
+        return $this->redirect($this->generateUrl('author'));
     }
 
     /**
@@ -174,7 +174,7 @@ class AuthorController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id, 'admin_author_delete');
+        return $formHelper->createDeleteForm($this, $id, 'author_delete');
     }
 
 }
