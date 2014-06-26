@@ -45,7 +45,7 @@ class ArticleFileController extends Controller {
             $listener = $this->get('stof_doctrine_extensions.listener.uploadable');
             $listener->addEntityFileInfo($file, new FileInfoArray($_FILES['articlefile']));
             $file->setArticleId($data->getArticleId());
-            $em->persist($file); 
+            $em->persist($file);
         }
 
         $em->flush();
@@ -106,18 +106,13 @@ class ArticleFileController extends Controller {
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ArticleFile entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:ArticleFile:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity));
     }
 
     /**
@@ -134,12 +129,9 @@ class ArticleFileController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:ArticleFile:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -173,8 +165,6 @@ class ArticleFileController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ArticleFile entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -187,7 +177,6 @@ class ArticleFileController extends Controller {
         return $this->render('OjstrJournalBundle:ArticleFile:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -196,21 +185,13 @@ class ArticleFileController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ArticleFile entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:ArticleFile')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
         }
-
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('articlefile'));
     }
 

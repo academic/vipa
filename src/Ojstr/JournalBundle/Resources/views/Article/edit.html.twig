@@ -9,10 +9,9 @@
             {{ form(edit_form) }}
 
             <div class="record_actions">
-                <a href="{{ path('admin_article') }}" class="button">
-                    {% trans %}Back to list{% endtrans %}
-                </a>
-                  {{ form(delete_form) }} 
+                {% set back_path = 'admin_article' %}
+                {% set delete_path = 'admin_article_delete' %}
+                {% include '::actionbtns.html.twig' %}
             </div>
         </div>
     </div>

@@ -37,4 +37,4 @@ ujr_update:
 ujr_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get|post|delete }

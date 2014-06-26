@@ -27,4 +27,4 @@ articlefile_update:
 articlefile_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrJournalBundle:ArticleFile:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get|post|delete }
