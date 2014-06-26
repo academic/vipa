@@ -1,63 +1,43 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Author list</h1>
+<h1>Author list</h1>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Middlename</th>
-                <th>Lastname</th>
-                <th>Firstnametransliterated</th>
-                <th>Middlenametransliterated</th>
-                <th>Lastnametransliterated</th>
-                <th>Initials</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Institutionid</th>
-                <th>Country</th>
-                <th>Summary</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_list  table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Full name</th> 
+            <th>Initials</th>
+            <th>Email</th>
+            <th>Summary</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('admin_author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.firstName }}</td>
-                <td>{{ entity.middleName }}</td>
-                <td>{{ entity.lastName }}</td>
-                <td>{{ entity.firstNameTransliterated }}</td>
-                <td>{{ entity.middleNameTransliterated }}</td>
-                <td>{{ entity.lastNameTransliterated }}</td>
-                <td>{{ entity.initials }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.address }}</td>
-                <td>{{ entity.institutionId }}</td>
-                <td>{{ entity.country }}</td>
-                <td>{{ entity.summary }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('admin_author_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('admin_author_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+        <tr>
+            <td><a href="{{ path('admin_author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.firstName }} {{ entity.middleName }} {{ entity.lastName }}</td>
+            <td>{{ entity.initials }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.summary }}</td>
+            <td>
+                {% set show_path = 'admin_author_show' %}
+                {% set edit_path = 'admin_author_edit' %}
+                {% set delete_path = 'admin_author_delete' %}
+                {% include '::actionbtns.html.twig' %} 
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-        <ul>
-        <li>
-            <a href="{{ path('admin_author_new') }}" class="btn btn-success">
+<ul>
+    <li>
+        <a href="{{ path('admin_author_new') }}" class="btn btn-success">
 {% trans %}Create New{% endtrans %}
-            </a>
-        </li>
-    </ul>
+        </a>
+    </li>
+</ul>
     {% endblock %}

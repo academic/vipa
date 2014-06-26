@@ -26,5 +26,4 @@ admin_author_update:
 
 admin_author_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Author:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:Author:delete" } 
