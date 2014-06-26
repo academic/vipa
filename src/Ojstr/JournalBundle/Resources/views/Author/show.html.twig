@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Author</h1>
+<h1>Author <small>{% if entity.user %} Linked User : &#x3C;{{ entity.user.username }}&#x3E; {{ entity.user.email }} {%endif%}</small></h1>
 
 <table class="record_properties  table">
     <tbody>

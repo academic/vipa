@@ -73,6 +73,54 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $summary;
 
     /**
+     * @var integer
+     */
+    private $userId;
+
+    /**
+     * @var \Ojstr\UserBundle/Entity/User
+     */
+    private $user;
+
+    /**
+     * Set user
+     *
+     * @param \Ojstr\UserBundle\Entity\User $user
+     * @return Author
+     */
+    public function setUser(\Ojstr\UserBundle\Entity\User $user = null) {
+        $this->user = $user;
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Ojstr\UserBundle\Entity\User
+     */
+    public function getUser() {
+        return $this->user;
+    }
+
+    /**
+     * 
+     * @return integer
+     */
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    /**
+     * 
+     * @param integer $userId
+     * @return \Ojstr\JournalBundle\Entity\Author
+     */
+    public function setUserId($userId) {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
