@@ -7,7 +7,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
+    translator:      { fallback: en }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -36,6 +36,22 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+
+        
+ccdn_message_message:  
+    entity:            
+        user:         
+            class:    Ojstr\UserBundle\Entity\User
+    component:
+        dashboard:
+            integrator:
+                class:                CCDNMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
+        twig_extension:
+            folder_list:
+                class:                CCDNMessage\MessageBundle\Component\TwigExtension\FolderListExtension
+    
+        
+            
             
 # Twig Configuration
 twig:
@@ -73,7 +89,16 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
-        mappings:
+        resolve_target_entities:
+            Symfony\Component\Security\Core\User\UserInterface: Ojstr\UserBundle\Entity\User
+        mappings: 
+            CCDNMessageMessageBundle:
+                mapping:              true
+                type:                 yml
+                dir:                  "Resources/config/doctrine"
+                alias:                ~
+                prefix:               CCDNMessage\MessageBundle\Entity
+                is_bundle:            true
             gedmo_translatable:
                 type: annotation
                 prefix: Gedmo\Translatable\Entity
