@@ -19,11 +19,16 @@ class WorkflowStepController extends Controller {
      * render "new workflow" flow
      */
     public function newAction() {
+        $em = $this->getDoctrine()->getManager();
+        $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
+        $nextSteps = $this->get('doctrine_mongodb')
+                ->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
+                ->findBy(array('journal_id', 10));
         return $this->render(
-                        'OjstrWorkflowBundle:WorkflowStep:new.html.twig'
+                        'OjstrWorkflowBundle:WorkflowStep:new.html.twig', array('roles' => $roles, 'nextSteps' => $nextSteps)
         );
     }
-    
+
     /**
      * insert new step with data from "new workflow" form data
      */
