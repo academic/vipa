@@ -1,10 +1,6 @@
 journal:
     pattern:  /
     defaults: { _controller: "OjstrJournalBundle:Journal:index" }
-    
-myjournals:
-    pattern:  /mine
-    defaults: { _controller: "OjstrJournalBundle:Journal:index" }
 
 journal_show:
     pattern:  /{id}/show
