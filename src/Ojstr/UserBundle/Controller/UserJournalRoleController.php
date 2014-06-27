@@ -116,9 +116,6 @@ class UserJournalRoleController extends Controller {
         $entities = $em->createQuery(
                         'SELECT u FROM OjstrUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
                 )->setParameter('jid', $journal_id);
-        if (!$entities) {
-            throw $this->createNotFoundException('No records found.');
-        }
         return $this->render('OjstrUserBundle:UserJournalRole:show_users.html.twig', array(
                     'entities' => $entities
         ));
@@ -126,20 +123,21 @@ class UserJournalRoleController extends Controller {
 
     /**
      * Finds and displays a Journals of a user with roles.
-     * @param int $journal_id
+     * @param mixed $journal_id
      */
-    public function showJournalsOfUserAction($user_id) {
-
+    public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig') {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->createQuery(
                         'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
                 )->setParameter('user_id', $user_id)->getResult();
-        if (!$entities) {
-            throw $this->createNotFoundException('No records found.');
-        }
-        return $this->render('OjstrUserBundle:UserJournalRole:show_journals.html.twig', array(
+        return $this->render('OjstrUserBundle:UserJournalRole:' . $tpl, array(
                     'entities' => $entities
         ));
+    }
+
+    public function myJournalsAction() {
+        $user_id = $this->container->get('security.context')->getToken()->getUser()->getId();
+        return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 
     /**
