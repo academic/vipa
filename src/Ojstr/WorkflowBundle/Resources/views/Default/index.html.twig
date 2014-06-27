@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %} 
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
+<div class="panel">
+    <div class="panel-heading">
         <h1>{% trans %}Workflow{% endtrans %}</h1>
+    </div>
+    <div class="panel-body">
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ path('workflowstep') }}">Manage Steps For Selected Journal</a></li>
-          
-
+            <li class="list-group-item"><a href="{{ path('manage_workflowsteps') }}">Manage Steps For Selected Journal</a></li>
         </ul>
     </div>
-</div> 
+</div>
 {% endblock %}
 

@@ -1,0 +1,21 @@
+{% extends '::ojsbase.html.twig' %} 
+
+{% block body -%}
+<div class="panel">
+    <div class="panel-heading">
+        <h1>{% trans %}Workflow Steps{% endtrans %}</h1>
+    </div>
+    <div class="panel-body">
+        {% for entity in steps %}
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ path('workflowstep_edit', { 'id': entity.id } ) }}"> {{entity.title}}</a></li>
+        </ul>
+        {% endfor %}
+
+        <a href="{{path('workflowstep_new')}}" class="btn btn-success">
+            <i class="glyphicon glyphicon-plus-sign"></i> Create</a>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
