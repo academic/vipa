@@ -1,3 +1,8 @@
+CCDNMessageMessageBundle:
+    resource: "@CCDNMessageMessageBundle/Resources/config/routing.yml"
+    prefix: /
+    
+    
 ojstr_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
     prefix:   /

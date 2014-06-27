@@ -38,8 +38,11 @@
 	"knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "friendsofsymfony/message-bundle": "1.2.*@dev"
+	"codeconsortium/ccdn-message-bundle": "dev-sf2.5"
 },
+    "repositories": [ { 
+		"type": "vcs", 
+		"url": "git@github.com:hasantayyar/CCDNMessageMessageBundle.git" } ], 
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
