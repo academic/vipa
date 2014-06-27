@@ -112,9 +112,10 @@ class UserJournalRoleController extends Controller {
      * @param int $journal_id
      */
     public function showUsersOfJournalAction($journal_id) {
-
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
+        $entities = $em->createQuery(
+                        'SELECT u FROM OjstrUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
+                )->setParameter('jid', $journal_id);
         if (!$entities) {
             throw $this->createNotFoundException('No records found.');
         }
@@ -130,7 +131,9 @@ class UserJournalRoleController extends Controller {
     public function showJournalsOfUserAction($user_id) {
 
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByUserId($user_id);
+        $entities = $em->createQuery(
+                        'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
+                )->setParameter('user_id', $user_id)->getResult();
         if (!$entities) {
             throw $this->createNotFoundException('No records found.');
         }
