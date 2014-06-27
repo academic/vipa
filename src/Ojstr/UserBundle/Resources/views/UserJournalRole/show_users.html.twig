@@ -4,7 +4,7 @@
 <div class="large-12 columns">
     <div class="panel">
         <h1>Users of Journal</h1>
-
+{% if entities %}
         <table class="records_list  table">
             <thead>
                 <tr>
@@ -25,6 +25,12 @@
         {% endfor %}
             </tbody>
         </table>
+        {%else %}
+
+        <div class="alert alert-warning">
+            <p>This journal has no user.</p>
+        </div>
+ {%endif%}
 
         <a class="button" href="{{ path('ujr_new') }}">
             Create a new entry
