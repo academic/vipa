@@ -1,7 +1,7 @@
 Ojstr\JournalBundle\Entity\ArticleFile:
     type: entity
     table: null
-    repositoryClass: Ojstr\JournalBundle\Entity\ArticleFileRepository
+    #repositoryClass: Ojstr\JournalBundle\Entity\ArticleFileRepository
     id:
         id:
             type: integer

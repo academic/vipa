@@ -1,7 +1,7 @@
 Ojstr\JournalBundle\Entity\InstitutionTypes:
     type: entity
     table: null
-    repositoryClass: Ojstr\JournalBundle\Entity\InstitutionTypesRepository
+    #repositoryClass: Ojstr\JournalBundle\Entity\InstitutionTypesRepository
     id:
         id:
             type: integer
