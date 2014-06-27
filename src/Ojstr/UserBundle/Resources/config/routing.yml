@@ -15,6 +15,11 @@ ojstr_userjournalrole:
     resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
     prefix:   /admin/userjournalrole
 
+manager_show_my_journals:
+    pattern:  /manager/myjournals
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:myJournals" }
+    
+    
 ojstr_eventlog:
     resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
     prefix:   /admin/eventlog
