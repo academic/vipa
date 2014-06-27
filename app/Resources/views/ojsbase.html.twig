@@ -44,9 +44,11 @@
                 <section class="content">
             {% block body %}{% endblock %}
                 </section>
-            </aside>
-            
-            <div id="footer">{% block footer %}{% endblock %}</div>
+
+                <section class="footer">
+                    <div id="footer">{% block footer %}{% endblock %}</div>
+                </section>
+            </aside> 
         </div>
         {% block javascripts %}
         {% javascripts '@main_js' filter="uglifyjs" output="c/compiled.js" %}

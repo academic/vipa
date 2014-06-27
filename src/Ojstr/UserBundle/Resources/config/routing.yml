@@ -1,7 +1,12 @@
-user_crud:
+ojstr_user:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
     prefix:   /admin/user
 
+manager_profile:
+    pattern:  /manager/profile
+    defaults: { _controller: "OjstrUserBundle:User:profile" }
+    
+    
 role_crud:
     resource: "@OjstrUserBundle/Resources/config/routing/role.yml"
     prefix:   /admin/role
@@ -11,8 +16,11 @@ ojstr_userjournalrole:
     prefix:   /admin/userjournalrole
 
 ojstr_eventlog:
-        resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
-        prefix:   /admin/eventlog
+    resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
+    prefix:   /admin/eventlog
+
+
+
 
 login:
     path: /login

@@ -18,12 +18,13 @@
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
             <span>Select image file...</span>
-            <input id="fileupload" type="file" name="avatar" data-url="{{ oneup_uploader_endpoint('avatars') }}">
+            <input id="fileupload" type="file"   data-url="{{ oneup_uploader_endpoint('avatars') }}">
+            <input name="user_avatar" id="avatar_input" value="" type="hidden" /> 
         </span> 
-        <div id="avatar_upload_progress" class="label label-info">
+        <div id="avatar_upload_progress" style="display: none" class="label label-info">
 
         </div>
-        <div id="files" class="files"></div>
+
         <br>
 
         <br>
@@ -51,9 +52,11 @@
     {
         $('#fileupload').fileupload({});
         $('#fileupload').bind('fileuploadsend', function(e, data) {
+            $('#avatar_upload_progress').show();
             $('#avatar_upload_progress').html("Uploading...");
         }).bind('fileuploaddone', function(e, data) {
             $('#avatar_upload_progress').html("Done.");
+            $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
         });
     });
 </script>

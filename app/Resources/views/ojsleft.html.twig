@@ -7,7 +7,11 @@
         {%if ojsuser%}
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="" />
+                {% if(ojsuser.getAvatar()) %}
+                <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
+                {%else%}
+                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
+                {%endif%}
             </div>
             <div class="pull-left info">
                 <p>{{ojsuser.getUsername()}}</p>
@@ -37,7 +41,7 @@
             </li>
             <li>
                 <a href="#">
-                    <i class="fa fa-th"></i> <span>Journals</span> <small class="badge pull-right bg-green">2</small>
+                    <i class="fa fa-th"></i> <span>Journals</span> 
                 </a>
             </li>
             <li class="treeview">
@@ -47,9 +51,13 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-check"></i> Published</a></li>
-                    <li><a href="#"><i class="fa fa-clock-o"></i> Waiting</a></li>
-                    <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
+                    <li>
+                        <a href="#" style="color:#55a"><i class="fa fa-check"></i> Published 
+                            <!-- <small class="badge pull-right bg-green">2</small>-->
+                        </a>
+                    </li>
+                    <li><a href="#" style="color:#aa1"><i class="fa fa-clock-o"></i> Waiting</a></li>
+                    <li><a href="#" style="color:#a11"><i class="fa fa-exclamation"></i> Rejected</a></li>
                 </ul>
             </li>
                 {% if isSystemAdmin() %}

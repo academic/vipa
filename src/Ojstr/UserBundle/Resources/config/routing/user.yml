@@ -26,4 +26,3 @@ user_update:
 user_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrUserBundle:User:delete" }
-    requirements: { _method: post|delete }
