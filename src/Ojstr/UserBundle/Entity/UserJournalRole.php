@@ -50,7 +50,6 @@ class UserJournalRole {
      */
     public function setUserId($userId) {
         $this->userId = $userId;
-
         return $this;
     }
 
@@ -71,7 +70,6 @@ class UserJournalRole {
      */
     public function setJournalId($journalId) {
         $this->journalId = $journalId;
-
         return $this;
     }
 
@@ -92,7 +90,6 @@ class UserJournalRole {
      */
     public function setRoleId($roleId) {
         $this->roleId = $roleId;
-
         return $this;
     }
 

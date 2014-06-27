@@ -40,14 +40,12 @@ class UserJournalRoleController extends Controller {
             $data = $form->getData();
             $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($data->getJournalId());
             $user = $em->getRepository('OjstrUserBundle:User')->findOneById($data->getUserId());
-            $role = $em->getRepository('OjstrUserBundle:Role')->findOneById($data->getUserId());
+            $role = $em->getRepository('OjstrUserBundle:Role')->findOneById($data->getRoleId());
             $entity->setUser($user);
             $entity->setJournal($journal);
             $entity->setRole($role);
-
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('ujr_show', array('id' => $entity->getId())));
         }
 

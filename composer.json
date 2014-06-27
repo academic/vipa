@@ -37,7 +37,8 @@
 	"caseyamcl/Phpoaipmh": "dev-master",
 	"knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
-        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
+        "friendsofsymfony/message-bundle": "1.2.*@dev"
 },
     "scripts": {
         "post-install-cmd": [

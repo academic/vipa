@@ -8,11 +8,14 @@
 
     {{ form(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
 
-            <a href="{{ path('user') }}" class="button success">
-            {% trans %}Back to list{% endtrans %}
-            </a>
 
-    {{ form(delete_form) }}
+
+        {% set show_path = 'user' %}
+        {% set delete_path = 'user_delete' %}
+        {% include '::actionbtns.html.twig' %} 
+
+
+
         </div>
     </div>
 </div>

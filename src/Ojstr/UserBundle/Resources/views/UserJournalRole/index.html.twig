@@ -9,9 +9,9 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Userid</th>
-                    <th>Journalid</th>
-                    <th>Roleid</th>
+                    <th>User</th>
+                    <th>Journal</th>
+                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -19,9 +19,12 @@
         {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('ujr_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td><span class="label label-default">{{ entity.userId }}</span> - {{ entity.user.username }}</td>
-                    <td><span class="label label-default">{{ entity.journalId }}</span>  - {{ entity.journal.title}}</td>
-                    <td><span class="label label-default">{{ entity.roleId }}</span> - {{ entity.role.role}}</td>
+                    <td><span class="label label-default">{{ entity.userId }}</span>  {{ entity.user.username }}</td>
+                    <td><span class="label label-default">{{ entity.journalId }}</span>  {{ entity.journal.title}}</td>
+                    <td>
+                        <span class="label label-default">{{ entity.roleId }}</span> 
+                        {{ entity.role.role}}
+                    </td>
                     <td>  
                         {% set show_path = 'ujr_show' %}
                         {% set edit_path = 'ujr_edit' %}

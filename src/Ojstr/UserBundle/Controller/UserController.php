@@ -37,6 +37,7 @@ class UserController extends Controller {
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
+            $entity->setAvatar($request->get('user_avatar'));
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
@@ -85,10 +86,20 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrUserBundle:User:show.html.twig', array(
+                    'entity' => $entity));
+    }
+
+    public function profileAction() {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrUserBundle:User')->find($user->getId());
+        if (!$entity) {
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
+        }
+        return $this->render('OjstrUserBundle:User:profile.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'delete_form' => array()));
     }
 
     /**
@@ -101,11 +112,9 @@ class UserController extends Controller {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrUserBundle:User:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -133,7 +142,6 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -147,7 +155,6 @@ class UserController extends Controller {
         return $this->render('OjstrUserBundle:User:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -155,21 +162,14 @@ class UserController extends Controller {
      * Deletes a User entity.
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            /**
-             * @var  User $entity
-             */
-            $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
-            $entity->setStatus(-1);
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
+        $entity->setStatus(-1);
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('user'));
     }
 
