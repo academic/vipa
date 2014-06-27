@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
  * Article
  * @ExclusionPolicy("all")
  */
-class Article extends ArticleMeta {
+class Article extends Model\ArticleModel {
 
     /**
      * auto-incremented article unique id

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\JournalBundle\Entity;
+namespace Ojstr\JournalBundle\Entity\Model;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Expose;
  * Article entity extends from this entity
  * @ExclusionPolicy("all")
  */
-class ArticleMeta extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * (optional)
