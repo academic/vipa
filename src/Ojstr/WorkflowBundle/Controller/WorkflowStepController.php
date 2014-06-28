@@ -3,6 +3,7 @@
 namespace Ojstr\WorkflowBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class WorkflowStepController extends Controller {
 
@@ -19,14 +20,19 @@ class WorkflowStepController extends Controller {
      * render "new workflow" flow
      */
     public function newAction() {
+        $session = new Session();
+        $selectedJournalId = $session->get('selectedJournalId');
+        if (!$selectedJournalId) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
         $em = $this->getDoctrine()->getManager();
+        $selectedJournal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($selectedJournalId);
         $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
         $nextSteps = $this->get('doctrine_mongodb')
                 ->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
-                ->findBy(array('journal_id', 10));
-        return $this->render(
-                        'OjstrWorkflowBundle:WorkflowStep:new.html.twig', array('roles' => $roles, 'nextSteps' => $nextSteps)
-        );
+                ->findBy(array('journal_id', $selectedJournal->getId()));
+        return $this->render('OjstrWorkflowBundle:WorkflowStep:new.html.twig', array(
+                    'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $selectedJournal));
     }
 
     /**

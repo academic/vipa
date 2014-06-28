@@ -21,16 +21,21 @@
         </div>
         {%endif%}
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                <span class="input-group-btn">
-                    <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </span>
+                 {%if userjournals%}
+            <div class="dropdown col-md-12">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        {{  userjournals[session('selectedJournalId')].title  }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        {%for journal in userjournals%}
+                    <li class="info"><a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">{{journal.title}}</a></li> 
+                        {%endfor%}
+
+                </ul>
             </div>
-        </form>
+                {%endif%}
+        <hr>
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
