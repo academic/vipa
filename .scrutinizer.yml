@@ -27,7 +27,24 @@ tools:
             reflection_fixes: { enabled: true }
             use_statement_fixes: { enabled: true, order_alphabetically: true, remove_unused: true, preserve_multiple: false, preserve_blanklines: false }
             parameter_reference_check: { enabled: false }
-            checkstyle: { enabled: false, no_trailing_whitespace: true, naming: { enabled: true, local_variable: '^[a-z][a-zA-Z0-9]*$', abstract_class_name: ^Abstract|Factory$, utility_class_name: 'Utils?$', constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$', property_name: '^[a-z][a-zA-Z0-9]*$', method_name: '^(?:[a-z]|__)[a-zA-Z0-9]*$', parameter_name: '^[a-z][a-zA-Z0-9]*$', interface_name: '^[A-Z][a-zA-Z0-9]*Interface$', type_name: '^[A-Z][a-zA-Z0-9]*$', exception_name: '^[A-Z][a-zA-Z0-9]*Exception$', isser_method_name: '^(?:is|has|should|may|supports)' } }
+            checkstyle: { 
+                enabled: false, 
+                no_trailing_whitespace: true, 
+                naming: { 
+                        enabled: true, 
+                        local_variable: '^[a-z][a-zA-Z0-9]*$', 
+                        abstract_class_name: ^Abstract|Factory$, 
+                        utility_class_name: 'Utils?$', 
+                        constant_name: '^[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*$', 
+                        property_name: '^[a-z][a-zA-Z0-9]*$', 
+                        method_name: '^(?:[a-z]|__)[a-zA-Z0-9]*$', 
+                        parameter_name: '^[a-z][a-zA-Z0-9]*$', 
+                        interface_name: '^[A-Z][a-zA-Z0-9]*Interface$', 
+                        type_name: '^[A-Z][a-zA-Z0-9]*$',
+                        exception_name: '^[A-Z][a-zA-Z0-9]*Exception$', 
+                        isser_method_name: '^(?:is|has|should|may|supports)' 
+                    } 
+                }
             unreachable_code: { enabled: false }
             check_access_control: { enabled: false }
             typo_checks: { enabled: false }
@@ -50,7 +67,13 @@ tools:
     php_code_sniffer:
         config:
             standard: PSR2
-            sniffs: { psr2: { classes: { property_declaration_sniff: true }, methods: { method_declaration_sniff: true } } }
+            sniffs: { 
+            psr2: 
+                { 
+                classes: { property_declaration_sniff: true },
+                methods: { method_declaration_sniff: false } 
+                } 
+            }
     sensiolabs_security_checker: true
     php_loc: true
     php_pdepend: true
