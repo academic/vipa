@@ -13,7 +13,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.5.*",
+        "symfony/symfony": "2.5.0",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -37,9 +37,11 @@
 	"caseyamcl/Phpoaipmh": "dev-master",
 	"knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
-        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-	"codeconsortium/ccdn-message-bundle": "dev-sf2.5"
-},
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
+    },
+    "require-dev":{
+        "codeconsortium/ccdn-message-bundle": "dev-sf2.5"
+    },                
     "repositories": [ { 
 		"type": "vcs", 
 		"url": "git@github.com:hasantayyar/CCDNMessageMessageBundle.git" } ], 
@@ -71,6 +73,5 @@
         "branch-alias": {
             "dev-master": "0.0.1-dev"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
