@@ -87,6 +87,9 @@ doctrine:
         # path:     "%database_path%"
 
     orm:
+        metadata_cache_driver: memcache
+        result_cache_driver: memcache
+        query_cache_driver: memcache
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         resolve_target_entities:
