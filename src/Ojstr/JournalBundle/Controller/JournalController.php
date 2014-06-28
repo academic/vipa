@@ -14,6 +14,12 @@ use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
  */
 class JournalController extends Controller {
 
+    public function changeSelectedAction(Request $request, $journal_id) {
+        $referer = $request->headers->get('referer');
+        $request->getSession()->set('selectedJournalId', $journal_id);
+        return $this->redirect($referer);
+    }
+
     /**
      * Lists all Journal entities.
      *

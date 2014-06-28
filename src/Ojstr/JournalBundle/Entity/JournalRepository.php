@@ -3,6 +3,7 @@
 namespace Ojstr\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * JournalRepository
@@ -14,13 +15,13 @@ class JournalRepository extends EntityRepository {
 
     /**
      * get user list of users a journal with journal_id
-     * @param integer $user_id
+     * @param integer $journal_id
      */
-    public function getUsers($user_id) {
+    public function getUsers($journal_id) {
         $em = $this->getEntityManager();
-        $user_journal_roles = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByUserId($user_id);
+        $user_journal_roles = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
         $entites = array();
-        if (is_array($user_journal_roles)) {
+        if (!is_array($user_journal_roles)) {
             return FALSE;
         }
         foreach ($user_journal_roles as $item) {
@@ -30,20 +31,30 @@ class JournalRepository extends EntityRepository {
     }
 
     /**
-     * get user list of journals of a user with user_id
-     * @param integer $journal_id
+     * get journal list of a user with user_id
+     * @param integer $user_id
      * @return boolean|array
      */
-    public function getJournals($journal_id) {
+    public function getJournals($user_id, $role_id = NULL) {
         $em = $this->getEntityManager();
-        //$user = $em->getRepository('OjstrUserBundle:User')->findOneById($user_id);
-        $user_journal_roles = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
-        $entites = array();
-        if (is_array($user_journal_roles)) {
+        $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');
+        if (empty($role_id)) {
+            $user_journal_roles = $repo->findByUserId($user_id);
+        } else {
+            $user_journal_roles = $repo->findBy(array('user_id' => $user_id, 'role_id' => $role_id));
+        }
+
+        if (!is_array($user_journal_roles)) {
             return FALSE;
         }
+        $entites = array();
         foreach ($user_journal_roles as $item) {
-            $entites[] = $item->getJournal();
+            $entites[$item->getJournalId()] = $item->getJournal();
+        }
+        $session = new Session();
+        if (!$session->get('selectedJournalId')) {
+            // set seledctedjournalid session key with first journal in list if no journal selected yet
+            $session->set('selectedJournalId', key($entites));
         }
         return $entites;
     }
