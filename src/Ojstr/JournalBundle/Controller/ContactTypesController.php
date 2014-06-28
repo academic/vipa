@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\ContactTypes;
 use Ojstr\JournalBundle\Form\ContactTypesType;
 use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
@@ -82,9 +82,7 @@ class ContactTypesController extends Controller {
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:ContactTypes:show.html.twig', array(
                     'entity' => $entity,
@@ -98,9 +96,7 @@ class ContactTypesController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:ContactTypes:edit.html.twig', array(
@@ -133,9 +129,7 @@ class ContactTypesController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -160,9 +154,7 @@ class ContactTypesController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:ContactTypes')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
+            $this->throw404IfNotFound($entity);
             $em->remove($entity);
             $em->flush();
         }
