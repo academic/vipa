@@ -21,7 +21,6 @@ files
 /vendor/
 /bin/
 /composer.phar
-/composer.lock
 /nbproject/private/
 
 
