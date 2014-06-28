@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d2d2128fb38f64c87e59fe41bf3ba1b",
+    "hash": "cf83661f78ffb063a86f259496b520a9",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -102,69 +102,6 @@
             "time": "2013-07-31 16:25:30"
         },
         {
-            "name": "codeconsortium/ccdn-message-bundle",
-            "version": "dev-sf2.5",
-            "target-dir": "CCDNMessage/MessageBundle",
-            "source": {
-                "type": "git",
-                "url": "/home/tayyar/Dropbox/Scripts/php/CCDNMessageMessageBundle",
-                "reference": "b804e2904ae0881f5e14b58541e930fbbe11a0a9"
-            },
-            "require": {
-                "doctrine/doctrine-bundle": "~1.2",
-                "doctrine/orm": "~2.2,>=2.2.3",
-                "knplabs/knp-paginator-bundle": "2.4.*",
-                "php": ">=5.3.3",
-                "symfony/symfony": ">=2.4.0"
-            },
-            "require-dev": {
-                "behat/behat": "2.5.*@stable",
-                "behat/mink": "v1.5.0",
-                "behat/mink-browserkit-driver": "*",
-                "behat/mink-extension": "*",
-                "behat/mink-goutte-driver": "*",
-                "behat/mink-selenium2-driver": "*",
-                "behat/symfony2-extension": "*",
-                "doctrine/doctrine-fixtures-bundle": "dev-master",
-                "friendsofsymfony/user-bundle": "~2.0@dev",
-                "phpunit/phpunit": "3.7.*",
-                "raulfraile/ladybug-bundle": "dev-master",
-                "symfony/monolog-bundle": "~2.4",
-                "symfony/swiftmailer-bundle": "~2.3"
-            },
-            "suggest": {
-                "codeconsortium/ccdn-component-bb-code-bundle": "2.0.*@dev",
-                "codeconsortium/ccdn-component-common-bundle": "2.0.*@dev",
-                "reecefowell/jquery-checkboxes": "dev-master",
-                "reecefowell/jquery-timestamper": "dev-master"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "CCDNMessage\\MessageBundle": ""
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Reece Fowell",
-                    "email": "reece@codeconsortium.com",
-                    "homepage": "http://www.reecefowell.com"
-                }
-            ],
-            "description": "CCDN Message Bundle",
-            "homepage": "http://github.com/codeconsortium/CCDNMessageMessageBundle",
-            "keywords": [
-                "ccdn",
-                "codeconsortium",
-                "mail",
-                "message"
-            ],
-            "time": "2014-06-27 12:51:25"
-        },
-        {
             "name": "doctrine/annotations",
             "version": "v1.1.2",
             "source": {
@@ -223,7 +160,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -298,7 +235,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -344,7 +281,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -365,7 +302,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -3094,7 +3031,78 @@
         }
     ],
     "packages-dev": [
-
+        {
+            "name": "codeconsortium/ccdn-message-bundle",
+            "version": "dev-sf2.5",
+            "target-dir": "CCDNMessage/MessageBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hasantayyar/CCDNMessageMessageBundle.git",
+                "reference": "38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hasantayyar/CCDNMessageMessageBundle/zipball/38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3",
+                "reference": "38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-bundle": "~1.2",
+                "doctrine/orm": "~2.2,>=2.2.3",
+                "knplabs/knp-paginator-bundle": "2.4.*",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.4.0"
+            },
+            "require-dev": {
+                "behat/behat": "2.5.*@stable",
+                "behat/mink": "v1.5.0",
+                "behat/mink-browserkit-driver": "*",
+                "behat/mink-extension": "*",
+                "behat/mink-goutte-driver": "*",
+                "behat/mink-selenium2-driver": "*",
+                "behat/symfony2-extension": "*",
+                "doctrine/doctrine-fixtures-bundle": "dev-master",
+                "friendsofsymfony/user-bundle": "~2.0@dev",
+                "phpunit/phpunit": "3.7.*",
+                "raulfraile/ladybug-bundle": "dev-master",
+                "symfony/monolog-bundle": "~2.4",
+                "symfony/swiftmailer-bundle": "~2.3"
+            },
+            "suggest": {
+                "codeconsortium/ccdn-component-bb-code-bundle": "2.0.*@dev",
+                "codeconsortium/ccdn-component-common-bundle": "2.0.*@dev",
+                "reecefowell/jquery-checkboxes": "dev-master",
+                "reecefowell/jquery-timestamper": "dev-master"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "CCDNMessage\\MessageBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Reece Fowell",
+                    "email": "reece@codeconsortium.com",
+                    "homepage": "http://www.reecefowell.com"
+                }
+            ],
+            "description": "CCDN Message Bundle",
+            "homepage": "http://github.com/codeconsortium/CCDNMessageMessageBundle",
+            "keywords": [
+                "ccdn",
+                "codeconsortium",
+                "mail",
+                "message"
+            ],
+            "support": {
+                "source": "https://github.com/hasantayyar/CCDNMessageMessageBundle/tree/sf2.5"
+            },
+            "time": "2014-06-27 12:41:43"
+        }
     ],
     "aliases": [
 
