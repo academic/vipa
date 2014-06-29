@@ -4,12 +4,12 @@
     "type": "project",
     "description": "Open Journal Systems",
     "version": "0.0.1-alpha",
-    "keywords": ["ojs", "journal system","open journal system"],
+    "keywords": ["ojs", "journal system", "open journal system"],
     "support": {
         "email": "bilgi@okulbilisim.com"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": {"": "src/"}
     },
     "require": {
         "php": ">=5.3.3",
@@ -25,26 +25,26 @@
         "sensio/generator-bundle": "~2.3",
         "symfony/security-bundle": "*",
         "incenteev/composer-parameter-handler": "~2.0",
-	"ircmaxell/password-compat": "~1.0.3",
-	"doctrine/doctrine-fixtures-bundle": "2.2.*",
-	"symfony/console":"*",
+        "ircmaxell/password-compat": "~1.0.3",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "symfony/console": "*",
         "friendsofsymfony/rest-bundle": "@dev",
         "jms/serializer-bundle": "@dev",
         "nelmio/api-doc-bundle": "@dev",
-	"stof/doctrine-extensions-bundle": "~1.1@dev",
-	"oneup/uploader-bundle": "1.0.*@dev",
-	"avalanche123/imagine-bundle": "v2.1",
-	"caseyamcl/Phpoaipmh": "dev-master",
-	"knplabs/knp-paginator-bundle": "~2.4",
+        "stof/doctrine-extensions-bundle": "~1.1@dev",
+        "oneup/uploader-bundle": "1.0.*@dev",
+        "avalanche123/imagine-bundle": "v2.1",
+        "caseyamcl/Phpoaipmh": "dev-master",
+        "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev"
     },
-    "require-dev":{
-        "codeconsortium/ccdn-message-bundle": "dev-sf2.5"
-    },                
-    "repositories": [ { 
-		"type": "vcs", 
-		"url": "git@github.com:hasantayyar/CCDNMessageMessageBundle.git" } ], 
+    "require-dev": {
+        "ojstr/ojstr-message-bundle": "dev-master"
+    },
+    "repositories": [{
+            "type": "vcs",
+            "url": "https://github.com/hasantayyar/OjstrMessageBundle.git"}],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
