@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Journal;
 use Ojstr\JournalBundle\Form\JournalType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Journal controller.
@@ -18,8 +19,11 @@ class JournalController extends Controller {
      *
      */
     public function indexAction() {
+        $request = $this->container->get('request');
+        $routeName = $request->get('_route');
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrJournalBundle:Journal')->findAll();
+
+        $entities = $this->getDoctrine()->getManager()->getRepository('OjstrJournalBundle:Journal')->findAll();
         return $this->render('OjstrJournalBundle:Journal:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -177,7 +181,7 @@ class JournalController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id, 'journal_delete');
     }
 
 }

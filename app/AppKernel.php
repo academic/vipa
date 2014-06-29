@@ -26,6 +26,11 @@ class AppKernel extends Kernel {
             new Ojstr\ApiBundle\OjstrApiBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new CCDNMessage\MessageBundle\CCDNMessageMessageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

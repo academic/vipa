@@ -13,7 +13,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.4.5",
+        "symfony/symfony": "2.5.0",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -32,8 +32,19 @@
         "jms/serializer-bundle": "@dev",
         "nelmio/api-doc-bundle": "@dev",
 	"stof/doctrine-extensions-bundle": "~1.1@dev",
-	"oneup/uploader-bundle": "1.0.*@dev"
+	"oneup/uploader-bundle": "1.0.*@dev",
+	"avalanche123/imagine-bundle": "v2.1",
+	"caseyamcl/Phpoaipmh": "dev-master",
+	"knplabs/knp-paginator-bundle": "~2.4",
+        "doctrine/mongodb-odm": "1.0.*@dev",
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
     },
+    "require-dev":{
+        "codeconsortium/ccdn-message-bundle": "dev-sf2.5"
+    },                
+    "repositories": [ { 
+		"type": "vcs", 
+		"url": "git@github.com:hasantayyar/CCDNMessageMessageBundle.git" } ], 
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Subject;
 use Ojstr\JournalBundle\Form\SubjectType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Subject controller.
@@ -38,7 +39,7 @@ class SubjectController extends Controller {
             $entity->setTranslatableLocale($request->getLocale());
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_subject_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('subject_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Subject:new.html.twig', array(
                     'entity' => $entity,
@@ -55,7 +56,7 @@ class SubjectController extends Controller {
      */
     private function createCreateForm(Subject $entity) {
         $form = $this->createForm(new SubjectType(), $entity, array(
-            'action' => $this->generateUrl('admin_subject_create'),
+            'action' => $this->generateUrl('subject_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -119,7 +120,7 @@ class SubjectController extends Controller {
      */
     private function createEditForm(Subject $entity) {
         $form = $this->createForm(new SubjectType(), $entity, array(
-            'action' => $this->generateUrl('admin_subject_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('subject_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -141,7 +142,7 @@ class SubjectController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_subject_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('subject_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Subject:edit.html.twig', array(
                     'entity' => $entity,
@@ -166,7 +167,7 @@ class SubjectController extends Controller {
             $em->remove($entity);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('admin_subject'));
+        return $this->redirect($this->generateUrl('subject'));
     }
 
     /**
@@ -178,7 +179,7 @@ class SubjectController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'subject_delete');
     }
 
 }
