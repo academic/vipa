@@ -8,57 +8,72 @@
         <div class="user-panel">
             <div class="pull-left image">
                 {% if(ojsuser.getAvatar()) %}
-                <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
+                <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="" />
                 {%else%}
-                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
+                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="" />
                 {%endif%}
             </div>
             <div class="pull-left info">
-                <p>{{ojsuser.getUsername()}}</p>
-
-                <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</a>
+                <p>{{ojsuser.getUsername()}}</p> 
+                <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</a>  
             </div>
         </div>
         {%endif%}
-        <!-- search form -->
-                 {%if userjournals%}
-            <div class="dropdown col-md-12">
-                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        {{  userjournals[session('selectedJournalId')].title  }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <div class="row">
+            <center>
+                <p>
+                    {% if userjournalroles %}
+                    {%for role in userjournalroles %}
+                    <span class="label label-warning">{{role.name}}</span> 
+                    {%endfor%}
+                    {%endif%}
+                </p>
+
+            {%if userjournals%}
+                <div class="dropdown">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        {{userjournals[session('selectedJournalId')].title  }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                         {%for journal in userjournals%}
-                    <li class="info"><a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">{{journal.title}}</a></li> 
+                        <li class="info">
+                            <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                            {{journal.title}}
+                            </a>
+                        </li> 
                         {%endfor%}
 
-                </ul>
-            </div>
-                {%endif%}
-        <hr>
-        <!-- /.search form -->
-        <!-- sidebar menu: : style can be found in sidebar.less -->
+                    </ul>
+                </div>
+            {%endif%}
+            </center>
+        </div>
+
+        <br>
+
         <ul class="sidebar-menu">
             <li class="active">
                 <a href="/">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="glyphicon glyphicon-dashboard"></i> 
+                    {%trans%}Dashboard{%endtrans%}
                 </a>
             </li>
             <li>
                 <a href="{{path('ccdn_message_message_user_index')}}">
                     <i class="glyphicon glyphicon-envelope"></i>
-                    Messsages</a>
+                    {%trans%}Messages{%endtrans%}</a>
             </li>
             <li>
                 <a href="{{path('manager_show_my_journals')}}">
-                    <i class="fa fa-th"></i> <span>Journals</span> 
-                </a>
+                    <i class="glyphicon glyphicon-th"></i>  
+                        {%trans%}Journals{%endtrans%} </a>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-bar-chart-o"></i>
-                    <span>Articles</span>
-                    <i class="fa fa-angle-left pull-right"></i>
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    {%trans%}Articles{%endtrans%}
+                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li>
@@ -70,19 +85,25 @@
                     <li><a href="#" style="color:#a11"><i class="fa fa-exclamation"></i> Rejected</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="{{path('manager_show_my_journals')}}">
+                    <i class="glyphicon glyphicon-cog"></i>  
+                        {%trans%}Workflow{%endtrans%} </a>
+            </li>
                 {% if isSystemAdmin() %}
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-folder"></i> <span>Admin</span>
-                    <i class="fa fa-angle-left pull-right"></i>
+                    <i class="glyphicon glyphicon-folder-open"></i>
+                    {%trans%}Admin{%endtrans%}
+                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/manager/user"><i class="fa fa-angle-double-right"></i> Users</a></li>
-                    <li><a href="/manager/role"><i class="fa fa-angle-double-right"></i> Roles</a></li>
+                    <li><a href="{{path('user')}}"><i class="fa fa-angle-double-right"></i> Users</a></li>
+                    <li><a href="{{path('role')}}"><i class="fa fa-angle-double-right"></i> Roles</a></li>
                     <li class="divider"></li>
-                    <li><a href="/manager/theme"><i class="fa fa-angle-double-right"></i> Themes</a></li>
-                    <li><a href="/manager/institution"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
-                    <li><a href="/manager/eventlog"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
+                    <li><a href="{{path('ujr')}}"><i class="fa fa-angle-double-right"></i> User Journal Roles</a></li>
+                    <li><a href="{{path('institution')}}"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
+                    <li><a href="{{path('eventlog')}}"><i class="fa fa-angle-double-right"></i> Institutions</a></li> 
                 </ul>
             </li>
 

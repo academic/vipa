@@ -2,10 +2,7 @@
 
 namespace Ojstr\WorkflowBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Session\Session;
-
-class WorkflowStepController extends Controller {
+class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
 
     public function indexAction() {
         $steps = $this->get('doctrine_mongodb')
@@ -20,7 +17,7 @@ class WorkflowStepController extends Controller {
      * render "new workflow" flow
      */
     public function newAction() {
-        $session = new Session();
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
         $selectedJournalId = $session->get('selectedJournalId');
         if (!$selectedJournalId) {
             return $this->render('::mustselectjournal.html.twig');
@@ -39,6 +36,10 @@ class WorkflowStepController extends Controller {
      * insert new step with data from "new workflow" form data
      */
     public function createAction() {
+        $repo = $this->get('doctrine_mongodb')
+                ->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        $step = new \Ojstr\WorkflowBundle\Document\JournalWorkflowStep();
+        $step->setDeadline($deadline);
         return $this->redirect($this->generateUrl('manage_workflowsteps'));
     }
 
