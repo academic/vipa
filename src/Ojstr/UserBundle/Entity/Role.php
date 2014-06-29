@@ -4,24 +4,32 @@ namespace Ojstr\UserBundle\Entity;
 
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Role
+ * @ExclusionPolicy("all") 
  */
 class Role implements RoleInterface {
 
     /**
      * @var integer 
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      */
     private $name;
 
     /**
      * @var string
+     * @Expose
      */
     private $role;
 
