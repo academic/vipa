@@ -6,7 +6,7 @@
         <h1>User edit</h1>
         <div class="record_actions">
 
-    {{ form(edit_form) }}
+    {{ form(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
 
             <a href="{{ path('user') }}" class="button success">
             {% trans %}Back to list{% endtrans %}

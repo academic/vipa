@@ -39,4 +39,19 @@ ojstr_author_crud:
 ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
     prefix:   /subject
+    
+ostr_articlefile:
+    resource: "@OjstrJournalBundle/Resources/config/routing/articlefile.yml"
+    prefix:   /articlefile
+    
+ojs_journalcontact:
+    resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
+    prefix:   /journalcontact
 
+ojs_citation:
+    resource: "@OjstrJournalBundle/Resources/config/routing/citation.yml"
+    prefix:   /citation
+
+ojs_citationsetting:
+    resource: "@OjstrJournalBundle/Resources/config/routing/citationsetting.yml"
+    prefix:   /citationsetting

@@ -1,0 +1,30 @@
+eventlog:
+    pattern:  /
+    defaults: { _controller: "OjstrUserBundle:EventLog:index" }
+
+eventlog_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjstrUserBundle:EventLog:show" }
+
+eventlog_new:
+    pattern:  /new
+    defaults: { _controller: "OjstrUserBundle:EventLog:new" }
+
+eventlog_create:
+    pattern:  /create
+    defaults: { _controller: "OjstrUserBundle:EventLog:create" }
+    requirements: { _method: post }
+
+eventlog_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjstrUserBundle:EventLog:edit" }
+
+eventlog_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjstrUserBundle:EventLog:update" }
+    requirements: { _method: post|put }
+
+eventlog_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjstrUserBundle:EventLog:delete" }
+    requirements: { _method: post|delete }

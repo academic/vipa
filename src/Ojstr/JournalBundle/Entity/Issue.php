@@ -2,7 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-
 /**
  * Issue
  */
@@ -48,7 +47,32 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     private $datePublished;
 
-    
+    /**
+     * @var \Ojstr\JournalBundle\Entity\Journal
+     */
+    private $journal;
+
+    /**
+     * Set journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @return Article
+     */
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
+        $this->journal = $journal;
+
+        return $this;
+    }
+
+    /**
+     * Get journal
+     *
+     * @return \Ojstr\JournalBundle\Entity\Journal
+     */
+    public function getJournal() {
+        return $this->journal;
+    }
+
     /**
      * Get id
      *

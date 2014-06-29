@@ -10,7 +10,9 @@ Ojstr\JournalBundle\Entity\Article:
   manyToOne:
     journal:
       targetEntity: Journal
-      inversedBy: articles        
+      inversedBy: articles   
+      #cascade: ["persist", "merge"]
+      fetch: EXTRA_LAZY
   manyToMany: 
     subjects: 
       targetEntity: Subject
@@ -23,6 +25,17 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Subject
+    citations: 
+      targetEntity: Citation
+      inversedBy: articles
+      joinTable: 
+        inverseJoinColumns: 
+          citation_id: 
+            referencedColumnName: id
+        joinColumns: 
+          article_id: 
+            referencedColumnName: id
+        name: Article_Citation
       
   repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
   table: ~
@@ -42,8 +55,8 @@ Ojstr\JournalBundle\Entity\Article:
       gedmo:
         - translatable
         - versioned
-    abstractTranslated: 
-      column: abstract_translated
+    abstractTransliterated: 
+      column: abstract_transliterated
       type: text
       nullable: TRUE
       gedmo:
@@ -110,8 +123,8 @@ Ojstr\JournalBundle\Entity\Article:
       gedmo:
         - translatable
         - versioned
-    titleTranslated: 
-      column: title_translated
+    titleTransliterated: 
+      column: title_transliterated
       length: 255
       type: string
       nullable: TRUE
@@ -134,11 +147,11 @@ Ojstr\JournalBundle\Entity\Article:
         nullable: true
   gedmo:
     soft_deleteable:
-      field_name: deletedAt
-      time_aware: false
+        field_name: deletedAt
+        time_aware: false
     translation:
-            locale: locale
-    loggable: true
+        locale: locale
+    loggable: true 
   indexes:
     doix:
       columns: doi

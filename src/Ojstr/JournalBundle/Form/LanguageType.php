@@ -15,7 +15,7 @@ class LanguageType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('language')
-                ->add('languageTranslated')
+                ->add('languageTransliterated')
                 ->add('code');
     }
 

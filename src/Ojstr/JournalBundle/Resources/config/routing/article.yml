@@ -10,6 +10,12 @@ admin_article_new:
     pattern:  /new
     defaults: { _controller: "OjstrJournalBundle:Article:new" }
 
+
+admin_article_citation:
+    pattern:  /{id}/citation
+    defaults: { _controller: "OjstrJournalBundle:Article:citation" }
+    
+    
 admin_article_create:
     pattern:  /create
     defaults: { _controller: "OjstrJournalBundle:Article:create" }

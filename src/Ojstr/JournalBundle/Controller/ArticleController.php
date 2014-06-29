@@ -6,12 +6,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Article;
 use Ojstr\JournalBundle\Form\ArticleType;
-
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 /**
  * Article controller.
  *
  */
 class ArticleController extends Controller {
+
+    public function citationAction($id = NULL) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        $post = Request::createFromGlobals();
+        if ($post->request->has('cites')) {
+            echo "<pre>";
+            print_r(json_decode($_POST['cites']));
+            exit();
+        } else {
+            
+        }
+        return $this->render('OjstrJournalBundle:Article:citation.html.twig', array(
+                    'item' => $article,
+                    'citationTypes' => $this->container->getParameter('citation_types')
+        ));
+    }
 
     /**
      * Lists all Article entities.
@@ -177,13 +194,8 @@ class ArticleController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('admin_article_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => $this->get('translator')->trans('Delete'),
-                            'attr' => array('onclick' => 'return confirm("' .
-                                $this->get('translator')->trans('Are you sure?') . '"); ')))
-                        ->getForm();
+        $formHelper = new CommonFormHelper();
+        return $formHelper->createDeleteForm($this, $id);
     }
 
 }

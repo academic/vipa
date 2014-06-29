@@ -17,6 +17,7 @@ Ojstr\JournalBundle\Entity\InstitutionTypes:
                 - versioned
         description:
             type: text
+            nullable: true
             gedmo:
                 - translatable
         created:
