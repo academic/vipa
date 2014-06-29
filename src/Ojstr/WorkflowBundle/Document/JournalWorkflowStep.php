@@ -15,23 +15,23 @@ class JournalWorkflowStep {
      */
     protected $id;
 
-    /** @MongoDb\Int @MongoDb\Index() */
-    protected $journal_id;
+    /** @MongoDb\Int */
+    protected $journalid;
 
     /** @MongoDb\String */
     protected $title;
 
     /** @MongoDb\Boolean */
-    protected $first_step;
+    protected $firststep;
 
     /** @MongoDb\Boolean */
-    protected $last_step;
+    protected $laststep;
 
     /**
      * possible next steps
      * @MongoDB\Hash 
      */
-    private $next_steps;
+    private $nextsteps;
 
     /**
      * 
@@ -40,10 +40,10 @@ class JournalWorkflowStep {
     private $roles;
 
     /**
-     * Default deadline for this step for review
-     * @MongoDB\Date
+     * Default maxdays for this step for review
+     * @MongoDB\Int
      */
-    protected $deadline;
+    protected $maxdays;
 
 
     /**
@@ -57,25 +57,25 @@ class JournalWorkflowStep {
     }
 
     /**
-     * Set journalId
+     * Set journalid
      *
-     * @param int $journalId
+     * @param int $journalid
      * @return self
      */
-    public function setJournalId($journalId)
+    public function setJournalid($journalid)
     {
-        $this->journal_id = $journalId;
+        $this->journalid = $journalid;
         return $this;
     }
 
     /**
-     * Get journalId
+     * Get journalid
      *
-     * @return int $journalId
+     * @return int $journalid
      */
-    public function getJournalId()
+    public function getJournalid()
     {
-        return $this->journal_id;
+        return $this->journalid;
     }
 
     /**
@@ -101,69 +101,69 @@ class JournalWorkflowStep {
     }
 
     /**
-     * Set firstStep
+     * Set firststep
      *
-     * @param boolean $firstStep
+     * @param boolean $firststep
      * @return self
      */
-    public function setFirstStep($firstStep)
+    public function setFirststep($firststep)
     {
-        $this->first_step = $firstStep;
+        $this->firststep = $firststep;
         return $this;
     }
 
     /**
-     * Get firstStep
+     * Get firststep
      *
-     * @return boolean $firstStep
+     * @return boolean $firststep
      */
-    public function getFirstStep()
+    public function getFirststep()
     {
-        return $this->first_step;
+        return $this->firststep;
     }
 
     /**
-     * Set lastStep
+     * Set laststep
      *
-     * @param boolean $lastStep
+     * @param boolean $laststep
      * @return self
      */
-    public function setLastStep($lastStep)
+    public function setLaststep($laststep)
     {
-        $this->last_step = $lastStep;
+        $this->laststep = $laststep;
         return $this;
     }
 
     /**
-     * Get lastStep
+     * Get laststep
      *
-     * @return boolean $lastStep
+     * @return boolean $laststep
      */
-    public function getLastStep()
+    public function getLaststep()
     {
-        return $this->last_step;
+        return $this->laststep;
     }
 
     /**
-     * Set nextSteps
+     * Set nextsteps
      *
-     * @param hash $nextSteps
+     * @param hash $nextsteps
      * @return self
      */
-    public function setNextSteps($nextSteps)
+    public function setNextsteps($nextsteps)
     {
-        $this->next_steps = $nextSteps;
+        $this->nextsteps = $nextsteps;
         return $this;
     }
 
     /**
-     * Get nextSteps
+     * Get nextsteps
      *
-     * @return hash $nextSteps
+     * @return hash $nextsteps
      */
-    public function getNextSteps()
+    public function getNextsteps()
     {
-        return $this->next_steps;
+        return $this->nextsteps;
     }
 
     /**
@@ -189,24 +189,24 @@ class JournalWorkflowStep {
     }
 
     /**
-     * Set deadline
+     * Set maxdays
      *
-     * @param date $deadline
+     * @param int $maxdays
      * @return self
      */
-    public function setDeadline($deadline)
+    public function setMaxdays($maxdays)
     {
-        $this->deadline = $deadline;
+        $this->maxdays = $maxdays;
         return $this;
     }
 
     /**
-     * Get deadline
+     * Get maxdays
      *
-     * @return date $deadline
+     * @return int $maxdays
      */
-    public function getDeadline()
+    public function getMaxdays()
     {
-        return $this->deadline;
+        return $this->maxdays;
     }
 }
