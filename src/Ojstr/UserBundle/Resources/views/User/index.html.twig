@@ -5,7 +5,7 @@
     <div class="panel">
         <h1>User list</h1>
 
-        <table class="records_list">
+        <table class="records_list  table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -23,25 +23,23 @@
                     <td>{{ entity.username }}</td>
                     <td>{{ entity.email }}</td>
                     <td>{{ entity.isActive }}</td>
-                    <td>{% for role in entity.roles %}
-                        <span class="label">{{role.role}}</span>
+                    <td style="width: 180px">{% for role in entity.roles %}
+                        <span class="label label-default">{{role.role}}</span>
                         {% endfor %}
                     </td>
                     <td> 
-                        <a href="{{ path('user_show', { 'id': entity.id }) }}"
-                           class="button success">{% trans %}Show{% endtrans %}</a>
-
-                        <a href="{{ path('user_edit', { 'id': entity.id }) }}"
-                           class="button alert">{% trans %}Edit{% endtrans %}</a>
-
+                        {% set show_path = 'user_show' %}
+                        {% set edit_path = 'user_edit' %}
+                        {% set delete_path = 'user_delete' %}
+                        {% include '::actionbtns.html.twig' %} 
                     </td>
                 </tr>
         {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('user_new') }}" class="button">
-            + {% trans %}Create New{% endtrans %}
+        <a href="{{ path('user_new') }}" class="btn btn-info">
+            <i class="glyphicon glyphicon-plus-sign"></i> {% trans %}Create New{% endtrans %}
         </a> 
     </div>
 </div>

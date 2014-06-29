@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Theme;
 use Ojstr\JournalBundle\Form\ThemeType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Theme controller.
@@ -177,7 +178,7 @@ class ThemeController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id, 'theme_delete');
     }
 
 }

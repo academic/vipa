@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Author;
 use Ojstr\JournalBundle\Form\AuthorType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Author controller.
@@ -37,7 +38,7 @@ class AuthorController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_author_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Author:new.html.twig', array(
                     'entity' => $entity,
@@ -54,7 +55,7 @@ class AuthorController extends Controller {
      */
     private function createCreateForm(Author $entity) {
         $form = $this->createForm(new AuthorType(), $entity, array(
-            'action' => $this->generateUrl('admin_author_create'),
+            'action' => $this->generateUrl('author_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -118,7 +119,7 @@ class AuthorController extends Controller {
      */
     private function createEditForm(Author $entity) {
         $form = $this->createForm(new AuthorType(), $entity, array(
-            'action' => $this->generateUrl('admin_author_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('author_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -140,7 +141,7 @@ class AuthorController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_author_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
@@ -154,18 +155,14 @@ class AuthorController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        return $this->redirect($this->generateUrl('admin_author'));
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('author'));
     }
 
     /**
@@ -177,7 +174,7 @@ class AuthorController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id, 'author_delete');
     }
 
 }

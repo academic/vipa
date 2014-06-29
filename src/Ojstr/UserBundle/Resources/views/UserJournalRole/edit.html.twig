@@ -5,12 +5,13 @@
     <div class="panel">
         <h1>UserJournalRole edit</h1>
 
-    {{ form(edit_form) }}
+        {{ form(edit_form) }}
 
-        <a href="{{ path('ujr') }}">
-            Back to the list
-        </a>
-         {{ form(delete_form) }} 
+
+        {% set back_path = 'ujr' %}
+        {% set delete_path = 'ujr_delete' %}
+        {% include '::actionbtns.html.twig' %} 
+
     </div>
 </div>
 {% endblock %}

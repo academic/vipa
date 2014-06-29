@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\ContactTypes;
 use Ojstr\JournalBundle\Form\ContactTypesType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * ContactTypes controller.
@@ -177,7 +178,7 @@ class ContactTypesController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'contacttypes_delete');
     }
 
 }

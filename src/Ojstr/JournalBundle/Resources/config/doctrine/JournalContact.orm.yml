@@ -1,7 +1,7 @@
 Ojstr\JournalBundle\Entity\JournalContact:
     type: entity
     table: null
-    repositoryClass: Ojstr\JournalBundle\Entity\JournalContactRepository
+    #repositoryClass: Ojstr\JournalBundle\Entity\JournalContactRepository
     manyToOne:
         journal:
           targetEntity: Ojstr\JournalBundle\Entity\Journal

@@ -2,64 +2,53 @@
 
 {% block body -%}
 
-    <div class="large-12 columns">
-        <div class="panel">
-            <h1>Articles</h1>
+<div class="large-12 columns">
+    <div class="panel">
+        <h1>Articles</h1>
 
-            <table class="records_list" style="width:100%">
-                <thead>
+        <table class="records_list table" style="width:100%">
+            <thead>
                 <tr>
                     <th>Id</th>
                     <th>Doi</th>
-                    <th>Otherid</th>
                     <th>Journalid</th>
                     <th>Title</th>
-                    <th>Titletransliterated</th>
                     <th>Isanonymous</th>
                     <th>Pubdate</th>
-                    <th>Pubdateseason</th>
-                    <th>Part</th>
                     <th>Firstpage</th>
                     <th>Lastpage</th>
-                    <th>Uri</th>
                     <th>Actions</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 {% for entity in entities %}
-                    <tr>
-                        <td><a href="{{ path('admin_article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                        <td>{{ entity.doi }}</td>
-                        <td>{{ entity.otherId }}</td>
-                        <td>{{ entity.journalId }}</td>
-                        <td>{{ entity.title }}</td>
-                        <td>{{ entity.titleTransliterated }}</td>
-                        <td>{{ entity.isAnonymous }}</td>
-                        <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                        <td>{{ entity.pubdateSeason }}</td>
-                        <td>{{ entity.part }}</td>
-                        <td>{{ entity.firstPage }}</td>
-                        <td>{{ entity.lastPage }}</td>
-                        <td>{{ entity.uri }}</td>
-                        <td>
-                            <small>
-                                <a href="{{ path('admin_article_show', { 'id': entity.id }) }}">{% trans %}
-                                    Show{% endtrans %}</a>
+                <tr>
+                    <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.doi }}</td>
+                    <td>{{ entity.journalId }}</td>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.isAnonymous }}</td>
+                    <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ entity.firstPage }}</td>
+                    <td>{{ entity.lastPage }}</td>
+                    <td>
 
-                                <a href="{{ path('admin_article_edit', { 'id': entity.id }) }}">{% trans %}
-                                    Edit{% endtrans %}</a>
-                            </small>
-                        </td>
-                    </tr>
+                        {% set show_path = 'article_show' %}
+                        {% set edit_path = 'article_edit' %}
+                        {% set delete_path = 'article_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+
+                    </td>
+                </tr>
                 {% endfor %}
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
-            <div>
-                <a href="{{ path('admin_article_new') }}" class="button success">
+        <div>
+            <a href="{{ path('article_new') }}" class="button success">
                     {% trans %}Create New{% endtrans %}
-                </a>
-            </div>
+            </a>
         </div>
     </div>
+</div>
 {% endblock %}
