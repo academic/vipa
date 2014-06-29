@@ -3,10 +3,10 @@
 {% block body -%}
 <div class="panel">
     <div class="panel-heading">
-        <h1>{% trans %}New Workflow Step{% endtrans %}</h1>
+        <h1>{% trans %}Edit Workflow Step{% endtrans %}</h1>
     </div>
     <div class="panel-body">
-        <form method="post" class="form-row" action="{{path('workflowstep_create')}}">
+        <form method="post" class="form-row" action="{{path('workflowsteps_update',{'id':step.id})}}">
             <div class="form-group">
                 <label>Journal</label>
                 <input type="hidden" name="journalId" value="{{journal.id}}" />
@@ -15,15 +15,18 @@
 
             <div class="form-group">
                 <label>Title</label>
-                <input class="form-control" name="title" >
+                <input class="form-control" name="title" value="{{step.title}}">
             </div>
             <div class="form-inline">
                 <label class="label label-info" style="line-height: 20px;display: inline-block;">
                     First Step?
-                    <input type="checkbox" name="firststep" value="1"> </label>
-                <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                    <input type="checkbox" name="firststep" value="1"
+                           {%if step.firststep %}checked="checked"{%endif%}> </label>
+                <label class="label label-warning" 
+                       style="line-height: 20px;display: inline-block;">
                     Last Step? 
-                    <input type="checkbox" name="laststep" value="1"></label>
+                    <input type="checkbox" name="laststep" value="1"
+                           {%if step.laststep %}checked="checked"{%endif%}></label>
             </div>
             <div class="form-group">
                 <label>Allowed maximum days</label>

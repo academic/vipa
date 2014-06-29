@@ -24,14 +24,14 @@
                 <p>
                     {% if userjournalroles %}
                     {%for role in userjournalroles %}
-                    <span class="label label-warning">{{role.name}}</span> 
+                    <span class="label label-default">{{role.name}}</span> 
                     {%endfor%}
                     {%endif%}
                 </p>
 
             {%if userjournals%}
                 <div class="dropdown">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                         {{userjournals[session('selectedJournalId')].title  }}
                         <span class="caret"></span>
                     </button>
