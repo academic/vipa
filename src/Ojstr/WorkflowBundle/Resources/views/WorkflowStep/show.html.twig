@@ -1,0 +1,51 @@
+{% extends '::ojsbase.html.twig' %} 
+
+{% block body -%}
+<div class="panel">
+    <div class="panel-heading">
+        <h1>{% trans %}Workflow Step Details{% endtrans %}</h1>
+    </div>
+    <div class="panel-body">
+        <table class="table"> 
+            <tr>
+                <th>Title</th>
+                <td>{{step.title}}</td>
+            </tr>
+            <tr>
+                <th>First Step?</th>
+                <td>{% if step.getFirststep() %}<i class="glyphicon glyphicon-ok">{%endif%}</i></td>
+            </tr>
+            <tr>
+                <th>Last Step?</th>
+                <td>{% if step.getLaststep() %}<i class="glyphicon glyphicon-ok">{%endif%}</td>
+            </tr>
+            <tr>
+                <th>Next Steps</th>
+                <td>
+                    {%for step in step.nextsteps%}
+                    <span class="label label-info">{{step.title}}</span>
+                    {%endfor%}
+                </td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>
+                {%for role in step.roles%}
+                    <span class="label label-default">{{role.name}}</span>
+                {%endfor%}
+                </td>
+            </tr>
+            <tr>
+                <th>Allowed max days</th>
+                <td>
+                    <span class="badge">{{step.maxdays}}</span>
+                </td>
+            </tr>
+        </table> 
+        <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">Edit</a>
+        <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
+
+    </div>
+</div>
+{% endblock %}
+

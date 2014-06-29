@@ -18,6 +18,11 @@ workflowsteps_delete:
     pattern:  /step/{id}/delete
     defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:delete } 
     
+    
+workflowsteps_show:
+    pattern:  /step/{id}/show
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:show }
+    
 workflowstep_new:
     pattern:  /step/new
     defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:new } 

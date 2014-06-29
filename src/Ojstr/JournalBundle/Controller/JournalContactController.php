@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\JournalContact;
 use Ojstr\JournalBundle\Form\JournalContactType;
 use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;

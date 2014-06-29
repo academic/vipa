@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
 use Ojstr\JournalBundle\Form\ArticleType;
 use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
@@ -100,9 +100,7 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojstr\JournalBundle\Entity\Article  */
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         return $this->render('OjstrJournalBundle:Article:show.html.twig', array(
                     'entity' => $entity));
     }
@@ -114,9 +112,7 @@ class ArticleController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
                     'entity' => $entity,
@@ -147,9 +143,7 @@ class ArticleController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -169,9 +163,7 @@ class ArticleController extends Controller {
     public function deleteAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
         return $this->redirect($this->generateUrl('article'));
