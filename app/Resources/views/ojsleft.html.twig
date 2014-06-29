@@ -69,6 +69,11 @@
                     <i class="glyphicon glyphicon-th"></i>  
                         {%trans%}Journals{%endtrans%} </a>
             </li>
+            <li>
+                <a href="{{path('ojstr_workflow_homepage')}}">
+                    <i class="glyphicon glyphicon-cog"></i>  
+                        {%trans%}Workflow{%endtrans%} </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="glyphicon glyphicon-th-list"></i>
@@ -85,11 +90,7 @@
                     <li><a href="#" style="color:#a11"><i class="fa fa-exclamation"></i> Rejected</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="{{path('manager_show_my_journals')}}">
-                    <i class="glyphicon glyphicon-cog"></i>  
-                        {%trans%}Workflow{%endtrans%} </a>
-            </li>
+
                 {% if isSystemAdmin() %}
             <li class="treeview">
                 <a href="#">
