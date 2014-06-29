@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "109b05fc20eed12680380cefaafe6a4c",
+    "hash": "1dae9f32944e76696650323b49373cac",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -3037,8 +3037,14 @@
             "target-dir": "OjstrMessage/MessageBundle",
             "source": {
                 "type": "git",
-                "url": "/home/tayyar/Dropbox/Scripts/php/OjstrMessageMessageBundle",
-                "reference": "e57df05502e3e60471daa4448339594771ff2053"
+                "url": "https://github.com/hasantayyar/OjstrMessageBundle.git",
+                "reference": "9eec017020210c38912495b18c1cf71680fa1bc4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hasantayyar/OjstrMessageBundle/zipball/9eec017020210c38912495b18c1cf71680fa1bc4",
+                "reference": "9eec017020210c38912495b18c1cf71680fa1bc4",
+                "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.2",
@@ -3093,7 +3099,11 @@
                 "message",
                 "symfony"
             ],
-            "time": "2014-06-29 10:55:34"
+            "support": {
+                "source": "https://github.com/hasantayyar/OjstrMessageBundle/tree/master",
+                "issues": "https://github.com/hasantayyar/OjstrMessageBundle/issues"
+            },
+            "time": "2014-06-29 11:04:38"
         }
     ],
     "aliases": [
