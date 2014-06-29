@@ -1,5 +1,5 @@
-CCDNMessageMessageBundle:
-    resource: "@CCDNMessageMessageBundle/Resources/config/routing.yml"
+OjstrMessageMessageBundle:
+    resource: "@OjstrMessageMessageBundle/Resources/config/routing.yml"
     prefix: /
     
     

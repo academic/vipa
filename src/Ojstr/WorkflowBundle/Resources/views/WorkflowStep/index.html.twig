@@ -7,11 +7,27 @@
     </div>
     <div class="panel-body">
         {% for entity in steps %}
-        <ul class="list-group">
-            <li class="list-group-item"><a href="{{ path('workflowstep_edit', { 'id': entity.id } ) }}"> {{entity.title}}</a></li>
-        </ul>
-        {% endfor %}
+        <div class="list-group-item">
+            <span>
+                <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
+                    <h4>{{entity.title}}</h4>
+                </a> 
 
+                {%for role in entity.roles%}
+                <span class="badge">{{role.name}}</span>
+                {%endfor%}
+            </span>
+            <a class="pull-right btn btn-warning" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
+
+                <i class="glyphicon glyphicon-pencil"></i>
+            </a>  
+            <a class="pull-right btn btn-danger" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a> 
+            <hr>
+        </div>
+        {% endfor %}
+        <hr>
         <a href="{{path('workflowstep_new')}}" class="btn btn-success">
             <i class="glyphicon glyphicon-plus-sign"></i> Create</a>
         </a>

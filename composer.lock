@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cf83661f78ffb063a86f259496b520a9",
+    "hash": "1dae9f32944e76696650323b49373cac",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -436,7 +436,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -2971,7 +2971,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
@@ -3032,18 +3032,18 @@
     ],
     "packages-dev": [
         {
-            "name": "codeconsortium/ccdn-message-bundle",
-            "version": "dev-sf2.5",
-            "target-dir": "CCDNMessage/MessageBundle",
+            "name": "ojstr/ojstr-message-bundle",
+            "version": "dev-master",
+            "target-dir": "OjstrMessage/MessageBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/hasantayyar/CCDNMessageMessageBundle.git",
-                "reference": "38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3"
+                "url": "https://github.com/hasantayyar/OjstrMessageBundle.git",
+                "reference": "ac016970e230af615140fc7d727d3b4cb9d748e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hasantayyar/CCDNMessageMessageBundle/zipball/38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3",
-                "reference": "38d2bd3ad8eedb3b7dd86585a1a1277d3cf138f3",
+                "url": "https://api.github.com/repos/hasantayyar/OjstrMessageBundle/zipball/ac016970e230af615140fc7d727d3b4cb9d748e2",
+                "reference": "ac016970e230af615140fc7d727d3b4cb9d748e2",
                 "shasum": ""
             },
             "require": {
@@ -3062,9 +3062,7 @@
                 "behat/mink-selenium2-driver": "*",
                 "behat/symfony2-extension": "*",
                 "doctrine/doctrine-fixtures-bundle": "dev-master",
-                "friendsofsymfony/user-bundle": "~2.0@dev",
                 "phpunit/phpunit": "3.7.*",
-                "raulfraile/ladybug-bundle": "dev-master",
                 "symfony/monolog-bundle": "~2.4",
                 "symfony/swiftmailer-bundle": "~2.3"
             },
@@ -3077,7 +3075,7 @@
             "type": "symfony-bundle",
             "autoload": {
                 "psr-0": {
-                    "CCDNMessage\\MessageBundle": ""
+                    "OjstrMessage\\MessageBundle": ""
                 }
             },
             "license": [
@@ -3088,20 +3086,24 @@
                     "name": "Reece Fowell",
                     "email": "reece@codeconsortium.com",
                     "homepage": "http://www.reecefowell.com"
+                },
+                {
+                    "name": "Hasan Tayyar BESIK",
+                    "email": "tayyar.besik@gmail.com",
+                    "homepage": "http://hasantayyar.net"
                 }
             ],
-            "description": "CCDN Message Bundle",
-            "homepage": "http://github.com/codeconsortium/CCDNMessageMessageBundle",
+            "description": "Messaging Bundle",
+            "homepage": "http://github.com/hasantayyar/OjstrMessageBundle",
             "keywords": [
-                "ccdn",
-                "codeconsortium",
-                "mail",
-                "message"
+                "message",
+                "symfony"
             ],
             "support": {
-                "source": "https://github.com/hasantayyar/CCDNMessageMessageBundle/tree/sf2.5"
+                "source": "https://github.com/hasantayyar/OjstrMessageBundle/tree/master",
+                "issues": "https://github.com/hasantayyar/OjstrMessageBundle/issues"
             },
-            "time": "2014-06-27 12:41:43"
+            "time": "2014-06-29 11:44:05"
         }
     ],
     "aliases": [
@@ -3117,7 +3119,7 @@
         "caseyamcl/phpoaipmh": 20,
         "doctrine/mongodb-odm": 20,
         "doctrine/mongodb-odm-bundle": 20,
-        "codeconsortium/ccdn-message-bundle": 20
+        "ojstr/ojstr-message-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

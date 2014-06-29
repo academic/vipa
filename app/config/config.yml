@@ -38,17 +38,17 @@ doctrine_mongodb:
             auto_mapping: true
 
         
-ccdn_message_message:  
+ojstr_message_message:  
     entity:            
         user:         
             class:    Ojstr\UserBundle\Entity\User
     component:
         dashboard:
             integrator:
-                class:                CCDNMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
+                class:                OjstrMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
         twig_extension:
             folder_list:
-                class:                CCDNMessage\MessageBundle\Component\TwigExtension\FolderListExtension
+                class:                OjstrMessage\MessageBundle\Component\TwigExtension\FolderListExtension
     
         
             
@@ -87,17 +87,20 @@ doctrine:
         # path:     "%database_path%"
 
     orm:
+        metadata_cache_driver: memcache
+        result_cache_driver: memcache
+        query_cache_driver: memcache
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         resolve_target_entities:
             Symfony\Component\Security\Core\User\UserInterface: Ojstr\UserBundle\Entity\User
         mappings: 
-            CCDNMessageMessageBundle:
+            OjstrMessageMessageBundle:
                 mapping:              true
                 type:                 yml
                 dir:                  "Resources/config/doctrine"
                 alias:                ~
-                prefix:               CCDNMessage\MessageBundle\Entity
+                prefix:               OjstrMessage\MessageBundle\Entity
                 is_bundle:            true
             gedmo_translatable:
                 type: annotation
@@ -221,6 +224,11 @@ knp_paginator:
 
 
 services:
+    listener.requestresponse:
+        class: Ojstr\Common\Listener\UserListener
+        arguments: [ @service_container ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     ojstr_locale.locale_listener:
         class: Ojstr\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]
