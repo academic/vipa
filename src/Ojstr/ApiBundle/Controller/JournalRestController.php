@@ -25,7 +25,7 @@ class JournalRestController extends FOSRestController {
     public function getJournalAction($id) {
         $journal = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->find($id);
         if (!is_object($journal)) {
-            $this->notFound();
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $journal;
     }

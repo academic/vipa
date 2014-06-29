@@ -4,20 +4,39 @@ imports:
 assetic:
     #use_controller: true
     filters:
-        uglifyjs2:
-            bin: /usr/local/bin/uglifyjs
+        uglifyjs:
+            bin: /usr/bin/uglifyjs
             #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs 
         uglifycss:
-            bin: /usr/local/bin/uglifycss
+            bin: /usr/bin/uglifycss
             # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
-        jslibs:
+        jquery_js_only:
+                inputs:
+                    - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
+        upload_js:
             inputs:
-                - '%kernel.root_dir%/../assets/js/jquery-1.11.0.min.js'
-                - '%kernel.root_dir%/../assets/js/bootstrap.min.js'
-        base_ui:
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/vendor/jquery.ui.widget.js
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.iframe-transport.js
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/js/jquery.fileupload.js
+        upload_css:
             inputs:
-                - '%kernel.root_dir%/../assets/css/*'
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload.css
+                - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload-ui.css
+        main_js:
+                inputs:
+                    - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery-leanmodal/jquery.leanModal.js 
+                    - %kernel.root_dir%/../web/assets/js/jsglobals.js
+                    - %kernel.root_dir%/../web/assets/js/common.js 
+        main_css:
+                inputs:
+                    - %kernel.root_dir%/../web/assets/css/app.css
+                    - %kernel.root_dir%/../web/assets/css/admin.css
+                    - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css
+                    - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
+                        
 framework:
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"

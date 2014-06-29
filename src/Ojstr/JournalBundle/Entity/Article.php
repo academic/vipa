@@ -2,108 +2,215 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
  * Article
+ * @ExclusionPolicy("all")
  */
 class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * auto-incremented article unique id
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
-     * * @var integer
+     * @var integer
+     * @Expose
      */
     private $status;
 
     /**
      * (optional)
      * @var string
+     * @Expose
      */
     private $doi;
 
     /**
      * Could contain any article ID used by the provider
      * @var string
+     * @Expose
      */
     private $otherId;
 
     /**
      * @var integer
+     * @Expose
      */
     private $journalId;
 
     /**
      * Original article title
      * @var string
+     * @Expose
      */
     private $title;
 
     /**
-     * English translated title
+     * Roman transliterated title
      * @var string
+     * @Expose
      */
-    private $titleTranslated;
+    private $titleTransliterated;
 
     /**
      * @var string
+     * @Expose
      */
     private $subtitle;
 
     /**
      * @var string
+     * @Expose
      */
     private $keywords;
 
     /**
      * Some artilce carries no authorship
      * @var boolean
+     * @Expose
      */
     private $isAnonymous;
 
     /**
      * @var \DateTime
+     * @Expose
      */
     private $pubdate;
 
     /**
      * @var string
+     * @Expose
      */
     private $pubdateSeason;
 
     /**
      * @var string
+     * @Expose
      */
     private $part;
 
     /**
      * @var integer
+     * @Expose
      */
     private $firstPage;
 
     /**
      * @var integer
+     * @Expose
      */
     private $lastPage;
 
     /**
      * @var string
+     * @Expose
      */
     private $uri;
 
     /**
      * Original abstract
      * @var string
+     * @Expose
      */
     private $abstract;
 
     /**
-     * (optional) English translated abstract
+     * (optional) English transliterated abstract
      * @var string
+     * @Expose
      */
-    private $abstractTranslated;
+    private $abstractTransliterated;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $subjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $citations;
+
+    /**
+     * @var \Ojstr\JournalBundle\Entity\Journal
+     * @Expose
+     */
+    private $journal;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     * @return Article
+     */
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects() {
+        return $this->subjects;
+    }
+
+    /**
+     * Add citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @return Article
+     */
+    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations[] = $citation;
+        return $this;
+    }
+
+    /**
+     * Remove citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     */
+    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations->removeElement($citation);
+    }
+
+    /**
+     * Get citations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCitations() {
+        return $this->citations;
+    }
 
     /**
      * Get id
@@ -222,23 +329,23 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set titleTranslated
+     * Set titleTransliterated
      *
-     * @param string $titleTranslated
+     * @param string $titleTransliterated
      * @return Article
      */
-    public function setTitleTranslated($titleTranslated) {
-        $this->titleTranslated = $titleTranslated;
+    public function setTitleTransliterated($titleTransliterated) {
+        $this->titleTransliterated = $titleTransliterated;
         return $this;
     }
 
     /**
-     * Get titleTranslated
+     * Get titleTransliterated
      *
      * @return string
      */
-    public function getTitleTranslated() {
-        return $this->titleTranslated;
+    public function getTitleTransliterated() {
+        return $this->titleTransliterated;
     }
 
     /**
@@ -422,71 +529,24 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set abstractTranslated
+     * Set abstractTransliterated
      *
-     * @param string $abstractTranslated
+     * @param string $abstractTransliterated
      * @return Article
      */
-    public function setAbstractTranslated($abstractTranslated) {
-        $this->abstractTranslated = $abstractTranslated;
+    public function setAbstractTransliterated($abstractTransliterated) {
+        $this->abstractTransliterated = $abstractTransliterated;
         return $this;
     }
 
     /**
-     * Get abstractTranslated
+     * Get abstractTransliterated
      *
      * @return string
      */
-    public function getAbstractTranslated() {
-        return $this->abstractTranslated;
+    public function getAbstractTransliterated() {
+        return $this->abstractTransliterated;
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $subjects;
-
-    /**
-     * Add subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     * @return Article
-     */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
-        $this->subjects[] = $subjects;
-
-        return $this;
-    }
-
-    /**
-     * Remove subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subjects) {
-        $this->subjects->removeElement($subjects);
-    }
-
-    /**
-     * Get subjects
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubjects() {
-        return $this->subjects;
-    }
-
-    /**
-     * @var \Ojstr\JournalBundle\Entity\Journal
-     */
-    private $journal;
 
     /**
      * Set journal

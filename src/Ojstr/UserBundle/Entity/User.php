@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
  * User
  * @ExclusionPolicy("all") 
  */
-class User implements UserInterface, \Serializable {
+class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInterface, \Serializable {
 
     /**
      * @var integer
@@ -45,6 +45,17 @@ class User implements UserInterface, \Serializable {
      *
      */
     protected $isActive;
+
+    /**
+     * @var \DateTime
+     */
+    protected $lastlogin;
+
+    /**
+     *
+     * @var string
+     */
+    protected $avatar;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -95,6 +106,26 @@ class User implements UserInterface, \Serializable {
      */
     public function getUsername() {
         return $this->username;
+    }
+
+    /**
+     * Set avatar path
+     *
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar) {
+        $this->username = $avatar;
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar() {
+        return $this->avatar;
     }
 
     /**
@@ -180,6 +211,20 @@ class User implements UserInterface, \Serializable {
         return $this->isActive;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getLastogin() {
+        return $this->lastlogin;
+    }
+
+    /**
+     * @param \DateTime $lastlogin
+     */
+    public function setLastlogin(\DateTime $lastlogin) {
+        $this->lastlogin = $lastlogin;
+    }
+
     public function getSalt() {
         return null;
     }
@@ -232,6 +277,21 @@ class User implements UserInterface, \Serializable {
      */
     public function removeRole(\Ojstr\UserBundle\Entity\Role $roles) {
         $this->roles->removeElement($roles);
+    }
+
+    /**
+     * 
+     * - fileName: The filename.
+     * - fileExtension: The extension of the file (including the dot). Example: .jpg
+     * - fileWithoutExt: The filename without the extension.
+     * - filePath: The file path. Example: /my/path/filename.jpg
+     * - fileMimeType: The mime-type of the file. Example: text/plain.
+     * - fileSize: Size of the file in bytes. Example: 140000.
+     * 
+     * @param array $info
+     */
+    public function avatarFileCallback(array $info) {
+        // noob
     }
 
 }

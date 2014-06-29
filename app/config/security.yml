@@ -15,7 +15,8 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern: /.*
+            pattern: ^/
+            anonymous: true
             provider: user_db
             form_login: ~
             logout:

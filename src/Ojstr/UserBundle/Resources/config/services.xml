@@ -17,4 +17,12 @@
         </service>
     </services>
     -->
+    
+    <services>
+        <service id="ojstruser.avatar_upload_listener" class="Ojstr\UserBundle\Listeners\AvatarUploadListener">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="service_container" />
+            <tag name="kernel.event_listener" event="oneup_uploader.post_persist" method="onUpload" />
+        </service>
+    </services>
 </container>

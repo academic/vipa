@@ -11,6 +11,7 @@ Ojstr\JournalBundle\Entity\Contact:
         title:
             type: string
             length: 255
+            nullable: TRUE
             gedmo:
                 - translatable
                 - versioned

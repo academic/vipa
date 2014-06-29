@@ -28,7 +28,7 @@ class ArticleType extends AbstractType {
                 )
                 ->add('journalId')
                 ->add('title')
-                ->add('titleTranslated')
+                ->add('titleTransliterated')
                 ->add('subtitle')
                 ->add('isAnonymous')
                 ->add('pubdate')
@@ -38,7 +38,7 @@ class ArticleType extends AbstractType {
                 ->add('lastPage')
                 ->add('uri')
                 ->add('abstract')
-                ->add('abstractTranslated');
+                ->add('abstractTransliterated');
     }
 
     /**
