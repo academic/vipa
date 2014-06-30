@@ -24,7 +24,8 @@ class OjsExtension extends \Twig_Extension {
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
-            'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html')))
+            'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
+            'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html')))
         );
     }
 
@@ -37,6 +38,21 @@ class OjsExtension extends \Twig_Extension {
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->container->get('security.context')->getToken()->getUser();
             return $user;
+        }
+        return FALSE;
+    }
+
+    /**
+     * 
+     * @param mixed $needle
+     * @param array $haystack
+     * @return boolean
+     */
+    public function hasId($needle, $haystack) {
+        foreach ($haystack as $item) {
+            if (isset($item['id']) && $item['id'] == $needle) {
+                return TRUE;
+            }
         }
         return FALSE;
     }
