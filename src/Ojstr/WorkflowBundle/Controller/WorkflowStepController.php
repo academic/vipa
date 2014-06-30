@@ -38,38 +38,43 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
      * insert new step with data from "new workflow" form data
      */
     public function createAction(Request $request) {
-        $serializer = $this->container->get('serializer');
-        $em = $this->getDoctrine()->getManager();
+
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
         $step = new \Ojstr\WorkflowBundle\Document\JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
-        if ($request->get('firststep')) {
-            $step->setFirststep($request->get('firststep'));
-        }
-        if ($request->get('laststep')) {
-            $step->setLaststep($request->get('laststep'));
-        }
+        $step->setFirststep($request->get('firststep'));
+        $step->setLaststep($request->get('laststep'));
         $step->setJournalid($request->get('journalId'));
-        if ($request->get('nextSteps')) {
-            $nextSteps = array();
-            foreach ($request->get('nextSteps') as $stepId) {
-                $step = $repo->find($stepId);
-                $nextSteps[] = array('id' => $stepId, 'title' => $step->getTitle());
-            }
-            $step->setNextsteps($nextSteps);
-        }
-        if ($request->get('roles')) {
-            $roles = array();
-            foreach ($request->get('roles') as $roleId) {
-                $roles[] = json_decode($serializer->serialize($em->getRepository("OjstrUserBundle:Role")->findOneById($roleId), 'json'));
-            }
-            $step->setRoles($roles);
-        }
+        $step->setRoles($this->prepareRoles($request->get('roles')));
+        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setTitle($request->get('title'));
         $dm->persist($step);
         $dm->flush();
         return $this->redirect($this->generateUrl('workflowsteps_show', array('id' => $step->getId())));
+    }
+
+    protected function prepareRoles($roles) {
+        $serializer = $this->container->get('serializer');
+        $em = $this->getDoctrine()->getManager();
+        $rolesArray = array();
+        if ($roles) {
+            foreach ($roles as $roleId) {
+                $rolesArray[] = json_decode($serializer->serialize($em->getRepository("OjstrUserBundle:Role")->findOneById($roleId), 'json'));
+            }
+        }
+        return $rolesArray;
+    }
+
+    protected function prepareNextsteps($nextSteps) {
+        $repo = $this->get('doctrine_mongodb')->getManager()->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        $nextStepsArray = array();
+        if ($nextSteps) {
+            foreach ($nextSteps as $stepId) {
+                $step = $repo->find($stepId);
+                $nextStepsArray[] = array('id' => $stepId, 'title' => $step->getTitle());
+            }
+        }
+        return $nextStepsArray;
     }
 
     public function editAction(Request $request, $id) {
@@ -102,7 +107,20 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         return $this->render('OjstrWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
     }
 
-    public function updateAction($id) {
+    public function updateAction(Request $request, $id) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $repo = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        /* @var $step \Ojstr\WorkflowBundle\Document\JournalWorkflowStep  */
+        $step = $repo->find($id);
+        $step->setTitle($request->get('title'));
+        $step->setFirststep($request->get('firststep'));
+        $step->setLaststep($request->get('laststep'));
+        $step->setMaxdays($request->get('maxdays'));
+        $step->setJournalid($request->get('journalId'));
+        $step->setRoles($this->prepareRoles($request->get('roles')));
+        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        $dm->persist($step);
+        $dm->flush();
         return $this->redirect($this->generateUrl('workflowsteps_show', array('id' => $id)));
     }
 

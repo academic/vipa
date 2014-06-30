@@ -30,7 +30,7 @@
             </div>
             <div class="form-group">
                 <label>Allowed maximum days</label>
-                <input class="form-control" name="maxdays" type="number" value="7" />
+                <input class="form-control" name="maxdays" type="number" value="{{step.maxdays}}" />
             </div>
 
 
@@ -38,7 +38,9 @@
                 <label>Roles</label>
                 <select name="roles[]" class="form-control" style="height:120px" multiple="multiple">
                     {%for role in roles%}
-                    <option value="{{role.id}}">{{role.role}}</option>
+                    <option 
+                        {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
+                        value="{{role.id}}">{{role.role}}</option>
                     {%endfor%}
                 </select>
             </div>
@@ -46,9 +48,11 @@
             <div class="form-group">
                 <label>Possible Next Steps</label>
 
-                <select name="nextSteps[]" class="form-control" style="height:120px" multiple="multiple">
-                    {%for step in nextSteps%}
-                    <option value="{{step.id}}">{{step.title}}</option>
+                <select name="nextsteps[]" class="form-control" style="height:120px" multiple="multiple">
+                    {%for nstep in nextSteps%}
+                    <option 
+                        {%if hasid(nstep.id,step.nextsteps)%}selected="selected"{%endif%}
+                        value="{{nstep.id}}">{{nstep.title}}</option>
                     {%endfor%}
                 </select>
             </div>
