@@ -21,6 +21,12 @@ class JournalWorkflowStep {
     /** @MongoDb\String */
     protected $title;
 
+    /** @MongoDb\String */
+    protected $status;
+
+    /** @MongoDb\String */
+    protected $statusauthor;
+
     /** @MongoDb\Boolean */
     protected $firststep;
 
@@ -45,14 +51,12 @@ class JournalWorkflowStep {
      */
     protected $maxdays;
 
-
     /**
      * Get id
      *
      * @return id $id
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -62,8 +66,7 @@ class JournalWorkflowStep {
      * @param int $journalid
      * @return self
      */
-    public function setJournalid($journalid)
-    {
+    public function setJournalid($journalid) {
         $this->journalid = $journalid;
         return $this;
     }
@@ -73,8 +76,7 @@ class JournalWorkflowStep {
      *
      * @return int $journalid
      */
-    public function getJournalid()
-    {
+    public function getJournalid() {
         return $this->journalid;
     }
 
@@ -84,8 +86,7 @@ class JournalWorkflowStep {
      * @param string $title
      * @return self
      */
-    public function setTitle($title)
-    {
+    public function setTitle($title) {
         $this->title = $title;
         return $this;
     }
@@ -95,9 +96,48 @@ class JournalWorkflowStep {
      *
      * @return string $title
      */
-    public function getTitle()
-    {
+    public function getTitle() {
         return $this->title;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return self
+     */
+    public function setStatus($status) {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string $status
+     */
+    public function getStatus() {
+        return $this->status;
+    }
+
+    /**
+     * Set statusauthor
+     *
+     * @param string $statusauthor
+     * @return self
+     */
+    public function setStatusauthor($statusauthor) {
+        $this->statusauthor = $statusauthor;
+        return $this;
+    }
+
+    /**
+     * Get statusauthor
+     *
+     * @return string $statusauthor
+     */
+    public function getStatusauthor() {
+        return $this->statusauthor;
     }
 
     /**
@@ -106,8 +146,7 @@ class JournalWorkflowStep {
      * @param boolean $firststep
      * @return self
      */
-    public function setFirststep($firststep)
-    {
+    public function setFirststep($firststep) {
         $this->firststep = $firststep;
         return $this;
     }
@@ -117,8 +156,7 @@ class JournalWorkflowStep {
      *
      * @return boolean $firststep
      */
-    public function getFirststep()
-    {
+    public function getFirststep() {
         return $this->firststep;
     }
 
@@ -128,8 +166,7 @@ class JournalWorkflowStep {
      * @param boolean $laststep
      * @return self
      */
-    public function setLaststep($laststep)
-    {
+    public function setLaststep($laststep) {
         $this->laststep = $laststep;
         return $this;
     }
@@ -139,8 +176,7 @@ class JournalWorkflowStep {
      *
      * @return boolean $laststep
      */
-    public function getLaststep()
-    {
+    public function getLaststep() {
         return $this->laststep;
     }
 
@@ -150,8 +186,7 @@ class JournalWorkflowStep {
      * @param hash $nextsteps
      * @return self
      */
-    public function setNextsteps($nextsteps)
-    {
+    public function setNextsteps($nextsteps) {
         $this->nextsteps = $nextsteps;
         return $this;
     }
@@ -161,8 +196,7 @@ class JournalWorkflowStep {
      *
      * @return hash $nextsteps
      */
-    public function getNextsteps()
-    {
+    public function getNextsteps() {
         return $this->nextsteps;
     }
 
@@ -172,8 +206,7 @@ class JournalWorkflowStep {
      * @param hash $roles
      * @return self
      */
-    public function setRoles($roles)
-    {
+    public function setRoles($roles) {
         $this->roles = $roles;
         return $this;
     }
@@ -183,8 +216,7 @@ class JournalWorkflowStep {
      *
      * @return hash $roles
      */
-    public function getRoles()
-    {
+    public function getRoles() {
         return $this->roles;
     }
 
@@ -194,8 +226,7 @@ class JournalWorkflowStep {
      * @param int $maxdays
      * @return self
      */
-    public function setMaxdays($maxdays)
-    {
+    public function setMaxdays($maxdays) {
         $this->maxdays = $maxdays;
         return $this;
     }
@@ -205,8 +236,8 @@ class JournalWorkflowStep {
      *
      * @return int $maxdays
      */
-    public function getMaxdays()
-    {
+    public function getMaxdays() {
         return $this->maxdays;
     }
+
 }
