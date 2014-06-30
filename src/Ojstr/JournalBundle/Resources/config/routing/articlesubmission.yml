@@ -1,25 +1,23 @@
 articlesubmissions:
     pattern:  /manager/article/submissions
     defaults: { _controller: "OjstrJournalBundle:ArticleSubmission:index" }
+    
+articlesubmission_new:
+    pattern:  /manager/article/submit
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmission:new" }
+    
+articlesubmission_create:
+    pattern:  /manager/article/submission/create
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmission:create" }
+    requirements: { _method: post }
+    
 #
 #article_show:
 #    pattern:  /{id}/show
 #    defaults: { _controller: "OjstrJournalBundle:Article:show" }
 #
-#article_new:
-#    pattern:  /new
-#    defaults: { _controller: "OjstrJournalBundle:Article:new" }
-#
-#
-#article_citation:
-#    pattern:  /{id}/citation
-#    defaults: { _controller: "OjstrJournalBundle:Article:citation" }
-#    
-#    
-#article_create:
-#    pattern:  /create
-#    defaults: { _controller: "OjstrJournalBundle:Article:create" }
-#    requirements: { _method: post }
+ 
+
 #
 #article_edit:
 #    pattern:  /{id}/edit

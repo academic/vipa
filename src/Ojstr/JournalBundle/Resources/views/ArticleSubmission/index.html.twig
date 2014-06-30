@@ -12,6 +12,7 @@
                     <th>Id</th>
                     <th>Journalid</th>
                     <th>Title</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                     </td>
                     <td>{{ entity.journalId }}</td>
                     <td>{{ entity.title }}</td>
+                    <td style="background: {{ entity.statusColor }}">{{ entity.statusText }}</td>
                     <td>
                         {% set show_path = 'article_show' %}
                         {% set edit_path = 'article_edit' %}
@@ -38,7 +40,7 @@
         </table>
 
         <div>
-            <a href="#" class="button success"> {% trans %}New Submission{% endtrans %}</a>
+            <a href="{{path('articlesubmission_new')}}" class="btn btn-success"> {% trans %}New Submission{% endtrans %}</a>
         </div>
     </div>
 </div>

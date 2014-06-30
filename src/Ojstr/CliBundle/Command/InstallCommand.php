@@ -81,7 +81,7 @@ class InstallCommand extends ContainerAwareCommand {
     protected function insertRoles(OutputInterface $output) {
         $doctrine = $this->getContainer()->get('doctrine');
         $translator = $this->getContainer()->get('translator');
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
         $roles = $this->getContainer()->getParameter('roles');
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
         foreach ($roles as $role) {
@@ -103,7 +103,7 @@ class InstallCommand extends ContainerAwareCommand {
 
     protected function insertAdmin($username, $email, $password) {
         $doctrine = $this->getContainer()->get('doctrine');
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
 
         $factory = $this->getContainer()->get('security.encoder_factory');
         $user = new User();

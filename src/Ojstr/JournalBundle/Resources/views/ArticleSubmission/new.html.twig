@@ -1,19 +1,33 @@
 {% extends '::ojsbase.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
+{% endblock %}
 
 {% block body -%}
-<div class="row">
-    <div class="large-12 columns">
-        <div class="panel">
-            <h1>Add Article</h1>
-
-            {{ form(form) }}
-
+<div class="col-md-12"> 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1 class="panel-title">Submit Article</h1>
+        </div>
+        <div class="panel-body">
+            {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
             <div class="record_actions">
-                <a class="button success" href="{{ path('article') }}">
-                    {% trans %}Back to list{% endtrans %}
+                <a class="btn btn-default" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                    {% trans %}Restart{% endtrans %}
                 </a>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+<script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
+<script>
+                    $(document).ready(function() {
+                        $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+                    });
+</script>
 {% endblock %}
