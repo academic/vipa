@@ -80,10 +80,6 @@ class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
         return $this->id;
     }
 
-    public function getStatus() {
-        return $this->status;
-    }
-
     /**
      * 
      * @return string
@@ -100,9 +96,22 @@ class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
         return \Ojstr\Common\Params\ArticleParams::statusColor($this->status);
     }
 
+    public function getStatus() {
+        return $this->status;
+    }
+
     public function setStatus($status) {
         $this->status = $status;
         return $status;
+    }
+
+    public function getUserId() {
+        return $this->userId;
+    }
+
+    public function setUserId($userId) {
+        $this->userId = $userId;
+        return $userId;
     }
 
     /**

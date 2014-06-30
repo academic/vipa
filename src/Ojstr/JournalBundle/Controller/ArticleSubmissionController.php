@@ -27,6 +27,18 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
+     * Lists all new Article submissions entities.
+     *
+     */
+    public function indexAllAction() {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('OjstrJournalBundle:Article')->findBy(array('status' => 0));
+        return $this->render('OjstrJournalBundle:ArticleSubmission:index.html.twig', array(
+                    'entities' => $entities,
+        ));
+    }
+
+    /**
      * Creates a new Article entity.
      *
      */
