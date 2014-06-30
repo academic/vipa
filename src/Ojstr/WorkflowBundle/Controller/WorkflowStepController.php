@@ -47,7 +47,6 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setStatus($request->get('status'));
-        $step->setStatusauthor($request->get('statusauthor'));
         $step->setTitle($request->get('title'));
         $dm->persist($step);
         $dm->flush();
@@ -128,8 +127,6 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
         $step->setStatus($request->get('status'));
-        $step->setStatusauthor($request->get('statusauthor'));
-
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $dm->persist($step);
