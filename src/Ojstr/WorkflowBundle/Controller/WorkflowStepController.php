@@ -127,6 +127,9 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         $step->setLaststep($request->get('laststep'));
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
+        $step->setStatus($request->get('status'));
+        $step->setStatusauthor($request->get('statusauthor'));
+
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $dm->persist($step);
