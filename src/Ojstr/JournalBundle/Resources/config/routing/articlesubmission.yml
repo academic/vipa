@@ -1,6 +1,10 @@
-articlesubmissions:
-    pattern:  /manager/article/submissions
+articlesubmissions_me:
+    pattern:  /manager/article/submissions/me
     defaults: { _controller: "OjstrJournalBundle:ArticleSubmission:index" }
+
+articlesubmissions_all:
+    pattern:  /admin/article/submissions/all
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmission:indexAll" }
     
 articlesubmission_new:
     pattern:  /manager/article/submit

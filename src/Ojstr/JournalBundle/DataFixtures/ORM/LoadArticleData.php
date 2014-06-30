@@ -26,6 +26,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->setStatus(0);
         $article->addSubject($subject[0]);
         $article->setTitle("Article Title");
+        $article->setUserId(1);
         $manager->persist($article);
         $manager->flush();
     }

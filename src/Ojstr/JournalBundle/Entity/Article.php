@@ -25,6 +25,11 @@ class Article extends Model\ArticleModel {
     public $status;
 
     /**
+     * @var integer 
+     */
+    public $userId;
+
+    /**
      * (optional)
      * @var string
      * @Expose
