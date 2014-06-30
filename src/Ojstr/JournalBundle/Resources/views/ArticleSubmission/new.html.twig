@@ -1,0 +1,19 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Add Article</h1>
+
+            {{ form(form) }}
+
+            <div class="record_actions">
+                <a class="button success" href="{{ path('article') }}">
+                    {% trans %}Back to list{% endtrans %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

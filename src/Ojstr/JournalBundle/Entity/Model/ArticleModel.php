@@ -12,6 +12,11 @@ use JMS\Serializer\Annotation\Expose;
  */
 class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
+    const ArticleStatusSubmitted = 0;
+    const ArticleStatusReviewing = 1;
+    const ArticleStatusEditing = 2;
+    const ArticleStatusPublished = 3;
+
     /**
      * (optional)
      * @var string
