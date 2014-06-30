@@ -68,10 +68,11 @@ class ArticleSubmissionController extends Controller {
      */
     public function newAction() {
         $entity = new Article();
-        $form = $this->createCreateForm($entity);
-        return $this->render('OjstrJournalBundle:Article:new.html.twig', array(
+        $em = $this->getDoctrine()->getManager();
+        $subjects = $em->getRepository('OjstrJournalBundle:Subject')->findAll();
+        return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
                     'entity' => $entity,
-                    'form' => $form->createView(),
+                    'subjects' => $subjects
         ));
     }
 
