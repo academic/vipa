@@ -24,9 +24,6 @@ class JournalWorkflowStep {
     /** @MongoDb\String */
     protected $status;
 
-    /** @MongoDb\String */
-    protected $statusauthor;
-
     /** @MongoDb\Boolean */
     protected $firststep;
 
@@ -118,26 +115,6 @@ class JournalWorkflowStep {
      */
     public function getStatus() {
         return $this->status;
-    }
-
-    /**
-     * Set statusauthor
-     *
-     * @param string $statusauthor
-     * @return self
-     */
-    public function setStatusauthor($statusauthor) {
-        $this->statusauthor = $statusauthor;
-        return $this;
-    }
-
-    /**
-     * Get statusauthor
-     *
-     * @return string $statusauthor
-     */
-    public function getStatusauthor() {
-        return $this->statusauthor;
     }
 
     /**
