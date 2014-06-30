@@ -124,11 +124,18 @@ class Article extends Model\ArticleModel {
 
     /**
      * 
-     * @param bool $translate
      * @return string
      */
     public function getStatusText() {
         return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getStatusColor() {
+        return \Ojstr\Common\Params\ArticleParams::statusColor($this->status);
     }
 
     public function setStatus($status) {
