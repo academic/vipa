@@ -12,6 +12,10 @@
                 <td>{{step.title}}</td>
             </tr>
             <tr>
+                <th>Status text</th>
+                <td>{{step.status}}</i></td>
+            </tr> 
+            <tr>
                 <th>First Step?</th>
                 <td>{% if step.getFirststep() %}<i class="glyphicon glyphicon-ok">{%endif%}</i></td>
             </tr>
@@ -42,8 +46,12 @@
                 </td>
             </tr>
         </table> 
-        <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">Edit</a>
         <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
+        <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">Edit</a>
+        <a class="btn btn-primary" href="{{path('workflowstep_new')}}">
+            <i class="glyphicon glyphicon-plus-sign"></i> 
+            {%trans%}Create new{%endtrans%}</a>
+
 
     </div>
 </div>

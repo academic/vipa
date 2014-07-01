@@ -1,58 +1,12 @@
 <?php
 
 namespace Ojstr\JournalBundle\Entity\Model;
+use Doctrine\ORM\Mapping as Orm;
 
+/**
+ * @Orm\MappedSuperclass
+ */
 class AuthorModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
-    /**
-     * @var string
-     */
-    private $firstNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $middleNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $lastNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $initials;
-
-    /**
-     * @var string
-     */
-    private $address;
-
-    /**
-     * @var integer
-     */
-    private $institutionId;
-
-    /**
-     * @var integer
-     */
-    private $country;
-
-    /**
-     * @var string
-     */
-    private $summary;
-
-    /**
-     * @var integer
-     */
-    private $userId;
-
-    /**
-     * @var \Ojstr\UserBundle/Entity/User
-     */
-    private $user;
 
     /**
      * Set user
@@ -75,6 +29,95 @@ class AuthorModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return Author
+     */
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string 
+     */
+    public function getFirstName() {
+        return $this->firstName;
+    }
+
+    /**
+     * Set middleName
+     *
+     * @param string $middleName
+     * @return Author
+     */
+    public function setMiddleName($middleName) {
+        $this->middleName = $middleName;
+        return $this;
+    }
+
+    /**
+     * Get middleName
+     *
+     * @return string 
+     */
+    public function getMiddleName() {
+        return $this->middleName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     * @return Author
+     */
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string 
+     */
+    public function getLastName() {
+        return $this->lastName;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Author
+     */
+    public function setEmail($email) {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail() {
+        return $this->email;
+    }
+
+    /**
      * 
      * @return integer
      */
@@ -91,6 +134,7 @@ class AuthorModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
         $this->userId = $userId;
         return $this;
     }
+
     /**
      * Set firstNameTransliterated
      *
@@ -170,8 +214,6 @@ class AuthorModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function getInitials() {
         return $this->initials;
     }
-
-    
 
     /**
      * Set address

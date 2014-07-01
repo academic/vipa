@@ -16,31 +16,134 @@ class Article extends Model\ArticleModel {
      * @var integer
      * @Expose
      */
-    private $id;
+    public $id;
 
     /**
      * @var integer
      * @Expose
      */
-    private $status;
+    public $status;
+
+    /**
+     * user id of the owner of this article
+     * @var integer
+     * @Expose 
+     */
+    public $submitterId;
+
+    /**
+     * (optional)
+     * @var string
+     * @Expose
+     */
+    public $doi;
+
+    /**
+     * Could contain any article ID used by the provider
+     * @var string
+     * @Expose
+     */
+    public $otherId;
+
+    /**
+     * @var integer
+     * @Expose
+     */
+    public $journalId;
+
+    /**
+     * Original article title
+     * @var string
+     * @Expose
+     */
+    public $title;
+
+    /**
+     * Roman transliterated title
+     * @var string
+     * @Expose
+     */
+    public $titleTransliterated;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    public $subtitle;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    public $keywords;
+
+    /**
+     * Some artilce carries no authorship
+     * @var boolean
+     * @Expose
+     */
+    public $isAnonymous;
+
+    /**
+     * @var \DateTime
+     * @Expose
+     */
+    public $pubdate;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    public $pubdateSeason;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    public $part;
+
+    /**
+     * @var integer
+     * @Expose
+     */
+    public $firstPage;
+
+    /**
+     * @var integer
+     * @Expose
+     */
+    public $lastPage;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    public $uri;
+
+    /**
+     * Original abstract
+     * @var string
+     * @Expose
+     */
+    public $abstract;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    private $subjects;
+    public $subjects;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    private $citations;
+    public $citations;
 
     /**
      * @var \Ojstr\JournalBundle\Entity\Journal
      * @Expose
      */
-    private $journal;
+    public $journal;
 
     /**
      * Constructor
@@ -48,125 +151,6 @@ class Article extends Model\ArticleModel {
     public function __construct() {
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subject
-     * @return Article
-     */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
-        $this->subjects[] = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Remove subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subject
-     */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
-        $this->subjects->removeElement($subject);
-    }
-
-    /**
-     * Get subjects
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSubjects() {
-        return $this->subjects;
-    }
-
-    /**
-     * Add citation
-     *
-     * @param \Ojstr\JournalBundle\Entity\Citation $citation
-     * @return Article
-     */
-    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
-        $this->citations[] = $citation;
-        return $this;
-    }
-
-    /**
-     * Remove citation
-     *
-     * @param \Ojstr\JournalBundle\Entity\Citation $citation
-     */
-    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
-        $this->citations->removeElement($citation);
-    }
-
-    /**
-     * Get citations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCitations() {
-        return $this->citations;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getStatus() {
-        return $this->status;
-    }
-
-    /**
-     * 
-     * @param bool $translate
-     * @return string
-     */
-    public function getStatusText() {
-        return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
-    }
-
-    public function setStatus($status) {
-        $this->status = $status;
-        return $status;
-    }
-
-    /**
-     * Set journal
-     *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
-     * @return Article
-     */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
-        $this->journal = $journal;
-
-        return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return \Ojstr\JournalBundle\Entity\Journal
-     */
-    public function getJournal() {
-        return $this->journal;
-    }
-
-    /**
-     * Set subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     * @return Article
-     */
-    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null) {
-        $this->subjects = $subjects;
-
-        return $this;
     }
 
 }

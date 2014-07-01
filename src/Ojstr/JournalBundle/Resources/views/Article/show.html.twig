@@ -13,6 +13,10 @@
                         <td>{{ entity.id }}</td>
                     </tr>
                     <tr>
+                        <td>Status</td>
+                        <td style="background: {{entity.statusColor}}"><span >{{ entity.statusText }}</span></td>
+                    </tr>
+                    <tr>
                         <th>Doi</th>
                         <td>
                             {{ entity.doi }}
