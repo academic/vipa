@@ -3,19 +3,24 @@
         <label class="col-sm-2 control-label">Journal</label>
         <div class="col-sm-10">
             {{journal.title}}
+            <input type="hidden" name="journalId" value="{{journal.id}}" />
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Title</label>
+        <label class="col-sm-2 control-label">Title <span class="mandotary"></span></label>
         <div class="col-sm-10">
-            <input name="title" class="form-control" />
+            <input name="title" id="titleintput" class="form-control"
+                   placeholder="Article's original title"/>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Title Transliterated</label>
         <div class="col-sm-10">
-            <input name="titleTranslietrated" class="form-control" />
+            <input id="titletransliteratedinput" 
+                   placeholder="You can leave blank this field if your `title` is all Latin characters."
+                   name="titleTranslietrated" class="form-control" />
         </div>
+
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Doi</label>
@@ -24,9 +29,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Keywords</label>
+        <label class="col-sm-2 control-label">Keywords <span class="mandotary"></span></label>
         <div class="col-sm-10">
-            <input name="keywords" class="form-control" />
+            <input name="keywords" class="form-control"
+                   placeholder="Comma-seperated keyword list"/>
         </div>
     </div>
     <div class="form-group">
@@ -38,6 +44,18 @@
                 <option value="{{subject.id}}">{{subject.subject}}</option>
                 {%endfor%}
             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Subtitle</label>
+        <div class="col-sm-10">
+            <input name="subtitle" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Abstract <span class="mandotary"></span></label>
+        <div class="col-sm-10">
+            <textarea name="abstract" class="form-control" rows="6"></textarea>
         </div>
     </div>
 </form>
