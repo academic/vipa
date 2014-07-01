@@ -4,22 +4,29 @@ namespace Ojstr\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ojstr\UserBundle\Entity\User;
-use Ojstr\UserBundle\Entity\UserJournalRole;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Ojstr\UserBundle\Entity\User; 
 
-class LoadUserData implements FixtureInterface {
+class LoadUserData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container = null) {
+        $this->container = $container;
+    }
 
     public function load(ObjectManager $manager) {
         $author = new User();
         $editor = new User();
-        $factory = $this->get('security.encoder_factory');
-        $encoder = $factory->getEncoder($author);
-
-        // get first journal record
-        $journal = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Journal c')
-                        ->setMaxResults(1)->getResult();
-        $roleAuthor = $manager->getRepository('OjstrJournalBundle:Journal')->findByRole('ROLE_AUTHOR');
-        $roleEditor = $manager->getRepository('OjstrJournalBundle:Journal')->findByRole('ROLE_AUTHOR');
+        $encoder = $this->container->get('security.encoder_factory')->getEncoder($author);
 
 
         $author->setEmail("author@demo.com");
@@ -38,20 +45,6 @@ class LoadUserData implements FixtureInterface {
         $editor->setUsername("demo_editor");
         $manager->persist($editor);
 
-        $manager->flush();
-
-        // add user-journal-role 
-        $ujr1 = new UserJournalRole();
-        $ujr1->setUser($author);
-        $ujr1->setRole($roleAuthor);
-        $ujr1->setJournal($journal);
-        $manager->persist($ujr1);
-
-        $ujr2 = new UserJournalRole();
-        $ujr2->setUser($author);
-        $ujr2->setRole($roleAuthor);
-        $ujr2->setJournal($journal);
-        $manager->persist($ujr2);
         $manager->flush();
     }
 
