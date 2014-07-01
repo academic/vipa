@@ -6,6 +6,7 @@ files
 .project
 .buildpath
 .settings
+.DS_Store
 
 /.idea/
 
