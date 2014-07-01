@@ -1,0 +1,74 @@
+{% extends '::ojsbase.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
+<link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
+
+{% endblock %}
+
+ {% block breadbrump %}
+<ol class="breadcrumb">
+    <li> Dashboard</li>
+    <li><a href="#" class="active">Submit Article</a></li>
+</ol> 
+{% endblock %}
+
+{% block body -%}
+
+<div class="col-md-12"> 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <ul class='nav nav-wizard'>
+                    <li class="active"><a href='#step1'><!--data-toggle="tab"-->
+                            <span class="badge">1</span> Article Info.</a></li>
+                    <li><span class="badge">2</span> Citations</li>
+                    <li><span class="badge">3</span> Authors</li>
+                    <li><span class="badge">4</span> Article File</li>
+                    <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">  
+
+            {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
+            <div class="record_actions">
+                <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                    {% trans %}Restart{% endtrans %}
+                </a>
+
+                <a class="btn btn-primary btn-lg pull-right" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                    {% trans %}Save & Next {% endtrans %}
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+<script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
+<script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+                    $(document).ready(function() {
+                        $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+                        $("textarea").wysihtml5({
+                            toolbar: {
+                                "font-styles": false,
+                                "emphasis": true,
+                                "lists": false,
+                                "html": false,
+                                "link": true,
+                                "image": false,
+                                "color": false,
+                                "blockquote": true
+                            }
+                        });
+
+
+                    });
+
+</script>
+{% endblock %}

@@ -18,7 +18,7 @@ class UserJournalRoleRepository extends EntityRepository {
      * @param integer $journal_id
      */
     public function getUsers($journal_id) {
-        $em = $this->getEntityManager();
+        $em = $this->getManager();
         $user_journal_roles = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
         $entites = array();
         if (!is_array($user_journal_roles)) {

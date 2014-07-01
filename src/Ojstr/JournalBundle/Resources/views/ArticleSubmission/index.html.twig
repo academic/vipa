@@ -4,29 +4,34 @@
 
 <div class="large-12 columns">
     <div class="panel">
-        <h1>Articles</h1>
+        <h1>New Articles</h1>
 
+        <a class="btn btn-default" href="{{path('articlesubmissions_me')}}">My Submissions</a>
+        {% if isSystemAdmin() or isJournalManager()  %}
+        <a class="btn btn-default" href="{{path('articlesubmissions_all')}}">All Submissions</a>
+        {% endif %}
         <table class="records_list table" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Doi</th>
                     <th>Journalid</th>
                     <th>Title</th>
-                    <th>Pubdate</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.doi }}</td>
+                    <td>
+                        <a href="{{ path('article_show', { 'id': entity.id }) }}">
+                            {{ entity.id }}
+                        </a>
+                    </td>
                     <td>{{ entity.journalId }}</td>
                     <td>{{ entity.title }}</td>
-                    <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td style="background: {{ entity.statusColor }}">{{ entity.statusText }}</td>
                     <td>
-
                         {% set show_path = 'article_show' %}
                         {% set edit_path = 'article_edit' %}
                         {% set delete_path = 'article_delete' %}
@@ -39,9 +44,7 @@
         </table>
 
         <div>
-            <a href="{{ path('article_new') }}" class="button success">
-                    {% trans %}Create New{% endtrans %}
-            </a>
+            <a href="{{path('articlesubmission_new')}}" class="btn btn-success"> {% trans %}New Submission{% endtrans %}</a>
         </div>
     </div>
 </div>

@@ -14,10 +14,10 @@ class ArticleType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('status')
-                ->add('doi')
-                ->add('otherId')
-                ->add('keywords')
+                ->add('status','integer', array('attr' => array('class' => ' form-control')))
+                ->add('doi','text', array('attr' => array('class' => ' form-control')))
+                ->add('otherId','text', array('attr' => array('class' => ' form-control')))
+                ->add('keywords','text', array('attr' => array('class' => ' form-control')))
                 ->add('subjects', 'entity', array(
                     'class' => 'Ojstr\JournalBundle\Entity\Subject',
                     'property' => 'subject',
@@ -26,19 +26,22 @@ class ArticleType extends AbstractType {
                     'required' => false
                         )
                 )
-                ->add('journalId')
-                ->add('title')
-                ->add('titleTransliterated')
-                ->add('subtitle')
+                ->add('journalId','integer', array('attr' => array('class' => ' form-control')))
+                ->add('title','text', array('attr' => array('class' => ' form-control')))
+                ->add('titleTransliterated','text', array('attr' => array('class' => ' form-control')))
+                ->add('subtitle','text', array('attr' => array('class' => ' form-control')))
                 ->add('isAnonymous')
-                ->add('pubdate')
-                ->add('pubdateSeason')
-                ->add('part')
-                ->add('firstPage')
-                ->add('lastPage')
-                ->add('uri')
-                ->add('abstract')
-                ->add('abstractTransliterated');
+                ->add('pubdate', 'date', array(
+                    'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
+                    'attr' => array('class' => 'dateselector form-control')
+                ))
+                ->add('pubdateSeason', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('part', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('firstPage', 'integer', array('attr' => array('class' => ' form-control')))
+                ->add('lastPage', 'integer', array('attr' => array('class' => ' form-control')))
+                ->add('uri', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('abstract', 'textarea', array('attr' => array('class' => ' form-control')))
+                ->add('abstractTransliterated', 'textarea', array('attr' => array('class' => ' form-control')));
     }
 
     /**

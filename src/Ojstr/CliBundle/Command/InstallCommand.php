@@ -33,7 +33,8 @@ class InstallCommand extends ContainerAwareCommand {
 
         if (!$dialog->askConfirmation(
                         $output, '<question>' .
-                        $translator->trans('Confirm installation?') .
+                        $translator->trans("This will create a database and new schemas. \n"
+                                . "Confirm installation?") .
                         ' (y/n) : </question>', true
                 )) {
             return;
@@ -76,12 +77,16 @@ class InstallCommand extends ContainerAwareCommand {
 
         $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
         $this->insertAdmin($admin_username, $admin_email, $admin_password);
+        $output->writeln("\nDONE\n");
+        $output->writeln("You can run "
+                . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
+                . "to add sample data\n");
     }
 
     protected function insertRoles(OutputInterface $output) {
         $doctrine = $this->getContainer()->get('doctrine');
         $translator = $this->getContainer()->get('translator');
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
         $roles = $this->getContainer()->getParameter('roles');
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
         foreach ($roles as $role) {
@@ -103,7 +108,7 @@ class InstallCommand extends ContainerAwareCommand {
 
     protected function insertAdmin($username, $email, $password) {
         $doctrine = $this->getContainer()->get('doctrine');
-        $em = $doctrine->getEntityManager();
+        $em = $doctrine->getManager();
 
         $factory = $this->getContainer()->get('security.encoder_factory');
         $user = new User();

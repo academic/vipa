@@ -10,15 +10,16 @@
         <div class="list-group-item">
             <span>
                 <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
-                    <h4>{{entity.title}}</h4>
+                    <h4>{{entity.title}} 
+                    {%if entity.firststep%}<span class="badge">First Step</span>{%endif%}
+                    {%if entity.laststep%}<span class="badge">Last Step</span>{%endif%}
+                    </h4>
                 </a> 
-
                 {%for role in entity.roles%}
-                <span class="badge">{{role.name}}</span>
+                <span class="label label-info">{{role.name}}</span>
                 {%endfor%}
             </span>
             <a class="pull-right btn btn-warning" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
-
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>  
             <a class="pull-right btn btn-danger" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
