@@ -76,6 +76,8 @@ class InstallCommand extends ContainerAwareCommand {
 
         $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
         $this->insertAdmin($admin_username, $admin_email, $admin_password);
+        $output->writeln("\nDONE\n");
+        $output->writeln("Youcan run <info>sudo php app/console doctrine:fixtures:load --append -v</info> to add sample data");
     }
 
     protected function insertRoles(OutputInterface $output) {
