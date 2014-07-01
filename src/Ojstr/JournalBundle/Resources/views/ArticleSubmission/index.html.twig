@@ -7,9 +7,9 @@
         <h1>New Articles</h1>
 
         <a class="btn btn-default" href="{{path('articlesubmissions_me')}}">My Submissions</a>
-
+        {% if isSystemAdmin() or isJournalManager()  %}
         <a class="btn btn-default" href="{{path('articlesubmissions_all')}}">All Submissions</a>
-
+        {% endif %}
         <table class="records_list table" style="width:100%">
             <thead>
                 <tr>
