@@ -9,6 +9,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Ojstr\UserBundle\Entity\UserJournalRole;
 
+/**
+ * Create sample UserJournalRole entities
+ */
 class LoadUserJournalRoleData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
 
     /**
