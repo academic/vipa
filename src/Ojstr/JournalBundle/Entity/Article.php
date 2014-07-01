@@ -16,134 +16,134 @@ class Article extends Model\ArticleModel {
      * @var integer
      * @Expose
      */
-    public $id;
+    private $id;
 
     /**
      * @var integer
      * @Expose
      */
-    public $status;
+    private $status;
 
     /**
      * user id of the owner of this article
      * @var integer
      * @Expose 
      */
-    public $submitterId;
+    private $submitterId;
 
     /**
      * (optional)
      * @var string
      * @Expose
      */
-    public $doi;
+    private $doi;
 
     /**
      * Could contain any article ID used by the provider
      * @var string
      * @Expose
      */
-    public $otherId;
+    private $otherId;
 
     /**
      * @var integer
      * @Expose
      */
-    public $journalId;
+    private $journalId;
 
     /**
      * Original article title
      * @var string
      * @Expose
      */
-    public $title;
+    private $title;
 
     /**
      * Roman transliterated title
      * @var string
      * @Expose
      */
-    public $titleTransliterated;
+    private $titleTransliterated;
 
     /**
      * @var string
      * @Expose
      */
-    public $subtitle;
+    private $subtitle;
 
     /**
      * @var string
      * @Expose
      */
-    public $keywords;
+    private $keywords;
 
     /**
      * Some artilce carries no authorship
      * @var boolean
      * @Expose
      */
-    public $isAnonymous;
+    private $isAnonymous;
 
     /**
      * @var \DateTime
      * @Expose
      */
-    public $pubdate;
+    private $pubdate;
 
     /**
      * @var string
      * @Expose
      */
-    public $pubdateSeason;
+    private $pubdateSeason;
 
     /**
      * @var string
      * @Expose
      */
-    public $part;
+    private $part;
 
     /**
      * @var integer
      * @Expose
      */
-    public $firstPage;
+    private $firstPage;
 
     /**
      * @var integer
      * @Expose
      */
-    public $lastPage;
+    private $lastPage;
 
     /**
      * @var string
      * @Expose
      */
-    public $uri;
+    private $uri;
 
     /**
      * Original abstract
      * @var string
      * @Expose
      */
-    public $abstract;
+    private $abstract;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    public $subjects;
+    private $subjects;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    public $citations;
+    private $citations;
 
     /**
      * @var \Ojstr\JournalBundle\Entity\Journal
      * @Expose
      */
-    public $journal;
+    private $journal;
 
     /**
      * Constructor
