@@ -1,0 +1,19 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<div class="row">
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{%trans%}Edit{%endtrans%}</h1>
+
+            {{ form(edit_form) }}
+
+            <div class="record_actions">
+                {% set back_path = 'article' %}
+                {% set delete_path = 'article_delete' %}
+                {% include '::actionbtns.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

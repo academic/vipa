@@ -38,6 +38,9 @@ ojstr_article_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/article.yml"
     prefix:   /admin/article
     
+ojstr_article_submission:
+    resource: "@OjstrJournalBundle/Resources/config/routing/articlesubmission.yml"
+    
 ojstr_author_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
     prefix:   /admin/author

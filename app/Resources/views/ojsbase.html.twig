@@ -32,20 +32,19 @@
             <aside class="right-side">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-                        Dashboard
+                    <strong>
+                        {% block breadbrump %}
+                        <a href="/">Dashboard</a>
                         <small>Control panel</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">Dashboard</li>
-                    </ol>
+                        {% endblock %}
+                    </strong> 
                 </section>
 
                 <!-- Main content -->
-                <section class="content">
+                <section class="container">
             {% block body %}{% endblock %}
                 </section>
+                
 
                 <section class="footer">
                     <div id="footer">{% block footer %}{% endblock %}</div>

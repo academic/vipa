@@ -50,7 +50,7 @@ class SecurityController extends Controller {
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
         $user->setIsActive(1);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
         return new Response('Sucess!');

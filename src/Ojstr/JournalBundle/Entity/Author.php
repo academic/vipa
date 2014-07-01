@@ -10,115 +10,77 @@ class Author extends Model\AuthorModel {
     /**
      * @var integer
      */
-    private $id;
+    public  $id;
 
     /**
      * @var string
      */
-    private $firstName;
+    public  $firstName;
 
     /**
      * @var string
      */
-    private $middleName;
+    public  $middleName;
 
     /**
      * @var string
      */
-    private $lastName;
+    public  $lastName;
 
     /**
      * @var string
      */
-    private $email;
+    public  $email;
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @var string
      */
-    public function getId() {
-        return $this->id;
-    }
+    public  $firstNameTransliterated;
 
     /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return Author
+     * @var string
      */
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
-        return $this;
-    }
+    public  $middleNameTransliterated;
 
     /**
-     * Get firstName
-     *
-     * @return string 
+     * @var string
      */
-    public function getFirstName() {
-        return $this->firstName;
-    }
+    public  $lastNameTransliterated;
 
     /**
-     * Set middleName
-     *
-     * @param string $middleName
-     * @return Author
+     * @var string
      */
-    public function setMiddleName($middleName) {
-        $this->middleName = $middleName;
-        return $this;
-    }
+    public  $initials;
 
     /**
-     * Get middleName
-     *
-     * @return string 
+     * @var string
      */
-    public function getMiddleName() {
-        return $this->middleName;
-    }
+    public  $address;
 
     /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return Author
+     * @var integer
      */
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
-        return $this;
-    }
+    public  $institutionId;
 
     /**
-     * Get lastName
-     *
-     * @return string 
+     * @var integer
      */
-    public function getLastName() {
-        return $this->lastName;
-    }
+    public  $country;
 
     /**
-     * Set email
-     *
-     * @param string $email
-     * @return Author
+     * @var string
      */
-    public function setEmail($email) {
-        $this->email = $email;
-        return $this;
-    }
+    public  $summary;
 
     /**
-     * Get email
-     *
-     * @return string 
+     * @var integer
      */
-    public function getEmail() {
-        return $this->email;
-    }
+    public  $userId;
+    
+    /**
+     * @var \Ojstr\UserBundle/Entity/User
+     */
+    public  $user;
+
 
 }

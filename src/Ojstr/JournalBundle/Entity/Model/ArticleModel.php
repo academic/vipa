@@ -13,100 +13,139 @@ use JMS\Serializer\Annotation\Expose;
 class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
-     * (optional)
-     * @var string
-     * @Expose
+     * Add subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     * @return Article
      */
-    protected $doi;
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects[] = $subject;
+
+        return $this;
+    }
 
     /**
-     * Could contain any article ID used by the provider
-     * @var string
-     * @Expose
+     * Remove subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
      */
-    protected $otherId;
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects->removeElement($subject);
+    }
 
     /**
-     * @var integer
-     * @Expose
+     * Get subjects
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
-    protected $journalId;
+    public function getSubjects() {
+        return $this->subjects;
+    }
 
     /**
-     * Original article title
-     * @var string
-     * @Expose
+     * Add citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @return Article
      */
-    protected $title;
+    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations[] = $citation;
+        return $this;
+    }
 
     /**
-     * Roman transliterated title
-     * @var string
-     * @Expose
+     * Remove citation
+     *
+     * @param \Ojstr\JournalBundle\Entity\Citation $citation
      */
-    protected $titleTransliterated;
+    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+        $this->citations->removeElement($citation);
+    }
 
     /**
-     * @var string
-     * @Expose
+     * Get citations
+     *
+     * @return \Doctrine\Common\Collections\Collection
      */
-    protected $subtitle;
+    public function getCitations() {
+        return $this->citations;
+    }
 
     /**
-     * @var string
-     * @Expose
+     * Get id
+     *
+     * @return integer
      */
-    protected $keywords;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
-     * Some artilce carries no authorship
-     * @var boolean
-     * @Expose
+     * 
+     * @return string
      */
-    protected $isAnonymous;
+    public function getStatusText() {
+        return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
+    }
 
     /**
-     * @var \DateTime
-     * @Expose
+     * 
+     * @return string
      */
-    protected $pubdate;
+    public function getStatusColor() {
+        return \Ojstr\Common\Params\ArticleParams::statusColor($this->status);
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+        return $status;
+    }
+
+    public function getSubmitterId() {
+        return $this->submitterId;
+    }
+
+    public function setSubmitterId($submitterId) {
+        $this->submitterId = $submitterId;
+        return $submitterId;
+    }
 
     /**
-     * @var string
-     * @Expose
+     * Set journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @return Article
      */
-    protected $pubdateSeason;
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
+        $this->journal = $journal;
+
+        return $this;
+    }
 
     /**
-     * @var string
-     * @Expose
+     * Get journal
+     *
+     * @return \Ojstr\JournalBundle\Entity\Journal
      */
-    protected $part;
+    public function getJournal() {
+        return $this->journal;
+    }
 
     /**
-     * @var integer
-     * @Expose
+     * Set subjects
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
+     * @return Article
      */
-    protected $firstPage;
+    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null) {
+        $this->subjects = $subjects;
 
-    /**
-     * @var integer
-     * @Expose
-     */
-    protected $lastPage;
-
-    /**
-     * @var string
-     * @Expose
-     */
-    protected $uri;
-
-    /**
-     * Original abstract
-     * @var string
-     * @Expose
-     */
-    protected $abstract;
+        return $this;
+    }
 
     /**
      * (optional) English transliterated abstract

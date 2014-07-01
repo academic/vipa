@@ -15,11 +15,7 @@ Ojstr\JournalBundle\Entity\Author:
             id: true
             generator:
                 strategy: AUTO
-    fields:
-        userId:
-            type: integer
-            column: user_id
-            nullable: TRUE
+    fields: 
         firstName:
             type: string
             length: 255
