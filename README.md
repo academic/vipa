@@ -39,7 +39,6 @@ OJS assists with every stage of the refereed publishing process, from submission
 2. Doctrine ORM
 3. Composer
 4. PHPunit
-5. 
 
 
 
@@ -50,6 +49,22 @@ OJS assists with every stage of the refereed publishing process, from submission
 When it comes to installing the Symfony Standard Edition, you have the
 following options.
 
+### Requirements
+1. php +5.4
+2. apache or nginx
+3. mysql 5.5 or equilent
+4. Enough storage
+
+
+### DB Setup
+Create a database and user; grant all privilages.
+```bash
+create database ojs;
+create user ojs;
+grant all on ojs.* to 'ojs'@'localhost' identified by 'ojs';
+```
+
+
 #### Using Composer ( _recommended_ )
 
 As Symfony uses [Composer][2] to manage its dependencies, the recommended way
@@ -59,16 +74,25 @@ If you don't have Composer yet, download it following the instructions on
 http://getcomposer.org/ or just run the following command:
 
 ```bash
-    curl -s http://getcomposer.org/installer | php
+curl -s http://getcomposer.org/installer | php
 ```
 
 
 ```bash
-# get composer packages
-$ php composer.phar update
+# get composer packages more verbosely
+$ php composer.phar -vv update
+```
+install [node.js](http://nodejs.org/download/) and [bower](http://bower.io)
+```bash
+$ curl https://www.npmjs.org/install.sh | sudo sh
+$ npm install -g bower
+```
 
+```bash
 # get bower packages
 $ bower install
+
+$ npm install uglifycss uglifyjs
 
 # generate assets
 $ php app/console assets:install web --symlink
@@ -88,7 +112,7 @@ $ php app/console doctrine:fixtures:load --append
 Run on your local environment : 
 
 ```bash
-    php app/console server:run
+php app/console server:run
 ``` 
 
 
@@ -100,7 +124,7 @@ configured for Symfony.
 Execute the `check.php` script from the command line:
 
 ```bash
-    php app/check.php
+php app/check.php
 ```
 
 The script returns a status code of `0` if all mandatory requirements are met,
@@ -108,7 +132,7 @@ The script returns a status code of `0` if all mandatory requirements are met,
 
 Access the `config.php` script from a browser:
 ```bash
-    http://localhost/path/to/symfony/app/web/config.php
+http://localhost/path/to/symfony/app/web/config.php
 ```
 
 If you get any warnings or recommendations, fix them before moving on.
@@ -133,3 +157,22 @@ Db schema can be viewed at [dbpatterns.com](http://dbpatterns.com/documents/5310
 1. TODO
 
 
+## 5) Troubleshooting
+
+1. PHP Fatal error:  Allowed memory size of # bytes exhauste
+	* set ```memory_limit = 1024M``` at your  (_php.ini_) 
+
+2.
+ ```
+[Symfony\Component\Debug\Exception\ContextErrorException]                                                                                                                                                                                                   
+  Warning: date_default_timezone_get(): Invalid date.timezone value 'XX/XX', we selected the timezone 'UTC' for now.
+```
+	* set data.timezone with correct timezone at php.ini
+
+
+3. ```
+ GitHub API rate limit exceeded for XXX.XXX.XXX.XXX. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
+Try again in 13 minutes 11 seconds, or create an API token:
+  https://github.com/settings/applications
+and then set HOMEBREW_GITHUB_API_TOKEN.
+```
