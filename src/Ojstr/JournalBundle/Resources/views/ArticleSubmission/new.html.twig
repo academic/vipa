@@ -31,7 +31,18 @@
 <script>
                     $(document).ready(function() {
                         $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-                        $("textarea").wysihtml5();
+                        $("textarea").wysihtml5({
+                            toolbar: {
+                                "font-styles": false,
+                                "emphasis": true,
+                                "lists": false,
+                                "html": false,
+                                "link": true,
+                                "image": false,
+                                "color": false,
+                                "blockquote": true
+                            }
+                        });
                     });
 </script>
 {% endblock %}
