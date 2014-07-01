@@ -60,6 +60,27 @@
                 <source>Spam</source>
                 <target>Spam</target>
             </trans-unit> 
+            <trans-unit id="14">
+                <source>Messages</source>
+                <target>Mesajlar</target>
+            </trans-unit> 
+            <trans-unit id="15">
+                <source>Journals</source>
+                <target>Dergiler</target>
+            </trans-unit> 
+            <trans-unit id="16">
+                <source>Articles</source>
+                <target>Makaleler</target>
+            </trans-unit> 
+            <trans-unit id="17">
+                <source>Workflow</source>
+                <target>Süreç</target>
+            </trans-unit> 
+            <trans-unit id="18">
+                <source>Admin</source>
+                <target>Yönetim</target>
+            </trans-unit> 
+            
             
         </body>
     </file>

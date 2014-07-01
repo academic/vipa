@@ -5,40 +5,33 @@
     <div class="panel">
         <h1>UserJournalRole</h1>
 
-        <table class="record_properties">
+        <table class="record_properties  table">
             <tbody>
                 <tr>
                     <th>Id</th>
                     <td>{{ entity.id }}</td>
                 </tr>
                 <tr>
-                    <th>Userid</th>
-                    <td>{{ entity.userId }}</td>
+                    <th>User</th>
+                    <td><span class="label label-default">{{ entity.userId }}</span> {{ entity.user.username}}</td>
                 </tr>
                 <tr>
-                    <th>Journalid</th>
-                    <td>{{ entity.journalId }}</td>
+                    <th>Journal</th>
+                    <td><span class="label label-default">{{ entity.journalId }}</span> {{ entity.journal.title}}</td>
                 </tr>
                 <tr>
-                    <th>Roleid</th>
-                    <td>{{ entity.roleId }}</td>
+                    <th>Role</th>
+                    <td><span class="label label-default">{{ entity.roleId }}</span> {{ entity.role.role}}</td>
                 </tr>
             </tbody>
         </table>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('ujr') }}">
-                    Back to the list
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('ujr_edit', { 'id': entity.id }) }}">
-                    Edit
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </ul>
+
+        {% set back_path = 'ujr' %}
+        {% set edit_path = 'ujr_edit' %}
+        {% set delete_path = 'ujr_delete' %}
+        {% include '::actionbtns.html.twig' %} 
+
     </div>
 </div>
 {% endblock %}

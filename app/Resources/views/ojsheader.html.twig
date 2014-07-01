@@ -1,6 +1,6 @@
 <!-- header -->
 <header class="header">
-    <a href="index.html" class="logo">
+    <a href="/" class="logo">
         OjsTR
     </a>
     <!-- Header Navbar: style can be found in header.less -->
@@ -70,7 +70,11 @@
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header bg-light-blue">
+                            {% if(ojsuser.getAvatar()) %}
+                            <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
+                            {%else%}
                             <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
+                            {%endif%}
                             <p> 
                                 <small>Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</small>
                             </p>
@@ -78,7 +82,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{path('manager_profile')}}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Sign out</a>

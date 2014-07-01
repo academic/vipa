@@ -6,7 +6,7 @@
         <div class="panel">
             <h1>Subject</h1>
 
-            <table class="record_properties" style="width:100%">
+            <table class="record_properties  table" style="width:100%">
                 <tbody>
                     <tr>
                         <th width="200px">Id</th>
@@ -24,10 +24,10 @@
             </table>
 
             <div class="record_actions">
-                <a href="{{ path('admin_subject') }}" class="button">
+                <a href="{{ path('subject') }}" class="button">
                     {% trans %}Back to list{% endtrans %}
                 </a>
-                <a href="{{ path('admin_subject_edit', { 'id': entity.id }) }}" class="button">
+                <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="button">
                     Edit
                 </a>
                 {{ form(delete_form) }}

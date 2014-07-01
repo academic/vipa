@@ -3,10 +3,11 @@ imports:
     - { resource: security.yml }
     - { resource: ojstr_params.yml }
     - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
+    #- { resource: "../../src/Ojstr/JournalBundle/Resources/config/workflow.yml" }
 
 framework:
     #esi:             ~
-    translator:      { fallback: "%locale%" }
+    translator:      { fallback: en }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -26,6 +27,32 @@ framework:
     fragments:       ~
     http_method_override: true
 
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://localhost:27017
+            options: {}
+    default_database: ojs
+    document_managers:
+        default:
+            auto_mapping: true
+
+        
+ojstr_message_message:  
+    entity:            
+        user:         
+            class:    Ojstr\UserBundle\Entity\User
+    component:
+        dashboard:
+            integrator:
+                class:                OjstrMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
+        twig_extension:
+            folder_list:
+                class:                OjstrMessage\MessageBundle\Component\TwigExtension\FolderListExtension
+    
+        
+            
+            
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -60,9 +87,21 @@ doctrine:
         # path:     "%database_path%"
 
     orm:
+        metadata_cache_driver: memcache
+        result_cache_driver: memcache
+        query_cache_driver: memcache
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
-        mappings:
+        resolve_target_entities:
+            Symfony\Component\Security\Core\User\UserInterface: Ojstr\UserBundle\Entity\User
+        mappings: 
+            OjstrMessageMessageBundle:
+                mapping:              true
+                type:                 yml
+                dir:                  "Resources/config/doctrine"
+                alias:                ~
+                prefix:               OjstrMessage\MessageBundle\Entity
+                is_bundle:            true
             gedmo_translatable:
                 type: annotation
                 prefix: Gedmo\Translatable\Entity
@@ -146,7 +185,50 @@ oneup_uploader:
             enable_progress: true
             frontend: blueimp
             
+            
+avalanche_imagine:
+    filters:
+        avatar_thumb:
+            type:    thumbnail
+            options: { start : [0,0], size: [200, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+        avatar_thumb_crop:
+            type:    crop
+            options: { start : [0,0], size: [200, 200],  quality: 90, cache_type: public, cache_expires: 2 weeks }
+        medium:
+            type:    resize
+            options: { size: [800,600], mode: outbound, quality: 90}
+        
+        height_60:
+            type:    relative_resize
+            options: { heighten: 60 }  
+        height_200:
+            type:    relative_resize
+            options: { heighten: 200 }  
+        height_60:
+            type:    relative_resize
+            options: { heighten: 60 } 
+        wide_100:
+            type:    relative_resize
+            options: { widen: 100 }   
+
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+
 services:
+    listener.requestresponse:
+        class: Ojstr\Common\Listener\UserListener
+        arguments: [ @service_container ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     ojstr_locale.locale_listener:
         class: Ojstr\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]

@@ -21,7 +21,10 @@ class OjsExtension extends \Twig_Extension {
     public function getFunctions() {
         return array(
             'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
-            'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html')))
+            'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
+            'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
+            'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
+            'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html')))
         );
     }
 
@@ -36,6 +39,29 @@ class OjsExtension extends \Twig_Extension {
             return $user;
         }
         return FALSE;
+    }
+
+    public function getSession($session_key) {
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        return $session->get($session_key);
+    }
+
+    /**
+     * 
+     * @return mixed
+     */
+    public function getUserJournals() {
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        return $session->get('userJournals');
+    }
+
+    /**
+     * 
+     * @return mixed
+     */
+    public function getUserJournalRoles() {
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        return $session->get('userJournalRoles');
     }
 
     /**

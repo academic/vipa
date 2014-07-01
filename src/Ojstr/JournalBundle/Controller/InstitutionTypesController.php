@@ -3,9 +3,10 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\InstitutionTypes;
 use Ojstr\JournalBundle\Form\InstitutionTypesType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * InstitutionTypes controller.
@@ -81,9 +82,7 @@ class InstitutionTypesController extends Controller {
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:InstitutionTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:InstitutionTypes:show.html.twig', array(
                     'entity' => $entity,
@@ -97,9 +96,7 @@ class InstitutionTypesController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:InstitutionTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:InstitutionTypes:edit.html.twig', array(
@@ -132,9 +129,7 @@ class InstitutionTypesController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:InstitutionTypes')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -159,9 +154,7 @@ class InstitutionTypesController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:InstitutionTypes')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
+            $this->throw404IfNotFound($entity);
             $em->remove($entity);
             $em->flush();
         }
@@ -177,7 +170,7 @@ class InstitutionTypesController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'institution_types_delete');
     }
 
 }

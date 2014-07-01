@@ -1,35 +1,17 @@
 {% extends "::ojsbase.html.twig" %}
 
-{% block body %}
-<div class="container">
-    <h1>Manager Dashboard</h1>
-    <div class="col-md-6">
-        <h2>Objects</h2>
-        <ul class="list-group">
-
-            <li class="list-group-item"><a href="/manager/article">Articles</a></li>
-            <li class="list-group-item"><a href="/manager/author">Authors</a></li>
-            <li class="list-group-item"><a href="/manager/contact">Contacts</a></li>
-            <li class="list-group-item"><a href="/manager/contacttypes">Contact Types</a></li>
-            <li class="list-group-item"><a href="/manager/institution">Institutions</a></li>
-            <li class="list-group-item"><a href="/manager/institutiontype">Institution Types</a></li>
-            <li class="list-group-item"><a href="/manager/issue">Issues</a></li>
-            <li class="list-group-item"><a href="/manager/journal">Journals</a></li>
-            <li class="list-group-item"><a href="/manager/keyword">Keywords</a></li>
-            <li class="list-group-item"><a href="/manager/subject">Subjects</a></li>
-            <li class="list-group-item"><a href="/manager/theme">Themes</a></li>
-        </ul>
-    </div>
-
-    <div class="col-md-6">
-        <h2>System Operations</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a href="/manager/user">User</a></li>
-            <li class="list-group-item"><a href="/manager/role">Role</a></li>
-
-        </ul>
-    </div>
-</div>
+{% block body %} 
+<h1>Manager Dashboard</h1>
+<div class="col-md-12">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{{path('article')}}">Articles</a>
+        </li> 
+        <li class="list-group-item">
+            <a href="{{path('manager_show_my_journals')}}">Journals</a>
+        </li> 
+    </ul>
+</div>   
 {% endblock %}
 
 {% block footer %}{% endblock %}
