@@ -25,9 +25,11 @@ class Article extends Model\ArticleModel {
     public $status;
 
     /**
-     * @var integer 
+     * user id of the owner of this article
+     * @var integer
+     * @Expose 
      */
-    public $userId;
+    public $submitterId;
 
     /**
      * (optional)
