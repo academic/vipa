@@ -7,7 +7,7 @@ files
 .buildpath
 .settings
 .DS_Store
-
+composer.lock
 /.idea/
 
 /web/uploads/*
@@ -24,6 +24,7 @@ files
 /composer.phar
 /nbproject/private/
 
+node_modules/
 
 /web/c/
 /web/assetic/
