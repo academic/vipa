@@ -33,7 +33,8 @@ class InstallCommand extends ContainerAwareCommand {
 
         if (!$dialog->askConfirmation(
                         $output, '<question>' .
-                        $translator->trans('Confirm installation?') .
+                        $translator->trans("This will create a database and new schemas. \n"
+                                . "Confirm installation?") .
                         ' (y/n) : </question>', true
                 )) {
             return;
@@ -77,7 +78,9 @@ class InstallCommand extends ContainerAwareCommand {
         $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
         $this->insertAdmin($admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
-        $output->writeln("Youcan run <info>sudo php app/console doctrine:fixtures:load --append -v</info> to add sample data");
+        $output->writeln("You can run "
+                . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
+                . "to add sample data\n");
     }
 
     protected function insertRoles(OutputInterface $output) {
