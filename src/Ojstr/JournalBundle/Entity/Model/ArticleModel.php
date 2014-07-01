@@ -106,12 +106,12 @@ class ArticleModel extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     public function getUserId() {
-        return $this->userId;
+        return $this->submitterId;
     }
 
-    public function setUserId($userId) {
-        $this->userId = $userId;
-        return $userId;
+    public function setUserId($submitterId) {
+        $this->submitterId = $submitterId;
+        return $submitterId;
     }
 
     /**

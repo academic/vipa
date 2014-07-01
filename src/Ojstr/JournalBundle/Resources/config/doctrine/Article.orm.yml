@@ -41,8 +41,8 @@ Ojstr\JournalBundle\Entity\Article:
   table: ~
   type: entity
   fields: 
-    userId:
-        column: user_id
+    sumitterId:
+        column: submitter_id
         type: integer
         options: 
           default: 0
