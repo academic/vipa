@@ -12,8 +12,13 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager) {
         $journal = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Journal c')
                         ->setMaxResults(1)->getResult();
+        if (!isset($journal)) {
+            return;
+        }
         $subject = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Subject c')
                         ->setMaxResults(1)->getResult();
+        $ujr = $manager->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal[0]->getId());
+
         $article = new Article();
         $article->setAbstract("Article abstract article abstract article abstract article abstract ");
         $article->setDoi("123321321");
@@ -27,12 +32,13 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->addSubject($subject[0]);
         $article->setTitle("Article Title");
         $article->setUserId(1);
+        $article->setUserId($ujr[0]->getUserId());
         $manager->persist($article);
         $manager->flush();
     }
 
     public function getOrder() {
-        return 11;
+        return 17;
     }
 
 }
