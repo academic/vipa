@@ -15,7 +15,7 @@ Ojstr\UserBundle\Entity\EventLog:
         eventDate:
             type: datetime
             column: event_date
-            nullabel: true
+            nullable: true
             columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ip:
             type: string
