@@ -21,7 +21,9 @@ class OjsExtension extends \Twig_Extension {
     public function getFunctions() {
         return array(
             'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
+            'hasRole' => new \Twig_Function_Method($this, 'hasRole', array('is_safe' => array('html'))),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
+            'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager', array('is_safe' => array('html'))),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
@@ -95,12 +97,29 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
+    public function hasRole($role) {
+        $userjournalroles = $this->getSession('userJournalRoles');
+        $user = $this->checkUser();
+        if ($user) {
+            foreach ($userjournalroles as $role) {
+                if ($role->getRole() == $role) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+
+    public function isJournalManager() {
+        $this->hasRole('ROLE_JOURNAL_MANAGER');
+    }
+
     /**
-     * @todo reformat and validate given issn and output with/without errors
+     * @todo reformat and validate given issn
      * @param string $issn
      * @return string
      */
-    public function issnValidateFilter($issn, $withErrors = FALSE) {
+    public function issnValidateFilter($issn) {
         return $issn;
     }
 
