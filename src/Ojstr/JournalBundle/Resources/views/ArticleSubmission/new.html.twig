@@ -6,17 +6,40 @@
 
 {% endblock %}
 
+ {% block breadbrump %}
+<ol class="breadcrumb">
+    <li> Dashboard</li>
+    <li><a href="#" class="active">Submit Article</a></li>
+</ol> 
+{% endblock %}
+
 {% block body -%}
+
 <div class="col-md-12"> 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h1 class="panel-title">Submit Article</h1>
+            <div class="panel-title">
+                <ul class='nav nav-wizard'>
+                    <li class="active"><a href='#step1'><!--data-toggle="tab"-->
+                            <span class="badge">1</span> Article Info.</a></li>
+                    <li><span class="badge">2</span> Citations</li>
+                    <li><span class="badge">3</span> Authors</li>
+                    <li><span class="badge">4</span> Article File</li>
+                    <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
+                </ul>
+            </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body">  
+
             {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
             <div class="record_actions">
-                <a class="btn btn-default" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
                     {% trans %}Restart{% endtrans %}
+                </a>
+
+                <a class="btn btn-primary btn-lg pull-right" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                    {% trans %}Save & Next {% endtrans %}
+                    <i class="glyphicon glyphicon-chevron-right"></i>
                 </a>
             </div>
         </div>
@@ -43,6 +66,9 @@
                                 "blockquote": true
                             }
                         });
+
+
                     });
+
 </script>
 {% endblock %}
