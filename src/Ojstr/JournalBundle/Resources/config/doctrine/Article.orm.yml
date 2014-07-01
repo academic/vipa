@@ -1,5 +1,7 @@
 Ojstr\JournalBundle\Entity\Article: 
-
+  #repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
+  table: ~
+  type: entity
   id: 
     id: 
       generator: 
@@ -35,13 +37,9 @@ Ojstr\JournalBundle\Entity\Article:
         joinColumns: 
           article_id: 
             referencedColumnName: id
-        name: Article_Citation
-      
-  #repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
-  table: ~
-  type: entity
+        name: Article_Citation 
   fields: 
-    sumitterId:
+    submitterId:
         column: submitter_id
         type: integer
         options: 
