@@ -7,11 +7,11 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-        {% stylesheets
+            {% stylesheets
            '@main_css'  filter='cssrewrite' output="c/combined.css" 
-        %}   
-        <link rel="stylesheet" href="{{ asset_url }}" />
-       {% endstylesheets %} 
+            %}   
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %} 
 
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -34,28 +34,28 @@
                 <section class="content-header">
                     <strong>
                         {% block breadbrump %}
-                        <a href="/">Dashboard</a>
-                        <small>Control panel</small>
+                            <a href="/">Dashboard</a>
+                            <small>Control panel</small>
                         {% endblock %}
                     </strong> 
                 </section>
 
                 <!-- Main content -->
                 <section class="container">
-            {% block body %}{% endblock %}
-                </section>
-                
+                {% block body %}{% endblock %}
+            </section>
 
-                <section class="footer">
-                    <div id="footer">{% block footer %}{% endblock %}</div>
-                </section>
-            </aside> 
-        </div>
-        {% block javascripts %}
+
+            <section class="footer">
+                <div id="footer">{% block footer %}{% endblock %}</div>
+            </section>
+        </aside> 
+    </div>
+    {% block javascripts %}
         {% javascripts '@main_js' filter="uglifyjs" output="c/compiled.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
 
-        {% endblock %}
-    </body>
+    {% endblock %}
+</body>
 </html>

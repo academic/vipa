@@ -3,23 +3,23 @@
     <h2>Oops! An Error Occurred </h2> 
 </div>
 <p>
-                {{ exception.message|nl2br|format_file_from_text }}
+    {{ exception.message|nl2br|format_file_from_text }}
 </p>
 
 <div>
     <strong>{{ status_code }}</strong> {{ status_text }} - {{ exception.class|abbr_class }}
 </div>
 
-            {% set previous_count = exception.allPrevious|length %}
-            {% if previous_count %}
-<div class="linked"><span><strong>{{ previous_count }}</strong> linked Exception{{ previous_count > 1 ? 's' : '' }}:</span>
-    <ul>
-          {% for i, previous in exception.allPrevious %}
-        <li>
-        {{ previous.class|abbr_class }} <a href="#traces-link-{{ i + 1 }}" onclick="toggle('traces-{{ i + 1 }}', 'traces');
+{% set previous_count = exception.allPrevious|length %}
+{% if previous_count %}
+    <div class="linked"><span><strong>{{ previous_count }}</strong> linked Exception{{ previous_count > 1 ? 's' : '' }}:</span>
+        <ul>
+            {% for i, previous in exception.allPrevious %}
+                <li>
+                    {{ previous.class|abbr_class }} <a href="#traces-link-{{ i + 1 }}" onclick="toggle('traces-{{ i + 1 }}', 'traces');
                 switchIcons('icon-traces-{{ i + 1 }}-open', 'icon-traces-{{ i + 1 }}-close');">&#187;</a>
-        </li>
-         {% endfor %}
-    </ul>
-</div>
-            {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
