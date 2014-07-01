@@ -7,6 +7,7 @@ use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
 use Ojstr\JournalBundle\Form\ArticleType;
 use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Article controller.
@@ -79,12 +80,19 @@ class ArticleSubmissionController extends Controller {
      *
      */
     public function newAction() {
+        $session = new Session();
+        $selectedJournalId = $session->get('selectedJournalId');
+        if (!$selectedJournalId) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
         $entity = new Article();
         $em = $this->getDoctrine()->getManager();
         $subjects = $em->getRepository('OjstrJournalBundle:Subject')->findAll();
+        $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
                     'entity' => $entity,
-                    'subjects' => $subjects
+                    'subjects' => $subjects,
+                    'journal' => $journal
         ));
     }
 
