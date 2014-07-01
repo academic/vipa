@@ -1,12 +1,23 @@
 # This is common Ojstr app parameters
 parameters:
+    # languages with ISO 639-1 codes
     languages:
+        -
+            name: Türkçe
+            code: tr
         -
             name: English
             code: en
         -
-            name: Türkçe
-            code: tr
+            name: French
+            code: fr
+        -
+            name: Italian
+            code: it
+        - 
+            name: German
+            code: de
+        
     roles:
         #dont delete any of these roles
         - 
