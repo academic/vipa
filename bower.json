@@ -20,6 +20,7 @@
     	"bootstrap": "~3.1.1",
 	"font-awesome":"*",
     	"jquery-leanmodal":"*",
-  	"jquery-file-upload":"*"
+  	"jquery-file-upload":"*",
+	"bootstrap3-wysihtml5-bower":"*"
 	}
 }
