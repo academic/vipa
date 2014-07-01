@@ -3,9 +3,10 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\JournalContact;
 use Ojstr\JournalBundle\Form\JournalContactType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * JournalContact controller.
@@ -205,7 +206,7 @@ class JournalContactController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'journalcontact_delete');
     }
 
 }

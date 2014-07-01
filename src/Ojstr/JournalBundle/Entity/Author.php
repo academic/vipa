@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Author
  */
-class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class Author extends Model\AuthorModel {
 
     /**
      * @var integer
@@ -30,47 +30,7 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      */
-    private $firstNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $middleNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $lastNameTransliterated;
-
-    /**
-     * @var string
-     */
-    private $initials;
-
-    /**
-     * @var string
-     */
     private $email;
-
-    /**
-     * @var string
-     */
-    private $address;
-
-    /**
-     * @var integer
-     */
-    private $institutionId;
-
-    /**
-     * @var integer
-     */
-    private $country;
-
-    /**
-     * @var string
-     */
-    private $summary;
 
     /**
      * Get id
@@ -142,86 +102,6 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set firstNameTransliterated
-     *
-     * @param string $firstNameTransliterated
-     * @return Author
-     */
-    public function setFirstNameTransliterated($firstNameTransliterated) {
-        $this->firstNameTransliterated = $firstNameTransliterated;
-        return $this;
-    }
-
-    /**
-     * Get firstNameTransliterated
-     *
-     * @return string 
-     */
-    public function getFirstNameTransliterated() {
-        return $this->firstNameTransliterated;
-    }
-
-    /**
-     * Set middleNameTransliterated
-     *
-     * @param string $middleNameTransliterated
-     * @return Author
-     */
-    public function setMiddleNameTransliterated($middleNameTransliterated) {
-        $this->middleNameTransliterated = $middleNameTransliterated;
-        return $this;
-    }
-
-    /**
-     * Get middleNameTransliterated
-     *
-     * @return string 
-     */
-    public function getMiddleNameTransliterated() {
-        return $this->middleNameTransliterated;
-    }
-
-    /**
-     * Set lastNameTransliterated
-     *
-     * @param string $lastNameTransliterated
-     * @return Author
-     */
-    public function setLastNameTransliterated($lastNameTransliterated) {
-        $this->lastNameTransliterated = $lastNameTransliterated;
-        return $this;
-    }
-
-    /**
-     * Get lastNameTransliterated
-     *
-     * @return string 
-     */
-    public function getLastNameTransliterated() {
-        return $this->lastNameTransliterated;
-    }
-
-    /**
-     * Set initials
-     *
-     * @param string $initials
-     * @return Author
-     */
-    public function setInitials($initials) {
-        $this->initials = $initials;
-        return $this;
-    }
-
-    /**
-     * Get initials
-     *
-     * @return string 
-     */
-    public function getInitials() {
-        return $this->initials;
-    }
-
-    /**
      * Set email
      *
      * @param string $email
@@ -239,86 +119,6 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getEmail() {
         return $this->email;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     * @return Author
-     */
-    public function setAddress($address) {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string 
-     */
-    public function getAddress() {
-        return $this->address;
-    }
-
-    /**
-     * Set institutionId
-     *
-     * @param integer $institutionId
-     * @return Author
-     */
-    public function setInstitutionId($institutionId) {
-        $this->institutionId = $institutionId;
-        return $this;
-    }
-
-    /**
-     * Get institutionId
-     *
-     * @return integer 
-     */
-    public function getInstitutionId() {
-        return $this->institutionId;
-    }
-
-    /**
-     * Set country
-     *
-     * @param integer $country
-     * @return Author
-     */
-    public function setCountry($country) {
-        $this->country = $country;
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return integer 
-     */
-    public function getCountry() {
-        return $this->country;
-    }
-
-    /**
-     * Set summary
-     *
-     * @param string $summary
-     * @return Author
-     */
-    public function setSummary($summary) {
-        $this->summary = $summary;
-        return $this;
-    }
-
-    /**
-     * Get summary
-     *
-     * @return string 
-     */
-    public function getSummary() {
-        return $this->summary;
     }
 
 }

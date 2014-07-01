@@ -1,7 +1,14 @@
 Ojstr\JournalBundle\Entity\Author:
     type: entity
     table: null
-    repositoryClass: Ojstr\JournalBundle\Entity\AuthorRepository
+    #repositoryClass: Ojstr\JournalBundle\Entity\AuthorRepository
+    oneToOne:
+        user:
+          targetEntity: Ojstr\UserBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+        
     id:
         id:
             type: integer
@@ -9,6 +16,10 @@ Ojstr\JournalBundle\Entity\Author:
             generator:
                 strategy: AUTO
     fields:
+        userId:
+            type: integer
+            column: user_id
+            nullable: TRUE
         firstName:
             type: string
             length: 255

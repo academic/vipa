@@ -115,7 +115,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * @return User
      */
     public function setAvatar($avatar) {
-        $this->username = $avatar;
+        $this->avatar = $avatar;
         return $this;
     }
 

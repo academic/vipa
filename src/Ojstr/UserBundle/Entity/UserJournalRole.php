@@ -2,8 +2,6 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * UserJournalRole
  */
@@ -52,7 +50,6 @@ class UserJournalRole {
      */
     public function setUserId($userId) {
         $this->userId = $userId;
-
         return $this;
     }
 
@@ -73,7 +70,6 @@ class UserJournalRole {
      */
     public function setJournalId($journalId) {
         $this->journalId = $journalId;
-
         return $this;
     }
 
@@ -94,7 +90,6 @@ class UserJournalRole {
      */
     public function setRoleId($roleId) {
         $this->roleId = $roleId;
-
         return $this;
     }
 
@@ -148,7 +143,7 @@ class UserJournalRole {
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
      * @return UserJournalRole
      */
-    public function setJournal(\Ojstr\UserBundle\Entity\Journal $journal = null) {
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
         $this->journal = $journal;
 
         return $this;
@@ -157,7 +152,7 @@ class UserJournalRole {
     /**
      * Get journal
      *
-     * @return \Ojstr\UserBundle\Entity\Journal 
+     * @return \Ojstr\Journalundle\Entity\Journal 
      */
     public function getJournal() {
         return $this->journal;

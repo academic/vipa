@@ -3,7 +3,7 @@
 {% block body -%}
 <h1>ArticleFile list</h1>
 
-<table class="records_list">
+<table class="records_list table">
     <thead>
         <tr>
             <th>Id</th>
@@ -25,14 +25,11 @@
             <td>{{ entity.size }}</td>
             <td>{{ entity.articleId }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('articlefile_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                {% set show_path = 'articlefile_show' %}
+                {% set edit_path = 'articlefile_edit' %}
+                {% set delete_path = 'articlefile_delete' %}
+                {% include '::actionbtns.html.twig' %}
+
             </td>
         </tr>
         {% endfor %}

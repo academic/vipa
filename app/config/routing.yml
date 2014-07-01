@@ -1,20 +1,33 @@
+OjstrMessageMessageBundle:
+    resource: "@OjstrMessageMessageBundle/Resources/config/routing.yml"
+    prefix: /
+    
+    
 ojstr_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
     prefix:   /
+
+ojstr_journal:
+    resource: "@OjstrJournalBundle/Resources/config/routing.yml"
+    prefix:   / 
+
+ojstr_workflow:
+    resource: "@OjstrWorkflowBundle/Resources/config/routing.yml"
+    prefix:   /manager/workflow
 
 ojstr_user:
     resource: "@OjstrUserBundle/Controller/"
     type:     annotation
     prefix:   /
-
-ojstr_journal:
-    resource: "@OjstrJournalBundle/Resources/config/routing.yml"
-    prefix:   /manager/
-
-
+  
+    
 oneup_uploader:
     resource: .
     type: uploader
+
+_imagine:
+    resource: .
+    type:     imagine
     
     
 #common pages 

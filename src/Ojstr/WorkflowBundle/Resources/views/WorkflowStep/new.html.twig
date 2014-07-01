@@ -1,0 +1,65 @@
+{% extends '::ojsbase.html.twig' %} 
+
+{% block body -%}
+<div class="panel">
+    <div class="panel-heading">
+        <h1>{% trans %}New Workflow Step{% endtrans %}</h1>
+    </div>
+    <div class="panel-body">
+        <form method="post" class="form-row" action="{{path('workflowstep_create')}}">
+            <div class="form-group">
+                <label>Journal</label>
+                <input type="hidden" name="journalId" value="{{journal.id}}" />
+                <span>{{journal.title}}</span>
+            </div>
+
+            <div class="form-group">
+                <label>Title</label>
+                <input class="form-control" name="title" >
+            </div>
+            <div class="form-inline">
+                <label class="label label-info" style="line-height: 20px;display: inline-block;">
+                    First Step?
+                    <input type="checkbox" name="firststep" value="1"> </label>
+                <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                    Last Step? 
+                    <input type="checkbox" name="laststep" value="1"></label>
+            </div>
+            <div class="form-group">
+                <label>Allowed maximum days</label>
+                <input class="form-control" name="maxdays" type="number" value="7" />
+            </div>
+
+
+            <div class="form-group">
+                <label>Roles</label>
+                <select name="roles[]" class="form-control" style="height:120px" multiple="multiple">
+                    {%for role in roles%}
+                    <option value="{{role.id}}">{{role.role}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Possible Next Steps</label>
+
+                <select name="nextSteps[]" class="form-control" style="height:120px" multiple="multiple">
+                    {%for step in nextSteps%}
+                    <option value="{{step.id}}">{{step.title}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+
+            <div>
+                <input type="submit" class="btn btn-success" value="Save" /> 
+                <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    Back to List
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+

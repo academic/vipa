@@ -6,15 +6,15 @@ ujr:
 ujr_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:show" }
+   
+
+ujr_show_journals_of_user:
+    pattern:  /user/{user_id}/show/journals
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:showJournalsOfUser" }
     
-ujr_show_users_of_journal:
-    pattern:  /{journal_id}/show/users
-    defaults: { _controller: "OjstrUserBundle:UserJournalRole:showUsers" }
-
-ujr_show_journals_of_users:
-    pattern:  /{user_id}/show/journals
-    defaults: { _controller: "OjstrUserBundle:UserJournalRole:showJournals" }
-
+ujr_show_users_ofjournal:
+    pattern:  /journal/{journal_id}/show/users
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:showUsersOfJournal" }
 
 ujr_new:
     pattern:  /new
@@ -37,4 +37,4 @@ ujr_update:
 ujr_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get|post|delete }

@@ -1,0 +1,20 @@
+{% if(back_path is defined) %}
+<a class="btn-sm btn btn-default" href="{{ path(back_path, { 'id': entity.id }) }}">
+    <i class="glyphicon glyphicon-arrow-left"></i>
+</a>
+{%endif%}
+{% if(show_path is defined) %}
+<a class="btn-sm btn btn-success" href="{{ path(show_path, { 'id': entity.id }) }}">
+    <i class="glyphicon glyphicon-info-sign"></i>
+</a>
+{%endif%}
+{% if(edit_path is defined) %}
+<a class="btn-sm btn btn-warning" href="{{ path(edit_path, { 'id': entity.id }) }}">
+    <i class="glyphicon glyphicon-pencil"></i>
+</a>
+{%endif%}
+{% if(delete_path is defined) %}
+<a class="btn-sm btn btn-danger" onclick="return confirm('Are you sure?');" href="{{ path(delete_path, { 'id': entity.id }) }}">
+    <i class="glyphicon glyphicon-trash"></i>
+</a>
+{%endif%}

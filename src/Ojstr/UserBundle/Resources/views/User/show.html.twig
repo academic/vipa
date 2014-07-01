@@ -1,8 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body %}
-<h1>User : {{entity.username}}</h1>
-<table class="record_properties">
+
+
+<h1>{% if entity.avatar %}
+    <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
+{% endif %} 
+{{entity.username}} 
+    <small style="color:green">{% if(entity.isActive != 0)%}<i class="glyphicon glyphicon-ok-circle"></i>{%endif%}</small>
+
+</h1>
+<table class="record_properties  table">
     <tbody>
         <tr>
             <th>Id</th>
@@ -11,22 +19,13 @@
         <tr>
             <th>Username</th>
             <td>{{ entity.username }}</td>
-        </tr>
-        <tr>
-            <th>Password</th>
-            <td>{{ entity.password }}</td>
-        </tr>
+        </tr> 
         <tr>
             <th>Email</th>
             <td>{{ entity.email }}</td>
-        </tr>
+        </tr> 
         <tr>
-            <th>Isactive</th>
-            <td>{{ entity.isActive }}</td>
-        </tr>
-
-        <tr>
-            <th>Roles (<a href="#">manage</a>)</th>
+            <th>Roles</th>
             <td>
                 {% for role in entity.roles %}
                     {{role.name}}(<strong>{{role.role}}</strong>) <br/>
@@ -38,13 +37,12 @@
 </table>
 
 <div class="record_actions">
-    <a href="{{ path('user') }}" class="button success">
-        {% trans %}Back to list{% endtrans %}
-    </a>
-    <a href="{{ path('user_edit', { 'id': entity.id }) }}" class="button warning">
-        {% trans %}Edit{% endtrans %}
-    </a>
-     {{ form(delete_form) }}
+
+    {% set show_path = 'user' %}
+    {% set edit_path = 'user_edit' %}
+    {% set delete_path = 'user_delete' %}
+    {% include '::actionbtns.html.twig' %} 
+
 
 </div>
 {% endblock %}

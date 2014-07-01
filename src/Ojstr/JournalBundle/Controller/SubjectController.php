@@ -3,9 +3,10 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Subject;
 use Ojstr\JournalBundle\Form\SubjectType;
+use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Subject controller.
@@ -38,7 +39,7 @@ class SubjectController extends Controller {
             $entity->setTranslatableLocale($request->getLocale());
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_subject_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('subject_show', array('id' => $entity->getId())));
         }
         return $this->render('OjstrJournalBundle:Subject:new.html.twig', array(
                     'entity' => $entity,
@@ -55,7 +56,7 @@ class SubjectController extends Controller {
      */
     private function createCreateForm(Subject $entity) {
         $form = $this->createForm(new SubjectType(), $entity, array(
-            'action' => $this->generateUrl('admin_subject_create'),
+            'action' => $this->generateUrl('subject_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -82,9 +83,7 @@ class SubjectController extends Controller {
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Subject')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Subject:show.html.twig', array(
                     'entity' => $entity,
@@ -98,9 +97,7 @@ class SubjectController extends Controller {
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Subject')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Subject:edit.html.twig', array(
@@ -119,7 +116,7 @@ class SubjectController extends Controller {
      */
     private function createEditForm(Subject $entity) {
         $form = $this->createForm(new SubjectType(), $entity, array(
-            'action' => $this->generateUrl('admin_subject_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('subject_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -133,15 +130,13 @@ class SubjectController extends Controller {
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Subject')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('admin_subject_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('subject_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Subject:edit.html.twig', array(
                     'entity' => $entity,
@@ -160,13 +155,11 @@ class SubjectController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjstrJournalBundle:Subject')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-            }
+            $this->throw404IfNotFound($entity);
             $em->remove($entity);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('admin_subject'));
+        return $this->redirect($this->generateUrl('subject'));
     }
 
     /**
@@ -178,7 +171,7 @@ class SubjectController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id);
+        return $formHelper->createDeleteForm($this, $id,'subject_delete');
     }
 
 }

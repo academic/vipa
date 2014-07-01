@@ -35,12 +35,17 @@ class UserJournalRoleController extends Controller {
         $entity = new UserJournalRole();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $data = $form->getData();
+            $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($data->getJournalId());
+            $user = $em->getRepository('OjstrUserBundle:User')->findOneById($data->getUserId());
+            $role = $em->getRepository('OjstrUserBundle:Role')->findOneById($data->getRoleId());
+            $entity->setUser($user);
+            $entity->setJournal($journal);
+            $entity->setRole($role);
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('ujr_show', array('id' => $entity->getId())));
         }
 
@@ -106,13 +111,11 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a Users of a Journal with roles  (ungrouped).
      * @param int $journal_id
      */
-    public function showUsersAction($journal_id) {
-
+    public function showUsersOfJournalAction($journal_id) {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal_id);
-        if (!$entities) {
-            throw $this->createNotFoundException('No records found.');
-        }
+        $entities = $em->createQuery(
+                        'SELECT u FROM OjstrUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
+                )->setParameter('jid', $journal_id);
         return $this->render('OjstrUserBundle:UserJournalRole:show_users.html.twig', array(
                     'entities' => $entities
         ));
@@ -120,18 +123,21 @@ class UserJournalRoleController extends Controller {
 
     /**
      * Finds and displays a Journals of a user with roles.
-     * @param int $journal_id
+     * @param mixed $journal_id
      */
-    public function showJournalsAction($user_id) {
-
+    public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig') {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findByUserId($user_id);
-        if (!$entities) {
-            throw $this->createNotFoundException('No records found.');
-        }
-        return $this->render('OjstrUserBundle:UserJournalRole:show_journals.html.twig', array(
+        $entities = $em->createQuery(
+                        'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
+                )->setParameter('user_id', $user_id)->getResult();
+        return $this->render('OjstrUserBundle:UserJournalRole:' . $tpl, array(
                     'entities' => $entities
         ));
+    }
+
+    public function myJournalsAction() {
+        $user_id = $this->container->get('security.context')->getToken()->getUser()->getId();
+        return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 
     /**
@@ -210,22 +216,14 @@ class UserJournalRoleController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
         }
-
-        return $this->redirect($this->generateUrl('userjournalrole'));
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('ujr'));
     }
 
     /**

@@ -11,16 +11,19 @@ Ojstr\UserBundle\Entity\UserJournalRole:
 
     manyToOne:
         user:
+          #cascade: [persist]
           targetEntity: Ojstr\UserBundle\Entity\User 
           joinColumn:
             name: user_id
             referencedColumnName: id
         journal:
+          #cascade: [persist]
           targetEntity: Ojstr\JournalBundle\Entity\Journal
           joinColumn:
             name: journal_id
             referencedColumnName: id
         role:
+          #cascade: [persist]
           targetEntity: Ojstr\UserBundle\Entity\Role
           joinColumn:
             name: role_id
