@@ -3,8 +3,13 @@
 {% block body -%}
 
 <div class="large-12 columns">
-    <div class="panel">
-        <h1>Articles</h1>
+    <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Articles</div>
+  <div class="panel-body">
+    <p>description</p>
+  </div>
+
 
         <table class="records_list table" style="width:100%">
             <thead>
@@ -37,12 +42,13 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <div>
-            <a href="{{ path('article_new') }}" class="button success">
+            <div class="panel-footer">
+            <a href="{{ path('article_new') }}" class="btn btn-success">
                     {% trans %}Create New{% endtrans %}
             </a>
         </div>
+    </div>
+        
     </div>
 </div>
 {% endblock %}
