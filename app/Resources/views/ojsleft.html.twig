@@ -82,9 +82,14 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{{path('articlesubmissions_all')}}">
+                        {% if isSystemAdmin() or isJournalManager()  %}
+                            {%set submissions_path = "articlesubmissions_all" %}
+                        {%else%}
+                           {%set submissions_path = "articlesubmissions_me" %}
+                        {% endif %}
+                        <a href="{{path(submissions_path)}}">
                             <i class="glyphicon glyphicon-flag"></i>
-                            Submission
+                            Submissions
                         </a>
                     </li>
                     <li>
@@ -97,7 +102,7 @@
                 </ul>
             </li>
 
-                {% if isSystemAdmin() %}
+            {% if isSystemAdmin() %}
             <li class="treeview">
                 <a href="#">
                     <i class="glyphicon glyphicon-folder-open"></i>
