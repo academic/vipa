@@ -1,6 +1,10 @@
 Ojstr\JournalBundle\Entity\Lang:
     type: entity
     table: null
+    manyToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: languages
     id:
         id:
             type: integer
