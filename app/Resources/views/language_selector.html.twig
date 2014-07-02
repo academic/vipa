@@ -4,13 +4,11 @@
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-
-
-{% for lang in languages%}
-        <li class="{% if app.request.locale == lang.code %}disabled{%endif%}"
-            ><a href="{{ path('change_locale', { 'code': lang.code }) }}">{{lang.name}}</a>
-        </li>
-{% endfor %}
+        {% for lang in languages%}
+            <li class="{% if app.request.locale == lang.code %}disabled{%endif%}"
+                ><a href="{{ path('change_locale', { 'code': lang.code }) }}">{{lang.name}}</a>
+            </li>
+        {% endfor %}
     </ul>
 </div>
 

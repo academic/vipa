@@ -1,140 +1,139 @@
-
 <!-- Left side column. contains the logo and sidebar -->
 <aside class="left-side sidebar-offcanvas">
     {% if ojsuser %}
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-        {%if ojsuser%}
-        <div class="user-panel">
-            <div class="pull-left image">
-                {% if(ojsuser.getAvatar()) %}
-                <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="" />
-                {%else%}
-                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="" />
-                {%endif%}
-            </div>
-            <div class="pull-left info">
-                <p>{{ojsuser.getUsername()}}</p> 
-                <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</a>  
-            </div>
-        </div>
-        {%endif%}
-        <div class="row">
-            <center>
-                <p>
-                    {% if userjournalroles %}
-                    {%for role in userjournalroles %}
-                    <span class="label label-default">{{role.name}}</span> 
-                    {%endfor%}
-                    {%endif%}
-                </p>
-
-            {%if userjournals%}
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        {{userjournals[session('selectedJournalId')].title  }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        {%for journal in userjournals%}
-                        <li class="info">
-                            <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
-                            {{journal.title}}
-                            </a>
-                        </li> 
-                        {%endfor%}
-
-                    </ul>
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            {%if ojsuser%}
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        {% if(ojsuser.getAvatar()) %}
+                            <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="" />
+                        {%else%}
+                            <img src="/assets/images/buddy_sample.png" class="img-circle" alt="" />
+                        {%endif%}
+                    </div>
+                    <div class="pull-left info">
+                        <p>{{ojsuser.getUsername()}}</p> 
+                        <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</a>  
+                    </div>
                 </div>
             {%endif%}
-            </center>
-        </div>
+            <div class="row">
+                <center>
+                    <p>
+                        {% if userjournalroles %}
+                            {%for role in userjournalroles %}
+                                <span class="label label-default">{{role.name}}</span> 
+                            {%endfor%}
+                        {%endif%}
+                    </p>
 
-        <br>
+                    {%if userjournals%}
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                {{userjournals[session('selectedJournalId')].title  }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                {%for journal in userjournals%}
+                                    <li class="info">
+                                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                                            {{journal.title}}
+                                        </a>
+                                    </li> 
+                                {%endfor%}
 
-        <ul class="sidebar-menu">
-            <li class="active">
-                <a href="/">
-                    <i class="glyphicon glyphicon-dashboard"></i> 
-                    {%trans%}Dashboard{%endtrans%}
-                </a>
-            </li>
-            <li>
-                <a href="{{path('ojstr_message_message_user_index')}}">
-                    <i class="glyphicon glyphicon-envelope"></i>
-                    {%trans%}Messages{%endtrans%}</a>
-            </li>
-            <li>
-                <a href="{{path('manager_show_my_journals')}}">
-                    <i class="glyphicon glyphicon-th"></i>  
+                            </ul>
+                        </div>
+                    {%endif%}
+                </center>
+            </div>
+
+            <br>
+
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="/">
+                        <i class="glyphicon glyphicon-dashboard"></i> 
+                        {%trans%}Dashboard{%endtrans%}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{path('ojstr_message_message_user_index')}}">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        {%trans%}Messages{%endtrans%}</a>
+                </li>
+                <li>
+                    <a href="{{path('manager_show_my_journals')}}">
+                        <i class="glyphicon glyphicon-th"></i>  
                         {%trans%}Journals{%endtrans%} </a>
-            </li>
-            <li>
-                <a href="{{path('ojstr_workflow_homepage')}}">
-                    <i class="glyphicon glyphicon-cog"></i>  
+                </li>
+                <li>
+                    <a href="{{path('ojstr_workflow_homepage')}}">
+                        <i class="glyphicon glyphicon-cog"></i>  
                         {%trans%}Workflow{%endtrans%} </a>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="glyphicon glyphicon-th-list"></i>
-                    {%trans%}Articles{%endtrans%}
-                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        {% if isSystemAdmin() or isJournalManager()  %}
-                            {%set submissions_path = "articlesubmissions_all" %}
-                        {%else%}
-                           {%set submissions_path = "articlesubmissions_me" %}
-                        {% endif %}
-                        <a href="{{path(submissions_path)}}">
-                            <i class="glyphicon glyphicon-flag"></i>
-                            Submissions
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" style="color:#55a"><i class="glyphicon glyphicon-ok"></i> Published 
-                            <!-- <small class="badge pull-right bg-green">2</small>-->
-                        </a>
-                    </li>
-                    <li><a href="#" style="color:#aa1"><i class="glyphicon glyphicon-time"></i> Waiting</a></li>
-                    <li><a href="#" style="color:#a11"><i class="glyphicon glyphicon-exclamation-sign"></i> Rejected</a></li>
-                </ul>
-            </li>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                        {%trans%}Articles{%endtrans%}
+                        <i class="glyphicon glyphicon-chevron-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            {% if isSystemAdmin() or isJournalManager()  %}
+                                {%set submissions_path = "articlesubmissions_all" %}
+                            {%else%}
+                                {%set submissions_path = "articlesubmissions_me" %}
+                            {% endif %}
+                            <a href="{{path(submissions_path)}}">
+                                <i class="glyphicon glyphicon-flag"></i>
+                                Submissions
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" style="color:#55a"><i class="glyphicon glyphicon-ok"></i> Published 
+                                <!-- <small class="badge pull-right bg-green">2</small>-->
+                            </a>
+                        </li>
+                        <li><a href="#" style="color:#aa1"><i class="glyphicon glyphicon-time"></i> Waiting</a></li>
+                        <li><a href="#" style="color:#a11"><i class="glyphicon glyphicon-exclamation-sign"></i> Rejected</a></li>
+                    </ul>
+                </li>
 
-            {% if isSystemAdmin() %}
-            <li class="treeview">
-                <a href="#">
-                    <i class="glyphicon glyphicon-folder-open"></i>
-                    {%trans%}Admin{%endtrans%}
-                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="{{path('user')}}"><i class="glyphicon glyphicon-cog"></i> Users</a>
+                {% if isSystemAdmin() %}
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-folder-open"></i>
+                            {%trans%}Admin{%endtrans%}
+                            <i class="glyphicon glyphicon-chevron-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="{{path('user')}}"><i class="glyphicon glyphicon-cog"></i> Users</a>
+                            </li>
+                            <li>
+                                <a href="{{path('role')}}"><i class="glyphicon glyphicon-cog"></i> Roles</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{path('ujr')}}"><i class="glyphicon glyphicon-cog"></i> User Journal Roles</a>
+                            </li>
+                            <li>
+                                <a href="{{path('institution')}}"><i class="glyphicon glyphicon-cog"></i> Institutions</a>
+                            </li>
+                            <li>
+                                <a href="{{path('subject')}}"><i class="glyphicon glyphicon-cog"></i> Subjects</a>
+                            </li>
+                            <li><a href="{{path('eventlog')}}"><i class="glyphicon glyphicon-cog"></i> Activity Log</a>
+                            </li> 
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{{path('role')}}"><i class="glyphicon glyphicon-cog"></i> Roles</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="{{path('ujr')}}"><i class="glyphicon glyphicon-cog"></i> User Journal Roles</a>
-                    </li>
-                    <li>
-                        <a href="{{path('institution')}}"><i class="glyphicon glyphicon-cog"></i> Institutions</a>
-                    </li>
-                    <li>
-                        <a href="{{path('subject')}}"><i class="glyphicon glyphicon-cog"></i> Subjects</a>
-                    </li>
-                    <li><a href="{{path('eventlog')}}"><i class="glyphicon glyphicon-cog"></i> Activity Log</a>
-                    </li> 
-                </ul>
-            </li>
 
                 {% endif %}
 
-        </ul>
-    </section>
-    <!-- /.sidebar -->
+            </ul>
+        </section>
+        <!-- /.sidebar -->
     {% endif %}
 </aside>
