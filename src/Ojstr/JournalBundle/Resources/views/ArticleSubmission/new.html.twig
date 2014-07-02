@@ -33,27 +33,30 @@
         <div class="panel-body">  
             <!-- Nav tabs -->
             <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#en" role="tab" data-toggle="tab">En</a></li>
+                <li class="lang active"><a href="#en" role="tab" data-toggle="tab">En</a></li>
 
-                <li class="dropdown">
+                <li class="lang dropdown">
                     <a href="#" id="languageDrop" class="dropdown-toggle" 
                        data-toggle="dropdown">
                         <i class="glyphicon glyphicon-plus"></i> Add language 
                         <span class="caret"></span>
                     </a>
                     <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                        <li><a href="#" code="tr" tabindex="-1">Turkish (tr)</a></li>
-                        <li><a href="#" code="fr" tabindex="-1">French (fr)</a></li>
-                        <li><a href="#" code="it" tabindex="-1">Italian (it)</a></li>
-
+                        <li><a href="#" code="tr" lang="Turkish" tabindex="-1">Turkish (tr)</a></li>
+                        <li><a href="#" code="fr" lang="French" tabindex="-1">French (fr)</a></li>
+                        <li><a href="#" code="it" lang="Italian" tabindex="-1">Italian (it)</a></li>
                     </ul>
                 </li> 
             </ul>
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tab-content" id="langtabs">
                 <div class="tab-pane active" id="en">
-{% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
+                    <div class="col-md-12">
+                        <a href="#" class="removelang btn btn-warning btn-sm pull-right" style="margin-top:10px">
+                            <i class="glyphicon glyphicon-trash"></i> Remove Language</a>
+                    </div>
+                    {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
                 </div>
                 <div class="tab-pane" id="tr">tr...</div>
                 <div class="tab-pane" id="fr">fr...</div> 
@@ -101,8 +104,10 @@
                         $("ul#languageDropList li a").click(function(e) {
                             e.preventDefault();
                             langcode = $(this).attr('code');
-                            tabhtml = '<li><a href="#' + langcode + '" role="tab" data-toggle="tab">' + langcode + '</a></li>';
-                            $("ul#mainTabs li").first().after(tabhtml);
+                            langtitle = $(this).attr('lang');
+
+                            tabhtml = '<li><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
+                            $("ul#mainTabs li.lang").last().before(tabhtml);
                         });
 
 
