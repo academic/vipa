@@ -1,3 +1,14 @@
+
+var OjstrCommon = {
+    inArray: function(needle, haystack) {
+        var length = haystack.length;
+        for (var i = 0; i < length; i++) {
+            if (haystack[i] === needle)
+                return true;
+        }
+        return false;
+    }
+};
 $(document).ready(function() {
     $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
     $(".sidebar .treeview").tree();

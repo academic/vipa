@@ -33,7 +33,7 @@
         <div class="panel-body">  
             <!-- Nav tabs -->
             <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-                <li class="lang active"><a href="#en" role="tab" data-toggle="tab">En</a></li>
+                <li id="t_en" class="lang active"><a href="#en" role="tab" data-toggle="tab">En</a></li>
 
                 <li class="lang dropdown">
                     <a href="#" id="languageDrop" class="dropdown-toggle" 
@@ -51,16 +51,9 @@
 
             <!-- Tab panes -->
             <div class="tab-content" id="langtabs">
-                <div class="tab-pane active" id="en">
-                    <div class="col-md-12">
-                        <a href="#" class="removelang btn btn-warning btn-sm pull-right" style="margin-top:10px">
-                            <i class="glyphicon glyphicon-trash"></i> Remove Language</a>
-                    </div>
+                <div class="tab-pane active" id="en"> 
                     {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
                 </div>
-                <div class="tab-pane" id="tr">tr...</div>
-                <div class="tab-pane" id="fr">fr...</div> 
-                <div class="tab-pane" id="it">it...</div> 
 
             </div>
 
@@ -84,7 +77,42 @@
 <script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
 <script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
 <script>
+                    var languages = ["en"];
                     $(document).ready(function() {
+                        $("ul#mainTabs li a").click(function(e) {
+                            e.preventDefault();
+                        });
+                        $("ul#languageDropList li a").click(function(e) {
+                            e.preventDefault();
+                            langcode = $(this).attr('code');
+                            langtitle = $(this).attr('lang');
+                            // check if selected language tab already exists
+                            if (OjstrCommon.inArray(langcode, languages)) {
+                                return false;
+                            }
+                            $("#langtabs").append('<div class="tab-pane" id="' + langcode + '">' + langcode + '...</div>');
+                            languages.push(langcode);
+                            tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
+                            $("ul#mainTabs li.lang").last().before(tabhtml);
+                        });
+
+                        $("#langtabs a.removelang").click(function(e) {
+                            e.preventDefault();
+                            langcode = $(this).parent().attr('id');
+                            for (var i in languages) {
+                                console.log(languages[i]);
+                                if (languages[i] === langcode) {
+                                    languages.splice(i, 1);
+                                }
+                            }
+                            $(this).parent().remove();
+                            $('#t_' + langcode).remove();
+                            firsttab = $("#langtabs .tab-pane").first().attr('id');
+                            if (firsttab) {
+                                $("li.lang a[href=#" + firsttab + "]").tab("show");
+                            }
+                        });
+
                         $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
                         $("textarea").wysihtml5({
                             toolbar: {
@@ -98,18 +126,6 @@
                                 "blockquote": false
                             }
                         });
-                        $("ul#mainTabs li a").click(function(e) {
-                            e.preventDefault();
-                        });
-                        $("ul#languageDropList li a").click(function(e) {
-                            e.preventDefault();
-                            langcode = $(this).attr('code');
-                            langtitle = $(this).attr('lang');
-
-                            tabhtml = '<li><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
-                            $("ul#mainTabs li.lang").last().before(tabhtml);
-                        });
-
 
                     });
 
