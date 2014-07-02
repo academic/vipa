@@ -52,7 +52,7 @@
             </aside> 
         </div>
         {% block javascripts %}
-        {% javascripts '@main_js' filter="uglifyjs" output="c/compiled.js" %}
+        {% javascripts '@main_js' output="c/compiled.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
 
