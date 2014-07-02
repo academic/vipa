@@ -75,24 +75,19 @@ http://getcomposer.org/ or just run the following command:
 
 ```bash
 curl -s http://getcomposer.org/installer | php
-```
 
-
-```bash
 # get composer packages more verbosely
 $ php composer.phar -vv update
 ```
+
 install [node.js](http://nodejs.org/download/) and [bower](http://bower.io)
+
 ```bash
 $ curl https://www.npmjs.org/install.sh | sudo sh
 $ npm install -g bower
-```
 
-```bash
 # get bower packages
-$ bower install
-
-$ npm install uglifycss uglifyjs
+$ bower install 
 
 # generate assets
 $ php app/console assets:install web --symlink
@@ -102,8 +97,8 @@ $ php app/console assetic:dump
 $ php app/console ojs:install
 ```
 
+
 Ojs sample data :
- 
  
 ```bash
 $ php app/console doctrine:fixtures:load --append
