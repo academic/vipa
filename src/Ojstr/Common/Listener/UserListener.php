@@ -75,7 +75,7 @@ class UserListener {
 
     public function checkUser() {
         $securityContext = $this->container->get('security.context');
-        $token = $securityContext->getToken(;
+        $token = $securityContext->getToken();
         if (empty($token))) {
             return FALSE;
         }
