@@ -75,7 +75,8 @@ class UserListener {
 
     public function checkUser() {
         $securityContext = $this->container->get('security.context');
-        if (empty($securityContext->getToken())) {
+        $token = $securityContext->getToken(;
+        if (empty($token))) {
             return FALSE;
         }
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
