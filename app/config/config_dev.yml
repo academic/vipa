@@ -3,13 +3,6 @@ imports:
 #assetic named assets should be redefined
 assetic:
     #use_controller: true
-    filters:
-        uglifyjs:
-            bin: /usr/bin/uglifyjs
-            #%kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs 
-        uglifycss:
-            bin: /usr/bin/uglifycss
-            # %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
         jquery_js_only:
                 inputs:
