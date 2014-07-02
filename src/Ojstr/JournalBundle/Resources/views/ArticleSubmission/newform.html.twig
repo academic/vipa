@@ -42,7 +42,7 @@
         <label class="col-sm-2 control-label">Subject</label>
         <div class="col-sm-10">
             <select class="select2"  style="width:300px;height: 30px"
-                    name="subject[]" multiple="multiple">
+                    name="subject" multiple="multiple">
                 {%for subject in subjects%}
                 <option value="{{subject.id}}">{{subject.subject}}</option>
                 {%endfor%}
