@@ -9,11 +9,28 @@
             <table class="record_properties table" style="width:100%">
                 <tbody>
                     <tr>
-                        <td width="300px">Id</td>
+                        <th width="300px">Id</th>
                         <td>{{ entity.id }}</td>
                     </tr>
                     <tr>
-                        <td>Status</td>
+                        <th>Languages</th>
+                        <td>
+                    {% for language in entity.languages %}
+                            <a class="btn btn-info btn-sm">
+                                <span>{{ language.name }} [{{ language.code}}]</span> 
+                            </a> 
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Primary Language</th>
+                        <td>
+
+                            <span class="label label-info">{{ entity.primaryLanguage}}</span> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
                         <td style="background: {{entity.statusColor}}"><span >{{ entity.statusText }}</span></td>
                     </tr>
                     <tr>

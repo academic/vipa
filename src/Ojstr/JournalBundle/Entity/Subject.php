@@ -91,24 +91,24 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Add articles
+     * Add article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @param \Ojstr\JournalBundle\Entity\Article $article
      * @return Subject
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
-        $this->articles[] = $articles;
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles[] = $article;
 
         return $this;
     }
 
     /**
-     * Remove articles
+     * Remove article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @param \Ojstr\JournalBundle\Entity\Article $article
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
-        $this->articles->removeElement($articles);
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles->removeElement($article);
     }
 
     /**
