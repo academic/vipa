@@ -23,7 +23,7 @@ class ArticleSubmissionStepController extends Controller {
         $article->setSubtitle($request->get('subtitle'));
         $article->setTitleTransliterated($request->get('titleTransliterated'));
         $article->setDoi($request->get('doi'));
-        $article->setKeywords(implode(",",$request->get('keywords')));
+        $article->setKeywords(implode(",", $request->get('keywords')));
         $article->setAbstract($request->get('abstract'));
         $article->setJournalId($request->get('journalId'));
 
