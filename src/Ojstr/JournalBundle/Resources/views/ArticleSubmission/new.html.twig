@@ -70,6 +70,10 @@
         </div>
     </div> 
 </div>
+
+<div class="hidden" id="formtpl">
+    {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
+</div>
 {% endblock %}
 
 {% block javascripts %}
@@ -90,13 +94,17 @@
                             if (OjstrCommon.inArray(langcode, languages)) {
                                 return false;
                             }
-                            $("#langtabs").append('<div class="tab-pane" id="' + langcode + '">' + langcode + '...</div>');
+                            $("#langtabs").append('<div class="tab-pane" id="' + langcode + '">' + $("#formtpl").html() + '...</div>');
                             languages.push(langcode);
                             tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
                             $("ul#mainTabs li.lang").last().before(tabhtml);
                         });
 
                         $("#langtabs a.removelang").click(function(e) {
+                            check = confirm("Are you sure to remove this language tab?");
+                            if (!check) {
+                                return false;
+                            }
                             e.preventDefault();
                             langcode = $(this).parent().attr('id');
                             for (var i in languages) {
