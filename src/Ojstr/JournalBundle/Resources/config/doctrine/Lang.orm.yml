@@ -1,0 +1,20 @@
+Ojstr\JournalBundle\Entity\Lang:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        code:
+            type: string
+            length: 255
+        name:
+            type: string
+            length: 255
+        rtl:
+            type: boolean
+            nullable: true
+    lifecycleCallbacks: {  }
