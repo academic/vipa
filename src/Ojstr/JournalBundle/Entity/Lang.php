@@ -34,8 +34,14 @@ class Lang {
      */
     private $articles;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals;
+
     public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -66,6 +72,36 @@ class Lang {
      */
     public function getArticles() {
         return $this->articles;
+    }
+
+    /**
+     * Add journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @return Subject
+     */
+    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+        $this->journals[] = $journal;
+
+        return $this;
+    }
+
+    /**
+     * Remove journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     */
+    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+        $this->journals->removeElement($journal);
+    }
+
+    /**
+     * Get journals 
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJournals() {
+        return $this->journals;
     }
 
     /**
