@@ -27,6 +27,17 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Subject
+    languages: 
+      targetEntity: Lang
+      inversedBy: articles
+      joinTable: 
+        inverseJoinColumns: 
+          lang_id: 
+            referencedColumnName: id
+        joinColumns: 
+          article_id: 
+            referencedColumnName: id
+        name: Article_Language
     citations: 
       targetEntity: Citation
       inversedBy: articles
@@ -45,6 +56,12 @@ Ojstr\JournalBundle\Entity\Article:
         options: 
           default: 0
         nullable: TRUE
+    primaryLanguage:
+        column: primary_language
+        type: string
+        nullable: TRUE
+        gedmo:
+          - versioned   
     status:
         type: integer
         options: 

@@ -1,3 +1,32 @@
+// to serialize form data as Json object
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
+
+var OjstrCommon = {
+    inArray: function(needle, haystack) {
+        var length = haystack.length;
+        for (var i = 0; i < length; i++) {
+            if (haystack[i] === needle)
+                return true;
+        }
+        return false;
+    }
+};
 $(document).ready(function() {
     $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
     $(".sidebar .treeview").tree();

@@ -30,15 +30,15 @@ assetic:
                     - %kernel.root_dir%/../web/assets/css/admin.css
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css
                     - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
-#framework:
-#    validation:
-#        cache: apc
+framework:
+    validation:
+        cache: memcache
 
-#doctrine:
-#    orm:
-#        metadata_cache_driver: apc
-#        result_cache_driver: apc
-#        query_cache_driver: apc
+doctrine:
+    orm:
+        metadata_cache_driver: memcache
+        result_cache_driver: memcache
+        query_cache_driver: memcache
 
 monolog:
     handlers:
