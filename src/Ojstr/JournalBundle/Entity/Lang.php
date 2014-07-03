@@ -48,7 +48,7 @@ class Lang {
      * Add article
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
-     * @return Subject
+     * @return Language
      */
     public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
         $this->articles[] = $article;
@@ -78,11 +78,10 @@ class Lang {
      * Add journal
      *
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
-     * @return Subject
+     * @return Language
      */
     public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
         $this->journals[] = $journal;
-
         return $this;
     }
 
@@ -121,7 +120,6 @@ class Lang {
      */
     public function setCode($code) {
         $this->code = $code;
-
         return $this;
     }
 
@@ -142,7 +140,6 @@ class Lang {
      */
     public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -163,7 +160,6 @@ class Lang {
      */
     public function setRtl($rtl) {
         $this->rtl = $rtl;
-
         return $this;
     }
 
