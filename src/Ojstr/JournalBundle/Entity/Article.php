@@ -128,6 +128,13 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $primaryLanguage;
 
     /**
+     *
+     * @var integer
+     * @Expose
+     */
+    private $order;
+
+    /**
      * Original abstract
      * @var string
      * @Expose
@@ -281,16 +288,43 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     public function setStatus($status) {
         $this->status = $status;
-        return $status;
+        return $this;
     }
 
+    /**
+     * 
+     * @return integer
+     */
+    public function getOrder() {
+        return $this->order;
+    }
+
+    /**
+     * 
+     * @param integer $order
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
+    public function setOrder($order) {
+        $this->order = $order;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return string
+     */
     public function getPrimaryLanguage() {
         return $this->primaryLanguage;
     }
 
+    /**
+     * 
+     * @param string $primaryLanguage
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
     public function setPrimaryLanguage($primaryLanguage) {
         $this->primaryLanguage = $primaryLanguage;
-        return $primaryLanguage;
+        return $this;
     }
 
     public function getSubmitterId() {
