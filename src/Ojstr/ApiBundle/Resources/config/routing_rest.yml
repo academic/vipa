@@ -4,6 +4,11 @@ users :
   resource:     "OjstrApiBundle:UserRest"
   name_prefix:  api_
 
+test : 
+  type: rest
+  resource:     "OjstrApiBundle:TestRest"
+  name_prefix:  api_
+
 roles : 
   type: rest
   resource:     "OjstrApiBundle:RoleRest"
