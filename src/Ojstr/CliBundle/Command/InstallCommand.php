@@ -33,23 +33,26 @@ class InstallCommand extends ContainerAwareCommand {
 
         if (!$dialog->askConfirmation(
                         $output, '<question>' .
-                        $translator->trans("This will create a database and new schemas. \n"
-                                . "Confirm installation?") .
+                        $translator->trans("Confirm installation?") .
                         ' (y/n) : </question>', true
                 )) {
             return;
         }
 
+        $update = $dialog->askConfirmation(
+                        $output, '<question>' .
+                        $translator->trans("Create db?") . ' (y/n) : </question>', true);
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
-        $command1 = 'doctrine:database:create';
+        if ($update) {
+            $command1 = 'doctrine:database:create';
+            $output->writeln('<info>' .
+                    $translator->trans('Creating db schema!') .
+                    '</info>');
+            $application->run(new \Symfony\Component\Console\Input\StringInput($command1));
+        }
         $command2 = 'doctrine:schema:update --force';
-
-        $output->writeln('<info>' .
-                $translator->trans('Creating db schema!') .
-                '</info>');
-        $application->run(new \Symfony\Component\Console\Input\StringInput($command1));
         $output->writeln('<info>' .
                 $translator->trans('Updating db schema!') .
                 '</info>');
