@@ -26,30 +26,28 @@
     </head>
     <body class="skin-blue">
         {%include '::ojsheader.html.twig'%}
-        <div class="wrapper row-offcanvas row-offcanvas-left">
             {%include '::ojsleft.html.twig'%}
-            <!-- Right side column. Contains the navbar and content of the page -->
-            <aside class="right-side">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <strong>
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="col-md-10">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <strong>
                         {% block breadbrump %}
-                        <a href="/">Dashboard</a>
-                        <small>Control panel</small>
+                    <a href="/">Dashboard</a>
+                    <small>Control panel</small>
                         {% endblock %}
-                    </strong> 
-                </section>
+                </strong> 
+            </section>
 
-                <!-- Main content -->
-                <section class="container">
+            <!-- Main content -->
+            <section>
                 {% block body %}{% endblock %}
-                </section>
+            </section>
 
-                <section class="footer">
-                    <div id="footer">{% block footer %}{% endblock %}</div>
-                </section>
-            </aside> 
-        </div>
+            <section class="footer">
+                <div id="footer">{% block footer %}{% endblock %}</div>
+            </section>
+        </aside> 
     {% block javascripts %}
         {% javascripts '@main_js' output="c/compiled.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

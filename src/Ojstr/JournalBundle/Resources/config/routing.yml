@@ -48,6 +48,11 @@ ojstr_author_crud:
 ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
     prefix:   /admin/subject
+
+ojstr_language_crud:
+        resource: "@OjstrJournalBundle/Resources/config/routing/lang.yml"
+        prefix:  /admin/language
+
     
 ostr_articlefile:
     resource: "@OjstrJournalBundle/Resources/config/routing/articlefile.yml"
