@@ -1,5 +1,8 @@
  
-
+contacts:
+  type: rest
+  resource:     "OjstrApiBundle:ContactRest"
+  name_prefix:  api_
 authors:
   type: rest
   resource:     "OjstrApiBundle:AuthorRest"

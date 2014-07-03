@@ -14,7 +14,7 @@ use Ojstr\UserBundle\Form\UserRestType;
 use FOS\RestBundle\Controller\Annotations\Get;
 
 
-class AuthorRestController extends FOSRestController { 
+class ContactRestController extends FOSRestController { 
 
  /**
      *
@@ -22,13 +22,14 @@ class AuthorRestController extends FOSRestController {
      *  resource=true,
      *  description="Get Journal Issues"
      * )
-     * @Get("/authors")
+     * @Get("/contacts")
      */
-    public function getAuthorsAction() {
-        $authors = $this->getDoctrine()->getRepository('OjstrJournalBundle:Author')->findAll();
-        if (!is_array($authors) && !count($authors) > 0) {
+    public function getContactsAction() {
+        $contacts = $this->getDoctrine()->getRepository('OjstrJournalBundle:Contact')->findAll();
+        
+        if (!is_array($contacts) && !count($contacts) > 0) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
-        return $authors;
+        return $contacts;
     }
 }
