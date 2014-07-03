@@ -1,3 +1,6 @@
+<a href="#" class="removelang btn btn-warning btn-sm" style="margin-top:10px">
+    <i class="glyphicon glyphicon-trash"></i> Remove Language</a>
+<hr>
 <form action="{{path('articlesubmission_step1',{"locale":"en"})}}" class="form-horizontal" role="form">
     <div class="form-group">
         <label class="col-sm-2 control-label">Journal</label>
@@ -39,7 +42,7 @@
         <label class="col-sm-2 control-label">Subject</label>
         <div class="col-sm-10">
             <select class="select2"  style="width:300px;height: 30px"
-                    name="subject[]" multiple="multiple">
+                    name="subject" multiple="multiple">
                 {%for subject in subjects%}
                 <option value="{{subject.id}}">{{subject.subject}}</option>
                 {%endfor%}

@@ -20,7 +20,13 @@ class ArticleSubmissionStepController extends Controller {
     public function step1Action(Request $request, $locale) {
         $article = new Article();
         $article->setTitle($request->get('title'));
+        $article->setSubtitle($request->get('subtitle'));
         $article->setTitleTransliterated($request->get('titleTransliterated'));
+        $article->setDoi($request->get('doi'));
+        $article->setKeywords(implode(",", $request->get('keywords')));
+        $article->setAbstract($request->get('abstract'));
+        $article->setJournalId($request->get('journalId'));
+
         /* todo */
         return new JsonResponse(array('id' => $article->getId()));
     }
@@ -32,7 +38,7 @@ class ArticleSubmissionStepController extends Controller {
     public function step2Action(Request $request) {
         $em = $this->getDoctrine()->getManager();
     }
-    
+
     /**
      * @todo
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -40,7 +46,5 @@ class ArticleSubmissionStepController extends Controller {
     public function step3Action(Request $request) {
         $em = $this->getDoctrine()->getManager();
     }
-    
-    
 
 }

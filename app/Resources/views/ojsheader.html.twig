@@ -1,97 +1,103 @@
 <!-- header -->
-<header class="header">
-    <a href="/" class="logo">
-        OjsTRx
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <div class="navbar-right">
-            <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li>{%include '::language_selector.html.twig'%}</li>
+<header class="">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ojs-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Ojstr</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="ojs-navbar-collapse">
+                
+                {%include '::language_selector.html.twig'%}
+
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav"> 
                 {% if ojsuser %}
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope"></i>
-                        <span class="label label-success"><!--$count--></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <ul class="menu">
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <ul class="menu">
 
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">See All Messages</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-warning"></i>
-                        <span class="label label-warning"><!--$count--></span>
-                    </a>
-                    <ul class="dropdown-menu">
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
 
-                        <li>
-                            <ul class="menu">
+                                <li>
+                                    <ul class="menu">
 
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
                             </ul>
                         </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown tasks-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-tasks"></i>
-                        <span class="label label-danger"><!--$count--></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <ul class="menu">
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-tasks"></i>
+                                <span class="label label-danger"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <ul class="menu">
 
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all</a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="footer">
-                            <a href="#">View all</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i>
-                        <span>{{ojsuser.getUsername()}} <i class="caret"></i></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header bg-light-blue">
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>{{ojsuser.getUsername()}} <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue">
                             {% if(ojsuser.getAvatar()) %}
-                            <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
+                                    <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
                             {%else%}
-                            <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
+                                    <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
                             {%endif%}
-                            <p> 
-                                <small>Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</small>
-                            </p>
-                        </li> 
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{{path('manager_profile')}}" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
+                                    <p> 
+                                        <small>Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</small>
+                                    </p>
+                                </li> 
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="{{path('manager_profile')}}" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
-                    </ul>
-                </li>
                 {%endif%}
-            </ul>
-        </div>
+                    </ul>
+                </div>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
     </nav>
+
 </header>
