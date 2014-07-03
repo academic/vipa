@@ -12,9 +12,21 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
 use Ojstr\UserBundle\Form\UserRestType;
+use FOS\RestBundle\Controller\Annotations\Get;
+
 
 class JournalRestController extends FOSRestController {
-
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get Journal Issues"
+     * )
+     * @Get("/journals/{id}/issues")
+     */
+    public function getJournalIssues($id) {
+        return $id;
+    }
     /**
      *
      * @ApiDoc(
@@ -29,6 +41,7 @@ class JournalRestController extends FOSRestController {
         }
         return $journal;
     }
+     
 
     /**
      *
