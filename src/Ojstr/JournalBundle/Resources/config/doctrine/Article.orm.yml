@@ -62,7 +62,7 @@ Ojstr\JournalBundle\Entity\Article:
         nullable: TRUE
         gedmo:
           - versioned   
-    order:
+    orderNum:
         type: integer
         nullable: TRUE
         options: 

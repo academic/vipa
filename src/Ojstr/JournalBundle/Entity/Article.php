@@ -132,7 +132,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var integer
      * @Expose
      */
-    private $order;
+    private $orderNum;
 
     /**
      * Original abstract
@@ -295,17 +295,17 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * 
      * @return integer
      */
-    public function getOrder() {
-        return $this->order;
+    public function getOrderNum() {
+        return $this->orderNum;
     }
 
     /**
      * 
-     * @param integer $order
+     * @param integer $orderNum
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setOrder($order) {
-        $this->order = $order;
+    public function setOrderNum($orderNum) {
+        $this->orderNum = $orderNum;
         return $this;
     }
 
