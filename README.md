@@ -56,14 +56,6 @@ following options.
 4. Enough storage
 
 
-### DB Setup
-Create a database and user; grant all privilages.
-```bash
-create database ojs;
-create user ojs;
-grant all on ojs.* to 'ojs'@'localhost' identified by 'ojs';
-```
-
 
 #### Using Composer ( _recommended_ )
 
@@ -92,10 +84,29 @@ $ bower install
 # generate assets
 $ php app/console assets:install web --symlink
 $ php app/console assetic:dump
+```
 
+
+if you have database for OJS then installer ask you:
+
+`Create db? (y/n) : `
+
+if not installer create a database and tables that required.
+
+Or create a database and user; grant all privilages then start install script.
+```bash
+create database ojs;
+create user ojs;
+grant all on ojs.* to 'ojs'@'localhost' identified by 'ojs';
+```
+
+### Installer
+
+```bash
 # Ojs first run configuration  
 $ php app/console ojs:install
 ```
+
 
 
 Ojs sample data :

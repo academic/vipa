@@ -121,6 +121,13 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $uri;
 
     /**
+     *
+     * @var string
+     * @Expose
+     */
+    private $primaryLanguage;
+
+    /**
      * Original abstract
      * @var string
      * @Expose
@@ -132,6 +139,12 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @Expose
      */
     private $subjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $languages;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -151,6 +164,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function __construct() {
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -181,6 +195,30 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getSubjects() {
         return $this->subjects;
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     * @return Article
+     */
+    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+        $this->languages[] = $language;
+
+        return $this;
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     */
+    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+        $this->languages->removeElement($language);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLanguages() {
+        return $this->languages;
     }
 
     /**
@@ -244,6 +282,15 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function setStatus($status) {
         $this->status = $status;
         return $status;
+    }
+
+    public function getPrimaryLanguage() {
+        return $this->primaryLanguage;
+    }
+
+    public function setPrimaryLanguage($primaryLanguage) {
+        $this->primaryLanguage = $primaryLanguage;
+        return $primaryLanguage;
     }
 
     public function getSubmitterId() {
