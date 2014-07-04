@@ -6,10 +6,12 @@
     "version": "0.0.1-alpha",
     "keywords": ["ojs", "journal system", "open journal system"],
     "support": {
-        "email": "bilgi@okulbilisim.com"
+        "email": "info@okulbilisim.com"
     },
     "autoload": {
-        "psr-0": {"": "src/"}
+        "psr-0": {
+            "": "src/"
+        }
     },
     "require": {
         "php": ">=5.3.3",
@@ -44,7 +46,8 @@
     },
     "repositories": [{
             "type": "vcs",
-            "url": "https://github.com/hasantayyar/OjstrMessageBundle.git"}],
+            "url": "https://github.com/hasantayyar/OjstrMessageBundle.git"
+        }],
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

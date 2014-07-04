@@ -9,7 +9,8 @@ Helpers
 
 - Ojstr/Common/Helper/ImageResizeHelper.php
     - Sample usage : 
-    - ``` 
+    - 
+    ``` 
 $helper = new ImageResizeHelper(array(
             'imageName' => $file->getFileName(),
             'upload_dir' => $this->container->get('kernel')->getRootDir() . '/../web/uploads/avatars/',
