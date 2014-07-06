@@ -14,23 +14,16 @@ class ArticleType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('status','integer', array('attr' => array('class' => ' form-control')))
-                ->add('doi','text', array('attr' => array('class' => ' form-control')))
-                ->add('otherId','text', array('attr' => array('class' => ' form-control')))
-                ->add('keywords','text', array('attr' => array('class' => ' form-control')))
-                ->add('subjects', 'entity', array(
-                    'class' => 'Ojstr\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
-                    'multiple' => true,
-                    'expanded' => false,
-                    'required' => false
-                        )
-                )
-                ->add('journalId','integer', array('attr' => array('class' => ' form-control')))
-                ->add('title','text', array('attr' => array('class' => ' form-control')))
-                ->add('titleTransliterated','text', array('attr' => array('class' => ' form-control')))
-                ->add('subtitle','text', array('attr' => array('class' => ' form-control')))
+                ->add('status', 'integer', array('attr' => array('class' => ' form-control')))
+                ->add('doi', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('otherId', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('keywords', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('journalId', 'integer', array('attr' => array('class' => ' form-control')))
+                ->add('title', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('titleTransliterated', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('subtitle', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('isAnonymous')
+                ->add('order', 'integer')
                 ->add('pubdate', 'date', array(
                     'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
                     'attr' => array('class' => 'dateselector form-control')

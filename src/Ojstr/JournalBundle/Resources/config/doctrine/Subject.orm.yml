@@ -1,10 +1,6 @@
 Ojstr\JournalBundle\Entity\Subject:
     type: entity
     table: null
-    manyToMany:
-        articles:
-          targetEntity: Article
-          mappedBy: subjects
     id:
         id:
             type: integer

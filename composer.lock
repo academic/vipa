@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "1dae9f32944e76696650323b49373cac",
+    "hash": "9b25b80afd76b75bb7413f5c0037b0d3",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -835,12 +836,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "f650a3848e26adfb0a6ba91bef94f64c95b50fdc"
+                "reference": "c2f6fccd266ca5cce022e0571acf55511dd75741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/f650a3848e26adfb0a6ba91bef94f64c95b50fdc",
-                "reference": "f650a3848e26adfb0a6ba91bef94f64c95b50fdc",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/c2f6fccd266ca5cce022e0571acf55511dd75741",
+                "reference": "c2f6fccd266ca5cce022e0571acf55511dd75741",
                 "shasum": ""
             },
             "require": {
@@ -905,7 +906,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2014-06-20 23:08:43"
+            "time": "2014-07-01 20:32:51"
         },
         {
             "name": "doctrine/mongodb-odm-bundle",
@@ -913,12 +914,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMongoDBBundle.git",
-                "reference": "a612b9084dd5e29d1f7c51868cca4c004a90190d"
+                "reference": "f01a2ac4ca695356d25562598e3400652f037cff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/a612b9084dd5e29d1f7c51868cca4c004a90190d",
-                "reference": "a612b9084dd5e29d1f7c51868cca4c004a90190d",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/f01a2ac4ca695356d25562598e3400652f037cff",
+                "reference": "f01a2ac4ca695356d25562598e3400652f037cff",
                 "shasum": ""
             },
             "require": {
@@ -975,7 +976,7 @@
                 "persistence",
                 "symfony"
             ],
-            "time": "2014-06-26 15:32:07"
+            "time": "2014-07-02 15:18:21"
         },
         {
             "name": "doctrine/orm",
@@ -1944,12 +1945,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "c92789e00fd6889751d8939656de974605053017"
+                "reference": "54819590f29d8669c7ae1dae2acd1f070a1f0aac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/c92789e00fd6889751d8939656de974605053017",
-                "reference": "c92789e00fd6889751d8939656de974605053017",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/54819590f29d8669c7ae1dae2acd1f070a1f0aac",
+                "reference": "54819590f29d8669c7ae1dae2acd1f070a1f0aac",
                 "shasum": ""
             },
             "require": {
@@ -2010,7 +2011,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2014-06-27 12:43:22"
+            "time": "2014-07-02 12:37:52"
         },
         {
             "name": "oneup/uploader-bundle",
@@ -2551,20 +2552,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.0.1",
+            "version": "v1.2.1",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975"
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/fdba214b1e087c149843bde976263c53ac10c975",
-                "reference": "fdba214b1e087c149843bde976263c53ac10c975",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/98e197da54df1f966dd5e8a4992135703569c987",
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987",
                 "shasum": ""
             },
             "require": {
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -2594,7 +2596,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 09:12:07"
+            "time": "2013-10-04 10:06:38"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2969,7 +2971,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
@@ -3104,7 +3106,9 @@
             "time": "2014-07-01 13:50:50"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/rest-bundle": 20,
@@ -3120,5 +3124,7 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }

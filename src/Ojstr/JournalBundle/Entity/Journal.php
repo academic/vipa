@@ -129,12 +129,43 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $issues;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $languages;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     * @return Journal
+     */
+    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+        $this->languages[] = $language;
+
+        return $this;
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     */
+    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+        $this->languages->removeElement($language);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLanguages() {
+        return $this->languages;
     }
 
     /**

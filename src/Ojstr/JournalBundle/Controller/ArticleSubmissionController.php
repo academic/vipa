@@ -51,11 +51,9 @@ class ArticleSubmissionController extends Controller {
         }
         $entity = new Article();
         $em = $this->getDoctrine()->getManager();
-        $subjects = $em->getRepository('OjstrJournalBundle:Subject')->findAll();
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
                     'entity' => $entity,
-                    'subjects' => $subjects,
                     'journal' => $journal
         ));
     }
