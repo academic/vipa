@@ -142,7 +142,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $abstract;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var string
      * @Expose
      */
     private $subjects;
@@ -169,39 +169,28 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * Constructor
      */
     public function __construct() {
-        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subject
-     * @return Article
-     */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
-        $this->subjects[] = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Remove subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subject
-     */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
-        $this->subjects->removeElement($subject);
-    }
-
-    /**
      * Get subjects
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return string
      */
     public function getSubjects() {
         return $this->subjects;
+    }
+
+    /**
+     * Set subjects
+     *
+     * @param string  $subjects
+     * @return Article
+     */
+    public function setSubjects($subjects = null) {
+        $this->subjects = $subjects;
+        return $this;
     }
 
     /**
@@ -355,18 +344,6 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getJournal() {
         return $this->journal;
-    }
-
-    /**
-     * Set subjects
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjects
-     * @return Article
-     */
-    public function setSubjects(\Ojstr\JournalBundle\Entity\Subject $subjects = null) {
-        $this->subjects = $subjects;
-
-        return $this;
     }
 
     /**
