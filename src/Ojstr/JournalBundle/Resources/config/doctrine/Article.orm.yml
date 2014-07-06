@@ -16,17 +16,6 @@ Ojstr\JournalBundle\Entity\Article:
       #cascade: ["persist", "merge"]
       fetch: EXTRA_LAZY
   manyToMany: 
-    subjects: 
-      targetEntity: Subject
-      inversedBy: articles
-      joinTable: 
-        inverseJoinColumns: 
-          subject_id: 
-            referencedColumnName: id
-        joinColumns: 
-          article_id: 
-            referencedColumnName: id
-        name: Article_Subject
     languages: 
       targetEntity: Lang
       inversedBy: articles
@@ -50,6 +39,11 @@ Ojstr\JournalBundle\Entity\Article:
             referencedColumnName: id
         name: Article_Citation 
   fields: 
+    subjects:
+        type: string
+        nullable: TRUE
+        gedmo:
+          - versioned 
     submitterId:
         column: submitter_id
         type: integer
@@ -73,8 +67,10 @@ Ojstr\JournalBundle\Entity\Article:
           default: 0
         nullable: TRUE
     keywords:
-        type: text
+        type: string
         nullable: TRUE
+        gedmo:
+          - versioned 
     abstract: 
       type: text
       nullable: TRUE
