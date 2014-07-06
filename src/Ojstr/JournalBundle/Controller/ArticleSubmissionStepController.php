@@ -15,10 +15,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ArticleSubmissionStepController extends Controller {
 
     /**
-     * Lists all new Article submissions entities.
+     * submit new article - step1 - get article base data without author info.
      *
      */
     public function step1Action(Request $request, $locale) {
+        if ($request->get('articleId')) {
+            return $this->step1Extra($request, $locale);
+        }
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
         $article->setTitle($request->get('title'));
@@ -26,12 +29,35 @@ class ArticleSubmissionStepController extends Controller {
         $article->setTitleTransliterated($request->get('titleTransliterated'));
         $article->setDoi($request->get('doi'));
         $article->setKeywords($request->get('keywords'));
+        $article->setSubjects($request->get('subjects'));
         $article->setAbstract($request->get('abstract'));
-        $article->setJournalId($request->get('journalId'));
+        $article->setJournal($em->getRepository('OjstrJournalBundle:Journal')->find($request->get('journalId')));
+        $article->setPrimaryLanguage($request->get('primaryLanguage'));
+        $article->setTranslatableLocale($locale);
         $em->persist($article);
         $em->flush();
-        /* todo */
         return new JsonResponse(array('id' => $article->getId()));
+    }
+
+    /**
+     * Update Article data for other languages
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $locale
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function step1Extra(Request $request, $locale) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($request->get('articleId'));
+        $article->setTitle($request->get('title'));
+        $article->setTitleTransliterated($request->get('titleTransliterated'));
+        $article->setSubtitle($request->get('subtitle'));
+        $article->setKeywords($request->get('keywords'));
+        $article->setSubjects($request->get('subjects'));
+        $article->setAbstract($request->get('abstract'));
+        $article->setTranslatableLocale($locale);
+        $em->persist($article);
+        $em->flush();
+        return new JsonResponse(array('id' => $request->get('articleId'), 'locale' => $locale));
     }
 
     /**
