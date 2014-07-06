@@ -59,12 +59,7 @@
                     <tr>
                         <th>Subjects</th>
                         <td>
-                            {% for subject in entity.subjects %}
-                            <a href="{{ path("subject_show",{'id':subject.id}) }}" 
-                               class="btn btn-info btn-sm">
-                                <span>{{ subject.subject }}</span> 
-                            </a> 
-                            {% endfor %}
+                            {{ entity.subjects }}
                         </td>
                     </tr>
 

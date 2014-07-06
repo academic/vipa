@@ -33,8 +33,6 @@
         <div class="panel-body">  
             <!-- Nav tabs -->
             <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-                <li id="t_en" class="lang active"><a href="#en" role="tab" data-toggle="tab">En</a></li>
-
                 <li class="lang dropdown">
                     <a href="#" id="languageDrop" class="dropdown-toggle" 
                        data-toggle="dropdown">
@@ -42,32 +40,49 @@
                         <span class="caret"></span>
                     </a>
                     <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                        <li><a href="#" code="tr" lang="Turkish" tabindex="-1">Turkish (tr)</a></li>
-                        <li><a href="#" code="fr" lang="French" tabindex="-1">French (fr)</a></li>
-                        <li><a href="#" code="it" lang="Italian" tabindex="-1">Italian (it)</a></li>
-                        <li><a href="#" code="en" lang="English" tabindex="-1">English (en)</a></li>
-
+                        {% for lang in  journal.languages%}
+                        <li><a href="#" code="{{lang.code}}" lang="{{lang.name}}" tabindex="-1">{{lang.name}} {{lang.code}}</a></li>
+                        {%endfor%}
                     </ul>
                 </li> 
             </ul>
 
             <!-- Tab panes -->
-            <div class="tab-content" id="langtabs">
-                <div class="tab-pane active" id="en"> 
-                    {% include 'OjstrJournalBundle:ArticleSubmission:newform.html.twig' %}
-                </div>
+            <div class="col-md-12 row">
+                <form name="base" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Journal</label>
+                        <div class="col-sm-10">
+            {{journal.title}}
+                            <input type="hidden" name="journalId" value="{{journal.id}}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Doi</label>
+                        <div class="col-sm-10">
+                            <input name="doi" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Article Main Language</label>
+                        <div class="col-sm-10">
+                            <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
+                                {%for lang in journal.languages%}
+                                <option value="{{lang.code}}">{{lang.name}} [{{lang.code}}]</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <hr><br>
 
             </div>
+            <div class="tab-content" id="langtabs">
 
-            <div class="record_actions">
+            </div>
+            <div class="record_actions col-md-12 row">
                 <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
                     {% trans %}Restart{% endtrans %}
-                </a> 
-
-
-                <a class="btn btn-warning btn-lg" href="{{ path('articlesubmission_new') }}">
-                    {% trans %}Save & Continue Later{% endtrans %}
-                    <i class="glyphicon glyphicon-saved"></i>
                 </a> 
                 <a class="btn btn-info btn-lg" 
                    onclick="javascript: OjsArticleSubmision.step1('{{path('articlesubmission_step1',{'locale':'locale'})}}');">
@@ -90,64 +105,4 @@
 <script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="/assets/js/journalbundle/article_submission.js"></script>
 
-<script>
-                       $(document).ready(function() {
-
-                           $("ul#mainTabs li a").click(function(e) {
-                               e.preventDefault();
-                           });
-                           $("ul#languageDropList li a").click(function(e) {
-                               e.preventDefault();
-                               langcode = $(this).attr('code');
-                               langtitle = $(this).attr('lang');
-                               // check if selected language tab already exists
-                               if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
-                                   return false;
-                               }
-                               $("#langtabs").append('<div class="tab-pane" id="' + langcode + '">' + $("#formtpl").html() + '...</div>');
-                               OjsArticleSubmision.languages.push(langcode);
-                               tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
-                               $("ul#mainTabs li.lang").last().before(tabhtml);
-                           });
-
-                           $("#langtabs").on("click", "a.removelang", function(e) {
-                               check = confirm("Are you sure to remove this language tab?");
-                               if (!check) {
-                                   return false;
-                               }
-                               e.preventDefault();
-                               langcode = $(this).parent().attr('id');
-                               for (var i in OjsArticleSubmision.languages) {
-                                   console.log(OjsArticleSubmision.languages[i]);
-                                   if (OjsArticleSubmision.languages[i] === langcode) {
-                                       OjsArticleSubmision.languages.splice(i, 1);
-                                   }
-                               }
-                               $(this).parent().remove();
-                               $('#t_' + langcode).remove();
-                               firsttab = $("#langtabs .tab-pane").first().attr('id');
-                               if (firsttab) {
-                                   $("li.lang a[href=#" + firsttab + "]").tab("show");
-                               }
-                           });
-
-
-
-                           $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-                           $("textarea").wysihtml5({
-                               toolbar: {
-                                   "font-styles": false,
-                                   "emphasis": true,
-                                   "lists": false,
-                                   "html": false,
-                                   "link": true,
-                                   "image": false,
-                                   "color": false,
-                                   "blockquote": false
-                               }
-                           });
-
-                       });
-
-</script>
 {% endblock %}

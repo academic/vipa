@@ -13,6 +13,18 @@ Ojstr\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
+    manyToMany:
+        languages: 
+            targetEntity: Lang
+            inversedBy: journals
+            joinTable: 
+              inverseJoinColumns: 
+                lang_id: 
+                  referencedColumnName: id
+              joinColumns: 
+                journal_id: 
+                  referencedColumnName: id
+              name: Journal_Language
     id:
         id:
             type: integer
