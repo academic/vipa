@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+echo "Run from project root folder"
 bold=`tput bold`
 normal=`tput sgr0`
 echo
@@ -9,5 +9,8 @@ echo    # new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 	#danger zone
-	mysql -uroot -proot ojssf -e "drop database ojssf" && sudo php app/console ojs:install && sudo php app/console doctrine:fixtures:load --append -v
+	mysql -uroot -proot ojssf -e "drop database ojssf"
+	sudo php app/console ojs:install
+	sudo php app/console doctrine:fixtures:load --append -v
+	sudo php app/console doctrine:mongodb:fixtures:load --append -v
 fi
