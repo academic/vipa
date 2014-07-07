@@ -34,10 +34,10 @@ class LoadUserJournalRoleData implements FixtureInterface, ContainerAwareInterfa
 
         $author = $manager->getRepository('OjstrUserBundle:User')->findByUsername('demo_author');
         $editor = $manager->getRepository('OjstrUserBundle:User')->findByUsername('demo_editor');
+        $admin = $manager->getRepository('OjstrUserBundle:User')->findByUsername('admin');
 
         $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_AUTHOR');
-        $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_AUTHOR');
-
+        $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_EDITOR');
 
         $ujr1 = new UserJournalRole();
         $ujr1->setUser($author[0]);
@@ -50,6 +50,24 @@ class LoadUserJournalRoleData implements FixtureInterface, ContainerAwareInterfa
         $ujr2->setRole($roleEditor[0]);
         $ujr2->setJournal($journal[0]);
         $manager->persist($ujr2);
+        $manager->flush();
+
+        // add admin user as author
+
+        $ujr3 = new UserJournalRole();
+        $ujr3->setUser($admin[0]);
+        $ujr3->setRole($roleAuthor[0]);
+        $ujr3->setJournal($journal[0]);
+        $manager->persist($ujr3);
+        $manager->flush();
+
+        // add admin user as editor
+
+        $ujr4 = new UserJournalRole();
+        $ujr4->setUser($admin[0]);
+        $ujr4->setRole($roleEditor[0]);
+        $ujr4->setJournal($journal[0]);
+        $manager->persist($ujr4);
         $manager->flush();
     }
 
