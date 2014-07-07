@@ -31,7 +31,7 @@ class JournalRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Journal Action"
+     *  description="Get Specific Journal"
      * )
      */
     public function getJournalAction($id) {
@@ -47,7 +47,7 @@ class JournalRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Journal Users Action",
+     *  description="Get Specific Journal Of Users Action",
      *  parameters={
      *      {
      *          "name"="page",

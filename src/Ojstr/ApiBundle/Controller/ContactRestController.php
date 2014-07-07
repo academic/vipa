@@ -20,7 +20,7 @@ class ContactRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Journal Issues"
+     *  description="Get Contacts"
      * )
      * @Get("/contacts")
      */
