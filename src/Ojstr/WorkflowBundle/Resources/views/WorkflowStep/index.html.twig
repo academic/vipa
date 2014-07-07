@@ -8,23 +8,35 @@
     <div class="panel-body">
         {% for entity in steps %}
         <div class="list-group-item">
+
             <span>
                 <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
-                    <h4>{{entity.title}} 
-                    {%if entity.firststep%}<span class="badge">First Step</span>{%endif%}
-                    {%if entity.laststep%}<span class="badge">Last Step</span>{%endif%}
-                    </h4>
+                    <strong>
+                    {%if entity.firststep%}<span class="badge">First</span>{%endif%}
+                    {%if entity.laststep%}<span class="badge">Last</span>{%endif%}
+                    {{entity.title}} 
+
+                    </strong>
                 </a> 
                 {%for role in entity.roles%}
                 <span class="label label-info">{{role.name}}</span>
                 {%endfor%}
             </span>
-            <a class="pull-right btn btn-warning" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
-                <i class="glyphicon glyphicon-pencil"></i>
-            </a>  
-            <a class="pull-right btn btn-danger" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
-                <i class="glyphicon glyphicon-trash"></i>
-            </a> 
+            <span class="pull-right">
+                <a class="btn btn-info btn-sm" href="{{path('workflowsteps_show',{ 'id': entity.id })}}"> 
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </a>  
+                <a class="btn btn-warning btn-sm" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>  
+                <a class="btn btn-danger btn-sm" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a> </span>
+            <br>
+            <small>Next Steps</small>
+            {%for step in entity.nextSteps%}
+            <span class="label label-success">{{step.title}}</span>
+            {%endfor%} 
             <hr>
         </div>
         {% endfor %}
