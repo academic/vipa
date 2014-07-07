@@ -39,7 +39,7 @@ class ArticleRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Article Action"
+     *  description="Get Specific Article"
      * )
      * 
      */
