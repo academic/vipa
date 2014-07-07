@@ -10,6 +10,7 @@ echo "\nOjs installation"
 sudo php app/console ojs:install
 echo "\nNow ojs:install will add sample data"
 sudo php app/console doctrine:fixtures:load --append -v
+sudo php app/console doctrine:mongodb:fixtures:load --append -v
 echo "\nsample author"
 echo "\tusername: demo_author"
 echo "\tpassword: demo"
