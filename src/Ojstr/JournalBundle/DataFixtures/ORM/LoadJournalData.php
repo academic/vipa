@@ -10,6 +10,8 @@ use Ojstr\JournalBundle\Entity\Journal;
 class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
+        $languages = $manager->getRepository('OjstrJournalBundle:Lang')->findAll();
+
         $journal = new Journal();
         $journal->setIssn("1300-7041");
         $journal->setMission("Mission text");
@@ -21,6 +23,12 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setTitleAbbr("EXJ");
         $journal->setTitleTransliterated(NULL);
         $journal->setUrl("https://example.gov");
+        $manager->persist($journal);
+        $manager->flush();
+        /* @var $lang  \Ojstr\JournalBundle\Entity\Lang */
+        foreach ($languages as $lang) {
+            $journal->addLanguage($lang);
+        }
         $manager->persist($journal);
         $manager->flush();
     }

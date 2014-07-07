@@ -30,11 +30,6 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $description;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articles;
-
-    /**
      * Get id
      *
      * @return integer 
@@ -81,43 +76,6 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getDescription() {
         return $this->description;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add article
-     *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
-     * @return Subject
-     */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
-     */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getArticles() {
-        return $this->articles;
     }
 
 }

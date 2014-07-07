@@ -20,7 +20,7 @@ class AuthorRestController extends FOSRestController {
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Journal Issues"
+     *  description="Get Authors"
      * )
      * @Get("/authors")
      */

@@ -15,8 +15,6 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         if (!isset($journal)) {
             return;
         }
-        $subject = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Subject c')
-                        ->setMaxResults(1)->getResult();
         $ujr = $manager->getRepository('OjstrUserBundle:UserJournalRole')->findByJournalId($journal[0]->getId());
 
         $article = new Article();
@@ -29,7 +27,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->setLastPage(10);
         $article->setPubdate(new \DateTime());
         $article->setStatus(0);
-        $article->addSubject($subject[0]);
+        $article->setSubjects("subject1, subject2");
         $article->setTitle("Article Title");
         $article->setSubmitterId($ujr[0]->getUserId());
         $manager->persist($article);

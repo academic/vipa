@@ -10,7 +10,7 @@ use Ojstr\JournalBundle\Entity\Subject;
 class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
-        $subjects = array('Biology', 'Computer Science', 'Genetics');
+        $subjects = array('Demo Subject 1', 'Demo Subject 2', 'Demo Subject 3');
         foreach ($subjects as $subjectName) {
             $subject = new Subject();
             $subject->setSubject($subjectName);
