@@ -12,16 +12,21 @@ class LoadLangData extends AbstractFixture implements OrderedFixtureInterface {
     public function load(ObjectManager $manager) {
 
         $data = array(
-            array("code" => "tr", "name" => "Turkish", "rtl" => false),
-            array("code" => "en", "name" => "English", "rtl" => false),
-            array("code" => "fr", "name" => "French", "rtl" => false),
-            array("code" => "it", "name" => "Italian", "rtl" => false)
+            array("code" => "tr", "name" => "Turkish"),
+            array("code" => "en", "name" => "English"),
+            array("code" => "fr", "name" => "French"),
+            array("code" => "it", "name" => "Italian"),
+            array("code" => "de", "name" => "German"),
+            array("code" => "de", "name" => "German"),
+            array("code" => "ar", "name" => "Arabic", "rtl" => TRUE),
+            array("code" => "es", "name" => "Spanish"),
+            array("code" => "ru", "name" => "Russian")
         );
         foreach ($data as $item) {
             $lang = new Lang();
             $lang->setCode($item['code']);
             $lang->setName($item['name']);
-            $lang->setRtl($item['rtl']);
+            $lang->setRtl(isset($item['rtl']) ? $item['rtl'] : FALSE);
             $manager->persist($lang);
         }
         $manager->flush();

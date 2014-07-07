@@ -12,11 +12,6 @@ use FOS\RestBundle\Controller\Annotations\Get;
 
 class TestRestController extends FOSRestController {
 
-    /**
-     *
-     * @ApiDoc()
-     * @Get("/test")
-     */
     public function getTestAction() {
         $res = array("status" => "ok");
         return $res;

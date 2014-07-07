@@ -42,7 +42,6 @@ OJS assists with every stage of the refereed publishing process, from submission
 
 
 
-
 ## 1) Installing
 
 
@@ -50,10 +49,12 @@ When it comes to installing the Symfony Standard Edition, you have the
 following options.
 
 ### Requirements
-1. php +5.4
+1. php +5.4 with mcrypt, mysql and mongodb extensions
 2. apache or nginx
 3. mysql 5.5 or equilent
 4. Enough storage
+5. MongoDb
+6. Mysql
 
 
 

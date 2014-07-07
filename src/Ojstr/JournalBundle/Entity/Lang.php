@@ -34,15 +34,21 @@ class Lang {
      */
     private $articles;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals;
+
     public function __construct() {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Add article
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
-     * @return Subject
+     * @return Language
      */
     public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
         $this->articles[] = $article;
@@ -69,6 +75,35 @@ class Lang {
     }
 
     /**
+     * Add journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @return Language
+     */
+    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+        $this->journals[] = $journal;
+        return $this;
+    }
+
+    /**
+     * Remove journal
+     *
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     */
+    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+        $this->journals->removeElement($journal);
+    }
+
+    /**
+     * Get journals 
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJournals() {
+        return $this->journals;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -85,7 +120,6 @@ class Lang {
      */
     public function setCode($code) {
         $this->code = $code;
-
         return $this;
     }
 
@@ -106,7 +140,6 @@ class Lang {
      */
     public function setName($name) {
         $this->name = $name;
-
         return $this;
     }
 
@@ -127,7 +160,6 @@ class Lang {
      */
     public function setRtl($rtl) {
         $this->rtl = $rtl;
-
         return $this;
     }
 
