@@ -51,6 +51,9 @@ class OjsExtension extends \Twig_Extension {
      * @return boolean
      */
     public function hasId($needle, $haystack) {
+        if (!is_array($haystack)) {
+            return FALSE;
+        }
         foreach ($haystack as $item) {
             if (isset($item['id']) && $item['id'] == $needle) {
                 return TRUE;
