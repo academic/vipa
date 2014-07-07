@@ -7,12 +7,14 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+
 use Ojstr\UserBundle\Entity\User;
 
 /**
  * Create sample user and role data
  */
-class LoadUserData implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
 
     /**
      * @var ContainerInterface
@@ -51,10 +53,13 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface, Ordered
         $manager->flush();
 
         $author->addRole($role[0]);
-        $manager->persist($editor);
+        $manager->persist($author);
         $editor->addRole($role[0]);
         $manager->persist($editor);
         $manager->flush();
+
+        $this->addReference('ref-author', $author);
+        $this->addReference('ref-editor', $editor);
     }
 
     public function getOrder() {
