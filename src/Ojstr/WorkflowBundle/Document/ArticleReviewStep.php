@@ -15,6 +15,18 @@ class ArticleReviewStep {
      */
     protected $id;
 
+    /**
+     * Is this is the first node of the article review steps?
+     * @MongoDb\Boolean
+     */
+    protected $rootNode;
+
+    /**
+     * owner user     { "id" : ... , "username" : ... , "email" : ... }
+     * @MongoDB\Hash 
+     */
+    protected $ownerUser;
+
     /** @MongoDb\Int @MongoDb\Index() */
     protected $action;
 
@@ -269,4 +281,48 @@ class ArticleReviewStep {
         return $this->review_deadline;
     }
 
+
+    /**
+     * Set rootNode
+     *
+     * @param boolean $rootNode
+     * @return self
+     */
+    public function setRootNode($rootNode)
+    {
+        $this->rootNode = $rootNode;
+        return $this;
+    }
+
+    /**
+     * Get rootNode
+     *
+     * @return boolean $rootNode
+     */
+    public function getRootNode()
+    {
+        return $this->rootNode;
+    }
+
+    /**
+     * Set ownerUser
+     *
+     * @param hash $ownerUser
+     * @return self
+     */
+    public function setOwnerUser($ownerUser)
+    {
+        $this->ownerUser = $ownerUser;
+        return $this;
+    }
+
+    /**
+     * Get ownerUser
+     *
+     * @return hash $ownerUser
+     */
+    public function getOwnerUser()
+    {
+        return $this->ownerUser;
+    }
 }
