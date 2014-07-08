@@ -29,6 +29,7 @@
             {%include '::ojsleft.html.twig'%}
         <!-- Right side column. Contains the navbar and content of the page -->
         <aside class="col-md-10">
+            {% if ojsuser %}
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <strong>
@@ -38,6 +39,7 @@
                         {% endblock %}
                 </strong> 
             </section>
+            {%endif%}
 
             <!-- Main content -->
             <section>
