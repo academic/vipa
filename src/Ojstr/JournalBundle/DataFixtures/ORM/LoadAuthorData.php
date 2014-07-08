@@ -19,6 +19,7 @@ class LoadAuthorData extends AbstractFixture implements OrderedFixtureInterface 
         $author->setSummary("Demo author summary");
         $manager->persist($author);
         $manager->flush();
+        $this->addReference('ref-author-record', $author);
     }
 
     public function getOrder() {

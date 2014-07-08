@@ -40,8 +40,8 @@ class InstallCommand extends ContainerAwareCommand {
         }
 
         $update = $dialog->askConfirmation(
-                        $output, '<question>' .
-                        $translator->trans("Create db?") . ' (y/n) : </question>', true);
+                $output, '<question>' .
+                $translator->trans("Create db?") . ' (y/n) : </question>', true);
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
@@ -72,8 +72,7 @@ class InstallCommand extends ContainerAwareCommand {
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
         $admin_password = $dialog->askHiddenResponse(
                 $output, '<info>' .
-                $translator->trans('Set system admin password') .
-                ' (admin) : </info>', 'admin');
+                $translator->trans('Set system admin password') . '</info>', '');
 
         $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
         $this->insertRoles($output);
@@ -86,6 +85,11 @@ class InstallCommand extends ContainerAwareCommand {
                 . "to add sample data\n");
     }
 
+    /**
+     * add default roles
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     * @return boolean
+     */
     protected function insertRoles(OutputInterface $output) {
         $doctrine = $this->getContainer()->get('doctrine');
         $translator = $this->getContainer()->get('translator');
