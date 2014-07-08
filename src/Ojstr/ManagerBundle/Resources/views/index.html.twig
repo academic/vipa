@@ -1,19 +1,12 @@
 {% extends "::ojsbase.html.twig" %}
 
 {% block body %}   
-    {% if ojsuser %}
-<a class="btn btn-success" href="{{path('dashboard')}}"><i class="glyphicon glyphicon-flag"></i> 
-    Manager Dashboard</a>
-{%else%}
 
-<a class="btn btn-info" href="/login"><i class="glyphicon glyphicon-log-in"></i> 
-    Login</a>
-    {%endif%}
-
-
+<a class="btn btn-info" href="/login"><i class="glyphicon glyphicon-log-in"></i> Login</a>
 
 {% endblock %}
 
 {% block footer %}
-&copy; Ojs-tr demo
+<hr>
+<small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
 {% endblock %}
