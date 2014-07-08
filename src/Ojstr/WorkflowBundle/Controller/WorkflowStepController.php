@@ -81,7 +81,9 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         if ($nextSteps) {
             foreach ($nextSteps as $stepId) {
                 $step = $repo->find($stepId);
-                $nextStepsArray[] = array('id' => $stepId, 'title' => $step->getTitle());
+                $nextStepsArray[] = array(
+                    'id' => $stepId,
+                    'title' => $step->getTitle());
             }
         }
         return $nextStepsArray;
@@ -93,7 +95,7 @@ class WorkflowStepController extends \Ojstr\Common\Controller\OjsController {
         $selectedJournalId = $request->getSession()->get('selectedJournalId');
         $step = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($step->getJournalId());
-        $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
+        $roles = $em->getRepository('OjstrUserBundle:Role')->findAll(); 
         $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
         return $this->render('OjstrWorkflowBundle:WorkflowStep:edit.html.twig', array(

@@ -24,9 +24,7 @@ var OjsArticleSubmision = {
             if ($primaryLang === locale) {
                 // article main data
                 tmpParam.data.journalId = $("input[name=journalId]").val();
-                tmpParam.data.doi = $("input[name=doi]").val();
                 tmpParam.data.primaryLanguage = $("select[name=primaryLanguage] option:selected").val();
-
                 articleParams = tmpParam;
             } else {
                 otherParams.push(tmpParam);
@@ -44,13 +42,16 @@ var OjsArticleSubmision = {
          * 2. get articleId from response 
          * 3. post other meta datas for other languages
          */
+        OjstrApp.showPleaseWait();
         $.post(articleParams.postUrl, articleParams.data, function(response) {
             if (response.id) {
                 if (otherParams) {
                     for (i in otherParams) {
                         otherParams[i].data.articleId = response.id;
+                        OjstrApp.showPleaseWait();
                         $.post(otherParams[i].postUrl, otherParams[i].data, function(response2) {
                             console.log(response2);
+                            OjstrApp.hidePleaseWait();
                         });
                     }
                 }
@@ -58,6 +59,7 @@ var OjsArticleSubmision = {
                 /**
                  * @todo use a pretty modal
                  */
+                OjstrApp.hidePleaseWait();
                 alert("Error occured. Try again.");
             }
 

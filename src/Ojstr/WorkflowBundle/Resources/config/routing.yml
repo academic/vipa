@@ -1,33 +1,29 @@
 ojstr_workflow_homepage:
     pattern:  /
     defaults: { _controller: OjstrWorkflowBundle:Default:index }
+
+ojstr_workflowsteps:
+    resource: "@OjstrWorkflowBundle/Resources/config/routing/workflow.yml"
     
 manage_workflowsteps:
     pattern:  /manage/steps
     defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:index } 
-
-workflowsteps_edit:
-    pattern:  /step/{id}/edit
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:edit } 
-    
-workflowsteps_update:
-    pattern:  /step/{id}/update
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:update } 
-
-workflowsteps_delete:
-    pattern:  /step/{id}/delete
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:delete } 
     
     
-workflowsteps_show:
-    pattern:  /step/{id}/show
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:show }
+editor_articles_waiting:
+    pattern:  /editor/articles/waiting
+    defaults: { _controller: OjstrWorkflowBundle:Editor:waitingArticles }
     
-workflowstep_new:
-    pattern:  /step/new
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:new } 
+editor_articles_assigned:
+    pattern:  /editor/articles/assigned
+    defaults: { _controller: OjstrWorkflowBundle:Editor:assignedArticles } 
     
-workflowstep_create:
-    pattern:  /step/create
-    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:create }  
-    requirements: { _method: post }
+editor_workflow:
+    pattern:  /editor
+    defaults: { _controller: OjstrWorkflowBundle:Editor:index } 
+    
+    
+articles_assigned_me:
+    pattern:  /articles/assigned/me
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:index } 
+   

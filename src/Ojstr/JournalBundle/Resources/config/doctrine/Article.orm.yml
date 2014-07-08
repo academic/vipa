@@ -43,6 +43,7 @@ Ojstr\JournalBundle\Entity\Article:
         type: string
         nullable: TRUE
         gedmo:
+          - translatable
           - versioned 
     submitterId:
         column: submitter_id
@@ -70,6 +71,7 @@ Ojstr\JournalBundle\Entity\Article:
         type: string
         nullable: TRUE
         gedmo:
+          - translatable
           - versioned 
     abstract: 
       type: text
