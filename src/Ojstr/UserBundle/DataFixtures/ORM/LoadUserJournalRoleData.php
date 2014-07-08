@@ -38,6 +38,8 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
 
         $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_AUTHOR');
         $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_EDITOR');
+        $roleReviewer = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_REVIEWER');
+
 
         $ujr1 = new UserJournalRole();
         $ujr1->setUser($author);
@@ -68,6 +70,15 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         $ujr4->setRole($roleEditor[0]);
         $ujr4->setJournal($journal);
         $manager->persist($ujr4);
+        $manager->flush();
+
+        // add admin user as reviewer
+
+        $ujr5 = new UserJournalRole();
+        $ujr5->setUser($admin[0]);
+        $ujr5->setRole($roleReviewer[0]);
+        $ujr5->setJournal($journal);
+        $manager->persist($ujr5);
         $manager->flush();
 
         $this->addReference('ref-ujr-author', $ujr1);
