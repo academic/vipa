@@ -1,10 +1,12 @@
-ojstr_index_manager:
-    pattern:  /manager/
-    defaults: { _controller: OjstrManagerBundle:Manager:getManager }
-ojstr_index_admin:
-    pattern:  /admin/
-    defaults: { _controller: OjstrManagerBundle:Manager:getAdmin }
+dashboard:
+    pattern:  /manager/dashboard
+    defaults: { _controller: OjstrManagerBundle:Admin:dashboard }
+    
+dashboard_editor:
+    pattern:  /editor/dashboard
+    defaults: { _controller: OjstrManagerBundle:Editor:dashboard }
+    
 ojstr_manager:
     pattern:  /
-    defaults: { _controller: OjstrManagerBundle:Manager:index }
+    defaults: { _controller: OjstrManagerBundle:Admin:index }
 

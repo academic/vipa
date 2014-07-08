@@ -24,10 +24,10 @@ class ArticleSubmissionStepController extends Controller {
         }
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
+        $article->setStatus(-1); // Not submitted / see Ojstr/Common/Params/CommonParams.php
         $article->setTitle($request->get('title'));
         $article->setSubtitle($request->get('subtitle'));
         $article->setTitleTransliterated($request->get('titleTransliterated'));
-        $article->setDoi($request->get('doi'));
         $article->setKeywords($request->get('keywords'));
         $article->setSubjects($request->get('subjects'));
         $article->setAbstract($request->get('abstract'));

@@ -1,0 +1,25 @@
+workflowsteps_edit:
+    pattern:  /step/{id}/edit
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:edit } 
+    
+workflowsteps_update:
+    pattern:  /step/{id}/update
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:update } 
+
+workflowsteps_delete:
+    pattern:  /step/{id}/delete
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:delete } 
+    
+    
+workflowsteps_show:
+    pattern:  /step/{id}/show
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:show }
+    
+workflowstep_new:
+    pattern:  /step/new
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:new } 
+    
+workflowstep_create:
+    pattern:  /step/create
+    defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:create }  
+    requirements: { _method: post }

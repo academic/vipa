@@ -31,13 +31,35 @@ class JournalWorkflowStep {
     protected $laststep;
 
     /**
-     * possible next steps
+     * possible next steps 
+     *  {
+     * 	"0" : {
+     * 		"id" : "53ba97facf93a1cf5e8b4567",
+     * 		"title" : "First Review"
+     * 	},
+     * 	"1" : {
+     * 		"id" : "53baa7aecf93a1dc268b456a",
+     * 		"title" : "Redaction"
+     * 	}
+     * },
      * @MongoDB\Hash 
      */
     private $nextsteps;
 
     /**
      * 
+     *  {
+     * 	"0" : {
+     * 		"id" : 7,
+     * 		"name" : "Editor",
+     * 		"role" : "ROLE_EDITOR"
+     * 	},
+     * 	"1" : {
+     * 		"id" : 11,
+     * 		"name" : "Copyeditor",
+     * 		"role" : "ROLE_COPYEDITOR"
+     * 	}
+     * },
      * @MongoDB\Hash 
      */
     private $roles;

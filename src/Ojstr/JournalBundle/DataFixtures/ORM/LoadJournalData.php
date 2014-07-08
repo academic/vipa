@@ -31,6 +31,7 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         }
         $manager->persist($journal);
         $manager->flush();
+        $this->addReference('ref-journal', $journal);
     }
 
     public function getOrder() {
