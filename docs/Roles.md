@@ -6,8 +6,8 @@ Ojs has 14 types of role definition.
 
 | Role Name 					| Role Description							|
 |-------------------------------|-------------------------------------------|
+| ROLE_USER 					| Standart User								|
 | ROLE_ADMIN 					| Administrator								|
-|-------------------------------|-------------------------------------------|
 | ROLE_SYSTEM_ADMIN				| System Administrator						|
 | ROLE_SUPER_EDITOR			 	| Super Editor. Editor for all journals		|
 | ROLE_SUPER_AUTHOR			 	| Super Author. Author for all journals		|
@@ -26,7 +26,9 @@ Ojs has 14 types of role definition.
 Journal Roles
 -------------
 
-Each journal has standart roles which listed belove. But every journal has its own special role with its' system defined unique id.
+Journal roles are stored on `UserJournalRole` table;
+
+Each journal has standard roles which listed belove. But every journal has its own special role with its' system defined unique id.
 
 **Example**
 
@@ -40,16 +42,10 @@ Each journal has standart roles which listed belove. But every journal has its o
     id: 45
     title: Applied Mathematics
 
-*User_Journal:*
-
-    user_id: 123
-    journal_id: 45
-
 *Role:*
 
     id: 6
     name: ROLE_EDITOR
-
 
 
 *User_Journal_Role:*
@@ -57,3 +53,12 @@ Each journal has standart roles which listed belove. But every journal has its o
     journal_id: 45
     user_id: 123
     role_id: 6 
+
+
+
+System Roles
+------------
+
+System roles are stored on `User_Role`
+
+
