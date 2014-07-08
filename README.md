@@ -113,7 +113,8 @@ $ php app/console ojs:install
 Ojs sample data :
  
 ```bash
-$ php app/console doctrine:fixtures:load --append
+$ php app/console doctrine:fixtures:load --append -v
+$ php app/console doctrine:mongodb:fixtures:load --append -v
 ```  
 
 Run on your local environment : 

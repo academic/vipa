@@ -19,7 +19,7 @@ parameters:
             code: de
         
     roles:
-        #dont delete any of these roles
+        #dont modify
         - 
             role: ROLE_USER
             desc: Default registered user 
