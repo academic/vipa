@@ -27,8 +27,26 @@ class OjsExtension extends \Twig_Extension {
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
-            'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html')))
+            'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
+            'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html')))
         );
+    }
+
+    /**
+     * 
+     * @param array $list 
+     * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
+     */
+    public function generateBreadcrumb($list = null) {
+        $html = '<ol class="breadcrumb">';
+        for ($i = 0; $i < count($list); ++$i) {
+            $item = $list[$i];
+            $html.= !isset($item['link']) ?
+                    '<li class="active">' . $item['title'] . '</li>' :
+                    '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
+        }
+        $html.='</ol> ';
+        return $html;
     }
 
     /**
