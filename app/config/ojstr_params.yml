@@ -23,42 +23,56 @@ parameters:
         - 
             role: ROLE_USER
             desc: Default registered user 
+            isSystemRole: True
         - 
             role: ROLE_SUPER_ADMIN
             desc: System Super Administrator
+            isSystemRole: True
         - 
             role: ROLE_SUPER_EDITOR
             desc: Super Editor. Editor for all journals
+            isSystemRole: True
         - 
             role: ROLE_SUPER_AUTHOR
             desc: Super Author. Author for all journals
+            isSystemRole: True
         - 
             role: ROLE_JOURNAL_MANAGER
             desc: Journal Manager
+            isSystemRole: False
         - 
             role: ROLE_SUBSCRIPTION_MANAGER
             desc: Subscription Manager
+            isSystemRole: False
         - 
             role: ROLE_EDITOR
             desc: Editor
+            isSystemRole: False
         - 
             role: ROLE_SECTION_EDITOR
             desc: Section Editor
+            isSystemRole: False
         - 
             role: ROLE_LAYOUT_EDITOR
             desc: Layout Editor
+            isSystemRole: False
         - 
             role: ROLE_REVIEWER
             desc: Reviewer
+            isSystemRole: False
         - 
             role: ROLE_COPYEDITOR
             desc: Copyeditor
+            isSystemRole: False
         - 
             role: ROLE_PROOFREADER
             desc: Proofreader
+            isSystemRole: False
         - 
             role: ROLE_AUTHOR
             desc: Author
+            isSystemRole: False
         - 
             role: ROLE_READER
             desc: Reader
+            isSystemRole: False

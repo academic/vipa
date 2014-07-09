@@ -108,6 +108,8 @@ class InstallCommand extends ContainerAwareCommand {
             $output->writeln('<info>' . $translator->trans('Added ') . ' : ' . $role['role'] . '</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
+            $new_role->setIsSystemRole($role['isSystemRole']);
+
             $em->persist($new_role);
         }
         return $em->flush();
