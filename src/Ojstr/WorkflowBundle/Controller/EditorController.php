@@ -8,10 +8,7 @@ use \Symfony\Component\HttpFoundation\Request;
  * Editor Workflow Controller
  */
 class EditorController extends \Ojstr\Common\Controller\OjsController {
-
-    public function indexAction() {
-        return $this->render('OjstrWorkflowBundle:Editor:index.html.twig');
-    }
+ 
 
     /**
      * list published articles - Published
