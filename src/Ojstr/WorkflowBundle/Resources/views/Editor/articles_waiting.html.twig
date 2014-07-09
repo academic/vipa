@@ -3,9 +3,9 @@
 {% block body -%}
 <div class="panel">
     <div class="panel-heading">
-        <h1>{% trans %}Waiting Articles{% endtrans %}</h1>
+        <h1>{% trans %}Waiting Articles{% endtrans %} <small>These articlese submitted but waiting waiting for editors.</small></h1>
     </div>
-    
+
     <div class="panel-body">
         {% for entity in entities %}
         <div class="list-group-item">
