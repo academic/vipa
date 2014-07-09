@@ -1,3 +1,4 @@
+##Install
 
 When it comes to installing the Symfony Standard Edition, you have the
 following options.
