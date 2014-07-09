@@ -33,12 +33,7 @@ editor_articles_assigned:
 
 editor_articles_published:
     pattern:  /editor/articles/published
-    defaults: { _controller: OjstrWorkflowBundle:Editor:publishedArticles }
-    
-    
-editor_workflow:
-    pattern:  /editor
-    defaults: { _controller: OjstrWorkflowBundle:Editor:index } 
+    defaults: { _controller: OjstrWorkflowBundle:Editor:publishedArticles } 
     
     
 articles_assigned_me:
