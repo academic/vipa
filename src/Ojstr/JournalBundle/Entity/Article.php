@@ -166,11 +166,25 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $journal;
 
     /**
+     *
+     * arbitrary attributes 
+     */
+    private $attributes;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function addAttribute($name, $value) {
+        $this->attributes[$name] = new ArticleAttribute($name, $value, $this);
+    }
+
+    public function getAttribute($name) {
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : FALSE;
     }
 
     /**

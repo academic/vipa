@@ -15,6 +15,12 @@ Ojstr\JournalBundle\Entity\Article:
       inversedBy: articles   
       #cascade: ["persist", "merge"]
       fetch: EXTRA_LAZY
+  oneToMany:
+    attributes:
+      targetEntity: ArticleAttribute
+      mappedBy: article  
+      cascade: ["ALL"]
+      indexBy: attribute
   manyToMany: 
     languages: 
       targetEntity: Lang
