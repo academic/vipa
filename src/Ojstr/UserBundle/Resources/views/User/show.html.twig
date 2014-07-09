@@ -1,7 +1,19 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block body %}
 
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                { 'link': path('user'), 'title': 'User Manager'}, 
+                { 'title': 'Show User '}, 
+
+] %} 
+{{breadcrumb(list)}}
+{% endblock %}
+
+
+
+{% block body %}
 
 <h1>{% if entity.avatar %}
     <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
