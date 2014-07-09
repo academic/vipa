@@ -44,7 +44,7 @@ OJS assists with every stage of the refereed publishing process, from submission
 
 ## 1) Installing
 
-[Read Installation page](/okulbilisim/ojs/blog/master/INSTALL.md)
+[Read Installation page](https://github.com/okulbilisim/ojs/blob/master/INSTALL.md)
 
 ## 2) Checking System Configuration
 
