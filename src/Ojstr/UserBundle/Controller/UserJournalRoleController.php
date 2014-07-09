@@ -68,7 +68,7 @@ class UserJournalRoleController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'row btn btn-success')));
 
         return $form;
     }
@@ -80,7 +80,6 @@ class UserJournalRoleController extends Controller {
     public function newAction() {
         $entity = new UserJournalRole();
         $form = $this->createCreateForm($entity);
-
         return $this->render('OjstrUserBundle:UserJournalRole:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
