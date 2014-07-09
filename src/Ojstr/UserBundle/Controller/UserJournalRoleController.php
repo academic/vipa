@@ -126,9 +126,16 @@ class UserJournalRoleController extends Controller {
      */
     public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig') {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->createQuery(
+        $data = $em->createQuery(
                         'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
                 )->setParameter('user_id', $user_id)->getResult();
+        if ($data) {
+            $entities = array();
+            foreach ($data as $item) {
+                $entities[$item->getJournalId()]['journal'] = $item->getJournal();
+                $entities[$item->getJournalId()]['roles'][] = $item->getRole();
+            }
+        }
         return $this->render('OjstrUserBundle:UserJournalRole:' . $tpl, array(
                     'entities' => $entities
         ));

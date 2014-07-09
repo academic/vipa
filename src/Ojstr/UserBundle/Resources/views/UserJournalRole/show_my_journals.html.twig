@@ -10,23 +10,27 @@
             <i class="glyphicon glyphicon-asterisk"></i> All journals</a>
         {%endif%}
         <a class="btn btn-info" href="{{path('manager_show_my_journals')}}">
-                <i class="glyphicon glyphicon-user"></i> My journals</a>
+            <i class="glyphicon glyphicon-user"></i> My journals</a>
         <hr>
 {% if entities %}
         <table class="records_list  table">
             <thead>
-                <tr>
-                    <th>Journal Id</th>
-                    <th>Journal Name</th>
+                <tr> 
+                    <th>{% trans %}Journal{% endtrans %}</th>
                     <th>Role</th>
                 </tr>
             </thead>
             <tbody>
         {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">{{ entity.journal.id }}</a></td>
-                    <td>{{ entity.journal.title}}</td>
-                    <td><span class="label label-default">{{ entity.role.name }}</span></td>
+                    <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">
+                            <span class="badge">#{{ entity.journal.id }}</span> {{ entity.journal.title }}</a>
+                    </td>
+                    <td>
+                            {%for role in entity.roles %}
+                        <span class="label label-info">{{ role.name }}</span>
+                            {%endfor %}
+                    </td>
                 </tr>
         {% endfor %}
             </tbody>
