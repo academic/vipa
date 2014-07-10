@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use \Ojstr\UserBundle\Entity\Role;
 use \Ojstr\UserBundle\Entity\User;
-use \Ojstr\UserBundle\Entity\RoleRepository;
 
 class InstallCommand extends ContainerAwareCommand {
 
@@ -72,7 +71,7 @@ class InstallCommand extends ContainerAwareCommand {
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
         $admin_password = $dialog->askHiddenResponse(
                 $output, '<info>' .
-                $translator->trans('Set system admin password') . '</info>', '');
+                $translator->trans('Set system admin password') . ' : </info>', '');
 
         $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
         $this->insertRoles($output);
