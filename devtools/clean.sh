@@ -6,7 +6,7 @@ echo
 echo
 read -p "${bold}WARNING!!${normal} Your database will be purged !!! (Y/n) "
 echo 
-if [[ $REPLY =~ ^[Yy]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY == "" ]];
 then
 	read -p  "And a clean ojs will be installed. ${bold}Are you sure?${normal} (Y/n)? "
 	echo
