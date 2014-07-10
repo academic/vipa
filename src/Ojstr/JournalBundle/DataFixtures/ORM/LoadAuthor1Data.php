@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Author;
 
-class LoadAuthorData extends AbstractFixture implements OrderedFixtureInterface {
+class LoadAuthor1Data extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
         $author = new Author();
@@ -19,7 +19,7 @@ class LoadAuthorData extends AbstractFixture implements OrderedFixtureInterface 
         $author->setSummary("Demo author summary");
         $manager->persist($author);
         $manager->flush();
-        $this->addReference('ref-author-record', $author);
+        $this->addReference('ref-author-record1', $author);
     }
 
     public function getOrder() {

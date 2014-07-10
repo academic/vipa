@@ -155,7 +155,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Expose
+     * 
      */
     private $citations;
 
@@ -172,11 +172,18 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $attributes;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * 
+     */
+    private $authors;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function addAttribute($name, $value) {
@@ -229,6 +236,33 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getLanguages() {
         return $this->languages;
+    }
+
+    /**
+     * Add author
+     *
+     * @param \Ojstr\JournalBundle\Entity\Author $author
+     * @return Article
+     */
+    public function addAuthor(\Ojstr\JournalBundle\Entity\Author $author) {
+        $this->authors[] = $author;
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \Ojstr\JournalBundle\Entity\Author $author
+     */
+    public function removeAuthor(\Ojstr\JournalBundle\Entity\Author $author) {
+        $this->authors->removeElement($author);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthors() {
+        return $this->authors;
     }
 
     /**

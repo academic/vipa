@@ -83,6 +83,16 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $user;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * 
+     */
+    private $articles;
+
+    public function __construct() {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Set user
      *
      * @param \Ojstr\UserBundle\Entity\User $user
