@@ -2,51 +2,68 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+
 /**
- * Article Author relation and some extra fields about this relation
+ * Authors of article and orders
+ * @ExclusionPolicy("all")
  */
-class ArticleAuthor extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class ArticleAuthor {
 
     /**
-     *
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
-     *
-     * @var integer 
+     * @var integer
+     * @Expose
      */
     private $authorOrder;
 
     /**
-     *
-     * @var \Ojstr\JournalBundle\Entity\Article 
-     */
-    private $article;
-
-    /**
-     *
-     * @var \Ojstr\JournalBundle\Entity\Author 
+     * @var \Ojstr\JournalBundle\Entity\Author
+     * @Expose
      */
     private $author;
 
     /**
+     * @var \Ojstr\JournalBundle\Entity\Article
      * 
-     * @return integer
      */
-    public function getAuthorOrder() {
-        return $this->authorOrder;
+    private $article;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
     }
 
     /**
-     * 
+     * Set authorOrder
+     *
      * @param integer $authorOrder
-     * @return \Ojstr\JournalBundle\Entity\ArticleAuthor
+     * @return ArticleAuthor
      */
     public function setAuthorOrder($authorOrder) {
         $this->authorOrder = $authorOrder;
+
         return $this;
+    }
+
+    /**
+     * Get authorOrder
+     *
+     * @return integer 
+     */
+    public function getAuthorOrder() {
+        return $this->authorOrder;
     }
 
     /**

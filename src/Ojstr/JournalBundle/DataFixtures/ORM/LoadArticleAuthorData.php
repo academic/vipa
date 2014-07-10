@@ -11,21 +11,21 @@ class LoadArticleAuthorData extends AbstractFixture implements OrderedFixtureInt
 
     public function load(ObjectManager $manager) {
         $article = $this->getReference('ref-article');
-//        $author1 = $this->getReference('ref-author-record1');
+        $author1 = $this->getReference('ref-author-record1');
         $author2 = $this->getReference('ref-author-record2');
 
-//        $articleAuthor1 = new ArticleAuthor();
-//        $articleAuthor1->setArticle($article);
-//        $articleAuthor1->setAuthor($author1);
-//        $articleAuthor1->setAuthorOrder(0);
-//        $manager->persist($articleAuthor1);
-//        $manager->flush();
+        $articleAuthor1 = new ArticleAuthor();
+        $articleAuthor1->setArticle($article);
+        $articleAuthor1->setAuthor($author1);
+        $articleAuthor1->setAuthorOrder(0);
+        $manager->persist($articleAuthor1);
 
         $articleAuthor2 = new ArticleAuthor();
         $articleAuthor2->setArticle($article);
         $articleAuthor2->setAuthor($author2);
-        $articleAuthor2->setAuthorOrder(1);
+        $articleAuthor2->setAuthorOrder(0);
         $manager->persist($articleAuthor2);
+
         $manager->flush();
     }
 

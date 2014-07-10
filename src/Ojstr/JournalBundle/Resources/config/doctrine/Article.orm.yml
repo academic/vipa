@@ -23,7 +23,7 @@ Ojstr\JournalBundle\Entity\Article:
       indexBy: attribute
     authors:
       targetEntity: ArticleAuthor
-      mappedBy: article  
+      mappedBy: article
       cascade: ["ALL"]
   manyToMany: 
     languages: 
