@@ -1,0 +1,29 @@
+Ojstr\JournalBundle\Entity\ArticleAuthor: 
+    type: entity
+    table: ~
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        authorOrder:
+            column: author_order
+            type: integer
+            nullable: TRUE
+            options:
+                default: 0
+    manyToOne:
+        author:
+            targetEntity: Article
+            cascade: [persist]
+            inversedBy: authors
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+        article:
+            targetEntity: Author
+            cascade: [persist]
+            inversedBy: articles
+            joinColumn:
+                name: author_id
+                referencedColumnName: id
