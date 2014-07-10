@@ -69,3 +69,8 @@ ojs_citation:
 ojs_citationsetting:
     resource: "@OjstrJournalBundle/Resources/config/routing/citationsetting.yml"
     prefix:   /admin/citationsetting
+
+
+ojstr_articleauthor:
+    resource: "@OjstrJournalBundle/Resources/config/routing/articleauthor.yml"
+    prefix:   /admin/articleauthor

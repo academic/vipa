@@ -1,0 +1,30 @@
+articleauthor:
+    path:     /
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:index" }
+
+articleauthor_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:show" }
+
+articleauthor_new:
+    path:     /new
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:new" }
+
+articleauthor_create:
+    path:     /create
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:create" }
+    requirements: { _method: post }
+
+articleauthor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:edit" }
+
+articleauthor_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:update" }
+    requirements: { _method: post|put }
+
+articleauthor_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:delete" }
+    requirements: { _method: post|delete }
