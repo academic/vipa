@@ -101,11 +101,6 @@ class ArticleController extends Controller {
         /* @var $entity \Ojstr\JournalBundle\Entity\Article  */
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
-        echo "<pre>";
-        $serializer = $this->container->get('serializer');
-        $json = $serializer->serialize($entity->getAuthors(), 'json');
-        print_r($json);
-        exit();
         return $this->render('OjstrJournalBundle:Article:show.html.twig', array(
                     'entity' => $entity));
     }
