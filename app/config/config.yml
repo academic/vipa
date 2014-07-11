@@ -30,7 +30,7 @@ framework:
 doctrine_mongodb:
     connections:
         default:
-            server: mongodb://localhost:27017
+            server: mongodb://127.0.0.1:27017
             options: {}
     default_database: ojs
     document_managers:
