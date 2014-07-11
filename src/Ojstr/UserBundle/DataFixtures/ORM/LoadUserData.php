@@ -33,13 +33,16 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($author);
         $role = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_USER');
-
+        
+        $subject = $this->getReference('ref-subject');
+        
         $author->setEmail("author@demo.com");
         $author->setIsActive(1);
         $password = $encoder->encodePassword("demo", $author->getSalt());
         $author->setPassword($password);
         $author->setStatus(1);
         $author->setUsername("demo_author");
+        //$author->addSubject($subject);
         $manager->persist($author);
 
         $editor->setEmail("author@demo.com");

@@ -6,21 +6,28 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Subject;
+use Symfony\Component\Yaml\Yaml;
 
 class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
-        $subjects = array('Demo Subject 1', 'Demo Subject 2', 'Demo Subject 3');
-        foreach ($subjects as $subjectName) {
+        $sample = $this->getSampleData();
+        foreach ($sample->subjects as $subjectName) {
             $subject = new Subject();
             $subject->setSubject($subjectName);
             $manager->persist($subject);
             $manager->flush();
         }
+        // make reference to last subject
+        $this->setReference('ref-subject', $subject);
     }
 
     public function getOrder() {
         return 6;
+    }
+
+    private function getSampleData() {
+        return json_decode(file_get_contents(__DIR__ . '/subjects.json'));
     }
 
 }
