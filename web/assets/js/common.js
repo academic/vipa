@@ -19,6 +19,7 @@ $.fn.serializeObject = function()
 $(document).ready(function() {
     $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
     $(".sidebar .treeview").tree();
+    $('a[title]').tooltip();
 
     $("[data-toggle='offcanvas']").click(function(e) {
         e.preventDefault();
