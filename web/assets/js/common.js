@@ -19,6 +19,7 @@ $.fn.serializeObject = function()
 $(document).ready(function() {
     $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
     $(".sidebar .treeview").tree();
+    $('a[title]').tooltip();
 
     $("[data-toggle='offcanvas']").click(function(e) {
         e.preventDefault();
@@ -33,6 +34,18 @@ $(document).ready(function() {
             //Else, enable content streching
             $('.left-side').toggleClass("collapse-left");
             $(".right-side").toggleClass("strech");
+        }
+    });
+    
+    $('a[href="#search"]').on('click', function(event) {
+        event.preventDefault();
+        $('#search').addClass('open');
+        $('#search > form > input[type="search"]').focus();
+    });
+    
+    $('#search, #search button.close').on('click keyup', function(event) {
+        if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+            $(this).removeClass('open');
         }
     });
 });
