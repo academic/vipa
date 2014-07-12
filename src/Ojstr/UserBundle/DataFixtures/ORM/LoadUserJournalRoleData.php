@@ -31,6 +31,7 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
 
         // get first journal record 
         $journal = $this->getReference('ref-journal');
+        $journal2 = $this->getReference('ref-journal2');
 
         $author = $this->getReference('ref-author');
         $editor = $this->getReference('ref-editor');
@@ -71,6 +72,15 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         $ujr4->setJournal($journal);
         $manager->persist($ujr4);
         $manager->flush();
+
+        // add admin user as editor to journal2
+        $ujr4_2 = new UserJournalRole();
+        $ujr4_2->setUser($admin[0]);
+        $ujr4_2->setRole($roleEditor[0]);
+        $ujr4_2->setJournal($journal2);
+        $manager->persist($ujr4_2);
+        $manager->flush();
+
 
         // add admin user as reviewer
 
