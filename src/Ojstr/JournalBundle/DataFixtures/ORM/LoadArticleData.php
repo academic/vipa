@@ -15,7 +15,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
             return;
         }
         $ujr = $this->getReference('ref-ujr-author');
-        
+
         $article = new Article();
         $article->setAbstract("Article abstract article abstract article abstract article abstract ");
         $article->setDoi("123321321");
@@ -30,7 +30,9 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->setTitle("Article Title");
         $article->setSubmitterId($ujr->getUserId());
         $manager->persist($article);
-        $manager->flush();
+        $manager->flush(); 
+        
+        $this->addReference('ref-article', $article);
     }
 
     public function getOrder() {

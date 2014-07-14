@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
-
 use Ojstr\UserBundle\Entity\User;
 
 /**
@@ -32,7 +31,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author = new User();
         $editor = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($author);
-        $role = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_USER');
+        $role = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
+
+        $subject = $this->getReference('ref-subject');
 
         $author->setEmail("author@demo.com");
         $author->setIsActive(1);
@@ -40,6 +41,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author->setPassword($password);
         $author->setStatus(1);
         $author->setUsername("demo_author");
+        $author->addSubject($subject);
         $manager->persist($author);
 
         $editor->setEmail("author@demo.com");
@@ -47,14 +49,15 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $passwordEditor = $encoder->encodePassword("demo", $author->getSalt());
         $editor->setPassword($passwordEditor);
         $editor->setStatus(1);
+        $editor->addSubject($subject);
         $editor->setUsername("demo_editor");
         $manager->persist($editor);
 
         $manager->flush();
 
-        $author->addRole($role[0]);
+        $author->addRole($role);
         $manager->persist($author);
-        $editor->addRole($role[0]);
+        $editor->addRole($role);
         $manager->persist($editor);
         $manager->flush();
 
