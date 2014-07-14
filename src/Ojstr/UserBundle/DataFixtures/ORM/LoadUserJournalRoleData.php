@@ -41,7 +41,7 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_EDITOR'));
         $roleReviewer = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_REVIEWER'));
 
-        $admin = $manager->getRepository('OjstrUserBundle:UserJournalRole')->findOneBy(array('role_id' => $roleSuperAdmin->getId()));
+        $admins = $roleSuperAdmin->getUsers();
 
 
         $ujr1 = new UserJournalRole();
@@ -60,7 +60,7 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         // add admin user as author
 
         $ujr3 = new UserJournalRole();
-        $ujr3->setUser($admin);
+        $ujr3->setUser($admins[0]);
         $ujr3->setRole($roleAuthor);
         $ujr3->setJournal($journal);
         $manager->persist($ujr3);
@@ -69,7 +69,7 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         // add admin user as editor
 
         $ujr4 = new UserJournalRole();
-        $ujr4->setUser($admin);
+        $ujr4->setUser($admins[0]);
         $ujr4->setRole($roleEditor);
         $ujr4->setJournal($journal);
         $manager->persist($ujr4);
@@ -77,7 +77,7 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
 
         // add admin user as editor to journal2
         $ujr4_2 = new UserJournalRole();
-        $ujr4_2->setUser($admin);
+        $ujr4_2->setUser($admins[0]);
         $ujr4_2->setRole($roleEditor);
         $ujr4_2->setJournal($journal2);
         $manager->persist($ujr4_2);
@@ -87,15 +87,13 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         // add admin user as reviewer
 
         $ujr5 = new UserJournalRole();
-        $ujr5->setUser($admin);
+        $ujr5->setUser($admins[0]);
         $ujr5->setRole($roleReviewer);
         $ujr5->setJournal($journal);
         $manager->persist($ujr5);
         $manager->flush();
 
-        $this->addReference('ref-ujr-author
-
-        ', $ujr1);
+        $this->addReference('ref-ujr-author', $ujr1);
     }
 
     public function getOrder() {
