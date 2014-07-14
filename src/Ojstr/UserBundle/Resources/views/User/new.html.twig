@@ -15,6 +15,9 @@
         {% stylesheets '@upload_css' output="c/upload.css" %}
 <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
+<link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
 {% endblock %}
 
 
@@ -71,4 +74,8 @@
         });
     });
 </script>
+<script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
+<script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="/assets/js/userbundle/user.js"></script>
 {% endblock %}
+ 
