@@ -28,6 +28,12 @@ Ojstr\UserBundle\Entity\Role:
             unique: false
             nullable: false
             precision: 0
+        isSystemRole:
+            type: boolean
+            nullable: TRUE
+            precision: 0
+            options: 
+                default: 0
     manyToMany:
         users:
             targetEntity: Ojstr\UserBundle\Entity\User

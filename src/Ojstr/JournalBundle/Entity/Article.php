@@ -155,7 +155,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Expose
+     * 
      */
     private $citations;
 
@@ -166,11 +166,31 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $journal;
 
     /**
+     *
+     * arbitrary attributes 
+     */
+    private $attributes;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $authors;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function addAttribute($name, $value) {
+        $this->attributes[$name] = new ArticleAttribute($name, $value, $this);
+    }
+
+    public function getAttribute($name) {
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : FALSE;
     }
 
     /**
@@ -215,6 +235,13 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getLanguages() {
         return $this->languages;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthors() {
+        return $this->authors;
     }
 
     /**
