@@ -43,6 +43,14 @@ Ojstr\JournalBundle\Entity\Subject:
            gedmo:
              blameable:
                on: update
+    manyToMany:
+        users:
+            targetEntity: Ojstr\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: subjects
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
     gedmo:
         soft_deleteable:
           field_name: deletedAt

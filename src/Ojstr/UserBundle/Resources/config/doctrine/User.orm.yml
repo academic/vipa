@@ -67,10 +67,24 @@ Ojstr\UserBundle\Entity\User:
            type: date
            nullable: true
     manyToMany:
-        subjects: 
+        subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject
             cascade: ["persist"]
-            mappedBy: user
+            mappedBy: null
+            inversedBy: users
+            joinTable:
+                name: User_Subjects
+                joinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: subject_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null 
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
             cascade: {  }

@@ -30,6 +30,15 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $description;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+    public function __construct() {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -76,6 +85,35 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getDescription() {
         return $this->description;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \Ojstr\UserBundle\Entity\User $users
+     * @return Role
+     */
+    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
+        $this->users[] = $users;
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Ojstr\UserBundle\Entity\User $users
+     */
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers() {
+        return $this->users;
     }
 
 }

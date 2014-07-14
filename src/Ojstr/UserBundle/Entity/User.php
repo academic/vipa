@@ -294,7 +294,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * 
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubject() {
+    public function getSubjects() {
         return $this->subjects;
     }
 
