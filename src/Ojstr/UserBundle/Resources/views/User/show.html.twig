@@ -40,10 +40,17 @@
             <th>Roles</th>
             <td>
                 {% for role in entity.roles %}
-                    {{role.name}}(<strong>{{role.role}}</strong>) <br/>
+                <span class="label label-info" title="{{role.role}}">{{role.name}}</span> <br/>
                 {% endfor %}
             </td>
-
+        </tr>
+        <tr>
+            <th>Subjects</th>
+            <td>
+                {% for subject in entity.subjects%}
+                <span class="label label-primary">{{subject.subject}}</span>
+                {% endfor %}
+            </td>
         </tr>
     </tbody>
 </table>
