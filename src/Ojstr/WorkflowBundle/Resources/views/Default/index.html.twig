@@ -1,4 +1,11 @@
 {% extends '::ojsbase.html.twig' %} 
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'title': 'Workflow'}
+] %}
+{{breadcrumb(list)}}
+{% endblock %}
 
 {% block body -%}
 <div class="panel">
@@ -8,6 +15,8 @@
     <div class="panel-body">
         <ul class="list-group">
             <li class="list-group-item"><a href="{{ path('manage_workflowsteps') }}">Manage Steps For Selected Journal</a></li>
+
+
         </ul>
     </div>
 </div>

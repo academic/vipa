@@ -16,8 +16,17 @@ class UserJournalRoleType extends AbstractType {
         $builder
                 ->add('userId')
                 ->add('journalId')
-                ->add('roleId')
-        ;
+                ->add('roleId', 'entity', array(
+                    'class' => 'Ojstr\UserBundle\Entity\Role',
+                    'property' => 'name',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                return $er->createQueryBuilder('ujr')
+                        ->where('ujr.isSystemRole = 0');
+            },
+                    'attr' => array("class" => "form-control"))
+        );
     }
 
     /**

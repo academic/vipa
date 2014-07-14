@@ -9,6 +9,19 @@ manage_workflowsteps:
     pattern:  /manage/steps
     defaults: { _controller: OjstrWorkflowBundle:WorkflowStep:index } 
     
+
+editor_articles_rejected:
+    pattern:  /editor/articles/rejected
+    defaults: { _controller: OjstrWorkflowBundle:Editor:rejectedArticles }
+    
+    
+editor_articles_unpublished:
+    pattern:  /editor/articles/unpublished
+    defaults: { _controller: OjstrWorkflowBundle:Editor:unpublishedArticles }
+    
+editor_articles_uncomplete:
+    pattern:  /editor/articles/uncomplete
+    defaults: { _controller: OjstrWorkflowBundle:Editor:uncompleteArticles }
     
 editor_articles_waiting:
     pattern:  /editor/articles/waiting
@@ -17,10 +30,10 @@ editor_articles_waiting:
 editor_articles_assigned:
     pattern:  /editor/articles/assigned
     defaults: { _controller: OjstrWorkflowBundle:Editor:assignedArticles } 
-    
-editor_workflow:
-    pattern:  /editor
-    defaults: { _controller: OjstrWorkflowBundle:Editor:index } 
+
+editor_articles_published:
+    pattern:  /editor/articles/published
+    defaults: { _controller: OjstrWorkflowBundle:Editor:publishedArticles } 
     
     
 articles_assigned_me:

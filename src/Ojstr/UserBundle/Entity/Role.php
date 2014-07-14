@@ -34,6 +34,12 @@ class Role implements RoleInterface {
     private $role;
 
     /**
+     * @var boolean
+     * @Expose
+     */
+    private $isSystemRole;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
@@ -70,6 +76,24 @@ class Role implements RoleInterface {
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * 
+     * @param boolean $isSystemRole
+     * @return \Ojstr\UserBundle\Entity\Role
+     */
+    public function setIsSystemRole($isSystemRole) {
+        $this->isSystemRole = $isSystemRole;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function getIsSystemRole() {
+        return $this->isSystemRole;
     }
 
     /**

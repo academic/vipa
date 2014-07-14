@@ -25,6 +25,10 @@ class UserType extends AbstractType {
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => false,
+                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                return $er->createQueryBuilder('ujr')
+                        ->where('ujr.isSystemRole = 1');
+            },
                 ))
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojstr\JournalBundle\Entity\Journal',

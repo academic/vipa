@@ -31,23 +31,28 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
 
         // get first journal record 
         $journal = $this->getReference('ref-journal');
+        $journal2 = $this->getReference('ref-journal2');
 
         $author = $this->getReference('ref-author');
         $editor = $this->getReference('ref-editor');
-        $admin = $manager->getRepository('OjstrUserBundle:User')->findByUsername('admin');
 
-        $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_AUTHOR');
-        $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findByRole('ROLE_EDITOR');
+        $roleSuperAdmin = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_SUPER_ADMIN'));
+        $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+        $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_EDITOR'));
+        $roleReviewer = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_REVIEWER'));
+
+        $admins = $roleSuperAdmin->getUsers();
+
 
         $ujr1 = new UserJournalRole();
         $ujr1->setUser($author);
-        $ujr1->setRole($roleAuthor[0]);
+        $ujr1->setRole($roleAuthor);
         $ujr1->setJournal($journal);
         $manager->persist($ujr1);
 
         $ujr2 = new UserJournalRole();
         $ujr2->setUser($editor);
-        $ujr2->setRole($roleEditor[0]);
+        $ujr2->setRole($roleEditor);
         $ujr2->setJournal($journal);
         $manager->persist($ujr2);
         $manager->flush();
@@ -55,8 +60,8 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         // add admin user as author
 
         $ujr3 = new UserJournalRole();
-        $ujr3->setUser($admin[0]);
-        $ujr3->setRole($roleAuthor[0]);
+        $ujr3->setUser($admins[0]);
+        $ujr3->setRole($roleAuthor);
         $ujr3->setJournal($journal);
         $manager->persist($ujr3);
         $manager->flush();
@@ -64,10 +69,28 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         // add admin user as editor
 
         $ujr4 = new UserJournalRole();
-        $ujr4->setUser($admin[0]);
-        $ujr4->setRole($roleEditor[0]);
+        $ujr4->setUser($admins[0]);
+        $ujr4->setRole($roleEditor);
         $ujr4->setJournal($journal);
         $manager->persist($ujr4);
+        $manager->flush();
+
+        // add admin user as editor to journal2
+        $ujr4_2 = new UserJournalRole();
+        $ujr4_2->setUser($admins[0]);
+        $ujr4_2->setRole($roleEditor);
+        $ujr4_2->setJournal($journal2);
+        $manager->persist($ujr4_2);
+        $manager->flush();
+
+
+        // add admin user as reviewer
+
+        $ujr5 = new UserJournalRole();
+        $ujr5->setUser($admins[0]);
+        $ujr5->setRole($roleReviewer);
+        $ujr5->setJournal($journal);
+        $manager->persist($ujr5);
         $manager->flush();
 
         $this->addReference('ref-ujr-author', $ujr1);

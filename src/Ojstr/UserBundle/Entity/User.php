@@ -64,6 +64,12 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     private $roles;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $subjects;
+
+    /**
      * @var integer
      *
      */
@@ -72,10 +78,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     public function __construct() {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
-    }
-
-    public function getRoles() {
-        return $this->roles->toArray();
+        $this->subjects = new ArrayCollection();
     }
 
     /**
@@ -259,6 +262,14 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     }
 
     /**
+     * 
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles() {
+        return $this->roles->toArray();
+    }
+
+    /**
      * Add roles
      *
      * @param \Ojstr\UserBundle\Entity\Role $roles
@@ -271,12 +282,40 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     }
 
     /**
-     * Remove roles
+     * Remove role
      *
-     * @param \Ojstr\UserBundle\Entity\Role $roles
+     * @param \Ojstr\UserBundle\Entity\Role $role
      */
-    public function removeRole(\Ojstr\UserBundle\Entity\Role $roles) {
-        $this->roles->removeElement($roles);
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $role) {
+        $this->roles->removeElement($role);
+    }
+
+    /**
+     * 
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects() {
+        return $this->subjects;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subjecgt
+     * @return User
+     */
+    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects[] = $subject;
+        return $this;
+    }
+
+    /**
+     * Remove subject
+     *
+     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     */
+    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+        $this->subjects->removeElement($subject);
     }
 
     /**

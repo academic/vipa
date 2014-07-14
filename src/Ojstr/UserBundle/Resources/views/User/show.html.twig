@@ -1,7 +1,19 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block body %}
 
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                { 'link': path('user'), 'title': 'User Manager'}, 
+                { 'title': 'Show User '}, 
+
+] %} 
+{{breadcrumb(list)}}
+{% endblock %}
+
+
+
+{% block body %}
 
 <h1>{% if entity.avatar %}
     <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
@@ -28,10 +40,17 @@
             <th>Roles</th>
             <td>
                 {% for role in entity.roles %}
-                    {{role.name}}(<strong>{{role.role}}</strong>) <br/>
+                <span class="label label-info" title="{{role.role}}">{{role.name}}</span> <br/>
                 {% endfor %}
             </td>
-
+        </tr>
+        <tr>
+            <th>Subjects</th>
+            <td>
+                {% for subject in entity.subjects%}
+                <span class="label label-primary">{{subject.subject}}</span>
+                {% endfor %}
+            </td>
         </tr>
     </tbody>
 </table>

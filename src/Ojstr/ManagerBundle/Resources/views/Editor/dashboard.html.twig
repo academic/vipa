@@ -2,15 +2,14 @@
 
 {% block body %} 
 <h1>Editor Dashboard</h1>
-<div class="col-md-12">
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="{{path('editor_workflow')}}">Workflow</a>
-        </li> 
+<div class="col-md-12">  
+    <ul class="list-group"> 
         <li class="list-group-item">
             <a href="{{path('manager_show_my_journals')}}">My Journals</a>
-        </li> 
-    </ul>
+        </li>
+       {% include 'OjstrWorkflowBundle:Editor:parts/editor_workflow_actions.html.twig' %}
+
+    </ul>  
 </div>   
 {% endblock %}
 
