@@ -6,6 +6,10 @@ span.mandotary:after{content:"*"}
 textarea.citationPasteTextArea{}
 #citationPasteField{display: none;}
 
+form div {margin-top:10px;}
+form label {margin-right:10px;}
+
+
 /*nav-wizard css start*/
 ul.nav-wizard{background-color:#f9f9f9;border:1px solid #d4d4d4;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;zoom:1;position:relative;overflow:hidden;}
 ul.nav-wizard:before{display:block;position:absolute;left:0;right:0;top:46px;height:47px;border-top:1px solid #d4d4d4;border-bottom:1px solid #d4d4d4;z-index:11;content:" ";}

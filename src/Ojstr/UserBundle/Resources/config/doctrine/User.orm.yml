@@ -19,36 +19,31 @@ Ojstr\UserBundle\Entity\User:
             scale: 0
             length: 255
             unique: false
-            nullable: false
-            precision: 0
+            nullable: false 
         password:
             type: string
             scale: 0
             length: 255
             unique: false
-            nullable: false
-            precision: 0
+            nullable: false 
         email:
             type: string
             scale: 0
             length: 255
             unique: false
-            nullable: false
-            precision: 0
+            nullable: false 
         isActive:
             type: boolean
             scale: 0
             length: null
             unique: false
-            nullable: false
-            precision: 0
+            nullable: false 
         status:
             type: integer
             scale: 0
             length: 5
             unique: false
             nullable: false
-            precision: 0
         lastlogin:
             type: datetime  
             unique: false
@@ -72,6 +67,24 @@ Ojstr\UserBundle\Entity\User:
            type: date
            nullable: true
     manyToMany:
+        subjects:             
+            targetEntity: Ojstr\JournalBundle\Entity\Subject
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: users
+            joinTable:
+                name: User_Subjects
+                joinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: subject_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null 
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
             cascade: {  }

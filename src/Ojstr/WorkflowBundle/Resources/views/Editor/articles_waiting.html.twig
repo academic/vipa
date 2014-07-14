@@ -1,11 +1,19 @@
 {% extends '::ojsbase.html.twig' %} 
 
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'title': 'Waiting Articles'}
+] %}
+{{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
 <div class="panel">
     <div class="panel-heading">
-        <h1>{% trans %}Waiting Articles{% endtrans %}</h1>
+        <h1>{% trans %}Waiting Articles{% endtrans %} <small>These articlese submitted but waiting to be assigned.</small></h1>
     </div>
-    
+
     <div class="panel-body">
         {% for entity in entities %}
         <div class="list-group-item">
@@ -13,10 +21,8 @@
             <span>
                 <!-- /* TODO : author list */  --> 
             </span>
-
         {% endfor %}
             <hr>
-
         </div>
     </div>
 {% endblock %}

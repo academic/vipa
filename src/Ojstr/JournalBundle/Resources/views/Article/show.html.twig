@@ -4,22 +4,51 @@
 <div class="row">
     <div class="large-12 columns">
         <div class="panel">
-            <h1>Article Detail</h1>
+            <h1>Article Detail <small title="ojs unique id">#{{ entity.id }}</small></h1>
 
             <table class="record_properties table" style="width:100%">
-                <tbody>
+                <tbody> 
                     <tr>
-                        <th width="300px">Id</th>
-                        <td>{{ entity.id }}</td>
+                        <th>Title</th>
+                        <td>{{ entity.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titletransliterated</th>
+                        <td>{{ entity.titleTransliterated }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subtitle</th>
+                        <td>{{ entity.subtitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Authors</th>
+                        <td>
+                            {% if entity.authors %}
+                            {% for authorsInfo in entity.authors %}
+                            <a class="btn btn-info btn-sm">
+                                <span>{{ authorsInfo.author.id }} [{{ authorsInfo.author.firstName}}]</span> 
+                            </a> 
+                            {% endfor %}
+                            {%endif%}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Journal</th>
+                        <td>
+                            <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
+                                {{ entity.journal.title }}</a>
+                        </td>
                     </tr>
                     <tr>
                         <th>Languages</th>
                         <td>
-                    {% for language in entity.languages %}
+                            {% if entity.languages %}
+                            {% for language in entity.languages %}
                             <a class="btn btn-info btn-sm">
                                 <span>{{ language.name }} [{{ language.code}}]</span> 
                             </a> 
                             {% endfor %}
+                            {%endif%}
                         </td>
                     </tr>
                     <tr>
@@ -49,13 +78,7 @@
                             </form>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Journal</th>
-                        <td>
-                            <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
-                                {{ entity.journal.title }}</a>
-                        </td>
-                    </tr>
+
                     <tr>
                         <th>Subjects</th>
                         <td>
@@ -75,18 +98,7 @@
                         <th>Journalid</th>
                         <td>{{ entity.journalId }}</td>
                     </tr>
-                    <tr>
-                        <th>Title</th>
-                        <td>{{ entity.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Titletransliterated</th>
-                        <td>{{ entity.titleTransliterated }}</td>
-                    </tr>
-                    <tr>
-                        <th>Subtitle</th>
-                        <td>{{ entity.subtitle }}</td>
-                    </tr>
+
                     <tr>
                         <th>Isanonymous</th>
                         <td>{{ entity.isAnonymous }}</td>

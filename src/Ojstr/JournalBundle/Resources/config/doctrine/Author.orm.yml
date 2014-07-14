@@ -8,6 +8,11 @@ Ojstr\JournalBundle\Entity\Author:
           joinColumn:
             name: user_id
             referencedColumnName: id
+    oneToMany:
+        articles:
+            targetEntity: ArticleAuthor
+            mappedBy: author  
+            cascade: ["ALL"]
         
     id:
         id:

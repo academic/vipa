@@ -11,6 +11,9 @@ class AdminController extends Controller {
      * @return type
      */
     public function indexAction() {
+        if($this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN')){
+            return $this->redirect($this->generateUrl('dashboard'));
+        }
         return $this->render('OjstrManagerBundle::index.html.twig');
     }
 
