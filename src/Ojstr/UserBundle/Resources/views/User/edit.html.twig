@@ -10,6 +10,16 @@
 {{breadcrumb(list)}}
 {% endblock %}
 
+{% block stylesheets %}
+        {{parent()}}
+        {% stylesheets '@upload_css' output="c/upload.css" %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
+<link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
+{% endblock %}
+
 
 {% block body -%}
 <div class="large-12 columns">
@@ -32,6 +42,29 @@
 </div>
 <style>
     select#ojstr_userbundle_user_journals,      select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
-
 </style> 
+{% endblock %}
+
+
+{% block javascripts %}
+        {{parent()}}
+        {% javascripts '@upload_js' output="c/upload.js" %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}  
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#fileupload').fileupload({});
+        $('#fileupload').bind('fileuploadsend', function(e, data) {
+            $('#avatar_upload_progress').show();
+            $('#avatar_upload_progress').html("Uploading...");
+        }).bind('fileuploaddone', function(e, data) {
+            $('#avatar_upload_progress').html("Done.");
+            $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
+        });
+    });
+</script>
+<script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
+<script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="/assets/js/userbundle/user.js"></script>
 {% endblock %}
