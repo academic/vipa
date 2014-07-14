@@ -41,7 +41,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author->setPassword($password);
         $author->setStatus(1);
         $author->setUsername("demo_author");
-        //$author->addSubject($subject);
+        $author->addSubject($subject);
         $manager->persist($author);
 
         $editor->setEmail("author@demo.com");
@@ -49,6 +49,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $passwordEditor = $encoder->encodePassword("demo", $author->getSalt());
         $editor->setPassword($passwordEditor);
         $editor->setStatus(1);
+        $editor->addSubject($subject);
         $editor->setUsername("demo_editor");
         $manager->persist($editor);
 
