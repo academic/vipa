@@ -1,18 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 {# 
-journal.show tpl for super admin users
+journal.show tpl for authors
 #}
-
-{% block breadcrumb %}
-{% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'}, 
-                { 'title': 'Journal Detail'}, 
-
-] %} 
-{{breadcrumb(list)}}
-{% endblock %}
-
 {% block body -%}
 <div class="row">
     <div class="large-12 columns">
@@ -111,12 +100,7 @@ journal.show tpl for super admin users
                             <div class="record_actions">
                                 <a href="{{ path('journal') }}" class="btn btn-primary">
                                         {% trans %}Back to list{% endtrans %}
-                                </a>
-                                <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
-                                    Edit
-                                </a>
-                                <hr>
-                                    {{ form(delete_form) }}
+                                </a> 
                             </div>
                         </div>
                     </li>

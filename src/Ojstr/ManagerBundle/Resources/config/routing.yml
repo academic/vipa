@@ -10,6 +10,16 @@ dashboard_editor:
     pattern:  /editor/dashboard
     defaults: { _controller: OjstrManagerBundle:Editor:dashboard }
     
+    
+editor_show_my_journals:
+    pattern:  /editor/myjournals
+    defaults: { _controller: OjstrManagerBundle:Editor:myJournals}
+
+editor_journal_show:
+    pattern: /editor/journal/{id}
+    defaults: { _controller: OjstrManagerBundle:Editor:showJournal}
+
+    
 ojstr_manager:
     pattern:  /
     defaults: { _controller: OjstrManagerBundle:Admin:index }

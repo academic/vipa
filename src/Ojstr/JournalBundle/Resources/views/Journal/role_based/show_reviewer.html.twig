@@ -1,18 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 {# 
-journal.show tpl for super admin users
+journal.show tpl for reviewers
 #}
-
-{% block breadcrumb %}
-{% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'}, 
-                { 'title': 'Journal Detail'}, 
-
-] %} 
-{{breadcrumb(list)}}
-{% endblock %}
-
 {% block body -%}
 <div class="row">
     <div class="large-12 columns">
