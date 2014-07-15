@@ -93,7 +93,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @var string
      * @Expose
      */
-    private $coverImage;
+    private $image;
 
     /**
      * @var string
@@ -418,23 +418,23 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * Set coverImage
+     * Set image
      *
-     * @param string $coverImage
+     * @param string $image
      * @return Journal
      */
-    public function setCoverImage($coverImage) {
-        $this->coverImage = $coverImage;
+    public function setCoverImage($image) {
+        $this->image = $image;
         return $this;
     }
 
     /**
-     * Get coverImage
+     * Get image
      *
      * @return string 
      */
     public function getCoverImage() {
-        return $this->coverImage;
+        return $this->image;
     }
 
     /**
