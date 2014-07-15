@@ -1,4 +1,3 @@
-{% set ojsuser = ojsuser() %}
 {% set userjournals = userjournals() %}
 {% set userjournalroles = userjournalroles() %}
 <!DOCTYPE html>
@@ -29,7 +28,7 @@
             {%include '::ojsleft.html.twig'%}
         <!-- Right side column. Contains the navbar and content of the page -->
         <aside class="col-md-10">
-            {% if ojsuser %}
+            {% if app.user %}
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <strong>
