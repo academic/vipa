@@ -95,10 +95,10 @@ Ojstr\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: 0
-        coverImage:
+        image:
             type: string
             length: 255
-            column: cover_image
+            column: image
             nullable: true
         scope:
             type: text
