@@ -34,6 +34,22 @@ Ojstr\JournalBundle\Entity\Issue:
             gedmo:
                 - translatable
                 - versioned
+        cover:
+            type: string
+            column: cover
+            length: 255
+            nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
+        special:
+            type: boolean
+            column: special
+            nullable: TRUE
+            oprions:
+                default: TRUE
+            gedmo:
+                - versioned
         description:
             type: string
             length: 255
