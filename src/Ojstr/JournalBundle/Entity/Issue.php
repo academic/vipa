@@ -31,6 +31,17 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var string
      */
     private $title;
+    
+     /**
+     * @var string
+      * cover image path
+     */
+    private $cover;
+    
+     /**
+     * @var boolean
+     */
+    private $special;
 
     /**
      * @var string
@@ -161,7 +172,53 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function getTitle() {
         return $this->title;
     }
+    
+    
+    /**
+     * Set cover image path
+     *
+     * @param string $cover
+     * @return Issue
+     */
+    public function setCover($cover) {
+        $this->cover = $cover;
+        return $this;
+    }
 
+    /**
+     * Get cover image path
+     *
+     * @return string 
+     */
+    public function getCover() {
+        return $this->cover;
+    } 
+    
+    
+    /**
+     * Set is special
+     *
+     * @param boolean $special
+     * @return Issue
+     */
+    public function setSpecial($special) {
+        $this->special = $special;
+        return $this;
+    }
+
+    /**
+     * is special
+     *
+     * @return boolean
+     */
+    public function getSpecial() {
+        return $this->special;
+    }
+
+    public function isSpecial() {
+        return (bool)$this->special;
+    }
+    
     /**
      * Set description
      *
