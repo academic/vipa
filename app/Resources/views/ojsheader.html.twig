@@ -19,7 +19,7 @@
 
                 <div class="navbar-right">
                     <ul class="nav navbar-nav"> 
-                        {% if ojsuser %}
+                        {% if app.user %}
                             <li class="dropdown messages-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-envelope"></i>
@@ -68,18 +68,18 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="glyphicon glyphicon-user"></i>
-                                    <span>{{ojsuser.getUsername()}} <i class="caret"></i></span>
+                                    <span>{{app.user.getUsername()}} <i class="caret"></i></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header bg-light-blue">
-                                        {% if(ojsuser.getAvatar()) %}
-                                            <img src="/uploads/avatars/thumbnail/{{ojsuser.getAvatar()}}" class="img-circle" alt="User Image" />
+                                        {% if(app.user.getAvatar()) %}
+                                            <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" class="img-circle" alt="User Image" />
                                         {%else%}
                                             <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
                                         {%endif%}
                                         <p> 
-                                            <small>Last login : {{ojsuser.getLastogin()|date('Y-m-d H:i:s')}}</small>
+                                            <small>Last login : {{app.user.getLastogin()|date('Y-m-d H:i:s')}}</small>
                                         </p>
                                     </li> 
                                     <!-- Menu Footer-->

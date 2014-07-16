@@ -1,84 +1,102 @@
 <?php
 
 namespace Ojstr\JournalBundle\Entity;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Author
+ * @ExclusionPolicy("all")
  */
 class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
+     * @Expose()
      */
     private $id;
 
     /**
      * @var string
+     * @Expose()
      */
     private $firstName;
 
     /**
      * @var string
+     * @Expose()
      */
     private $middleName;
 
     /**
      * @var string
+     * @Expose()
      */
     private $lastName;
 
     /**
      * @var string
+     * @Expose()
      */
     private $email;
 
     /**
      * @var string
+     * @Expose()
      */
     private $firstNameTransliterated;
 
     /**
      * @var string
+     * @Expose()
      */
     private $middleNameTransliterated;
 
     /**
      * @var string
+     * @Expose()
      */
     private $lastNameTransliterated;
 
     /**
      * @var string
+     * @Expose()
      */
     private $initials;
 
     /**
      * @var string
+     * @Expose()
      */
     private $address;
 
     /**
      * @var integer
+     * @Expose()
      */
     private $institutionId;
 
     /**
      * @var integer
+     * @Expose()
      */
     private $country;
 
     /**
      * @var string
+     * @Expose()
      */
     private $summary;
 
     /**
      * @var integer
+     * @Expose()
      */
     private $userId;
 
     /**
      * @var \Ojstr\UserBundle/Entity/User
+     * @Expose()
      */
     private $user;
 

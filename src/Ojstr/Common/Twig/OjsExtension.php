@@ -20,7 +20,7 @@ class OjsExtension extends \Twig_Extension {
 
     public function getFunctions() {
         return array(
-            'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
+            //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
             'hasRole' => new \Twig_Function_Method($this, 'hasRole', array('is_safe' => array('html'))),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
             'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager', array('is_safe' => array('html'))),
