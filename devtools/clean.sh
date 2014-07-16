@@ -14,6 +14,10 @@ then
 	then
 		#danger zone
 		mysql -uroot -proot ojssf -e "drop database ojssf"
+		if [[$1 == "--composer"]] 
+		then
+			sudo composer update
+		fi
 		sudo php app/console ojs:install
 		sudo php app/console doctrine:fixtures:load --append -v
 		sudo php app/console doctrine:mongodb:fixtures:load --append -v
