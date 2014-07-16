@@ -11,13 +11,7 @@ class AdminController extends Controller {
      * @return type
      */
     public function indexAction() {
-        /** @var $siteManager \KnpU\QADayBundle\Site\SiteManager */
-        $journalDomain = $this->container->get('journal_domain');
-        echo "<pre>--";
-        $currentJournal = $journalDomain->getCurrentJournal();
-        print_r( $currentJournal->getTitle());
-        exit();
-
+        $journalDomain = $this->container->get('journal_domain'); 
         return $this->render('OjstrManagerBundle::index.html.twig');
     }
 
