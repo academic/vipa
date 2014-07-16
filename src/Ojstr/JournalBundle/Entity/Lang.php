@@ -3,29 +3,36 @@
 namespace Ojstr\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Lang
+ * @ExclusionPolicy("all")
  */
 class Lang {
 
     /**
      * @var integer
+     * @Expose()
      */
     private $id;
 
     /**
      * @var string
+     * @Expose()
      */
     private $code;
 
     /**
      * @var string
+     * @Expose()
      */
     private $name;
 
     /**
      * @var boolean
+     * @Expose()
      */
     private $rtl;
 

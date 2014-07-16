@@ -1,5 +1,9 @@
 dashboard:
-    pattern:  /manager/dashboard
+    pattern:  /dashboard
+    defaults: { _controller: OjstrManagerBundle:Admin:dashboardCheck }
+
+dashboard_admin:
+    pattern:  /admin/dashboard
     defaults: { _controller: OjstrManagerBundle:Admin:dashboard }
     
 dashboard_editor:
