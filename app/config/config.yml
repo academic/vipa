@@ -221,6 +221,10 @@ knp_paginator:
 
 
 services:
+    kernel.listener.domain_listener:
+       class: Ojstr\Common\Listener\DomainListener
+       tags:
+           - { name: kernel.event_listener, event: kernel.request, method: onDomainParse }
     listener.requestresponse:
         class: Ojstr\Common\Listener\UserListener
         arguments: [ @service_container ]
