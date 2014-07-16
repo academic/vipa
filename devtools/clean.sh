@@ -14,10 +14,20 @@ then
 	then
 		#danger zone
 		mysql -uroot -proot ojssf -e "drop database ojssf"
-		if [[$1 == "--composer"]] 
+		if [[ $# -gt 0 ]]
 		then
-			sudo composer update
+			if [[ $1 ==  "--composer" ]]
+			then
+				echo "running composer update"
+				sudo composer update
+			fi
+			if [[ $1 ==  "--removecache" ]]
+                        then
+                                echo "deleting app/cache folder"
+                                sudo rm -rf app/cache
+                        fi
 		fi
+		
 		sudo php app/console ojs:install
 		sudo php app/console doctrine:fixtures:load --append -v
 		sudo php app/console doctrine:mongodb:fixtures:load --append -v
