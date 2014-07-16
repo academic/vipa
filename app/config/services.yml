@@ -1,0 +1,34 @@
+services:
+    journal_domain:
+        class: Ojstr\Common\Model\JournalDomain
+    kernel.listener.domain_listener:
+       class: Ojstr\Common\Listener\DomainListener
+       arguments: 
+            - "@journal_domain"
+            - @doctrine.orm.entity_manager
+            - "%base_host%"
+       tags:
+            -
+                name: kernel.event_listener
+                method: onKernelRequest
+                event: kernel.request
+    listener.requestresponse:
+        class: Ojstr\Common\Listener\UserListener
+        arguments: [ @service_container ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    ojstr_locale.locale_listener:
+        class: Ojstr\Common\Listener\LocaleListener
+        arguments: ["%kernel.default_locale%"]
+        tags:
+            - { name: kernel.event_subscriber }
+    ojstr.twig.ojs_extension:
+        class: Ojstr\Common\Twig\OjsExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+    ojstr.loginlistener:
+        class: Ojstr\UserBundle\Listeners\LoginListener
+        arguments: [@doctrine.orm.entity_manager,@service_container]
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login } 

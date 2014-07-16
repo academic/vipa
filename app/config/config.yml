@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: ojstr_params.yml }
     - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
-    #- { resource: "../../src/Ojstr/JournalBundle/Resources/config/workflow.yml" }
+    - { resource: services.yml}
 
 framework:
     #esi:             ~
@@ -218,30 +218,3 @@ knp_paginator:
     template:
         pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
-
-
-services:
-    kernel.listener.domain_listener:
-       class: Ojstr\Common\Listener\DomainListener
-       tags:
-           - { name: kernel.event_listener, event: kernel.request, method: onDomainParse }
-    listener.requestresponse:
-        class: Ojstr\Common\Listener\UserListener
-        arguments: [ @service_container ]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-    ojstr_locale.locale_listener:
-        class: Ojstr\Common\Listener\LocaleListener
-        arguments: ["%kernel.default_locale%"]
-        tags:
-            - { name: kernel.event_subscriber }
-    ojstr.twig.ojs_extension:
-        class: Ojstr\Common\Twig\OjsExtension
-        arguments: [@service_container]
-        tags:
-            - { name: twig.extension }
-    ojstr.loginlistener:
-        class: Ojstr\UserBundle\Listeners\LoginListener
-        arguments: [@doctrine.orm.entity_manager,@service_container]
-        tags:
-            - { name: kernel.event_listener, event: security.interactive_login } 

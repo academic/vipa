@@ -4,7 +4,6 @@ change_selected_journal:
     pattern:  /manager/journal/selected/{journal_id}
     defaults: { _controller: "OjstrJournalBundle:Journal:changeSelected" }
     
-    
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
     prefix:   /admin/journal
