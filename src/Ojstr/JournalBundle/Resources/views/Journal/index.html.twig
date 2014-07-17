@@ -1,5 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                { 'title': 'Journal Manager'} 
+
+] %} 
+{{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
@@ -18,7 +27,7 @@
                     <th>Issn</th>
                     <th>Firstpublishdate</th>
                     <th>Url</th>
-                    <th>Publishstatus</th>
+                    <th>published</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -31,7 +40,7 @@
                     <td>{{ entity.issn }}</td>
                     <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ entity.url }}</td>
-                    <td>{{ entity.publishStatus }}</td>
+                    <td>{{ entity.published }}</td>
                     <td>{{ entity.status }}</td>
                     <td>
                         <a href="{{ path('journal_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}Show{% endtrans %}</a> <br>

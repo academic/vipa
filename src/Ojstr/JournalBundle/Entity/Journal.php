@@ -41,6 +41,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @Expose
      */
     private $subtitle;
+    
+     /**
+     * @var string
+     * @Expose
+     */
+    private $subdomain;
 
     /**
      * @var string
@@ -81,7 +87,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @var integer
      * @Expose
      */
-    private $publishStatus;
+    private $published;
 
     /**
      * @var integer
@@ -93,7 +99,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @var string
      * @Expose
      */
-    private $coverImage;
+    private $image;
 
     /**
      * @var string
@@ -195,6 +201,27 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      */
     public function getTitle() {
         return $this->title;
+    }
+    
+    
+     /**
+     * Set subdomain
+     *
+     * @param string $subdomain
+     * @return Journal
+     */
+    public function setSubdomain($subdomain) {
+        $this->subdomain = $subdomain;
+        return $this;
+    }
+
+    /**
+     * Get subdomain
+     *
+     * @return string 
+     */
+    public function getSubdomain() {
+        return $this->subdomain;
     }
 
     /**
@@ -378,23 +405,23 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * Set publishStatus
+     * Set published
      *
-     * @param integer $publishStatus
+     * @param integer $published
      * @return Journal
      */
-    public function setPublishStatus($publishStatus) {
-        $this->publishStatus = $publishStatus;
+    public function setPublished($published) {
+        $this->published = $published;
         return $this;
     }
 
     /**
-     * Get publishStatus
+     * Get published
      *
      * @return integer 
      */
-    public function getPublishStatus() {
-        return $this->publishStatus;
+    public function getPublished() {
+        return $this->published;
     }
 
     /**
@@ -418,23 +445,23 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * Set coverImage
+     * Set image
      *
-     * @param string $coverImage
+     * @param string $image
      * @return Journal
      */
-    public function setCoverImage($coverImage) {
-        $this->coverImage = $coverImage;
+    public function setImage($image) {
+        $this->image = $image;
         return $this;
     }
 
     /**
-     * Get coverImage
+     * Get image
      *
      * @return string 
      */
-    public function getCoverImage() {
-        return $this->coverImage;
+    public function getImage() {
+        return $this->image;
     }
 
     /**

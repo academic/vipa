@@ -16,29 +16,30 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setIssn("1300-7041");
         $journal->setMission("Mission text");
         $journal->setPeriod("2");
-        $journal->setPublishStatus(0);
+        $journal->setPublished(1);
         $journal->setScope("Scope text");
         $journal->setSubtitle("Subtitle text");
         $journal->setTitle("Example Journal");
         $journal->setTitleAbbr("EXJ");
         $journal->setTitleTransliterated(NULL);
         $journal->setUrl("https://example.gov");
+        $journal->setSubdomain("demo");
         $manager->persist($journal);
 
         $journal2 = new Journal();
         $journal2->setIssn("1300-7040");
         $journal2->setMission("Mission text 2");
         $journal2->setPeriod("2");
-        $journal2->setPublishStatus(0);
+        $journal2->setPublished(0);
         $journal2->setScope("Scope text 2");
         $journal2->setSubtitle("Subtitle text 2");
         $journal2->setTitle("Antother Example Journal of Example University");
         $journal2->setTitleAbbr("EXJ2");
         $journal2->setTitleTransliterated(NULL);
         $journal2->setUrl("https://example2.edu");
+        $journal2->setSubdomain("demo2");
         $manager->persist($journal2);
 
-        $manager->flush();
         /* @var $lang  \Ojstr\JournalBundle\Entity\Lang */
         foreach ($languages as $lang) {
             $journal->addLanguage($lang);

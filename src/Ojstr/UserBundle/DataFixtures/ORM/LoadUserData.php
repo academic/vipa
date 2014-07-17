@@ -32,6 +32,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($author);
         $role = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
+        $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+        $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_EDITOR'));
 
         $subject = $this->getReference('ref-subject');
 
@@ -51,13 +53,13 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor->setStatus(1);
         $editor->addSubject($subject);
         $editor->setUsername("demo_editor");
-        $manager->persist($editor);
-
-        $manager->flush();
+        $manager->persist($editor); 
 
         $author->addRole($role);
-        $manager->persist($author);
+        $author->addRole($roleAuthor);
         $editor->addRole($role);
+        $editor->addRole($roleEditor);
+        $manager->persist($author);
         $manager->persist($editor);
         $manager->flush();
 

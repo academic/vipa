@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Ojstr\Common\Controller\OjsController as Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\JournalBundle\Entity\Issue;
 use Ojstr\JournalBundle\Form\IssueType;
 use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
@@ -86,7 +86,8 @@ class IssueController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Issue:show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
@@ -108,9 +109,7 @@ class IssueController extends Controller {
 
     /**
      * Creates a form to edit a Issue entity.
-     *
      * @param Issue $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Issue $entity) {
@@ -137,6 +136,7 @@ class IssueController extends Controller {
             $em->flush();
             return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -170,7 +170,7 @@ class IssueController extends Controller {
      */
     private function createDeleteForm($id) {
         $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id,'issue_delete');
+        return $formHelper->createDeleteForm($this, $id, 'issue_delete');
     }
 
 }
