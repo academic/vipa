@@ -6,15 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AdminController extends Controller {
 
-    /**
-     * Global index page
-     * @return type
-     */
-    public function indexAction() {
-        $journalDomain = $this->container->get('journal_domain'); 
-        return $this->render('OjstrManagerBundle::index.html.twig');
-    }
-
     public function dashboardCheckAction() {
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {

@@ -20,7 +20,7 @@ editor_journal_show:
     defaults: { _controller: OjstrManagerBundle:Editor:showJournal}
 
     
-ojstr_manager:
+ojstr_public_index:
     pattern:  /
-    defaults: { _controller: OjstrManagerBundle:Admin:index }
+    defaults: { _controller: OjstrManagerBundle:Site:index }
 
