@@ -47,6 +47,14 @@ Ojstr\JournalBundle\Entity\Journal:
             length: 255
             column: title_transliterated
             nullable: true
+        subdomain:
+            type: string
+            length: 255 
+            column: subdomain
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
         subtitle:
             type: string
             length: 255
@@ -80,9 +88,9 @@ Ojstr\JournalBundle\Entity\Journal:
         country:
             type: integer
             nullable: true
-        publishStatus:
+        published:
             type: integer
-            column: publish_status
+            column: published
             gedmo:
                 - versioned
             nullable: true
@@ -95,10 +103,10 @@ Ojstr\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: 0
-        coverImage:
+        image:
             type: string
             length: 255
-            column: cover_image
+            column: image
             nullable: true
         scope:
             type: text

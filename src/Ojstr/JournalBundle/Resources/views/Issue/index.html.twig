@@ -1,53 +1,49 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Issue list</h1>
+<h1>Issue list</h1>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Journalid</th>
-                <th>Volume</th>
-                <th>Number</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Year</th>
-                <th>Datepublished</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_listb table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Journalid</th>
+            <th>Volume</th>
+            <th>Number</th>
+            <th>Title</th>
+            <th>Cover</th>
+            <th>Special</th>
+            <th>Description</th>
+            <th>Year</th>
+            <th>Datepublished</th> 
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('issue_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.journalId }}</td>
-                <td>{{ entity.volume }}</td>
-                <td>{{ entity.number }}</td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.description }}</td>
-                <td>{{ entity.year }}</td>
-                <td>{% if entity.datePublished %}{{ entity.datePublished|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('issue_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('issue_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
-                    </li>
+        <tr>
+            <td><a href="{{ path('issue_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.journalId }}</td>
+            <td>{{ entity.volume }}</td>
+            <td>{{ entity.number }}</td>
+            <td>{{ entity.title }}</td>
+            <td>{{ entity.cover }}</td>
+            <td>{{ entity.special }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.year }}</td>
+            <td>{% if entity.datePublished %}{{ entity.datePublished|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                <a href="{{ path('issue_show', { 'id': entity.id }) }}">show</a>
+                <a href="{{ path('issue_edit', { 'id': entity.id }) }}">edit</a>
                 </ul>
-                </td>
-            </tr>
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-        <ul>
-        <li>
-            <a href="{{ path('issue_new') }}" class="btn btn-success">
-                {% trans %}Create New{% endtrans %}
-            </a>
-        </li>
-    </ul>
+<a class="btn btn-sm btn-info" href="{{ path('issue_new') }}">
+    Create a new entry
+</a>
+</ul>
     {% endblock %}
