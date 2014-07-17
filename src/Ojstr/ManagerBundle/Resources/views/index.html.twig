@@ -1,5 +1,0 @@
-{% if is_granted('IS_AUTHENTICATED_FULLY') %} 
-    {% include 'OjstrManagerBundle:Landing:userwelcome.html.twig' %}
-{% elseif is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-    {% include 'OjstrManagerBundle:Landing:anonymous.html.twig' %}
-{% endif %}

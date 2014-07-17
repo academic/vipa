@@ -450,7 +450,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @param string $image
      * @return Journal
      */
-    public function setCoverImage($image) {
+    public function setImage($image) {
         $this->image = $image;
         return $this;
     }
@@ -460,7 +460,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      *
      * @return string 
      */
-    public function getCoverImage() {
+    public function getImage() {
         return $this->image;
     }
 
