@@ -3,8 +3,8 @@ imports:
     - { resource: security.yml }
     - { resource: ojstr_params.yml }
     - { resource: "../../src/Ojstr/JournalBundle/Resources/config/bibliography_params.yml" }
-    - { resource: services.yml}
-
+    - { resource: services.yml }
+    - { resource: assetic.yml }
 framework:
     #esi:             ~
     translator:      { fallback: en }
