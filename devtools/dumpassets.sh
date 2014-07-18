@@ -1,2 +1,2 @@
-sudo php app/console assets:install web --symlink
-sudo php app/console assetic:dump 
+php app/console assets:install web --symlink
+php app/console assetic:dump 
