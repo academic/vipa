@@ -26,5 +26,4 @@ issue_update:
 
 issue_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Issue:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:Issue:delete" } 

@@ -1,15 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Institution creation</h1>
+<h1>Institution creation</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('institution') }}">
-            {% trans %}Back to list{% endtrans %}
-        </a>
-    </li>
+
+    {% set back_path = 'institution_show' %} 
+   {% include '::actionbtns.html.twig' %} 
+
 </ul>
 {% endblock %}

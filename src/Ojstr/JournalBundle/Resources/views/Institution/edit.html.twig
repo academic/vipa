@@ -5,12 +5,9 @@
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('institution') }}">
-            {% trans %}Back to list{% endtrans %}
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
+    {% set back_path = 'institution' %} 
+    {% set delete_path = 'institution_delete' %}
+    {% include '::actionbtns.html.twig' %} 
+    
 </ul>
 {% endblock %}
