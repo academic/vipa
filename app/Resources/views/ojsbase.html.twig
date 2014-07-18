@@ -7,7 +7,7 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets
-           '@main_css'  filter='cssrewrite' output="c/combined.css" 
+           '@main_css' filter='uglifycss' filter='cssrewrite' output="c/main.css" 
             %}   
         <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %} 
@@ -50,7 +50,7 @@
             </section>
         </aside> 
     {% block javascripts %}
-        {% javascripts '@main_js' output="c/compiled.js" %}
+        {% javascripts '@main_js' filter='uglifyjs' output="c/main.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
 
