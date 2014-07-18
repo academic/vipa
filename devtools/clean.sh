@@ -19,17 +19,17 @@ then
 			if [[ $1 ==  "--composer" ]]
 			then
 				echo "running composer update"
-				sudo composer update
+				composer update
 			fi
 			if [[ $1 ==  "--removecache" ]]
                         then
                                 echo "deleting app/cache folder"
-                                sudo rm -rf app/cache
+                                rm -rf app/cache
                         fi
 		fi
 		
-		sudo php app/console ojs:install
-		sudo php app/console doctrine:fixtures:load --append -v
-		sudo php app/console doctrine:mongodb:fixtures:load --append -v
+		php app/console ojs:install
+		php app/console doctrine:fixtures:load --append -v
+		php app/console doctrine:mongodb:fixtures:load --append -v
 	fi
 fi
