@@ -3,7 +3,7 @@ assetic:
     #use_controller: true
     filters:
         uglifyjs:
-            bin: %kernel.root_dir%/Resources/node_modules/uglifyjs/bin/uglifyjs
+            bin: %kernel.root_dir%/Resources/node_modules/uglify-js/bin/uglifyjs
         uglifycss:
             bin: %kernel.root_dir%/Resources/node_modules/uglifycss/uglifycss
     assets:
