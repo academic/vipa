@@ -34,17 +34,8 @@
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('citation') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('citation_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            {% set edit_path = 'citation_edit' %}
+            {% set back_path = 'citation' %}
+            {% set delete_path = 'citation_delete' %}
+            {% include '::actionbtns.html.twig' %}
 {% endblock %}

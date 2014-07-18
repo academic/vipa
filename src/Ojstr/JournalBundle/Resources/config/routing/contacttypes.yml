@@ -26,5 +26,4 @@ contacttypes_update:
 
 contacttypes_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:ContactTypes:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:ContactTypes:delete" } 

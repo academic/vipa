@@ -169,16 +169,4 @@ class ArticleController extends Controller {
         return $this->redirect($this->generateUrl('article'));
     }
 
-    /**
-     * Creates a form to delete a Article entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id) {
-        $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id, 'article_delete');
-    }
-
 }

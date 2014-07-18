@@ -1,55 +1,51 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Institution list</h1>
+<h1>Institution list</h1>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Country</th>
-                <th>Addresslat</th>
-                <th>Addresslong</th>
-                <th>Phone</th>
-                <th>Fax</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_list  table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Addresslat</th>
+            <th>Addresslong</th>
+            <th>Phone</th>
+            <th>Fax</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('institution_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.address }}</td>
-                <td>{{ entity.country }}</td>
-                <td>{{ entity.addressLat }}</td>
-                <td>{{ entity.addressLong }}</td>
-                <td>{{ entity.phone }}</td>
-                <td>{{ entity.fax }}</td>
-                <td>{{ entity.email }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('institution_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('institution_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+        <tr>
+            <td><a href="{{ path('institution_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.address }}</td>
+            <td>{{ entity.country }}</td>
+            <td>{{ entity.addressLat }}</td>
+            <td>{{ entity.addressLong }}</td>
+            <td>{{ entity.phone }}</td>
+            <td>{{ entity.fax }}</td>
+            <td>{{ entity.email }}</td>
+            <td>
+                    {% set edit_path = 'institution_edit' %} 
+                    {% set show_path = 'institution_show' %} 
+                    {% set delete_path = 'institution_delete' %}
+                    {% include '::actionbtns.html.twig' %} 
+            </td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
-        <ul>
-        <li>
-            <a href="{{ path('institution_new') }}"  class="btn btn-success">
+<ul>
+    <li>
+        <a href="{{ path('institution_new') }}"  class="btn btn-success">
                 {% trans %}Create New{% endtrans %}
-            </a>
-        </li>
-    </ul>
+        </a>
+    </li>
+</ul>
     {% endblock %}

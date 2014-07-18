@@ -1,64 +1,55 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Contact</h1>
+<h1>Contact</h1>
 
-    <table class="record_properties  table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ entity.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ entity.address }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ entity.city }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ entity.phone }}</td>
-            </tr>
-            <tr>
-                <th>Fax</th>
-                <td>{{ entity.fax }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="record_properties  table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Firstname</th>
+            <td>{{ entity.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Lastname</th>
+            <td>{{ entity.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ entity.city }}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{ entity.phone }}</td>
+        </tr>
+        <tr>
+            <th>Fax</th>
+            <td>{{ entity.fax }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+    </tbody>
+</table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('contact') }}">
-            {% trans %}Back to list{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('contact_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+            {% set back_path = 'contact' %} 
+            {% set edit_path = 'contact_edit' %}
+            {% set delete_path = 'contact_delete' %}
+            {% include '::actionbtns.html.twig' %} 
 {% endblock %}

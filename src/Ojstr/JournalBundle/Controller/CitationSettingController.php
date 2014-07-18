@@ -20,9 +20,7 @@ class CitationSettingController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('OjstrJournalBundle:CitationSetting')->findAll();
-
         return $this->render('OjstrJournalBundle:CitationSetting:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -95,12 +93,8 @@ class CitationSettingController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CitationSetting entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjstrJournalBundle:CitationSetting:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity, ));
     }
 
     /**
@@ -116,13 +110,10 @@ class CitationSettingController extends Controller {
             throw $this->createNotFoundException('Unable to find CitationSetting entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
+        $editForm = $this->createEditForm($entity); 
         return $this->render('OjstrJournalBundle:CitationSetting:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView(), 
         ));
     }
 
@@ -156,8 +147,6 @@ class CitationSettingController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CitationSetting entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -169,8 +158,7 @@ class CitationSettingController extends Controller {
 
         return $this->render('OjstrJournalBundle:CitationSetting:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView(), 
         ));
     }
 
@@ -193,20 +181,8 @@ class CitationSettingController extends Controller {
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('citationsetting'));
     }
-
-    /**
-     * Creates a form to delete a CitationSetting entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id) {
-        $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id,'citationsetting_delete');
-    }
+ 
 
 }
