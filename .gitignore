@@ -24,8 +24,6 @@ composer.lock
 /composer.phar
 /nbproject/private/
 
-node_modules/
-
 /web/c/
 /web/assetic/
 /web/vendor/
