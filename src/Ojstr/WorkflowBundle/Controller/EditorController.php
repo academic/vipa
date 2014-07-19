@@ -8,7 +8,6 @@ use \Symfony\Component\HttpFoundation\Request;
  * Editor Workflow Controller
  */
 class EditorController extends \Ojstr\Common\Controller\OjsController {
- 
 
     /**
      * list published articles - Published
