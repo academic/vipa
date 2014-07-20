@@ -1,0 +1,6 @@
+fos_elastica:
+    clients:
+        #you can change to your setting
+        default: { host: localhost, port: 9200 }
+    indexes:
+        search: ~

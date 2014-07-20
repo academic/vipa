@@ -1,0 +1,67 @@
+# Doctrine Configuration
+
+doctrine_mongodb:
+    connections:
+        default:
+            #you can change to your setting
+            server: mongodb://127.0.0.1:27017
+            options: {}
+    default_database: ojs
+    document_managers:
+        default:
+            auto_mapping: true
+
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+        resolve_target_entities:
+            Symfony\Component\Security\Core\User\UserInterface: Ojstr\UserBundle\Entity\User
+        mappings: 
+            OjstrMessageMessageBundle:
+                mapping:              true
+                type:                 yml
+                dir:                  "Resources/config/doctrine"
+                alias:                ~
+                prefix:               OjstrMessage\MessageBundle\Entity
+                is_bundle:            true
+            gedmo_translatable:
+                type: annotation
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias: GedmoTranslatable # this one is optional and will default to the name set for the mapping
+                is_bundle: false
+            gedmo_translator:
+                type: annotation
+                prefix: Gedmo\Translator\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                alias: GedmoTranslator # this one is optional and will default to the name set for the mapping
+                is_bundle: false
+            gedmo_loggable:
+                type: annotation
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                alias: GedmoLoggable # this one is optional and will default to the name set for the mapping
+                is_bundle: false
+            gedmo_tree:
+                type: annotation
+                prefix: Gedmo\Tree\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                alias: GedmoTree # this one is optional and will default to the name set for the mapping
+                is_bundle: false
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true 

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9b25b80afd76b75bb7413f5c0037b0d3",
+    "hash": "fa889f8c2cb9e533633189760985460c",
     "packages": [
         {
             "name": "avalanche123/imagine-bundle",
@@ -1054,6 +1054,97 @@
                 "orm"
             ],
             "time": "2014-07-11 03:05:53"
+        },
+        {
+            "name": "friendsofsymfony/elastica-bundle",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSElasticaBundle.git",
+                "reference": "d88d96bf55a1ba6b603d429d9bf6a217d945b1c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/d88d96bf55a1ba6b603d429d9bf6a217d945b1c5",
+                "reference": "d88d96bf55a1ba6b603d429d9bf6a217d945b1c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "psr/log": "~1.0",
+                "ruflin/elastica": ">=0.90.10.0, <1.3-dev",
+                "symfony/console": "~2.1",
+                "symfony/form": "~2.1",
+                "symfony/framework-bundle": "~2.3",
+                "symfony/property-access": "~2.2"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.2@beta",
+                "doctrine/mongodb-odm": "1.0.*@beta",
+                "doctrine/orm": "~2.2",
+                "jms/serializer-bundle": "@stable",
+                "knplabs/knp-components": "~1.2",
+                "knplabs/knp-paginator-bundle": "~2.4",
+                "pagerfanta/pagerfanta": "1.0.*@dev",
+                "phpunit/phpunit": "~4.1",
+                "propel/propel1": "1.6.*",
+                "symfony/browser-kit": "~2.3",
+                "symfony/expression-language": "~2.4",
+                "symfony/twig-bundle": "~2.3"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "1.0.*@dev",
+                "doctrine/orm": "~2.2",
+                "knplabs/knp-components": "~1.2",
+                "pagerfanta/pagerfanta": "1.0.*@dev",
+                "propel/propel1": "1.6.*",
+                "symfony/expression-language": "~2.4"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\ElasticaBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tim Nagel",
+                    "email": "tim@nagel.com.au"
+                },
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com",
+                    "homepage": "http://jmikola.net"
+                },
+                {
+                    "name": "Richard Miller",
+                    "email": "richard.miller@limethinking.co.uk"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSElasticaBundle/contributors"
+                }
+            ],
+            "description": "Elasticsearch PHP integration for your Symfony2 project using Elastica",
+            "homepage": "https://github.com/FriendsOfSymfony/FOSElasticaBundle",
+            "keywords": [
+                "doctrine2",
+                "elastica",
+                "elasticsearch",
+                "mongodb",
+                "propel",
+                "search"
+            ],
+            "time": "2014-07-04 12:10:24"
         },
         {
             "name": "friendsofsymfony/rest-bundle",
@@ -2218,6 +2309,60 @@
             "time": "2012-12-21 11:40:51"
         },
         {
+            "name": "ruflin/elastica",
+            "version": "v1.2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ruflin/Elastica.git",
+                "reference": "3c3ee39f90d942b1f25fdfb9d39669067375fa79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/3c3ee39f90d942b1f25fdfb9d39669067375fa79",
+                "reference": "3c3ee39f90d942b1f25fdfb9d39669067375fa79",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "munkie/elasticsearch-thrift-php": "1.4.*",
+                "phpunit/phpunit": "4.1.*",
+                "psr/log": "~1.0",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "Allow using guzzle 4.x as the http transport (requires php 5.4)",
+                "monolog/monolog": "Logging request",
+                "munkie/elasticsearch-thrift-php": "Allow using thrift transport",
+                "psr/log": "for logging"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Elastica": "lib/",
+                    "Elastica\\Test": "test/lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Ruflin",
+                    "homepage": "http://ruflin.com/"
+                }
+            ],
+            "description": "Elasticsearch Client",
+            "homepage": "http://elastica.io/",
+            "keywords": [
+                "client",
+                "search"
+            ],
+            "time": "2014-06-14 08:44:53"
+        },
+        {
             "name": "sensio/distribution-bundle",
             "version": "v2.3.4",
             "target-dir": "Sensio/Bundle/DistributionBundle",
@@ -3119,8 +3264,10 @@
         "caseyamcl/phpoaipmh": 20,
         "doctrine/mongodb-odm": 20,
         "doctrine/mongodb-odm-bundle": 20,
+        "friendsofsymfony/elastica-bundle": 15,
         "ojstr/ojstr-message-bundle": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.3.3"
     },

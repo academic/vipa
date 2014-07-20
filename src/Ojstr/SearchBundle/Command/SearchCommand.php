@@ -13,16 +13,17 @@ class SearchCommand extends ContainerAwareCommand {
         $this
                 ->setName('ojs:search')
                 ->setDescription('basic search in all articles')
-                ->addArgument('continue-on-error', InputArgument::OPTIONAL, 'Continue on error?')
+                ->addArgument('keyword', InputArgument::OPTIONAL, 'Search phrase')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $translator = $this->getContainer()->get('translator');
         $dialog = $this->getHelperSet()->get('dialog');
-        //$translator->setLocale('tr_TR'); 
-        $keyword = $dialog->ask($output, '<question>' . $translator->trans('Search phrase') . ' :</question> ');
-
+        $keywordArgument = $input->getArgument('keyword');
+        $keyword = !$keywordArgument ?
+                $dialog->ask($output, '<question>Search phrase </question> ') :
+                $keywordArgument;
+        $output->writeln("Searching `" . $keyword . "`");
         $output->writeln("\nResults\n");
     }
 
