@@ -31,6 +31,7 @@ class AppKernel extends Kernel {
             new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
+            new Ojstr\SearchBundle\OjstrSearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
