@@ -14,7 +14,7 @@ form label {margin-right:10px;}
 ul.nav-wizard{background-color:#f9f9f9;border:1px solid #d4d4d4;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;zoom:1;position:relative;overflow:hidden;}
 ul.nav-wizard:before{display:block;position:absolute;left:0;right:0;top:46px;height:47px;border-top:1px solid #d4d4d4;border-bottom:1px solid #d4d4d4;z-index:11;content:" ";}
 ul.nav-wizard:after{display:block;position:absolute;left:0;right:0;top:138px;height:47px;border-top:1px solid #d4d4d4;border-bottom:1px solid #d4d4d4;z-index:11;content:" ";}
-ul.nav-wizard li{position:relative;float:left;height:46px;display:inline-block;text-align:middle;font-size:14px;line-height:46px;margin:0;padding:0 20px 0 30px;}
+ul.nav-wizard li{position:relative;float:left;height:46px;display:inline-block;text-align:center;font-size:14px;line-height:46px;margin:0;padding:0 20px 0 30px;}
 ul.nav-wizard li a{color:#468847;padding:0;}
 ul.nav-wizard li a:hover{background-color:transparent;}
 ul.nav-wizard li:before{position:absolute;display:block;border:24px solid transparent;border-left:16px solid #d4d4d4;border-right:0;top:-1px;z-index:10;content:'';right:-16px;}
