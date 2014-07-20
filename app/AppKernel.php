@@ -32,6 +32,7 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
             new Ojstr\SearchBundle\OjstrSearchBundle(),
+	    new FOS\ElasticaBundle\FOSElasticaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
