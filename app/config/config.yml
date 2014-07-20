@@ -6,6 +6,8 @@ imports:
     - { resource: services.yml }
     - { resource: assetic.yml }
     - { resource: doctrine.yml }
+    - { resource: elastica.yml }
+
         
 framework:
     #esi:             ~
