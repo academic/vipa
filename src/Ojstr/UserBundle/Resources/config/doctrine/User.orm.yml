@@ -32,6 +32,18 @@ Ojstr\UserBundle\Entity\User:
             length: 255
             unique: false
             nullable: false 
+        firstName:
+            column: first_name
+            type: string
+            length: 255
+            unique: false
+            nullable: true
+        lastName:
+            column: last_name
+            type: string
+            length: 255
+            unique: false
+            nullable: true
         isActive:
             type: boolean
             scale: 0
