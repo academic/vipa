@@ -3,4 +3,18 @@ fos_elastica:
         #you can change to your setting
         default: { host: localhost, port: 9200 }
     indexes:
-        search: ~
+        search:
+            types:
+                user:
+                    mappings:
+                        username: ~
+                        firstName: ~
+                        lastName: ~
+                        email: ~
+                    persistence: 
+                        driver: orm
+                        model: Ojstr\UserBundle\Entity\User
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
