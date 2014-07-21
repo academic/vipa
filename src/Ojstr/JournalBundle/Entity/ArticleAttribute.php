@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Entity;
 
 /**
- * Article Extra Attribute
+ * Article key-value attributes
  */
 class ArticleAttribute extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
