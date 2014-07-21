@@ -1,0 +1,15 @@
+Ojstr\JournalBundle\Entity\JournalSetting: 
+  lifecycleCallbacks: {}
+  type: entity
+  id:
+    journal:
+      associationKey: true
+    setting:
+      type: string
+  fields:
+    value:
+      type: string
+  manyToOne:
+    journal:
+      targetEntity: Journal
+      inversedBy: settings

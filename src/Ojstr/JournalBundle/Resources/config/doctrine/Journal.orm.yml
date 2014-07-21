@@ -3,6 +3,11 @@ Ojstr\JournalBundle\Entity\Journal:
     table: null
     repositoryClass: Ojstr\JournalBundle\Entity\JournalRepository
     oneToMany:
+        settings:
+            targetEntity: JournalSetting
+            mappedBy: journal  
+            cascade: ["ALL"]
+            indexBy: setting
         articles:
           targetEntity: Article
           mappedBy: journal
