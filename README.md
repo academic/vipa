@@ -13,7 +13,7 @@
 As a company we [OkulBilişim](http://www.okulbilisim.com), analyze [PKP/OJS](http://pkp.sfu.ca/ojs/) and make it: harder, better, faster and stronger with [SF2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing).
 
 - please do [fork](https://github.com/okulbilisim/ojs/fork) us
-- please [open](https://github.com/okulbilisim/ojs/issues/new) a issue for improvement/feature/bug  
+- please [open](https://github.com/okulbilisim/ojs/issues/new) an issue for improvement/feature/bug  
 
 
 ##OJS Features
