@@ -90,19 +90,12 @@ Db schema can be viewed at [dbpatterns.com](http://dbpatterns.com/documents/5310
 ## 5) Troubleshooting
 
 1. PHP Fatal error:  Allowed memory size of # bytes exhauste
-	* set ```memory_limit = 1024M``` at your  (_php.ini_) 
+	* set `memory_limit = 1024M` at your  (_php.ini_) 
 
-2.
+2. set data.timezone with correct timezone at php.ini
+
  ```
 [Symfony\Component\Debug\Exception\ContextErrorException]                                                                                                                                                                                                   
   Warning: date_default_timezone_get(): Invalid date.timezone value 'XX/XX', we selected the timezone 'UTC' for now.
 ```
-	* set data.timezone with correct timezone at php.ini
 
-
-3. ```
- GitHub API rate limit exceeded for XXX.XXX.XXX.XXX. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)
-Try again in 13 minutes 11 seconds, or create an API token:
-  https://github.com/settings/applications
-and then set HOMEBREW_GITHUB_API_TOKEN.
-```
