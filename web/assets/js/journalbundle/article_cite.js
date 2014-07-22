@@ -1,7 +1,7 @@
 var CitationEditor = {
     newCitationField: function(rawCitation) {
         if (typeof rawCitation !== "undefined") {
-            $("#citationInfoFields input[name='raw[]']").attr("value", rawCitation);
+            $("#citationInfoFields input[name=raw]").attr("value", rawCitation);
         }
         var html = $("#citationInfoFields").html();
         $("#citationContainer").append(html);
@@ -34,28 +34,29 @@ $(document).ready(function() {
             $(".citationDetailsFields", $(this).parent()).append('<input type="text" class="form-control" placeholder="' + $mustFields[i] + '" name="' + $mustFields[i] + '" /> ');
         }
     });
-    $("#addArticleCitationInline").click(function(e) {
+    $("#citationContainer").on("click", "#addArticleCitationInline", function(e) {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
 
-    $("#citationContainer").on("click", "a.removeArticleCitationInline", function(e) {
+    $("body").on("click", "a.removeArticleCitationInline", function(e) {
         e.preventDefault();
+        $(this).parents().closest(".form-row ").slideUp();
         $(this).parents().closest(".form-row ").remove();
         CitationEditor.refreshCitationOrders();
     });
 
-    $("#citationContainer").on("click", "a.addCitationDetails", function(e) {
+    $("body").on("click", ".addCitationDetails", function(e) {
         e.preventDefault();
         $(this).next().toggle();
     });
 
-    $("#pasteArticleCitationInline").on("click", function(e) {
+    $("body").on("click", "#pasteArticleCitationInline", function(e) {
         e.preventDefault();
         $("#citationPasteField").slideToggle();
     });
 
-    $('textarea.citationPasteTextArea').on('paste', function() {
+    $("body").on("paste", '.citationPasteTextArea', function() {
         var element = this;
         setTimeout(function() {
             var txt = $(element).val();
@@ -81,7 +82,7 @@ $(document).ready(function() {
             }
         });
         $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function(resp) {
-            window.location.href = "/manager/article/" + articleId+"/show";
+            window.location.href = "/manager/article/" + articleId + "/show";
         });
     });
 });
