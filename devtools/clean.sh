@@ -2,18 +2,19 @@
 echo "Run from project root folder"
 bold=`tput bold`
 normal=`tput sgr0`
-echo
-echo
-read -p "${bold}WARNING!!${normal} Your database will be purged !!! (Y/n) "
-echo 
-if [[ $REPLY =~ ^[Yy]$ ]] || [[ $REPLY == "" ]];
+echo "${bold}WARNING!!${normal} Your database will be purged! (Y/n) :"
+read CHECK1
+if [[ $CHECK1 =~ ^[Yy]$ ]] || [[ $CHECK1 == "" ]];
 then
-	read -p  "And a clean ojs will be installed. ${bold}Are you sure?${normal} (Y/n)? "
+	echo  "A clean ojs will be installed. ${bold}Are you sure?${normal} (Y/n)? "
+	read CHECK2
 	echo
-	if [[ $REPLY =~ ^[Yy]$ ]]
+	if [[ $CHECK2 =~ ^[Yy]$ ]]
 	then
 		#danger zone
-		mysql -uroot -proot ojssf -e "drop database ojssf"
+		echo "Type your ojs databasename :"
+		read DBOJS
+		mysql -uroot -proot -e "drop database $DBOJS"
 		if [[ $# -gt 0 ]]
 		then
 			if [[ $1 ==  "--composer" ]]
