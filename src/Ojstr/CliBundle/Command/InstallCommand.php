@@ -130,8 +130,13 @@ class InstallCommand extends ContainerAwareCommand {
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
         $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
         $role_admin = $role_repo->findOneByRole('ROLE_USER');
+        $role_editor = $role_repo->findOneByRole('ROLE_EDITOR');
+        $role_super_editor = $role_repo->findOneByRole('ROLE_SUPER_EDITOR');
+
         $user->addRole($role_sys_admin);
         $user->addRole($role_admin);
+        $user->addRole($role_editor);
+        $user->addRole($role_super_editor);
 
         $em->persist($user);
         $em->flush();

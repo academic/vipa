@@ -26,5 +26,4 @@ subject_update:
 
 subject_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Subject:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:Subject:delete" } 

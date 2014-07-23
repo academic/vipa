@@ -1,2 +1,3 @@
+# run from project root
 sudo service memcached restart
-sudo php ../app/console doctrine:schema:update --force  -v
+php app/console doctrine:schema:update --force  -v

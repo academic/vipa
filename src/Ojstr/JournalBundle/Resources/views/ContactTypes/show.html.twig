@@ -20,17 +20,10 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('contacttypes') }}">
-            {% trans %}Back to list{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('contacttypes_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+       
+    
+      {% set back_path = 'contacttypes' %}  
+            {% set delete_path = 'contacttypes_delete' %}
+            {% include '::actionbtns.html.twig' %} 
+    
 {% endblock %}

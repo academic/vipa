@@ -41,8 +41,8 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @Expose
      */
     private $subtitle;
-    
-     /**
+
+    /**
      * @var string
      * @Expose
      */
@@ -141,6 +141,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $languages;
 
     /**
+     *
+     * arbitrary settings 
+     */
+    private $settings;
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -148,6 +154,26 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * 
+     * @param string $settingName
+     * @param string $value
+     * @return \Ojstr\JournalBundle\Entity\Journal
+     */
+    public function addSetting($settingName, $value) {
+        $this->setting[$settingName] = new ArticleAttribute($settingName, $value, $this);
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $settingName 
+     * @return ArticleAttribute|boolean
+     */
+    public function getAttribute($settingName) {
+        return isset($this->setting[$settingName]) ? $this->settings[$settingName] : FALSE;
     }
 
     /**
@@ -202,9 +228,8 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function getTitle() {
         return $this->title;
     }
-    
-    
-     /**
+
+    /**
      * Set subdomain
      *
      * @param string $subdomain

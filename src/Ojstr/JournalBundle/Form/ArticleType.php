@@ -23,7 +23,7 @@ class ArticleType extends AbstractType {
                 ->add('titleTransliterated', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('subtitle', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('isAnonymous')
-                ->add('order', 'integer')
+                ->add('orderNum', 'integer')
                 ->add('pubdate', 'date', array(
                     'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
                     'attr' => array('class' => 'dateselector form-control')

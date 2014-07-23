@@ -39,7 +39,8 @@
         "caseyamcl/Phpoaipmh": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
-        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev",
+        "friendsofsymfony/elastica-bundle": "3.0.*@alpha"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"
