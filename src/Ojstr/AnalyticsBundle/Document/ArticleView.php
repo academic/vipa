@@ -12,6 +12,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class ArticleView {
 
     /**
+     * @MongoDb\Id
+     */
+    public $id;
+
+    /**
      * @MongoDb\String
      */
     protected $pageUrl;
@@ -20,6 +25,15 @@ class ArticleView {
      * @MongoDb\String
      */
     protected $total;
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * Page full url with domain
