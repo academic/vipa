@@ -83,10 +83,8 @@ class AuthorController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Author:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity));
     }
 
     /**
@@ -98,11 +96,9 @@ class AuthorController extends Controller {
         $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView()
         ));
     }
 
@@ -130,7 +126,6 @@ class AuthorController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Author')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -139,8 +134,7 @@ class AuthorController extends Controller {
         }
         return $this->render('OjstrJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView()
         ));
     }
 
@@ -155,18 +149,6 @@ class AuthorController extends Controller {
         $em->remove($entity);
         $em->flush();
         return $this->redirect($this->generateUrl('author'));
-    }
-
-    /**
-     * Creates a form to delete a Author entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id) {
-        $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id, 'author_delete');
     }
 
 }

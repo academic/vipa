@@ -54,7 +54,8 @@ class ArticleSubmissionController extends Controller {
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
                     'entity' => $entity,
-                    'journal' => $journal
+                    'journal' => $journal,
+                    'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 

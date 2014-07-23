@@ -1,16 +1,16 @@
 #! /bin/sh
 echo "\nRunning composer install"
-sudo composer install
+composer install
 echo "\nRunning bower install"
 bower install
 echo "\nDumping assets"
-sudo php app/console assets:install web --symlink
-sudo php app/console assetic:dump
+php app/console assets:install web --symlink
+php app/console assetic:dump
 echo "\nOjs installation"
-sudo php app/console ojs:install
+php app/console ojs:install
 echo "\nNow ojs:install will add sample data"
-sudo php app/console doctrine:fixtures:load --append -v
-sudo php app/console doctrine:mongodb:fixtures:load --append -v
+php app/console doctrine:fixtures:load --append -v
+php app/console doctrine:mongodb:fixtures:load --append -v
 echo "\nsample author"
 echo "\tusername: demo_author"
 echo "\tpassword: demo"

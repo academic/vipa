@@ -33,7 +33,7 @@ A key-value citation metadata container
 Description of Citation Types
 -----------------------------
 
-Citation types defined in `Ojstr/JournalBundle/Resources/config/bibliography_params.yml` 
+Citation types defined in `app/config/bibliography_params.yml` 
 
 
 - **article**

@@ -6,9 +6,52 @@ var OjsArticleSubmision = {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
+    addLanguageForm: function(langcode, langtitle) {
+        // check if selected language tab already exists
+        if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
+            return false;
+        }
+        $("#langtabs").append('<div class="tab-pane step1" id="' + langcode + '">' +
+                '<div class="tab_step1">' + $("#step1_tpl").html() + '</div>' +
+                '<div class="tab_step2 hide">' + $("#step2_tpl").html() + '</div>' +
+                '</div>');
+        OjsArticleSubmision.languages.push(langcode);
+        $("div#" + langcode + " textarea.editor").wysihtml5({
+            toolbar: {
+                "font-styles": false,
+                "emphasis": true,
+                "lists": false,
+                "html": false,
+                "link": true,
+                "image": false,
+                "color": false,
+                "blockquote": true
+            }
+        });
+        tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' +
+                langcode + '" role="tab" class="lang" data-toggle="tab">' +
+                langtitle + '<span class="glyphicon glyphicon-trash removelang btn btn-sm btn-default"></span></a></li>';
+        $("ul#mainTabs li.lang").last().before(tabhtml);
+        OjsArticleSubmision.activateFirstLanguageTab();
+    },
+    step1RemoveLanguageForm: function(langcode, $tab) {
+        check = confirm("Are you sure to remove this language tab?");
+        if (!check) {
+            return false;
+        }
+        for (var i in this.languages) {
+            if (this.languages[i] === langcode) {
+                this.languages.splice(i, 1);
+            }
+        }
+        $tab.remove();
+        $('#t_' + langcode).remove();
+        this.activateFirstLanguageTab();
+    },
     step1: function(actionUrl, next) {
         forms = $(".tab-pane");
         if (forms.length === 0) {
+            alert("Add at least one language to your submission.");
             return false;
         }
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
@@ -76,43 +119,13 @@ $(document).ready(function() {
         e.preventDefault();
         langcode = $(this).attr('code');
         langtitle = $(this).attr('lang');
-        // check if selected language tab already exists
-        if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
-            return false;
-        }
-        $("#langtabs").append('<div class="tab-pane" id="' + langcode + '">' + $("#formtpl").html() + '</div>');
-        OjsArticleSubmision.languages.push(langcode);
-        $("div#" + langcode + " textarea").wysihtml5({
-            toolbar: {
-                "font-styles": false,
-                "emphasis": true,
-                "lists": false,
-                "html": false,
-                "link": true,
-                "image": false,
-                "color": false,
-                "blockquote": false
-            }
-        });
-        tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' + langcode + '" role="tab" class="lang" data-toggle="tab">' + langtitle + '</a></li>';
-        $("ul#mainTabs li.lang").last().before(tabhtml);
-        OjsArticleSubmision.activateFirstLanguageTab();
+        OjsArticleSubmision.addLanguageForm(langcode, langtitle);
     });
-    $("#langtabs").on("click", "a.removelang", function(e) {
-        check = confirm("Are you sure to remove this language tab?");
-        if (!check) {
-            return false;
-        }
+    $("body").on("click", "span.removelang", function(e) {
         e.preventDefault();
-        langcode = $(this).parent().attr('id');
-        for (var i in OjsArticleSubmision.languages) {
-            console.log(OjsArticleSubmision.languages[i]);
-            if (OjsArticleSubmision.languages[i] === langcode) {
-                OjsArticleSubmision.languages.splice(i, 1);
-            }
-        }
-        $(this).parent().remove();
-        $('#t_' + langcode).remove();
-        OjsArticleSubmision.activateFirstLanguageTab();
+        langcode = $(this).parent().attr("href").replace("#", "");
+        console.log(langcode);
+        $tab = $("#" + langcode);
+        OjsArticleSubmision.step1RemoveLanguageForm(langcode, $tab);
     });
 });

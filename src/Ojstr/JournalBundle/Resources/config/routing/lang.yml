@@ -26,5 +26,4 @@ lang_update:
 
 lang_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Lang:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:Lang:delete" } 

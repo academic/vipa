@@ -5,7 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
         {% stylesheets
-           '@main_css'  filter='cssrewrite' output="c/combined.css" 
+           '@main_css' filter='uglifycss' filter='cssrewrite'  output="c/appmain.css" 
         %}   
         <link rel="stylesheet" href="{{ asset_url }}" />
        {% endstylesheets %} 
@@ -25,7 +25,7 @@
         {% block body %}{% endblock %}
         <div id="footer">{% block footer %}{% endblock %}</div>
         {% block javascripts %}
-        {% javascripts '@main_js' output="c/compiled.js" %}
+        {% javascripts '@main_js' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
 

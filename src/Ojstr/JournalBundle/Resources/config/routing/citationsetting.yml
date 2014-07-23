@@ -26,5 +26,4 @@ citationsetting_update:
 
 citationsetting_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:CitationSetting:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjstrJournalBundle:CitationSetting:delete" } 

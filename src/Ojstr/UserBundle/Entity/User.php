@@ -40,6 +40,18 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     protected $email;
 
     /**
+     * @var string
+     * @Expose
+     */
+    protected $firstName;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    protected $lastName;
+
+    /**
      * @var boolean
      * @Expose
      *
@@ -191,6 +203,46 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      */
     public function getEmail() {
         return $this->email;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return User
+     */
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName() {
+        return $this->firstName;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     * @return User
+     */
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName() {
+        return $this->lastName;
     }
 
     /**

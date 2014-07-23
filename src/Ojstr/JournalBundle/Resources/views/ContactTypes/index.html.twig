@@ -1,43 +1,38 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>ContactTypes list</h1>
+<h1>ContactTypes list</h1>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<table class="records_list  table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('contacttypes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.description }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('contacttypes_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('contacttypes_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <tr>
+            <td><a href="{{ path('contacttypes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.description }}</td>
+            <td>
 
-        <ul>
-        <li>
-            <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
+                {% set show_path = 'contacttypes_show' %} 
+                {% set edit_path = 'contacttypes_edit' %}
+                {% set delete_path = 'contacttypes_delete' %}
+                {% include '::actionbtns.html.twig' %} 
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+ 
+        <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
 {% trans %}Create New{% endtrans %}
-            </a>
-        </li>
-    </ul>
+        </a>
+
     {% endblock %}
