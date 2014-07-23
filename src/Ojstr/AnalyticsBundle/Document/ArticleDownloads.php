@@ -12,9 +12,19 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class ArticleDownloads extends ArticleStatsBase {
 
     /**
+     * @MongoDb\Id
+     */
+    public $id;
+
+    /**
      * @MongoDb\String
      */
     protected $filePath;
+
+    /**
+     * @MongoDb\String
+     */
+    protected $total;
 
     /**
      * Optional 

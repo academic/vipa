@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * There will be one record for each paths
  * @MongoDb\Document(collection="analytics_downloadsum_article") 
  */
-class ArticleDownloads extends ArticleStatsBase {
+class ArticleDownload {
 
     /**
      * @MongoDb\String
@@ -17,29 +17,33 @@ class ArticleDownloads extends ArticleStatsBase {
     protected $filePath;
 
     /**
-     * Optional 
-     * @MongoDb\Int  
+     * Get id
+     *
+     * @return id $id
      */
-    protected $transferSize;
+    public function getId() {
+        return $this->id;
+    }
 
     /**
-     * Set transferSize
+     * Page full url with domain
+     * Set total
      *
-     * @param int $transferSize
+     * @param string $total
      * @return self
      */
-    public function setTransferSize($transferSize) {
-        $this->transferSize = $transferSize;
+    public function setTotal($total) {
+        $this->total = $total;
         return $this;
     }
 
     /**
-     * Get transferSize
+     * Get total
      *
-     * @return int $transferSize
+     * @return string $total
      */
-    public function getTransferSize() {
-        return $this->transferSize;
+    public function getTotal() {
+        return $this->total;
     }
 
     /**

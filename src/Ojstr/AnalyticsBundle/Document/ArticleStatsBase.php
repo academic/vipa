@@ -9,24 +9,24 @@ class ArticleStatsBase {
     /**
      * @MongoDb\Id
      */
-    protected $id;
+    public $id;
 
     /** @MongoDb\Int @MongoDb\Index() */
-    protected $journalId;
+    public $journalId;
 
     /** @MongoDb\Int @MongoDb\Index() */
-    protected $articleId;
+    public $articleId;
 
     /** @MongoDb\String */
-    protected $ipAddress;
+    public $ipAddress;
 
     /** @MongoDb\String */
-    protected $referer;
+    public $referer;
 
     /**
      * @MongoDB\Date
      */
-    protected $logDate;
+    public $logDate;
 
     /**
      * Get id
