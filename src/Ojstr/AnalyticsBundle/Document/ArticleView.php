@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and total count *view action details*
  * There will be one record for *each pages*
- * @MongoDb\Document(collection="analytics_viewsum_article") 
+ * @MongoDb\Document(collection="analytics_view_article_sum") 
  */
 class ArticleView {
 
