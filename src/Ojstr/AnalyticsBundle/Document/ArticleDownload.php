@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and download action details *without total count*
  * There will be one record for each paths
- * @MongoDb\Document(collection="analytics_downloadsum_article") 
+ * @MongoDb\Document(collection="analytics_download_article_sum") 
  */
 class ArticleDownload {
 
