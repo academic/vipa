@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Citation;
 use Ojstr\JournalBundle\Form\CitationType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Citation controller.
@@ -177,21 +176,14 @@ class CitationController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Citation entity.');
-            }
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Citation entity.');
         }
-
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('citation'));
     }
- 
 
 }

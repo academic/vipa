@@ -33,8 +33,11 @@
             <td>{{ entity.year }}</td>
             <td>{% if entity.datePublished %}{{ entity.datePublished|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>
-                <a href="{{ path('issue_show', { 'id': entity.id }) }}">show</a>
-                <a href="{{ path('issue_edit', { 'id': entity.id }) }}">edit</a>
+                {% set show_path = 'issue_show' %}
+                {% set edit_path = 'issue_edit' %}
+                {% set delete_path = 'issue_delete' %}
+                {% include '::actionbtns.html.twig' %}
+                 
                 </ul>
             </td>
         </tr>

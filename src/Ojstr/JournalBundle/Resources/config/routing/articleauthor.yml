@@ -27,4 +27,3 @@ articleauthor_update:
 articleauthor_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjstrJournalBundle:ArticleAuthor:delete" }
-    requirements: { _method: post|delete }

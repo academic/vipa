@@ -14,6 +14,7 @@ class ArticleType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+                ->add('issueId', 'integer', array('attr' => array('class' => ' form-control')))
                 ->add('status', 'integer', array('attr' => array('class' => ' form-control')))
                 ->add('doi', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('otherId', 'text', array('attr' => array('class' => ' form-control')))
