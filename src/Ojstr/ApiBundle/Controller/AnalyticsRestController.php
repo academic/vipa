@@ -68,7 +68,7 @@ class AnalyticsRestController extends FOSRestController {
      * @return integer
      */
     protected function journalArticleDownloadSummary($id) {
-        return $this->journalArticleSummaryStat($id, 'ArticleDownload');
+        return $this->journalArticleStatsSummary($id, 'ArticleDownload');
     }
 
     /**
@@ -77,10 +77,10 @@ class AnalyticsRestController extends FOSRestController {
      * @return integer
      */
     protected function journalArticleViewSummary($id) {
-        return $this->journalArticleSummaryStat($id, 'ArticleView');
+        return $this->journalArticleStatsSummary($id, 'ArticleView');
     }
 
-    protected function journalArticleSummaryStat($id, $documentName) {
+    protected function journalArticleStatsSummary($id, $documentName) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $repo = $dm->getRepository('OjstrAnalyticsBundle:ArticleView');
         $result = $repo->createQueryBuilder('OjstrAnalyticsBundle:' . $documentName)

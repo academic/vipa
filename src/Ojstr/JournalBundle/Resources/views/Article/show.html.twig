@@ -23,11 +23,10 @@
                     <tr>
                         <th>Authors</th>
                         <td>
-                            {% if entity.authors %}
-                            {% for authorsInfo in entity.authors %}
-                            <a class="btn btn-info btn-sm">
-                                <span>{{ authorsInfo.author.id }} [{{ authorsInfo.author.firstName}}]</span> 
-                            </a> 
+                            {% if entity.articleAuthors %}
+                            {% for authorsInfo in entity.articleAuthors %}
+                            <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span> 
+                                {% if not loop.last %}, {% endif %}
                             {% endfor %}
                             {%endif%}
                         </td>

@@ -1,6 +1,14 @@
 article:
     pattern:  /
     defaults: { _controller: "OjstrJournalBundle:Article:index" }
+    
+article_journal:
+    pattern:  /index/journal/{journalId}
+    defaults: { _controller: "OjstrJournalBundle:Article:indexJournal" }
+
+article_issue:
+    pattern:  /index/issue/{issueId}
+    defaults: { _controller: "OjstrJournalBundle:Article:indexIssue" }
 
 article_show:
     pattern:  /{id}/show
