@@ -14,28 +14,29 @@ class ArticleType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('issueId', 'integer', array('attr' => array('class' => ' form-control')))
+                ->add('issueId', 'integer', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('status', 'integer', array('attr' => array('class' => ' form-control')))
-                ->add('doi', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('otherId', 'text', array('attr' => array('class' => ' form-control')))
+                ->add('doi', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('otherId', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('keywords', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('journalId', 'integer', array('attr' => array('class' => ' form-control')))
                 ->add('title', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('titleTransliterated', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('subtitle', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('isAnonymous')
-                ->add('orderNum', 'integer')
+                ->add('titleTransliterated', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('subtitle', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('isAnonymous', 'radio', array('required' => false))
+                ->add('orderNum', 'integer', array('required' => false))
                 ->add('pubdate', 'date', array(
+                    'required' => false,
                     'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
                     'attr' => array('class' => 'dateselector form-control')
                 ))
-                ->add('pubdateSeason', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('part', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('firstPage', 'integer', array('attr' => array('class' => ' form-control')))
-                ->add('lastPage', 'integer', array('attr' => array('class' => ' form-control')))
-                ->add('uri', 'text', array('attr' => array('class' => ' form-control')))
-                ->add('abstract', 'textarea', array('attr' => array('class' => ' form-control')))
-                ->add('abstractTransliterated', 'textarea', array('attr' => array('class' => ' form-control')));
+                ->add('pubdateSeason', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('part', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('firstPage', 'integer', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('lastPage', 'integer', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('uri', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('abstract', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')))
+                ->add('abstractTransliterated', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')));
     }
 
     /**
