@@ -11,6 +11,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class ArticleDownload {
 
+     /**
+     * @MongoDb\Id
+     */
+    public $id;
+    
     /**
      * @MongoDb\String
      */
