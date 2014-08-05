@@ -83,8 +83,6 @@ com_crashlytics_export_strings.xml
 !app/logs/.gitkeep
 /app/bootstrap.php.cache
 
-<<<<<<< HEAD
-=======
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
@@ -97,16 +95,12 @@ com_crashlytics_export_strings.xml
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
->>>>>>> ea266fa08ee7b68c472025c37879f6888fee9ac8
 /web/c/
 /web/assetic/
 /web/vendor/
 
 # PHPUnit
 /app/phpunit.xml
-
-# Composer PHAR
-/composer.phar
 
 #node
 node_modules/
