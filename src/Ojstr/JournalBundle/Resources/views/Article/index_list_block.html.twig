@@ -14,10 +14,18 @@
                 {% for entity in entities %}
         <tr>
             <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.doi }}</td>
             <td>
+                {% if entity.doi%}
+                {{ entity.doi }}
+                {%else%}
+                -
+                {% endif %}
+            </td>
+            <td>
+                {% if entity.journalId %}
                 <a class="label label-success" href="{{path('article_journal', { 'journalId': entity.journalId }) }}">
                 {{ entity.journalId }} {{ entity.journal.title }}</a>
+                {% endif %}
             </td>
             <td>
                 {% if entity.issueId %}
