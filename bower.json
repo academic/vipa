@@ -22,6 +22,7 @@
         "font-awesome": "*",
         "jquery-leanmodal": "*",
         "jquery-file-upload": "*",
-        "bootstrap3-wysihtml5-bower": "*"
+        "bootstrap3-wysihtml5-bower": "*",
+        "jquery-maskedinputs": "*"
     }
 }
