@@ -1,13 +1,13 @@
 {
-    "name": "ojssf",
+    "name": "onlinebagis",
     "version": "0.0.1",
-    "homepage": "http://github.com/okulbilisim/ojs",
+    "homepage": "http://okulbilisim.com",
     "authors": [
         "Tayyar Beşik <tayyar.besik@okulbilisim.com>",
         "Hüseyin Mert <huseyin.mert@okulbilisim.com>"
     ],
-    "description": "OJS symfony2 application",
-    "license": "MIT",
+    "description": "Online bağış sistemi",
+    "license": "",
     "private": true,
     "ignore": [
         "**/.*",
@@ -20,9 +20,9 @@
         "jquery": "~2.1.1",
         "bootstrap": "~3.1.1",
         "font-awesome": "*",
-        "jquery-leanmodal": "*",
-        "jquery-file-upload": "*",
-        "bootstrap3-wysihtml5-bower": "*",
-        "jquery-maskedinputs": "*"
+        "select2-bootstrap-css":"*",
+	"jquery-file-upload":"*",
+	"ckeditor":"*",
+	"jquery.inputmask":"*"
     }
 }
