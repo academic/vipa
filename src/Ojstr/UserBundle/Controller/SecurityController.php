@@ -30,6 +30,65 @@ class SecurityController extends Controller {
         );
     }
 
+    private function encodePassword(User $user, $plainPassword) {
+        $encoder = $this->container->get('security.encoder_factory')
+                ->getEncoder($user);
+        return $encoder->encodePassword($plainPassword, $user->getSalt());
+    }
+
+    private function authenticateUser(User $user) {
+        $providerKey = 'main'; //  firewall name
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+
+        $this->container->get('security.context')->setToken($token);
+    }
+
+    private function getRedirectUrl() {
+        $key = '_security.' . $providerKey . '.target_path';
+        $session = $this->getRequest()->getSession();
+
+        // get the URL to the last page, or fallback to the homepage
+        if ($session->has($key)) {
+            $url = $session->get($key);
+            $session->remove($key);
+        } else {
+            $url = $this->generateUrl('homepage');
+        }
+        return $url;
+    }
+
+    public function registerAction(Request $request) {
+        $session = $request->getSession();
+        $error = NULL;
+        $user = new User();
+        $form = $this->createForm(new \Ojstr\UserBundle\Form\RegisterFormType(), $user);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+            // check user name exists 
+            $user->setPassword($this->encodePassword($user->getPlainPassword()));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            $this->authenticateUser($user); // auth. user
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add('success', 'Success. You are registered.')
+            ;
+            var_dump($form->getData());
+            die;
+        }
+
+        return $this->render(
+                        'OjstrUserBundle:Security:register.html.twig', array(
+                    'form' => $form->createView(),
+                    'errors' => $form->getErrors(),
+                        )
+        );
+    }
+
     public function logoutAction(Request $request) {
         $this->get('security.context')->setToken(null);
         $this->get('request')->getSession()->invalidate();
