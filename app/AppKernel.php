@@ -33,6 +33,7 @@ class AppKernel extends Kernel {
             new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
             new Ojstr\SearchBundle\OjstrSearchBundle(),
 	    new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Ojstr\AnalyticsBundle\OjstrAnalyticsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -3,10 +3,9 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Issue;
 use Ojstr\JournalBundle\Form\IssueType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Issue controller.
@@ -83,10 +82,8 @@ class IssueController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Issue:show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -99,11 +96,9 @@ class IssueController extends Controller {
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -129,7 +124,6 @@ class IssueController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -140,7 +134,6 @@ class IssueController extends Controller {
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -150,27 +143,12 @@ class IssueController extends Controller {
      */
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
+        $this->throw404IfNotFound($entity);
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('issue'));
-    }
-
-    /**
-     * Creates a form to delete a Issue entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id) {
-        $formHelper = new CommonFormHelper();
-        return $formHelper->createDeleteForm($this, $id, 'issue_delete');
     }
 
 }

@@ -131,12 +131,12 @@ class InstallCommand extends ContainerAwareCommand {
         $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
         $role_admin = $role_repo->findOneByRole('ROLE_USER');
         $role_editor = $role_repo->findOneByRole('ROLE_EDITOR');
-        $role_super_editor = $role_repo->findOneByRole('ROLE_SUPER_EDITOR');
+        $role_reviewer = $role_repo->findOneByRole('ROLE_REVIEWER');
 
         $user->addRole($role_sys_admin);
         $user->addRole($role_admin);
         $user->addRole($role_editor);
-        $user->addRole($role_super_editor);
+        $user->addRole($role_reviewer);
 
         $em->persist($user);
         $em->flush();

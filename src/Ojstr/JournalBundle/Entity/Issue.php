@@ -18,6 +18,12 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $journalId;
 
     /**
+     *
+     * @var Journal 
+     */
+    private $journal;
+
+    /**
      * @var string
      */
     private $volume;
@@ -31,14 +37,14 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var string
      */
     private $title;
-    
-     /**
+
+    /**
      * @var string
-      * cover image path
+     * cover image path
      */
     private $cover;
-    
-     /**
+
+    /**
      * @var boolean
      */
     private $special;
@@ -59,19 +65,26 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $datePublished;
 
     /**
-     * @var \Ojstr\JournalBundle\Entity\Journal
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $journal;
+    private $articles;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId() {
+        return $this->id;
+    }
 
     /**
      * Set journal
-     *
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
-     * @return Article
+     * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
+    public function setJournal($journal) {
         $this->journal = $journal;
-
         return $this;
     }
 
@@ -82,15 +95,6 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getJournal() {
         return $this->journal;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId() {
-        return $this->id;
     }
 
     /**
@@ -172,8 +176,7 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function getTitle() {
         return $this->title;
     }
-    
-    
+
     /**
      * Set cover image path
      *
@@ -192,9 +195,8 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getCover() {
         return $this->cover;
-    } 
-    
-    
+    }
+
     /**
      * Set is special
      *
@@ -216,9 +218,9 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     public function isSpecial() {
-        return (bool)$this->special;
+        return (bool) $this->special;
     }
-    
+
     /**
      * Set description
      *
@@ -277,6 +279,35 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getDatePublished() {
         return $this->datePublished;
+    }
+
+    /**
+     * Add article
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @return Language
+     */
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles[] = $article;
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \Ojstr\JournalBundle\Entity\Article $article
+     */
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles() {
+        return $this->articles;
     }
 
 }

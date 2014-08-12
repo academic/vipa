@@ -38,7 +38,10 @@ citation :
   resource:     "OjstrApiBundle:CitationRest"
   name_prefix:  api_
   
-  
+analytics : 
+  type: rest
+  resource:     "OjstrApiBundle:AnalyticsRest"
+  name_prefix:  api_  
   
 ojstr_api_homepage:
   pattern:  /

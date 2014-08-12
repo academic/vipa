@@ -9,7 +9,7 @@ then
 	echo  "A clean ojs will be installed. ${bold}Are you sure?${normal} (Y/n)? "
 	read CHECK2
 	echo
-	if [[ $CHECK2 =~ ^[Yy]$ ]]
+	if [[ $CHECK2 =~ ^[Yy]$ ]] || [[ $CHECK1 == "" ]]
 	then
 		#danger zone
 		echo "Type your ojs databasename :"

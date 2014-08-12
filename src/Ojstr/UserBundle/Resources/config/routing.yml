@@ -30,6 +30,10 @@ ojstr_eventlog:
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
+register:
+    path: /register
+    defaults: { _controller: OjstrUserBundle:Security:register } 
+
 logout:
     path: /logout
     defaults: { _controller: OjstrUserBundle:Security:logout }
