@@ -1,0 +1,70 @@
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %}
+
+<div class="row">
+
+    {% include '::flashbag.html.twig' %}
+
+    <div class="col-md-12">
+        <div class="container" style="margin-top:30px">
+            <div class="col-md-6 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h1 class="panel-title">Register</h1></div>
+                    <div class="panel-body">
+
+
+                        <form action="{{ path('register') }}" method="POST">
+        {{ form_errors(form) }}
+
+                            <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username,{ 'attr': { 'class': 'form-control' } }) }}
+                                <span class="help-block">This will be your unique short name in application</span>
+        {{ form_errors(form.username) }}
+                            </div>
+
+                            <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email,{ 'attr': { 'class': 'form-control' } }) }}
+        {{ form_errors(form.email) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Password</label>
+        {{ form_widget(form.plainPassword.first,{ 'attr': { 'class': 'form-control' } }) }} 
+        {{ form_errors(form.plainPassword) }}
+                            </div>
+                            <div class="form-group">
+                                <label>Password (repeat)</label>
+        {{ form_widget(form.plainPassword.second,{ 'attr': { 'class': 'form-control' } }) }} 
+        {{ form_errors(form.plainPassword) }}
+                            </div>
+                            <div class="form-group">
+                                <label>TOS</label> 
+                            </div>
+
+
+                            {{ form_widget(form._token) }}
+
+                            <button type="submit" class="btn btn-lg btn-primary pull-right">
+                                <i class="glyphicon glyphicon-log-in"></i> Register</button> 
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+
+
+</div> 
+{% endblock %}
+
+{% block footer %}
+&copy; Ojs-tr demo
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

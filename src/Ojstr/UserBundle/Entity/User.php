@@ -8,10 +8,14 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  * @ExclusionPolicy("all") 
+ * @UniqueEntity(fields="username", message="That username is taken!")
+ * @UniqueEntity(fields="email", message="That email is taken!")
  */
 class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInterface, \Serializable {
 
@@ -24,6 +28,8 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     /**
      * @var string
      * @Expose
+     * @Assert\NotBlank(message="Username can't be blank")
+     * @Assert\Length(min=3, minMessage="Username should be longer then 3 characters.")
      */
     protected $username;
 
@@ -34,8 +40,16 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     protected $password;
 
     /**
+     * Temporary field
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var string
      * @Expose
+     * @Assert\NotBlank(message="Email can't be blank")
+     * @Assert\Email
      */
     protected $email;
 
@@ -184,6 +198,16 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
         return $this->password;
     }
 
+    public function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword) {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * Set email
      *
@@ -205,12 +229,13 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
         return $this->email;
     }
 
-    /**
+    /*     * get
      * Set firstName
      *
      * @param string $firstName
      * @return User
      */
+
     public function setFirstName($firstName) {
         $this->firstName = $firstName;
         return $this;
@@ -284,11 +309,8 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
         return null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function eraseCredentials() {
-        
+        $this->setPassword(NULL);
     }
 
     /**
