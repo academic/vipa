@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 {% block body -%}
 <h1>Issue</h1>
-<table class="record_properties">
+<table class="table record_properties">
     <tbody>
         <tr>
             <th>Id</th>
@@ -57,18 +57,11 @@
         </tr>
     </tbody>
 </table>
+<hr>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('issue') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('issue_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+                {% set back_path = 'issue' %}
+                {% set edit_path = 'issue_edit' %}
+                {% set delete_path = 'issue_delete' %}
+                {% include '::actionbtns.html.twig' %}
+
 {% endblock %}

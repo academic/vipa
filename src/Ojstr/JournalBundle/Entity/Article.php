@@ -19,6 +19,13 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $id;
 
     /**
+     *
+     * @var integer
+     * @Expose
+     */
+    private $issueId;
+
+    /**
      * @var integer
      * @Expose
      */
@@ -78,7 +85,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $keywords;
 
     /**
-     * Some artilce carries no authorship
+     * Some articles carries no authorship
      * @var boolean
      * @Expose
      */
@@ -154,6 +161,11 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $languages;
 
     /**
+     * @var Issue
+     */
+    private $issue;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      * 
      */
@@ -175,7 +187,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    private $authors;
+    private $articleAuthors;
 
     /**
      * Constructor
@@ -183,6 +195,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     public function __construct() {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function addAttribute($name, $value) {
@@ -238,10 +251,27 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
+     * 
+     * @param \Ojstr\JournalBundle\Entity\Issue $issue
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
+    public function setIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+        $this->issue = $issue;
+        return $this;
+    }
+
+    /**
+     * @return \Ojstr\JournalBundle\Entity\Issue
+     */
+    public function getIssue() {
+        return $this->issue;
+    }
+
+    /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAuthors() {
-        return $this->authors;
+    public function getArticleAuthors() {
+        return $this->articleAuthors;
     }
 
     /**
@@ -353,27 +383,6 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set journal
-     *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
-     * @return Article
-     */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
-        $this->journal = $journal;
-
-        return $this;
-    }
-
-    /**
-     * Get journal
-     *
-     * @return \Ojstr\JournalBundle\Entity\Journal
-     */
-    public function getJournal() {
-        return $this->journal;
-    }
-
-    /**
      * (optional) English transliterated abstract
      * @var string
      * @Expose
@@ -430,6 +439,25 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
+     * Set issueId
+     *
+     * @param integer $issueId
+     * @return Article
+     */
+    public function setIssueId($issueId) {
+        $this->issueId = $issueId;
+        return $this;
+    }
+
+    /**
+     * Get issueId
+     * @return integer
+     */
+    public function getIssueId() {
+        return $this->issueId;
+    }
+
+    /**
      * Set journalId
      *
      * @param integer $journalId
@@ -447,6 +475,25 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getJournalId() {
         return $this->journalId;
+    }
+
+    /**
+     * Set journal
+     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
+    public function setJournal($journal) {
+        $this->journal = $journal;
+        return $this;
+    }
+
+    /**
+     * Get journal
+     *
+     * @return \Ojstr\JournalBundle\Entity\Journal
+     */
+    public function getJournal() {
+        return $this->journal;
     }
 
     /**

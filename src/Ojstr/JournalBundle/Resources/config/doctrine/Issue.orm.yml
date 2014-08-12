@@ -2,10 +2,19 @@ Ojstr\JournalBundle\Entity\Issue:
     type: entity
     table: null
     repositoryClass: Ojstr\JournalBundle\Entity\IssueRepository
-    manyToOne:
-        journal:
+    oneToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: issue
+          cascade: ["persist", "merge"]
+          fetch: LAZY
+    oneToOne:
+      journal:
           targetEntity: Journal
-          inversedBy: issues  
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          inversedBy: issues 
     id:
         id:
             type: integer

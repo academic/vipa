@@ -28,14 +28,7 @@ parameters:
             role: ROLE_SUPER_ADMIN
             desc: System Super Administrator
             isSystemRole: True
-        - 
-            role: ROLE_SUPER_EDITOR
-            desc: Super Editor. Editor for all journals
-            isSystemRole: True
-        - 
-            role: ROLE_SUPER_AUTHOR
-            desc: Super Author. Author for all journals
-            isSystemRole: True
+      
         - 
             role: ROLE_JOURNAL_MANAGER
             desc: Journal Manager

@@ -37,6 +37,22 @@ class ArticleAuthor {
     private $article;
 
     /**
+     * 
+     * @return integer
+     */
+    public function getAuthorId() {
+        return $this->author ? $this->author->getId() : FALSE;
+    }
+
+    /**
+     * 
+     * @return integer
+     */
+    public function getArticleId() {
+        return $this->article ? $this->article->getId() : FALSE;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -53,7 +69,6 @@ class ArticleAuthor {
      */
     public function setAuthorOrder($authorOrder) {
         $this->authorOrder = $authorOrder;
-
         return $this;
     }
 

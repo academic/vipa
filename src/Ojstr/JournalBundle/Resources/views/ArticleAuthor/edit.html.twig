@@ -4,13 +4,10 @@
     <h1>ArticleAuthor edit</h1>
 
     {{ form(edit_form) }}
+    <hr>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('articleauthor') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+{% set back_path = 'articleauthor' %}
+{% set delete_path = 'articleauthor_delete' %}
+{% include '::actionbtns.html.twig' %}
+
 {% endblock %}

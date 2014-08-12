@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Contact;
 use Ojstr\JournalBundle\Form\ContactType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Contact controller.
