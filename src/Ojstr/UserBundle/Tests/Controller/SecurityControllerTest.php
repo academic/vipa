@@ -2,15 +2,20 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojstr\Common\Helper\TestHelper;
 
-class SecurityControllerTest extends WebTestCase {
+class SecurityControllerTest extends TestHelper {
 
-    public function testStatus()
-    {
+    public function testRegsiter() {
         $client = static::createClient();
-        $client->request('GET', '/admin/user/');
-        $this->assertEquals(302, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /user/");
+        $client->request('GET', '/register');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+    }
+
+    public function testLogin() {
+        $client = static::createClient();
+        $client->request('GET', '/login');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
 }

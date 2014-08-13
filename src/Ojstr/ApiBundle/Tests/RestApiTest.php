@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Tests;
+namespace Ojstr\ApiBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -17,7 +17,7 @@ class RestApiTest extends WebTestCase {
 
     public function testUsersGet() {
         $client = static::createClient();
-        $client->request('GET', '/api/users?limit=1');
+        $client->request('GET', '/api/');
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
     }

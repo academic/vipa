@@ -51,6 +51,22 @@ class InstallCommand extends ContainerAwareCommand {
                     '</info>');
             $application->run(new \Symfony\Component\Console\Input\StringInput($command1));
         }
+
+        $update = $dialog->askConfirmation(
+                $output, '<question>' .
+                $translator->trans("Create test db?") . ' (y/n) : </question>', true);
+        $kernel = $this->getContainer()->get('kernel');
+        $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
+        $application->setAutoExit(false);
+        if ($update) {
+            $command1test = 'doctrine:database:create -e test';
+            $output->writeln('<info>' .
+                    $translator->trans('Creating db schema!') .
+                    '</info>');
+            $application->run(new \Symfony\Component\Console\Input\StringInput($command1test));
+        }
+
+
         $command2 = 'doctrine:schema:update --force';
         $output->writeln('<info>' .
                 $translator->trans('Updating db schema!') .
