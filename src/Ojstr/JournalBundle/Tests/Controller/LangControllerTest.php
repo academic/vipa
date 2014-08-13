@@ -2,8 +2,12 @@
 
 namespace Ojstr\JournalBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use \Ojstr\Common\Helper\TestHelper;
 
-class LangControllerTest extends WebTestCase {
-    
+class LangControllerTest extends TestHelper {
+
+    public function testStatus() {
+        $this->assertEquals(TRUE, TRUE);
+    }
+
 }
