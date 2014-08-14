@@ -10,6 +10,12 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends Controller {
 
+    public function logoutAction(Request $request) {
+        $session = $request->getSession();
+        $session->invalidate();
+        return $this->redirect("/");
+    }
+
     public function loginAction(Request $request) {
         $session = $request->getSession();
         // get the login error if there is one
@@ -87,12 +93,6 @@ class SecurityController extends Controller {
                     'errors' => $form->getErrors(),
                         )
         );
-    }
-
-    public function logoutAction(Request $request) {
-        $this->get('security.context')->setToken(null);
-        $this->get('request')->getSession()->invalidate();
-        return $this->redirect($this->generateUrl('login'));
     }
 
     public function createUserAction(Request $request) {

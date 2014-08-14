@@ -35,8 +35,9 @@ register:
     defaults: { _controller: OjstrUserBundle:Security:register } 
 
 logout:
-    path: /logout
-    defaults: { _controller: OjstrUserBundle:Security:logout }
+    path: /logout 
+    defaults: { _controller: OjstrUserBundle:Security:logout } 
+
 login_check:
     path: /login_check 
 
