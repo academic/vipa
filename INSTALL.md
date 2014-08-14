@@ -46,7 +46,6 @@ $ php app/console assetic:dump
 
 ```bash
 # Ojs first run configuration  
-$ php app/console doctrine:database:create --env=test #create ojs test database
 $ php app/console doctrine:database:create #create ojs database with given name from parameters.yml 
 $ php app/console ojs:install
 ```
