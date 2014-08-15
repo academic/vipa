@@ -14,14 +14,14 @@ Ojstr\JournalBundle\Entity\ArticleAuthor:
     manyToOne:
         author:
             targetEntity: Author
-            cascade: [persist]
             inversedBy: author
             joinColumn:
                 name: author_id 
+                referencedColumnName: id
         article:
             targetEntity: Article
-            cascade: [persist]
             inversedBy: article
             joinColumn:
                 name: article_id 
+                referencedColumnName: id
     lifecycleCallbacks: {  }

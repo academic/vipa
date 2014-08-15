@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Institution;
 use Ojstr\JournalBundle\Form\InstitutionType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Institution controller.
@@ -143,15 +142,11 @@ class InstitutionController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
+        $this->throw404IfNotFound($entity);
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('institution'));
     }
 

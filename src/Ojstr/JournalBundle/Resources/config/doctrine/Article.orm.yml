@@ -8,23 +8,30 @@ Ojstr\JournalBundle\Entity\Article:
         strategy: AUTO
       id: true
       type: integer
-  lifecycleCallbacks: {}
+  lifecycleCallbacks: {} 
   manyToOne:
-    journal:
-      targetEntity: Journal
-      inversedBy: articles   
-      #cascade: ["persist", "merge"]
-      fetch: EXTRA_LAZY
+      journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          inversedBy: articles
+      issue: 
+          targetEntity: Issue
+          joinColumn:
+            name: issue_id
+            referencedColumnName: id
+          inversedBy: articles
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
       mappedBy: article  
       cascade: ["ALL"]
       indexBy: attribute
-    authors:
+    articleAuthors:
       targetEntity: ArticleAuthor
       mappedBy: article
-      cascade: ["ALL"]
+      cascade: ["ALL"] 
   manyToMany: 
     languages: 
       targetEntity: Lang
@@ -37,6 +44,7 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Language
+    
     citations: 
       targetEntity: Citation
       inversedBy: articles
@@ -48,7 +56,7 @@ Ojstr\JournalBundle\Entity\Article:
           article_id: 
             referencedColumnName: id
         name: Article_Citation 
-  fields: 
+  fields:  
     subjects:
         type: string
         nullable: TRUE
@@ -57,6 +65,12 @@ Ojstr\JournalBundle\Entity\Article:
           - versioned 
     submitterId:
         column: submitter_id
+        type: integer
+        options: 
+          default: 0
+        nullable: TRUE
+    issueId:
+        column: issue_id
         type: integer
         options: 
           default: 0

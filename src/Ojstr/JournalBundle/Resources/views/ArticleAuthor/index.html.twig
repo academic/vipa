@@ -21,14 +21,12 @@
             <td><a href="{{path('author_show',{id:entity.author.Id })}}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}</td>
             <td><a href="{{path('article_show',{id:entity.article.Id })}}">#{{ entity.article.Id }}</a> {{ entity.article.title }}</td>
             <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('articleauthor_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+
+                {% set show_path = 'articleauthor_show' %}
+                {% set edit_path = 'articleauthor_edit' %}
+                {% set delete_path = 'articleauthor_delete' %}
+                {% include '::actionbtns.html.twig' %}
+
             </td>
         </tr>
         {% endfor %}

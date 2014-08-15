@@ -10,21 +10,21 @@ use Ojstr\JournalBundle\Entity\Issue;
 class LoadIssueData extends AbstractFixture implements OrderedFixtureInterface {
 
     public function load(ObjectManager $manager) {
-        $journal = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Journal c')
-                        ->setMaxResults(1)->getResult();
+        $journal = $this->getReference('ref-journal');
         $issue = new Issue();
         $issue->setDatePublished(new \DateTime());
-        $issue->setJournal($journal[0]);
         $issue->setNumber(10);
         $issue->setTitle("Issue Title");
         $issue->setVolume(4);
         $issue->setYear(2);
+        $issue->setJournal($journal);
         $manager->persist($issue);
+        $this->addReference('ref-issue', $issue);
         $manager->flush();
     }
 
     public function getOrder() {
-        return 10;
+        return 18;
     }
 
 }
