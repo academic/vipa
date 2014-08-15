@@ -1,0 +1,13 @@
+{
+  "name": "jquery-leanmodal",
+  "homepage": "https://github.com/FinelySliced/leanModal.js",
+  "_release": "dfe236edf8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "dfe236edf80087bd837b2ee719e4c156684e5d18"
+  },
+  "_source": "git://github.com/FinelySliced/leanModal.js.git",
+  "_target": "*",
+  "_originalSource": "jquery-leanmodal"
+}

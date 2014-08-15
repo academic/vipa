@@ -49,13 +49,17 @@ Ojstr\UserBundle\Entity\User:
             scale: 0
             length: null
             unique: false
-            nullable: false 
+            nullable: true
+            options:
+                default: 0
         status:
             type: integer
             scale: 0
             length: 5
             unique: false
-            nullable: false
+            nullable: true
+            options:
+                default: 0
         lastlogin:
             type: datetime  
             unique: false

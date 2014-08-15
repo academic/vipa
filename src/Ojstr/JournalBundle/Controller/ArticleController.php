@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
 use Ojstr\JournalBundle\Form\ArticleType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Article controller.
@@ -40,6 +39,36 @@ class ArticleController extends Controller {
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findAll();
         return $this->render('OjstrJournalBundle:Article:index.html.twig', array(
                     'entities' => $entities,
+        ));
+    }
+
+    /**
+     * Lists all Article entities for journal
+     * @param integer $journalId
+     */
+    public function indexJournalAction($journalId) {
+        $em = $this->getDoctrine()->getManager();
+        $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($journalId);
+        $this->throw404IfNotFound($journal);
+        $entities = $em->getRepository('OjstrJournalBundle:Article')->findByJournalId($journalId);
+        return $this->render('OjstrJournalBundle:Article:index_journal.html.twig', array(
+                    'entities' => $entities,
+                    'journal' => $journal
+        ));
+    }
+
+    /**
+     * Lists all Article entities for issue
+     * @param integer $journalId
+     */
+    public function indexIssueAction($issueId) {
+        $em = $this->getDoctrine()->getManager();
+        $issue = $em->getRepository('OjstrJournalBundle:Issue')->find($issueId);
+        $this->throw404IfNotFound($issue);
+        $entities = $em->getRepository('OjstrJournalBundle:Article')->findByIssueId($issueId);
+        return $this->render('OjstrJournalBundle:Article:index_issue.html.twig', array(
+                    'entities' => $entities,
+                    'issue' => $issue
         ));
     }
 

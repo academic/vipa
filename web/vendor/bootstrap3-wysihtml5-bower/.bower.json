@@ -1,0 +1,50 @@
+{
+  "name": "bootstrap3-wysihtml5-bower",
+  "version": "0.3.2",
+  "main": [
+    "dist/bootstrap3-wysihtml5.min.css",
+    "dist/bootstrap3-wysihtml5.min.js"
+  ],
+  "dependencies": {
+    "wysihtml5x": "0.4.9",
+    "rangy-1.3": "master",
+    "bootstrap": "3.1.0",
+    "components-font-awesome": "4.1.0",
+    "handlebars": "1.3.0",
+    "jquery": ">=2.1.0"
+  },
+  "homepage": "https://github.com/Waxolunist/bootstrap3-wysihtml5-bower",
+  "authors": [
+    "Christian Sterzl <christian.sterzl@gmail.com>"
+  ],
+  "description": "Bootstrap 3 compatible wysiwyg editor",
+  "keywords": [
+    "bootstrap",
+    "wysiwyg"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests",
+    "Gruntfile.js",
+    "package.json",
+    "src"
+  ],
+  "devDependencies": {
+    "requirejs": "~2.1.11",
+    "requirejs-domready": "~2.0.1"
+  },
+  "_release": "0.3.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.2",
+    "commit": "748be3fc453c836da66c1cc29eb7842aabdc53a7"
+  },
+  "_source": "git://github.com/Waxolunist/bootstrap3-wysihtml5-bower.git",
+  "_target": "*",
+  "_originalSource": "bootstrap3-wysihtml5-bower"
+}
