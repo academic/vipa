@@ -41,3 +41,8 @@ logout:
 login_check:
     path: /login_check 
 
+
+register_journal:
+    pattern:  /register/journal/
+    defaults: { _controller: "OjstrJournalBundle:Journal:index" }
+    

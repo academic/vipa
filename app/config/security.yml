@@ -4,9 +4,9 @@ security:
             algorithm: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER,ROLE_EDITOR, ROLE_AUTHOR]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
+        ROLE_EDITOR:      [ROLE_AUTHOR]
     providers:
         user_db:
             entity: {  class: Ojstr\UserBundle\Entity\User, property: username }
@@ -37,5 +37,6 @@ security:
         - { path: /admin/journal, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
         - { path: /admin, roles: ROLE_SUPER_ADMIN }
         - { path: /manager, roles: ROLE_USER }
+        - { path: /author, roles: ROLE_AUTHOR }
         - { path: /editor, roles: ROLE_EDITOR }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
