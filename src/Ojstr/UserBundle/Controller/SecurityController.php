@@ -10,12 +10,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class SecurityController extends Controller {
 
-    public function logoutAction(Request $request) {
-        $session = $request->getSession();
-        $session->invalidate();
-        return $this->redirect("/");
-    }
-
     public function loginAction(Request $request) {
         $session = $request->getSession();
         // get the login error if there is one
