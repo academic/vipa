@@ -1,30 +1,26 @@
-ojstr_user:
-    resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
+admin_user:
+    resource: "@OjstrUserBundle/Resources/config/routing/user_admin.yml"
     prefix:   /admin/user
-
+    
+admin_role:
+    resource: "@OjstrUserBundle/Resources/config/routing/role_admin.yml"
+    prefix:   /admin/role
+    
+admin_userjournalrole:
+    resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole_admin.yml"
+    prefix:   /admin/userjournalrole
+    
+admin_eventlog:
+    resource: "@OjstrUserBundle/Resources/config/routing/eventlog_admin.yml"
+    prefix:   /admin/eventlog
+    
 manager_profile:
     pattern:  /manager/profile
     defaults: { _controller: "OjstrUserBundle:User:profile" }
-    
-    
-role_crud:
-    resource: "@OjstrUserBundle/Resources/config/routing/role.yml"
-    prefix:   /admin/role
-
-ojstr_userjournalrole:
-    resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole.yml"
-    prefix:   /admin/userjournalrole
 
 manager_show_my_journals:
     pattern:  /manager/myjournals
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:myJournals" }
-    
-    
-ojstr_eventlog:
-    resource: "@OjstrUserBundle/Resources/config/routing/eventlog.yml"
-    prefix:   /admin/eventlog
-
-
 
 
 login:
@@ -40,8 +36,7 @@ logout:
 login_check:
     path: /login_check 
 
-
 register_journal:
     pattern:  /register/journal/
-    defaults: { _controller: "OjstrJournalBundle:Journal:index" }
+    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
     
