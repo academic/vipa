@@ -22,6 +22,12 @@ security:
             logout:
                 path: /logout
                 target: /
+#                invalidate_session: false
+#                delete_cookies:
+#                    a: { path: null, domain: null }
+#                    b: { path: null, domain: null }
+#                handlers: [some.service.id, another.service.id]
+#                success_handler: some.service.id
             remember_me:
                 key: df716bb554af3c6f04c34e0c6518253b
                 lifetime: 1800
