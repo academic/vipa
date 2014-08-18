@@ -121,7 +121,7 @@ class OjsExtension extends \Twig_Extension {
     public function hasRole($role) {
         $userjournalroles = $this->getSession('userJournalRoles');
         $user = $this->checkUser();
-        if ($user) {
+        if ($user && is_array($userjournalroles)) {
             foreach ($userjournalroles as $role) {
                 if ($role->getRole() == $role) {
                     return TRUE;
