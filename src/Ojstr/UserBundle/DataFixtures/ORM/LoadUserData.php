@@ -48,9 +48,9 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author->setLastName("Author1");
         $author->addSubject($subject);
         $manager->persist($author);
-        
+
         $author2->setEmail("author2@demo.com");
-        $author2->setIsActive(1); 
+        $author2->setIsActive(1);
         $author2->setPassword($encoder->encodePassword("demo", $author->getSalt()));
         $author2->setStatus(1);
         $author2->setUsername("demo_author2");
@@ -70,9 +70,11 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
         $author->addRole($role);
         $author->addRole($roleAuthor);
+        $author2->addRole($roleAuthor);
         $editor->addRole($role);
         $editor->addRole($roleEditor);
         $manager->persist($author);
+        $manager->persist($author2);
         $manager->persist($editor);
         $manager->flush();
 
