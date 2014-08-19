@@ -24,19 +24,14 @@ class EditorController extends Controller {
 
     public function myJournalsAction() {
         $user_id = $this->container->get('security.context')->getToken()->getUser()->getId();
-        $em = $this->getDoctrine()->getManager();
-        $data = $em->createQuery(
-                        'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
-                )->setParameter('user_id', $user_id)->getResult();
-        if ($data) {
-            $entities = array();
-            foreach ($data as $item) {
-                $entities[$item->getJournalId()]['journal'] = $item->getJournal();
-                $entities[$item->getJournalId()]['roles'][] = $item->getRole();
-            }
+        if (!$user_id) {
+            throw new HttpException(403, 'There is a problem while getting user information. Access denied');
         }
-
-        return $this->render('OjstrManagerBundle:Editor:myjournals.html.twig', array('entities' => $entities));
+        $entities = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')
+                ->userJournalsWithRoles($user_id);
+        return $this->render('OjstrManagerBundle:Editor:myjournals.html.twig', array(
+                    'entities' => $entities
+        ));
     }
 
     public function showJournalAction($id) {

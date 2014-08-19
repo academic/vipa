@@ -15,15 +15,14 @@
     <div class="panel panel-default">
         <div class="panel-heading"><h3>Register Yourself as Author</h3></div>
         <div class="panel-body">
-            <div class="list-group">
+            <div class="list-group alljournallist">
                 {%for entity in journals %}
-                <a href="#" class="list-group-item">{{entity.title}} 
+                <a  href="{{path('user_join_journal_action',{'journalId': entity.id})}}" rel="{{entity.id}}" class="list-group-item">{{entity.title}} 
                     <span class="glyphicon glyphicon-plus-sign pull-right"></span>
                 </a>
                 {%endfor%}
             </div>
         </div>
     </div>
-</div> 
-{% endblock %}
-
+</div>
+{% endblock %} 
