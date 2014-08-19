@@ -189,10 +189,32 @@ class UserController extends Controller {
                         ->getForm();
     }
 
-    public function registerAsAuthorAction() {
+    public function registerAsAuthorAction(Request $request, $journalId = NULL) {
+        $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+        $doc = $this->getDoctrine();
+        $em = $doc->getManager();
+        if ($journalId) {
+            $user = $doc->getRepository('OjstrUserBundle:User')->find($userId);
+            $journal = $doc->getRepository('OjstrJournalBundle:Journal')->find($journalId);
+            $role = $doc->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+            $ujr = $doc->getRepository('OjstrUserBundle:UserJournalRole')->findOneBy(array(
+                'userId' => $user->getId(),
+                'journalId' => $journal->getId(),
+                'roleId' => $role->getId()
+            ));
+            $ujr = !$ujr ? new \Ojstr\UserBundle\Entity\UserJournalRole() : $ujr;
+            $ujr->setUser($user);
+            $ujr->setJournal($journal);
+            $ujr->setRole($role);
+            $em->persist($ujr);
+            $em->flush();
+        }
+        $myJournals = $doc->getRepository('OjstrUserBundle:UserJournalRole')
+                ->userJournalsWithRoles($userId);
         $journals = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->findAll();
         return $this->render('OjstrUserBundle:User:registerAuthor.html.twig', array(
                     'journals' => $journals,
+                    'myJournals' => $myJournals
         ));
     }
 

@@ -36,7 +36,11 @@ logout:
 login_check:
     path: /login_check 
 
-register_journal:
-    pattern:  /user/register/journal/
+user_join_journal_action:
+    pattern:  /user/join/journal/{journalId}
+    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
+
+user_join_journal:
+    pattern:  /user/join/journal/
     defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
     
