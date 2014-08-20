@@ -1,6 +1,6 @@
 {
   "name": "blueimp-file-upload",
-  "version": "9.5.7",
+  "version": "9.7.0",
   "title": "jQuery File Upload",
   "description": "File Upload widget with multiple file selection, drag&amp;drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.",
   "keywords": [
@@ -82,11 +82,11 @@
     "server",
     "test"
   ],
-  "_release": "9.5.7",
+  "_release": "9.7.0",
   "_resolution": {
     "type": "version",
-    "tag": "9.5.7",
-    "commit": "0271e43e0b883b030b2cd2b4fd72232b3fb59dc5"
+    "tag": "9.7.0",
+    "commit": "cf58488097c140f1bc0a417eeea5fab05625b6e0"
   },
   "_source": "git://github.com/blueimp/jQuery-File-Upload.git",
   "_target": "*",
