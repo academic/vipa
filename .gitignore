@@ -29,7 +29,7 @@ composer.phar
 /vendor/
 composer.lock
 #bower
-web/vendor/"
+web/vendor/*
 
 ## File-based project format
 *.ipr
