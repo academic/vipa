@@ -26,10 +26,15 @@ class TestHelper extends WebTestCase {
         $this->assertEquals(TRUE, TRUE);
     }
 
-    protected function logIn() {
+    /**
+     * 
+     * @param string $username
+     * @param array $role
+     */
+    protected function logIn($username = NULL, $role = NULL) {
         $session = $this->client->getContainer()->get('session');
         $firewall = 'main';
-        $token = new UsernamePasswordToken('admin', null, $firewall, array('ROLE_SUPER_ADMIN'));
+        $token = new UsernamePasswordToken($username ? $username : 'admin', null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));
         $session->set('_security_' . $firewall, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
