@@ -4,8 +4,8 @@ Ojstr\JournalBundle\Entity\CitationSetting:
     #repositoryClass: Ojstr\JournalBundle\Entity\CitationSettingRepository
     manyToOne:
         citation:
-                targetEntity: Ojstr\JournalBundle\Entity\Citation
-                inversedBy: Citation 
+            targetEntity: Ojstr\JournalBundle\Entity\Citation
+            inversedBy: settings 
     id:
         id:
             type: integer

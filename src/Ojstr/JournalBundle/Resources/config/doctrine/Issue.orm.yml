@@ -8,7 +8,7 @@ Ojstr\JournalBundle\Entity\Issue:
           mappedBy: issue
           cascade: ["persist", "merge"]
           fetch: LAZY
-    oneToOne:
+    manyToOne:
       journal:
           targetEntity: Journal
           joinColumn:
