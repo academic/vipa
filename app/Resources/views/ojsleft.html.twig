@@ -2,19 +2,17 @@
 <nav class="navbar-default navbar-static-side" id="leftmenu" role="navigation"> 
 
     <!-- sidebar: style can be found in sidebar.less -->  
-    <div class="user-panel col-md-12" style="text-align: center">
+    <div class="user-panel col-md-12">
                          {% if(app.user.getAvatar()) %}
         <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
-             style="width:250px" class="avatar img-circle img-responsive" alt="User avatar" />
+             class="avatar img-circle img-responsive" style="width:150px" alt="User avatar" />
                         {%else%}
         <img src="/assets/images/buddy_sample.png" 
-             style="width:250px" class="img-circle img-responsive" alt="User avatar" />
-                        {%endif%} 
-        <div class="pull-left info">
-            <p>{{app.user.getUsername()}}</p> 
-            <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{app.user.getLastogin()|date('Y-m-d H:i:s')}}</a>  
-        </div>
+             class="img-circle img-responsive" style="width:150px" alt="User avatar" />
+                        {%endif%}  
+        <hr>    
     </div> 
+
     <div class="row">
         <center>
             <p>

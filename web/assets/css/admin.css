@@ -6,10 +6,18 @@ body {
     background-color: #f8f8f8;
 }
 
-/* Wrappers */
+.user-menu{
 
-/* ------------------------------- */
+}
 
+.breadcrumb{
+    border-radius: 0!important
+}
+.navbar {
+    border-radius: 0!important;
+    border-left:none!important;
+    border-right: none!important;
+}
 #wrapper {
     width: 100%;
 }
