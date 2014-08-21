@@ -66,7 +66,7 @@
                     </li>
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i>
+                            <i class="fa fa-user"></i>
                             <span>{{app.user.getUsername()}} <i class="caret"></i></span>
                         </a>
                         <ul class="dropdown-menu">
@@ -94,7 +94,13 @@
                     </li>
                         {%endif%}
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#search">Search</a>
+                        <li>
+                            <a class="btn btn-link" href="{{path('login')}}">
+                                <i class="fa fa-sign-in"></i> Login</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-link" href="#search">
+                                <i class="fa fa-search"></i> Search</a>
                             <div id="search">
                                 <button type="button" class="close">×</button>
                                 <form>
