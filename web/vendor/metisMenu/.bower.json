@@ -1,0 +1,41 @@
+{
+  "name": "metisMenu",
+  "version": "1.1.1",
+  "homepage": "https://github.com/onokumus/metisMenu",
+  "authors": [
+    "onokumus <onokumus@gmail.com>"
+  ],
+  "description": "Easy menu jQuery plugin for Twitter Bootstrap 3",
+  "main": [
+    "dist/metisMenu.js",
+    "dist/metisMenu.css"
+  ],
+  "keywords": [
+    "twitter",
+    "bootstrap",
+    "twbs",
+    "jquery",
+    "menu",
+    "accordion",
+    "toggle",
+    "metis",
+    "metisMenu"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.1",
+    "commit": "7791e36a74b42b479e8ef406db4ccf0e2551e883"
+  },
+  "_source": "git://github.com/onokumus/metisMenu.git",
+  "_target": "*",
+  "_originalSource": "metisMenu"
+}
