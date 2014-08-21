@@ -1,0 +1,30 @@
+{
+  "name": "select2-bootstrap-css",
+  "version": "1.4.1",
+  "main": [
+    "select2-bootstrap.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "select2": "^3.3.2"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.2.0",
+    "bootstrap-sass-official": "~3.2.0",
+    "respond": "~1.4.2"
+  },
+  "homepage": "https://github.com/t0m/select2-bootstrap-css",
+  "_release": "1.4.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.4.1",
+    "commit": "f2737c73020b7b8265ffa11aecdafc814910af56"
+  },
+  "_source": "git://github.com/t0m/select2-bootstrap-css.git",
+  "_target": "*",
+  "_originalSource": "select2-bootstrap-css"
+}
