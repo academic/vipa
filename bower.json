@@ -25,6 +25,7 @@
 	"ckeditor":"*",
 	"jquery.inputmask":"*",
 	"flot":"*",
-	"morrisjs":"*"
+	"morrisjs":"*",
+	"metisMenu":"*"
     }
 }
