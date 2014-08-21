@@ -7,7 +7,12 @@ use \Ojstr\Common\Helper\TestHelper;
 class AuthorControllerTest extends TestHelper {
 
     public function testStatus() {
-        $this->assertEquals(TRUE, TRUE);
+        $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
+        $this->client->request('GET', '/admin/author/');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+
+        $this->client->request('GET', '/admin/author/new');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 
 }

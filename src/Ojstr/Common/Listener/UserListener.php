@@ -37,9 +37,6 @@ class UserListener {
         }
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');
-        if (is_string($user)) {
-            $user = $em->getRepository('OjstrUserBundle:User')->findOneByUsername($user);
-        }
         $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $this->session->get('selectedJournalId')));
         $userJournalRoles = array();
         if ($entities) {
@@ -61,9 +58,6 @@ class UserListener {
         }
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');
-        if (is_string($user)) {
-            $user = $em->getRepository('OjstrUserBundle:User')->findOneByUsername($user);
-        }
         $userJournals = $repo->findByUserId($user->getId());
         if (!is_array($userJournals)) {
             return;
