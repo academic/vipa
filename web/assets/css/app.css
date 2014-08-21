@@ -119,8 +119,9 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 }
 
 .homebrand .board > div.board-inner{
-    background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);
+    background: #fafafa url(/assets/images/pattern1.png);
     background-size: 30%;
+    /*border-top: solid #ddd 1px;*/
 }
 
 .homebrand p.narrow{
@@ -137,7 +138,7 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
     left: 0;
     right: 0;
     top: 50%;
-    z-index: strong1;
+    z-index: 1;
 }
 
 .homebrand .nav-tabs > li.active > a,.homebrand .nav-tabs > li.active > a:hover,.homebrand .nav-tabs > li.active > a:focus {
