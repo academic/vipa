@@ -18,31 +18,32 @@ $.fn.serializeObject = function()
 
 $(document).ready(function() {
     $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
-    $(".sidebar .treeview").tree();
     $('a[title]').tooltip();
-
-    $("[data-toggle='offcanvas']").click(function(e) {
-        e.preventDefault();
-
-        //If window is small enough, enable sidebar push menu
-        if ($(window).width() <= 992) {
-            $('.row-offcanvas').toggleClass('active');
-            $('.left-side').removeClass("collapse-left");
-            $(".right-side").removeClass("strech");
-            $('.row-offcanvas').toggleClass("relative");
-        } else {
-            //Else, enable content streching
-            $('.left-side').toggleClass("collapse-left");
-            $(".right-side").toggleClass("strech");
-        }
+    $(".panel-heading").click(function() {
+        $(this).next(".panel-body").slideToggle();
     });
-    
+    $('#side-menu').metisMenu();
+
+
+
+    //Loads the correct sidebar on window load,
+    //collapses the sidebar on window resize.
+
+    $(window).bind("load resize", function() {
+        console.log($(this).width())
+        if ($(this).width() < 768) {
+            $('div.sidebar-collapse').addClass('collapse')
+        } else {
+            $('div.sidebar-collapse').removeClass('collapse')
+        }
+    })
+
     $('a[href="#search"]').on('click', function(event) {
         event.preventDefault();
         $('#search').addClass('open');
         $('#search > form > input[type="search"]').focus();
     });
-    
+
     $('#search, #search button.close').on('click keyup', function(event) {
         if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
             $(this).removeClass('open');
