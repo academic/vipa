@@ -58,9 +58,9 @@ class InstallCommand extends ContainerAwareCommand {
                 $output, '<info>' .
                 $translator->trans('Set system admin email') .
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
-        $admin_password = $dialog->askHiddenResponse(
+        $admin_password = $dialog->ask(
                 $output, '<info>' .
-                $translator->trans('Set system admin password') . ' : </info>', '');
+                $translator->trans('Set system admin password (admin)') . ' : </info>', 'admin');
 
         $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
         $this->insertRoles($output);
