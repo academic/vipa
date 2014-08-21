@@ -32,8 +32,10 @@
             {% if app.user %}
                 <div class="content-header"> 
                         {% block breadcrumb %}
-                    <a href="/">Dashboard</a>
-                    <small>Control panel</small>
+                    <div class="breadcrumb">
+                        <a href="/dashboard">Dashboard</a>
+                        <small>Control panel</small>
+                    </div>
                         {% endblock %} 
                 </div>
             {%endif%}
