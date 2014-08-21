@@ -1,6 +1,7 @@
 <?php
 
 namespace Ojstr\JournalBundle\Entity;
+
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
@@ -102,12 +103,19 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * 
+     * @Expose
      */
-    private $articles;
+    private $articleAuthors;
 
     public function __construct() {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleAuthors() {
+        return $this->articleAuthors;
     }
 
     /**
