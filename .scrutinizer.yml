@@ -1,0 +1,17 @@
+filter:
+    excluded_paths: [ "vendor/*", "tests/*", "Tests/*","app/*","web/*" ]
+
+tools:
+    php_analyzer: true
+
+    php_code_sniffer:
+        config:
+            standard: "PSR1"
+
+    php_mess_detector: true
+
+    php_pdepend: true
+
+    php_sim: true
+
+    sensiolabs_security_checker: true

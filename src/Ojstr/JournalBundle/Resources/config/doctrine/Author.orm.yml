@@ -9,10 +9,9 @@ Ojstr\JournalBundle\Entity\Author:
             name: user_id
             referencedColumnName: id
     oneToMany:
-        articles:
+        articleAuthors:
             targetEntity: ArticleAuthor
-            mappedBy: author  
-            cascade: ["ALL"]
+            mappedBy: author
         
     id:
         id:

@@ -89,12 +89,6 @@ class SecurityController extends Controller {
         );
     }
 
-    public function logoutAction(Request $request) {
-        $this->get('security.context')->setToken(null);
-        $this->get('request')->getSession()->invalidate();
-        return $this->redirect($this->generateUrl('login'));
-    }
-
     public function createUserAction(Request $request) {
         $username = $request->get('_username');
         $email = $request->get('_email');

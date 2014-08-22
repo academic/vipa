@@ -1,0 +1,28 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+{% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'}, 
+                {'title': 'Register yourself as author'}, 
+
+] %} 
+{{breadcrumb(list)}}
+{% endblock %}
+
+
+{% block body -%}
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3>Register Yourself as Author</h3></div>
+        <div class="panel-body">
+            <div class="list-group alljournallist">
+                {%for entity in journals %}
+                <a  href="{{path('user_join_journal_action',{'journalId': entity.id})}}" rel="{{entity.id}}" class="list-group-item">{{entity.title}} 
+                    <span class="fa fa-plus pull-right"></span>
+                </a>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -26,7 +26,7 @@ nb-configuration.xml
 
 ### Composer ###
 composer.phar
-/vendor/
+vendor/
 composer.lock
 #bower
 web/vendor/*

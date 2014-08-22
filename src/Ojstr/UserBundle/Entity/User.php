@@ -310,7 +310,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     }
 
     public function eraseCredentials() {
-        $this->setPassword(NULL);
+        //$this->setPassword(NULL);
     }
 
     /**

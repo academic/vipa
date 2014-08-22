@@ -23,8 +23,10 @@ class InstallCommand extends ContainerAwareCommand {
         $keep_going = $input->getArgument('continue-on-error');
         $translator = $this->getContainer()->get('translator');
         $dialog = $this->getHelperSet()->get('dialog');
-
-        //$translator->setLocale('tr_TR');
+        $kernel = $this->getContainer()->get('kernel');
+        $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
+        $application->setAutoExit(false);
+//$translator->setLocale('tr_TR');
         $output->writeln($this->printWelcome());
         $output->writeln('<info>' .
                 $translator->trans('Ojs Installation') .
@@ -38,23 +40,11 @@ class InstallCommand extends ContainerAwareCommand {
             return;
         }
 
-        $update = $dialog->askConfirmation(
-                $output, '<question>' .
-                $translator->trans("Create db?") . ' (y/n) : </question>', true);
-        $kernel = $this->getContainer()->get('kernel');
-        $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
-        $application->setAutoExit(false);
-        if ($update) {
-            $command1 = 'doctrine:database:create';
-            $output->writeln('<info>' .
-                    $translator->trans('Creating db schema!') .
-                    '</info>');
-            $application->run(new \Symfony\Component\Console\Input\StringInput($command1));
-        }
         $command2 = 'doctrine:schema:update --force';
         $output->writeln('<info>' .
                 $translator->trans('Updating db schema!') .
                 '</info>');
+
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
 
 
@@ -64,14 +54,13 @@ class InstallCommand extends ContainerAwareCommand {
                 ' (admin) : </info>', 'admin');
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
-
         $admin_email = $dialog->ask(
                 $output, '<info>' .
                 $translator->trans('Set system admin email') .
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
-        $admin_password = $dialog->askHiddenResponse(
+        $admin_password = $dialog->ask(
                 $output, '<info>' .
-                $translator->trans('Set system admin password') . ' : </info>', '');
+                $translator->trans('Set system admin password (admin)') . ' : </info>', 'admin');
 
         $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
         $this->insertRoles($output);
@@ -143,16 +132,7 @@ class InstallCommand extends ContainerAwareCommand {
     }
 
     protected function printWelcome() {
-        return '
- _____    _____  ____       
-/\  __`\ /\___ \/\  _`\     
-\ \ \/\ \\/__/\ \ \,\L\_\   
- \ \ \ \ \  _\ \ \/_\__ \   
-  \ \ \_\ \/\ \_\ \/\ \L\ \ 
-   \ \_____\ \____/\ `\____\
-    \/_____/\/___/  \/_____/
-                            
-                            ';
+        return '';
     }
 
 }

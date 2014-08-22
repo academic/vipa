@@ -1,114 +1,117 @@
-<!-- header -->
-<header class="">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ojs-navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Ojstrx</a>
-            </div>
+<!-- navigation section -->
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ojs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ojstrx</a>
+        </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="ojs-navbar-collapse">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="ojs-navbar-collapse">
 
                 {%include '::language_selector.html.twig'%}
 
-                <div class="navbar-right">
-                    <ul class="nav navbar-nav"> 
+            <div class="navbar-right">
+                <ul class="nav navbar-nav"> 
                         {% if app.user %}
-                            <li class="dropdown messages-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-envelope"></i>
-                                    <span class="label label-success"><!--$count--></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <ul class="menu">
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope"></i>
+                            <span class="label label-success"><!--$count--></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <ul class="menu">
 
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">See All Messages</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-warning"></i>
-                                    <span class="label label-warning"><!--$count--></span>
-                                </a>
-                                <ul class="dropdown-menu">
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-warning"></i>
+                            <span class="label label-warning"><!--$count--></span>
+                        </a>
+                        <ul class="dropdown-menu">
 
-                                    <li>
-                                        <ul class="menu">
+                            <li>
+                                <ul class="menu">
 
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">View all</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown tasks-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-tasks"></i>
-                                    <span class="label label-danger"><!--$count--></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <ul class="menu">
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown tasks-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-tasks"></i>
+                            <span class="label label-danger"><!--$count--></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <ul class="menu">
 
-                                        </ul>
-                                    </li>
-                                    <li class="footer">
-                                        <a href="#">View all</a>
-                                    </li>
                                 </ul>
                             </li>
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                    <span>{{app.user.getUsername()}} <i class="caret"></i></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header bg-light-blue">
-                                        {% if(app.user.getAvatar()) %}
-                                            <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" class="img-circle" alt="User Image" />
-                                        {%else%}
-                                            <img src="/assets/images/buddy_sample.png" class="img-circle" alt="User Image" />
-                                        {%endif%}
-                                        <p> 
-                                            <small>Last login : {{app.user.getLastogin()|date('Y-m-d H:i:s')}}</small>
-                                        </p>
-                                    </li> 
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <div class="pull-left">
-                                            <a href="{{path('manager_profile')}}" class="btn btn-default btn-flat">Profile</a>
-                                        </div>
-                                        <div class="pull-right">
-                                            <a href="{{ path('logout') }}" class="btn btn-default btn-flat">Sign out</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        {%endif%}
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#search">Search</a>
-                                <div id="search">
-                                    <button type="button" class="close">×</button>
-                                    <form>
-                                        <input type="search" value="" placeholder="type keyword(s) here" />
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                    </form>
-                                </div>
+                            <li class="footer">
+                                <a href="#">View all</a>
                             </li>
                         </ul>
-                    </ul>
-                </div>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+                    </li>
+                    <li class="dropdown user user-menu">
 
-</header>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i>
+                            <span>{{app.user.getUsername()}} <i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue">
+                                <div class="col-md-12">
+                                    <p> 
+                                        <small>Last login : <br>{{app.user.getLastogin()|date('Y-m-d H:i:s')}}</small>
+                                    </p>
+                                </div>
+                            </li> 
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <a href="{{path('user_profile')}}">
+                                    <i class="fa fa-user"></i> Profile</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('logout') }}">
+                                    <i class="fa fa-sign-out"></i> Sign out</a>
+                            </li>
+                        </ul> 
+                    </li>
+                        {%endif%}
+                    <ul class="nav navbar-nav navbar-right">
+                         {% if app.user == false %}<li>
+                            <a class="btn btn-link" href="{{path('login')}}">
+                                <i class="fa fa-sign-in"></i> Login</a>
+                        </li>
+                        {%endif%}
+                        <li>
+                            <a class="btn btn-link" href="#search">
+                                <i class="fa fa-search"></i> Search</a>
+                            <div id="search">
+                                <button type="button" class="close">×</button>
+                                <form>
+                                    <input type="search" value="" placeholder="type keyword(s) here" />
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav> 
+<!-- /.navigation -->

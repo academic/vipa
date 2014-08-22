@@ -5,7 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
         {% stylesheets
-           '@main_css' filter='uglifycss' filter='cssrewrite'  output="c/appmain.css" 
+           '@admin_main_css' filter='uglifycss' filter='cssrewrite'  output="c/appmain.css" 
         %}   
         <link rel="stylesheet" href="{{ asset_url }}" />
        {% endstylesheets %} 

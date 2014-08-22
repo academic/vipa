@@ -14,13 +14,13 @@ Ojstr\JournalBundle\Entity\ArticleAuthor:
     manyToOne:
         author:
             targetEntity: Author
-            inversedBy: author
+            inversedBy: articleAuthors
             joinColumn:
                 name: author_id 
                 referencedColumnName: id
         article:
             targetEntity: Article
-            inversedBy: article
+            inversedBy: articleAuthors
             joinColumn:
                 name: article_id 
                 referencedColumnName: id
