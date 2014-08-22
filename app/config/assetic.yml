@@ -26,7 +26,8 @@ assetic:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/jquery/dist/jquery.min.js
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
-                    - %kernel.root_dir%/../web/vendor/metisMenu/dist/jquery.metisMenu.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery-leanmodal/jquery.leanModal.js
+		    - %kernel.root_dir%/../web/vendor/metisMenu/dist/jquery.metisMenu.min.js
                     - %kernel.root_dir%/../web/assets/js/jsglobals.js
                     - %kernel.root_dir%/../web/assets/js/common.js 
         admin_main_css:
