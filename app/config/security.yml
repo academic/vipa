@@ -4,9 +4,10 @@ security:
             algorithm: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_ADMIN:       [ROLE_USER,ROLE_EDITOR, ROLE_AUTHOR]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-
+        ROLE_AUTHOR:      [ROLE_USER]
+        ROLE_EDITOR:      [ROLE_AUTHOR]
     providers:
         user_db:
             entity: {  class: Ojstr\UserBundle\Entity\User, property: username }
@@ -22,6 +23,12 @@ security:
             logout:
                 path: /logout
                 target: /
+#                invalidate_session: false
+#                delete_cookies:
+#                    a: { path: null, domain: null }
+#                    b: { path: null, domain: null }
+#                handlers: [some.service.id, another.service.id]
+#                success_handler: some.service.id
             remember_me:
                 key: df716bb554af3c6f04c34e0c6518253b
                 lifetime: 1800
@@ -37,5 +44,7 @@ security:
         - { path: /admin/journal, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
         - { path: /admin, roles: ROLE_SUPER_ADMIN }
         - { path: /manager, roles: ROLE_USER }
+        - { path: /user, roles: ROLE_USER }
+        - { path: /author, roles: ROLE_AUTHOR }
         - { path: /editor, roles: ROLE_EDITOR }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

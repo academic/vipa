@@ -31,7 +31,6 @@ Ojstr\JournalBundle\Entity\Article:
     articleAuthors:
       targetEntity: ArticleAuthor
       mappedBy: article
-      cascade: ["ALL"] 
   manyToMany: 
     languages: 
       targetEntity: Lang

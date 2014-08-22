@@ -119,8 +119,9 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 }
 
 .homebrand .board > div.board-inner{
-    background: #fafafa url(http://subtlepatterns.com/patterns/geometry2.png);
+    background: #fafafa url(/assets/images/pattern1.png);
     background-size: 30%;
+    /*border-top: solid #ddd 1px;*/
 }
 
 .homebrand p.narrow{
@@ -335,3 +336,7 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
         padding:12px 20px;
     }
 }
+
+div#leftmenu img.avatar{ }
+.fstrong{background-color: #f1685e; padding:4px;border-radius:4px;color:#e0e0e0}
+a:hover .strong{text-decoration: none;}
