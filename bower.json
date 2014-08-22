@@ -23,6 +23,9 @@
         "select2-bootstrap-css":"*",
 	"jquery-file-upload":"*",
 	"ckeditor":"*",
-	"jquery.inputmask":"*"
+	"jquery.inputmask":"*",
+	"flot":"*",
+	"morrisjs":"*",
+	"metisMenu":"*"
     }
 }

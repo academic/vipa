@@ -8,8 +8,9 @@ following options.
 2. apache or nginx
 3. mysql 5.5 or equilent
 4. Enough storage
-5. MongoDb
+5. [MongoDb](https://github.com/okulbilisim/ojs/tree/master/docs/developers/Mongodb.md)
 6. Mysql
+7. [ElasticSearch](https://github.com/okulbilisim/ojs/tree/master/docs/developers/ElasticSearch.md)
 
 
 
@@ -42,28 +43,13 @@ $ php app/console assets:install web --symlink
 $ php app/console assetic:dump
 ```
 
-
-if you have database for OJS then installer ask you:
-
-`Create db? (y/n) : `
-
-if not installer create a database and tables that required.
-
-Or create a database and user; grant all privilages then start install script.
-```bash
-create database ojs;
-create user ojs;
-grant all on ojs.* to 'ojs'@'localhost' identified by 'ojs';
-```
-
 ### Installer
 
 ```bash
 # Ojs first run configuration  
+$ php app/console doctrine:database:create #create ojs database with given name from parameters.yml 
 $ php app/console ojs:install
 ```
-
-
 
 Ojs sample data :
  

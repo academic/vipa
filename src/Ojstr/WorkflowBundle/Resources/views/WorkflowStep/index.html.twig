@@ -33,13 +33,13 @@
             </span>
             <span class="pull-right">
                 <a class="btn btn-info btn-sm" href="{{path('workflowsteps_show',{ 'id': entity.id })}}"> 
-                    <i class="glyphicon glyphicon-info-sign"></i>
+                    <i class="fa fa-info-sign"></i>
                 </a>  
                 <a class="btn btn-warning btn-sm" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
-                    <i class="glyphicon glyphicon-pencil"></i>
+                    <i class="fa fa-pencil"></i>
                 </a>  
                 <a class="btn btn-danger btn-sm" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
-                    <i class="glyphicon glyphicon-trash"></i>
+                    <i class="fa fa-trash"></i>
                 </a> </span>
             <br>
             <small>Next Steps</small>
@@ -51,7 +51,7 @@
         {% endfor %}
         <hr>
         <a href="{{path('workflowstep_new')}}" class="btn btn-success">
-            <i class="glyphicon glyphicon-plus-sign"></i> Create</a>
+            <i class="fa fa-plus"></i> Create</a>
         </a>
     </div>
 </div>

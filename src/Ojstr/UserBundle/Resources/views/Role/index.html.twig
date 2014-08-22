@@ -25,7 +25,7 @@
                     </td>
                     <td>{{ entity.name }}</td>
                     <td><span>{{ entity.role }}</span></td>
-                    <td>{% if entity.isSystemRole %}<i class="glyphicon glyphicon-ok"></i>{%endif%}</td>
+                    <td>{% if entity.isSystemRole %}<i class="fa fa-check"></i>{%endif%}</td>
 
                     <td> 
                         <a href="{{ path('role_show', { 'id': entity.id }) }}" class="btn btn-sm btn-info">{% trans %}Show{% endtrans %}</a>  

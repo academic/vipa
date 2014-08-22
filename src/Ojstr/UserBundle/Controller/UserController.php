@@ -19,7 +19,7 @@ class UserController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:User')->findAll();
-        return $this->render('OjstrUserBundle:User:index.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/index.html.twig', array(
                     'entities' => $entities,
         ));
     }
@@ -42,7 +42,7 @@ class UserController extends Controller {
             $em->flush();
             return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
         }
-        return $this->render('OjstrUserBundle:User:new.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -50,9 +50,7 @@ class UserController extends Controller {
 
     /**
      * Creates a form to create a User entity.
-     *
      * @param User $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(User $entity) {
@@ -70,7 +68,7 @@ class UserController extends Controller {
     public function newAction() {
         $entity = new User();
         $form = $this->createCreateForm($entity);
-        return $this->render('OjstrUserBundle:User:new.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -78,7 +76,6 @@ class UserController extends Controller {
 
     /**
      * Finds and displays a User entity.
-     *
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -86,7 +83,7 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        return $this->render('OjstrUserBundle:User:show.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/show.html.twig', array(
                     'entity' => $entity));
     }
 
@@ -97,7 +94,7 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        return $this->render('OjstrUserBundle:User:profile.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/profile.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => array()));
     }
@@ -112,7 +109,7 @@ class UserController extends Controller {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjstrUserBundle:User:edit.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
         ));
@@ -152,7 +149,7 @@ class UserController extends Controller {
             $em->flush();
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
         }
-        return $this->render('OjstrUserBundle:User:edit.html.twig', array(
+        return $this->render('OjstrUserBundle:User:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
         ));
@@ -190,6 +187,35 @@ class UserController extends Controller {
                                 'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
                         ))
                         ->getForm();
+    }
+
+    public function registerAsAuthorAction(Request $request, $journalId = NULL) {
+        $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+        $doc = $this->getDoctrine();
+        $em = $doc->getManager();
+        if ($journalId) {
+            $user = $doc->getRepository('OjstrUserBundle:User')->find($userId);
+            $journal = $doc->getRepository('OjstrJournalBundle:Journal')->find($journalId);
+            $role = $doc->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+            $ujr = $doc->getRepository('OjstrUserBundle:UserJournalRole')->findOneBy(array(
+                'userId' => $user->getId(),
+                'journalId' => $journal->getId(),
+                'roleId' => $role->getId()
+            ));
+            $ujr = !$ujr ? new \Ojstr\UserBundle\Entity\UserJournalRole() : $ujr;
+            $ujr->setUser($user);
+            $ujr->setJournal($journal);
+            $ujr->setRole($role);
+            $em->persist($ujr);
+            $em->flush();
+        }
+        $myJournals = $doc->getRepository('OjstrUserBundle:UserJournalRole')
+                ->userJournalsWithRoles($userId);
+        $journals = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->findAll();
+        return $this->render('OjstrUserBundle:User:registerAuthor.html.twig', array(
+                    'journals' => $journals,
+                    'myJournals' => $myJournals
+        ));
     }
 
 }

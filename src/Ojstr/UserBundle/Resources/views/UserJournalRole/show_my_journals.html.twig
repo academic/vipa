@@ -7,10 +7,10 @@
 
         {% if isSystemAdmin()%}
         <a class="btn btn-default" href="{{path('journal')}}">
-            <i class="glyphicon glyphicon-asterisk"></i> All journals</a>
+            <i class="fa fa-asterisk"></i> All journals</a>
         {%endif%}
-        <a class="btn btn-info" href="{{path('manager_show_my_journals')}}">
-            <i class="glyphicon glyphicon-user"></i> My journals</a>
+        <a class="btn btn-info" href="{{path('user_show_my_journals')}}">
+            <i class="fa fa-user"></i> My journals</a>
         <hr>
 {% if entities %}
         <table class="records_list  table">
