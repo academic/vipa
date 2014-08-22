@@ -2,14 +2,18 @@
 
 namespace Ojstr\JournalBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use \Ojstr\Common\Helper\TestHelper;
 
-class ThemeControllerTest extends WebTestCase {
+class ThemeControllerTest extends TestHelper {
 
     public function testStatus() {
-        $client = static::createClient();
-        $client->request('GET', '/admin/theme/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /theme/");
+        $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
+
+        $this->client->request('GET', '/admin/theme/');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+
+        $this->client->request('GET', '/admin/theme/new');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 
 }
