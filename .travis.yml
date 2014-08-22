@@ -9,7 +9,10 @@ before_script:
 # Install php packages
   - sudo apt-get update > /dev/null
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl php5-mongodb
-  - ./devtools/travisMongoInstaller.sh
+  - wget http://pecl.php.net/get/mongo-1.2.10.tgz
+  - tar -xzf mongo-1.2.10.tgz
+  - sh -c "cd mongo-1.2.10 && phpize && ./configure && sudo make install"
+  - echo "extension=mongo.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 # New Virtual Host
   - sudo apt-get install apache2
