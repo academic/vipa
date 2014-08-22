@@ -50,6 +50,7 @@
                 </div> 
             </div>
         </div>
+
     {% block javascripts %}
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

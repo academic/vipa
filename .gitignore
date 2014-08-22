@@ -26,8 +26,10 @@ nb-configuration.xml
 
 ### Composer ###
 composer.phar
-/vendor/
+vendor/
 composer.lock
+#bower
+web/vendor/*
 
 ## File-based project format
 *.ipr
@@ -79,3 +81,5 @@ files
 .buildpath
 .settings
 
+# node
+node_modules/
