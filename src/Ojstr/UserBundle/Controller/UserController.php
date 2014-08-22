@@ -193,10 +193,12 @@ class UserController extends Controller {
         $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
         $doc = $this->getDoctrine();
         $em = $doc->getManager();
+        // a  journal id passed so register session user as author to this journal
         if ($journalId) {
             $user = $doc->getRepository('OjstrUserBundle:User')->find($userId);
             $journal = $doc->getRepository('OjstrJournalBundle:Journal')->find($journalId);
             $role = $doc->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+            // check that we have already have the link
             $ujr = $doc->getRepository('OjstrUserBundle:UserJournalRole')->findOneBy(array(
                 'userId' => $user->getId(),
                 'journalId' => $journal->getId(),
@@ -208,13 +210,19 @@ class UserController extends Controller {
             $ujr->setRole($role);
             $em->persist($ujr);
             $em->flush();
+            return $this->redirect($this->generateUrl('user_join_journal'));
         }
         $myJournals = $doc->getRepository('OjstrUserBundle:UserJournalRole')
-                ->userJournalsWithRoles($userId);
+                ->userJournalsWithRoles($userId, TRUE); // only ids 
+        $entities = array();
         $journals = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->findAll();
+        foreach ($journals as $journal) {
+            $jid = $journal->getId();
+            $roles = isset($myJournals[$jid]) ? $myJournals[$jid]['roles'] : NULL;
+            $entities[] = array('journal' => $journal, 'roles' => $roles);
+        }
         return $this->render('OjstrUserBundle:User:registerAuthor.html.twig', array(
-                    'journals' => $journals,
-                    'myJournals' => $myJournals
+                    'entities' => $entities
         ));
     }
 
