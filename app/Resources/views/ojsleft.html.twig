@@ -1,91 +1,92 @@
-<!-- Left side column. contains the logo and sidebar -->
-<aside class="col-md-2 pull-left left-side sidebar-offcanvas">
-    {% if app.user %}
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-            {%if app.user%}
-        <div class="user-panel">
-            <div class="pull-left image">
-                        {% if(app.user.getAvatar()) %}
-                <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" class="img-circle" alt="" />
+<!-- Left side column. contains the logo and sidebar --> 
+<nav class="navbar-default navbar-static-side" id="leftmenu" role="navigation"> 
+
+    <!-- sidebar: style can be found in sidebar.less -->  
+    <div class="user-panel col-md-12">
+                         {% if(app.user.getAvatar()) %}
+        <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
+             class="avatar img-circle img-responsive" style="width:150px" alt="User avatar" />
                         {%else%}
-                <img src="/assets/images/buddy_sample.png" class="img-circle" alt="" />
-                        {%endif%}
-            </div>
-            <div class="pull-left info">
-                <p>{{app.user.getUsername()}}</p> 
-                <a href="#"><i class="fa fa-circle text-success"></i> Last login : {{app.user.getLastogin()|date('Y-m-d H:i:s')}}</a>  
-            </div>
-        </div>
+        <img src="/assets/images/buddy_sample.png" 
+             class="img-circle img-responsive" style="width:150px" alt="User avatar" />
+                        {%endif%}  
+        <hr>    
+    </div> 
+
+    <div class="row">
+        <center>
+            <p>
+            {% if userjournalroles %}
+                {%for role in userjournalroles %}
+                <span class="label label-default">{{role.name}}</span> 
+                {%endfor%}
             {%endif%}
-        <div class="row">
-            <center>
-                <p>
-                        {% if userjournalroles %}
-                            {%for role in userjournalroles %}
-                    <span class="label label-default">{{role.name}}</span> 
-                            {%endfor%}
-                        {%endif%}
-                </p>
+            </p>
 
-                    {%if userjournals%}
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+            {%if userjournals%}
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                 {{userjournals[session('selectedJournalId')].title  }}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                {%for journal in userjournals%}
-                        <li class="info">
-                            <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    {%for journal in userjournals%}
+                    <li class="info">
+                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
                                             {{journal.title}}
-                            </a>
-                        </li> 
-                                {%endfor%}
+                        </a>
+                    </li> 
+                   {%endfor%}
 
-                    </ul>
-                </div>
-                    {%endif%}
-            </center>
-        </div>
+                </ul>
+            </div>
+            {%endif%}
+        </center>
+    </div>
 
-        <br>
-
-        <ul class="sidebar-menu">
+    <br>
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
             <li>
                 <a href="{{path('articlesubmission_new')}}">
-                    <i class="glyphicon glyphicon-plus-sign"></i> 
+                    <i class="fa fa-plus-circle"></i> 
                         {%trans%}Submit Article{%endtrans%}
                 </a>
             </li>
             <li>
                 <a href="/">
-                    <i class="glyphicon glyphicon-dashboard"></i> 
+                    <i class="fa fa-coffee"></i> 
+                        {%trans%}User Home{%endtrans%}
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard">
+                    <i class="fa fa-dashboard"></i> 
                         {%trans%}Dashboard{%endtrans%}
                 </a>
             </li>
             <li>
                 <a href="{{path('ojstr_message_message_user_index')}}">
-                    <i class="glyphicon glyphicon-envelope"></i>
+                    <i class="fa fa-envelope"></i>
                         {%trans%}Messages{%endtrans%}</a>
             </li>
             <li>
-                <a href="{{path('manager_show_my_journals')}}">
-                    <i class="glyphicon glyphicon-th"></i>  
+                <a href="{{path('ojstr_workflow_homepage')}}">
+                    <i class="fa fa-cogs"></i>  
+                        {%trans%}Workflow{%endtrans%} </a>
+            </li>
+            <li>
+                <a href="{{path('user_show_my_journals')}}">
+                    <i class="fa fa-list"></i>  
                         {%trans%}Journals{%endtrans%} </a>
             </li>
             <li>
-                <a href="{{path('ojstr_workflow_homepage')}}">
-                    <i class="glyphicon glyphicon-cog"></i>  
-                        {%trans%}Workflow{%endtrans%} </a>
-            </li>
-            <li class="treeview">
                 <a href="#">
-                    <i class="glyphicon glyphicon-th-list"></i>
+                    <i class="fa fa-list"></i>
                         {%trans%}Articles{%endtrans%}
-                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
+                    <span class="fa arrow"></span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="nav nav-second-level">
                     <li>
                             {% if isSystemAdmin() or isJournalManager()  %}
                                 {%set submissions_path = "articlesubmissions_all" %}
@@ -93,56 +94,51 @@
                                 {%set submissions_path = "articlesubmissions_me" %}
                             {% endif %}
                         <a href="{{path(submissions_path)}}">
-                            <i class="glyphicon glyphicon-flag"></i>
+                            <i class="fa fa-flag"></i>
                             Submissions
                         </a>
                     </li>
                     <li>
-                        <a href="#" style="color:#55a"><i class="glyphicon glyphicon-ok"></i> Published 
+                        <a href="#" style="color:#55a"><i class="fa fa-check-circle"></i> Published 
                             <!-- <small class="badge pull-right bg-green">2</small>-->
                         </a>
                     </li>
-                    <li><a href="#" style="color:#aa1"><i class="glyphicon glyphicon-time"></i> Waiting</a></li>
-                    <li><a href="#" style="color:#a11"><i class="glyphicon glyphicon-exclamation-sign"></i> Rejected</a></li>
+                    <li><a href="#" style="color:#aa1"><i class="fa fa-clock-o"></i> Waiting</a></li>
+                    <li><a href="#" style="color:#a11"><i class="fa fa-exclamation-circle"></i> Rejected</a></li>
                 </ul>
             </li>
 
                 {% if isSystemAdmin() %}
             <li class="treeview">
                 <a href="#">
-                    <i class="glyphicon glyphicon-folder-open"></i>
-                            {%trans%}Admin{%endtrans%}
-                    <i class="glyphicon glyphicon-chevron-left pull-right"></i>
+                    <i class="fa fa-folder"></i>
+                            {%trans%}Admin{%endtrans%}<span class="fa arrow"></span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{path('user')}}"><i class="glyphicon glyphicon-cog"></i> Users</a>
+                        <a href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
                     </li>
                     <li>
-                        <a href="{{path('role')}}"><i class="glyphicon glyphicon-cog"></i> Roles</a>
-                    </li>
-                    <li class="divider"></li>
+                        <a href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
+                    </li>  
                     <li>
-                        <a href="{{path('ujr')}}"><i class="glyphicon glyphicon-cog"></i> User Journal Roles</a>
-                    </li>
-                    <li>
-                        <a href="{{path('article')}}"><i class="glyphicon glyphicon-cog"></i> Article</a>
+                        <a href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
                     </li>
                     <li>
-                        <a href="{{path('institution')}}"><i class="glyphicon glyphicon-cog"></i> Institutions</a>
+                        <a href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
+                    </li>
+                    <li>
+                        <a href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
                     </li> 
                     <li>
-                        <a href="{{path('subject')}}"><i class="glyphicon glyphicon-cog"></i> Subjects</a>
+                        <a href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
                     </li>
-                    <li><a href="{{path('eventlog')}}"><i class="glyphicon glyphicon-cog"></i> Activity Log</a>
+                    <li><a href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
                     </li> 
                 </ul>
             </li>
-
                 {% endif %}
-
         </ul>
-    </section>
-    <!-- /.sidebar -->
-    {% endif %}
-</aside>
+    </div>
+    <!-- /.sidebar --> 
+</nav>
