@@ -8,8 +8,9 @@ following options.
 2. apache or nginx
 3. mysql 5.5 or equilent
 4. Enough storage
-5. MongoDb
+5. [MongoDb](https://github.com/okulbilisim/ojs/tree/master/docs/developers/Mongodb.md)
 6. Mysql
+7. [ElasticSearch](https://github.com/okulbilisim/ojs/tree/master/docs/developers/ElasticSearch.md)
 
 
 
