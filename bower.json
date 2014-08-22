@@ -26,6 +26,7 @@
 	"jquery.inputmask":"*",
 	"flot":"*",
 	"morrisjs":"*",
-	"metisMenu":"*"
+	"metisMenu":"*",
+	"bootstrap3-wysihtml5-bower":"*"
     }
 }
