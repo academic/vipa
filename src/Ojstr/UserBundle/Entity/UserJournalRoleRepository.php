@@ -29,14 +29,14 @@ class UserJournalRoleRepository extends EntityRepository {
         return $entites;
     }
 
-    public function userJournalsWithRoles($user_id) {
+    public function userJournalsWithRoles($user_id, $onlyJournalIds = FALSE) {
         $data = $this->getEntityManager()->createQuery(
                         'SELECT u FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
                 )->setParameter('user_id', $user_id)->getResult();
         $entities = array();
         if ($data) {
             foreach ($data as $item) {
-                $entities[$item->getJournalId()]['journal'] = $item->getJournal();
+                $entities[$item->getJournalId()]['journal'] = $onlyJournalIds ? $item->getJournal()->getId() : $item->getJournal();
                 $entities[$item->getJournalId()]['roles'][] = $item->getRole();
             }
         }
