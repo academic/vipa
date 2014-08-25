@@ -87,9 +87,10 @@ class UserController extends Controller {
                     'entity' => $entity));
     }
 
-    public function profileAction($username = NULL) {
-        $user = !$username ?
-                $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array('username', $username)) :
+    public function profileAction($username = FALSE) {
+        $userRepo = $this->getDoctrine()->getRepository('OjstrUserBundle:User');
+        $user = $username ?
+                $userRepo->findBy(array('username', $username)) :
                 $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($user->getId());
