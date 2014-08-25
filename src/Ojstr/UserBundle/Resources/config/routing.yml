@@ -13,15 +13,14 @@ admin_userjournalrole:
 admin_eventlog:
     resource: "@OjstrUserBundle/Resources/config/routing/eventlog_admin.yml"
     prefix:   /admin/eventlog
-    
-user_profile:
-    pattern:  /user/profile
-    defaults: { _controller: "OjstrUserBundle:User:profile" }
 
-user_show_my_journals:
-    pattern:  /user/myjournals
-    defaults: { _controller: "OjstrUserBundle:UserJournalRole:myJournals" }
-
+admin_attorney:
+        resource: "@OjstrUserBundle/Resources/config/routing/attorney.yml"
+        prefix:   /admin/attorney
+        
+user:
+    resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
 
 login:
     path: /login
@@ -36,11 +35,5 @@ logout:
 login_check:
     path: /login_check 
 
-user_join_journal_action:
-    pattern:  /user/join/journal/{journalId}
-    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
 
-user_join_journal:
-    pattern:  /user/join/journal/
-    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
     
