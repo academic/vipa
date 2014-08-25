@@ -82,6 +82,22 @@ Ojstr\UserBundle\Entity\User:
         deletedAt:
            type: date
            nullable: true
+    oneToMany:
+        attorneyshipChildUsers:
+          targetEntity: Attorney
+          mappedBy: targetUser   
+        attorneyshipParentUsers:
+          targetEntity: Attorney
+          mappedBy: attorneyUser
+    oneToMany: 
+          targetEntity: Attorney
+          mappedBy: targetUser
+          cascade: ["persist", "merge"]
+          fetch: LAZY 
+          targetEntity: Attorney
+          mappedBy: attorneyUser
+          cascade: ["persist", "merge"]
+          fetch: LAZY
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject

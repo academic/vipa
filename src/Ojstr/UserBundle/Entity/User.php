@@ -96,6 +96,16 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     private $subjects;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection 
+     */
+    private $attorneyshipChildUsers;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection 
+     */
+    private $attorneyshipParentUsers;
+
+    /**
      * @var integer
      *
      */
@@ -390,6 +400,22 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      */
     public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
         $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * 
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttorneyshipChildUsers() {
+        return $this->attorneyshipChildUsers;
+    }
+
+    /**
+     * 
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAttorneyshipParentUsers() {
+        return $this->attorneyshipParentsers;
     }
 
     /**

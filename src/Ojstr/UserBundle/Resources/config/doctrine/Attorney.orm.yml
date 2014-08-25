@@ -1,0 +1,34 @@
+Ojstr\UserBundle\Entity\Attorney:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\UserBundle\Entity\AttorneyRepository 
+    manyToOne:
+        targetUser:
+            targetEntity: User
+            inversedBy: attorneyshipChildUsers
+            joinColumn:
+                name: target_user_id 
+                referencedColumnName: id
+        attorneyUser:
+            targetEntity: User
+            inversedBy: attorneyshipParentUsers
+            joinColumn:
+                name: attorney_user_id 
+                referencedColumnName: id
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        attorneyUserId:
+            type: integer
+            column: attorney_user_id
+        targetUserId:
+            type: integer
+            column: target_user_id
+        untilDatetime:
+            type: datetime
+            column: until_datetime
+    lifecycleCallbacks: {  }
