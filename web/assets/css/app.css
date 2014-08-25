@@ -28,7 +28,7 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 /*nav-wizard css end*/
 
 #lean_overlay{position:fixed;z-index:100;top:0;left:0;height:100%;width:100%;background:#000;display:none;}
-.modal_standart{width:600px;display:none;background:#FFF;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:0 0 4px rgba(0,0,0,0.7);-webkit-box-shadow:0 0 4px rgba(0,0,0,0.7);-moz-box-shadow:0 0 4px rgba(0,0,0,0.7);padding:30px;}
+.modal_standart{width:400px;display:none;background:#FFF;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;box-shadow:0 0 4px rgba(0,0,0,0.7);-webkit-box-shadow:0 0 4px rgba(0,0,0,0.7);-moz-box-shadow:0 0 4px rgba(0,0,0,0.7);padding:30px;}
 .modal_close{cursor:pointer;position:absolute;top:12px;right:12px;display:block;width:14px;height:14px;z-index:2;}
 .modal_close:after{content:"x";}
 

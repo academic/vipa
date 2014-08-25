@@ -8,8 +8,24 @@
 {% endif %} 
 {{entity.username}} 
     <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
-    <a  href="{{path('user_give_attorneyship',{'targetUserId':entity.id})}}" class="btn btn-warning pull-right">Give Power of Attorney</a>
+    <a rel="modal" href="#selectAttroneyTtl" 
+       class="btn btn-warning pull-right">Give Power of Attorney</a>
 </h1>
+<div class="modal_standart" id="selectAttroneyTtl">
+    <form>
+        <div class="form-row">
+            <select class="form-control">
+                <option>1 month</option>
+                <option>3 months</option>
+                <option>6 months</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <a href="{{path('user_give_attorneyship',{'targetUserId':entity.id})}}" 
+               class="btn btn-warning btn-lg">Ok</a>
+        </div>
+    </form>
+</div>
 <table class="record_properties  table">
     <tbody>
         <tr>
