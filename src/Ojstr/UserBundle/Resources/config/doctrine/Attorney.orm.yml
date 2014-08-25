@@ -31,4 +31,5 @@ Ojstr\UserBundle\Entity\Attorney:
         untilDatetime:
             type: datetime
             column: until_datetime
+            nullable: true
     lifecycleCallbacks: {  }

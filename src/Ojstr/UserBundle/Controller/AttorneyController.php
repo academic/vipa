@@ -4,7 +4,6 @@ namespace Ojstr\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojstr\UserBundle\Entity\Attorney;
 use Ojstr\UserBundle\Form\AttorneyType;
 
@@ -12,29 +11,42 @@ use Ojstr\UserBundle\Form\AttorneyType;
  * Attorney controller.
  *
  */
-class AttorneyController extends Controller
-{
+class AttorneyController extends Controller {
 
     /**
      * Lists all Attorney entities.
      *
      */
-    public function indexAction()
-    {
+    public function giveAction($targetUserId) {
         $em = $this->getDoctrine()->getManager();
+        $currentUser = $this->container->get('security.context')->getToken()->getUser();
+        $attorneyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($targetUserId);
+        $attorney = new Attorney();
+        $attorney->setAttorneyUser($attorneyUser);
+        $attorney->setTargetUser($currentUser);
+        $em->persist($attorney);
+        $em->flush();
+        $url = $this->getRequest()->headers->get("referer");
+        return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+    }
 
+    /**
+     * Lists all Attorney entities.
+     *
+     */
+    public function indexAction() {
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Attorney')->findAll();
-
         return $this->render('OjstrUserBundle:Attorney:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Attorney entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Attorney();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -48,8 +60,8 @@ class AttorneyController extends Controller
         }
 
         return $this->render('OjstrUserBundle:Attorney:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -60,8 +72,7 @@ class AttorneyController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Attorney $entity)
-    {
+    private function createCreateForm(Attorney $entity) {
         $form = $this->createForm(new AttorneyType(), $entity, array(
             'action' => $this->generateUrl('admin_attorney_create'),
             'method' => 'POST',
@@ -76,14 +87,13 @@ class AttorneyController extends Controller
      * Displays a form to create a new Attorney entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Attorney();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OjstrUserBundle:Attorney:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +101,7 @@ class AttorneyController extends Controller
      * Finds and displays a Attorney entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Attorney')->find($id);
@@ -104,8 +113,8 @@ class AttorneyController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrUserBundle:Attorney:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -113,8 +122,7 @@ class AttorneyController extends Controller
      * Displays a form to edit an existing Attorney entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Attorney')->find($id);
@@ -127,21 +135,20 @@ class AttorneyController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjstrUserBundle:Attorney:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Attorney entity.
-    *
-    * @param Attorney $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Attorney $entity)
-    {
+     * Creates a form to edit a Attorney entity.
+     *
+     * @param Attorney $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Attorney $entity) {
         $form = $this->createForm(new AttorneyType(), $entity, array(
             'action' => $this->generateUrl('admin_attorney_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -151,12 +158,12 @@ class AttorneyController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Attorney entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Attorney')->find($id);
@@ -176,17 +183,17 @@ class AttorneyController extends Controller
         }
 
         return $this->render('OjstrUserBundle:Attorney:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Attorney entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -212,13 +219,13 @@ class AttorneyController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_attorney_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('admin_attorney_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }
