@@ -34,6 +34,11 @@
                         {% endfor %}
                     </td>
                     <td> 
+                        {% if isSystemAdmin() %}
+                        <a class="btn-sm btn btn-info" href="/?_su={{entity.username}}">
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                        {%endif%}
                         {% set show_path = 'user_show' %}
                         {% set edit_path = 'user_edit' %}
                         {% set delete_path = 'user_delete' %}

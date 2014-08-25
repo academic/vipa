@@ -94,7 +94,7 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        return $this->render('OjstrUserBundle:User:admin/profile.html.twig', array(
+        return $this->render('OjstrUserBundle:User:profile.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => array()));
     }

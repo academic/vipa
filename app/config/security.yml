@@ -16,7 +16,7 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            switch_user: true
+            switch_user: {parameter: _su}
             pattern: ^/
             anonymous: true
             provider: user_db
