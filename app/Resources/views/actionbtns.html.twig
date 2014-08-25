@@ -1,20 +1,22 @@
+<div class="btn-group">
 {% if(back_path is defined) %}
-<a class="btn-sm btn btn-default" href="{{ path(back_path, { 'id': entity.id }) }}">
-    <i class="fa fa-arrow-left"></i>
-</a>
+    <a class="btn-sm btn btn-default" href="{{ path(back_path, { 'id': entity.id }) }}">
+        <i class="fa fa-arrow-left"></i>
+    </a>
 {%endif%}
 {% if(show_path is defined) %}
-<a class="btn-sm btn btn-success" href="{{ path(show_path, { 'id': entity.id }) }}">
-    <i class="fa fa-info-circle"></i>
-</a>
+    <a class="btn-sm btn btn-success" href="{{ path(show_path, { 'id': entity.id }) }}">
+        <i class="fa fa-info-circle"></i>
+    </a>
 {%endif%}
 {% if(edit_path is defined) %}
-<a class="btn-sm btn btn-warning" href="{{ path(edit_path, { 'id': entity.id }) }}">
-    <i class="fa fa-pencil"></i>
-</a>
+    <a class="btn-sm btn btn-warning" href="{{ path(edit_path, { 'id': entity.id }) }}">
+        <i class="fa fa-pencil"></i>
+    </a>
 {%endif%}
 {% if(delete_path is defined) %}
-<a class="btn-sm btn btn-danger" onclick="return confirm('Are you sure?');" href="{{ path(delete_path, { 'id': entity.id }) }}">
-    <i class="fa fa-trash-o"></i>
-</a>
+    <a class="btn-sm btn btn-danger" onclick="return confirm('Are you sure?');" href="{{ path(delete_path, { 'id': entity.id }) }}">
+        <i class="fa fa-trash-o"></i>
+    </a>
 {%endif%}
+</div>
