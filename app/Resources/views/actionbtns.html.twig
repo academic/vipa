@@ -15,6 +15,6 @@
 {%endif%}
 {% if(delete_path is defined) %}
 <a class="btn-sm btn btn-danger" onclick="return confirm('Are you sure?');" href="{{ path(delete_path, { 'id': entity.id }) }}">
-    <i class="fa fa-trash"></i>
+    <i class="fa fa-trash-o"></i>
 </a>
 {%endif%}
