@@ -21,6 +21,7 @@
         "bootstrap": "~3.1.1",
         "font-awesome": "*",
         "bootstrap3-wysihtml5-bower":"*",
+	"jquery-leanmodal":"*",
 	"select2-bootstrap-css":"*",
 	"jquery-file-upload":"*",
 	"ckeditor":"*",
