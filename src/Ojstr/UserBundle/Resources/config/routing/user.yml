@@ -2,6 +2,10 @@ myprofile:
     pattern:  /profile
     defaults: { _controller: "OjstrUserBundle:User:profile" }
 
+user_give_attorneyship:
+    pattern:  /attorneyshipTo/{targetUserId}
+    defaults: { _controller: "OjstrUserBundle:Attorney:give" }
+    
 user_profile:
     pattern:  /profile/{username}
     defaults: { _controller: "OjstrUserBundle:User:profile" }
