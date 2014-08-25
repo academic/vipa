@@ -36,14 +36,26 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
         }
         return $user;
     }
-    
+
     /**
      * @param string $username
      * @return \Application\UserBundle\Entity\User
      */
-    public function loadUserByUsername($username)
-    {
+    public function loadUserByUsername($username) {
         return $this->findOneBy(array('username' => $username));
+    }
+
+    /**
+     * get attorneyships that is not expired for current user
+     * @return array  array('parents'=>array(), 'children'=>array())
+     */
+    public function getActiveAttorneyShips() {
+        $parents = $attorneyRepo = $this->getEntityManager()->createQuery('SELECT a FROM OjstrUserBundle:Attorney a '
+                        . 'WHERE a.untilDatetime > :now')
+                ->setParameter('now', new \DateTime('now'))
+                ->getResult();
+        $result = array('parents' => $parents);
+        return $result;
     }
 
     public function refreshUser(UserInterface $user) {
