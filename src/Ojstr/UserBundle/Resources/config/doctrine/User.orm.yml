@@ -84,20 +84,11 @@ Ojstr\UserBundle\Entity\User:
            nullable: true
     oneToMany:
         attorneyshipChildUsers:
-          targetEntity: Attorney
-          mappedBy: targetUser   
+            targetEntity: Attorney
+            mappedBy: targetUser   
         attorneyshipParentUsers:
-          targetEntity: Attorney
-          mappedBy: attorneyUser
-    oneToMany: 
-          targetEntity: Attorney
-          mappedBy: targetUser
-          cascade: ["persist", "merge"]
-          fetch: LAZY 
-          targetEntity: Attorney
-          mappedBy: attorneyUser
-          cascade: ["persist", "merge"]
-          fetch: LAZY
+            targetEntity: Attorney
+            mappedBy: attorneyUser
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject
