@@ -16,7 +16,6 @@ class AttorneyType extends AbstractType {
         $builder
                 ->add('attorneyUserId')
                 ->add('targetUserId')
-                ->add('untilDatetime')
         ;
     }
 

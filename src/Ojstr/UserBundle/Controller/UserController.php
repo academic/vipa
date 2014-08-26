@@ -89,9 +89,10 @@ class UserController extends Controller {
 
     public function profileAction($username = FALSE) {
         $userRepo = $this->getDoctrine()->getRepository('OjstrUserBundle:User');
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
         $user = $username ?
                 $userRepo->findOneByUsername($username) :
-                $this->container->get('security.context')->getToken()->getUser();
+                $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($user->getId());
         if (!$entity) {
@@ -99,7 +100,9 @@ class UserController extends Controller {
         }
         return $this->render('OjstrUserBundle:User:profile.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => array()));
+                    'delete_form' => array(),
+                    'me' => ($sessionUser == $user),
+                    'hasAttorneyship' => $sessionUser->hasAttorneyship($user->getId())));
     }
 
     /**

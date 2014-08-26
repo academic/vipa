@@ -415,7 +415,17 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getAttorneyshipParentUsers() {
-        return $this->attorneyshipParentsers;
+        return $this->attorneyshipParentUsers;
+    }
+
+    public function hasAttorneyship($attorneyUserId) {
+        $children = $this->attorneyshipChildUsers;
+        foreach ($children as $child) {
+            if ($child->getAttorneyUser()->getId() == $attorneyUserId) {
+                return TRUE;
+            }
+        }
+        return FALSE;
     }
 
     /**

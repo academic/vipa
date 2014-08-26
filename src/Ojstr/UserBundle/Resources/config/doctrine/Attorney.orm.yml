@@ -1,4 +1,7 @@
 Ojstr\UserBundle\Entity\Attorney:
+    indexes:
+        users_x:
+          columns: attorney_user_id,target_user_id 
     type: entity
     table: null
     repositoryClass: Ojstr\UserBundle\Entity\AttorneyRepository 
@@ -28,8 +31,22 @@ Ojstr\UserBundle\Entity\Attorney:
         targetUserId:
             type: integer
             column: target_user_id
-        untilDatetime:
-            type: datetime
-            column: until_datetime
-            nullable: true
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false 
+        loggable: true 
     lifecycleCallbacks: {  }

@@ -1,30 +1,27 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Attorney</h1>
+<h1>Attorney</h1>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Attorneyuserid</th>
-                <td>{{ entity.attorneyUserId }}</td>
-            </tr>
-            <tr>
-                <th>Targetuserid</th>
-                <td>{{ entity.targetUserId }}</td>
-            </tr>
-            <tr>
-                <th>Untildatetime</th>
-                <td>{{ entity.untilDatetime|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Attorneyuserid</th>
+            <td>{{ entity.attorneyUserId }}</td>
+        </tr>
+        <tr>
+            <th>Targetuserid</th>
+            <td>{{ entity.targetUserId }}</td>
+        </tr>
 
-        <ul class="record_actions">
+    </tbody>
+</table>
+
+<ul class="record_actions">
     <li>
         <a href="{{ path('admin_attorney') }}">
             Back to the list
