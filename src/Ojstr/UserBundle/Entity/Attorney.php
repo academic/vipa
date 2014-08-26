@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Attorney
  */
-class Attorney {
+class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -33,11 +33,6 @@ class Attorney {
      * @var User
      */
     private $targetUser;
-
-    /**
-     * @var \DateTime
-     */
-    private $untilDatetime;
 
     /**
      * Get id
@@ -127,28 +122,7 @@ class Attorney {
      * @return User 
      */
     public function getAttorneyUser() {
-        return $this->targetUser;
-    }
-
-    /**
-     * Set untilDatetime
-     *
-     * @param \DateTime $untilDatetime
-     * @return Attorney
-     */
-    public function setUntilDatetime($untilDatetime) {
-        $this->untilDatetime = $untilDatetime;
-
-        return $this;
-    }
-
-    /**
-     * Get untilDatetime
-     *
-     * @return \DateTime 
-     */
-    public function getUntilDatetime() {
-        return $this->untilDatetime;
+        return $this->attorneyUser;
     }
 
 }

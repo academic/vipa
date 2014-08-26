@@ -14,19 +14,47 @@ use Ojstr\UserBundle\Form\AttorneyType;
 class AttorneyController extends Controller {
 
     /**
-     * Lists all Attorney entities.
+     * give power of attorney to a user.
      *
      */
     public function giveAction($targetUserId) {
+        $url = $this->getRequest()->headers->get("referer");
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->container->get('security.context')->getToken()->getUser();
+        // check if already assigned
         $attorneyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($targetUserId);
+        $check = $this->getDoctrine()->getRepository('OjstrUserBundle:Attorney')->findBy(
+                array('attorneyUserId' => $attorneyUser, 'targetUserId' => $currentUser)
+        );
+        if ($check) {
+            $this->get('session')->getFlashBag()->add('error', 'Already assigned');
+            return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+        }
         $attorney = new Attorney();
         $attorney->setAttorneyUser($attorneyUser);
         $attorney->setTargetUser($currentUser);
         $em->persist($attorney);
         $em->flush();
+        return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+    }
+
+    /**
+     * drop power of attorney to a user.
+     *
+     */
+    public function dropAction($targetUserId) {
         $url = $this->getRequest()->headers->get("referer");
+        $em = $this->getDoctrine()->getManager();
+        $currentUser = $this->container->get('security.context')->getToken()->getUser();
+        // check if already assigned
+        $attorneyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($targetUserId);
+        $attorney = $this->getDoctrine()->getRepository('OjstrUserBundle:Attorney')->findOneBy(
+                array('attorneyUserId' => $attorneyUser, 'targetUserId' => $currentUser)
+        );
+        if ($attorney) {
+            $em->remove($attorney);
+            $em->flush();
+        }
         return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
     }
 
