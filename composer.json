@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.5.0",
+        "symfony/symfony": "2.5.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -27,7 +27,6 @@
         "sensio/generator-bundle": "~2.3",
         "symfony/security-bundle": "*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "ircmaxell/password-compat": "~1.0.3",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "symfony/console": "*",
         "friendsofsymfony/rest-bundle": "@dev",
@@ -40,7 +39,8 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "friendsofsymfony/elastica-bundle": "3.0.*@alpha"
+        "friendsofsymfony/elastica-bundle": "3.0.*@alpha",
+	"stephpy/TimelineBundle": "dev-master"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"
