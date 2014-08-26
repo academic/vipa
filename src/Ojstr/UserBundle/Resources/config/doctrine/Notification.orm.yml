@@ -1,0 +1,31 @@
+Ojstr\UserBundle\Entity\Notification:
+    type: entity
+    table: null
+    repositoryClass: Ojstr\UserBundle\Entity\NotificationRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        senderId:
+            type: integer
+            column: sender_id
+        recipientId:
+            type: integer
+            column: recipient_id
+        entityId:
+            type: integer
+            column: entity_id
+        entityName:
+            type: string
+            length: 255
+            column: entity_name
+        isRead:
+            type: boolean
+            column: is_read
+        level:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

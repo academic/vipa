@@ -17,7 +17,11 @@ admin_eventlog:
 admin_attorney:
         resource: "@OjstrUserBundle/Resources/config/routing/attorney.yml"
         prefix:   /admin/attorney
-        
+
+admin_notification:
+        resource: "@OjstrUserBundle/Resources/config/routing/notification_admin.yml"
+        prefix:   /admin/notification
+
 user:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
     prefix:   /user
