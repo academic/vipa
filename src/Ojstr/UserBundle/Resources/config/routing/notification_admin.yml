@@ -1,0 +1,11 @@
+admin_notification:
+    path:     /
+    defaults: { _controller: "OjstrUserBundle:Notification:index" }
+
+admin_notification_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjstrUserBundle:Notification:show" }
+    
+admin_notification_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjstrUserBundle:Notification:delete" }
