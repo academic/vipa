@@ -19,6 +19,7 @@ class NotificationController extends Controller {
      *
      */
     public function indexAction() { 
+        $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Notification')->findAll();
         return $this->render('OjstrUserBundle:Notification:index.html.twig', array(
                     'entities' => $entities,
