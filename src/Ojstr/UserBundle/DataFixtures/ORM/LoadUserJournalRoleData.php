@@ -35,26 +35,37 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
 
         $author = $this->getReference('ref-author');
         $editor = $this->getReference('ref-editor');
+        $journalManager = $this->getReference('ref-journal-manager');
 
         $roleSuperAdmin = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_SUPER_ADMIN'));
+        $roleJournalManager = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_JOURNAL_MANAGER'));
         $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
         $roleEditor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_EDITOR'));
         $roleReviewer = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_REVIEWER'));
 
         $admins = $roleSuperAdmin->getUsers();
 
-
+        // associate demo_author user as Author for a journal
         $ujr1 = new UserJournalRole();
         $ujr1->setUser($author);
         $ujr1->setRole($roleAuthor);
         $ujr1->setJournal($journal);
         $manager->persist($ujr1);
 
+        // assign demo_editor user as Editor for a journal
         $ujr2 = new UserJournalRole();
         $ujr2->setUser($editor);
         $ujr2->setRole($roleEditor);
         $ujr2->setJournal($journal);
         $manager->persist($ujr2);
+        $manager->flush();
+
+        // assign demo_journal_manager user as Journal Manager for a journal
+        $ujr_manager = new UserJournalRole();
+        $ujr_manager->setUser($journalManager);
+        $ujr_manager->setRole($roleJournalManager);
+        $ujr_manager->setJournal($journal);
+        $manager->persist($ujr_manager);
         $manager->flush();
 
         // add admin user as author
