@@ -3,7 +3,7 @@
 {% block body -%}
 <h1>Notification</h1>
 
-<table class="record_properties">
+<table class="record_properties table">
     <tbody>
         <tr>
             <th>Id</th>
@@ -26,6 +26,15 @@
             <td>{{ entity.entityName }}</td>
         </tr>
         <tr>
+            <th>Subject</th>
+            <td>{{ entity.subject }}</td>
+        </tr>
+
+        <tr>
+            <th>Verb</th>
+            <td>{{ entity.action }}</td>
+        </tr>
+        <tr>
             <th>Isread</th>
             <td>{{ entity.isRead }}</td>
         </tr>
@@ -36,9 +45,8 @@
     </tbody>
 </table>
 
-
-
-    {% set back_path = 'admin_notification' %} 
-    {% set delete_path = 'admin_notification_delete' %}
-    {% include '::actionbtns.html.twig' %} 
+    {% set back_path = 'admin_notification' %}
+    {% set edit_path = 'admin_notification_edit' %} 
+    {% set delete_path = 'admin_notification_delete' %} 
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}

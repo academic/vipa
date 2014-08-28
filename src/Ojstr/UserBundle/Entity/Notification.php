@@ -2,13 +2,11 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Notification
  */
-class Notification
-{
+class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
+
     /**
      * @var integer
      */
@@ -35,23 +33,73 @@ class Notification
     private $entityName;
 
     /**
-     * @var boolean
+     * @var string
      */
-    private $isRead;
+    private $text;
 
     /**
      * @var string
      */
-    private $level;
+    private $action;
 
+    /**
+     * @var boolean
+     */
+    private $isRead = 0;
+
+    /**
+     * @var string
+     */
+    private $level = 1;
+
+    /**
+     * @var \Ojstr\UserBundle\Entity\User
+     */
+    private $sender;
+
+    /**
+     * @var \Ojstr\UserBundle\Entity\User
+     */
+    private $recipient;
+
+    public function getSender() {
+        return $this->sender;
+    }
+
+    /**
+     * 
+     * @param \Ojstr\UserBundle\Entity\User $sender
+     * @return \Ojstr\UserBundle\Entity\Notification
+     */
+    public function setSender(\Ojstr\UserBundle\Entity\User $sender) {
+        $this->sender = $sender;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return \Ojstr\UserBundle\Entity\User
+     */
+    public function getRecipient() {
+        return $this->recipient;
+    }
+
+    /**
+     * 
+     * @param \Ojstr\UserBundle\Entity\User $recipient
+     * @return \Ojstr\UserBundle\Entity\Notification
+     */
+    public function setRecipient(\Ojstr\UserBundle\Entity\User $recipient) {
+        $this->recipient = $recipient;
+        return $this;
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -61,8 +109,7 @@ class Notification
      * @param integer $senderId
      * @return Notification
      */
-    public function setSenderId($senderId)
-    {
+    public function setSenderId($senderId) {
         $this->senderId = $senderId;
 
         return $this;
@@ -73,8 +120,7 @@ class Notification
      *
      * @return integer 
      */
-    public function getSenderId()
-    {
+    public function getSenderId() {
         return $this->senderId;
     }
 
@@ -84,8 +130,7 @@ class Notification
      * @param integer $recipientId
      * @return Notification
      */
-    public function setRecipientId($recipientId)
-    {
+    public function setRecipientId($recipientId) {
         $this->recipientId = $recipientId;
 
         return $this;
@@ -96,8 +141,7 @@ class Notification
      *
      * @return integer 
      */
-    public function getRecipientId()
-    {
+    public function getRecipientId() {
         return $this->recipientId;
     }
 
@@ -107,8 +151,7 @@ class Notification
      * @param integer $entityId
      * @return Notification
      */
-    public function setEntityId($entityId)
-    {
+    public function setEntityId($entityId) {
         $this->entityId = $entityId;
 
         return $this;
@@ -119,8 +162,7 @@ class Notification
      *
      * @return integer 
      */
-    public function getEntityId()
-    {
+    public function getEntityId() {
         return $this->entityId;
     }
 
@@ -130,8 +172,7 @@ class Notification
      * @param string $entityName
      * @return Notification
      */
-    public function setEntityName($entityName)
-    {
+    public function setEntityName($entityName) {
         $this->entityName = $entityName;
 
         return $this;
@@ -142,8 +183,7 @@ class Notification
      *
      * @return string 
      */
-    public function getEntityName()
-    {
+    public function getEntityName() {
         return $this->entityName;
     }
 
@@ -153,8 +193,7 @@ class Notification
      * @param boolean $isRead
      * @return Notification
      */
-    public function setIsRead($isRead)
-    {
+    public function setIsRead($isRead) {
         $this->isRead = $isRead;
 
         return $this;
@@ -165,8 +204,7 @@ class Notification
      *
      * @return boolean 
      */
-    public function getIsRead()
-    {
+    public function getIsRead() {
         return $this->isRead;
     }
 
@@ -176,8 +214,7 @@ class Notification
      * @param string $level
      * @return Notification
      */
-    public function setLevel($level)
-    {
+    public function setLevel($level) {
         $this->level = $level;
 
         return $this;
@@ -188,8 +225,50 @@ class Notification
      *
      * @return string 
      */
-    public function getLevel()
-    {
+    public function getLevel() {
         return $this->level;
     }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     * @return Notification
+     */
+    public function setText($text) {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string 
+     */
+    public function getText() {
+        return $this->text;
+    }
+
+    /**
+     * Set action
+     *
+     * @param string $action
+     * @return Notification
+     */
+    public function setAction($action) {
+        $this->action = $action;
+
+        return $this;
+    }
+
+    /**
+     * Get action
+     *
+     * @return string 
+     */
+    public function getAction() {
+        return $this->action;
+    }
+
 }
