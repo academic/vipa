@@ -12,15 +12,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Article submission step controller
  */
-class ArticleSubmissionStepController extends Controller {
+class ArticleSubmissionStep1Controller extends Controller {
 
     /**
      * submit new article - step1 - get article base data without author info.
      *
      */
-    public function step1Action(Request $request, $locale) {
+    public function addArticleAction(Request $request, $locale) {
         if ($request->get('articleId')) {
-            return $this->step1Extra($request, $locale);
+            return $this->addArticleExtra($request, $locale);
         }
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -36,6 +36,7 @@ class ArticleSubmissionStepController extends Controller {
         $article->setTranslatableLocale($locale);
         $em->persist($article);
         $em->flush();
+        $request->getSession()->set('submission_article', $article);
         return new JsonResponse(array('id' => $article->getId()));
     }
 
@@ -45,7 +46,8 @@ class ArticleSubmissionStepController extends Controller {
      * @param string $locale
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function step1Extra(Request $request, $locale) {
+    private function addArticleExtra(Request $request, $locale) {
+        $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjstrJournalBundle:Article')->find($request->get('articleId'));
         $article->setTitle($request->get('title'));
@@ -57,23 +59,8 @@ class ArticleSubmissionStepController extends Controller {
         $article->setTranslatableLocale($locale);
         $em->persist($article);
         $em->flush();
+        $session->set('submission_article_' . $locale, $article);
         return new JsonResponse(array('id' => $request->get('articleId'), 'locale' => $locale));
-    }
-
-    /**
-     * @todo
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function step2Action(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-    }
-
-    /**
-     * @todo
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
-    public function step3Action(Request $request) {
-        $em = $this->getDoctrine()->getManager();
     }
 
 }

@@ -12,22 +12,22 @@ articlesubmission_new:
     
 articlesubmission_step1:
     pattern:  /author/article/submit/step1/{locale}
-    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep:step1" }
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep1:addArticle" }
     requirements: { _method: post }
     
 articlesubmission_step2:
     pattern:  /author/article/submit/step2/{locale}
-    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep:step2" }
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep1:step2" }
     requirements: { _method: post }
     
 articlesubmission_step3:
     pattern:  /author/article/submit/step3/{locale}
-    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep:step3" }
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep1:step3" }
     requirements: { _method: post }
     
 articlesubmission_step4:
     pattern:  /author/article/submit/step4
-    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep:step4" }
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmissionStep1:step4" }
     requirements: { _method: post }
 #
 #article_show:
