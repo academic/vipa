@@ -8,4 +8,10 @@ More on http://www.mongodb.org/about/introduction/
 
 ###Mongodb in Ojs
 
-We use MongoDb to store workflow designs and every step of article workflow with revisioned data. 
+####Workflow
+
+We use MongoDb to store workflow designs and every step of article workflow with revisioned data.
+
+####Article Submission
+
+User's submission data is stored in MongoDb. This data won't be deleted. 
