@@ -8,9 +8,8 @@
         <tr>
             <th>Id</th>
             <th>Senderid</th>
-            <th>Recipientid</th>
-            <th>Entityid</th>
-            <th>Entityname</th>
+            <th>Recipientid</th> 
+            <th>Text</th>
             <th>Isread</th>
             <th>Level</th>
             <th>Actions</th>
@@ -21,22 +20,23 @@
         <tr>
             <td><a href="{{ path('admin_notification_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.senderId }}</td>
-            <td>{{ entity.recipientId }}</td>
-            <td>{{ entity.entityId }}</td>
-            <td>{{ entity.entityName }}</td>
+            <td>{{ entity.recipientId }}</td> 
+            <td>{{ entity.text }}</td>
             <td>{{ entity.isRead }}</td>
             <td>{{ entity.level }}</td>
             <td>
 
+                    {% set show_path = 'admin_notification_show' %}
+                    {% set edit_path = 'admin_notification_edit' %} 
+                    {% include '::actionbtns.html.twig' %} 
 
-            {% set show_path = 'admin_notification_show' %} 
-            {% set delete_path = 'admin_notification_delete' %}
-            {% include '::actionbtns.html.twig' %} 
 
             </td>
         </tr>
         {% endfor %}
     </tbody>
-</table>
-
+</table> 
+<a class="btn btn-default" href="{{ path('admin_notification_new') }}">
+    Create a new entry
+</a> 
     {% endblock %}

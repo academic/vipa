@@ -2,16 +2,13 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Ojstr\Common\Helper\TestHelper;
+use Ojstr\UserBundle\Entity\Notification;
+use \Ojstr\UserBundle\Entity\Param\NotificationParams;
 
-class NotificationControllerTest extends TestHelper {
+class NotificationControllerTest extends \Ojstr\Common\Helper\TestHelper {
 
-    public function testStatus() {
-        $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
-
-        $this->client->request('GET', '/admin/notification/');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+    function testAddNotification() {
+        
     }
 
 }
