@@ -2,25 +2,25 @@ var REST_API_BASEURL = "/api/";
 
 var OjstrApp;
 OjstrApp = OjstrApp || (function() {
-    
-})();
 
-var modalTypes = [];
-modalTypes.default = BootstrapDialog.TYPE_DEFAULT;
-modalTypes.info = BootstrapDialog.TYPE_INFO;
-modalTypes.primary = BootstrapDialog.TYPE_PRIMARY;
-modalTypes.success = BootstrapDialog.TYPE_SUCCESS;
-modalTypes.warning = BootstrapDialog.TYPE_WARNING;
-modalTypes.danger = BootstrapDialog.TYPE_DANGER;
+})();
 
 
 
 var OjstrCommon = {
+    modalTypes: {
+        default: BootstrapDialog.TYPE_DEFAULT,
+        info: BootstrapDialog.TYPE_INFO,
+        primary: BootstrapDialog.TYPE_PRIMARY,
+        success: BootstrapDialog.TYPE_SUCCESS,
+        warning: BootstrapDialog.TYPE_WARNING,
+        danger: BootstrapDialog.TYPE_DANGER
+    },
     errorModal: function(message, title) {
         BootstrapDialog.show({
             title: title ? title : 'Error',
             message: message,
-            type: modalTypes.error
+            type: OjstrCommon.modalTypes.danger
         });
     },
     hideallModals: function() {
@@ -30,7 +30,7 @@ var OjstrCommon = {
         BootstrapDialog.show({
             title: 'Wait',
             message: customWaitingMessage ? customWaitingMessage : 'Please wait...',
-            type: modalTypes.info,
+            type: OjstrCommon.modalTypes.info,
             closable: false
         });
     },

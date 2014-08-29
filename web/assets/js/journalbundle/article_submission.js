@@ -30,7 +30,7 @@ var OjsArticleSubmision = {
         });
         tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' +
                 langcode + '" role="tab" class="lang" data-toggle="tab">' +
-                langtitle + '<span class="fa fa-trash removelang btn btn-sm btn-default">' +
+                langtitle + '<span class="removelang btn btn-sm btn-default"><i class="fa fa-trash-o"></i>' +
                 '</span></a></li>';
         $("ul#mainTabs li.lang").last().before(tabhtml);
         OjsArticleSubmision.activateFirstLanguageTab();
@@ -62,6 +62,7 @@ var OjsArticleSubmision = {
         translationParams = [];
         forms.each(function() {
             data = $("form", this).serializeObject();
+            data.locale = locale;
             locale = $(this).attr('id');
             postUrl = actionUrl.replace('locale', locale);
             tmpParam = {"data": data, "postUrl": postUrl};
@@ -85,7 +86,7 @@ var OjsArticleSubmision = {
          */
         OjstrCommon.waitModal();
         if (translationParams) {
-            data.translations = translationParams;
+            articleParams.data.translations = JSON.stringify(translationParams);
         }
         $.post(articleParams.postUrl, articleParams.data, function(response) {
             OjstrCommon.hideallModals();
