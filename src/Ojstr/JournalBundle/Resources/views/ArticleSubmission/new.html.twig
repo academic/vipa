@@ -45,7 +45,13 @@
                     </a>
                     <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
                         {% for lang in  journal.languages%}
-                        <li><a href="#" code="{{lang.code}}" lang="{{lang.name}}" tabindex="-1">{{lang.name}} {{lang.code}}</a></li>
+                        <li>
+                            <a href="#" 
+                               id="langitem_{{lang.code}}"
+                               code="{{lang.code}}" lang="{{lang.name}}" tabindex="-1">
+                               {{lang.name}} <small>({{lang.code}})</small>
+                            </a>
+                        </li>
                         {%endfor%}
                     </ul>
                 </li> 

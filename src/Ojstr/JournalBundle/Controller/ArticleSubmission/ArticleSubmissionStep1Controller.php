@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\JournalBundle\Controller;
+namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
 use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
@@ -20,7 +20,7 @@ class ArticleSubmissionStep1Controller extends Controller {
      */
     public function addArticleAction(Request $request, $locale) {
         if ($request->get('articleId')) {
-            return $this->addArticleExtra($request, $locale);
+            return $this->addArticleTranslation($request, $locale);
         }
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
@@ -46,7 +46,7 @@ class ArticleSubmissionStep1Controller extends Controller {
      * @param string $locale
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    private function addArticleExtra(Request $request, $locale) {
+    private function addArticleTranslation(Request $request, $locale) {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjstrJournalBundle:Article')->find($request->get('articleId'));
