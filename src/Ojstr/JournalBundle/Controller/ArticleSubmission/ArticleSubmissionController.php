@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\JournalBundle\Controller;
+namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
 use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
