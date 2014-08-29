@@ -30,7 +30,8 @@ var OjsArticleSubmision = {
         });
         tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' +
                 langcode + '" role="tab" class="lang" data-toggle="tab">' +
-                langtitle + '<span class="glyphicon glyphicon-trash removelang btn btn-sm btn-default"></span></a></li>';
+                langtitle + '<span class="fa fa-trash removelang btn btn-sm btn-default">' +
+                '</span></a></li>';
         $("ul#mainTabs li.lang").last().before(tabhtml);
         OjsArticleSubmision.activateFirstLanguageTab();
     },
@@ -51,14 +52,14 @@ var OjsArticleSubmision = {
     step1: function(actionUrl, next) {
         forms = $(".tab-pane");
         if (forms.length === 0) {
-            alert("Add at least one language to your submission.");
+            OjstrCommon.errorModal("Add at least one language to your submission.");
             return false;
         }
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
 
         // prepare post params
         articleParams = false;
-        otherParams = [];
+        translationParams = [];
         forms.each(function() {
             data = $("form", this).serializeObject();
             locale = $(this).attr('id');
@@ -70,14 +71,11 @@ var OjsArticleSubmision = {
                 tmpParam.data.primaryLanguage = $("select[name=primaryLanguage] option:selected").val();
                 articleParams = tmpParam;
             } else {
-                otherParams.push(tmpParam);
+                translationParams.push(tmpParam);
             }
         });
         if (!articleParams) {
-            /**
-             * @todo use a pretty modal
-             */
-            alert("Please select and fill metadata for article's language.");
+            OjstrCommon.errorModal("Please select and fill metadata for article's language.");
             return;
         }
         /**
@@ -85,25 +83,16 @@ var OjsArticleSubmision = {
          * 2. get articleId from response 
          * 3. post other meta datas for other languages
          */
-        OjstrApp.showPleaseWait();
+        OjstrCommon.waitModal();
+        if (translationParams) {
+            data.translations = translationParams;
+        }
         $.post(articleParams.postUrl, articleParams.data, function(response) {
+            OjstrCommon.hideallModals();
             if (response.id) {
-                if (otherParams) {
-                    for (i in otherParams) {
-                        otherParams[i].data.articleId = response.id;
-                        OjstrApp.showPleaseWait();
-                        $.post(otherParams[i].postUrl, otherParams[i].data, function(response2) {
-                            console.log(response2);
-                            OjstrApp.hidePleaseWait();
-                        });
-                    }
-                }
+                //
             } else {
-                /**
-                 * @todo use a pretty modal
-                 */
-                OjstrApp.hidePleaseWait();
-                alert("Error occured. Try again.");
+                OjstrCommon.errorModal("Error occured. Try again.");
             }
 
         });
@@ -124,7 +113,6 @@ $(document).ready(function() {
     $("body").on("click", "span.removelang", function(e) {
         e.preventDefault();
         langcode = $(this).parent().attr("href").replace("#", "");
-        console.log(langcode);
         $tab = $("#" + langcode);
         OjsArticleSubmision.step1RemoveLanguageForm(langcode, $tab);
     });
