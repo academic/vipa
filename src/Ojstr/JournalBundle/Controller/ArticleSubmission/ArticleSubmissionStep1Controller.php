@@ -19,9 +19,29 @@ class ArticleSubmissionStep1Controller extends Controller {
      *
      */
     public function addArticleAction(Request $request, $locale) {
-        if ($request->get('articleId')) {
-            return $this->addArticleTranslation($request, $locale);
+        $articleData = $request->request->all();
+        $articleData['translations'] = isset($articleData['translations']) ?
+                json_decode($articleData['translations'], true) :
+                FALSE;
+        $article = $this->addArticleMain($request, $locale);
+        if (!$article) {
+            return new JsonResponse('error');
         }
+        if ($articleData['translations']) {
+            foreach ($articleData['translations'] as $params) {
+                $this->addArticleTranslation($request, $params['data'], $params['data']['locale'], $article);
+            }
+        }
+        return new JsonResponse(array('id' => $article->getId(), 'locale' => $locale));
+    }
+
+    /**
+     * Add Article data for main language
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $locale
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    private function addArticleMain(Request $request, $locale) {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
         $article->setStatus(-1); // Not submitted / see Ojstr/Common/Params/CommonParams.php
@@ -37,30 +57,29 @@ class ArticleSubmissionStep1Controller extends Controller {
         $em->persist($article);
         $em->flush();
         $request->getSession()->set('submission_article', $article);
-        return new JsonResponse(array('id' => $article->getId()));
+        return $article;
     }
 
     /**
      * Update Article data for other languages
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array $data
      * @param string $locale
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    private function addArticleTranslation(Request $request, $locale) {
+    private function addArticleTranslation($request, $data, $locale, $article) {
         $session = $request->getSession();
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('OjstrJournalBundle:Article')->find($request->get('articleId'));
-        $article->setTitle($request->get('title'));
-        $article->setTitleTransliterated($request->get('titleTransliterated'));
-        $article->setSubtitle($request->get('subtitle'));
-        $article->setKeywords($request->get('keywords'));
-        $article->setSubjects($request->get('subjects'));
-        $article->setAbstract($request->get('abstract'));
+        $article->setTitle($data['title']);
+        $article->setTitleTransliterated($data['titleTransliterated']);
+        $article->setSubtitle($data['subtitle']);
+        $article->setKeywords($data['keywords']);
+        $article->setSubjects($data['subjects']);
+        $article->setAbstract($data['abstract']);
         $article->setTranslatableLocale($locale);
         $em->persist($article);
         $em->flush();
         $session->set('submission_article_' . $locale, $article);
-        return new JsonResponse(array('id' => $request->get('articleId'), 'locale' => $locale));
+        return $article->getId();
     }
 
 }
