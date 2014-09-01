@@ -2,6 +2,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Primary Language</th>
             <th>Doi</th>
             <th>Journal</th>
             <th>Issue</th>
@@ -14,6 +15,8 @@
                 {% for entity in entities %}
         <tr>
             <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td> <span class="badge">{{ entity.primaryLanguage }}</span></td>
+
             <td>
                 {% if entity.doi%}
                 {{ entity.doi }}

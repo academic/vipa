@@ -1,17 +1,22 @@
 var OjsArticleSubmision = {
+    articleId: null,
     languages: [],
+    step1Show:function(){},
+    step1Hide:function(){},
+    step2Show:function(){},
+    step2Hide:function(){},
     activateFirstLanguageTab: function() {
-        firsttab = $("#langtabs .tab-pane").first().attr('id');
+        firsttab = $("#step1 .tab-pane").first().attr('id');
         if (firsttab) {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
-    addLanguageForm: function(langcode, langtitle) {
+    step1AddLanguageForm: function(langcode, langtitle) {
         // check if selected language tab already exists
         if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
             return false;
         }
-        $("#langtabs").append('<div class="tab-pane step1" id="' + langcode + '">' +
+        $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' +
                 '<div class="tab_step1">' + $("#step1_tpl").html() + '</div>' +
                 '<div class="tab_step2 hide">' + $("#step2_tpl").html() + '</div>' +
                 '</div>');
@@ -62,8 +67,8 @@ var OjsArticleSubmision = {
         translationParams = [];
         forms.each(function() {
             data = $("form", this).serializeObject();
-            data.locale = locale;
             locale = $(this).attr('id');
+            data.locale = locale;
             postUrl = actionUrl.replace('locale', locale);
             tmpParam = {"data": data, "postUrl": postUrl};
             if ($primaryLang === locale) {
@@ -91,12 +96,18 @@ var OjsArticleSubmision = {
         $.post(articleParams.postUrl, articleParams.data, function(response) {
             OjstrCommon.hideallModals();
             if (response.id) {
-                //
+                OjsArticleSubmision.articleId = response.id;
+                OjsArticleSubmision.step2AddCitationForm();
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
 
         });
+    },
+    step2ShowCitationForm: function() {
+        OjsArticleSubmision.step1Hide();
+        OjsArticleSubmision.step2Show();
+
     }
 };
 
@@ -109,7 +120,7 @@ $(document).ready(function() {
         e.preventDefault();
         langcode = $(this).attr('code');
         langtitle = $(this).attr('lang');
-        OjsArticleSubmision.addLanguageForm(langcode, langtitle);
+        OjsArticleSubmision.step1AddLanguageForm(langcode, langtitle);
     });
     $("body").on("click", "span.removelang", function(e) {
         e.preventDefault();
