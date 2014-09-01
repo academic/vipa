@@ -102,10 +102,10 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 
 
 .homebrand .board{
-    width: 75%;
     margin: 60px auto;
-    height: 500px;
-    background: #fff;
+    height: 740px;
+    background: #fff  url(/assets/images/body_icons.png);
+    background-position:center center;
     /*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
 }
 .homebrand .board .nav-tabs {
@@ -119,8 +119,7 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 }
 
 .homebrand .board > div.board-inner{
-    background: #fafafa url(/assets/images/pattern1.png);
-    background-size: 30%;
+    background: #fafafa;
     /*border-top: solid #ddd 1px;*/
 }
 
@@ -153,10 +152,10 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 }
 .homebrand .nav-tabs>li>a{
     margin-right: 0px !important;
-    margin-left: 55px !important;
+    margin-left: 20% !important;
 }
 .homebrand span.round-tabs{
-    width: 70px;
+    width: 100%;
     height: 70px;
     line-height: 70px;
     display: inline-block;
@@ -259,7 +258,7 @@ ul.nav-wizard.nav-wizard-backnav li:hover,ul.nav-wizard.nav-wizard-backnav li:ho
 .homebrand li.active:after {
     content: " ";
     position: absolute;
-    left: 45%;
+    left: 31%;
     opacity:1;
     margin: 0 auto;
     bottom: 0px;
