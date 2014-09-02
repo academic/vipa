@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require 'anystyle/parser'
+require 'json'
+if !defined?('anystyle/parser')
+  exit
+end
+obj = Anystyle.parse """
+	"+ARGV[0]+"
+	"""
+puts JSON.pretty_generate(obj)
