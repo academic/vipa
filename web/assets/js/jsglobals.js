@@ -2,27 +2,49 @@ var REST_API_BASEURL = "/api/";
 
 var OjstrApp;
 OjstrApp = OjstrApp || (function() {
-    var pleaseWaitDiv = $('<div class="modal" aria-hidden="true" \n\
-id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false">\n\
-<div class="modal-dialog">\n\
-<div class="modal-content">\n\
-<div class="modal-header"><strong>Processing...</strong></div>\n\
-<div class="progress">\n\
-<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="90" \n\
-aria-valuemin="0" aria-valuemax="100" style="width: 90%"><span class="sr-only">--</span></div></div>\n\
-</div></div>');
-    return {
-        showPleaseWait: function() {
-            pleaseWaitDiv.modal();
-        },
-        hidePleaseWait: function() {
-            pleaseWaitDiv.modal('hide');
-        }
-    };
+
 })();
 
 
+
 var OjstrCommon = {
+    scrollTop: function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, {
+            duration: 200,
+            specialEasing: {
+                width: "linear",
+                height: "easeOutBounce"
+            }}
+        );
+    },
+    modalTypes: {
+        default: BootstrapDialog.TYPE_DEFAULT,
+        info: BootstrapDialog.TYPE_INFO,
+        primary: BootstrapDialog.TYPE_PRIMARY,
+        success: BootstrapDialog.TYPE_SUCCESS,
+        warning: BootstrapDialog.TYPE_WARNING,
+        danger: BootstrapDialog.TYPE_DANGER
+    },
+    errorModal: function(message, title) {
+        BootstrapDialog.show({
+            title: title ? title : 'Error',
+            message: message,
+            type: OjstrCommon.modalTypes.danger
+        });
+    },
+    hideallModals: function() {
+        BootstrapDialog.closeAll();
+    },
+    waitModal: function(customWaitingMessage) {
+        BootstrapDialog.show({
+            title: 'Wait',
+            message: customWaitingMessage ? customWaitingMessage : 'Please wait...',
+            type: OjstrCommon.modalTypes.info,
+            closable: false
+        });
+    },
     inArray: function(needle, haystack) {
         var length = haystack.length;
         for (var i = 0; i < length; i++) {

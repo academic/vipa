@@ -1,0 +1,75 @@
+Ojstr\UserBundle\Entity\Notification:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: IDENTITY
+    oneToOne:
+        sender:
+          targetEntity: Ojstr\UserBundle\Entity\User
+          joinColumn:
+            name: sender_id
+            referencedColumnName: id
+        recipient:
+          targetEntity: Ojstr\UserBundle\Entity\User
+          joinColumn:
+            name: recipient_id
+            referencedColumnName: id
+    fields:
+        senderId:
+            type: integer
+            column: sender_id
+        recipientId:
+            type: integer
+            column: recipient_id
+        entityId:
+            type: integer
+            column: entity_id
+            nullable: true
+        entityName:
+            type: string
+            length: 255
+            column: entity_name
+            nullable: true
+        text:
+            type: string
+            length: 255
+            column: text 
+        action:
+            type: string
+            length: 255
+            column: action
+            nullable: true
+        isRead:
+            type: boolean
+            column: is_read
+            nullable: true
+            options:
+                default: FALSE
+        level:
+            type: string
+            length: 255
+            nullable: true
+            options:
+                default: 1
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false 
+    lifecycleCallbacks: {  }
