@@ -19,9 +19,9 @@ before_script:
   - phpenv config-add phpmongodb.ini
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
-  - app/console doctrine:database:create  -e=test > /dev/null
-  - app/console doctrine:migrations:migrate -e=test > /dev/null
-  - app/console doctrine:schema:create -e=test > /dev/null
+  - app/console doctrine:database:create
+  - app/console doctrine:migrations:migratet > /dev/null
+  - app/console doctrine:schema:create > /dev/null
   - chmod -R 777 app/cache app/logs
   - app/console --env=test cache:warmup
   - app/console assetic:dump
