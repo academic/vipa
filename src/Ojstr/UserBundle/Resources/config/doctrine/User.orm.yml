@@ -82,6 +82,13 @@ Ojstr\UserBundle\Entity\User:
         deletedAt:
            type: date
            nullable: true
+    oneToMany:
+        attorneyshipChildUsers:
+            targetEntity: Attorney
+            mappedBy: targetUser   
+        attorneyshipParentUsers:
+            targetEntity: Attorney
+            mappedBy: attorneyUser
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject

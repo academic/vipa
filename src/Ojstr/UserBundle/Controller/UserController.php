@@ -87,16 +87,22 @@ class UserController extends Controller {
                     'entity' => $entity));
     }
 
-    public function profileAction() {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+    public function profileAction($username = FALSE) {
+        $userRepo = $this->getDoctrine()->getRepository('OjstrUserBundle:User');
+        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        $user = $username ?
+                $userRepo->findOneByUsername($username) :
+                $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($user->getId());
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
-        return $this->render('OjstrUserBundle:User:admin/profile.html.twig', array(
+        return $this->render('OjstrUserBundle:User:profile.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => array()));
+                    'delete_form' => array(),
+                    'me' => ($sessionUser == $user),
+                    'hasAttorneyship' => $sessionUser->hasAttorneyship($user->getId())));
     }
 
     /**

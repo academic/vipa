@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# parse one ciation item
+require 'anystyle/parser'
+require 'json'
+if !defined?('anystyle/parser')
+  exit
+end
+obj = Anystyle.parse """
+	"+ARGV[0]+"
+	"""
+print JSON.generate(obj)

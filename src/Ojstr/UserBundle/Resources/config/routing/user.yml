@@ -1,0 +1,27 @@
+myprofile:
+    pattern:  /profile
+    defaults: { _controller: "OjstrUserBundle:User:profile" }
+
+user_give_attorneyship:
+    pattern:  /give-attorneyship/{targetUserId}
+    defaults: { _controller: "OjstrUserBundle:Attorney:give" }
+    
+user_drop_attorneyship:
+    pattern:  /drop-attorneyship/{targetUserId}
+    defaults: { _controller: "OjstrUserBundle:Attorney:drop" }
+    
+user_profile:
+    pattern:  /profile/{username}
+    defaults: { _controller: "OjstrUserBundle:User:profile" }
+    
+user_show_my_journals:
+    pattern:  /myjournals
+    defaults: { _controller: "OjstrUserBundle:UserJournalRole:myJournals" }
+    
+user_join_journal_action:
+    pattern:  /join/journal/{journalId}
+    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
+
+user_join_journal:
+    pattern:  /join/journal/
+    defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }
