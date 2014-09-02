@@ -7,4 +7,4 @@ end
 obj = Anystyle.parse """
 	"+ARGV[0]+"
 	"""
-puts JSON.pretty_generate(obj)
+print JSON.generate(obj)
