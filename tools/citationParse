@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# parse one ciation item
 require 'anystyle/parser'
 require 'json'
 if !defined?('anystyle/parser')
