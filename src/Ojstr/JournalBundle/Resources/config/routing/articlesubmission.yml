@@ -26,7 +26,7 @@ articlesubmission_step1:
     requirements: { _method: post }
     
 articlesubmission_step2:
-    pattern:  /author/article/submit/step2/{locale}
+    pattern:  /author/article/submit/step2
     defaults: { _controller: "OjstrJournalBundle:ArticleSubmission/ArticleSubmissionStep2:step2" }
     requirements: { _method: post }
     

@@ -8,6 +8,17 @@ OjstrApp = OjstrApp || (function() {
 
 
 var OjstrCommon = {
+    scrollTop: function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, {
+            duration: 200,
+            specialEasing: {
+                width: "linear",
+                height: "easeOutBounce"
+            }}
+        );
+    },
     modalTypes: {
         default: BootstrapDialog.TYPE_DEFAULT,
         info: BootstrapDialog.TYPE_INFO,
