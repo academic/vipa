@@ -1,10 +1,18 @@
 var OjsArticleSubmision = {
     articleId: null,
     languages: [],
-    step1Show:function(){},
-    step1Hide:function(){},
-    step2Show:function(){},
-    step2Hide:function(){},
+    step1Show: function() {
+        $("#step1-container").removeClass("hide", 200, "easeInBack");
+    },
+    step1Hide: function() {
+        $("#step1-container").addClass("hide", 200, "easeInBack");
+    },
+    step2Show: function() {
+        $("#step2-container").removeClass("hide", 200, "easeInBack");
+    },
+    step2Hide: function() {
+        $("#step1-container").slideUp("fast",200, "easeInBack");
+    },
     activateFirstLanguageTab: function() {
         firsttab = $("#step1 .tab-pane").first().attr('id');
         if (firsttab) {
@@ -54,7 +62,7 @@ var OjsArticleSubmision = {
         $('#t_' + langcode).remove();
         this.activateFirstLanguageTab();
     },
-    step1: function(actionUrl, next) {
+    step1: function(actionUrl) {
         forms = $(".tab-pane");
         if (forms.length === 0) {
             OjstrCommon.errorModal("Add at least one language to your submission.");
@@ -97,7 +105,7 @@ var OjsArticleSubmision = {
             OjstrCommon.hideallModals();
             if (response.id) {
                 OjsArticleSubmision.articleId = response.id;
-                OjsArticleSubmision.step2AddCitationForm();
+                OjsArticleSubmision.step2ShowCitationForm();
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
@@ -105,9 +113,9 @@ var OjsArticleSubmision = {
         });
     },
     step2ShowCitationForm: function() {
+        OjstrCommon.scrollTop();
         OjsArticleSubmision.step1Hide();
         OjsArticleSubmision.step2Show();
-
     }
 };
 
