@@ -32,3 +32,8 @@ services:
         arguments: [@doctrine.orm.entity_manager,@service_container]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login } 
+    ojstr.security_switch_user:
+        class: Ojstr\Common\Listener\SecuritySwitchUserListener
+        arguments: [@security.context]
+        tags:
+            - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }

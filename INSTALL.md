@@ -58,7 +58,13 @@ $ php app/console doctrine:fixtures:load --append -v
 $ php app/console doctrine:mongodb:fixtures:load --append -v
 ```  
 
-Run on your local environment : 
+### Additional Packages
+
+```
+$ [sudo] gem install anystyle-parser
+```
+
+### Run on local environment 
 
 ```bash
 php app/console server:run

@@ -79,9 +79,16 @@
                                     </p>
                                 </div>
                             </li> 
+
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <li>
+                                <a class="btn btn-link" href="/?_su=_exit">
+                                    <i class="fa fa-sign-out"></i> Logout from user</a>
+                            </li>
+                            {%endif%}
                             <!-- Menu Footer-->
                             <li class="user-footer">
-                                <a href="{{path('user_profile')}}">
+                                <a href="{{path('myprofile')}}">
                                     <i class="fa fa-user"></i> Profile</a>
                             </li>
                             <li>
@@ -92,7 +99,8 @@
                     </li>
                         {%endif%}
                     <ul class="nav navbar-nav navbar-right">
-                         {% if app.user == false %}<li>
+                         {% if app.user == false %}
+                        <li>
                             <a class="btn btn-link" href="{{path('login')}}">
                                 <i class="fa fa-sign-in"></i> Login</a>
                         </li>

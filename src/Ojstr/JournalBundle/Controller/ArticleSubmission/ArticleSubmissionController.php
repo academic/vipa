@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\JournalBundle\Controller;
+namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
 use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
@@ -53,6 +53,7 @@ class ArticleSubmissionController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
+                    'articleId' => NULL,
                     'entity' => $entity,
                     'journal' => $journal,
                     'citationTypes' => $this->container->getParameter('citation_types')
