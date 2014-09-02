@@ -11,7 +11,7 @@ var OjsArticleSubmision = {
         $("#step2-container").removeClass("hide", 200, "easeInBack");
     },
     step2Hide: function() {
-        $("#step1-container").slideUp("fast",200, "easeInBack");
+        $("#step1-container").slideUp("fast", 200, "easeInBack");
     },
     activateFirstLanguageTab: function() {
         firsttab = $("#step1 .tab-pane").first().attr('id');
@@ -114,6 +114,8 @@ var OjsArticleSubmision = {
     },
     step2ShowCitationForm: function() {
         OjstrCommon.scrollTop();
+        $("ul.submission-progress li").removeClass("active");
+        $("ul.submission-progress li#submission-progress-step2").addClass("active");
         OjsArticleSubmision.step1Hide();
         OjsArticleSubmision.step2Show();
     }
