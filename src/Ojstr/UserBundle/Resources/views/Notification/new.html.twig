@@ -1,0 +1,11 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<h1>Notification creation</h1>
+
+    {{ form(form) }}
+
+
+    {% set back_path = 'admin_notification' %} 
+    {% include '::actionbtns.html.twig' %}
+{% endblock %}

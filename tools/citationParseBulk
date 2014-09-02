@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# parse multiple citation items separated by newline.
+require 'anystyle/parser'
+require 'json'
+if !defined?('anystyle/parser')
+  exit
+end
+input = ARGV[0].split(/\r?\n/) 
+output = []
+input.each_with_index {  |val, index|
+	obj = Anystyle.parse """
+	"+val+"
+	"""
+ 	output.concat([obj]) 
+}
+print JSON.pretty_generate(output)

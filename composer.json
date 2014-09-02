@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.5.0",
+        "symfony/symfony": "2.5.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -27,7 +27,6 @@
         "sensio/generator-bundle": "~2.3",
         "symfony/security-bundle": "*",
         "incenteev/composer-parameter-handler": "~2.0",
-        "ircmaxell/password-compat": "~1.0.3",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "symfony/console": "*",
         "friendsofsymfony/rest-bundle": "@dev",

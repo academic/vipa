@@ -17,14 +17,11 @@ $.fn.serializeObject = function()
 };
 
 $(document).ready(function() {
-    $("a[rel*=modal]").leanModal({closeButton: ".modal_close"});
     $('a[title]').tooltip();
-    $(".panel-heading").click(function() {
+    $(".panel-heading toggle-body").click(function() {
         $(this).next(".panel-body").slideToggle();
     });
     $('#side-menu').metisMenu();
-
-
 
     //Loads the correct sidebar on window load,
     //collapses the sidebar on window resize.
