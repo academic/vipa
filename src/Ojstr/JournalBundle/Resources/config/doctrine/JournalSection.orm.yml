@@ -1,0 +1,42 @@
+Ojstr\JournalBundle\Entity\JournalSection:
+    type: entity
+    table: null
+    manyToOne:
+       journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          inversedBy: sections
+    oneToMany: 
+        articles:
+          targetEntity: Article
+          mappedBy: section
+          cascade: ["persist", "merge"]
+          fetch: LAZY
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        allowIndex:
+            type: boolean
+            column: allow_index
+            nullable: true
+            options:
+                default: true
+        hideTitle:
+            type: boolean
+            column: hide_title
+            nullable: true
+            options:
+                default: false
+        journalId:
+            type: integer
+            column: journal_id
+    lifecycleCallbacks: {  }

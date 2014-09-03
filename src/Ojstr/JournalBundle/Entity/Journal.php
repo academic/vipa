@@ -141,6 +141,11 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $languages;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+    /**
      *
      * arbitrary settings 
      */
@@ -154,6 +159,7 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -174,6 +180,29 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      */
     public function getAttribute($settingName) {
         return isset($this->setting[$settingName]) ? $this->settings[$settingName] : FALSE;
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\JournalSection $section
+     * @return Journal
+     */
+    public function addSection(\Ojstr\JournalBundle\Entity\JournalSection $section) {
+        $this->sections[] = $section;
+        return $this;
+    }
+
+    /**
+     * @param \Ojstr\JournalBundle\Entity\JournalSection $section
+     */
+    public function removeSection(\Ojstr\JournalBundle\Entity\JournalSection $section) {
+        $this->sections->removeElement($section);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections() {
+        return $this->sections;
     }
 
     /**
