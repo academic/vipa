@@ -22,7 +22,7 @@ class LoadJournalSectionData extends AbstractFixture implements OrderedFixtureIn
     }
 
     public function getOrder() {
-        return 18;
+        return 16;
     }
 
 }

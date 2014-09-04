@@ -16,6 +16,7 @@
                         <th>Titletransliterated</th>
                         <td>{{ entity.titleTransliterated }}</td>
                     </tr>
+
                     <tr>
                         <th>Subtitle</th>
                         <td>{{ entity.subtitle }}</td>
@@ -37,6 +38,10 @@
                             <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
                                 {{ entity.journal.title }}</a>
                         </td>
+                    </tr>
+                    <tr>
+                        <th>Section</th>
+                        <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
                     </tr>
                     <tr>
                         <th>Languages</th>
