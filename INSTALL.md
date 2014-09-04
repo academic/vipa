@@ -12,8 +12,6 @@ following options.
 6. Mysql
 7. [ElasticSearch](https://github.com/okulbilisim/ojs/tree/master/docs/developers/ElasticSearch.md)
 
-
-
 #### Using Composer ( _recommended_ )
 
 As Symfony uses [Composer][2] to manage its dependencies, the recommended way
@@ -60,7 +58,10 @@ $ php app/console doctrine:mongodb:fixtures:load --append -v
 
 ### Additional Packages
 
+Citation parser service is runnig with Ruby using Sinatra.
+
 ```
+$ [sudo] gem install sinatra
 $ [sudo] gem install anystyle-parser
 ```
 

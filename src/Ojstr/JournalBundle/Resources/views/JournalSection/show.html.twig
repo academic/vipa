@@ -1,0 +1,48 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<h1>JournalSection</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Allowindex</th>
+            <td>{{ entity.allowIndex }}</td>
+        </tr>
+        <tr>
+            <th>Hidetitle</th>
+            <td>{{ entity.hideTitle }}</td>
+        </tr>
+        <tr>
+            <th>Journalid</th>
+            <td>
+                <a href="#">
+                    <strong class="badge">{% if entity.journal%}{{ entity.journal.title }}{%endif%}</strong>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journal_section') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journal_section_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
