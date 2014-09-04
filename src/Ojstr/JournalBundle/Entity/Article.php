@@ -534,7 +534,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * @return \Ojstr\JournalBundle\Entity\Article
      */
     public function setSection($section) {
-        $this->journal = $section;
+        $this->section = $section;
         return $this;
     }
 
