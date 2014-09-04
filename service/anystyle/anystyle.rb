@@ -1,7 +1,10 @@
+#!/usr/bin/env ruby
+
 require 'sinatra'
 require 'anystyle/parser'
 require 'json'
-
+ 
+set :port => 8080
 post '/parse' do
     content_type :json
     output = []
@@ -13,6 +16,11 @@ post '/parse' do
             output.concat([obj]) 
     }
     JSON.generate(output)
+end
+
+get '/' do
+    content_type :json
+    ["hi"]
 end
 
 
