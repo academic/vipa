@@ -1,0 +1,30 @@
+admin_journal_section:
+    path:     /
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:index" }
+
+admin_journal_section_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:show" }
+
+admin_journal_section_new:
+    path:     /new
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:new" }
+
+admin_journal_section_create:
+    path:     /create
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:create" }
+    requirements: { _method: post }
+
+admin_journal_section_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:edit" }
+
+admin_journal_section_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:update" }
+    requirements: { _method: post|put }
+
+admin_journal_section_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjstrJournalBundle:JournalSection:delete" }
+    requirements: { _method: post|delete }

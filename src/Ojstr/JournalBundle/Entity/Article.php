@@ -178,6 +178,18 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $journal;
 
     /**
+     * @var \Ojstr\JournalBundle\Entity\JournalSection
+     * @Expose
+     */
+    private $section;
+
+    /**
+     *
+     * @var int
+     */
+    private $sectionId;
+
+    /**
      *
      * arbitrary attributes 
      */
@@ -244,7 +256,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Cojournalmmon\Collections\Collection
      */
     public function getLanguages() {
         return $this->languages;
@@ -494,6 +506,45 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getJournal() {
         return $this->journal;
+    }
+
+    /**
+     * Set sectionId
+     *
+     * @param integer $sectionId
+     * @return Article
+     */
+    public function setSectionId($sectionId) {
+        $this->sectionId = $sectionId;
+        return $this;
+    }
+
+    /**
+     * Get sectionId
+     *
+     * @return integer
+     */
+    public function getSectionId() {
+        return $this->sectionId;
+    }
+
+    /**
+     * Set section
+     * @param \Ojstr\JournalBundle\Entity\JournalSection $section
+     * @return \Ojstr\JournalBundle\Entity\Article
+     */
+    public function setSection($section) {
+        $this->section = $section;
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return \Ojstr\JournalBundle\Entity\JournalSection
+     */
+    public function getSection() {
+        return $this->section;
     }
 
     /**

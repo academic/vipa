@@ -12,6 +12,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager) {
         $journal = $this->getReference('ref-journal');
         $journal2 = $this->getReference('ref-journal2');
+        $section = $this->getReference('ref-section');
 
         if (!isset($journal)) {
             return;
@@ -31,6 +32,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->setSubjects("subject1, subject2");
         $article->setTitle("Article Title");
         $article->setSubmitterId($ujr->getUserId());
+        $article->setSection($section);
         $manager->persist($article);
         $this->addReference('ref-article', $article);
 
@@ -47,6 +49,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article2->setSubjects("subject1, subject2");
         $article2->setTitle("Article2 Title");
         $article2->setSubmitterId($ujr->getUserId());
+        $article2->setSection($section);
         $manager->persist($article2);
         $this->addReference('ref-article2', $article2);
 

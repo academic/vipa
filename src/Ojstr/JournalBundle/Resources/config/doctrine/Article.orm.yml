@@ -10,6 +10,12 @@ Ojstr\JournalBundle\Entity\Article:
       type: integer
   lifecycleCallbacks: {} 
   manyToOne:
+      section:
+          targetEntity: JournalSection
+          joinColumn:
+            name: section_id
+            referencedColumnName: id
+          inversedBy: articles
       journal:
           targetEntity: Journal
           joinColumn:
@@ -128,6 +134,12 @@ Ojstr\JournalBundle\Entity\Article:
       nullable: TRUE
     journalId: 
       column: journal_id
+      type: integer
+      nullable: TRUE
+      gedmo:
+          - versioned
+    sectionId: 
+      column: section_id
       type: integer
       nullable: TRUE
       gedmo:

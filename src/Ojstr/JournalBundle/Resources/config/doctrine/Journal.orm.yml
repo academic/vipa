@@ -18,6 +18,11 @@ Ojstr\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
+        sections:
+          targetEntity: JournalSection
+          mappedBy: journal 
+          cascade: ["persist", "merge"]
+          fetch: LAZY
     manyToMany:
         languages: 
             targetEntity: Lang
