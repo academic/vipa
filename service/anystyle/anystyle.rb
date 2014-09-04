@@ -15,3 +15,9 @@ post '/parse' do
     JSON.generate(output)
 end
 
+
+# 404 Error!
+not_found do
+  status 404
+  erb:error404
+end
