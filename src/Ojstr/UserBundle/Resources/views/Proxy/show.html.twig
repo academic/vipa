@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Attorney</h1>
+<h1>proxy</h1>
 
 <table class="record_properties">
     <tbody>
@@ -10,8 +10,8 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Attorneyuserid</th>
-            <td>{{ entity.attorneyUserId }}</td>
+            <th>proxyuserid</th>
+            <td>{{ entity.proxyUserId }}</td>
         </tr>
         <tr>
             <th>Targetuserid</th>
@@ -23,12 +23,12 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_attorney') }}">
+        <a href="{{ path('admin_proxy') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('admin_attorney_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('admin_proxy_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
