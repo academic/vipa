@@ -8,15 +8,15 @@
 {% endif %} 
 {{entity.username}} 
     <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
-    {%if hasAttorneyship %}
+    {%if hasClient %}
     <a class="btn btn-danger pull-right" 
-       href="{{path('user_drop_attorneyship',{'targetUserId':entity.id})}}">
-        Drop Power of Attorney
+       href="{{path('user_drop_proxy',{'targetUserId':entity.id})}}">
+        Drop Proxy User
     </a>
     {%else%}
     <a class="btn btn-warning pull-right" 
-       href="{{path('user_give_attorneyship',{'targetUserId':entity.id})}}">
-        Give Power of Attorney
+       href="{{path('user_make_proxy',{'targetUserId':entity.id})}}">
+        Add as Proxy
     </a>
     {%endif%}
 </h1> 

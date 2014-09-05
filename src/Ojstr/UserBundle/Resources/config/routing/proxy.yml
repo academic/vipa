@@ -1,0 +1,30 @@
+admin_proxy:
+    path:     /
+    defaults: { _controller: "OjstrUserBundle:Proxy:index" }
+
+admin_proxy_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjstrUserBundle:Proxy:show" }
+
+admin_proxy_new:
+    path:     /new
+    defaults: { _controller: "OjstrUserBundle:Proxy:new" }
+
+admin_proxy_create:
+    path:     /create
+    defaults: { _controller: "OjstrUserBundle:Proxy:create" }
+    requirements: { _method: post }
+
+admin_proxy_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjstrUserBundle:Proxy:edit" }
+
+admin_proxy_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjstrUserBundle:Proxy:update" }
+    requirements: { _method: post|put }
+
+admin_proxy_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjstrUserBundle:Proxy:delete" }
+    requirements: { _method: post|delete }

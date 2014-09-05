@@ -1,22 +1,21 @@
-Ojstr\UserBundle\Entity\Attorney:
+Ojstr\UserBundle\Entity\Proxy:
     indexes:
         users_x:
-          columns: attorney_user_id,target_user_id 
+          columns: proxy_user_id,target_user_id 
     type: entity
     table: null
-    repositoryClass: Ojstr\UserBundle\Entity\AttorneyRepository 
     manyToOne:
         targetUser:
             targetEntity: User
-            inversedBy: attorneyshipChildUsers
+            inversedBy: clientUsers
             joinColumn:
                 name: target_user_id 
                 referencedColumnName: id
-        attorneyUser:
+        proxyUser:
             targetEntity: User
-            inversedBy: attorneyshipParentUsers
+            inversedBy: proxyUsers
             joinColumn:
-                name: attorney_user_id 
+                name: proxy_user_id 
                 referencedColumnName: id
     id:
         id:
@@ -25,9 +24,9 @@ Ojstr\UserBundle\Entity\Attorney:
             generator:
                 strategy: AUTO
     fields:
-        attorneyUserId:
+        proxyUserId:
             type: integer
-            column: attorney_user_id
+            column: proxy_user_id
         targetUserId:
             type: integer
             column: target_user_id

@@ -102,7 +102,7 @@ class UserController extends Controller {
                     'entity' => $entity,
                     'delete_form' => array(),
                     'me' => ($sessionUser == $user),
-                    'hasAttorneyship' => $sessionUser->hasAttorneyship($user->getId())));
+                    'hasClient' => $sessionUser->hasClient($user->getId())));
     }
 
     /**
