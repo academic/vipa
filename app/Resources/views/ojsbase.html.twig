@@ -28,7 +28,7 @@
             {%include '::ojsleft.html.twig'%}
         {% endif %}
 
-            <div id="{% if app.user and hideleft != 1 %}page-wrapper{%else%}anonym-wrapper{%endif%}">
+            <div id="{% if app.user and hideleft is not defined  %}page-wrapper{%else%}anonym-wrapper{%endif%}">
             {% if app.user %}
                 <div class="content-header row"> 
                         {% block breadcrumb %}
