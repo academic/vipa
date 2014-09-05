@@ -63,10 +63,10 @@ class InstallCommand extends ContainerAwareCommand {
                 $translator->trans('Set system admin password (admin)') . ' : </info>', 'admin');
 
         $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
-        $this->insertRoles($output);
+        $this->insertRoles($this->getContainer(),$output);
 
         $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
-        $this->insertAdmin($admin_username, $admin_email, $admin_password);
+        $this->insertAdmin($this->getContainer(),$admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
                 . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
