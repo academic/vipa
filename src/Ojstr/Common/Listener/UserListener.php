@@ -48,6 +48,14 @@ class UserListener {
     }
 
     /**
+     * load users to session that I can login asthem
+     * @return void
+     */
+    public function loadClientUsers() {
+        
+    }
+
+    /**
      * 
      * @return void
      */

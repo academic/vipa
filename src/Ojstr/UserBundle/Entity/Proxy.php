@@ -2,12 +2,10 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Attorney
+ * Proxy
  */
-class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -17,7 +15,7 @@ class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var integer
      */
-    private $attorneyUserId;
+    private $proxyUserId;
 
     /**
      * @var integer
@@ -27,7 +25,7 @@ class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var User
      */
-    private $attorneyUser;
+    private $proxyUser;
 
     /**
      * @var User
@@ -44,31 +42,31 @@ class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set attorneyUserId
+     * Set proxyUserId
      *
-     * @param integer $attorneyUserId
-     * @return Attorney
+     * @param integer $proxyUserId
+     * @return Proxy
      */
-    public function setAttorneyUserId($attorneyUserId) {
-        $this->attorneyUserId = $attorneyUserId;
+    public function setProxyUserId($proxyUserId) {
+        $this->proxyUserId = $proxyUserId;
 
         return $this;
     }
 
     /**
-     * Get attorneyUserId
+     * Get proxyUserId
      *
      * @return integer 
      */
-    public function getAttorneyUserId() {
-        return $this->attorneyUserId;
+    public function getProxyUserId() {
+        return $this->proxyUserId;
     }
 
     /**
      * Set targetUserId
      *
      * @param integer $targetUserId
-     * @return Attorney
+     * @return Proxy
      */
     public function setTargetUserId($targetUserId) {
         $this->targetUserId = $targetUserId;
@@ -89,7 +87,7 @@ class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * Set targetUser
      *
      * @param User $user
-     * @return Attorney
+     * @return Proxy
      */
     public function setTargetUser($user) {
         $this->targetUser = $user;
@@ -106,23 +104,23 @@ class Attorney extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set attorneyUser
+     * Set proxyUser
      *
      * @param User $user
-     * @return Attorney
+     * @return Proxy
      */
-    public function setAttorneyUser($user) {
-        $this->attorneyUser = $user;
+    public function setProxyUser($user) {
+        $this->proxyUser = $user;
         return $this;
     }
 
     /**
-     * Get attorneyUser
+     * Get proxyUser
      *
      * @return User 
      */
-    public function getAttorneyUser() {
-        return $this->attorneyUser;
+    public function getProxyUser() {
+        return $this->proxyUser;
     }
 
 }
