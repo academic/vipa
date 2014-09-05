@@ -98,12 +98,12 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     /**
      * @var \Doctrine\Common\Collections\Collection 
      */
-    private $attorneyshipChildUsers;
+    private $clientUsers;
 
     /**
      * @var \Doctrine\Common\Collections\Collection 
      */
-    private $attorneyshipParentUsers;
+    private $proxyUsers;
 
     /**
      * @var integer
@@ -406,22 +406,22 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * 
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAttorneyshipChildUsers() {
-        return $this->attorneyshipChildUsers;
+    public function getClientUsers() {
+        return $this->clientUsers;
     }
 
     /**
      * 
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAttorneyshipParentUsers() {
-        return $this->attorneyshipParentUsers;
+    public function getProxyUsers() {
+        return $this->proxyUsers;
     }
 
-    public function hasAttorneyship($attorneyUserId) {
-        $children = $this->attorneyshipChildUsers;
+    public function hasClient($userId) {
+        $children = $this->clientUsers;
         foreach ($children as $child) {
-            if ($child->getAttorneyUser()->getId() == $attorneyUserId) {
+            if ($child->getProxyUser()->getId() == $userId) {
                 return TRUE;
             }
         }
