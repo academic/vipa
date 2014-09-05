@@ -75,25 +75,22 @@ class InstallCommand extends ContainerAwareCommand {
 
     /**
      * add default roles
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return boolean
      */
-    public function insertRoles(OutputInterface $output) {
-        $doctrine = $this->getContainer()->get('doctrine');
-        $translator = $this->getContainer()->get('translator');
+    public function insertRoles($container, OutputInterface $output) {
+        $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
-        $roles = $this->getContainer()->getParameter('roles');
+        $roles = $container->getParameter('roles');
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
         foreach ($roles as $role) {
             $new_role = new Role();
             $check = $role_repo->findOneByRole($role['role']);
             if (!empty($check)) {
-                $output->writeln('<error>' .
-                        $translator->trans('This role record already exists on db') .
-                        '</error>' . ' : <info>' . $role['role'] . '</info>');
+                $output->writeln('<error> This role record already exists on db </error> : <info>' .
+                        $role['role'] . '</info>');
                 continue;
             }
-            $output->writeln('<info>' . $translator->trans('Added ') . ' : ' . $role['role'] . '</info>');
+            $output->writeln('<info>Added : ' . $role['role'] . '</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
             $new_role->setIsSystemRole($role['isSystemRole']);
@@ -103,11 +100,11 @@ class InstallCommand extends ContainerAwareCommand {
         return $em->flush();
     }
 
-    public function insertAdmin($username, $email, $password) {
-        $doctrine = $this->getContainer()->get('doctrine');
+    public function insertAdmin($container, $username, $email, $password) {
+        $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
 
-        $factory = $this->getContainer()->get('security.encoder_factory');
+        $factory = $container->get('security.encoder_factory');
         $user = new User();
 
         $encoder = $factory->getEncoder($user);
