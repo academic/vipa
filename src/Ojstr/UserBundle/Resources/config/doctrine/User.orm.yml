@@ -83,12 +83,12 @@ Ojstr\UserBundle\Entity\User:
            type: date
            nullable: true
     oneToMany:
-        attorneyshipChildUsers:
-            targetEntity: Attorney
+        clientUsers:
+            targetEntity: Proxy
             mappedBy: targetUser   
-        attorneyshipParentUsers:
-            targetEntity: Attorney
-            mappedBy: attorneyUser
+        proxyUsers:
+            targetEntity: Proxy
+            mappedBy: proxyUser
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject

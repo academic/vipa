@@ -20,7 +20,7 @@ class SecuritySwitchUserListener {
         print_r($currentUser->getUsername());
         exit();
         // check that current user is admin 
-        // if current user is not admin , check that newUser has given attorneyship to current user
+        // if current user is not admin , check that newUser is proxy of current user
     }
 
     public function getCurrentUser() {
