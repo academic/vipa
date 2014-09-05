@@ -2,13 +2,13 @@ myprofile:
     pattern:  /profile
     defaults: { _controller: "OjstrUserBundle:User:profile" }
 
-user_give_attorneyship:
-    pattern:  /give-attorneyship/{targetUserId}
-    defaults: { _controller: "OjstrUserBundle:Attorney:give" }
+user_make_proxy:
+    pattern:  /add-proxy/{targetUserId}
+    defaults: { _controller: "OjstrUserBundle:Proxy:give" }
     
-user_drop_attorneyship:
-    pattern:  /drop-attorneyship/{targetUserId}
-    defaults: { _controller: "OjstrUserBundle:Attorney:drop" }
+user_drop_proxy:
+    pattern:  /drop-proxy/{targetUserId}
+    defaults: { _controller: "OjstrUserBundle:Proxy:drop" }
     
 user_profile:
     pattern:  /profile/{username}

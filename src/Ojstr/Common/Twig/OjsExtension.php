@@ -25,6 +25,7 @@ class OjsExtension extends \Twig_Extension {
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
             'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager', array('is_safe' => array('html'))),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
+            'userclients' => new \Twig_Function_Method($this, 'getUserClients', array('is_safe' => array('html'))),
             'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
@@ -41,7 +42,7 @@ class OjsExtension extends \Twig_Extension {
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
-            $html.= !isset($item['link']) ?
+            $html.=!isset($item['link']) ?
                     '<li class="active">' . $item['title'] . '</li>' :
                     '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
         }
@@ -92,6 +93,15 @@ class OjsExtension extends \Twig_Extension {
     public function getUserJournals() {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get('userJournals');
+    }
+
+    /**
+     * 
+     * @return mixed
+     */
+    public function getUserClients() {
+        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        return $session->get('userClients');
     }
 
     /**
