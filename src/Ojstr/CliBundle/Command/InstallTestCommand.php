@@ -3,69 +3,37 @@
 namespace Ojstr\CliBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use \Ojstr\UserBundle\Entity\Role;
-use \Ojstr\UserBundle\Entity\User;
+use Ojstr\UserBundle\Entity\Role;
+use Ojstr\UserBundle\Entity\User;
 
-class InstallCommand extends ContainerAwareCommand {
+class InstallTestCommand extends ContainerAwareCommand {
 
     protected function configure() {
         $this
-                ->setName('ojs:install')
-                ->setDescription('Ojs first installation')
-                ->addArgument('continue-on-error', InputArgument::OPTIONAL, 'Continue on error?')
-        ;
+                ->setName('ojs:install:travis')
+                ->setDescription('Ojs test installation');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        $keep_going = $input->getArgument('continue-on-error');
-        $translator = $this->getContainer()->get('translator');
-        $dialog = $this->getHelperSet()->get('dialog');
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
-//$translator->setLocale('tr_TR');
-        $output->writeln($this->printWelcome());
-        $output->writeln('<info>' .
-                $translator->trans('Ojs Installation') .
-                '</info>');
-
-        if (!$dialog->askConfirmation(
-                        $output, '<question>' .
-                        $translator->trans("Confirm installation?") .
-                        ' (y/n) : </question>', true
-                )) {
-            return;
-        }
+        $output->writeln('<info>Ojs Test Installation</info>');
 
         $command2 = 'doctrine:schema:update --force';
-        $output->writeln('<info>' .
-                $translator->trans('Updating db schema!') .
-                '</info>');
-
+        $output->writeln('<info>Updating db schema!</info>');
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
 
-
-        $admin_username = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin username') .
-                ' (admin) : </info>', 'admin');
+        $admin_username = 'admin';
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
-        $admin_email = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin email') .
-                ' (root@localhost.com) : </info>', 'root@localhost.com');
-        $admin_password = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin password (admin)') . ' : </info>', 'admin');
-
-        $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
+        $admin_email = 'root@localhost.com';
+        $admin_password = 'admin';
+        $output->writeln($sb . 'Inserting roles to db' . $se);
         $this->insertRoles($output);
-
-        $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
+        $output->writeln($sb . 'Inserting system admin user to db' . $se);
         $this->insertAdmin($admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
@@ -73,11 +41,6 @@ class InstallCommand extends ContainerAwareCommand {
                 . "to add sample data\n");
     }
 
-    /**
-     * add default roles
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @return boolean
-     */
     public function insertRoles(OutputInterface $output) {
         $doctrine = $this->getContainer()->get('doctrine');
         $translator = $this->getContainer()->get('translator');
@@ -129,10 +92,6 @@ class InstallCommand extends ContainerAwareCommand {
 
         $em->persist($user);
         $em->flush();
-    }
-
-    protected function printWelcome() {
-        return '';
     }
 
 }
