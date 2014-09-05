@@ -22,6 +22,7 @@ class UserListener {
         if ($event->isMasterRequest()) {
             $this->loadJournals();
             $this->loadJournalRoles();
+            $this->loadClientUsers();
         }
         // fill journal roles
     }
@@ -52,7 +53,11 @@ class UserListener {
      * @return void
      */
     public function loadClientUsers() {
-        
+        $user = $this->checkUser();
+        if (!$user) {
+            return FALSE;
+        }
+        $this->session->set('userClients', $user->getClientUsers());
     }
 
     /**
@@ -62,7 +67,7 @@ class UserListener {
     public function loadJournals() {
         $user = $this->checkUser();
         if (!$user) {
-            return;
+            return FALSE;
         }
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');

@@ -79,7 +79,9 @@
                                     </p>
                                 </div>
                             </li> 
-
+                            {% for client in userclients()  %}
+                                {{client.username}}
+                            {% endfor %}
                             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                             <li>
                                 <a class="btn btn-link" href="/?_su=_exit">

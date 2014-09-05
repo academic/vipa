@@ -406,7 +406,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * 
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getclientUsers() {
+    public function getClientUsers() {
         return $this->clientUsers;
     }
 
@@ -414,7 +414,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * 
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getproxyUsers() {
+    public function getProxyUsers() {
         return $this->proxyUsers;
     }
 
