@@ -20,4 +20,8 @@ ojstr_topic_index:
     
 ojstr_user_index:
     pattern:  /user
-    defaults: { _controller: OjstrSiteBundle:Site:userIndex }
+    defaults: { _controller: OjstrSiteBundle:Site:userIndex }    
+
+ojstr_profile_index:
+    pattern:  /profile
+    defaults: { _controller: OjstrSiteBundle:Site:profileIndex }
