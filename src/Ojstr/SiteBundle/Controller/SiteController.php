@@ -25,5 +25,21 @@ class SiteController extends Controller {
     public function userIndexAction() {
         return $this->render('OjstrManagerBundle:User:userwelcome.html.twig');
     }
+    
+    public function browseIndexAction() {
+        return $this->render('OjstrSiteBundle::Site/browse_index.html.twig');
+    }
+    
+    public function organizationsIndexAction() {
+        return $this->render('OjstrSiteBundle::Site/organizations_index.html.twig');
+    }
+    
+    public function categoriesIndexAction() {
+        return $this->render('OjstrSiteBundle::Site/categories_index.html.twig');
+    }
+    
+    public function topicsIndexAction() {
+        return $this->render('OjstrSiteBundle::Site/topics_index.html.twig');
+    }
 
 }
