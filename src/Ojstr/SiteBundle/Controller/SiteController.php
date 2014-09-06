@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ManagerBundle\Controller;
+namespace Ojstr\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -16,13 +16,13 @@ class SiteController extends Controller {
         $currentJournal = $journalDomain->getCurrentJournal();
 
         if (!$currentJournal && $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->render('OjstrManagerBundle:User:userwelcome.html.twig');
+            return $this->render('OjstrSiteBundle:User:userwelcome.html.twig');
         }
         if ($currentJournal) {
             return $this->render('OjstrJournalBundle:Journal:public_index.html.twig', array('entity' => $currentJournal));
         }
         // anything else is anonym main page
-        return $this->render('OjstrManagerBundle::Site/anonymous_index.html.twig');
+        return $this->render('OjstrSiteBundle::Site/anonymous_index.html.twig');
     }
 
 }
