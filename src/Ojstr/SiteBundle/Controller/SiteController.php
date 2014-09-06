@@ -15,14 +15,15 @@ class SiteController extends Controller {
         $journalDomain = $this->container->get('journal_domain');
         $currentJournal = $journalDomain->getCurrentJournal();
 
-        if (!$currentJournal && $this->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->render('OjstrSiteBundle:User:userwelcome.html.twig');
-        }
         if ($currentJournal) {
             return $this->render('OjstrJournalBundle:Journal:public_index.html.twig', array('entity' => $currentJournal));
         }
         // anything else is anonym main page
         return $this->render('OjstrSiteBundle::Site/anonymous_index.html.twig');
+    }
+
+    public function userIndexAction() {
+        return $this->render('OjstrManagerBundle:User:userwelcome.html.twig');
     }
 
 }
