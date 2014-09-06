@@ -19,8 +19,3 @@ editor_journal_show:
     pattern: /editor/journal/{id}
     defaults: { _controller: OjstrManagerBundle:Editor:showJournal}
 
-    
-ojstr_public_index:
-    pattern:  /
-    defaults: { _controller: OjstrManagerBundle:Site:index }
-
