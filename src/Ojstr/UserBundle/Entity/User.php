@@ -304,7 +304,7 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     /**
      * @return \DateTime
      */
-    public function getLastogin() {
+    public function getLastlogin() {
         return $this->lastlogin;
     }
 
@@ -408,6 +408,22 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      */
     public function getClientUsers() {
         return $this->clientUsers;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function hasClientUsers($user) {
+        $clients = $this->clientUsers;
+        if ($clients) {
+            foreach ($clients as $client) {
+                if ($user->getUsername() == $client->getTargetUser()->getUsername()) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
     }
 
     /**
