@@ -65,7 +65,41 @@ class ProxyController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Proxy')->findAll();
-        return $this->render('OjstrUserBundle:Proxy:index.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/index.html.twig', array(
+                    'entities' => $entities,
+        ));
+    }
+
+    /**
+     * List my proxy clients
+     * @param $userId int
+     */
+    public function myProxyClientsAction($userId = NULL) {
+        if (!$userId) {
+            $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('OjstrUserBundle:Proxy')->findBy(array(
+            'proxyUserId' => $userId
+        ));
+        return $this->render('OjstrUserBundle:Proxy:clients.html.twig', array(
+                    'entities' => $entities,
+        ));
+    }
+
+    /**
+     * List my proxy parents
+     * @param $userId int
+     */
+    public function myProxyParentsAction($userId = NULL) {
+        if (!$userId) {
+            $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('OjstrUserBundle:Proxy')->findOneBy(array(
+            'targetUserId' => $userId
+        ));
+        return $this->render('OjstrUserBundle:Proxy:parents.html.twig', array(
                     'entities' => $entities,
         ));
     }
@@ -87,7 +121,7 @@ class ProxyController extends Controller {
             return $this->redirect($this->generateUrl('admin_proxy_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjstrUserBundle:Proxy:new.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -119,7 +153,7 @@ class ProxyController extends Controller {
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjstrUserBundle:Proxy:new.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -137,12 +171,8 @@ class ProxyController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proxy entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('OjstrUserBundle:Proxy:show.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -160,12 +190,9 @@ class ProxyController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('OjstrUserBundle:Proxy:edit.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -199,8 +226,6 @@ class ProxyController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proxy entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -209,11 +234,9 @@ class ProxyController extends Controller {
 
             return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $id)));
         }
-
-        return $this->render('OjstrUserBundle:Proxy:edit.html.twig', array(
+        return $this->render('OjstrUserBundle:Proxy:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -222,38 +245,15 @@ class ProxyController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Proxy entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Proxy entity.');
         }
-
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('admin_proxy'));
-    }
-
-    /**
-     * Creates a form to delete a Proxy entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id) {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('admin_proxy_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
     }
 
 }
