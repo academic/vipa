@@ -13,121 +13,126 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="ojs-navbar-collapse">
-
-                {%include '::language_selector.html.twig'%}
+            <ul class="nav navbar-nav">
+                <li><a href="/browse"><i class="fa fa-archive"></i> Browse</a></li>
+                <li><a href="/organizations"><i class="fa fa-building"></i> Organizations</a></li>
+                <li><a href="/categories"><i class="fa fa-tags"></i> Categories</a></li>
+                <li><a href="/topics"><i class="fa fa-comment"></i> Topics</a></li>
+            </ul>
+            {%include '::language_selector.html.twig'%}
 
             <div class="navbar-right">
                 <ul class="nav navbar-nav"> 
-                        {% if app.user %}
-                    <li class="dropdown messages-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-envelope"></i>
-                            <span class="label label-success"><!--$count--></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <ul class="menu">
+                    {% if app.user %}
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <ul class="menu">
 
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-warning"></i>
-                            <span class="label label-warning"><!--$count--></span>
-                        </a>
-                        <ul class="dropdown-menu">
-
-                            <li>
-                                <ul class="menu">
-
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown tasks-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-tasks"></i>
-                            <span class="label label-danger"><!--$count--></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <ul class="menu">
-
-                                </ul>
-                            </li>
-                            <li class="footer">
-                                <a href="#">View all</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown user user-menu">
-
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i>
-                            <span>{{app.user.getUsername()}} <i class="caret"></i></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- User image -->
-                            <li class="user-header bg-light-blue">
-                                <div class="col-md-12">
-                                    <p> 
-                                        <small>Last login : <br>{{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
-                                    </p>
-                                </div>
-                            </li> 
-                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                            <li>
-                                <a class="btn btn-link" href="/?_su=_exit">
-                                    <i class="fa fa-sign-out"></i> Logout from user</a>
-                            </li>
-                            {%endif%}
-                            <!-- Menu Footer-->
-                            <li class="user-footer">
-                                <a href="{{path('ojstr_user_index')}}">
-                                    <i class="fa fa-cog"></i> User Page</a>
-                            </li>
-                            <li class="user-footer">
-                                <a href="{{path('myprofile')}}">
-                                    <i class="fa fa-user"></i> Profile</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('logout') }}">
-                                    <i class="fa fa-sign-out"></i> Sign out</a>
-                            </li>                           
-                            <li class="divider"></li>
-                            <li>
-                                <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
-                            </li>
-                            {% if userclients() %}
-
-                            <li class="dropdown-submenu">
-                                <a> <i class="fa fa-key"></i> Login As</a>
-                                <ul class="dropdown-menu">
-                            {% for client in userclients()  %}
-                                    <li><a href="/?_su={{client.targetUser.username}}">
-                                            {{client.targetUser.username}}</a>
-                                    </li>
-                            {% endfor %}
-                                    <li><a href="{{path('user_my_proxy_clients')}}">
-                                            List All    
-                                        </a>
-                                    </li>
-                            {%endif%}
-                                </ul>
-                            </li>
-                        </ul> 
-                    </li>
-                        {%endif%}
-                    <ul class="nav navbar-nav navbar-right">
-                         {% if app.user == false %}
-                        <li>
-                            <a class="btn btn-link" href="{{path('login')}}">
-                                <i class="fa fa-sign-in"></i> Login</a>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
                         </li>
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <ul class="menu">
+
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-tasks"></i>
+                                <span class="label label-danger"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <ul class="menu">
+
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown user user-menu">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span>{{app.user.getUsername()}} <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue">
+                                    <div class="col-md-12">
+                                        <p> 
+                                            <small>Last login : <br>{{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
+                                        </p>
+                                    </div>
+                                </li> 
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li>
+                                        <a class="btn btn-link" href="/?_su=_exit">
+                                            <i class="fa fa-sign-out"></i> Logout from user</a>
+                                    </li>
+                                {%endif%}
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <a href="{{path('ojstr_user_index')}}">
+                                        <i class="fa fa-cog"></i> User Page</a>
+                                </li>
+                                <li class="user-footer">
+                                    <a href="{{path('myprofile')}}">
+                                        <i class="fa fa-user"></i> Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('logout') }}">
+                                        <i class="fa fa-sign-out"></i> Sign out</a>
+                                </li>                           
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
+                                </li>
+                                {% if userclients() %}
+
+                                    <li class="dropdown-submenu">
+                                        <a> <i class="fa fa-key"></i> Login As</a>
+                                        <ul class="dropdown-menu">
+                                            {% for client in userclients()  %}
+                                                <li><a href="/?_su={{client.targetUser.username}}">
+                                                        {{client.targetUser.username}}</a>
+                                                </li>
+                                            {% endfor %}
+                                            <li><a href="{{path('user_my_proxy_clients')}}">
+                                                    List All    
+                                                </a>
+                                            </li>
+                                        {%endif%}
+                                    </ul>
+                                </li>
+                            </ul> 
+                        </li>
+                    {%endif%}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if app.user == false %}
+                            <li>
+                                <a class="btn btn-link" href="{{path('login')}}">
+                                    <i class="fa fa-sign-in"></i> Login</a>
+                            </li>
                         {%endif%}
                         <li>
                             <a class="btn btn-link" href="#search">
