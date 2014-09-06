@@ -1,3 +1,7 @@
+ojstr_site:
+    resource: "@OjstrSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ojstr_analytics:
     resource: "@OjstrAnalyticsBundle/Resources/config/routing.yml"
     prefix:   /
