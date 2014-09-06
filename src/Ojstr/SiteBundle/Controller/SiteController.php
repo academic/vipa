@@ -41,5 +41,9 @@ class SiteController extends Controller {
     public function topicsIndexAction() {
         return $this->render('OjstrSiteBundle::Site/topics_index.html.twig');
     }
+    
+    public function profileIndexAction() {
+        return $this->render('OjstrSiteBundle::Site/profile_index.html.twig');
+    }
 
 }
