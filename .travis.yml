@@ -1,7 +1,8 @@
 language: php
 
+node_js:
+   - "0.10.x"
 php:
-  - 5.4
   - 5.5
 
 services:
@@ -19,8 +20,13 @@ before_script:
   - mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'ojs'@'localhost';" -uroot
   - php app/console doctrine:database:create
   - php app/console ojs:install:travis
+  - npm install -g bower
+  - bower install -f
   - chmod -R 777 app/cache app/logs
-  - app/console --env=test cache:warmup
+  - app/console --env=dev cache:warmup
+  - php app/console assets:install web --symlink
   - app/console assetic:dump
+  - php app/console doctrine:fixtures:load --append -v
+  - php app/console doctrine:mongodb:fixtures:load --append -v
 
 script: phpunit -c app
