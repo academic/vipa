@@ -1,3 +1,7 @@
 ojstr_public_index:
     pattern:  /
     defaults: { _controller: OjstrSiteBundle:Site:index }
+    
+ojstr_user_index:
+    pattern:  /user
+    defaults: { _controller: OjstrSiteBundle:Site:userIndex }
