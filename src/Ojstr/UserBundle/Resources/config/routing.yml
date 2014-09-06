@@ -15,12 +15,18 @@ admin_eventlog:
     prefix:   /admin/eventlog
 
 admin_proxy:
-        resource: "@OjstrUserBundle/Resources/config/routing/proxy.yml"
-        prefix:   /admin/proxy
+    resource: "@OjstrUserBundle/Resources/config/routing/proxy_admin.yml"
+    prefix:   /admin/proxy
 
+
+proxy:
+    resource: "@OjstrUserBundle/Resources/config/routing/proxy.yml"
+    prefix:   /manager/proxy
+        
+        
 admin_notification:
-        resource: "@OjstrUserBundle/Resources/config/routing/notification_admin.yml"
-        prefix:   /admin/notification
+    resource: "@OjstrUserBundle/Resources/config/routing/notification_admin.yml"
+    prefix:   /admin/notification
 
 user:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"

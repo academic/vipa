@@ -85,10 +85,10 @@ Ojstr\UserBundle\Entity\User:
     oneToMany:
         clientUsers:
             targetEntity: Proxy
-            mappedBy: targetUser   
+            mappedBy: proxyUser   
         proxyUsers:
             targetEntity: Proxy
-            mappedBy: proxyUser
+            mappedBy: clientUser
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject
