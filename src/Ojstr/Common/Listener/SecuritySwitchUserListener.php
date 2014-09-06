@@ -16,11 +16,9 @@ class SecuritySwitchUserListener {
     public function onSecuritySwitchUser(SwitchUserEvent $event) {
         $newUser = $event->getTargetUser();
         $currentUser = $this->getCurrentUser();
-        echo "<pre>";
-        print_r($currentUser->getUsername());
-        exit();
         // check that current user is admin 
-        // if current user is not admin , check that newUser is proxy of current user
+        $check = $currentUser->hasClientUsers($newUser);
+        return $check;
     }
 
     public function getCurrentUser() {

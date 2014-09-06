@@ -1,0 +1,25 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<h1>proxy clients list</h1>
+
+<table class="table records_list">
+    <thead>
+        <tr>
+            <th>Target User Username</th>
+            <th>Target User Email</th>
+            <th>Last login</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+        <tr>
+            <td>{{ entity.targetUser.username }}</td>
+            <td>{{ entity.targetUser.email }}</td>
+            <td>{{ entity.targetUser.lastlogin|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+
+    {% endblock %}

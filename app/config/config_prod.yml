@@ -1,8 +1,9 @@
 imports:
     - { resource: config.yml }
-framework:
-    validation:
-        cache: memcache
+    
+#framework:
+#    validation:
+#        cache: memcache
 
 doctrine:
     orm:

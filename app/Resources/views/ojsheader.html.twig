@@ -75,13 +75,10 @@
                             <li class="user-header bg-light-blue">
                                 <div class="col-md-12">
                                     <p> 
-                                        <small>Last login : <br>{{app.user.getLastogin()|date('Y-m-d H:i:s')}}</small>
+                                        <small>Last login : <br>{{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
                                     </p>
                                 </div>
                             </li> 
-                            {% for client in userclients()  %}
-                                {{client.username}}
-                            {% endfor %}
                             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                             <li>
                                 <a class="btn btn-link" href="/?_su=_exit">
@@ -96,6 +93,27 @@
                             <li>
                                 <a href="{{ path('logout') }}">
                                     <i class="fa fa-sign-out"></i> Sign out</a>
+                            </li>                           
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
+                            </li>
+                            {% if userclients() %}
+
+                            <li class="dropdown-submenu">
+                                <a> <i class="fa fa-key"></i> Login As</a>
+                                <ul class="dropdown-menu">
+                            {% for client in userclients()  %}
+                                    <li><a href="/?_su={{client.targetUser.username}}">
+                                            {{client.targetUser.username}}</a>
+                                    </li>
+                            {% endfor %}
+                                    <li><a href="{{path('user_my_proxy_clients')}}">
+                                            List All    
+                                        </a>
+                                    </li>
+                            {%endif%}
+                                </ul>
                             </li>
                         </ul> 
                     </li>
