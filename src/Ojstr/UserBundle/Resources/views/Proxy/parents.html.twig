@@ -1,0 +1,23 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+<h1>proxy user list</h1>
+
+<table class="table records_list">
+    <thead>
+        <tr>
+            <th>Proxy User Username</th>
+            <th>Proxy User Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+        <tr>
+            <td>{{ entity.proxyUser.username }}</td>
+            <td>{{ entity.proxyUser.email }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+
+{% endblock %}
