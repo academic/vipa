@@ -1,7 +1,27 @@
 ojstr_public_index:
     pattern:  /
     defaults: { _controller: OjstrSiteBundle:Site:index }
+
+ojstr_browse_index:
+    pattern:  /browse
+    defaults: { _controller: OjstrSiteBundle:Site:browseIndex }
+
+ojstr_organizations_index:
+    pattern:  /organizations
+    defaults: { _controller: OjstrSiteBundle:Site:organizationsIndex }
+
+ojstr_categories_index:
+    pattern:  /categories
+    defaults: { _controller: OjstrSiteBundle:Site:categoriesIndex }
+    
+ojstr_topic_index:
+    pattern:  /topics
+    defaults: { _controller: OjstrSiteBundle:Site:topicsIndex }
     
 ojstr_user_index:
     pattern:  /user
-    defaults: { _controller: OjstrSiteBundle:Site:userIndex }
+    defaults: { _controller: OjstrSiteBundle:Site:userIndex }    
+
+ojstr_profile_index:
+    pattern:  /profile
+    defaults: { _controller: OjstrSiteBundle:Site:profileIndex }
