@@ -77,25 +77,25 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
-                                <li class="user-header bg-light-blue">
-                                    <div class="col-md-12">
-                                        <p> 
-                                            <small>Last login : <br>{{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
-                                        </p>
+                                <li>
+                                    <div class="alert alert-warning">
+                                        <small>Last login : <br>{{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
                                     </div>
-                                </li> 
+                                </li>
+                                <li>
+                                    <a href="/dashboard"><i class="fa fa-shield"></i> Dashboard</a>
+                                </li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="/?_su=_exit">
-                                            <i class="fa fa-sign-out"></i> Logout from user</a>
+                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> Logout from user</a>
                                     </li>
                                 {%endif%}
                                 <!-- Menu Footer-->
-                                <li class="user-footer">
+                                <li>
                                     <a href="{{path('ojstr_user_index')}}">
                                         <i class="fa fa-cog"></i> User Page</a>
                                 </li>
-                                <li class="user-footer">
+                                <li>
                                     <a href="{{path('myprofile')}}">
                                         <i class="fa fa-user"></i> Profile</a>
                                 </li>
