@@ -26,5 +26,7 @@ before_script:
   - app/console --env=dev cache:warmup
   - php app/console assets:install web --symlink
   - app/console assetic:dump
+  - php app/console doctrine:fixtures:load --append -v
+  - php app/console doctrine:mongodb:fixtures:load --append -v
 
 script: phpunit -c app
