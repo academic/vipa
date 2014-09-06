@@ -52,7 +52,7 @@ class SecurityController extends Controller {
             $url = $session->get($key);
             $session->remove($key);
         } else {
-            $url = $this->generateUrl('homepage');
+            $url = $this->generateUrl('ojstr_user_index');
         }
         return $url;
     }
