@@ -7,11 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AdminController extends Controller {
 
     public function dashboardCheckAction() {
-        $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-        if ($super_admin) {
+        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $editor = $this->container->get('security.context')->isGranted('ROLE_EDITOR');
+
+        if ($superAdmin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
-        } else {
+        } else if ($editor) {
             return $this->redirect($this->generateUrl('dashboard_editor'));
+        } else {
+            return $this->redirect($this->generateUrl('ojstr_user_index'));
         }
     }
 
