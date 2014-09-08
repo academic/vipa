@@ -57,7 +57,10 @@ class UserListener {
         if (!$user) {
             return FALSE;
         }
-        $this->session->set('userClients', $user->getClientUsers());
+        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjstrUserBundle:Proxy')->findBy(
+                array('proxyUserId' => $user->getId())
+        );
+        $this->session->set('userClients', $clients);
     }
 
     /**

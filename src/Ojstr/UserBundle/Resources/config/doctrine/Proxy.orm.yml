@@ -1,19 +1,17 @@
 Ojstr\UserBundle\Entity\Proxy:
     indexes:
         users_x:
-          columns: proxy_user_id,target_user_id 
+          columns: proxy_user_id,client_user_id 
     type: entity
     table: null
     manyToOne:
-        targetUser:
-            targetEntity: User
-            inversedBy: clientUsers
+        clientUser:
+            targetEntity: User 
             joinColumn:
-                name: target_user_id 
+                name: client_user_id 
                 referencedColumnName: id
         proxyUser:
             targetEntity: User
-            inversedBy: proxyUsers
             joinColumn:
                 name: proxy_user_id 
                 referencedColumnName: id
@@ -27,9 +25,9 @@ Ojstr\UserBundle\Entity\Proxy:
         proxyUserId:
             type: integer
             column: proxy_user_id
-        targetUserId:
+        clientUserId:
             type: integer
-            column: target_user_id
+            column: client_user_id
         created:
            type: datetime
            gedmo:
