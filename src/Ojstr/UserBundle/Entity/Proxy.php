@@ -13,6 +13,11 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $id;
 
     /**
+     * @var \DateTime
+     */
+    private $ttl;
+
+    /**
      * @var integer
      */
     private $proxyUserId;
@@ -39,6 +44,23 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * 
+     * @return \DateTime
+     */
+    public function getTtl() {
+        return $this->ttl;
+    }
+
+    /**
+     * @param \DateTime $ttl
+     * @return Proxy
+     */
+    public function setTtl($ttl) {
+        $this->ttl = $ttl;
+        return $this;
     }
 
     /**

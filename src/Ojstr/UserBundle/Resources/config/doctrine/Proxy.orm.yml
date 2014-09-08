@@ -22,6 +22,10 @@ Ojstr\UserBundle\Entity\Proxy:
             generator:
                 strategy: AUTO
     fields:
+        ttl:
+            type: datetime
+            column: ttl
+            nullable: true
         proxyUserId:
             type: integer
             column: proxy_user_id
