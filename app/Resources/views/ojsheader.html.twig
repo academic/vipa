@@ -112,21 +112,21 @@
                                 </li>
                                 {% if userclients() %}
 
-                                    <li class="dropdown-submenu">
-                                        <a> <i class="fa fa-key"></i> Login As</a>
-                                        <ul class="dropdown-menu">
-                                            {% for client in userclients()  %}
-                                                <li><a href="/?_su={{client.targetUser.username}}">
-                                                        {{client.targetUser.username}}</a>
-                                                </li>
-                                            {% endfor %}
-                                            <li><a href="{{path('user_my_proxy_clients')}}">
-                                                    List All    
-                                                </a>
-                                            </li>
-                                        {%endif%}
-                                    </ul>
-                                </li>
+                                    <li>
+                                        <a> <i class="fa fa-key"></i> Login As</a>          
+                                    </li>
+                                    <li >                             
+
+                                        {% for client in userclients()  %}
+                                        <li><a href="/?_su={{client.targetUser.username}}">
+                                                {{client.targetUser.username}}</a>
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{path('user_my_proxy_clients')}}">
+                                            List All    
+                                        </a>
+                                    </li>
+                                {%endif%}
                             </ul> 
                         </li>
                     {%endif%}

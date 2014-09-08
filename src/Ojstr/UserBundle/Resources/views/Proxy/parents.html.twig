@@ -1,23 +1,34 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>proxy user list</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>Your proxy users list</h1>
+        </div>
+        <div class="panel-body">
 
-<table class="table records_list">
-    <thead>
-        <tr>
-            <th>Proxy User Username</th>
-            <th>Proxy User Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
-        <tr>
-            <td>{{ entity.proxyUser.username }}</td>
-            <td>{{ entity.proxyUser.email }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table> 
+            <table class="table records_list">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>User Email</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{ entity.proxyUser.username }}</td>
+                            <td>{{ entity.proxyUser.email }}</td>
+                            <td>
+                                <a href="{{path('user_drop_proxy',{'proxyUserId' : entity.proxyUser.id})}}"></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table> 
+
+        </div>
+    </div>
 
 {% endblock %}

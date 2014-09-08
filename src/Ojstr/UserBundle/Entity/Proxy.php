@@ -20,7 +20,7 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var integer
      */
-    private $targetUserId;
+    private $clientUserId;
 
     /**
      * @var User
@@ -30,7 +30,7 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var User
      */
-    private $targetUser;
+    private $clientUser;
 
     /**
      * Get id
@@ -63,44 +63,44 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set targetUserId
+     * Set clientUserId
      *
-     * @param integer $targetUserId
+     * @param integer $clientUserId
      * @return Proxy
      */
-    public function setTargetUserId($targetUserId) {
-        $this->targetUserId = $targetUserId;
+    public function setClientUserId($clientUserId) {
+        $this->clientUserId = $clientUserId;
 
         return $this;
     }
 
     /**
-     * Get targetUserId
+     * Get clientUserId
      *
      * @return integer 
      */
-    public function getTargetUserId() {
-        return $this->targetUserId;
+    public function getClientUserId() {
+        return $this->clientUserId;
     }
 
     /**
-     * Set targetUser
+     * Set clientUser
      *
      * @param User $user
      * @return Proxy
      */
-    public function setTargetUser($user) {
-        $this->targetUser = $user;
+    public function setClientUser($user) {
+        $this->clientUser = $user;
         return $this;
     }
 
     /**
-     * Get targetUser
+     * Get clientUser
      *
      * @return User 
      */
-    public function getTargetUser() {
-        return $this->targetUser;
+    public function getClientUser() {
+        return $this->clientUser;
     }
 
     /**
