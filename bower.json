@@ -18,17 +18,15 @@
     ],
     "dependencies": {
         "jquery": "~2.1.1",
-        "bootstrap": "~3.1.1",
+        "bootstrap": "~3.2.0",
         "font-awesome": "*",
         "bootstrap-dialog":"*",
 	"bootstrap3-wysihtml5-bower":"*", 
 	"select2-bootstrap-css":"*",
 	"jquery-file-upload":"*",
-	"ckeditor":"*",
 	"jquery.inputmask":"*",
 	"flot":"*",
 	"morrisjs":"*",
-	"metisMenu":"*",
-	"bootstrap3-wysihtml5-bower":"*"
+	"metisMenu":"*"
     }
 }
