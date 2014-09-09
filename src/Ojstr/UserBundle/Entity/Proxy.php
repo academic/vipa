@@ -2,38 +2,50 @@
 
 namespace Ojstr\UserBundle\Entity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 /**
  * Proxy
+ * @ExclusionPolicy("all") 
  */
 class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var \DateTime
+     * @Expose
      */
     private $ttl;
 
     /**
      * @var integer
+     * @Expose
      */
     private $proxyUserId;
 
     /**
      * @var integer
+     * @Expose
      */
     private $clientUserId;
 
     /**
      * @var User
+     * @Expose
      */
     private $proxyUser;
 
     /**
      * @var User
+     * @Expose
      */
     private $clientUser;
 

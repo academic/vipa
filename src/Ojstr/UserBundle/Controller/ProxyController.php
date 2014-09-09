@@ -41,6 +41,28 @@ class ProxyController extends Controller {
         return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
     }
 
+    public function updateTtlAction(Request $request, $id) {
+        /* @var  $proxy Proxy */
+        $proxy = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->find($id);
+        if (!$proxy) {
+            throw $this->createNotFoundException('Unable to find Proxy record.');
+        }
+        $currentUser = $this->getUser();
+        if ($proxy->getClientUserId() != $currentUser->getId()) {
+            throw $this->createAccessDeniedException('You can not update ttl for this Proxt record.');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $ttl = $request->get('ttl');
+        $proxy->setTtl(new \DateTime(date('Y-m-d H:i:s', time() + $ttl * 60 * 60 * 24)));
+        $em->persist($proxy);
+        $em->flush();
+        return new \Symfony\Component\HttpFoundation\JsonResponse(
+                array(
+            'id' => $proxy->getId(),
+            'ttl' => $proxy->getTtl())
+        );
+    }
+
     /**
      * drop user from your proxy
      *

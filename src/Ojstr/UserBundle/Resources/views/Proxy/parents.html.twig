@@ -23,7 +23,7 @@
                             <td>{{ entity.proxyUser.email }}</td>
                             <td>
                                 {% if entity.ttl %}
-                                    <span class="labe label-important">
+                                    <span id="date_{{entity.id}}" class="labe label-important">
                                         {{ entity.ttl|date('Y-m-d H:i:s') }}
                                     </span>
                                 {%endif%}
@@ -33,7 +33,7 @@
                                    class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash-o"></i> Drop</a>
 
-                                <a href="#" onclick="showUpdateTtlForm();" class="btn btn-warning btn-sm">
+                                <a href="#" onclick="showUpdateTtlForm('{{path('user_proxy_ttl_update',{id: entity.id })}}');" class="btn btn-warning btn-sm">
                                     <i class="fa fa-pencil"></i> Update end time</a>
                             </td>
                         </tr>
@@ -49,8 +49,8 @@
 {%block javascripts %}
     {{parent()}}
     <script>
-        function showUpdateTtlForm() {
-            $html = 'form';
+        function showUpdateTtlForm($action) {
+            $html = '<input class="form-control" id="ttl" name="ttl" />';
             BootstrapDialog.show({
                 title: 'Update ttl',
                 message: $html,
@@ -58,7 +58,12 @@
                 buttons: [{
                         label: 'Save',
                         action: function(dialogRef) {
-                            dialogRef.close();
+                            OjstrCommon.waitModal();
+                            $.post($action, {ttl: $("#ttl").val()}, function(data) {
+                                OjstrCommon.hideallModals();
+                                dialogRef.close();
+                                $("#date_" + data.id).html(data.ttl.date);
+                            });
                         }
                     }, {
                         label: 'Cancel',
