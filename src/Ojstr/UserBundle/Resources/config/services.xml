@@ -1,28 +1,8 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <!--
-    <parameters>
-        <parameter key="ojstr_user.example.class">Ojstr\UserBundle\Example</parameter>
-    </parameters>
-
-    <services>
-        <service id="ojstr_user.example" class="%ojstr_user.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
-    </services>
-    -->
-    
-    <services>
-        <service id="ojstruser.avatar_upload_listener" class="Ojstr\UserBundle\Listeners\AvatarUploadListener">
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="service_container" />
-            <tag name="kernel.event_listener" event="oneup_uploader.post_persist" method="onUpload" />
-        </service>
-    </services>
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+ 
+ 
 </container>
