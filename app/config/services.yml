@@ -37,3 +37,14 @@ services:
         arguments: [@security.context]
         tags:
             - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
+            
+    ojstruser.avatar_upload_listener:
+        class: Ojstr\UserBundle\Listeners\AvatarUploadListener
+        arguments: [@doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+    ojstr.generic_upload_listener:
+        class: Ojstr\Common\Listener\UploadListener
+        arguments: [@doctrine, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }

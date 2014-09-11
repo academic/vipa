@@ -102,6 +102,9 @@ nelmio_api_doc: ~
 
 oneup_uploader:
     mappings:
+        generic:
+            enable_progress: true
+            frontend: blueimp
         avatars:
             enable_progress: true
             frontend: blueimp

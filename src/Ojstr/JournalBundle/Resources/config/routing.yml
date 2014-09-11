@@ -53,9 +53,9 @@ ojstr_language_crud:
         prefix:  /admin/language
 
     
-ostr_articlefile:
-    resource: "@OjstrJournalBundle/Resources/config/routing/articlefile.yml"
-    prefix:   /admin/articlefile
+ostr_aadmin_file:
+    resource: "@OjstrJournalBundle/Resources/config/routing/admin/file.yml"
+    prefix:   /admin/file
     
 ojs_journalcontact:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
