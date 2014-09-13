@@ -1,0 +1,45 @@
+Ojstr\JournalBundle\Entity\File:
+    type: entity
+    table: null
+    #repositoryClass: Ojstr\JournalBundle\Entity\FileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        articleFiles:
+            targetEntity: ArticleFile
+            mappedBy: file
+    fields:
+        path:
+            type: string 
+        name:
+            type: string
+            length: 255 
+        mimeType:
+            type: string
+            length: 255
+            column: mime_type 
+        size:
+            type: decimal 
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false 
+        loggable: true 
+    lifecycleCallbacks: {  }

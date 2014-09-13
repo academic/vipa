@@ -142,7 +142,7 @@ class UserJournalRoleController extends Controller {
     }
 
     public function myJournalsAction() {
-        $user_id = $this->container->get('security.context')->getToken()->getUser()->getId();
+        $user_id = $this->getUser()->getId();
         return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 

@@ -89,7 +89,7 @@ class UserController extends Controller {
 
     public function profileAction($username = FALSE) {
         $userRepo = $this->getDoctrine()->getRepository('OjstrUserBundle:User');
-        $sessionUser = $this->container->get('security.context')->getToken()->getUser();
+        $sessionUser = $this->getUser();
         $user = $username ?
                 $userRepo->findOneByUsername($username) :
                 $sessionUser;
@@ -98,11 +98,15 @@ class UserController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
+
+        $check = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->findBy(
+                array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
+        );
         return $this->render('OjstrUserBundle:User:profile.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => array(),
                     'me' => ($sessionUser == $user),
-                    'hasClient' => $sessionUser->hasClient($user->getId())));
+                    'isProxy' => (bool) $check));
     }
 
     /**
@@ -196,7 +200,7 @@ class UserController extends Controller {
     }
 
     public function registerAsAuthorAction(Request $request, $journalId = NULL) {
-        $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+        $userId = $this->getUser()->getId();
         $doc = $this->getDoctrine();
         $em = $doc->getManager();
         // a  journal id passed so register session user as author to this journal

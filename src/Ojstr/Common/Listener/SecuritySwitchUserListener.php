@@ -5,15 +5,18 @@ namespace Ojstr\Common\Listener;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class SecuritySwitchUserListener {
+class SecuritySwitchUserListener
+{
 
     private $context;
 
-    public function __construct(SecurityContext $context) {
+    public function __construct(SecurityContext $context)
+    {
         $this->context = $context;
     }
 
-    public function onSecuritySwitchUser(SwitchUserEvent $event) {
+    public function onSecuritySwitchUser(SwitchUserEvent $event)
+    {
         $newUser = $event->getTargetUser();
         $currentUser = $this->getCurrentUser();
         // check that current user is admin 
@@ -21,7 +24,8 @@ class SecuritySwitchUserListener {
         return $check;
     }
 
-    public function getCurrentUser() {
+    public function getCurrentUser()
+    {
         return $this->context->getToken()->getUser();
     }
 
