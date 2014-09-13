@@ -20,7 +20,11 @@ security:
             pattern: ^/
             anonymous: true
             provider: user_db
-            form_login: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                always_use_default_target_path: false
+                default_target_path:            /user 
             logout:
                 path: /logout
                 target: /

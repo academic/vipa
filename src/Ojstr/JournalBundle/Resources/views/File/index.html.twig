@@ -1,0 +1,38 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>ArticleFile list</h1>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Mimetype</th>
+                <th>Size</th> 
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_file_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.mimeType }}</td>
+                    <td>{{ entity.size }}</td>
+                    <td>
+                        {% set show_path = 'admin_file_show' %}
+                        {% set edit_path = 'admin_file_edit' %}
+                        {% set delete_path = 'admin_file_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{path('admin_file_new')}}">Create new</a>
+{% endblock %}
+
+

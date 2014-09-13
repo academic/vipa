@@ -11,9 +11,10 @@ use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * Some common properties and functions for JournalBundle Entities
  *
- * @ExclusionPolicy("all") 
+ * @ExclusionPolicy("all")
  */
-class GenericExtendedEntity implements Translatable {
+class GenericExtendedEntity implements Translatable
+{
 
     /**
      * Translateable locale field
@@ -21,22 +22,22 @@ class GenericExtendedEntity implements Translatable {
     protected $locale;
 
     /**
-     * @var datetime $created 
+     * @var Datetime $created
      */
     protected $created;
 
     /**
-     * @var datetime $updated
+     * @var Datetime $updated
      */
     protected $updated;
 
     /**
-     * @var datetime $contentChanged
+     * @var Datetime $contentChanged
      */
     protected $contentChanged;
 
     /**
-     * @var datetime
+     * @var Datetime
      */
     protected $deletedAt;
 
@@ -51,35 +52,43 @@ class GenericExtendedEntity implements Translatable {
      */
     protected $updatedBy = "";
 
-    public function setTranslatableLocale($locale) {
+    public function setTranslatableLocale($locale)
+    {
         $this->locale = $locale;
     }
 
-    public function getUpdated() {
+    public function getUpdated()
+    {
         return $this->updated;
     }
 
-    public function getContentChanged() {
+    public function getContentChanged()
+    {
         return $this->contentChanged;
     }
 
-    public function getCreated() {
+    public function getCreated()
+    {
         return $this->created;
     }
 
-    public function getDeletedAt() {
+    public function getDeletedAt()
+    {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt($deletedAt) {
+    public function setDeletedAt($deletedAt)
+    {
         $this->deletedAt = $deletedAt;
     }
 
-    public function getCreatedBy() {
+    public function getCreatedBy()
+    {
         return $this->createdBy;
     }
 
-    public function getUpdatedBy() {
+    public function getUpdatedBy()
+    {
         return $this->updatedBy;
     }
 

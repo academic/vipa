@@ -2,7 +2,8 @@
 
 namespace Ojstr\Common\Params;
 
-class CommonParams {
+class CommonParams
+{
 
     /**
      * @return string *status* description
@@ -27,11 +28,13 @@ class CommonParams {
         3 => '#3FFF23'
     );
 
-    public static function statusText($statusNum) {
+    public static function statusText($statusNum)
+    {
         return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : NULL;
     }
 
-    public static function statusColor($statusNum) {
+    public static function statusColor($statusNum)
+    {
         return isset(self::$statusColorArray[$statusNum]) ? self::$statusColorArray[$statusNum] : NULL;
     }
 

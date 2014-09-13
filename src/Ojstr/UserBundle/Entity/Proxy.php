@@ -2,35 +2,52 @@
 
 namespace Ojstr\UserBundle\Entity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 /**
  * Proxy
+ * @ExclusionPolicy("all") 
  */
 class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
+     * @var \DateTime
+     * @Expose
+     */
+    private $ttl;
+
+    /**
      * @var integer
+     * @Expose
      */
     private $proxyUserId;
 
     /**
      * @var integer
+     * @Expose
      */
-    private $targetUserId;
+    private $clientUserId;
 
     /**
      * @var User
+     * @Expose
      */
     private $proxyUser;
 
     /**
      * @var User
+     * @Expose
      */
-    private $targetUser;
+    private $clientUser;
 
     /**
      * Get id
@@ -39,6 +56,23 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getId() {
         return $this->id;
+    }
+
+    /**
+     * 
+     * @return \DateTime
+     */
+    public function getTtl() {
+        return $this->ttl;
+    }
+
+    /**
+     * @param \DateTime $ttl
+     * @return Proxy
+     */
+    public function setTtl($ttl) {
+        $this->ttl = $ttl;
+        return $this;
     }
 
     /**
@@ -63,44 +97,44 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set targetUserId
+     * Set clientUserId
      *
-     * @param integer $targetUserId
+     * @param integer $clientUserId
      * @return Proxy
      */
-    public function setTargetUserId($targetUserId) {
-        $this->targetUserId = $targetUserId;
+    public function setClientUserId($clientUserId) {
+        $this->clientUserId = $clientUserId;
 
         return $this;
     }
 
     /**
-     * Get targetUserId
+     * Get clientUserId
      *
      * @return integer 
      */
-    public function getTargetUserId() {
-        return $this->targetUserId;
+    public function getClientUserId() {
+        return $this->clientUserId;
     }
 
     /**
-     * Set targetUser
+     * Set clientUser
      *
      * @param User $user
      * @return Proxy
      */
-    public function setTargetUser($user) {
-        $this->targetUser = $user;
+    public function setClientUser($user) {
+        $this->clientUser = $user;
         return $this;
     }
 
     /**
-     * Get targetUser
+     * Get clientUser
      *
      * @return User 
      */
-    public function getTargetUser() {
-        return $this->targetUser;
+    public function getClientUser() {
+        return $this->clientUser;
     }
 
     /**

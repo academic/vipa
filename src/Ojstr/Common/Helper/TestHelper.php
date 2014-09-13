@@ -10,33 +10,37 @@ ini_set('session.save_handler', 'files');
 ini_set('session.save_path', 'app/cache');
 session_start();
 
-class TestHelper extends WebTestCase {
+class TestHelper extends WebTestCase
+{
 
     protected $client = null;
     protected $em = null;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->client = static::createClient();
         $this->em = static::$kernel->getContainer()
-                ->get('doctrine')
-                ->getManager()
-        ;
+            ->get('doctrine')
+            ->getManager();
     }
 
-    public function testStatus() {
+    public function testStatus()
+    {
         $this->assertEquals(TRUE, TRUE);
     }
 
     /**
-     * 
+     *
      * @param string $username
      * @param array $role
      */
-    protected function logIn($username = NULL, $role = NULL) {
+    protected function logIn($username = NULL, $role = NULL)
+    {
         $session = $this->client->getContainer()->get('session');
         $firewall = 'main';
         $username = $username ? $username : 'admin';

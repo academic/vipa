@@ -4,21 +4,25 @@ namespace Ojstr\Common\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class OjsExtension extends \Twig_Extension {
+class OjsExtension extends \Twig_Extension
+{
 
     private $container;
 
-    public function __construct(Container $container = null) {
+    public function __construct(Container $container = null)
+    {
         $this->container = $container;
     }
 
-    public function getFilters() {
+    public function getFilters()
+    {
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
         );
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
             'hasRole' => new \Twig_Function_Method($this, 'hasRole', array('is_safe' => array('html'))),
@@ -34,19 +38,20 @@ class OjsExtension extends \Twig_Extension {
     }
 
     /**
-     * 
-     * @param array $list 
+     *
+     * @param array $list
      * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
      */
-    public function generateBreadcrumb($list = null) {
+    public function generateBreadcrumb($list = null)
+    {
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
-            $html.=!isset($item['link']) ?
-                    '<li class="active">' . $item['title'] . '</li>' :
-                    '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
+            $html .= !isset($item['link']) ?
+                '<li class="active">' . $item['title'] . '</li>' :
+                '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
         }
-        $html.='</ol> ';
+        $html .= '</ol> ';
         return $html;
     }
 
@@ -54,7 +59,8 @@ class OjsExtension extends \Twig_Extension {
      * Check osj user and return user data as array
      * @return \Ojstr\UserBundle\Entity\User
      */
-    public function checkUser() {
+    public function checkUser()
+    {
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->container->get('security.context')->getToken()->getUser();
@@ -64,12 +70,13 @@ class OjsExtension extends \Twig_Extension {
     }
 
     /**
-     * 
+     *
      * @param mixed $needle
      * @param array $haystack
      * @return boolean
      */
-    public function hasId($needle, $haystack) {
+    public function hasId($needle, $haystack)
+    {
         if (!is_array($haystack)) {
             return FALSE;
         }
@@ -81,34 +88,38 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function getSession($session_key) {
+    public function getSession($session_key)
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get($session_key);
     }
 
     /**
-     * 
+     *
      * @return mixed
      */
-    public function getUserJournals() {
+    public function getUserJournals()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get('userJournals');
     }
 
     /**
-     * 
+     *
      * @return mixed
      */
-    public function getUserClients() {
+    public function getUserClients()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get('userClients');
     }
 
     /**
-     * 
+     *
      * @return mixed
      */
-    public function getUserJournalRoles() {
+    public function getUserJournalRoles()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get('userJournalRoles');
     }
@@ -116,7 +127,8 @@ class OjsExtension extends \Twig_Extension {
     /**
      * @return \Ojstr\UserBundle\Entity\User
      */
-    public function isSystemAdmin() {
+    public function isSystemAdmin()
+    {
         $user = $this->checkUser();
         if ($user) {
             foreach ($user->getRoles() as $role) {
@@ -128,7 +140,8 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function hasRole($role) {
+    public function hasRole($role)
+    {
         $userjournalroles = $this->getSession('userJournalRoles');
         $user = $this->checkUser();
         if ($user && is_array($userjournalroles)) {
@@ -141,7 +154,8 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function isJournalManager() {
+    public function isJournalManager()
+    {
         $this->hasRole('ROLE_JOURNAL_MANAGER');
     }
 
@@ -150,11 +164,13 @@ class OjsExtension extends \Twig_Extension {
      * @param string $issn
      * @return string
      */
-    public function issnValidateFilter($issn) {
+    public function issnValidateFilter($issn)
+    {
         return $issn;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return 'ojs_extension';
     }
 

@@ -3,11 +3,11 @@ myprofile:
     defaults: { _controller: "OjstrUserBundle:User:profile" }
 
 user_make_proxy:
-    pattern:  /add-proxy/{targetUserId}
+    pattern:  /add-proxy/{proxyUserId}
     defaults: { _controller: "OjstrUserBundle:Proxy:give" }
     
 user_drop_proxy:
-    pattern:  /drop-proxy/{targetUserId}
+    pattern:  /drop-proxy/{proxyUserId}
     defaults: { _controller: "OjstrUserBundle:Proxy:drop" }
     
 user_profile:

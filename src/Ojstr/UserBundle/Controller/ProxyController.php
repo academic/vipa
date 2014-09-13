@@ -17,14 +17,14 @@ class ProxyController extends Controller {
      * make a user as your proxy
      *
      */
-    public function giveAction($targetUserId) {
+    public function giveAction($proxyUserId) {
         $url = $this->getRequest()->headers->get("referer");
         $em = $this->getDoctrine()->getManager();
-        $currentUser = $this->container->get('security.context')->getToken()->getUser();
+        $currentUser = $this->getUser();
         // check if already assigned
-        $proxyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($targetUserId);
+        $proxyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($proxyUserId);
         $check = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->findBy(
-                array('proxyUserId' => $proxyUser, 'targetUserId' => $currentUser)
+                array('proxyUserId' => $proxyUserId, 'clientUserId' => $currentUser->getId())
         );
         if ($check) {
             $this->get('session')->getFlashBag()->add('error', 'Already assigned');
@@ -32,24 +32,49 @@ class ProxyController extends Controller {
         }
         $proxy = new Proxy();
         $proxy->setProxyUser($proxyUser);
-        $proxy->setTargetUser($currentUser);
+        $proxy->setClientUser($currentUser);
         $em->persist($proxy);
         $em->flush();
+        $this->get('session')->getFlashBag()->add('success', 'Successfully added as proxy user. This user now can login as you. ');
+        $this->get('session')->getFlashBag()->add('warning', 'You can add "end date" for this proxy user. '
+                . '<a href="' . $this->generateUrl('user_my_proxy_parents') . '" class="bt btn-sm btn-default">Click</a> to update your proxy users.');
         return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
+    }
+
+    public function updateTtlAction(Request $request, $id) {
+        /* @var  $proxy Proxy */
+        $proxy = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->find($id);
+        if (!$proxy) {
+            throw $this->createNotFoundException('Unable to find Proxy record.');
+        }
+        $currentUser = $this->getUser();
+        if ($proxy->getClientUserId() != $currentUser->getId()) {
+            throw $this->createAccessDeniedException('You can not update ttl for this Proxt record.');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $ttl = $request->get('ttl');
+        $proxy->setTtl(new \DateTime(date('Y-m-d H:i:s', time() + $ttl * 60 * 60 * 24)));
+        $em->persist($proxy);
+        $em->flush();
+        return new \Symfony\Component\HttpFoundation\JsonResponse(
+                array(
+            'id' => $proxy->getId(),
+            'ttl' => $proxy->getTtl())
+        );
     }
 
     /**
      * drop user from your proxy
      *
      */
-    public function dropAction($targetUserId) {
+    public function dropAction($proxyUserId) {
         $url = $this->getRequest()->headers->get("referer");
         $em = $this->getDoctrine()->getManager();
-        $currentUser = $this->container->get('security.context')->getToken()->getUser();
+        $currentUser = $this->getUser();
         // check if already assigned
-        $proxyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($targetUserId);
+        $proxyUser = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->find($proxyUserId);
         $proxy = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->findOneBy(
-                array('proxyUserId' => $proxyUser, 'targetUserId' => $currentUser)
+                array('proxyUserId' => $proxyUser, 'clientUserId' => $currentUser)
         );
         if ($proxy) {
             $em->remove($proxy);
@@ -76,7 +101,7 @@ class ProxyController extends Controller {
      */
     public function myProxyClientsAction($userId = NULL) {
         if (!$userId) {
-            $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+            $userId = $this->getUser()->getId();
         }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Proxy')->findBy(array(
@@ -93,11 +118,11 @@ class ProxyController extends Controller {
      */
     public function myProxyParentsAction($userId = NULL) {
         if (!$userId) {
-            $userId = $this->container->get('security.context')->getToken()->getUser()->getId();
+            $userId = $this->getUser()->getId();
         }
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjstrUserBundle:Proxy')->findOneBy(array(
-            'targetUserId' => $userId
+        $entities = $em->getRepository('OjstrUserBundle:Proxy')->findBy(array(
+            'clientUserId' => $userId
         ));
         return $this->render('OjstrUserBundle:Proxy:parents.html.twig', array(
                     'entities' => $entities,

@@ -2,10 +2,12 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * ArticleFile
  */
-class ArticleFile extends \Ojstr\Common\Entity\GenericExtendedEntity {
+class ArticleFile {
 
     /**
      * @var integer
@@ -13,29 +15,36 @@ class ArticleFile extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $id;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $path;
+    private $type;
 
     /**
-     * @var string
+     * @var integer
      */
-    private $name;
-
-    /**
-     * @var string
-     */
-    private $mimeType;
-
-    /**
-     * @var string
-     */
-    private $size;
+    private $fileId;
 
     /**
      * @var integer
      */
     private $articleId;
+
+    /**
+     * @var integer
+     */
+    private $version;
+
+    /**
+     * @var \Ojstr\JournalBundle\Entity\Article
+     * 
+     */
+    private $article;
+
+    /**
+     *
+     * @var File
+     */
+    private $file;
 
     /**
      * Get id
@@ -47,87 +56,45 @@ class ArticleFile extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set path
+     * Set type
      *
-     * @param string $path
+     * @param integer $type
      * @return ArticleFile
      */
-    public function setPath($path) {
-        $this->path = $path;
+    public function setType($type) {
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get type
      *
-     * @return string 
+     * @return integer 
      */
-    public function getPath() {
-        return $this->path;
+    public function getType() {
+        return $this->type;
     }
 
     /**
-     * Set name
+     * Set fileId
      *
-     * @param string $name
+     * @param integer $fileId
      * @return ArticleFile
      */
-    public function setName($name) {
-        $this->name = $name;
+    public function setFileId($fileId) {
+        $this->fileId = $fileId;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get fileId
      *
-     * @return string 
+     * @return integer 
      */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * Set mimeType
-     *
-     * @param string $mimeType
-     * @return ArticleFile
-     */
-    public function setMimeType($mimeType) {
-        $this->mimeType = $mimeType;
-
-        return $this;
-    }
-
-    /**
-     * Get mimeType
-     *
-     * @return string 
-     */
-    public function getMimeType() {
-        return $this->mimeType;
-    }
-
-    /**
-     * Set size
-     *
-     * @param string $size
-     * @return ArticleFile
-     */
-    public function setSize($size) {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * Get size
-     *
-     * @return string 
-     */
-    public function getSize() {
-        return $this->size;
+    public function getFileId() {
+        return $this->fileId;
     }
 
     /**
@@ -143,31 +110,68 @@ class ArticleFile extends \Ojstr\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Get articleId
+     * Set version
      *
-     * @return integer 
+     * @param integer $version
+     * @return ArticleFile
      */
-    public function getArticleId() {
-        return $this->articleId;
+    public function setVersion($version) {
+        $this->version = $version;
+
+        return $this;
     }
 
     /**
-     * callback - This option allows you to set a method name. 
-     * If this option is set, the method will be called after the file is moved. Default value: "". 
-     * As first argument, this method can receive an array with information about the uploaded file, 
-     * which includes the following keys:
-     * 
-     * - fileName: The filename.
-     * - fileExtension: The extension of the file (including the dot). Example: .jpg
-     * - fileWithoutExt: The filename without the extension.
-     * - filePath: The file path. Example: /my/path/filename.jpg
-     * - fileMimeType: The mime-type of the file. Example: text/plain.
-     * - fileSize: Size of the file in bytes. Example: 140000.
-     * 
-     * @param array $info
+     * Get version
+     *
+     * @return integer 
      */
-    public function articleFileCallback(array $info) {
-        // Do some stuff with the file..
+    public function getVersion() {
+        return $this->version;
+    }
+
+    /**
+     * 
+     * @return integer
+     */
+    public function getArticleId() {
+        return $this->article ? $this->article->getId() : FALSE;
+    }
+
+    /**
+     * 
+     * @return \Ojstr\JournalBundle\Entity\Article 
+     */
+    public function getArticle() {
+        return $this->article;
+    }
+
+    /**
+     * 
+     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @return \Ojstr\JournalBundle\Entity\ArticleFile
+     */
+    public function setArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+        $this->article = $article;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return \Ojstr\JournalBundle\Entity\File
+     */
+    public function getFile() {
+        return $this->file;
+    }
+
+    /**
+     * 
+     * @param \Ojstr\JournalBundle\Entity\File $file
+     * @return \Ojstr\JournalBundle\Entity\ArticleFile
+     */
+    public function setfile(\Ojstr\JournalBundle\Entity\File $file) {
+        $this->file = $file;
+        return $this;
     }
 
 }
