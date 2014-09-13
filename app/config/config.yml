@@ -7,7 +7,8 @@ imports:
     - { resource: assetic.yml }
     - { resource: doctrine.yml }
     - { resource: elastica.yml }
-
+parameters:
+    avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
         
 framework:
     #esi:             ~
@@ -102,7 +103,10 @@ nelmio_api_doc: ~
 
 oneup_uploader:
     mappings:
-        avatars:
+        generic:
+            enable_progress: true
+            frontend: blueimp
+        avatarfiles:
             enable_progress: true
             frontend: blueimp
             

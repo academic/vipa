@@ -202,12 +202,18 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $articleAuthors;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleFiles;
+
+    /**
      * Constructor
      */
     public function __construct() {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function addAttribute($name, $value) {
@@ -284,6 +290,13 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     public function getArticleAuthors() {
         return $this->articleAuthors;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticlefiles() {
+        return $this->articleFiles;
     }
 
     /**

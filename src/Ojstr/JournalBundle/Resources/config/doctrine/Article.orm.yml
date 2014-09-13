@@ -37,6 +37,9 @@ Ojstr\JournalBundle\Entity\Article:
     articleAuthors:
       targetEntity: ArticleAuthor
       mappedBy: article
+    articleFiles:
+      targetEntity: ArticleFile
+      mappedBy: article
   manyToMany: 
     languages: 
       targetEntity: Lang

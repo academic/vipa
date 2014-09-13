@@ -15,7 +15,7 @@ class ProxyType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('proxyUserId')
-                ->add('targetUserId')
+                ->add('clientUserId')
         ;
     }
 

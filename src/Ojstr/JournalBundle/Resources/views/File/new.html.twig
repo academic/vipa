@@ -1,0 +1,57 @@
+{% extends '::ojsbase.html.twig' %}
+
+
+
+{% block stylesheets %}
+    {{parent()}}
+    {% stylesheets '@upload_css' output="c/upload.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}  
+{% endblock %}
+
+
+{% block body -%}
+    <h1>New File</h1>
+    <div class="col-md-12">
+        <form action="" enctyp="multipart/form-data">
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+                <span>Select file...</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="file" id="file_input" value="" type="hidden" /> 
+            </span> 
+            <div id="file_upload_progress" style="display: none" class="label label-info">
+
+            </div>
+
+            <br>
+            <div class="form-row">
+
+                <a class="btn btn-default" href="{{ path('admin_file') }}">
+                    Back to the list
+                </a>
+            </div>
+        </form>  
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}  
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#fileupload').fileupload({});
+            $('#fileupload').bind('fileuploadsend', function(e, data) {
+                $('#file_upload_progress').show();
+                $('#file_upload_progress').html("Uploading...");
+            }).bind('fileuploaddone', function(e, data) {
+                $('#file_upload_progress').html("Done.");
+                $('#file_input').attr('value', JSON.parse(data.result).files.name);
+            });
+        });
+    </script>
+{% endblock %}

@@ -3,43 +3,43 @@
 
     <!-- sidebar: style can be found in sidebar.less -->  
     <div class="user-panel col-md-12">
-                         {% if(app.user.getAvatar()) %}
-        <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
-             class="avatar img-circle img-responsive" style="width:150px" alt="User avatar" />
-                        {%else%}
-        <img src="/assets/images/buddy_sample.png" 
-             class="img-circle img-responsive" style="width:150px" alt="User avatar" />
-                        {%endif%}  
-        <hr>    
+        {% if(app.user.getAvatar()) %}
+            <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
+                 class="avatar img-circle img-responsive" style="width:150px" alt="User avatar" />
+        {%else%}
+            <img src="/assets/images/buddy_sample.png" 
+                 class="img-circle img-responsive" style="width:150px" alt="User avatar" />
+        {%endif%}  
+        <hr> 
     </div> 
 
     <div class="row">
         <center>
             <p>
-            {% if userjournalroles %}
-                {%for role in userjournalroles %}
-                <span class="label label-default">{{role.name}}</span> 
-                {%endfor%}
-            {%endif%}
+                {% if userjournalroles %}
+                    {%for role in userjournalroles %}
+                        <span class="label label-default">{{role.name}}</span> 
+                    {%endfor%}
+                {%endif%}
             </p>
 
             {%if userjournals%}
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                {{userjournals[session('selectedJournalId')].title  }}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    {%for journal in userjournals%}
-                    <li class="info">
-                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
-                                            {{journal.title}}
-                        </a>
-                    </li> 
-                   {%endfor%}
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        {{userjournals[session('selectedJournalId')].title  }}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        {%for journal in userjournals%}
+                            <li class="info">
+                                <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                                    {{journal.title}}
+                                </a>
+                            </li> 
+                        {%endfor%}
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
             {%endif%}
         </center>
     </div>
@@ -50,49 +50,43 @@
             <li>
                 <a href="{{path('articlesubmission_new')}}">
                     <i class="fa fa-plus-circle"></i> 
-                        {%trans%}Submit Article{%endtrans%}
+                    {%trans%}Submit Article{%endtrans%}
                 </a>
-            </li>
+            </li> 
             <li>
-                <a href="/">
-                    <i class="fa fa-coffee"></i> 
-                        {%trans%}User Home{%endtrans%}
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard">
+                <a href="{{path('dashboard')}}">
                     <i class="fa fa-dashboard"></i> 
-                        {%trans%}Dashboard{%endtrans%}
+                    {%trans%}Dashboard{%endtrans%}
                 </a>
             </li>
             <li>
                 <a href="{{path('ojstr_message_message_user_index')}}">
                     <i class="fa fa-envelope"></i>
-                        {%trans%}Messages{%endtrans%}</a>
+                    {%trans%}Messages{%endtrans%}</a>
             </li>
             <li>
                 <a href="{{path('ojstr_workflow_homepage')}}">
                     <i class="fa fa-cogs"></i>  
-                        {%trans%}Workflow{%endtrans%} </a>
+                    {%trans%}Workflow{%endtrans%} </a>
             </li>
             <li>
                 <a href="{{path('user_show_my_journals')}}">
                     <i class="fa fa-list"></i>  
-                        {%trans%}Journals{%endtrans%} </a>
+                    {%trans%}Journals{%endtrans%} </a>
             </li>
             <li>
                 <a href="#">
                     <i class="fa fa-list"></i>
-                        {%trans%}Articles{%endtrans%}
+                    {%trans%}Articles{%endtrans%}
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li>
-                            {% if isSystemAdmin() or isJournalManager()  %}
-                                {%set submissions_path = "articlesubmissions_all" %}
-                            {%else%}
-                                {%set submissions_path = "articlesubmissions_me" %}
-                            {% endif %}
+                        {% if isSystemAdmin() or isJournalManager()  %}
+                            {%set submissions_path = "articlesubmissions_all" %}
+                        {%else%}
+                            {%set submissions_path = "articlesubmissions_me" %}
+                        {% endif %}
                         <a href="{{path(submissions_path)}}">
                             <i class="fa fa-flag"></i>
                             Submissions
@@ -108,36 +102,36 @@
                 </ul>
             </li>
 
-                {% if isSystemAdmin() %}
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-folder"></i>
-                            {%trans%}Admin{%endtrans%}<span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
-                    </li>
-                    <li>
-                        <a href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
-                    </li>  
-                    <li>
-                        <a href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
-                    </li>
-                    <li>
-                        <a href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
-                    </li>
-                    <li>
-                        <a href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
-                    </li> 
-                    <li>
-                        <a href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
-                    </li>
-                    <li><a href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
-                    </li> 
-                </ul>
-            </li>
-                {% endif %}
+            {% if isSystemAdmin() %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-folder"></i>
+                        {%trans%}Admin{%endtrans%}<span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
+                        </li>
+                        <li>
+                            <a href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
+                        </li>  
+                        <li>
+                            <a href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
+                        </li>
+                        <li>
+                            <a href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
+                        </li>
+                        <li>
+                            <a href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
+                        </li> 
+                        <li>
+                            <a href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
+                        </li>
+                        <li><a href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
+                        </li> 
+                    </ul>
+                </li>
+            {% endif %}
         </ul>
     </div>
     <!-- /.sidebar --> 

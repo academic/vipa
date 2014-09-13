@@ -14,9 +14,9 @@
     <tbody>
         {% for entity in entities %}
         <tr>
-            <td>{{ entity.targetUser.username }}</td>
-            <td>{{ entity.targetUser.email }}</td>
-            <td>{{ entity.targetUser.lastlogin|date('Y-m-d H:i:s') }}</td>
+            <td>{{ entity.clientUser.username }}</td>
+            <td>{{ entity.clientUser.email }}</td>
+            <td>{{ entity.clientUser.lastlogin|date('Y-m-d H:i:s') }}</td>
         </tr>
         {% endfor %}
     </tbody>

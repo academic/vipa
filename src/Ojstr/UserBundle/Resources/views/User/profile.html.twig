@@ -3,50 +3,50 @@
 {% block body %}
 
 
-<h1>{% if entity.avatar %}
-    <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
-{% endif %} 
-{{entity.username}} 
-    <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
-    {%if hasClient %}
-    <a class="btn btn-danger pull-right" 
-       href="{{path('user_drop_proxy',{'targetUserId':entity.id})}}">
-        Drop Proxy User
-    </a>
-    {%else%}
-    <a class="btn btn-warning pull-right" 
-       href="{{path('user_make_proxy',{'targetUserId':entity.id})}}">
-        Add as Proxy
-    </a>
-    {%endif%}
-</h1> 
+    <h1>{% if entity.avatar %}
+        <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
+        {% endif %} 
+            {{entity.username}} 
+            <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
+                {%if isProxy %}
+                <a class="btn btn-danger pull-right" 
+                   href="{{path('user_drop_proxy',{'proxyUserId':entity.id})}}">
+                    Drop Proxy User
+                </a>
+            {%else%}
+                <a class="btn btn-warning pull-right" 
+                   href="{{path('user_make_proxy',{'proxyUserId':entity.id})}}">
+                    Add as Proxy
+                </a>
+            {%endif%}
+        </h1> 
 
-{%include '::flashbag.html.twig'%}
+        {%include '::flashbag.html.twig'%}
 
-<table class="record_properties  table">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Username</th>
-            <td>{{ entity.username }}</td>
-        </tr> 
-        <tr>
-            <th>Email</th>
-            <td>{{ entity.email }}</td>
-        </tr> 
-        <tr>
-            <th>Roles</th>
-            <td>
-                {% for role in entity.roles %}
-                    {{role.name}}(<strong>{{role.role}}</strong>) <br/>
-                {% endfor %}
-            </td>
+        <table class="record_properties  table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ entity.username }}</td>
+                </tr> 
+                <tr>
+                    <th>Email</th>
+                    <td>{{ entity.email }}</td>
+                </tr> 
+                <tr>
+                    <th>Roles</th>
+                    <td>
+                        {% for role in entity.roles %}
+                            {{role.name}}(<strong>{{role.role}}</strong>) <br/>
+                        {% endfor %}
+                    </td>
 
-        </tr>
-    </tbody>
-</table>
+                </tr>
+            </tbody>
+        </table>
 
-{% endblock %}
+        {% endblock %}

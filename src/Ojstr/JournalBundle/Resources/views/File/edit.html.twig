@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>ArticleFile edit</h1>
+    <h1>File edit</h1>
 
     {{ form(edit_form) }}
 
-        
-    {% set back_path = 'articlefile' %}
-    {% set delete_path = 'articlefile_delete' %}
+
+    {% set back_path = 'admin_file' %}
+    {% set delete_path = 'admin_file_delete' %}
     {% include '::actionbtns.html.twig' %}
 
-    
+
 {% endblock %}

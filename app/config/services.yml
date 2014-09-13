@@ -37,3 +37,8 @@ services:
         arguments: [@security.context]
         tags:
             - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
+    ojstr.ojs_upload_listener:
+        class: Ojstr\Common\Listener\UploadListener
+        arguments: ["%kernel.root_dir%"]
+        tags:
+            - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
