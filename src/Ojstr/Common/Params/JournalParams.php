@@ -2,6 +2,7 @@
 
 namespace Ojstr\Common\Params;
 
-class JournalParams extends CommonParams {
-    
+class JournalParams extends CommonParams
+{
+
 }

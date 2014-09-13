@@ -2,7 +2,8 @@
 
 namespace Ojstr\Common\Params;
 
-class UserEventLogParams {
+class UserEventLogParams
+{
 
     public static $USER_LOGIN = 'USER_LOGIN_EVENT';
     public static $USER_LOGOUT = 'USER_LOGOUT_EVENT';

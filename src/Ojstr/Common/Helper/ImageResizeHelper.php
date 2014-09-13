@@ -2,18 +2,18 @@
 
 namespace Ojstr\Common\Helper;
 
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-
-class ImageResizeHelper {
+class ImageResizeHelper
+{
 
     protected $options;
     protected $imagePath;
     protected $error_messages = array();
     protected $image_objects = array();
 
-    function __construct($options = null) {
+    function __construct($options = null)
+    {
         $this->options = array(
-            'imageName' => '',
+            'image_name' => '',
             'upload_dir' => 'web/uploads/',
             'upload_url' => '/uploads/',
             'user_dirs' => false,
@@ -64,30 +64,33 @@ class ImageResizeHelper {
         if ($options) {
             $this->options = array_merge($this->options, $options);
         }
-        $this->imageName = $this->options['imageName'];
+        $this->image_name = $this->options['image_name'];
     }
 
-    public function resize() {
+    public function resize()
+    {
         $failed_versions = array();
         foreach ($this->options['image_versions'] as $version => $options) {
-            if (!$this->create_scaled_image($this->imageName, $version, $options)) {
+            if (!$this->create_scaled_image($this->image_name, $version, $options)) {
                 $failed_versions[] = $version ? $version : 'original';
             }
         }
         if (count($failed_versions)) {
             $this->error_messages[] = $this->get_error_message('image_resize')
-                    . ' (' . implode($failed_versions, ', ') . ')';
+                . ' (' . implode($failed_versions, ', ') . ')';
         }
-        $this->destroy_image_object($this->imageName);
+        $this->destroy_image_object($this->image_name);
     }
 
     // Fix for overflowing signed 32 bit integers,
     // works for sizes up to 2^32-1 bytes (4 GiB - 1):
-    protected function fix_integer_overflow($size) {
+    protected function fix_integer_overflow($size)
+    {
         return $size < 0 ? ($size + (2.0 * (PHP_INT_MAX + 1))) : $size;
     }
 
-    protected function get_file_size($file_path, $clear_stat_cache = false) {
+    protected function get_file_size($file_path, $clear_stat_cache = false)
+    {
         if ($clear_stat_cache) {
             if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
                 clearstatcache(true, $file_path);
@@ -98,7 +101,8 @@ class ImageResizeHelper {
         return $this->fix_integer_overflow(filesize($file_path));
     }
 
-    protected function is_valid_file_object($file_name) {
+    protected function is_valid_file_object($file_name)
+    {
         $file_path = $this->get_upload_path($file_name);
         if (is_file($file_path) && $file_name[0] !== '.') {
             return true;
@@ -106,62 +110,28 @@ class ImageResizeHelper {
         return false;
     }
 
-    protected function get_file_object($file_name) {
-        if (!$this->is_valid_file_object($file_name)) {
-            return null;
-        }
-        $file = new \stdClass();
-        $file->name = $file_name;
-        $file->size = $this->get_file_size(
-                $this->get_upload_path($file_name)
-        );
-        $file->url = $this->get_download_url($file->name);
-        foreach ($this->options['image_versions'] as $version => $options) {
-            if (empty($version)) {
-                continue;
-            }
-            if (is_file($this->get_upload_path($file_name, $version))) {
-                $file->{$version . 'Url'} = $this->get_download_url(
-                        $file->name, $version
-                );
-            }
-        }
-        $this->set_additional_file_properties($file);
-        return $file;
-    }
-
-    protected function get_file_objects($iteration_method = 'get_file_object') {
-        $upload_dir = $this->get_upload_path();
-        if (!is_dir($upload_dir)) {
-            return array();
-        }
-        return array_values(array_filter(array_map(
-                                array($this, $iteration_method), scandir($upload_dir)
-        )));
-    }
-
-    protected function count_file_objects() {
-        return count($this->get_file_objects('is_valid_file_object'));
-    }
-
-    protected function get_error_message($error) {
+    protected function get_error_message($error)
+    {
         return array_key_exists($error, $this->error_messages) ?
-                $this->error_messages[$error] : $error;
+            $this->error_messages[$error] : $error;
     }
 
-    protected function upcount_name_callback($matches) {
+    protected function upcount_name_callback($matches)
+    {
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
         return ' (' . $index . ')' . $ext;
     }
 
-    protected function upcount_name($name) {
+    protected function upcount_name($name)
+    {
         return preg_replace_callback(
-                '/(?:(?: \(([\d]+)\))?(\.[^.]+))?$/', array($this, 'upcount_name_callback'), $name, 1
+            '/(?:(?: \(([\d]+)\))?(\.[^.]+))?$/', array($this, 'upcount_name_callback'), $name, 1
         );
     }
 
-    protected function get_upload_path($file_name = null, $version = null) {
+    protected function get_upload_path($file_name = null, $version = null)
+    {
         $file_name = $file_name ? $file_name : '';
         if (empty($version)) {
             $version_path = '';
@@ -175,7 +145,8 @@ class ImageResizeHelper {
         return $this->options['upload_dir'] . $version_path . $file_name;
     }
 
-    protected function get_scaled_image_file_paths($file_name, $version) {
+    protected function get_scaled_image_file_paths($file_name, $version)
+    {
         $file_path = $this->get_upload_path($file_name);
         if (!empty($version)) {
             $version_dir = $this->get_upload_path(null, $version);
@@ -189,7 +160,8 @@ class ImageResizeHelper {
         return array($file_path, $new_file_path);
     }
 
-    protected function gd_get_image_object($file_path, $func, $no_cache = false) {
+    protected function gd_get_image_object($file_path, $func, $no_cache = false)
+    {
         if (empty($this->image_objects[$file_path]) || $no_cache) {
             $this->gd_destroy_image_object($file_path);
             $this->image_objects[$file_path] = $func($file_path);
@@ -197,17 +169,20 @@ class ImageResizeHelper {
         return $this->image_objects[$file_path];
     }
 
-    protected function gd_set_image_object($file_path, $image) {
+    protected function gd_set_image_object($file_path, $image)
+    {
         $this->gd_destroy_image_object($file_path);
         $this->image_objects[$file_path] = $image;
     }
 
-    protected function gd_destroy_image_object($file_path) {
+    protected function gd_destroy_image_object($file_path)
+    {
         $image = @$this->image_objects[$file_path];
         return $image && imagedestroy($image);
     }
 
-    protected function gd_imageflip($image, $mode) {
+    protected function gd_imageflip($image, $mode)
+    {
         if (function_exists('imageflip')) {
             return imageflip($image, $mode);
         }
@@ -235,12 +210,13 @@ class ImageResizeHelper {
                 return $image;
         }
         imagecopyresampled(
-                $new_img, $image, 0, 0, $src_x, $src_y, $new_width, $new_height, $src_width, $src_height
+            $new_img, $image, 0, 0, $src_x, $src_y, $new_width, $new_height, $src_width, $src_height
         );
         return $new_img;
     }
 
-    protected function gd_orient_image($file_path, $src_img) {
+    protected function gd_orient_image($file_path, $src_img)
+    {
         if (!function_exists('exif_read_data')) {
             return false;
         }
@@ -255,7 +231,7 @@ class ImageResizeHelper {
         switch ($orientation) {
             case 2:
                 $new_img = $this->gd_imageflip(
-                        $src_img, defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
+                    $src_img, defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
                 );
                 break;
             case 3:
@@ -263,12 +239,12 @@ class ImageResizeHelper {
                 break;
             case 4:
                 $new_img = $this->gd_imageflip(
-                        $src_img, defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
+                    $src_img, defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
                 );
                 break;
             case 5:
                 $tmp_img = $this->gd_imageflip(
-                        $src_img, defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
+                    $src_img, defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
                 );
                 $new_img = imagerotate($tmp_img, 270, 0);
                 imagedestroy($tmp_img);
@@ -278,7 +254,7 @@ class ImageResizeHelper {
                 break;
             case 7:
                 $tmp_img = $this->gd_imageflip(
-                        $src_img, defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
+                    $src_img, defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
                 );
                 $new_img = imagerotate($tmp_img, 270, 0);
                 imagedestroy($tmp_img);
@@ -293,7 +269,8 @@ class ImageResizeHelper {
         return true;
     }
 
-    protected function gd_create_scaled_image($file_name, $version, $options) {
+    protected function gd_create_scaled_image($file_name, $version, $options)
+    {
         if (!function_exists('imagecreatetruecolor')) {
             error_log('Function not found: imagecreatetruecolor');
             return false;
@@ -306,8 +283,8 @@ class ImageResizeHelper {
                 $src_func = 'imagecreatefromjpeg';
                 $write_func = 'imagejpeg';
                 $image_quality = isset($options['jpeg_quality']) ?
-                        $options['jpeg_quality'] : 75;
-                break;
+                    $options['jpeg_quality'] : 75;
+            break;
             case 'gif':
                 $src_func = 'imagecreatefromgif';
                 $write_func = 'imagegif';
@@ -317,21 +294,22 @@ class ImageResizeHelper {
                 $src_func = 'imagecreatefrompng';
                 $write_func = 'imagepng';
                 $image_quality = isset($options['png_quality']) ?
-                        $options['png_quality'] : 9;
+                    $options['png_quality'] : 9;
                 break;
             default:
                 return false;
         }
         $src_img = $this->gd_get_image_object(
-                $file_path, $src_func, !empty($options['no_cache'])
+            $file_path, $src_func, !empty($options['no_cache'])
         );
         $image_oriented = false;
         if (!empty($options['auto_orient']) && $this->gd_orient_image(
-                        $file_path, $src_img
-                )) {
+                $file_path, $src_img
+            )
+        ) {
             $image_oriented = true;
             $src_img = $this->gd_get_image_object(
-                    $file_path, $src_func
+                $file_path, $src_func
             );
         }
         $img_width = imagesx($src_img);
@@ -340,7 +318,7 @@ class ImageResizeHelper {
         $max_width = !empty($options['max_width']) ? $options['max_width'] : $img_width;
 
         $scale = min(
-                $max_width / $img_width, $max_height / $img_height
+            $max_width / $img_width, $max_height / $img_height
         );
         if ($scale >= 1) {
             if ($image_oriented) {
@@ -380,13 +358,14 @@ class ImageResizeHelper {
                 break;
         }
         $success = imagecopyresampled(
-                        $new_img, $src_img, $dst_x, $dst_y, 0, 0, $new_width, $new_height, $img_width, $img_height
-                ) && $write_func($new_img, $new_file_path, $image_quality);
+                $new_img, $src_img, $dst_x, $dst_y, 0, 0, $new_width, $new_height, $img_width, $img_height
+            ) && $write_func($new_img, $new_file_path, $image_quality);
         $this->gd_set_image_object($file_path, $new_img);
         return $success;
     }
 
-    protected function imagick_get_image_object($file_path, $no_cache = false) {
+    protected function imagick_get_image_object($file_path, $no_cache = false)
+    {
         if (empty($this->image_objects[$file_path]) || $no_cache) {
             $this->imagick_destroy_image_object($file_path);
             $image = new \Imagick();
@@ -401,17 +380,20 @@ class ImageResizeHelper {
         return $this->image_objects[$file_path];
     }
 
-    protected function imagick_set_image_object($file_path, $image) {
+    protected function imagick_set_image_object($file_path, $image)
+    {
         $this->imagick_destroy_image_object($file_path);
         $this->image_objects[$file_path] = $image;
     }
 
-    protected function imagick_destroy_image_object($file_path) {
+    protected function imagick_destroy_image_object($file_path)
+    {
         $image = @$this->image_objects[$file_path];
         return $image && $image->destroy();
     }
 
-    protected function imagick_orient_image($image) {
+    protected function imagick_orient_image($image)
+    {
         $orientation = $image->getImageOrientation();
         $background = new \ImagickPixel('none');
         switch ($orientation) {
@@ -445,10 +427,11 @@ class ImageResizeHelper {
         return true;
     }
 
-    protected function imagick_create_scaled_image($file_name, $version, $options) {
+    protected function imagick_create_scaled_image($file_name, $version, $options)
+    {
         list($file_path, $new_file_path) = $this->get_scaled_image_file_paths($file_name, $version);
         $image = $this->imagick_get_image_object(
-                $file_path, !empty($options['no_cache'])
+            $file_path, !empty($options['no_cache'])
         );
         if ($image->getImageFormat() === 'GIF') {
             // Handle animated GIFs:
@@ -482,11 +465,11 @@ class ImageResizeHelper {
             }
         }
         $success = $image->resizeImage(
-                $new_width, $new_height, isset($options['filter']) ? $options['filter'] : \imagick:: FILTER_LANCZOS, isset($options['blur']) ? $options['blur'] : 1, $new_width && $new_height // fit image into constraints if not to be cropped
+            $new_width, $new_height, isset($options['filter']) ? $options['filter'] : \imagick:: FILTER_LANCZOS, isset($options['blur']) ? $options['blur'] : 1, $new_width && $new_height // fit image into constraints if not to be cropped
         );
         if ($success && $crop) {
             $success = $image->cropImage(
-                    $max_width, $max_height, isset($x) ? $x : 0, isset($y) ? $y : 0
+                $max_width, $max_height, isset($x) ? $x : 0, isset($y) ? $y : 0
             );
             if ($success) {
                 $success = $image->setImagePage($max_width, $max_height, 0, 0);
@@ -503,7 +486,8 @@ class ImageResizeHelper {
         return $success && $image->writeImage($new_file_path);
     }
 
-    protected function get_image_size($file_path) {
+    protected function get_image_size($file_path)
+    {
         if ($this->options['image_library']) {
             if (extension_loaded('imagick')) {
                 $image = new \Imagick();
@@ -526,20 +510,23 @@ class ImageResizeHelper {
         return @getimagesize($file_path);
     }
 
-    protected function create_scaled_image($file_name, $version, $options) {
+    protected function create_scaled_image($file_name, $version, $options)
+    {
         if ($this->options['image_library'] && extension_loaded('imagick')) {
             return $this->imagick_create_scaled_image($file_name, $version, $options);
         }
         return $this->gd_create_scaled_image($file_name, $version, $options);
     }
 
-    protected function destroy_image_object($file_path) {
+    protected function destroy_image_object($file_path)
+    {
         if ($this->options['image_library'] && extension_loaded('imagick')) {
             return $this->imagick_destroy_image_object($file_path);
         }
     }
 
-    protected function is_valid_image_file($file_path) {
+    protected function is_valid_image_file($file_path)
+    {
         if (!preg_match($this->options['image_file_types'], $file_path)) {
             return false;
         }

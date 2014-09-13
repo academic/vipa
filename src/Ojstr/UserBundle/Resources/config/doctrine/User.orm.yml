@@ -82,13 +82,6 @@ Ojstr\UserBundle\Entity\User:
         deletedAt:
            type: date
            nullable: true
-    oneToMany:
-        clientUsers:
-            targetEntity: Proxy
-            mappedBy: proxyUser   
-        proxyUsers:
-            targetEntity: Proxy
-            mappedBy: clientUser
     manyToMany:
         subjects:             
             targetEntity: Ojstr\JournalBundle\Entity\Subject

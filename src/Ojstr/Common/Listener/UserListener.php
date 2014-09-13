@@ -5,16 +5,19 @@ namespace Ojstr\Common\Listener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class UserListener {
+class UserListener
+{
 
     protected $container;
     protected $session;
 
-    public function __construct(ContainerInterface $container) { // this is @service_container
+    public function __construct(ContainerInterface $container)
+    { // this is @service_container
         $this->container = $container;
     }
 
-    public function onKernelRequest(GetResponseEvent $event) {
+    public function onKernelRequest(GetResponseEvent $event)
+    {
         $kernel = $event->getKernel();
         $request = $event->getRequest();
         $this->session = $request->getSession();
@@ -31,7 +34,8 @@ class UserListener {
      * get user's roles for selected journal and save to userJournalRoles session key
      * @return void
      */
-    public function loadJournalRoles() {
+    public function loadJournalRoles()
+    {
         $user = $this->checkUser();
         if (!$user || !$this->session->get('selectedJournalId')) {
             return;
@@ -52,19 +56,24 @@ class UserListener {
      * load users to session that I can login asthem
      * @return void
      */
-    public function loadClientUsers() {
+    public function loadClientUsers()
+    {
         $user = $this->checkUser();
         if (!$user) {
             return FALSE;
         }
-        $this->session->set('userClients', $user->getClientUsers());
+        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjstrUserBundle:Proxy')->findBy(
+            array('proxyUserId' => $user->getId())
+        );
+        $this->session->set('userClients', $clients);
     }
 
     /**
-     * 
+     *
      * @return void
      */
-    public function loadJournals() {
+    public function loadJournals()
+    {
         $user = $this->checkUser();
         if (!$user) {
             return FALSE;
@@ -86,7 +95,8 @@ class UserListener {
         $this->session->set('userJournals', $journals);
     }
 
-    public function checkUser() {
+    public function checkUser()
+    {
         $securityContext = $this->container->get('security.context');
         $token = $securityContext->getToken();
         if (empty($token)) {

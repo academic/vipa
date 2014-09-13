@@ -96,16 +96,6 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     private $subjects;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection 
-     */
-    private $clientUsers;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection 
-     */
-    private $proxyUsers;
-
-    /**
      * @var integer
      *
      */
@@ -400,48 +390,6 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      */
     public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
         $this->subjects->removeElement($subject);
-    }
-
-    /**
-     * 
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getClientUsers() {
-        return $this->clientUsers;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
-    public function hasClientUsers($user) {
-        $clients = $this->clientUsers;
-        if ($clients) {
-            foreach ($clients as $client) {
-                if ($user->getUsername() == $client->getTargetUser()->getUsername()) {
-                    return TRUE;
-                }
-            }
-        }
-        return FALSE;
-    }
-
-    /**
-     * 
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getProxyUsers() {
-        return $this->proxyUsers;
-    }
-
-    public function hasClient($userId) {
-        $children = $this->clientUsers;
-        foreach ($children as $child) {
-            if ($child->getProxyUser()->getId() == $userId) {
-                return TRUE;
-            }
-        }
-        return FALSE;
     }
 
     /**
