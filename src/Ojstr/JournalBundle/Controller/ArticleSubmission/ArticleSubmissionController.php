@@ -2,6 +2,7 @@
 
 namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
+use Ojstr\Common\Params\ArticleFileParams;
 use Symfony\Component\HttpFoundation\Request;
 use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
@@ -13,17 +14,19 @@ use Symfony\Component\HttpFoundation\Session\Session;
  * Article Submission controller.
  *
  */
-class ArticleSubmissionController extends Controller {
+class ArticleSubmissionController extends Controller
+{
 
     /**
      * Lists all new Article submissions entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findBy(array('status' => 0));
         return $this->render('OjstrJournalBundle:ArticleSubmission:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -31,11 +34,12 @@ class ArticleSubmissionController extends Controller {
      * Lists all new Article submissions entities.
      *
      */
-    public function indexAllAction() {
+    public function indexAllAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findBy(array('status' => 0));
         return $this->render('OjstrJournalBundle:ArticleSubmission:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -43,7 +47,8 @@ class ArticleSubmissionController extends Controller {
      * Displays a form to create a new Article entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $session = new Session();
         $selectedJournalId = $session->get('selectedJournalId');
         if (!$selectedJournalId) {
@@ -53,10 +58,11 @@ class ArticleSubmissionController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
-                    'articleId' => NULL,
-                    'entity' => $entity,
-                    'journal' => $journal,
-                    'citationTypes' => $this->container->getParameter('citation_types')
+            'articleId' => NULL,
+            'entity' => $entity,
+            'journal' => $journal,
+            'fileTypes' => ArticleFileParams::$FILE_TYPES,
+            'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
@@ -64,27 +70,29 @@ class ArticleSubmissionController extends Controller {
      * Finds and displays a Article entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojstr\JournalBundle\Entity\Article  */
+        /* @var $entity \Ojstr\JournalBundle\Entity\Article */
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
         return $this->render('OjstrJournalBundle:Article:show.html.twig', array(
-                    'entity' => $entity));
+            'entity' => $entity));
     }
 
     /**
      * Displays a form to edit an existing Article entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
 
@@ -95,7 +103,8 @@ class ArticleSubmissionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Article $entity) {
+    private function createEditForm(Article $entity)
+    {
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -108,7 +117,8 @@ class ArticleSubmissionController extends Controller {
      * Edits an existing Article entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
@@ -119,8 +129,8 @@ class ArticleSubmissionController extends Controller {
             return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
 
@@ -128,7 +138,8 @@ class ArticleSubmissionController extends Controller {
      * Deletes a Article entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
@@ -144,7 +155,8 @@ class ArticleSubmissionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $formHelper = new CommonFormHelper();
         return $formHelper->createDeleteForm($this, $id, 'article_delete');
     }
