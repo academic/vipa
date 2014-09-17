@@ -32,4 +32,31 @@ Ojstr\JournalBundle\Entity\ArticleFile:
             column: article_id
         version:
             type: integer
+        keywords:
+            type: string
+            length: 255
+            nullable: TRUE
+        description:
+            type: text
+            nullable: TRUE
+        title:
+            type: string
+            length: 255
+            nullable: TRUE
+        langCode:
+            column: lang_code
+            type: string
+            length: 50
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
     lifecycleCallbacks: {  }

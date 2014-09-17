@@ -3,11 +3,15 @@
 namespace Ojstr\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Ojstr\Common\Entity\GenericExtendedEntity;
+
+;
 
 /**
  * ArticleFile
  */
-class ArticleFile {
+class ArticleFile extends GenericExtendedEntity
+{
 
     /**
      * @var integer
@@ -36,7 +40,7 @@ class ArticleFile {
 
     /**
      * @var \Ojstr\JournalBundle\Entity\Article
-     * 
+     *
      */
     private $article;
 
@@ -47,33 +51,128 @@ class ArticleFile {
     private $file;
 
     /**
+     *
+     * @var string
+     */
+    private $keywords = null;
+
+    /**
+     *
+     * @var string
+     */
+    private $description = null;
+
+    /**
+     *
+     * @var string
+     */
+    private $title = null;
+
+    /**
+     *
+     * @var string
+     */
+    private $langCode;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * Set type
-     *
      * @param integer $type
      * @return ArticleFile
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
-
         return $this;
     }
 
     /**
-     * Get type
-     *
-     * @return integer 
+     * @return integer
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
+    }
+
+    /**
+     * @param string $title
+     * @return ArticleFile
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
+    /**
+     * @param string $description
+     * @return ArticleFile
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $keywords
+     * @return ArticleFile
+     */
+    public function setKeywords($keywords)
+    {
+        $this->keywords = $keywords;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * @param string $langCode
+     * @return ArticleFile
+     */
+    public function setLangCode($langCode)
+    {
+        $this->langCode = $langCode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLangCode()
+    {
+        return $this->langCode;
     }
 
     /**
@@ -82,7 +181,8 @@ class ArticleFile {
      * @param integer $fileId
      * @return ArticleFile
      */
-    public function setFileId($fileId) {
+    public function setFileId($fileId)
+    {
         $this->fileId = $fileId;
 
         return $this;
@@ -91,9 +191,10 @@ class ArticleFile {
     /**
      * Get fileId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getFileId() {
+    public function getFileId()
+    {
         return $this->fileId;
     }
 
@@ -103,7 +204,8 @@ class ArticleFile {
      * @param integer $articleId
      * @return ArticleFile
      */
-    public function setArticleId($articleId) {
+    public function setArticleId($articleId)
+    {
         $this->articleId = $articleId;
 
         return $this;
@@ -115,7 +217,8 @@ class ArticleFile {
      * @param integer $version
      * @return ArticleFile
      */
-    public function setVersion($version) {
+    public function setVersion($version)
+    {
         $this->version = $version;
 
         return $this;
@@ -124,52 +227,58 @@ class ArticleFile {
     /**
      * Get version
      *
-     * @return integer 
+     * @return integer
      */
-    public function getVersion() {
+    public function getVersion()
+    {
         return $this->version;
     }
 
     /**
-     * 
+     *
      * @return integer
      */
-    public function getArticleId() {
+    public function getArticleId()
+    {
         return $this->article ? $this->article->getId() : FALSE;
     }
 
     /**
-     * 
-     * @return \Ojstr\JournalBundle\Entity\Article 
+     *
+     * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function getArticle() {
+    public function getArticle()
+    {
         return $this->article;
     }
 
     /**
-     * 
+     *
      * @param \Ojstr\JournalBundle\Entity\Article $article
      * @return \Ojstr\JournalBundle\Entity\ArticleFile
      */
-    public function setArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function setArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->article = $article;
         return $this;
     }
 
     /**
-     * 
+     *
      * @return \Ojstr\JournalBundle\Entity\File
      */
-    public function getFile() {
+    public function getFile()
+    {
         return $this->file;
     }
 
     /**
-     * 
+     *
      * @param \Ojstr\JournalBundle\Entity\File $file
      * @return \Ojstr\JournalBundle\Entity\ArticleFile
      */
-    public function setfile(\Ojstr\JournalBundle\Entity\File $file) {
+    public function setfile(\Ojstr\JournalBundle\Entity\File $file)
+    {
         $this->file = $file;
         return $this;
     }
