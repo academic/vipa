@@ -1,5 +1,7 @@
 rebuild.sh
-# Created by http://www.gitignore.io
+
+##SwiftMailer Spool dir
+app/spool/
 
 ### OSX ###
 .DS_Store
