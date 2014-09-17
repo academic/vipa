@@ -36,6 +36,11 @@ user:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
+
+confirm_email_warning:
+    pattern:  /unconfirmed
+    defaults: { _controller: "OjstrUserBundle:Security:unconfirmed" }
+
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
