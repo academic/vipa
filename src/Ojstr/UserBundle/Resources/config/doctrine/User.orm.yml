@@ -5,7 +5,6 @@ Ojstr\UserBundle\Entity\User:
     id:
         id:
             type: integer
-            scale: 0
             length: null
             unique: false
             nullable: false
@@ -16,22 +15,24 @@ Ojstr\UserBundle\Entity\User:
     fields:
         username:
             type: string
-            scale: 0
             length: 255
             unique: false
             nullable: false 
         password:
             type: string
-            scale: 0
             length: 255
             unique: false
-            nullable: false 
+            nullable: true
+        token:
+            type: string
+            length: 255
+            unique: false
+            nullable: true
         email:
             type: string
-            scale: 0
             length: 255
             unique: false
-            nullable: false 
+            nullable: true
         firstName:
             column: first_name
             type: string
@@ -46,7 +47,6 @@ Ojstr\UserBundle\Entity\User:
             nullable: true
         isActive:
             type: boolean
-            scale: 0
             length: null
             unique: false
             nullable: true
@@ -54,7 +54,6 @@ Ojstr\UserBundle\Entity\User:
                 default: 0
         status:
             type: integer
-            scale: 0
             length: 5
             unique: false
             nullable: true

@@ -2,61 +2,48 @@
 
 {% block body %}
 
-<div class="row">
+    <div class="row">
 
-    {% if error %}
-    <div class="alert alert-danger">
-        <h1>{{ error.message }}</h1>
-    </div>
-    {% endif %}
-    <form action="{{ path('login_check') }}" method="post">
-        <div class="container" style="margin-top:30px">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h1 class="panel-title"> Sign in </h1></div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label for="username">Username or Email</label>
-                            <input tabindex="1" name="_username" value="{{last_username}}"  type="text" class="form-control" style="border-radius:0px" id="username" placeholder="Username">
+        <form action="{{ path('login_check') }}" method="post">
+            <div class="container" style="margin-top:30px">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1 class="panel-title"> Sign in </h1>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password <a tabindex="3" href="/sessions/forgot_password">(forgot password)</a></label>
-                            <input tabindex="2" name="_password" type="password" class="form-control" style="border-radius:0px" id="password" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-primary pull-right">
-                            <i class="fa fa-sign-in"></i> Sign in</button> 
-                        <a href="{{path('register')}}" class="btn btn-sm btn-default pull-left" >New User</a>
+                        <div class="panel-body">
+                            {% include '::flashbag.html.twig' %}
+                            <div class="form-group">
+                                <label for="username">Username or Email</label>
+                                <input tabindex="1" name="_username" value="{{ last_username }}" type="text"
+                                       class="form-control" style="border-radius:0px" id="username"
+                                       placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password
+                                    <a tabindex="3" href="/sessions/forgot_password">(forgot
+                                        password)</a></label>
+                                <input tabindex="2" name="_password" type="password" class="form-control"
+                                       style="border-radius:0px" id="password" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary pull-right">
+                                <i class="fa fa-sign-in"></i> Sign in
+                            </button>
+                            <a href="{{ path('register') }}"
+                               class="btn btn-sm btn-default pull-left">New User</a>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-
-    <div class="hidden">
-        <h2>New User</h2>
-        <form action="{{ path('user_create') }}" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="_username" value="{{last_username}}" />
-
-            <label for="username">Email:</label>
-            <input type="text" id="email" name="_email" value="" />
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="_password" />
-
-
-            <input type="submit" class="button" name="login" />
         </form>
     </div>
-
-</div>
 {% endblock %}
 
 {% block footer %}
-&copy; Ojs-tr demo
+    &copy; Ojs-tr demo
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}
