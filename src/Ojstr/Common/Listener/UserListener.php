@@ -95,6 +95,20 @@ class UserListener
         $this->session->set('userJournals', $journals);
     }
 
+    /**
+     * Check if user is verified. If not redirect to warning page
+     */
+    public function checkUserVerified()
+    {
+        $securityContext = $this->container->get('security.context');
+        $user = $this->checkUser();
+        if ($user && !$securityContext->isGranted('ROLE_USER')) {
+            // user registered but not verified
+        }
+
+    }
+
+
     public function checkUser()
     {
         $securityContext = $this->container->get('security.context');

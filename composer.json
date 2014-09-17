@@ -39,8 +39,7 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "friendsofsymfony/elastica-bundle": "3.0.*@alpha",
-	"okulbilisim/mail-queue-bundle" :"dev-master"
+        "friendsofsymfony/elastica-bundle": "3.0.*@alpha"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"
@@ -49,11 +48,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/hasantayyar/OjstrMessageBundle.git"
-        },
-	{
-		"type": "vcs",	
-		"url" : "/home/tayyar/Dropbox/okulbilisim/MailQueueBundle"
-	}
+        }
     ],
     "scripts": {
         "post-install-cmd": [

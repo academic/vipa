@@ -42,3 +42,6 @@ services:
         arguments: ["%kernel.root_dir%"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
+    ojstr.ojs_mailer:
+        class: Ojstr\UserBundle\Controller\MailController
+        arguments: [@service_container, @mailer]

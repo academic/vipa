@@ -15,6 +15,7 @@ use Ojstr\UserBundle\Form\MailLogType;
 class MailLogController extends Controller
 {
 
+
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();

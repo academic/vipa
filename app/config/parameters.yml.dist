@@ -6,6 +6,7 @@ parameters:
     database_user:     ojs
     database_password: ojs
 
+    system_email:      ojs@localhost
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
