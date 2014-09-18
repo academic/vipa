@@ -7,13 +7,13 @@ class FileHelper
 
     /**
      * Generates a $n level folder tree for given filename by exploding the filename
-     * @param string $fileName
-     * @param bool $createDir
-     * @param string $uploadRootPath upload root path
-     * @param integer $level
+     * @param  string  $fileName
+     * @param  bool    $createDir
+     * @param  string  $uploadRootPath upload root path
+     * @param  integer $level
      * @return string
      */
-    public function generatePath($fileName, $createDir = FALSE, $uploadRootPath = './', $level = 3)
+    public function generatePath($fileName, $createDir = false, $uploadRootPath = './', $level = 3)
     {
         $level = $level > 6 ? 6 : $level;
         $array = str_split(md5($fileName), 4);
@@ -23,6 +23,7 @@ class FileHelper
             $path .= $item . '/';
             $createDir && !file_exists($uploadRootPath . $path) && mkdir($uploadRootPath . $path);
         }
+
         return $path;
     }
 

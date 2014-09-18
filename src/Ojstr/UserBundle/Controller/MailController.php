@@ -2,9 +2,7 @@
 
 namespace Ojstr\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dump\Container;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\UserBundle\Entity\MailLog;
 use Ojstr\UserBundle\Entity\Model\Mail;
@@ -18,7 +16,7 @@ class MailController extends Controller
     protected $container;
     protected $mailer;
 
-    function __construct($container, $mailer)
+    public function __construct($container, $mailer)
     {
         $this->container = $container;
         $this->mailer = $mailer;
@@ -26,7 +24,7 @@ class MailController extends Controller
 
     /**
      * Send a mail or add to spool, then log to db.
-     * @param Mail $mail
+     * @param  Mail  $mail
      * @return mixed
      */
     public function send(Mail $mail)
@@ -51,6 +49,7 @@ class MailController extends Controller
         $mailLog->setRecipientEmail($mail->to);
         $em->persist($mailLog);
         $em->flush();
+
         return $this->mailer->send($message);
     }
 }

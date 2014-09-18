@@ -3,10 +3,10 @@
 {% block breadcrumb %}
 {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('user'), 'title': 'User Manager'}, 
-                { 'title': 'New User '}, 
+                { 'link': path('user'), 'title': 'User Manager'},
+                { 'title': 'New User '},
 
-] %} 
+] %}
 {{breadcrumb(list)}}
 {% endblock %}
 
@@ -14,7 +14,7 @@
         {{parent()}}
         {% stylesheets '@upload_css' output="c/upload.css" %}
 <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}  
+        {% endstylesheets %}
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
 <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
@@ -33,8 +33,8 @@
             <i class="fa fa-plus"></i>
             <span>Select image file...</span>
             <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-            <input name="user_avatar" id="avatar_input" value="" type="hidden" /> 
-        </span> 
+            <input name="user_avatar" id="avatar_input" value="" type="hidden" />
+        </span>
         <div id="avatar_upload_progress" style="display: none" class="label label-info">
 
         </div>
@@ -43,7 +43,7 @@
 
         <br>
 
-         {{ form_end(form) }} 
+         {{ form_end(form) }}
         <div class="record_actions">
             <a class="button" href="{{ path('user') }}">
                 {% trans %}Back to list{% endtrans %}
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-<style> 
+<style>
     select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
 </style>
 {% endblock %}
@@ -60,7 +60,7 @@
         {{parent()}}
         {% javascripts '@upload_js' output="c/upload.js" %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}  
+        {% endjavascripts %}
 <script type="text/javascript">
     $(document).ready(function()
     {
@@ -78,4 +78,3 @@
 <script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="/assets/js/userbundle/user.js"></script>
 {% endblock %}
- 

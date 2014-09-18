@@ -16,7 +16,7 @@ class TestHelper extends WebTestCase
     protected $client = null;
     protected $em = null;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
@@ -31,15 +31,15 @@ class TestHelper extends WebTestCase
 
     public function testStatus()
     {
-        $this->assertEquals(TRUE, TRUE);
+        $this->assertEquals(true, true);
     }
 
     /**
      *
      * @param string $username
-     * @param array $role
+     * @param array  $role
      */
-    protected function logIn($username = NULL, $role = NULL)
+    protected function logIn($username = null, $role = null)
     {
         $session = $this->client->getContainer()->get('session');
         $firewall = 'main';

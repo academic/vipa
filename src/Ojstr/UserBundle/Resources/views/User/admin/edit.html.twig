@@ -3,10 +3,10 @@
 {% block breadcrumb %}
 {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('user'), 'title': 'User Manager'}, 
-                { 'title': 'Edit User '}, 
+                { 'link': path('user'), 'title': 'User Manager'},
+                { 'title': 'Edit User '},
 
-] %} 
+] %}
 {{breadcrumb(list)}}
 {% endblock %}
 
@@ -14,7 +14,7 @@
         {{parent()}}
         {% stylesheets '@upload_css' output="c/upload.css" %}
 <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}  
+        {% endstylesheets %}
 
 <link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
 <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
@@ -33,7 +33,7 @@
 
         {% set show_path = 'user' %}
         {% set delete_path = 'user_delete' %}
-        {% include '::actionbtns.html.twig' %} 
+        {% include '::actionbtns.html.twig' %}
 
 
 
@@ -42,7 +42,7 @@
 </div>
 <style>
     select#ojstr_userbundle_user_journals,      select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
-</style> 
+</style>
 {% endblock %}
 
 
@@ -50,7 +50,7 @@
         {{parent()}}
         {% javascripts '@upload_js' output="c/upload.js" %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}  
+        {% endjavascripts %}
 <script type="text/javascript">
     $(document).ready(function()
     {

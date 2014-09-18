@@ -2,7 +2,6 @@
 
 namespace Ojstr\UserBundle\Controller;
 
-use Ojstr\UserBundle\Entity\Model\Mail;
 use \Ojstr\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +24,7 @@ class SecurityController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_USER')) {
             return $this->redirect($this->generateUrl('myprofile'));
         }
+
         return $this->render(
             'OjstrUserBundle:Security:unconfirmedUser.html.twig'
         );
@@ -39,6 +39,7 @@ class SecurityController extends Controller
         $user = $this->getUser();
         if (!$user) {
             $request->getSession()->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
+
             return $this->redirect($this->generateUrl('login'), 302);
         }
         $do = $this->getDoctrine();
@@ -49,14 +50,16 @@ class SecurityController extends Controller
             // add ROLE_USER
             $role = $do->getRepository('OjstrUserBundle:Role')->getByRole('ROLE_USER');
             $user->addRole($role);
-            $user->setToken(NULL);
+            $user->setToken(null);
             $em->persist($user);
             $flashBag->add('success', 'You\'ve confirmed your email successfully!');
+
             return $this->redirect($this->generateUrl('myprofile'));
         }
 
         $flashBag->add('error', 'There is an error while confirming your email address.' .
             '<br>Your confirmation link may be expired.');
+
         return $this->redirect($this->generateUrl('confirm_email_warning'));
     }
 
@@ -86,6 +89,7 @@ class SecurityController extends Controller
     {
         $encoder = $this->container->get('security.encoder_factory')
             ->getEncoder($user);
+
         return $encoder->encodePassword($plainPassword, $user->getSalt());
     }
 
@@ -99,13 +103,13 @@ class SecurityController extends Controller
     public function registerAction(Request $request)
     {
         $session = $request->getSession();
-        $error = NULL;
+        $error = null;
         $user = new User();
         $form = $this->createForm(new \Ojstr\UserBundle\Form\RegisterFormType(), $user);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
-            // check user name exists 
+            // check user name exists
             $em = $this->getDoctrine()->getManager();
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
@@ -145,6 +149,7 @@ class SecurityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
+
         return new Response('Sucess!');
     }
 

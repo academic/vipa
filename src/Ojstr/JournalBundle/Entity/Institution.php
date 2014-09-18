@@ -2,12 +2,11 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-
 /**
  * Institution
  */
-class Institution extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Institution extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -51,174 +50,199 @@ class Institution extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      */
-    private $email; 
+    private $email;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string      $name
      * @return Institution
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set address
      *
-     * @param string $address
+     * @param  string      $address
      * @return Institution
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
     /**
      * Set country
      *
-     * @param integer $country
+     * @param  integer     $country
      * @return Institution
      */
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         $this->country = $country;
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
     /**
      * Set addressLat
      *
-     * @param string $addressLat
+     * @param  string      $addressLat
      * @return Institution
      */
-    public function setAddressLat($addressLat) {
+    public function setAddressLat($addressLat)
+    {
         $this->addressLat = $addressLat;
+
         return $this;
     }
 
     /**
      * Get addressLat
      *
-     * @return string 
+     * @return string
      */
-    public function getAddressLat() {
+    public function getAddressLat()
+    {
         return $this->addressLat;
     }
 
     /**
      * Set addressLong
      *
-     * @param string $addressLong
+     * @param  string      $addressLong
      * @return Institution
      */
-    public function setAddressLong($addressLong) {
+    public function setAddressLong($addressLong)
+    {
         $this->addressLong = $addressLong;
+
         return $this;
     }
 
     /**
      * Get addressLong
      *
-     * @return string 
+     * @return string
      */
-    public function getAddressLong() {
+    public function getAddressLong()
+    {
         return $this->addressLong;
     }
 
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param  string      $phone
      * @return Institution
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
     /**
      * Set fax
      *
-     * @param string $fax
+     * @param  string      $fax
      * @return Institution
      */
-    public function setFax($fax) {
+    public function setFax($fax)
+    {
         $this->fax = $fax;
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
-    public function getFax() {
+    public function getFax()
+    {
         return $this->fax;
     }
 
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string      $email
      * @return Institution
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 

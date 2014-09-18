@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Journal;
 
-class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $languages = $manager->getRepository('OjstrJournalBundle:Lang')->findAll();
 
         $journal = new Journal();
@@ -21,7 +22,7 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setSubtitle("Subtitle text");
         $journal->setTitle("Example Journal");
         $journal->setTitleAbbr("EXJ");
-        $journal->setTitleTransliterated(NULL);
+        $journal->setTitleTransliterated(null);
         $journal->setUrl("https://example.gov");
         $journal->setSubdomain("demo");
         $manager->persist($journal);
@@ -35,7 +36,7 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal2->setSubtitle("Subtitle text 2");
         $journal2->setTitle("Antother Example Journal of Example University");
         $journal2->setTitleAbbr("EXJ2");
-        $journal2->setTitleTransliterated(NULL);
+        $journal2->setTitleTransliterated(null);
         $journal2->setUrl("https://example2.edu");
         $journal2->setSubdomain("demo2");
         $manager->persist($journal2);
@@ -52,7 +53,8 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('ref-journal2', $journal2);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 8;
     }
 

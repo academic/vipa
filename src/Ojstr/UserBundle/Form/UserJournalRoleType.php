@@ -6,13 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserJournalRoleType extends AbstractType {
-
+class UserJournalRoleType extends AbstractType
+{
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->add('userId')
                 ->add('journalId')
@@ -21,7 +22,7 @@ class UserJournalRoleType extends AbstractType {
                     'property' => 'name',
                     'multiple' => false,
                     'expanded' => false,
-                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                 return $er->createQueryBuilder('ujr')
                         ->where('ujr.isSystemRole = 0');
             },
@@ -32,7 +33,8 @@ class UserJournalRoleType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Ojstr\UserBundle\Entity\UserJournalRole'
         ));
@@ -41,7 +43,8 @@ class UserJournalRoleType extends AbstractType {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'ojstr_userbundle_userjournalrole';
     }
 

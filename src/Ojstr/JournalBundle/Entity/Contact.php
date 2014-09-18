@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Contact
  */
-class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -60,189 +60,217 @@ class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string  $title
      * @return Contact
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * Set firstName
      *
-     * @param string $firstName
+     * @param  string  $firstName
      * @return Contact
      */
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
+
         return $this;
     }
 
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
     /**
      * Set lastName
      *
-     * @param string $lastName
+     * @param  string  $lastName
      * @return Contact
      */
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
+
         return $this;
     }
 
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
     /**
      * Set address
      *
-     * @param string $address
+     * @param  string  $address
      * @return Contact
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
     /**
      * Set country
      *
-     * @param integer $country
+     * @param  integer $country
      * @return Contact
      */
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         $this->country = $country;
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
     /**
      * Set city
      *
-     * @param string $city
+     * @param  string  $city
      * @return Contact
      */
-    public function setCity($city) {
+    public function setCity($city)
+    {
         $this->city = $city;
+
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
-    public function getCity() {
+    public function getCity()
+    {
         return $this->city;
     }
 
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param  string  $phone
      * @return Contact
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
+
         return $this;
     }
 
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
     /**
      * Set fax
      *
-     * @param string $fax
+     * @param  string  $fax
      * @return Contact
      */
-    public function setFax($fax) {
+    public function setFax($fax)
+    {
         $this->fax = $fax;
+
         return $this;
     }
 
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
-    public function getFax() {
+    public function getFax()
+    {
         return $this->fax;
     }
 
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string  $email
      * @return Contact
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 

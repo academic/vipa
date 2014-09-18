@@ -3,19 +3,14 @@
 namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations\View as RestView;
-use Ojstr\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Util\Codes;
-use Ojstr\UserBundle\Form\UserRestType;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-
-class JournalRestController extends FOSRestController {
+class JournalRestController extends FOSRestController
+{
     /**
      *
      * @ApiDoc(
@@ -24,7 +19,8 @@ class JournalRestController extends FOSRestController {
      * )
      * @Get("/journals/{id}/issues")
      */
-    public function getJournalIssues($id) {
+    public function getJournalIssues($id)
+    {
         return $id;
     }
     /**
@@ -34,14 +30,15 @@ class JournalRestController extends FOSRestController {
      *  description="Get Specific Journal"
      * )
      */
-    public function getJournalAction($id) {
+    public function getJournalAction($id)
+    {
         $journal = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->find($id);
         if (!is_object($journal)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $journal;
     }
-     
 
     /**
      *
@@ -64,7 +61,8 @@ class JournalRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getJournalUsersAction($id) {
+    public function getJournalUsersAction($id)
+    {
         $limit = $request->get('limit');
         $page = $request->get('page');
         if (empty($limit)) {
@@ -83,6 +81,7 @@ class JournalRestController extends FOSRestController {
                 ->setFirstResult($page)
                 ->getQuery()
                 ->getResults();
+
         return $users;
     }
 

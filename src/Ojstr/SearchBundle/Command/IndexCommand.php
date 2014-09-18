@@ -7,9 +7,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class IndexCommand extends ContainerAwareCommand {
-
-    protected function configure() {
+class IndexCommand extends ContainerAwareCommand
+{
+    protected function configure()
+    {
         $this
                 ->setName('ojs:search:index')
                 ->setDescription('Index articles')
@@ -17,7 +18,8 @@ class IndexCommand extends ContainerAwareCommand {
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $articleId = $input->getArgument('articleId');
         $output->writeln("Indexing" . ($articleId ? " articleId:" . $articleId . "" : " all articles"));
         $output->writeln("\nResults\n");

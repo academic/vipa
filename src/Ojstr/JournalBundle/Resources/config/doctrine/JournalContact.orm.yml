@@ -9,7 +9,7 @@ Ojstr\JournalBundle\Entity\JournalContact:
             name: journal_id
             referencedColumnName: id
         contact:
-          targetEntity: Ojstr\JournalBundle\Entity\Contact 
+          targetEntity: Ojstr\JournalBundle\Entity\Contact
           joinColumn:
             name: contact_id
             referencedColumnName: id

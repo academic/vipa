@@ -2,7 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
@@ -10,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
  * Lang
  * @ExclusionPolicy("all")
  */
-class Lang {
-
+class Lang
+{
     /**
      * @var integer
      * @Expose()
@@ -46,7 +45,8 @@ class Lang {
      */
     private $journals;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -54,10 +54,11 @@ class Lang {
     /**
      * Add article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @param  \Ojstr\JournalBundle\Entity\Article $article
      * @return Language
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles[] = $article;
 
         return $this;
@@ -68,27 +69,31 @@ class Lang {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles->removeElement($article);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles() {
+    public function getArticles()
+    {
         return $this->articles;
     }
 
     /**
      * Add journal
      *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @param  \Ojstr\JournalBundle\Entity\Journal $journal
      * @return Language
      */
-    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+    public function addJournal(\Ojstr\JournalBundle\Entity\Journal $journal)
+    {
         $this->journals[] = $journal;
+
         return $this;
     }
 
@@ -97,85 +102,97 @@ class Lang {
      *
      * @param \Ojstr\JournalBundle\Entity\Journal $journal
      */
-    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journal) {
+    public function removeJournal(\Ojstr\JournalBundle\Entity\Journal $journal)
+    {
         $this->journals->removeElement($journal);
     }
 
     /**
-     * Get journals 
+     * Get journals
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getJournals() {
+    public function getJournals()
+    {
         return $this->journals;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set code
      *
-     * @param string $code
+     * @param  string $code
      * @return Lang
      */
-    public function setCode($code) {
+    public function setCode($code)
+    {
         $this->code = $code;
+
         return $this;
     }
 
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Lang
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set rtl
      *
-     * @param boolean $rtl
+     * @param  boolean $rtl
      * @return Lang
      */
-    public function setRtl($rtl) {
+    public function setRtl($rtl)
+    {
         $this->rtl = $rtl;
+
         return $this;
     }
 
     /**
      * Get rtl
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getRtl() {
+    public function getRtl()
+    {
         return $this->rtl;
     }
 

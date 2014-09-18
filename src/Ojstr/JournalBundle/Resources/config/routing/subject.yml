@@ -26,4 +26,4 @@ subject_update:
 
 subject_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Subject:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:Subject:delete" }

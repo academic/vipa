@@ -4,8 +4,8 @@ namespace Ojstr\AnalyticsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-class ArticleStatsBase {
-
+class ArticleStatsBase
+{
     /**
      * @MongoDb\Id
      */
@@ -33,18 +33,21 @@ class ArticleStatsBase {
      *
      * @return id $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set journalId
      *
-     * @param int $journalId
+     * @param  int  $journalId
      * @return self
      */
-    public function setJournalId($journalId) {
+    public function setJournalId($journalId)
+    {
         $this->journalId = $journalId;
+
         return $this;
     }
 
@@ -53,18 +56,21 @@ class ArticleStatsBase {
      *
      * @return int $journalId
      */
-    public function getJournalId() {
+    public function getJournalId()
+    {
         return $this->journalId;
     }
 
     /**
      * Set articleId
      *
-     * @param int $articleId
+     * @param  int  $articleId
      * @return self
      */
-    public function setArticleId($articleId) {
+    public function setArticleId($articleId)
+    {
         $this->articleId = $articleId;
+
         return $this;
     }
 
@@ -73,18 +79,21 @@ class ArticleStatsBase {
      *
      * @return int $articleId
      */
-    public function getArticleId() {
+    public function getArticleId()
+    {
         return $this->articleId;
     }
 
     /**
      * Set ipAddress
      *
-     * @param string $ipAddress
+     * @param  string $ipAddress
      * @return self
      */
-    public function setIpAddress($ipAddress) {
+    public function setIpAddress($ipAddress)
+    {
         $this->ipAddress = $ipAddress;
+
         return $this;
     }
 
@@ -93,18 +102,21 @@ class ArticleStatsBase {
      *
      * @return string $ipAddress
      */
-    public function getIpAddress() {
+    public function getIpAddress()
+    {
         return $this->ipAddress;
     }
 
     /**
      * Set referer
      *
-     * @param string $referer
+     * @param  string $referer
      * @return self
      */
-    public function setReferer($referer) {
+    public function setReferer($referer)
+    {
         $this->referer = $referer;
+
         return $this;
     }
 
@@ -113,18 +125,21 @@ class ArticleStatsBase {
      *
      * @return string $referer
      */
-    public function getReferer() {
+    public function getReferer()
+    {
         return $this->referer;
     }
 
     /**
      * Set logDate
      *
-     * @param date $logDate
+     * @param  date $logDate
      * @return self
      */
-    public function setLogDate($logDate) {
+    public function setLogDate($logDate)
+    {
         $this->logDate = $logDate;
+
         return $this;
     }
 
@@ -133,7 +148,8 @@ class ArticleStatsBase {
      *
      * @return date $logDate
      */
-    public function getLogDate() {
+    public function getLogDate()
+    {
         return $this->logDate;
     }
 

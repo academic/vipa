@@ -2,13 +2,11 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * JournalSection
  */
-class JournalSection {
-
+class JournalSection
+{
     /**
      * @var integer
      */
@@ -22,12 +20,12 @@ class JournalSection {
     /**
      * @var boolean
      */
-    private $allowIndex = TRUE;
+    private $allowIndex = true;
 
     /**
      * @var boolean
      */
-    private $hideTitle = FALSE;
+    private $hideTitle = false;
 
     /**
      * @var integer
@@ -45,27 +43,31 @@ class JournalSection {
      */
     private $journal;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Add articles
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @param  \Ojstr\JournalBundle\Entity\Article $articles
      * @return Journal
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles[] = $article;
+
         return $this;
     }
 
@@ -74,26 +76,29 @@ class JournalSection {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles->removeElement($article);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles() {
+    public function getArticles()
+    {
         return $this->articles;
     }
 
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string         $title
      * @return JournalSection
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
 
         return $this;
@@ -102,19 +107,21 @@ class JournalSection {
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * Set allowIndex
      *
-     * @param boolean $allowIndex
+     * @param  boolean        $allowIndex
      * @return JournalSection
      */
-    public function setAllowIndex($allowIndex) {
+    public function setAllowIndex($allowIndex)
+    {
         $this->allowIndex = $allowIndex;
 
         return $this;
@@ -123,19 +130,21 @@ class JournalSection {
     /**
      * Get allowIndex
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getAllowIndex() {
+    public function getAllowIndex()
+    {
         return $this->allowIndex;
     }
 
     /**
      * Set hideTitle
      *
-     * @param boolean $hideTitle
+     * @param  boolean        $hideTitle
      * @return JournalSection
      */
-    public function setHideTitle($hideTitle) {
+    public function setHideTitle($hideTitle)
+    {
         $this->hideTitle = $hideTitle;
 
         return $this;
@@ -144,19 +153,21 @@ class JournalSection {
     /**
      * Get hideTitle
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getHideTitle() {
+    public function getHideTitle()
+    {
         return $this->hideTitle;
     }
 
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer        $journalId
      * @return JournalSection
      */
-    public function setJournalId($journalId) {
+    public function setJournalId($journalId)
+    {
         $this->journalId = $journalId;
 
         return $this;
@@ -165,29 +176,33 @@ class JournalSection {
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getJournalId() {
+    public function getJournalId()
+    {
         return $this->journalId;
     }
 
     /**
      * Set journal
      *
-     * @param Journal $journal
+     * @param  Journal        $journal
      * @return JournalSection
      */
-    public function setJournal($journal) {
+    public function setJournal($journal)
+    {
         $this->journal = $journal;
+
         return $this;
     }
 
     /**
      * Get journal
      *
-     * @return integer 
+     * @return integer
      */
-    public function getJournal() {
+    public function getJournal()
+    {
         return $this->journal;
     }
 

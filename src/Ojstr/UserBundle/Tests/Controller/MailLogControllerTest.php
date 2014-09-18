@@ -2,8 +2,6 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
 class MailLogControllerTest extends \Ojstr\Common\Helper\TestHelper
 {
     public function testStatus()

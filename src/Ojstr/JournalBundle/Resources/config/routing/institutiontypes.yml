@@ -26,4 +26,4 @@ institution_types_update:
 
 institution_types_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:InstitutionTypes:delete" }

@@ -3,17 +3,13 @@
 namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Ojstr\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
-use Ojstr\UserBundle\Form\RoleRestType;
 
-class RoleRestController extends FOSRestController {
-
+class RoleRestController extends FOSRestController
+{
     /**
      *
      * @ApiDoc(
@@ -24,11 +20,13 @@ class RoleRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getRoleAction($id) {
+    public function getRoleAction($id)
+    {
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $user;
     }
 
@@ -53,11 +51,12 @@ class RoleRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getRoleUsersAction($id) {
-        
+    public function getRoleUsersAction($id)
+    {
     }
 
-    private function notFound() {
+    private function notFound()
+    {
         throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
     }
 

@@ -6,7 +6,7 @@
     {{parent()}}
     {% stylesheets '@upload_css' output="c/upload.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}  
+    {% endstylesheets %}
 {% endblock %}
 
 
@@ -18,8 +18,8 @@
                 <i class="fa fa-plus"></i>
                 <span>Select file...</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="file" id="file_input" value="" type="hidden" /> 
-            </span> 
+                <input name="file" id="file_input" value="" type="hidden" />
+            </span>
             <div id="file_upload_progress" style="display: none" class="label label-info">
 
             </div>
@@ -31,7 +31,7 @@
                     Back to the list
                 </a>
             </div>
-        </form>  
+        </form>
     </div>
 {% endblock %}
 
@@ -40,7 +40,7 @@
     {{parent()}}
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}  
+    {% endjavascripts %}
     <script type="text/javascript">
         $(document).ready(function()
         {

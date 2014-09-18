@@ -27,7 +27,7 @@ class DomainListener
         $currentHost = $request->getHttpHost();
         $subdomain = str_replace('.' . $this->baseHost, '', $currentHost);
         if ($this->baseHost === $subdomain) {
-            // no journal selected. 
+            // no journal selected.
         } else {
             $journal = $this->em
                 ->getRepository('OjstrJournalBundle:Journal')

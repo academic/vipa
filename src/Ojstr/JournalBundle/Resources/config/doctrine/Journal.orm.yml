@@ -5,7 +5,7 @@ Ojstr\JournalBundle\Entity\Journal:
     oneToMany:
         settings:
             targetEntity: JournalSetting
-            mappedBy: journal  
+            mappedBy: journal
             cascade: ["ALL"]
             indexBy: setting
         articles:
@@ -20,19 +20,19 @@ Ojstr\JournalBundle\Entity\Journal:
           fetch: LAZY
         sections:
           targetEntity: JournalSection
-          mappedBy: journal 
+          mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
     manyToMany:
-        languages: 
+        languages:
             targetEntity: Lang
             inversedBy: journals
-            joinTable: 
-              inverseJoinColumns: 
-                lang_id: 
+            joinTable:
+              inverseJoinColumns:
+                lang_id:
                   referencedColumnName: id
-              joinColumns: 
-                journal_id: 
+              joinColumns:
+                journal_id:
                   referencedColumnName: id
               name: Journal_Language
     id:
@@ -59,7 +59,7 @@ Ojstr\JournalBundle\Entity\Journal:
             nullable: true
         subdomain:
             type: string
-            length: 255 
+            length: 255
             column: subdomain
             nullable: true
             gedmo:

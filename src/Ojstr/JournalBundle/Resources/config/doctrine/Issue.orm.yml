@@ -14,7 +14,7 @@ Ojstr\JournalBundle\Entity\Issue:
           joinColumn:
             name: journal_id
             referencedColumnName: id
-          inversedBy: issues 
+          inversedBy: issues
     id:
         id:
             type: integer

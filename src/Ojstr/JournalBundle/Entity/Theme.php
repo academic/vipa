@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Theme
  */
-class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -27,76 +27,87 @@ class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     private $baseTheme;
 
-    public function setTranslatableLocale($locale) {
+    public function setTranslatableLocale($locale)
+    {
         $this->locale = $locale;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Theme
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string $content
      * @return Theme
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->content = $content;
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
-    public function getContent() {
+    public function getContent()
+    {
         return $this->content;
     }
 
     /**
      * Set baseTheme
      *
-     * @param boolean $baseTheme
+     * @param  boolean $baseTheme
      * @return Theme
      */
-    public function setBaseTheme($baseTheme) {
+    public function setBaseTheme($baseTheme)
+    {
         $this->baseTheme = $baseTheme;
+
         return $this;
     }
 
     /**
      * Get baseTheme
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getBaseTheme() {
+    public function getBaseTheme()
+    {
         return $this->baseTheme;
     }
 
