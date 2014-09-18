@@ -32,7 +32,7 @@ Ojstr\UserBundle\Entity\Role:
             type: boolean
             nullable: TRUE
             precision: 0
-            options: 
+            options:
                 default: 0
     manyToMany:
         users:

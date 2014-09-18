@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %} 
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
 <div class="panel">
@@ -21,16 +21,16 @@
             <div class="form-group">
                 <label>Status Text</label>
                 <input class="form-control" name="status" value="{{step.status}}">
-            </div> 
+            </div>
 
             <div class="form-inline">
                 <label class="label label-info" style="line-height: 20px;display: inline-block;">
                     First Step?
                     <input type="checkbox" name="firststep" value="1"
                            {%if step.firststep %}checked="checked"{%endif%}> </label>
-                <label class="label label-warning" 
+                <label class="label label-warning"
                        style="line-height: 20px;display: inline-block;">
-                    Last Step? 
+                    Last Step?
                     <input type="checkbox" name="laststep" value="1"
                            {%if step.laststep %}checked="checked"{%endif%}></label>
             </div>
@@ -44,7 +44,7 @@
                 <label>Roles</label>
                 <select name="roles[]" class="form-control" style="height:120px" multiple="multiple">
                     {%for role in roles%}
-                    <option 
+                    <option
                         {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
                         value="{{role.id}}">{{role.role}}</option>
                     {%endfor%}
@@ -56,7 +56,7 @@
 
                 <select name="nextsteps[]" class="form-control" style="height:120px" multiple="multiple">
                     {%for nstep in nextSteps%}
-                    <option 
+                    <option
                         {%if hasid(nstep.id,step.nextsteps)%}selected="selected"{%endif%}
                         value="{{nstep.id}}">{{nstep.title}}</option>
                     {%endfor%}
@@ -64,7 +64,7 @@
             </div>
 
             <div>
-                <input type="submit" class="btn btn-success" value="Save" /> 
+                <input type="submit" class="btn btn-success" value="Save" />
                 <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
                     <i class="fa fa-arrow-left"></i>
                     Back to List
@@ -75,4 +75,3 @@
     </div>
 </div>
 {% endblock %}
-

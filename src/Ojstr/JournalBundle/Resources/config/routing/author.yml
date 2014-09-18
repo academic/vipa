@@ -26,4 +26,4 @@ author_update:
 
 author_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Author:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:Author:delete" }

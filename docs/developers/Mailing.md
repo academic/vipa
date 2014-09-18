@@ -1,10 +1,9 @@
 Mailing
 -------
 
+We use SwiftMailer to send mails. Spool option is active in configuration. However you can change it.
 
-If you want to send an email without adding it to mail queue you can use SwiftMailer 
-
-
+Here is a sample code to send (or add to spool) an email.
 ```
 	$msgBody = $this->renderView(
             'OjstrUserBundle:Mails:testMail.html.twig', array(
@@ -21,8 +20,9 @@ If you want to send an email without adding it to mail queue you can use SwiftMa
         $this->get('mailer')->send($message);
 ```
 
-
-When you send en email, it will not actually be sent but instead added to the spool. Sending the messages from the spool is done separately. If you do not want to spool emails you can disable it from app/config/config.yml by commenting  spool section under swiftmailer.
+If you didn't change configuration of swiftmailer, when you send en email, it will not actually be sent but instead added to the spool.
+Sending the messages from the spool is done separately.
+If you do not want to spool emails you can disable it from app/config/config.yml by commenting  spool section under swiftmailer.
  
 There is a console command to send the messages in the spool:
 ```
@@ -39,3 +39,11 @@ $ php app/console swiftmailer:spool:send --time-limit=10 --env=prod
 
 You can write a cronjob to run spool:send commands.
 
+
+####Warning
+In development environment swift mailer will send all mails to email that referred in config_dev under swiftmailer .
+You can disable this feature by commenting these lines under config_dev.yml
+```
+swiftmailer:
+    delivery_address: tayyar.besik@okulbilisim.com
+```

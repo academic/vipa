@@ -3,18 +3,14 @@
 namespace Ojstr\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Ojstr\UserBundle\Entity\Citation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Util\Codes;
-use Ojstr\UserBundle\Form\UserRestType;
 
-class CitationRestController extends FOSRestController {
-
+class CitationRestController extends FOSRestController
+{
     /**
      *
      * @ApiDoc(
@@ -25,16 +21,18 @@ class CitationRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getCitationAction($id, Request $request) {
+    public function getCitationAction($id, Request $request)
+    {
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $citation;
     }
 
     /**
-     * 
+     *
      * @ApiDoc(
      *  resource=true,
      *  description="Delete a citation with it's settings" ,
@@ -44,7 +42,8 @@ class CitationRestController extends FOSRestController {
      *  }
      * )
      */
-    public function deleteCitationAction($id, Request $request) {
+    public function deleteCitationAction($id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         $citation_settings = $citation->getSettings();

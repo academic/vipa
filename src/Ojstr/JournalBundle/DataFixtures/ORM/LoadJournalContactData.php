@@ -7,13 +7,14 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\JournalContact;
 
-class LoadJournalContactData extends AbstractFixture implements OrderedFixtureInterface {
-
+class LoadJournalContactData extends AbstractFixture implements OrderedFixtureInterface
+{
     /**
      * run after contact, contacttype and journal datafixtures executed
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $jcontact = new JournalContact();
 
         // get first journal record
@@ -34,7 +35,8 @@ class LoadJournalContactData extends AbstractFixture implements OrderedFixtureIn
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 9;
     }
 

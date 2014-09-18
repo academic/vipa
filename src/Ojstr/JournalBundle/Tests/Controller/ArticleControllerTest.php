@@ -7,9 +7,10 @@ use Ojstr\Common\Helper\TestHelper;
 /**
  * @todo new article, update article, delete article  and show article
  */
-class ArticleControllerTest extends TestHelper {
-
-    public function testStatus() {
+class ArticleControllerTest extends TestHelper
+{
+    public function testStatus()
+    {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
         $this->client->request('GET', '/admin/article/');

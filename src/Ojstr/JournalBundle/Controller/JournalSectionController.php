@@ -11,15 +11,17 @@ use Ojstr\JournalBundle\Form\JournalSectionType;
  * JournalSection controller.
  *
  */
-class JournalSectionController extends Controller {
-
+class JournalSectionController extends Controller
+{
     /**
      * Lists all JournalSection entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:JournalSection')->findAll();
+
         return $this->render('OjstrJournalBundle:JournalSection:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -29,7 +31,8 @@ class JournalSectionController extends Controller {
      * Creates a new JournalSection entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -49,10 +52,11 @@ class JournalSectionController extends Controller {
 
     /**
      * Creates a form to create a JournalSection entity.
-     * @param JournalSection $entity The entity
+     * @param  JournalSection               $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(JournalSection $entity) {
+    private function createCreateForm(JournalSection $entity)
+    {
         $form = $this->createForm(new JournalSectionType(), $entity, array(
             'action' => $this->generateUrl('admin_journal_section_create'),
             'method' => 'POST',
@@ -67,7 +71,8 @@ class JournalSectionController extends Controller {
      * Displays a form to create a new JournalSection entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
 
@@ -81,7 +86,8 @@ class JournalSectionController extends Controller {
      * Finds and displays a JournalSection entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalSection')->find($id);
@@ -90,6 +96,7 @@ class JournalSectionController extends Controller {
             throw $this->createNotFoundException('Unable to find JournalSection entity.');
         }
         $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('OjstrJournalBundle:JournalSection:show.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),
@@ -100,7 +107,8 @@ class JournalSectionController extends Controller {
      * Displays a form to edit an existing JournalSection entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalSection')->find($id);
@@ -126,7 +134,8 @@ class JournalSectionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(JournalSection $entity) {
+    private function createEditForm(JournalSection $entity)
+    {
         $form = $this->createForm(new JournalSectionType(), $entity, array(
             'action' => $this->generateUrl('admin_journal_section_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -141,7 +150,8 @@ class JournalSectionController extends Controller {
      * Edits an existing JournalSection entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalSection')->find($id);
@@ -171,7 +181,8 @@ class JournalSectionController extends Controller {
      * Deletes a JournalSection entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -197,7 +208,8 @@ class JournalSectionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('admin_journal_section_delete', array('id' => $id)))
                         ->setMethod('DELETE')

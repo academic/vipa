@@ -1,4 +1,4 @@
-Ojstr\JournalBundle\Entity\ArticleAttribute: 
+Ojstr\JournalBundle\Entity\ArticleAttribute:
   lifecycleCallbacks: {}
   type: entity
   id:

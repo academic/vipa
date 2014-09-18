@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\ContactTypes;
 
-class LoadContactTypesData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadContactTypesData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $ctype = new ContactTypes();
         $ctype->setName("Technical Contact");
         $ctype->setDescription("In case of technical issues, first person to contact.");
@@ -23,7 +24,8 @@ class LoadContactTypesData extends AbstractFixture implements OrderedFixtureInte
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 3;
     }
 

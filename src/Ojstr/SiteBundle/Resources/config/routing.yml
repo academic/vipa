@@ -13,14 +13,14 @@ ojstr_organizations_index:
 ojstr_categories_index:
     pattern:  /categories
     defaults: { _controller: OjstrSiteBundle:Site:categoriesIndex }
-    
+
 ojstr_topic_index:
     pattern:  /topics
     defaults: { _controller: OjstrSiteBundle:Site:topicsIndex }
-    
+
 ojstr_user_index:
     pattern:  /user
-    defaults: { _controller: OjstrSiteBundle:Site:userIndex }    
+    defaults: { _controller: OjstrSiteBundle:Site:userIndex }
 
 ojstr_profile_index:
     pattern:  /profile

@@ -9,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
  * Author
  * @ExclusionPolicy("all")
  */
-class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Author extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      * @Expose()
@@ -107,25 +107,29 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     private $articleAuthors;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticleAuthors() {
+    public function getArticleAuthors()
+    {
         return $this->articleAuthors;
     }
 
     /**
      * Set user
      *
-     * @param \Ojstr\UserBundle\Entity\User $user
+     * @param  \Ojstr\UserBundle\Entity\User $user
      * @return Author
      */
-    public function setUser(\Ojstr\UserBundle\Entity\User $user = null) {
+    public function setUser(\Ojstr\UserBundle\Entity\User $user = null)
+    {
         $this->user = $user;
+
         return $this;
     }
 
@@ -134,274 +138,315 @@ class Author extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \Ojstr\UserBundle\Entity\User
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set firstName
      *
-     * @param string $firstName
+     * @param  string $firstName
      * @return Author
      */
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
+
         return $this;
     }
 
     /**
      * Get firstName
      *
-     * @return string 
+     * @return string
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
     /**
      * Set middleName
      *
-     * @param string $middleName
+     * @param  string $middleName
      * @return Author
      */
-    public function setMiddleName($middleName) {
+    public function setMiddleName($middleName)
+    {
         $this->middleName = $middleName;
+
         return $this;
     }
 
     /**
      * Get middleName
      *
-     * @return string 
+     * @return string
      */
-    public function getMiddleName() {
+    public function getMiddleName()
+    {
         return $this->middleName;
     }
 
     /**
      * Set lastName
      *
-     * @param string $lastName
+     * @param  string $lastName
      * @return Author
      */
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
+
         return $this;
     }
 
     /**
      * Get lastName
      *
-     * @return string 
+     * @return string
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string $email
      * @return Author
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
-     * 
+     *
      * @return integer
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
     /**
-     * 
-     * @param integer $userId
+     *
+     * @param  integer                            $userId
      * @return \Ojstr\JournalBundle\Entity\Author
      */
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->userId = $userId;
+
         return $this;
     }
 
     /**
      * Set firstNameTransliterated
      *
-     * @param string $firstNameTransliterated
+     * @param  string $firstNameTransliterated
      * @return Author
      */
-    public function setFirstNameTransliterated($firstNameTransliterated) {
+    public function setFirstNameTransliterated($firstNameTransliterated)
+    {
         $this->firstNameTransliterated = $firstNameTransliterated;
+
         return $this;
     }
 
     /**
      * Get firstNameTransliterated
      *
-     * @return string 
+     * @return string
      */
-    public function getFirstNameTransliterated() {
+    public function getFirstNameTransliterated()
+    {
         return $this->firstNameTransliterated;
     }
 
     /**
      * Set middleNameTransliterated
      *
-     * @param string $middleNameTransliterated
+     * @param  string $middleNameTransliterated
      * @return Author
      */
-    public function setMiddleNameTransliterated($middleNameTransliterated) {
+    public function setMiddleNameTransliterated($middleNameTransliterated)
+    {
         $this->middleNameTransliterated = $middleNameTransliterated;
+
         return $this;
     }
 
     /**
      * Get middleNameTransliterated
      *
-     * @return string 
+     * @return string
      */
-    public function getMiddleNameTransliterated() {
+    public function getMiddleNameTransliterated()
+    {
         return $this->middleNameTransliterated;
     }
 
     /**
      * Set lastNameTransliterated
      *
-     * @param string $lastNameTransliterated
+     * @param  string $lastNameTransliterated
      * @return Author
      */
-    public function setLastNameTransliterated($lastNameTransliterated) {
+    public function setLastNameTransliterated($lastNameTransliterated)
+    {
         $this->lastNameTransliterated = $lastNameTransliterated;
+
         return $this;
     }
 
     /**
      * Get lastNameTransliterated
      *
-     * @return string 
+     * @return string
      */
-    public function getLastNameTransliterated() {
+    public function getLastNameTransliterated()
+    {
         return $this->lastNameTransliterated;
     }
 
     /**
      * Set initials
      *
-     * @param string $initials
+     * @param  string $initials
      * @return Author
      */
-    public function setInitials($initials) {
+    public function setInitials($initials)
+    {
         $this->initials = $initials;
+
         return $this;
     }
 
     /**
      * Get initials
      *
-     * @return string 
+     * @return string
      */
-    public function getInitials() {
+    public function getInitials()
+    {
         return $this->initials;
     }
 
     /**
      * Set address
      *
-     * @param string $address
+     * @param  string $address
      * @return Author
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
+
         return $this;
     }
 
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
     /**
      * Set institutionId
      *
-     * @param integer $institutionId
+     * @param  integer $institutionId
      * @return Author
      */
-    public function setInstitutionId($institutionId) {
+    public function setInstitutionId($institutionId)
+    {
         $this->institutionId = $institutionId;
+
         return $this;
     }
 
     /**
      * Get institutionId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getInstitutionId() {
+    public function getInstitutionId()
+    {
         return $this->institutionId;
     }
 
     /**
      * Set country
      *
-     * @param integer $country
+     * @param  integer $country
      * @return Author
      */
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         $this->country = $country;
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
     /**
      * Set summary
      *
-     * @param string $summary
+     * @param  string $summary
      * @return Author
      */
-    public function setSummary($summary) {
+    public function setSummary($summary)
+    {
         $this->summary = $summary;
+
         return $this;
     }
 
     /**
      * Get summary
      *
-     * @return string 
+     * @return string
      */
-    public function getSummary() {
+    public function getSummary()
+    {
         return $this->summary;
     }
 

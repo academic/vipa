@@ -16,12 +16,12 @@ Ojstr\JournalBundle\Entity\ArticleAuthor:
             targetEntity: Author
             inversedBy: articleAuthors
             joinColumn:
-                name: author_id 
+                name: author_id
                 referencedColumnName: id
         article:
             targetEntity: Article
             inversedBy: articleAuthors
             joinColumn:
-                name: article_id 
+                name: article_id
                 referencedColumnName: id
     lifecycleCallbacks: {  }

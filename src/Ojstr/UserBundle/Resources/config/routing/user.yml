@@ -5,19 +5,19 @@ myprofile:
 user_make_proxy:
     pattern:  /add-proxy/{proxyUserId}
     defaults: { _controller: "OjstrUserBundle:Proxy:give" }
-    
+
 user_drop_proxy:
     pattern:  /drop-proxy/{proxyUserId}
     defaults: { _controller: "OjstrUserBundle:Proxy:drop" }
-    
+
 user_profile:
     pattern:  /profile/{username}
     defaults: { _controller: "OjstrUserBundle:User:profile" }
-    
+
 user_show_my_journals:
     pattern:  /myjournals
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:myJournals" }
-    
+
 user_join_journal_action:
     pattern:  /join/journal/{journalId}
     defaults: { _controller: "OjstrUserBundle:User:registerAsAuthor" }

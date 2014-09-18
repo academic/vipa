@@ -22,7 +22,7 @@
             <td>{% if entity.eventDate %}{{ entity.eventDate|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{{ entity.ip }}</td>
             <td>{{ entity.userId }}</td>
-            <td> 
+            <td>
                 <a class="btn btn-info" href="{{ path('eventlog_show', { 'id': entity.id }) }}">
                     <i class="fa fa-info-sign"></i></a>
 

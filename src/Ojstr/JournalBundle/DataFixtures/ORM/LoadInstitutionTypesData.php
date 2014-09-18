@@ -7,14 +7,14 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\InstitutionTypes;
 
-class LoadInstitutionTypesData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadInstitutionTypesData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $itype = new InstitutionTypes();
         $itype->setName("University");
         $itype->setDescription("Demo intsitution desc.");
         $manager->persist($itype);
-
 
         $itype2 = new InstitutionTypes();
         $itype2->setName("Government");
@@ -24,7 +24,8 @@ class LoadInstitutionTypesData extends AbstractFixture implements OrderedFixture
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 5;
     }
 

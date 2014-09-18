@@ -11,15 +11,17 @@ use Ojstr\JournalBundle\Form\ArticleAuthorType;
  * ArticleAuthor controller.
  *
  */
-class ArticleAuthorController extends Controller {
-
+class ArticleAuthorController extends Controller
+{
     /**
      * Lists all ArticleAuthor entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:ArticleAuthor')->findAll();
+
         return $this->render('OjstrJournalBundle:ArticleAuthor:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -29,7 +31,8 @@ class ArticleAuthorController extends Controller {
      * Creates a new ArticleAuthor entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new ArticleAuthor();
         $form = $this->createCreateForm($entity);
         $data = $request->request->get($form->getName());
@@ -43,6 +46,7 @@ class ArticleAuthorController extends Controller {
         $entity->setAuthorOrder($data['authorOrder']);
         $em->persist($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('articleauthor_show', array('id' => $entity->getId())));
     }
 
@@ -53,12 +57,14 @@ class ArticleAuthorController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ArticleAuthor $entity) {
+    private function createCreateForm(ArticleAuthor $entity)
+    {
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create New'));
+
         return $form;
     }
 
@@ -66,9 +72,11 @@ class ArticleAuthorController extends Controller {
      * Displays a form to create a new ArticleAuthor entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new ArticleAuthor();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrJournalBundle:ArticleAuthor:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -79,12 +87,14 @@ class ArticleAuthorController extends Controller {
      * Finds and displays a ArticleAuthor entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
         }
+
         return $this->render('OjstrJournalBundle:ArticleAuthor:show.html.twig', array(
                     'entity' => $entity
         ));
@@ -94,13 +104,15 @@ class ArticleAuthorController extends Controller {
      * Displays a form to edit an existing ArticleAuthor entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
         }
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:ArticleAuthor:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView()
@@ -114,12 +126,14 @@ class ArticleAuthorController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ArticleAuthor $entity) {
+    private function createEditForm(ArticleAuthor $entity)
+    {
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -127,7 +141,8 @@ class ArticleAuthorController extends Controller {
      * Edits an existing ArticleAuthor entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity ArticleAuthor */
         $entity = $em->getRepository('OjstrJournalBundle:ArticleAuthor')->find($id);
@@ -150,8 +165,10 @@ class ArticleAuthorController extends Controller {
             $entity->setAuthorOrder($authorOrder);
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('articleauthor_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:ArticleAuthor:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView()
@@ -162,7 +179,8 @@ class ArticleAuthorController extends Controller {
      * Deletes a ArticleAuthor entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
@@ -170,6 +188,7 @@ class ArticleAuthorController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('articleauthor'));
     }
 

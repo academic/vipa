@@ -12,14 +12,14 @@ Ojstr\JournalBundle\Entity\Author:
         articleAuthors:
             targetEntity: ArticleAuthor
             mappedBy: author
-        
+
     id:
         id:
             type: integer
             id: true
             generator:
                 strategy: AUTO
-    fields: 
+    fields:
         firstName:
             type: string
             length: 255

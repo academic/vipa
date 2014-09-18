@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Citation
  */
-class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -28,7 +28,7 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $orderNum;
 
     /**
-     * @var Array 
+     * @var Array
      */
     protected $settings;
 
@@ -38,9 +38,10 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     private $articles;
 
     /**
-     * 
+     *
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->settings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -48,10 +49,11 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Add article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @param  \Ojstr\JournalBundle\Entity\Article $article
      * @return Subject
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles[] = $article;
 
         return $this;
@@ -62,16 +64,18 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $articles
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles) {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $articles)
+    {
         $this->articles->removeElement($articles);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles() {
+    public function getArticles()
+    {
         return $this->articles;
     }
 
@@ -80,30 +84,34 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @param \Ojstr\JournalBundle\Entity\CitationSetting $setting
      */
-    public function removeSetting(\Ojstr\JournalBundle\Entity\CitationSetting $setting) {
+    public function removeSetting(\Ojstr\JournalBundle\Entity\CitationSetting $setting)
+    {
         $this->settings->removeElement($setting);
     }
 
     /**
      * Get settings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSettings() {
+    public function getSettings()
+    {
         return $this->settings;
     }
 
-    public function getSetting($key) {
+    public function getSetting($key)
+    {
         return $this->settings[$key];
     }
 
     /**
      * Add setting
      *
-     * @param \Ojstr\JournalBundle\Entity\CitationSetting $setting
+     * @param  \Ojstr\JournalBundle\Entity\CitationSetting $setting
      * @return Citation
      */
-    public function addSetting(\Ojstr\JournalBundle\Entity\CitationSetting $setting) {
+    public function addSetting(\Ojstr\JournalBundle\Entity\CitationSetting $setting)
+    {
         $this->settings[] = $setting;
 
         return $this;
@@ -112,19 +120,21 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set raw
      *
-     * @param string $raw
+     * @param  string   $raw
      * @return Citation
      */
-    public function setRaw($raw) {
+    public function setRaw($raw)
+    {
         $this->raw = $raw;
 
         return $this;
@@ -133,19 +143,21 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get raw
      *
-     * @return string 
+     * @return string
      */
-    public function getRaw() {
+    public function getRaw()
+    {
         return $this->raw;
     }
 
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string   $type
      * @return Citation
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
 
         return $this;
@@ -154,19 +166,21 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
     /**
      * Set orderNum
      *
-     * @param integer $orderNum
+     * @param  integer  $orderNum
      * @return Citation
      */
-    public function setOrderNum($orderNum) {
+    public function setOrderNum($orderNum)
+    {
         $this->orderNum = $orderNum;
 
         return $this;
@@ -175,9 +189,10 @@ class Citation extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get orderNum
      *
-     * @return integer 
+     * @return integer
      */
-    public function getOrderNum() {
+    public function getOrderNum()
+    {
         return $this->orderNum;
     }
 

@@ -113,9 +113,9 @@ class UserListener
         if ($user && !$securityContext->isGranted('ROLE_USER')) {
             return $this->router->generate('confirm_email_warning');
         }
+
         return FALSE;
     }
-
 
     public function checkUser()
     {
@@ -127,6 +127,7 @@ class UserListener
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->container->get('security.context')->getToken()->getUser();
         }
+
         return FALSE;
     }
 

@@ -26,4 +26,4 @@ institution_update:
 
 institution_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Institution:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:Institution:delete" }

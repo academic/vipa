@@ -8,7 +8,7 @@ Ojstr\JournalBundle\Entity\JournalSection:
             name: journal_id
             referencedColumnName: id
           inversedBy: sections
-    oneToMany: 
+    oneToMany:
         articles:
           targetEntity: Article
           mappedBy: section
