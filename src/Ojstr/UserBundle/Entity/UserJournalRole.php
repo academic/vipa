@@ -5,8 +5,8 @@ namespace Ojstr\UserBundle\Entity;
 /**
  * UserJournalRole
  */
-class UserJournalRole {
-
+class UserJournalRole
+{
     /**
      * @var integer
      */
@@ -27,7 +27,8 @@ class UserJournalRole {
      */
     private $roleId;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->user = new \Ojstr\UserBundle\Entity\User();
         $this->role = new \Ojstr\UserBundle\Entity\Role();
         $this->journal = new \Ojstr\JournalBundle\Entity\Journal();
@@ -36,69 +37,79 @@ class UserJournalRole {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param  integer         $userId
      * @return UserJournalRole
      */
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->userId = $userId;
+
         return $this;
     }
 
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->userId;
     }
 
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer         $journalId
      * @return UserJournalRole
      */
-    public function setJournalId($journalId) {
+    public function setJournalId($journalId)
+    {
         $this->journalId = $journalId;
+
         return $this;
     }
 
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getJournalId() {
+    public function getJournalId()
+    {
         return $this->journalId;
     }
 
     /**
      * Set roleId
      *
-     * @param integer $roleId
+     * @param  integer         $roleId
      * @return UserJournalRole
      */
-    public function setRoleId($roleId) {
+    public function setRoleId($roleId)
+    {
         $this->roleId = $roleId;
+
         return $this;
     }
 
     /**
      * Get roleId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getRoleId() {
+    public function getRoleId()
+    {
         return $this->roleId;
     }
 
@@ -120,30 +131,34 @@ class UserJournalRole {
     /**
      * Set user
      *
-     * @param \Ojstr\UserBundle\Entity\User $user
+     * @param  \Ojstr\UserBundle\Entity\User $user
      * @return UserJournalRole
      */
-    public function setUser(\Ojstr\UserBundle\Entity\User $user = null) {
+    public function setUser(\Ojstr\UserBundle\Entity\User $user = null)
+    {
         $this->user = $user;
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \Ojstr\UserBundle\Entity\User 
+     * @return \Ojstr\UserBundle\Entity\User
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->user;
     }
 
     /**
      * Set journal
      *
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @param  \Ojstr\JournalBundle\Entity\Journal $journal
      * @return UserJournalRole
      */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null) {
+    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null)
+    {
         $this->journal = $journal;
 
         return $this;
@@ -152,19 +167,21 @@ class UserJournalRole {
     /**
      * Get journal
      *
-     * @return \Ojstr\Journalundle\Entity\Journal 
+     * @return \Ojstr\Journalundle\Entity\Journal
      */
-    public function getJournal() {
+    public function getJournal()
+    {
         return $this->journal;
     }
 
     /**
      * Set role
      *
-     * @param \Ojstr\UserBundle\Entity\Role $role
+     * @param  \Ojstr\UserBundle\Entity\Role $role
      * @return UserJournalRole
      */
-    public function setRole(\Ojstr\UserBundle\Entity\Role $role = null) {
+    public function setRole(\Ojstr\UserBundle\Entity\Role $role = null)
+    {
         $this->role = $role;
 
         return $this;
@@ -173,9 +190,10 @@ class UserJournalRole {
     /**
      * Get role
      *
-     * @return \Ojstr\UserBundle\Entity\Role 
+     * @return \Ojstr\UserBundle\Entity\Role
      */
-    public function getRole() {
+    public function getRole()
+    {
         return $this->role;
     }
 

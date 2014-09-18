@@ -2,7 +2,6 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Ojstr\Common\Entity\GenericExtendedEntity;
 
 /**
@@ -25,7 +24,6 @@ class MailLog extends GenericExtendedEntity
      */
     private $recipientEmail;
 
-
     /**
      * Get id
      *
@@ -38,12 +36,13 @@ class MailLog extends GenericExtendedEntity
 
     /**
      * Set mailObject
-     * @param string $mailObject
+     * @param  string  $mailObject
      * @return MailLog
      */
     public function setMailObject($mailObject)
     {
         $this->mailObject = $mailObject;
+
         return $this;
     }
 
@@ -59,7 +58,7 @@ class MailLog extends GenericExtendedEntity
     /**
      * Set recipientEmail
      *
-     * @param string $recipientEmail
+     * @param  string  $recipientEmail
      * @return MailLog
      */
     public function setRecipientEmail($recipientEmail)

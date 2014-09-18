@@ -4,9 +4,6 @@ namespace Ojstr\Common\Entity;
 
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Some common properties and functions for JournalBundle Entities

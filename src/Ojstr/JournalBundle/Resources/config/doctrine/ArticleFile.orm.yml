@@ -13,13 +13,13 @@ Ojstr\JournalBundle\Entity\ArticleFile:
             targetEntity: Article
             inversedBy: articleFiles
             joinColumn:
-                name: article_id 
+                name: article_id
                 referencedColumnName: id
         file:
             targetEntity: Article
             inversedBy: articleFiles
             joinColumn:
-                name: article_id 
+                name: article_id
                 referencedColumnName: id
     fields:
         type:

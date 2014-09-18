@@ -17,7 +17,7 @@ Ojstr\UserBundle\Entity\User:
             type: string
             length: 255
             unique: false
-            nullable: false 
+            nullable: false
         password:
             type: string
             length: 255
@@ -60,9 +60,9 @@ Ojstr\UserBundle\Entity\User:
             options:
                 default: 0
         lastlogin:
-            type: datetime  
+            type: datetime
             unique: false
-            nullable: true 
+            nullable: true
         avatar:
             type: string
             nullable: true
@@ -82,7 +82,7 @@ Ojstr\UserBundle\Entity\User:
            type: date
            nullable: true
     manyToMany:
-        subjects:             
+        subjects:
             targetEntity: Ojstr\JournalBundle\Entity\Subject
             cascade: ["persist"]
             mappedBy: null
@@ -99,7 +99,7 @@ Ojstr\UserBundle\Entity\User:
                         name: subject_id
                         referencedColumnName: id
                         onDelete: CASCADE
-            orderBy: null 
+            orderBy: null
         roles:
             targetEntity: Ojstr\UserBundle\Entity\Role
             cascade: {  }
@@ -117,11 +117,11 @@ Ojstr\UserBundle\Entity\User:
                         name: role_id
                         referencedColumnName: id
                         onDelete: CASCADE
-            orderBy: null  
+            orderBy: null
     gedmo:
         soft_deleteable:
             field_name: deletedAt
-            time_aware: false 
-        loggable: true 
-    
+            time_aware: false
+        loggable: true
+
     lifecycleCallbacks: {  }

@@ -7,10 +7,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and download action details *without total count*
  * There will be one record *foreach action*
- * @MongoDb\Document(collection="analytics_downloads_article") 
+ * @MongoDb\Document(collection="analytics_downloads_article")
  */
-class ArticleDownloads extends ArticleStatsBase {
-
+class ArticleDownloads extends ArticleStatsBase
+{
     /**
      * @MongoDb\Id
      */
@@ -27,19 +27,21 @@ class ArticleDownloads extends ArticleStatsBase {
     protected $total;
 
     /**
-     * Optional 
-     * @MongoDb\Int  
+     * Optional
+     * @MongoDb\Int
      */
     protected $transferSize;
 
     /**
      * Set transferSize
      *
-     * @param int $transferSize
+     * @param  int  $transferSize
      * @return self
      */
-    public function setTransferSize($transferSize) {
+    public function setTransferSize($transferSize)
+    {
         $this->transferSize = $transferSize;
+
         return $this;
     }
 
@@ -48,7 +50,8 @@ class ArticleDownloads extends ArticleStatsBase {
      *
      * @return int $transferSize
      */
-    public function getTransferSize() {
+    public function getTransferSize()
+    {
         return $this->transferSize;
     }
 
@@ -56,11 +59,13 @@ class ArticleDownloads extends ArticleStatsBase {
      * Page full url with domain
      * Set filePath
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return self
      */
-    public function setFilePath($filePath) {
+    public function setFilePath($filePath)
+    {
         $this->filePath = $filePath;
+
         return $this;
     }
 
@@ -69,7 +74,8 @@ class ArticleDownloads extends ArticleStatsBase {
      *
      * @return string $filePath
      */
-    public function getFilePath() {
+    public function getFilePath()
+    {
         return $this->filePath;
     }
 

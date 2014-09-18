@@ -6,8 +6,8 @@ class CommonParams
 {
 
     /**
-     * @return string *status* description
-     * @param integer $status
+     * @return string  *status* description
+     * @param  integer $status
      */
     protected static $statusArray = array(
         -3 => "Rejected",
@@ -30,12 +30,12 @@ class CommonParams
 
     public static function statusText($statusNum)
     {
-        return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : NULL;
+        return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null;
     }
 
     public static function statusColor($statusNum)
     {
-        return isset(self::$statusColorArray[$statusNum]) ? self::$statusColorArray[$statusNum] : NULL;
+        return isset(self::$statusColorArray[$statusNum]) ? self::$statusColorArray[$statusNum] : null;
     }
 
 }

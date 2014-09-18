@@ -11,13 +11,14 @@ use Ojstr\JournalBundle\Form\CitationType;
  * Citation controller.
  *
  */
-class CitationController extends Controller {
-
+class CitationController extends Controller
+{
     /**
      * Lists all Citation entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrJournalBundle:Citation')->findAll();
@@ -31,7 +32,8 @@ class CitationController extends Controller {
      * Creates a new Citation entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Citation();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -57,7 +59,8 @@ class CitationController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Citation $entity) {
+    private function createCreateForm(Citation $entity)
+    {
         $form = $this->createForm(new CitationType(), $entity, array(
             'action' => $this->generateUrl('citation_create'),
             'method' => 'POST',
@@ -72,9 +75,11 @@ class CitationController extends Controller {
      * Displays a form to create a new Citation entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Citation();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrJournalBundle:Citation:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -85,14 +90,16 @@ class CitationController extends Controller {
      * Displays a form to create a new Citation for an Article
      *
      */
-    public function articleAction($article_id = NULL) {
+    public function articleAction($article_id = null)
+    {
         $em = $this->getDoctrine()->getManager();
         $article = !empty($article_id) ?
                 $em->getRepository('OjstrJournalBundle:Article')->find($article_id) :
-                NULL;
+                null;
         $entity = new Citation();
         $entity->addArticle($article);
         $form = $this->createForm(new \Ojstr\JournalBundle\Form\ArticleCitationType(), $entity);
+
         return $this->render('OjstrJournalBundle:Citation:article.html.twig', array(
                     'entity' => $entity,
                     'article' => $article,
@@ -104,7 +111,8 @@ class CitationController extends Controller {
      * Finds and displays a Citation entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
@@ -112,6 +120,7 @@ class CitationController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
+
         return $this->render('OjstrJournalBundle:Citation:show.html.twig', array(
                     'entity' => $entity));
     }
@@ -120,13 +129,15 @@ class CitationController extends Controller {
      * Displays a form to edit an existing Citation entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Citation entity.');
         }
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:Citation:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView()
@@ -136,15 +147,17 @@ class CitationController extends Controller {
     /**
      * Creates a form to edit a Citation entity.
      *
-     * @param Citation $entity The entity
+     * @param  Citation                     $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Citation $entity) {
+    private function createEditForm(Citation $entity)
+    {
         $form = $this->createForm(new CitationType(), $entity, array(
             'action' => $this->generateUrl('citation_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -152,7 +165,8 @@ class CitationController extends Controller {
      * Edits an existing Citation entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!$entity) {
@@ -165,6 +179,7 @@ class CitationController extends Controller {
 
             return $this->redirect($this->generateUrl('citation_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:Citation:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView()
@@ -175,7 +190,8 @@ class CitationController extends Controller {
      * Deletes a Citation entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!$entity) {
@@ -183,6 +199,7 @@ class CitationController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('citation'));
     }
 

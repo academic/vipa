@@ -5,11 +5,11 @@ namespace Ojstr\WorkflowBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * 
- * @MongoDb\Document(collection="article_review_steps") 
+ *
+ * @MongoDb\Document(collection="article_review_steps")
  */
-class ArticleReviewStep {
-
+class ArticleReviewStep
+{
     /**
      * @MongoDb\Id
      */
@@ -23,7 +23,7 @@ class ArticleReviewStep {
 
     /**
      * owner user     { "id" : ... , "username" : ... , "email" : ... }
-     * @MongoDB\Hash 
+     * @MongoDB\Hash
      */
     protected $ownerUser;
 
@@ -38,7 +38,7 @@ class ArticleReviewStep {
 
     /**
      * article reviewed data
-     * @MongoDB\Hash 
+     * @MongoDB\Hash
      */
     private $article_revised;
 
@@ -77,18 +77,21 @@ class ArticleReviewStep {
      *
      * @return id $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set action
      *
-     * @param int $action
+     * @param  int  $action
      * @return self
      */
-    public function setAction($action) {
+    public function setAction($action)
+    {
         $this->action = $action;
+
         return $this;
     }
 
@@ -97,18 +100,21 @@ class ArticleReviewStep {
      *
      * @return int $action
      */
-    public function getAction() {
+    public function getAction()
+    {
         return $this->action;
     }
 
     /**
      * Set note
      *
-     * @param string $note
+     * @param  string $note
      * @return self
      */
-    public function setNote($note) {
+    public function setNote($note)
+    {
         $this->note = $note;
+
         return $this;
     }
 
@@ -117,18 +123,21 @@ class ArticleReviewStep {
      *
      * @return string $note
      */
-    public function getNote() {
+    public function getNote()
+    {
         return $this->note;
     }
 
     /**
      * Set articleId
      *
-     * @param int $articleId
+     * @param  int  $articleId
      * @return self
      */
-    public function setArticleId($articleId) {
+    public function setArticleId($articleId)
+    {
         $this->article_id = $articleId;
+
         return $this;
     }
 
@@ -137,18 +146,21 @@ class ArticleReviewStep {
      *
      * @return int $articleId
      */
-    public function getArticleId() {
+    public function getArticleId()
+    {
         return $this->article_id;
     }
 
     /**
      * Set articleRevised
      *
-     * @param hash $articleRevised
+     * @param  hash $articleRevised
      * @return self
      */
-    public function setArticleRevised($articleRevised) {
+    public function setArticleRevised($articleRevised)
+    {
         $this->article_revised = $articleRevised;
+
         return $this;
     }
 
@@ -157,18 +169,21 @@ class ArticleReviewStep {
      *
      * @return hash $articleRevised
      */
-    public function getArticleRevised() {
+    public function getArticleRevised()
+    {
         return $this->article_revised;
     }
 
     /**
      * Set from
      *
-     * @param hash $from
+     * @param  hash $from
      * @return self
      */
-    public function setFrom($from) {
+    public function setFrom($from)
+    {
         $this->from = $from;
+
         return $this;
     }
 
@@ -177,18 +192,21 @@ class ArticleReviewStep {
      *
      * @return hash $from
      */
-    public function getFrom() {
+    public function getFrom()
+    {
         return $this->from;
     }
 
     /**
      * Set to
      *
-     * @param hash $to
+     * @param  hash $to
      * @return self
      */
-    public function setTo($to) {
+    public function setTo($to)
+    {
         $this->to = $to;
+
         return $this;
     }
 
@@ -197,18 +215,21 @@ class ArticleReviewStep {
      *
      * @return hash $to
      */
-    public function getTo() {
+    public function getTo()
+    {
         return $this->to;
     }
 
     /**
      * Set statusText
      *
-     * @param string $statusText
+     * @param  string $statusText
      * @return self
      */
-    public function setStatusText($statusText) {
+    public function setStatusText($statusText)
+    {
         $this->status_text = $statusText;
+
         return $this;
     }
 
@@ -217,18 +238,21 @@ class ArticleReviewStep {
      *
      * @return string $statusText
      */
-    public function getStatusText() {
+    public function getStatusText()
+    {
         return $this->status_text;
     }
 
     /**
      * Set startedDate
      *
-     * @param date $startedDate
+     * @param  date $startedDate
      * @return self
      */
-    public function setStartedDate($startedDate) {
+    public function setStartedDate($startedDate)
+    {
         $this->started_date = $startedDate;
+
         return $this;
     }
 
@@ -237,18 +261,21 @@ class ArticleReviewStep {
      *
      * @return date $startedDate
      */
-    public function getStartedDate() {
+    public function getStartedDate()
+    {
         return $this->started_date;
     }
 
     /**
      * Set finishedDate
      *
-     * @param date $finishedDate
+     * @param  date $finishedDate
      * @return self
      */
-    public function setFinishedDate($finishedDate) {
+    public function setFinishedDate($finishedDate)
+    {
         $this->finished_date = $finishedDate;
+
         return $this;
     }
 
@@ -257,18 +284,21 @@ class ArticleReviewStep {
      *
      * @return date $finishedDate
      */
-    public function getFinishedDate() {
+    public function getFinishedDate()
+    {
         return $this->finished_date;
     }
 
     /**
      * Set reviewDeadline
      *
-     * @param date $reviewDeadline
+     * @param  date $reviewDeadline
      * @return self
      */
-    public function setReviewDeadline($reviewDeadline) {
+    public function setReviewDeadline($reviewDeadline)
+    {
         $this->review_deadline = $reviewDeadline;
+
         return $this;
     }
 
@@ -277,20 +307,21 @@ class ArticleReviewStep {
      *
      * @return date $reviewDeadline
      */
-    public function getReviewDeadline() {
+    public function getReviewDeadline()
+    {
         return $this->review_deadline;
     }
-
 
     /**
      * Set rootNode
      *
-     * @param boolean $rootNode
+     * @param  boolean $rootNode
      * @return self
      */
     public function setRootNode($rootNode)
     {
         $this->rootNode = $rootNode;
+
         return $this;
     }
 
@@ -307,12 +338,13 @@ class ArticleReviewStep {
     /**
      * Set ownerUser
      *
-     * @param hash $ownerUser
+     * @param  hash $ownerUser
      * @return self
      */
     public function setOwnerUser($ownerUser)
     {
         $this->ownerUser = $ownerUser;
+
         return $this;
     }
 

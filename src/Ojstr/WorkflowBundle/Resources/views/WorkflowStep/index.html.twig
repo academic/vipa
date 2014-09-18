@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %} 
+{% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
 {% set list = [
@@ -23,21 +23,21 @@
                     <strong>
                     {%if entity.firststep%}<span class="badge">First</span>{%endif%}
                     {%if entity.laststep%}<span class="badge">Last</span>{%endif%}
-                    {{entity.title}} 
+                    {{entity.title}}
 
                     </strong>
-                </a> 
+                </a>
                 {%for role in entity.roles%}
                 <span class="label label-info">{{role.name}}</span>
                 {%endfor%}
             </span>
             <span class="pull-right">
-                <a class="btn btn-info btn-sm" href="{{path('workflowsteps_show',{ 'id': entity.id })}}"> 
+                <a class="btn btn-info btn-sm" href="{{path('workflowsteps_show',{ 'id': entity.id })}}">
                     <i class="fa fa-info-sign"></i>
-                </a>  
-                <a class="btn btn-warning btn-sm" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}"> 
+                </a>
+                <a class="btn btn-warning btn-sm" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}">
                     <i class="fa fa-pencil"></i>
-                </a>  
+                </a>
                 <a class="btn btn-danger btn-sm" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
                     <i class="fa fa-trash"></i>
                 </a> </span>
@@ -45,7 +45,7 @@
             <small>Next Steps</small>
             {%for step in entity.nextSteps%}
             <span class="label label-success">{{step.title}}</span>
-            {%endfor%} 
+            {%endfor%}
             <hr>
         </div>
         {% endfor %}
@@ -56,4 +56,3 @@
     </div>
 </div>
 {% endblock %}
-

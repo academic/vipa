@@ -40,7 +40,7 @@ class OjsExtension extends \Twig_Extension
     /**
      *
      * @param array $list
-     * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
+     *                    $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
      */
     public function generateBreadcrumb($list = null)
     {
@@ -52,6 +52,7 @@ class OjsExtension extends \Twig_Extension
                 '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
         }
         $html .= '</ol> ';
+
         return $html;
     }
 
@@ -64,15 +65,17 @@ class OjsExtension extends \Twig_Extension
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->container->get('security.context')->getToken()->getUser();
+
             return $user;
         }
+
         return FALSE;
     }
 
     /**
      *
-     * @param mixed $needle
-     * @param array $haystack
+     * @param  mixed   $needle
+     * @param  array   $haystack
      * @return boolean
      */
     public function hasId($needle, $haystack)
@@ -85,12 +88,14 @@ class OjsExtension extends \Twig_Extension
                 return TRUE;
             }
         }
+
         return FALSE;
     }
 
     public function getSession($session_key)
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
+
         return $session->get($session_key);
     }
 
@@ -101,6 +106,7 @@ class OjsExtension extends \Twig_Extension
     public function getUserJournals()
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
+
         return $session->get('userJournals');
     }
 
@@ -111,6 +117,7 @@ class OjsExtension extends \Twig_Extension
     public function getUserClients()
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
+
         return $session->get('userClients');
     }
 
@@ -121,6 +128,7 @@ class OjsExtension extends \Twig_Extension
     public function getUserJournalRoles()
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
+
         return $session->get('userJournalRoles');
     }
 
@@ -137,6 +145,7 @@ class OjsExtension extends \Twig_Extension
                 }
             }
         }
+
         return FALSE;
     }
 
@@ -151,6 +160,7 @@ class OjsExtension extends \Twig_Extension
                 }
             }
         }
+
         return FALSE;
     }
 
@@ -161,7 +171,7 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * @todo reformat and validate given issn
-     * @param string $issn
+     * @param  string $issn
      * @return string
      */
     public function issnValidateFilter($issn)

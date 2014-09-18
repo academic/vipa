@@ -9,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
  * Article
  * @ExclusionPolicy("all")
  */
-class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Article extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * auto-incremented article unique id
      * @var integer
@@ -34,7 +34,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * user id of the owner of this article
      * @var integer
-     * @Expose 
+     * @Expose
      */
     private $submitterId;
 
@@ -167,7 +167,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * 
+     *
      */
     private $citations;
 
@@ -191,7 +191,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      *
-     * arbitrary attributes 
+     * arbitrary attributes
      */
     private $attributes;
 
@@ -209,19 +209,22 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function addAttribute($name, $value) {
+    public function addAttribute($name, $value)
+    {
         $this->attributes[$name] = new ArticleAttribute($name, $value, $this);
     }
 
-    public function getAttribute($name) {
-        return isset($this->attributes[$name]) ? $this->attributes[$name] : FALSE;
+    public function getAttribute($name)
+    {
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : false;
     }
 
     /**
@@ -229,26 +232,30 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getSubjects() {
+    public function getSubjects()
+    {
         return $this->subjects;
     }
 
     /**
      * Set subjects
      *
-     * @param string  $subjects
+     * @param  string  $subjects
      * @return Article
      */
-    public function setSubjects($subjects = null) {
+    public function setSubjects($subjects = null)
+    {
         $this->subjects = $subjects;
+
         return $this;
     }
 
     /**
-     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     * @param  \Ojstr\JournalBundle\Entity\Lang $language
      * @return Article
      */
-    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language)
+    {
         $this->languages[] = $language;
 
         return $this;
@@ -257,56 +264,65 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * @param \Ojstr\JournalBundle\Entity\Lang $language
      */
-    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language)
+    {
         $this->languages->removeElement($language);
     }
 
     /**
      * @return \Doctrine\Cojournalmmon\Collections\Collection
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         return $this->languages;
     }
 
     /**
-     * 
-     * @param \Ojstr\JournalBundle\Entity\Issue $issue
+     *
+     * @param  \Ojstr\JournalBundle\Entity\Issue   $issue
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+    public function setIssue(\Ojstr\JournalBundle\Entity\Issue $issue)
+    {
         $this->issue = $issue;
+
         return $this;
     }
 
     /**
      * @return \Ojstr\JournalBundle\Entity\Issue
      */
-    public function getIssue() {
+    public function getIssue()
+    {
         return $this->issue;
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticleAuthors() {
+    public function getArticleAuthors()
+    {
         return $this->articleAuthors;
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticlefiles() {
+    public function getArticlefiles()
+    {
         return $this->articleFiles;
     }
 
     /**
      * Add citation
      *
-     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     * @param  \Ojstr\JournalBundle\Entity\Citation $citation
      * @return Article
      */
-    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+    public function addCitation(\Ojstr\JournalBundle\Entity\Citation $citation)
+    {
         $this->citations[] = $citation;
+
         return $this;
     }
 
@@ -315,7 +331,8 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @param \Ojstr\JournalBundle\Entity\Citation $citation
      */
-    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation) {
+    public function removeCitation(\Ojstr\JournalBundle\Entity\Citation $citation)
+    {
         $this->citations->removeElement($citation);
     }
 
@@ -324,7 +341,8 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCitations() {
+    public function getCitations()
+    {
         return $this->citations;
     }
 
@@ -333,77 +351,92 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * 
+     *
      * @return string
      */
-    public function getStatusText() {
+    public function getStatusText()
+    {
         return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
     }
 
     /**
-     * 
+     *
      * @return string
      */
-    public function getStatusColor() {
+    public function getStatusColor()
+    {
         return \Ojstr\Common\Params\ArticleParams::statusColor($this->status);
     }
 
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return integer
      */
-    public function getOrderNum() {
+    public function getOrderNum()
+    {
         return $this->orderNum;
     }
 
     /**
-     * 
-     * @param integer $orderNum
+     *
+     * @param  integer                             $orderNum
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setOrderNum($orderNum) {
+    public function setOrderNum($orderNum)
+    {
         $this->orderNum = $orderNum;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return string
      */
-    public function getPrimaryLanguage() {
+    public function getPrimaryLanguage()
+    {
         return $this->primaryLanguage;
     }
 
     /**
-     * 
-     * @param string $primaryLanguage
+     *
+     * @param  string                              $primaryLanguage
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setPrimaryLanguage($primaryLanguage) {
+    public function setPrimaryLanguage($primaryLanguage)
+    {
         $this->primaryLanguage = $primaryLanguage;
+
         return $this;
     }
 
-    public function getSubmitterId() {
+    public function getSubmitterId()
+    {
         return $this->submitterId;
     }
 
-    public function setSubmitterId($submitterId) {
+    public function setSubmitterId($submitterId)
+    {
         $this->submitterId = $submitterId;
+
         return $submitterId;
     }
 
@@ -414,23 +447,28 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     protected $abstractTransliterated;
 
-    public function getKeywords() {
+    public function getKeywords()
+    {
         return $this->keywords;
     }
 
-    public function setKeywords($keywords) {
+    public function setKeywords($keywords)
+    {
         $this->keywords = $keywords;
+
         return $keywords;
     }
 
     /**
      * Set doi
      *
-     * @param string $doi
+     * @param  string  $doi
      * @return Article
      */
-    public function setDoi($doi) {
+    public function setDoi($doi)
+    {
         $this->doi = $doi;
+
         return $this;
     }
 
@@ -439,18 +477,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getDoi() {
+    public function getDoi()
+    {
         return $this->doi;
     }
 
     /**
      * Set otherId
      *
-     * @param string $otherId
+     * @param  string  $otherId
      * @return Article
      */
-    public function setOtherId($otherId) {
+    public function setOtherId($otherId)
+    {
         $this->otherId = $otherId;
+
         return $this;
     }
 
@@ -459,18 +500,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getOtherId() {
+    public function getOtherId()
+    {
         return $this->otherId;
     }
 
     /**
      * Set issueId
      *
-     * @param integer $issueId
+     * @param  integer $issueId
      * @return Article
      */
-    public function setIssueId($issueId) {
+    public function setIssueId($issueId)
+    {
         $this->issueId = $issueId;
+
         return $this;
     }
 
@@ -478,18 +522,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      * Get issueId
      * @return integer
      */
-    public function getIssueId() {
+    public function getIssueId()
+    {
         return $this->issueId;
     }
 
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer $journalId
      * @return Article
      */
-    public function setJournalId($journalId) {
+    public function setJournalId($journalId)
+    {
         $this->journalId = $journalId;
+
         return $this;
     }
 
@@ -498,17 +545,20 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getJournalId() {
+    public function getJournalId()
+    {
         return $this->journalId;
     }
 
     /**
      * Set journal
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @param  \Ojstr\JournalBundle\Entity\Journal $journal
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setJournal($journal) {
+    public function setJournal($journal)
+    {
         $this->journal = $journal;
+
         return $this;
     }
 
@@ -517,18 +567,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \Ojstr\JournalBundle\Entity\Journal
      */
-    public function getJournal() {
+    public function getJournal()
+    {
         return $this->journal;
     }
 
     /**
      * Set sectionId
      *
-     * @param integer $sectionId
+     * @param  integer $sectionId
      * @return Article
      */
-    public function setSectionId($sectionId) {
+    public function setSectionId($sectionId)
+    {
         $this->sectionId = $sectionId;
+
         return $this;
     }
 
@@ -537,17 +590,20 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getSectionId() {
+    public function getSectionId()
+    {
         return $this->sectionId;
     }
 
     /**
      * Set section
-     * @param \Ojstr\JournalBundle\Entity\JournalSection $section
+     * @param  \Ojstr\JournalBundle\Entity\JournalSection $section
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setSection($section) {
+    public function setSection($section)
+    {
         $this->section = $section;
+
         return $this;
     }
 
@@ -556,18 +612,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \Ojstr\JournalBundle\Entity\JournalSection
      */
-    public function getSection() {
+    public function getSection()
+    {
         return $this->section;
     }
 
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string  $title
      * @return Article
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
+
         return $this;
     }
 
@@ -576,18 +635,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * Set titleTransliterated
      *
-     * @param string $titleTransliterated
+     * @param  string  $titleTransliterated
      * @return Article
      */
-    public function setTitleTransliterated($titleTransliterated) {
+    public function setTitleTransliterated($titleTransliterated)
+    {
         $this->titleTransliterated = $titleTransliterated;
+
         return $this;
     }
 
@@ -596,18 +658,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getTitleTransliterated() {
+    public function getTitleTransliterated()
+    {
         return $this->titleTransliterated;
     }
 
     /**
      * Set subtitle
      *
-     * @param string $subtitle
+     * @param  string  $subtitle
      * @return Article
      */
-    public function setSubtitle($subtitle) {
+    public function setSubtitle($subtitle)
+    {
         $this->subtitle = $subtitle;
+
         return $this;
     }
 
@@ -616,18 +681,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getSubtitle() {
+    public function getSubtitle()
+    {
         return $this->subtitle;
     }
 
     /**
      * Set isAnonymous
      *
-     * @param boolean $isAnonymous
+     * @param  boolean $isAnonymous
      * @return Article
      */
-    public function setIsAnonymous($isAnonymous) {
+    public function setIsAnonymous($isAnonymous)
+    {
         $this->isAnonymous = $isAnonymous;
+
         return $this;
     }
 
@@ -636,18 +704,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return boolean
      */
-    public function getIsAnonymous() {
+    public function getIsAnonymous()
+    {
         return $this->isAnonymous;
     }
 
     /**
      * Set pubdate
      *
-     * @param \DateTime $pubdate
+     * @param  \DateTime $pubdate
      * @return Article
      */
-    public function setPubdate($pubdate) {
+    public function setPubdate($pubdate)
+    {
         $this->pubdate = $pubdate;
+
         return $this;
     }
 
@@ -656,18 +727,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \DateTime
      */
-    public function getPubdate() {
+    public function getPubdate()
+    {
         return $this->pubdate;
     }
 
     /**
      * Set pubdateSeason
      *
-     * @param string $pubdateSeason
+     * @param  string  $pubdateSeason
      * @return Article
      */
-    public function setPubdateSeason($pubdateSeason) {
+    public function setPubdateSeason($pubdateSeason)
+    {
         $this->pubdateSeason = $pubdateSeason;
+
         return $this;
     }
 
@@ -676,18 +750,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getPubdateSeason() {
+    public function getPubdateSeason()
+    {
         return $this->pubdateSeason;
     }
 
     /**
      * Set part
      *
-     * @param string $part
+     * @param  string  $part
      * @return Article
      */
-    public function setPart($part) {
+    public function setPart($part)
+    {
         $this->part = $part;
+
         return $this;
     }
 
@@ -696,18 +773,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getPart() {
+    public function getPart()
+    {
         return $this->part;
     }
 
     /**
      * Set firstPage
      *
-     * @param integer $firstPage
+     * @param  integer $firstPage
      * @return Article
      */
-    public function setFirstPage($firstPage) {
+    public function setFirstPage($firstPage)
+    {
         $this->firstPage = $firstPage;
+
         return $this;
     }
 
@@ -716,18 +796,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getFirstPage() {
+    public function getFirstPage()
+    {
         return $this->firstPage;
     }
 
     /**
      * Set lastPage
      *
-     * @param integer $lastPage
+     * @param  integer $lastPage
      * @return Article
      */
-    public function setLastPage($lastPage) {
+    public function setLastPage($lastPage)
+    {
         $this->lastPage = $lastPage;
+
         return $this;
     }
 
@@ -736,18 +819,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getLastPage() {
+    public function getLastPage()
+    {
         return $this->lastPage;
     }
 
     /**
      * Set uri
      *
-     * @param string $uri
+     * @param  string  $uri
      * @return Article
      */
-    public function setUri($uri) {
+    public function setUri($uri)
+    {
         $this->uri = $uri;
+
         return $this;
     }
 
@@ -756,18 +842,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getUri() {
+    public function getUri()
+    {
         return $this->uri;
     }
 
     /**
      * Set abstract
      *
-     * @param string $abstract
+     * @param  string  $abstract
      * @return Article
      */
-    public function setAbstract($abstract) {
+    public function setAbstract($abstract)
+    {
         $this->abstract = $abstract;
+
         return $this;
     }
 
@@ -776,18 +865,21 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAbstract() {
+    public function getAbstract()
+    {
         return $this->abstract;
     }
 
     /**
      * Set abstractTransliterated
      *
-     * @param string $abstractTransliterated
+     * @param  string  $abstractTransliterated
      * @return Article
      */
-    public function setAbstractTransliterated($abstractTransliterated) {
+    public function setAbstractTransliterated($abstractTransliterated)
+    {
         $this->abstractTransliterated = $abstractTransliterated;
+
         return $this;
     }
 
@@ -796,7 +888,8 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAbstractTransliterated() {
+    public function getAbstractTransliterated()
+    {
         return $this->abstractTransliterated;
     }
 

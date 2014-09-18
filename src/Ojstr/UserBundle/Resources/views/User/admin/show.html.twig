@@ -4,10 +4,10 @@
 {% block breadcrumb %}
 {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('user'), 'title': 'User Manager'}, 
-                { 'title': 'Show User '}, 
+                { 'link': path('user'), 'title': 'User Manager'},
+                { 'title': 'Show User '},
 
-] %} 
+] %}
 {{breadcrumb(list)}}
 {% endblock %}
 
@@ -17,8 +17,8 @@
 
 <h1>{% if entity.avatar %}
     <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
-{% endif %} 
-{{entity.username}} 
+{% endif %}
+{{entity.username}}
     <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
 
 </h1>
@@ -31,11 +31,11 @@
         <tr>
             <th>Username</th>
             <td>{{ entity.username }}</td>
-        </tr> 
+        </tr>
         <tr>
             <th>Email</th>
             <td>{{ entity.email }}</td>
-        </tr> 
+        </tr>
         <tr>
             <th>Roles</th>
             <td>
@@ -60,7 +60,7 @@
     {% set back_path = 'user' %}
     {% set edit_path = 'user_edit' %}
     {% set delete_path = 'user_delete' %}
-    {% include '::actionbtns.html.twig' %} 
+    {% include '::actionbtns.html.twig' %}
 
 
 </div>

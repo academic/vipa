@@ -6,12 +6,12 @@ ujr:
 ujr_show:
     pattern:  /{id}/show
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:show" }
-   
+
 
 ujr_show_journals_of_user:
     pattern:  /user/{user_id}/show/journals
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:showJournalsOfUser" }
-    
+
 ujr_show_users_ofjournal:
     pattern:  /journal/{journal_id}/show/users
     defaults: { _controller: "OjstrUserBundle:UserJournalRole:showUsersOfJournal" }

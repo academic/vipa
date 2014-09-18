@@ -12,7 +12,7 @@ Ojstr\UserBundle\Entity\UserJournalRole:
     manyToOne:
         user:
           #cascade: [persist]
-          targetEntity: Ojstr\UserBundle\Entity\User 
+          targetEntity: Ojstr\UserBundle\Entity\User
           joinColumn:
             name: user_id
             referencedColumnName: id
@@ -28,7 +28,7 @@ Ojstr\UserBundle\Entity\UserJournalRole:
           joinColumn:
             name: role_id
             referencedColumnName: id
-        
+
     fields:
         userId:
             type: integer

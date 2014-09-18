@@ -29,5 +29,5 @@ monolog:
         #    level:  info
 
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    delivery_address: tayyar.besik@okulbilisim.com

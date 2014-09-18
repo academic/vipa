@@ -11,15 +11,17 @@ use Ojstr\JournalBundle\Form\InstitutionType;
  * Institution controller.
  *
  */
-class InstitutionController extends Controller {
-
+class InstitutionController extends Controller
+{
     /**
      * Lists all Institution entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Institution')->findAll();
+
         return $this->render('OjstrJournalBundle:Institution:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -29,7 +31,8 @@ class InstitutionController extends Controller {
      * Creates a new Institution entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Institution();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -37,8 +40,10 @@ class InstitutionController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('institution_show', array('id' => $entity->getId())));
         }
+
         return $this->render('OjstrJournalBundle:Institution:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -52,12 +57,14 @@ class InstitutionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Institution $entity) {
+    private function createCreateForm(Institution $entity)
+    {
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
@@ -65,9 +72,11 @@ class InstitutionController extends Controller {
      * Displays a form to create a new Institution entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Institution();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrJournalBundle:Institution:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -78,10 +87,12 @@ class InstitutionController extends Controller {
      * Finds and displays a Institution entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
+
         return $this->render('OjstrJournalBundle:Institution:show.html.twig', array(
                     'entity' => $entity,));
     }
@@ -90,11 +101,13 @@ class InstitutionController extends Controller {
      * Displays a form to edit an existing Institution entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:Institution:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -108,12 +121,14 @@ class InstitutionController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Institution $entity) {
+    private function createEditForm(Institution $entity)
+    {
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -121,7 +136,8 @@ class InstitutionController extends Controller {
      * Edits an existing Institution entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
@@ -129,8 +145,10 @@ class InstitutionController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
+
             return $this->redirect($this->generateUrl('institution_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:Institution:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -141,12 +159,14 @@ class InstitutionController extends Controller {
      * Deletes a Institution entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('institution'));
     }
 

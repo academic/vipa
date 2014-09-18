@@ -6,17 +6,15 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Role
- * @ExclusionPolicy("all") 
+ * @ExclusionPolicy("all")
  */
-class Role implements RoleInterface {
-
+class Role implements RoleInterface
+{
     /**
-     * @var integer 
+     * @var integer
      * @Expose
      */
     private $id;
@@ -44,26 +42,29 @@ class Role implements RoleInterface {
      */
     private $users;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->users = new ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Role
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -72,37 +73,42 @@ class Role implements RoleInterface {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
-     * 
-     * @param boolean $isSystemRole
+     *
+     * @param  boolean                       $isSystemRole
      * @return \Ojstr\UserBundle\Entity\Role
      */
-    public function setIsSystemRole($isSystemRole) {
+    public function setIsSystemRole($isSystemRole)
+    {
         $this->isSystemRole = $isSystemRole;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return boolean
      */
-    public function getIsSystemRole() {
+    public function getIsSystemRole()
+    {
         return $this->isSystemRole;
     }
 
     /**
      * Set role
      *
-     * @param string $role
+     * @param  string $role
      * @return Role
      */
-    public function setRole($role) {
+    public function setRole($role)
+    {
         $this->role = $role;
 
         return $this;
@@ -111,19 +117,21 @@ class Role implements RoleInterface {
     /**
      * Get role
      *
-     * @return string 
+     * @return string
      */
-    public function getRole() {
+    public function getRole()
+    {
         return $this->role;
     }
 
     /**
      * Add users
      *
-     * @param \Ojstr\UserBundle\Entity\User $users
+     * @param  \Ojstr\UserBundle\Entity\User $users
      * @return Role
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users[] = $users;
 
         return $this;
@@ -134,16 +142,18 @@ class Role implements RoleInterface {
      *
      * @param \Ojstr\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users->removeElement($users);
     }
 
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers() {
+    public function getUsers()
+    {
         return $this->users;
     }
 

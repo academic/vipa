@@ -1,14 +1,14 @@
-Ojstr\JournalBundle\Entity\Article: 
+Ojstr\JournalBundle\Entity\Article:
   #repositoryClass: Ojstr\JournalBundle\Entity\ArticleRepository
   table: ~
   type: entity
-  id: 
-    id: 
-      generator: 
+  id:
+    id:
+      generator:
         strategy: AUTO
       id: true
       type: integer
-  lifecycleCallbacks: {} 
+  lifecycleCallbacks: {}
   manyToOne:
       section:
           targetEntity: JournalSection
@@ -22,7 +22,7 @@ Ojstr\JournalBundle\Entity\Article:
             name: journal_id
             referencedColumnName: id
           inversedBy: articles
-      issue: 
+      issue:
           targetEntity: Issue
           joinColumn:
             name: issue_id
@@ -31,7 +31,7 @@ Ojstr\JournalBundle\Entity\Article:
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
-      mappedBy: article  
+      mappedBy: article
       cascade: ["ALL"]
       indexBy: attribute
     articleAuthors:
@@ -40,47 +40,47 @@ Ojstr\JournalBundle\Entity\Article:
     articleFiles:
       targetEntity: ArticleFile
       mappedBy: article
-  manyToMany: 
-    languages: 
+  manyToMany:
+    languages:
       targetEntity: Lang
       inversedBy: articles
-      joinTable: 
-        inverseJoinColumns: 
-          lang_id: 
+      joinTable:
+        inverseJoinColumns:
+          lang_id:
             referencedColumnName: id
-        joinColumns: 
-          article_id: 
+        joinColumns:
+          article_id:
             referencedColumnName: id
         name: Article_Language
-    
-    citations: 
+
+    citations:
       targetEntity: Citation
       inversedBy: articles
-      joinTable: 
-        inverseJoinColumns: 
-          citation_id: 
+      joinTable:
+        inverseJoinColumns:
+          citation_id:
             referencedColumnName: id
-        joinColumns: 
-          article_id: 
+        joinColumns:
+          article_id:
             referencedColumnName: id
-        name: Article_Citation 
-  fields:  
+        name: Article_Citation
+  fields:
     subjects:
         type: string
         nullable: TRUE
         gedmo:
           - translatable
-          - versioned 
+          - versioned
     submitterId:
         column: submitter_id
         type: integer
-        options: 
+        options:
           default: 0
         nullable: TRUE
     issueId:
         column: issue_id
         type: integer
-        options: 
+        options:
           default: 0
         nullable: TRUE
     primaryLanguage:
@@ -88,15 +88,15 @@ Ojstr\JournalBundle\Entity\Article:
         type: string
         nullable: TRUE
         gedmo:
-          - versioned   
+          - versioned
     orderNum:
         type: integer
         nullable: TRUE
-        options: 
+        options:
           default: 0
     status:
         type: integer
-        options: 
+        options:
           default: 0
         nullable: TRUE
     keywords:
@@ -104,93 +104,93 @@ Ojstr\JournalBundle\Entity\Article:
         nullable: TRUE
         gedmo:
           - translatable
-          - versioned 
-    abstract: 
+          - versioned
+    abstract:
       type: text
       nullable: TRUE
       gedmo:
         - translatable
         - versioned
-    abstractTransliterated: 
+    abstractTransliterated:
       column: abstract_transliterated
       type: text
       nullable: TRUE
       gedmo:
           - versioned
-    doi: 
+    doi:
       length: 255
       type: string
       nullable: TRUE
       gedmo:
           - versioned
-    firstPage: 
+    firstPage:
       column: first_page
       type: integer
       nullable: TRUE
       gedmo:
           - versioned
-    isAnonymous: 
+    isAnonymous:
       column: is_anonymous
       type: boolean
-      options: 
+      options:
           default: 0
       nullable: TRUE
-    journalId: 
+    journalId:
       column: journal_id
       type: integer
       nullable: TRUE
       gedmo:
           - versioned
-    sectionId: 
+    sectionId:
       column: section_id
       type: integer
       nullable: TRUE
       gedmo:
           - versioned
-    lastPage: 
+    lastPage:
       column: last_page
       type: integer
       nullable: TRUE
       gedmo:
           - versioned
-    otherId: 
+    otherId:
       column: other_id
       length: 255
       type: string
       nullable: TRUE
-    part: 
+    part:
       length: 255
       type: string
       nullable: TRUE
-    pubdate: 
+    pubdate:
       type: datetime
       nullable: TRUE
       gedmo:
           - versioned
-    pubdateSeason: 
+    pubdateSeason:
       column: pubdate_season
       length: 255
       type: string
       nullable: TRUE
-    subtitle: 
+    subtitle:
       length: 255
       type: string
       nullable: TRUE
       gedmo:
         - translatable
         - versioned
-    title: 
+    title:
       length: 255
       type: string
       gedmo:
         - translatable
         - versioned
-    titleTransliterated: 
+    titleTransliterated:
       column: title_transliterated
       length: 255
       type: string
       nullable: TRUE
-    uri: 
+    uri:
       length: 255
       type: string
       nullable: TRUE
@@ -213,7 +213,7 @@ Ojstr\JournalBundle\Entity\Article:
         time_aware: false
     translation:
         locale: locale
-    loggable: true 
+    loggable: true
   indexes:
     doix:
       columns: doi

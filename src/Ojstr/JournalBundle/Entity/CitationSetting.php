@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * CitationSetting
  */
-class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -29,45 +29,49 @@ class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      *
-     * @var \Ojstr\JournalBundle\Entity\Citation 
+     * @var \Ojstr\JournalBundle\Entity\Citation
      */
     protected $citation;
 
-    
     /**
-     * 
-     * @param \Ojstr\JournalBundle\Entity\Citation $citation
+     *
+     * @param  \Ojstr\JournalBundle\Entity\Citation        $citation
      * @return \Ojstr\JournalBundle\Entity\CitationSetting
      */
-    public function setCitation($citation) {
+    public function setCitation($citation)
+    {
         $this->citation = $citation;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return \Ojstr\JournalBundle\Entity\Citation
      */
-    public function getCitation() {
+    public function getCitation()
+    {
         return $this->citation;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set citationId
      *
-     * @param integer $citationId
+     * @param  integer         $citationId
      * @return CitationSetting
      */
-    public function setCitationId($citationId) {
+    public function setCitationId($citationId)
+    {
         $this->citationId = $citationId;
 
         return $this;
@@ -76,19 +80,21 @@ class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get citationId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCitationId() {
+    public function getCitationId()
+    {
         return $this->citationId;
     }
 
     /**
      * Set setting
      *
-     * @param string $setting
+     * @param  string          $setting
      * @return CitationSetting
      */
-    public function setSetting($setting) {
+    public function setSetting($setting)
+    {
         $this->setting = $setting;
 
         return $this;
@@ -97,19 +103,21 @@ class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get setting
      *
-     * @return string 
+     * @return string
      */
-    public function getSetting() {
+    public function getSetting()
+    {
         return $this->setting;
     }
 
     /**
      * Set value
      *
-     * @param string $value
+     * @param  string          $value
      * @return CitationSetting
      */
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
 
         return $this;
@@ -118,9 +126,10 @@ class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 

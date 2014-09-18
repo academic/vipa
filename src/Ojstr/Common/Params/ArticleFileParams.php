@@ -16,7 +16,7 @@ class ArticleFileParams
 
     public static function fileType($typeNum)
     {
-        return isset(self::$FILE_TYPES[$typeNum]) ? self::$FILE_TYPES[$typeNum] : NULL;
+        return isset(self::$FILE_TYPES[$typeNum]) ? self::$FILE_TYPES[$typeNum] : null;
     }
- 
+
 }

@@ -11,13 +11,14 @@ use Ojstr\UserBundle\Form\UserJournalRoleType;
  * UserJournalRole controller.
  *
  */
-class UserJournalRoleController extends Controller {
-
+class UserJournalRoleController extends Controller
+{
     /**
      * Lists all UserJournalRole entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrUserBundle:UserJournalRole')->findAll();
@@ -31,7 +32,8 @@ class UserJournalRoleController extends Controller {
      * Creates a new UserJournalRole entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new UserJournalRole();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -46,6 +48,7 @@ class UserJournalRoleController extends Controller {
             $entity->setRole($role);
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('ujr_show', array('id' => $entity->getId())));
         }
 
@@ -62,7 +65,8 @@ class UserJournalRoleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(UserJournalRole $entity) {
+    private function createCreateForm(UserJournalRole $entity)
+    {
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_create'),
             'method' => 'POST',
@@ -77,9 +81,11 @@ class UserJournalRoleController extends Controller {
      * Displays a form to create a new UserJournalRole entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new UserJournalRole();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrUserBundle:UserJournalRole:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -90,7 +96,8 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a UserJournalRole entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
@@ -110,11 +117,13 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a Users of a Journal with roles  (ungrouped).
      * @param int $journal_id
      */
-    public function showUsersOfJournalAction($journal_id) {
+    public function showUsersOfJournalAction($journal_id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->createQuery(
                         'SELECT u FROM OjstrUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
                 )->setParameter('jid', $journal_id);
+
         return $this->render('OjstrUserBundle:UserJournalRole:show_users.html.twig', array(
                     'entities' => $entities
         ));
@@ -124,7 +133,8 @@ class UserJournalRoleController extends Controller {
      * Finds and displays a Journals of a user with roles.
      * @param mixed $journal_id
      */
-    public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig') {
+    public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig')
+    {
         $em = $this->getDoctrine()->getManager();
         $data = $em->createQuery(
                         'SELECT  u  FROM OjstrUserBundle:UserJournalRole u WHERE u.userId = :user_id '
@@ -136,13 +146,16 @@ class UserJournalRoleController extends Controller {
                 $entities[$item->getJournalId()]['roles'][] = $item->getRole();
             }
         }
+
         return $this->render('OjstrUserBundle:UserJournalRole:' . $tpl, array(
                     'entities' => $entities
         ));
     }
 
-    public function myJournalsAction() {
+    public function myJournalsAction()
+    {
         $user_id = $this->getUser()->getId();
+
         return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 
@@ -150,7 +163,8 @@ class UserJournalRoleController extends Controller {
      * Displays a form to edit an existing UserJournalRole entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
@@ -176,7 +190,8 @@ class UserJournalRoleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(UserJournalRole $entity) {
+    private function createEditForm(UserJournalRole $entity)
+    {
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -191,7 +206,8 @@ class UserJournalRoleController extends Controller {
      * Edits an existing UserJournalRole entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
@@ -221,7 +237,8 @@ class UserJournalRoleController extends Controller {
      * Deletes a UserJournalRole entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:UserJournalRole')->find($id);
         if (!$entity) {
@@ -229,6 +246,7 @@ class UserJournalRoleController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('ujr'));
     }
 
@@ -239,7 +257,8 @@ class UserJournalRoleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('ujr_delete', array('id' => $id)))
                         ->setMethod('DELETE')

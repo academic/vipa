@@ -2,9 +2,10 @@
 
 namespace Ojstr\ManagerBundle\Tests\Controller;
 
-class AdminControllerTest extends \Ojstr\Common\Helper\TestHelper {
-
-    public function testAdminDashboard() {
+class AdminControllerTest extends \Ojstr\Common\Helper\TestHelper
+{
+    public function testAdminDashboard()
+    {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
         $this->client->request('GET', '/admin/dashboard');
         $this->assertTrue($this->client->getResponse()->isSuccessful());

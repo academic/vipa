@@ -5,7 +5,7 @@ namespace Ojstr\Common\Helper;
 class CommonFormHelper
 {
 
-    function createDeleteForm($app, $id, $path_name = NULL)
+    public function createDeleteForm($app, $id, $path_name = null)
     {
         return $app->createFormBuilder()
             ->setAction($app->generateUrl($path_name, array('id' => $id)))

@@ -7,14 +7,13 @@ use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Ojstr\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
 use Ojstr\UserBundle\Form\UserRestType;
 
-class UserRestController extends FOSRestController {
-
+class UserRestController extends FOSRestController
+{
     /**
      *
      * @ApiDoc(
@@ -25,11 +24,13 @@ class UserRestController extends FOSRestController {
      *  }
      * )
      */
-    public function getUserAction($username) {
+    public function getUserAction($username)
+    {
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneByUsername($username);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $user;
     }
 
@@ -52,10 +53,10 @@ class UserRestController extends FOSRestController {
      *          "description"="limit"
      *      }
      *  }
-     * )    
+     * )
      */
-    public function getUserJournalsAction($userid) {
-        
+    public function getUserJournalsAction($userid)
+    {
     }
 
     /**
@@ -63,11 +64,11 @@ class UserRestController extends FOSRestController {
      * @ApiDoc(
      *  resource=true,
      *  description="Get User Roles"
-     * 
-     * )    
+     *
+     * )
      */
-    public function getUserRolesAction($userid) {
-        
+    public function getUserRolesAction($userid)
+    {
     }
 
     /**
@@ -92,7 +93,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function getUsersAction(Request $request) {
+    public function getUsersAction(Request $request)
+    {
         $limit = $request->get('limit');
         $page = $request->get('page');
         if (empty($limit)) {
@@ -105,6 +107,7 @@ class UserRestController extends FOSRestController {
         if (!is_array($users)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $users;
     }
 
@@ -119,7 +122,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView(statusCode=204)
      */
-    public function deleteUserAction(Request $request, $user_id) {
+    public function deleteUserAction(Request $request, $user_id)
+    {
         $destroy = $request->get('destroy');
         $em = $this->getDoctrine()->getManager();
         /**
@@ -135,6 +139,7 @@ class UserRestController extends FOSRestController {
             $em->remove($user);
         }
         $em->flush();
+
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 
@@ -154,7 +159,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function putUserAction(Request $request, $user_id) {
+    public function putUserAction(Request $request, $user_id)
+    {
         $entity = $this->getUserEntity($user_id);
         $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->bind($request);
@@ -162,7 +168,8 @@ class UserRestController extends FOSRestController {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->view(null, Codes::HTTP_NO_CONTENT); 
+
+            return $this->view(null, Codes::HTTP_NO_CONTENT);
         }
         throw new HttpException(400, 'Missing parameter');
     }
@@ -172,11 +179,12 @@ class UserRestController extends FOSRestController {
      * @ApiDoc(
      *  resource=true,
      *  description="Delete User Action"
-     *  
+     *
      * )
      * @RestView()
      */
-    public function postUsersAction(Request $request) {
+    public function postUsersAction(Request $request)
+    {
         $entity = new User();
         $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
         $form->handleRequest($request);
@@ -184,13 +192,14 @@ class UserRestController extends FOSRestController {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('api_get_user', array('username' => $entity->getUsername())));
         }
         throw new HttpException(400, 'Missing parameter');
     }
 
-    public function patchUsersAction(Request $request) {
-        
+    public function patchUsersAction(Request $request)
+    {
     }
 
     /**
@@ -212,7 +221,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function statusUsersAction(Request $request, $user_id) {
+    public function statusUsersAction(Request $request, $user_id)
+    {
         return $this->patch('status', $user_id,$request);
     }
 
@@ -235,16 +245,18 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function activeUsersAction(Request $request, $user_id) {
+    public function activeUsersAction(Request $request, $user_id)
+    {
         return $this->patch('active', $user_id,$request);
     }
 
-    protected function patch($field, $user_id, Request $request) {
+    protected function patch($field, $user_id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
-        } 
+        }
         /* @var  $user \Ojstr\UserBundle\Entity\User */
         switch ($field) {
             case 'active':
@@ -257,16 +269,18 @@ class UserRestController extends FOSRestController {
                 break;
         }
         $em->flush();
+
         return $user;
     }
 
-
-    protected function getUserEntity($id) {
+    protected function getUserEntity($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
         if (!$entity) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $entity;
     }
 

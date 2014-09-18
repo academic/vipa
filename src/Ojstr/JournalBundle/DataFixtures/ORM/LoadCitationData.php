@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Citation;
 
-class LoadCitationData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadCitationData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $article = $manager->createQuery('SELECT c FROM OjstrJournalBundle:Article c')
                         ->setMaxResults(1)->getResult();
         if (isset($article[0])) {
@@ -23,7 +24,8 @@ class LoadCitationData extends AbstractFixture implements OrderedFixtureInterfac
         }
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 13;
     }
 
