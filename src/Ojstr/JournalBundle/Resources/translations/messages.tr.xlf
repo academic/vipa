@@ -108,7 +108,48 @@
             <trans-unit id="25">
                 <source>Rejected</source>
                 <target>Reddedildi</target>
-            </trans-unit>             
+            </trans-unit>
+
+
+            <trans-unit id="26">
+                <source>Research Instrument</source>
+                <target>Araştırma Araçları</target>
+            </trans-unit>
+
+            <trans-unit id="27">
+                <source>Research Materials</source>
+                <target>Araştırma Materyalleri</target>
+            </trans-unit>
+
+            <trans-unit id="28">
+                <source>Research Results</source>
+                <target>Araştırma Sonuçları</target>
+            </trans-unit>
+
+            <trans-unit id="29">
+                <source>Data Analysis</source>
+                <target>Veri Analizi</target>
+            </trans-unit>
+
+            <trans-unit id="30">
+                <source>Transcripts</source>
+                <target>Kopyalar</target>
+            </trans-unit>
+
+            <trans-unit id="31">
+                <source>Data Set</source>
+                <target>Veri Seti</target>
+            </trans-unit>
+
+            <trans-unit id="32">
+                <source>Source Text</source>
+                <target>Kaynak Metin</target>
+            </trans-unit>
+
+            <trans-unit id="33">
+                <source>Supplementary File</source>
+                <target>Ek Dosya</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

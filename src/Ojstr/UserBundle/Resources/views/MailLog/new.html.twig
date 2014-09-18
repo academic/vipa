@@ -1,0 +1,12 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>MailLog creation</h1>
+
+    {{ form(form) }}
+
+
+
+    {% set back_path = 'admin_maillog' %}
+    {% include '::actionbtns.html.twig' %}
+{% endblock %}

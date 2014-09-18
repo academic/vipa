@@ -93,8 +93,8 @@ var OjsArticleSubmision = {
             return;
         }
         /**
-         * 1. post primaryLanguage's meta data 
-         * 2. get articleId from response 
+         * 1. post primaryLanguage's meta data
+         * 2. get articleId from response
          * 3. post other meta datas for other languages
          */
         OjstrCommon.waitModal();
@@ -137,5 +137,14 @@ $(document).ready(function() {
         langcode = $(this).parent().attr("href").replace("#", "");
         $tab = $("#" + langcode);
         OjsArticleSubmision.step1RemoveLanguageForm(langcode, $tab);
+    });
+    // article file uploader
+    $('#article_file_upload').fileupload({});
+    $('#article_file_upload').bind('fileuploadsend',function (e, data) {
+        $(this).parent().next('.upload_progress').show();
+        $(this).parent().next('.upload_progress').html("Uploading...");
+    }).bind('fileuploaddone', function (e, data) {
+        $(this).parent().next('.upload_progress').html("Done.");
+        $('.filename',$(this).parent()).attr('value', JSON.parse(data.result).files.name);
     });
 });

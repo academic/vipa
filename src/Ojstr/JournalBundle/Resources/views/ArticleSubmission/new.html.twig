@@ -2,9 +2,13 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
-    {{parent()}}
-    <link rel="stylesheet" href="/vendor/select2/select2.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
+    {{ parent() }}
+    {% stylesheets '@upload_css' output="c/upload.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <link rel="stylesheet" href="/vendor/select2/select2.css" type="text/css"/>
+    <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css"/>
 
 {% endblock %}
 
@@ -14,14 +18,13 @@
     {'link': path('dashboard'), 'title': 'Dashboard'},
     { 'title': 'Submit Article' }
 
-] %} 
-    {{breadcrumb(list)}}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
 {% block body -%}
-
-    <div class="col-md-12"> 
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
@@ -35,24 +38,26 @@
                 </div>
             </div>
 
-            <div class="panel-body">  
+            <div class="panel-body">
                 <!-- Nav tabs -->
                 <div class="col-md-12">
                     <form name="base" class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="col-md-2 control-label">Journal</label>
+
                             <div class="col-md-9">
-                                {{journal.title}}
-                                <input type="hidden" name="journalId" value="{{journal.id}}" />
+                                {{ journal.title }}
+                                <input type="hidden" name="journalId" value="{{ journal.id }}"/>
                             </div>
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Article Main Language</label>
+
                             <div class="col-md-9">
                                 <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
-                                    {%for lang in journal.languages%}
-                                        <option value="{{lang.code}}">{{lang.name}} [{{lang.code}}]</option>
-                                    {%endfor%}
+                                    {% for lang in journal.languages %}
+                                        <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -63,23 +68,24 @@
                 <div id="step1-container">
                     <ul id="mainTabs" class="nav nav-tabs" role="tablist">
                         <li class="lang dropdown">
-                            <a href="#" id="languageDrop" class="dropdown-toggle" 
+                            <a href="#" id="languageDrop" class="dropdown-toggle"
                                data-toggle="dropdown">
-                                <i class="fa fa-plus"></i> Add language 
+                                <i class="fa fa-plus"></i> Add language
                                 <span class="caret"></span>
                             </a>
                             <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                                {% for lang in  journal.languages%}
+                                {% for lang in  journal.languages %}
                                     <li>
-                                        <a href="#" 
-                                           id="langitem_{{lang.code}}"
-                                           code="{{lang.code}}" lang="{{lang.name}}" tabindex="-1">
-                                            {{lang.name}} <small>({{lang.code}})</small>
+                                        <a href="#"
+                                           id="langitem_{{ lang.code }}"
+                                           code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
+                                            {{ lang.name }}
+                                            <small>({{ lang.code }})</small>
                                         </a>
                                     </li>
-                                {%endfor%}
+                                {% endfor %}
                             </ul>
-                        </li> 
+                        </li>
                     </ul>
 
                     <!-- Tab panes -->
@@ -89,31 +95,32 @@
                     </div>
                     <div class="step1_actions record_actions col-md-12">
                         <br>
-                        <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');" href="{{ path('articlesubmission_new') }}">
+                        <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');"
+                           href="{{ path('articlesubmission_new') }}">
                             {% trans %}Restart{% endtrans %}
-                        </a> 
-                        <a class="btn btn-info btn-lg" 
-                           onclick="javascript: OjsArticleSubmision.step1('{{path('articlesubmission_step1',{'locale':'locale'})}}');">
+                        </a>
+                        <a class="btn btn-info btn-lg"
+                           onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
                             {% trans %}Save & Next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
-                        </a> 
+                        </a>
                     </div>
                 </div>
-                <div id="step2-container" class="hide"> 
+                <div id="step2-container" class="hide">
                     {% include 'OjstrJournalBundle:ArticleSubmission:step2.html.twig' %}
 
                     <div class="step2_actions record_actions col-md-12">
-                        <br> 
-                        <a class="btn btn-info btn-lg" 
-                           onclick="javascript: OjsArticleSubmision.step1('{{path('articlesubmission_step2')}}');">
+                        <br>
+                        <a class="btn btn-info btn-lg"
+                           onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step2') }}');">
                             {% trans %}Save & Next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
-                        </a> 
+                        </a>
                     </div>
                 </div>
 
             </div>
-        </div> 
+        </div>
     </div>
 
     <div class="hidden" id="step1_tpl">
@@ -124,10 +131,15 @@
 
 {% block javascripts %}
 
-    {{parent()}}
+    {{ parent() }}
+
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
     <script src="{{ asset('/vendor/select2/select2.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('/assets/js/journalbundle/article_submission.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/assets/js/journalbundle/article_cite.js') }}" type="text/javascript"></script>
     <script>
