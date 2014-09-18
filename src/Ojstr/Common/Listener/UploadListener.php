@@ -32,7 +32,7 @@ class UploadListener
         /**
          * @var string $uploaNestedDirs generated nested folder structure under rootpath. c33b/f671/1712/
          */
-        $nestedDirs = $fileHelper->generatePath($fileName, TRUE, $uploadRootPath);
+        $nestedDirs = $fileHelper->generatePath($fileName, true, $uploadRootPath);
         rename($filePath, $uploadRootPath . $nestedDirs . $fileName);
         $fileDir = $uploadRootPath . $nestedDirs;
         $uploadUrl = str_replace($uploadRootPath, $uploadType, $fileDir);
@@ -50,6 +50,7 @@ class UploadListener
             'size' => $fileSize,
             'url' => ''
         );
+
         return $response;
     }
 

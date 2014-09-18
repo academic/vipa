@@ -2,7 +2,6 @@
 
 namespace Ojstr\UserBundle\Entity;
 
- 
 /**
  * EventLog
  */
@@ -33,11 +32,10 @@ class EventLog
      */
     private $userId;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -47,7 +45,7 @@ class EventLog
     /**
      * Set eventInfo
      *
-     * @param string $eventInfo
+     * @param  string   $eventInfo
      * @return EventLog
      */
     public function setEventInfo($eventInfo)
@@ -60,7 +58,7 @@ class EventLog
     /**
      * Get eventInfo
      *
-     * @return string 
+     * @return string
      */
     public function getEventInfo()
     {
@@ -70,7 +68,7 @@ class EventLog
     /**
      * Set eventDate
      *
-     * @param \DateTime $eventDate
+     * @param  \DateTime $eventDate
      * @return EventLog
      */
     public function setEventDate($eventDate)
@@ -83,7 +81,7 @@ class EventLog
     /**
      * Get eventDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEventDate()
     {
@@ -93,7 +91,7 @@ class EventLog
     /**
      * Set ip
      *
-     * @param string $ip
+     * @param  string   $ip
      * @return EventLog
      */
     public function setIp($ip)
@@ -106,7 +104,7 @@ class EventLog
     /**
      * Get ip
      *
-     * @return string 
+     * @return string
      */
     public function getIp()
     {
@@ -116,7 +114,7 @@ class EventLog
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param  integer  $userId
      * @return EventLog
      */
     public function setUserId($userId)
@@ -129,7 +127,7 @@ class EventLog
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {

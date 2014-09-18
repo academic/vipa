@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Author;
 
-class LoadAuthor1Data extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadAuthor1Data extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $author = new Author();
         $author->setAddress("Author demo address");
         $author->setEmail("author@demo.com");
@@ -22,7 +23,8 @@ class LoadAuthor1Data extends AbstractFixture implements OrderedFixtureInterface
         $this->addReference('ref-author-record1', $author);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 1;
     }
 

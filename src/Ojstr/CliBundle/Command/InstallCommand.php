@@ -9,9 +9,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use \Ojstr\UserBundle\Entity\Role;
 use \Ojstr\UserBundle\Entity\User;
 
-class InstallCommand extends ContainerAwareCommand {
-
-    protected function configure() {
+class InstallCommand extends ContainerAwareCommand
+{
+    protected function configure()
+    {
         $this
                 ->setName('ojs:install')
                 ->setDescription('Ojs first installation')
@@ -19,7 +20,8 @@ class InstallCommand extends ContainerAwareCommand {
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $keep_going = $input->getArgument('continue-on-error');
         $translator = $this->getContainer()->get('translator');
         $dialog = $this->getHelperSet()->get('dialog');
@@ -46,7 +48,6 @@ class InstallCommand extends ContainerAwareCommand {
                 '</info>');
 
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
-
 
         $admin_username = $dialog->ask(
                 $output, '<info>' .
@@ -77,7 +78,8 @@ class InstallCommand extends ContainerAwareCommand {
      * add default roles
      * @return boolean
      */
-    public function insertRoles($container, OutputInterface $output) {
+    public function insertRoles($container, OutputInterface $output)
+    {
         $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
         $roles = $container->getParameter('roles');
@@ -97,10 +99,12 @@ class InstallCommand extends ContainerAwareCommand {
 
             $em->persist($new_role);
         }
+
         return $em->flush();
     }
 
-    public function insertAdmin($container, $username, $email, $password) {
+    public function insertAdmin($container, $username, $email, $password)
+    {
         $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
 
@@ -112,7 +116,7 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setEmail($email);
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
-        $user->setIsActive(TRUE);
+        $user->setIsActive(true);
         $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
         $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
         $role_admin = $role_repo->findOneByRole('ROLE_USER');
@@ -128,7 +132,8 @@ class InstallCommand extends ContainerAwareCommand {
         $em->flush();
     }
 
-    protected function printWelcome() {
+    protected function printWelcome()
+    {
         return '';
     }
 

@@ -2,7 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use \Ojstr\Common\Entity\GenericExtendedEntity;
 
 ;
@@ -85,12 +84,13 @@ class ArticleFile extends GenericExtendedEntity
     }
 
     /**
-     * @param integer $type
+     * @param  integer     $type
      * @return ArticleFile
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -103,12 +103,13 @@ class ArticleFile extends GenericExtendedEntity
     }
 
     /**
-     * @param string $title
+     * @param  string      $title
      * @return ArticleFile
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -120,14 +121,14 @@ class ArticleFile extends GenericExtendedEntity
         return $this->title;
     }
 
-
     /**
-     * @param string $description
+     * @param  string      $description
      * @return ArticleFile
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -140,12 +141,13 @@ class ArticleFile extends GenericExtendedEntity
     }
 
     /**
-     * @param string $keywords
+     * @param  string      $keywords
      * @return ArticleFile
      */
     public function setKeywords($keywords)
     {
         $this->keywords = $keywords;
+
         return $this;
     }
 
@@ -158,12 +160,13 @@ class ArticleFile extends GenericExtendedEntity
     }
 
     /**
-     * @param string $langCode
+     * @param  string      $langCode
      * @return ArticleFile
      */
     public function setLangCode($langCode)
     {
         $this->langCode = $langCode;
+
         return $this;
     }
 
@@ -178,7 +181,7 @@ class ArticleFile extends GenericExtendedEntity
     /**
      * Set fileId
      *
-     * @param integer $fileId
+     * @param  integer     $fileId
      * @return ArticleFile
      */
     public function setFileId($fileId)
@@ -201,7 +204,7 @@ class ArticleFile extends GenericExtendedEntity
     /**
      * Set articleId
      *
-     * @param integer $articleId
+     * @param  integer     $articleId
      * @return ArticleFile
      */
     public function setArticleId($articleId)
@@ -214,7 +217,7 @@ class ArticleFile extends GenericExtendedEntity
     /**
      * Set version
      *
-     * @param integer $version
+     * @param  integer     $version
      * @return ArticleFile
      */
     public function setVersion($version)
@@ -240,7 +243,7 @@ class ArticleFile extends GenericExtendedEntity
      */
     public function getArticleId()
     {
-        return $this->article ? $this->article->getId() : FALSE;
+        return $this->article ? $this->article->getId() : false;
     }
 
     /**
@@ -254,12 +257,13 @@ class ArticleFile extends GenericExtendedEntity
 
     /**
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @param  \Ojstr\JournalBundle\Entity\Article     $article
      * @return \Ojstr\JournalBundle\Entity\ArticleFile
      */
     public function setArticle(\Ojstr\JournalBundle\Entity\Article $article)
     {
         $this->article = $article;
+
         return $this;
     }
 
@@ -274,12 +278,13 @@ class ArticleFile extends GenericExtendedEntity
 
     /**
      *
-     * @param \Ojstr\JournalBundle\Entity\File $file
+     * @param  \Ojstr\JournalBundle\Entity\File        $file
      * @return \Ojstr\JournalBundle\Entity\ArticleFile
      */
     public function setfile(\Ojstr\JournalBundle\Entity\File $file)
     {
         $this->file = $file;
+
         return $this;
     }
 

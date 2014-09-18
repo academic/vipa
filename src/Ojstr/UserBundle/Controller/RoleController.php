@@ -5,17 +5,18 @@ namespace Ojstr\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojstr\UserBundle\Entity\Role;
-use Ojstr\UserBundle\Entity\User;
 use Ojstr\UserBundle\Form\RoleType;
 
-class RoleController extends Controller {
-
+class RoleController extends Controller
+{
     /**
      * Lists all Role entities.
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Role')->findAll();
+
         return $this->render('OjstrUserBundle:Role:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -24,7 +25,8 @@ class RoleController extends Controller {
     /**
      * Creates a new Role entity.
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Role();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -32,8 +34,10 @@ class RoleController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('role_show', array('id' => $entity->getId())));
         }
+
         return array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -43,21 +47,25 @@ class RoleController extends Controller {
     /**
      * Creates a form to create a Role entity.
      */
-    private function createCreateForm(Role $entity) {
+    private function createCreateForm(Role $entity)
+    {
         $form = $this->createForm(new RoleType(), $entity, array(
             'action' => $this->generateUrl('role_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
     /**
      * Displays a form to create a new Role entity.
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Role();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrUserBundle:Role:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -67,13 +75,15 @@ class RoleController extends Controller {
     /**
      * Finds and displays a Role entity.
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
         $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('OjstrUserBundle:Role:show.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),
@@ -83,7 +93,8 @@ class RoleController extends Controller {
     /**
      * Displays a form to edit an existing Role entity.
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
         if (!$entity) {
@@ -91,6 +102,7 @@ class RoleController extends Controller {
         }
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('OjstrUserBundle:Role:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -105,7 +117,8 @@ class RoleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Role $entity) {
+    private function createEditForm(Role $entity)
+    {
         $form = $this->createForm(new RoleType(), $entity, array(
             'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -113,13 +126,15 @@ class RoleController extends Controller {
         $form->add('submit', 'submit', array('attr' => array('label ' =>
                 $this->get('translator')->trans('Update'))
         ));
+
         return $form;
     }
 
     /**
      * Edits an existing Role entity.
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:Role')->find($id);
         if (!$entity) {
@@ -130,8 +145,10 @@ class RoleController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
+
             return $this->redirect($this->generateUrl('role_edit', array('id' => $id)));
         }
+
         return array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -142,7 +159,8 @@ class RoleController extends Controller {
     /**
      * Deletes a Role entity.
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -154,6 +172,7 @@ class RoleController extends Controller {
             $em->remove($entity);
             $em->flush();
         }
+
         return $this->redirect($this->generateUrl('role'));
     }
 
@@ -164,8 +183,10 @@ class RoleController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $t = $this->get('translator');
+
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('role_delete', array('id' => $id)))
                         ->setMethod('DELETE')

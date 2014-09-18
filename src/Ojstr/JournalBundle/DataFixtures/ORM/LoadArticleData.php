@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Article;
 
-class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $journal = $this->getReference('ref-journal');
         $journal2 = $this->getReference('ref-journal2');
         $section = $this->getReference('ref-section');
@@ -23,7 +24,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article->setAbstract("Article abstract article abstract article abstract article abstract ");
         $article->setDoi("123321321");
         $article->setFirstPage(1);
-        $article->setIsAnonymous(FALSE);
+        $article->setIsAnonymous(false);
         $article->setJournal($journal);
         $article->setKeywords("key1, key2, key3");
         $article->setLastPage(10);
@@ -40,7 +41,7 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $article2->setAbstract("Article abstract lipsum");
         $article2->setDoi("98989898");
         $article2->setFirstPage(1);
-        $article2->setIsAnonymous(FALSE);
+        $article2->setIsAnonymous(false);
         $article2->setJournal($journal2);
         $article2->setKeywords("key1, key2, key3");
         $article2->setLastPage(10);
@@ -56,7 +57,8 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 17;
     }
 

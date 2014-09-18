@@ -10,7 +10,7 @@ class CitationSettingType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,7 @@ class CitationSettingType extends AbstractType
             ->add('value')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

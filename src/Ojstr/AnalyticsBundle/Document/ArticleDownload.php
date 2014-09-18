@@ -7,15 +7,15 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and download action details *without total count*
  * There will be one record for each paths
- * @MongoDb\Document(collection="analytics_download_article_sum") 
+ * @MongoDb\Document(collection="analytics_download_article_sum")
  */
-class ArticleDownload {
-
+class ArticleDownload
+{
      /**
      * @MongoDb\Id
      */
     public $id;
-    
+
     /**
      * @MongoDb\String
      */
@@ -26,7 +26,8 @@ class ArticleDownload {
      *
      * @return id $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -34,11 +35,13 @@ class ArticleDownload {
      * Page full url with domain
      * Set total
      *
-     * @param string $total
+     * @param  string $total
      * @return self
      */
-    public function setTotal($total) {
+    public function setTotal($total)
+    {
         $this->total = $total;
+
         return $this;
     }
 
@@ -47,7 +50,8 @@ class ArticleDownload {
      *
      * @return string $total
      */
-    public function getTotal() {
+    public function getTotal()
+    {
         return $this->total;
     }
 
@@ -55,11 +59,13 @@ class ArticleDownload {
      * Page full url with domain
      * Set filePath
      *
-     * @param string $filePath
+     * @param  string $filePath
      * @return self
      */
-    public function setFilePath($filePath) {
+    public function setFilePath($filePath)
+    {
         $this->filePath = $filePath;
+
         return $this;
     }
 
@@ -68,7 +74,8 @@ class ArticleDownload {
      *
      * @return string $filePath
      */
-    public function getFilePath() {
+    public function getFilePath()
+    {
         return $this->filePath;
     }
 

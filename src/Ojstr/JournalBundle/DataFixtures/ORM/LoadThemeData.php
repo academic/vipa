@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Theme;
 
-class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $theme = new Theme();
         $theme->setContent("<!-- theme content -->");
         $theme->setName("Demo Theme");
@@ -17,7 +18,8 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface {
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 7;
     }
 

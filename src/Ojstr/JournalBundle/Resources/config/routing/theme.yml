@@ -26,4 +26,4 @@ theme_update:
 
 theme_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Theme:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:Theme:delete" }

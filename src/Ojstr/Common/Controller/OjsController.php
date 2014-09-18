@@ -13,7 +13,7 @@ class OjsController extends Controller
 
     /**
      *
-     * @param mixed $entity
+     * @param  mixed   $entity
      * @return boolean
      */
     public function throw404IfNotFound($entity)
@@ -21,6 +21,7 @@ class OjsController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
+
         return TRUE;
     }
 

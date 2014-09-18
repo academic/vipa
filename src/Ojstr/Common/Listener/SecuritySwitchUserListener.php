@@ -19,8 +19,9 @@ class SecuritySwitchUserListener
     {
         $newUser = $event->getTargetUser();
         $currentUser = $this->getCurrentUser();
-        // check that current user is admin 
+        // check that current user is admin
         $check = $currentUser->hasClientUsers($newUser);
+
         return $check;
     }
 

@@ -22,10 +22,10 @@
                     <td><span class="label label-default">{{ entity.userId }}</span>  {{ entity.user.username }}</td>
                     <td><span class="label label-default">{{ entity.journalId }}</span>  {{ entity.journal.title}}</td>
                     <td>
-                        <span class="label label-default">{{ entity.roleId }}</span> 
+                        <span class="label label-default">{{ entity.roleId }}</span>
                         {{ entity.role.role}}
                     </td>
-                    <td>  
+                    <td>
                         {% set show_path = 'ujr_show' %}
                         {% set edit_path = 'ujr_edit' %}
                         {% set delete_path = 'ujr_delete' %}
@@ -39,7 +39,7 @@
 
         <a class="button" href="{{ path('ujr_new') }}">
             Create a new entry
-        </a> 
+        </a>
     </div>
 </div>
     {% endblock %}

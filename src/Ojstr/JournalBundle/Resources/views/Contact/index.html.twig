@@ -33,11 +33,11 @@
             <td>{{ entity.fax }}</td>
             <td>{{ entity.email }}</td>
             <td>
-            {% set show_path = 'contact_show' %} 
+            {% set show_path = 'contact_show' %}
             {% set edit_path = 'contact_edit' %}
             {% set delete_path = 'contact_delete' %}
             {% include '::actionbtns.html.twig' %}
-                 
+
             </td>
         </tr>
         {% endfor %}

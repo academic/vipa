@@ -6,15 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class InstallTestCommand extends ContainerAwareCommand {
-
-    protected function configure() {
+class InstallTestCommand extends ContainerAwareCommand
+{
+    protected function configure()
+    {
         $this
                 ->setName('ojs:install:travis')
                 ->setDescription('Ojs test installation');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
@@ -26,10 +28,10 @@ class InstallTestCommand extends ContainerAwareCommand {
         $admin_username = 'admin';
         $admin_email = 'root@localhost.com';
         $admin_password = 'admin';
-        
+
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
-        
+
         $output->writeln($sb . 'Inserting roles to db' . $se);
         $installCommand = new InstallCommand();
         $installCommand->insertRoles($this->getContainer(), $output);

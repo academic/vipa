@@ -15,11 +15,11 @@ use Ojstr\UserBundle\Form\MailLogType;
 class MailLogController extends Controller
 {
 
-
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:MailLog')->findAll();
+
         return $this->render('OjstrUserBundle:MailLog:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -52,7 +52,7 @@ class MailLogController extends Controller
     /**
      * Creates a form to create a MailLog entity.
      *
-     * @param MailLog $entity The entity
+     * @param  MailLog                      $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(MailLog $entity)
@@ -62,6 +62,7 @@ class MailLogController extends Controller
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
@@ -73,6 +74,7 @@ class MailLogController extends Controller
     {
         $entity = new MailLog();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrUserBundle:MailLog:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -90,6 +92,7 @@ class MailLogController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find MailLog entity.');
         }
+
         return $this->render('OjstrUserBundle:MailLog:show.html.twig', array(
             'entity' => $entity
         ));
@@ -107,6 +110,7 @@ class MailLogController extends Controller
             throw $this->createNotFoundException('Unable to find MailLog entity.');
         }
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrUserBundle:MailLog:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
@@ -115,7 +119,7 @@ class MailLogController extends Controller
 
     /**
      * Creates a form to edit a MailLog entity.
-     * @param MailLog $entity The entity
+     * @param  MailLog                      $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(MailLog $entity)
@@ -125,6 +129,7 @@ class MailLogController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -169,6 +174,7 @@ class MailLogController extends Controller
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('admin_maillog'));
     }
 }

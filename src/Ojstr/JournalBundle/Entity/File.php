@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * File
  */
-class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class File extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -40,23 +40,26 @@ class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Set path
      *
-     * @param string $path
+     * @param  string $path
      * @return File
      */
-    public function setPath($path) {
+    public function setPath($path)
+    {
         $this->path = $path;
 
         return $this;
@@ -65,19 +68,21 @@ class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
-    public function getPath() {
+    public function getPath()
+    {
         return $this->path;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return File
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -86,19 +91,21 @@ class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set mimeType
      *
-     * @param string $mimeType
+     * @param  string $mimeType
      * @return File
      */
-    public function setMimeType($mimeType) {
+    public function setMimeType($mimeType)
+    {
         $this->mimeType = $mimeType;
 
         return $this;
@@ -107,19 +114,21 @@ class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get mimeType
      *
-     * @return string 
+     * @return string
      */
-    public function getMimeType() {
+    public function getMimeType()
+    {
         return $this->mimeType;
     }
 
     /**
      * Set size
      *
-     * @param string $size
+     * @param  string $size
      * @return File
      */
-    public function setSize($size) {
+    public function setSize($size)
+    {
         $this->size = $size;
 
         return $this;
@@ -128,16 +137,18 @@ class File extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get size
      *
-     * @return string 
+     * @return string
      */
-    public function getSize() {
+    public function getSize()
+    {
         return $this->size;
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticlefiles() {
+    public function getArticlefiles()
+    {
         return $this->articleFiles;
     }
 

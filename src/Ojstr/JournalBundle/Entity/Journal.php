@@ -10,8 +10,8 @@ use JMS\Serializer\Annotation\Expose;
  * Journal
  * @ExclusionPolicy("all")
  */
-class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable {
-
+class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable
+{
     /**
      * @var integer
      * @Expose
@@ -147,14 +147,15 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
 
     /**
      *
-     * arbitrary settings 
+     * arbitrary settings
      */
     private $settings;
 
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
@@ -163,53 +164,61 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     }
 
     /**
-     * 
-     * @param string $settingName
-     * @param string $value
+     *
+     * @param  string                              $settingName
+     * @param  string                              $value
      * @return \Ojstr\JournalBundle\Entity\Journal
      */
-    public function addSetting($settingName, $value) {
+    public function addSetting($settingName, $value)
+    {
         $this->setting[$settingName] = new ArticleAttribute($settingName, $value, $this);
+
         return $this;
     }
 
     /**
-     * 
-     * @param string $settingName 
+     *
+     * @param  string                   $settingName
      * @return ArticleAttribute|boolean
      */
-    public function getAttribute($settingName) {
-        return isset($this->setting[$settingName]) ? $this->settings[$settingName] : FALSE;
+    public function getAttribute($settingName)
+    {
+        return isset($this->setting[$settingName]) ? $this->settings[$settingName] : false;
     }
 
     /**
-     * @param \Ojstr\JournalBundle\Entity\JournalSection $section
+     * @param  \Ojstr\JournalBundle\Entity\JournalSection $section
      * @return Journal
      */
-    public function addSection(\Ojstr\JournalBundle\Entity\JournalSection $section) {
+    public function addSection(\Ojstr\JournalBundle\Entity\JournalSection $section)
+    {
         $this->sections[] = $section;
+
         return $this;
     }
 
     /**
      * @param \Ojstr\JournalBundle\Entity\JournalSection $section
      */
-    public function removeSection(\Ojstr\JournalBundle\Entity\JournalSection $section) {
+    public function removeSection(\Ojstr\JournalBundle\Entity\JournalSection $section)
+    {
         $this->sections->removeElement($section);
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSections() {
+    public function getSections()
+    {
         return $this->sections;
     }
 
     /**
-     * @param \Ojstr\JournalBundle\Entity\Lang $language
+     * @param  \Ojstr\JournalBundle\Entity\Lang $language
      * @return Journal
      */
-    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+    public function addLanguage(\Ojstr\JournalBundle\Entity\Lang $language)
+    {
         $this->languages[] = $language;
 
         return $this;
@@ -218,374 +227,430 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     /**
      * @param \Ojstr\JournalBundle\Entity\Lang $language
      */
-    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language) {
+    public function removeLanguage(\Ojstr\JournalBundle\Entity\Lang $language)
+    {
         $this->languages->removeElement($language);
     }
 
     /**
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getLanguages() {
+    public function getLanguages()
+    {
         return $this->languages;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string  $title
      * @return Journal
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * Set subdomain
      *
-     * @param string $subdomain
+     * @param  string  $subdomain
      * @return Journal
      */
-    public function setSubdomain($subdomain) {
+    public function setSubdomain($subdomain)
+    {
         $this->subdomain = $subdomain;
+
         return $this;
     }
 
     /**
      * Get subdomain
      *
-     * @return string 
+     * @return string
      */
-    public function getSubdomain() {
+    public function getSubdomain()
+    {
         return $this->subdomain;
     }
 
     /**
      * Set titleAbbr
      *
-     * @param string $titleAbbr
+     * @param  string  $titleAbbr
      * @return Journal
      */
-    public function setTitleAbbr($titleAbbr) {
+    public function setTitleAbbr($titleAbbr)
+    {
         $this->titleAbbr = $titleAbbr;
+
         return $this;
     }
 
     /**
      * Get titleAbbr
      *
-     * @return string 
+     * @return string
      */
-    public function getTitleAbbr() {
+    public function getTitleAbbr()
+    {
         return $this->titleAbbr;
     }
 
     /**
      * Set titleTransliterated
      *
-     * @param string $titleTransliterated
+     * @param  string  $titleTransliterated
      * @return Journal
      */
-    public function setTitleTransliterated($titleTransliterated) {
+    public function setTitleTransliterated($titleTransliterated)
+    {
         $this->titleTransliterated = $titleTransliterated;
+
         return $this;
     }
 
     /**
      * Get titleTransliterated
      *
-     * @return string 
+     * @return string
      */
-    public function getTitleTransliterated() {
+    public function getTitleTransliterated()
+    {
         return $this->titleTransliterated;
     }
 
     /**
      * Set subtitle
      *
-     * @param string $subtitle
+     * @param  string  $subtitle
      * @return Journal
      */
-    public function setSubtitle($subtitle) {
+    public function setSubtitle($subtitle)
+    {
         $this->subtitle = $subtitle;
+
         return $this;
     }
 
     /**
      * Get subtitle
      *
-     * @return string 
+     * @return string
      */
-    public function getSubtitle() {
+    public function getSubtitle()
+    {
         return $this->subtitle;
     }
 
     /**
      * Set issn
      *
-     * @param string $issn
+     * @param  string  $issn
      * @return Journal
      */
-    public function setIssn($issn) {
+    public function setIssn($issn)
+    {
         $this->issn = $issn;
+
         return $this;
     }
 
     /**
      * Get issn
      *
-     * @return string 
+     * @return string
      */
-    public function getIssn() {
+    public function getIssn()
+    {
         return $this->issn;
     }
 
     /**
      * Set eissn
      *
-     * @param string $eissn
+     * @param  string  $eissn
      * @return Journal
      */
-    public function setEissn($eissn) {
+    public function setEissn($eissn)
+    {
         $this->eissn = $eissn;
+
         return $this;
     }
 
     /**
      * Get eissn
      *
-     * @return string 
+     * @return string
      */
-    public function getEissn() {
+    public function getEissn()
+    {
         return $this->eissn;
     }
 
     /**
      * Set firstPublishDate
      *
-     * @param \DateTime $firstPublishDate
+     * @param  \DateTime $firstPublishDate
      * @return Journal
      */
-    public function setFirstPublishDate($firstPublishDate) {
+    public function setFirstPublishDate($firstPublishDate)
+    {
         $this->firstPublishDate = $firstPublishDate;
+
         return $this;
     }
 
     /**
      * Get firstPublishDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getFirstPublishDate() {
+    public function getFirstPublishDate()
+    {
         return $this->firstPublishDate;
     }
 
     /**
      * Set period
      *
-     * @param string $period
+     * @param  string  $period
      * @return Journal
      */
-    public function setPeriod($period) {
+    public function setPeriod($period)
+    {
         $this->period = $period;
+
         return $this;
     }
 
     /**
      * Get period
      *
-     * @return string 
+     * @return string
      */
-    public function getPeriod() {
+    public function getPeriod()
+    {
         return $this->period;
     }
 
     /**
      * Set url
      *
-     * @param string $url
+     * @param  string  $url
      * @return Journal
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
     /**
      * Set country
      *
-     * @param integer $country
+     * @param  integer $country
      * @return Journal
      */
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         $this->country = $country;
+
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
     /**
      * Set published
      *
-     * @param integer $published
+     * @param  integer $published
      * @return Journal
      */
-    public function setPublished($published) {
+    public function setPublished($published)
+    {
         $this->published = $published;
+
         return $this;
     }
 
     /**
      * Get published
      *
-     * @return integer 
+     * @return integer
      */
-    public function getPublished() {
+    public function getPublished()
+    {
         return $this->published;
     }
 
     /**
      * Set status
      *
-     * @param integer $status
+     * @param  integer $status
      * @return Journal
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
+
         return $this;
     }
 
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
     /**
      * Set image
      *
-     * @param string $image
+     * @param  string  $image
      * @return Journal
      */
-    public function setImage($image) {
+    public function setImage($image)
+    {
         $this->image = $image;
+
         return $this;
     }
 
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
-    public function getImage() {
+    public function getImage()
+    {
         return $this->image;
     }
 
     /**
      * Set scope
      *
-     * @param string $scope
+     * @param  string  $scope
      * @return Journal
      */
-    public function setScope($scope) {
+    public function setScope($scope)
+    {
         $this->scope = $scope;
+
         return $this;
     }
 
     /**
      * Get scope
      *
-     * @return string 
+     * @return string
      */
-    public function getScope() {
+    public function getScope()
+    {
         return $this->scope;
     }
 
     /**
      * Set mission
      *
-     * @param string $mission
+     * @param  string  $mission
      * @return Journal
      */
-    public function setMission($mission) {
+    public function setMission($mission)
+    {
         $this->mission = $mission;
+
         return $this;
     }
 
     /**
      * Get mission
      *
-     * @return string 
+     * @return string
      */
-    public function getMission() {
+    public function getMission()
+    {
         return $this->mission;
     }
 
     /**
      * Set themeId
      *
-     * @param integer $themeId
+     * @param  integer $themeId
      * @return Journal
      */
-    public function setThemeId($themeId) {
+    public function setThemeId($themeId)
+    {
         $this->themeId = $themeId;
+
         return $this;
     }
 
     /**
      * Get themeId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getThemeId() {
+    public function getThemeId()
+    {
         return $this->themeId;
     }
 
     /**
      * Add articles
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $articles
+     * @param  \Ojstr\JournalBundle\Entity\Article $articles
      * @return Journal
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles[] = $article;
+
         return $this;
     }
 
@@ -594,27 +659,31 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles->removeElement($article);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles() {
+    public function getArticles()
+    {
         return $this->articles;
     }
 
     /**
      * Add issue
      *
-     * @param \Ojstr\JournalBundle\Entity\Issue $issues
+     * @param  \Ojstr\JournalBundle\Entity\Issue $issues
      * @return Journal
      */
-    public function addIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+    public function addIssue(\Ojstr\JournalBundle\Entity\Issue $issue)
+    {
         $this->issues[] = $issue;
+
         return $this;
     }
 
@@ -623,16 +692,18 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      *
      * @param \Ojstr\JournalBundle\Entity\Issue $issue
      */
-    public function removeIssue(\Ojstr\JournalBundle\Entity\Issue $issue) {
+    public function removeIssue(\Ojstr\JournalBundle\Entity\Issue $issue)
+    {
         $this->issues->removeElement($issue);
     }
 
     /**
      * Get issues
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getIssues() {
+    public function getIssues()
+    {
         return $this->issues;
     }
 
@@ -641,26 +712,29 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      *
      * @param \Ojstr\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users->removeElement($users);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers() {
+    public function getUsers()
+    {
         return $this->users;
     }
 
     /**
      * Add articles
      *
-     * @param \Ojstr\UserBundle\Entity\User $users
+     * @param  \Ojstr\UserBundle\Entity\User $users
      * @return Journal
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users[] = $users;
 
         return $this;

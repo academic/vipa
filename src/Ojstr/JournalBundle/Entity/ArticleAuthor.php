@@ -2,7 +2,6 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 
@@ -10,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
  * Authors of article and orders
  * @ExclusionPolicy("all")
  */
-class ArticleAuthor {
-
+class ArticleAuthor
+{
     /**
      * @var integer
      * @Expose
@@ -32,88 +31,100 @@ class ArticleAuthor {
 
     /**
      * @var \Ojstr\JournalBundle\Entity\Article
-     * 
+     *
      */
     private $article;
 
     /**
-     * 
+     *
      * @return integer
      */
-    public function getAuthorId() {
-        return $this->author ? $this->author->getId() : FALSE;
+    public function getAuthorId()
+    {
+        return $this->author ? $this->author->getId() : false;
     }
 
     /**
-     * 
+     *
      * @return integer
      */
-    public function getArticleId() {
-        return $this->article ? $this->article->getId() : FALSE;
+    public function getArticleId()
+    {
+        return $this->article ? $this->article->getId() : false;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set authorOrder
      *
-     * @param integer $authorOrder
+     * @param  integer       $authorOrder
      * @return ArticleAuthor
      */
-    public function setAuthorOrder($authorOrder) {
+    public function setAuthorOrder($authorOrder)
+    {
         $this->authorOrder = $authorOrder;
+
         return $this;
     }
 
     /**
      * Get authorOrder
      *
-     * @return integer 
+     * @return integer
      */
-    public function getAuthorOrder() {
+    public function getAuthorOrder()
+    {
         return $this->authorOrder;
     }
 
     /**
-     * 
-     * @return \Ojstr\JournalBundle\Entity\Article 
+     *
+     * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function getArticle() {
+    public function getArticle()
+    {
         return $this->article;
     }
 
     /**
-     * 
-     * @param \Ojstr\JournalBundle\Entity\Article $article
+     *
+     * @param  \Ojstr\JournalBundle\Entity\Article       $article
      * @return \Ojstr\JournalBundle\Entity\ArticleAuthor
      */
-    public function setArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function setArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->article = $article;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return \Ojstr\JournalBundle\Entity\Author
      */
-    public function getAuthor() {
+    public function getAuthor()
+    {
         return $this->author;
     }
 
     /**
-     * 
-     * @param \Ojstr\JournalBundle\Entity\Author $author
+     *
+     * @param  \Ojstr\JournalBundle\Entity\Author        $author
      * @return \Ojstr\JournalBundle\Entity\ArticleAuthor
      */
-    public function setAuthor(\Ojstr\JournalBundle\Entity\Author $author) {
+    public function setAuthor(\Ojstr\JournalBundle\Entity\Author $author)
+    {
         $this->author = $author;
+
         return $this;
     }
 
