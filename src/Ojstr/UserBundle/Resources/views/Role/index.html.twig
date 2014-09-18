@@ -27,18 +27,18 @@
                     <td><span>{{ entity.role }}</span></td>
                     <td>{% if entity.isSystemRole %}<i class="fa fa-check"></i>{%endif%}</td>
 
-                    <td> 
-                        <a href="{{ path('role_show', { 'id': entity.id }) }}" class="btn btn-sm btn-info">{% trans %}Show{% endtrans %}</a>  
+                    <td>
+                        <a href="{{ path('role_show', { 'id': entity.id }) }}" class="btn btn-sm btn-info">{% trans %}Show{% endtrans %}</a>
                         <a href="{{ path('role_edit', { 'id': entity.id }) }}" class="btn btn-sm btn-warning">{% trans %}Edit{% endtrans %}</a>
 
                     </td>
                 </tr>
         {% endfor %}
             </tbody>
-        </table> 
+        </table>
         <a class="button success" href="{{ path('role_new') }}">
             {% trans %}Create New{% endtrans %}
-        </a> 
+        </a>
     </div>
 </div>
     {% endblock %}

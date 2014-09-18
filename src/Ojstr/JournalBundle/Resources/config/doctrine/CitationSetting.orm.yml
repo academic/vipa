@@ -5,7 +5,7 @@ Ojstr\JournalBundle\Entity\CitationSetting:
     manyToOne:
         citation:
             targetEntity: Ojstr\JournalBundle\Entity\Citation
-            inversedBy: settings 
+            inversedBy: settings
     id:
         id:
             type: integer

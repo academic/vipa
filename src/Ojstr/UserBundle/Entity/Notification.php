@@ -5,8 +5,8 @@ namespace Ojstr\UserBundle\Entity;
 /**
  * Notification
  */
-class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -62,54 +62,62 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     private $recipient;
 
-    public function getSender() {
+    public function getSender()
+    {
         return $this->sender;
     }
 
     /**
-     * 
-     * @param \Ojstr\UserBundle\Entity\User $sender
+     *
+     * @param  \Ojstr\UserBundle\Entity\User         $sender
      * @return \Ojstr\UserBundle\Entity\Notification
      */
-    public function setSender(\Ojstr\UserBundle\Entity\User $sender) {
+    public function setSender(\Ojstr\UserBundle\Entity\User $sender)
+    {
         $this->sender = $sender;
+
         return $this;
     }
 
     /**
-     * 
+     *
      * @return \Ojstr\UserBundle\Entity\User
      */
-    public function getRecipient() {
+    public function getRecipient()
+    {
         return $this->recipient;
     }
 
     /**
-     * 
-     * @param \Ojstr\UserBundle\Entity\User $recipient
+     *
+     * @param  \Ojstr\UserBundle\Entity\User         $recipient
      * @return \Ojstr\UserBundle\Entity\Notification
      */
-    public function setRecipient(\Ojstr\UserBundle\Entity\User $recipient) {
+    public function setRecipient(\Ojstr\UserBundle\Entity\User $recipient)
+    {
         $this->recipient = $recipient;
+
         return $this;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set senderId
      *
-     * @param integer $senderId
+     * @param  integer      $senderId
      * @return Notification
      */
-    public function setSenderId($senderId) {
+    public function setSenderId($senderId)
+    {
         $this->senderId = $senderId;
 
         return $this;
@@ -118,19 +126,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get senderId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getSenderId() {
+    public function getSenderId()
+    {
         return $this->senderId;
     }
 
     /**
      * Set recipientId
      *
-     * @param integer $recipientId
+     * @param  integer      $recipientId
      * @return Notification
      */
-    public function setRecipientId($recipientId) {
+    public function setRecipientId($recipientId)
+    {
         $this->recipientId = $recipientId;
 
         return $this;
@@ -139,19 +149,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get recipientId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getRecipientId() {
+    public function getRecipientId()
+    {
         return $this->recipientId;
     }
 
     /**
      * Set entityId
      *
-     * @param integer $entityId
+     * @param  integer      $entityId
      * @return Notification
      */
-    public function setEntityId($entityId) {
+    public function setEntityId($entityId)
+    {
         $this->entityId = $entityId;
 
         return $this;
@@ -160,19 +172,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get entityId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getEntityId() {
+    public function getEntityId()
+    {
         return $this->entityId;
     }
 
     /**
      * Set entityName
      *
-     * @param string $entityName
+     * @param  string       $entityName
      * @return Notification
      */
-    public function setEntityName($entityName) {
+    public function setEntityName($entityName)
+    {
         $this->entityName = $entityName;
 
         return $this;
@@ -181,19 +195,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get entityName
      *
-     * @return string 
+     * @return string
      */
-    public function getEntityName() {
+    public function getEntityName()
+    {
         return $this->entityName;
     }
 
     /**
      * Set isRead
      *
-     * @param boolean $isRead
+     * @param  boolean      $isRead
      * @return Notification
      */
-    public function setIsRead($isRead) {
+    public function setIsRead($isRead)
+    {
         $this->isRead = $isRead;
 
         return $this;
@@ -202,19 +218,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get isRead
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getIsRead() {
+    public function getIsRead()
+    {
         return $this->isRead;
     }
 
     /**
      * Set level
      *
-     * @param string $level
+     * @param  string       $level
      * @return Notification
      */
-    public function setLevel($level) {
+    public function setLevel($level)
+    {
         $this->level = $level;
 
         return $this;
@@ -223,19 +241,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get level
      *
-     * @return string 
+     * @return string
      */
-    public function getLevel() {
+    public function getLevel()
+    {
         return $this->level;
     }
 
     /**
      * Set text
      *
-     * @param string $text
+     * @param  string       $text
      * @return Notification
      */
-    public function setText($text) {
+    public function setText($text)
+    {
         $this->text = $text;
 
         return $this;
@@ -244,19 +264,21 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get text
      *
-     * @return string 
+     * @return string
      */
-    public function getText() {
+    public function getText()
+    {
         return $this->text;
     }
 
     /**
      * Set action
      *
-     * @param string $action
+     * @param  string       $action
      * @return Notification
      */
-    public function setAction($action) {
+    public function setAction($action)
+    {
         $this->action = $action;
 
         return $this;
@@ -265,9 +287,10 @@ class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get action
      *
-     * @return string 
+     * @return string
      */
-    public function getAction() {
+    public function getAction()
+    {
         return $this->action;
     }
 

@@ -6,7 +6,7 @@ Ojstr\JournalBundle\Entity\Subject:
             type: integer
             id: true
             generator:
-                strategy: AUTO 
+                strategy: AUTO
     fields:
         subject:
             type: string

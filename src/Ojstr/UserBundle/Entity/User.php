@@ -6,8 +6,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use \Ojstr\JournalBundle\Entity\Subject;
@@ -40,8 +38,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var string
      * @Assert\NotBlank(message="Password can't be blank")
      */
-    protected $password = NULL;
-
+    protected $password = null;
 
     /**
      * @var string
@@ -75,7 +72,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var string
      * @Expose
      */
-    protected $token = NULL;
+    protected $token = null;
 
     /**
      * @var \DateTime
@@ -122,7 +119,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $username
+     * @param  string $username
      * @return User
      */
     public function setUsername($username)
@@ -141,12 +138,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $avatar
+     * @param  string $avatar
      * @return User
      */
     public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
+
         return $this;
     }
 
@@ -159,12 +157,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param integer $status
+     * @param  integer $status
      * @return User
      */
     public function setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -177,7 +176,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $password
+     * @param  string $password
      * @return User
      */
     public function setPassword($password)
@@ -196,7 +195,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $email
+     * @param  string $email
      * @return User
      */
     public function setEmail($email)
@@ -217,13 +216,14 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /*     * get
      * Set firstName
      *
-     * @param string $firstName
+     * @param  string $firstName
      * @return User
      */
 
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
@@ -242,6 +242,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 
@@ -254,12 +255,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param boolean $isActive
+     * @param  boolean $isActive
      * @return User
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+
         return $this;
     }
 
@@ -272,12 +274,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param String $token
+     * @param  String $token
      * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
         return $this;
     }
 
@@ -351,7 +354,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Add role
      *
-     * @param \Ojstr\UserBundle\Entity\Role $role
+     * @param  \Ojstr\UserBundle\Entity\Role $role
      * @return User
      */
     public function addRole(\Ojstr\UserBundle\Entity\Role $role)
@@ -379,12 +382,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param Subject $subject
+     * @param  Subject $subject
      * @return $this
      */
     public function addSubject(Subject $subject)
     {
         $this->subjects[] = $subject;
+
         return $this;
     }
 

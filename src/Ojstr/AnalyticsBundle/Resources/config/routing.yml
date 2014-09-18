@@ -9,7 +9,7 @@ analytics_summary_journals_all:
 analytics_summary_journals_one:
     path:     /analytics/summary/journal/{id}
     defaults: { _controller: OjstrAnalyticsBundle:Journal:journalSummary }
-    
+
 analytics_views_journal:
     path:     /analytics/views/journal
     defaults: { _controller: OjstrAnalyticsBundle:Journal:journalViews }
@@ -17,8 +17,8 @@ analytics_views_journal:
 analytics_views_journal:
     path:     /analytics/views/journal/{id}
     defaults: { _controller: OjstrAnalyticsBundle:Journal:journalViews }
-    
-    
+
+
 #articles
 
 analytics_views_article_all:

@@ -7,10 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Lang;
 
-class LoadLangData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
-
+class LoadLangData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $data = array(
             array("code" => "tr", "name" => "Turkish"),
             array("code" => "en", "name" => "English"),
@@ -26,13 +26,14 @@ class LoadLangData extends AbstractFixture implements OrderedFixtureInterface {
             $lang = new Lang();
             $lang->setCode($item['code']);
             $lang->setName($item['name']);
-            $lang->setRtl(isset($item['rtl']) ? $item['rtl'] : FALSE);
+            $lang->setRtl(isset($item['rtl']) ? $item['rtl'] : false);
             $manager->persist($lang);
         }
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 0;
     }
 

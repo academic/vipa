@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Contact;
 
-class LoadContactData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadContactData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $contact = new Contact();
         $contact->setAddress("Demo address");
         $contact->setEmail("contact@demo.com");
@@ -20,7 +21,8 @@ class LoadContactData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 2;
     }
 

@@ -13,8 +13,8 @@ use Ojstr\UserBundle\Entity\UserJournalRole;
 /**
  * Create sample UserJournalRole entities
  */
-class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
-
+class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+{
     /**
      * @var ContainerInterface
      */
@@ -23,13 +23,14 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 
-    public function load(ObjectManager $manager) {
-
-        // get first journal record 
+    public function load(ObjectManager $manager)
+    {
+        // get first journal record
         $journal = $this->getReference('ref-journal');
         $journal2 = $this->getReference('ref-journal2');
 
@@ -94,7 +95,6 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         $manager->persist($ujr4_2);
         $manager->flush();
 
-
         // add admin user as reviewer
 
         $ujr5 = new UserJournalRole();
@@ -107,7 +107,8 @@ class LoadUserJournalRoleData extends AbstractFixture implements FixtureInterfac
         $this->addReference('ref-ujr-author', $ujr1);
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 16;
     }
 

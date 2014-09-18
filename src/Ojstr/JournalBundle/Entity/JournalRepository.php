@@ -4,6 +4,6 @@ namespace Ojstr\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class JournalRepository extends EntityRepository {
-    
+class JournalRepository extends EntityRepository
+{
 }

@@ -12,11 +12,13 @@ use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
  * Journal controller.
  *
  */
-class JournalController extends Controller {
-
-    public function changeSelectedAction(Request $request, $journal_id) {
+class JournalController extends Controller
+{
+    public function changeSelectedAction(Request $request, $journal_id)
+    {
         $referer = $request->headers->get('referer');
         $request->getSession()->set('selectedJournalId', $journal_id);
+
         return $this->redirect($referer);
     }
 
@@ -24,12 +26,14 @@ class JournalController extends Controller {
      * Lists all Journal entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $request = $this->container->get('request');
         $routeName = $request->get('_route');
         $em = $this->getDoctrine()->getManager();
 
         $entities = $this->getDoctrine()->getManager()->getRepository('OjstrJournalBundle:Journal')->findAll();
+
         return $this->render('OjstrJournalBundle:Journal:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -39,7 +43,8 @@ class JournalController extends Controller {
      * Creates a new Journal entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -47,8 +52,10 @@ class JournalController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
+
         return $this->render('OjstrJournalBundle:Journal:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -62,12 +69,14 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Journal $entity) {
+    private function createCreateForm(Journal $entity)
+    {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
@@ -75,9 +84,11 @@ class JournalController extends Controller {
      * Displays a form to create a new Journal entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrJournalBundle:Journal:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -88,11 +99,13 @@ class JournalController extends Controller {
      * Finds and displays a Journal entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
         $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('OjstrJournalBundle:Journal:show.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),));
@@ -102,12 +115,14 @@ class JournalController extends Controller {
      * Displays a form to edit an existing Journal entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+
         return $this->render('OjstrJournalBundle:Journal:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -122,12 +137,14 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Journal $entity) {
+    private function createEditForm(Journal $entity)
+    {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -135,7 +152,8 @@ class JournalController extends Controller {
      * Edits an existing Journal entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
@@ -144,8 +162,10 @@ class JournalController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
+
             return $this->redirect($this->generateUrl('journal_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:Journal:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -157,7 +177,8 @@ class JournalController extends Controller {
      * Deletes a Journal entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -167,6 +188,7 @@ class JournalController extends Controller {
             $em->remove($entity);
             $em->flush();
         }
+
         return $this->redirect($this->generateUrl('journal'));
     }
 
@@ -177,8 +199,10 @@ class JournalController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $formHelper = new CommonFormHelper();
+
         return $formHelper->createDeleteForm($this, $id, 'journal_delete');
     }
 

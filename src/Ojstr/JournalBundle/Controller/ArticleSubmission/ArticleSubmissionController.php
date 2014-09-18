@@ -25,6 +25,7 @@ class ArticleSubmissionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findBy(array('status' => 0));
+
         return $this->render('OjstrJournalBundle:ArticleSubmission:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -38,6 +39,7 @@ class ArticleSubmissionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Article')->findBy(array('status' => 0));
+
         return $this->render('OjstrJournalBundle:ArticleSubmission:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -57,6 +59,7 @@ class ArticleSubmissionController extends Controller
         $entity = new Article();
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($selectedJournalId);
+
         return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
             'articleId' => NULL,
             'entity' => $entity,
@@ -76,6 +79,7 @@ class ArticleSubmissionController extends Controller
         /* @var $entity \Ojstr\JournalBundle\Entity\Article */
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
+
         return $this->render('OjstrJournalBundle:Article:show.html.twig', array(
             'entity' => $entity));
     }
@@ -90,6 +94,7 @@ class ArticleSubmissionController extends Controller
         $entity = $em->getRepository('OjstrJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
@@ -110,6 +115,7 @@ class ArticleSubmissionController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -126,8 +132,10 @@ class ArticleSubmissionController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
+
             return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrJournalBundle:Article:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView()
@@ -145,6 +153,7 @@ class ArticleSubmissionController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('article'));
     }
 
@@ -158,6 +167,7 @@ class ArticleSubmissionController extends Controller
     private function createDeleteForm($id)
     {
         $formHelper = new CommonFormHelper();
+
         return $formHelper->createDeleteForm($this, $id, 'article_delete');
     }
 

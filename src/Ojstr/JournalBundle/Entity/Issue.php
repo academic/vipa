@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Issue
  */
-class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -19,7 +19,7 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
 
     /**
      *
-     * @var Journal 
+     * @var Journal
      */
     private $journal;
 
@@ -72,19 +72,22 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set journal
-     * @param \Ojstr\JournalBundle\Entity\Journal $journal
+     * @param  \Ojstr\JournalBundle\Entity\Journal $journal
      * @return \Ojstr\JournalBundle\Entity\Article
      */
-    public function setJournal($journal) {
+    public function setJournal($journal)
+    {
         $this->journal = $journal;
+
         return $this;
     }
 
@@ -93,118 +96,136 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return \Ojstr\JournalBundle\Entity\Journal
      */
-    public function getJournal() {
+    public function getJournal()
+    {
         return $this->journal;
     }
 
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer $journalId
      * @return Issue
      */
-    public function setJournalId($journalId) {
+    public function setJournalId($journalId)
+    {
         $this->journalId = $journalId;
+
         return $this;
     }
 
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getJournalId() {
+    public function getJournalId()
+    {
         return $this->journalId;
     }
 
     /**
      * Set volume
      *
-     * @param string $volume
+     * @param  string $volume
      * @return Issue
      */
-    public function setVolume($volume) {
+    public function setVolume($volume)
+    {
         $this->volume = $volume;
+
         return $this;
     }
 
     /**
      * Get volume
      *
-     * @return string 
+     * @return string
      */
-    public function getVolume() {
+    public function getVolume()
+    {
         return $this->volume;
     }
 
     /**
      * Set number
      *
-     * @param string $number
+     * @param  string $number
      * @return Issue
      */
-    public function setNumber($number) {
+    public function setNumber($number)
+    {
         $this->number = $number;
+
         return $this;
     }
 
     /**
      * Get number
      *
-     * @return string 
+     * @return string
      */
-    public function getNumber() {
+    public function getNumber()
+    {
         return $this->number;
     }
 
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Issue
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /**
      * Set cover image path
      *
-     * @param string $cover
+     * @param  string $cover
      * @return Issue
      */
-    public function setCover($cover) {
+    public function setCover($cover)
+    {
         $this->cover = $cover;
+
         return $this;
     }
 
     /**
      * Get cover image path
      *
-     * @return string 
+     * @return string
      */
-    public function getCover() {
+    public function getCover()
+    {
         return $this->cover;
     }
 
     /**
      * Set is special
      *
-     * @param boolean $special
+     * @param  boolean $special
      * @return Issue
      */
-    public function setSpecial($special) {
+    public function setSpecial($special)
+    {
         $this->special = $special;
+
         return $this;
     }
 
@@ -213,82 +234,95 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @return boolean
      */
-    public function getSpecial() {
+    public function getSpecial()
+    {
         return $this->special;
     }
 
-    public function isSpecial() {
+    public function isSpecial()
+    {
         return (bool) $this->special;
     }
 
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Issue
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * Set year
      *
-     * @param string $year
+     * @param  string $year
      * @return Issue
      */
-    public function setYear($year) {
+    public function setYear($year)
+    {
         $this->year = $year;
+
         return $this;
     }
 
     /**
      * Get year
      *
-     * @return string 
+     * @return string
      */
-    public function getYear() {
+    public function getYear()
+    {
         return $this->year;
     }
 
     /**
      * Set datePublished
      *
-     * @param \DateTime $datePublished
+     * @param  \DateTime $datePublished
      * @return Issue
      */
-    public function setDatePublished($datePublished) {
+    public function setDatePublished($datePublished)
+    {
         $this->datePublished = $datePublished;
+
         return $this;
     }
 
     /**
      * Get datePublished
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDatePublished() {
+    public function getDatePublished()
+    {
         return $this->datePublished;
     }
 
     /**
      * Add article
      *
-     * @param \Ojstr\JournalBundle\Entity\Article $article
+     * @param  \Ojstr\JournalBundle\Entity\Article $article
      * @return Language
      */
-    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function addArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles[] = $article;
+
         return $this;
     }
 
@@ -297,16 +331,18 @@ class Issue extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @param \Ojstr\JournalBundle\Entity\Article $article
      */
-    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article) {
+    public function removeArticle(\Ojstr\JournalBundle\Entity\Article $article)
+    {
         $this->articles->removeElement($article);
     }
 
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles() {
+    public function getArticles()
+    {
         return $this->articles;
     }
 

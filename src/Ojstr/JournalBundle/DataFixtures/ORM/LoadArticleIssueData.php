@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Issue;
 
-class LoadArtcileIssueData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadArticleIssueData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         /* @var $article \Ojstr\JournalBundle\Entity\Article */
         $article = $this->getReference('ref-article');
         $issue = $this->getReference('ref-issue');
@@ -18,7 +19,8 @@ class LoadArtcileIssueData extends AbstractFixture implements OrderedFixtureInte
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 19;
     }
 

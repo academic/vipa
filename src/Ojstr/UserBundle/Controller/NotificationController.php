@@ -11,16 +11,17 @@ use Ojstr\UserBundle\Form\NotificationType;
  * Notification controller.
  *
  */
-class NotificationController extends Controller {
- 
-
+class NotificationController extends Controller
+{
     /**
      * Lists all Notification entities.
      *
      */
-    public function indexAction() { 
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Notification')->findAll();
+
         return $this->render('OjstrUserBundle:Notification:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -30,7 +31,8 @@ class NotificationController extends Controller {
      * Creates a new Notification entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Notification();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -56,7 +58,8 @@ class NotificationController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Notification $entity) {
+    private function createCreateForm(Notification $entity)
+    {
         $form = $this->createForm(new NotificationType(), $entity, array(
             'action' => $this->generateUrl('admin_notification_create'),
             'method' => 'POST',
@@ -71,7 +74,8 @@ class NotificationController extends Controller {
      * Displays a form to create a new Notification entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Notification();
         $form = $this->createCreateForm($entity);
 
@@ -85,7 +89,8 @@ class NotificationController extends Controller {
      * Finds and displays a Notification entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Notification')->find($id);
@@ -103,7 +108,8 @@ class NotificationController extends Controller {
      * Displays a form to edit an existing Notification entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Notification')->find($id);
@@ -127,7 +133,8 @@ class NotificationController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Notification $entity) {
+    private function createEditForm(Notification $entity)
+    {
         $form = $this->createForm(new NotificationType(), $entity, array(
             'action' => $this->generateUrl('admin_notification_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -142,7 +149,8 @@ class NotificationController extends Controller {
      * Edits an existing Notification entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Notification')->find($id);
@@ -170,8 +178,8 @@ class NotificationController extends Controller {
      * Deletes a Notification entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
-
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:Notification')->find($id);
 
@@ -181,6 +189,7 @@ class NotificationController extends Controller {
 
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('admin_notification'));
     }
 

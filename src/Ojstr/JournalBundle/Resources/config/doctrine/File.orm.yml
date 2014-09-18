@@ -14,16 +14,16 @@ Ojstr\JournalBundle\Entity\File:
             mappedBy: file
     fields:
         path:
-            type: string 
+            type: string
         name:
             type: string
-            length: 255 
+            length: 255
         mimeType:
             type: string
             length: 255
-            column: mime_type 
+            column: mime_type
         size:
-            type: decimal 
+            type: decimal
         created:
            type: datetime
            gedmo:
@@ -40,6 +40,6 @@ Ojstr\JournalBundle\Entity\File:
     gedmo:
         soft_deleteable:
             field_name: deletedAt
-            time_aware: false 
-        loggable: true 
+            time_aware: false
+        loggable: true
     lifecycleCallbacks: {  }

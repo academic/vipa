@@ -6,15 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\MinLength; 
+use Symfony\Component\Validator\Constraints\MinLength;
 
-class UserRestType extends AbstractType {
-
+class UserRestType extends AbstractType
+{
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
                 ->add('username')
                 ->add('password')
@@ -26,14 +27,16 @@ class UserRestType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Ojstr\UserBundle\Entity\User',
             'csrf_protection' => false
         ));
     }
 
-    public function getDefaultOptions(array $options) {
+    public function getDefaultOptions(array $options)
+    {
         $collectionConstraint = new Collection(array(
             'username' => new MinLength(5),
             'password' => new MinLength(5),
@@ -41,6 +44,7 @@ class UserRestType extends AbstractType {
         ));
 
         $options['validation_constraint'] = $collectionConstraint;
+
         return $options;
     }
 
@@ -48,7 +52,8 @@ class UserRestType extends AbstractType {
      * @return string
      * @description return '' to handle post parameters as they sent
      */
-    public function getName() {
+    public function getName()
+    {
         return '';
     }
 

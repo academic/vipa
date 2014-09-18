@@ -12,13 +12,14 @@ use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
  * JournalContact controller.
  *
  */
-class JournalContactController extends Controller {
-
+class JournalContactController extends Controller
+{
     /**
      * Lists all JournalContact entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrJournalBundle:JournalContact')->findAll();
@@ -32,7 +33,8 @@ class JournalContactController extends Controller {
      * Creates a new JournalContact entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -58,7 +60,8 @@ class JournalContactController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(JournalContact $entity) {
+    private function createCreateForm(JournalContact $entity)
+    {
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_create'),
             'method' => 'POST',
@@ -73,7 +76,8 @@ class JournalContactController extends Controller {
      * Displays a form to create a new JournalContact entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
 
@@ -87,7 +91,8 @@ class JournalContactController extends Controller {
      * Finds and displays a JournalContact entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -107,7 +112,8 @@ class JournalContactController extends Controller {
      * Displays a form to edit an existing JournalContact entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -133,7 +139,8 @@ class JournalContactController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(JournalContact $entity) {
+    private function createEditForm(JournalContact $entity)
+    {
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -148,7 +155,8 @@ class JournalContactController extends Controller {
      * Edits an existing JournalContact entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:JournalContact')->find($id);
@@ -178,7 +186,8 @@ class JournalContactController extends Controller {
      * Deletes a JournalContact entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -204,8 +213,10 @@ class JournalContactController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $formHelper = new CommonFormHelper();
+
         return $formHelper->createDeleteForm($this, $id,'journalcontact_delete');
     }
 

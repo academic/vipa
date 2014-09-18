@@ -11,13 +11,14 @@ use Ojstr\UserBundle\Form\ProxyType;
  * Proxy controller.
  *
  */
-class ProxyController extends Controller {
-
+class ProxyController extends Controller
+{
     /**
      * make a user as your proxy
      *
      */
-    public function giveAction($proxyUserId) {
+    public function giveAction($proxyUserId)
+    {
         $url = $this->getRequest()->headers->get("referer");
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
@@ -28,6 +29,7 @@ class ProxyController extends Controller {
         );
         if ($check) {
             $this->get('session')->getFlashBag()->add('error', 'Already assigned');
+
             return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
         }
         $proxy = new Proxy();
@@ -38,10 +40,12 @@ class ProxyController extends Controller {
         $this->get('session')->getFlashBag()->add('success', 'Successfully added as proxy user. This user now can login as you. ');
         $this->get('session')->getFlashBag()->add('warning', 'You can add "end date" for this proxy user. '
                 . '<a href="' . $this->generateUrl('user_my_proxy_parents') . '" class="bt btn-sm btn-default">Click</a> to update your proxy users.');
+
         return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
     }
 
-    public function updateTtlAction(Request $request, $id) {
+    public function updateTtlAction(Request $request, $id)
+    {
         /* @var  $proxy Proxy */
         $proxy = $this->getDoctrine()->getRepository('OjstrUserBundle:Proxy')->find($id);
         if (!$proxy) {
@@ -56,6 +60,7 @@ class ProxyController extends Controller {
         $proxy->setTtl(new \DateTime(date('Y-m-d H:i:s', time() + $ttl * 60 * 60 * 24)));
         $em->persist($proxy);
         $em->flush();
+
         return new \Symfony\Component\HttpFoundation\JsonResponse(
                 array(
             'id' => $proxy->getId(),
@@ -67,7 +72,8 @@ class ProxyController extends Controller {
      * drop user from your proxy
      *
      */
-    public function dropAction($proxyUserId) {
+    public function dropAction($proxyUserId)
+    {
         $url = $this->getRequest()->headers->get("referer");
         $em = $this->getDoctrine()->getManager();
         $currentUser = $this->getUser();
@@ -80,6 +86,7 @@ class ProxyController extends Controller {
             $em->remove($proxy);
             $em->flush();
         }
+
         return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
     }
 
@@ -87,9 +94,11 @@ class ProxyController extends Controller {
      * Lists all Proxy entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrUserBundle:Proxy')->findAll();
+
         return $this->render('OjstrUserBundle:Proxy:admin/index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -99,7 +108,8 @@ class ProxyController extends Controller {
      * List my proxy clients
      * @param $userId int
      */
-    public function myProxyClientsAction($userId = NULL) {
+    public function myProxyClientsAction($userId = null)
+    {
         if (!$userId) {
             $userId = $this->getUser()->getId();
         }
@@ -107,6 +117,7 @@ class ProxyController extends Controller {
         $entities = $em->getRepository('OjstrUserBundle:Proxy')->findBy(array(
             'proxyUserId' => $userId
         ));
+
         return $this->render('OjstrUserBundle:Proxy:clients.html.twig', array(
                     'entities' => $entities,
         ));
@@ -116,7 +127,8 @@ class ProxyController extends Controller {
      * List my proxy parents
      * @param $userId int
      */
-    public function myProxyParentsAction($userId = NULL) {
+    public function myProxyParentsAction($userId = null)
+    {
         if (!$userId) {
             $userId = $this->getUser()->getId();
         }
@@ -124,6 +136,7 @@ class ProxyController extends Controller {
         $entities = $em->getRepository('OjstrUserBundle:Proxy')->findBy(array(
             'clientUserId' => $userId
         ));
+
         return $this->render('OjstrUserBundle:Proxy:parents.html.twig', array(
                     'entities' => $entities,
         ));
@@ -133,7 +146,8 @@ class ProxyController extends Controller {
      * Creates a new Proxy entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -159,7 +173,8 @@ class ProxyController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Proxy $entity) {
+    private function createCreateForm(Proxy $entity)
+    {
         $form = $this->createForm(new ProxyType(), $entity, array(
             'action' => $this->generateUrl('admin_proxy_create'),
             'method' => 'POST',
@@ -174,7 +189,8 @@ class ProxyController extends Controller {
      * Displays a form to create a new Proxy entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
 
@@ -188,7 +204,8 @@ class ProxyController extends Controller {
      * Finds and displays a Proxy entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
@@ -196,6 +213,7 @@ class ProxyController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Proxy entity.');
         }
+
         return $this->render('OjstrUserBundle:Proxy:admin/show.html.twig', array(
                     'entity' => $entity,
         ));
@@ -205,7 +223,8 @@ class ProxyController extends Controller {
      * Displays a form to edit an existing Proxy entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
@@ -215,6 +234,7 @@ class ProxyController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrUserBundle:Proxy:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -228,7 +248,8 @@ class ProxyController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Proxy $entity) {
+    private function createEditForm(Proxy $entity)
+    {
         $form = $this->createForm(new ProxyType(), $entity, array(
             'action' => $this->generateUrl('admin_proxy_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -243,7 +264,8 @@ class ProxyController extends Controller {
      * Edits an existing Proxy entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
@@ -259,6 +281,7 @@ class ProxyController extends Controller {
 
             return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $id)));
         }
+
         return $this->render('OjstrUserBundle:Proxy:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -269,7 +292,8 @@ class ProxyController extends Controller {
      * Deletes a Proxy entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrUserBundle:Proxy')->find($id);
 
@@ -278,6 +302,7 @@ class ProxyController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('admin_proxy'));
     }
 

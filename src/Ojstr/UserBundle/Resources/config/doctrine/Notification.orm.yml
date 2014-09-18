@@ -37,7 +37,7 @@ Ojstr\UserBundle\Entity\Notification:
         text:
             type: string
             length: 255
-            column: text 
+            column: text
         action:
             type: string
             length: 255
@@ -71,5 +71,5 @@ Ojstr\UserBundle\Entity\Notification:
     gedmo:
         soft_deleteable:
             field_name: deletedAt
-            time_aware: false 
+            time_aware: false
     lifecycleCallbacks: {  }

@@ -4,13 +4,14 @@ namespace Ojstr\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class SiteController extends Controller {
-
+class SiteController extends Controller
+{
     /**
      * Global index page
      * @return type
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         /* @var $journalDomain \Ojstr\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
         $currentJournal = $journalDomain->getCurrentJournal();
@@ -22,27 +23,33 @@ class SiteController extends Controller {
         return $this->render('OjstrSiteBundle::Site/anonymous_index.html.twig');
     }
 
-    public function userIndexAction() {
+    public function userIndexAction()
+    {
         return $this->render('OjstrManagerBundle:User:userwelcome.html.twig');
     }
-    
-    public function browseIndexAction() {
+
+    public function browseIndexAction()
+    {
         return $this->render('OjstrSiteBundle::Site/browse_index.html.twig');
     }
-    
-    public function organizationsIndexAction() {
+
+    public function organizationsIndexAction()
+    {
         return $this->render('OjstrSiteBundle::Site/organizations_index.html.twig');
     }
-    
-    public function categoriesIndexAction() {
+
+    public function categoriesIndexAction()
+    {
         return $this->render('OjstrSiteBundle::Site/categories_index.html.twig');
     }
-    
-    public function topicsIndexAction() {
+
+    public function topicsIndexAction()
+    {
         return $this->render('OjstrSiteBundle::Site/topics_index.html.twig');
     }
-    
-    public function profileIndexAction() {
+
+    public function profileIndexAction()
+    {
         return $this->render('OjstrSiteBundle::Site/profile_index.html.twig');
     }
 
