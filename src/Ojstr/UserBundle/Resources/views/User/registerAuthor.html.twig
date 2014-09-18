@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
 {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'}, 
-                {'title': 'Register yourself as author'}, 
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'title': 'Register yourself as author'},
 
-] %} 
+] %}
 {{breadcrumb(list)}}
 {% endblock %}
 
@@ -17,10 +17,10 @@
         <div class="panel-body">
             <div class="list-group alljournallist">
                 {%for entity in entities %}
-                <a {%if entity.roles == NULL %}href="{{path('user_join_journal_action',{'journalId': entity.journal.id})}}"{%endif%} 
+                <a {%if entity.roles == NULL %}href="{{path('user_join_journal_action',{'journalId': entity.journal.id})}}"{%endif%}
                     rel="{{entity.journal.id}}" class="list-group-item
                     {%if entity.roles%} list-group-item-success {%endif%}">
-                    {{entity.journal.title}} 
+                    {{entity.journal.title}}
                     {%if entity.roles%}
                         {%for role in entity.roles%}
                             <span class="label label-info">
@@ -30,11 +30,11 @@
                     {%else%}
                     <span class="fa fa-plus pull-right"></span>
                     {%endif%}
-                    
+
                 </a>
                 {%endfor%}
             </div>
         </div>
     </div>
 </div>
-{% endblock %} 
+{% endblock %}

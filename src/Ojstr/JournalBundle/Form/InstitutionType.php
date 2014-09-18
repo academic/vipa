@@ -10,7 +10,7 @@ class InstitutionType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,7 +25,7 @@ class InstitutionType extends AbstractType
             ->add('email')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

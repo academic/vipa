@@ -4,15 +4,13 @@ namespace Ojstr\UserBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * Proxy
- * @ExclusionPolicy("all") 
+ * @ExclusionPolicy("all")
  */
-class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      * @Expose
@@ -52,36 +50,41 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * 
+     *
      * @return \DateTime
      */
-    public function getTtl() {
+    public function getTtl()
+    {
         return $this->ttl;
     }
 
     /**
-     * @param \DateTime $ttl
+     * @param  \DateTime $ttl
      * @return Proxy
      */
-    public function setTtl($ttl) {
+    public function setTtl($ttl)
+    {
         $this->ttl = $ttl;
+
         return $this;
     }
 
     /**
      * Set proxyUserId
      *
-     * @param integer $proxyUserId
+     * @param  integer $proxyUserId
      * @return Proxy
      */
-    public function setProxyUserId($proxyUserId) {
+    public function setProxyUserId($proxyUserId)
+    {
         $this->proxyUserId = $proxyUserId;
 
         return $this;
@@ -90,19 +93,21 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get proxyUserId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getProxyUserId() {
+    public function getProxyUserId()
+    {
         return $this->proxyUserId;
     }
 
     /**
      * Set clientUserId
      *
-     * @param integer $clientUserId
+     * @param  integer $clientUserId
      * @return Proxy
      */
-    public function setClientUserId($clientUserId) {
+    public function setClientUserId($clientUserId)
+    {
         $this->clientUserId = $clientUserId;
 
         return $this;
@@ -111,49 +116,56 @@ class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get clientUserId
      *
-     * @return integer 
+     * @return integer
      */
-    public function getClientUserId() {
+    public function getClientUserId()
+    {
         return $this->clientUserId;
     }
 
     /**
      * Set clientUser
      *
-     * @param User $user
+     * @param  User  $user
      * @return Proxy
      */
-    public function setClientUser($user) {
+    public function setClientUser($user)
+    {
         $this->clientUser = $user;
+
         return $this;
     }
 
     /**
      * Get clientUser
      *
-     * @return User 
+     * @return User
      */
-    public function getClientUser() {
+    public function getClientUser()
+    {
         return $this->clientUser;
     }
 
     /**
      * Set proxyUser
      *
-     * @param User $user
+     * @param  User  $user
      * @return Proxy
      */
-    public function setProxyUser($user) {
+    public function setProxyUser($user)
+    {
         $this->proxyUser = $user;
+
         return $this;
     }
 
     /**
      * Get proxyUser
      *
-     * @return User 
+     * @return User
      */
-    public function getProxyUser() {
+    public function getProxyUser()
+    {
         return $this->proxyUser;
     }
 

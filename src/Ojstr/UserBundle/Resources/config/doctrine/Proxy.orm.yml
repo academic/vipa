@@ -1,19 +1,19 @@
 Ojstr\UserBundle\Entity\Proxy:
     indexes:
         users_x:
-          columns: proxy_user_id,client_user_id 
+          columns: proxy_user_id,client_user_id
     type: entity
     table: null
     manyToOne:
         clientUser:
-            targetEntity: User 
+            targetEntity: User
             joinColumn:
-                name: client_user_id 
+                name: client_user_id
                 referencedColumnName: id
         proxyUser:
             targetEntity: User
             joinColumn:
-                name: proxy_user_id 
+                name: proxy_user_id
                 referencedColumnName: id
     id:
         id:
@@ -48,6 +48,6 @@ Ojstr\UserBundle\Entity\Proxy:
     gedmo:
         soft_deleteable:
             field_name: deletedAt
-            time_aware: false 
-        loggable: true 
+            time_aware: false
+        loggable: true
     lifecycleCallbacks: {  }

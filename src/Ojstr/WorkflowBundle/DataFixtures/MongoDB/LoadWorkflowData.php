@@ -11,11 +11,11 @@ use \Ojstr\WorkflowBundle\Document\JournalWorkflowStep;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
- * @todo 
+ * @todo
  * Create sample workflow
  */
-class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
-
+class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+{
     /**
      * @var ContainerInterface
      */
@@ -24,11 +24,13 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 
-    public function load(ObjectManager $dm) {
+    public function load(ObjectManager $dm)
+    {
         $em = $this->container->get('doctrine')->getManager();
         $journal = $em->createQuery('SELECT c FROM OjstrJournalBundle:Journal c')
                         ->setMaxResults(1)->getResult();
@@ -36,7 +38,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
             return;
         }
         $step1 = new JournalWorkflowStep();
-        $step1->setFirststep(TRUE);
+        $step1->setFirststep(true);
         $step1->setJournalid($journal[0]->getId());
         $step1->setMaxdays(15);
         $step1->setStatus('First Review');
@@ -44,9 +46,8 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $dm->persist($step1);
         $dm->flush();
 
-
         $step2 = new JournalWorkflowStep();
-        $step2->setLaststep(TRUE);
+        $step2->setLaststep(true);
         $step2->setJournalid($journal[0]->getId());
         $step2->setMaxdays(15);
         $step2->setStatus('Publish');
@@ -58,7 +59,8 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $dm->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 20;
     }
 

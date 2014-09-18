@@ -2,7 +2,7 @@
 {% block breadcrumb %}
 {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'title': 'User Manager'}, 
+                { 'title': 'User Manager'},
 ] %}
 {{breadcrumb(list)}}
 {% endblock %}
@@ -33,7 +33,7 @@
                         <span class="label label-default">{{role.role}}</span>
                         {% endfor %}
                     </td>
-                    <td> 
+                    <td>
                         {% if isSystemAdmin() %}
                         <a class="btn-sm btn btn-info" href="/?_su={{entity.username}}">
                             <i class="fa fa-sign-in"></i>
@@ -42,7 +42,7 @@
                         {% set show_path = 'user_show' %}
                         {% set edit_path = 'user_edit' %}
                         {% set delete_path = 'user_delete' %}
-                        {% include '::actionbtns.html.twig' %} 
+                        {% include '::actionbtns.html.twig' %}
                     </td>
                 </tr>
         {% endfor %}
@@ -51,7 +51,7 @@
 
         <a href="{{ path('user_new') }}" class="btn btn-info">
             <i class="fa fa-plus"></i> {% trans %}Create New{% endtrans %}
-        </a> 
+        </a>
     </div>
 </div>
     {% endblock %}

@@ -7,10 +7,10 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and total count *view action details*
  * There will be one record for *each pages*
- * @MongoDb\Document(collection="analytics_view_article_sum") 
+ * @MongoDb\Document(collection="analytics_view_article_sum")
  */
-class ArticleView {
-
+class ArticleView
+{
     /**
      * @MongoDb\Id
      */
@@ -31,7 +31,8 @@ class ArticleView {
      *
      * @return id $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -39,11 +40,13 @@ class ArticleView {
      * Page full url with domain
      * Set total
      *
-     * @param string $total
+     * @param  string $total
      * @return self
      */
-    public function setTotal($total) {
+    public function setTotal($total)
+    {
         $this->total = $total;
+
         return $this;
     }
 
@@ -52,7 +55,8 @@ class ArticleView {
      *
      * @return string $total
      */
-    public function getTotal() {
+    public function getTotal()
+    {
         return $this->total;
     }
 
@@ -60,11 +64,13 @@ class ArticleView {
      * Page full url with domain
      * Set pageUrl
      *
-     * @param string $pageUrl
+     * @param  string $pageUrl
      * @return self
      */
-    public function setPageUrl($pageUrl) {
+    public function setPageUrl($pageUrl)
+    {
         $this->pageUrl = $pageUrl;
+
         return $this;
     }
 
@@ -73,7 +79,8 @@ class ArticleView {
      *
      * @return string $pageUrl
      */
-    public function getPageUrl() {
+    public function getPageUrl()
+    {
         return $this->pageUrl;
     }
 

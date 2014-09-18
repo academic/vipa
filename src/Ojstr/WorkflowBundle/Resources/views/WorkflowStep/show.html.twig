@@ -1,4 +1,4 @@
-{% extends '::ojsbase.html.twig' %} 
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
 <div class="panel">
@@ -6,7 +6,7 @@
         <h1>{% trans %}Workflow Step Details{% endtrans %}</h1>
     </div>
     <div class="panel-body">
-        <table class="table"> 
+        <table class="table">
             <tr>
                 <th>Title</th>
                 <td>{{step.title}}</td>
@@ -14,7 +14,7 @@
             <tr>
                 <th>Status text</th>
                 <td>{{step.status}}</i></td>
-            </tr> 
+            </tr>
             <tr>
                 <th>First Step?</th>
                 <td>{% if step.getFirststep() %}<i class="fa fa-ok">{%endif%}</i></td>
@@ -45,15 +45,14 @@
                     <span class="badge">{{step.maxdays}}</span>
                 </td>
             </tr>
-        </table> 
+        </table>
         <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
         <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">Edit</a>
         <a class="btn btn-primary" href="{{path('workflowstep_new')}}">
-            <i class="fa fa-plus"></i> 
+            <i class="fa fa-plus"></i>
             {%trans%}Create new{%endtrans%}</a>
 
 
     </div>
 </div>
 {% endblock %}
-

@@ -3,7 +3,7 @@
 change_selected_journal:
     pattern:  /manager/journal/selected/{journal_id}
     defaults: { _controller: "OjstrJournalBundle:Journal:changeSelected" }
-    
+
 ojstr_journal_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/journal.yml"
     prefix:   /admin/journal
@@ -32,18 +32,18 @@ ojstr_contact_crud:
 ojstr__contacttypes_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/contacttypes.yml"
     prefix:   /admin/contacttypes
-    
+
 ojstr_article_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/article.yml"
     prefix:   /admin/article
-    
+
 ojstr_article_submission:
     resource: "@OjstrJournalBundle/Resources/config/routing/articlesubmission.yml"
-    
+
 ojstr_author_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/author.yml"
     prefix:   /admin/author
-    
+
 ostr_subject_crud:
     resource: "@OjstrJournalBundle/Resources/config/routing/subject.yml"
     prefix:   /admin/subject
@@ -52,11 +52,11 @@ ojstr_language_crud:
         resource: "@OjstrJournalBundle/Resources/config/routing/lang.yml"
         prefix:  /admin/language
 
-    
+
 ostr_aadmin_file:
     resource: "@OjstrJournalBundle/Resources/config/routing/admin/file.yml"
     prefix:   /admin/file
-    
+
 ojs_journalcontact:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalcontact.yml"
     prefix:   /admin/journalcontact
@@ -77,4 +77,3 @@ ojstr_articleauthor:
 admin_journal_section:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalsection.yml"
     prefix:   /admin/journal/section
-

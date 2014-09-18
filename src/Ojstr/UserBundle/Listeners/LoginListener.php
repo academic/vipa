@@ -6,21 +6,23 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Ojstr\UserBundle\Entity\User as User;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class LoginListener {
-
+class LoginListener
+{
     protected $em, $container;
 
-    function __construct(\Doctrine\ORM\EntityManager $em, Container $container = null) {
+    public function __construct(\Doctrine\ORM\EntityManager $em, Container $container = null)
+    {
         $this->em = $em;
         $this->container = $container;
     }
 
     /**
      *
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
+     * @param  \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
      * @return void
      */
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event) {
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    {
         $token = $event->getAuthenticationToken();
         if ($token && $token->getUser() instanceof User) {
             /* @var $user \User */

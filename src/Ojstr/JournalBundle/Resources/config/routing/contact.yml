@@ -26,4 +26,4 @@ contact_update:
 
 contact_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OjstrJournalBundle:Contact:delete" } 
+    defaults: { _controller: "OjstrJournalBundle:Contact:delete" }

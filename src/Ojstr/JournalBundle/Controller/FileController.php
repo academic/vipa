@@ -7,20 +7,19 @@ use Ojstr\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\File;
 use Ojstr\JournalBundle\Form\FileType;
 use Gedmo\Uploadable\FileInfo\FileInfoArray;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * File controller.
  *
  */
-class FileController extends Controller {
-
+class FileController extends Controller
+{
     /**
      * Lists all File entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('OjstrJournalBundle:File')->findAll();
@@ -34,7 +33,8 @@ class FileController extends Controller {
      * Creates a new File entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $file = new File();
         $form = $this->createCreateForm($file);
@@ -56,8 +56,7 @@ class FileController extends Controller {
 //            $em->flush();
 //
 //            return $this->redirect($this->generateUrl('admin_file_show', array('id' => $entity->getId())));
-//        } 
-
+//        }
         return $this->redirect($this->generateUrl('admin_file_show', array('id' => $file->getId())));
     }
 
@@ -68,7 +67,8 @@ class FileController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(File $entity) {
+    private function createCreateForm(File $entity)
+    {
         $form = $this->createForm(new FileType(), $entity, array(
             'action' => $this->generateUrl('admin_file_create'),
             'method' => 'POST',
@@ -83,8 +83,10 @@ class FileController extends Controller {
      * Displays a form to create a new File entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $form = $this->createCreateForm(new File());
+
         return $this->render('OjstrJournalBundle:File:new.html.twig', array(
                     //'entity' => $entity,
                     'form' => $form->createView(),
@@ -95,13 +97,15 @@ class FileController extends Controller {
      * Finds and displays a File entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:File')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find File entity.');
         }
+
         return $this->render('OjstrJournalBundle:File:show.html.twig', array(
                     'entity' => $entity));
     }
@@ -110,7 +114,8 @@ class FileController extends Controller {
      * Displays a form to edit an existing File entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:File')->find($id);
@@ -120,6 +125,7 @@ class FileController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:File:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -133,7 +139,8 @@ class FileController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(File $entity) {
+    private function createEditForm(File $entity)
+    {
         $form = $this->createForm(new FileType(), $entity, array(
             'action' => $this->generateUrl('admin_efile_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -148,7 +155,8 @@ class FileController extends Controller {
      * Edits an existing File entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjstrJournalBundle:File')->find($id);
@@ -175,7 +183,8 @@ class FileController extends Controller {
      * Deletes a File entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:File')->find($id);
         if (!$entity) {
@@ -183,6 +192,7 @@ class FileController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('admin_file'));
     }
 

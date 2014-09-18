@@ -5,15 +5,15 @@ admin_maillog:
 admin_user:
     resource: "@OjstrUserBundle/Resources/config/routing/user_admin.yml"
     prefix:   /admin/user
-    
+
 admin_role:
     resource: "@OjstrUserBundle/Resources/config/routing/role_admin.yml"
     prefix:   /admin/role
-    
+
 admin_userjournalrole:
     resource: "@OjstrUserBundle/Resources/config/routing/userjournalrole_admin.yml"
     prefix:   /admin/userjournalrole
-    
+
 admin_eventlog:
     resource: "@OjstrUserBundle/Resources/config/routing/eventlog_admin.yml"
     prefix:   /admin/eventlog
@@ -26,8 +26,8 @@ admin_proxy:
 proxy:
     resource: "@OjstrUserBundle/Resources/config/routing/proxy.yml"
     prefix:   /manager/proxy
-        
-        
+
+
 admin_notification:
     resource: "@OjstrUserBundle/Resources/config/routing/notification_admin.yml"
     prefix:   /admin/notification
@@ -46,15 +46,12 @@ login:
     defaults: { _controller: OjstrUserBundle:Security:login }
 register:
     path: /register
-    defaults: { _controller: OjstrUserBundle:Security:register } 
+    defaults: { _controller: OjstrUserBundle:Security:register }
 email_confirm:
     path: /confirm/email/{code}
     defaults: { _controller: OjstrUserBundle:Security:confirmEmail }
 logout:
-    path: /logout  
-    
+    path: /logout
+
 login_check:
-    path: /login_check 
-
-
-    
+    path: /login_check

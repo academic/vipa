@@ -7,9 +7,10 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ojstr\JournalBundle\Entity\Institution;
 
-class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInterface {
-
-    public function load(ObjectManager $manager) {
+class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInterface
+{
+    public function load(ObjectManager $manager)
+    {
         $institution = new Institution();
         $institution->setAddress("Demo address");
         $institution->setEmail("abc@demo.edu.tr");
@@ -19,7 +20,8 @@ class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInter
         $manager->flush();
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 4;
     }
 

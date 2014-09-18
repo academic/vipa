@@ -5,8 +5,8 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * ContactTypes
  */
-class ContactTypes extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class ContactTypes extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      */
@@ -25,49 +25,56 @@ class ContactTypes extends \Ojstr\Common\Entity\GenericExtendedEntity {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string       $name
      * @return ContactTypes
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string       $description
      * @return ContactTypes
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 

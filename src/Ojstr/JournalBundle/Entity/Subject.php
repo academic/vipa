@@ -9,8 +9,8 @@ use JMS\Serializer\Annotation\Expose;
  * Subject
  * @ExclusionPolicy("all")
  */
-class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
-
+class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity
+{
     /**
      * @var integer
      * @Expose
@@ -34,67 +34,77 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
      */
     private $users;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set subject
      *
-     * @param string $subject
+     * @param  string  $subject
      * @return Subject
      */
-    public function setSubject($subject) {
+    public function setSubject($subject)
+    {
         $this->subject = $subject;
+
         return $this;
     }
 
     /**
      * Get subject
      *
-     * @return string 
+     * @return string
      */
-    public function getSubject() {
+    public function getSubject()
+    {
         return $this->subject;
     }
 
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string  $description
      * @return Subject
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /**
      * Add users
      *
-     * @param \Ojstr\UserBundle\Entity\User $users
+     * @param  \Ojstr\UserBundle\Entity\User $users
      * @return Role
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users[] = $users;
+
         return $this;
     }
 
@@ -103,16 +113,18 @@ class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity {
      *
      * @param \Ojstr\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users) {
+    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    {
         $this->users->removeElement($users);
     }
 
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers() {
+    public function getUsers()
+    {
         return $this->users;
     }
 

@@ -13,8 +13,8 @@ use Ojstr\UserBundle\Entity\User;
 /**
  * Create sample user and role data
  */
-class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
-
+class LoadUserData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+{
     /**
      * @var ContainerInterface
      */
@@ -31,11 +31,13 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     /**
      * {@inheritDoc}
      */
-    public function setContainer(ContainerInterface $container = null) {
+    public function setContainer(ContainerInterface $container = null)
+    {
         $this->container = $container;
     }
 
-    public function load(ObjectManager $manager) {
+    public function load(ObjectManager $manager)
+    {
         $this->manager = $manager;
         $role = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
         $roleAuthor = $manager->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
@@ -68,7 +70,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $this->addReference('ref-journal-manager', $journalManager);
     }
 
-    private function addAuthor() {
+    private function addAuthor()
+    {
         $author = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($author);
         $author->setEmail("author@demo.com");
@@ -81,10 +84,12 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author->setLastName("Author1");
         $author->addSubject($this->subject);
         $this->manager->persist($author);
+
         return $author;
     }
 
-    private function addAuthorAlt() {
+    private function addAuthorAlt()
+    {
         $author2 = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($author2);
         $author2->setEmail("author2@demo.com");
@@ -96,10 +101,12 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author2->setLastName("Author2");
         $author2->addSubject($this->subject);
         $this->manager->persist($author2);
+
         return $author2;
     }
 
-    private function addEditor() {
+    private function addEditor()
+    {
         $editor = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($editor);
         $editor->setEmail("editor@demo.com");
@@ -110,10 +117,12 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor->addSubject($this->subject);
         $editor->setUsername("demo_editor");
         $this->manager->persist($editor);
+
         return $editor;
     }
 
-    private function addJournalManager() {
+    private function addJournalManager()
+    {
         $journalManager = new User();
         $encoder = $this->container->get('security.encoder_factory')->getEncoder($journalManager);
         $journalManager->setEmail("journal.manager@demo.com");
@@ -124,10 +133,12 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $journalManager->addSubject($this->subject);
         $journalManager->setUsername("demo_journal_manager");
         $this->manager->persist($journalManager);
+
         return $journalManager;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 15;
     }
 

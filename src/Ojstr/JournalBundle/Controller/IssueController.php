@@ -11,15 +11,17 @@ use Ojstr\JournalBundle\Form\IssueType;
  * Issue controller.
  *
  */
-class IssueController extends Controller {
-
+class IssueController extends Controller
+{
     /**
      * Lists all Issue entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjstrJournalBundle:Issue')->findAll();
+
         return $this->render('OjstrJournalBundle:Issue:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -29,7 +31,8 @@ class IssueController extends Controller {
      * Creates a new Issue entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -37,8 +40,10 @@ class IssueController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('issue_show', array('id' => $entity->getId())));
         }
+
         return $this->render('OjstrJournalBundle:Issue:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -52,12 +57,14 @@ class IssueController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Issue $entity) {
+    private function createCreateForm(Issue $entity)
+    {
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_create'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
@@ -65,9 +72,11 @@ class IssueController extends Controller {
      * Displays a form to create a new Issue entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
+
         return $this->render('OjstrJournalBundle:Issue:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -78,10 +87,12 @@ class IssueController extends Controller {
      * Finds and displays a Issue entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
+
         return $this->render('OjstrJournalBundle:Issue:show.html.twig', array(
                     'entity' => $entity,
         ));
@@ -91,11 +102,13 @@ class IssueController extends Controller {
      * Displays a form to edit an existing Issue entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjstrJournalBundle:Issue:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -104,15 +117,17 @@ class IssueController extends Controller {
 
     /**
      * Creates a form to edit a Issue entity.
-     * @param Issue $entity The entity
+     * @param  Issue                        $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Issue $entity) {
+    private function createEditForm(Issue $entity)
+    {
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
+
         return $form;
     }
 
@@ -120,7 +135,8 @@ class IssueController extends Controller {
      * Edits an existing Issue entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
@@ -128,6 +144,7 @@ class IssueController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
+
             return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));
         }
 
@@ -141,13 +158,15 @@ class IssueController extends Controller {
      * Deletes a Issue entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjstrJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
+
         return $this->redirect($this->generateUrl('issue'));
     }
 

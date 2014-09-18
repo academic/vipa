@@ -1,16 +1,16 @@
 {% extends "::ojsbase.html.twig" %}
 
-{% block body %} 
+{% block body %}
 <h1>Editor Dashboard</h1>
-<div class="col-md-12">  
-    <ul class="list-group"> 
+<div class="col-md-12">
+    <ul class="list-group">
         <li class="list-group-item">
             <a href="{{path('editor_show_my_journals')}}">My Journals</a>
         </li>
        {% include 'OjstrWorkflowBundle:Editor:parts/editor_workflow_actions.html.twig' %}
 
-    </ul>  
-</div>   
+    </ul>
+</div>
 {% endblock %}
 
 {% block footer %}{% endblock %}

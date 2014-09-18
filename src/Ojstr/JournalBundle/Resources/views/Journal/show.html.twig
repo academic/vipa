@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
-{# 
+{#
 journal.show tpl for super admin users
 #}
 
 {% block breadcrumb %}
 {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'}, 
-                { 'title': 'Journal Detail'}, 
+                { 'link': path('journal'), 'title': 'Journal Manager'},
+                { 'title': 'Journal Detail'},
 
-] %} 
+] %}
 {{breadcrumb(list)}}
 {% endblock %}
 

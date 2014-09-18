@@ -10,7 +10,7 @@ class ImageResizeHelper
     protected $error_messages = array();
     protected $image_objects = array();
 
-    function __construct($options = null)
+    public function __construct($options = null)
     {
         $this->options = array(
             'image_name' => '',
@@ -98,6 +98,7 @@ class ImageResizeHelper
                 clearstatcache();
             }
         }
+
         return $this->fix_integer_overflow(filesize($file_path));
     }
 
@@ -107,6 +108,7 @@ class ImageResizeHelper
         if (is_file($file_path) && $file_name[0] !== '.') {
             return true;
         }
+
         return false;
     }
 
@@ -120,6 +122,7 @@ class ImageResizeHelper
     {
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
+
         return ' (' . $index . ')' . $ext;
     }
 
@@ -142,6 +145,7 @@ class ImageResizeHelper
             }
             $version_path = $version . '/';
         }
+
         return $this->options['upload_dir'] . $version_path . $file_name;
     }
 
@@ -157,6 +161,7 @@ class ImageResizeHelper
         } else {
             $new_file_path = $file_path;
         }
+
         return array($file_path, $new_file_path);
     }
 
@@ -166,6 +171,7 @@ class ImageResizeHelper
             $this->gd_destroy_image_object($file_path);
             $this->image_objects[$file_path] = $func($file_path);
         }
+
         return $this->image_objects[$file_path];
     }
 
@@ -178,6 +184,7 @@ class ImageResizeHelper
     protected function gd_destroy_image_object($file_path)
     {
         $image = @$this->image_objects[$file_path];
+
         return $image && imagedestroy($image);
     }
 
@@ -212,6 +219,7 @@ class ImageResizeHelper
         imagecopyresampled(
             $new_img, $image, 0, 0, $src_x, $src_y, $new_width, $new_height, $src_width, $src_height
         );
+
         return $new_img;
     }
 
@@ -266,6 +274,7 @@ class ImageResizeHelper
                 return false;
         }
         $this->gd_set_image_object($file_path, $new_img);
+
         return true;
     }
 
@@ -273,6 +282,7 @@ class ImageResizeHelper
     {
         if (!function_exists('imagecreatetruecolor')) {
             error_log('Function not found: imagecreatetruecolor');
+
             return false;
         }
         list($file_path, $new_file_path) = $this->get_scaled_image_file_paths($file_name, $version);
@@ -327,6 +337,7 @@ class ImageResizeHelper
             if ($file_path !== $new_file_path) {
                 return copy($file_path, $new_file_path);
             }
+
             return true;
         }
         if (empty($options['crop'])) {
@@ -361,6 +372,7 @@ class ImageResizeHelper
                 $new_img, $src_img, $dst_x, $dst_y, 0, 0, $new_width, $new_height, $img_width, $img_height
             ) && $write_func($new_img, $new_file_path, $image_quality);
         $this->gd_set_image_object($file_path, $new_img);
+
         return $success;
     }
 
@@ -377,6 +389,7 @@ class ImageResizeHelper
             $image->readImage($file_path);
             $this->image_objects[$file_path] = $image;
         }
+
         return $this->image_objects[$file_path];
     }
 
@@ -389,6 +402,7 @@ class ImageResizeHelper
     protected function imagick_destroy_image_object($file_path)
     {
         $image = @$this->image_objects[$file_path];
+
         return $image && $image->destroy();
     }
 
@@ -424,6 +438,7 @@ class ImageResizeHelper
                 return false;
         }
         $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT); // 1
+
         return true;
     }
 
@@ -483,6 +498,7 @@ class ImageResizeHelper
         if (!empty($options['strip'])) {
             $image->stripImage();
         }
+
         return $success && $image->writeImage($new_file_path);
     }
 
@@ -495,8 +511,10 @@ class ImageResizeHelper
                     if (@$image->pingImage($file_path)) {
                         $dimensions = array($image->getImageWidth(), $image->getImageHeight());
                         $image->destroy();
+
                         return $dimensions;
                     }
+
                     return false;
                 } catch (Exception $e) {
                     error_log($e->getMessage());
@@ -505,8 +523,10 @@ class ImageResizeHelper
         }
         if (!function_exists('getimagesize')) {
             error_log('Function not found: getimagesize');
+
             return false;
         }
+
         return @getimagesize($file_path);
     }
 
@@ -515,6 +535,7 @@ class ImageResizeHelper
         if ($this->options['image_library'] && extension_loaded('imagick')) {
             return $this->imagick_create_scaled_image($file_name, $version, $options);
         }
+
         return $this->gd_create_scaled_image($file_name, $version, $options);
     }
 
@@ -534,6 +555,7 @@ class ImageResizeHelper
             return @exif_imagetype($file_path);
         }
         $image_info = $this->get_image_size($file_path);
+
         return $image_info && $image_info[0] && $image_info[1];
     }
 
