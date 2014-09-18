@@ -10,14 +10,17 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use \Ojstr\JournalBundle\Entity\Subject;
+use \Ojstr\Common\Entity\GenericExtendedEntity;
 
 /**
  * User
- * @ExclusionPolicy("all") 
+ * @ExclusionPolicy("all")
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
  */
-class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInterface, \Serializable {
+class User extends GenericExtendedEntity implements UserInterface, \Serializable
+{
 
     /**
      * @var integer
@@ -35,15 +38,10 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
 
     /**
      * @var string
-     * @Expose
+     * @Assert\NotBlank(message="Password can't be blank")
      */
-    protected $password;
+    protected $password = NULL;
 
-    /**
-     * Temporary field
-     * @var string
-     */
-    private $plainPassword;
 
     /**
      * @var string
@@ -55,12 +53,14 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
 
     /**
      * @var string
+     * @Assert\NotBlank(message="First name can't be blank")
      * @Expose
      */
     protected $firstName;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Last name can't be blank")
      * @Expose
      */
     protected $lastName;
@@ -68,9 +68,14 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     /**
      * @var boolean
      * @Expose
-     *
      */
     protected $isActive;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    protected $token = NULL;
 
     /**
      * @var \DateTime
@@ -78,7 +83,6 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     protected $lastlogin;
 
     /**
-     *
      * @var string
      */
     protected $avatar;
@@ -97,11 +101,11 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
 
     /**
      * @var integer
-     *
      */
     protected $status = 1;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
@@ -112,120 +116,101 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
-     * Set username
-     *
      * @param string $username
      * @return User
      */
-    public function setUsername($username) {
+    public function setUsername($username)
+    {
         $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get username
-     *
      * @return string
      */
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->username;
     }
 
     /**
-     * Set avatar path
-     *
      * @param string $avatar
      * @return User
      */
-    public function setAvatar($avatar) {
+    public function setAvatar($avatar)
+    {
         $this->avatar = $avatar;
         return $this;
     }
 
     /**
-     * Get avatar
-     *
      * @return string
      */
-    public function getAvatar() {
+    public function getAvatar()
+    {
         return $this->avatar;
     }
 
     /**
-     * Set status
-     *
      * @param integer $status
      * @return User
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
         return $this;
     }
 
     /**
-     * Get status
-     *
      * @return integer
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
     /**
-     * Set password
-     *
      * @param string $password
      * @return User
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get password
-     *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
-    public function getPlainPassword() {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($plainPassword) {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
-    }
-
     /**
-     * Set email
-     *
      * @param string $email
      * @return User
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get email
-     *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -236,87 +221,105 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
      * @return User
      */
 
-    public function setFirstName($firstName) {
+    public function setFirstName($firstName)
+    {
         $this->firstName = $firstName;
         return $this;
     }
 
     /**
-     * Get firstName
-     *
      * @return string
      */
-    public function getFirstName() {
+    public function getFirstName()
+    {
         return $this->firstName;
     }
 
     /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return User
+     * @param String tr$lastName
+     * @return $this
      */
-    public function setLastName($lastName) {
+    public function setLastName($lastName)
+    {
         $this->lastName = $lastName;
         return $this;
     }
 
     /**
-     * Get lastName
-     *
      * @return string
      */
-    public function getLastName() {
+    public function getLastName()
+    {
         return $this->lastName;
     }
 
     /**
-     * Set isActive
-     *
      * @param boolean $isActive
      * @return User
      */
-    public function setIsActive($isActive) {
+    public function setIsActive($isActive)
+    {
         $this->isActive = $isActive;
-
         return $this;
     }
 
     /**
-     * Get isActive
-     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param String $token
+     * @return $this
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
      * @return boolean
      */
-    public function getIsActive() {
+    public function getIsActive()
+    {
         return $this->isActive;
     }
 
     /**
      * @return \DateTime
      */
-    public function getLastlogin() {
+    public function getLastlogin()
+    {
         return $this->lastlogin;
     }
 
     /**
      * @param \DateTime $lastlogin
      */
-    public function setLastlogin(\DateTime $lastlogin) {
+    public function setLastlogin(\DateTime $lastlogin)
+    {
         $this->lastlogin = $lastlogin;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return null;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
         //$this->setPassword(NULL);
     }
 
     /**
      * @see \Serializable::serialize()
      */
-    public function serialize() {
+    public function serialize()
+    {
         return serialize(array(
             $this->id,
             $this->username,
@@ -327,84 +330,90 @@ class User extends \Ojstr\Common\Entity\GenericExtendedEntity implements UserInt
     /**
      * @see \Serializable::unserialize()
      */
-    public function unserialize($serialized) {
+    public function unserialize($serialized)
+    {
         list (
-                $this->id,
-                $this->username,
-                $this->password
-                ) = unserialize($serialized);
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->roles->toArray();
     }
 
     /**
-     * Add roles
+     * Add role
      *
-     * @param \Ojstr\UserBundle\Entity\Role $roles
+     * @param \Ojstr\UserBundle\Entity\Role $role
      * @return User
      */
-    public function addRole(\Ojstr\UserBundle\Entity\Role $roles) {
-        $this->roles[] = $roles;
+    public function addRole(\Ojstr\UserBundle\Entity\Role $role)
+    {
+        $this->roles[] = $role;
 
         return $this;
     }
 
     /**
-     * Remove role
-     *
      * @param \Ojstr\UserBundle\Entity\Role $role
      */
-    public function removeRole(\Ojstr\UserBundle\Entity\Role $role) {
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $role)
+    {
         $this->roles->removeElement($role);
     }
 
     /**
-     * 
+     *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubjects() {
+    public function getSubjects()
+    {
         return $this->subjects;
     }
 
     /**
-     * Add subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subjecgt
-     * @return User
+     * @param Subject $subject
+     * @return $this
      */
-    public function addSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+    public function addSubject(Subject $subject)
+    {
         $this->subjects[] = $subject;
         return $this;
     }
 
     /**
-     * Remove subject
-     *
-     * @param \Ojstr\JournalBundle\Entity\Subject $subject
+     * @param Subject $subject
      */
-    public function removeSubject(\Ojstr\JournalBundle\Entity\Subject $subject) {
+    public function removeSubject(Subject $subject)
+    {
         $this->subjects->removeElement($subject);
     }
 
     /**
-     * 
+     *
      * - fileName: The filename.
      * - fileExtension: The extension of the file (including the dot). Example: .jpg
      * - fileWithoutExt: The filename without the extension.
      * - filePath: The file path. Example: /my/path/filename.jpg
      * - fileMimeType: The mime-type of the file. Example: text/plain.
      * - fileSize: Size of the file in bytes. Example: 140000.
-     * 
+     *
      * @param array $info
      */
-    public function avatarFileCallback(array $info) {
+    public function avatarFileCallback(array $info)
+    {
         // noob
     }
 
+    public function generateToken()
+    {
+        return md5($this->getEmail()) . md5(uniqid($this->getUsername(), true));
+    }
 }

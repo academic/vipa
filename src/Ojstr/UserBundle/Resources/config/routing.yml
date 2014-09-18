@@ -1,3 +1,7 @@
+admin_maillog:
+    resource: "@OjstrUserBundle/Resources/config/routing/maillog.yml"
+    prefix:   /admin/maillog
+
 admin_user:
     resource: "@OjstrUserBundle/Resources/config/routing/user_admin.yml"
     prefix:   /admin/user
@@ -32,13 +36,20 @@ user:
     resource: "@OjstrUserBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
+
+confirm_email_warning:
+    pattern:  /unconfirmed
+    defaults: { _controller: "OjstrUserBundle:Security:unconfirmed" }
+
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
 register:
     path: /register
     defaults: { _controller: OjstrUserBundle:Security:register } 
-
+email_confirm:
+    path: /confirm/email/{code}
+    defaults: { _controller: OjstrUserBundle:Security:confirmEmail }
 logout:
     path: /logout  
     
