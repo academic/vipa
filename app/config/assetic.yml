@@ -1,6 +1,5 @@
 #assetic named assets should be redefined
 assetic:
-    node: /usr/local/bin/node
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ OjstrUserBundle,OjstrJournalBundle ]
