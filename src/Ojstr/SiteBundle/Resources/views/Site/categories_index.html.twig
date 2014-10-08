@@ -3,13 +3,103 @@
 {%block breadcrumb %}{% endblock %}
 {% block body %}
 
-<div class="container">
-    categories
-</div>
+    <div class="container" id="categories-index">
+        <h1 class="page-header">Categories</h1>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><span class="glyphicon glyphicon-folder-close">
+                            </span>Content</a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Articles</a>
+                            <ul class="list-group">
+                                <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Articles</a></li>
+
+                                <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">News</a></li>
+
+                                <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="#">Newsletters</a></li>
+
+                                <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="#">Comments</a><span class="badge">42</span></li>
+
+                            </ul>
+                        </li>
+
+                        <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">News</a></li>
+
+                        <li class="list-group-item"><span class="glyphicon glyphicon-file text-info"></span><a href="#">Newsletters</a></li>
+
+                        <li class="list-group-item"> <span class="glyphicon glyphicon-comment text-success"></span><a href="#">Comments</a><span class="badge">42</span></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><span class="glyphicon glyphicon-file">
+                            </span>Reports</a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            Cras justo odio
+                        </a>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item">
+                                Cras justo odio
+                            </a>
+                            <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                            <a href="#" class="list-group-item">Morbi leo risus</a>
+                            <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                            <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        </div>
+                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                        <a href="#" class="list-group-item">Morbi leo risus</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><span class="glyphicon glyphicon-heart">
+                            </span>Reports</a>
+                    </h4>
+                </div>
+                <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">List group item heading</h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                    </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active">
+                            <h4 class="list-group-item-heading">List group item heading</h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                    </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <h4 class="list-group-item-heading">List group item heading</h4>
+                            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
 
 {% block footer %}
-<hr>
-<small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
+    <hr>
+    <small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
 {% endblock %}
