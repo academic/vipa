@@ -10,20 +10,6 @@ imports:
 parameters:
     avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
 
-swiftmailer:
-    transport:  mail  #(smtp, mail, sendmail, or gmail)
-    #encryption: ssl #ssl or tsl
-    #auth_mode:  login #(plain, login, or cram-md5)
-    #host:       smtp.gmail.com
-    #username:   your_username
-    #password:   your_password
-    spool:
-        type: "file" #(how to queue the messages, file or memory is supported, see How to Spool Emails)
-        path: "%kernel.root_dir%/spool" #(where to store the messages)
-    #delivery_address: (an email address where to send ALL emails)
-    #disable_delivery: (set to true to disable delivery completely)
-
-
 framework:
     #esi:             ~
     translator:      { fallback: en }
@@ -64,14 +50,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         languages : "%languages%"
-
-# Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+        base_host: %base_host%
 
 fos_rest:
     param_fetcher_listener: true

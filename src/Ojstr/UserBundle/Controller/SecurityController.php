@@ -35,17 +35,16 @@ class SecurityController extends Controller {
          */
         $user = $this->getUser();
         if (!$user) {
-            $request->getSession()->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
-
+            $session->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
             return $this->redirect($this->generateUrl('login'), 302);
         }
-        $do = $this->getDoctrine(); 
+        $do = $this->getDoctrine();
         $em = $this->getDoctrine()->getManager();
-        $flashBag = $request->getSession()->getFlashBag();
+        $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
             // add ROLE_USER
-            $role = $do->getRepository('OjstrUserBundle:Role')->findOneBy(array('role'=>'ROLE_USER'));
+            $role = $do->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
             if ($role) {
                 $user->addRole($role);
                 $user->setToken(null);
@@ -56,10 +55,8 @@ class SecurityController extends Controller {
             $flashBag->add('error', 'System error.');
             return $this->redirect($this->generateUrl('login'));
         }
-
         $flashBag->add('error', 'There is an error while confirming your email address.' .
                 '<br>Your confirmation link may be expired.');
-
         return $this->redirect($this->generateUrl('confirm_email_warning'));
     }
 
@@ -109,12 +106,27 @@ class SecurityController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
+            $user->setStatus(1);
+            $user->setIsActive(0);
             $em->persist($user);
             $em->flush();
             //$this->authenticateUser($user); // auth. user
+
+            $msgBody = $this->renderView(
+                    'OjstrUserBundle:Mails:User/confirmEmail.html.twig', array('user' => $user)
+            );
+
+            $message = \Swift_Message::newInstance()
+                    ->setSubject('Ojs Account Activation')
+                    ->setFrom($this->container->getParameter('system_email'))
+                    ->setTo($user->getEmail())
+                    ->setBody($msgBody)
+                    ->setContentType('text/html');
+            $this->get('mailer')->send($message);
+
             $request->getSession()
                     ->getFlashBag()
-                    ->add('success', 'Success. You are registered.');
+                    ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
 
             return $this->redirect($this->generateUrl('login'));
         }
@@ -125,27 +137,6 @@ class SecurityController extends Controller {
                     'errors' => $form->getErrors(),
                         )
         );
-    }
-
-    public function createUserAction(Request $request) {
-        $username = $request->get('_username');
-        $email = $request->get('_email');
-        $password = $request->get('_password');
-
-        $factory = $this->get('security.encoder_factory');
-        $user = new User();
-        $encoder = $factory->getEncoder($user);
-        //$user->setSalt(md5(time()));
-        $pass_encoded = $encoder->encodePassword($password, $user->getSalt());
-        $user->setEmail($email);
-        $user->setPassword($pass_encoded);
-        $user->setUsername($username);
-        $user->setIsActive(1);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($user);
-        $em->flush();
-
-        return new Response('Sucess!');
     }
 
 }
