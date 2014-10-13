@@ -52,5 +52,14 @@ class SiteController extends Controller
     {
         return $this->render('OjstrSiteBundle::Site/profile_index.html.twig');
     }
+    
+    
+    
+
+    public function staticPagesAction($page = null) { 
+        return $this->render(
+                        'OjstrSiteBundle:Site:static/tos.html.twig'
+        );
+    }
 
 }
