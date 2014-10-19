@@ -660,7 +660,6 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
-
         return $this;
     }
 
@@ -680,10 +679,9 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @param  boolean $isConfigured
      * @return Journal
      */
-    public function setThemeId($isConfigured)
+    public function setIsConfigured($isConfigured)
     {
         $this->isConfigured = $isConfigured;
-
         return $this;
     }
 
