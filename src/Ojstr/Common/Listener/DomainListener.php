@@ -27,12 +27,17 @@ class DomainListener
         $currentHost = $request->getHttpHost();
         $subdomain = str_replace('.' . $this->baseHost, '', $currentHost);
         if ($this->baseHost === $subdomain) {
-            // no journal selected.
+            // no journal selected. this url may refer a management page under baseurl.
         } else {
-            $journal = $this->em
-                ->getRepository('OjstrJournalBundle:Journal')
-                ->findOneBy(array('subdomain' => $subdomain));
-            $this->journalDomain->setCurrentJournal($journal);
+            // search o for subdomains or domains 
+            $qb = $this->em->getRepository('OjstrJournalBundle:Journal')->createQueryBuilder('do');
+            $qb->select('do')->where($qb->expr()->orX(
+                            $qb->expr()->eq('do.subdomain', ':domain'), $qb->expr()->eq('do.domain', ':domain')
+            ))->setParameter('domain', $subdomain);
+            $journal = $qb->getQuery()->getSingleResult();
+            if ($journal) {
+                $this->journalDomain->setCurrentJournal($journal);
+            }
         }
     }
 
