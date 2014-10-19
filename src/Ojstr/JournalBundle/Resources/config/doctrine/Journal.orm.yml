@@ -143,6 +143,12 @@ Ojstr\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: 0
+        isConfigured:
+            column: is_configured
+            type: boolean
+            options:
+                default: 0
+            nullable: TRUE
         created:
             type: datetime
             gedmo:
