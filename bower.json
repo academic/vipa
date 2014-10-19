@@ -27,6 +27,8 @@
 	"jquery.inputmask":"*",
 	"flot":"*",
 	"morrisjs":"*",
-	"metisMenu":"*"
+	"metisMenu":"*",
+	"angular":"1.2.*",
+	"mustache":"*"
     }
 }

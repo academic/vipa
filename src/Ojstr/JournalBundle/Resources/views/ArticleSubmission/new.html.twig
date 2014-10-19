@@ -3,7 +3,7 @@
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' output="c/upload.css" %}
+    {% stylesheets '@upload_css' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
@@ -123,9 +123,9 @@
         </div>
     </div>
 
-    <div class="hidden" id="step1_tpl">
+    <script id="step1_tpl" type="x-tmpl-mustache">
         {% include 'OjstrJournalBundle:ArticleSubmission:step1.html.twig' %}
-    </div>
+    </script>
 
 {% endblock %}
 
@@ -133,17 +133,18 @@
 
     {{ parent() }}
 
-    {% javascripts '@upload_js' output="c/upload.js" %}
+    {% javascripts '@upload_js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
+    <script src="{{ asset('/vendor/mustache/mustache.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/vendor/angular/angular.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/vendor/select2/select2.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"
-            type="text/javascript"></script>
+    type="text/javascript"></script>
     <script src="{{ asset('/assets/js/journalbundle/article_submission.js') }}" type="text/javascript"></script>
     <script src="{{ asset('/assets/js/journalbundle/article_cite.js') }}" type="text/javascript"></script>
     <script>
-        OjsArticleSubmision.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
+                               OjsArticleSubmision.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
     </script>
 
 {% endblock %}
