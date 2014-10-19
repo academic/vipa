@@ -354,7 +354,7 @@
                                                                     <td valign="middle" class="templateButtonContent">
 
                                                                         <a style="color: #FFFFFF; font-family: Arial;  font-size: 15px; font-weight: bold; letter-spacing: -.5px; line-height: 100%; text-align: center;text-decoration: none;" 
-                                                                           href="http://{{base_host}}/{{path('email_confirm',{code : user.token})}}" target="_blank">Activate Now</a>
+                                                                           href="http://{{base_host}}{{path('email_confirm',{code : user.token})}}" target="_blank">Activate Now</a>
 
                                                                     </td>
                                                                 </tr>

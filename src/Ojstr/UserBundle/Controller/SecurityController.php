@@ -43,17 +43,14 @@ class SecurityController extends Controller {
         $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
-            // add ROLE_USER
-            $role = $do->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
-            if ($role) {
-                $user->addRole($role);
-                $user->setToken(null);
-                $em->persist($user);
-                $flashBag->add('success', 'You\'ve confirmed your email successfully!');
-                return $this->redirect($this->generateUrl('myprofile'));
-            }
-            $flashBag->add('error', 'System error.');
-            return $this->redirect($this->generateUrl('login'));
+            // add ROLE_USER and ROLE_AUTHOR to new activated user
+            $user->addRole($do->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
+            $user->addRole($do->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR')));
+            $user->setToken(null);
+            $em->persist($user);
+            $em->flush();
+            $flashBag->add('success', 'You\'ve confirmed your email successfully!');
+            return $this->redirect($this->generateUrl('myprofile'));
         }
         $flashBag->add('error', 'There is an error while confirming your email address.' .
                 '<br>Your confirmation link may be expired.');
