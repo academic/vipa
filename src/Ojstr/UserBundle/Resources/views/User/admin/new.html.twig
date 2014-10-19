@@ -12,7 +12,7 @@
 
 {% block stylesheets %}
     {{parent()}}
-    {% stylesheets '@upload_css' %}
+    {% stylesheets '@upload_css' output="c/upload.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
@@ -58,7 +58,7 @@
 
 {% block javascripts %}
     {{parent()}}
-    {% javascripts '@upload_js' %}
+    {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
