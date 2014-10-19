@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable
 {
+
     /**
      * @var integer
      * @Expose
@@ -47,6 +48,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @Expose
      */
     private $subdomain;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $domain;
 
     /**
      * @var string
@@ -294,6 +301,26 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function getSubdomain()
     {
         return $this->subdomain;
+    }
+
+    /**
+     * Set domain
+     * @param  string  $subdomain
+     * @return Journal
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+        return $this;
+    }
+
+    /**
+     * Get domain
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
     }
 
     /**
