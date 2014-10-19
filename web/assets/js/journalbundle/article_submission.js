@@ -1,33 +1,41 @@
 var OjsArticleSubmision = {
     articleId: null,
     languages: [],
-    step1Show: function() {
+    step1Show: function () {
         $("#step1-container").removeClass("hide", 200, "easeInBack");
     },
-    step1Hide: function() {
+    step1Hide: function () {
         $("#step1-container").addClass("hide", 200, "easeInBack");
     },
-    step2Show: function() {
+    step2Show: function () {
         $("#step2-container").removeClass("hide", 200, "easeInBack");
     },
-    step2Hide: function() {
+    step2Hide: function () {
         $("#step1-container").slideUp("fast", 200, "easeInBack");
     },
-    activateFirstLanguageTab: function() {
+    activateFirstLanguageTab: function () {
         firsttab = $("#step1 .tab-pane").first().attr('id');
         if (firsttab) {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
-    step1AddLanguageForm: function(langcode, langtitle) {
+    step1AddLanguageForm: function (langcode, langtitle) {
         // check if selected language tab already exists
         if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
             return false;
         }
+
+        var step1_template = $('#step1_tpl').html();
+        var step1_rendered = Mustache.render(step1_template);
+
+        var step2_template = $('#step2_tpl').html();
+        var step2_rendered = Mustache.render(step2_template);
+
         $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' +
-                '<div class="tab_step1">' + $("#step1_tpl").html() + '</div>' +
-                '<div class="tab_step2 hide">' + $("#step2_tpl").html() + '</div>' +
+                '<div class="tab_step1">' + step1_rendered + '</div>' +
+                '<div class="tab_step2 hide">' + step2_rendered + '</div>' +
                 '</div>');
+        
         OjsArticleSubmision.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
             toolbar: {
@@ -48,7 +56,7 @@ var OjsArticleSubmision = {
         $("ul#mainTabs li.lang").last().before(tabhtml);
         OjsArticleSubmision.activateFirstLanguageTab();
     },
-    step1RemoveLanguageForm: function(langcode, $tab) {
+    step1RemoveLanguageForm: function (langcode, $tab) {
         check = confirm("Are you sure to remove this language tab?");
         if (!check) {
             return false;
@@ -62,7 +70,7 @@ var OjsArticleSubmision = {
         $('#t_' + langcode).remove();
         this.activateFirstLanguageTab();
     },
-    step1: function(actionUrl) {
+    step1: function (actionUrl) {
         forms = $(".tab-pane");
         if (forms.length === 0) {
             OjstrCommon.errorModal("Add at least one language to your submission.");
@@ -73,7 +81,7 @@ var OjsArticleSubmision = {
         // prepare post params
         articleParams = false;
         translationParams = [];
-        forms.each(function() {
+        forms.each(function () {
             data = $("form", this).serializeObject();
             locale = $(this).attr('id');
             data.locale = locale;
@@ -101,7 +109,7 @@ var OjsArticleSubmision = {
         if (translationParams) {
             articleParams.data.translations = JSON.stringify(translationParams);
         }
-        $.post(articleParams.postUrl, articleParams.data, function(response) {
+        $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjstrCommon.hideallModals();
             if (response.id) {
                 OjsArticleSubmision.articleId = response.id;
@@ -112,7 +120,7 @@ var OjsArticleSubmision = {
 
         });
     },
-    step2ShowCitationForm: function() {
+    step2ShowCitationForm: function () {
         OjstrCommon.scrollTop();
         $("ul.submission-progress li").removeClass("active");
         $("ul.submission-progress li#submission-progress-step2").addClass("active");
@@ -121,18 +129,18 @@ var OjsArticleSubmision = {
     }
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-    $("ul#mainTabs li a").click(function(e) {
+    $("ul#mainTabs li a").click(function (e) {
         e.preventDefault();
     });
-    $("ul#languageDropList li a").click(function(e) {
+    $("ul#languageDropList li a").click(function (e) {
         e.preventDefault();
         langcode = $(this).attr('code');
         langtitle = $(this).attr('lang');
         OjsArticleSubmision.step1AddLanguageForm(langcode, langtitle);
     });
-    $("body").on("click", "span.removelang", function(e) {
+    $("body").on("click", "span.removelang", function (e) {
         e.preventDefault();
         langcode = $(this).parent().attr("href").replace("#", "");
         $tab = $("#" + langcode);
@@ -140,11 +148,11 @@ $(document).ready(function() {
     });
     // article file uploader
     $('#article_file_upload').fileupload({});
-    $('#article_file_upload').bind('fileuploadsend',function (e, data) {
+    $('#article_file_upload').bind('fileuploadsend', function (e, data) {
         $(this).parent().next('.upload_progress').show();
         $(this).parent().next('.upload_progress').html("Uploading...");
     }).bind('fileuploaddone', function (e, data) {
         $(this).parent().next('.upload_progress').html("Done.");
-        $('.filename',$(this).parent()).attr('value', JSON.parse(data.result).files.name);
+        $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
     });
 });
