@@ -1,3 +1,8 @@
+window.onbeforeunload = function () {
+    var message = "Are you sure you want to navigate away from this page?\n\nYour changes may be lost.";
+    return confirm(message);
+};
+
 var OjsArticleSubmision = {
     articleId: null,
     languages: [],
@@ -35,7 +40,7 @@ var OjsArticleSubmision = {
                 '<div class="tab_step1">' + step1_rendered + '</div>' +
                 '<div class="tab_step2 hide">' + step2_rendered + '</div>' +
                 '</div>');
-        
+
         OjsArticleSubmision.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
             toolbar: {
