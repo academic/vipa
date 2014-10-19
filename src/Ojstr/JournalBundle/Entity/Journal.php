@@ -127,6 +127,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     private $themeId;
 
     /**
+     * @var boolean
+     * @Expose
+     */
+    private $isConfigured;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
@@ -666,6 +672,28 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function getThemeId()
     {
         return $this->themeId;
+    }
+
+    /**
+     * Set themeId
+     *
+     * @param  boolean $isConfigured
+     * @return Journal
+     */
+    public function setThemeId($isConfigured)
+    {
+        $this->isConfigured = $isConfigured;
+
+        return $this;
+    }
+
+    /**
+     * Get isConfigured
+     * @return boolean
+     */
+    public function getIsConfigured()
+    {
+        return $this->isConfigured;
     }
 
     /**
