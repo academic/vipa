@@ -3,151 +3,304 @@
 {%block breadcrumb %}{% endblock %}
 {% block body %}
 
-<!-- Page Content -->
+    <!-- Page Content -->
     <div class="container">
 
-        <!-- Page Header -->
         <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Page Heading
-                    <small>Secondary Text</small>
-                </h1>
+            <div class="page-header row">
+                <h2>Bilkent Üniversitesi Dergileri</h2>
+            </div>
+
+            <div class="col-sm-3 col-md-3">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <span class="fa fa-folder"></span> Kurumlar</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Üniversite</a>
+                                            <span class="badge pull-right">130</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Kamu</a>
+                                            <span class="badge pull-right">56</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Dernek</a>
+                                            <span class="badge pull-right">80</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Vakıf</a>
+                                            <span class="badge pull-right">120</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Eğitim Araştırma Hastanesi</a>
+                                            <span class="badge pull-right">42</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <span class="fa fa-th"></span> Konular</a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Sağlık Bilimleri</a>
+                                            <span class="label label-success pull-right">320</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Yaşam Bilimleri</a>
+                                            <span class="label label-success pull-right">120</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Hukuk</a>
+                                            <span class="label label-success pull-right">10</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Mühendislik ve Temel Bilimler</a>
+                                            <span class="label label-success pull-right">10</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Tüm Dergiler</a>
+                                            <span class="label label-info pull-right">560</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="fa fa-link"></span> Bağlantılar</a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">İletişim </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Sıkça Sorulan Sorular</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="group.php">Import/Export</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-9">
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><a href="index.php">Ujs</a></li>
+                        <li><a href="index.php">Kurumlar</a></li>
+                        <li class="active">Üniversite Dergileri</li>
+                    </ol>
+                    <div class="list-group">
+                        <a class="list-group-item" href="journals.php">Bilkent Üniversitesi <span class="label label-info pull-right">120</span></a>
+                        <a class="list-group-item" href="journals.php">Gazi Üniversitesi <span class="label label-info pull-right">10</span></a>
+                        <a class="list-group-item" href="journals.php">Antep Üniversitesi <span class="label label-info pull-right">58</span></a>
+                        <a class="list-group-item" href="journals.php">Afyon Kocatepe Üniversitesi <span class="label label-info pull-right">42</span></a>
+                        <a class="list-group-item" href="journals.php">Ankara Üniversitesi <span class="label label-info pull-right">8</span></a>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <ol class="breadcrumb">
+                        <li><a href="index.php">Ujs</a></li>
+                        <li><a href="index.php">Kurumlar</a></li>
+                        <li class="active">Bilkent Üniversitesi</li>
+                    </ol>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="/web/assets/cover4.jpg" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Cumhuriyet Science Journal</b></span>
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="/web/assets/cover3.jpg" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title">
+                                    <b>Türk Dili ve Edebiyatı Araştırmaları Dergisi</b>
+                                </span>
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="/web/assets/cover1.jpg" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="/web/assets/cover2.jpg" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Atatürk Dergisi</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="http://placehold.it/256x400/67A497/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="journal.php">
+                                    <img src="http://placehold.it/256x400/AB0/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal.php" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/articles.php" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- /.row -->
-
-        <!-- Projects Row -->
-        <div class="row">
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <!-- Projects Row -->
-        <div class="row">
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-        </div>
-
-        <!-- Projects Row -->
-        <div class="row">
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-            <div class="col-md-4 portfolio-item">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                </a>
-                <h3>
-                    <a href="#">Project Name</a>
-                </h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.row -->
     </div>
     <!-- /.container -->
 
 {% endblock %}
 
 {% block footer %}
-<hr>
-<small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
+    <hr>
+    <small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
 {% endblock %}
