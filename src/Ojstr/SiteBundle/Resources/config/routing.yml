@@ -28,7 +28,11 @@ ojstr_profile_index:
     
 ojstr_journal_index:
     pattern:  /journal
-    defaults: { _controller: OjstrSiteBundle:Site:journalIndex }
+    defaults: { _controller: OjstrSiteBundle:Site:journalIndex } 
+    
+ojstr_articles_index:
+    pattern:  /articles
+    defaults: { _controller: OjstrSiteBundle:Site:articlesIndex }
     
 ojstr_archive_index:
     pattern:  /archive

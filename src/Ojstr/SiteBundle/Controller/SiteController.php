@@ -56,6 +56,10 @@ class SiteController extends Controller
     {
         return $this->render('OjstrSiteBundle::Site/journal_index.html.twig');
     }
+    public function articlesIndexAction()
+    {
+        return $this->render('OjstrSiteBundle::Site/articles_index.html.twig');
+    }
     public function archiveIndexAction()
     {
         return $this->render('OjstrSiteBundle::Site/archive_index.html.twig');
