@@ -39,6 +39,7 @@ $ bower install
 # generate assets
 $ php app/console assets:install web --symlink
 $ php app/console assetic:dump
+$ php app/console cache:clear --env=dev --no-debug
 ```
 
 ### Installer
