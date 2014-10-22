@@ -91,11 +91,11 @@
                         <br>
                         <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');"
                            href="{{ path('articlesubmission_new') }}">
-                            {% trans %}Restart{% endtrans %}
+                            {% trans %}res{% endtrans %}
                         </a>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
-                            {% trans %}Save & Next{% endtrans %}
+                            {% trans %}save.next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
@@ -107,7 +107,7 @@
                         <br>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step2') }}');">
-                            {% trans %}Save & Next{% endtrans %}
+                            {% trans %}save.next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>

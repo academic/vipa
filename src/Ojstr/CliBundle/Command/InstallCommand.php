@@ -31,42 +31,36 @@ class InstallCommand extends ContainerAwareCommand
 //$translator->setLocale('tr_TR');
         $output->writeln($this->printWelcome());
         $output->writeln('<info>' .
-                $translator->trans('Ojs Installation') .
+                $translator->trans('ojs.install.title') .
                 '</info>');
 
         if (!$dialog->askConfirmation(
                         $output, '<question>' .
-                        $translator->trans("Confirm installation?") .
+                        $translator->trans("ojs.install.confirm") .
                         ' (y/n) : </question>', true
                 )) {
             return;
         }
 
         $command2 = 'doctrine:schema:update --force';
-        $output->writeln('<info>' .
-                $translator->trans('Updating db schema!') .
-                '</info>');
+        $output->writeln('<info>Updating db schema!</info>');
 
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
 
         $admin_username = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin username') .
-                ' (admin) : </info>', 'admin');
+                $output, '<info>Set system admin username (admin) : </info>', 'admin');
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
         $admin_email = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin email') .
+                $output, '<info>Set system admin email' .
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
         $admin_password = $dialog->ask(
-                $output, '<info>' .
-                $translator->trans('Set system admin password (admin)') . ' : </info>', 'admin');
+                $output, '<info>Set system admin password (admin) </info>', 'admin');
 
-        $output->writeln($sb . $translator->trans('Inserting roles to db') . $se);
+        $output->writeln($sb . 'Inserting roles to db'. $se);
         $this->insertRoles($this->getContainer(),$output);
 
-        $output->writeln($sb . $translator->trans('Inserting system admin user to db') . $se);
+        $output->writeln($sb . 'Inserting system admin user to db' . $se);
         $this->insertAdmin($this->getContainer(),$admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
