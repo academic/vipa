@@ -30,4 +30,10 @@ monolog:
 
 
 swiftmailer:
-    delivery_address: tayyar.besik@okulbilisim.com
+    transport:  mail 
+    # (smtp, mail, sendmail, or gmail)
+    spool:
+        type: "file" #(how to queue the messages, file or memory is supported, see How to Spool Emails)
+        path: "%kernel.root_dir%/spool" #(where to store the messages)
+    #delivery_address: (an email address where to send ALL emails)
+    #disable_delivery: (set to true to disable delivery completely)

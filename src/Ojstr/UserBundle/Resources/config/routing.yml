@@ -41,6 +41,9 @@ confirm_email_warning:
     pattern:  /unconfirmed
     defaults: { _controller: "OjstrUserBundle:Security:unconfirmed" }
 
+tos:
+    pattern: /tos
+    defaults: { _controller: OjstrSiteBundle:Site:staticPages,page: 'tos' } 
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
@@ -52,6 +55,5 @@ email_confirm:
     defaults: { _controller: OjstrUserBundle:Security:confirmEmail }
 logout:
     path: /logout
-
 login_check:
     path: /login_check
