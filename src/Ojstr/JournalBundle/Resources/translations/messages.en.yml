@@ -1,0 +1,46 @@
+back: Back to list
+d: Delete
+c: Create New
+s: Show
+e: Edit
+sure: Are you sure?
+added: Added
+u: Update
+404: Not found
+status:
+    waiting: Waiting
+    published: Published
+    unpublished: Unpublished 
+    rejected: Rejected
+    inreview: in-Review
+    spam: Spam
+messages: Messages
+journals: Journals
+journal: 
+    journal: journal
+article:
+    articles: Articles
+    article: Article
+    submit: Submit Article
+    files: Article Files
+    authors: Article Authors
+workflow: Workflow
+admin: Admin
+dashboard: Dashboard
+
+suppfiles:
+    resins: Research Instrument
+    resmat: Research Materials
+    resres: Research Results
+    data: Data Analysis 
+    trans: Transcripts 
+    set: Data Set
+    source: Source Text 
+    supp: Supplementary File
+    
+res: Restart
+save:
+    next: Save & Next
+    
+user:
+    new: New User

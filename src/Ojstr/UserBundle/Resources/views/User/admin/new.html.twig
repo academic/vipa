@@ -24,7 +24,7 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{% trans %}New User{% endtrans %}</h1>
+            <h1>{% trans %}user.new{% endtrans %}</h1>
 
             {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
             {{ form_errors(form) }}
@@ -46,7 +46,7 @@
             {{ form_end(form) }}
             <div class="record_actions">
                 <a class="button" href="{{ path('user') }}">
-                    {% trans %}Back to list{% endtrans %}
+                    {% trans %}back{% endtrans %}
                 </a>
             </div>
         </div>
