@@ -38,17 +38,23 @@
 
 {% block javascripts %}
     {{parent()}}
-    {% javascripts '@upload_js' output="c/upload.js" %}
+
+
+ 
+
+
+    {% javascripts '@upload_js' output="c/upload.js"%}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
     <script type="text/javascript">
-        $(document).ready(function()
+        $(document).ready(function ()
         {
             $('#fileupload').fileupload({});
-            $('#fileupload').bind('fileuploadsend', function(e, data) {
+            $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#file_upload_progress').show();
                 $('#file_upload_progress').html("Uploading...");
-            }).bind('fileuploaddone', function(e, data) {
+            }).bind('fileuploaddone', function (e, data) {
                 $('#file_upload_progress').html("Done.");
                 $('#file_input').attr('value', JSON.parse(data.result).files.name);
             });

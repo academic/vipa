@@ -26,7 +26,7 @@
             {%if userjournals%}
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        {{userjournals[session('selectedJournalId')].title  }}
+                        {{ userjournals[session('selectedJournalId')].title[:22]  }}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
