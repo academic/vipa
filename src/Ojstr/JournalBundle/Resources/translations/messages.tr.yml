@@ -1,0 +1,47 @@
+back: Listeye geri dön
+d: Sil
+c: Yeni Oluştur 
+s: Göster
+e: Düzenle
+sure: Emin misiniz?
+added: Eklendi
+u: Güncelle
+404: Bulunamadı
+status:
+    waiting: Bekliyor
+    published: Yayında
+    unpublished: Yayından Kaldırılmış
+    rejected: Reddildi
+    inreview: İncelemede
+    spam: Spam
+messages: Mesajlar
+journal: 
+    journals: Dergiler
+    journal: journal
+article:
+    articles: Makaleler
+    article: Makale
+    submit: Makale Gönder
+    files: Makale Dosyaları
+    authors: Makale Yazarları
+wflow: Süreç
+admin: Yönetim
+dashboard: Panel
+
+             
+suppfiles:
+    resins: Araştırma Araçları
+    resmat: Araştırma Materyalleri
+    resres: Araştırma Sonuçları
+    data: Veri Analizi
+    trans: Kopyalar 
+    set: Veri Seti
+    source: Kaynak Metin 
+    supp: Ek Dosya
+    
+res: Yeniden Başlat
+save:
+    next: Kaydet ve Devam Et
+    
+user:
+    new: Yeni Kullanıcı

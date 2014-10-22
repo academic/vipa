@@ -108,10 +108,10 @@ journal.show tpl for editors
                         <div class="panel-footer">
                             <div class="record_actions">
                                 <a href="{{ path('journal') }}" class="btn btn-primary">
-                                        {% trans %}Back to list{% endtrans %}
+                                        {% trans %}back{% endtrans %}
                                 </a>
                                 <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
-                                    Edit
+                                    {%trans%}e{%endtrans%}
                                 </a>
 
                             </div>

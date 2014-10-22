@@ -25,10 +25,10 @@
 
             <div class="record_actions">
                 <a href="{{ path('subject') }}" class="button">
-                    {% trans %}Back to list{% endtrans %}
+                    {% trans %}back{% endtrans %}
                 </a>
                 <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="button">
-                    Edit
+                    {%trans%}e{%endtrans%}
                 </a>
                 {{ form(delete_form) }}
             </div>

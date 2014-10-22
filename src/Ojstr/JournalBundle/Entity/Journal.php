@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable
 {
+
     /**
      * @var integer
      * @Expose
@@ -47,6 +48,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @Expose
      */
     private $subdomain;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $domain;
 
     /**
      * @var string
@@ -118,6 +125,12 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
      * @Expose
      */
     private $themeId;
+
+    /**
+     * @var boolean
+     * @Expose
+     */
+    private $isConfigured;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -294,6 +307,26 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function getSubdomain()
     {
         return $this->subdomain;
+    }
+
+    /**
+     * Set domain
+     * @param  string  $subdomain
+     * @return Journal
+     */
+    public function setDomain($domain)
+    {
+        $this->domain = $domain;
+        return $this;
+    }
+
+    /**
+     * Get domain
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->domain;
     }
 
     /**
@@ -627,7 +660,6 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
-
         return $this;
     }
 
@@ -639,6 +671,27 @@ class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Tran
     public function getThemeId()
     {
         return $this->themeId;
+    }
+
+    /**
+     * Set themeId
+     *
+     * @param  boolean $isConfigured
+     * @return Journal
+     */
+    public function setIsConfigured($isConfigured)
+    {
+        $this->isConfigured = $isConfigured;
+        return $this;
+    }
+
+    /**
+     * Get isConfigured
+     * @return boolean
+     */
+    public function getIsConfigured()
+    {
+        return $this->isConfigured;
     }
 
     /**
