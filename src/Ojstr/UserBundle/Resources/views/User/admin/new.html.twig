@@ -1,80 +1,80 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-{% set list = [
+    {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'link': path('user'), 'title': 'User Manager'},
                 { 'title': 'New User '},
 
 ] %}
-{{breadcrumb(list)}}
+    {{breadcrumb(list)}}
 {% endblock %}
 
 {% block stylesheets %}
-        {{parent()}}
-        {% stylesheets '@upload_css' output="c/upload.css" %}
-<link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
+    {{parent()}}
+    {% stylesheets '@upload_css' output="c/upload.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
-<link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/select2/3.4.8/select2.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css" />
 {% endblock %}
 
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{% trans %}New User{% endtrans %}</h1>
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{% trans %}user.new{% endtrans %}</h1>
 
-    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-        {{ form_errors(form) }}
+            {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+            {{ form_errors(form) }}
 
-        <span class="btn btn-success fileinput-button">
-            <i class="fa fa-plus"></i>
-            <span>Select image file...</span>
-            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-            <input name="user_avatar" id="avatar_input" value="" type="hidden" />
-        </span>
-        <div id="avatar_upload_progress" style="display: none" class="label label-info">
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+                <span>Select image file...</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
+                <input name="user_avatar" id="avatar_input" value="" type="hidden" />
+            </span>
+            <div id="avatar_upload_progress" style="display: none" class="label label-info">
 
-        </div>
+            </div>
 
-        <br>
+            <br>
 
-        <br>
+            <br>
 
-         {{ form_end(form) }}
-        <div class="record_actions">
-            <a class="button" href="{{ path('user') }}">
-                {% trans %}Back to list{% endtrans %}
-            </a>
+            {{ form_end(form) }}
+            <div class="record_actions">
+                <a class="button" href="{{ path('user') }}">
+                    {% trans %}back{% endtrans %}
+                </a>
+            </div>
         </div>
     </div>
-</div>
-<style>
-    select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
-</style>
+    <style>
+        select#ojstr_userbundle_user_roles{height: 300px;margin-bottom: 30px}
+    </style>
 {% endblock %}
 
 {% block javascripts %}
-        {{parent()}}
-        {% javascripts '@upload_js' output="c/upload.js" %}
-<script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-<script type="text/javascript">
-    $(document).ready(function()
-    {
-        $('#fileupload').fileupload({});
-        $('#fileupload').bind('fileuploadsend', function(e, data) {
-            $('#avatar_upload_progress').show();
-            $('#avatar_upload_progress').html("Uploading...");
-        }).bind('fileuploaddone', function(e, data) {
-            $('#avatar_upload_progress').html("Done.");
-            $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
+    {{parent()}}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            $('#fileupload').fileupload({});
+            $('#fileupload').bind('fileuploadsend', function (e, data) {
+                $('#avatar_upload_progress').show();
+                $('#avatar_upload_progress').html("Uploading...");
+            }).bind('fileuploaddone', function (e, data) {
+                $('#avatar_upload_progress').html("Done.");
+                $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
+            });
         });
-    });
-</script>
-<script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
-<script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
-<script src="/assets/js/userbundle/user.js"></script>
+    </script>
+    <script src="//cdn.jsdelivr.net/select2/3.4.8/select2.min.js"></script>
+    <script src="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="/assets/js/userbundle/user.js"></script>
 {% endblock %}

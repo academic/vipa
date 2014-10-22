@@ -65,6 +65,14 @@ Ojstr\JournalBundle\Entity\Journal:
             gedmo:
                 - translatable
                 - versioned
+        domain:
+            type: string
+            length: 255
+            column: domain
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
         subtitle:
             type: string
             length: 255
@@ -135,6 +143,12 @@ Ojstr\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: 0
+        isConfigured:
+            column: is_configured
+            type: boolean
+            options:
+                default: 0
+            nullable: TRUE
         created:
             type: datetime
             gedmo:

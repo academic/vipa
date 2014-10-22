@@ -27,12 +27,12 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('theme') }}">
-            {% trans %}Back to list{% endtrans %}
+            {% trans %}back{% endtrans %}
         </a>
     </li>
     <li>
         <a href="{{ path('theme_edit', { 'id': entity.id }) }}">
-            Edit
+            {%trans%}e{%endtrans%}
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

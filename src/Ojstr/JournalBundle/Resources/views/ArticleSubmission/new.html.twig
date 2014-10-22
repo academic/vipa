@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <link rel="stylesheet" href="/vendor/select2/select2.css" type="text/css"/>
-    <link rel="stylesheet" href="/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css" type="text/css"/>
+    <link rel="stylesheet" href="{{asset("/vendor/select2/select2.css")}}" type="text/css"/>
+    <link rel="stylesheet" href="{{asset("/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css")}}" type="text/css"/>
 
 {% endblock %}
 
@@ -16,14 +16,15 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'title': '<strong>' ~ journal.title ~ '</strong>' },
     { 'title': 'Submit Article' }
-
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 
 {% block body -%}
+    <input type="hidden" name="journalId" value="{{ journal.id }}"/>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -42,14 +43,7 @@
                 <!-- Nav tabs -->
                 <div class="col-md-12">
                     <form name="base" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Journal</label>
 
-                            <div class="col-md-9">
-                                {{ journal.title }}
-                                <input type="hidden" name="journalId" value="{{ journal.id }}"/>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Article Main Language</label>
 
@@ -97,11 +91,11 @@
                         <br>
                         <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');"
                            href="{{ path('articlesubmission_new') }}">
-                            {% trans %}Restart{% endtrans %}
+                            {% trans %}res{% endtrans %}
                         </a>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
-                            {% trans %}Save & Next{% endtrans %}
+                            {% trans %}save.next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
@@ -113,7 +107,7 @@
                         <br>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step2') }}');">
-                            {% trans %}Save & Next{% endtrans %}
+                            {% trans %}save.next{% endtrans %}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
@@ -123,9 +117,9 @@
         </div>
     </div>
 
-    <div class="hidden" id="step1_tpl">
+    <script id="step1_tpl" type="x-tmpl-mustache">
         {% include 'OjstrJournalBundle:ArticleSubmission:step1.html.twig' %}
-    </div>
+    </script>
 
 {% endblock %}
 
@@ -137,11 +131,16 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    <script src="{{ asset('/vendor/select2/select2.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('/assets/js/journalbundle/article_submission.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('/assets/js/journalbundle/article_cite.js') }}" type="text/javascript"></script>
+    {% javascripts 'vendor/mustache/mustache.js' 
+                    'vendor/angular/angular.min.js'
+                    'vendor/select2/select2.min.js'
+                    'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
+                    'assets/js/journalbundle/article_submission.js'
+                    'assets/js/journalbundle/article_cite.js' output="c/submission_js.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %} 
+
+
     <script>
         OjsArticleSubmision.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
     </script>

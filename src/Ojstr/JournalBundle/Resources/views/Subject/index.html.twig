@@ -23,8 +23,8 @@
                         <td>{{ entity.description }}</td>
                         <td>
                             <small>
-                                <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}Show{% endtrans %}</a>
-                                <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}Edit{% endtrans %}</a>
+                                <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}s{% endtrans %}</a>
+                                <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}e{% endtrans %}</a>
                             </small>
                         </td>
                     </tr>
@@ -34,7 +34,7 @@
 
             <div>
                 <a href="{{ path('subject_new') }}" class="btn btn-success">
-                     {% trans %}Create New{% endtrans %}
+                     {% trans %}c{% endtrans %}
                 </a>
             </div>
         </div>
