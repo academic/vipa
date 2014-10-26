@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset={{ _charset }}"/>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>{% block title %}{% endblock %}</title>
-        <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.0/lumen/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        <div id="container">
-            <div class="jumbotron">
-
-                <div class="logo">
-
-                </div>
-                <div class="row">
-                            {% block body %}{% endblock %}
-                </div> 
-            </div>
-    </body>
-</html>
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}{% endblock %}
