@@ -4,6 +4,7 @@ imports:
     - { resource: ojstr_params.yml }
     - { resource: "bibliography_params.yml" }
     - { resource: services.yml }
+    - { resource: theme.yml }
     - { resource: assetic.yml }
     - { resource: doctrine.yml }
     - { resource: elastica.yml }
@@ -21,7 +22,7 @@ framework:
     csrf_protection: ~
     validation:      { enable_annotations: true }
     templating:
-         {engines: ['twig'],assets_version: v2 }
+         {engines: ['twig'],assets_version: v3 }
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~

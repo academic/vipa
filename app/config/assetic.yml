@@ -28,14 +28,16 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/js/bootstrap-dialog.min.js
                     - %kernel.root_dir%/../web/vendor/metisMenu/dist/jquery.metisMenu.min.js
-                    - %kernel.root_dir%/../web/assets/js/jsglobals.js
-                    - %kernel.root_dir%/../web/assets/js/common.js 
+                    - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
+                    - %kernel.root_dir%/../web/assets/app/js/common.js
+                    - %kernel.root_dir%/../web/assets/theme/%theme%/js/main.js
         admin_main_css:
                 inputs:
-                    - %kernel.root_dir%/../web/assets/css/app.css
-                    - %kernel.root_dir%/../web/assets/css/admin.css
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/css/bootstrap-dialog.min.css
                     - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
                     - %kernel.root_dir%/../web/vendor/metisMenu/dist/metisMenu.min.css
+                    - %kernel.root_dir%/../web/assets/app/css/app.css
+                    - %kernel.root_dir%/../web/assets/app/css/admin.css
+                    - %kernel.root_dir%/../web/assets/theme/%theme%/css/style.css
                         
