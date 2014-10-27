@@ -3,27 +3,25 @@
 {%block breadcrumb %}{% endblock %}
 {% block body %}
     <div class="container">
-        <div id="myCarousel" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="item active" style="border-bottom:4px #e22 solid;">
-
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <form action="/search.php" method="get">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" name="q" class="form-control input-lg" placeholder="Arama yapılacak kelimeyı yazınız">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary btn-lg" type="button">
-                                            <span class="fa fa-search"></span>
-                                        </button>
-                                    </span>
-                                </div><!-- /input-group -->
-                            </form>
-                        </div>
-                    </div>
+        <div class="bigSearchBar">
+            <div class="bigSearchBar-inner">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form action="/search.php" method="get">
+                        <div class="input-group custom-search-form">
+                            <input type="text" name="q" class="form-control input-lg" placeholder="Arama yapılacak kelimeyı yazınız">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn-lg" type="button">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
                 </div>
+                <div class="col-md-2"></div>
             </div>
-        </div><!-- /.carousel -->
+        </div>
+
 
         <div class="row">
             <div class="col-md-12">
@@ -40,11 +38,8 @@
                                 <li><a href="/newsitem.php">DergiPark'ta yer alan yaklaşık 95 bin makale, EBSCO tarafından hazırlanan EKUAL arama motorunda pek çok vt ile beraber taranıyor.</a></li>
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -58,42 +53,28 @@
                                     <span class="fa fa-folder"></span> Kurumlar</a>
                             </h4>
                         </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="panel-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Üniversite</a>
-                                            <span class="badge pull-right">130</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Kamu</a>
-                                            <span class="badge pull-right">56</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Dernek</a>
-                                            <span class="badge pull-right">80</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Vakıf</a>
-                                            <span class="badge pull-right">120</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Eğitim Araştırma Hastanesi</a>
-                                            <span class="badge pull-right">42</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="group.php">Üniversite</a>
+                                <span class="badge pull-right">130</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Kamu</a>
+                                <span class="badge pull-right">56</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Dernek</a>
+                                <span class="badge pull-right">80</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Vakıf</a>
+                                <span class="badge pull-right">120</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Eğitim Araştırma Hastanesi</a>
+                                <span class="badge pull-right">42</span>
+                            </li>
+                        </ul>
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -102,74 +83,49 @@
                                     <span class="fa fa-th"></span> Konular</a>
                             </h4>
                         </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Sağlık Bilimleri</a>
-                                            <span class="label label-success pull-right">320</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Yaşam Bilimleri</a>
-                                            <span class="label label-success pull-right">120</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Hukuk</a>
-                                            <span class="label label-success pull-right">10</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Mühendislik ve Temel Bilimler</a>
-                                            <span class="label label-success pull-right">10</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Tüm Dergiler</a>
-                                            <span class="label label-info pull-right">560</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="group.php">Sağlık Bilimleri</a>
+                                <span class="label label-success pull-right">320</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Yaşam Bilimleri</a>
+                                <span class="label label-success pull-right">120</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Hukuk</a>
+                                <span class="label label-success pull-right">10</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Mühendislik ve Temel Bilimler</a>
+                                <span class="label label-success pull-right">10</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">Tüm Dergiler</a>
+                                <span class="label label-info pull-right">560</span>
+                            </li>
+                        </ul>
                     </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="fa fa-link"></span> Bağlantılar</a>
                             </h4>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">İletişim </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Sıkça Sorulan Sorular</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="group.php">Import/Export</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="group.php">İletişim </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="group.php">S.S.S. </a>
+                            </li>
+                        </ul>
                     </div>
 
                 </div>
             </div>
+
 
             <div class="col-sm-9 col-md-9">
                 <div class="row">
@@ -177,7 +133,7 @@
                         <div class="post">
                             <div class="post-img-content">
                                 <a href="journal.php">
-                                    <img src="/web/assets/cover4.jpg" class="img-responsive" />
+                                    <img src="http://placehold.it/256x400/f9A497/ffffff&text=ttdb" class="img-responsive" />
                                 </a>
                             </div>
                             <div class="content">
@@ -199,7 +155,7 @@
                         <div class="post">
                             <div class="post-img-content">
                                 <a href="journal.php">
-                                    <img src="/web/assets/cover3.jpg" class="img-responsive" />
+                                    <img src="http://placehold.it/256x400/37A4f7/ffffff&text=ttdb" class="img-responsive" />
                                 </a>
                             </div>
                             <div class="content">
@@ -222,7 +178,7 @@
                         <div class="post">
                             <div class="post-img-content">
                                 <a href="journal.php">
-                                    <img src="/web/assets/cover1.jpg" class="img-responsive" />
+                                    <img src="http://placehold.it/256x400/67f497/ffffff&text=ttdb" class="img-responsive" />
                                 </a>
                             </div>
                             <div class="content">
@@ -244,7 +200,7 @@
                         <div class="post">
                             <div class="post-img-content">
                                 <a href="journal.php">
-                                    <img src="/web/assets/cover2.jpg" class="img-responsive" />
+                                    <img src="http://placehold.it/256x400/17A497/ffffff&text=ttdb" class="img-responsive" />
                                 </a>
                             </div>
                             <div class="content">

@@ -1,3 +1,4 @@
+#mainHeader{margin-bottom:25px}
 span.mandotary{color: #d45!important; font-family: monospace!important;}
 span.mandotary:after{content:"*"}
 .records_list ul{list-style: none;}
@@ -996,25 +997,22 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
 
-/* Carousel base class */
-.carousel {
+
+.bigSearchBar {
   height: 200px;
   margin-bottom: 20px;
 }
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
+.bigSearchBar-caption {
   z-index: 10;
-}
-
-/* Declare heights because of positioning of img element */
-.carousel .item {
+}  
+.bigSearchBar-inner{
+  padding-top: 90px;
   height: 200px;
   background-color: #005A7F;
+  border-bottom:4px #e22 solid;
 }
-.carousel-inner > .item > img {
+.bigSearchBar-inner > .item > img {
   position: absolute;
   top: 0;
   left: 0;
