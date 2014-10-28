@@ -13,7 +13,7 @@
             {% endstylesheets %} 
 
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('/assets/app/images/favicon.png') }}" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --> 
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -21,86 +21,59 @@
         <![endif]-->
     </head>
     <body>
-        <div id="wrapper">
-            {%include '::ojsheader.html.twig'%}
-
-            {% if app.user and hideleft is not defined %}
-                {%include '::ojsleft.html.twig'%}
-            {% endif %}
-
-            <div id="{% if app.user and hideleft is not defined  %}page-wrapper{%else%}anonym-wrapper{%endif%}">
-                {% if app.user %}
-                    <div class="content-header row"> 
-                        {% block breadcrumb %}
-                            <div class="breadcrumb">
-                                <a href="/dashboard">Dashboard</a>
-                                <small>Control panel</small>
-                            </div>
-                        {% endblock %} 
-                    </div>
-                {%endif%}
+        {%include '::ojsheader.html.twig'%}
+        <div class="container">
+            <div class="row">
+                {% if app.user and hideleft is not defined %}
+                    {%include '::ojsleft.html.twig'%}
+                {% endif %}
 
                 <!-- Main content -->
-                <div class="row">
-                {% block body %}{% endblock %}
-            </div>
+                {% if app.user and hideleft is not defined  %}
+                    <div class="col-sm-9 col-md-9">
+                        <div class="panel panel-default sub-middle-panel">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-lg-1 col-md-1 pull-left"><span class="fa fa-2x fa-desktop"></span></div>
+                                        <div class="col-xs-10 col-lg-11 col-md-11">
+                                            <h5>Tasarım ve Modül Yönetimi
+                                                <small class="text-muted text-small">visual_layout</small>
+                                            </h5>
+                                            {% if app.user %}
+                                                {% block breadcrumb %}
+                                                    <a href="/dashboard">Dashboard</a>
+                                                    <small>Control panel</small>
+                                                {% endblock %} 
+                                            {%endif%}
+                                        </div>        
 
-            <!-- Site footer -->
-            <div class="footer">
-                <p>{% block footer %}{% endblock %}</p>
-            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-sm-12">
+                                    <!-- cccc -->
+                                {%endif%}
+                            {% block body %}{% endblock %}
 
-            <div class="container">
-                <div class="row-fluid">
-                    <div class="col-md-12">
-                        <div class="col-md-3">
-                            <ul class="list-unstyled">
-                                <li>GitHub<li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Contact &amp; support</a></li>
-                                <li><a href="#">Enterprise</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="list-unstyled">
-                                <li>Applications<li>
-                                <li><a href="#">Product for Mac</a></li>
-                                <li><a href="#">Product for Windows</a></li>
-                                <li><a href="#">Product for Eclipse</a></li>
-                                <li><a href="#">Product mobile apps</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="list-unstyled">
-                                <li>Services<li>
-                                <li><a href="#">Web analytics</a></li>
-                                <li><a href="#">Presentations</a></li>
-                                <li><a href="#">Code snippets</a></li>
-                                <li><a href="#">Job board</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <ul class="list-unstyled">
-                                <li>Documentation<li>
-                                <li><a href="#">Product Help</a></li>
-                                <li><a href="#">Developer API</a></li>
-                                <li><a href="#">Product Markdown</a></li>
-                                <li><a href="#">Product Pages</a></li>
-                            </ul>
+                            {% if app.user and hideleft is not defined  %}
+                                <!-- cccc -->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr>
             </div>
-        </div>
+        {%endif%}
     </div>
+    {%include '::ojsfooter.html.twig'%}
+</div><!-- /container -->
 
-    {% block javascripts %}
-        {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}  
+{% block javascripts %}
+    {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}  
 
-    {% endblock %}
+{% endblock %}
 </body>
 </html>
