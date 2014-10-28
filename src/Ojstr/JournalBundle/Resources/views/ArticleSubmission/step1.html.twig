@@ -1,46 +1,33 @@
 <hr>
-<form class="form-horizontal" role="form">
+<form class="form" role="form">
+    <div class="form-group">
+        <label class="control-label">Title <span class="mandotary"></span></label>
+        <input name="title" id="titleintput" class="form-control"
+               placeholder="Article's original title"/>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Title Transliterated</label>
+        <input id="titletransliteratedinput"
+               placeholder="You can leave blank this field if your `title` is all Latin characters."
+               name="titleTransliterated" class="form-control" />
+    </div>
+</div>
 
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Title <span class="mandotary"></span></label>
-        <div class="col-sm-10">
-            <input name="title" id="titleintput" class="form-control"
-                   placeholder="Article's original title"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Title Transliterated</label>
-        <div class="col-sm-10">
-            <input id="titletransliteratedinput"
-                   placeholder="You can leave blank this field if your `title` is all Latin characters."
-                   name="titleTransliterated" class="form-control" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Subtitle</label>
-        <div class="col-sm-10">
-            <input name="subtitle" class="form-control" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Keywords <span class="mandotary"></span></label>
-        <div class="col-sm-10">
-            <input name="keywords" class="form-control"
-                   placeholder="Comma-seperated keyword list"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Subjects</label>
-        <div class="col-sm-10">
-            <input name="subjects" class="form-control" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Abstract <span class="mandotary"></span></label>
-        <div class="col-sm-10">
-            <textarea name="abstract" class="editor form-control" rows="6"></textarea>
-        </div>
-    </div>
+<div class="form-group">
+    <label class="control-label">Subtitle</label>
+    <input name="subtitle" class="form-control" />
+</div>
+<div class="form-group">
+    <label class="control-label">Keywords <span class="mandotary"></span></label>
+    <input name="keywords" class="form-control"
+           placeholder="Comma-seperated keyword list"/>
+</div>
+<div class="form-group">
+    <label class="control-label">Subjects</label>
+    <input name="subjects" class="form-control" />
+</div>
+<div class="form-group">
+    <label class="control-label">Abstract <span class="mandotary"></span></label>
+    <textarea name="abstract" class="editor form-control" rows="6"></textarea>
+</div>
 </form>
