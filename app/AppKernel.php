@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Ojstr\AnalyticsBundle\OjstrAnalyticsBundle(),
             new Ojstr\SiteBundle\OjstrSiteBundle(),
+            new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
