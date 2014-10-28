@@ -1,3 +1,4 @@
+body { padding-top:52px;} 
 span.mandotary{color: #d45!important; font-family: monospace!important;}
 span.mandotary:after{content:"*"}
 .records_list ul{list-style: none;}
@@ -977,10 +978,10 @@ div.user-menu div.user-menu-content:not(.active){
 
 
 .footer {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  margin-top: 40px;
-  border-top: 1px solid #eee;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
 }
 
 /* CUSTOMIZE THE NAVBAR
@@ -988,108 +989,105 @@ div.user-menu div.user-menu-content:not(.active){
 
 /* Special class on .container surrounding .navbar, used for positioning it into place. */
 .navbar-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 20;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
 }
 
 
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
 
-/* Carousel base class */
-.carousel {
-  height: 200px;
-  margin-bottom: 20px;
-}
-/* Since positioning the image, we need to help out the caption */
-.carousel-caption {
-  z-index: 10;
-}
 
-/* Declare heights because of positioning of img element */
-.carousel .item {
-  height: 200px;
-  background-color: #005A7F;
+.bigSearchBar {
+    height: 200px;
+    margin-bottom: 20px;
 }
-.carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 200px;
-  border-bottom: 5px solid red;
+.bigSearchBar-caption {
+    z-index: 10;
+}  
+.bigSearchBar-inner{
+    padding-top: 90px;
+    height: 200px;
+    background-color: #005A7F;
+    border-bottom:4px #e22 solid;
+}
+.bigSearchBar-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 200px;
+    border-bottom: 5px solid red;
 }
 
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
 
 .nav-justified {
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 .nav-justified > li > a {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-bottom: 0;
-  font-weight: bold;
-  color: #777;
-  text-align: center;
-  background-color: #e5e5e5; /* Old browsers */
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
-  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
-  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(0%, #f5f5f5), to(#e5e5e5));
-  background-image:         linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
-  background-repeat: repeat-x; /* Repeat the gradient */
-  border-bottom: 1px solid #d5d5d5;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 0;
+    font-weight: bold;
+    color: #777;
+    text-align: center;
+    background-color: #e5e5e5; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e5e5e5));
+    background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+    background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(0%, #f5f5f5), to(#e5e5e5));
+    background-image:         linear-gradient(top, #f5f5f5 0%, #e5e5e5 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+    background-repeat: repeat-x; /* Repeat the gradient */
+    border-bottom: 1px solid #d5d5d5;
 }
 .nav-justified > .active > a,
 .nav-justified > .active > a:hover,
 .nav-justified > .active > a:focus {
-  background-color: #ddd;
-  background-image: none;
-  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
-          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+    background-color: #ddd;
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+    box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
 }
 .nav-justified > li:first-child > a {
-  border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 .nav-justified > li:last-child > a {
-  border-bottom: 0;
-  border-radius: 0 0 5px 5px;
+    border-bottom: 0;
+    border-radius: 0 0 5px 5px;
 }
 
 @media (min-width: 768px) {
-  .nav-justified {
-    max-height: 52px;
-  }
-  .nav-justified > li > a {
-    border-right: 1px solid #d5d5d5;
-    border-left: 1px solid #fff;
-  }
-  .nav-justified > li:first-child > a {
-    border-left: 0;
-    border-radius: 5px 0 0 5px;
-  }
-  .nav-justified > li:last-child > a {
-    border-right: 0;
-    border-radius: 0 5px 5px 0;
-  }
+    .nav-justified {
+        max-height: 52px;
+    }
+    .nav-justified > li > a {
+        border-right: 1px solid #d5d5d5;
+        border-left: 1px solid #fff;
+    }
+    .nav-justified > li:first-child > a {
+        border-left: 0;
+        border-radius: 5px 0 0 5px;
+    }
+    .nav-justified > li:last-child > a {
+        border-right: 0;
+        border-radius: 0 5px 5px 0;
+    }
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .masthead,
-  .marketing,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
+    /* Remove the padding we set earlier */
+    .masthead,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
 }
 .panel-body table tr td { padding-left: 15px }
 .panel-body .table {margin-bottom: 0px; }
@@ -1141,88 +1139,88 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .btn-hot {
-color: #fff;
-background-color: #db5566;
-border-bottom:2px solid #af4451;
+    color: #fff;
+    background-color: #db5566;
+    border-bottom:2px solid #af4451;
 }
 
 .btn-hot:hover, .btn-sky.active:focus, .btn-hot:focus, .open>.dropdown-toggle.btn-hot {
-color: #fff;
-background-color: #df6a78;
-border-bottom:2px solid #b25560;
-outline: none;}
+    color: #fff;
+    background-color: #df6a78;
+    border-bottom:2px solid #b25560;
+    outline: none;}
 
 
 .btn-hot:active, .btn-hot.active {
-color: #fff;
-background-color: #c04b59;
-border-top:2px solid #9a3c47;
-margin-top: 2px;
+    color: #fff;
+    background-color: #c04b59;
+    border-top:2px solid #9a3c47;
+    margin-top: 2px;
 }
 
 .btn-sunny {
-color: #fff;
-background-color: #f4ad49;
-border-bottom:2px solid #c38a3a;
+    color: #fff;
+    background-color: #f4ad49;
+    border-bottom:2px solid #c38a3a;
 }
 
 .btn-sunny:hover, .btn-sky.active:focus, .btn-sunny:focus, .open>.dropdown-toggle.btn-sunny {
-color: #fff;
-background-color: #f5b75f;
-border-bottom:2px solid #c4924c;
-outline: none;
+    color: #fff;
+    background-color: #f5b75f;
+    border-bottom:2px solid #c4924c;
+    outline: none;
 }
 
 
 .btn-sunny:active, .btn-sunny.active {
-color: #fff;
-background-color: #d69840;
-border-top:2px solid #ab7a33;
-margin-top: 2px;
+    color: #fff;
+    background-color: #d69840;
+    border-top:2px solid #ab7a33;
+    margin-top: 2px;
 }
 
 .btn-fresh {
-color: #fff;
-background-color: #51bf87;
-border-bottom:2px solid #41996c;
+    color: #fff;
+    background-color: #51bf87;
+    border-bottom:2px solid #41996c;
 }
 
 .btn-fresh:hover, .btn-sky.active:focus, .btn-fresh:focus, .open>.dropdown-toggle.btn-fresh {
-color: #fff;
-background-color: #66c796;
-border-bottom:2px solid #529f78;
-outline: none;
+    color: #fff;
+    background-color: #66c796;
+    border-bottom:2px solid #529f78;
+    outline: none;
 }
 
 
 .btn-fresh:active, .btn-fresh.active {
-color: #fff;
-background-color: #47a877;
-border-top:2px solid #39865f;
-outline: none;
-outline-offset: none;
-margin-top: 2px;
+    color: #fff;
+    background-color: #47a877;
+    border-top:2px solid #39865f;
+    outline: none;
+    outline-offset: none;
+    margin-top: 2px;
 }
 
 .btn-sky {
-color: #fff;
-background-color: #0bacd3;
-border-bottom:2px solid #098aa9;
+    color: #fff;
+    background-color: #0bacd3;
+    border-bottom:2px solid #098aa9;
 }
 
 .btn-sky:hover,.btn-sky.active:focus, .btn-sky:focus, .open>.dropdown-toggle.btn-sky {
-color: #fff;
-background-color: #29b6d8;
-border-bottom:2px solid #2192ad;
-outline: none;
+    color: #fff;
+    background-color: #29b6d8;
+    border-bottom:2px solid #2192ad;
+    outline: none;
 }
 
 .btn-sky:active, .btn-sky.active {
-color: #fff;
-background-color: #0a97b9;
-border-top:2px solid #087994;
-outline-offset: none;
-margin-top: 2px;
+    color: #fff;
+    background-color: #0a97b9;
+    border-top:2px solid #087994;
+    outline-offset: none;
+    margin-top: 2px;
 }
 
 .btn:focus,
@@ -1234,9 +1232,9 @@ margin-top: 2px;
 
 
 .highlight{
-  background-color:yellow;
-  color:#565656;
-  padding:4px;
+    background-color:yellow;
+    color:#565656;
+    padding:4px;
 }
 .inline{display:inline}
 
@@ -1246,35 +1244,35 @@ margin-top: 2px;
 /********************************************************************/
 
 #loginmodule {
-	background: url(/web/assets/images/bg-dot.png);
-	width: 480px;
-	margin: 5% auto 0;
-	padding: 20px 40px;
+    background: url(/web/assets/images/bg-dot.png);
+    width: 480px;
+    margin: 5% auto 0;
+    padding: 20px 40px;
 }
 #loginmodule h1 {
-	text-align: center;
-	font-weight: 700;
-	margin: 5px 0 15px;
+    text-align: center;
+    font-weight: 700;
+    margin: 5px 0 15px;
 }
 #loginmodule h3 {
-	text-align: center;
-	font-size: 18px;
-	color: #bbb;
-	margin: 0 0 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #bbb;
+    margin: 0 0 20px;
 }
 #loginmodule .input-group-addon {
-	border: 0 none;
+    border: 0 none;
 }
 #loginmodule .form-control {
-	border: 0 none;
+    border: 0 none;
 }
 #loginmodule .form-control:focus {
-	box-shadow: none;
+    box-shadow: none;
 }
 .loginPageBody{
-  background: url(/web/assets/images/big-bg3.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url(/web/assets/images/big-bg3.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
