@@ -1,49 +1,41 @@
 {% extends '::ojsbase.html.twig' %}
+{% block breadcrumb %}Your proxy users list{%endblock%}
 
 {% block body -%}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>Your proxy users list</h1>
-        </div>
-        <div class="panel-body">
+    
+    <table class="table records_list">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>User Email</th>
+                <th>Proxy End Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.proxyUser.username }}</td>
+                    <td>{{ entity.proxyUser.email }}</td>
+                    <td>
+                        {% if entity.ttl %}
+                            <span id="date_{{entity.id}}" class="labe label-important">
+                                {{ entity.ttl|date('Y-m-d H:i:s') }}
+                            </span>
+                        {%endif%}
+                    </td>
+                    <td>
+                        <a href="{{path('user_drop_proxy',{'proxyUserId' : entity.proxyUser.id})}}"
+                           class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash-o"></i> Drop</a>
 
-            <table class="table records_list">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>User Email</th>
-                        <th>Proxy End Time</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entity in entities %}
-                        <tr>
-                            <td>{{ entity.proxyUser.username }}</td>
-                            <td>{{ entity.proxyUser.email }}</td>
-                            <td>
-                                {% if entity.ttl %}
-                                    <span id="date_{{entity.id}}" class="labe label-important">
-                                        {{ entity.ttl|date('Y-m-d H:i:s') }}
-                                    </span>
-                                {%endif%}
-                            </td>
-                            <td>
-                                <a href="{{path('user_drop_proxy',{'proxyUserId' : entity.proxyUser.id})}}"
-                                   class="btn btn-danger btn-sm">
-                                    <i class="fa fa-trash-o"></i> Drop</a>
-
-                                <a href="#" onclick="showUpdateTtlForm('{{path('user_proxy_ttl_update',{id: entity.id })}}');" class="btn btn-warning btn-sm">
-                                    <i class="fa fa-pencil"></i> Update end time</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
+                        <a href="#" onclick="showUpdateTtlForm('{{path('user_proxy_ttl_update',{id: entity.id })}}');" class="btn btn-warning btn-sm">
+                            <i class="fa fa-pencil"></i> Update end time</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 
 {%block javascripts %}
@@ -57,9 +49,9 @@
                 type: BootstrapDialog.TYPE_WARNING,
                 buttons: [{
                         label: 'Save',
-                        action: function(dialogRef) {
+                        action: function (dialogRef) {
                             OjstrCommon.waitModal();
-                            $.post($action, {ttl: $("#ttl").val()}, function(data) {
+                            $.post($action, {ttl: $("#ttl").val()}, function (data) {
                                 OjstrCommon.hideallModals();
                                 dialogRef.close();
                                 $("#date_" + data.id).html(data.ttl.date);
@@ -67,7 +59,7 @@
                         }
                     }, {
                         label: 'Cancel',
-                        action: function(dialogRef) {
+                        action: function (dialogRef) {
                             dialogRef.close();
                         }
                     }]

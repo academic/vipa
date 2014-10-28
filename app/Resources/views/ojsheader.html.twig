@@ -1,143 +1,138 @@
-<div class="navbar-wrapper">
+
+<div class="navbar navbar-default" role="navigation">
     <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">UJS</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Ana Sayfa</a></li>
+                <li><a href="/journals">Tüm Dergiler</a></li>
+                <li><a href="http://dergipark.gov.tr/basvur">Dergi Başvuru</a></li>
+                <li><a href="#">Makale Gönder</a></li>
 
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">UJS</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Ana Sayfa</a></li>
-                        <li><a href="/journals">Tüm Dergiler</a></li>
-                        <li><a href="http://dergipark.gov.tr/basvur">Dergi Başvuru</a></li>
-                        <li><a href="#">Makale Gönder</a></li>
+                {%include '::language_selector.html.twig'%}
+            </ul>
 
-                        {%include '::language_selector.html.twig'%}
-                    </ul>
-
-                    <div class="navbar-right">
-                        <ul class="nav navbar-nav"> 
-                            {% if app.user %}
-                                <li class="dropdown messages-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-envelope"></i>
-                                        <span class="label label-success"><!--$count--></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <ul class="menu">
-
-                                            </ul>
-                                        </li>
-                                        <li class="footer"><a href="#">See All Messages</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown notifications-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-warning"></i>
-                                        <span class="label label-warning"><!--$count--></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-
-                                        <li>
-                                            <ul class="menu">
-
-                                            </ul>
-                                        </li>
-                                        <li class="footer"><a href="#">View all</a></li>
-                                    </ul>
-                                </li>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav"> 
+                    {% if app.user %}
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
                                 <li>
-                                    <a title="User Page" href="{{path('ojstr_user_index')}}">
-                                        <i class="fa fa-cog"></i>
-                                    </a>
+                                    <ul class="menu">
+
+                                    </ul>
                                 </li>
-                                <li class="dropdown user user-menu">
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning"><!--$count--></span>
+                            </a>
+                            <ul class="dropdown-menu">
 
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-user"></i>
-                                        <span>{{app.user.getUsername()}} <i class="caret"></i></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <!-- User image --> 
-                                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-                                            <li>
-                                                <a href="/dashboard"><i class="fa fa-shield"></i> Dashboard</a>
-                                            </li>
-                                        {%endif%}
-                                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                            <li>
-                                                <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> Logout from user</a>
-                                            </li>
-                                        {%endif%}
-                                        <!-- Menu Footer-->
-                                        <li>
-                                            <a href="{{path('ojstr_user_index')}}">
-                                                <i class="fa fa-cog"></i> User Page</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{path('myprofile')}}">
-                                                <i class="fa fa-user"></i> Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('logout') }}">
-                                                <i class="fa fa-sign-out"></i> Sign out</a>
-                                        </li>                           
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
-                                        </li>
-                                        {% if userclients() %}
+                                <li>
+                                    <ul class="menu">
 
-                                            <li>
-                                                <a> <i class="fa fa-key"></i> Login As</a>          
-                                            </li>
-                                            <li >                             
-
-                                                {% for client in userclients()  %}
-                                                <li><a href="/?_su={{client.proxyUser.username}}">
-                                                        {{client.proxyUser.username}}</a>
-                                                </li>
-                                            {% endfor %}
-                                            <li><a href="{{path('user_my_proxy_clients')}}">
-                                                    List All    
-                                                </a>
-                                            </li>
-                                        {%endif%}
-                                    </ul> 
+                                    </ul>
                                 </li>
-                            {%endif%}
-                            <ul class="nav navbar-nav navbar-right">
-                                {% if app.user == false %}
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a title="User Page" href="{{path('ojstr_user_index')}}">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown user user-menu">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span>{{app.user.getUsername()}} <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image --> 
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
-                                        <a class="btn btn-link" href="{{path('login')}}">
-                                            <i class="fa fa-sign-in"></i> Login</a>
+                                        <a href="/dashboard"><i class="fa fa-shield"></i> Dashboard</a>
                                     </li>
                                 {%endif%}
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li>
+                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> Logout from user</a>
+                                    </li>
+                                {%endif%}
+                                <!-- Menu Footer-->
                                 <li>
-                                    <a class="btn btn-link" href="#search">
-                                        <i class="fa fa-search"></i> Search</a>
-                                    <div id="search">
-                                        <button type="button" class="close">×</button>
-                                        <form action="/search" method="get">
-                                            <input type="search" name="q" value="" placeholder="type keyword(s) here" />
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                        </form>
-                                    </div>
+                                    <a href="{{path('ojstr_user_index')}}">
+                                        <i class="fa fa-cog"></i> User Page</a>
                                 </li>
-                            </ul>
-                        </ul>
-                    </div>
-                </div>
+                                <li>
+                                    <a href="{{path('myprofile')}}">
+                                        <i class="fa fa-user"></i> Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('logout') }}">
+                                        <i class="fa fa-sign-out"></i> Sign out</a>
+                                </li>                           
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
+                                </li>
+                                {% if userclients() %}
+
+                                    <li>
+                                        <a> <i class="fa fa-key"></i> Login As</a>          
+                                    </li>
+                                    <li >                             
+
+                                        {% for client in userclients()  %}
+                                        <li><a href="/?_su={{client.proxyUser.username}}">
+                                                {{client.proxyUser.username}}</a>
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{path('user_my_proxy_clients')}}">
+                                            List All    
+                                        </a>
+                                    </li>
+                                {%endif%}
+                            </ul> 
+                        </li>
+                    {%endif%}
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if app.user == false %}
+                            <li>
+                                <a class="btn btn-link" href="{{path('login')}}">
+                                    <i class="fa fa-sign-in"></i> Login</a>
+                            </li>
+                        {%endif%}
+                        <li>
+                            <a class="btn btn-link" href="#search">
+                                <i class="fa fa-search"></i> Search</a>
+                            <div id="search">
+                                <button type="button" class="close">×</button>
+                                <form action="/search" method="get">
+                                    <input type="search" name="q" value="" placeholder="type keyword(s) here" />
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </ul>
             </div>
         </div>
-
     </div>
 </div>
