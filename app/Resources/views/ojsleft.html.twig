@@ -20,13 +20,13 @@
             <div class="panel-collapse collapse in">
                 {%if userjournals%}
                     <div class="dropdown">
-                        <button class="dropdown-toggle list-group-item" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <button class="dropdown-toggle btn btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">
                             {{ userjournals[session('selectedJournalId')].title[:22]  }}
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
                             {%for journal in userjournals%}
-                                <li class="info">
+                                <li class=list-group-item">
                                     <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
                                         {{journal.title}}
                                     </a>
@@ -36,7 +36,7 @@
                         </ul>
                     </div>
                 {%endif%}
-                <a class="list-group-item"  href="{{path('articlesubmission_new')}}">
+                <a class="list-group-item list-group-item-success"  href="{{path('articlesubmission_new')}}">
                     <i class="fa fa-plus-circle"></i> 
                     {%trans%}Submit Article{%endtrans%}
                 </a>
@@ -44,7 +44,7 @@
                     <i class="fa fa-dashboard"></i> 
                     {%trans%}Dashboard{%endtrans%}
                 </a>
-                <a class="list-group-item" href="{{path('ojstr_message_message_user_index')}}">
+                <a class="list-group-item list-group-item-warning" href="{{path('ojstr_message_message_user_index')}}">
                     <i class="fa fa-envelope"></i>
                     {%trans%}Messages{%endtrans%}</a>
 
@@ -66,17 +66,14 @@
                 {%else%}
                     {%set submissions_path = "articlesubmissions_me" %}
                 {% endif %}
-                <a class="list-group-item" href="{{path(submissions_path)}}">
+                <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                     <i class="fa fa-flag"></i>
                     Submissions
                 </a>
 
-                <a class="list-group-item" href="#" style="color:#55a"><i class="fa fa-check-circle"></i> Published 
-                    <!-- <small class="badge pull-right bg-green">2</small>-->
-                </a>
-
-                <a class="list-group-item" href="#" style="color:#aa1"><i class="fa fa-clock-o"></i> Waiting</a>
-                <a class="list-group-item" href="#" style="color:#a11"><i class="fa fa-exclamation-circle"></i> Rejected</a>
+                <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
+                <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
+                <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
             </div>
         </div>
 
