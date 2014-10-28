@@ -1,0 +1,84 @@
+{%- spaceless -%}
+	{%- macro folder(folder) -%}
+<li	{%- if folder.getCachedUnreadCount %} class="marked_unread"{%- endif -%}>
+    <a href="{{- path('ojstr_message_message_user_folder_show', {'folderName': folder.getName }) -}}">
+        {%- if folder.getCachedUnreadCount %}
+        <span class="badge pull-right">{{- folder.getCachedUnreadCount -}}</span>
+        {%- endif -%}
+
+
+        {%- if folder.name == 'inbox' -%}
+                {%- set icon = "-inbox" -%}
+                {%- set folder_trans = 'title.folder.inbox' -%}
+        {%- elseif folder.name == 'sent' -%}
+                {%- set icon = "-inbox" -%}
+                {%- set folder_trans = 'title.folder.sent' -%}
+        {%- else -%}
+                {%- if folder.name == 'drafts' -%}
+                        {%- set icon = "-share-alt" -%}
+                        {%- set folder_trans = 'title.folder.draft' -%}
+                {%- else -%}
+                        {%- if folder.name == 'trash' -%}
+                                {%- set icon = "-trash" -%}
+                                {%- set folder_trans = 'title.folder.trash' -%}
+                        {%- else -%}
+                                {%- set icon = "-folder-close" -%}
+                                {%- set folder_trans = 'title.folder.current' -%}
+                        {%- endif -%}
+                {%- endif -%}
+        {%- endif -%}
+
+        <i class="glyphicon glyphicon{{- icon -}}"></i>
+        {{- folder_trans|trans({}, 'OkulBilisimMessageBundle') -}}
+    </a>
+</li>
+	{%- endmacro -%}
+
+	{%- macro folderWithCurrentFolder(folder, current_folder) -%}
+<li
+{%- if current_folder is defined -%}
+    {%- if folder.name == current_folder.name or folder.getCachedUnreadCount %} 
+        class="
+        {%- if folder.name == current_folder.name -%}active {% endif -%}
+        {%- if folder.getCachedUnreadCount -%}marked_unread{%- endif -%}
+    "{%- endif -%}
+{%- else -%}
+    {%- if folder.getCachedUnreadCount -%}
+        class="{%- if folder.getCachedUnreadCount -%}marked_unread{%- endif -%}"
+    {%- endif -%}
+{%- endif -%}
+    >
+    <a href="{{- path('ojstr_message_message_user_folder_show', {'folderName': folder.getName }) -}}">
+				{%- if folder.getCachedUnreadCount %}
+        <span class="badge pull-right">{{- folder.getCachedUnreadCount -}}</span>
+				{%- endif -%}
+
+
+				{%- if folder.name == 'inbox'  -%}
+					{%- set icon = "-inbox" -%}
+					{%- set folder_trans = 'title.folder.inbox' -%}
+				{%- elseif folder.name == 'sent'  -%}
+					{%- set icon = "-inbox" -%}
+					{%- set folder_trans = 'title.folder.sent' -%}
+                                {%- else -%}
+					{%- if folder.name == 'drafts' -%}
+						{%- set icon = "-share-alt" -%}
+						{%- set folder_trans = 'title.folder.draft' -%}
+					{%- else -%}
+						{%- if folder.name == 'trash' -%}
+							{%- set icon = "-trash" -%}
+							{%- set folder_trans = 'title.folder.trash' -%}
+						{%- else -%}
+							{%- set icon = "-folder-close" -%}
+							{%- set folder_trans = 'title.folder.current' -%}
+						{%- endif -%}
+					{%- endif -%}
+				{%- endif -%}
+
+        <i class="glyphicon glyphicon{{- icon -}}"></i>
+				{{- folder_trans|trans({}, 'OkulBilisimMessageBundle') -}}
+    </a>
+</li>
+	{%- endmacro -%}
+
+{%- endspaceless -%}

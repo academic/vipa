@@ -1,95 +1,97 @@
-<div class="col-sm-3 col-md-3">
-    <div class="panel-group">
-        <div class="panel panel-default left-menu-bgcolor">
-            <div class="panel-heading  text-center">
-                {% if(app.user.getAvatar()) %}
-                    <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
-                         class="avatar img-circle img-responsive" alt="User avatar" />
-                {%else%}
-                    <img src="/assets/app/images/buddy_sample.png" 
-                         class="img-circle img-responsive" alt="User avatar" />
-                {%endif%}  
-                <h4 class="panel-title">
-                    {% if userjournalroles %}
-                        {%for role in userjournalroles %}
-                            <span class="label label-default">{{role.name}}</span> 
-                        {%endfor%}
-                    {%endif%}
-                </h4>
-            </div>
-            <div class="panel-collapse collapse in">
-                {%if userjournals%}
-                    <div class="dropdown">
-                        <button class="dropdown-toggle btn btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            {{ userjournals[session('selectedJournalId')].title[:22]  }}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
-                            {%for journal in userjournals%}
-                                <li class=list-group-item">
-                                    <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
-                                        {{journal.title}}
-                                    </a>
-                                </li> 
-                            {%endfor%}
-
-                        </ul>
-                    </div>
-                {%endif%}
-                <a class="list-group-item list-group-item-success"  href="{{path('articlesubmission_new')}}">
-                    <i class="fa fa-plus-circle"></i> 
-                    {%trans%}Submit Article{%endtrans%}
-                </a>
-                <a class="list-group-item"  href="{{path('dashboard')}}">
-                    <i class="fa fa-dashboard"></i> 
-                    {%trans%}Dashboard{%endtrans%}
-                </a>
-                <a class="list-group-item list-group-item-warning" href="{{path('ojstr_message_message_user_index')}}">
-                    <i class="fa fa-envelope"></i>
-                    {%trans%}Messages{%endtrans%}</a>
-
-                <a class="list-group-item" href="{{path('ojstr_workflow_homepage')}}">
-                    <i class="fa fa-cogs"></i>  
-                    {%trans%}Workflow{%endtrans%} </a>
-
-                <a class="list-group-item" href="{{path('user_show_my_journals')}}">
-                    <i class="fa fa-list"></i>  
-                    {%trans%}Journals{%endtrans%} </a>
-            </div>
-        </div>
-        <div class="panel panel-default left-menu-bgcolor">
-            <div class="panel-heading"><i class="fa fa-list"></i>
-                    {%trans%}Articles{%endtrans%}</div>
-            <div class="panel-collapse collapse in">
-                {% if isSystemAdmin() or isJournalManager()  %}
-                    {%set submissions_path = "articlesubmissions_all" %}
-                {%else%}
-                    {%set submissions_path = "articlesubmissions_me" %}
-                {% endif %}
-                <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
-                    <i class="fa fa-flag"></i>
-                    Submissions
-                </a>
-
-                <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
-                <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
-                <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
-            </div>
-        </div>
-
-        {% if isSystemAdmin() %}
+{% block sidebar %}
+    <div class="col-sm-3 col-md-3">
+        <div class="panel-group">
             <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">{%trans%}Admin{%endtrans%}</div>
+                <div class="panel-heading  text-center">
+                    {% if(app.user.getAvatar()) %}
+                        <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
+                             class="avatar img-circle img-responsive" alt="User avatar" />
+                    {%else%}
+                        <img src="/assets/app/images/buddy_sample.png" 
+                             class="img-circle img-responsive" alt="User avatar" />
+                    {%endif%}  
+                    <h4 class="panel-title">
+                        {% if userjournalroles %}
+                            {%for role in userjournalroles %}
+                                <span class="label label-default">{{role.name}}</span> 
+                            {%endfor%}
+                        {%endif%}
+                    </h4>
+                </div>
                 <div class="panel-collapse collapse in">
-                    <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
-                    <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
-                    <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
-                    <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
-                    <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
-                    <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
-                    <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
+                    {%if userjournals%}
+                        <div class="dropdown">
+                            <button class="dropdown-toggle btn btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                {{ userjournals[session('selectedJournalId')].title[:22]  }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
+                                {%for journal in userjournals%}
+                                    <li class=list-group-item">
+                                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                                            {{journal.title}}
+                                        </a>
+                                    </li> 
+                                {%endfor%}
+
+                            </ul>
+                        </div>
+                    {%endif%}
+                    <a class="list-group-item list-group-item-success"  href="{{path('articlesubmission_new')}}">
+                        <i class="fa fa-plus-circle"></i> 
+                        {%trans%}Submit Article{%endtrans%}
+                    </a>
+                    <a class="list-group-item"  href="{{path('dashboard')}}">
+                        <i class="fa fa-dashboard"></i> 
+                        {%trans%}Dashboard{%endtrans%}
+                    </a>
+                    <a class="list-group-item list-group-item-warning" href="{{path('ojstr_message_message_user_index')}}">
+                        <i class="fa fa-envelope"></i>
+                        {%trans%}Messages{%endtrans%}</a>
+
+                    <a class="list-group-item" href="{{path('ojstr_workflow_homepage')}}">
+                        <i class="fa fa-cogs"></i>  
+                        {%trans%}Workflow{%endtrans%} </a>
+
+                    <a class="list-group-item" href="{{path('user_show_my_journals')}}">
+                        <i class="fa fa-list"></i>  
+                        {%trans%}Journals{%endtrans%} </a>
                 </div>
             </div>
-        {% endif %}
+            <div class="panel panel-default left-menu-bgcolor">
+                <div class="panel-heading"><i class="fa fa-list"></i>
+                    {%trans%}Articles{%endtrans%}</div>
+                <div class="panel-collapse collapse in">
+                    {% if isSystemAdmin() or isJournalManager()  %}
+                        {%set submissions_path = "articlesubmissions_all" %}
+                    {%else%}
+                        {%set submissions_path = "articlesubmissions_me" %}
+                    {% endif %}
+                    <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
+                        <i class="fa fa-flag"></i>
+                        Submissions
+                    </a>
+
+                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
+                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
+                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
+                </div>
+            </div>
+
+            {% if isSystemAdmin() %}
+                <div class="panel panel-default left-menu-bgcolor">
+                    <div class="panel-heading">{%trans%}Admin{%endtrans%}</div>
+                    <div class="panel-collapse collapse in">
+                        <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
+                        <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
+                        <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
+                        <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
+                        <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
+                        <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
+                        <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
-</div>
+{% endblock %}
