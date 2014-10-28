@@ -40,4 +40,7 @@ assetic:
                     - %kernel.root_dir%/../web/assets/app/css/app.css
                     - %kernel.root_dir%/../web/assets/app/css/admin.css
                     - %kernel.root_dir%/../web/assets/theme/%theme%/css/style.css
-                        
+braincrafted_bootstrap:
+    less_filter: none
+    auto_configure:
+        assetic: false

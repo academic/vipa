@@ -11,7 +11,7 @@ var OjsArticleSubmision = {
         var tpl_rendered = Mustache.render(tpl);
         $("#step" + step).append(tpl_rendered);
     },
-    configureProgrssBar: function (step) {
+    configureProgressBar: function (step) {
         $("ul.submission-progress li").removeClass("active");
         $("ul.submission-progress li#submission-progress-step" + step).addClass("active");
     },

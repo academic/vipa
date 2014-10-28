@@ -29,7 +29,7 @@ class ArticleType extends AbstractType
                 ->add('pubdate', 'date', array(
                     'required' => false,
                     'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
-                    'attr' => array('class' => 'dateselector form-control')
+                    'attr' => array('class' => 'dateselector')
                 ))
                 ->add('pubdateSeason', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('part', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
