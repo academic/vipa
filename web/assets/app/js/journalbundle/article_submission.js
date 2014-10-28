@@ -6,17 +6,23 @@ window.onbeforeunload = function () {
 var OjsArticleSubmision = {
     articleId: null,
     languages: [],
-    step1Show: function () {
-        $("#step1-container").removeClass("hide", 200, "easeInBack");
+    loadStepTemplate: function (step) {
+        var tpl = $('#step' + step + '_tpl').html();
+        var tpl_rendered = Mustache.render(tpl);
+        $("#step" + step).append(tpl_rendered);
     },
-    step1Hide: function () {
-        $("#step1-container").addClass("hide", 200, "easeInBack");
+    configureProgrssBar: function (step) {
+        $("ul.submission-progress li").removeClass("active");
+        $("ul.submission-progress li#submission-progress-step" + step).addClass("active");
     },
-    step2Show: function () {
-        $("#step2-container").removeClass("hide", 200, "easeInBack");
+    hideAllSteps: function () {
+        $(".step").addClass("hide", 200, "easeInBack");
     },
-    step2Hide: function () {
-        $("#step1-container").slideUp("fast", 200, "easeInBack");
+    showStep: function (step) {
+        $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
+    },
+    hideStep: function (step) {
+        $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
     },
     activateFirstLanguageTab: function () {
         firsttab = $("#step1 .tab-pane").first().attr('id');
@@ -33,13 +39,7 @@ var OjsArticleSubmision = {
         var step1_template = $('#step1_tpl').html();
         var step1_rendered = Mustache.render(step1_template);
 
-        var step2_template = $('#step2_tpl').html();
-        var step2_rendered = Mustache.render(step2_template);
-
-        $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' +
-                '<div class="tab_step1">' + step1_rendered + '</div>' +
-                '<div class="tab_step2 hide">' + step2_rendered + '</div>' +
-                '</div>');
+        $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' + step1_rendered);
 
         OjsArticleSubmision.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
@@ -118,19 +118,53 @@ var OjsArticleSubmision = {
             OjstrCommon.hideallModals();
             if (response.id) {
                 OjsArticleSubmision.articleId = response.id;
-                OjsArticleSubmision.step2ShowCitationForm();
+                OjsArticleSubmision.hideAllSteps();
+                OjsArticleSubmision.step2Prepare();
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
 
         });
     },
-    step2ShowCitationForm: function () {
+    step2: function (actionUrl) {
+        this.hideAllSteps();
+        this.step3Prepare();
+    },
+    step3: function (actionUrl) {
+        this.hideAllSteps();
+        this.step4Prepare();
+    },
+    /**
+     * Prepare and show step2
+     * @returns void
+     */
+    step2Prepare: function () {
         OjstrCommon.scrollTop();
-        $("ul.submission-progress li").removeClass("active");
-        $("ul.submission-progress li#submission-progress-step2").addClass("active");
-        OjsArticleSubmision.step1Hide();
-        OjsArticleSubmision.step2Show();
+        if ($("#step2").html().length > 0) {
+            this.configureProgressBar(2);
+            this.loadStepTemplate(2);
+        }
+        this.showStep(2);
+    },
+    /**
+     * prepare and show step3
+     * @returns {undefined}
+     */
+    step3Prepare: function () {
+        OjstrCommon.scrollTop();
+        if ($("#step3").html().length > 0) {
+            this.configureProgressBar(3);
+            this.loadStepTemplate(3);
+        }
+        this.showStep(3);
+    },
+    step4Prepare: function () {
+        OjstrCommon.scrollTop();
+        if ($("#step4").html().length > 0) {
+            this.configureProgressBar(4);
+            this.loadStepTemplate(4);
+        }
+        OjsArticleSubmision.showStep(4);
     }
 };
 

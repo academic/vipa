@@ -31,9 +31,9 @@
                 <div class="panel-title">
                     <ul class='nav nav-wizard submission-progress'>
                         <li id="submission-progress-step1" class="active"><span class="badge">1</span> Article</li>
-                        <li id="submission-progress-step2"><span class="badge">2</span> Article File</li>
-                        <li id="submission-progress-step3"><span class="badge">3</span> Authors</li>
-                        <li id="submission-progress-step4"><span class="badge">4</span> Citations</li>
+                        <li id="submission-progress-step2"><span class="badge">2</span> Authors</li>
+                        <li id="submission-progress-step3"><span class="badge">3</span> Citations</li>
+                        <li id="submission-progress-step4"><span class="badge">4</span> Article File</li>
                         <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
                     </ul>
                 </div>
@@ -59,7 +59,7 @@
 
                 </div>
 
-                <div id="step1-container">
+                <div id="step1-container" class="step">
                     <ul id="mainTabs" class="nav nav-tabs" role="tablist">
                         <li class="lang dropdown">
                             <a href="#" id="languageDrop" class="dropdown-toggle"
@@ -89,25 +89,58 @@
                     </div>
                     <div class="step1_actions record_actions col-md-12">
                         <br>
-                        <a class="btn btn-default btn-lg" onclick="return confirm('Are you sure?');"
+                        <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
                            href="{{ path('articlesubmission_new') }}">
                             {% trans %}res{% endtrans %}
                         </a>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
-                            {% trans %}save.next{% endtrans %}
+                            {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
                 </div>
-                <div id="step2-container" class="hide">
-                    {% include 'OjstrJournalBundle:ArticleSubmission:step2.html.twig' %}
+                <div id="step2-container" class="step hide">
 
+                    <dic id="step2">
+
+                    </dic>
                     <div class="step2_actions record_actions col-md-12">
                         <br>
                         <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step2') }}');">
-                            {% trans %}save.next{% endtrans %}
+                           onclick="javascript: OjsArticleSubmision.step2('{{ path('articlesubmission_step2') }}');">
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="step3-container" class="step hide">
+
+                    <dic id="step3">
+
+                    </dic>
+                    <div class="step3_actions record_actions col-md-12">
+                        <br>
+                        <a class="btn btn-info btn-lg"
+                           onclick="javascript: OjsArticleSubmision.step3('{{ path('articlesubmission_step3') }}');">
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div id="step4-container" class="step hide">
+
+                    <dic id="step4">
+
+                    </dic>
+                    <div class="step4_actions record_actions col-md-12">
+                        <br>
+                        <a class="btn btn-info btn-lg"
+                           onclick="javascript: OjsArticleSubmision.step4('{{ path('articlesubmission_step4') }}');">
+                            {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
@@ -119,6 +152,14 @@
 
     <script id="step1_tpl" type="x-tmpl-mustache">
         {% include 'OjstrJournalBundle:ArticleSubmission:step1.html.twig' %}
+    </script>
+
+    <script id="step2_tpl" type="x-tmplmustache">
+        {% include 'OjstrJournalBundle:ArticleSubmission:step2.html.twig' %}    
+    </script>
+
+    <script id="step3_tpl" type="x-tmplmustache">
+        {% include 'OjstrJournalBundle:ArticleSubmission:step3.html.twig' %}    
     </script>
 
 {% endblock %}
