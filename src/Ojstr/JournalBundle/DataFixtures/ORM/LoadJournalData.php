@@ -23,8 +23,8 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setTitle("Example Journal");
         $journal->setTitleAbbr("EXJ");
         $journal->setTitleTransliterated(null);
-        $journal->setUrl("https://example.gov");
-        $journal->setSubdomain("demo");
+        $journal->setUrl("https://app.ojs.io");
+        $journal->setSubdomain("local");
         $manager->persist($journal);
 
         $journal2 = new Journal();

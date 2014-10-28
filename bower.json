@@ -19,6 +19,7 @@
     "dependencies": {
         "jquery": "~2.1.1",
         "bootstrap": "~3.2.0",
+        "bootstrap-material-design":"*",
         "font-awesome": "*",
         "bootstrap-dialog":"*",
 	"bootstrap3-wysihtml5-bower":"*", 
