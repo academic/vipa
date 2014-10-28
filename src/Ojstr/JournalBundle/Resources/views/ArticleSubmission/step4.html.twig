@@ -1,47 +1,40 @@
 <hr>
 <form class="form-horizontal" role="form">
+    <h2>{{ "article.files"|trans }}
+        <small><a href="" class="btn btn-sm btn-default btn-circle">+</a></small>
+    </h2>
 
-
-    <h2>Add Citation</h2>
     <div class="col-md-12">
-        <button class="btn btn-success" id="pasteArticleCitationInline">
-            <i class="fa fa-edit"></i> Paste&amp;Extract Citations
-        </button>
-        <button class="btn btn-info" id="addArticleCitationInline">
-            <i class="fa fa-plus"></i> New Citation
-        </button>
+        <span class="btn btn-success fileinput-button">
+            <i class="fa fa-plus"></i>
+            <span>Select Article File</span>
+            <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+            <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
+        </span>
+        <span class="upload_progress label label-info" style="display: none"></span>
+    </div>
 
-        <div id="citationPasteField" style="display: block!important">
-            <div class="form-row well">
-                <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
-            </div>
+
+    <div id="supp_file_tpl">
+        <div class="col-md-12">
+            <select name="type">
+                {% for type in fileTypes %}
+                    <option>{{ type }}</option>
+                {% endfor %}
+            </select>
+
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+
+                <span>Select Supplementary Article File</span>
+                <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
+            </span>
+            <span class="upload_progress label label-info" style="display: none"></span>
         </div>
     </div>
 
-    <div id="citationContainer"></div>
-
-    <div class="hide" id="citationInfoFields">
-        <div class="cite-item form-row well">
-            <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
-            <input type="text" class="form-control" value="" name="raw" placeholder="Citation">
-
-            <a class="pull-right btn btn-warning removeArticleCitationInline">
-                <i class="fa fa-minus-circle"></i>
-            </a>
-            <a href="#details" class="addCitationDetails">Details</a>
-
-            <div class="citationDetails">
-                <select class="form-control" name="type">
-                    <option value="">[Select Citation Type]</option>
-                    {% for type in citationTypes %}
-                        <option value="{{type.name}}" should="{{type.should|json_encode()}}" must="{{type.must|json_encode()}}">{{type.name}}</option>
-                    {%endfor%}
-                </select>
-                <br><br>
-                <div class="citationDetailsFields"></div>
-            </div>
-        </div>
-    </div>
 
 </form>
 <hr><br>
+
