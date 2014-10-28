@@ -1,39 +1,12 @@
 <hr>
 <form class="form-horizontal" role="form">
-    <h2>{{ "article.files"|trans }}
-        <small><a href="" class="btn btn-sm btn-default btn-circle">+</a></small>
-    </h2>
+
+
+    <h2>    {{  "article.authors"|trans }}</h2>
 
     <div class="col-md-12">
-        <span class="btn btn-success fileinput-button">
-            <i class="fa fa-plus"></i>
-            <span>Select Article File</span>
-            <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-            <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
-        </span>
-        <span class="upload_progress label label-info" style="display: none"></span>
-    </div>
 
-
-    <div id="supp_file_tpl">
-        <div class="col-md-12">
-            <select name="type">
-                {% for type in fileTypes %}
-                    <option>{{ type }}</option>
-                {% endfor %}
-            </select>
-
-            <span class="btn btn-success fileinput-button">
-                <i class="fa fa-plus"></i>
-
-                <span>Select Supplementary Article File</span>
-                <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
-            </span>
-            <span class="upload_progress label label-info" style="display: none"></span>
-        </div>
     </div>
 
 
 </form>
-<hr><br>
