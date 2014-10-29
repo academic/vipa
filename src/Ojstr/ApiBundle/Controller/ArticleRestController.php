@@ -41,7 +41,7 @@ class ArticleRestController extends FOSRestController
      *  resource=true,
      *  description="Get Specific Article"
      * )
-     *
+     * @Get("/article/{id}")
      */
     public function getArticleAction($id)
     {
@@ -123,9 +123,9 @@ class ArticleRestController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get citation data of an article" ,
-     *  method="POST"
+     *  description="Get citation data of an article"
      * )
+     * @Get("/citation/{id}")
      */
     public function getArticleCitationsAction($id)
     {
