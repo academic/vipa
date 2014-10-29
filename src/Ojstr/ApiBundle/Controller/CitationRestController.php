@@ -20,8 +20,9 @@ class CitationRestController extends FOSRestController
      *         200="Returned when successful"
      *  }
      * )
+     * @Get("/journal/{id}/citations")
      */
-    public function getCitationAction($id, Request $request)
+    public function getCitationAction($id)
     {
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
