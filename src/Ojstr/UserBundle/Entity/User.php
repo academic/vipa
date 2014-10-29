@@ -17,8 +17,7 @@ use \Ojstr\Common\Entity\GenericExtendedEntity;
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
  */
-class User extends GenericExtendedEntity implements UserInterface, \Serializable
-{
+class User extends GenericExtendedEntity implements UserInterface, \Serializable {
 
     /**
      * @var integer
@@ -85,6 +84,11 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     protected $avatar;
 
     /**
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
@@ -101,8 +105,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     protected $status = 1;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
@@ -113,8 +116,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -122,8 +124,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  string $username
      * @return User
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
@@ -132,8 +133,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -141,8 +141,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  string $avatar
      * @return User
      */
-    public function setAvatar($avatar)
-    {
+    public function setAvatar($avatar) {
         $this->avatar = $avatar;
 
         return $this;
@@ -151,17 +150,30 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getAvatar()
-    {
+    public function getAvatar() {
         return $this->avatar;
+    }
+
+    /**
+     * @param string $apiKey
+     * @return User
+     */
+    public function setApiKey($apiKey) {
+        $this->apiKey = $apiKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiKey() {
+        return $this->apiKey;
     }
 
     /**
      * @param  integer $status
      * @return User
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
 
         return $this;
@@ -170,8 +182,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return integer
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
@@ -179,8 +190,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  string $password
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -189,8 +199,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -198,8 +207,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  string $email
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -208,8 +216,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -220,8 +227,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @return User
      */
 
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->firstName = $firstName;
 
         return $this;
@@ -230,8 +236,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->firstName;
     }
 
@@ -239,8 +244,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param String tr$lastName
      * @return $this
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->lastName = $lastName;
 
         return $this;
@@ -249,8 +253,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->lastName;
     }
 
@@ -258,8 +261,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  boolean $isActive
      * @return User
      */
-    public function setIsActive($isActive)
-    {
+    public function setIsActive($isActive) {
         $this->isActive = $isActive;
 
         return $this;
@@ -268,8 +270,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getToken()
-    {
+    public function getToken() {
         return $this->token;
     }
 
@@ -277,8 +278,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  String $token
      * @return $this
      */
-    public function setToken($token)
-    {
+    public function setToken($token) {
         $this->token = $token;
 
         return $this;
@@ -287,42 +287,36 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return boolean
      */
-    public function getIsActive()
-    {
+    public function getIsActive() {
         return $this->isActive;
     }
 
     /**
      * @return \DateTime
      */
-    public function getLastlogin()
-    {
+    public function getLastlogin() {
         return $this->lastlogin;
     }
 
     /**
      * @param \DateTime $lastlogin
      */
-    public function setLastlogin(\DateTime $lastlogin)
-    {
+    public function setLastlogin(\DateTime $lastlogin) {
         $this->lastlogin = $lastlogin;
     }
 
-    public function getSalt()
-    {
+    public function getSalt() {
         return null;
     }
 
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
         //$this->setPassword(NULL);
     }
 
     /**
      * @see \Serializable::serialize()
      */
-    public function serialize()
-    {
+    public function serialize() {
         return serialize(array(
             $this->id,
             $this->username,
@@ -333,21 +327,19 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @see \Serializable::unserialize()
      */
-    public function unserialize($serialized)
-    {
+    public function unserialize($serialized) {
         list (
-            $this->id,
-            $this->username,
-            $this->password
-            ) = unserialize($serialized);
+                $this->id,
+                $this->username,
+                $this->password
+                ) = unserialize($serialized);
     }
 
     /**
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getRoles()
-    {
+    public function getRoles() {
         return $this->roles->toArray();
     }
 
@@ -357,8 +349,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  \Ojstr\UserBundle\Entity\Role $role
      * @return User
      */
-    public function addRole(\Ojstr\UserBundle\Entity\Role $role)
-    {
+    public function addRole(\Ojstr\UserBundle\Entity\Role $role) {
         $this->roles[] = $role;
 
         return $this;
@@ -367,8 +358,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @param \Ojstr\UserBundle\Entity\Role $role
      */
-    public function removeRole(\Ojstr\UserBundle\Entity\Role $role)
-    {
+    public function removeRole(\Ojstr\UserBundle\Entity\Role $role) {
         $this->roles->removeElement($role);
     }
 
@@ -376,8 +366,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSubjects()
-    {
+    public function getSubjects() {
         return $this->subjects;
     }
 
@@ -385,8 +374,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @param  Subject $subject
      * @return $this
      */
-    public function addSubject(Subject $subject)
-    {
+    public function addSubject(Subject $subject) {
         $this->subjects[] = $subject;
 
         return $this;
@@ -395,8 +383,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @param Subject $subject
      */
-    public function removeSubject(Subject $subject)
-    {
+    public function removeSubject(Subject $subject) {
         $this->subjects->removeElement($subject);
     }
 
@@ -411,13 +398,12 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      *
      * @param array $info
      */
-    public function avatarFileCallback(array $info)
-    {
+    public function avatarFileCallback(array $info) {
         // noob
     }
 
-    public function generateToken()
-    {
+    public function generateToken() {
         return md5($this->getEmail()) . md5(uniqid($this->getUsername(), true));
     }
+
 }
