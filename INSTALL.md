@@ -57,6 +57,14 @@ $ php app/console doctrine:fixtures:load --append -v
 $ php app/console doctrine:mongodb:fixtures:load --append -v
 ```  
 
+### Update
+
+You need to update the database on each pull
+
+```bash
+$ php app/console doctrine:schema:update --force
+```
+
 ### Additional Packages
 
 Citation parser service is runnig with Ruby using Sinatra.
