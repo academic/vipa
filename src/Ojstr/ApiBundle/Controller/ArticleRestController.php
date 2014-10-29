@@ -125,7 +125,7 @@ class ArticleRestController extends FOSRestController
      *  resource=true,
      *  description="Get citation data of an article"
      * )
-     * @Get("/citation/{id}")
+     * @Get("/article/{id}/citations")
      */
     public function getArticleCitationsAction($id)
     {
