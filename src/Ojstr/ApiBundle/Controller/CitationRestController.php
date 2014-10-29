@@ -8,9 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 
-class CitationRestController extends FOSRestController
-{
+class CitationRestController extends FOSRestController {
+
     /**
      *
      * @ApiDoc(
@@ -22,8 +23,7 @@ class CitationRestController extends FOSRestController
      * )
      * @Get("/journal/{id}/citations")
      */
-    public function getCitationAction($id)
-    {
+    public function getCitationAction($id) {
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
@@ -43,8 +43,7 @@ class CitationRestController extends FOSRestController
      *  }
      * )
      */
-    public function deleteCitationAction($id, Request $request)
-    {
+    public function deleteCitationAction($id, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
         $citation_settings = $citation->getSettings();
