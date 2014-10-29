@@ -17,7 +17,7 @@ class JournalRestController extends FOSRestController
      *  resource=true,
      *  description="Get Journal Issues"
      * )
-     * @Get("/journals/{id}/issues")
+     * @Get("/journal/{id}/issues")
      */
     public function getJournalIssues($id)
     {
@@ -29,6 +29,7 @@ class JournalRestController extends FOSRestController
      *  resource=true,
      *  description="Get Specific Journal"
      * )
+     * @Get("/journal/{id}")
      */
     public function getJournalAction($id)
     {
@@ -60,6 +61,7 @@ class JournalRestController extends FOSRestController
      *      }
      *  }
      * )
+     * @Get("/journal/{id}/users")
      */
     public function getJournalUsersAction($id)
     {
