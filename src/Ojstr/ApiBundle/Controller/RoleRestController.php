@@ -7,6 +7,7 @@ use Ojstr\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class RoleRestController extends FOSRestController
 {
@@ -19,6 +20,7 @@ class RoleRestController extends FOSRestController
      *      {"name"="id", "dataType"="integer"}
      *  }
      * )
+     * @Get("/role/{id}")
      */
     public function getRoleAction($id)
     {
@@ -37,6 +39,11 @@ class RoleRestController extends FOSRestController
      *  description="Get Users wtih this role",
      *  parameters={
      *      {
+     *          "name"="role_id",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="role id"
+     *      },{
      *          "name"="page",
      *          "dataType"="integer",
      *          "required"="true",
@@ -50,9 +57,16 @@ class RoleRestController extends FOSRestController
      *      }
      *  }
      * )
+     * @Get("/role/{id}/users")
      */
     public function getRoleUsersAction($id)
     {
+        $role_of_users = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
+        if (!is_object($role_of_users)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+
+        return $role_of_user;
     }
 
     private function notFound()
