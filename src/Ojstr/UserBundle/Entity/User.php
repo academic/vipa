@@ -1,4 +1,4 @@
-ge<?php
+<?php
 
 namespace Ojstr\UserBundle\Entity;
 
