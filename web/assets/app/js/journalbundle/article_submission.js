@@ -164,7 +164,7 @@ var OjsArticleSubmision = {
             this.configureProgressBar(4);
             this.loadStepTemplate(4);
         }
-        OjsArticleSubmision.showStep(4);
+        this.showStep(4);
     }
 };
 

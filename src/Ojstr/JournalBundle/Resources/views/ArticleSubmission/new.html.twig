@@ -107,10 +107,14 @@
                     </dic>
                     <div class="step2_actions record_actions col-md-12">
                         <br>
+                        <a class="btn btn-default btn-lg"
+                           onclick="javascript:OjsArticleSubmision.hideAllSteps();OjsArticleSubmision.showStep(1);">
+                           <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+                        </a>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step2('{{ path('articlesubmission_step2') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
+                           {{ "save.next"|trans }} 
+                           <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
                 </div>
@@ -122,6 +126,10 @@
                     </dic>
                     <div class="step3_actions record_actions col-md-12">
                         <br>
+                        <a class="btn btn-default btn-lg"
+                           onclick="javascript:OjsArticleSubmision.hideAllSteps();OjsArticleSubmision.showStep(2);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+                        </a>
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step3('{{ path('articlesubmission_step3') }}');">
                             {{ "save.next"|trans }}
@@ -138,6 +146,11 @@
                     </dic>
                     <div class="step4_actions record_actions col-md-12">
                         <br>
+                        <a class="btn btn-default btn-lg"
+                           onclick="javascript:OjsArticleSubmision.hideAllSteps();OjsArticleSubmision.showStep(3);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+                        </a>
+                            
                         <a class="btn btn-info btn-lg"
                            onclick="javascript: OjsArticleSubmision.step4('{{ path('articlesubmission_step4') }}');">
                             {{ "save.next"|trans }}
