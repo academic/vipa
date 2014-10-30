@@ -1,4 +1,4 @@
-<?php
+ge<?php
 
 namespace Ojstr\UserBundle\Entity;
 
@@ -126,24 +126,18 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @return string
+     * @return array|NULL
      */
     public function getSettings(){
-        return $this->settings;
-    }
-    /**
-     * @return string
-     */
-    public function getSettingsObject(){
-        return json_decode($this->settings);
-    }
+        return json_decode($this->settings,1);
+    } 
     /**
      * 
-     * @param String $settings json encoded settings string
+     * @param array $settings
      * @return \Ojstr\UserBundle\Entity\User
      */
     public function setSettings($settings){
-        $this->settings = $settings;
+        $this->settings = json_encode($settings);
         return $this;
     }
     /**
