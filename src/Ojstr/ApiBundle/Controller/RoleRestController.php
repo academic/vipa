@@ -36,10 +36,10 @@ class RoleRestController extends FOSRestController
      * @todo not implemented yet
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Users wtih this role",
+     *  description="Get Users with this role",
      *  parameters={
      *      {
-     *          "name"="role_id",
+     *          "name"="id",
      *          "dataType"="integer",
      *          "required"="true",
      *          "description"="role id"
@@ -73,10 +73,15 @@ class RoleRestController extends FOSRestController
      * @todo not implemented yet
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Users wtih this role",
+     *  description="Get Users with this role for this journal",
      *  parameters={
      *      {
      *          "name"="role_id",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="role id"
+     *      },{
+     *          "name"="journal_id",
      *          "dataType"="integer",
      *          "required"="true",
      *          "description"="role id"
@@ -99,7 +104,7 @@ class RoleRestController extends FOSRestController
     public function getJournalRoleUsersAction($roleId, $journalId)
     {
         $result = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')->findBy(array('journalId' => $journalId, 'roleId' => $roleId));
-        if (!is_object($result)) {
+        if (!is_array($result)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
         return $result;
