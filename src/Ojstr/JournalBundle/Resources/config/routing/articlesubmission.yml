@@ -10,6 +10,10 @@ articlesubmission_new:
     pattern:  /author/article/submit
     defaults: { _controller: "OjstrJournalBundle:ArticleSubmission/ArticleSubmission:new" }
 
+articlesubmission_resume:
+    pattern:  /author/article/{articleId}/submit/{step}
+    defaults: { _controller: "OjstrJournalBundle:ArticleSubmission/ArticleSubmission:resume" }
+
 
 
 articlesubmission_addlocale:

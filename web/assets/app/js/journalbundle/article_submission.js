@@ -3,13 +3,18 @@ window.onbeforeunload = function () {
     return confirm(message);
 };
 
-var OjsArticleSubmision = {
+var OjsArticleSubmission = {
     articleId: null,
     languages: [],
     loadStepTemplate: function (step) {
         var tpl = $('#step' + step + '_tpl').html();
         var tpl_rendered = Mustache.render(tpl);
         $("#step" + step).append(tpl_rendered);
+    },
+    backTo: function (step) {
+        this.hideAllSteps();
+        this.configureProgressBar(step);
+        this.showStep(step);
     },
     configureProgressBar: function (step) {
         $("ul.submission-progress li").removeClass("active");
@@ -32,7 +37,7 @@ var OjsArticleSubmision = {
     },
     step1AddLanguageForm: function (langcode, langtitle) {
         // check if selected language tab already exists
-        if (OjstrCommon.inArray(langcode, OjsArticleSubmision.languages)) {
+        if (OjstrCommon.inArray(langcode, OjsArticleSubmission.languages)) {
             return false;
         }
 
@@ -41,7 +46,7 @@ var OjsArticleSubmision = {
 
         $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' + step1_rendered);
 
-        OjsArticleSubmision.languages.push(langcode);
+        OjsArticleSubmission.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
             toolbar: {
                 "font-styles": false,
@@ -59,7 +64,7 @@ var OjsArticleSubmision = {
                 langtitle + '<span class="removelang btn btn-sm btn-default"><i class="fa fa-trash-o"></i>' +
                 '</span></a></li>';
         $("ul#mainTabs li.lang").last().before(tabhtml);
-        OjsArticleSubmision.activateFirstLanguageTab();
+        OjsArticleSubmission.activateFirstLanguageTab();
     },
     step1RemoveLanguageForm: function (langcode, $tab) {
         check = confirm("Are you sure to remove this language tab?");
@@ -117,9 +122,9 @@ var OjsArticleSubmision = {
         $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjstrCommon.hideallModals();
             if (response.id) {
-                OjsArticleSubmision.articleId = response.id;
-                OjsArticleSubmision.hideAllSteps();
-                OjsArticleSubmision.step2Prepare();
+                OjsArticleSubmission.articleId = response.id;
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.step2Prepare();
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
@@ -164,7 +169,7 @@ var OjsArticleSubmision = {
             this.configureProgressBar(4);
             this.loadStepTemplate(4);
         }
-        OjsArticleSubmision.showStep(4);
+        this.showStep(4);
     }
 };
 
@@ -177,13 +182,13 @@ $(document).ready(function () {
         e.preventDefault();
         langcode = $(this).attr('code');
         langtitle = $(this).attr('lang');
-        OjsArticleSubmision.step1AddLanguageForm(langcode, langtitle);
+        OjsArticleSubmission.step1AddLanguageForm(langcode, langtitle);
     });
     $("body").on("click", "span.removelang", function (e) {
         e.preventDefault();
         langcode = $(this).parent().attr("href").replace("#", "");
         $tab = $("#" + langcode);
-        OjsArticleSubmision.step1RemoveLanguageForm(langcode, $tab);
+        OjsArticleSubmission.step1RemoveLanguageForm(langcode, $tab);
     });
     // article file uploader
     $('#article_file_upload').fileupload({});
