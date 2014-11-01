@@ -5,6 +5,7 @@ namespace Ojstr\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SiteController extends Controller {
+    
 
     /**
      * Global index page
@@ -13,58 +14,70 @@ class SiteController extends Controller {
     public function indexAction() {
         /* @var $journalDomain \Ojstr\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
-        $currentJournal = $journalDomain->getCurrentJournal();
+        $data['entity'] = $journalDomain->getCurrentJournal();
+        $data['page'] = 'index';
 
-        if ($currentJournal) {
-            return $this->render('OjstrJournalBundle:Journal:public_index.html.twig', array('entity' => $currentJournal));
+        if ($data['entity']) {
+            return $this->render('OjstrJournalBundle:Journal:public_index.html.twig',$data);
         }
         // anything else is anonym main page
-        return $this->render('OjstrSiteBundle::Site/anonymous_index.html.twig');
+        return $this->render('OjstrSiteBundle::Site/anonymous_index.html.twig',$data);
     }
 
     public function userIndexAction() {
-        return $this->render('OjstrManagerBundle:User:userwelcome.html.twig');
+        $data['page'] = 'user';
+        return $this->render('OjstrManagerBundle:User:userwelcome.html.twig',$data);
     }
 
     public function browseIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/browse_index.html.twig');
+        $data['page'] = 'browse';
+        return $this->render('OjstrSiteBundle::Site/browse_index.html.twig',$data);
     }
 
     public function organizationsIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/organizations_index.html.twig');
+
+        $data['page'] = 'organizations';
+        return $this->render('OjstrSiteBundle::Site/organizations_index.html.twig',$data);
     }
 
     public function categoriesIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/categories_index.html.twig');
+        $data['page'] = 'categories';
+        return $this->render('OjstrSiteBundle::Site/categories_index.html.twig',$data);
     }
 
     public function topicsIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/topics_index.html.twig');
+        $data['page'] = 'topics';
+        return $this->render('OjstrSiteBundle::Site/topics_index.html.twig',$data);
     }
 
     public function profileIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/profile_index.html.twig');
+        $data['page'] = 'profile';
+        return $this->render('OjstrSiteBundle::Site/profile_index.html.twig',$data);
     }
-    
-    
-    
 
-    public function staticPagesAction($page = null) { 
-        return $this->render(
-                        'OjstrSiteBundle:Site:static/tos.html.twig'
-        );
+    public function staticPagesAction($page = 'static') {
+        $data['page'] = $page;
+        return $this->render('OjstrSiteBundle:Site:static/tos.html.twig',$data);
+    }
+
+    public function journalsIndexAction() {
+        $data['page'] = 'journals';
+        return $this->render('OjstrSiteBundle::Site/journals_index.html.twig',$data);
     }
 
     public function journalIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/journal_index.html.twig');
+        $data['page'] = 'journal';
+        return $this->render('OjstrSiteBundle::Site/journal_index.html.twig',$data);
     }
 
     public function articlesIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/articles_index.html.twig');
+        $data['page'] = 'articles';
+        return $this->render('OjstrSiteBundle::Site/articles_index.html.twig',$data);
     }
 
     public function archiveIndexAction() {
-        return $this->render('OjstrSiteBundle::Site/archive_index.html.twig');
+        $data['page'] = 'archive';
+        return $this->render('OjstrSiteBundle::Site/archive_index.html.twig',$data);
     }
 
 }
