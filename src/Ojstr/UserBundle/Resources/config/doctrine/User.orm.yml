@@ -59,6 +59,9 @@ Ojstr\UserBundle\Entity\User:
             nullable: true
             options:
                 default: 0
+        settings:
+            type: string
+            nullable: true
         lastlogin:
             type: datetime
             unique: false
