@@ -1,32 +1,26 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-{% set list = [
+    {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'link': path('journal'), 'title': 'Journal Manager'},
                 { 'title': 'Update Journal '},
 
 ] %}
-{{breadcrumb(list)}}
+    {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%}
-<div class="row">
-    <div class="large-12 columns">
-        <div class="panel">
-            <h1>Journal edit</h1>
+    <h1>Journal edit</h1>
 
     {{ form(edit_form) }}
 
-            <div class="record_actions">
+    <div class="record_actions">
 
-                <a href="{{ path('journal') }}" class="button">
-                    {% trans %}back{% endtrans %}
-                </a>
+        <a href="{{ path('journal') }}" class="button">
+            {% trans %}back{% endtrans %}
+        </a>
 
-                 {{ form(delete_form) }}
-            </div>
-        </div>
+        {{ form(delete_form) }}
     </div>
-</div>
 {% endblock %}

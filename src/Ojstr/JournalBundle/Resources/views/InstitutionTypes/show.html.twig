@@ -20,17 +20,17 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('institution_types') }}">
-            {% trans %}back{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('institution_types') }}">
+                {% trans %}back{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

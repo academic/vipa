@@ -1,15 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="panel">
     <h1>Add Article</h1>
 
-            {{ form(form) }}
+    {{ form(form) }}
 
     <div class="record_actions">
         <a class="button success" href="{{ path('article') }}">
             {% trans %}back{% endtrans %}
         </a>
     </div>
-</div>
 {% endblock %}
