@@ -16,12 +16,11 @@ class SecuritySwitchUserListener {
 
     public function onSecuritySwitchUser(SwitchUserEvent $event) {
         $newUser = $event->getTargetUser();
-        $currentUser = $this->getCurrentUser();
         // check that current user is admin
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
 
         $userjournalroles = $session->get('userJournalRoles');
-        if (is_array($userjournalroles)) {
+        if ($newUser && is_array($userjournalroles)) {
             foreach ($userjournalroles as $rolex) {
                 if ($rolex->getRole() == 'ROLE_SUPER_ADMIN') {
                     return true;
