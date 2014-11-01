@@ -14,32 +14,32 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('lang_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.code }}</td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.rtl }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('lang_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('lang_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('lang_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.code }}</td>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.rtl }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('lang_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('lang_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('lang_new') }}">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

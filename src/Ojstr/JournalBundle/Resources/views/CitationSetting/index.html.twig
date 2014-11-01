@@ -14,32 +14,32 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.citationId }}</td>
-                <td>{{ entity.setting }}</td>
-                <td>{{ entity.value }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('citationsetting_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.citationId }}</td>
+                    <td>{{ entity.setting }}</td>
+                    <td>{{ entity.value }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('citationsetting_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('citationsetting_new') }}">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}
