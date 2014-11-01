@@ -18,7 +18,7 @@ journal.show tpl for super admin users
     <ul class="list-group">
         <li class="list-group-item">
 
-            <table class="record_properties  table" style="width:100%">
+            <table class="record_properties  table">
 
                 <tbody>
                     <tr>
@@ -101,18 +101,15 @@ journal.show tpl for super admin users
                     </tr>
                 </tbody>
             </table>
-            </div>
-            <div class="panel-footer">
-                <div class="record_actions">
-                    <a href="{{ path('journal') }}" class="btn btn-primary">
-                        {% trans %}back{% endtrans %}
-                    </a>
-                    <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
-                        {%trans%}e{%endtrans%}
-                    </a>
-                    <hr>
-                    {{ form(delete_form) }}
-                </div>
+            <div class="record_actions">
+                <a href="{{ path('journal') }}" class="btn btn-primary">
+                    {% trans %}back{% endtrans %}
+                </a>
+                <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
+                    {%trans%}e{%endtrans%}
+                </a>
+                <hr>
+                {{ form(delete_form) }}
             </div>
         </li>
     </ul>

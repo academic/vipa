@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Citation creation</h1>
+    <h1>Citation creation</h1>
 
     {{ form(form) }}
 
-<a class="btn btn-default" href="{{ path('citation') }}">
-    Back to the list
-</a>
+    <a class="btn btn-default" href="{{ path('citation') }}">
+        Back to the list
+    </a>
 {% endblock %}

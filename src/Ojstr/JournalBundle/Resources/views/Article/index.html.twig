@@ -2,23 +2,12 @@
 
 {% block body -%}
 
-<div class="large-12 columns">
-    <div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">Articles for all Journals</div>
-  <div class="panel-body">
-    <p>Here you can find all articles listed.</p>
-  </div>
+    <p>Here you can find all articles listed. 
+        <a href="{{ path('article_new') }}" class="btn btn-success">
+            {% trans %}c{% endtrans %}
+        </a></p>
 
 
-        {% include "OjstrJournalBundle:Article:index_list_block.html.twig" %}
-            <div class="panel-footer">
-            <a href="{{ path('article_new') }}" class="btn btn-success">
-                    {% trans %}c{% endtrans %}
-            </a>
-        </div>
-    </div>
+    {% include "OjstrJournalBundle:Article:index_list_block.html.twig" %}
 
-    </div>
-</div>
 {% endblock %}
