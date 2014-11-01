@@ -1,0 +1,253 @@
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-2 hidden-sm hidden-xs">
+                            <i class="fa fa-5x fa-newspaper-o"></i>
+                        </div>
+                        <div class="col-md-10">
+                            <ul class="pull-right">
+                                <li><a href="/news/1">DergiPark'ta arama sonuçlarını kaynak göstermek çok kolay</a></li>
+                                <li><a href="/news/1">CrossRef ile ULAKBİM arasında yapılan sponsor kurum anlaşma ile DOI numarası verilmeye başlanmıştır.</a></li>
+                                <li><a href="/news/1">DergiPark'ta yer alan yaklaşık 95 bin makale, EBSCO tarafından hazırlanan EKUAL arama motorunda pek çok vt ile beraber taranıyor.</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-md-3">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <span class="fa fa-folder"></span> Kurumlar</a>
+                            </h4>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/journals">Üniversite</a>
+                                <span class="badge pull-right">130</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Kamu</a>
+                                <span class="badge pull-right">56</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Dernek</a>
+                                <span class="badge pull-right">80</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Vakıf</a>
+                                <span class="badge pull-right">120</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Eğitim Araştırma Hastanesi</a>
+                                <span class="badge pull-right">42</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <span class="fa fa-th"></span> Konular</a>
+                            </h4>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/journals">Sağlık Bilimleri</a>
+                                <span class="label label-success pull-right">320</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Yaşam Bilimleri</a>
+                                <span class="label label-success pull-right">120</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Hukuk</a>
+                                <span class="label label-success pull-right">10</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Mühendislik ve Temel Bilimler</a>
+                                <span class="label label-success pull-right">10</span>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/journals">Tüm Dergiler</a>
+                                <span class="label label-info pull-right">560</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><span class="fa fa-link"></span> Bağlantılar</a>
+                            </h4>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <a href="/contact">İletişim </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="/faq">S.S.S. </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-9 col-md-9">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/f9A497/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Cumhuriyet Science Journal</b></span>
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/37A4f7/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title">
+                                    <b>Türk Dili ve Edebiyatı Araştırmaları Dergisi</b>
+                                </span>
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/67f497/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/17A497/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Atatürk Dergisi</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/67A497/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3 col-md-3">
+                        <div class="post">
+                            <div class="post-img-content">
+                                <a href="/journal">
+                                    <img src="http://placehold.it/256x400/AB0/ffffff&text=ttdb" class="img-responsive" />
+                                </a>
+                            </div>
+                            <div class="content">
+                                <span class="post-title"><b>Türk Tarım ve Doğa Bilimleri</b></span>
+
+                                <div class="smallinfo">
+                                    <span class="pull-left">Cil 8/Sayı 4 </span>
+                                    <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
+                                </div>
+
+                                <div>
+                                    <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                    <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
