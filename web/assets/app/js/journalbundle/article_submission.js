@@ -1,6 +1,6 @@
 window.onbeforeunload = function () {
     var message = "Are you sure you want to navigate away from this page?\n\nYour changes may be lost.";
-    return confirm(message);
+    return message;
 };
 
 var OjsArticleSubmission = {
