@@ -12,11 +12,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Ana Sayfa</a></li>
-                <li><a href="/organizations">Organizasyonlar</a></li>
-                <li><a href="/journals">Dergiler</a></li>
-                <li><a href="http://dergipark.gov.tr/basvur">Dergi Başvuru</a></li>
-                <li><a href="#">Makale Gönder</a></li>
+                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">Ana Sayfa</a></li>
+                <li{%if page == 'organizations'%} class="active"{%endif%}><a href="/organizations">Organizasyonlar</a></li>
+                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">Dergiler</a></li>
+                <li{%if page == 'submission'%} class="active"{%endif%}><a href="http://dergipark.gov.tr/basvur">Dergi Başvuru</a></li>
+                <li{%if page == 'send'%} class="active"{%endif%}><a href="#">Makale Gönder</a></li>
 
                 {%include '::language_selector.html.twig'%}
             </ul>
