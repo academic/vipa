@@ -1,39 +1,36 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-{% set list = [
+    {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'title': 'Journal Manager'}
 
 ] %}
-{{breadcrumb(list)}}
+    {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>Journal List</h1>
-        <div class="panel">
-            <a class="btn btn-info" href="{{path('journal')}}">
-                <i class="fa fa-asterisk"></i> All journals</a>
-            <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
-                <i class="fa fa-user"></i> My journals</a>
-        </div>
-        <table class="records_list  table" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Title</th>
-                    <th>Issn</th>
-                    <th>Firstpublishdate</th>
-                    <th>Url</th>
-                    <th>published</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-        {% for entity in entities %}
+    <h1>Journal List</h1>
+    <a class="btn btn-info" href="{{path('journal')}}">
+        <i class="fa fa-asterisk"></i> All journals</a>
+    <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
+        <i class="fa fa-user"></i> My journals</a>
+
+    <table class="records_list  table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Issn</th>
+                <th>Firstpublishdate</th>
+                <th>Url</th>
+                <th>published</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('journal_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.title }}</td>
@@ -48,15 +45,13 @@
                         </div
                     </td>
                 </tr>
-        {% endfor %}
-            </tbody>
-        </table>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        <div>
-            <a href="{{ path('journal_new') }}" class="btn btn-success">
-                    {% trans %}c{% endtrans %}
-            </a>
-        </div>
+    <div>
+        <a href="{{ path('journal_new') }}" class="btn btn-success">
+            {% trans %}c{% endtrans %}
+        </a>
     </div>
-</div>
-    {% endblock %}
+{% endblock %}

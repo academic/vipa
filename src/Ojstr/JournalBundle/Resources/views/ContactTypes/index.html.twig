@@ -1,38 +1,38 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>ContactTypes list</h1>
+    <h1>ContactTypes list</h1>
 
-<table class="records_list  table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('contacttypes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.description }}</td>
-            <td>
+    <table class="records_list  table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('contacttypes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.description }}</td>
+                    <td>
 
-                {% set show_path = 'contacttypes_show' %}
-                {% set edit_path = 'contacttypes_edit' %}
-                {% set delete_path = 'contacttypes_delete' %}
-                {% include '::actionbtns.html.twig' %}
+                        {% set show_path = 'contacttypes_show' %}
+                        {% set edit_path = 'contacttypes_edit' %}
+                        {% set delete_path = 'contacttypes_delete' %}
+                        {% include '::actionbtns.html.twig' %}
 
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
-{% trans %}c{% endtrans %}
-        </a>
+    <a href="{{ path('contacttypes_new') }}" class="btn btn-success">
+        {% trans %}c{% endtrans %}
+    </a>
 
-    {% endblock %}
+{% endblock %}
