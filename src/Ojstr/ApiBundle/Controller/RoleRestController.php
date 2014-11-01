@@ -36,10 +36,10 @@ class RoleRestController extends FOSRestController
      * @todo not implemented yet
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Users wtih this role",
+     *  description="Get Users with this role",
      *  parameters={
      *      {
-     *          "name"="role_id",
+     *          "name"="id",
      *          "dataType"="integer",
      *          "required"="true",
      *          "description"="role id"
@@ -57,16 +57,57 @@ class RoleRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Get("/role/{id}/users")
+     * @Get("/role/{roleId}/users")
      */
-    public function getRoleUsersAction($id)
+    public function getRoleUsersAction($roleId)
     {
-        $role_of_users = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
-        if (!is_object($role_of_users)) {
+        $role = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($roleId);
+        $users = $role->getUsers();
+        if (!is_object($users)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
-
-        return $role_of_user;
+        return $users;
+    }
+    
+    /**
+     * @todo not implemented yet
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get Users with this role for this journal",
+     *  parameters={
+     *      {
+     *          "name"="role_id",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="role id"
+     *      },{
+     *          "name"="journal_id",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="role id"
+     *      },{
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="offset page"
+     *      },
+     *      {
+     *          "name"="limit",
+     *          "dataType"="integer",
+     *          "required"="true",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/role/{roleId}/journal/{journalId}/users")
+     */
+    public function getJournalRoleUsersAction($roleId, $journalId)
+    {
+        $result = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')->findBy(array('journalId' => $journalId, 'roleId' => $roleId));
+        if (!is_array($result)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        return $result;
     }
 
     private function notFound()

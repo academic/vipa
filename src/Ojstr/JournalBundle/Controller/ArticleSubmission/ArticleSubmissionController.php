@@ -69,6 +69,23 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
+    
+    public function resumeAction($articleId, $step)
+    { 
+        // get journal
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjstrJournalBundle:Article')->find($articleId);
+        $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($article->getJournalId());
+
+        return $this->render('OjstrJournalBundle:ArticleSubmission:new.html.twig', array(
+                    'articleId' => $article->getId(),
+                    'entity' => $article,
+                    'journal' => $journal,
+                    'fileTypes' => ArticleFileParams::$FILE_TYPES,
+                    'citationTypes' => $this->container->getParameter('citation_types')
+        ));
+    }
+
     /**
      * Finds and displays a Article entity.
      *

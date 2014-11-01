@@ -30,6 +30,7 @@
 	"morrisjs":"*",
 	"metisMenu":"*",
 	"angular":"1.2.*",
-	"mustache":"*"
+	"mustache":"*",
+	"bootstrap-tour":"*"
     }
 }
