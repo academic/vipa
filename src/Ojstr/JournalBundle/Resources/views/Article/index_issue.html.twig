@@ -2,26 +2,15 @@
 
 {% block body -%}
 
-<div class="large-12 columns">
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Articles Issue <strong>{{issue.title }}</strong> in Journal <em>{{issue.journal.title }}</em></div>
-        <div class="panel-body">
-            <p>Here you can find all articles for selected issue <strong>{{issue.title }}</strong></p>
-        </div>
-
-
-        {% include "OjstrJournalBundle:Article:index_list_block.html.twig" %}
-        <div class="panel-footer">
-            <a href="{{ path('article_new') }}" class="btn btn-success">
-                    {% trans %}c{% endtrans %}
-            </a>
-            <a href="{{ path('article') }}" class="btn btn-default">
-                    {% trans %}back{% endtrans %}
-            </a>
-        </div>
-    </div>
-
-</div>
-</div>
+    Articles Issue <strong>{{issue.title }}</strong> in Journal <em>{{issue.journal.title }}</em>
+    
+        <p>Here you can find all articles for selected issue <strong>{{issue.title }}</strong></p>
+    
+    {% include "OjstrJournalBundle:Article:index_list_block.html.twig" %}
+    <a href="{{ path('article_new') }}" class="btn btn-success">
+        {% trans %}c{% endtrans %}
+    </a>
+    <a href="{{ path('article') }}" class="btn btn-default">
+        {% trans %}back{% endtrans %}
+    </a>
 {% endblock %}

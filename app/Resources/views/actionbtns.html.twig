@@ -1,11 +1,11 @@
 <div class="btn-group">
 {% if(back_path is defined) %}
-    <a class="btn-sm btn btn-default pull-right" href="{{ path(back_path, { 'id': entity.id }) }}">
+    <a class="btn-sm btn btn-default" href="{{ path(back_path, { 'id': entity.id }) }}">
         <i class="fa fa-arrow-left"></i>
     </a>
 {%endif%}
 {% if(show_path is defined) %}
-    <a class="btn-sm btn btn-success pull-right" href="{{ path(show_path, { 'id': entity.id }) }}">
+    <a class="btn-sm btn btn-success" href="{{ path(show_path, { 'id': entity.id }) }}">
         <i class="fa fa-info-circle"></i>
     </a>
 {%endif%}
