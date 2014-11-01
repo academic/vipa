@@ -99,6 +99,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @Expose
      */
     private $subjects;
+    
+    /**
+     * Json encoded settings string
+     * @var String
+     * @Expose
+     */
+    private $settings;
 
     /**
      * @var integer
@@ -120,6 +127,21 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this->id;
     }
 
+    /**
+     * @return array|NULL
+     */
+    public function getSettings(){
+        return json_decode($this->settings,1);
+    } 
+    /**
+     * 
+     * @param array $settings
+     * @return \Ojstr\UserBundle\Entity\User
+     */
+    public function setSettings($settings){
+        $this->settings = json_encode($settings);
+        return $this;
+    }
     /**
      * @param  string $username
      * @return User

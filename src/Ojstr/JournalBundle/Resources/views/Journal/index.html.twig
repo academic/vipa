@@ -4,54 +4,58 @@
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'title': 'Journal Manager'}
-
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}
-    <h1>Journal List</h1>
-    <a class="btn btn-info" href="{{path('journal')}}">
-        <i class="fa fa-asterisk"></i> All journals</a>
-    <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
-        <i class="fa fa-user"></i> My journals</a>
+{% block body -%} 
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>Journal List</h1>
+            <div class="panel">
+                <a class="btn btn-info" href="{{path('journal')}}">
+                    <i class="fa fa-asterisk"></i> All journals</a>
+                <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
+                    <i class="fa fa-user"></i> My journals</a>
+            </div>
+            <table class="records_list  table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Issn</th>
+                        <th>First Publish Date</th> 
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Issn</th>
-                <th>Firstpublishdate</th>
-                <th>Url</th>
-                <th>published</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('journal_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.title }}</td>
-                    <td>{{ entity.issn }}</td>
-                    <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{{ entity.url }}</td>
-                    <td>{{ entity.published }}</td>
-                    <td>{{ entity.status }}</td>
-                    <td>
-                        <a href="{{ path('journal_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}s{% endtrans %}</a> <br>
-                        <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-info btn-sm"> {% trans %}e{% endtrans %}</a>
-                        </div
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                        <th width="60px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><a  class="label label-success" href="{{ path('journal_show', { 'id': entity.id }) }}">id: {{ entity.id }}</a>
+                                <a href="{{ entity.url }}">{{ entity.title }}</a> 
+                                <span class="badge" title="published">{{ entity.published }}</span>
+                                <span class="label label-info" title="Status">{{entity.status}}</span>
+                            </td>
+                            <td>{{ entity.issn }}</td>
+                            <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
 
-    <div>
-        <a href="{{ path('journal_new') }}" class="btn btn-success">
-            {% trans %}c{% endtrans %}
-        </a>
+                            <td>{{ entity.status }}</td>
+                            <td>
+                                {% set show_path = 'journal_show' %}
+                                {% set edit_path = 'journal_edit' %}
+                                {% set delete_path = 'journal_delete' %}
+                                {% include '::actionbtns.html.twig' %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div>
+                <a href="{{ path('journal_new') }}" class="btn btn-success">
+                    {% trans %}c{% endtrans %}
+                </a>
+            </div>
+        </div> 
     </div>
 {% endblock %}
