@@ -25,128 +25,114 @@
 
 {% block body -%}
     <input type="hidden" name="journalId" value="{{ journal.id }}"/>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title">
-                    <ul class='nav nav-wizard submission-progress'>
-                        <li id="submission-progress-step1" class="active"><span class="badge">1</span> Article</li>
-                        <li id="submission-progress-step2"><span class="badge">2</span> Authors</li>
-                        <li id="submission-progress-step3"><span class="badge">3</span> Citations</li>
-                        <li id="submission-progress-step4"><span class="badge">4</span> Article File</li>
-                        <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
-                    </ul>
-                </div>
+
+    <ul class='nav nav-wizard submission-progress'>
+        <li id="submission-progress-step1" class="active"><span class="badge">1</span> Article</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> Authors</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> Citations</li>
+        <li id="submission-progress-step4"><span class="badge">4</span> Article File</li>
+        <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
+    </ul>
+
+    <form name="base" class="form-horizontal" role="form">
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Article Main Language</label>
+
+            <div class="col-md-9">
+                <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
+                    {% for lang in journal.languages %}
+                        <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                    {% endfor %}
+                </select>
             </div>
+        </div>
+    </form>
 
-            <div class="panel-body">
-                <!-- Nav tabs -->
-                <div class="col-md-12">
-                    <form name="base" class="form-horizontal" role="form">
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Article Main Language</label>
-
-                            <div class="col-md-9">
-                                <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
-                                    {% for lang in journal.languages %}
-                                        <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-
-                <div id="step1-container" class="step">
-                    <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-                        <li class="lang dropdown">
-                            <a href="#" id="languageDrop" class="dropdown-toggle"
-                               data-toggle="dropdown">
-                                <i class="fa fa-plus"></i> Add language
-                                <span class="caret"></span>
+    <div id="step1-container" class="step">
+        <ul id="mainTabs" class="nav nav-tabs" role="tablist">
+            <li class="lang dropdown">
+                <a href="#" id="languageDrop" class="dropdown-toggle"
+                   data-toggle="dropdown">
+                    <i class="fa fa-plus"></i> Add language
+                    <span class="caret"></span>
+                </a>
+                <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
+                    {% for lang in  journal.languages %}
+                        <li>
+                            <a href="#"
+                               id="langitem_{{ lang.code }}"
+                               code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
+                                {{ lang.name }}
+                                <small>({{ lang.code }})</small>
                             </a>
-                            <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                                {% for lang in  journal.languages %}
-                                    <li>
-                                        <a href="#"
-                                           id="langitem_{{ lang.code }}"
-                                           code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
-                                            {{ lang.name }}
-                                            <small>({{ lang.code }})</small>
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
                         </li>
-                    </ul>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
 
-                    <!-- Tab panes -->
+        <!-- Tab panes -->
 
-                    <div class="tab-content" id="step1">
+        <div class="tab-content" id="step1">
 
-                    </div>
-                    <div class="step1_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
-                           href="{{ path('articlesubmission_new') }}">
-                            {% trans %}res{% endtrans %}
-                        </a>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div id="step2-container" class="step hide">
+        </div>
+        <div class="step1_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
+               href="{{ path('articlesubmission_new') }}">
+                {% trans %}res{% endtrans %}
+            </a>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmision.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div id="step2-container" class="step hide">
 
-                    <dic id="step2">
+        <dic id="step2">
 
-                    </dic>
-                    <div class="step2_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmision.step2('{{ path('articlesubmission_step2') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
+        </dic>
+        <div class="step2_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmision.step2('{{ path('articlesubmission_step2') }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
 
-                <div id="step3-container" class="step hide">
+    <div id="step3-container" class="step hide">
 
-                    <dic id="step3">
+        <dic id="step3">
 
-                    </dic>
-                    <div class="step3_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmision.step3('{{ path('articlesubmission_step3') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
+        </dic>
+        <div class="step3_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmision.step3('{{ path('articlesubmission_step3') }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
 
 
-                <div id="step4-container" class="step hide">
+    <div id="step4-container" class="step hide">
 
-                    <dic id="step4">
+        <dic id="step4">
 
-                    </dic>
-                    <div class="step4_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmision.step4('{{ path('articlesubmission_step4') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+        </dic>
+        <div class="step4_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmision.step4('{{ path('articlesubmission_step4') }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
         </div>
     </div>
 

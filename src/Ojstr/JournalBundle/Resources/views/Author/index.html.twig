@@ -1,41 +1,41 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Author list</h1>
+    <h1>Author list</h1>
 
-<table class="records_list  table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Full name</th>
-            <th>Initials</th>
-            <th>Email</th>
-            <th>Summary</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.firstName }} {{ entity.middleName }} {{ entity.lastName }}</td>
-            <td>{{ entity.initials }}</td>
-            <td>{{ entity.email }}</td>
-            <td>{{ entity.summary }}</td>
-            <td>
-                {% set show_path = 'author_show' %}
-                {% set edit_path = 'author_edit' %}
-                {% set delete_path = 'author_delete' %}
-                {% include '::actionbtns.html.twig' %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <table class="records_list  table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Full name</th>
+                <th>Initials</th>
+                <th>Email</th>
+                <th>Summary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.firstName }} {{ entity.middleName }} {{ entity.lastName }}</td>
+                    <td>{{ entity.initials }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.summary }}</td>
+                    <td>
+                        {% set show_path = 'author_show' %}
+                        {% set edit_path = 'author_edit' %}
+                        {% set delete_path = 'author_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 
-<a href="{{ path('author_new') }}" class="btn btn-success">
-{% trans %}c{% endtrans %}
-</a>
+    <a href="{{ path('author_new') }}" class="btn btn-success">
+        {% trans %}c{% endtrans %}
+    </a>
 
-    {% endblock %}
+{% endblock %}

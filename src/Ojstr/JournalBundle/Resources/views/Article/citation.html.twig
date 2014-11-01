@@ -1,68 +1,57 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="row">
-    <div class="large-12 columns">
-        <div class="panel">
-            <h2>Add Citation <small>{{  item.getTitle() }}</h2>
-            <div class="col-md-12">
-                <button class="btn btn-success" id="pasteArticleCitationInline">
-                    <i class="fa fa-edit"></i> Paste&Extract Citations
-                </button>
-                <button class="btn btn-info" id="addArticleCitationInline">
-                    <i class="fa fa-plus-circle"></i> New Citation
-                </button>
-                <div id="citationPasteField">
-                    <div class="form-row well">
-                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
-                    </div>
-                </div>
+    <h2>Add Citation <small>{{  item.getTitle() }}</h2>
+    <div class="col-md-12">
+        <button class="btn btn-success" id="pasteArticleCitationInline">
+            <i class="fa fa-edit"></i> Paste&Extract Citations
+        </button>
+        <button class="btn btn-info" id="addArticleCitationInline">
+            <i class="fa fa-plus-circle"></i> New Citation
+        </button>
+        <div id="citationPasteField">
+            <div class="form-row well">
+                <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
             </div>
-            <form class="col-md-12 form-inline" action="">
-                <br>
-                <div id="citationContainer"></div>
-                <input type="button" class="form-control btn btn-default" value="Save" id="saveArticleCitation" />
-            </form>
-
-
-            <div class="hide" id="citationInfoFields">
-                <form class="cite-item form-row well">
-                    <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
-                    <input type="text" class="form-control" value="" name="raw" placeholder="Citation">
-
-                    <a class="pull-right btn btn-warning removeArticleCitationInline">
-                        <i class="fa fa-minus-circle"></i>
-                    </a>
-                    <a href="#details" class="addCitationDetails">Details</a>
-
-                    <div class="citationDetails">
-                        <select class="form-control" name="type">
-                            <option value="">[Select Citation Type]</option>
-                                {% for type in citationTypes %}
-                            <option value="{{type.name}}" should="{{type.should|json_encode()}}" must="{{type.must|json_encode()}}">{{type.name}}</option>
-                                {%endfor%}
-                        </select>
-                        <br><br>
-                        <div class="citationDetailsFields"></div>
-                    </div>
-                </form>
-            </div>
-
-
-
-
         </div>
     </div>
-</div>
+    <form class="col-md-12 form-inline" action="">
+        <br>
+        <div id="citationContainer"></div>
+        <input type="button" class="form-control btn btn-default" value="Save" id="saveArticleCitation" />
+    </form>
+
+
+    <div class="hide" id="citationInfoFields">
+        <form class="cite-item form-row well">
+            <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
+            <input type="text" class="form-control" value="" name="raw" placeholder="Citation">
+
+            <a class="pull-right btn btn-warning removeArticleCitationInline">
+                <i class="fa fa-minus-circle"></i>
+            </a>
+            <a href="#details" class="addCitationDetails">Details</a>
+
+            <div class="citationDetails">
+                <select class="form-control" name="type">
+                    <option value="">[Select Citation Type]</option>
+                    {% for type in citationTypes %}
+                        <option value="{{type.name}}" should="{{type.should|json_encode()}}" must="{{type.must|json_encode()}}">{{type.name}}</option>
+                    {%endfor%}
+                </select>
+                <br><br>
+                <div class="citationDetailsFields"></div>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}
 
 {% block javascripts -%}
-{{  parent()  }}
-<script>
-    var articleId = {{item.getId()}};
-</script>
+    {{  parent()  }}
+    <script>
+    var articleId = {{item.getId()}};</script>
 
-<script src="{{ asset('/assets/js/journalbundle/article_cite.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/assets/js/journalbundle/article_cite.js') }}" type="text/javascript"></script>
 
 {% endblock %}
