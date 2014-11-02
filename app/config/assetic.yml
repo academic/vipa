@@ -1,5 +1,6 @@
 #assetic named assets should be redefined
 assetic:
+    node: /usr/local/bin/node
     debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ OjstrUserBundle,OjstrJournalBundle ]
@@ -28,6 +29,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/js/bootstrap-dialog.min.js
                     - %kernel.root_dir%/../web/vendor/metisMenu/dist/jquery.metisMenu.min.js
+                    - %kernel.root_dir%/../web/vendor/holderjs/holder.js
                     - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/assets/theme/%theme%/js/main.js

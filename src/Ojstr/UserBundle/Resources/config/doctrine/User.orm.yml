@@ -28,6 +28,11 @@ Ojstr\UserBundle\Entity\User:
             length: 255
             unique: false
             nullable: true
+        apiKey:
+            type: string
+            length: 255
+            unique: true
+            nullable: true
         email:
             type: string
             length: 255
