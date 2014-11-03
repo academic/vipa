@@ -1,3 +1,7 @@
+ojstr_site_admin_page:
+    resource: "@OjstrSiteBundle/Resources/config/routing/page.yml"
+    prefix:   /admin/page
+
 ojstr_public_index:
     pattern:  /
     defaults: { _controller: OjstrSiteBundle:Site:index }
