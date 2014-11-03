@@ -16,11 +16,8 @@
     {{ form(edit_form) }}
 
     <div class="record_actions">
-
-        <a href="{{ path('journal') }}" class="button">
-            {% trans %}back{% endtrans %}
-        </a>
-
-        {{ form(delete_form) }}
+        {% set back_path = 'journal' %}
+        {% set delete_path = 'journal_delete' %}
+        {% include '::actionbtns.html.twig' %} 
     </div>
 {% endblock %}
