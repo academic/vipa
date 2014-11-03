@@ -16,9 +16,9 @@ status:
     inreview: in-Review
     spam: Spam
 messages: Messages
-journals: Journals
 journal: 
     journal: journal
+    journals: Journals
 article:
     articles: Articles
     article: Article
