@@ -1,0 +1,20 @@
+{% extends '::ojsbase.html.twig' %}
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'title': '<strong>Page Management</strong>' },
+    { 'title': 'New Page' }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>New Page</h1>
+
+    {{ form(form) }}
+
+    <div class="record_actions"> 
+        {% set back_path = 'admin_page' %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
+{% endblock %}
