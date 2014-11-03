@@ -8,17 +8,19 @@
         {% endif %}
             {{entity.username}}
             <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
+                {% if app.user != entity %}
                 {%if isProxy %}
                 <a class="btn btn-danger pull-right"
                    href="{{path('user_drop_proxy',{'proxyUserId':entity.id})}}">
                     Drop Proxy User
-                </a>
-            {%else%}
+                </a>pr
+                {%else%}
                 <a class="btn btn-warning pull-right"
                    href="{{path('user_make_proxy',{'proxyUserId':entity.id})}}">
                     Add as Proxy
                 </a>
-            {%endif%}
+                {%endif%}
+                {%endif%}
         </h1>
 
         {%include '::flashbag.html.twig'%}
