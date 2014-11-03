@@ -102,14 +102,10 @@ journal.show tpl for super admin users
                 </tbody>
             </table>
             <div class="record_actions">
-                <a href="{{ path('journal') }}" class="btn btn-primary">
-                    {% trans %}back{% endtrans %}
-                </a>
-                <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
-                    {%trans%}e{%endtrans%}
-                </a>
-                <hr>
-                {{ form(delete_form) }}
+                {% set back_path = 'journal' %}
+                {% set edit_path = 'journal_edit' %}
+                {% set delete_path = 'journal_delete' %}
+                {% include '::actionbtns.html.twig' %}
             </div>
         </li>
     </ul>
