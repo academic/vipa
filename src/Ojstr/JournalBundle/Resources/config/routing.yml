@@ -77,3 +77,7 @@ ojstr_articleauthor:
 admin_journal_section:
     resource: "@OjstrJournalBundle/Resources/config/routing/journalsection.yml"
     prefix:   /admin/journal/section
+
+journal_apply:
+    pattern:  /journal/apply
+    defaults: { _controller: "OjstrJournalBundle:Journal:apply" }

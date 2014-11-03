@@ -14,9 +14,13 @@ class SiteController extends Controller {
     public function indexAction() {
         /* @var $journalDomain \Ojstr\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
+        $em = $this->getDoctrine()->getManager();
+        $journals = $em->getRepository('OjstrJournalBundle:Journal')->findAll();
+        
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'index';
-
+        $data["journals"] = $journals;
+        
         if ($data['entity']) {
             return $this->render('OjstrJournalBundle:Journal:public_index.html.twig',$data);
         }

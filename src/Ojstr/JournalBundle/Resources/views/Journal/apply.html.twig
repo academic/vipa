@@ -3,19 +3,19 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'},
+                { 'title': 'Apply For New Journal'},
                 { 'title': 'New Journal '},
-
-] %}
+    ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%}
 
-    <h1>Journal creation</h1>
-    {{ form(form) }}
+    <h1>Apply for a new journal</h1>
+    
     <div class="record_actions">
-        {% set back_path = 'journal' %}
-        {% include '::actionbtns.html.twig' %}
+        <a href="{{ path('dashboard') }}" class="btn btn-default">
+            <i class="fa fa-chevron-left"></i> {{"b"|trans}}
+        </a>
     </div>
 {% endblock %}
