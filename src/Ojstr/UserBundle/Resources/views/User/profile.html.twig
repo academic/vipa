@@ -8,40 +8,39 @@
         {% endif %}
             {{entity.username}}
             <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
+            <span class="badge">{{ entity.id }}</span>
+                {% if app.user != entity %}
                 {%if isProxy %}
                 <a class="btn btn-danger pull-right"
                    href="{{path('user_drop_proxy',{'proxyUserId':entity.id})}}">
                     Drop Proxy User
-                </a>
-            {%else%}
+                </a>pr
+                {%else%}
                 <a class="btn btn-warning pull-right"
                    href="{{path('user_make_proxy',{'proxyUserId':entity.id})}}">
                     Add as Proxy
                 </a>
-            {%endif%}
+                {%endif%}
+                {%endif%}
         </h1>
 
         {%include '::flashbag.html.twig'%}
 
         <table class="record_properties  table">
-            <tbody>
+            <tbody> 
                 <tr>
-                    <th>Id</th>
-                    <td>{{ entity.id }}</td>
-                </tr>
-                <tr>
-                    <th>Username</th>
+                    <th>{{"Username"|trans}}</th>
                     <td>{{ entity.username }}</td>
                 </tr>
                 <tr>
-                    <th>Email</th>
+                    <th>{{"Email"|trans}}</th>
                     <td>{{ entity.email }}</td>
                 </tr>
                 <tr>
-                    <th>Roles</th>
+                    <th>{{"Roles"|trans}}</th>
                     <td>
                         {% for role in entity.roles %}
-                            {{role.name}}(<strong>{{role.role}}</strong>) <br/>
+                            <span class="label label-info" title="{{role.role}}">{{role.name}}</span>  <br/>
                         {% endfor %}
                     </td>
 
