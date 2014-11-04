@@ -111,8 +111,8 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="post">
                                 <div class="post-img-content">
-                                    <a href="/journal">
-                                        <img src="holder.js/189x296/#f9A497:#ffffff/text:ttdb" class="img-responsive" />
+                                    <a href="/journal/{{journal.id}}">
+                                        <img src="holder.js/189x296/#f9A497:#ffffff/text:{{journal.title}}" class="img-responsive" />
                                     </a>
                                 </div>
                                 <div class="content">
@@ -123,8 +123,8 @@
                                     </div>
 
                                     <div>
-                                        <a href="/journal" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
-                                        <a href="/journal/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                        <a href="/journal/{{journal.id}}" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
+                                        <a href="/journal/{{journal.id}}/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
                                     </div>
                                 </div>
                             </div>
