@@ -38,7 +38,6 @@
 
         <div class="form-group">
             <label class="col-md-2 control-label">Article Main Language</label>
-
             <div class="col-md-9">
                 <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
                     {% for lang in journal.languages %}
@@ -72,87 +71,87 @@
             </li>
         </ul> 
 
-                    <!-- Tab panes -->
+        <!-- Tab panes -->
 
-                    <div class="tab-content" id="step1">
+        <div class="tab-content" id="step1">
 
-                    </div>
-                    <div class="step1_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
-                           href="{{ path('articlesubmission_new') }}">
-                            {% trans %}res{% endtrans %}
-                        </a>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmission.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div id="step2-container" class="step hide">
-                    <h2>{{"article.authors"|trans}} <a href="#" onclick="OjsArticleSubmission.loadStepTemplate(2);" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a></h2>
-                    
-                    <dic id="step2">
-                        
-                    </dic>
-                    <div class="step2_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-default btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(1);">
-                           <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-                        </a>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmission.step2('{{ path('articlesubmission_step2') }}');">
-                           {{ "save.next"|trans }} 
-                           <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
+        </div>
+        <div class="step1_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
+               href="{{ path('articlesubmission_new') }}">
+                {% trans %}res{% endtrans %}
+            </a>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmission.step1('{{ path('articlesubmission_step1',{'locale':'locale'}) }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div id="step2-container" class="step hide">
+        <h2>{{"article.authors"|trans}} <a href="#" onclick="OjsArticleSubmission.loadStepTemplate(2);" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a></h2>
 
-                <div id="step3-container" class="step hide">
+        <div id="step2" class="authorlist">
 
-                    <dic id="step3">
+        </div>
+        <div class="step2_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-default btn-lg"
+               onclick="javascript:OjsArticleSubmission.backTo(1);">
+                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+            </a>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmission.step2('{{ path('articlesubmission_step2') }}');">
+                {{ "save.next"|trans }} 
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
 
-                    </dic>
-                    <div class="step3_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-default btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(2);">
-                            <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-                        </a>
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmission.step3('{{ path('articlesubmission_step3') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
+    <div id="step3-container" class="step hide">
 
+        <dic id="step3">
 
-                <div id="step4-container" class="step hide">
-
-                    <dic id="step4">
-
-                    </dic>
-                    <div class="step4_actions record_actions col-md-12">
-                        <br>
-                        <a class="btn btn-default btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(3);">
-                            <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-                        </a>
-                            
-                        <a class="btn btn-info btn-lg"
-                           onclick="javascript: OjsArticleSubmission.step4('{{ path('articlesubmission_step4') }}');">
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
+        </dic>
+        <div class="step3_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-default btn-lg"
+               onclick="javascript:OjsArticleSubmission.backTo(2);">
+                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+            </a>
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmission.step3('{{ path('articlesubmission_step3') }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
 
 
- 
- 
+    <div id="step4-container" class="step hide">
+
+        <dic id="step4">
+
+        </dic>
+        <div class="step4_actions record_actions col-md-12">
+            <br>
+            <a class="btn btn-default btn-lg"
+               onclick="javascript:OjsArticleSubmission.backTo(3);">
+                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
+            </a>
+
+            <a class="btn btn-info btn-lg"
+               onclick="javascript: OjsArticleSubmission.step4('{{ path('articlesubmission_step4') }}');">
+                {{ "save.next"|trans }}
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+
+
+
 
     <script id="step1_tpl" type="x-tmpl-mustache">
         {% include 'OjstrJournalBundle:ArticleSubmission:step1.html.twig' %}
@@ -179,15 +178,37 @@
     {% javascripts 'vendor/mustache/mustache.js' 
                     'vendor/angular/angular.min.js'
                     'vendor/select2/select2.min.js'
+                    'vendor/jquery-sortable/source/js/jquery-sortable-min.js'
                     'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
                     'assets/app/js/journalbundle/article_submission.js'
-                    'assets/app/js/journalbundle/article_cite.js' output="c/submission_js.js" %}
+                    'assets/app/js/journalbundle/article_cite.js' 
+        output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %} 
 
 
     <script>
         OjsArticleSubmission.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
+
+         
     </script>
 
+    <style>
+        .slip-reordering {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+        }
+
+        .slip-swiping-container {
+            overflow-x: hidden;
+        }
+
+        #authorlist li {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            cursor: default;
+        }
+
+
+    </style>
 {% endblock %}

@@ -34,6 +34,7 @@ author:
     middlename: Middle Name
     lastname: Last Name
     initials: Initials
+    order: Sıra
     
 trans: Transliterated
 email: Email
