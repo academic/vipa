@@ -1,13 +1,3 @@
-back: Listeye geri dön
-b: Geri
-d: Sil
-c: Yeni Oluştur 
-s: Göster
-e: Düzenle
-sure: Emin misiniz?
-added: Eklendi
-u: Güncelle
-404: Bulunamadı
 status:
     waiting: Bekliyor
     published: Yayında
@@ -52,8 +42,6 @@ address: Adres
 country: Ülke
 summary: Özet
 
-
-res: Yeniden Başlat
 save:
     next: Kaydet ve Devam Et
     
