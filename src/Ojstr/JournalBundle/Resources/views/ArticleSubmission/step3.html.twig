@@ -2,7 +2,7 @@
 <form class="form-horizontal" role="form">
 
 
-    <h2>Add Citations</h2>
+    <h2>{{"citations"|trans}}</h2>
     <div class="col-md-12">
         <button class="btn btn-success" id="pasteArticleCitationInline">
             <i class="fa fa-edit"></i> Paste&amp;Extract Citations
@@ -24,26 +24,22 @@
         <div class="cite-item form-row well">
             <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
             <input type="text" class="form-control" value="" name="raw" placeholder="Citation">
-
             <a class="pull-right btn btn-warning removeArticleCitationInline">
                 <i class="fa fa-minus-circle"></i>
             </a>
             <a href="#details" class="addCitationDetails">Details</a>
-
             <div class="citationDetails">
-                <select class="form-control" name="type">
+                <select class="form-control" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                     <option value="">[Select Citation Type]</option>
                     {% for type in citationTypes %}
-                        <option value="{{type.name}}" should="{{type.should|json_encode()}}" must="{{type.must|json_encode()}}">{{type.name}}</option>
+                        <option value="{{type.name}}" should='{{type.should|json_encode()}}' must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
                     {%endfor%}
                 </select>
                 <br><br>
-                <div class="citationDetailsFields"></div>
+                <div class="citationDetailsFields form-inline"></div>
             </div>
         </div>
     </div>
 
 </form>
 <hr><br>
-
-
