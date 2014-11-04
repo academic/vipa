@@ -34,8 +34,8 @@ var OjsArticleSubmission = {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
-    addAuthorForm: function(){
-        
+    addAuthorForm: function () {
+
     },
     step1AddLanguageForm: function (langcode, langtitle) {
         // check if selected language tab already exists
@@ -50,16 +50,7 @@ var OjsArticleSubmission = {
 
         OjsArticleSubmission.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
-            toolbar: {
-                "font-styles": false,
-                "emphasis": true,
-                "lists": false,
-                "html": false,
-                "link": true,
-                "image": false,
-                "color": false,
-                "blockquote": true
-            }
+            toolbar: {"font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
         });
         tabhtml = '<li class="lang" id="t_' + langcode + '"><a href="#' +
                 langcode + '" role="tab" class="lang" data-toggle="tab">' +

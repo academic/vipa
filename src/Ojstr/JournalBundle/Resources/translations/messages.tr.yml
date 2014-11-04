@@ -35,6 +35,7 @@ author:
     middlename: İkinci Ad
     lastname: Soyad
     initials: Başharfler
+    order: Order
     
 trans: Transliterated
 email: E-posta
