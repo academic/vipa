@@ -1,12 +1,27 @@
-<hr>
-<form class="form-horizontal" role="form">
-
-
-    <h2>    {{  "article.authors"|trans }}</h2>
-
-    <div class="col-md-12">
-
+<!-- new author form --> 
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" role="form"> 
+            <div class="col-md-12">
+                <span class="control-label"> </span>
+                <div class="controls form-inline">
+                    <input name="firstName" id="firstnameinput" class="form-control" placeholder="{{"author.firstname"|trans}}"/>
+                    <input name="middleName" id="middlenameinput" class="form-control" placeholder="{{"author.middlename"|trans}}"/>
+                    <input name="lastName" id="lastnameinput" class="form-control" placeholder="{{"author.lastname"|trans}}"/>
+                </div>
+                <div class="controls">
+                    <label class="control-label">{{"email"|trans}} <span class="mandotary"></span></label>
+                    <input name="email" id="emailinput" class="form-control" placeholder="Email"/>
+                </div>
+                <br>
+                <a class="btn btn-sm btn-default" onclick=""><i class="caret"></i> Add details</a>
+                <div style="display:none">
+                    <div class="controls">
+                        <label class="control-label">{{"summary"|trans}}</label>
+                        <textarea name="summary" id="summaryinput" class="form-control" rows="6"></textarea>
+                    </div>
+                </div>
+            </div> 
+        </form>
     </div>
-
-
-</form>
+</div>
