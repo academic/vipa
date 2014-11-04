@@ -39,7 +39,20 @@ suppfiles:
     set: Veri Seti
     source: Kaynak Metin 
     supp: Ek Dosya
+
+author:
+    firstname: Ad
+    middlename: İkinci Ad
+    lastname: Soyad
+    initials: Başharfler
     
+trans: Transliterated
+email: E-posta
+address: Adres
+country: Ülke
+summary: Özet
+
+
 res: Yeniden Başlat
 save:
     next: Kaydet ve Devam Et

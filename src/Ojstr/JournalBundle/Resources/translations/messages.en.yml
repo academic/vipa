@@ -1,4 +1,4 @@
-back: Back to list
+auback: Back to list
 b: Back
 d: Delete
 c: Create New
@@ -38,7 +38,19 @@ suppfiles:
     set: Data Set
     source: Source Text 
     supp: Supplementary File
+
+author:
+    firstname: First Name
+    middlename: Middle Name
+    lastname: Last Name
+    initials: Initials
     
+trans: Transliterated
+email: Email
+address: Address
+country: Country
+summary: Summary
+
 res: Restart
 save:
     next: Save & Next
