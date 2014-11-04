@@ -1,13 +1,3 @@
-auback: Back to list
-b: Back
-d: Delete
-c: Create New
-s: Show
-e: Edit
-sure: Are you sure?
-added: Added
-u: Update
-404: Not found
 status:
     waiting: Waiting
     published: Published
@@ -51,7 +41,6 @@ address: Address
 country: Country
 summary: Summary
 
-res: Restart
 save:
     next: Save & Next
     
