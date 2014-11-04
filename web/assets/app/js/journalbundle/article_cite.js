@@ -1,5 +1,5 @@
 var CitationEditor = {
-    newCitationField: function(rawCitation) {
+    newCitationField: function (rawCitation) {
         if (typeof rawCitation !== "undefined") {
             $("#citationInfoFields input[name=raw]").attr("value", rawCitation);
         }
@@ -9,7 +9,7 @@ var CitationEditor = {
         $("#citationInfoFields input[name='raw[]']").val();
         $("#citationPasteField").slideUp("fast");
     },
-    parseAndAppend: function(txt) {
+    parseAndAppend: function (txt) {
         items = txt.split("\n");
         for (i in items) {
             if (items[i].length > 0) {
@@ -17,48 +17,53 @@ var CitationEditor = {
             }
         }
     },
-    refreshCitationOrders: function() {
-        $("#citationContainer input[name='orderNum']").each(function(index) {
+    refreshCitationOrders: function () {
+        $("#citationContainer input[name='orderNum']").each(function (index) {
             $(this).attr("value", index + 1);
         });
+    },
+    citationTypeSelected: function ($el) {
+        var $mustFields = JSON.parse($("option:selected", $el).attr("must"));
+        var $shouldFields = JSON.parse($("option:selected", $el).attr("should"));
+        $(".citationDetailsFields", $el.parent()).html("");
+        for (var i in $mustFields) {
+            $(".citationDetailsFields", $el.parent()).append(
+                    '<input type="text" class="form-control" placeholder="' +
+                    $mustFields[i] + '" name="' + $mustFields[i] + '" /> ');
+        }
     }
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-    $("#citationContainer").on("change", ".citationDetails select", function() {
-        var $mustFields = JSON.parse($("option:selected", $(this)).attr("must"));
-        var $shouldFields = JSON.parse($("option:selected", $(this)).attr("should"));
-        $(".citationDetailsFields", $(this).parent()).html("");
-        for (var i in $mustFields) {
-            $(".citationDetailsFields", $(this).parent()).append('<input type="text" class="form-control" placeholder="' + $mustFields[i] + '" name="' + $mustFields[i] + '" /> ');
-        }
+    $("#citationContainer").on("change", ".citationDetails select", function () {
+
     });
-    $("#citationContainer").on("click", "#addArticleCitationInline", function(e) {
+    $("#citationContainer").on("click", "#addArticleCitationInline", function (e) {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
 
-    $("body").on("click", "a.removeArticleCitationInline", function(e) {
+    $("body").on("click", "a.removeArticleCitationInline", function (e) {
         e.preventDefault();
         $(this).parents().closest(".form-row ").slideUp();
         $(this).parents().closest(".form-row ").remove();
         CitationEditor.refreshCitationOrders();
     });
 
-    $("body").on("click", ".addCitationDetails", function(e) {
+    $("body").on("click", ".addCitationDetails", function (e) {
         e.preventDefault();
         $(this).next().toggle();
     });
 
-    $("body").on("click", "#pasteArticleCitationInline", function(e) {
+    $("body").on("click", "#pasteArticleCitationInline", function (e) {
         e.preventDefault();
         $("#citationPasteField").slideToggle();
     });
 
-    $("body").on("paste", '.citationPasteTextArea', function() {
+    $("body").on("paste", '.citationPasteTextArea', function () {
         var element = this;
-        setTimeout(function() {
+        setTimeout(function () {
             var txt = $(element).val();
             CitationEditor.parseAndAppend(txt);
         }, 100);
@@ -66,22 +71,22 @@ $(document).ready(function() {
 
 
     var citeDetails = [];
-    $("#saveArticleCitation").on("click", function() {
-        $(".cite-item").each(function() {
+    $("#saveArticleCitation").on("click", function () {
+        $(".cite-item").each(function () {
             if ($("select[name='type']", $(this)).val().length !== 0) {
                 var details = {};
                 details.type = $("select[name='type']", $(this)).val();
                 details.orderNum = $("input[name=orderNum]", $(this)).val();
                 details.raw = $("input[name=raw]", $(this)).val();
                 details.settings = {};
-                $(".citationDetailsFields input", $(this)).each(function() {
+                $(".citationDetailsFields input", $(this)).each(function () {
                     details['settings'][$(this).attr('name')] = $(this).val();
                 });
                 citeDetails.push(details);
 
             }
         });
-        $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function(resp) {
+        $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function (resp) {
             window.location.href = "/manager/article/" + articleId + "/show";
         });
     });

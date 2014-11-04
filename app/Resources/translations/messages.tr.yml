@@ -10,3 +10,21 @@ u: Güncelle
 404: Bulunamadı
 
 res: Yeniden Başlat
+
+citations: Referanslar
+
+book: Kitap
+journal: Dergi
+conference: Konferans
+article: Makale
+mastersthesis: Yüksek Lisans Tezi
+phdthesis: Doktora Tezi
+proceedings: Bildiri
+techreport: Teknik Rapor
+unpublished: Yayınlanmamış
+inproceedings: In-proceedings
+incollection: In-collection
+inbook: In-book
+booklet: Kitapçık
+manual: Manual
+misc: Çeşitli/Diğer
