@@ -34,6 +34,9 @@ var OjsArticleSubmission = {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
+    addAuthorForm: function(){
+        
+    },
     step1AddLanguageForm: function (langcode, langtitle) {
         // check if selected language tab already exists
         if (OjstrCommon.inArray(langcode, OjsArticleSubmission.languages)) {

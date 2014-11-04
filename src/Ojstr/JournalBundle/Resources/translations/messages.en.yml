@@ -1,13 +1,3 @@
-back: Back to list
-b: Back
-d: Delete
-c: Create New
-s: Show
-e: Edit
-sure: Are you sure?
-added: Added
-u: Update
-404: Not found
 status:
     waiting: Waiting
     published: Published
@@ -38,8 +28,19 @@ suppfiles:
     set: Data Set
     source: Source Text 
     supp: Supplementary File
+
+author:
+    firstname: First Name
+    middlename: Middle Name
+    lastname: Last Name
+    initials: Initials
     
-res: Restart
+trans: Transliterated
+email: Email
+address: Address
+country: Country
+summary: Summary
+
 save:
     next: Save & Next
     
