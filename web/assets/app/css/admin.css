@@ -131,3 +131,9 @@ table.dataTable thead .sorting:after {
 }
 
 .panel-heading{cursor:pointer}
+
+.cite-item{
+    background-color: #efefef;
+    border: 1px #dfdfdf solid;
+    padding: 2px;
+}
