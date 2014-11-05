@@ -1,5 +1,5 @@
 parameters:
-#    ojstr_cli.example.class: Ojstr\CliBundle\Example
+#    ojstr_cli.example.class: Ojs\CliBundle\Example
 
 services:
 #    ojstr_cli.example:
