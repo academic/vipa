@@ -28,7 +28,7 @@ ojs_workflow:
     prefix:   /manager/workflow
 
 ojs_user:
-    resource: "@OjstrUserBundle/Controller/"
+    resource: "@OjsUserBundle/Controller/"
     type:     annotation
     prefix:   /
   
@@ -48,7 +48,7 @@ change_locale:
     defaults: { _controller: "OjsJournalBundle:Common:changeLocale" }
     
 auth:
-    resource: "@OjstrUserBundle/Resources/config/routing.yml"
+    resource: "@OjsUserBundle/Resources/config/routing.yml"
     
 rest :
   type : rest

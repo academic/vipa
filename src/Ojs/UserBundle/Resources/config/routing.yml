@@ -1,0 +1,59 @@
+admin_maillog:
+    resource: "@OjsUserBundle/Resources/config/routing/maillog.yml"
+    prefix:   /admin/maillog
+
+admin_user:
+    resource: "@OjsUserBundle/Resources/config/routing/user_admin.yml"
+    prefix:   /admin/user
+
+admin_role:
+    resource: "@OjsUserBundle/Resources/config/routing/role_admin.yml"
+    prefix:   /admin/role
+
+admin_userjournalrole:
+    resource: "@OjsUserBundle/Resources/config/routing/userjournalrole_admin.yml"
+    prefix:   /admin/userjournalrole
+
+admin_eventlog:
+    resource: "@OjsUserBundle/Resources/config/routing/eventlog_admin.yml"
+    prefix:   /admin/eventlog
+
+admin_proxy:
+    resource: "@OjsUserBundle/Resources/config/routing/proxy_admin.yml"
+    prefix:   /admin/proxy
+
+
+proxy:
+    resource: "@OjsUserBundle/Resources/config/routing/proxy.yml"
+    prefix:   /manager/proxy
+
+
+admin_notification:
+    resource: "@OjsUserBundle/Resources/config/routing/notification_admin.yml"
+    prefix:   /admin/notification
+
+user:
+    resource: "@OjsUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+
+confirm_email_warning:
+    pattern:  /unconfirmed
+    defaults: { _controller: "OjsUserBundle:Security:unconfirmed" }
+
+tos:
+    pattern: /tos
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' } 
+login:
+    path: /login
+    defaults: { _controller: OjsUserBundle:Security:login }
+register:
+    path: /register
+    defaults: { _controller: OjsUserBundle:Security:register }
+email_confirm:
+    path: /confirm/email/{code}
+    defaults: { _controller: OjsUserBundle:Security:confirmEmail }
+logout:
+    path: /logout
+login_check:
+    path: /login_check

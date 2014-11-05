@@ -1,0 +1,28 @@
+user:
+    pattern:  /
+    defaults: { _controller: "OjsUserBundle:User:index" }
+
+user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsUserBundle:User:show" }
+
+user_new:
+    pattern:  /new
+    defaults: { _controller: "OjsUserBundle:User:new" }
+
+user_create:
+    pattern:  /create
+    defaults: { _controller: "OjsUserBundle:User:create" }
+
+user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsUserBundle:User:edit" }
+
+user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsUserBundle:User:update" }
+    requirements: { _method: post|put }
+
+user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsUserBundle:User:delete" }

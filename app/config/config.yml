@@ -36,7 +36,7 @@ framework:
 ojstr_message_message:  
     entity:            
         user:         
-            class: Ojstr\UserBundle\Entity\User
+            class: Ojs\UserBundle\Entity\User
     component:
         dashboard:
             integrator:

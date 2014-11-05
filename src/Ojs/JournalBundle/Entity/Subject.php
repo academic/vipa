@@ -98,10 +98,10 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add users
      *
-     * @param  \Ojstr\UserBundle\Entity\User $users
+     * @param  \Ojs\UserBundle\Entity\User $users
      * @return Role
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    public function addUser(\Ojs\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
 
@@ -111,9 +111,9 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove users
      *
-     * @param \Ojstr\UserBundle\Entity\User $users
+     * @param \Ojs\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    public function removeUser(\Ojs\UserBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }

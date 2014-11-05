@@ -1,0 +1,27 @@
+myprofile:
+    pattern:  /profile
+    defaults: { _controller: "OjsUserBundle:User:profile" }
+
+user_make_proxy:
+    pattern:  /add-proxy/{proxyUserId}
+    defaults: { _controller: "OjsUserBundle:Proxy:give" }
+
+user_drop_proxy:
+    pattern:  /drop-proxy/{proxyUserId}
+    defaults: { _controller: "OjsUserBundle:Proxy:drop" }
+
+user_profile:
+    pattern:  /profile/{username}
+    defaults: { _controller: "OjsUserBundle:User:profile" }
+
+user_show_my_journals:
+    pattern:  /myjournals
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:myJournals" }
+
+user_join_journal_action:
+    pattern:  /join/journal/{journalId}
+    defaults: { _controller: "OjsUserBundle:User:registerAsAuthor" }
+
+user_join_journal:
+    pattern:  /join/journal/
+    defaults: { _controller: "OjsUserBundle:User:registerAsAuthor" }

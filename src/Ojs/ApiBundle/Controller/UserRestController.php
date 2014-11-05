@@ -4,13 +4,13 @@ namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
-use Ojstr\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Util\Codes;
-use Ojstr\UserBundle\Form\UserRestType;
+use Ojs\UserBundle\Form\UserRestType;
 use FOS\RestBundle\Controller\Annotations\Get;
 
 class UserRestController extends FOSRestController {
@@ -27,7 +27,7 @@ class UserRestController extends FOSRestController {
      * @Get("/user/{username}")
      */
     public function getUserAction($username) {
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneByUsername($username);
+        $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneByUsername($username);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -105,7 +105,7 @@ class UserRestController extends FOSRestController {
         if (empty($page)) {
             throw new HttpException(400, 'Missing parameter : page');
         }
-        $users = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findBy(array(), array(), $limit);
+        $users = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findBy(array(), array(), $limit);
         if (!is_array($users)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -249,11 +249,11 @@ class UserRestController extends FOSRestController {
 
     protected function patch($field, $user_id, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneById($user_id);
+        $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
-        /* @var  $user \Ojstr\UserBundle\Entity\User */
+        /* @var  $user \Ojs\UserBundle\Entity\User */
         switch ($field) {
             case 'active':
                 $user->setIsActive($request->get('isActive'));
@@ -271,7 +271,7 @@ class UserRestController extends FOSRestController {
 
     protected function getUserEntity($id) {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjstrUserBundle:User')->find($id);
+        $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }

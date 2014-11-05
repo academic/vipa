@@ -1,0 +1,30 @@
+role:
+    pattern:  /
+    defaults: { _controller: "OjsUserBundle:Role:index" }
+
+role_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsUserBundle:Role:show" }
+
+role_new:
+    pattern:  /new
+    defaults: { _controller: "OjsUserBundle:Role:new" }
+
+role_create:
+    pattern:  /create
+    defaults: { _controller: "OjsUserBundle:Role:create" }
+    requirements: { _method: post }
+
+role_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsUserBundle:Role:edit" }
+
+role_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsUserBundle:Role:update" }
+    requirements: { _method: post|put }
+
+role_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsUserBundle:Role:delete" }
+    requirements: { _method: post|delete }
