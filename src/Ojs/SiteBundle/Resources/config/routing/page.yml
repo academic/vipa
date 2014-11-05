@@ -1,0 +1,29 @@
+admin_page:
+    path:     /
+    defaults: { _controller: "OjsSiteBundle:Page:index" }
+
+admin_page_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsSiteBundle:Page:show" }
+
+admin_page_new:
+    path:     /new
+    defaults: { _controller: "OjsSiteBundle:Page:new" }
+
+admin_page_create:
+    path:     /create
+    defaults: { _controller: "OjsSiteBundle:Page:create" }
+    requirements: { _method: post }
+
+admin_page_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsSiteBundle:Page:edit" }
+
+admin_page_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsSiteBundle:Page:update" }
+    requirements: { _method: post|put }
+
+admin_page_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsSiteBundle:Page:delete" }

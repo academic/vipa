@@ -1,0 +1,47 @@
+ojstr_site_admin_page:
+    resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
+    prefix:   /admin/page
+
+ojstr_public_index:
+    pattern:  /
+    defaults: { _controller: OjsSiteBundle:Site:index }
+
+ojstr_browse_index:
+    pattern:  /browse
+    defaults: { _controller: OjsSiteBundle:Site:browseIndex }
+
+ojstr_organizations_index:
+    pattern:  /organizations
+    defaults: { _controller: OjsSiteBundle:Site:organizationsIndex }
+
+ojstr_categories_index:
+    pattern:  /categories
+    defaults: { _controller: OjsSiteBundle:Site:categoriesIndex }
+
+ojstr_topic_index:
+    pattern:  /topics
+    defaults: { _controller: OjsSiteBundle:Site:topicsIndex }
+
+ojstr_user_index:
+    pattern:  /user
+    defaults: { _controller: OjsSiteBundle:Site:userIndex }
+
+ojstr_profile_index:
+    pattern:  /profile
+    defaults: { _controller: OjsSiteBundle:Site:profileIndex }
+    
+ojstr_journal_index:
+    pattern:  /journal
+    defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
+    
+ojstr_journals_index:
+    pattern:  /journals
+    defaults: { _controller: OjsSiteBundle:Site:journalsIndex } 
+    
+ojstr_articles_index:
+    pattern:  /articles
+    defaults: { _controller: OjsSiteBundle:Site:articlesIndex }
+    
+ojstr_archive_index:
+    pattern:  /archive
+    defaults: { _controller: OjsSiteBundle:Site:archiveIndex }

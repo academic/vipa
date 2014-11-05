@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojstr\SiteBundle\Controller;
+namespace Ojs\SiteBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Ojstr\SiteBundle\Entity\Page;
-use Ojstr\SiteBundle\Form\PageType;
+use Ojs\SiteBundle\Entity\Page;
+use Ojs\SiteBundle\Form\PageType;
 
 /**
  * Page controller.
@@ -23,9 +23,9 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('OjstrSiteBundle:Page')->findAll();
+        $entities = $em->getRepository('OjsSiteBundle:Page')->findAll();
 
-        return $this->render('OjstrSiteBundle:Page:index.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -47,7 +47,7 @@ class PageController extends Controller
             return $this->redirect($this->generateUrl('admin_page_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjstrSiteBundle:Page:new.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class PageController extends Controller
         $entity = new Page();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('OjstrSiteBundle:Page:new.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -95,7 +95,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjstrSiteBundle:Page')->find($id);
+        $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -103,7 +103,7 @@ class PageController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('OjstrSiteBundle:Page:show.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -117,7 +117,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjstrSiteBundle:Page')->find($id);
+        $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -126,7 +126,7 @@ class PageController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('OjstrSiteBundle:Page:edit.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -159,7 +159,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjstrSiteBundle:Page')->find($id);
+        $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -175,7 +175,7 @@ class PageController extends Controller
             return $this->redirect($this->generateUrl('admin_page_edit', array('id' => $id)));
         }
 
-        return $this->render('OjstrSiteBundle:Page:edit.html.twig', array(
+        return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -192,7 +192,7 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjstrSiteBundle:Page')->find($id);
+            $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Page entity.');

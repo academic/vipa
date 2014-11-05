@@ -1,5 +1,5 @@
 parameters:
-#    ojstr_site.example.class: Ojstr\SiteBundle\Example
+#    ojstr_site.example.class: Ojs\SiteBundle\Example
 
 services:
 #    ojstr_site.example:
