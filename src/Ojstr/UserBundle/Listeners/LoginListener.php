@@ -33,7 +33,7 @@ class LoginListener
 
             //log as eventlog
             $event = new \Ojstr\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojstr\Common\Params\UserEventLogParams::$USER_LOGIN);
+            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_LOGIN);
             $event->setIp($this->container->get('request')->getClientIp());
             $event->setUserId($user->getId());
             $this->em->persist($event);

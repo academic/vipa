@@ -12,7 +12,7 @@ class SiteController extends Controller {
      * @return type
      */
     public function indexAction() {
-        /* @var $journalDomain \Ojstr\Common\Model\JournalDomain */
+        /* @var $journalDomain \Ojs\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
         $journals = $em->getRepository('OjstrJournalBundle:Journal')->findAll();

@@ -4,7 +4,7 @@ namespace Ojstr\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
-class WorkflowStepController extends \Ojstr\Common\Controller\OjsController
+class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 {
     public function indexAction()
     {

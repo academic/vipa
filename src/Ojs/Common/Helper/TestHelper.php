@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Helper;
+namespace Ojs\Common\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;

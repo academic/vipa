@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
  * Proxy
  * @ExclusionPolicy("all")
  */
-class Proxy extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Proxy extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

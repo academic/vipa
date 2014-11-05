@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Journal key-value settings
  */
-class JournalSetting extends \Ojstr\Common\Entity\GenericExtendedEntity
+class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     private $journal;
     private $setting;

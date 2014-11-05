@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Helper;
+namespace Ojs\Common\Helper;
 
 class CommonFormHelper
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Controller;
+namespace Ojs\Common\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

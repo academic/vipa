@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Theme
  */
-class Theme extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Theme extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

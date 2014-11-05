@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * CitationSetting
  */
-class CitationSetting extends \Ojstr\Common\Entity\GenericExtendedEntity
+class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

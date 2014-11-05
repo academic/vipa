@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
  * Article
  * @ExclusionPolicy("all")
  */
-class Article extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * auto-incremented article unique id
@@ -362,7 +362,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity
      */
     public function getStatusText()
     {
-        return \Ojstr\Common\Params\ArticleParams::statusText($this->status);
+        return \Ojs\Common\Params\ArticleParams::statusText($this->status);
     }
 
     /**
@@ -371,7 +371,7 @@ class Article extends \Ojstr\Common\Entity\GenericExtendedEntity
      */
     public function getStatusColor()
     {
-        return \Ojstr\Common\Params\ArticleParams::statusColor($this->status);
+        return \Ojs\Common\Params\ArticleParams::statusColor($this->status);
     }
 
     public function getStatus()
