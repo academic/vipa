@@ -1,5 +1,5 @@
 parameters:
-#    ojstr_api.example.class: Ojstr\ApiBundle\Example
+#    ojstr_api.example.class: Ojs\ApiBundle\Example
 
 services:
 #    ojstr_api.example:

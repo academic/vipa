@@ -1,5 +1,5 @@
 <?php
-namespace Ojstr\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -7,24 +7,23 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class ContactRestController extends FOSRestController
+class AuthorRestController extends FOSRestController
 {
  /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Contacts"
+     *  description="Get Authors"
      * )
-     * @Get("/contacts")
+     * @Get("/authors")
      */
-    public function getContactsAction()
+    public function getAuthorsAction()
     {
-        $contacts = $this->getDoctrine()->getRepository('OjstrJournalBundle:Contact')->findAll();
-
-        if (!is_array($contacts) && !count($contacts) > 0) {
+        $authors = $this->getDoctrine()->getRepository('OjstrJournalBundle:Author')->findAll();
+        if (!is_array($authors) && !count($authors) > 0) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
 
-        return $contacts;
+        return $authors;
     }
 }

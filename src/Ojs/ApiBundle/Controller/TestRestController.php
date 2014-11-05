@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Tests;
+namespace Ojs\ApiBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

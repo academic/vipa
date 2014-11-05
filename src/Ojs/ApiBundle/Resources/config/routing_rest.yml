@@ -1,0 +1,48 @@
+
+contacts:
+  type: rest
+  resource:     "OjsApiBundle:ContactRest"
+  name_prefix:  api_
+authors:
+  type: rest
+  resource:     "OjsApiBundle:AuthorRest"
+  name_prefix:  api_
+
+users :
+  type: rest
+  resource:     "OjsApiBundle:UserRest"
+  name_prefix:  api_
+
+test :
+  type: rest
+  resource:     "OjsApiBundle:TestRest"
+  name_prefix:  api_
+
+roles :
+  type: rest
+  resource:     "OjsApiBundle:RoleRest"
+  name_prefix:  api_
+
+journals :
+  type: rest
+  resource:     "OjsApiBundle:JournalRest"
+  name_prefix:  api_
+
+article :
+  type: rest
+  resource:     "OjsApiBundle:ArticleRest"
+  name_prefix:  api_
+
+citation :
+  type: rest
+  resource:     "OjsApiBundle:CitationRest"
+  name_prefix:  api_
+
+analytics :
+  type: rest
+  resource:     "OjsApiBundle:AnalyticsRest"
+  name_prefix:  api_
+
+ojstr_api_homepage:
+  pattern:  /
+  defaults: { _controller: OjsApiBundle:Default:index }

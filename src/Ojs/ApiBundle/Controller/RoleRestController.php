@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojstr\UserBundle\Entity\Role;
