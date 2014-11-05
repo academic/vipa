@@ -1,0 +1,7 @@
+parameters:
+#    ojstr_cli.example.class: Ojs\CliBundle\Example
+
+services:
+#    ojstr_cli.example:
+#        class: %ojstr_cli.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
