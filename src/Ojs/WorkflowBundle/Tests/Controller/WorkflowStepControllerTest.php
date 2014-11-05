@@ -1,10 +1,10 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Tests\Controller;
+namespace Ojs\WorkflowBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class WorkflowStepControllerTest extends WebTestCase
 {
     public function testStatus()
     {
