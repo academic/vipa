@@ -46,14 +46,14 @@ $(document).ready(function () {
 
     $("body").on("click", "a.removeArticleCitationInline", function (e) {
         e.preventDefault();
-        $(this).parents().closest(".form-row ").slideUp();
-        $(this).parents().closest(".form-row ").remove();
+        $(this).parents().closest(".cite-item ").slideUp();
+        $(this).parents().closest(".cite-item").remove();
         CitationEditor.refreshCitationOrders();
     });
 
     $("body").on("click", ".addCitationDetails", function (e) {
         e.preventDefault();
-        $(this).next().toggle();
+        $(this).parent().next(".citationDetails").slideToggle("fast");
     });
 
     $("body").on("click", "#pasteArticleCitationInline", function (e) {

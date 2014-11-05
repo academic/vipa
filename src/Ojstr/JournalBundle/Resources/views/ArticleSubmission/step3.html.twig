@@ -21,8 +21,7 @@
     <div id="citationContainer"></div>
 
     <div class="hide" id="citationInfoFields">
-        <div class="cite-item form-row">
-
+        <div class="cite-item row"> 
             <div class="col-md-1">
                 <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
             </div>
@@ -31,9 +30,9 @@
             </div>
             <div class="col-md-12">
                 <a class="pull-right btn btn-sm btn-warning removeArticleCitationInline">
-                    <i class="fa fa-minus-circle"></i> Remove
+                    <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
                 </a>
-                <a href="#details" class="pull-right btn btn-sm btn-info addCitationDetails">Details</a>
+                <a href="#details" class="pull-right btn btn-sm btn-info addCitationDetails">{{"details"|trans}}</a>
 
             </div>
             <div class="citationDetails">
@@ -45,6 +44,7 @@
                 </select>
                 <br><br>
                 <div class="citationDetailsFields form-inline"></div>
+                <hr>
             </div>
         </div>
     </div>
