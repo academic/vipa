@@ -43,7 +43,7 @@ confirm_email_warning:
 
 tos:
     pattern: /tos
-    defaults: { _controller: OjstrSiteBundle:Site:staticPages,page: 'tos' } 
+    defaults: { _controller: OjsSiteBundle:Site:staticPages,page: 'tos' } 
 login:
     path: /login
     defaults: { _controller: OjstrUserBundle:Security:login }
