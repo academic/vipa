@@ -1,0 +1,40 @@
+#user journal role
+ujr:
+    pattern:  /
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:index" }
+
+ujr_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:show" }
+
+
+ujr_show_journals_of_user:
+    pattern:  /user/{user_id}/show/journals
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:showJournalsOfUser" }
+
+ujr_show_users_ofjournal:
+    pattern:  /journal/{journal_id}/show/users
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:showUsersOfJournal" }
+
+ujr_new:
+    pattern:  /new
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:new" }
+
+ujr_create:
+    pattern:  /create
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:create" }
+    requirements: { _method: post }
+
+ujr_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:edit" }
+
+ujr_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:update" }
+    requirements: { _method: post|put }
+
+ujr_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:delete" }
+    requirements: { _method: get|post|delete }

@@ -4,7 +4,7 @@ Ojs\JournalBundle\Entity\Author:
     #repositoryClass: Ojs\JournalBundle\Entity\AuthorRepository
     oneToOne:
         user:
-          targetEntity: Ojstr\UserBundle\Entity\User
+          targetEntity: Ojs\UserBundle\Entity\User
           joinColumn:
             name: user_id
             referencedColumnName: id
