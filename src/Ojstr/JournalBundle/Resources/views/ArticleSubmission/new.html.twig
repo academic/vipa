@@ -13,31 +13,21 @@
 {% endblock %}
 
 
-{% block breadcrumb %}
-    {% set list = [
-    {'link': path('dashboard'), 'title': 'Dashboard'},
-    {'title': '<strong>' ~ journal.title ~ '</strong>' },
-    { 'title': 'Submit Article' }
-    ] %}
-    {{ breadcrumb(list) }}
-{% endblock %}
-
-
 {% block body -%}
     <input type="hidden" name="journalId" value="{{ journal.id }}"/>
 
     <ul class='nav nav-wizard submission-progress'>
-        <li id="submission-progress-step1" class="active"><span class="badge">1</span> Article</li>
-        <li id="submission-progress-step2"><span class="badge">2</span> Authors</li>
-        <li id="submission-progress-step3"><span class="badge">3</span> Citations</li>
-        <li id="submission-progress-step4"><span class="badge">4</span> Article File</li>
-        <li class="laststep"><span class="badge">5</span> Preview & <strong>Submit</strong></li>
+        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"articles.article"|trans}}</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> {{"authors"|trans}}</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
+        <li id="submission-progress-step4"><span class="badge">4</span>  {{"articles.files"|trans}}</li>
+        <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
     </ul>
 
     <form name="base" class="form-horizontal" role="form">
 
         <div class="form-group">
-            <label class="col-md-2 control-label">Article Main Language</label>
+            <label class="col-md-2 control-label">{{"articles.language.primary"|trans}}</label>
             <div class="col-md-9">
                 <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
                     {% for lang in journal.languages %}
@@ -90,7 +80,10 @@
         </div>
     </div>
     <div id="step2-container" class="step hide">
-        <h2>{{"article.authors"|trans}} <a href="#" onclick="OjsArticleSubmission.loadStepTemplate(2);" class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a></h2>
+        <h2>{{"articles.authors"|trans}} 
+            <a href="#" onclick="OjsArticleSubmission.addAuthorForm();" 
+               class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a>
+        </h2>
 
         <div id="step2" class="authorlist">
 
@@ -190,7 +183,7 @@
     <script>
         OjsArticleSubmission.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
 
-         
+
     </script>
 
     <style>

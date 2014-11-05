@@ -35,7 +35,10 @@ var OjsArticleSubmission = {
         }
     },
     addAuthorForm: function () {
-
+        this.loadStepTemplate(2);
+    },
+    removeAuthor: function ($el) {
+        $el.parents(".author-item").first().remove();
     },
     step1AddLanguageForm: function (langcode, langtitle) {
         // check if selected language tab already exists
@@ -117,7 +120,7 @@ var OjsArticleSubmission = {
             if (response.id) {
                 OjsArticleSubmission.articleId = response.id;
                 OjsArticleSubmission.hideAllSteps();
-                OjsArticleSubmission.step2Prepare();
+                OjsArticleSubmission.prepareStep.step2();
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
@@ -126,43 +129,55 @@ var OjsArticleSubmission = {
     },
     step2: function (actionUrl) {
         this.hideAllSteps();
-        this.step3Prepare();
+        this.prepareStep.step3();
     },
     step3: function (actionUrl) {
         this.hideAllSteps();
-        this.step4Prepare();
+        this.prepareStep.step4();
+    },
+    step4: function (actionUrl) {
+        this.hideAllSteps();
+        this.prepareStep.step5();
     },
     /**
-     * Prepare and show step2
-     * @returns void
+     * prepare and show steps
      */
-    step2Prepare: function () {
-        OjstrCommon.scrollTop();
-        if ($("#step2").html().length > 0) {
-            this.configureProgressBar(2);
-            this.loadStepTemplate(2);
+    prepareStep: {
+        step1: function () {
+            
+        },
+        step2: function () {
+            OjstrCommon.scrollTop();
+            if ($("#step2").html().length > 0) {
+                OjsArticleSubmission.configureProgressBar(2);
+                OjsArticleSubmission.loadStepTemplate(2);
+            }
+            OjsArticleSubmission.showStep(2);
+        },
+        step3: function () {
+            OjstrCommon.scrollTop();
+            if ($("#step3").html().length > 0) {
+                OjsArticleSubmission.configureProgressBar(3);
+                OjsArticleSubmission.loadStepTemplate(3);
+            }
+            OjsArticleSubmission.showStep(3);
+        },
+        step4: function () {
+            OjstrCommon.scrollTop();
+            if ($("#step4").html().length > 0) {
+                OjsArticleSubmission.configureProgressBar(4);
+                OjsArticleSubmission.loadStepTemplate(4);
+            }
+            OjsArticleSubmission.showStep(4);
+        },
+        step5: function () {
+            OjstrCommon.scrollTop();
+            if ($("#step4").html().length > 0) {
+                OjsArticleSubmission.configureProgressBar(4);
+                OjsArticleSubmission.loadStepTemplate(4);
+            }
+            OjsArticleSubmission.showStep(4);
         }
-        this.showStep(2);
-    },
-    /**
-     * prepare and show step3
-     * @returns {undefined}
-     */
-    step3Prepare: function () {
-        OjstrCommon.scrollTop();
-        if ($("#step3").html().length > 0) {
-            this.configureProgressBar(3);
-            this.loadStepTemplate(3);
-        }
-        this.showStep(3);
-    },
-    step4Prepare: function () {
-        OjstrCommon.scrollTop();
-        if ($("#step4").html().length > 0) {
-            this.configureProgressBar(4);
-            this.loadStepTemplate(4);
-        }
-        this.showStep(4);
     }
 };
 
