@@ -24,7 +24,7 @@ class CitationRestController extends FOSRestController {
      * @Get("/journal/{id}/citations")
      */
     public function getCitationAction($id) {
-        $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
+        $citation = $this->getDoctrine()->getRepository('OjsJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -45,7 +45,7 @@ class CitationRestController extends FOSRestController {
      */
     public function deleteCitationAction($id, Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $citation = $this->getDoctrine()->getRepository('OjstrJournalBundle:Citation')->find($id);
+        $citation = $this->getDoctrine()->getRepository('OjsJournalBundle:Citation')->find($id);
         $citation_settings = $citation->getSettings();
         $articles = $citation->getArticles();
         // remove settings

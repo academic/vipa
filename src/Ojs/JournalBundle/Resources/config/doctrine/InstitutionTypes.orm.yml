@@ -1,0 +1,43 @@
+Ojs\JournalBundle\Entity\InstitutionTypes:
+    type: entity
+    table: null
+    #repositoryClass: Ojs\JournalBundle\Entity\InstitutionTypesRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            gedmo:
+                - translatable
+                - versioned
+        description:
+            type: text
+            nullable: true
+            gedmo:
+                - translatable
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+          locale: locale
+        loggable: true
+    lifecycleCallbacks: {  }

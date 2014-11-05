@@ -1,7 +1,7 @@
 parameters:
-#    ojstr_api.example.class: Ojs\ApiBundle\Example
+#    ojs_api.example.class: Ojs\ApiBundle\Example
 
 services:
-#    ojstr_api.example:
-#        class: %ojstr_api.example.class%
+#    ojs_api.example:
+#        class: %ojs_api.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

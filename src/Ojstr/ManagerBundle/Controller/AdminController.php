@@ -16,7 +16,7 @@ class AdminController extends Controller
         } elseif ($editor) {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         } else {
-            return $this->redirect($this->generateUrl('ojstr_user_index'));
+            return $this->redirect($this->generateUrl('ojs_user_index'));
         }
     }
 

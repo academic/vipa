@@ -1,0 +1,219 @@
+Ojs\JournalBundle\Entity\Article:
+  #repositoryClass: Ojs\JournalBundle\Entity\ArticleRepository
+  table: ~
+  type: entity
+  id:
+    id:
+      generator:
+        strategy: AUTO
+      id: true
+      type: integer
+  lifecycleCallbacks: {}
+  manyToOne:
+      section:
+          targetEntity: JournalSection
+          joinColumn:
+            name: section_id
+            referencedColumnName: id
+          inversedBy: articles
+      journal:
+          targetEntity: Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+          inversedBy: articles
+      issue:
+          targetEntity: Issue
+          joinColumn:
+            name: issue_id
+            referencedColumnName: id
+          inversedBy: articles
+  oneToMany:
+    attributes:
+      targetEntity: ArticleAttribute
+      mappedBy: article
+      cascade: ["ALL"]
+      indexBy: attribute
+    articleAuthors:
+      targetEntity: ArticleAuthor
+      mappedBy: article
+    articleFiles:
+      targetEntity: ArticleFile
+      mappedBy: article
+  manyToMany:
+    languages:
+      targetEntity: Lang
+      inversedBy: articles
+      joinTable:
+        inverseJoinColumns:
+          lang_id:
+            referencedColumnName: id
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+        name: Article_Language
+
+    citations:
+      targetEntity: Citation
+      inversedBy: articles
+      joinTable:
+        inverseJoinColumns:
+          citation_id:
+            referencedColumnName: id
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+        name: Article_Citation
+  fields:
+    subjects:
+        type: string
+        nullable: TRUE
+        gedmo:
+          - translatable
+          - versioned
+    submitterId:
+        column: submitter_id
+        type: integer
+        options:
+          default: 0
+        nullable: TRUE
+    issueId:
+        column: issue_id
+        type: integer
+        options:
+          default: 0
+        nullable: TRUE
+    primaryLanguage:
+        column: primary_language
+        type: string
+        nullable: TRUE
+        gedmo:
+          - versioned
+    orderNum:
+        type: integer
+        nullable: TRUE
+        options:
+          default: 0
+    status:
+        type: integer
+        options:
+          default: 0
+        nullable: TRUE
+    keywords:
+        type: string
+        nullable: TRUE
+        gedmo:
+          - translatable
+          - versioned
+    abstract:
+      type: text
+      nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
+    abstractTransliterated:
+      column: abstract_transliterated
+      type: text
+      nullable: TRUE
+      gedmo:
+          - versioned
+    doi:
+      length: 255
+      type: string
+      nullable: TRUE
+      gedmo:
+          - versioned
+    firstPage:
+      column: first_page
+      type: integer
+      nullable: TRUE
+      gedmo:
+          - versioned
+    isAnonymous:
+      column: is_anonymous
+      type: boolean
+      options:
+          default: 0
+      nullable: TRUE
+    journalId:
+      column: journal_id
+      type: integer
+      nullable: TRUE
+      gedmo:
+          - versioned
+    sectionId:
+      column: section_id
+      type: integer
+      nullable: TRUE
+      gedmo:
+          - versioned
+    lastPage:
+      column: last_page
+      type: integer
+      nullable: TRUE
+      gedmo:
+          - versioned
+    otherId:
+      column: other_id
+      length: 255
+      type: string
+      nullable: TRUE
+    part:
+      length: 255
+      type: string
+      nullable: TRUE
+    pubdate:
+      type: datetime
+      nullable: TRUE
+      gedmo:
+          - versioned
+    pubdateSeason:
+      column: pubdate_season
+      length: 255
+      type: string
+      nullable: TRUE
+    subtitle:
+      length: 255
+      type: string
+      nullable: TRUE
+      gedmo:
+        - translatable
+        - versioned
+    title:
+      length: 255
+      type: string
+      gedmo:
+        - translatable
+        - versioned
+    titleTransliterated:
+      column: title_transliterated
+      length: 255
+      type: string
+      nullable: TRUE
+    uri:
+      length: 255
+      type: string
+      nullable: TRUE
+    created:
+        type: datetime
+        gedmo:
+          timestampable:
+            on: create
+    updated:
+        type: datetime
+        gedmo:
+          timestampable:
+            on: update
+    deletedAt:
+        type: date
+        nullable: true
+  gedmo:
+    soft_deleteable:
+        field_name: deletedAt
+        time_aware: false
+    translation:
+        locale: locale
+    loggable: true
+  indexes:
+    doix:
+      columns: doi

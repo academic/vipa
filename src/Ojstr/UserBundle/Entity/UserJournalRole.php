@@ -31,7 +31,7 @@ class UserJournalRole
     {
         $this->user = new \Ojstr\UserBundle\Entity\User();
         $this->role = new \Ojstr\UserBundle\Entity\Role();
-        $this->journal = new \Ojstr\JournalBundle\Entity\Journal();
+        $this->journal = new \Ojs\JournalBundle\Entity\Journal();
     }
 
     /**
@@ -119,7 +119,7 @@ class UserJournalRole
     private $user;
 
     /**
-     * @var \Ojstr\JournalBundle\Entity\Journal
+     * @var \Ojs\JournalBundle\Entity\Journal
      */
     private $journal;
 
@@ -154,10 +154,10 @@ class UserJournalRole
     /**
      * Set journal
      *
-     * @param  \Ojstr\JournalBundle\Entity\Journal $journal
+     * @param  \Ojs\JournalBundle\Entity\Journal $journal
      * @return UserJournalRole
      */
-    public function setJournal(\Ojstr\JournalBundle\Entity\Journal $journal = null)
+    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
     {
         $this->journal = $journal;
 

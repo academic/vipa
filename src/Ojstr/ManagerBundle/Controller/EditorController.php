@@ -41,9 +41,9 @@ class EditorController extends Controller
     public function showJournalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $em->getRepository('OjstrJournalBundle:Journal')->find($id);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
-        return $this->render('OjstrJournalBundle:Journal:role_based/show_editor.html.twig', array('entity' => $journal));
+        return $this->render('OjsJournalBundle:Journal:role_based/show_editor.html.twig', array('entity' => $journal));
     }
 
 }

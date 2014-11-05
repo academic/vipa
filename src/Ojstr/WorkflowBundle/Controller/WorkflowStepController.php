@@ -29,7 +29,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
-        $selectedJournal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($selectedJournalId);
+        $selectedJournal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($selectedJournalId);
         $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
@@ -105,7 +105,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $em = $this->getDoctrine()->getManager();
         $selectedJournalId = $request->getSession()->get('selectedJournalId');
         $step = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')->find($id);
-        $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($step->getJournalId());
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);

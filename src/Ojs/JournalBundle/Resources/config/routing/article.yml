@@ -1,0 +1,44 @@
+article:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:Article:index" }
+
+article_journal:
+    pattern:  /index/journal/{journalId}
+    defaults: { _controller: "OjsJournalBundle:Article:indexJournal" }
+
+article_issue:
+    pattern:  /index/issue/{issueId}
+    defaults: { _controller: "OjsJournalBundle:Article:indexIssue" }
+
+article_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Article:show" }
+
+article_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:Article:new" }
+
+
+article_citation:
+    pattern:  /{id}/citation
+    defaults: { _controller: "OjsJournalBundle:Article:citation" }
+
+
+article_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:Article:create" }
+    requirements: { _method: post }
+
+article_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Article:edit" }
+
+article_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Article:update" }
+    requirements: { _method: post|put }
+
+article_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Article:delete" }
+    requirements: { _method: get|post|delete }

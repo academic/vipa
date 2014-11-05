@@ -19,7 +19,7 @@ class AuthorRestController extends FOSRestController
      */
     public function getAuthorsAction()
     {
-        $authors = $this->getDoctrine()->getRepository('OjstrJournalBundle:Author')->findAll();
+        $authors = $this->getDoctrine()->getRepository('OjsJournalBundle:Author')->findAll();
         if (!is_array($authors) && !count($authors) > 0) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }

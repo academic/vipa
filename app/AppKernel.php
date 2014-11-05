@@ -36,7 +36,7 @@ class AppKernel extends Kernel
             new Ojstr\ManagerBundle\OjstrManagerBundle(),
             new Ojs\ApiBundle\OjsApiBundle(),
             new Ojs\CliBundle\OjsCliBundle(),
-            new Ojstr\JournalBundle\OjstrJournalBundle(),
+            new Ojs\JournalBundle\OjsJournalBundle(),
             new Ojstr\UserBundle\OjstrUserBundle(),
         );
 

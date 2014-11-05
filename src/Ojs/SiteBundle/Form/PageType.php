@@ -37,6 +37,6 @@ class PageType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_sitebundle_page';
+        return 'ojs_sitebundle_page';
     }
 }

@@ -19,7 +19,7 @@ class ContactRestController extends FOSRestController
      */
     public function getContactsAction()
     {
-        $contacts = $this->getDoctrine()->getRepository('OjstrJournalBundle:Contact')->findAll();
+        $contacts = $this->getDoctrine()->getRepository('OjsJournalBundle:Contact')->findAll();
 
         if (!is_array($contacts) && !count($contacts) > 0) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');

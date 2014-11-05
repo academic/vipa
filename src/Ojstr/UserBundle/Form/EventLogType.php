@@ -37,6 +37,6 @@ class EventLogType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_eventlog';
+        return 'ojs_userbundle_eventlog';
     }
 }
