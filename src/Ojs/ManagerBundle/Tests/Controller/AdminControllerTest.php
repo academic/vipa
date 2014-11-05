@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ManagerBundle\Tests\Controller;
+namespace Ojs\ManagerBundle\Tests\Controller;
 
 class AdminControllerTest extends \Ojs\Common\Helper\TestHelper
 {

@@ -30,7 +30,7 @@ class SiteController extends Controller {
 
     public function userIndexAction() {
         $data['page'] = 'user';
-        return $this->render('OjstrManagerBundle:User:userwelcome.html.twig',$data);
+        return $this->render('OjsManagerBundle:User:userwelcome.html.twig',$data);
     }
 
     public function browseIndexAction() {

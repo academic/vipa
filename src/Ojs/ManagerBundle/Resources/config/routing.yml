@@ -1,0 +1,20 @@
+dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: OjsManagerBundle:Admin:dashboardCheck }
+
+dashboard_admin:
+    pattern:  /admin/dashboard
+    defaults: { _controller: OjsManagerBundle:Admin:dashboard }
+
+dashboard_editor:
+    pattern:  /editor/dashboard
+    defaults: { _controller: OjsManagerBundle:Editor:dashboard }
+
+
+editor_show_my_journals:
+    pattern:  /editor/myjournals
+    defaults: { _controller: OjsManagerBundle:Editor:myJournals}
+
+editor_journal_show:
+    pattern: /editor/journal/{id}
+    defaults: { _controller: OjsManagerBundle:Editor:showJournal}

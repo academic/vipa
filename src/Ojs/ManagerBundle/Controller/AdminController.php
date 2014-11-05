@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ManagerBundle\Controller;
+namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
-            return $this->render('OjstrManagerBundle:Admin:dashboard.html.twig');
+            return $this->render('OjsManagerBundle:Admin:dashboard.html.twig');
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         }
