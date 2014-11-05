@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SiteBundle\Entity;
+namespace Ojs\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

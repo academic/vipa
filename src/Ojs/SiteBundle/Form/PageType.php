@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SiteBundle\Form;
+namespace Ojs\SiteBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,7 +28,7 @@ class PageType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojstr\SiteBundle\Entity\Page'
+            'data_class' => 'Ojs\SiteBundle\Entity\Page'
         ));
     }
 

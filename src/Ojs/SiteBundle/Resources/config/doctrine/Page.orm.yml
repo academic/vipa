@@ -1,7 +1,7 @@
-Ojstr\SiteBundle\Entity\Page:
+Ojs\SiteBundle\Entity\Page:
     type: entity
     table: null
-    repositoryClass: Ojstr\SiteBundle\Entity\PageRepository
+    repositoryClass: Ojs\SiteBundle\Entity\PageRepository
     id:
         id:
             type: integer
