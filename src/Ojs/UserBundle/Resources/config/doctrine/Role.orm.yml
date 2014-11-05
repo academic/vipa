@@ -1,0 +1,45 @@
+Ojs\UserBundle\Entity\Role:
+    type: entity
+    table: Role
+    repositoryClass: Ojs\UserBundle\Entity\RoleRepository
+    id:
+        id:
+            type: integer
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        role:
+            type: string
+            scale: 0
+            length: 50
+            unique: false
+            nullable: false
+            precision: 0
+        isSystemRole:
+            type: boolean
+            nullable: TRUE
+            precision: 0
+            options:
+                default: 0
+    manyToMany:
+        users:
+            targetEntity: Ojs\UserBundle\Entity\User
+            cascade: {  }
+            mappedBy: roles
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
+    lifecycleCallbacks: {  }

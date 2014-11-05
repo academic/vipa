@@ -1,6 +1,6 @@
 security:
     encoders:
-        Ojstr\UserBundle\Entity\User:
+        Ojs\UserBundle\Entity\User:
             algorithm: bcrypt
 
     role_hierarchy:
@@ -10,7 +10,7 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
     providers:
         user_db:
-            entity: {  class: Ojstr\UserBundle\Entity\User, property: username }
+            entity: {  class: Ojs\UserBundle\Entity\User, property: username }
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/

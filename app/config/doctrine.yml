@@ -28,7 +28,7 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         resolve_target_entities:
-            Symfony\Component\Security\Core\User\UserInterface: Ojstr\UserBundle\Entity\User
+            Symfony\Component\Security\Core\User\UserInterface: Ojs\UserBundle\Entity\User
         mappings: 
             OjstrMessageMessageBundle:
                 mapping:              true

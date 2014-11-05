@@ -44,7 +44,7 @@ class TestHelper extends WebTestCase
         $session = $this->client->getContainer()->get('session');
         $firewall = 'main';
         $username = $username ? $username : 'admin';
-        $user = $this->em->getRepository('OjstrUserBundle:User')->findOneByUsername($username);
+        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username);
         $token = new UsernamePasswordToken($user, null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));
         $session->set('_security_' . $firewall, serialize($token));
         $session->save();

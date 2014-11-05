@@ -30,7 +30,7 @@ class UserRestType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojstr\UserBundle\Entity\User',
+            'data_class' => 'Ojs\UserBundle\Entity\User',
             'csrf_protection' => false
         ));
     }
