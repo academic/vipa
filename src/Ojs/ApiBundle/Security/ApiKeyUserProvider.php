@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Security;
+namespace Ojs\ApiBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;

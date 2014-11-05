@@ -46,5 +46,5 @@ services:
         class: Ojstr\UserBundle\Controller\MailController
         arguments: [@service_container, @mailer]
 #    apikey_authenticator:
-#        class:     Ojstr\ApiBundle\Security\ApiKeyAuthenticator
+#        class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
 #        arguments: ["@api_key_user_provider"]

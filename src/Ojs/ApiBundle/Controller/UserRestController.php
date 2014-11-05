@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Controller;
+namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
@@ -162,7 +162,7 @@ class UserRestController extends FOSRestController {
      */
     public function putUserAction(Request $request, $user_id) {
         $entity = $this->getUserEntity($user_id);
-        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
+        $form = $this->createForm(new \Ojs\ApiBundle\Form\UserRestType(), $entity);
         $form->bind($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -185,7 +185,7 @@ class UserRestController extends FOSRestController {
      */
     public function postUsersAction(Request $request) {
         $entity = new User();
-        $form = $this->createForm(new \Ojstr\ApiBundle\Form\UserRestType(), $entity);
+        $form = $this->createForm(new \Ojs\ApiBundle\Form\UserRestType(), $entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

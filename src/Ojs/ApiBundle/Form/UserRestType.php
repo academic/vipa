@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Form;
+namespace Ojs\ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

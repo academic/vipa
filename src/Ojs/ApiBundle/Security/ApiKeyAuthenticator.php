@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ApiBundle\Security;
+namespace Ojs\ApiBundle\Security;
 
 use Symfony\Component\Security\Core\Authentication\SimplePreAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
