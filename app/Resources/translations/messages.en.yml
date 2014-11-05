@@ -1,6 +1,7 @@
 back: Back to list
 b: Back
 d: Delete
+remove: Remove
 c: Create New
 s: Show
 e: Edit
@@ -28,3 +29,5 @@ inbook: In-book
 booklet: Booklet
 manual: Manual
 misc: Miscellaneous
+
+details: Details

@@ -1,6 +1,7 @@
 back: Listeye geri dön
 b: Geri
 d: Sil
+remove: Kaldır
 c: Yeni Oluştur 
 s: Göster
 e: Düzenle
@@ -28,3 +29,5 @@ inbook: In-book
 booklet: Kitapçık
 manual: Manual
 misc: Çeşitli/Diğer
+
+details: Ayrıntılar
