@@ -4,7 +4,7 @@ namespace Ojs\ApiBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;
-use Ojstr\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
@@ -13,7 +13,7 @@ class ApiKeyUserProvider implements UserProviderInterface
     public function getUsernameForApiKey($apiKey)
     {
         
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:User')->findOneByApiKey($apiKey);
+        $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneByApiKey($apiKey);
         
 
         return $user->getUsername();

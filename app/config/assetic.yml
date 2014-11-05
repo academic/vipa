@@ -3,7 +3,7 @@ assetic:
     node: node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ OjstrUserBundle,OjsJournalBundle ]
+    bundles:        [ OjsUserBundle,OjsJournalBundle ]
     filters:
         cssrewrite: ~
         uglifyjs:
