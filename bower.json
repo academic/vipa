@@ -28,7 +28,6 @@
 	"jquery.inputmask":"*",
 	"flot":"*",
 	"morrisjs":"*",
-	"metisMenu":"*",
 	"angular":"1.2.*",
 	"mustache":"*",
 	"bootstrap-tour":"*",
