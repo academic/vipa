@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\ManagerBundle\Controller;
+namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -12,7 +12,7 @@ class EditorController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('OjstrManagerBundle:Editor:index.html.twig');
+        return $this->render('OjsManagerBundle:Editor:index.html.twig');
     }
 
     /**
@@ -21,7 +21,7 @@ class EditorController extends Controller
      */
     public function dashboardAction()
     {
-        return $this->render('OjstrManagerBundle:Editor:dashboard.html.twig');
+        return $this->render('OjsManagerBundle:Editor:dashboard.html.twig');
     }
 
     public function myJournalsAction()
@@ -33,7 +33,7 @@ class EditorController extends Controller
         $entities = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')
                 ->userJournalsWithRoles($user_id);
 
-        return $this->render('OjstrManagerBundle:Editor:myjournals.html.twig', array(
+        return $this->render('OjsManagerBundle:Editor:myjournals.html.twig', array(
                     'entities' => $entities
         ));
     }
