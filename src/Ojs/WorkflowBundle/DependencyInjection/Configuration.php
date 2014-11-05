@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\DependencyInjection;
+namespace Ojs\WorkflowBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
