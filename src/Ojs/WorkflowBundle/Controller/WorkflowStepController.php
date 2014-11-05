@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Controller;
+namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
@@ -9,11 +9,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function indexAction()
     {
         $steps = $this->get('doctrine_mongodb')
-                ->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
+                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findAll();
 
         return $this->render(
-                        'OjstrWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps)
+                        'OjsWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps)
         );
     }
 
@@ -31,10 +31,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($selectedJournalId);
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
-        $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
+        $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
 
-        return $this->render('OjstrWorkflowBundle:WorkflowStep:new.html.twig', array(
+        return $this->render('OjsWorkflowBundle:WorkflowStep:new.html.twig', array(
                     'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $selectedJournal));
     }
 
@@ -44,7 +44,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function createAction(Request $request)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $step = new \Ojstr\WorkflowBundle\Document\JournalWorkflowStep();
+        $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
         $step->setFirststep($request->get('firststep'));
         $step->setLaststep($request->get('laststep'));
@@ -85,7 +85,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
      */
     protected function prepareNextsteps($nextSteps)
     {
-        $repo = $this->get('doctrine_mongodb')->getManager()->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        $repo = $this->get('doctrine_mongodb')->getManager()->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         $nextStepsArray = array();
         if ($nextSteps) {
             foreach ($nextSteps as $stepId) {
@@ -104,20 +104,20 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournalId = $request->getSession()->get('selectedJournalId');
-        $step = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')->find($id);
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
-        $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
+        $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
 
-        return $this->render('OjstrWorkflowBundle:WorkflowStep:edit.html.twig', array(
+        return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
                     'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $journal, 'step' => $step));
     }
 
     public function deleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         $step = $repo->find($id);
         $dm->remove($step);
         $dm->flush();
@@ -128,17 +128,17 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function showAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
+        $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         $step = $repo->find($id);
 
-        return $this->render('OjstrWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
+        return $this->render('OjsWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
     }
 
     public function updateAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep');
-        /* @var $step \Ojstr\WorkflowBundle\Document\JournalWorkflowStep  */
+        $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
+        /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
         $step = $repo->find($id);
         $step->setTitle($request->get('title'));
         $step->setFirststep($request->get('firststep'));

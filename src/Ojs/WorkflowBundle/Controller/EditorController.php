@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Controller;
+namespace Ojs\WorkflowBundle\Controller;
 
 /**
  * Editor Workflow Controller
@@ -58,7 +58,7 @@ class EditorController extends \Ojs\Common\Controller\OjsController
         $articles = $this->getDoctrine()->getManager()
                         ->getRepository("OjsJournalBundle:Article")->findByStatus($status);
 
-        return $this->render('OjstrWorkflowBundle:Editor:' . $view . '.html.twig', array(
+        return $this->render('OjsWorkflowBundle:Editor:' . $view . '.html.twig', array(
                     'entities' => $articles));
     }
 
