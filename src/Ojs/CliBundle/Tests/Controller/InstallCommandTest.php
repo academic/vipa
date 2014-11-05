@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\CliBundle\Tests\Command;
+namespace Ojs\CliBundle\Tests\Command;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

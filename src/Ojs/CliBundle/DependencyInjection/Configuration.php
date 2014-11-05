@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\CliBundle\DependencyInjection;
+namespace Ojs\CliBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
