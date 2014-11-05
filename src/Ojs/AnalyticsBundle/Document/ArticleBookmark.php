@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\AnalyticsBundle\Document;
+namespace Ojs\AnalyticsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 

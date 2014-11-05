@@ -19,7 +19,7 @@ class AnalyticsRestController extends FOSRestController
     public function getArticlesViewAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('OjstrAnalyticsBundle:ArticleView')->findByArticleId($id);
+        $data = $dm->getRepository('OjsAnalyticsBundle:ArticleView')->findByArticleId($id);
 
         return $data;
     }
@@ -35,7 +35,7 @@ class AnalyticsRestController extends FOSRestController
     public function getArticlesDownloadAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('OjstrAnalyticsBundle:ArticleDownload')->findByArticleId($id);
+        $data = $dm->getRepository('OjsAnalyticsBundle:ArticleDownload')->findByArticleId($id);
 
         return $data;
     }
@@ -89,8 +89,8 @@ class AnalyticsRestController extends FOSRestController
     protected function journalArticleStatsSummary($id, $documentName)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjstrAnalyticsBundle:ArticleView');
-        $result = $repo->createQueryBuilder('OjstrAnalyticsBundle:' . $documentName)
+        $repo = $dm->getRepository('OjsAnalyticsBundle:ArticleView');
+        $result = $repo->createQueryBuilder('OjsAnalyticsBundle:' . $documentName)
                 ->field('journalId')->equals($id)
                 ->getQuery()
                 ->execute();

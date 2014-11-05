@@ -3,7 +3,7 @@ ojstr_site:
     prefix:   /
 
 ojstr_analytics:
-    resource: "@OjstrAnalyticsBundle/Resources/config/routing.yml"
+    resource: "@OjsAnalyticsBundle/Resources/config/routing.yml"
     prefix:   /
 
 ojstr_search:
