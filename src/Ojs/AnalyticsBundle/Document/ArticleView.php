@@ -1,17 +1,17 @@
 <?php
 
-namespace Ojstr\AnalyticsBundle\Document;
+namespace Ojs\AnalyticsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * This collection keeps page information and download action details *without total count*
- * There will be one record for each paths
- * @MongoDb\Document(collection="analytics_download_article_sum")
+ * This collection keeps page information and total count *view action details*
+ * There will be one record for *each pages*
+ * @MongoDb\Document(collection="analytics_view_article_sum")
  */
-class ArticleDownload
+class ArticleView
 {
-     /**
+    /**
      * @MongoDb\Id
      */
     public $id;
@@ -19,7 +19,12 @@ class ArticleDownload
     /**
      * @MongoDb\String
      */
-    protected $filePath;
+    protected $pageUrl;
+
+    /**
+     * @MongoDb\String
+     */
+    protected $total;
 
     /**
      * Get id
@@ -57,26 +62,26 @@ class ArticleDownload
 
     /**
      * Page full url with domain
-     * Set filePath
+     * Set pageUrl
      *
-     * @param  string $filePath
+     * @param  string $pageUrl
      * @return self
      */
-    public function setFilePath($filePath)
+    public function setPageUrl($pageUrl)
     {
-        $this->filePath = $filePath;
+        $this->pageUrl = $pageUrl;
 
         return $this;
     }
 
     /**
-     * Get filePath
+     * Get pageUrl
      *
-     * @return string $filePath
+     * @return string $pageUrl
      */
-    public function getFilePath()
+    public function getPageUrl()
     {
-        return $this->filePath;
+        return $this->pageUrl;
     }
 
 }

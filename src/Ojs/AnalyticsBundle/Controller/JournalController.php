@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\AnalyticsBundle\Controller;
+namespace Ojs\AnalyticsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -17,13 +17,13 @@ class JournalController extends Controller
             $journal = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Journal")->find($id);
             $stats = array();
 
-            return $this->render('OjstrAnalyticsBundle:Journal:summary_one.html.twig', array(
+            return $this->render('OjsAnalyticsBundle:Journal:summary_one.html.twig', array(
                         'journal' => $journal,
                         'stats' => $stats
             ));
         }
         // else get all journals
-        return $this->render('OjstrAnalyticsBundle:Journal:summary_all.html.twig');
+        return $this->render('OjsAnalyticsBundle:Journal:summary_all.html.twig');
     }
 
     public function journalViewsAction($id = null)
@@ -32,13 +32,13 @@ class JournalController extends Controller
             $journal = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Journal")->find($id);
             $stats = array();
 
-            return $this->render('OjstrAnalyticsBundle:Journal:views_one.html.twig', array(
+            return $this->render('OjsAnalyticsBundle:Journal:views_one.html.twig', array(
                         'journal' => $journal,
                         'stats' => $stats
             ));
         }
         // else get all journals
-        return $this->render('OjstrAnalyticsBundle:Journal:views_all.html.twig');
+        return $this->render('OjsAnalyticsBundle:Journal:views_all.html.twig');
     }
 
 }
