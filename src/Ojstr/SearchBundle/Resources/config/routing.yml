@@ -1,3 +1,0 @@
-ojs_search_index:
-    path:     /search
-    defaults: { _controller: OjstrSearchBundle:Default:index }

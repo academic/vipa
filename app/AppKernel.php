@@ -29,7 +29,7 @@ class AppKernel extends Kernel
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
-            new Ojstr\SearchBundle\OjstrSearchBundle(),
+            new Ojs\SearchBundle\OjsSearchBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
             new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),

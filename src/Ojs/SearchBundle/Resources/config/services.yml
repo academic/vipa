@@ -1,5 +1,5 @@
 parameters:
-#    ojs_search.example.class: Ojstr\SearchBundle\Example
+#    ojs_search.example.class: Ojs\SearchBundle\Example
 
 services:
 #    ojs_search.example:

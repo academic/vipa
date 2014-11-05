@@ -7,7 +7,7 @@ ojs_analytics:
     prefix:   /
 
 ojs_search:
-    resource: "@OjstrSearchBundle/Resources/config/routing.yml"
+    resource: "@OjsSearchBundle/Resources/config/routing.yml"
     prefix:   /
 
 OjstrMessageMessageBundle:

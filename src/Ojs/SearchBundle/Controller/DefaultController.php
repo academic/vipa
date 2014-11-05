@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SearchBundle\Controller;
+namespace Ojs\SearchBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -8,7 +8,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OjstrSearchBundle:Default:index.html.twig');
+        return $this->render('OjsSearchBundle:Default:index.html.twig');
     }
 
 }
