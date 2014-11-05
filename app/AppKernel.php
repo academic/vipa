@@ -37,7 +37,7 @@ class AppKernel extends Kernel
             new Ojs\ApiBundle\OjsApiBundle(),
             new Ojs\CliBundle\OjsCliBundle(),
             new Ojs\JournalBundle\OjsJournalBundle(),
-            new Ojstr\UserBundle\OjstrUserBundle(),
+            new Ojs\UserBundle\OjsUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

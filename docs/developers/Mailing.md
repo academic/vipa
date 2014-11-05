@@ -6,7 +6,7 @@ We use SwiftMailer to send mails. Spool option is active in configuration. Howev
 Here is a sample code to send (or add to spool) an email.
 ```
 	$msgBody = $this->renderView(
-            'OjstrUserBundle:Mails:testMail.html.twig', array(
+            'OjsUserBundle:Mails:testMail.html.twig', array(
                 'testMessage' => "test"
             )
         );

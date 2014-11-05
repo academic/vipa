@@ -3,7 +3,7 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojstr\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -24,7 +24,7 @@ class RoleRestController extends FOSRestController
      */
     public function getRoleAction($id)
     {
-        $user = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($id);
+        $user = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->find($id);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -61,7 +61,7 @@ class RoleRestController extends FOSRestController
      */
     public function getRoleUsersAction($roleId)
     {
-        $role = $this->getDoctrine()->getRepository('OjstrUserBundle:Role')->find($roleId);
+        $role = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->find($roleId);
         $users = $role->getUsers();
         if (!is_object($users)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
@@ -103,7 +103,7 @@ class RoleRestController extends FOSRestController
      */
     public function getJournalRoleUsersAction($roleId, $journalId)
     {
-        $result = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')->findBy(array('journalId' => $journalId, 'roleId' => $roleId));
+        $result = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('journalId' => $journalId, 'roleId' => $roleId));
         if (!is_array($result)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }

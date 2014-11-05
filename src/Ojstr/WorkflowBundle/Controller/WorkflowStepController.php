@@ -30,7 +30,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         }
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($selectedJournalId);
-        $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
+        $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
 
@@ -71,7 +71,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $rolesArray = array();
         if ($roles) {
             foreach ($roles as $roleId) {
-                $rolesArray[] = json_decode($serializer->serialize($em->getRepository("OjstrUserBundle:Role")->findOneById($roleId), 'json'));
+                $rolesArray[] = json_decode($serializer->serialize($em->getRepository("OjsUserBundle:Role")->findOneById($roleId), 'json'));
             }
         }
 
@@ -106,7 +106,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $selectedJournalId = $request->getSession()->get('selectedJournalId');
         $step = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
-        $roles = $em->getRepository('OjstrUserBundle:Role')->findAll();
+        $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournalId);
 

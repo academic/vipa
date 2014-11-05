@@ -96,7 +96,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     private $userId;
 
     /**
-     * @var \Ojstr\UserBundle/Entity/User
+     * @var \Ojs\UserBundle/Entity/User
      * @Expose()
      */
     private $user;
@@ -123,10 +123,10 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set user
      *
-     * @param  \Ojstr\UserBundle\Entity\User $user
+     * @param  \Ojs\UserBundle\Entity\User $user
      * @return Author
      */
-    public function setUser(\Ojstr\UserBundle\Entity\User $user = null)
+    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -136,7 +136,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get user
      *
-     * @return \Ojstr\UserBundle\Entity\User
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function getUser()
     {

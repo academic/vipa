@@ -1,0 +1,11 @@
+user_my_proxy_clients:
+    path:     /clients
+    defaults: { _controller: "OjsUserBundle:Proxy:myProxyClients" }
+
+user_my_proxy_parents:
+    path:     /parents
+    defaults: { _controller: "OjsUserBundle:Proxy:myProxyParents" }
+
+user_proxy_ttl_update:
+    pattern:  /{id}/update/ttl
+    defaults: { _controller: "OjsUserBundle:Proxy:updateTtl" }

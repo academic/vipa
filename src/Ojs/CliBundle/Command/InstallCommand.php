@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use \Ojstr\UserBundle\Entity\Role;
-use \Ojstr\UserBundle\Entity\User;
+use \Ojs\UserBundle\Entity\Role;
+use \Ojs\UserBundle\Entity\User;
 
 class InstallCommand extends ContainerAwareCommand
 {
@@ -77,7 +77,7 @@ class InstallCommand extends ContainerAwareCommand
         $doctrine = $container->get('doctrine');
         $em = $doctrine->getManager();
         $roles = $container->getParameter('roles');
-        $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
+        $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
         foreach ($roles as $role) {
             $new_role = new Role();
             $check = $role_repo->findOneByRole($role['role']);
@@ -111,7 +111,7 @@ class InstallCommand extends ContainerAwareCommand
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
         $user->setIsActive(true);
-        $role_repo = $doctrine->getRepository('OjstrUserBundle:Role');
+        $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
         $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
         $role_admin = $role_repo->findOneByRole('ROLE_USER');
         $role_editor = $role_repo->findOneByRole('ROLE_EDITOR');

@@ -45,7 +45,7 @@ Ojs\JournalBundle\Entity\Subject:
                on: update
     manyToMany:
         users:
-            targetEntity: Ojstr\UserBundle\Entity\User
+            targetEntity: Ojs\UserBundle\Entity\User
             cascade: {  }
             mappedBy: subjects
             inversedBy: null

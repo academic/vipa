@@ -74,7 +74,7 @@ class JournalRestController extends FOSRestController
             throw new HttpException(400, 'Missing parameter : page');
         }
         $users = $this->getDoctrine()->
-                getRepository('OjstrUserBundle:UserJournalRole')
+                getRepository('OjsUserBundle:UserJournalRole')
                 ->createQueryBuilder()
                 ->where('journal_id > :id')
                 ->setParameter('id', $id)
