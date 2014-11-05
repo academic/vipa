@@ -5,12 +5,15 @@ remove: Kaldır
 c: Yeni Oluştur 
 s: Göster
 e: Düzenle
+add: Ekle
 sure: Emin misiniz?
 added: Eklendi
 u: Güncelle
 404: Bulunamadı
-
+summart: Özet
 res: Yeniden Başlat
+preview: Preview
+submit: Submit
 
 citations: Referanslar
 

@@ -5,12 +5,15 @@ remove: Remove
 c: Create New
 s: Show
 e: Edit
+add: Add
 sure: Are you sure?
 added: Added
 u: Update
 404: Not found
-
+summart: Summary
 res: Restart
+preview: Preview
+submit: Submit
 
 citations: Citations
 

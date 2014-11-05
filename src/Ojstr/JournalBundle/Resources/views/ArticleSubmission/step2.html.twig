@@ -1,5 +1,5 @@
 <!-- new author form --> 
-<div class="panel panel-default">
+<div class="author-item panel panel-default">
 
     <div class="panel-body"> 
         <form class="form-horizontal" role="form"> 
@@ -20,7 +20,12 @@
                     <input name="email" name="email"  id="emailinput" class="form-control" placeholder="{{"email"|trans}}"/>
                 </div>
                 <br>
-                <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> Add details</a>
+
+                <a class="btn btn-sm btn-warning" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
+                <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
+
+                <a class="btn btn-sm btn-info pull-right" onclick="OjsArticleSubmission.addAuthorForm();">
+                    <i class="fa fa-plus-circle"></i> {{"add"|trans}}</a>
                 <div style="display:none">
                     <div class="controls">
                         <label class="control-label">{{"summary"|trans}}</label>

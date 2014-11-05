@@ -9,12 +9,17 @@ messages: Messages
 journal: 
     journal: journal
     journals: Journals
-article:
+articles:
     articles: Articles
     article: Article
     submit: Submit Article
     files: Article Files
     authors: Article Authors
+    citations: Article Citations
+    language: 
+        primary: Article Primary Language
+        other: Article Other Languages
+
 workflow: Workflow
 admin: Admin
 dashboard: Dashboard

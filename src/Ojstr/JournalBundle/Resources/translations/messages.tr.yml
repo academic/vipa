@@ -9,12 +9,17 @@ messages: Mesajlar
 journal: 
     journals: Dergiler
     journal: journal
-article:
+articles:
     articles: Makaleler
     article: Makale
     submit: Makale Gönder
     files: Makale Dosyaları
     authors: Makale Yazarları
+    citations: Makale Referansları
+    language: 
+        primary: Makalenin Birincil Dili
+        other: Makalenin Diğer Dilleri
+
 wflow: Süreç
 admin: Yönetim
 dashboard: Panel
