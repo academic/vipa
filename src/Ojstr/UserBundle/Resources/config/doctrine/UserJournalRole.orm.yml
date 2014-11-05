@@ -18,7 +18,7 @@ Ojstr\UserBundle\Entity\UserJournalRole:
             referencedColumnName: id
         journal:
           #cascade: [persist]
-          targetEntity: Ojstr\JournalBundle\Entity\Journal
+          targetEntity: Ojs\JournalBundle\Entity\Journal
           joinColumn:
             name: journal_id
             referencedColumnName: id

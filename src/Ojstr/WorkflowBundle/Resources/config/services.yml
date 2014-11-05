@@ -1,7 +1,7 @@
 parameters:
-#    ojstr_workflow.example.class: Ojstr\WorkflowBundle\Example
+#    ojs_workflow.example.class: Ojstr\WorkflowBundle\Example
 
 services:
-#    ojstr_workflow.example:
-#        class: %ojstr_workflow.example.class%
+#    ojs_workflow.example:
+#        class: %ojs_workflow.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

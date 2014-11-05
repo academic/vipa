@@ -36,7 +36,7 @@ class RoleType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_role';
+        return 'ojs_userbundle_role';
     }
 
 }

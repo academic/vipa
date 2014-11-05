@@ -1,0 +1,172 @@
+Ojs\JournalBundle\Entity\Journal:
+    type: entity
+    table: null
+    repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
+    oneToMany:
+        settings:
+            targetEntity: JournalSetting
+            mappedBy: journal
+            cascade: ["ALL"]
+            indexBy: setting
+        articles:
+          targetEntity: Article
+          mappedBy: journal
+          cascade: ["persist", "merge"]
+          fetch: LAZY
+        issues:
+          targetEntity: Issue
+          mappedBy: journal
+          cascade: ["persist", "merge"]
+          fetch: LAZY
+        sections:
+          targetEntity: JournalSection
+          mappedBy: journal
+          cascade: ["persist", "merge"]
+          fetch: LAZY
+    manyToMany:
+        languages:
+            targetEntity: Lang
+            inversedBy: journals
+            joinTable:
+              inverseJoinColumns:
+                lang_id:
+                  referencedColumnName: id
+              joinColumns:
+                journal_id:
+                  referencedColumnName: id
+              name: Journal_Language
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            gedmo:
+                - translatable
+                - versioned
+        titleAbbr:
+            type: string
+            length: 255
+            column: title_abbr
+        titleTransliterated:
+            type: string
+            length: 255
+            column: title_transliterated
+            nullable: true
+        subdomain:
+            type: string
+            length: 255
+            column: subdomain
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
+        domain:
+            type: string
+            length: 255
+            column: domain
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
+        subtitle:
+            type: string
+            length: 255
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
+        issn:
+            type: string
+            length: '11'
+            gedmo:
+                - versioned
+        eissn:
+            type: string
+            length: '11'
+            nullable: true
+            gedmo:
+                - versioned
+        firstPublishDate:
+            type: datetime
+            column: first_publish_date
+            nullable: true
+        period:
+            type: string
+            length: 255
+            nullable: true
+        url:
+            type: string
+            length: 255
+            nullable: true
+        country:
+            type: integer
+            nullable: true
+        published:
+            type: integer
+            column: published
+            gedmo:
+                - versioned
+            nullable: true
+            options:
+                default: 0
+        status:
+            type: integer
+            gedmo:
+                - versioned
+            nullable: true
+            options:
+                default: 0
+        image:
+            type: string
+            length: 255
+            column: image
+            nullable: true
+        scope:
+            type: text
+            nullable: true
+            gedmo:
+                - translatable
+                - versioned
+        mission:
+            type: text
+            nullable: true
+            gedmo:
+                - translatable
+        themeId:
+            type: integer
+            column: theme_id
+            nullable: true
+            options:
+                default: 0
+        isConfigured:
+            column: is_configured
+            type: boolean
+            options:
+                default: 0
+            nullable: TRUE
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+            locale: locale
+        loggable: true
+    lifecycleCallbacks: {  }

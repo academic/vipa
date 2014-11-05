@@ -1,0 +1,29 @@
+lang:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:Lang:index" }
+
+lang_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Lang:show" }
+
+lang_new:
+    path:     /new
+    defaults: { _controller: "OjsJournalBundle:Lang:new" }
+
+lang_create:
+    path:     /create
+    defaults: { _controller: "OjsJournalBundle:Lang:create" }
+    requirements: { _method: post }
+
+lang_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Lang:edit" }
+
+lang_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Lang:update" }
+    requirements: { _method: post|put }
+
+lang_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Lang:delete" }

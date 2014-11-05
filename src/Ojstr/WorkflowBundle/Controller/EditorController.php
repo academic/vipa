@@ -56,7 +56,7 @@ class EditorController extends \Ojs\Common\Controller\OjsController
     private function listArticles($view, $status)
     {
         $articles = $this->getDoctrine()->getManager()
-                        ->getRepository("OjstrJournalBundle:Article")->findByStatus($status);
+                        ->getRepository("OjsJournalBundle:Article")->findByStatus($status);
 
         return $this->render('OjstrWorkflowBundle:Editor:' . $view . '.html.twig', array(
                     'entities' => $articles));

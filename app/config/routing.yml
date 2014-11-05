@@ -1,12 +1,12 @@
-ojstr_site:
+ojs_site:
     resource: "@OjsSiteBundle/Resources/config/routing.yml"
     prefix:   /
 
-ojstr_analytics:
+ojs_analytics:
     resource: "@OjsAnalyticsBundle/Resources/config/routing.yml"
     prefix:   /
 
-ojstr_search:
+ojs_search:
     resource: "@OjstrSearchBundle/Resources/config/routing.yml"
     prefix:   /
 
@@ -15,19 +15,19 @@ OjstrMessageMessageBundle:
     prefix: /
     
     
-ojstr_manager:
+ojs_manager:
     resource: "@OjstrManagerBundle/Resources/config/routing.yml"
     prefix:   /
 
-ojstr_journal:
-    resource: "@OjstrJournalBundle/Resources/config/routing.yml"
+ojs_journal:
+    resource: "@OjsJournalBundle/Resources/config/routing.yml"
     prefix:   / 
 
-ojstr_workflow:
+ojs_workflow:
     resource: "@OjstrWorkflowBundle/Resources/config/routing.yml"
     prefix:   /manager/workflow
 
-ojstr_user:
+ojs_user:
     resource: "@OjstrUserBundle/Controller/"
     type:     annotation
     prefix:   /
@@ -45,7 +45,7 @@ _imagine:
 #common pages 
 change_locale:
     pattern:  /locale/{code}
-    defaults: { _controller: "OjstrJournalBundle:Common:changeLocale" }
+    defaults: { _controller: "OjsJournalBundle:Common:changeLocale" }
     
 auth:
     resource: "@OjstrUserBundle/Resources/config/routing.yml"

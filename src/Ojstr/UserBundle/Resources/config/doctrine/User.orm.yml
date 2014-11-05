@@ -91,7 +91,7 @@ Ojstr\UserBundle\Entity\User:
            nullable: true
     manyToMany:
         subjects:
-            targetEntity: Ojstr\JournalBundle\Entity\Subject
+            targetEntity: Ojs\JournalBundle\Entity\Subject
             cascade: ["persist"]
             mappedBy: null
             inversedBy: users

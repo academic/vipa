@@ -231,7 +231,7 @@ class UserController extends Controller
         // a  journal id passed so register session user as author to this journal
         if ($journalId) {
             $user = $doc->getRepository('OjstrUserBundle:User')->find($userId);
-            $journal = $doc->getRepository('OjstrJournalBundle:Journal')->find($journalId);
+            $journal = $doc->getRepository('OjsJournalBundle:Journal')->find($journalId);
             $role = $doc->getRepository('OjstrUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
             // check that we have already have the link
             $ujr = $doc->getRepository('OjstrUserBundle:UserJournalRole')->findOneBy(array(
@@ -251,7 +251,7 @@ class UserController extends Controller
         $myJournals = $doc->getRepository('OjstrUserBundle:UserJournalRole')
                 ->userJournalsWithRoles($userId, true); // only ids
         $entities = array();
-        $journals = $this->getDoctrine()->getRepository('OjstrJournalBundle:Journal')->findAll();
+        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
         foreach ($journals as $journal) {
             $jid = $journal->getId();
             $roles = isset($myJournals[$jid]) ? $myJournals[$jid]['roles'] : null;

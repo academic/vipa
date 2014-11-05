@@ -1,0 +1,29 @@
+citationsetting:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:index" }
+
+citationsetting_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:show" }
+
+citationsetting_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:new" }
+
+citationsetting_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:create" }
+    requirements: { _method: post }
+
+citationsetting_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:edit" }
+
+citationsetting_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:update" }
+    requirements: { _method: post|put }
+
+citationsetting_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:CitationSetting:delete" }

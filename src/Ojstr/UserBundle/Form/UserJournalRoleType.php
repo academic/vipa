@@ -45,7 +45,7 @@ class UserJournalRoleType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_userjournalrole';
+        return 'ojs_userbundle_userjournalrole';
     }
 
 }

@@ -1,0 +1,29 @@
+subject:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:Subject:index" }
+
+subject_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Subject:show" }
+
+subject_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:Subject:new" }
+
+subject_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:Subject:create" }
+    requirements: { _method: post }
+
+subject_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Subject:edit" }
+
+subject_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Subject:update" }
+    requirements: { _method: post|put }
+
+subject_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Subject:delete" }
