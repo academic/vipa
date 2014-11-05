@@ -35,7 +35,7 @@ class ProxyType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_proxy';
+        return 'ojs_userbundle_proxy';
     }
 
 }

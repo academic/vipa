@@ -1,0 +1,29 @@
+author:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:Author:index" }
+
+author_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Author:show" }
+
+author_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:Author:new" }
+
+author_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:Author:create" }
+    requirements: { _method: post }
+
+author_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Author:edit" }
+
+author_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Author:update" }
+    requirements: { _method: post|put }
+
+author_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Author:delete" }

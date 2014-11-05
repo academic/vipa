@@ -15,14 +15,14 @@ class SiteController extends Controller {
         /* @var $journalDomain \Ojs\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
-        $journals = $em->getRepository('OjstrJournalBundle:Journal')->findAll();
+        $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
         
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'index';
         $data["journals"] = $journals;
         
         if ($data['entity']) {
-            return $this->render('OjstrJournalBundle:Journal:public_index.html.twig',$data);
+            return $this->render('OjsJournalBundle:Journal:public_index.html.twig',$data);
         }
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/anonymous_index.html.twig',$data);

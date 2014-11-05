@@ -12,7 +12,7 @@ class ArticleController extends Controller
     public function articleViewsAction($id = null)
     {
         if (!empty($id)) {
-            $article = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Article")->find($id);
+            $article = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Article")->find($id);
             $stats = array();
 
             return $this->render('OjsAnalyticsBundle:Article:views_one.html.twig', array(
@@ -30,7 +30,7 @@ class ArticleController extends Controller
     public function articleDownloadsAction($id = null)
     {
         if (!empty($id)) {
-            $article = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Article")->find($id);
+            $article = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Article")->find($id);
             $stats = array();
 
             return $this->render('OjsAnalyticsBundle:Article:downloads_one.html.twig', array(

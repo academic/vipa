@@ -19,7 +19,7 @@ class DefaultController extends Controller
     public function journalSummaryAction($id = null)
     {
         if (!empty($id)) {
-            $journal = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Journal")->find($id);
+            $journal = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Journal")->find($id);
             $stats = array();
 
             return $this->render('OjsAnalyticsBundle:Journal:summary_one.html.twig', array(

@@ -50,7 +50,7 @@ class RegisterFormType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_user_register';
+        return 'ojs_user_register';
     }
 
 }

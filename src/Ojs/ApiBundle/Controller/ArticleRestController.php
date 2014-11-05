@@ -24,7 +24,7 @@ class ArticleRestController extends FOSRestController
     public function getArticlesAction($page = 0, $limit = 10)
     {
         $articles = $this->getDoctrine()->getManager()
-                ->createQuery('SELECT a FROM OjstrJournalBundle:Article a')
+                ->createQuery('SELECT a FROM OjsJournalBundle:Article a')
                 ->setFirstResult($page)
                 ->setMaxResults($limit)
                 ->getResult();
@@ -45,7 +45,7 @@ class ArticleRestController extends FOSRestController
      */
     public function getArticleAction($id)
     {
-        $article = $this->getDoctrine()->getRepository('OjstrJournalBundle:Article')->find($id);
+        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($id);
         if (!is_object($article)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -83,7 +83,7 @@ class ArticleRestController extends FOSRestController
             throw new HttpException(400, 'Missing parameter : cites ');
         }
         foreach ($cites as $cite) {
-            $citation = new \Ojstr\JournalBundle\Entity\Citation();
+            $citation = new \Ojs\JournalBundle\Entity\Citation();
             $citation->setRaw($cite['raw']);
             $citation->setOrderNum(isset($cite['orderNum']) ? $cite['orderNum'] : 0);
             $citation->setType($cite['type']);
@@ -110,7 +110,7 @@ class ArticleRestController extends FOSRestController
      */
     public function postArticleCitationAction($id, Request $request)
     {
-        $citation = new \Ojstr\JournalBundle\Entity\Citation();
+        $citation = new \Ojs\JournalBundle\Entity\Citation();
         $citation->setRaw($request->get('raw'));
         $citation->setOrderNum($request->get('orderNum', 0));
         $citation->setType($request->get('type'));
@@ -130,7 +130,7 @@ class ArticleRestController extends FOSRestController
     public function getArticleCitationsAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
 
         return $article->getCitations();
     }
@@ -138,26 +138,26 @@ class ArticleRestController extends FOSRestController
     /**
      *
      * @param  integer                              $id
-     * @param  \Ojstr\JournalBundle\Entity\Citation $citation
+     * @param  \Ojs\JournalBundle\Entity\Citation $citation
      * @param  Request|array                        $request
-     * @return \Ojstr\JournalBundle\Entity\Article
+     * @return \Ojs\JournalBundle\Entity\Article
      */
-    private function addCitation2Article($id, \Ojstr\JournalBundle\Entity\Citation $citation, $request)
+    private function addCitation2Article($id, \Ojs\JournalBundle\Entity\Citation $citation, $request)
     {
         $em = $this->getDoctrine()->getManager();
         $em->persist($citation);
         $em->flush();
         $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
         // check and insert citation
-        /* @var $article \Ojstr\JournalBundle\Entity\Article  */
-        $article = $em->getRepository('OjstrJournalBundle:Article')->find($id);
+        /* @var $article \Ojs\JournalBundle\Entity\Article  */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $article->addCitation($citation);
         $em->persist($citation);
         $em->flush();
         foreach ($citationSettingKeys as $key => $desc) {
             $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get('setting_' . $key);
             if (!empty($param)) {
-                $citationSetting = new \Ojstr\JournalBundle\Entity\CitationSetting();
+                $citationSetting = new \Ojs\JournalBundle\Entity\CitationSetting();
                 $citationSetting->setCitation($citation);
                 $citationSetting->setSetting($key);
                 $citationSetting->setValue($param);

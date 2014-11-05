@@ -32,14 +32,14 @@ class UserType extends AbstractType
                 'attr' => array('class' => 'select2', 'style' => 'width:200px')
             ))
             ->add('subjects', 'entity', array(
-                'class' => 'Ojstr\JournalBundle\Entity\Subject',
+                'class' => 'Ojs\JournalBundle\Entity\Subject',
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
                 'attr' => array('class' => 'select2', 'style' => 'width:200px')
             ))
 //                ->add('journals', 'entity', array(
-//                    'class' => 'Ojstr\JournalBundle\Entity\Journal',
+//                    'class' => 'Ojs\JournalBundle\Entity\Journal',
 //                    'property' => 'title',
 //                    'multiple' => true,
 //                    'expanded' => false,
@@ -62,7 +62,7 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_user';
+        return 'ojs_userbundle_user';
     }
 
 }

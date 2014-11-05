@@ -34,6 +34,6 @@ class MailLogType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_maillog';
+        return 'ojs_userbundle_maillog';
     }
 }

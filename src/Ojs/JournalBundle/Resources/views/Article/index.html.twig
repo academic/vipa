@@ -1,0 +1,13 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+
+    <p>Here you can find all articles listed. 
+        <a href="{{ path('article_new') }}" class="btn btn-success">
+            {% trans %}c{% endtrans %}
+        </a></p>
+
+
+    {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
+
+{% endblock %}

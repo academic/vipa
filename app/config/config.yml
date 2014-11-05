@@ -1,7 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    - { resource: ojstr_params.yml }
+    - { resource: ojs_params.yml }
     - { resource: "bibliography_params.yml" }
     - { resource: services.yml }
     - { resource: theme.yml }

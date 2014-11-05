@@ -1,0 +1,30 @@
+admin_file:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:File:index" }
+
+admin_file_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:File:show" }
+
+admin_file_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:File:new" }
+
+admin_file_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:File:create" }
+    requirements: { _method: post }
+
+admin_file_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:File:edit" }
+
+admin_file_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:File:update" }
+    requirements: { _method: post|put }
+
+admin_file_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:File:delete" }
+    requirements: { _method: get|post|delete }

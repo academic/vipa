@@ -14,7 +14,7 @@ class JournalController extends Controller
     public function journalSummaryAction($id = null)
     {
         if (!empty($id)) {
-            $journal = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Journal")->find($id);
+            $journal = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Journal")->find($id);
             $stats = array();
 
             return $this->render('OjsAnalyticsBundle:Journal:summary_one.html.twig', array(
@@ -29,7 +29,7 @@ class JournalController extends Controller
     public function journalViewsAction($id = null)
     {
         if (!empty($id)) {
-            $journal = $this->getDoctrine()->getManager()->getRepository("OjstrJournalBundle:Journal")->find($id);
+            $journal = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Journal")->find($id);
             $stats = array();
 
             return $this->render('OjsAnalyticsBundle:Journal:views_one.html.twig', array(

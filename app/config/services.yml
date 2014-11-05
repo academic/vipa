@@ -17,7 +17,7 @@ services:
         arguments: [ @service_container, @router ]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-    ojstr_locale.locale_listener:
+    ojs_locale.locale_listener:
         class: Ojs\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
@@ -45,6 +45,12 @@ services:
     ojstr.ojs_mailer:
         class: Ojstr\UserBundle\Controller\MailController
         arguments: [@service_container, @mailer]
+    gedmo.listener.softdeleteable:
+      class: Gedmo\SoftDeleteable\SoftDeleteableListener
+      tags:
+          - { name: doctrine.event_subscriber, connection: default }
+      calls:
+          - [ setAnnotationReader, [ @annotation_reader ] ]
 #    apikey_authenticator:
 #        class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
 #        arguments: ["@api_key_user_provider"]

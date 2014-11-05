@@ -30,7 +30,7 @@ class DomainListener
             // no journal selected. this url may refer a management page under baseurl.
         } else {
             // search o for subdomains or domains 
-            $qb = $this->em->getRepository('OjstrJournalBundle:Journal')->createQueryBuilder('do');
+            $qb = $this->em->getRepository('OjsJournalBundle:Journal')->createQueryBuilder('do');
             $qb->select('do')->where($qb->expr()->orX(
                             $qb->expr()->eq('do.subdomain', ':domain'), $qb->expr()->eq('do.domain', ':domain')
             ))->setParameter('domain', $subdomain);

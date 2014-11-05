@@ -22,7 +22,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
 
     /**
      *
-     * @var \Ojstr\JournalBundle\Entity\Subject
+     * @var \Ojs\JournalBundle\Entity\Subject
      */
     private $subject;
     private $manager;
