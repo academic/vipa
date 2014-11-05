@@ -49,7 +49,7 @@ class UserListener
             return;
         }
         $em = $this->container->get('doctrine')->getManager();
-        $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');
+        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $this->session->get('selectedJournalId')));
         $userJournalRoles = array();
         if ($entities) {
@@ -70,7 +70,7 @@ class UserListener
         if (!$user) {
             return FALSE;
         }
-        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjstrUserBundle:Proxy')->findBy(
+        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
             array('proxyUserId' => $user->getId())
         );
         $this->session->set('userClients', $clients);
@@ -87,7 +87,7 @@ class UserListener
             return FALSE;
         }
         $em = $this->container->get('doctrine')->getManager();
-        $repo = $em->getRepository('OjstrUserBundle:UserJournalRole');
+        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $userJournals = $repo->findByUserId($user->getId());
         if (!is_array($userJournals)) {
             return;

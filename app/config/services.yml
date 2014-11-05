@@ -28,7 +28,7 @@ services:
         tags:
             - { name: twig.extension }
     ojstr.loginlistener:
-        class: Ojstr\UserBundle\Listeners\LoginListener
+        class: Ojs\UserBundle\Listeners\LoginListener
         arguments: [@doctrine.orm.entity_manager,@service_container]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login } 
@@ -43,7 +43,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
     ojstr.ojs_mailer:
-        class: Ojstr\UserBundle\Controller\MailController
+        class: Ojs\UserBundle\Controller\MailController
         arguments: [@service_container, @mailer]
     gedmo.listener.softdeleteable:
       class: Gedmo\SoftDeleteable\SoftDeleteableListener

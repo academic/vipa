@@ -1,0 +1,36 @@
+Ojs\UserBundle\Entity\MailLog:
+    type: entity
+    table: null
+    repositoryClass: Ojs\UserBundle\Entity\MailLogRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        mailObject:
+            type: text
+            column: mail_object
+        recipientEmail:
+            type: string
+            length: 255
+            column: recipient_email
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
+    lifecycleCallbacks: {  }

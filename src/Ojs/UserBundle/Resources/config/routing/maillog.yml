@@ -1,0 +1,29 @@
+admin_maillog:
+    path:     /
+    defaults: { _controller: "OjsUserBundle:MailLog:index" }
+
+admin_maillog_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsUserBundle:MailLog:show" }
+
+admin_maillog_new:
+    path:     /new
+    defaults: { _controller: "OjsUserBundle:MailLog:new" }
+
+admin_maillog_create:
+    path:     /create
+    defaults: { _controller: "OjsUserBundle:MailLog:create" }
+    requirements: { _method: post }
+
+admin_maillog_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsUserBundle:MailLog:edit" }
+
+admin_maillog_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsUserBundle:MailLog:update" }
+    requirements: { _method: post|put }
+
+admin_maillog_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsUserBundle:MailLog:delete" }

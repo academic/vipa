@@ -30,7 +30,7 @@ class EditorController extends Controller
         if (!$user_id) {
             throw new HttpException(403, 'There is a problem while getting user information. Access denied');
         }
-        $entities = $this->getDoctrine()->getRepository('OjstrUserBundle:UserJournalRole')
+        $entities = $this->getDoctrine()->getRepository('OjsUserBundle:UserJournalRole')
                 ->userJournalsWithRoles($user_id);
 
         return $this->render('OjsManagerBundle:Editor:myjournals.html.twig', array(

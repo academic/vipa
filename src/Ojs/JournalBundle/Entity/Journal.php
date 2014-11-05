@@ -763,9 +763,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove articles
      *
-     * @param \Ojstr\UserBundle\Entity\User $users
+     * @param \Ojs\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojstr\UserBundle\Entity\User $users)
+    public function removeUser(\Ojs\UserBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }
@@ -783,10 +783,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add articles
      *
-     * @param  \Ojstr\UserBundle\Entity\User $users
+     * @param  \Ojs\UserBundle\Entity\User $users
      * @return Journal
      */
-    public function addUser(\Ojstr\UserBundle\Entity\User $users)
+    public function addUser(\Ojs\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\UserBundle\DataFixtures\ORM;
+namespace Ojs\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

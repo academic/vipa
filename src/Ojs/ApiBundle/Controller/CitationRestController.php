@@ -3,7 +3,7 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojstr\UserBundle\Entity\Citation;
+use Ojs\UserBundle\Entity\Citation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;

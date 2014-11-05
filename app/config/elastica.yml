@@ -13,7 +13,7 @@ fos_elastica:
                         email: ~
                     persistence: 
                         driver: orm
-                        model: Ojstr\UserBundle\Entity\User
+                        model: Ojs\UserBundle\Entity\User
                         provider: ~
                         listener:
                             immediate: ~

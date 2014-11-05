@@ -26,7 +26,7 @@ class RoleRestType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojstr\UserBundle\Entity\Role',
+            'data_class' => 'Ojs\UserBundle\Entity\Role',
             'csrf_protection' => false
         ));
     }
