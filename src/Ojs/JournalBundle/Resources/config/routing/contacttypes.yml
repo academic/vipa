@@ -1,0 +1,29 @@
+contacttypes:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:index" }
+
+contacttypes_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:show" }
+
+contacttypes_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:new" }
+
+contacttypes_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:create" }
+    requirements: { _method: post }
+
+contacttypes_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:edit" }
+
+contacttypes_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:update" }
+    requirements: { _method: post|put }
+
+contacttypes_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:ContactTypes:delete" }

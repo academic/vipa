@@ -1,7 +1,7 @@
 parameters:
-#    ojstr_site.example.class: Ojs\SiteBundle\Example
+#    ojs_site.example.class: Ojs\SiteBundle\Example
 
 services:
-#    ojstr_site.example:
-#        class: %ojstr_site.example.class%
+#    ojs_site.example:
+#        class: %ojs_site.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

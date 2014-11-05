@@ -41,7 +41,7 @@ class NotificationType extends AbstractType
      */
     public function getName()
     {
-        return 'ojstr_userbundle_notification';
+        return 'ojs_userbundle_notification';
     }
 
 }

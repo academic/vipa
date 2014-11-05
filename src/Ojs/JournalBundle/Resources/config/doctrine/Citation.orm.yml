@@ -1,0 +1,58 @@
+Ojs\JournalBundle\Entity\Citation:
+    type: entity
+    table: null
+    #repositoryClass: Ojs\JournalBundle\Entity\CitationRepository
+    oneToMany:
+        settings:
+          targetEntity: Ojs\JournalBundle\Entity\CitationSetting
+          mappedBy: citation
+          cascade: ["persist", "merge"]
+          fetch: EXTRA_LAZY
+    manyToMany:
+        articles:
+          targetEntity: Article
+          mappedBy: citations
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        raw:
+            type: string
+            length: 255
+            gedmo:
+                - translatable
+                - versioned
+        type:
+            type: string
+            length: 20
+            gedmo:
+                - versioned
+        orderNum:
+            type: integer
+            column: order_num
+            gedmo:
+                - versioned
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+       soft_deleteable:
+         field_name: deletedAt
+         time_aware: false
+       translation:
+           locale: locale
+       loggable: true
+    lifecycleCallbacks: {  }

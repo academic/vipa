@@ -40,7 +40,7 @@ class UserJournalRoleController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
-            $journal = $em->getRepository('OjstrJournalBundle:Journal')->findOneById($data->getJournalId());
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($data->getJournalId());
             $user = $em->getRepository('OjstrUserBundle:User')->findOneById($data->getUserId());
             $role = $em->getRepository('OjstrUserBundle:Role')->findOneById($data->getRoleId());
             $entity->setUser($user);

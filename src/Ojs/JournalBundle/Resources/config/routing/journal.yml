@@ -1,0 +1,29 @@
+journal:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:Journal:index" }
+
+journal_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Journal:show" }
+
+journal_new:
+    pattern:  /new
+    defaults: { _controller: "OjsJournalBundle:Journal:new" }
+
+journal_create:
+    pattern:  /create
+    defaults: { _controller: "OjsJournalBundle:Journal:create" }
+    requirements: { _method: post }
+
+journal_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Journal:edit" }
+
+journal_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Journal:update" }
+    requirements: { _method: post|put }
+
+journal_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Journal:delete" }

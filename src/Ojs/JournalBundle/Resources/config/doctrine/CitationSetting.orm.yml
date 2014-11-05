@@ -1,0 +1,47 @@
+Ojs\JournalBundle\Entity\CitationSetting:
+    type: entity
+    table: null
+    #repositoryClass: Ojs\JournalBundle\Entity\CitationSettingRepository
+    manyToOne:
+        citation:
+            targetEntity: Ojs\JournalBundle\Entity\Citation
+            inversedBy: settings
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        citationId:
+            type: integer
+            column: citation_id
+        setting:
+            type: string
+            length: 50
+        value:
+            type: text
+            gedmo:
+                - translatable
+                - versioned
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+            locale: locale
+        loggable: true
+    lifecycleCallbacks: {  }

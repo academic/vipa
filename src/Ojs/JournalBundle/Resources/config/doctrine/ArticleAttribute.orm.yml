@@ -1,0 +1,15 @@
+Ojs\JournalBundle\Entity\ArticleAttribute:
+  lifecycleCallbacks: {}
+  type: entity
+  id:
+    article:
+      associationKey: true
+    attribute:
+      type: string
+  fields:
+    value:
+      type: string
+  manyToOne:
+    article:
+      targetEntity: Article
+      inversedBy: attributes

@@ -1,0 +1,62 @@
+Ojs\JournalBundle\Entity\ArticleFile:
+    type: entity
+    table: null
+    repositoryClass: Ojs\JournalBundle\Entity\ArticleFileRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        article:
+            targetEntity: Article
+            inversedBy: articleFiles
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+        file:
+            targetEntity: Article
+            inversedBy: articleFiles
+            joinColumn:
+                name: article_id
+                referencedColumnName: id
+    fields:
+        type:
+            type: integer
+        fileId:
+            type: integer
+            column: file_id
+        articleId:
+            type: integer
+            column: article_id
+        version:
+            type: integer
+        keywords:
+            type: string
+            length: 255
+            nullable: TRUE
+        description:
+            type: text
+            nullable: TRUE
+        title:
+            type: string
+            length: 255
+            nullable: TRUE
+        langCode:
+            column: lang_code
+            type: string
+            length: 50
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+    lifecycleCallbacks: {  }

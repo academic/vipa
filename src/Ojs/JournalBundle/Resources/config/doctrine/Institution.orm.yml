@@ -1,0 +1,65 @@
+Ojs\JournalBundle\Entity\Institution:
+    type: entity
+    table: null
+    #repositoryClass: Ojs\JournalBundle\Entity\InstitutionRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            gedmo:
+                - translatable
+                - versioned
+        address:
+            type: text
+        country:
+            type: integer
+            nullable: TRUE
+        addressLat:
+            type: string
+            length: 255
+            column: address_lat
+            nullable: TRUE
+        addressLong:
+            type: string
+            length: 255
+            column: address_long
+            nullable: TRUE
+        phone:
+            type: string
+            length: 255
+            nullable: TRUE
+        fax:
+            type: string
+            length: 255
+            nullable: TRUE
+        email:
+            type: string
+            length: 255
+            nullable: TRUE
+        created:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        translation:
+            locale: locale
+        loggable: true
+    lifecycleCallbacks: {  }

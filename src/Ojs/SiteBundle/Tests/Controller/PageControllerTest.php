@@ -19,7 +19,7 @@ class PageControllerTest extends WebTestCase
 
         // Fill in the form and submit it
         $form = $crawler->selectButton('Create')->form(array(
-            'ojstr_sitebundle_page[field_name]'  => 'Test',
+            'ojs_sitebundle_page[field_name]'  => 'Test',
             // ... other fields to fill
         ));
 
@@ -33,7 +33,7 @@ class PageControllerTest extends WebTestCase
         $crawler = $client->click($crawler->selectLink('Edit')->link());
 
         $form = $crawler->selectButton('Update')->form(array(
-            'ojstr_sitebundle_page[field_name]'  => 'Foo',
+            'ojs_sitebundle_page[field_name]'  => 'Foo',
             // ... other fields to fill
         ));
 

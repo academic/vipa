@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use \Ojstr\JournalBundle\Entity\Subject;
+use \Ojs\JournalBundle\Entity\Subject;
 use \Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
