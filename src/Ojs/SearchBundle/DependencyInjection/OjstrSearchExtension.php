@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SearchBundle\DependencyInjection;
+namespace Ojs\SearchBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

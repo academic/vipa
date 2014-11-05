@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SearchBundle\Command;
+namespace Ojs\SearchBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;

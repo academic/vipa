@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SearchBundle\DependencyInjection;
+namespace Ojs\SearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

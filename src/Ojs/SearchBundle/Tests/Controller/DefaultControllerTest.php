@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\SearchBundle\Tests\Controller;
+namespace Ojs\SearchBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
