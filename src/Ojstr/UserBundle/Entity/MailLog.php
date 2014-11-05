@@ -2,7 +2,7 @@
 
 namespace Ojstr\UserBundle\Entity;
 
-use Ojstr\Common\Entity\GenericExtendedEntity;
+use Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * MailLog

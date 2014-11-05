@@ -2,7 +2,7 @@
 
 namespace Ojstr\JournalBundle\Entity;
 
-use \Ojstr\Common\Entity\GenericExtendedEntity;
+use \Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * Article key-value attributes

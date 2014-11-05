@@ -3,7 +3,7 @@
 namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
 use Symfony\Component\HttpFoundation\Request;
-use Ojstr\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
 //use Ojstr\JournalBundle\Form\ArticleType;
 //use Symfony\Component\HttpFoundation\Session\Session;
@@ -47,7 +47,7 @@ class ArticleSubmissionStep1Controller extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
-        $article->setStatus(-1); // Not submitted / see Ojstr/Common/Params/CommonParams.php
+        $article->setStatus(-1); // Not submitted / see Ojs/Common/Params/CommonParams.php
         $article->setTitle($request->get('title'));
         $article->setSubtitle($request->get('subtitle'));
         $article->setTitleTransliterated($request->get('titleTransliterated'));

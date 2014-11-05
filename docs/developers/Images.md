@@ -7,7 +7,7 @@ Included Packages
 Helpers
 -------
 
-- Ojstr/Common/Helper/ImageResizeHelper.php
+- Ojs/Common/Helper/ImageResizeHelper.php
     - Sample usage : 
     - 
     ``` 

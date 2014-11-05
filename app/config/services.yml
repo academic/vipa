@@ -1,8 +1,8 @@
 services:
     journal_domain:
-        class: Ojstr\Common\Model\JournalDomain
+        class: Ojs\Common\Model\JournalDomain
     kernel.listener.domain_listener:
-       class: Ojstr\Common\Listener\DomainListener
+       class: Ojs\Common\Listener\DomainListener
        arguments: 
             - "@journal_domain"
             - @doctrine.orm.entity_manager
@@ -13,17 +13,17 @@ services:
                 method: onKernelRequest
                 event: kernel.request
     listener.requestresponse:
-        class: Ojstr\Common\Listener\UserListener
+        class: Ojs\Common\Listener\UserListener
         arguments: [ @service_container, @router ]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     ojstr_locale.locale_listener:
-        class: Ojstr\Common\Listener\LocaleListener
+        class: Ojs\Common\Listener\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
-        class: Ojstr\Common\Twig\OjsExtension
+        class: Ojs\Common\Twig\OjsExtension
         arguments: [@service_container]
         tags:
             - { name: twig.extension }
@@ -33,12 +33,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: security.interactive_login } 
     ojstr.security_switch_user:
-        class: Ojstr\Common\Listener\SecuritySwitchUserListener
+        class: Ojs\Common\Listener\SecuritySwitchUserListener
         arguments: [@security.context]
         tags:
             - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
     ojstr.ojs_upload_listener:
-        class: Ojstr\Common\Listener\UploadListener
+        class: Ojs\Common\Listener\UploadListener
         arguments: ["%kernel.root_dir%"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }

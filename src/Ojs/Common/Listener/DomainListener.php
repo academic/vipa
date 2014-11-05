@@ -1,8 +1,8 @@
 <?php
 
-namespace Ojstr\Common\Listener;
+namespace Ojs\Common\Listener;
 
-use \Ojstr\Common\Model\JournalDomain;
+use \Ojs\Common\Model\JournalDomain;
 use \Doctrine\ORM\EntityManager;
 use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
 

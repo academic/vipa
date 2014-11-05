@@ -2,7 +2,7 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-use Ojstr\Common\Helper\TestHelper;
+use Ojs\Common\Helper\TestHelper;
 
 class SecurityControllerTest extends TestHelper
 {

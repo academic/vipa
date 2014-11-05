@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Institution
  */
-class Institution extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

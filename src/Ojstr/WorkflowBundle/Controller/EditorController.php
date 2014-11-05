@@ -5,11 +5,11 @@ namespace Ojstr\WorkflowBundle\Controller;
 /**
  * Editor Workflow Controller
  */
-class EditorController extends \Ojstr\Common\Controller\OjsController
+class EditorController extends \Ojs\Common\Controller\OjsController
 {
     /**
      * list published articles - Published
-     * see list of params at src/Ojstr/Common/Params/CommonParams.php
+     * see list of params at src/Ojs/Common/Params/CommonParams.php
      */
     public function publishedArticlesAction()
     {
@@ -18,7 +18,7 @@ class EditorController extends \Ojstr\Common\Controller\OjsController
 
     /**
      * list in-review articles. - Reviewing
-     * see list of params at src/Ojstr/Common/Params/CommonParams.php
+     * see list of params at src/Ojs/Common/Params/CommonParams.php
      */
     public function assignedArticlesAction()
     {
@@ -27,7 +27,7 @@ class EditorController extends \Ojstr\Common\Controller\OjsController
 
     /**
      * list not assigned articles - Waiting
-     * see list of params at src/Ojstr/Common/Params/CommonParams.php
+     * see list of params at src/Ojs/Common/Params/CommonParams.php
      */
     public function waitingArticlesAction()
     {
@@ -36,7 +36,7 @@ class EditorController extends \Ojstr\Common\Controller\OjsController
 
     /**
      * list not sumbitted articles - Not Submitted
-     * see list of params at src/Ojstr/Common/Params/CommonParams.php
+     * see list of params at src/Ojs/Common/Params/CommonParams.php
      */
     public function uncompleteArticlesAction()
     {

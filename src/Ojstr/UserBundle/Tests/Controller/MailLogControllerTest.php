@@ -2,7 +2,7 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-class MailLogControllerTest extends \Ojstr\Common\Helper\TestHelper
+class MailLogControllerTest extends \Ojs\Common\Helper\TestHelper
 {
     public function testStatus()
     {

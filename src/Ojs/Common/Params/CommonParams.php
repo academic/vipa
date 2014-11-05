@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Params;
+namespace Ojs\Common\Params;
 
 class CommonParams
 {

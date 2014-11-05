@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
  * Author
  * @ExclusionPolicy("all")
  */
-class Author extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Author extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

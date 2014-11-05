@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
  * Subject
  * @ExclusionPolicy("all")
  */
-class Subject extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ojstr\Common\Listener;
+namespace Ojs\Common\Listener;
 
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Core\SecurityContext;
-use Ojstr\Common\Twig;
+use Ojs\Common\Twig;
 
 class SecuritySwitchUserListener {
 
