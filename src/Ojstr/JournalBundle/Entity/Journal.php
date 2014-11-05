@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\Expose;
  * Journal
  * @ExclusionPolicy("all")
  */
-class Journal extends \Ojstr\Common\Entity\GenericExtendedEntity implements Translatable
+class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Translatable
 {
 
     /**

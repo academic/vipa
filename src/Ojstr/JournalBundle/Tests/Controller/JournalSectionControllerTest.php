@@ -2,7 +2,7 @@
 
 namespace Ojstr\JournalBundle\Tests\Controller;
 
-use \Ojstr\Common\Helper\TestHelper;
+use \Ojs\Common\Helper\TestHelper;
 
 class JournalSectionControllerTest extends TestHelper
 {

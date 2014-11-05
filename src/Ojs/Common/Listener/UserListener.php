@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Listener;
+namespace Ojs\Common\Listener;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

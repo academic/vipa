@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation\Expose;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use \Ojstr\JournalBundle\Entity\Subject;
-use \Ojstr\Common\Entity\GenericExtendedEntity;
+use \Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * User

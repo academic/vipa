@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Twig;
+namespace Ojs\Common\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
@@ -58,7 +58,7 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * Check osj user and return user data as array
-     * @return \Ojstr\UserBundle\Entity\User
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function checkUser()
     {
@@ -133,7 +133,7 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     * @return \Ojstr\UserBundle\Entity\User
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function isSystemAdmin()
     {

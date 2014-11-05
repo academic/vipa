@@ -2,7 +2,7 @@
 
 namespace Ojstr\ManagerBundle\Tests\Controller;
 
-class AdminControllerTest extends \Ojstr\Common\Helper\TestHelper
+class AdminControllerTest extends \Ojs\Common\Helper\TestHelper
 {
     public function testAdminDashboard()
     {

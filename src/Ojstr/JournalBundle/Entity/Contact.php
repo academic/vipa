@@ -5,7 +5,7 @@ namespace Ojstr\JournalBundle\Entity;
 /**
  * Contact
  */
-class Contact extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
