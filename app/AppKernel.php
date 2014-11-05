@@ -30,7 +30,7 @@ class AppKernel extends Kernel
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
             new Ojstr\SearchBundle\OjstrSearchBundle(),
-            new Ojstr\AnalyticsBundle\OjstrAnalyticsBundle(),
+            new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojstr\SiteBundle\OjstrSiteBundle(),
             new Ojstr\WorkflowBundle\OjstrWorkflowBundle(),
             new Ojstr\ManagerBundle\OjstrManagerBundle(),

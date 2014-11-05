@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\AnalyticsBundle\Tests\Controller;
+namespace Ojs\AnalyticsBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

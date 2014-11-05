@@ -1,5 +1,5 @@
 parameters:
-#    ojstr_analytics.example.class: Ojstr\AnalyticsBundle\Example
+#    ojstr_analytics.example.class: Ojs\AnalyticsBundle\Example
 
 services:
 #    ojstr_analytics.example:
