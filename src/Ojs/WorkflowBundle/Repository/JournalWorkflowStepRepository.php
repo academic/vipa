@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Repository;
+namespace Ojs\WorkflowBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
@@ -14,10 +14,10 @@ class JournalWorkflowStepRepository extends DocumentRepository
      *
      * $firstStep = $this->get('doctrine_mongodb')
      *  ->getManager()
-     *  ->getRepository('OjstrWorkflowBundle:JournalWorkflowStep')
+     *  ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
      *  ->findFirstStep();
      *
-     * @return \Ojstr\WorkflowBundle\Document\JournalWorkflowStep
+     * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
      */
     public function findFirstStep()
     {
@@ -29,7 +29,7 @@ class JournalWorkflowStepRepository extends DocumentRepository
 
     /**
      *
-     * @return \Ojstr\WorkflowBundle\Document\JournalWorkflowStep
+     * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
      */
     public function findLastStepStep()
     {

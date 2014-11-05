@@ -1,12 +1,12 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Document;
+namespace Ojs\WorkflowBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  *
- * @MongoDb\Document(collection="journal_workflow_steps",repositoryClass="Ojstr\WorkflowBundle\Repository\JournalWorkflowStepRepository")
+ * @MongoDb\Document(collection="journal_workflow_steps",repositoryClass="Ojs\WorkflowBundle\Repository\JournalWorkflowStepRepository")
  */
 class JournalWorkflowStep
 {

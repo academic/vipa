@@ -1,5 +1,5 @@
 parameters:
-#    ojs_workflow.example.class: Ojstr\WorkflowBundle\Example
+#    ojs_workflow.example.class: Ojs\WorkflowBundle\Example
 
 services:
 #    ojs_workflow.example:
