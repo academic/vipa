@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Ojstr\WorkflowBundle\Document\JournalWorkflowStep;
+use \Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**

@@ -1,0 +1,41 @@
+ojs_workflow_homepage:
+    pattern:  /
+    defaults: { _controller: OjsWorkflowBundle:Default:index }
+
+ojs_workflowsteps:
+    resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
+
+manage_workflowsteps:
+    pattern:  /manage/steps
+    defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
+
+
+editor_articles_rejected:
+    pattern:  /editor/articles/rejected
+    defaults: { _controller: OjsWorkflowBundle:Editor:rejectedArticles }
+
+
+editor_articles_unpublished:
+    pattern:  /editor/articles/unpublished
+    defaults: { _controller: OjsWorkflowBundle:Editor:unpublishedArticles }
+
+editor_articles_uncomplete:
+    pattern:  /editor/articles/uncomplete
+    defaults: { _controller: OjsWorkflowBundle:Editor:uncompleteArticles }
+
+editor_articles_waiting:
+    pattern:  /editor/articles/waiting
+    defaults: { _controller: OjsWorkflowBundle:Editor:waitingArticles }
+
+editor_articles_assigned:
+    pattern:  /editor/articles/assigned
+    defaults: { _controller: OjsWorkflowBundle:Editor:assignedArticles }
+
+editor_articles_published:
+    pattern:  /editor/articles/published
+    defaults: { _controller: OjsWorkflowBundle:Editor:publishedArticles }
+
+
+articles_assigned_me:
+    pattern:  /articles/assigned/me
+    defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }

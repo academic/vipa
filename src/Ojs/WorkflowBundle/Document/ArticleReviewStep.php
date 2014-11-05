@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\WorkflowBundle\Document;
+namespace Ojs\WorkflowBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
