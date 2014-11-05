@@ -16,7 +16,7 @@ OjstrMessageMessageBundle:
     
     
 ojs_manager:
-    resource: "@OjstrManagerBundle/Resources/config/routing.yml"
+    resource: "@OjsManagerBundle/Resources/config/routing.yml"
     prefix:   /
 
 ojs_journal:
