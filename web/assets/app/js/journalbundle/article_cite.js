@@ -7,7 +7,7 @@ var CitationEditor = {
         $("#citationContainer").append(html);
         this.refreshCitationOrders();
         $("#citationInfoFields input[name='raw[]']").val();
-        $("#citationPasteField").slideUp("fast");
+        $("#citationPasteField").show("fast");
     },
     parseAndAppend: function (txt) {
         items = txt.split("\n");
