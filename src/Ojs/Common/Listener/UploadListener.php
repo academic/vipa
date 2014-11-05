@@ -1,10 +1,10 @@
 <?php
 
-namespace Ojstr\Common\Listener;
+namespace Ojs\Common\Listener;
 
-use Ojstr\Common\Helper\FileHelper;
+use Ojs\Common\Helper\FileHelper;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
-use Ojstr\Common\Helper\ImageResizeHelper;
+use Ojs\Common\Helper\ImageResizeHelper;
 
 class UploadListener
 {

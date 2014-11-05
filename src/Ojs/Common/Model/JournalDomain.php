@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Model;
+namespace Ojs\Common\Model;
 
 class JournalDomain
 {

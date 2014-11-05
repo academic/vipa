@@ -3,10 +3,10 @@
 namespace Ojstr\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Ojstr\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Journal;
 use Ojstr\JournalBundle\Form\JournalType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
+use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Journal controller.

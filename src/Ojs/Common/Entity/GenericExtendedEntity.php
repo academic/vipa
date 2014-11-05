@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojstr\Common\Entity;
+namespace Ojs\Common\Entity;
 
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;

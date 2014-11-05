@@ -2,12 +2,12 @@
 
 namespace Ojstr\JournalBundle\Controller\ArticleSubmission;
 
-use Ojstr\Common\Params\ArticleFileParams;
+use Ojs\Common\Params\ArticleFileParams;
 use Symfony\Component\HttpFoundation\Request;
-use Ojstr\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojstr\JournalBundle\Entity\Article;
 use Ojstr\JournalBundle\Form\ArticleType;
-use Ojstr\Common\Helper\CommonFormHelper as CommonFormHelper;
+use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**

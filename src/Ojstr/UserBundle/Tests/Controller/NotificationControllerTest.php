@@ -2,7 +2,7 @@
 
 namespace Ojstr\UserBundle\Tests\Controller;
 
-class NotificationControllerTest extends \Ojstr\Common\Helper\TestHelper
+class NotificationControllerTest extends \Ojs\Common\Helper\TestHelper
 {
     public function testAddNotification()
     {

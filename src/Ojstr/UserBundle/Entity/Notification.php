@@ -5,7 +5,7 @@ namespace Ojstr\UserBundle\Entity;
 /**
  * Notification
  */
-class Notification extends \Ojstr\Common\Entity\GenericExtendedEntity
+class Notification extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
