@@ -14,6 +14,7 @@ class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInter
         $institution = new Institution();
         $institution->setAddress("Demo address");
         $institution->setEmail("abc@demo.edu.tr");
+        $institution->setUrl("demo.edu.tr");
         $institution->setName("Abc University");
         $institution->setPhone("+90 312 555 5555");
         $manager->persist($institution);

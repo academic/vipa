@@ -38,7 +38,8 @@ class SiteController extends Controller {
     }
 
     public function organizationsIndexAction() {
-
+        $em = $this->getDoctrine()->getManager();
+        $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $data['page'] = 'organizations';
         return $this->render('OjsSiteBundle::Site/organizations_index.html.twig', $data);
     }

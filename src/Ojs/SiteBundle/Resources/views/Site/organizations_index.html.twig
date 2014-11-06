@@ -2,95 +2,34 @@
 {% set hideleft = 1%}
 {%block breadcrumb %}{% endblock %}
 {% block body %}
-
-    <!-- Page Content -->
     <div class="container">
+        <!-- Page Content -->
         <h1 class="page-header">Organizations</h1>
-        
-        {{dump(page)}}
-        <!-- Page Features -->
-        <div class="row text-center">
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dxolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
+
+
+        {% for entity in entities %}
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ entity.name }}</div>
+                <div class="panel-body">
+
+                    {{dump(entity)}}
+                    
+                    <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">More Info</a>
+                </div>
+
+
+                <div class="panel-footer">
+
+                    <i class="fa fa-tags"></i>Tags
+                    <a href="#"><span class="badge">ojs</span></a>
+                    <a href="#"><span class="badge">university</span></a>
+                    <a href="#"><span class="badge">paper</span></a>
+
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        {% endfor %}
 
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <div class="thumbnail">
-                    <img src="http://placehold.it/800x500" alt="">
-                    <div class="caption-org">
-                        <h3>Feature Label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.row -->
-        <hr>
 
         <!-- Pagination -->
         <div class="row text-center">
@@ -121,6 +60,7 @@
             </div>
         </div>
         <!-- /.row -->
+
     </div>
     <!-- /.container -->
 
