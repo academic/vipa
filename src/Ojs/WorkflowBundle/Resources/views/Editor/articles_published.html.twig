@@ -1,22 +1,23 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="panel">
-    <div class="panel-heading">
-        <h1>{%trans%}article.articles{%trans%} / {% trans %}status.published{% endtrans %}</h1>
-    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>{{"article.articles"|trans}} / {{"status.published"|trans}}</h1>
+        </div>
 
-    <div class="panel-body">
-        {% for entity in entities %}
-        <div class="list-group-item">
-            <h4>{{entity.title}} <small>{{entity.journal.title}}</small></h4>
-            <span>
-                <!-- /* TODO : author list */  -->
-            </span>
+        <div class="panel-body">
+            {% for entity in entities %}
+                <div class="list-group-item">
+                    <h4>{{entity.title}} <small>{{entity.journal.title}}</small></h4>
+                    <span>
+                        <!-- /* TODO : author list */  -->
+                    </span>
 
-        {% endfor %}
-            <hr>
+                {% endfor %}
+                <hr>
 
+            </div>
         </div>
     </div>
 {% endblock %}
