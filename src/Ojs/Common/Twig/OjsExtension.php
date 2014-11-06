@@ -25,12 +25,12 @@ class OjsExtension extends \Twig_Extension
     {
         return array(
             //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
-            'hasRole' => new \Twig_Function_Method($this, 'hasRole', array('is_safe' => array('html'))),
-            'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin', array('is_safe' => array('html'))),
-            'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager', array('is_safe' => array('html'))),
+            'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
+            'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin'),
+            'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager'),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userclients' => new \Twig_Function_Method($this, 'getUserClients', array('is_safe' => array('html'))),
-            'userjournalroles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
+            'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
             'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html')))
@@ -47,9 +47,9 @@ class OjsExtension extends \Twig_Extension
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
-            $html .= !isset($item['link']) ?
-                '<li class="active">' . $item['title'] . '</li>' :
-                '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
+            $html .=!isset($item['link']) ?
+                    '<li class="active">' . $item['title'] . '</li>' :
+                    '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
         }
         $html .= '</ol> ';
 
@@ -122,13 +122,12 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     *
+     * get userJournalRoles session key
      * @return mixed
      */
     public function getUserJournalRoles()
     {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
-
         return $session->get('userJournalRoles');
     }
 
@@ -149,24 +148,23 @@ class OjsExtension extends \Twig_Extension
         return FALSE;
     }
 
-    public function hasRole($role)
+    public function hasRole($roleCode)
     {
-        $userjournalroles = $this->getSession('userJournalRoles');
+        $userJournalRoles = $this->getSession('userJournalRoles');
         $user = $this->checkUser();
-        if ($user && is_array($userjournalroles)) {
-            foreach ($userjournalroles as $role) {
-                if ($role->getRole() == $role) {
+        if ($user && is_array($userJournalRoles)) {
+            foreach ($userJournalRoles as $role) {
+                if ($roleCode == $role->getRole()) {
                     return TRUE;
                 }
             }
         }
-
         return FALSE;
     }
 
     public function isJournalManager()
     {
-        $this->hasRole('ROLE_JOURNAL_MANAGER');
+        return $this->hasRole('ROLE_JOURNAL_MANAGER');
     }
 
     /**

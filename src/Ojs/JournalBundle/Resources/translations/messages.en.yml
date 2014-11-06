@@ -27,6 +27,7 @@ messages: Messages
 journal: 
     journal: journal
     journals: Journals
+    about: About Journal
 articles:
     articles: Articles
     article: Article

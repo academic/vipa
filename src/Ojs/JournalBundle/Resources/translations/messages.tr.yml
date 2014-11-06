@@ -27,6 +27,7 @@ messages: Mesajlar
 journal: 
     journals: Dergiler
     journal: journal
+    about: Dergi Hakkında
 articles:
     articles: Makaleler
     article: Makale
