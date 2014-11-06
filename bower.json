@@ -16,22 +16,25 @@
         "test",
         "tests"
     ],
+    "resolutions": {
+        "bootstrap": "3.2.0"
+    },
     "dependencies": {
-        "jquery": "~2.1.1",
+        "jquery": "*",
         "bootstrap": "3.2.0",
-        "bootstrap-material-design":"*",
+        "bootstrap-material-design": "*",
         "font-awesome": "*",
-        "bootstrap-dialog":"*",
-	"bootstrap3-wysihtml5-bower":"*", 
-	"select2-bootstrap-css":"*",
-	"jquery-file-upload":"*",
-	"jquery.inputmask":"*",
-	"flot":"*",
-	"morrisjs":"*",
-	"angular":"1.2.*",
-	"mustache":"*",
-	"bootstrap-tour":"*",
-        "holderjs":"*",
-	"jquery-sortable":"*"
+        "bootstrap-dialog": "*",
+        "bootstrap3-wysihtml5-bower": "*",
+        "select2-bootstrap-css": "*",
+        "jquery-file-upload": "*",
+        "jquery.inputmask": "*",
+        "flot": "*",
+        "morrisjs": "*",
+        "angular": "1.2.*",
+        "mustache": "*",
+        "bootstrap-tour": "*",
+        "holderjs": "*",
+        "jquery-sortable": "*"
     }
 }
