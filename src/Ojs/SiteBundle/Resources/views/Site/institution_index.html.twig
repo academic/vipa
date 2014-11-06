@@ -12,13 +12,13 @@
 
                 {{dump(entity)}}
 
-                <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">More Info</a>
+                <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">{% trans %}more_info{% endtrans %}</a>
             </div>
 
 
             <div class="panel-footer">
 
-                <i class="fa fa-tags"></i>Tags
+                <i class="fa fa-tags"></i>{% trans %}tags{% endtrans %}
                 <a href="#"><span class="badge">ojs</span></a>
                 <a href="#"><span class="badge">university</span></a>
                 <a href="#"><span class="badge">paper</span></a>
