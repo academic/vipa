@@ -32,7 +32,7 @@ class TranslateManageCommand extends ContainerAwareCommand {
                 ->setName('ojs:translate')
                 ->setDefinition(array(
                     new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
-                    new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle name'),
+                    new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle names with commas'),
                     new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'The messages domain'),
                     new InputOption('only-missing', null, InputOption::VALUE_NONE, 'Displays only missing messages'),
                     new InputOption('only-unused', null, InputOption::VALUE_NONE, 'Displays only unused messages'),
