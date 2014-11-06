@@ -31,7 +31,7 @@ ojs_profile_index:
     defaults: { _controller: OjsSiteBundle:Site:profileIndex }
     
 ojs_journal_index:
-    pattern:  /journal
+    pattern:  /journal/{journal_id}
     defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
     
 ojs_journals_index:
@@ -39,7 +39,7 @@ ojs_journals_index:
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex } 
     
 ojs_articles_index:
-    pattern:  /articles
+    pattern:  /journal/{journal_id}/articles
     defaults: { _controller: OjsSiteBundle:Site:articlesIndex }
     
 ojs_archive_index:

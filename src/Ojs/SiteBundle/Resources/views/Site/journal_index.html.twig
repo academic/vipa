@@ -21,9 +21,9 @@
                 </div>
                 <hr>
                 <div class="col-md-8">
-                    <a href="/articles" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
+                    <a href="/journal/{{ entity.id }}/articles" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
 
-                    <a href="/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> Arşiv</a>
+                    <a href="/journal/{{ entity.id }}/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> Arşiv</a>
                     <p class="text-default">
                         <span class="label label-info"><strong>ISSN</strong>: 2148-7510</span>
                         <span class="label label-info"><strong>e-ISSN</strong>: 2148-7758</span>
@@ -44,7 +44,89 @@
                         Assist. Prof. Dr. Nüket KARTAL TEMEL<br>
                         Assist. Prof. Dr. Serkan AKKOYUN<br>
                     </p>
+<table class="record_properties  table">
 
+                <tbody>
+                    <tr>
+                        <th width="300px">Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>{{ entity.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titleabbr</th>
+                        <td>{{ entity.titleAbbr }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titletransliterated</th>
+                        <td>{{ entity.titleTransliterated }}</td>
+                    </tr>
+                    <tr>
+                        <th>Journal Languages</th>
+                        <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Subtitle</th>
+                        <td>{{ entity.subtitle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Issn</th>
+                        <td>{{ entity.issn }}</td>
+                    </tr>
+                    <tr>
+                        <th>Eissn</th>
+                        <td>{{ entity.eissn }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstpublishdate</th>
+                        <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Period</th>
+                        <td>{{ entity.period }}</td>
+                    </tr>
+                    <tr>
+                        <th>Url</th>
+                        <td>{{ entity.url }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{ entity.country }}</td>
+                    </tr>
+                    <tr>
+                        <th>published</th>
+                        <td>{{ entity.published }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ entity.status }}</td>
+                    </tr>
+                    <tr>
+                        <th>Image</th>
+                        <td>{{ entity.image }}</td>
+                    </tr>
+                    <tr>
+                        <th>Scope</th>
+                        <td>{{ entity.scope }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mission</th>
+                        <td>{{ entity.mission }}</td>
+                    </tr>
+                    <tr>
+                        <th>Themeid</th>
+                        <td>{{ entity.themeId }}</td>
+                    </tr>
+                    <tr>
+                        <th>Users</th>
+                        <td><a href="{{ path('ujr_show_users_ofjournal',{ 'journal_id': entity.id }) }}">Show Users</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
                 </div>
             </div>
         </div>
