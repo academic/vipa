@@ -5,7 +5,6 @@ namespace Ojs\SiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SiteController extends Controller {
-    
 
     /**
      * Global index page
@@ -16,72 +15,85 @@ class SiteController extends Controller {
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
-        
+
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'index';
         $data["journals"] = $journals;
-        
+
         if ($data['entity']) {
-            return $this->render('OjsJournalBundle:Journal:public_index.html.twig',$data);
+            return $this->render('OjsJournalBundle:Journal:public_index.html.twig', $data);
         }
         // anything else is anonym main page
-        return $this->render('OjsSiteBundle::Site/anonymous_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/anonymous_index.html.twig', $data);
     }
 
     public function userIndexAction() {
         $data['page'] = 'user';
-        return $this->render('OjsManagerBundle:User:userwelcome.html.twig',$data);
+        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', $data);
     }
 
     public function browseIndexAction() {
         $data['page'] = 'browse';
-        return $this->render('OjsSiteBundle::Site/browse_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/browse_index.html.twig', $data);
     }
 
     public function organizationsIndexAction() {
 
         $data['page'] = 'organizations';
-        return $this->render('OjsSiteBundle::Site/organizations_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/organizations_index.html.twig', $data);
     }
 
     public function categoriesIndexAction() {
         $data['page'] = 'categories';
-        return $this->render('OjsSiteBundle::Site/categories_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/categories_index.html.twig', $data);
     }
 
     public function topicsIndexAction() {
         $data['page'] = 'topics';
-        return $this->render('OjsSiteBundle::Site/topics_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/topics_index.html.twig', $data);
     }
 
     public function profileIndexAction() {
         $data['page'] = 'profile';
-        return $this->render('OjsSiteBundle::Site/profile_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/profile_index.html.twig', $data);
     }
 
     public function staticPagesAction($page = 'static') {
         $data['page'] = $page;
-        return $this->render('OjsSiteBundle:Site:static/tos.html.twig',$data);
+        return $this->render('OjsSiteBundle:Site:static/tos.html.twig', $data);
     }
 
     public function journalsIndexAction() {
         $data['page'] = 'journals';
-        return $this->render('OjsSiteBundle::Site/journals_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/journals_index.html.twig', $data);
     }
 
-    public function journalIndexAction() {
+    public function journalIndexAction($journal_id) {
+        $em = $this->getDoctrine()->getManager();
+        $data['entity'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        if (!$data['entity']) {
+            $this->createNotFoundException($this->get('translator')->trans('404'));
+        }
         $data['page'] = 'journal';
-        return $this->render('OjsSiteBundle::Site/journal_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
     }
 
-    public function articlesIndexAction() {
+    public function articlesIndexAction($journal_id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        if (!$data['journal']) {
+            $this->createNotFoundException($this->get('translator')->trans('404'));
+        }
+        $data['entities'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
+        var_dump($data);
         $data['page'] = 'articles';
-        return $this->render('OjsSiteBundle::Site/articles_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/articles_index.html.twig', $data);
     }
 
     public function archiveIndexAction() {
         $data['page'] = 'archive';
-        return $this->render('OjsSiteBundle::Site/archive_index.html.twig',$data);
+        return $this->render('OjsSiteBundle::Site/archive_index.html.twig', $data);
     }
 
 }
