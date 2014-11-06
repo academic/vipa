@@ -35,6 +35,8 @@ misc: Miscellaneous
 details: Details
 
 
+#nav
+
 ojs: OJS
 toggle_navigation: Toggle Navigation
 home: Home
@@ -53,3 +55,5 @@ log_out: Log out
 proxy_users: Proxy Users
 login_as: Login As
 list_my_proxys: List my proxys
+privacy: Privacy
+tos: Terms of Service
