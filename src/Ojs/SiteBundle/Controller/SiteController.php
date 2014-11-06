@@ -86,7 +86,6 @@ class SiteController extends Controller {
             $this->createNotFoundException($this->get('translator')->trans('404'));
         }
         $data['entities'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
-        var_dump($data);
         $data['page'] = 'articles';
         return $this->render('OjsSiteBundle::Site/articles_index.html.twig', $data);
     }
