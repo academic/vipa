@@ -33,3 +33,27 @@ manual: Manual
 misc: Miscellaneous
 
 details: Details
+
+
+#nav
+
+ojs: OJS
+toggle_navigation: Toggle Navigation
+home: Home
+institutions: Institutions
+journals: Journals
+register_journal: Register Journal
+send_article: Send Article
+search: Search
+search_query: type keyword(s) here
+login: Login
+dashboard: Dashboard
+log_out_from_user: Log out from user
+user_page: User Page
+profile: Profile
+log_out: Log out
+proxy_users: Proxy Users
+login_as: Login As
+list_my_proxys: List my proxys
+privacy: Privacy
+tos: Terms of Service

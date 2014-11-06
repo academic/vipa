@@ -1,22 +1,21 @@
-
 <div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">{% trans %}toggle_navigation{% endtrans %}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">UJS</a>
+            <a class="navbar-brand" href="/">{% trans %}ojs{% endtrans %}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">Ana Sayfa</a></li>
-                <li{%if page == 'organizations'%} class="active"{%endif%}><a href="/organizations">Organizasyonlar</a></li>
-                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">Dergiler</a></li>
-                <li{%if page == 'submission'%} class="active"{%endif%}><a href="http://dergipark.gov.tr/basvur">Dergi Başvuru</a></li>
-                <li{%if page == 'send'%} class="active"{%endif%}><a href="#">Makale Gönder</a></li>
+                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">{% trans %}home{% endtrans %}</a></li>
+                <li{%if page == 'institution'%} class="active"{%endif%}><a href="/institutions">{% trans %}institutions{% endtrans %}</a></li>
+                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">{% trans %}journals{% endtrans %}</a></li>
+                <li{%if page == 'submission'%} class="active"{%endif%}><a href="http://dergipark.gov.tr/basvur">{% trans %}register_journal{% endtrans %}</a></li>
+                <li{%if page == 'send'%} class="active"{%endif%}><a href="#">{% trans %}send_article{% endtrans %}</a></li>
 
                 {%include '::language_selector.html.twig'%}
             </ul>
@@ -24,35 +23,6 @@
             <div class="navbar-right">
                 <ul class="nav navbar-nav"> 
                     {% if app.user %}
-                        <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope"></i>
-                                <span class="label label-success"><!--$count--></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <ul class="menu">
-
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">See All Messages</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-warning"></i>
-                                <span class="label label-warning"><!--$count--></span>
-                            </a>
-                            <ul class="dropdown-menu">
-
-                                <li>
-                                    <ul class="menu">
-
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">View all</a></li>
-                            </ul>
-                        </li>
                         <li>
                             <a title="User Page" href="{{path('ojs_user_index')}}">
                                 <i class="fa fa-cog"></i>
@@ -68,35 +38,35 @@
                                 <!-- User image --> 
                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
-                                        <a href="/dashboard"><i class="fa fa-shield"></i> Dashboard</a>
+                                        <a href="/dashboard"><i class="fa fa-shield"></i> {% trans %}dashboard{% endtrans %}</a>
                                     </li>
                                 {%endif%}
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> Logout from user</a>
+                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> {% trans %}log_out_from_user{% endtrans %}</a>
                                     </li>
                                 {%endif%}
                                 <!-- Menu Footer-->
                                 <li>
                                     <a href="{{path('ojs_user_index')}}">
-                                        <i class="fa fa-cog"></i> User Page</a>
+                                        <i class="fa fa-cog"></i> {% trans %}user_page{% endtrans %}</a>
                                 </li>
                                 <li>
                                     <a href="{{path('myprofile')}}">
-                                        <i class="fa fa-user"></i> Profile</a>
+                                        <i class="fa fa-user"></i> {% trans %}profile{% endtrans %}</a>
                                 </li>
                                 <li>
                                     <a href="{{ path('logout') }}">
-                                        <i class="fa fa-sign-out"></i> Sign out</a>
+                                        <i class="fa fa-sign-out"></i> {% trans %}log_out{% endtrans %}</a>
                                 </li>                           
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{path('user_my_proxy_parents')}}">Proxy Users</a>
+                                    <a href="{{path('user_my_proxy_parents')}}">{% trans %}proxy_users{% endtrans %}</a>
                                 </li>
                                 {% if userclients() %}
 
                                     <li>
-                                        <a> <i class="fa fa-key"></i> Login As</a>          
+                                        <a> <i class="fa fa-key"></i> {% trans %}login_as{% endtrans %}</a>          
                                     </li>
                                     <li >                             
 
@@ -106,7 +76,7 @@
                                         </li>
                                     {% endfor %}
                                     <li><a href="{{path('user_my_proxy_clients')}}">
-                                            List All    
+                                            {% trans %}list_my_proxys{% endtrans %} 
                                         </a>
                                     </li>
                                 {%endif%}
@@ -117,17 +87,17 @@
                         {% if app.user == false %}
                             <li>
                                 <a class="btn btn-link" href="{{path('login')}}">
-                                    <i class="fa fa-sign-in"></i> Login</a>
+                                    <i class="fa fa-sign-in"></i> {% trans %}login{% endtrans %}</a>
                             </li>
                         {%endif%}
                         <li>
                             <a class="btn btn-link" href="#search">
-                                <i class="fa fa-search"></i> Search</a>
+                                <i class="fa fa-search"></i> {% trans %}search{% endtrans %}</a>
                             <div id="search">
                                 <button type="button" class="close">×</button>
                                 <form action="/search" method="get">
-                                    <input type="search" name="q" value="" placeholder="type keyword(s) here" />
-                                    <button type="submit" class="btn btn-primary">Search</button>
+                                    <input type="search" name="q" value="" placeholder="{% trans %}search_query{% endtrans %}" />
+                                    <button type="submit" class="btn btn-primary">{% trans %}search{% endtrans %}</button>
                                 </form>
                             </div>
                         </li>

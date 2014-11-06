@@ -10,9 +10,13 @@ ojs_browse_index:
     pattern:  /browse
     defaults: { _controller: OjsSiteBundle:Site:browseIndex }
 
-ojs_organizations_index:
-    pattern:  /organizations
-    defaults: { _controller: OjsSiteBundle:Site:organizationsIndex }
+ojs_institutions_index:
+    pattern:  /institutions
+    defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
+
+ojs_institution_page:
+    pattern:  /institution/{institution_id}
+    defaults: { _controller: OjsSiteBundle:Site:institutionPage }
 
 ojs_categories_index:
     pattern:  /categories
