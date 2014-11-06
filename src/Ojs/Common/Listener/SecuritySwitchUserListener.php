@@ -19,9 +19,9 @@ class SecuritySwitchUserListener {
         // check that current user is admin
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
 
-        $userjournalroles = $session->get('userJournalRoles');
-        if ($newUser && is_array($userjournalroles)) {
-            foreach ($userjournalroles as $rolex) {
+        $userJournalRoles = $session->get('userJournalRoles');
+        if ($newUser && is_array($userJournalRoles)) {
+            foreach ($userJournalRoles as $rolex) {
                 if ($rolex->getRole() == 'ROLE_SUPER_ADMIN') {
                     return true;
                 }

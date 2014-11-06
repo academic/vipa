@@ -1,3 +1,21 @@
+scope: Scope
+mission: Mission
+archive: Archive
+read:
+    lastissue: Read Last Issue
+    article: Read Article
+citations: Citations
+editorial: Editorial
+
+new: 
+    link: New Link
+    block: New Block
+
+for:
+    readers: For Readers
+    authors: For Authors
+    author_editor: For Autors and Editors
+    
 status:
     waiting: Waiting
     published: Published
@@ -9,6 +27,7 @@ messages: Messages
 journal: 
     journal: journal
     journals: Journals
+    about: About Journal
 articles:
     articles: Articles
     article: Article
