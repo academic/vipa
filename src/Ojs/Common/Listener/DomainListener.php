@@ -35,6 +35,9 @@ class DomainListener
                             $qb->expr()->eq('do.subdomain', ':domain'), $qb->expr()->eq('do.domain', ':domain')
             ))->setParameter('domain', $subdomain);
             $journal = $qb->getQuery()->getSingleResult();
+            /**
+             * @todo show human friendly error page if there is no journal for this subdomain or domain
+             */
             if ($journal) {
                 $this->journalDomain->setCurrentJournal($journal);
             }
