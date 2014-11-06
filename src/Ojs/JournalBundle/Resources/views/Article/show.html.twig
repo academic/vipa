@@ -6,7 +6,7 @@
     <table class="record_properties table">
         <tbody>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
@@ -15,11 +15,11 @@
             </tr>
 
             <tr>
-                <th>Subtitle</th>
+                <th>{{"subtitle"|trans}}</th>
                 <td>{{ entity.subtitle }}</td>
             </tr>
             <tr>
-                <th>Authors</th>
+                <th>{{"author"|trans}}</th>
                 <td>
                     {% if entity.articleAuthors %}
                         {% for authorsInfo in entity.articleAuthors %}
@@ -30,18 +30,18 @@
                 </td>
             </tr>
             <tr>
-                <th>Journal</th>
+                <th>{{"journal"|trans}}</th>
                 <td>
                     <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
                         {{ entity.journal.title }}</a>
                 </td>
             </tr>
             <tr>
-                <th>Section</th>
+                <th>{{"section"|trans}}</th>
                 <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Languages</th>
+                <th>{{"languages"|trans}}</th>
                 <td>
                     {% if entity.languages %}
                         {% for language in entity.languages %}
@@ -53,24 +53,24 @@
                 </td>
             </tr>
             <tr>
-                <th>Primary Language</th>
+                <th>{{"primaly_language"|trans}}</th>
                 <td>
 
                     <span class="label label-info">{{ entity.primaryLanguage}}</span>
                 </td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>{{"status"|trans}}</th>
                 <td style="background: {{entity.statusColor}}"><span >{{ entity.statusText }}</span></td>
             </tr>
             <tr>
-                <th>Doi</th>
+                <th>DOI</th>
                 <td>
                     {{ entity.doi }}
                     {% if entity.doi %}
                         <a href="#" onclick="$('#doiform').submit();">
                             <small>
-                                Check
+                                {{"check"|trans}}
                             </small>
                         </a>
                     {% endif %}
@@ -81,14 +81,14 @@
             </tr>
 
             <tr>
-                <th>Subjects</th>
+                <th>{{"subjects"|trans}}</th>
                 <td>
                     {{ entity.subjects }}
                 </td>
             </tr>
 
             <tr>
-                <th>Keywords</th>
+                <th>{{"keywords"|trans}}</th>
                 <td> {{ entity.keywords }} </td>
             </tr>
             <tr>
@@ -105,7 +105,7 @@
                 <td>{{ entity.isAnonymous }}</td>
             </tr>
             <tr>
-                <th>Pubdate</th>
+                <th>{{"pubdate"|trans}}</th>
                 <td>{{ entity.pubdate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
@@ -113,23 +113,23 @@
                 <td>{{ entity.pubdateSeason }}</td>
             </tr>
             <tr>
-                <th>Part</th>
+                <th>{{"part"|trans}}</th>
                 <td>{{ entity.part }}</td>
             </tr>
             <tr>
-                <th>Firstpage</th>
+                <th>{{"first_page"|trans}}</th>
                 <td>{{ entity.firstPage }}</td>
             </tr>
             <tr>
-                <th>Lastpage</th>
+                <th>{{"last_page"|trans}}</th>
                 <td>{{ entity.lastPage }}</td>
             </tr>
             <tr>
-                <th>Uri</th>
+                <th>{{"url"|trans}}</th>
                 <td>{{ entity.uri }}</td>
             </tr>
             <tr>
-                <th>Abstract</th>
+                <th>{{"abstract"|trans}}</th>
                 <td>{{ entity.abstract }}</td>
             </tr>
             <tr>
@@ -137,7 +137,7 @@
                 <td>{{ entity.abstractTransliterated }}</td>
             </tr>
             <tr>
-                <th>Citations</th>
+                <th>{{"citations"|trans}}</th>
                 <td> @todo </td>
             </tr>
         </tbody>
