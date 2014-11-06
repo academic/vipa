@@ -1,4 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
+{% set hideleft=1 %}
 {#
 journal.public_index.html.twig
 #}
@@ -56,13 +57,16 @@ journal.public_index.html.twig
         </div>
 
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-
-
-
-            <div class="panel panel-default">
-                <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> {{"new.block"|trans}}</span></a></div>
-            </div>
-
+            {% if isJournalManager() %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="panel-title">
+                                <i class="fa fa-plus"></i> {{"new.block"|trans}}
+                            </span>
+                        </a></div>
+                </div>
+            {% endif %}
             <div class="panel panel-default">
                 <div class="panel-heading"><span class="panel-title">{{"for.readers"|trans}}</span></div>
                 <ul class="list-group">
@@ -72,9 +76,11 @@ journal.public_index.html.twig
                     <li class="list-group-item">
                         <a href=""><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     </li>
-                    <li class="list-group-item"><a href="#">
-                            <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
-                    </li>
+                    {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#">
+                                <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
 
@@ -84,16 +90,19 @@ journal.public_index.html.twig
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
                     <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {%endif%}
                 </ul>
             </div>
             <div class="panel panel-success">
-                <div class="panel-heading"><span class="panel-title">Dergi Hakkında</span></div>
+                <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Dergi Tarihçesi</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> İletişim</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Bağlantılar</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
+                        {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {%endif%}
                 </ul>
             </div>
             <div class="panel panel-info">
