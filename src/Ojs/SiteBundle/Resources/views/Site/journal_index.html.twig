@@ -5,34 +5,40 @@
 
     <div class="container">
         <div class="page-header">
-            <h1>Cumhuriyet Science Journal</h1>
-            <h6>Cumhuriyet University Science Journal is an official publication of Cumhuriyet University Science Faculty. </h6>
+            <h1>{{entity.title}}</h1>
+            <h6>{{entity.subtitle}}</h6>
         </div>
 
         <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="holder.js/189x296/#f9A497:#ffffff/text:cover" class="img-rounded float-left" alt="" />
+                    <img src="holder.js/200x300/#f9A497:#ffffff/text:{{entity.title}}" class="img-responsive img-rounded float-left" alt="" />
                 </div>
 
                 <div class="col-md-8">
-                    <p class="text-default">Cumhuriyet University Science Journal is an official publication of Cumhuriyet University Science Faculty. The publications related to the natural sciences and engineering are published nationally and internationally. This journal have been published two times a year.
+                    <h3>{{"scope"|trans}}</h3>
+                    <p class="text-default">
+                        {{entity.scope}}
+                    </p>
+                    <h3>{{"mission"|trans}}</h3>
+                    <p class="text-default">
+                        {{entity.mission}}
                     </p>
                 </div>
                 <hr>
                 <div class="col-md-8">
-                    <a href="/journal/{{ entity.id }}/articles" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
-
-                    <a href="/journal/{{ entity.id }}/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> Arşiv</a>
+                    <a href="#" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
+                    <a href="#" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     <p class="text-default">
-                        <span class="label label-info"><strong>ISSN</strong>: 2148-7510</span>
-                        <span class="label label-info"><strong>e-ISSN</strong>: 2148-7758</span>
+                        <span class="label label-info"><strong>ISSN</strong>: {{entity.issn}}</span>
+                        <span class="label label-info"><strong>e-ISSN</strong>: {{entity.eissn}}</span>
                     </p>
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="page-header"><span class="panel-title">Editoryal Bilgiler</span></h4>
+                    <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
                     <p>
                         <strong>Editor</strong>
                         <br>
@@ -44,156 +50,138 @@
                         Assist. Prof. Dr. Nüket KARTAL TEMEL<br>
                         Assist. Prof. Dr. Serkan AKKOYUN<br>
                     </p>
-<table class="record_properties  table">
+                    <table class="record_properties  table">
 
-                <tbody>
-                    <tr>
-                        <th width="300px">Id</th>
-                        <td>{{ entity.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Title</th>
-                        <td>{{ entity.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Titleabbr</th>
-                        <td>{{ entity.titleAbbr }}</td>
-                    </tr>
-                    <tr>
-                        <th>Titletransliterated</th>
-                        <td>{{ entity.titleTransliterated }}</td>
-                    </tr>
-                    <tr>
-                        <th>Journal Languages</th>
-                        <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
-                    </tr>
+                        <tbody>
+                            <tr>
+                                <th width="300px">Id</th>
+                                <td>{{ entity.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <td>{{ entity.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>Titleabbr</th>
+                                <td>{{ entity.titleAbbr }}</td>
+                            </tr>
+                            <tr>
+                                <th>Titletransliterated</th>
+                                <td>{{ entity.titleTransliterated }}</td>
+                            </tr>
+                            <tr>
+                                <th>Journal Languages</th>
+                                <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
+                            </tr>
 
-                    <tr>
-                        <th>Subtitle</th>
-                        <td>{{ entity.subtitle }}</td>
-                    </tr>
-                    <tr>
-                        <th>Issn</th>
-                        <td>{{ entity.issn }}</td>
-                    </tr>
-                    <tr>
-                        <th>Eissn</th>
-                        <td>{{ entity.eissn }}</td>
-                    </tr>
-                    <tr>
-                        <th>Firstpublishdate</th>
-                        <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Period</th>
-                        <td>{{ entity.period }}</td>
-                    </tr>
-                    <tr>
-                        <th>Url</th>
-                        <td>{{ entity.url }}</td>
-                    </tr>
-                    <tr>
-                        <th>Country</th>
-                        <td>{{ entity.country }}</td>
-                    </tr>
-                    <tr>
-                        <th>published</th>
-                        <td>{{ entity.published }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td>{{ entity.status }}</td>
-                    </tr>
-                    <tr>
-                        <th>Image</th>
-                        <td>{{ entity.image }}</td>
-                    </tr>
-                    <tr>
-                        <th>Scope</th>
-                        <td>{{ entity.scope }}</td>
-                    </tr>
-                    <tr>
-                        <th>Mission</th>
-                        <td>{{ entity.mission }}</td>
-                    </tr>
-                    <tr>
-                        <th>Themeid</th>
-                        <td>{{ entity.themeId }}</td>
-                    </tr>
-                    <tr>
-                        <th>Users</th>
-                        <td><a href="{{ path('ujr_show_users_ofjournal',{ 'journal_id': entity.id }) }}">Show Users</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <tr>
+                                <th>Subtitle</th>
+                                <td>{{ entity.subtitle }}</td>
+                            </tr>
+                            <tr>
+                                <th>Issn</th>
+                                <td>{{ entity.issn }}</td>
+                            </tr>
+                            <tr>
+                                <th>Eissn</th>
+                                <td>{{ entity.eissn }}</td>
+                            </tr>
+                            <tr>
+                                <th>Firstpublishdate</th>
+                                <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Period</th>
+                                <td>{{ entity.period }}</td>
+                            </tr>
+                            <tr>
+                                <th>Url</th>
+                                <td>{{ entity.url }}</td>
+                            </tr>
+                            <tr>
+                                <th>Country</th>
+                                <td>{{ entity.country }}</td>
+                            </tr>
+                            <tr>
+                                <th>published</th>
+                                <td>{{ entity.published }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>{{ entity.status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td>{{ entity.image }}</td>
+                            </tr>
+                            <tr>
+                                <th>Scope</th>
+                                <td>{{ entity.scope }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mission</th>
+                                <td>{{ entity.mission }}</td>
+                            </tr>
+                            <tr>
+                                <th>Themeid</th>
+                                <td>{{ entity.themeId }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 
-
+            {% if isJournalManager() %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="#">
+                            <span class="panel-title">
+                                <i class="fa fa-plus"></i> {{"new.block"|trans}}
+                            </span>
+                        </a></div>
+                </div>
+            {% endif %}
 
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> Blok ekle</span></a></div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading"><span class="panel-title">Okuyucular için</span></div>
+                <div class="panel-heading"><span class="panel-title">{{"for.readers"|trans}}</span></div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href="/articles"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
+                        <a href=""><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
                     </li>
                     <li class="list-group-item">
-                        <a href="/archive"><i class="fa fa-archive"></i> Arşiv</a>
+                        <a href=""><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     </li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                    {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#">
+                                <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
 
             <div class="panel panel-warning">
-                <div class="panel-heading"><span class="panel-title">Yazarlar ve Editörler için</span></div>
+                <div class="panel-heading"><span class="panel-title">{{"for.authors"|trans}}</span></div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
                     <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {%endif%}
                 </ul>
             </div>
             <div class="panel panel-success">
-                <div class="panel-heading"><span class="panel-title">Dergi Hakkında</span></div>
+                <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Dergi Tarihçesi</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> İletişim</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Bağlantılar</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
+                        {% if isJournalManager() %}
+                        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
+                        {%endif%}
                 </ul>
             </div>
-            <div class="panel panel-info">
-                <div class="panel-heading"><span class="panel-title">Indexler</span></div>
-                <p>
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/indeks_logolar3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo_brill3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/top_mla_logo3.gif" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/ulrichsweb3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logos3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/doaj3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo-left3.gif" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/opengate3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/drje3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/isam3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/akademik3.jpg" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/mix_and_match_logo3.gif" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/trlogo3.gif" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo_tr3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/open3.gif" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/New-Logo-Header3.png" alt="">
-                    <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/UofSLib3.png" alt="">
-                </p>
-            </div>
         </div>
-
     </div>
 
 {% endblock %}
