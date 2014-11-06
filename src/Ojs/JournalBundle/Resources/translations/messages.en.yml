@@ -1,3 +1,16 @@
+scope: Scope
+mission: Mission
+archive: Archive
+read:
+    lastissue: Read Last Issue
+    article: Read Article
+citations: Citations
+editorial: Editorial
+
+new: 
+    link: New Link
+    block: New Block
+    
 status:
     waiting: Waiting
     published: Published
