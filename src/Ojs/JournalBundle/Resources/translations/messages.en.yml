@@ -10,6 +10,11 @@ editorial: Editorial
 new: 
     link: New Link
     block: New Block
+
+for:
+    readers: For Readers
+    authors: For Authors
+    author_editor: For Autors and Editors
     
 status:
     waiting: Waiting
