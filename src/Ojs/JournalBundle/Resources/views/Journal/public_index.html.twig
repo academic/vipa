@@ -27,7 +27,7 @@ journal.public_index.html.twig
                 </div>
                 <hr>
                 <div class="col-md-8">
-                    <a href="" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
+                    <a href="" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
 
                     <a href="" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     <p class="text-default">
@@ -38,7 +38,7 @@ journal.public_index.html.twig
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="page-header"><span class="panel-title">Editoryal Bilgiler</span></h4>
+                    <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
                     <p>
                         <strong>Editor</strong>
                         <br>
@@ -59,30 +59,32 @@ journal.public_index.html.twig
 
 
 
-            <?php if (isset($_GET['user'])) {?>
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> Blok ekle</span></a></div>
+                <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> {{"new.block"|trans}}</span></a></div>
             </div>
-            <?php }?>
+
             <div class="panel panel-default">
                 <div class="panel-heading"><span class="panel-title">Okuyucular için</span></div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href=""><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
+                        <a href=""><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
                     </li>
                     <li class="list-group-item">
-                        <a href=""><i class="fa fa-archive"></i> Arşiv</a>
+                        <a href=""><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     </li>
-                    <?php if (isset($_GET['user'])) {?><li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li><?php }?>
+                    <li class="list-group-item"><a href="#">
+                            <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
+                    </li>
                 </ul>
             </div>
 
+            <!-- from blow demo content -->
             <div class="panel panel-warning">
                 <div class="panel-heading"><span class="panel-title">Yazarlar ve Editörler için</span></div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
                     <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                    <?php if (isset($_GET['user'])) {?><li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li><?php }?>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
                 </ul>
             </div>
             <div class="panel panel-success">
@@ -91,13 +93,13 @@ journal.public_index.html.twig
                     <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Dergi Tarihçesi</a></li>
                     <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> İletişim</a></li>
                     <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Bağlantılar</a></li>
-                    <?php if (isset($_GET['user'])) {?><li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li><?php }?>
+                    <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
                 </ul>
             </div>
             <div class="panel panel-info">
                 <div class="panel-heading"><span class="panel-title">Indexler</span></div>
                 <p>
-                   demo content
+                    demo content
                 </p>
             </div>
         </div>
