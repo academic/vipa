@@ -1,0 +1,67 @@
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <!-- Page Content -->
+        <h1 class="page-header">{% trans %}institutions{% endtrans %}</h1>
+
+
+        {% for entity in entities %}
+            <div class="panel panel-default">
+                <div class="panel-heading">{{ entity.name }}</div>
+                <div class="panel-body">
+
+                    {{dump(entity)}}
+                    
+                    <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">{% trans %}more{% endtrans %}</a>
+                </div>
+
+
+                <div class="panel-footer">
+
+                    <i class="fa fa-tags"></i>{% trans %}tags{% endtrans %}
+                    <a href="#"><span class="badge">ojs</span></a>
+                    <a href="#"><span class="badge">university</span></a>
+                    <a href="#"><span class="badge">paper</span></a>
+
+                </div>
+            </div>
+
+        {% endfor %}
+
+
+        <!-- Pagination -->
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <ul class="pagination">
+                    <li>
+                        <a href="#">&laquo;</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">4</a>
+                    </li>
+                    <li>
+                        <a href="#">5</a>
+                    </li>
+                    <li>
+                        <a href="#">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

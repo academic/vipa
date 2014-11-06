@@ -1,9 +1,9 @@
 // to serialize form data as Json object
-$.fn.serializeObject = function()
+$.fn.serializeObject = function ()
 {
     var o = {};
     var a = this.serializeArray();
-    $.each(a, function() {
+    $.each(a, function () {
         if (o[this.name] !== undefined) {
             if (!o[this.name].push) {
                 o[this.name] = [o[this.name]];
@@ -16,16 +16,16 @@ $.fn.serializeObject = function()
     return o;
 };
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('a[title]').tooltip();
-    $(".panel-heading toggle-body").click(function() {
+    $(".panel-heading toggle-body").click(function () {
         $(this).next(".panel-body").slideToggle();
     });
 
     //Loads the correct sidebar on window load,
     //collapses the sidebar on window resize.
 
-    $(window).bind("load resize", function() {
+    $(window).bind("load resize", function () {
         //console.log($(this).width());
         if ($(this).width() < 768) {
             $('div.sidebar-collapse').addClass('collapse')
@@ -34,22 +34,22 @@ $(document).ready(function() {
         }
     })
 
-    $('a[href="#search"]').on('click', function(event) {
+    $('a[href="#search"]').on('click', function (event) {
         event.preventDefault();
         $('#search').addClass('open');
         $('#search > form > input[type="search"]').focus();
     });
 
-    $('#search, #search button.close').on('click keyup', function(event) {
+    $('#search, #search button.close').on('click keyup', function (event) {
         if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
             $(this).removeClass('open');
         }
     });
-    
+
     var $btnSets = $('#responsive'),
-    $btnLinks = $btnSets.find('a');
- 
-    $btnLinks.click(function(e) {
+            $btnLinks = $btnSets.find('a');
+
+    $btnLinks.click(function (e) {
         e.preventDefault();
         $(this).siblings('a.active').removeClass("active");
         $(this).addClass("active");
@@ -58,16 +58,16 @@ $(document).ready(function() {
         $("div.user-menu>div.user-menu-content").eq(index).addClass("active");
     });
 
-    $("[rel='tooltip']").tooltip();    
- 
+    $("[rel='tooltip']").tooltip();
+
     $('.view').hover(
-        function(){
-            $(this).find('.caption').slideDown(250); //.fadeIn(250)
-        },
-        function(){
-            $(this).find('.caption').slideUp(250); //.fadeOut(205)
-        }
-    ); 
+            function () {
+                $(this).find('.caption').slideDown(250); //.fadeIn(250)
+            },
+            function () {
+                $(this).find('.caption').slideUp(250); //.fadeOut(205)
+            }
+    );
 });
 
 
@@ -95,12 +95,12 @@ $(document).ready(function() {
  * Add .active class to <li> elements if you want the menu to be open automatically
  * on page load. See above for an example.
  */
-(function($) {
+(function ($) {
     "use strict";
 
-    $.fn.tree = function() {
+    $.fn.tree = function () {
 
-        return this.each(function() {
+        return this.each(function () {
             var btn = $(this).children("a").first();
             var menu = $(this).children(".treeview-menu").first();
             var isActive = $(this).hasClass('active');
@@ -111,7 +111,7 @@ $(document).ready(function() {
                 btn.children(".fa-angle-left").first().removeClass("fa-angle-left").addClass("fa-angle-down");
             }
             //Slide open or close the menu on link click
-            btn.click(function(e) {
+            btn.click(function (e) {
                 e.preventDefault();
                 if (isActive) {
                     //Slide up to close menu
@@ -129,7 +129,7 @@ $(document).ready(function() {
             });
 
             /* Add margins to submenu elements to give it a tree look */
-            menu.find("li > a").each(function() {
+            menu.find("li > a").each(function () {
                 var pad = parseInt($(this).css("margin-left")) + 10;
 
                 $(this).css({"margin-left": pad + "px"});

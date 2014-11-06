@@ -5,10 +5,10 @@
                 <div class="panel-heading  text-center">
                     {% if(app.user.getAvatar()) %}
                         <img src="/uploads/avatars/thumbnail/{{app.user.getAvatar()}}" 
-                             class="avatar img-circle img-responsive" alt="User avatar" />
+                             class="avatar img-circle img-responsive" />
                     {%else%}
                         <img src="/assets/app/images/buddy_sample.png" 
-                             class="img-circle img-responsive" alt="User avatar" />
+                             class="img-circle img-responsive" />
                     {%endif%}  
                     <h4 class="panel-title">
                         {% if userJournalRoles %}

@@ -5,8 +5,8 @@ namespace Ojs\JournalBundle\Entity;
 /**
  * Institution
  */
-class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
-{
+class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
+
     /**
      * @var integer
      */
@@ -21,6 +21,11 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @var string
      */
     private $address;
+    
+    /**
+     * @var string
+     */
+    private $about;
 
     /**
      * @var integer
@@ -53,12 +58,16 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
     private $email;
 
     /**
+     * @var string
+     */
+    private $url;
+
+    /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,8 +77,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $name
      * @return Institution
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
@@ -80,8 +88,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -91,8 +98,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $address
      * @return Institution
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
 
         return $this;
@@ -103,9 +109,29 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
+    }
+
+    /**
+     * Set about
+     *
+     * @param  string      $about
+     * @return Institution
+     */
+    public function setAbout($about) {
+        $this->about = $about;
+
+        return $this;
+    }
+
+    /**
+     * Get about
+     *
+     * @return string
+     */
+    public function getAbout() {
+        return $this->about;
     }
 
     /**
@@ -114,8 +140,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  integer     $country
      * @return Institution
      */
-    public function setCountry($country)
-    {
+    public function setCountry($country) {
         $this->country = $country;
 
         return $this;
@@ -126,8 +151,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return integer
      */
-    public function getCountry()
-    {
+    public function getCountry() {
         return $this->country;
     }
 
@@ -137,8 +161,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $addressLat
      * @return Institution
      */
-    public function setAddressLat($addressLat)
-    {
+    public function setAddressLat($addressLat) {
         $this->addressLat = $addressLat;
 
         return $this;
@@ -149,8 +172,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getAddressLat()
-    {
+    public function getAddressLat() {
         return $this->addressLat;
     }
 
@@ -160,8 +182,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $addressLong
      * @return Institution
      */
-    public function setAddressLong($addressLong)
-    {
+    public function setAddressLong($addressLong) {
         $this->addressLong = $addressLong;
 
         return $this;
@@ -172,8 +193,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getAddressLong()
-    {
+    public function getAddressLong() {
         return $this->addressLong;
     }
 
@@ -183,8 +203,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $phone
      * @return Institution
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
 
         return $this;
@@ -195,8 +214,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -206,8 +224,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $fax
      * @return Institution
      */
-    public function setFax($fax)
-    {
+    public function setFax($fax) {
         $this->fax = $fax;
 
         return $this;
@@ -218,8 +235,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getFax()
-    {
+    public function getFax() {
         return $this->fax;
     }
 
@@ -229,8 +245,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string      $email
      * @return Institution
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
 
         return $this;
@@ -241,9 +256,29 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
+    }
+
+    /**
+     * Set url
+     *
+     * @param  string      $url
+     * @return Institution
+     */
+    public function setUrl($url) {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl() {
+        return $this->url;
     }
 
 }

@@ -17,6 +17,8 @@ Ojs\JournalBundle\Entity\Institution:
                 - versioned
         address:
             type: text
+        about:
+            type: text
         country:
             type: integer
             nullable: TRUE
@@ -39,6 +41,10 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: TRUE
         email:
+            type: string
+            length: 255
+            nullable: TRUE
+        url:
             type: string
             length: 255
             nullable: TRUE

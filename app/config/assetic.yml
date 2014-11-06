@@ -30,6 +30,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/js/bootstrap-dialog.min.js
                     - %kernel.root_dir%/../web/vendor/holderjs/holder.js
                     - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/assets/theme/%theme%/js/main.js
         admin_main_css:
@@ -39,13 +40,8 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/font-awesome/css/font-awesome.min.css
                     - %kernel.root_dir%/../web/assets/app/css/app.css
                     - %kernel.root_dir%/../web/assets/app/css/admin.css
+                    - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour-standalone.min.css
                     - %kernel.root_dir%/../web/assets/theme/%theme%/css/style.css
-        apptour_css:
-               inputs:
-                  - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour.min.css
-        apptour_js:
-               inputs:
-                  - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour.min.js
 braincrafted_bootstrap:
     less_filter: none
     auto_configure:
