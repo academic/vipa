@@ -37,11 +37,18 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Site/browse_index.html.twig', $data);
     }
 
-    public function organizationsIndexAction() {
+    public function institutionsIndexAction() {
         $em = $this->getDoctrine()->getManager();
         $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->findAll();
+        $data['page'] = 'institution';
+        return $this->render('OjsSiteBundle::Site/institutions_index.html.twig', $data);
+    }
+    
+    public function institutionPageAction($institution_id) {
+        $em = $this->getDoctrine()->getManager();
+        $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->find($institution_id);
         $data['page'] = 'organizations';
-        return $this->render('OjsSiteBundle::Site/organizations_index.html.twig', $data);
+        return $this->render('OjsSiteBundle::Site/institution_index.html.twig', $data);
     }
 
     public function categoriesIndexAction() {
