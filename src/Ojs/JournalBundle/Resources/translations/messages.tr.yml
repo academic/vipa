@@ -1,3 +1,21 @@
+scope: Kapsam
+mission: Amaç
+archive: Arşiv
+read:
+    lastissue: Son Sayıyı Oku
+    article: Makaleyi Oku
+citations: Referanslar
+editorial: Editoryal
+
+new: 
+    link: Yeni Link
+    block: Yeni Blok
+
+for:
+    readers: Okuyucular için
+    authors: Yazarlar için
+    author_editor: Yazarlar ve Editörler için
+    
 status:
     waiting: Bekliyor
     published: Yayında
@@ -9,6 +27,7 @@ messages: Mesajlar
 journal: 
     journals: Dergiler
     journal: journal
+    about: Dergi Hakkında
 articles:
     articles: Makaleler
     article: Makale
