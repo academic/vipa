@@ -21,7 +21,7 @@ class SiteController extends Controller {
         $data["journals"] = $journals;
 
         if ($data['entity']) {
-            return $this->render('OjsJournalBundle:Journal:public_index.html.twig', $data);
+            return $this->journalIndexAction($data['entity']->getId());
         }
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/anonymous_index.html.twig', $data);
