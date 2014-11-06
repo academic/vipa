@@ -10,6 +10,11 @@ editorial: Editoryal
 new: 
     link: Yeni Link
     block: Yeni Blok
+
+for:
+    readers: Okuyucular için
+    authors: Yazarlar için
+    author_editor: Yazarlar ve Editörler için
     
 status:
     waiting: Bekliyor
