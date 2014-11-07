@@ -42,7 +42,7 @@
                             <tbody>
                                 {% for entity in entities %}
                                     <tr>
-                                        <td><a  class="label label-success" href="{{ path('journal_show', { 'id': entity.id }) }}">id: {{ entity.id }}</a>
+                                        <td><a  class="label label-success" href="{{ entity.id }}">id: {{ entity.id }}</a>
                                             <a href="{{ entity.uri }}">{{ entity.title }}</a> 
                                             <span class="badge" title="published">{{ entity.created.date }}</span>
                                             <span class="label label-info" title="Status">{{entity.status}}</span>
