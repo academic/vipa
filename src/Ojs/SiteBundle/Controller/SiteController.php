@@ -86,7 +86,7 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
     }
 
-    public function articlesIndexAction($journal_id) {
+    public function lastArticlesIndexAction($journal_id) {
         
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
@@ -95,7 +95,12 @@ class SiteController extends Controller {
         }
         $data['entities'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
         $data['page'] = 'articles';
-        return $this->render('OjsSiteBundle::Site/articles_index.html.twig', $data);
+        return $this->render('OjsSiteBundle::Site/last_articles_index.html.twig', $data);
+    }
+
+    public function articlePageAction() {
+        $data['page'] = 'journals';
+        return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
 
     public function archiveIndexAction() {
