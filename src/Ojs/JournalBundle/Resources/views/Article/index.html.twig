@@ -1,13 +1,34 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                { 'title': 'Article Manager'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% if app.user.setting('tour.admin.article') == FALSE %}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %} 
+    {% endif %}
+{% endblock %}
+
 {% block body -%}
-
-    <p>. {{"here_you_can_find_all_articles_listed"|trans}}
-        <a href="{{ path('article_new') }}" class="btn btn-success">
+    <p>
+        <a href="{{ path('article_new') }}" id="create-new-article" class="btn btn-success">
             {% trans %}c{% endtrans %}
-        </a></p>
-
-
+        </a>
+    </p>
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' '@OjsJournalBundle/Resources/public/js/tour/article_admin_tour.js' output="c/apptour.js" %}
+    {% if app.user.setting('tour.admin.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+    {% endjavascripts %}
 {% endblock %}

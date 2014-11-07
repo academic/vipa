@@ -8,15 +8,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}{% endblock %}</title>
+        <title>{% block title %}Ojs{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets
-           '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css" 
-            %}   
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %} 
-
+            {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css"   %}   
+            <link rel="stylesheet" href="{{ asset_url }}" /> {% endstylesheets %}
         {% endblock %}
+
+
         <link rel="icon" type="image/x-icon" href="{{ asset('/assets/app/images/favicon.png') }}" />
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --> 
         <!--[if lt IE 9]>
@@ -69,6 +67,9 @@
                 </div>
             {%endif%}
 
+
+
+
         </div>
         {%include '::ojsfooter.html.twig'%}
 
@@ -78,7 +79,6 @@
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
-
     {% endblock %}
 </body>
 </html>
