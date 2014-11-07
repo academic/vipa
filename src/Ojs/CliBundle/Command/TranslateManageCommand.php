@@ -74,27 +74,30 @@ EOF
 
         foreach ($bundle_array as $bundle_name) {
 
-            $bundle_name = "Ojs".$bundle_name."Bundle";
+            $bundle_name = "Ojs" . $bundle_name . "Bundle";
 
             $bundle = $this->getContainer()->get('kernel')->getBundle($bundle_name);
             $loader = $this->getContainer()->get('translation.loader');
 
             // Extract used messages
-            $extractedCatalogue = new MessageCatalogue($locale);
-            $this->getContainer()->get('translation.extractor')->extract($bundle->getPath() . '/Resources/views', $extractedCatalogue);
+            $extractedCatalogue[$bundle_name] = new MessageCatalogue($locale);
+            $this->getContainer()->get('translation.extractor')->extract($bundle->getPath() . '/Resources/views', $extractedCatalogue[$bundle_name]);
 
             // Load defined messages
-            $currentCatalogue = new MessageCatalogue($locale);
+            $currentCatalogue[$bundle_name] = new MessageCatalogue($locale);
             if (is_dir($bundle->getPath() . '/Resources/translations')) {
-                $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue);
+                $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue[$bundle_name]);
             }
 
             // Merge defined and extracted messages to get all message ids
-            $mergeOperation = new MergeOperation($extractedCatalogue, $currentCatalogue);
-            $allMessages[$bundle_name] = $mergeOperation->getResult()->all($domain);
-            if (null !== $domain) {
-                $allMessages[$bundle_name] = array($domain => $allMessages[$bundle_name]);
+            foreach ($currentCatalogue as $currentCatalogue_item) {
+                $mergeOperation = new MergeOperation($extractedCatalogue[$bundle_name], $currentCatalogue_item);
+                $allMessages[$bundle_name] = $mergeOperation->getResult()->all($domain);
+                if (null !== $domain) {
+                    $allMessages[$bundle_name] = array($domain => $allMessages[$bundle_name]);
+                }
             }
+
 
             // No defined or extracted messages
             if (empty($allMessages) || null !== $domain && empty($allMessages[$bundle_name][$domain])) {
@@ -128,7 +131,7 @@ EOF
         $table = new Table($output);
 
         // Display header line
-        $headers = array('Bundle','State(s)', 'Id', sprintf('Message Preview (%s)', $locale));
+        $headers = array('Bundle', 'State(s)', 'Id', sprintf('Message Preview (%s)', $locale));
         foreach ($fallbackCatalogues as $fallbackCatalogue) {
             $headers[] = sprintf('Fallback Message Preview (%s)', $fallbackCatalogue->getLocale());
         }
@@ -138,14 +141,14 @@ EOF
         foreach ($allMessages as $bundle => $bundle_a) {
             foreach ($bundle_a as $domain => $messages) {
                 foreach (array_keys($messages) as $messageId) {
-                    $value = $currentCatalogue->get($messageId, $domain);
+                $value = $currentCatalogue[$bundle]->get($messageId, $domain);
                     $states = array();
 
-                    if ($extractedCatalogue->defines($messageId, $domain)) {
-                        if (!$currentCatalogue->defines($messageId, $domain)) {
+                    if ($extractedCatalogue[$bundle]->defines($messageId, $domain)) {
+                        if (!$currentCatalogue[$bundle]->defines($messageId, $domain)) {
                             $states[] = self::MESSAGE_MISSING;
                         }
-                    } elseif ($currentCatalogue->defines($messageId, $domain)) {
+                    } elseif ($currentCatalogue[$bundle]->defines($messageId, $domain)) {
                         $states[] = self::MESSAGE_UNUSED;
                     }
 
@@ -161,7 +164,7 @@ EOF
                         }
                     }
 
-                    $row = array($bundle,$this->formatStates($states), $this->formatId($messageId), $this->sanitizeString($value));
+                    $row = array($bundle, $this->formatStates($states), $this->formatId($messageId), $this->sanitizeString($value));
                     foreach ($fallbackCatalogues as $fallbackCatalogue) {
                         $row[] = $this->sanitizeString($fallbackCatalogue->get($messageId, $domain));
                     }
