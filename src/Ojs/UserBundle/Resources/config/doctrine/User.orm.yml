@@ -65,7 +65,7 @@ Ojs\UserBundle\Entity\User:
             options:
                 default: 0
         settings:
-            type: string
+            type: text
             nullable: true
         lastlogin:
             type: datetime

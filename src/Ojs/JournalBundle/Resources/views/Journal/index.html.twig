@@ -10,10 +10,11 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %} 
-
+    {% endif %}
 {% endblock %}
 
 {% block body -%} 
@@ -71,7 +72,7 @@
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% javascripts '@apptour_js' '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/apptour.js" %}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
     {% endjavascripts %}
 {% endblock %}
