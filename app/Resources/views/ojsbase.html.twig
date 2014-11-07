@@ -67,16 +67,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        {%endif%}
-    </div>
-    {%include '::ojsfooter.html.twig'%}
+            {%endif%}
 
-{% block javascripts %}
-    {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}  
+        </div>
+        {%include '::ojsfooter.html.twig'%}
 
-{% endblock %}
+    </div><!-- .container -->
+
+    {% block javascripts %}
+        {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}  
+
+    {% endblock %}
 </body>
 </html>
