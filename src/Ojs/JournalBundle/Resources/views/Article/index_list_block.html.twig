@@ -3,9 +3,7 @@
         <tr>
             <th>Id</th>
             <th>{{"primaly_language"|trans}}</th>
-            <th>Doi</th>
-            <th>{{"journal"|trans}}</th>
-            <th>{{"issue"|trans}}</th>
+            <th>{{"journal"|trans}}</th> 
             <th>{{"title"|trans}}</th>
             <th>{{"pubdate"|trans}}</th>
             <th>{{"actions"|trans}}</th>
@@ -14,28 +12,21 @@
     <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a id="article-show-details" href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td> <span class="badge">{{ entity.primaryLanguage }}</span></td>
-
-                <td>
-                    {% if entity.doi%}
-                        {{ entity.doi }}
-                    {%else%}
-                        -
-                    {% endif %}
-                </td>
                 <td>
                     {% if entity.journalId %}
                         <a href="{{path('article_journal', { 'journalId': entity.journalId }) }}">
-                            {{ entity.journalId }} {{ entity.journal.title }}</a>
+                            <span class="badge"></span> {{ entity.journalId }} {{ entity.journal.title }}</a>
                         {% endif %}
-                </td>
-                <td>
-                    {% if entity.issueId %}
+                        {% if entity.issueId %} 
+                        <br>
                         <a class="label label-info" href="{{path('article_issue', { 'issueId': entity.issueId }) }}">
-                            {{ entity.issue.volume }}/{{ entity.issue.number }} {{ entity.issue.title }}</a>
-                        {% endif %}
-                </td>
+                            {{"issue"|trans}}
+                            {{ entity.issue.volume }}/{{ entity.issue.number }} {{ entity.issue.title }}
+                        </a> 
+                    {% endif %}
+                </td> 
                 <td>{{ entity.title }}</td>
                 <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
