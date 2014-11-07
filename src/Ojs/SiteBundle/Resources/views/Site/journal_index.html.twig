@@ -28,8 +28,8 @@
                 </div>
                 <hr>
                 <div class="col-md-8">
-                    <a href="#" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
-                    <a href="#" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+                    <a href="/journal/{{ entity.id }}/last" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
+                    <a href="/journal/{{ entity.id }}/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     <p class="text-default">
                         <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{entity.issn}}</span>
                         <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{entity.eissn}}</span>
@@ -149,10 +149,10 @@
                 <div class="panel-heading"><span class="panel-title">{{"for.readers"|trans}}</span></div>
                 <ul class="list-group">
                     <li class="list-group-item">
-                        <a href=""><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
+                        <a href="/journal/{{ entity.id }}/last"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
                     </li>
                     <li class="list-group-item">
-                        <a href=""><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+                        <a href="/journal/{{ entity.id }}/archive"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     </li>
                     {% if isJournalManager() %}
                         <li class="list-group-item"><a href="#">
@@ -166,7 +166,7 @@
                 <div class="panel-heading"><span class="panel-title">{{"for.authors"|trans}}</span></div>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
+                    <li class="list-group-item"><a href="/journal/{{ entity.id }}/mission"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
                         {% if isJournalManager() %}
                         <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>{{"add_link"|trans}}</strong></a></li>
                         {%endif%}
@@ -175,8 +175,8 @@
             <div class="panel panel-success">
                 <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
-                    <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
+                    <li class="list-group-item"><a href="/journal/{{ entity.id }}/mission"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
+                    <li class="list-group-item"><a href="/journal/{{ entity.id }}/scope"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
                         {% if isJournalManager() %}
                         <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
                         {%endif%}
