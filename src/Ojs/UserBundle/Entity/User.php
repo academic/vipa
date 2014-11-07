@@ -130,9 +130,17 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return array|NULL
      */
-    public function getSettings(){
+    public function getSettings() {
         return json_decode($this->settings,1);
     } 
+    
+    /**
+     * @return mixed
+     */
+    public function getSetting($key) {
+        $settings = $this->getSettings();
+        return isset($settings[$key])?$settings[$key]:false;
+    }
     /**
      * 
      * @param array $settings
