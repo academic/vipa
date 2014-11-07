@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PageControllerTest extends WebTestCase
 {
+    public function testIndex()
+    {
+        $this->assertTrue(true, 1); // please love me
+    }
     /*
     public function testCompleteScenario()
     {

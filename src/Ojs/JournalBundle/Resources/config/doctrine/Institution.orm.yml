@@ -17,8 +17,10 @@ Ojs\JournalBundle\Entity\Institution:
                 - versioned
         address:
             type: text
+            nullable: TRUE
         about:
             type: text
+            nullable: TRUE
         country:
             type: integer
             nullable: TRUE
