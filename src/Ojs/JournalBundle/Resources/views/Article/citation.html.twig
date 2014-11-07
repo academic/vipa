@@ -1,13 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h2>Add Citation <small>{{  item.getTitle() }}</h2>
+    <h2>{{"add_citation"|trans}} <small>{{  item.getTitle() }}</h2>
     <div class="col-md-12">
         <button class="btn btn-success" id="pasteArticleCitationInline">
-            <i class="fa fa-edit"></i> Paste&Extract Citations
+            <i class="fa fa-edit"></i> {{"paste_extract_cititation"|trans}}
         </button>
         <button class="btn btn-info" id="addArticleCitationInline">
-            <i class="fa fa-plus-circle"></i> New Citation
+            <i class="fa fa-plus-circle"></i> {{"new_cititation"|trans}}
         </button>
         <div id="citationPasteField">
             <div class="form-row well">
@@ -18,23 +18,23 @@
     <form class="col-md-12 form-inline" action="">
         <br>
         <div id="citationContainer"></div>
-        <input type="button" class="form-control btn btn-default" value="Save" id="saveArticleCitation" />
+        <input type="button" class="form-control btn btn-default" value="{{"save"|trans}}" id="saveArticleCitation" />
     </form>
 
 
     <div class="hide" id="citationInfoFields">
         <form class="cite-item form-row well">
             <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
-            <input type="text" class="form-control" value="" name="raw" placeholder="Citation">
+            <input type="text" class="form-control" value="" name="raw" placeholder="{{"cititation"|trans}}">
 
             <a class="pull-right btn btn-warning removeArticleCitationInline">
                 <i class="fa fa-minus-circle"></i>
             </a>
-            <a href="#details" class="addCitationDetails">Details</a>
+            <a href="#details" class="addCitationDetails">{{"details"|trans}}</a>
 
             <div class="citationDetails">
                 <select class="form-control" name="type">
-                    <option value="">[Select Citation Type]</option>
+                    <option value="">[{{"select_citation_type"|trans}}]</option>
                     {% for type in citationTypes %}
                         <option value="{{type.name}}" should="{{type.should|json_encode()}}" must="{{type.must|json_encode()}}">{{type.name}}</option>
                     {%endfor%}
