@@ -1,5 +1,6 @@
 {% extends "::ojsbase.html.twig" %}
 {% set hideleft = 1%}
+
 {%block breadcrumb %}{% endblock %}
 {% block body %}
 
@@ -30,8 +31,8 @@
                     <a href="#" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
                     <a href="#" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     <p class="text-default">
-                        <span class="label label-info"><strong>ISSN</strong>: {{entity.issn}}</span>
-                        <span class="label label-info"><strong>e-ISSN</strong>: {{entity.eissn}}</span>
+                        <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{entity.issn}}</span>
+                        <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{entity.eissn}}</span>
                     </p>
 
                 </div>

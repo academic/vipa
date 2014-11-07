@@ -3,7 +3,7 @@ assetic:
     node: node
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ OjsUserBundle,OjsJournalBundle ]
+    bundles:        [ OjsUserBundle,OjsJournalBundle,OjsSiteBundle ]
     filters:
         cssrewrite: ~
         uglifyjs:
@@ -46,6 +46,7 @@ assetic:
         apptour_js:
                inputs:
                   - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour.min.js
+                  - %kernel.root_dir%/../web/assets/app/js/tour.js
 braincrafted_bootstrap:
     less_filter: none
     auto_configure:
