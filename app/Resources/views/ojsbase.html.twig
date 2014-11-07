@@ -65,16 +65,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        {%endif%}
-    </div>
-    {%include '::ojsfooter.html.twig'%}
+            {%endif%}
+
+
+
+
+        </div>
+        {%include '::ojsfooter.html.twig'%}
+
+    </div><!-- .container -->
 
     {% block javascripts %}
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
-
     {% endblock %}
 </body>
 </html>
