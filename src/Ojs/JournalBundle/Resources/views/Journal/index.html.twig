@@ -8,14 +8,22 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %} 
+
+{% endblock %}
+
 {% block body -%} 
     <div class="large-12 columns">
         <div class="panel">
             <h1>Journal List</h1>
             <div class="panel">
                 <a class="btn btn-info" href="{{path('journal')}}">
-                    <i class="fa fa-asterisk"></i> All journals</a>
-                <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
+                    <i class="fa fa-asterisk" id="link-admin-all-journals"></i> All journals</a>
+                <a class="btn btn-default" id="link-admin-my-journals" href="{{path('user_show_my_journals')}}">
                     <i class="fa fa-user"></i> My journals</a>
             </div>
             <table class="records_list  table" style="width:100%">
@@ -58,4 +66,12 @@
             </div>
         </div> 
     </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
