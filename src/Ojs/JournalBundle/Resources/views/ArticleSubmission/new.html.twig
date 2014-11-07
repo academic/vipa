@@ -9,14 +9,20 @@
 
     <link rel="stylesheet" href="{{asset("/vendor/select2/select2.css")}}" type="text/css"/>
     <link rel="stylesheet" href="{{asset("/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css")}}" type="text/css"/>
-
-{% endblock %}
-
-
+    <style>
+        .slip-reordering {  box-shadow: 0 2px 10px rgba(0,0,0,0.45); }
+        .slip-swiping-container {  overflow-x: hidden;  }
+        #authorlist li {  user-select: none;  -moz-user-select: none; -webkit-user-select: none; cursor: default; }
+    </style>
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %} 
+ {% endblock %}
+    
 {% block body -%}
     <input type="hidden" name="journalId" value="{{ journal.id }}"/>
 
-    <ul class='nav nav-wizard submission-progress'>
+    <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
         <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"articles.article"|trans}}</li>
         <li id="submission-progress-step2"><span class="badge">2</span> {{"authors"|trans}}</li>
         <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
@@ -25,7 +31,6 @@
     </ul>
 
     <form name="base" class="form-horizontal" role="form">
-
         <div class="form-group">
             <label class="col-md-2 control-label">{{"articles.language.primary"|trans}}</label>
             <div class="col-md-9">
@@ -159,11 +164,10 @@
     </script>
 
 {% endblock %}
-
+ 
 {% block javascripts %}
 
     {{ parent() }}
-
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -175,33 +179,23 @@
                     'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
                     'assets/app/js/journalbundle/article_submission.js'
                     'assets/app/js/journalbundle/article_cite.js' 
+                    
         output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %} 
 
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endjavascripts %}
+    
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
+    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endif %}
+    {% endjavascripts %}
 
     <script>
         OjsArticleSubmission.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
-
-
     </script>
-
-    <style>
-        .slip-reordering {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.45);
-        }
-
-        .slip-swiping-container {
-            overflow-x: hidden;
-        }
-
-        #authorlist li {
-            user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            cursor: default;
-        }
-
-
-    </style>
+    
 {% endblock %}
