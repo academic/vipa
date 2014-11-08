@@ -43,7 +43,7 @@ class SiteController extends Controller {
         $data['page'] = 'institution';
         return $this->render('OjsSiteBundle::Site/institutions_index.html.twig', $data);
     }
-    
+
     public function institutionPageAction($institution_id) {
         $em = $this->getDoctrine()->getManager();
         $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->find($institution_id);
@@ -72,6 +72,15 @@ class SiteController extends Controller {
     }
 
     public function journalsIndexAction() {
+        $journalDomain = $this->container->get('journal_domain');
+        $em = $this->getDoctrine()->getManager();
+        $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findAll();
+        $data["institution_types"] = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
+        
+        // TODO find only has journal(s) and count them
+        $data["subjects"] = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+
+        $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'journals';
         return $this->render('OjsSiteBundle::Site/journals_index.html.twig', $data);
     }
@@ -87,7 +96,7 @@ class SiteController extends Controller {
     }
 
     public function lastArticlesIndexAction($journal_id) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
         if (!$data['journal']) {

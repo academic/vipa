@@ -46,10 +46,11 @@ ojs_last_articles_index:
     pattern:  /journal/{journal_id}/last
     defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
     
+ojs_archive_index:
+    pattern:  /journal/{journal_id}/archive
+    defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
+    
 ojs_article_page:
     pattern:  /journal/{journal_id}/{article_id}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
  
-ojs_archive_index:
-    pattern:  //journal/{journal_id}/archive
-    defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
