@@ -31,16 +31,9 @@
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">X Makaleleri</div>
-                        <table class="records_list  table" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Issn</th>
-                                    <th>First Publish Date</th> 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for entity in entities %}
+                                
+                        <ul class="list-group">
+                            {% for entity in entities %}
                                     <tr>
                                         <td><a  class="label label-success" href="{{ entity.id }}">id: {{ entity.id }}</a>
                                             <a href="{{ entity.uri }}">{{ entity.title }}</a> 
@@ -54,9 +47,6 @@
 
                                     </tr>
                                 {% endfor %}
-                            </tbody>
-                        </table>
-                        <ul class="list-group">
                             <li class="list-group-item list-group-item-default">
                                 <a href="/article"><i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory </a>(1876 – 1986)<br />
                                 <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
