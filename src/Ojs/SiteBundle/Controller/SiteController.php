@@ -107,7 +107,10 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Site/last_articles_index.html.twig', $data);
     }
 
-    public function articlePageAction() {
+    public function articlePageAction($article_id) {
+        $em = $this->getDoctrine()->getManager();
+        /* @var $entity \Ojs\JournalBundle\Entity\Article  */
+        $data['entity'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
         $data['page'] = 'journals';
         return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
