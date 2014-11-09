@@ -1,57 +1,60 @@
 {% extends '::ojsbase.html.twig' %}
 {% block breadcrumb %}
-{% set list = [
+    {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'title': 'User Manager'},
 ] %}
-{{breadcrumb(list)}}
+    {{breadcrumb(list)}}
 {% endblock %}
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>User list</h1>
+    <div class="row">
+        <div class="panel">
+            <h1>User list</h1>
 
-        <table class="records_list  table">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>IsActive</th>
-                    <th>Roles</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-        {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.username }}</td>
-                    <td>{{ entity.email }}</td>
-                    <td>{{ entity.isActive }}</td>
-                    <td style="width: 180px">{% for role in entity.roles %}
-                        <span class="label label-default">{{role.role}}</span>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        {% if isSystemAdmin() %}
-                        <a class="btn-sm btn btn-info" href="/?_su={{entity.username}}">
-                            <i class="fa fa-sign-in"></i>
-                        </a>
-                        {%endif%}
-                        {% set show_path = 'user_show' %}
-                        {% set edit_path = 'user_edit' %}
-                        {% set delete_path = 'user_delete' %}
-                        {% include '::actionbtns.html.twig' %}
-                    </td>
-                </tr>
-        {% endfor %}
-            </tbody>
-        </table>
+            <table class="records_list  table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>IsActive</th>
+                        <th>Roles</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            </td>
+                            <td>{{ entity.username }}</td>
+                            <td>{{ entity.email }}</td>
+                            <td>{{ entity.isActive }}</td>
+                            <td style="width: 180px">
+                                {% for role in entity.roles %}
+                                    <span class="label label-default">{{role.role}}</span>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if isSystemAdmin() %}
+                                    <a class="btn-sm btn btn-info" href="/?_su={{entity.username}}">
+                                        <i class="fa fa-sign-in"></i>
+                                    </a>
+                                {%endif%}
+                                {% set show_path = 'user_show' %}
+                                {% set edit_path = 'user_edit' %}
+                                {% set delete_path = 'user_delete' %}
+                                {% include '::actionbtns.html.twig' %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-        <a href="{{ path('user_new') }}" class="btn btn-info">
-            <i class="fa fa-plus"></i> {% trans %}c{% endtrans %}
-        </a>
+            <a href="{{ path('user_new') }}" class="btn btn-info">
+                <i class="fa fa-plus"></i> {% trans %}c{% endtrans %}
+            </a>
+        </div>
     </div>
-</div>
-    {% endblock %}
+{% endblock %}
