@@ -31,70 +31,18 @@
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">X Makaleleri</div>
-                                
+
                         <ul class="list-group">
                             {% for entity in entities %}
-                                    <tr>
-                                        <td><a  class="label label-success" href="{{ entity.id }}">id: {{ entity.id }}</a>
-                                            <a href="{{ entity.uri }}">{{ entity.title }}</a> 
-                                            <span class="badge" title="published">{{ entity.created.date }}</span>
-                                            <span class="label label-info" title="Status">{{entity.status}}</span>
-                                        </td>
-                                        <td></td>
-                                        <td>{% if entity.created.date %}{{ entity.created.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-
-                                        <td>{{ entity.status }}</td>
-
-                                    </tr>
-                                {% endfor %}
-                            <li class="list-group-item list-group-item-default">
-                                <a href="/article"><i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory </a>(1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <a href="/article"><i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory</a> (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <a href="/article"><i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory</a> (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <a href="/article"><i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory</a> (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
+                                <li class="list-group-item list-group-item-default">
+                                    <a href="./{{ entity.id }}"><i class="fa fa-file-text"></i> {{ entity.title }} </a>(1876 – 1986)<br />
+                                    <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego ({% if entity.created.date %}{{ entity.created.date|date('Y-m-d H:i:s') }}{% endif %})</span>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
-
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div class="panel-heading">Y Makaleleri</div>
-
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-default">
-                                <i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                            <li class="list-group-item list-group-item-default">
-                                <i class="fa fa-file-text"></i> Sunspot Numbers and Areas from the Madrid Astronomical Observatory (1876 – 1986)<br />
-                                <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego (November 2014)</span>
-                            </li>
-                        </ul>
-                    </div>
-
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-
-
-
                     <div class="panel panel-default">
                         <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> Blok ekle</span></a></div>
                     </div>
