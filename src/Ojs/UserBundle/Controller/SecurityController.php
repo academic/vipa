@@ -5,7 +5,8 @@ namespace Ojs\UserBundle\Controller;
 use \Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -29,6 +30,7 @@ class SecurityController extends Controller {
     }
 
     public function confirmEmailAction(Request $request, $code) {
+        /** @var Session $session */
         $session = $request->getSession();
         /**
          * @var User $user
@@ -40,6 +42,7 @@ class SecurityController extends Controller {
         }
         $do = $this->getDoctrine();
         $em = $this->getDoctrine()->getManager();
+        /** @var FlashBag $flashBag */
         $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
@@ -92,17 +95,17 @@ class SecurityController extends Controller {
     }
 
     public function registerAction(Request $request) {
-        $session = $request->getSession();
         $error = null;
         $user = new User();
         $form = $this->createForm(new \Ojs\UserBundle\Form\RegisterFormType(), $user);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $data = $form->getData();
             // check user name exists
             $em = $this->getDoctrine()->getManager();
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
+            $user->addRole($em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
+            $user->generateApiKey();
             $user->setStatus(1);
             $user->setIsActive(0);
             $em->persist($user);
@@ -120,6 +123,7 @@ class SecurityController extends Controller {
                     ->setBody($msgBody)
                     ->setContentType('text/html');
             $this->get('mailer')->send($message);
+
 
             $request->getSession()
                     ->getFlashBag()
