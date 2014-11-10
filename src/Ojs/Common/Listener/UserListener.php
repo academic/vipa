@@ -48,14 +48,14 @@ class UserListener
     {
         $user = $this->checkUser();
 
+        if (!$user || !$this->session->get('selectedJournalId')) {
+            return;
+        }
         //for API_KEY based connection
         if($user instanceof \Symfony\Component\Security\Core\User\User){
             $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
         }
 
-        if (!$user || !$this->session->get('selectedJournalId')) {
-            return;
-        }
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $this->session->get('selectedJournalId')));
@@ -76,7 +76,7 @@ class UserListener
     {
         $user = $this->checkUser();
         if (!$user) {
-            throw new UsernameNotFoundException("User not found.");
+            return;
         }
 
         //for API_KEY based connection
@@ -99,7 +99,7 @@ class UserListener
         /** @var User $user */
         $user = $this->checkUser();
         if (!$user) {
-            throw new UsernameNotFoundException("User not found.");
+            return;
         }
 
         //for API_KEY based connection
