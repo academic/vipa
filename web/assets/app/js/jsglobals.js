@@ -29,7 +29,7 @@ var OjstrCommon = {
     },
     errorModal: function(message, title) {
         BootstrapDialog.show({
-            title: title ? title : 'Error',
+            title: title ? title : 'Warning',
             message: message,
             type: OjstrCommon.modalTypes.danger
         });
