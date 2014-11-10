@@ -102,6 +102,7 @@ class UserController extends Controller
     {
         $userRepo = $this->getDoctrine()->getRepository('OjsUserBundle:User');
         $sessionUser = $this->getUser();
+        /** @var User $user */
         $user = $username ?
                 $userRepo->findOneByUsername($username) :
                 $sessionUser;
