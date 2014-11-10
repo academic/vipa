@@ -1,0 +1,14 @@
+manager_journal_users:
+    pattern:  /users
+    defaults: { _controller: OjsManagerBundle:Manager:users }
+
+manager_journal_user_add:
+    pattern:  /user/add
+    defaults: { _controller: OjsManagerBundle:Admin:addUser }
+    requirements: { _method: post }
+    
+manager_journal_role_users:
+    pattern:  /role/{roleId}/users
+    defaults: { _controller: OjsManagerBundle:Manager:roleUsers }
+    
+    

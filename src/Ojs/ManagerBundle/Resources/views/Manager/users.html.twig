@@ -1,0 +1,45 @@
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %} 
+
+    <div class="row">
+        <div class="panel">
+            <h1><strong>{{journal.title}}</strong> Users</h1>
+            <table class="records_list  table">
+                <thead>
+                    <tr> 
+                        <th>{{"username"|trans}}</th>
+                        <th>{{"email"|trans}}</th>
+                        <th>IsActive</th>
+                        <th>{{"roles"|trans}}</th>
+                        <th>{{"actions"|trans}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{ entity.user.username }}</td>
+                            <td>{{ entity.user.email }}</td>
+                            <td>{{ entity.user.isActive }}</td>
+                            <td style="width: 180px">
+                                <a class="label label-info" href="{{ path("manager_journal_role_users" , { "roleId": entity.role.id } )}}">{{entity.role.role}}</a>
+                            </td>
+                            <td>
+                                {% if isSystemAdmin() %}
+                                    <a class="btn-sm btn btn-info" href="/?_su={{entity.user.username}}">
+                                        <i class="fa fa-sign-in"></i>
+                                    </a>
+                                {%endif%}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="#" class="btn btn-info">
+                <i class="fa fa-plus"></i> Add user
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

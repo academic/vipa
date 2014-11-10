@@ -63,6 +63,45 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $url;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals;
+    
+    public function __construct()
+    {
+        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add journal
+     * @param  \Ojs\JournalBundle\Entity\Journal $journal
+     * @return Language
+     */
+    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    {
+        $this->journals[] = $journal;
+        return $this;
+    }
+
+    /**
+     * Remove journal
+     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     */
+    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    {
+        $this->journals->removeElement($journal);
+    }
+
+    /**
+     * Get journals
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJournals()
+    {
+        return $this->journals;
+    }
+
+    /**
      * Get id
      *
      * @return integer
