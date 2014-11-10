@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\Institution;
 
 class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInterface
 {
+
     public function load(ObjectManager $manager)
     {
         $institution = new Institution();
@@ -19,12 +20,13 @@ class LoadInstitutionData extends AbstractFixture implements OrderedFixtureInter
         $institution->setAbout("About Abc University");
         $institution->setPhone("+90 312 555 5555");
         $manager->persist($institution);
+        $this->addReference('ref-institution', $institution);
         $manager->flush();
     }
 
     public function getOrder()
     {
-        return 4;
+        return 5;
     }
 
 }
