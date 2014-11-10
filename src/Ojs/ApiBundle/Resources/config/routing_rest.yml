@@ -8,7 +8,7 @@ authors:
   resource:     "OjsApiBundle:AuthorRest"
   name_prefix:  api_
 
-users :
+users:
   type: rest
   resource:     "OjsApiBundle:UserRest"
   name_prefix:  api_

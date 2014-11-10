@@ -51,6 +51,9 @@ services:
           - { name: doctrine.event_subscriber, connection: default }
       calls:
           - [ setAnnotationReader, [ @annotation_reader ] ]
-#    apikey_authenticator:
-#        class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
-#        arguments: ["@api_key_user_provider"]
+    api_key_user_provider:
+        class: Ojs\ApiBundle\Security\ApiKeyUserProvider
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    apikey_authenticator:
+        class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
+        arguments: ["@api_key_user_provider"]

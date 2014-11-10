@@ -97,8 +97,8 @@ class UserRestController extends FOSRestController {
      * @RestView()
      */
     public function getUsersAction(Request $request) {
-        $limit = $request->get('limit');
-        $page = $request->get('page');
+        $limit = $request->get('limit')?$request->get('limit'):12;
+        $page = $request->get('page')?$request->get('page'):1;
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
         }
