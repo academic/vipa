@@ -466,10 +466,6 @@ a:hover .strong{text-decoration: none;}
 .dropdown-submenu.pull-left{float:none;}.dropdown-submenu.pull-left>.dropdown-menu{left:-100%;margin-left:10px;-webkit-border-radius:6px 0 6px 6px;-moz-border-radius:6px 0 6px 6px;border-radius:6px 0 6px 6px;}
 
 
-.square, .btn {
-    border-radius: 0px!important;
-}
-
 /* -- color classes -- */
 .coralbg {
     background-color: #FA396F;
@@ -679,9 +675,6 @@ div.user-menu div.user-menu-content:not(.active){
     margin-top: 15px;
 }
 
-.square, .btn {
-    border-radius: 0px!important;
-}
 
 /* -- media query for user profile image -- */
 @media (max-width: 767px) {
