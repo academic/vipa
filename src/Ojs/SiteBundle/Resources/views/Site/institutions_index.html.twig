@@ -5,15 +5,13 @@
     <div class="container">
         <!-- Page Content -->
         <h1 class="page-header">{% trans %}institutions{% endtrans %}</h1>
-
-
         {% for entity in entities %}
             <div class="panel panel-default">
                 <div class="panel-heading">{{ entity.name }}</div>
                 <div class="panel-body">
 
                     {{dump(entity)}}
-                    
+
                     <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">{% trans %}more{% endtrans %}</a>
                 </div>
 
