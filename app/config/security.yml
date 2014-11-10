@@ -15,6 +15,15 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api
+            stateless: true
+            security: true
+            provider: user_db
+            anonymous: true
+            simple_preauth:
+                authenticator: apikey_authenticator
+
         main:
             switch_user: {parameter: _su}
             pattern: ^/
@@ -44,7 +53,6 @@ security:
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }        
-        - { path: /api/*, roles: IS_AUTHENTICATED_ANONYMOUSLY } 
         - { path: /admin/article, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
         - { path: /admin/journal, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
         - { path: /admin, roles: ROLE_SUPER_ADMIN }
@@ -52,4 +60,5 @@ security:
         - { path: /user, roles: ROLE_USER }
         - { path: /author, roles: ROLE_AUTHOR }
         - { path: /editor, roles: ROLE_EDITOR }
+        - { path: ^/api/*, roles: ROLE_USER }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
