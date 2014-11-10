@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Entity\InstitutionTypes;
 
 class LoadInstitutionTypesData extends AbstractFixture implements OrderedFixtureInterface
 {
+
     public function load(ObjectManager $manager)
     {
         $itype = new InstitutionTypes();
@@ -21,12 +22,14 @@ class LoadInstitutionTypesData extends AbstractFixture implements OrderedFixture
         $itype2->setDescription("Demo intsitution desc.");
         $manager->persist($itype2);
 
+        $this->addReference('ref-institution-type-1', $itype);
+        $this->addReference('ref-institution-type-2', $itype2);
         $manager->flush();
     }
 
     public function getOrder()
     {
-        return 5;
+        return 4;
     }
 
 }
