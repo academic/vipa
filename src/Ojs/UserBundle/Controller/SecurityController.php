@@ -105,7 +105,7 @@ class SecurityController extends Controller {
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
             $user->addRole($em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
-
+            $user->generateApiKey();
             $user->setStatus(1);
             $user->setIsActive(0);
             $em->persist($user);
@@ -124,8 +124,8 @@ class SecurityController extends Controller {
                     ->setContentType('text/html');
             $this->get('mailer')->send($message);
 
-            /** @var Session $session */
-            $session = $request->getSession()
+
+            $request->getSession()
                     ->getFlashBag()
                     ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
 

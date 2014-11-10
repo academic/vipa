@@ -2,9 +2,12 @@
 
 namespace Ojs\Common\Listener;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\User;
 
 class UserListener
 {
@@ -21,7 +24,6 @@ class UserListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $kernel = $event->getKernel();
         $request = $event->getRequest();
         $this->session = $request->getSession();
 
@@ -45,6 +47,12 @@ class UserListener
     public function loadJournalRoles()
     {
         $user = $this->checkUser();
+
+        //for API_KEY based connection
+        if($user instanceof \Symfony\Component\Security\Core\User\User){
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        }
+
         if (!$user || !$this->session->get('selectedJournalId')) {
             return;
         }
@@ -68,8 +76,14 @@ class UserListener
     {
         $user = $this->checkUser();
         if (!$user) {
-            return FALSE;
+            throw new UsernameNotFoundException("User not found.");
         }
+
+        //for API_KEY based connection
+        if($user instanceof \Symfony\Component\Security\Core\User\User){
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        }
+
         $clients = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
             array('proxyUserId' => $user->getId())
         );
@@ -82,10 +96,17 @@ class UserListener
      */
     public function loadJournals()
     {
+        /** @var User $user */
         $user = $this->checkUser();
         if (!$user) {
-            return FALSE;
+            throw new UsernameNotFoundException("User not found.");
         }
+
+        //for API_KEY based connection
+        if($user instanceof \Symfony\Component\Security\Core\User\User){
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        }
+
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $userJournals = $repo->findByUserId($user->getId());

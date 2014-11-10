@@ -45,18 +45,23 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $roleJournalManager = $manager->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_JOURNAL_MANAGER'));
         $this->subject = $this->getReference('ref-subject');
 
-        $author = $this->addAuthor();
-        $author2 = $this->addAuthorAlt();
-        $editor = $this->addEditor();
-        $journalManager = $this->addJournalManager();
 
+
+        $author = $this->addAuthor();
         $author->addRole($role);
         $author->addRole($roleAuthor);
+
+        $author2 = $this->addAuthorAlt();
         $author2->addRole($roleAuthor);
+
+        $editor = $this->addEditor();
         $editor->addRole($role);
         $editor->addRole($roleEditor);
+
+        $journalManager = $this->addJournalManager();
         $journalManager->addRole($role);
         $journalManager->addRole($roleJournalManager);
+        $journalManager->generateApiKey();
 
         $manager->persist($author);
         $manager->persist($author2);
@@ -83,6 +88,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author->setFirstName("Demo1");
         $author->setLastName("Author1");
         $author->addSubject($this->subject);
+        $author->generateApiKey();
+
         $this->manager->persist($author);
 
         return $author;
@@ -100,6 +107,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $author2->setFirstName("Demo2");
         $author2->setLastName("Author2");
         $author2->addSubject($this->subject);
+        $author2->generateApiKey();
+
         $this->manager->persist($author2);
 
         return $author2;
@@ -116,6 +125,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor->setStatus(1);
         $editor->addSubject($this->subject);
         $editor->setUsername("demo_editor");
+        $editor->generateApiKey();
+
         $this->manager->persist($editor);
 
         return $editor;
@@ -132,6 +143,8 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $journalManager->setStatus(1);
         $journalManager->addSubject($this->subject);
         $journalManager->setUsername("demo_journal_manager");
+        $journalManager->generateApiKey();
+
         $this->manager->persist($journalManager);
 
         return $journalManager;

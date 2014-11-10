@@ -2,19 +2,33 @@
 
 namespace Ojs\ApiBundle\Security;
 
+use Doctrine\ORM\EntityManager;
+use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;
-use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class ApiKeyUserProvider implements UserProviderInterface
 {
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     public function getUsernameForApiKey($apiKey)
     {
-        
-        $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneByApiKey($apiKey);
-        
+
+        /** @var UserRepository $userRepo */
+        $userRepo = $this->em->getRepository('OjsUserBundle:User');
+        $user = $userRepo->findOneBy([
+            'apiKey'=>$apiKey
+        ]);
+
+        if(!($user instanceof \Ojs\UserBundle\Entity\User)){
+            return false;
+        }
 
         return $user->getUsername();
     }
@@ -33,11 +47,7 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        // this is used for storing authentication in the session
-        // but in this example, the token is sent in each request,
-        // so authentication can be stateless. Throwing this exception
-        // is proper to make things stateless
-        throw new UnsupportedUserException();
+        return $user;
     }
 
     public function supportsClass($class)
