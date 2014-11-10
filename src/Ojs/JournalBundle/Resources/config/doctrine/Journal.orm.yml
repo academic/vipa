@@ -2,6 +2,13 @@ Ojs\JournalBundle\Entity\Journal:
     type: entity
     table: null
     repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
+    manyToOne:
+        institution:
+          targetEntity: Institution
+          joinColumn:
+            name: institution_id
+            referencedColumnName: id
+          inversedBy: journals
     oneToMany:
         settings:
             targetEntity: JournalSetting
@@ -140,6 +147,12 @@ Ojs\JournalBundle\Entity\Journal:
         themeId:
             type: integer
             column: theme_id
+            nullable: true
+            options:
+                default: 0
+        institutionId:
+            type: integer
+            column: institution_id
             nullable: true
             options:
                 default: 0

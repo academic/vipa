@@ -164,6 +164,20 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     private $settings;
 
+    
+    /**
+     * @var \Ojs\JournalBundle\Entity\Institution
+     * @Expose
+     */
+    private $institution;
+    
+     /**
+     * @var integer
+     * @Expose
+     */
+    private $institutionId;
+    
+    
     /**
      * Constructor
      */
@@ -513,16 +527,55 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->url;
     }
 
+    
+    /**
+     * Set institutionId
+     * @param  int  $institutionId
+     * @return Journal
+     */
+    public function setInstitutioId($institutionId)
+    {
+        $this->institutionId = $institutionId;
+        return $this;
+    }
+
+    /**
+     * Get institutionId
+     * @return integer
+     */
+    public function getInstitutionId()
+    {
+        return $this->institutionId;
+    }
+    
+    /**
+     * Set institution
+     * @param  \Ojs\JournalBundle\Entity\Institution  $institution
+     * @return Journal
+     */
+    public function setInstitution($institution)
+    {
+        $this->institutionId = $institution;
+        return $this;
+    }
+
+    /**
+     * @return \Ojs\JournalBundle\Entity\Institution
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
+    
+    
     /**
      * Set country
-     *
      * @param  integer $country
      * @return Journal
      */
     public function setCountry($country)
     {
         $this->country = $country;
-
         return $this;
     }
 
