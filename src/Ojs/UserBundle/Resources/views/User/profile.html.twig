@@ -37,6 +37,10 @@
                     <td>{{ entity.email }}</td>
                 </tr>
                 <tr>
+                    <th>{{ "API Key"|trans }}</th>
+                    <td>{{ entity.apiKey }}</td>
+                </tr>
+                <tr>
                     <th>{{"Roles"|trans}}</th>
                     <td>
                         {% for role in entity.roles %}

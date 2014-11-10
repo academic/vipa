@@ -15,6 +15,15 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api
+            stateless: true
+            security: true
+            provider: user_db
+            anonymous: true
+            simple_preauth:
+                authenticator: apikey_authenticator
+
         main:
             switch_user: {parameter: _su}
             pattern: ^/
@@ -41,9 +50,6 @@ security:
                 domain: ~
             security: true
             anonymous: true
-            stateless: true
-            simple_preauth:
-                authenticator: apikey_authenticator
     access_control:
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }        

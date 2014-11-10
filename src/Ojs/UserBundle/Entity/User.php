@@ -293,7 +293,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param String tr$lastName
+     * @param string $lastName
      * @return $this
      */
     public function setLastName($lastName)
@@ -476,6 +476,21 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     public function generateToken()
     {
         return md5($this->getEmail()) . md5(uniqid($this->getUsername(), true));
+    }
+
+    /**
+     * Generates an API Key
+     */
+    public function generateApiKey()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $apikey = '';
+        for ($i = 0; $i < 64; $i++) {
+            $apikey .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        $apikey = base64_encode(sha1(uniqid('ue' . rand(rand(), rand())) . $apikey));
+        $this->apiKey = $apikey;
+
     }
 
 }

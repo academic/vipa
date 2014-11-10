@@ -3,8 +3,7 @@
 namespace Ojs\ApiBundle\Security;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,11 +19,17 @@ class ApiKeyUserProvider implements UserProviderInterface
 
     public function getUsernameForApiKey($apiKey)
     {
-        
-        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByApiKey($apiKey);
-        if(!$user){
-            throw new AccessDeniedException("User Not Found");
+
+        /** @var UserRepository $userRepo */
+        $userRepo = $this->em->getRepository('OjsUserBundle:User');
+        $user = $userRepo->findOneBy([
+            'apiKey'=>$apiKey
+        ]);
+
+        if(!($user instanceof \Ojs\UserBundle\Entity\User)){
+            return false;
         }
+
         return $user->getUsername();
     }
 
