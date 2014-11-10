@@ -13,6 +13,8 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
     {
         $languages = $manager->getRepository('OjsJournalBundle:Lang')->findAll();
 
+        $institution = $this->getReference('ref-institution');
+        
         $journal = new Journal();
         $journal->setIssn("1300-7041");
         $journal->setMission("Mission text");
@@ -25,6 +27,7 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setTitleTransliterated(null);
         $journal->setUrl("https://app.ojs.io");
         $journal->setSubdomain("local");
+        $journal->setInstitution($institution);
         $manager->persist($journal);
 
         $journal2 = new Journal();
@@ -39,6 +42,8 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal2->setTitleTransliterated(null);
         $journal2->setUrl("https://example2.edu");
         $journal2->setSubdomain("demo2");
+        $journal2->setInstitution($institution);
+
         $manager->persist($journal2);
 
         /* @var $lang  \Ojs\JournalBundle\Entity\Lang */

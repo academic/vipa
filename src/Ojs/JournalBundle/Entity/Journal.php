@@ -533,7 +533,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param  int  $institutionId
      * @return Journal
      */
-    public function setInstitutioId($institutionId)
+    public function setInstitutionId($institutionId)
     {
         $this->institutionId = $institutionId;
         return $this;
@@ -555,7 +555,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function setInstitution($institution)
     {
-        $this->institutionId = $institution;
+        $this->institution = $institution;
         return $this;
     }
 
