@@ -1,3 +1,8 @@
+manager_actions:
+    resource: "@OjsManagerBundle/Resources/config/routing/manager_routing.yml"
+    prefix:   /manager
+    
+    
 dashboard:
     pattern:  /dashboard
     defaults: { _controller: OjsManagerBundle:Admin:dashboardCheck }

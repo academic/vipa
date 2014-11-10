@@ -8,6 +8,12 @@ Ojs\JournalBundle\Entity\Institution:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+        journals:
+          targetEntity: Journal
+          mappedBy: institution
+          cascade: ["persist", "merge"]
+          fetch: LAZY
     fields:
         name:
             type: string
