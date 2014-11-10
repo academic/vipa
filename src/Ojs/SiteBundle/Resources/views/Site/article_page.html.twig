@@ -8,8 +8,8 @@
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <ol class="breadcrumb">
                     <li><a href="/">Ujs</a></li>
-                    <li><a href="/journal">Cumhuriyet Science Journal</a></li>
-                    <li><a href="/archive">Arşiv</a></li>
+                    <li><a href="/journal/{{entity.journal.id }}">{{ entity.journal.title }}</a></li>
+                    <li><a href="/journal/{{entity.journal.id }}/archive">Arşiv</a></li>
                     <li class="active">Cilt4 / Sayı 12-A</li>
                 </ol>
 
@@ -58,13 +58,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>{{"journal"|trans}}</th>
-                                    <td>
-                                        <a href="/journal/{{entity.journal.id }}">
-                                            {{ entity.journal.title }}</a>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>{{"section"|trans}}</th>
                                     <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
                                 </tr>
@@ -83,24 +76,7 @@
                                 <tr>
                                     <th>{{"primaly_language"|trans}}</th>
                                     <td>
-
                                         <span class="label label-info">{{ entity.primaryLanguage}}</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>DOI</th>
-                                    <td>
-                                        {{ entity.doi }}
-                                        {% if entity.doi %}
-                                            <a href="#" onclick="$('#doiform').submit();">
-                                                <small>
-                                                    {{"check"|trans}}
-                                                </small>
-                                            </a>
-                                        {% endif %}
-                                        <form action="http://dx.doi.org/" method="POST" id="doiform">
-                                            <input type="hidden" name="hdl" value="{{ entity.doi }}"/>
-                                        </form>
                                     </td>
                                 </tr>
 
@@ -110,7 +86,6 @@
                                         {{ entity.subjects }}
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th>{{"keywords"|trans}}</th>
                                     <td> {{ entity.keywords }} </td>
@@ -118,15 +93,6 @@
                                 <tr>
                                     <th>Otherid</th>
                                     <td>{{ entity.otherId }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Journalid</th>
-                                    <td>{{ entity.journalId }}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>Isanonymous</th>
-                                    <td>{{ entity.isAnonymous }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"pubdate"|trans}}</th>
@@ -159,10 +125,6 @@
                                 <tr>
                                     <th>Abstracttransliterated</th>
                                     <td>{{ entity.abstractTransliterated }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"citations"|trans}}</th>
-                                    <td> @todo </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -207,7 +169,7 @@
 
                         </div>
                         <div id="articleCitations">
-                            <h4 class="page-header">Referanslar</h4>
+                            <h4 class="page-header">{{"citations"|trans}}</h4>
                             <div>
                                 <ul>
                                     <li>Aydin, Mustafa &amp; Ifandis, Kostas (ed.) (2004). Turkish-Greek Relations, The Security Dilemma in the Aegean. London &amp; New York: Routledge.</li>

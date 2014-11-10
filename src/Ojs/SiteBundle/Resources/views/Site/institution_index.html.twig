@@ -10,9 +10,8 @@
         <div class="panel panel-default">
             <div class="panel-body">
 
-                {{dump(entity)}}
 
-                <a href="/organization/{{ entity.id }}" class="btn btn-success pull-right">{% trans %}more_info{% endtrans %}</a>
+
             </div>
 
 
@@ -26,37 +25,11 @@
             </div>
         </div>
 
-
-
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.row -->
+        <ul class="list-group">
+            {% for journal in entity.journals %}
+                <li class="list-group-item"><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></li>
+                {%endfor%}
+        </ul>
 
     </div>
     <!-- /.container -->
