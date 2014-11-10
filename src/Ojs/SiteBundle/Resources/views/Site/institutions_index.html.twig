@@ -7,18 +7,18 @@
         <h1 class="page-header">{% trans %}institutions{% endtrans %}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
-                <div class="panel-heading">{{ entity.name }}</div>
+                <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
                     <ul class="list-group">
                         {% for journal in entity.journals %}
-                            <li class="list-group-item"><a href="/journal/{{ journal.id }}/">{{ journal.title }}</a></li>
+                            <li class="list-group-item"><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></li>
                             {%endfor%}
                     </ul>
                 </div>
 
 
                 <div class="panel-footer">
-                    <a href="/organization/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{% trans %}more{% endtrans %} <i class="fa fa-arrow-right"></i></a>
+                    <a href="/institution/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{% trans %}more{% endtrans %} <i class="fa fa-arrow-right"></i></a>
                     <i class="fa fa-tags"></i>{% trans %}tags{% endtrans %}
                     <a href="#"><span class="badge">ojs</span></a>
                     <a href="#"><span class="badge">university</span></a>
