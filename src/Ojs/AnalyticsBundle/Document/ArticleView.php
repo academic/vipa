@@ -22,6 +22,25 @@ class ArticleView
     protected $pageUrl;
 
     /**
+     * @MongoDB\Int
+     */
+    protected $articleId;
+
+    /**
+     * @MongoDB\Document
+     */
+    protected $user;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $remoteIp;
+
+    /**
+     * @MongoDB\Date
+     */
+    protected $date;
+    /**
      * @MongoDb\String
      */
     protected $total;
@@ -60,6 +79,7 @@ class ArticleView
         return $this->total;
     }
 
+
     /**
      * Page full url with domain
      * Set pageUrl
@@ -84,4 +104,47 @@ class ArticleView
         return $this->pageUrl;
     }
 
+    public function setUser($id)
+    {
+        $this->user = $id;
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setRemoteIp($ip)
+    {
+        $this->remoteIp = $ip;
+        return $this;
+    }
+
+    public function getRemoteIp()
+    {
+        return $this->remoteIp;
+    }
+
+    public function getArticleId()
+    {
+        return $this->articleId;
+    }
+
+    public function setArticleId($id)
+    {
+        $this->articleId = $id;
+        return $this;
+    }
 }

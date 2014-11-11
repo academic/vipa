@@ -14,10 +14,6 @@ analytics_views_journal:
     path:     /analytics/views/journal
     defaults: { _controller: OjsAnalyticsBundle:Journal:journalViews }
 
-analytics_views_journal:
-    path:     /analytics/views/journal/{id}
-    defaults: { _controller: OjsAnalyticsBundle:Journal:journalViews }
-
 
 #articles
 
@@ -31,8 +27,4 @@ analytics_views_article_one:
 
 analytics_downloads_article:
     path:     /analytics/downloads/article
-    defaults: { _controller: OjsAnalyticsBundle:Article:articleDownloads }
-
-analytics_downloads_article:
-    path:     /analytics/downloads/article/{id}
     defaults: { _controller: OjsAnalyticsBundle:Article:articleDownloads }
