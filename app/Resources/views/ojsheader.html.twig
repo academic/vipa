@@ -2,19 +2,19 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">{% trans %}toggle_navigation{% endtrans %}</span>
+                <span class="sr-only">{{"toggle_navigation"|trans}}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">{% trans %}ojs{% endtrans %}</a>
+            <a class="navbar-brand" href="/">{{"ojs"|trans}}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">{% trans %}home{% endtrans %}</a></li>
-                <li{%if page == 'institution'%} class="active"{%endif%}><a href="/institutions">{% trans %}institutions{% endtrans %}</a></li>
-                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">{% trans %}journals{% endtrans %}</a></li>
-                <li{%if page == 'send'%} class="active"{%endif%}><a href="#">{% trans %}send_article{% endtrans %}</a></li>
+                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">{{"home"|trans}}</a></li>
+                <li{%if page == 'institution'%} class="active"{%endif%}><a href="/institutions">{{"institutions"|trans}}</a></li>
+                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">{{"journals"|trans}}</a></li>
+                <li{%if page == 'send'%} class="active"{%endif%}><a href="#">{{"send_article"|trans}}</a></li>
 
                 {%include '::language_selector.html.twig'%}
             </ul>
@@ -37,35 +37,35 @@
                                 <!-- User image --> 
                                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
-                                        <a href="/dashboard"><i class="fa fa-shield"></i> {% trans %}dashboard{% endtrans %}</a>
+                                        <a href="/dashboard"><i class="fa fa-shield"></i> {{"dashboard"|trans}}</a>
                                     </li>
                                 {%endif%}
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> {% trans %}log_out_from_user{% endtrans %}</a>
+                                        <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> {{"log_out_from_user"|trans}}</a>
                                     </li>
                                 {%endif%}
                                 <!-- Menu Footer-->
                                 <li>
                                     <a href="{{path('ojs_user_index')}}">
-                                        <i class="fa fa-cog"></i> {% trans %}user_page{% endtrans %}</a>
+                                        <i class="fa fa-cog"></i> {{"user_page"|trans}}</a>
                                 </li>
                                 <li>
                                     <a href="{{path('myprofile')}}">
-                                        <i class="fa fa-user"></i> {% trans %}profile{% endtrans %}</a>
+                                        <i class="fa fa-user"></i> {{"profile"|trans}}</a>
                                 </li>
                                 <li>
                                     <a href="{{ path('logout') }}">
-                                        <i class="fa fa-sign-out"></i> {% trans %}log_out{% endtrans %}</a>
+                                        <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
                                 </li>                           
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{path('user_my_proxy_parents')}}">{% trans %}proxy_users{% endtrans %}</a>
+                                    <a href="{{path('user_my_proxy_parents')}}">{{"proxy_users"|trans}}</a>
                                 </li>
                                 {% if userclients() %}
 
                                     <li>
-                                        <a> <i class="fa fa-key"></i> {% trans %}login_as{% endtrans %}</a>          
+                                        <a> <i class="fa fa-key"></i> {{"login_as"|trans}}</a>          
                                     </li>
                                     <li >                             
 
@@ -75,7 +75,7 @@
                                         </li>
                                     {% endfor %}
                                     <li><a href="{{path('user_my_proxy_clients')}}">
-                                            {% trans %}list_my_proxys{% endtrans %} 
+                                            {{"list_my_proxys"|trans}} 
                                         </a>
                                     </li>
                                 {%endif%}
@@ -86,17 +86,17 @@
                         {% if app.user == false %}
                             <li>
                                 <a class="btn btn-link" href="{{path('login')}}">
-                                    <i class="fa fa-sign-in"></i> {% trans %}login{% endtrans %}</a>
+                                    <i class="fa fa-sign-in"></i> {{"login"|trans}}</a>
                             </li>
                         {%endif%}
                         <li>
                             <a class="btn btn-link" href="#search">
-                                <i class="fa fa-search"></i> {% trans %}search{% endtrans %}</a>
+                                <i class="fa fa-search"></i> {{"search"|trans}}</a>
                             <div id="search">
                                 <button type="button" class="close">×</button>
                                 <form action="/search" method="get">
-                                    <input type="search" name="q" value="" placeholder="{% trans %}search_query{% endtrans %}" />
-                                    <button type="submit" class="btn btn-primary">{% trans %}search{% endtrans %}</button>
+                                    <input type="search" name="q" value="" placeholder="{{"search_query"|trans}}" />
+                                    <button type="submit" class="btn btn-primary">{{"search"|trans}}</button>
                                 </form>
                             </div>
                         </li>
