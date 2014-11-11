@@ -5,9 +5,41 @@ namespace Ojs\ApiBundle\Controller;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Put;
+use Ojs\AnalyticsBundle\Document\ArticleView;
+use Symfony\Component\HttpFoundation\Request;
 
 class AnalyticsRestController extends FOSRestController
 {
+    /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Update article view count",
+     *  requirements={
+     *      {
+     *          "name"="page_url",
+     *          "dataType"="string",
+     *          "description"="Requested page url"
+     *      }
+     *  }
+     * )
+     * @Put("/articles/{id}/analytics/view/add")
+     */
+    public function putArticlesViewAction(Request $request, $id)
+    {
+        $dm = $this->get('doctrine.odm.mongodb.document_manager');
+        $stat = new ArticleView();
+        $stat->setDate(new \DateTime("now"));
+        $stat->setPageUrl($request->get("page_url"));
+        $stat->setRemoteIp($request->getClientIp());
+        $stat->setUser($this->getUser());
+        $stat->setArticleId($id);
+        $dm->persist($stat);
+        $dm->flush();
+
+        return $stat;
+    }
+
     /**
      *
      * @ApiDoc(
@@ -19,7 +51,7 @@ class AnalyticsRestController extends FOSRestController
     public function getArticlesViewAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('OjsAnalyticsBundle:ArticleView')->findByArticleId($id);
+        $data = $dm->getRepository('OjsAnalyticsBundle:ArticleView')->findBy(['articleId'=>$id]);
 
         return $data;
     }
@@ -91,9 +123,9 @@ class AnalyticsRestController extends FOSRestController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $repo = $dm->getRepository('OjsAnalyticsBundle:ArticleView');
         $result = $repo->createQueryBuilder('OjsAnalyticsBundle:' . $documentName)
-                ->field('journalId')->equals($id)
-                ->getQuery()
-                ->execute();
+            ->field('journalId')->equals($id)
+            ->getQuery()
+            ->execute();
 
         return $result->count();
     }

@@ -31,7 +31,7 @@ class ArticleStatsBase
     /**
      * Get id
      *
-     * @return id $id
+     * @return integer $id
      */
     public function getId()
     {
