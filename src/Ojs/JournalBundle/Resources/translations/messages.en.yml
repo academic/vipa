@@ -28,6 +28,7 @@ journal:
     journal: journal
     journals: Journals
     about: About Journal
+    all: All Journals
 articles:
     articles: Articles
     article: Article
