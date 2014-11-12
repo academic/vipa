@@ -11,7 +11,7 @@ class ArticleControllerTest extends TestHelper
 {
     public function testStatus()
     {
-        $client = static::createClient();
+        $client = $this->client;
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
         $client->request('GET', '/admin/article/');

@@ -7,7 +7,7 @@ use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 ini_set('session.save_handler', 'files');
-ini_set('session.save_path', 'app/cache');
+ini_set('session.save_path', '/tmp');
 session_start();
 
 class TestHelper extends WebTestCase
@@ -41,8 +41,7 @@ class TestHelper extends WebTestCase
      */
     protected function logIn($username = null, $role = null)
     {
-        $client = static::createClient();
-        $session = $client->getContainer()->get('session');
+        $session = $this->client->getContainer()->get('session');
         $firewall = 'main';
         $username = $username ? $username : 'admin';
         $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username);
