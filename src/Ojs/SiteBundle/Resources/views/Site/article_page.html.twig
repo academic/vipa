@@ -8,18 +8,18 @@
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <ol class="breadcrumb">
                     <li><a href="/">Ujs</a></li>
-                    <li><a href="/journal/{{entity.journal.id }}">{{ entity.journal.title }}</a></li>
-                    <li><a href="/journal/{{entity.journal.id }}/archive">Arşiv</a></li>
+                    <li><a href="/journal/{{article.journal.id }}">{{ article.journal.title }}</a></li>
+                    <li><a href="/journal/{{article.journal.id }}/archive">Arşiv</a></li>
                     <li class="active">Cilt4 / Sayı 12-A</li>
                 </ol>
 
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div id="articleTitle">
-                            <h2>{{ entity.title }}
+                            <h2>{{ article.title }}
                                 <br>
-                                {% if entity.articleAuthors %}
-                                    {% for authorsInfo in entity.articleAuthors %}
+                                {% if article.articleAuthors %}
+                                    {% for authorsInfo in article.articleAuthors %}
                                         <span><small>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</small></span>
                                         {% if not loop.last %}, {% endif %}
                                     {% endfor %}
@@ -35,22 +35,22 @@
                             <tbody>
                                 <tr>
                                     <th>{{"title"|trans}}</th>
-                                    <td>{{ entity.title }}</td>
+                                    <td>{{ article.title }}</td>
                                 </tr>
                                 <tr>
                                     <th>Titletransliterated</th>
-                                    <td>{{ entity.titleTransliterated }}</td>
+                                    <td>{{ article.titleTransliterated }}</td>
                                 </tr>
 
                                 <tr>
                                     <th>{{"subtitle"|trans}}</th>
-                                    <td>{{ entity.subtitle }}</td>
+                                    <td>{{ article.subtitle }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"author"|trans}}</th>
                                     <td>
-                                        {% if entity.articleAuthors %}
-                                            {% for authorsInfo in entity.articleAuthors %}
+                                        {% if article.articleAuthors %}
+                                            {% for authorsInfo in article.articleAuthors %}
                                                 <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span>
                                                 {% if not loop.last %}, {% endif %}
                                             {% endfor %}
@@ -59,13 +59,13 @@
                                 </tr>
                                 <tr>
                                     <th>{{"section"|trans}}</th>
-                                    <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+                                    <td>{% if article.section %}{{ article.section.title }}{% endif %}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"languages"|trans}}</th>
                                     <td>
-                                        {% if entity.languages %}
-                                            {% for language in entity.languages %}
+                                        {% if article.languages %}
+                                            {% for language in article.languages %}
                                                 <a class="btn btn-info btn-sm">
                                                     <span>{{ language.name }} [{{ language.code}}]</span>
                                                 </a>
@@ -76,55 +76,55 @@
                                 <tr>
                                     <th>{{"primaly_language"|trans}}</th>
                                     <td>
-                                        <span class="label label-info">{{ entity.primaryLanguage}}</span>
+                                        <span class="label label-info">{{ article.primaryLanguage}}</span>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <th>{{"subjects"|trans}}</th>
                                     <td>
-                                        {{ entity.subjects }}
+                                        {{ article.subjects }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>{{"keywords"|trans}}</th>
-                                    <td> {{ entity.keywords }} </td>
+                                    <td> {{ article.keywords }} </td>
                                 </tr>
                                 <tr>
                                     <th>Otherid</th>
-                                    <td>{{ entity.otherId }}</td>
+                                    <td>{{ article.otherId }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"pubdate"|trans}}</th>
-                                    <td>{{ entity.pubdate|date('Y-m-d H:i:s') }}</td>
+                                    <td>{{ article.pubdate|date('Y-m-d H:i:s') }}</td>
                                 </tr>
                                 <tr>
                                     <th>Pubdateseason</th>
-                                    <td>{{ entity.pubdateSeason }}</td>
+                                    <td>{{ article.pubdateSeason }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"part"|trans}}</th>
-                                    <td>{{ entity.part }}</td>
+                                    <td>{{ article.part }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"first_page"|trans}}</th>
-                                    <td>{{ entity.firstPage }}</td>
+                                    <td>{{ article.firstPage }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"last_page"|trans}}</th>
-                                    <td>{{ entity.lastPage }}</td>
+                                    <td>{{ article.lastPage }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"url"|trans}}</th>
-                                    <td>{{ entity.uri }}</td>
+                                    <td>{{ article.uri }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{"abstract"|trans}}</th>
-                                    <td>{{ entity.abstract }}</td>
+                                    <td>{{ article.abstract }}</td>
                                 </tr>
                                 <tr>
                                     <th>Abstracttransliterated</th>
-                                    <td>{{ entity.abstractTransliterated }}</td>
+                                    <td>{{ article.abstractTransliterated }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -142,20 +142,20 @@
                         <div id="articleAbstract">
                             <h4 class="page-header">{{"abstract"|trans}}</h4>
                             <div>
-                                {{ entity.abstract }}
+                                {{ article.abstract }}
                             </div>
                         </div>
 
                         <div id="articleKeywords">
                             <h4 class="page-header">{{"keywords"|trans}}</h4>
                             <div>
-                                {{ entity.keywords }}
+                                {{ article.keywords }}
                             </div>
                         </div>
 
                         <div id="doiInfo">
                             <h4 class="page-header">DOI</h4>
-                            <p class="text-success"><a href="#" class="btn btn-success">{{ entity.doi }}</a></p>
+                            <p class="text-success"><a href="#" class="btn btn-success">{{ article.doi }}</a></p>
 
                         </div>
 
@@ -208,55 +208,7 @@
                 <!-- /content -->
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-
-                {% if isJournalManager() %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a href="#">
-                                <span class="panel-title">
-                                    <i class="fa fa-plus"></i> {{"new.block"|trans}}
-                                </span>
-                            </a></div>
-                    </div>
-                {% endif %}
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><span class="panel-title">{{"for.readers"|trans}}</span></div>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <a href="/journal/1/last"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a href="/journal/1/archive"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
-                        </li>
-                        {% if isJournalManager() %}
-                            <li class="list-group-item"><a href="#">
-                                    <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <div class="panel panel-warning">
-                    <div class="panel-heading"><span class="panel-title">{{"for.authors"|trans}}</span></div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
-                        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                            {% if isJournalManager() %}
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>{{"add_link"|trans}}</strong></a></li>
-                            {%endif%}
-                    </ul>
-                </div>
-                <div class="panel panel-success">
-                    <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
-                        <li class="list-group-item"><a href="/journal/1/scope"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
-                            {% if isJournalManager() %}
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                            {%endif%}
-                    </ul>
-                </div>
+                {%include 'OjsSiteBundle:Site:journal_right_block.html.twig'%}
             </div>
         </div>
     </div>

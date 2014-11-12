@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 class SiteController extends Controller {
 
@@ -87,22 +87,21 @@ class SiteController extends Controller {
 
     public function journalIndexAction($journal_id) {
         $em = $this->getDoctrine()->getManager();
-        $data['entity'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
-        if (!$data['entity']) {
-            $this->createNotFoundException($this->get('translator')->trans('404'));
-        }
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
         return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
     }
 
+    /**
+     * Also means last issue's articles
+     * @param integer $journal_id 
+     */
     public function lastArticlesIndexAction($journal_id) {
-
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
-        if (!$data['journal']) {
-            $this->createNotFoundException($this->get('translator')->trans('404'));
-        }
-        $data['entities'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
+        $this->throw404IfNotFound($data['journal']);
+        $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
         $data['page'] = 'articles';
         return $this->render('OjsSiteBundle::Site/last_articles_index.html.twig', $data);
     }
@@ -110,7 +109,11 @@ class SiteController extends Controller {
     public function articlePageAction($article_id) {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article  */
-        $data['entity'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
+        if(!$data['article'] ){
+            throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
+        }
+        $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
         return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
