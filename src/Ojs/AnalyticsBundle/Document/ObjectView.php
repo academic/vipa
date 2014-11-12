@@ -26,6 +26,15 @@ class ObjectView
      */
     protected $total;
 
+    /** @MongoDB\Int */
+    protected $objectId;
+
+    /** @MongoDB\String */
+    protected $entity;
+
+    /** @MongoDB\String */
+    protected $rawData;
+
     /**
      * Get id
      *
@@ -83,5 +92,53 @@ class ObjectView
     public function getPageUrl()
     {
         return $this->pageUrl;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setObjectId($id)
+    {
+        $this->objectId = $id;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
+
+    /**
+     * @param string $entity
+     * @return $this
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+
+    public function getRawData()
+    {
+        return $this->rawData;
+    }
+
+    public function setRawData($data)
+    {
+        $this->rawData = $data;
+        return $this;
     }
 }
