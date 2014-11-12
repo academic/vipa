@@ -274,9 +274,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param  \Ojs\JournalBundle\Entity\Subject $subject
      * @return Journal
      */
-    public function addSubject(\Ojs\JournalBundle\Entity\Subjectg $subject)
+    public function addSubject(\Ojs\JournalBundle\Entity\Subject $subject)
     {
-        $this->languages[] = $subject;
+        $this->subjects[] = $subject;
         return $this;
     }
 
