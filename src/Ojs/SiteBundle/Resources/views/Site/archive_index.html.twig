@@ -7,158 +7,34 @@
         <div class="row">
             <!-- The carousel -->
             <div class="page-header">
-                <h1>Cumhuriyet University Science Journal</h1>
-                <h6>Cumhuriyet University Science Journal is an official publication of Cumhuriyet University Science Faculty.</h6>
+                <h1>{{journal.title}}</h1>
+                <h6>{{journal.subtitle}}</h6>
             </div>
             <div class="row">
                 <div class="col-md-9">
                     <ol class="breadcrumb">
-                        <li><a href="/">Ujs</a></li>
-                        <li><a href="/">{% trans %}journal_home{% endtrans %}</a></li>
-                        <li class="active">{% trans %}archive{% endtrans %}</li>
+                        <li><a href="/">Ojs</a></li>
+                        <li><a href="/">{{"journal_home"|trans}}</a></li>
+                        <li class="active">{{"archive"|trans}}</li>
                     </ol>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading toggle-list">
-                            <h3 class="panel-title archive-year-title btn-link">2014 <span class="pull-right fa fa-list"></span></h3>
+                    {% for year in issues_grouped|keys %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading toggle-list">
+                                <h3 class="panel-title archive-year-title btn-link">{{year}} <span class="pull-right fa fa-list"></span></h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-default">
+                                    {% for issue in issues_grouped[year] %}
+                                    <li class="col-md-12"><a href="/articles.php">{{issue.title}} <span class="badge pull-right">4</span></a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <ul class="nav nav-default">
-                                <li class="col-md-12"><a href="/articles.php">Cilt 8 Sayı 1 <span class="badge pull-right">4</span></a></li>
-                                <li class="col-md-12"><a href="/articles.php">Cilt 8 Sayı 2 <span class="badge pull-right">90</span></a></li>
-                                <li class="col-md-12"><a href="/articles.php">Cilt 8 Sayı 3 <span class="badge pull-right">53</span></a></li>
-                                <li class="col-md-12"><a href="/articles.php">Cilt 8 Sayı 4 <span class="badge pull-right">12</span></a></li>
-                                <li class="col-md-12"><a href="/articles.php">Cilt 8 Sayı 5 <span class="badge pull-right">10</span></a></li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading toggle-list">
-                            <h3 class="panel-title archive-year-title btn-link">2013 <span class="pull-right fa fa-list"></span></h3>
-                        </div>
-                        <div class="panel-body hide">
-                            <ul class="nav nav-default">
-                                <li class="col-md-12"><a href="#1">Cilt 1 Sayı 1 <span class="badge pull-right">4</span></a></li>
-                                <li class="col-md-12"><a href="#2">Cilt 1 Sayı 2 <span class="badge pull-right">90</span></a></li>
-                                <li class="col-md-12"><a href="#3">Cilt 1 Sayı 3 <span class="badge pull-right">53</span></a></li>
-                                <li class="col-md-12"><a href="#4">Cilt 1 Sayı 4 <span class="badge pull-right">12</span></a></li>
-                                <li class="col-md-12"><a href="#5">Cilt 1 Sayı 5 <span class="badge pull-right">10</span></a></li>
-                                <li class="col-md-12"><a href="#6">Cilt 1 Sayı 6 <span class="badge pull-right">13</span></a></li>
-                                <li class="col-md-12"><a href="#7">Cilt 1 Sayı 7 <span class="badge pull-right">69</span></a></li>
-                                <li class="col-md-12"><a href="#8">Cilt 1 Sayı 8 <span class="badge pull-right">72</span></a></li>
-                                <li class="col-md-12"><a href="#9">Cilt 1 Sayı 9 <span class="badge pull-right">45</span></a></li>
-                                <li class="col-md-12"><a href="#10">Cilt 1 Sayı 10<span class="badge pull-right">49</span></a></li>
-                                <li class="col-md-12"><a href="#11">Cilt 1 Sayı 11<span class="badge pull-right">22</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading toggle-list">
-                            <h3 class="panel-title archive-year-title btn-link">2012 <span class="pull-right fa fa-list"></span></h3>
-                        </div>
-                        <div class="panel-body hide">
-                            <ul class="nav nav-default">
-                                <li class="col-md-12"><a href="#1">Cilt 1 Sayı 1 <span class="badge pull-right">4</span></a></li>
-                                <li class="col-md-12"><a href="#2">Cilt 1 Sayı 2 <span class="badge pull-right">90</span></a></li>
-                                <li class="col-md-12"><a href="#3">Cilt 1 Sayı 3 <span class="badge pull-right">53</span></a></li>
-                                <li class="col-md-12"><a href="#4">Cilt 1 Sayı 4 <span class="badge pull-right">12</span></a></li>
-                                <li class="col-md-12"><a href="#5">Cilt 1 Sayı 5 <span class="badge pull-right">10</span></a></li>
-                                <li class="col-md-12"><a href="#6">Cilt 1 Sayı 6 <span class="badge pull-right">13</span></a></li>
-                                <li class="col-md-12"><a href="#7">Cilt 1 Sayı 7 <span class="badge pull-right">69</span></a></li>
-                                <li class="col-md-12"><a href="#8">Cilt 1 Sayı 8 <span class="badge pull-right">72</span></a></li>
-                                <li class="col-md-12"><a href="#9">Cilt 1 Sayı 9 <span class="badge pull-right">45</span></a></li>
-                                <li class="col-md-12"><a href="#10">Cilt 1 Sayı 10<span class="badge pull-right">49</span></a></li>
-                                <li class="col-md-12"><a href="#11">Cilt 1 Sayı 11<span class="badge pull-right">22</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading toggle-list">
-                            <h3 class="panel-title archive-year-title btn-link">2011 <span class="pull-right fa fa-list"></span></h3>
-                        </div>
-                        <div class="panel-body hide">
-                            <ul class="nav nav-default">
-                                <li class="col-md-12"><a href="#1">Cilt 1 Sayı 1 <span class="badge pull-right">4</span></a></li>
-                                <li class="col-md-12"><a href="#2">Cilt 1 Sayı 2 <span class="badge pull-right">90</span></a></li>
-                                <li class="col-md-12"><a href="#3">Cilt 1 Sayı 3 <span class="badge pull-right">53</span></a></li>
-                                <li class="col-md-12"><a href="#4">Cilt 1 Sayı 4 <span class="badge pull-right">12</span></a></li>
-                                <li class="col-md-12"><a href="#5">Cilt 1 Sayı 5 <span class="badge pull-right">10</span></a></li>
-                                <li class="col-md-12"><a href="#6">Cilt 1 Sayı 6 <span class="badge pull-right">13</span></a></li>
-                                <li class="col-md-12"><a href="#7">Cilt 1 Sayı 7 <span class="badge pull-right">69</span></a></li>
-                                <li class="col-md-12"><a href="#8">Cilt 1 Sayı 8 <span class="badge pull-right">72</span></a></li>
-                                <li class="col-md-12"><a href="#9">Cilt 1 Sayı 9 <span class="badge pull-right">45</span></a></li>
-                                <li class="col-md-12"><a href="#10">Cilt 1 Sayı 10<span class="badge pull-right">49</span></a></li>
-                                <li class="col-md-12"><a href="#11">Cilt 1 Sayı 11<span class="badge pull-right">22</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-
-
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> Blok ekle</span></a></div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><span class="panel-title">Okuyucular için</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="articles.php"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="archive.php"><i class="fa fa-archive"></i> Arşiv</a>
-                            </li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="panel panel-warning">
-                        <div class="panel-heading"><span class="panel-title">Yazarlar ve Editörler için</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading"><span class="panel-title">Dergi Hakkında</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Dergi Tarihçesi</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> İletişim</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Bağlantılar</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading"><span class="panel-title">Indexler</span></div>
-                        <p>
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/indeks_logolar3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo_brill3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/top_mla_logo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/ulrichsweb3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logos3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/doaj3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo-left3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/opengate3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/drje3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/isam3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/akademik3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/mix_and_match_logo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/trlogo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo_tr3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/open3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/New-Logo-Header3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/UofSLib3.png" alt="">
-                        </p>
-                    </div>
+                    {%include 'OjsSiteBundle:Site:journal_right_block.html.twig'%}
                 </div>
             </div>
         </div>
