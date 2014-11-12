@@ -12,8 +12,8 @@
                     <img src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive" />
                 </div>
                 <div class="col-md-11">
-                    <h1>Cumhuriyet Science Journal</h1>
-                    <h6>Cumhuriyet University Science Journal is an official publication of Cumhuriyet University Science Faculty.</h6>
+                    <h1>{{journal.title}}</h1>
+                    <h6>{{journal.subtitle}}</h6>
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
                 <div class="col-md-9">
                     <ol class="breadcrumb">
                         <li><a href="/">Ujs</a></li>
-                        <li><a href="/journal">Cumhuriyet Science Journal</a></li>
+                        <li><a href="/journal">{{journal.title}}</a></li>
                         <li><a href="/archive">Arşiv</a></li>
                         <li class="active">Cilt4 / Sayı 12-A</li>
                     </ol>
@@ -33,74 +33,20 @@
                         <div class="panel-heading">X Makaleleri</div>
 
                         <ul class="list-group">
-                            {% for entity in entities %}
+                            {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
-                                    <a href="./{{ entity.id }}"><i class="fa fa-file-text"></i> {{ entity.title }} </a>(1876 – 1986)<br />
-                                    <i class="fa fa-users"></i><span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego ({% if entity.created.date %}{{ entity.created.date|date('Y-m-d H:i:s') }}{% endif %})</span>
+                                    <a href="./{{ article.id }}"><i class="fa fa-file-text"></i> {{ article.title }} </a>(1876 – 1986)<br />
+                                    <i class="fa fa-users"></i>
+                                    <span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego 
+                                        ({% if article.created.date %}{{ article.created.date|date('Y-m-d') }}{% endif %})
+                                    </span>
                                 </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><a href="#"><span class="panel-title"><i class="fa fa-plus"></i> Blok ekle</span></a></div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><span class="panel-title">Okuyucular için</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="/articles"><i class="fa fa-eye"></i> Son Sayıyı Oku</a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/archive"><i class="fa fa-archive"></i> Arşiv</a>
-                            </li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-
-                    <div class="panel panel-warning">
-                        <div class="panel-heading"><span class="panel-title">Yazarlar ve Editörler için</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> Online Makale Gönder</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-success">
-                        <div class="panel-heading"><span class="panel-title">Dergi Hakkında</span></div>
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Dergi Tarihçesi</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> İletişim</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-link"></i> Bağlantılar</a></li>
-                            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading"><span class="panel-title">Indexler</span></div>
-                        <p>
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/indeks_logolar3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo_brill3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/top_mla_logo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/ulrichsweb3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logos3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/doaj3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo-left3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/opengate3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/drje3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/logo3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/isam3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/akademik3.jpg" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/mix_and_match_logo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/trlogo3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo_tr3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/dergipark_logo3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/open3.gif" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/New-Logo-Header3.png" alt="">
-                            <img src="http://dergipark.ulakbim.gov.tr/public/site/images/itobiad/UofSLib3.png" alt="">
-                        </p>
-                    </div>
+                    {%include 'OjsSiteBundle:Site:journal_right_block.html.twig'%}
                 </div>
             </div>
         </div>

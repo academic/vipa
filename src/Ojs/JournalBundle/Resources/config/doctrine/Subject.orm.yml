@@ -51,6 +51,13 @@ Ojs\JournalBundle\Entity\Subject:
             inversedBy: null
             joinTable: {  }
             orderBy: null
+        journals:
+            targetEntity: Ojs\JournalBundle\Entity\Journal
+            cascade: {  }
+            mappedBy: subjects
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
     gedmo:
         soft_deleteable:
           field_name: deletedAt

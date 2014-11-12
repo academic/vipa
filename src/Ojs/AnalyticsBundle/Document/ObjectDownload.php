@@ -5,13 +5,13 @@ namespace Ojs\AnalyticsBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
- * This collection keeps page information and total count *view action details*
- * There will be one record for *each pages*
- * @MongoDb\Document(collection="analytics_view_article_sum")
+ * This collection keeps page information and download action details *without total count*
+ * There will be one record for each paths
+ * @MongoDb\Document(collection="analytics_download_object_sum")
  */
-class ArticleView
+class ObjectDownload
 {
-    /**
+     /**
      * @MongoDb\Id
      */
     public $id;
@@ -19,12 +19,7 @@ class ArticleView
     /**
      * @MongoDb\String
      */
-    protected $pageUrl;
-
-    /**
-     * @MongoDb\String
-     */
-    protected $total;
+    protected $filePath;
 
     /**
      * Get id
@@ -62,26 +57,26 @@ class ArticleView
 
     /**
      * Page full url with domain
-     * Set pageUrl
+     * Set filePath
      *
-     * @param  string $pageUrl
+     * @param  string $filePath
      * @return self
      */
-    public function setPageUrl($pageUrl)
+    public function setFilePath($filePath)
     {
-        $this->pageUrl = $pageUrl;
+        $this->filePath = $filePath;
 
         return $this;
     }
 
     /**
-     * Get pageUrl
+     * Get filePath
      *
-     * @return string $pageUrl
+     * @return string $filePath
      */
-    public function getPageUrl()
+    public function getFilePath()
     {
-        return $this->pageUrl;
+        return $this->filePath;
     }
 
 }

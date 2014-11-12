@@ -11,13 +11,14 @@ class ArticleControllerTest extends TestHelper
 {
     public function testStatus()
     {
+        $client = $this->client;
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
-        $this->client->request('GET', '/admin/article/');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $client->request('GET', '/admin/article/');
+        $this->assertTrue($client->getResponse()->isSuccessful());
 
-        $this->client->request('GET', '/admin/article/new');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $client->request('GET', '/admin/article/new');
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
 }
