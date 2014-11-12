@@ -155,6 +155,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $subjects;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $sections;
 
@@ -164,20 +170,18 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     private $settings;
 
-    
     /**
      * @var \Ojs\JournalBundle\Entity\Institution
      * @Expose
      */
     private $institution;
-    
-     /**
+
+    /**
      * @var integer
      * @Expose
      */
     private $institutionId;
-    
-    
+
     /**
      * Constructor
      */
@@ -188,6 +192,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -220,7 +225,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function addSection(\Ojs\JournalBundle\Entity\JournalSection $section)
     {
         $this->sections[] = $section;
-
         return $this;
     }
 
@@ -247,7 +251,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function addLanguage(\Ojs\JournalBundle\Entity\Lang $language)
     {
         $this->languages[] = $language;
-
         return $this;
     }
 
@@ -265,6 +268,32 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getLanguages()
     {
         return $this->languages;
+    }
+
+    /**
+     * @param  \Ojs\JournalBundle\Entity\Subject $subject
+     * @return Journal
+     */
+    public function addSubject(\Ojs\JournalBundle\Entity\Subject $subject)
+    {
+        $this->subjects[] = $subject;
+        return $this;
+    }
+
+    /**
+     * @param \Ojs\JournalBundle\Entity\Subject $subject
+     */
+    public function removeSubjects(\Ojs\JournalBundle\Entity\Subject $subject)
+    {
+        $this->subjects->removeElement($subject);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubjects()
+    {
+        return $this->subjects;
     }
 
     /**
@@ -286,7 +315,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setTitle($title)
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -309,7 +337,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setSubdomain($subdomain)
     {
         $this->subdomain = $subdomain;
-
         return $this;
     }
 
@@ -375,7 +402,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setTitleTransliterated($titleTransliterated)
     {
         $this->titleTransliterated = $titleTransliterated;
-
         return $this;
     }
 
@@ -527,7 +553,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->url;
     }
 
-    
     /**
      * Set institutionId
      * @param  int  $institutionId
@@ -547,7 +572,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->institutionId;
     }
-    
+
     /**
      * Set institution
      * @param  \Ojs\JournalBundle\Entity\Institution  $institution
@@ -566,8 +591,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->institution;
     }
-    
-    
+
     /**
      * Set country
      * @param  integer $country
