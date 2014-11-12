@@ -78,8 +78,12 @@ class SiteController extends Controller {
         $data["institution_types"] = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
         
         // TODO find only has journal(s) and count them
-        $data["subjects"] = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-
+        $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+        foreach ($subjects as $subject) {
+            if ($subject->hasJournals()) {
+                $data["subjects"][] = $subject;
+            }
+        }
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'journals';
         return $this->render('OjsSiteBundle::Site/journals_index.html.twig', $data);

@@ -165,4 +165,10 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->journals->removeElement($journal);
     }
 
+    public function hasJournals()
+    {
+        $totalJournals = $this->journals->count();
+        return $totalJournals > 0;
+    }
+
 }
