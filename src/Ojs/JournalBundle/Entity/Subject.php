@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
 {
+
     /**
      * @var integer
      * @Expose
@@ -34,9 +35,15 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     private $users;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals;
+
     public function __construct()
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -104,7 +111,6 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     public function addUser(\Ojs\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
-
         return $this;
     }
 
@@ -126,6 +132,37 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Get subjects
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJournals()
+    {
+        return $this->journals;
+    }
+
+    /**
+     * Add subject
+     *
+     * @param  \Ojs\JournalBundle\Entity\Journal $journal
+     * @return Role
+     */
+    public function addJournal(\Ojs\UserBundle\Entity\User $journal)
+    {
+        $this->journals[] = $journal;
+        return $this;
+    }
+
+    /**
+     * Remove journal
+     *
+     * @param \Ojs\UserBundle\Entity\User $journal
+     */
+    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    {
+        $this->journals->removeElement($journal);
     }
 
 }
