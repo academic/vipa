@@ -6,53 +6,53 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * This collection keeps page information and download action details *without total count*
- * There will be one record *foreach action*
- * @MongoDB\Document(collection="analytics_downloads_article")
+ * There will be one record for each paths
+ * @MongoDb\Document(collection="analytics_download_object_sum")
  */
-class ArticleDownloads extends ArticleStatsBase
+class ObjectDownload
 {
-    /**
-     * @MongoDB\Id
+     /**
+     * @MongoDb\Id
      */
     public $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDb\String
      */
     protected $filePath;
 
     /**
-     * @MongoDB\String
-     */
-    protected $total;
-
-    /**
-     * Optional
-     * @MongoDB\Int
-     */
-    protected $transferSize;
-
-    /**
-     * Set transferSize
+     * Get id
      *
-     * @param  int  $transferSize
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Page full url with domain
+     * Set total
+     *
+     * @param  string $total
      * @return self
      */
-    public function setTransferSize($transferSize)
+    public function setTotal($total)
     {
-        $this->transferSize = $transferSize;
+        $this->total = $total;
 
         return $this;
     }
 
     /**
-     * Get transferSize
+     * Get total
      *
-     * @return int $transferSize
+     * @return string $total
      */
-    public function getTransferSize()
+    public function getTotal()
     {
-        return $this->transferSize;
+        return $this->total;
     }
 
     /**

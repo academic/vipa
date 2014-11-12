@@ -41,7 +41,8 @@ class TestHelper extends WebTestCase
      */
     protected function logIn($username = null, $role = null)
     {
-        $session = $this->client->getContainer()->get('session');
+        $client = static::createClient();
+        $session = $client->getContainer()->get('session');
         $firewall = 'main';
         $username = $username ? $username : 'admin';
         $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username);
