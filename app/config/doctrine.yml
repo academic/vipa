@@ -10,6 +10,7 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+    auto_generate_hydrator_classes: true
 
 doctrine:
     dbal:

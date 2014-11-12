@@ -19,7 +19,9 @@ class RestApiTest extends WebTestCase
     public function testUsersGet()
     {
         $client = static::createClient();
-        $client->request('GET', '/api/');
+        $client->request('GET', '/api/users.json',[
+            'apikey'=>'MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ=='
+        ]);
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
     }

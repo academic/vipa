@@ -4,18 +4,21 @@ namespace Ojs\AnalyticsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-class ArticleStatsBase
+class ObjectStatsBase
 {
     /**
      * @MongoDb\Id
      */
     public $id;
 
-    /** @MongoDb\Int @MongoDb\Index() */
-    public $journalId;
+    /**
+     * @MongoDb\Int @MongoDb\Index()
+     * @var int $objectId
+     */
+    public $objectId;
 
-    /** @MongoDb\Int @MongoDb\Index() */
-    public $articleId;
+    /** @MongoDb\String */
+    public $entity;
 
     /** @MongoDb\String */
     public $ipAddress;
@@ -31,57 +34,11 @@ class ArticleStatsBase
     /**
      * Get id
      *
-     * @return id $id
+     * @return integer $id
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set journalId
-     *
-     * @param  int  $journalId
-     * @return self
-     */
-    public function setJournalId($journalId)
-    {
-        $this->journalId = $journalId;
-
-        return $this;
-    }
-
-    /**
-     * Get journalId
-     *
-     * @return int $journalId
-     */
-    public function getJournalId()
-    {
-        return $this->journalId;
-    }
-
-    /**
-     * Set articleId
-     *
-     * @param  int  $articleId
-     * @return self
-     */
-    public function setArticleId($articleId)
-    {
-        $this->articleId = $articleId;
-
-        return $this;
-    }
-
-    /**
-     * Get articleId
-     *
-     * @return int $articleId
-     */
-    public function getArticleId()
-    {
-        return $this->articleId;
     }
 
     /**
@@ -133,7 +90,7 @@ class ArticleStatsBase
     /**
      * Set logDate
      *
-     * @param  date $logDate
+     * @param  \Datetime $logDate
      * @return self
      */
     public function setLogDate($logDate)
@@ -151,6 +108,42 @@ class ArticleStatsBase
     public function getLogDate()
     {
         return $this->logDate;
+    }
+
+    /**
+     * @param int $id
+     * @return ObjectStatsBase $this
+     */
+    public function setObjectId($id)
+    {
+        $this->objectId = $id;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
+
+    /**
+     * @param string $entity
+     * @return ObjectStatsBase $this
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
     }
 
 }

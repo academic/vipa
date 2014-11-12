@@ -6,7 +6,7 @@ use Ojs\Common\Helper\TestHelper;
 
 class SecurityControllerTest extends TestHelper
 {
-    public function testRegsiter()
+    public function testRegister()
     {
         $client = static::createClient();
         $client->request('GET', '/register');
