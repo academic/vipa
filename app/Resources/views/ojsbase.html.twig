@@ -36,21 +36,12 @@
                         <div class="panel panel-default sub-middle-panel">
                             <div class="panel-heading">
                                 <div class="panel-title">
-                                    <div class="row">
-                                        <div class="col-xs-2 col-lg-1 col-md-1 pull-left"><span class="fa fa-2x fa-desktop"></span></div>
-                                        <div class="col-xs-10 col-lg-11 col-md-11">
-                                            <h5>Tasarım ve Modül Yönetimi
-                                                <small class="text-muted text-small">visual_layout</small>
-                                            </h5>
-                                            {% if app.user %}
-                                                {% block breadcrumb %}
-                                                    <a href="/dashboard">Dashboard</a>
-                                                    <small>Control panel</small>
-                                                {% endblock %} 
-                                            {%endif%}
-                                        </div>        
-
-                                    </div>
+                                    {% if app.user %}
+                                        {% block breadcrumb %}
+                                            <h5><a href="/dashboard">Dashboard</a>
+                                                <small>Control panel</small></h5>
+                                            {% endblock %} 
+                                        {%endif%}
                                 </div>
                             </div>
                             <div class="panel-body">
