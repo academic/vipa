@@ -28,6 +28,7 @@ journal:
     journals: Dergiler
     journal: journal
     about: Dergi Hakkında
+    all: Tüm Dergiler
 articles:
     articles: Makaleler
     article: Makale
