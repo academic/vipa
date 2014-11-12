@@ -37,10 +37,10 @@
                             </h4>
                         </div>
                         <ul class="list-group">
-                            {% for subject_item in subjects %}
+                            {% for subject in subjects %}
                                 <li class="list-group-item">
-                                    <a href="/journals">{{subject_item.subject}}</a>
-                                    <span class="label label-success pull-right">320</span>
+                                    <a href="{{ path("ojs_journals_index") }}">{{subject.subject}}</a>
+                                    <span class="label label-success pull-right">{{subject.journals.count}}</span>
                                 </li>
                             {% endfor %}
                         </ul>

@@ -42,6 +42,23 @@ Ojs\JournalBundle\Entity\Journal:
                 journal_id:
                   referencedColumnName: id
               name: Journal_Language
+        subjects:
+            targetEntity: Subject
+            cascade: ["persist"]
+            mappedBy: null
+            inversedBy: journals
+            joinTable:
+                name: Journal_Subject
+                joinColumns:
+                    -
+                        name: journal_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: subject_id
+                        referencedColumnName: id
+                        onDelete: CASCADE 
     id:
         id:
             type: integer

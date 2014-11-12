@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{% trans %}institutions{% endtrans %}</h1>
+        <h1 class="page-header">{{"institutions"|trans}}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
@@ -18,8 +18,8 @@
 
 
                 <div class="panel-footer">
-                    <a href="/institution/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{% trans %}more{% endtrans %} <i class="fa fa-arrow-right"></i></a>
-                    <i class="fa fa-tags"></i>{% trans %}tags{% endtrans %}
+                    <a href="/institution/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
+                    <i class="fa fa-tags"></i>{{"tags"|trans}}
                     <a href="#"><span class="badge">ojs</span></a>
                     <a href="#"><span class="badge">university</span></a>
                     <a href="#"><span class="badge">paper</span></a>
