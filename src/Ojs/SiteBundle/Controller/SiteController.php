@@ -118,7 +118,15 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
 
-    public function archiveIndexAction() {
+    public function archiveIndexAction($journal_id) {
+        $em = $this->getDoctrine()->getManager();
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $this->throw404IfNotFound($data['journal']);
+        // get all issues
+        $data['issues'] = $em->getRepository('OjsJournalBundle:Issue')->findBy(array('journalId'=>$journal_id)); 
+        foreach($data['issues'] as $issue){
+            $data['issues_grouped'][$issue->getYear()][] = $issue;
+        }
         $data['page'] = 'archive';
         return $this->render('OjsSiteBundle::Site/archive_index.html.twig', $data);
     }
