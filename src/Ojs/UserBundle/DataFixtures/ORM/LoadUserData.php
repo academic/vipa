@@ -57,6 +57,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
         $editor = $this->addEditor();
         $editor->addRole($role);
         $editor->addRole($roleEditor);
+        $editor->setApiKey("MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==");
 
         $journalManager = $this->addJournalManager();
         $journalManager->addRole($role);
