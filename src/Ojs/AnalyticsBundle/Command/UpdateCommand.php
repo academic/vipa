@@ -3,10 +3,9 @@
  * User: aybarscengaver
  * Date: 12.11.14
  * Time: 09:33
- * Company: Atolye15
- * URI: www.atolye15.com
+ * Company: OkulBilişim
  * Devs: [
- * 'Emre YILMAZ'=>'emre@atolye15.com',
+ * 'Aybars Cengaver'=>'aybarscengaver@yahoo.com',
  *
  *   ]
  */
@@ -47,7 +46,10 @@ class UpdateCommand extends ContainerAwareCommand
     {
         $this->setName("ojs:analytics:update")
             ->setDescription("Analytics total data updater")
-            ->addArgument("type", InputArgument::REQUIRED, "What is the type you want to update? [view, download]");
+            ->addArgument("type", InputArgument::REQUIRED, "What is the type you want to update? [view, download]")
+            ->addOption('test','t',null,"Test mode")
+        ;
+
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
