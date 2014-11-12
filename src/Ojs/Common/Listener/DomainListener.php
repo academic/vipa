@@ -4,6 +4,7 @@ namespace Ojs\Common\Listener;
 
 use \Ojs\Common\Model\JournalDomain;
 use \Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class DomainListener
@@ -34,7 +35,7 @@ class DomainListener
             $qb->select('do')->where($qb->expr()->orX(
                             $qb->expr()->eq('do.subdomain', ':domain'), $qb->expr()->eq('do.domain', ':domain')
             ))->setParameter('domain', $subdomain);
-            $journal = $qb->getQuery()->getSingleResult();
+            $journal = $qb->getQuery()->getOneOrNullResult();
             /**
              * @todo show human friendly error page if there is no journal for this subdomain or domain
              */
