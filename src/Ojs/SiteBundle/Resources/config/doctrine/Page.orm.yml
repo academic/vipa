@@ -12,11 +12,17 @@ Ojs\SiteBundle\Entity\Page:
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
         body:
             type: text
+            gedmo:
+                - translatable
         tags:
             type: string
             length: 255
+            gedmo:
+                - translatable
         image:
             type: string
             length: 255
