@@ -11,6 +11,7 @@ use \Ojs\UserBundle\Entity\User;
 
 class InstallCommand extends ContainerAwareCommand
 {
+
     protected function configure()
     {
         $this
@@ -57,11 +58,15 @@ class InstallCommand extends ContainerAwareCommand
         $admin_password = $dialog->ask(
                 $output, '<info>Set system admin password (admin) </info>', 'admin');
 
-        $output->writeln($sb . 'Inserting roles to db'. $se);
-        $this->insertRoles($this->getContainer(),$output);
+        $output->writeln($sb . 'Inserting roles to db' . $se);
+        $this->insertRoles($this->getContainer(), $output);
 
         $output->writeln($sb . 'Inserting system admin user to db' . $se);
-        $this->insertAdmin($this->getContainer(),$admin_username, $admin_email, $admin_password);
+        $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
+
+        $output->writeln($sb . 'Insertingdefault theme record' . $se);
+        $this->insertTheme($this->getContainer());
+
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
                 . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
@@ -123,6 +128,16 @@ class InstallCommand extends ContainerAwareCommand
         $user->addRole($role_reviewer);
 
         $em->persist($user);
+        $em->flush();
+    }
+
+    public function insertTheme($container)
+    {
+        $em = $container->get('doctrine')->getManager();
+        $theme = new \Ojs\JournalBundle\Entity\Theme();
+        $theme->setName("default");
+        $theme->setTitle('Ojs');
+        $em->persist($theme);
         $em->flush();
     }
 
