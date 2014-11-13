@@ -174,7 +174,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * Add subject
      *
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Role
+     * @return Subject
      */
     public function addJournal(\Ojs\UserBundle\Entity\User $journal)
     {
@@ -197,5 +197,4 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
         $totalJournals = $this->journals->count();
         return $totalJournals > 0;
     }
-
 }

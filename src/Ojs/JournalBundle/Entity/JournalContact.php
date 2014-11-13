@@ -178,12 +178,12 @@ class JournalContact
     }
 
     /**
+     * Get contactType
      *
-     * @return \Ojs\JournalBundle\Entity\ContactTypes
+     * @return \Ojs\JournalBundle\Entity\ContactTypes 
      */
-    public function getcontactType()
+    public function getContactType()
     {
         return $this->contactType;
     }
-
 }
