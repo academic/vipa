@@ -4,7 +4,6 @@ imports:
     - { resource: ojs_params.yml }
     - { resource: "bibliography_params.yml" }
     - { resource: services.yml }
-    - { resource: theme.yml }
     - { resource: assetic.yml }
     - { resource: doctrine.yml }
     - { resource: elastica.yml }

@@ -147,7 +147,7 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get articleFiles
      *
-     * @return \Ojs\JournalBundle\Entity\ArticleFile
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getArticleFiles()
     {
@@ -158,13 +158,12 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set articleFiles
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @param \Doctrine\Common\Collections\ArrayCollection $articleFiles
      * @return File
      */
-    public function setArticleFiles(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles = null)
+    public function setArticleFiles(\Doctrine\Common\Collections\ArrayCollection $articleFiles = null)
     {
         $this->articleFiles = $articleFiles;
-
         return $this;
     }
 

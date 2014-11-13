@@ -1,3 +1,7 @@
+ojs_journal_admin_journaltheme:
+    resource: "@OjsJournalBundle/Resources/config/routing/journaltheme.yml"
+    prefix:   /admin/journaltheme
+
 #Crud pages
 
 change_selected_journal:

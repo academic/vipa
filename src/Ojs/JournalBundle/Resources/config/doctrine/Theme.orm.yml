@@ -12,18 +12,10 @@ Ojs\JournalBundle\Entity\Theme:
         name:
             type: string
             length: 255
-            gedmo:
-                - translatable
-        content:
-            type: text
-            gedmo:
-                - translatable
-        baseTheme:
+        isPublic:
             type: boolean
-            column: base_theme
-            nullable: true
-            option:
-                default: false
+            options:
+                default: true
         created:
             type: datetime
             gedmo:
@@ -51,6 +43,4 @@ Ojs\JournalBundle\Entity\Theme:
         soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
     lifecycleCallbacks: {  }
