@@ -15,7 +15,7 @@ class AnalyticsRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  description="Update article view count",
+     *  description="Increment object view count",
      *  requirements={
      *      {
      *          "name"="page_url",
@@ -24,7 +24,7 @@ class AnalyticsRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Put("/{entity}/{id}/analytics/view/add")
+     * @Put("/analytics/view/{entity}/{id}/")
      */
     public function putObjectViewAction(Request $request, $id, $entity)
     {
@@ -45,9 +45,9 @@ class AnalyticsRestController extends FOSRestController
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get article total Views"
+     *  description="Get object total Views"
      * )
-     * @Get("/{entity}/{id}/analytics/view/total")
+     * @Get("/analytics/view/{entity}/{id}/")
      */
     public function getObjectViewAction(Request $request, $id, $entity)
     {
@@ -61,9 +61,9 @@ class AnalyticsRestController extends FOSRestController
     /**
      * @ApiDoc(
      *  resource=true,
-     *  description="Incrase object download count"
+     *  description="Increment object download count"
      * )
-     * @Put("/{entity}/{id}/analytics/download/add")
+     * @Put("/analytics/download/{entity}/{id}/")
      */
     public function putObjectDownloadAction(Request $request, $id,$entity)
     {
@@ -90,7 +90,7 @@ class AnalyticsRestController extends FOSRestController
      *  resource=true,
      *  description="Get object total download count"
      * )
-     * @Get("/{entity}/{id}/analytics/download/total")
+     * @Get("/analytics/download/{entity}/{id}/")
      */
     public function getObjectDownloadAction(Request $request, $id,$entity)
     {
