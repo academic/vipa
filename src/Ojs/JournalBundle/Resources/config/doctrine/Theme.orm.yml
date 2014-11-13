@@ -12,6 +12,8 @@ Ojs\JournalBundle\Entity\Theme:
         name:
             type: string
             length: 255
+            gedmo:
+                - translatable
         content:
             type: text
             gedmo:

@@ -277,15 +277,17 @@ class ArticleFile extends GenericExtendedEntity
     }
 
     /**
+     * Set file
      *
-     * @param  \Ojs\JournalBundle\Entity\File        $file
-     * @return \Ojs\JournalBundle\Entity\ArticleFile
+     * @param \Ojs\JournalBundle\Entity\Article $file
+     * @return ArticleFile
      */
-    public function setfile(\Ojs\JournalBundle\Entity\File $file)
+    public function setFile(\Ojs\JournalBundle\Entity\Article $file = null)
     {
         $this->file = $file;
 
         return $this;
     }
+
 
 }

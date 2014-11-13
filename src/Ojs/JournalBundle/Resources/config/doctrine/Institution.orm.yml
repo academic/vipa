@@ -27,6 +27,8 @@ Ojs\JournalBundle\Entity\Institution:
         about:
             type: text
             nullable: TRUE
+            gedmo:
+                - translatable
         country:
             type: integer
             nullable: TRUE

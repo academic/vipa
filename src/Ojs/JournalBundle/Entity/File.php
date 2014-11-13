@@ -145,11 +145,28 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * Get articleFiles
+     *
+     * @return \Ojs\JournalBundle\Entity\ArticleFile
      */
-    public function getArticlefiles()
+    public function getArticleFiles()
     {
         return $this->articleFiles;
     }
+
+
+    /**
+     * Set articleFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @return File
+     */
+    public function setArticleFiles(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles = null)
+    {
+        $this->articleFiles = $articleFiles;
+
+        return $this;
+    }
+
 
 }
