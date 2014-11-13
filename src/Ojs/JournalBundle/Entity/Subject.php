@@ -147,7 +147,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * Add subject
      *
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Role
+     * @return Subject
      */
     public function addJournal(\Ojs\UserBundle\Entity\User $journal)
     {
@@ -169,62 +169,5 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         $totalJournals = $this->journals->count();
         return $totalJournals > 0;
-    }
-
-    /**
-     * @var string
-     */
-    protected $createdBy;
-
-    /**
-     * @var string
-     */
-    protected $updatedBy;
-
-
-    /**
-     * Set createdBy
-     *
-     * @param string $createdBy
-     * @return Subject
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * Get createdBy
-     *
-     * @return string 
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set updatedBy
-     *
-     * @param string $updatedBy
-     * @return Subject
-     */
-    public function setUpdatedBy($updatedBy)
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedBy
-     *
-     * @return string 
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
     }
 }

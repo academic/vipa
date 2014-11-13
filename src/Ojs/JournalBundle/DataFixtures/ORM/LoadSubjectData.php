@@ -16,6 +16,7 @@ class LoadSubjectData extends AbstractFixture implements OrderedFixtureInterface
             $subject = new Subject();
             $subject->setSubject($subjectName);
             $subject->setCreatedBy('admin');
+
             $manager->persist($subject);
             $manager->flush();
         }
