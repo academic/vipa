@@ -12,7 +12,7 @@ class ReportControllerTest extends \Ojs\Common\Helper\TestHelper
         $client = $this->client;
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
-        $client->request('GET', '/report');
+        $client->request('GET', '/reports/');
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
 

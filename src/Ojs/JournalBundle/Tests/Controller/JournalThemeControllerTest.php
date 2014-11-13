@@ -11,7 +11,7 @@ class JournalThemeControllerTest extends \Ojs\Common\Helper\TestHelper
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
-        $this->client->request('GET', '/admin/journaltheme');
+        $this->client->request('GET', '/admin/journaltheme/');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 
