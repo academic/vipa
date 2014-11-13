@@ -24,4 +24,14 @@ Ojs\JournalBundle\Entity\Lang:
         rtl:
             type: boolean
             nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     lifecycleCallbacks: {  }
