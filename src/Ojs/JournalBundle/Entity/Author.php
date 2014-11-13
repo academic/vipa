@@ -450,4 +450,26 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->summary;
     }
 
+    /**
+     * Add articleAuthors
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @return Author
+     */
+    public function addArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    {
+        $this->articleAuthors[] = $articleAuthors;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleAuthors
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     */
+    public function removeArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    {
+        $this->articleAuthors->removeElement($articleAuthors);
+    }
 }

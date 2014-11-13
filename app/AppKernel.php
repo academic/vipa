@@ -38,6 +38,9 @@ class AppKernel extends Kernel
             new Ojs\CliBundle\OjsCliBundle(),
             new Ojs\JournalBundle\OjsJournalBundle(),
             new Ojs\UserBundle\OjsUserBundle(),
+            new JMS\JobQueueBundle\JMSJobQueueBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

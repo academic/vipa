@@ -1,7 +1,6 @@
-Ojs\JournalBundle\Entity\Theme:
+Ojs\CliBundle\Entity\CliLog:
     type: entity
     table: null
-    #repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
     id:
         id:
             type: integer
@@ -9,21 +8,13 @@ Ojs\JournalBundle\Entity\Theme:
             generator:
                 strategy: AUTO
     fields:
-        name:
-            type: string
-            length: 255
-            gedmo:
-                - translatable
-        content:
+        command:
             type: text
-            gedmo:
-                - translatable
-        baseTheme:
+        output:
+            type: text
+        isSuccess:
             type: boolean
-            column: base_theme
-            nullable: true
-            option:
-                default: false
+            column: is_success
         created:
             type: datetime
             gedmo:
@@ -38,9 +29,10 @@ Ojs\JournalBundle\Entity\Theme:
             type: date
             nullable: true
     gedmo:
-        soft_deleteable:
+      soft_deleteable:
           field_name: deletedAt
           time_aware: false
-        translation:
-            locale: locale
+      translation:
+          locale: locale
+      loggable: true
     lifecycleCallbacks: {  }

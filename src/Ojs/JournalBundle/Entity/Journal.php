@@ -870,4 +870,33 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this;
     }
 
+    /**
+     * Remove settings
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalSetting $settings
+     */
+    public function removeSetting(\Ojs\JournalBundle\Entity\JournalSetting $settings)
+    {
+        $this->settings->removeElement($settings);
+    }
+
+    /**
+     * Get settings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    /**
+     * Remove subjects
+     *
+     * @param \Ojs\JournalBundle\Entity\Subject $subjects
+     */
+    public function removeSubject(\Ojs\JournalBundle\Entity\Subject $subjects)
+    {
+        $this->subjects->removeElement($subjects);
+    }
 }
