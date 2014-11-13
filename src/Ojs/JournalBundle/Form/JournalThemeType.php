@@ -22,7 +22,11 @@ class JournalThemeType extends AbstractType
                 ))
                 ->add('theme', 'entity', array(
                     'class' => 'OjsJournalBundle:Theme',
-                    'property' => 'title')
+                    'property' => 'title',
+                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                                ->where('t.isPublic = FALSE ');
+                    })
                 )
         ;
     }

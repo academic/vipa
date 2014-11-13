@@ -17,6 +17,7 @@ Ojs\JournalBundle\Entity\Theme:
             length: 255
             nullable: true
         isPublic:
+            column: is_public
             type: boolean
             nullable: true
             options:
