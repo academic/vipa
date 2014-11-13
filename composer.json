@@ -42,7 +42,8 @@
         "friendsofsymfony/elastica-bundle": "3.0.*@alpha",
         "braincrafted/bootstrap-bundle": "~2.0",
         "ircmaxell/password-compat": "~1.0",
-	"jms/job-queue-bundle": "dev-master"
+	"jms/job-queue-bundle": "dev-master",
+        "pagerfanta/pagerfanta": "dev-master"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"
