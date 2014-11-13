@@ -6,8 +6,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
-use Ojs\AnalyticsBundle\Document\ArticleView;
-use Ojs\AnalyticsBundle\Document\ArticleViews;
+use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -55,82 +54,54 @@ class AnalyticsRestController extends FOSRestController
         $pageUrl = $request->get('page_url');
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectView')
-            ->findBy(['pageUrl'=>$pageUrl]);
+            ->findBy(['pageUrl'=>$pageUrl,'entity'=>$entity]);
         return $data;
     }
 
     /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Incrase object download count"
+     * )
+     * @Put("/{entity}/{id}/analytics/download/add")
+     */
+    public function putObjectDownloadAction(Request $request, $id,$entity)
+    {
+        $filePath = $request->get('file_path');
+        $fileSize = $request->get('file_size')?$request->get('file_size'):0;
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $objectDownload = new ObjectDownloads();
+
+        $objectDownload->setEntity($entity);
+        $objectDownload->setFilePath($filePath);
+        $objectDownload->setIpAddress($request->getClientIp());
+        $objectDownload->setLogDate(new \DateTime("now"));
+        $objectDownload->setObjectId($id);
+        $objectDownload->setTransferSize($fileSize);
+        $dm->persist($objectDownload);
+        $dm->flush();
+
+        return $objectDownload;
+    }
+
+    /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get article total download count"
+     *  description="Get object total download count"
      * )
-     * @Get("/articles/{id}/analytics/download/total")
+     * @Get("/{entity}/{id}/analytics/download/total")
      */
-    public function getArticlesDownloadAction($id)
+    public function getObjectDownloadAction(Request $request, $id,$entity)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data = $dm->getRepository('OjsAnalyticsBundle:ArticleDownload')->findByArticleId($id);
-
+        $filePath = $request->get('file_path');
+        $data = $dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
+            ->findBy([
+                'objectId'=>(int)$id, // very interesting {.-.} {-|-} {'-'}
+                'entity'=>$entity,
+                'filePath'=>$filePath
+            ]);
         return $data;
     }
-
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get journal's articles' total view count"
-     * )
-     * @Get("/journals/{id}/analytics/view/total")
-     */
-    public function getJournalsViewAction($id)
-    {
-        return $this->journalArticleViewSummary($id);
-    }
-
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get journal's articles' total download count"
-     * )
-     * @Get("/journals/{id}/analytics/download/total")
-     */
-    public function getJournalsDownloadAction($id)
-    {
-        return $this->journalArticleDownloadSummary($id);
-    }
-
-    /**
-     * wrapper function to get all articles total *view* in a journal
-     * @param  integer $id
-     * @return integer
-     */
-    protected function journalArticleDownloadSummary($id)
-    {
-        return $this->journalArticleStatsSummary($id, 'ArticleDownload');
-    }
-
-    /**
-     * wrapper function to get all articles total *download* in a journal
-     * @param  integer $id
-     * @return integer
-     */
-    protected function journalArticleViewSummary($id)
-    {
-        return $this->journalArticleStatsSummary($id, 'ArticleView');
-    }
-
-    protected function journalArticleStatsSummary($id, $documentName)
-    {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjsAnalyticsBundle:ArticleView');
-        $result = $repo->createQueryBuilder('OjsAnalyticsBundle:' . $documentName)
-            ->field('journalId')->equals($id)
-            ->getQuery()
-            ->execute();
-
-        return $result->count();
-    }
-
 }
