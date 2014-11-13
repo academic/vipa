@@ -1,0 +1,30 @@
+admin_journaltheme:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:index" }
+
+admin_journaltheme_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:show" }
+
+admin_journaltheme_new:
+    path:     /new
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:new" }
+
+admin_journaltheme_create:
+    path:     /create
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:create" }
+    requirements: { _method: post }
+
+admin_journaltheme_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:edit" }
+
+admin_journaltheme_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:update" }
+    requirements: { _method: post|put }
+
+admin_journaltheme_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:JournalTheme:delete" }
+    requirements: { _method: post|delete }

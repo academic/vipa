@@ -16,11 +16,12 @@ Ojs\JournalBundle\Entity\ArticleFile:
                 name: article_id
                 referencedColumnName: id
         file:
-            targetEntity: Article
+            targetEntity: File
             inversedBy: articleFiles
             joinColumn:
-                name: article_id
+                name: file_id
                 referencedColumnName: id
+        
     fields:
         type:
             type: integer
@@ -61,6 +62,16 @@ Ojs\JournalBundle\Entity\ArticleFile:
         deletedAt:
             type: date
             nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     gedmo:
         soft_deleteable:
           field_name: deletedAt
