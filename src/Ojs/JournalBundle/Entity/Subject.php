@@ -34,6 +34,12 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
+    
+    /**
+     * This data will be pre-calculated with scheduled tasks
+     * @var type 
+     */
+    private $totalJournalCount;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -77,6 +83,27 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getSubject()
     {
         return $this->subject;
+    }
+    
+    
+    /**
+     * Set totalJournalCount
+     * @param  integer  $totalJournalCount
+     * @return Subject
+     */
+    public function setTotalJournalCount($totalJournalCount)
+    {
+        $this->totalJournalCount = $totalJournalCount;
+        return $this;
+    }
+
+    /**
+     * Get totalJournalCount
+     * @return integer
+     */
+    public function getTotalJournalCount()
+    {
+        return $this->totalJournalCount;
     }
 
     /**
