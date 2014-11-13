@@ -250,10 +250,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
     
      /**
-     * @param  \Ojs\JournalBundle\Entity\JournalThemes $journalTheme
+     * @param  \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
      * @return Journal
      */
-    public function addJournalThemes(\Ojs\JournalBundle\Entity\JournalThemes $journalTheme)
+    public function addJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
     {
         $this->journalThemes[] = $journalTheme;
         return $this;

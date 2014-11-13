@@ -8,16 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ThemeType extends AbstractType
 {
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('content')
-            ->add('baseTheme')
+                ->add('name')
+                ->add('title')
+                ->add('isPublic')
         ;
     }
 
@@ -38,4 +39,5 @@ class ThemeType extends AbstractType
     {
         return 'ojs_journalbundle_theme';
     }
+
 }
