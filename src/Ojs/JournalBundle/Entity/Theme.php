@@ -19,7 +19,12 @@ class Theme extends GenericExtendedEntity
      * @var string
      */
     private $name;
-    
+
+    /**
+     * @var string
+     */
+    private $title;
+
     /**
      * @var boolean
      */
@@ -83,7 +88,27 @@ class Theme extends GenericExtendedEntity
     {
         return $this->name;
     }
-    
+
+    /**
+     * Set title
+     * @param  string $title
+     * @return Theme
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * Get title
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
     /**
      * Set isPublic 
      * @param  boolean $isPublic

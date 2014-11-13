@@ -12,6 +12,9 @@ Ojs\JournalBundle\Entity\Theme:
         name:
             type: string
             length: 255
+        title:
+            type: string
+            length: 255
         isPublic:
             type: boolean
             options:
