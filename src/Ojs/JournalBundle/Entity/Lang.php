@@ -4,12 +4,13 @@ namespace Ojs\JournalBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * Lang
  * @ExclusionPolicy("all")
  */
-class Lang
+class Lang extends GenericExtendedEntity
 {
     /**
      * @var integer
