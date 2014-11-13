@@ -24,6 +24,8 @@ Ojs\JournalBundle\Entity\JournalSection:
         title:
             type: string
             length: 255
+            gedmo:
+                - translatable
         allowIndex:
             type: boolean
             column: allow_index

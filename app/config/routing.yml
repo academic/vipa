@@ -59,4 +59,8 @@ apidoc:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
     
+jms_job_queue_bundle:
+    resource: "@JMSJobQueueBundle/Controller/"
+    type: annotation
+    prefix: /admin/jobs
 

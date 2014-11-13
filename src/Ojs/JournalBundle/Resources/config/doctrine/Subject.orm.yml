@@ -19,6 +19,9 @@ Ojs\JournalBundle\Entity\Subject:
             nullable: TRUE
             gedmo:
                 - translatable
+        totalJournalCount:
+            column: total_journal_count
+            type: integer
         created:
             type: datetime
             nullable: true

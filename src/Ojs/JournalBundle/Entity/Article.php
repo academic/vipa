@@ -893,4 +893,71 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->abstractTransliterated;
     }
 
+
+    /**
+     * Remove attributes
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleAttribute $attributes
+     */
+    public function removeAttribute(\Ojs\JournalBundle\Entity\ArticleAttribute $attributes)
+    {
+        $this->attributes->removeElement($attributes);
+    }
+
+    /**
+     * Get attributes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * Add articleAuthors
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @return Article
+     */
+    public function addArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    {
+        $this->articleAuthors[] = $articleAuthors;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleAuthors
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     */
+    public function removeArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    {
+        $this->articleAuthors->removeElement($articleAuthors);
+    }
+
+    /**
+     * Add articleFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @return Article
+     */
+    public function addArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    {
+        $this->articleFiles[] = $articleFiles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleFiles
+     *
+     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     */
+    public function removeArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    {
+        $this->articleFiles->removeElement($articleFiles);
+    }
+
 }
