@@ -15,8 +15,10 @@ Ojs\JournalBundle\Entity\Theme:
         title:
             type: string
             length: 255
+            nullable: true
         isPublic:
             type: boolean
+            nullable: true
             options:
                 default: true
         created:
