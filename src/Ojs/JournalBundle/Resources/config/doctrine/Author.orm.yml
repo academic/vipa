@@ -12,7 +12,7 @@ Ojs\JournalBundle\Entity\Author:
         articleAuthors:
             targetEntity: ArticleAuthor
             mappedBy: author
-
+        
     id:
         id:
             type: integer
@@ -90,6 +90,16 @@ Ojs\JournalBundle\Entity\Author:
         deletedAt:
             type: date
             nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     gedmo:
         soft_deleteable:
           field_name: deletedAt

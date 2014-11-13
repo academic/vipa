@@ -11,6 +11,16 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
         authorOrder:
             type: integer
             column: author_order
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     manyToOne:
         author:
             targetEntity: Author
