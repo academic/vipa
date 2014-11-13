@@ -32,7 +32,6 @@ class Theme extends GenericExtendedEntity
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @Expose
      */
     private $journalThemes;
 
