@@ -18,6 +18,8 @@ Ojs\JournalBundle\Entity\File:
         name:
             type: string
             length: 255
+            gedmo:
+                - translatable
         mimeType:
             type: string
             length: 255
