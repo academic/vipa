@@ -6,18 +6,26 @@ use Ojs\Common\Helper\TestHelper;
 
 class SecurityControllerTest extends TestHelper
 {
+
     public function testRegister()
     {
-        $client = static::createClient();
-        $client->request('GET', '/register');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $this->client->request('GET', '/register');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
     public function testLogin()
     {
-        $client = static::createClient();
-        $client->request('GET', '/login');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->request('GET', '/login');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
+    public function testRegenerateAPI(){
+        $this->logIn();
+        $this->client->request('GET','/user/apikey/regenerate',[],[],['HTTP_ACCEPT'=>'application/json']);
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $content = json_decode($response->getContent());
+        $this->assertEquals(true,$content->status);
+    }
 }

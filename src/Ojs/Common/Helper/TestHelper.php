@@ -2,8 +2,10 @@
 
 namespace Ojs\Common\Helper;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpKernel\Client;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 ini_set('session.save_handler', 'files');
@@ -13,7 +15,9 @@ session_start();
 class TestHelper extends WebTestCase
 {
 
+    /** @var Client $client */
     protected $client = null;
+    /** @var EntityManager $em  */
     protected $em = null;
 
     public function __construct()
