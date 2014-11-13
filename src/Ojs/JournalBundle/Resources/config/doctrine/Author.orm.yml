@@ -75,6 +75,8 @@ Ojs\JournalBundle\Entity\Author:
         summary:
             type: text
             nullable: TRUE
+            gedmo:
+                - translatable
         created:
             type: datetime
             gedmo:

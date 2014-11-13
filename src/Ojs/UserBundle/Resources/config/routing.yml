@@ -57,3 +57,7 @@ logout:
     path: /logout
 login_check:
     path: /login_check
+
+regenerate_apikey:
+    pattern: /user/apikey/regenerate
+    defaults: { _controller: OjsUserBundle:Security:regenerateAPI }
