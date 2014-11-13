@@ -21,6 +21,9 @@ Ojs\JournalBundle\Entity\Subject:
                 - translatable
         totalJournalCount:
             column: total_journal_count
+            nullable: TRUE
+            options:
+                default: 0
             type: integer
         created:
             type: datetime

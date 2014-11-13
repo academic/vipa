@@ -1,0 +1,4 @@
+services:
+#    ojs_report.example:
+#        class: Ojs\ReportBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

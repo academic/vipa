@@ -9,6 +9,16 @@ Ojs\JournalBundle\Entity\ArticleAttribute:
   fields:
     value:
       type: string
+    createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+    updatedBy:
+       type: string
+       gedmo:
+         blameable:
+           on: update
   manyToOne:
     article:
       targetEntity: Article

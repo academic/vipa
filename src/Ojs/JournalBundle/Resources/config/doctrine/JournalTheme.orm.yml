@@ -1,0 +1,34 @@
+Ojs\JournalBundle\Entity\JournalTheme:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            inversedBy: journalThemes
+            joinColumn:
+                name: journal_id
+                referencedColumnName: id
+        theme:
+            targetEntity: Theme
+            inversedBy: journalThemes
+            joinColumn:
+                name: theme_id
+                referencedColumnName: id
+    fields:
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    lifecycleCallbacks: {  }

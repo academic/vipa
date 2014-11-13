@@ -177,6 +177,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $institution;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $journalThemes;
+
+    /**
      * @var integer
      * @Expose
      */
@@ -193,18 +199,17 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     *
-     * @param  string                              $settingName
-     * @param  string                              $value
+     * @param  string $settingName
+     * @param  string $value
      * @return \Ojs\JournalBundle\Entity\Journal
      */
     public function addSetting($settingName, $value)
     {
         $this->setting[$settingName] = new ArticleAttribute($settingName, $value, $this);
-
         return $this;
     }
 
@@ -242,6 +247,32 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getSections()
     {
         return $this->sections;
+    }
+    
+     /**
+     * @param  \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
+     * @return Journal
+     */
+    public function addJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    {
+        $this->journalThemes[] = $journalTheme;
+        return $this;
+    }
+
+    /**
+     * @param \Ojs\JournalBundle\Entity\JournalThemes $journalTheme
+     */
+    public function removeJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    {
+        $this->journalThemes->removeElement($journalTheme);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJournalThemes()
+    {
+        return $this->journalThemes;
     }
 
     /**
@@ -899,4 +930,5 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->subjects->removeElement($subjects);
     }
+
 }
