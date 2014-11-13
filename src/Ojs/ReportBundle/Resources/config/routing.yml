@@ -1,0 +1,3 @@
+ojs_report_homepage:
+    path:     /reports
+    defaults: { _controller: OjsReportBundle:Report:index }
