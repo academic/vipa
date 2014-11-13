@@ -16,10 +16,10 @@ Ojs\JournalBundle\Entity\ArticleFile:
                 name: article_id
                 referencedColumnName: id
         file:
-            targetEntity: Article
+            targetEntity: File
             inversedBy: articleFiles
             joinColumn:
-                name: article_id
+                name: file_id
                 referencedColumnName: id
         
     fields:

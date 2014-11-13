@@ -12,8 +12,7 @@ class LoadThemeData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $theme = new Theme();
-        $theme->setContent("<!-- theme content -->");
-        $theme->setName("Demo Theme");
+        $theme->setName("default");
         $manager->persist($theme);
         $manager->flush();
     }
