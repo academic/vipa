@@ -4,12 +4,13 @@ namespace Ojs\JournalBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * Authors of article and orders
  * @ExclusionPolicy("all")
  */
-class ArticleAuthor
+class ArticleAuthor extends GenericExtendedEntity
 {
     /**
      * @var integer

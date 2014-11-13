@@ -2,10 +2,11 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Ojs\Common\Entity\GenericExtendedEntity;
 /**
  * JournalContact
  */
-class JournalContact
+class JournalContact extends GenericExtendedEntity
 {
     /**
      * @var integer
