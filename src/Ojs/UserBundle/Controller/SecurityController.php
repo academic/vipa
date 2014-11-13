@@ -4,6 +4,8 @@ namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -142,5 +144,39 @@ class SecurityController extends Controller {
                         )
         );
     }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function regenerateAPIAction(Request $request)
+    {
+        try{
+            /** @var User $user */
+            $user = $this->getUser();
+            if(!$user)
+                throw new AccessDeniedException("Access denied!",403);
+            $user->generateApiKey();
+            $user->setIsActive(true);
+            /** @var \Doctrine\ORM\EntityManager $em */
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return JsonResponse::create([
+                'status'=>true,
+                'message'=>'API key regenerated.',
+                'apikey'=>$user->getApiKey(),
+                'callback'=>'regenerateAPI'
+            ]);
+        }catch(\Exception $q){
+            return JsonResponse::create([
+                'status'=>false,
+                'message'=>$q->getMessage(),
+                'code'=>$q->getCode()
+            ]);
+        }
+    }
+
 
 }
