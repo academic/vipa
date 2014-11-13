@@ -11,7 +11,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class ObjectDownload
 {
-     /**
+    /**
      * @MongoDb\Id
      */
     public $id;
@@ -21,10 +21,22 @@ class ObjectDownload
      */
     protected $filePath;
 
+    /** @MongoDB\Int */
+    protected $objectId;
+
+    /** @MongoDB\string */
+    protected $entity;
+
+    /** @MongoDB\String */
+    protected $rawData;
+
+    /** @MongoDB\Int */
+    protected $total;
+
     /**
      * Get id
      *
-     * @return id $id
+     * @return int $id
      */
     public function getId()
     {
@@ -79,4 +91,36 @@ class ObjectDownload
         return $this->filePath;
     }
 
+    public function setObjectId($id)
+    {
+        $this->objectId = $id;
+        return $this;
+    }
+
+    public function getObjectId()
+    {
+        return $this->objectId;
+    }
+
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+        return $this;
+    }
+
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    public function setRawData($data)
+    {
+        $this->rawData = $data;
+        return $this;
+    }
+/** Jungle Boogie  */
+    public function getRawData()
+    {
+        return $this->rawData;
+    }
 }

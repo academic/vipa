@@ -20,4 +20,23 @@ Ojs\SiteBundle\Entity\Page:
         image:
             type: string
             length: 255
+        created:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: create
+        updated:
+           type: datetime
+           gedmo:
+             timestampable:
+               on: update
+        deletedAt:
+           type: date
+           nullable: true
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: false
+        loggable: true
+
     lifecycleCallbacks: {  }

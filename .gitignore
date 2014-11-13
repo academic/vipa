@@ -56,6 +56,9 @@ com_crashlytics_export_strings.xml
 !app/logs/.gitkeep
 /app/bootstrap.php.cache
 
+#Local Files /Folders
+/web/app_local.php
+
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
