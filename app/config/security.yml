@@ -62,3 +62,7 @@ security:
         - { path: /editor, roles: ROLE_EDITOR }
         - { path: ^/api/*, roles: ROLE_USER }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+#jms_security_extra:
+#    method_access_control:
+#        "JMSJobQueueBundle:.*:.*": "hasRole('ROLE_ADMIN')"
