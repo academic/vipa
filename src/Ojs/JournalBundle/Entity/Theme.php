@@ -2,11 +2,14 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use \Ojs\Common\Entity\GenericExtendedEntity;
+
 /**
  * Theme
  */
-class Theme extends \Ojs\Common\Entity\GenericExtendedEntity
+class Theme extends GenericExtendedEntity
 {
+
     /**
      * @var integer
      */
@@ -20,16 +23,39 @@ class Theme extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var string
      */
-    private $content;
+    private $title;
 
     /**
      * @var boolean
      */
-    private $baseTheme;
+    private $isPublic;
 
-    public function setTranslatableLocale($locale)
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journalThemes;
+
+    public function __construct()
     {
-        $this->locale = $locale;
+        $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getJournalThemes()
+    {
+        return $this->journalThemes;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $journalThemes
+     * @return Theme
+     */
+    public function setJournalThemes(\Doctrine\Common\Collections\Collection $journalThemes)
+    {
+        $this->journalThemes = $journalThemes;
+        return $this;
     }
 
     /**
@@ -43,21 +69,18 @@ class Theme extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * Set name
-     *
+     * Set name 
      * @param  string $name
      * @return Theme
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
     /**
      * Get name
-     *
      * @return string
      */
     public function getName()
@@ -66,49 +89,43 @@ class Theme extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * Set content
-     *
-     * @param  string $content
+     * Set title
+     * @param  string $title
      * @return Theme
      */
-    public function setContent($content)
+    public function setTitle($title)
     {
-        $this->content = $content;
-
+        $this->title = $title;
         return $this;
     }
 
     /**
-     * Get content
-     *
+     * Get title
      * @return string
      */
-    public function getContent()
+    public function getTitle()
     {
-        return $this->content;
+        return $this->title;
     }
 
     /**
-     * Set baseTheme
-     *
-     * @param  boolean $baseTheme
+     * Set isPublic 
+     * @param  boolean $isPublic
      * @return Theme
      */
-    public function setBaseTheme($baseTheme)
+    public function setIsPublic($isPublic)
     {
-        $this->baseTheme = $baseTheme;
-
+        $this->isPublic = $isPublic;
         return $this;
     }
 
     /**
-     * Get baseTheme
-     *
+     * Get isPublic
      * @return boolean
      */
-    public function getBaseTheme()
+    public function getIsPublic()
     {
-        return $this->baseTheme;
+        return $this->isPublic;
     }
 
 }

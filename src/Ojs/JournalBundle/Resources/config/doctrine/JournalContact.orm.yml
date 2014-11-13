@@ -34,4 +34,14 @@ Ojs\JournalBundle\Entity\JournalContact:
         contactTypeId:
             type: integer
             column: contact_type_id
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     lifecycleCallbacks: {  }

@@ -2,10 +2,11 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Ojs\Common\Entity\GenericExtendedEntity;
 /**
  * JournalSection
  */
-class JournalSection
+class JournalSection extends GenericExtendedEntity
 {
     /**
      * @var integer

@@ -1,0 +1,36 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>JournalTheme</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Journalid</th>
+                <td>{{ entity.journalId }}</td>
+            </tr>
+            <tr>
+                <th>Themeid</th>
+                <td>{{ entity.themeId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journaltheme') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journaltheme_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
