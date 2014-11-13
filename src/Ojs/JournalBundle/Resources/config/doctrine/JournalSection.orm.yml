@@ -41,4 +41,14 @@ Ojs\JournalBundle\Entity\JournalSection:
         journalId:
             type: integer
             column: journal_id
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
     lifecycleCallbacks: {  }
