@@ -45,7 +45,7 @@ class AnalyticsRestControllerTest extends WebTestCase {
     {
         $this->client->request(
             'PUT',
-            '/api/'.$this->entity.'/'.$this->objectId.'/analytics/view/add?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
+            '/api/analytics/view/'.$this->entity.'/'.$this->objectId.'/?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
             [
                 'page_url'=>'/articles/test'
             ],
@@ -61,7 +61,7 @@ class AnalyticsRestControllerTest extends WebTestCase {
 
         $this->client->request(
             'GET',
-            '/api/'.$this->entity.'/'.$this->objectId.'/analytics/view/total',
+            '/api/analytics/view/'.$this->entity.'/'.$this->objectId.'/',
             [
                 'apikey'=>'MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
                 'page_url'=>'/articles/test'
@@ -79,7 +79,7 @@ class AnalyticsRestControllerTest extends WebTestCase {
     {
         $this->client->request(
             'PUT',
-            '/api/'.$this->entity.'/'.$this->objectId.'/analytics/download/add?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
+            '/api/analytics/download/'.$this->entity.'/'.$this->objectId.'/?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
             [
                 'file_path'=>'/var/tests.tar.gz',
                 'file_size'=>'1024kb'
