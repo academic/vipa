@@ -208,15 +208,17 @@ Ojs\JournalBundle\Entity\Article:
         type: date
         nullable: true
     createdBy:
-           type: string
-           gedmo:
-             blameable:
-               on: create
+        type: string
+        nullable: true
+        gedmo:
+          blameable:
+            on: create
     updatedBy:
-       type: string
-       gedmo:
-         blameable:
-           on: update
+        type: string
+        nullable: true
+        gedmo:
+          blameable:
+            on: update
   gedmo:
     soft_deleteable:
         field_name: deletedAt
