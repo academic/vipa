@@ -1,11 +1,13 @@
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 {% extends "::ojsbase.html.twig" %}
 
 {% block body %}
     <div class="container-fluid">
         <hgroup class="page-header">
-            <h1>Search Results</h1>
-            <h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>
+            <h1>{{ "Search Results"|trans }}</h1>
+
+            <h2 class="lead"><strong class="text-danger">{{ total_count }}</strong> results were found for the search
+                for <strong class="text-danger">{{ term }}</strong></h2>
         </hgroup>
 
         <nav class="col-xs-6 col-sm-6 col-md-3">
@@ -38,44 +40,49 @@
             </div>
         </nav>
         <section class="col-xs-6 col-sm-6 col-md-9">
-            <ol>
-                <li>
-                    <input type="checkbox" />
-                    <article>
-                        <h4><a href="#">The tetramerization domain potentiates kv4 channel function by suppressing closed-state inactivation.</a></h4>
-                        <p><a href="#">Tang YQ</a>, <a href="#">Zhou JH</a>, <a href="#">Yang F</a>, <a href="#">Zheng J</a>, <a href="#">Wang K.</a></p>
-                        <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
-                        <p class="text-muted">PMID: 25185545</p>
-                    </article>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <article>
-                        <h4><a href="#">The tetramerization domain potentiates kv4 channel function by suppressing closed-state inactivation.</a></h4>
-                        <p><a href="#">Tang YQ</a>, <a href="#">Zhou JH</a>, <a href="#">Yang F</a>, <a href="#">Zheng J</a>, <a href="#">Wang K.</a></p>
-                        <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
-                        <p class="text-muted">PMID: 25185545</p>
-                    </article>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <article>
-                        <h4><a href="#">The tetramerization domain potentiates kv4 channel function by suppressing closed-state inactivation.</a></h4>
-                        <p><a href="#">Tang YQ</a>, <a href="#">Zhou JH</a>, <a href="#">Yang F</a>, <a href="#">Zheng J</a>, <a href="#">Wang K.</a></p>
-                        <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
-                        <p class="text-muted">PMID: 25185545</p>
-                    </article>
-                </li>
-                <li>
-                    <input type="checkbox" />
-                    <article>
-                        <h4><a href="#">The tetramerization domain potentiates kv4 channel function by suppressing closed-state inactivation.</a></h4>
-                        <p><a href="#">Tang YQ</a>, <a href="#">Zhou JH</a>, <a href="#">Yang F</a>, <a href="#">Zheng J</a>, <a href="#">Wang K.</a></p>
-                        <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
-                        <p class="text-muted">PMID: 25185545</p>
-                    </article>
-                </li>
-            </ol>
+            <ul>
+                {% for object in result %}
+                    <li>
+                        <article>
+                            <h4><a href="#">{{ object.title }}</a></h4>
+                            <p>
+                                {% for author in object.articleAuthors %}
+                                    <a href="">{{ author.author.firstName }}</a>
+                                {% endfor %}
+                            </p>
+
+                            <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
+
+                            <p class="text-muted">PMID: 25185545</p>
+                        </article>
+                    </li>
+                {% endfor %}
+            </ul>
+            <nav>
+
+            </nav>
+            <ul class="pagination ">
+                {% for p in 1..page_count %}
+                    {% if loop.first %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
+                                <span aria-hidden="true">&laquo;</span><span class="sr-only">{{ p }}</span></a>
+                        </li>
+                    {% elseif loop.last %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
+                                <span aria-hidden="true">&raquo;</span><span class="sr-only">{{ p }}</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">{{ p }}</a>
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
 
         </section>
     </div>
