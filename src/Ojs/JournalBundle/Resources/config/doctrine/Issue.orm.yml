@@ -88,11 +88,13 @@ Ojs\JournalBundle\Entity\Issue:
             nullable: true
         createdBy:
            type: string
+           nullable: true
            gedmo:
              blameable:
                on: create
         updatedBy:
            type: string
+           nullable: true
            gedmo:
              blameable:
                on: update
