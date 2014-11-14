@@ -4,6 +4,7 @@ fos_elastica:
         default: { host: 127.0.0.1, port: 9200 }
     indexes:
         search:
+            client: default
             types:
                 user:
                     mappings:
@@ -17,4 +18,58 @@ fos_elastica:
                         provider: ~
                         listener:
                             immediate: ~
+                        finder: ~
+                articles:
+                    mappings:
+                        subjects: { type: string, boost: 4}
+                        status: ~
+                        keywords: { type: string, boost: 4}
+                        subtitle: { type: string, boost: 3}
+                        title: { type: string, boost: 5 }
+                        citations:
+                            type: "object"
+                            properties:
+                                raw: { boost: 2 }
+                                id:  { boost: 1 }
+                        articleAuthors:
+                            type: "object"
+                            properties:
+                                author:
+                                    type: "object"
+                                    properties:
+                                        firstName: ~
+                                        lastName: ~
+                                        middleName: ~
+                                        email: ~
+                        attributes:
+                            type: "object"
+                            properties:
+                                value: ~
+                        journal:
+                            type: "object"
+                            properties:
+                                title: ~
+                                titleAbbr: ~
+                                subtitle: ~
+                                issn: ~
+                                eissn: ~
+                                mission: ~
+
+                        issue:
+                            type: "object"
+                            properties:
+                                title: ~
+                                cover: ~
+                                description: ~
+                                year: ~
+                        section:
+                            type: "object"
+                            properties:
+                                title: ~
+
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Article
+                        provider: ~
+                        listener: ~
                         finder: ~
