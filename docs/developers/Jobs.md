@@ -81,3 +81,22 @@ $em->flush();
 ```
 
 The priority is a simple integer - the higher the number, the sooner a job is executed.
+
+##Running and Managing Jobs
+
+app/console.v2 is a copy of app/console file but it has a different library replacement for `Symfony\Bundle\FrameworkBundle\Console\Application`
+
+###listen jobs and run from queue
+
+```
+$ php app/console.v2 jms-job-queue:run
+```
+
+###clean all jobs
+```
+$ php app/console.v2 jms-job-queue:clean-up
+```
+
+###view queue and jobs' status
+
+Browse [ojs-hostname]/admin/jobs to list all running or finished jobs and details with output logs.
