@@ -2,12 +2,12 @@
 
 namespace Ojs\CliBundle\Tests\Command;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
 /**
  * @todo write tests
  */
-class InstallCommandTest extends WebTestCase
+class InstallCommandTest extends BaseTestCase
 {
     public function testIndex()
     {

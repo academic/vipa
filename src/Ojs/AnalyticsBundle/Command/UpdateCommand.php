@@ -81,80 +81,91 @@ class UpdateCommand extends ContainerAwareCommand
 
     private function updateViewData(OutputInterface $output)
     {
-        $progress = $this->getHelper('progress');
+        try{
+            $progress = $this->getHelper('progress');
 
-        $allViews = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews')->findAll();
-        $counts = [];
-        foreach ($allViews as $view) {
-            /** @var ObjectViews $view */
-            if (isset($counts[$view->getPageUrl()])) {
-                $counts[$view->getPageUrl()]->total++;
-            } else {
-                $counts[$view->getPageUrl()] = new \stdClass();
-                $counts[$view->getPageUrl()]->id = $view->getObjectId();
-                $counts[$view->getPageUrl()]->entity = $view->getEntity();
-                $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize($this->getObject($view),'json');
+            $allViews = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews')->findAll();
+            $counts = [];
+            foreach ($allViews as $view) {
+                /** @var ObjectViews $view */
+                if (isset($counts[$view->getPageUrl()])) {
+                    $counts[$view->getPageUrl()]->total++;
+                } else {
+                    $counts[$view->getPageUrl()] = new \stdClass();
+                    $counts[$view->getPageUrl()]->id = $view->getObjectId();
+                    $counts[$view->getPageUrl()]->entity = $view->getEntity();
+                    $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize($this->getObject($view),'json');
+                }
             }
+            $progress->start($output,count($counts));
+            foreach ($counts as $key => $object) {
+                //check
+                $totalView = $this->dm->getRepository("OjsAnalyticsBundle:ObjectView")
+                    ->findOneBy(['pageUrl' => $key,'objectId'=>$object->id,'entity'=>$object->entity]);
+
+                $totalView = $totalView ? $totalView : new ObjectView();
+
+                $totalView->setPageUrl($key);
+                $totalView->setTotal($object->total);
+                $totalView->setObjectId($object->id);
+                $totalView->setEntity($object->entity);
+                $totalView->setRawData($object->rawData);
+                $this->dm->persist($totalView);
+                $this->dm->flush();
+
+                $progress->advance();
+            }
+            $progress->finish();
+            $output->writeln("Successfully");
+        }catch(\Exception $e){
+            $output->writeln("An error has occured");
         }
-        $progress->start($output,count($counts));
-        foreach ($counts as $key => $object) {
-            //check
-            $totalView = $this->dm->getRepository("OjsAnalyticsBundle:ObjectView")
-                ->findOneBy(['pageUrl' => $key,'objectId'=>$object->id,'entity'=>$object->entity]);
-
-            $totalView = $totalView ? $totalView : new ObjectView();
-
-            $totalView->setPageUrl($key);
-            $totalView->setTotal($object->total);
-            $totalView->setObjectId($object->id);
-            $totalView->setEntity($object->entity);
-            $totalView->setRawData($object->rawData);
-            $this->dm->persist($totalView);
-            $this->dm->flush();
-
-            $progress->advance();
-        }
-        $progress->finish();
 
     }
 
     private function updateDownloadData(OutputInterface $output)
     {
-        $progress = $this->getHelper('progress');
+        try{
+            $progress = $this->getHelper('progress');
 
-        $allDownloads = $this->dm->getRepository("OjsAnalyticsBundle:ObjectDownloads")->findAll();
-        $counts = [];
-        foreach($allDownloads as $download){
-            if(isset($count[$download->getFilePath()])){
-                $counts[$download->getFilePath()]->total++;
-            }else{
-                $counts[$download->getFilePath()] = new \stdClass();
-                $counts[$download->getFilePath()]->total = 1;
-                $counts[$download->getFilePath()]->id = $download->getObjectId();
-                $counts[$download->getFilePath()]->entity = $download->getEntity();
-                $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($this->getObject($download),'json');
+            $allDownloads = $this->dm->getRepository("OjsAnalyticsBundle:ObjectDownloads")->findAll();
+            $counts = [];
+            foreach($allDownloads as $download){
+                if(isset($count[$download->getFilePath()])){
+                    $counts[$download->getFilePath()]->total++;
+                }else{
+                    $counts[$download->getFilePath()] = new \stdClass();
+                    $counts[$download->getFilePath()]->total = 1;
+                    $counts[$download->getFilePath()]->id = $download->getObjectId();
+                    $counts[$download->getFilePath()]->entity = $download->getEntity();
+                    $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($this->getObject($download),'json');
 
+                }
             }
+            $progress->start($output,count($counts));
+
+            foreach($counts as $key=>$object){
+                //check data
+                $totalDownload = $this->dm
+                    ->getRepository("OjsAnalyticsBundle:ObjectDownload")
+                    ->findOneBy(['filePath'=>$key,'objectId'=>$object->id,'entity'=>$object->entity]);
+                $totalDownload = $totalDownload? $totalDownload: new ObjectDownload();
+
+                $totalDownload->setTotal($object->total);
+                $totalDownload->setFilePath($key);
+                $totalDownload->setRawData($object->rawData);
+                $totalDownload->setEntity($object->entity);
+                $totalDownload->setObjectId($object->id);
+
+                $this->dm->persist($totalDownload);
+                $this->dm->flush();
+                $progress->advance();
+            }
+            $progress->finish();
+            $output->writeln("Successfully");
+
+        }catch(\Exception $e){
+            $output->writeln("An error has occured");
         }
-        $progress->start($output,count($counts));
-
-        foreach($counts as $key=>$object){
-            //check data
-            $totalDownload = $this->dm
-                ->getRepository("OjsAnalyticsBundle:ObjectDownload")
-                ->findOneBy(['filePath'=>$key,'objectId'=>$object->id,'entity'=>$object->entity]);
-            $totalDownload = $totalDownload? $totalDownload: new ObjectDownload();
-
-            $totalDownload->setTotal($object->total);
-            $totalDownload->setFilePath($key);
-            $totalDownload->setRawData($object->rawData);
-            $totalDownload->setEntity($object->entity);
-            $totalDownload->setObjectId($object->id);
-
-            $this->dm->persist($totalDownload);
-            $this->dm->flush();
-            $progress->advance();
-        }
-        $progress->finish();
     }
 }

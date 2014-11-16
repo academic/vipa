@@ -2,10 +2,11 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-use \Ojs\Common\Helper\TestHelper;
+use Ojs\Common\Tests\BaseTestCase;
 
-class ProxyControllerTest extends TestHelper
+class ProxyControllerTest extends BaseTestCase
 {
+
     public function testStatus()
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));

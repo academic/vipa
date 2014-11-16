@@ -1,3 +1,6 @@
+ROLE_JOURNAL_MANAGER: Journal Manager
+ROLE_EDITOR: Editor
+
 scope: Scope
 mission: Mission
 archive: Archive
@@ -24,11 +27,26 @@ status:
     inreview: in-Review
     spam: Spam
 messages: Messages
+
+reports: 
+    title: Reports
+    journal: Journal Reports
+    article: Article Reports
+    author: Author Reports
+    user: User Reports
+    analytics: Analytics Reports
+
+reports: Reports
+settings: Settings 
+
+journals: Journals
 journal: 
     journal: journal
     journals: Journals
     about: About Journal
     all: All Journals
+    users: Journal Users
+    
 articles:
     articles: Articles
     article: Article
@@ -59,7 +77,7 @@ author:
     middlename: Middle Name
     lastname: Last Name
     initials: Initials
-    order: Sıra
+    order: Order
     
 trans: Transliterated
 email: Email
