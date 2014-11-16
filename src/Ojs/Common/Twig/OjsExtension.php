@@ -44,12 +44,14 @@ class OjsExtension extends \Twig_Extension
      */
     public function generateBreadcrumb($list = null)
     {
+
+        $translator = $this->container->get('translator');
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
             $html .=!isset($item['link']) ?
-                    '<li class="active">' . $item['title'] . '</li>' :
-                    '<li><a  href = "' . $item['link'] . '">' . $item['title'] . '</a></li>';
+                    '<li class="active">' . $translator->trans($item['title']) . '</li>' :
+                    '<li><a  href = "' . $item['link'] . '">' . $translator->trans($item['title']) . '</a></li>';
         }
         $html .= '</ol> ';
 

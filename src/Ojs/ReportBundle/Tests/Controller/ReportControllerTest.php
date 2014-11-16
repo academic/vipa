@@ -2,9 +2,9 @@
 
 namespace Ojs\ReportBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class ReportControllerTest extends \Ojs\Common\Helper\TestHelper
+class ReportControllerTest extends BaseTestCase
 {
 
     public function testStatus()
@@ -12,7 +12,7 @@ class ReportControllerTest extends \Ojs\Common\Helper\TestHelper
         $client = $this->client;
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
 
-        $client->request('GET', '/reports/');
+        $client->request('GET', '/manager/reports/');
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
