@@ -28,8 +28,14 @@ status:
     spam: Spam
 messages: Mesajlar
 
-
-reports: Raporları
+reports: 
+    title: Raporlar
+    journal: Dergi Raporları
+    article: Makale Raporları
+    author: Yazar Raporları
+    user: Kullanıcı Raporarı
+    analytics: İstatistik Raporları
+    
 settings: Ayarları 
 
 journals: Dergiler
@@ -39,7 +45,7 @@ journal:
     about: Dergi Hakkında
     all: Tüm Dergiler
     users: Dergi Kullanıcıları
-    
+
 articles:
     articles: Makaleler
     article: Makale
@@ -55,7 +61,6 @@ wflow: Süreç
 admin: Yönetim
 dashboard: Panel
 
-             
 suppfiles:
     resins: Araştırma Araçları
     resmat: Araştırma Materyalleri
