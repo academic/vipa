@@ -15,6 +15,11 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api_doc:
+            pattern: /api/doc
+            stateless: true
+            security: false
+            anonymous: true
         api:
             pattern: ^/api
             stateless: true
