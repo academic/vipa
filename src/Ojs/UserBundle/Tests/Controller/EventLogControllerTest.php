@@ -2,9 +2,9 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class EventLogControllerTest extends WebTestCase
+class EventLogControllerTest extends BaseTestCase
 {
     /**
      * @todo EventLogController Tests
