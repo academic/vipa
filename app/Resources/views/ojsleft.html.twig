@@ -13,7 +13,7 @@
                     <h4 class="panel-title">
                         {% if userJournalRoles %}
                             {%for role in userJournalRoles %}
-                                <span class="label label-default">{{role.name}}</span> 
+                                <span class="label label-default">{{role.role|trans}}</span> 
                             {%endfor%}
                         {%endif%}
                     </h4>
@@ -33,34 +33,56 @@
                                         </a>
                                     </li> 
                                 {%endfor%}
-
                             </ul>
                         </div>
                     {%endif%}
                     <a class="list-group-item list-group-item-success"  href="{{path('articlesubmission_new')}}">
                         <i class="fa fa-plus-circle"></i> 
-                        {%trans%}Submit Article{%endtrans%}
+                        {{"articles.submit"|trans}}
                     </a>
                     <a class="list-group-item"  href="{{path('dashboard')}}">
                         <i class="fa fa-dashboard"></i> 
-                        {%trans%}Dashboard{%endtrans%}
+                        {{"dashboard"|trans}}
                     </a>
                     <a class="list-group-item list-group-item-warning" href="{{path('ojstr_message_message_user_index')}}">
                         <i class="fa fa-envelope"></i>
-                        {%trans%}Messages{%endtrans%}</a>
-
-                    <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
-                        <i class="fa fa-cogs"></i>  
-                        {%trans%}Workflow{%endtrans%} </a>
-
-                    <a class="list-group-item" href="{{path('user_show_my_journals')}}">
-                        <i class="fa fa-list"></i>  
-                        {%trans%}Journals{%endtrans%} </a>
+                        {{"messages"|trans}}</a>
                 </div>
             </div>
+            
+            {% if hasRole('ROLE_JOURNAL_MANAGER') %}
+
+                <div class="panel panel-default left-menu-bgcolor">
+                    <div class="panel-heading">{{"Journal Manager"|trans}}</div>
+                    <div>
+                        {# Links for journal manager  #}
+                        <a class="list-group-item"  href="{{path('dashboard')}}">
+                            <i class="fa fa-cog"></i> 
+                            {{"settings"|trans}}
+                        </a>
+                        <a class="list-group-item"  href="{{path('dashboard')}}">
+                            <i class="fa fa-th"></i> 
+                            {{"journal.users"|trans}}
+                        </a>
+                        <a class="list-group-item"  href="{{path('reports_index')}}">
+                            <i class="fa fa-th"></i> 
+                            {{"reports.title"|trans}}
+                        </a>
+                    </div>
+                </div>
+            {% endif %} 
+
             <div class="panel panel-default left-menu-bgcolor">
+                <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
+                    <i class="fa fa-recycle"></i>  
+                    {{"workflow"|trans}} </a>
+
+                <a class="list-group-item" href="{{path('user_show_my_journals')}}">
+                    <i class="fa fa-list"></i>  
+                    {{"journals"|trans}} </a>
+
                 <div class="panel-heading"><i class="fa fa-list"></i>
-                    {%trans%}Articles{%endtrans%}</div>
+                    {{"Articles"|trans}}</div>
                 <div class="panel-collapse collapse in">
                     {% if isSystemAdmin() or isJournalManager()  %}
                         {%set submissions_path = "articlesubmissions_all" %}
@@ -80,7 +102,7 @@
 
             {% if isSystemAdmin() %}
                 <div class="panel panel-default left-menu-bgcolor">
-                    <div class="panel-heading">{%trans%}Admin{%endtrans%}</div>
+                    <div class="panel-heading">{{"Admin"|trans}}</div>
                     <div class="panel-collapse collapse in">
                         <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
                         <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>

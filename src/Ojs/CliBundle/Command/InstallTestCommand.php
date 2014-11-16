@@ -23,7 +23,7 @@ class InstallTestCommand extends ContainerAwareCommand
         $output->writeln('<info>Ojs Test Installation</info>');
 
         $output->writeln('<info>Updating db schema!</info>');
-        $application->run(new \Symfony\Component\Console\Input\StringInput('doctrine:schema:update --force'));
+        $application->run(new \Symfony\Component\Console\Input\StringInput('doctrine:schema:update --force --quiet'));
 
         $admin_username = 'admin';
         $admin_email = 'root@localhost.com';

@@ -14,3 +14,24 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine_mongodb:
+    connections:
+        default:
+            #you can change to your setting
+            server: mongodb://127.0.0.1:27017
+            options: {}
+    default_database: ojs_test
+    document_managers:
+        default:
+            auto_mapping: true
+    auto_generate_hydrator_classes: true
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: %kernel.cache_dir%/test.db
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: true
+        auto_mapping: true

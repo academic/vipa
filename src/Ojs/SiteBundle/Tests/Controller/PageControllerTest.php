@@ -2,9 +2,9 @@
 
 namespace Ojs\SiteBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class PageControllerTest extends WebTestCase
+class PageControllerTest extends BaseTestCase
 {
     public function testIndex()
     {
