@@ -59,9 +59,8 @@ abstract class BaseTestCase extends WebTestCase {
     protected function logIn($username = null, $role = null)
     {
         $session = $this->client->getContainer()->get('session');
-        $firewall = 'main';
-        $username = $username ? $username : 'admin';
-        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username);
+        $firewall = 'main'; 
+        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username ? $username : 'admin');
         if(!($user instanceof UserInterface))
             throw new \Exception("User not find");
         $token = new UsernamePasswordToken($user, null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));

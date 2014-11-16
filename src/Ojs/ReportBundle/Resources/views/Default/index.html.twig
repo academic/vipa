@@ -14,9 +14,14 @@
     <div class="col-md-12">
         <h2>Reports</h2>
 
-        <a class="btn btn-lg btn-default"><i class="fa fa-users"></i> {{"reports.user"|trans }}</a>
-        <a class="btn btn-lg btn-default"><i class="fa fa-file"></i> {{"reports.article"|trans }}</a>
-        <a class="btn btn-lg btn-default"><i class="fa fa-line-chart"></i> {{"reports.analytics"|trans }}</a>
-
+        <a class="btn btn-lg btn-default" href="{{path("user_reports")}}">
+            <i class="fa fa-users"></i> {{"reports.user"|trans }}
+        </a>
+        <a class="btn btn-lg btn-default" href="{{path("article_reports")}}">
+            <i class="fa fa-file"></i> {{"reports.article"|trans }}
+        </a>
+        <a class="btn btn-lg btn-default" href="{{path("analytics_reports")}}">
+            <i class="fa fa-line-chart"></i> {{"reports.analytics"|trans }}
+        </a>
     </div>
 {% endblock %}
