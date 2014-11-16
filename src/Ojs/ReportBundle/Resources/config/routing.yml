@@ -1,3 +1,15 @@
 reports_index:
     path:     /manager/reports/
     defaults: { _controller: OjsReportBundle:Report:index }
+
+analytics_reports:
+    path:     /manager/reports/analytics/
+    defaults: { _controller: OjsReportBundle:Report:index }
+
+user_reports:
+    path:     /manager/reports/user/
+    defaults: { _controller: OjsReportBundle:Report:index }
+
+article_reports:
+    path:     /manager/reports/article/
+    defaults: { _controller: OjsReportBundle:Report:index }

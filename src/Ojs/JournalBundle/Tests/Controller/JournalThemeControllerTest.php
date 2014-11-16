@@ -2,9 +2,9 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class JournalThemeControllerTest extends \Ojs\Common\Helper\TestHelper
+class JournalThemeControllerTest extends BaseTestCase
 {
 
     public function testStatus()
