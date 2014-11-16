@@ -2,30 +2,29 @@
 
 namespace Ojs\ApiBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class RestApiTest extends WebTestCase
+class RestApiTest extends BaseTestCase
 {
+
     protected function assertJsonResponse($response, $statusCode = 200)
     {
         $this->assertEquals(
-                $statusCode, $response->getStatusCode(), $response->getContent()
+            $statusCode, $response->getStatusCode(), $response->getContent()
         );
         $this->assertTrue(
-                $response->headers->contains('Content-Type', 'application/json'), $response->headers
+            $response->headers->contains('Content-Type', 'application/json'), $response->headers
         );
     }
 
     public function testUsersGet()
     {
-        $client = static::createClient();
-        $client->request('GET', '/api/users.json',[
-            'apikey'=>'MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ=='
+        $this->client->request('GET', '/api/users.json', [
+            'apikey' => 'MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ=='
         ]);
-        $response = $client->getResponse();
+        $response = $this->client->getResponse();
         $this->assertJsonResponse($response, 200);
     }
-
 
 
 }

@@ -12,35 +12,34 @@
 namespace Ojs\AnalyticsBundle\Tests\Command;
 
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Console\Input\ArrayInput;
 
-class UpdateCommandTest extends WebTestCase
+class UpdateCommandTest extends BaseTestCase
 {
-    /** @var Application */
-    private $app;
-
     public function setup()
     {
-        $this->app = new Application($this->createClient()->getKernel());
-
+        parent::setup();
         $this->app->add(new \Ojs\AnalyticsBundle\Command\UpdateCommand());
     }
+
     public function testUpdateViewData()
     {
         $command = $this->app->find('ojs:analytics:update');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(['command'=>$command->getName(),'type'=>'view']);
-        $this->assertContains('Successfuslly',$commandTester->getDisplay());
+        $commandTester->execute(['command' => $command->getName(), 'type' => 'view']);
+        $this->assertContains('Successfully', $commandTester->getDisplay());
     }
 
     public function testUpdateDownloadData()
     {
         $command = $this->app->find('ojs:analytics:update');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(['command'=>$command->getName(),'type'=>'download']);
-        $this->assertContains('Successfully',$commandTester->getDisplay());
+        $commandTester->execute(['command' => $command->getName(), 'type' => 'download']);
+        $this->assertContains('Successfully', $commandTester->getDisplay());
     }
+
+
 }
  

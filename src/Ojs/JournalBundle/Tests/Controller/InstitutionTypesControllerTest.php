@@ -2,10 +2,12 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use \Ojs\Common\Helper\TestHelper;
+use Ojs\Common\Tests\BaseTestCase;
 
-class InstitutionTypesControllerTest extends TestHelper
+class InstitutionTypesControllerTest extends BaseTestCase
 {
+
+
     public function testStatus()
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
