@@ -28,12 +28,17 @@ status:
     spam: Spam
 messages: Messages
 
+reports: Reports
+settings: Settings 
+
 journals: Journals
 journal: 
     journal: journal
     journals: Journals
     about: About Journal
     all: All Journals
+    users: Journal Users
+    
 articles:
     articles: Articles
     article: Article

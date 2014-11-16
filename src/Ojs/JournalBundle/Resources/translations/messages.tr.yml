@@ -28,12 +28,18 @@ status:
     spam: Spam
 messages: Mesajlar
 
+
+reports: Raporları
+settings: Ayarları 
+
 journals: Dergiler
 journal: 
     journals: Dergiler
     journal: journal
     about: Dergi Hakkında
     all: Tüm Dergiler
+    users: Dergi Kullanıcıları
+    
 articles:
     articles: Makaleler
     article: Makale
