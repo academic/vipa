@@ -2,9 +2,9 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class UserControllerTest extends WebTestCase
+class UserControllerTest extends BaseTestCase
 {
     /**
      * @todo UserController Tests

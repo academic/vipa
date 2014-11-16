@@ -2,7 +2,9 @@
 
 namespace Ojs\ManagerBundle\Tests\Controller;
 
-class AdminControllerTest extends \Ojs\Common\Helper\TestHelper
+use Ojs\Common\Tests\BaseTestCase;
+
+class AdminControllerTest extends BaseTestCase
 {
     public function testAdminDashboard()
     {

@@ -2,12 +2,12 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use Ojs\Common\Helper\TestHelper;
+use Ojs\Common\Tests\BaseTestCase;
 
 /**
  * @todo new article, update article, delete article  and show article
  */
-class ArticleControllerTest extends TestHelper
+class ArticleControllerTest extends BaseTestCase
 {
     public function testStatus()
     {

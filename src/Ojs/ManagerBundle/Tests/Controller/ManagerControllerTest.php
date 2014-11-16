@@ -2,8 +2,11 @@
 
 namespace Ojs\ManagerBundle\Tests\Controller;
 
-class ManagerControllerTest extends \Ojs\Common\Helper\TestHelper
+use Ojs\Common\Tests\BaseTestCase;
+
+class ManagerControllerTest extends BaseTestCase
 {
+
     public function testManagerDashboard()
     {
         $this->logIn('demo_editor', array('ROLE_EDITOR'));
