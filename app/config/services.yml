@@ -57,3 +57,6 @@ services:
     apikey_authenticator:
         class:     Ojs\ApiBundle\Security\ApiKeyAuthenticator
         arguments: ["@api_key_user_provider"]
+    ojs_search_manager:
+        class: Ojs\SearchBundle\Manager\SearchManager
+        arguments: [@service_container]

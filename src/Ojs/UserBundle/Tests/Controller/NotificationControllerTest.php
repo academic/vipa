@@ -2,7 +2,9 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-class NotificationControllerTest extends \Ojs\Common\Helper\TestHelper
+use Ojs\Common\Tests\BaseTestCase;
+
+class NotificationControllerTest extends BaseTestCase
 {
     public function testAddNotification()
     {

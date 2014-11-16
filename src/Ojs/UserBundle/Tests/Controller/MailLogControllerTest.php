@@ -2,7 +2,9 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-class MailLogControllerTest extends \Ojs\Common\Helper\TestHelper
+use Ojs\Common\Tests\BaseTestCase;
+
+class MailLogControllerTest extends BaseTestCase
 {
     public function testStatus()
     {

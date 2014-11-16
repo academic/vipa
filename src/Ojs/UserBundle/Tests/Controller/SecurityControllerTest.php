@@ -2,10 +2,11 @@
 
 namespace Ojs\UserBundle\Tests\Controller;
 
-use Ojs\Common\Helper\TestHelper;
+use Ojs\Common\Tests\BaseTestCase;
 
-class SecurityControllerTest extends TestHelper
+class SecurityControllerTest extends BaseTestCase
 {
+
 
     public function testRegister()
     {
