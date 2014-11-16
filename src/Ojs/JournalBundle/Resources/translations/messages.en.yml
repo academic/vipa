@@ -1,3 +1,6 @@
+ROLE_JOURNAL_MANAGER: Journal Manager
+ROLE_EDITOR: Editor
+
 scope: Scope
 mission: Mission
 archive: Archive
@@ -24,6 +27,8 @@ status:
     inreview: in-Review
     spam: Spam
 messages: Messages
+
+journals: Journals
 journal: 
     journal: journal
     journals: Journals

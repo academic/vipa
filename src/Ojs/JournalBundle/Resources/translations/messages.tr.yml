@@ -1,3 +1,6 @@
+ROLE_JOURNAL_MANAGER: Dergi Yöneticisi
+ROLE_EDITOR: Editör
+
 scope: Kapsam
 mission: Amaç
 archive: Arşiv
@@ -24,6 +27,8 @@ status:
     inreview: İncelemede
     spam: Spam
 messages: Mesajlar
+
+journals: Dergiler
 journal: 
     journals: Dergiler
     journal: journal

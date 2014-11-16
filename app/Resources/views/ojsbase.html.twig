@@ -36,12 +36,12 @@
                         <div class="panel panel-default sub-middle-panel">
                             <div class="panel-heading">
                                 <div class="panel-title">
-                                    {% if app.user %}
-                                        {% block breadcrumb %}
-                                            <h5><a href="/dashboard">Dashboard</a>
-                                                <small>Control panel</small></h5>
-                                            {% endblock %} 
-                                        {%endif%}
+                                    {% block breadcrumb %}
+                                        <h5>
+                                            <a href="/dashboard">Dashboard</a>
+                                            <small>Control panel</small>
+                                        </h5>
+                                    {% endblock %}  
                                 </div>
                             </div>
                             <div class="panel-body">
