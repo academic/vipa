@@ -12,35 +12,17 @@
 namespace Ojs\AnalyticsBundle\Tests\Controller;
 
 
-use Doctrine\ODM\MongoDB\Tools\Console\Command\Schema\UpdateCommand;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\HttpKernel\Client;
 
 /**
  * Class AnalyticsRestControllerTest
  * @package Ojs\AnalyticsBundle\Tests\Controller
  */
-class AnalyticsRestControllerTest extends WebTestCase {
+class AnalyticsRestControllerTest extends BaseTestCase {
     private $objectId=1;
     private $entity='articles';
 
-    /** @var  Client $client */
-    private $client;
-
-    /** @var  Application $application */
-    private $application;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-
-        $application = new Application($this->client->getKernel());
-        $application->setAutoExit(false);
-
-        $this->application = $application;
-    }
     public function testPutObjectView()
     {
         $this->client->request(
@@ -91,7 +73,6 @@ class AnalyticsRestControllerTest extends WebTestCase {
         $this->assertEquals(200,$response->getStatusCode(),$response->getContent());
     }
 
-    /*
     public function testGetObjectDownload()
     {
         $this->client->request(
@@ -105,12 +86,11 @@ class AnalyticsRestControllerTest extends WebTestCase {
             ['HTTP_ACCEPT'=>'application/json']
         );
 
-        $this->application->run(new StringInput("ojs:analytics:update download"));
+        $this->command("ojs:analytics:update",['type'=>'download']);
         $response = $this->client->getResponse();
 
         $this->assertNotSame('[]', $response->getContent());
 
     }
-    */
 }
  
