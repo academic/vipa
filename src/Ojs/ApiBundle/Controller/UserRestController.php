@@ -13,7 +13,8 @@ use FOS\RestBundle\Util\Codes;
 use Ojs\UserBundle\Form\UserRestType;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class UserRestController extends FOSRestController {
+class UserRestController extends FOSRestController
+{
 
     /**
      *
@@ -26,7 +27,8 @@ class UserRestController extends FOSRestController {
      * )
      * @Get("/user/{username}")
      */
-    public function getUserAction($username) {
+    public function getUserAction($username)
+    {
         $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneByUsername($username);
         if (!is_object($user)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
@@ -57,8 +59,9 @@ class UserRestController extends FOSRestController {
      * )
      * @Get("/user/{username}/journals")
      */
-    public function getUserJournalsAction($username) {
-        
+    public function getUserJournalsAction($username)
+    {
+
     }
 
     /**
@@ -70,8 +73,9 @@ class UserRestController extends FOSRestController {
      * )
      * @Get("/user/{username}/roles")
      */
-    public function getUserRolesAction($username) {
-        
+    public function getUserRolesAction($username)
+    {
+
     }
 
     /**
@@ -96,9 +100,10 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function getUsersAction(Request $request) {
-        $limit = $request->get('limit')?$request->get('limit'):12;
-        $page = $request->get('page')?$request->get('page'):1;
+    public function getUsersAction(Request $request)
+    {
+        $limit = $request->get('limit') ? $request->get('limit') : 12;
+        $page = $request->get('page') ? $request->get('page') : 1;
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
         }
@@ -124,7 +129,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView(statusCode=204)
      */
-    public function deleteUserAction(Request $request, $user_id) {
+    public function deleteUserAction(Request $request, $user_id)
+    {
         $destroy = $request->get('destroy');
         $em = $this->getDoctrine()->getManager();
         /**
@@ -160,7 +166,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function putUserAction(Request $request, $user_id) {
+    public function putUserAction(Request $request, $user_id)
+    {
         $entity = $this->getUserEntity($user_id);
         $form = $this->createForm(new \Ojs\ApiBundle\Form\UserRestType(), $entity);
         $form->bind($request);
@@ -183,7 +190,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function postUsersAction(Request $request) {
+    public function postUsersAction(Request $request)
+    {
         $entity = new User();
         $form = $this->createForm(new \Ojs\ApiBundle\Form\UserRestType(), $entity);
         $form->handleRequest($request);
@@ -197,8 +205,9 @@ class UserRestController extends FOSRestController {
         throw new HttpException(400, 'Missing parameter');
     }
 
-    public function patchUsersAction(Request $request) {
-        
+    public function patchUsersAction(Request $request)
+    {
+
     }
 
     /**
@@ -220,7 +229,8 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function statusUsersAction(Request $request, $user_id) {
+    public function statusUsersAction(Request $request, $user_id)
+    {
         return $this->patch('status', $user_id, $request);
     }
 
@@ -243,11 +253,13 @@ class UserRestController extends FOSRestController {
      * )
      * @RestView()
      */
-    public function activeUsersAction(Request $request, $user_id) {
+    public function activeUsersAction(Request $request, $user_id)
+    {
         return $this->patch('active', $user_id, $request);
     }
 
-    protected function patch($field, $user_id, Request $request) {
+    protected function patch($field, $user_id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneById($user_id);
         if (!is_object($user)) {
@@ -258,7 +270,8 @@ class UserRestController extends FOSRestController {
             case 'active':
                 $user->setIsActive($request->get('isActive'));
                 break;
-            case 'active':
+            case
+                'status':
                 $user->setStatus($request->get('status'));
                 break;
             default:
@@ -269,7 +282,8 @@ class UserRestController extends FOSRestController {
         return $user;
     }
 
-    protected function getUserEntity($id) {
+    protected function getUserEntity($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {

@@ -71,6 +71,7 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln("You can run "
                 . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
                 . "to add sample data\n");
+
     }
 
     /**
