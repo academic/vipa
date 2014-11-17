@@ -2,13 +2,25 @@
 
 namespace Ojs\AnalyticsBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends BaseTestCase
 {
-    public function testStatus()
+    public function testIndex()
     {
-        $this->assertEquals(true, true);
+        $this->client->request('GET', $this->router->generate('analytics_homepage'));
+        /** @var Response $response */
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testJournalSummary()
+    {
+        $this->client->request('GET', $this->router->generate('analytics_summary_journals_all'));
+        /** @var Response $response */
+        $response = $this->client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
 }

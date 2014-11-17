@@ -63,7 +63,7 @@ class JournalRestController extends FOSRestController
      * )
      * @Get("/journal/{id}/users")
      */
-    public function getJournalUsersAction($id)
+    public function getJournalUsersAction(Request $request,$id)
     {
         $limit = $request->get('limit');
         $page = $request->get('page');
@@ -73,10 +73,12 @@ class JournalRestController extends FOSRestController
         if (empty($page)) {
             throw new HttpException(400, 'Missing parameter : page');
         }
-        $users = $this->getDoctrine()->
-                getRepository('OjsUserBundle:UserJournalRole')
-                ->createQueryBuilder()
-                ->where('journal_id > :id')
+        return true; //@todo fix it
+        $users = $this
+            ->getDoctrine()
+            ->getRepository('OjsUserBundle:UserJournalRole')
+                ->createQueryBuilder('j')
+                ->where('j.journal_id > :id')
                 ->setParameter('id', $id)
                 //->orderBy('id', 'ASC')
                 ->setMaxResults($limit)
