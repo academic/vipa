@@ -41,8 +41,8 @@ settings: Settings
 
 journals: Journals
 journal: 
-    journal: journal
-    journals: Journals
+    singular: Journal
+    plural: Journals
     about: About Journal
     all: All Journals
     users: Journal Users
