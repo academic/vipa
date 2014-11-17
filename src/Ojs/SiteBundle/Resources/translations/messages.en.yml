@@ -36,9 +36,10 @@ manual: Manual
 misc: Miscellaneous
 
 details: Details
-
-
-#nav
+ 
+role: 
+    singular: Role
+    plural: Rolles
 
 ojs: OJS
 toggle_navigation: Toggle Navigation
