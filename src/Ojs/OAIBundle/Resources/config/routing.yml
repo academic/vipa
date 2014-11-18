@@ -1,0 +1,18 @@
+ojs_oai_homepage:
+    path: /
+    defaults: { _controller: OjsOAIBundle:Default:index }
+ojs_oai_identify:
+    path: /Identify
+    defaults: { _controller: OjsOAIBundle:Default:identify }
+ojs_oai_list_records:
+    path: /ListRecords
+    defaults: { _controller: OjsOAIBundle:Default:records }
+ojs_oai_list_sets:
+    path: /ListSets
+    defaults: { _controller: OjsOAIBundle:Default:listSets }
+ojs_oai_list_metadata_formats:
+    path: /ListMetadataFormats
+    defaults: { _controller: OjsOAIBundle:Default:listMetadataFormats }
+ojs_oai_list_identifiers:
+    path: /ListIdentifiers
+    defaults: { _controller: OjsOAIBundle:Default:listIdentifier }
