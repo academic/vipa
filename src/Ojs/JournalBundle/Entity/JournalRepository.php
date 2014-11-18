@@ -86,22 +86,23 @@ class JournalRepository extends EntityRepository
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
             ->where(
-                $qb->expr()->eq('j.status', ':status')
+                $qb->expr()->eq('j.status', 3)
             )
-            ->setParameter('status',3)
         ;
 
 
         if ($this->getFilter('subject')) {
+            $subject_id = (int)$this->getFilter('subject');
             $qb
-                ->join('j.subjects', 's', 'WITH', 's.id=:subject_id')
-                ->setParameter('subject_id', $this->getFilter('subject'));
+                ->join('j.subjects', 's', 'WITH', 's.id=?1')
+                ->setParameter(1, $subject_id );
         }
 
         if ($this->getFilter('institution')) {
+            $instution_id = (int)$this->getFilter('institution');
             $qb
-                ->join('j.institution', 'i', 'WITH', 'i.id=:institution_id')
-                ->setParameter('institution_id', (int)$this->getFilter('institution'));
+                ->join('j.institution', 'i', 'WITH', 'i.id=?2')
+                ->setParameter(2, $instution_id);
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
