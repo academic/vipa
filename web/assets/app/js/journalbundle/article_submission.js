@@ -5,10 +5,12 @@ window.onbeforeunload = function () {
 var OjsArticleSubmission = {
     articleId: null,
     languages: [],
+    activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
     loadStepTemplate: function (step) {
-        var tpl = $('#step' + step + '_tpl').html();
-        var tpl_rendered = Mustache.render(tpl);
-        $("#step" + step).append(tpl_rendered);
+        if (!this.activatedSteps["step" + step]) {
+            $("#step" + step).append(Mustache.render($("#step" + step + "_tpl").html()));
+            this.activatedSteps["step" + step] = true;
+        }
     },
     backTo: function (step) {
         this.hideAllSteps();
@@ -35,7 +37,7 @@ var OjsArticleSubmission = {
         }
     },
     addAuthorForm: function () {
-        this.loadStepTemplate(2);
+        $("#step2").append(Mustache.render($("#step2_tpl").html()));
     },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
@@ -77,7 +79,7 @@ var OjsArticleSubmission = {
         this.activateFirstLanguageTab();
     },
     step1: function (actionUrl) {
-        forms = $(".tab-pane");
+        forms = $("#step1 .tab-pane");
         if (forms.length === 0) {
             OjstrCommon.errorModal("Add at least one language to your submission.");
             return false;
@@ -124,12 +126,32 @@ var OjsArticleSubmission = {
             } else {
                 OjstrCommon.errorModal("Error occured. Try again.");
             }
-
         });
     },
     step2: function (actionUrl) {
-        this.hideAllSteps();
-        this.prepareStep.step3();
+        forms = $(".author-item");
+        if (forms.length === 0) {
+            OjstrCommon.errorModal("Add at least one author.");
+            return false;
+        }
+        $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+        // prepare post params
+        authorParams = false;
+        var dataArray = [];
+        forms.each(function () {
+            dataArray.push($("form", this).serializeObject());
+        });
+        $.post(actionUrl, {"authorsData": JSON.stringify(dataArray)}, function (response) {
+            /**
+             * @todo parse response and fill authorId values
+             */
+            OjstrCommon.hideallModals();
+            OjsArticleSubmission.articleId = response.id;
+            OjsArticleSubmission.hideAllSteps();
+            OjsArticleSubmission.prepareStep.step3();
+        }).error(function () {
+            OjstrCommon.errorModal("Something is wrong. Check your data and try again.");
+        });
     },
     step3: function (actionUrl) {
         this.hideAllSteps();
@@ -144,7 +166,7 @@ var OjsArticleSubmission = {
      */
     prepareStep: {
         step1: function () {
-            
+
         },
         step2: function () {
             OjstrCommon.scrollTop();
