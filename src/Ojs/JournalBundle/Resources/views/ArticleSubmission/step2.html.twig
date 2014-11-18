@@ -3,6 +3,7 @@
 
     <div class="panel-body"> 
         <form class="form-horizontal" role="form"> 
+            <input type="hidden" name="authorid" value="" />
             <div class="col-md-12">
                 <div class="controls form-inline"> 
                     <input name="order" type="number" id="orderinput" class="form-control input-sm" placeholder="{{"author.order"|trans}}"/>
@@ -10,6 +11,7 @@
                 <div class="controls">
                     <span class="control-label"> </span>
                     <div class="controls form-inline">
+                        <input name="initials" id="initialsinput" class="form-control" placeholder="{{"author.initials"|trans}}"/>
                         <input name="firstName" id="firstnameinput" class="form-control" placeholder="{{"author.firstname"|trans}}"/>
                         <input name="middleName" id="middlenameinput" class="form-control" placeholder="{{"author.middlename"|trans}}"/>
                         <input name="lastName" id="lastnameinput" class="form-control" placeholder="{{"author.lastname"|trans}}"/>
@@ -20,12 +22,10 @@
                     <input name="email" name="email"  id="emailinput" class="form-control" placeholder="{{"email"|trans}}"/>
                 </div>
                 <br>
-
+                <a class="btn btn-sm btn-info pull-right" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"add"|trans}}</a>
                 <a class="btn btn-sm btn-warning" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
                 <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
 
-                <a class="btn btn-sm btn-info pull-right" onclick="OjsArticleSubmission.addAuthorForm();">
-                    <i class="fa fa-plus-circle"></i> {{"add"|trans}}</a>
                 <div style="display:none">
                     <div class="controls">
                         <label class="control-label">{{"summary"|trans}}</label>

@@ -1,64 +1,77 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Institution
+ * @ExclusionPolicy("all")
  */
 class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      */
     private $name;
 
     /**
      * @var string
+     * @Expose
      */
     private $address;
     
     /**
      * @var string
+     * @Expose
      */
     private $about;
 
     /**
      * @var integer
+     * @Expose
      */
     private $country;
 
     /**
      * @var string
+     * @Expose
      */
     private $addressLat;
 
     /**
      * @var string
+     * @Expose
      */
     private $addressLong;
 
     /**
      * @var string
+     * @Expose
      */
     private $phone;
 
     /**
      * @var string
+     * @Expose
      */
     private $fax;
 
     /**
      * @var string
+     * @Expose
      */
     private $email;
 
     /**
      * @var string
+     * @Expose
      */
     private $url;
 

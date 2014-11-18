@@ -1,46 +1,46 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>My Journals</h1>
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>My Journals</h1>
 
-        {% if isSystemAdmin()%}
-        <a class="btn btn-default" href="{{path('journal')}}">
-            <i class="fa fa-asterisk"></i> All journals</a>
-        {%endif%}
-        <a class="btn btn-info" href="{{path('user_show_my_journals')}}">
-            <i class="fa fa-user"></i> My journals</a>
-        <hr>
-{% if entities %}
-        <table class="records_list  table">
-            <thead>
-                <tr>
-                    <th>{% trans %}journal.journal{% endtrans %}</th>
-                    <th>Role</th>
-                </tr>
-            </thead>
-            <tbody>
-        {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">
-                            <span class="badge">#{{ entity.journal.id }}</span> {{ entity.journal.title }}</a>
-                    </td>
-                    <td>
-                            {%for role in entity.roles %}
-                        <span class="label label-info">{{ role.name }}</span>
-                            {%endfor %}
-                    </td>
-                </tr>
-        {% endfor %}
-            </tbody>
-        </table>
-{%else %}
+            {% if isSystemAdmin()%}
+                <a class="btn btn-default" href="{{path('journal')}}">
+                    <i class="fa fa-asterisk"></i> All journals</a>
+                {%endif%}
+            <a class="btn btn-info" href="{{path('user_show_my_journals')}}">
+                <i class="fa fa-user"></i> My journals</a>
+            <hr>
+            {% if entities %}
+                <table class="records_list  table">
+                    <thead>
+                        <tr>
+                            <th>{{"journal.singular"|trans}}</th>
+                            <th>{{"role.singular"|trans}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">
+                                        <span class="badge">#{{ entity.journal.id }}</span> {{ entity.journal.title }}</a>
+                                </td>
+                                <td>
+                                    {%for role in entity.roles %}
+                                        <span class="label label-info">{{ role.name }}</span>
+                                    {%endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {%else %}
 
-        <div class="alert alert-warning">
-            <p>You have no journal.</p>
+                <div class="alert alert-warning">
+                    <p>You have no journal.</p>
+                </div>
+            {%endif%}
         </div>
- {%endif%}
     </div>
-</div>
-    {% endblock %}
+{% endblock %}

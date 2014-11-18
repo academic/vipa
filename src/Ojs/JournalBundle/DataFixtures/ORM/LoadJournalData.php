@@ -30,6 +30,7 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal->setSubdomain("local");
         $journal->setInstitution($institution);
         $journal->addSubject($subject);
+        $journal->setStatus(3);
         $manager->persist($journal);
 
         $journal2 = new Journal();
@@ -46,6 +47,8 @@ class LoadJournalData extends AbstractFixture implements OrderedFixtureInterface
         $journal2->setSubdomain("demo2");
         $journal2->setInstitution($institution);
         $journal2->addSubject($subject);
+        $journal2->setStatus(3);
+
         $manager->persist($journal2);
 
         /* @var $lang  \Ojs\JournalBundle\Entity\Lang */

@@ -2,6 +2,10 @@ ojs_report:
     resource: "@OjsReportBundle/Resources/config/routing.yml"
     prefix:   /
 
+ojs_oai:
+    resource: "@OjsOAIBundle/Resources/config/routing.yml"
+    prefix:   /oai
+
 ojs_site:
     resource: "@OjsSiteBundle/Resources/config/routing.yml"
     prefix:   /
