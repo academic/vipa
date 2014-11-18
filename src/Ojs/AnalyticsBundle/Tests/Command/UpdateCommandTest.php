@@ -14,7 +14,6 @@ namespace Ojs\AnalyticsBundle\Tests\Command;
 
 use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Console\Input\ArrayInput;
 
 class UpdateCommandTest extends BaseTestCase
 {

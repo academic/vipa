@@ -38,6 +38,7 @@ class AppKernel extends Kernel
             new Ojs\CliBundle\OjsCliBundle(),
             new Ojs\JournalBundle\OjsJournalBundle(),
             new Ojs\UserBundle\OjsUserBundle(),
+            new Ojs\OAIBundle\OjsOAIBundle(),
             new JMS\JobQueueBundle\JMSJobQueueBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
