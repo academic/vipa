@@ -36,3 +36,6 @@ manual: Manual
 misc: Çeşitli/Diğer
 
 details: Ayrıntılar
+role: 
+    singular: Rol
+    plural: Roller

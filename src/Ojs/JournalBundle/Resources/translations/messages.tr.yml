@@ -40,8 +40,8 @@ settings: Ayarları
 
 journals: Dergiler
 journal: 
-    journals: Dergiler
-    journal: journal
+    singular: Dergi
+    plural: Dergiler
     about: Dergi Hakkında
     all: Tüm Dergiler
     users: Dergi Kullanıcıları

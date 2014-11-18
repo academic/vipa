@@ -36,7 +36,7 @@
                             </ul>
                         </div>
                     {%endif%}
-                    <a class="list-group-item list-group-item-success"  href="{{path('articlesubmission_new')}}">
+                    <a class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
                         <i class="fa fa-plus-circle"></i> 
                         {{"articles.submit"|trans}}
                     </a>
@@ -85,9 +85,9 @@
                     {{"Articles"|trans}}</div>
                 <div class="panel-collapse collapse in">
                     {% if isSystemAdmin() or isJournalManager()  %}
-                        {%set submissions_path = "articlesubmissions_all" %}
+                        {%set submissions_path = "article_submissions_all" %}
                     {%else%}
-                        {%set submissions_path = "articlesubmissions_me" %}
+                        {%set submissions_path = "article_submissions_me" %}
                     {% endif %}
                     <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                         <i class="fa fa-flag"></i>

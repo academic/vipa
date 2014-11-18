@@ -4,10 +4,9 @@
 {% block body %}
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Ujs</a></li>
-            <li><a href="/journal">Cumhuriyet Science Journal</a></li>
-            <li><a href="/archive">Arşiv</a></li>
-            <li class="active">Cilt4 / Sayı 12-A</li>
+            <li><a href="/">Ojs</a></li>
+            <li><a href="{{ url('ojs_journals_index') }}">{{ "Journals"|trans}}</a></li>
+            <li class="active">{{ "List"|trans }}</li>
         </ol>
         <div class="row">
             <div class="col-sm-3 col-md-3">
@@ -23,7 +22,7 @@
                         <ul class="list-group">
                             {% for institution_type in institution_types %}
                                 <li class="list-group-item">
-                                    <a href="/journals">{{institution_type.name}}</a>
+                                    <a href="{{ url('ojs_journals_index',{page: currentPage, filters:addFilters('institution',institution_type.id)}) }}">{{institution_type.name}}</a>
                                     <span class="badge pull-right">130</span>
                                 </li>
                             {% endfor%}
@@ -39,7 +38,7 @@
                         <ul class="list-group">
                             {% for subject in subjects %}
                                 <li class="list-group-item">
-                                    <a href="{{ path("ojs_journals_index") }}">{{subject.subject}}</a>
+                                    <a href="{{ path("ojs_journals_index",{page: currentPage,filters: addFilters('subject',subject.id)}) }}">{{subject.subject}}</a>
                                     <span class="label label-success pull-right">{{subject.journals.count}}</span>
                                 </li>
                             {% endfor %}
@@ -75,6 +74,13 @@
                             </div>
                         </div>
                     {% endfor %}
+                </div>
+                <div class="row">
+                    <ul class="pagination">
+                        {% for p in 1..totalPageCount %}
+                            <li><a href="{{ url('ojs_journals_index',{page: p,filters:addFilters()}) }}">{{ p }}</a></li>
+                        {% endfor %}
+                        </ul>
                 </div>
             </div>
 

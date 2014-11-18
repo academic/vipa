@@ -60,3 +60,8 @@ services:
     ojs_search_manager:
         class: Ojs\SearchBundle\Manager\SearchManager
         arguments: [@service_container]
+
+    ojs.twig.common_extension:
+        class: Ojs\SiteBundle\Twig\CommonExtension
+        tags:
+            - {name: twig.extension }
