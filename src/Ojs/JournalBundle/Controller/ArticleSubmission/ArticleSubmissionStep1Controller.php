@@ -8,12 +8,14 @@ use Ojs\JournalBundle\Entity\Article;
 //use Ojs\JournalBundle\Form\ArticleType;
 //use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use \Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 
 /**
  * Article submission step controller
  */
 class ArticleSubmissionStep1Controller extends Controller
 {
+
     /**
      * submit new article - step1 - get article base data without author info.
      *
@@ -33,8 +35,19 @@ class ArticleSubmissionStep1Controller extends Controller
                 $this->addArticleTranslation($request, $params['data'], $params['data']['locale'], $article);
             }
         }
-
-        return new JsonResponse(array('id' => $article->getId(), 'locale' => $locale));
+        $dm = $this->get('doctrine_mongodb')->getManager(); 
+        $articleSubmission = new ArticleSubmissionProgress();
+        $articleSubmission->setArticleId($article->getId());
+        $articleSubmission->setUserId($this->getUser()->getId());
+        $articleSubmission->setStartedDate(new \DateTime());
+        $articleSubmission->setLastResumeDate(new \DateTime());
+        $dm ->persist($articleSubmission);
+        $dm->flush();
+        
+        return new JsonResponse(array(
+            'submissionId'=>$articleSubmission->getId(),
+            'id' => $article->getId(),
+            'locale' => $locale));
     }
 
     /**
