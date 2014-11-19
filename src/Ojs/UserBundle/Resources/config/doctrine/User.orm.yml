@@ -126,6 +126,9 @@ Ojs\UserBundle\Entity\User:
                         referencedColumnName: id
                         onDelete: CASCADE
             orderBy: null
+        restrictedJournals:
+            targetEntity: Ojs\JournalBundle\Entity\Journal
+            inversedBy: bannedUsers
     gedmo:
         soft_deleteable:
             field_name: deletedAt
