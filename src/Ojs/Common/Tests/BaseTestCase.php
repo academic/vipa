@@ -16,6 +16,7 @@ ini_set('session.save_handler', 'files');
 ini_set('session.save_path', '/tmp');
 session_start();
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -34,6 +35,7 @@ abstract class BaseTestCase extends WebTestCase
     /** @var  Client */
     protected $client;
 
+    /** @var  EntityManager */
     protected $em;
 
     /** @var  Router */
@@ -46,6 +48,7 @@ abstract class BaseTestCase extends WebTestCase
 
         $this->app = new Application($this->client->getKernel());
         $this->app->setAutoExit(false);
+
 
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')

@@ -58,7 +58,24 @@ Ojs\JournalBundle\Entity\Journal:
                     -
                         name: subject_id
                         referencedColumnName: id
-                        onDelete: CASCADE 
+                        onDelete: CASCADE
+
+        bannedUsers:
+            targetEntity: Ojs\UserBundle\Entity\User
+            cascase: ["all"]
+            inversedBy: restrictedJournals
+            joinTable:
+                name: JournalBannedUsers
+                joinColumns:
+                    -
+                        name: journal_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
     id:
         id:
             type: integer
@@ -189,6 +206,7 @@ Ojs\JournalBundle\Entity\Journal:
             gedmo:
               timestampable:
                 on: update
+            nullable: true
         deletedAt:
             type: date
             nullable: true
@@ -202,6 +220,7 @@ Ojs\JournalBundle\Entity\Journal:
            gedmo:
              blameable:
                on: update
+           nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt

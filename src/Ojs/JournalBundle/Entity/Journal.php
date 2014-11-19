@@ -209,7 +209,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function addSetting($settingName, $value)
     {
-        $this->setting[$settingName] = new ArticleAttribute($settingName, $value, $this);
+        $this->settings[$settingName] = new ArticleAttribute($settingName, $value, $this);
         return $this;
     }
 
@@ -220,7 +220,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function getAttribute($settingName)
     {
-        return isset($this->setting[$settingName]) ? $this->settings[$settingName] : false;
+        return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
     /**
@@ -260,7 +260,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\JournalThemes $journalTheme
+     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
      */
     public function removeJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
     {
@@ -930,5 +930,45 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->subjects->removeElement($subjects);
     }
+
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $bannedUsers;
+
+    /**
+     * Add bannedUsers
+     *
+     * @param \Ojs\UserBundle\Entity\User $bannedUsers
+     * @return Journal
+     */
+    public function addBannedUser(\Ojs\UserBundle\Entity\User $bannedUsers)
+    {
+        $this->bannedUsers[] = $bannedUsers;
+
+        return $this;
+    }
+
+    /**
+     * Remove bannedUsers
+     *
+     * @param \Ojs\UserBundle\Entity\User $bannedUsers
+     */
+    public function removeBannedUser(\Ojs\UserBundle\Entity\User $bannedUsers)
+    {
+        $this->bannedUsers->removeElement($bannedUsers);
+    }
+
+    /**
+     * Get bannedUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBannedUsers()
+    {
+        return $this->bannedUsers;
+    }
+
 
 }

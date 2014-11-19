@@ -3,9 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Params\CommonParams;
-use Symfony\Component\HttpFoundation\Request;
+use Ojs\UserBundle\Entity\User;
 
 class JournalRepository extends EntityRepository
 {
@@ -86,15 +84,14 @@ class JournalRepository extends EntityRepository
             ->where(
                 $qb->expr()->eq('j.status', ':status')
             )
-            ->setParameter('status',3)
-        ;
+            ->setParameter('status', 3);
 
 
         if (isset($this->getFilter()['subject'])) {
             $subject_id = $this->getFilter()['subject'];
             $qb
                 ->join('j.subjects', 's', 'WITH', 's.id=:subject_id')
-                ->setParameter('subject_id', $subject_id );
+                ->setParameter('subject_id', $subject_id);
         }
 
         if (isset($this->getFilter()['institution'])) {
@@ -120,4 +117,65 @@ class JournalRepository extends EntityRepository
     }
 
 
+    /**
+     * Ban user
+     * @param User $user
+     * @param Journal $journal
+     * @return bool
+     */
+    public function banUser(User $user, Journal $journal)
+    {
+        try {
+            $em = $this->getEntityManager();
+            if ($journal->getBannedUsers()->contains($user)) {
+                return true;
+            }
+            $journal->addBannedUser($user);
+            $user->addRestrictedJournal($journal);
+            $em->persist($journal);
+            $em->persist($user);
+            $em->flush();
+            return true;
+        } catch (\Exception $t) {
+            echo $t->getMessage();
+            return false;
+        }
+    }
+
+    /**
+     * Unban user
+     * @param User $user
+     * @param Journal $journal
+     * @return bool
+     */
+    public function removeBannedUser(User $user, Journal $journal)
+    {
+        try {
+            $em = $this->getEntityManager();
+            if (!$journal->getBannedUsers()->contains($user))
+                return true;
+
+            $journal->removeBannedUser($user);
+            $user->removeRestrictedJournal($journal);
+            $em->persist($user);
+            $em->persist($journal);
+
+            $em->flush();
+
+            return true;
+        } catch (\Exception $q) {
+            return false;
+        }
+    }
+
+    /**
+     * Check ban status
+     * @param User $user
+     * @param Journal $journal
+     * @return bool
+     */
+    public function checkUserPermit(User $user, Journal $journal)
+    {
+        return $journal->getBannedUsers()->contains($user) ? false : true;
+    }
 }
