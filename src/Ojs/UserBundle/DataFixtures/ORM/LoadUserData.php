@@ -2,13 +2,13 @@
 
 namespace Ojs\UserBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Ojs\UserBundle\Entity\User;
 
 /**
  * Create sample user and role data
@@ -29,7 +29,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, Containe
     private $encoder;
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}"
      */
     public function setContainer(ContainerInterface $container = null)
     {

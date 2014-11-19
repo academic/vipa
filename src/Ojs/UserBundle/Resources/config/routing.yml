@@ -14,6 +14,7 @@ admin_userjournalrole:
     resource: "@OjsUserBundle/Resources/config/routing/userjournalrole_admin.yml"
     prefix:   /admin/userjournalrole
 
+
 admin_eventlog:
     resource: "@OjsUserBundle/Resources/config/routing/eventlog_admin.yml"
     prefix:   /admin/eventlog

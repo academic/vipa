@@ -17,10 +17,11 @@
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %} 
- {% endblock %}
-    
+{% endblock %}
+
 {% block body -%}
-    <input type="hidden" name="journalId" value="{{ journal.id }}"/>
+    <input type="hidden" name="journalId" value="{{ submissionData.journalId }}"/>
+    <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
         <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"articles.article"|trans}}</li>
@@ -164,7 +165,7 @@
     </script>
 
 {% endblock %}
- 
+
 {% block javascripts %}
 
     {{ parent() }}
@@ -187,7 +188,7 @@
     {% javascripts '@apptour_js' output="c/apptour.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endjavascripts %}
-    
+
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
     <script type="text/javascript" src="{{ asset_url }}"></script> 
@@ -195,7 +196,26 @@
     {% endjavascripts %}
 
     <script>
-        OjsArticleSubmission.articleId = {%if articleId %}{{articleId}}{%else%}null{%endif%};
+        $(document).ready(function () {
+        {%if submissionId is defined %}
+                OjsArticleSubmission.submissionId = "{{submissionId}}";
+                {#
+                Load submission steps with data
+                #}
+                console.log("resume");
+            {% for key,article in submissionData.articleData %}
+                var params = {
+                    "article_title":"{{article.title|raw}}",
+                    "article_subtitle":"{{article.subtitle|raw}}",
+                    "article_title_trans":"{{article.titleTransliterated|raw}}",
+                    "article_keywords":"{{article.keywords|raw}}",
+                    "article_subjects":"{{article.subjects|raw}}",
+                    "article_abstract":"{{article.abstract|raw}}"
+                };
+                OjsArticleSubmission.step1AddLanguageForm( "{{languages[key].code}}","{{languages[key].name}} ", params);
+            {% endfor %}
+                OjsArticleSubmission.activatedSteps["step1"] = true;
+        {% endif %}
+        });
     </script>
-    
 {% endblock %}

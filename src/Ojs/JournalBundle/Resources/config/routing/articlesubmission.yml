@@ -11,7 +11,7 @@ article_submission_new:
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:new" }
 
 article_submission_resume:
-    pattern:  /author/article/{articleId}/submit/{step}
+    pattern:  /author/article/submit/resume/{submissionId}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:resume" }
 
 
