@@ -37,6 +37,12 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @var integer
      * @Expose
      */
+    private $city;
+    
+    /**
+     * @var integer
+     * @Expose
+     */
     private $country;
 
     /**
@@ -74,6 +80,18 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @Expose
      */
     private $url;
+    
+    /**
+     * @var string
+     * @Expose
+     */
+    private $wiki;
+    
+    /**
+     * @var string
+     * @Expose
+     */
+    private $logo;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -123,6 +141,27 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this->id;
     }
 
+    /**
+     * Set city
+     *
+     * @param  string      $city
+     * @return Institution
+     */
+    public function setCity($city) {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity() {
+        return $this->city;
+    }
+    
     /**
      * Set name
      *
@@ -331,6 +370,48 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     public function getUrl() {
         return $this->url;
+    }
+    
+    /**
+     * Set wiki
+     *
+     * @param  string      $wiki
+     * @return Institution
+     */
+    public function setWiki($wiki) {
+        $this->wiki = $wiki;
+
+        return $this;
+    }
+
+    /**
+     * Get wiki
+     *
+     * @return string
+     */
+    public function getWiki() {
+        return $this->wiki;
+    }
+    
+    /**
+     * Set logo
+     *
+     * @param  string      $logo
+     * @return Institution
+     */
+    public function setLogo($logo) {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo() {
+        return $this->logo;
     }
 
 }
