@@ -33,10 +33,28 @@ class ArticleSubmissionProgress
 
     /** @MongoDb\Int @MongoDb\Index() */
     protected $userId;
+    /**
+     * @MongoDb\Int
+     */
+    protected $journal_id;
+    
+    /**
+     * @MongoDb\String
+     */
+    protected $primary_language;
 
     /** @MongoDb\Int @MongoDb\Index() */
     protected $article_id;
 
+    /** @MongoDb\Collection */
+    protected $languages;
+
+    /**
+     * article data with locale key  array("en"=> [an array of article data for locale "en"], "tr"=> [...])
+     * @MongoDB\Hash
+     */
+    protected $article_data;
+    
     /**
      * authors
      * @MongoDB\Hash
@@ -52,6 +70,7 @@ class ArticleSubmissionProgress
      * @MongoDB\Hash
      */
     protected $files;
+ 
 
     /**
      * Get id
@@ -174,6 +193,50 @@ class ArticleSubmissionProgress
     }
 
     /**
+     * Set languages
+     *
+     * @param collection $languages
+     * @return self
+     */
+    public function setLanguages($languages)
+    {
+        $this->languages = $languages;
+        return $this;
+    }
+
+    /**
+     * Get languages
+     *
+     * @return collection $languages
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
+
+    /**
+     * Set articleData
+     *
+     * @param hash $articleData
+     * @return self
+     */
+    public function setArticleData($articleData)
+    {
+        $this->article_data = $articleData;
+        return $this;
+    }
+
+    /**
+     * Get articleData
+     *
+     * @return hash $articleData
+     */
+    public function getArticleData()
+    {
+        return $this->article_data;
+    }
+
+    /**
      * Set authors
      *
      * @param hash $authors
@@ -239,4 +302,47 @@ class ArticleSubmissionProgress
         return $this->files;
     }
 
+    /**
+     * Set journalId
+     *
+     * @param int $journalId
+     * @return self
+     */
+    public function setJournalId($journalId)
+    {
+        $this->journal_id = $journalId;
+        return $this;
+    }
+
+    /**
+     * Get journalId
+     *
+     * @return int $journalId
+     */
+    public function getJournalId()
+    {
+        return $this->journal_id;
+    }
+
+    /**
+     * Set primaryLanguage
+     *
+     * @param string $primaryLanguage
+     * @return self
+     */
+    public function setPrimaryLanguage($primaryLanguage)
+    {
+        $this->primary_language = $primaryLanguage;
+        return $this;
+    }
+
+    /**
+     * Get primaryLanguage
+     *
+     * @return string $primaryLanguage
+     */
+    public function getPrimaryLanguage()
+    {
+        return $this->primary_language;
+    }
 }

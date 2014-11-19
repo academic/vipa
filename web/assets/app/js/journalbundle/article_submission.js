@@ -3,7 +3,7 @@ window.onbeforeunload = function () {
 };
 
 var OjsArticleSubmission = {
-    articleId: null,
+    submissionId: null,
     languages: [],
     activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
     loadStepTemplate: function (step) {
@@ -42,16 +42,13 @@ var OjsArticleSubmission = {
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
     },
-    step1AddLanguageForm: function (langcode, langtitle) {
+    step1AddLanguageForm: function (langcode, langtitle, params) {
         // check if selected language tab already exists
         if (OjstrCommon.inArray(langcode, OjsArticleSubmission.languages)) {
             return false;
-        }
-
-        var step1_template = $('#step1_tpl').html();
-        var step1_rendered = Mustache.render(step1_template);
-
-        $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' + step1_rendered);
+        } 
+        $tpl = Mustache.render($('#step1_tpl').html(), params);
+        $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' + $tpl);
 
         OjsArticleSubmission.languages.push(langcode);
         $("div#" + langcode + " textarea.editor").wysihtml5({
@@ -117,10 +114,11 @@ var OjsArticleSubmission = {
         if (translationParams) {
             articleParams.data.translations = JSON.stringify(translationParams);
         }
+        articleParams.data.submissionId = $("input[name=submissionId]").val();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjstrCommon.hideallModals();
-            if (response.id) {
-                OjsArticleSubmission.articleId = response.id;
+            if (response.submissionId) { 
+                OjsArticleSubmission.submissionId = response.submissionId;
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
             } else {
@@ -146,7 +144,6 @@ var OjsArticleSubmission = {
              * @todo parse response and fill authorId values
              */
             OjstrCommon.hideallModals();
-            OjsArticleSubmission.articleId = response.id;
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step3();
         }).error(function () {
