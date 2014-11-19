@@ -17,10 +17,8 @@ class JournalRepository extends EntityRepository
     /**
      * @return array
      */
-    public function getFilter($key = null)
+    public function getFilter()
     {
-        if (isset($this->filter[$key]))
-            return $this->filter[$key];
         return $this->filter;
     }
 
@@ -86,23 +84,24 @@ class JournalRepository extends EntityRepository
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
             ->where(
-                $qb->expr()->eq('j.status', 3)
+                $qb->expr()->eq('j.status', ':status')
             )
+            ->setParameter('status',3)
         ;
 
 
-        if ($this->getFilter('subject')) {
-            $subject_id = (int)$this->getFilter('subject');
+        if (isset($this->getFilter()['subject'])) {
+            $subject_id = $this->getFilter()['subject'];
             $qb
-                ->join('j.subjects', 's', 'WITH', 's.id=?1')
-                ->setParameter(1, $subject_id );
+                ->join('j.subjects', 's', 'WITH', 's.id=:subject_id')
+                ->setParameter('subject_id', $subject_id );
         }
 
-        if ($this->getFilter('institution')) {
-            $instution_id = (int)$this->getFilter('institution');
+        if (isset($this->getFilter()['institution'])) {
+            $instution_id = $this->getFilter()['institution'];
             $qb
-                ->join('j.institution', 'i', 'WITH', 'i.id=?2')
-                ->setParameter(2, $instution_id);
+                ->join('j.institution', 'i', 'WITH', 'i.=:institution_id')
+                ->setParameter('institution_id', $instution_id);
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
