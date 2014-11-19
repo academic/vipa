@@ -9,6 +9,28 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
+                    <div itemscope itemtype="http://schema.org/Organization">
+                        <span itemprop="name">{{entity.name}}</span>
+                        Contact Details:
+                        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            Main address:
+                            <span itemprop="address">{{entity.address}}</span>
+                            <span itemprop="addressLat">{{entity.addressLat}}</span>
+                            <span itemprop="addressLong">{{entity.addressLong}}</span>
+  private 'addressLong' => null
+                            <span itemprop="addressLocality">{{entity.city}},{{entity.country}}</span>
+                            ,
+                        </div>
+                        Tel:<span itemprop="telephone">{{entity.phone}}</span>,
+                        Fax:<span itemprop="faxNumber">{{entity.fax}}</span>,
+                        E-mail: <span itemprop="email">{{entity.email}}</span>
+                        Web: <span itemprop="url">{{entity.url}}</span>
+                        Wiki: <span itemprop="url">{{entity.url}}</span>
+                        
+                        History:
+                    </div>
+
+                    {{dump(entity)}}
                     <ul class="list-group">
                         {% for journal in entity.journals %}
                             <li class="list-group-item"><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></li>
