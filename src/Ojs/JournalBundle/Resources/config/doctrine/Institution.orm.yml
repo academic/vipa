@@ -29,6 +29,9 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                 - translatable
+        city:
+            type: integer
+            nullable: TRUE
         country:
             type: integer
             nullable: TRUE
@@ -55,6 +58,14 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             nullable: TRUE
         url:
+            type: string
+            length: 255
+            nullable: TRUE
+        wiki:
+            type: string
+            length: 255
+            nullable: TRUE
+        logo:
             type: string
             length: 255
             nullable: TRUE
