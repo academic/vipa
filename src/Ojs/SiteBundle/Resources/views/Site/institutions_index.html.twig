@@ -18,15 +18,12 @@
                             <span itemprop="addressLat">{{entity.addressLat}}</span>
                             <span itemprop="addressLong">{{entity.addressLong}}</span>
                             <span itemprop="addressLocality">{{entity.city}},{{entity.country}}</span>
-                            ,
                         </div>
                         Tel:<span itemprop="telephone">{{entity.phone}}</span>,
                         Fax:<span itemprop="faxNumber">{{entity.fax}}</span>,
                         E-mail: <span itemprop="email">{{entity.email}}</span>
                         Web: <span itemprop="url">{{entity.url}}</span>
                         Wiki: <span itemprop="url">{{entity.url}}</span>
-                        
-                        
                     </div>
                     <ul class="list-group">
                         {% for journal in entity.journals %}
