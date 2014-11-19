@@ -17,7 +17,6 @@
                             <span itemprop="address">{{entity.address}}</span>
                             <span itemprop="addressLat">{{entity.addressLat}}</span>
                             <span itemprop="addressLong">{{entity.addressLong}}</span>
-  private 'addressLong' => null
                             <span itemprop="addressLocality">{{entity.city}},{{entity.country}}</span>
                             ,
                         </div>
@@ -27,10 +26,8 @@
                         Web: <span itemprop="url">{{entity.url}}</span>
                         Wiki: <span itemprop="url">{{entity.url}}</span>
                         
-                        History:
+                        
                     </div>
-
-                    {{dump(entity)}}
                     <ul class="list-group">
                         {% for journal in entity.journals %}
                             <li class="list-group-item"><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></li>
