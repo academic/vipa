@@ -27,7 +27,7 @@ class ArticleSubmissionController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
 
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
 
@@ -41,13 +41,14 @@ class ArticleSubmissionController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
 
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
 
     /**
      * Displays a form to create a new Article entity.
-     *
+     * 
+     * @param int $submissionId 
      */
     public function newAction()
     {
@@ -61,25 +62,23 @@ class ArticleSubmissionController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId);
 
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
-            'articleId' => NULL,
-            'entity' => $entity,
-            'journal' => $journal,
-            'fileTypes' => ArticleFileParams::$FILE_TYPES,
-            'citationTypes' => $this->container->getParameter('citation_types')
+                    'articleId' => NULL,
+                    'entity' => $entity,
+                    'journal' => $journal,
+                    'fileTypes' => ArticleFileParams::$FILE_TYPES,
+                    'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
-    
-    public function resumeAction($articleId, $step)
-    { 
-        // get journal
+    public function resumeAction($submissionId)
+    {
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($article->getJournalId());
-
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
-                    'articleId' => $article->getId(),
-                    'entity' => $article,
+                    'submissionId' => $articleSubmission->getId(),
+                    'submissionData' => $articleSubmission,
                     'journal' => $journal,
                     'fileTypes' => ArticleFileParams::$FILE_TYPES,
                     'citationTypes' => $this->container->getParameter('citation_types')
@@ -98,7 +97,7 @@ class ArticleSubmissionController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Article:show.html.twig', array(
-            'entity' => $entity));
+                    'entity' => $entity));
     }
 
     /**
@@ -113,8 +112,8 @@ class ArticleSubmissionController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView()
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView()
         ));
     }
 
@@ -154,8 +153,8 @@ class ArticleSubmissionController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView()
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView()
         ));
     }
 

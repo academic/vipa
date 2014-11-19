@@ -2,10 +2,10 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * UserJournalRole controller.
@@ -114,6 +114,22 @@ class UserJournalRoleController extends Controller
     }
 
     /**
+     * Creates a form to delete a UserJournalRole entity by id.
+     *
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('ujr_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
+    }
+
+    /**
      * Finds and displays a Users of a Journal with roles  (ungrouped).
      * @param int $journal_id
      */
@@ -121,12 +137,19 @@ class UserJournalRoleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->createQuery(
-                        'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
-                )->setParameter('jid', $journal_id);
+            'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
+        )->setParameter('jid', $journal_id);
 
         return $this->render('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
                     'entities' => $entities
         ));
+    }
+
+    public function myJournalsAction()
+    {
+        $user_id = $this->getUser()->getId();
+
+        return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 
     /**
@@ -137,10 +160,10 @@ class UserJournalRoleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $data = $em->createQuery(
-                        'SELECT  u  FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
-                )->setParameter('user_id', $user_id)->getResult();
+            'SELECT  u  FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
+        )->setParameter('user_id', $user_id)->getResult();
+        $entities = array();
         if ($data) {
-            $entities = array();
             foreach ($data as $item) {
                 $entities[$item->getJournalId()]['journal'] = $item->getJournal();
                 $entities[$item->getJournalId()]['roles'][] = $item->getRole();
@@ -148,15 +171,8 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:' . $tpl, array(
-                    'entities' => $entities
+            'entities' => $entities
         ));
-    }
-
-    public function myJournalsAction()
-    {
-        $user_id = $this->getUser()->getId();
-
-        return $this->showJournalsOfUserAction($user_id, 'show_my_journals.html.twig');
     }
 
     /**
@@ -177,9 +193,9 @@ class UserJournalRoleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -227,9 +243,9 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -248,23 +264,6 @@ class UserJournalRoleController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ujr'));
-    }
-
-    /**
-     * Creates a form to delete a UserJournalRole entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('ujr_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
     }
 
 }

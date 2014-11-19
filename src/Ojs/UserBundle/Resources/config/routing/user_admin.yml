@@ -26,3 +26,10 @@ user_update:
 user_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsUserBundle:User:delete" }
+
+user_block:
+    pattern: /{id}/block
+    defaults: { _controller: "OjsUserBundle:User:block" }
+user_unblock:
+    pattern: /{id}/unblock
+    defaults: { _controller: "OjsUserBundle:User:unblock" }

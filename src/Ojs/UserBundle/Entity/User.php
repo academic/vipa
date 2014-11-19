@@ -2,14 +2,15 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericExtendedEntity;
+use Ojs\JournalBundle\Entity\Subject;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use \Ojs\JournalBundle\Entity\Subject;
-use \Ojs\Common\Entity\GenericExtendedEntity;
 
 /**
  * User
@@ -17,7 +18,7 @@ use \Ojs\Common\Entity\GenericExtendedEntity;
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
  */
-class User extends GenericExtendedEntity implements UserInterface, \Serializable
+class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface
 {
 
     /**
@@ -88,30 +89,27 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var string
      */
     protected $apiKey;
-
+    /**
+     * @var integer
+     */
+    protected $status = 1;
+    protected $restrictedJournals;
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
     private $roles;
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
     private $subjects;
-
     /**
      * Json encoded settings string
      * @var String
      * @Expose
      */
     private $settings;
-
-    /**
-     * @var integer
-     */
-    protected $status = 1;
 
     public function __construct()
     {
@@ -131,14 +129,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @return array|NULL
-     */
-    public function getSettings()
-    {
-        return json_decode($this->settings, 1);
-    }
-
-    /**
      * @return mixed
      */
     public function getSetting($key)
@@ -148,7 +138,15 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * 
+     * @return array|NULL
+     */
+    public function getSettings()
+    {
+        return json_decode($this->settings, 1);
+    }
+
+    /**
+     *
      * @param array $settings
      * @return \Ojs\UserBundle\Entity\User
      */
@@ -159,22 +157,11 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param  string $username
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
-    public function getUsername()
+    public function getAvatar()
     {
-        return $this->username;
+        return $this->avatar;
     }
 
     /**
@@ -191,9 +178,9 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getAvatar()
+    public function getApiKey()
     {
-        return $this->avatar;
+        return $this->apiKey;
     }
 
     /**
@@ -206,11 +193,11 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @return string
+     * @return integer
      */
-    public function getApiKey()
+    public function getStatus()
     {
-        return $this->apiKey;
+        return $this->status;
     }
 
     /**
@@ -225,11 +212,11 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @return integer
+     * @return string
      */
-    public function getStatus()
+    public function getPassword()
     {
-        return $this->status;
+        return $this->password;
     }
 
     /**
@@ -246,59 +233,14 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @return string
      */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param  string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /*     * get
-     * Set firstName
-     *
-     * @param  string $firstName
-     * @return User
-     */
-
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $lastName
-     * @return $this
-     */
-    public function setLastName($lastName)
+    public function setFirstName($firstName)
     {
-        $this->lastName = $lastName;
+        $this->firstName = $firstName;
 
         return $this;
     }
@@ -311,13 +253,20 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this->lastName;
     }
 
-    /**
-     * @param  boolean $isActive
+    /*     * get
+     * Set firstName
+     *
+     * @param  string $firstName
      * @return User
      */
-    public function setIsActive($isActive)
+
+    /**
+     * @param string $lastName
+     * @return $this
+     */
+    public function setLastName($lastName)
     {
-        $this->isActive = $isActive;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -339,14 +288,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->token = $token;
 
         return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
     }
 
     /**
@@ -393,10 +334,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list (
-                $this->id,
-                $this->username,
-                $this->password
-                ) = unserialize($serialized);
+            $this->id,
+            $this->username,
+            $this->password
+            ) = unserialize($serialized);
     }
 
     /**
@@ -479,6 +420,44 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param  string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param  string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
      * Generates an API Key
      */
     public function generateApiKey()
@@ -492,8 +471,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->apiKey = $apikey;
 
     }
-
-    protected $restrictedJournals;
 
     /**
      * Add restrictedJournals
@@ -527,4 +504,85 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     {
         return $this->restrictedJournals;
     }
+
+    /**
+     * Checks whether the user's account has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw an AccountExpiredException and prevent login.
+     *
+     * @return bool    true if the user's account is non expired, false otherwise
+     *
+     * @see AccountExpiredException
+     */
+    public function isAccountNonExpired()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param  boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a LockedException and prevent login.
+     *
+     * @return bool    true if the user is not locked, false otherwise
+     *
+     * @see LockedException
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a CredentialsExpiredException and prevent login.
+     *
+     * @return bool    true if the user's credentials are non expired, false otherwise
+     *
+     * @see CredentialsExpiredException
+     */
+    public function isCredentialsNonExpired()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     *
+     * Internally, if this method returns false, the authentication system
+     * will throw a DisabledException and prevent login.
+     *
+     * @return bool    true if the user is enabled, false otherwise
+     *
+     * @see DisabledException
+     */
+    public function isEnabled()
+    {
+        return $this->getIsActive();
+    }
+
+
 }

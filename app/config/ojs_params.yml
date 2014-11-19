@@ -2,19 +2,19 @@
 parameters:
     # languages with ISO 639-1 codes
     languages:
-        -
+        tr:
             name: Türkçe
             code: tr
-        -
+        en:
             name: English
             code: en
-        -
+        fr:
             name: French
             code: fr
-        -
+        it:
             name: Italian
             code: it
-        - 
+        de:
             name: German
             code: de
         
