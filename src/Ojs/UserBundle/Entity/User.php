@@ -493,4 +493,38 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     }
 
+    protected $restrictedJournals;
+
+    /**
+     * Add restrictedJournals
+     *
+     * @param \Ojs\JournalBundle\Entity\Journal $restrictedJournals
+     * @return User
+     */
+    public function addRestrictedJournal(\Ojs\JournalBundle\Entity\Journal $restrictedJournals)
+    {
+        $this->restrictedJournals[] = $restrictedJournals;
+
+        return $this;
+    }
+
+    /**
+     * Remove restrictedJournals
+     *
+     * @param \Ojs\JournalBundle\Entity\Journal $restrictedJournals
+     */
+    public function removeRestrictedJournal(\Ojs\JournalBundle\Entity\Journal $restrictedJournals)
+    {
+        $this->restrictedJournals->removeElement($restrictedJournals);
+    }
+
+    /**
+     * Get restrictedJournals
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRestrictedJournals()
+    {
+        return $this->restrictedJournals;
+    }
 }
