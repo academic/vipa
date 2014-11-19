@@ -2,10 +2,11 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\UserType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
  * User controller.
@@ -203,25 +204,34 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('user'));
     }
 
-    /**
-     * Creates a form to delete a User entity by id.
-     * @param  mixed                        $id The entity id
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
+    public function blockAction(Request $request, $id)
     {
-        $t = $this->get('translator');
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var User $user */
+        $user = $em->find('OjsUserBundle:User', $id);
+        if (!$user)
+            throw new NotFoundResourceException("User not found.");
+        $user->setIsActive(false);
+        $em->persist($user);
+        $em->flush();
 
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array(
-                            'label' => $t->trans('Delete User Record'),
-                            'attr' => array(
-                                'class' => 'button alert',
-                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
-                        ))
-                        ->getForm();
+        return $this->redirect($this->generateUrl('user'));
+    }
+
+    public function unblockAction(Request $request, $id)
+    {
+
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var User $user */
+        $user = $em->find('OjsUserBundle:User', $id);
+        if (!$user)
+            throw new NotFoundResourceException("User not found.");
+        $user->setIsActive(true);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirect($this->generateUrl('user'));
     }
 
     public function registerAsAuthorAction(Request $request, $journalId = null)
@@ -262,6 +272,27 @@ class UserController extends Controller
         return $this->render('OjsUserBundle:User:registerAuthor.html.twig', array(
                     'entities' => $entities
         ));
+    }
+
+    /**
+     * Creates a form to delete a User entity by id.
+     * @param  mixed $id The entity id
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        $t = $this->get('translator');
+
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array(
+                'label' => $t->trans('Delete User Record'),
+                'attr' => array(
+                    'class' => 'button alert',
+                    'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
+            ))
+            ->getForm();
     }
 
 }
