@@ -1,13 +1,12 @@
 {% extends 'OjsOAIBundle:Default:layout.html.twig' %}
 {% block content %}
     <request verb="ListRecords" metadataPrefix="oai_dc">>http://ojs.dev/oai</request>
-
     <ListRecords>
         {% for record in records %}
             <record>
                 <header>
                     <identifier>oai:ojs.dev:article/{{ record.id }}</identifier>
-                    <datestamp>{{ record.pubdate }}</datestamp>
+                    <datestamp>{{ record.pubdate|date("Y-m-d H:i:s") }}</datestamp>
                     <setSpec>:Articles</setSpec>
                 </header>
                 <metadata>
@@ -18,95 +17,28 @@
                             xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
 	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
                         <dc:title xml:lang="en-US">{{ record.title }}</dc:title>
-	</oai_dc:dc>
+                        {% for author in record.articleAuthors %}
+                            <dc:creator>{{ author.author.lastName }}, {{ author.author.firstName }}</dc:creator>
+                        {% endfor %}
+                        <dc:subject>{{ record.subjects }}</dc:subject>
+                        <dc:description>{{ record.subtitle }}</dc:description>
+                        <dc:publisher></dc:publisher>
+                        <dc:date>{{ record.pubDate|date('Y-m-d') }}</dc:date>
+                        <dc:type>info:eu-repo/semantics/article</dc:type>
+                        <dc:type xml:lang="en-US"></dc:type>
+                        <dc:format>application/pdf</dc:format>
+                        <dc:identifier>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147</dc:identifier>
+                        <dc:identifier>10.15824/actamedica.86518</dc:identifier>
+                        <dc:source xml:lang="en-US">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
+                        <dc:source xml:lang="tr-TR">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
+                        <dc:source>2148-2357</dc:source>
+                        <dc:language>{{ record.primaryLanguage }}</dc:language>
+                        <dc:relation>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147/pdf_47</dc:relation>
+                        <dc:rights xml:lang="en-US">
+                        </dc:rights>
+                    </oai_dc:dc>
                 </metadata>
             </record>
         {% endfor %}
-        <record>
-            <header>
-                <identifier>oai:dergipark.ulakbim.gov.tr:article/5000033147</identifier>
-                <datestamp>2014-10-21T06:58:45Z</datestamp>
-                <setSpec>ibuama:Articles</setSpec>
-            </header>
-            <metadata>
-                <oai_dc:dc
-                        xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
-                        xmlns:dc="http://purl.org/dc/elements/1.1/"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
-	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-                    <dc:title xml:lang="en-US">The Relationship between Gated Myocardial Perfusion Scintigraphy Findings and Risk Factors for Coronary Artery Disease</dc:title>
-                    <dc:creator>Korkmaz, Ayse Nurdan</dc:creator>
-                    <dc:creator>Caliskan, Billur</dc:creator>
-                    <dc:creator>Erkan, Melih Engin</dc:creator>
-                    <dc:creator>Ilce, Huri Tilla</dc:creator>
-                    <dc:creator>Yildirim, Mustafa</dc:creator>
-                    <dc:creator>Dogan, Ahmet Semih</dc:creator>
-                    <dc:subject xml:lang="en-US"></dc:subject>
-                    <dc:subject xml:lang="en-US">Myocardial perfusion scintigraphy, coronary artery disease, risk factors</dc:subject>
-                    <dc:description xml:lang="en-US">Introduction: Coronary artery disease risk factors to be considered are one of the important approaches in terms of early diagnosis and treatment. Gated SPECT provides important diagnostic and prognostic information for coronary artery disease. The aim of this retrospective study is to investigate the relationship between these risk factors for coronary artery disease and gated myocardial perfusion scintigraphy findings.Methodology: Two hundred fifty-three (144 women, 109 men) referred to our clinic without a previously known coronary artery disease were included to this study. The mean age of the patients was 57.42 ± 10.71 years. Major cardiovascular risk factors (age, gender, hypertension, diabetes mellitus, hyperlipidaemia, smoking, family history) were investigated. Statistical analysis of the relationship between risk factors for coronary artery disease and myocardial perfusion scintigraphy findings was performed using SPSS 15.0.Results: A mild correlation was found between the myocardial perfusion findings and risk factors of the evaluated 253 patients. Significantly negative results were found in ischemia/scar findings (p=0.01), wall movement disorder (p=0.004), left ventricular ejection fractions (p=0.002), end-systolic volume and end-diastolic volume (p=0.001), total thickening and movement scores (p=0.001, p=0.002, respectively) in the group with more than 2 risk factors.Conclusions: Increased number of risk factors for coronary artery disease was found to be associated with more frequent positive findings in gated myocardial perfusion scintigraphy. Our findings show that accuracy of myocardial perfusion scintigraphy may increase with appropriate assessment of risk factors.</dc:description>
-                    <dc:publisher xml:lang="en-US">Acta Medica Anatolia</dc:publisher>
-                    <dc:contributor xml:lang="en-US"></dc:contributor>
-                    <dc:date>2014-06-16</dc:date>
-                    <dc:type>info:eu-repo/semantics/article</dc:type>
-                    <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
-                    <dc:type xml:lang="en-US"></dc:type>
-                    <dc:type xml:lang="tr-TR"></dc:type>
-                    <dc:format>application/pdf</dc:format>
-                    <dc:identifier>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147</dc:identifier>
-                    <dc:identifier>10.15824/actamedica.86518</dc:identifier>
-                    <dc:source xml:lang="en-US">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                    <dc:source xml:lang="tr-TR">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                    <dc:source>2148-2357</dc:source>
-                    <dc:language>eng</dc:language>
-                    <dc:relation>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147/pdf_47</dc:relation>
-                    <dc:rights xml:lang="en-US">The copyright of the articles accepted for publication belong to the Acta Medica Anatolia. “Copyright Transfer Form” that will be sent to the e-mail of the corresponding author after acceptance of the manuscript for publication (This form must be signed by corresponding author and should be returned to the editorial office via e-mail: info@anatoliamedica.com) </dc:rights>
-                    <dc:rights xml:lang="tr-TR">The copyright of the articles accepted for publication belong to the Acta Medica Anatolia. “Copyright Transfer Form” that will be sent to the e-mail of the corresponding author after acceptance of the manuscript for publication should be signed by all authors.</dc:rights>
-                </oai_dc:dc>
-            </metadata>
-        </record>
-        <record>
-            <header>
-                <identifier>oai:dergipark.ulakbim.gov.tr:article/5000033147</identifier>
-                <datestamp>2014-10-21T06:58:45Z</datestamp>
-                <setSpec>ibuama:Articles</setSpec>
-            </header>
-            <metadata>
-                <oai_dc:dc
-                        xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
-                        xmlns:dc="http://purl.org/dc/elements/1.1/"
-                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
-	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-                    <dc:title xml:lang="en-US">The Relationship between Gated Myocardial Perfusion Scintigraphy Findings and Risk Factors for Coronary Artery Disease</dc:title>
-                    <dc:creator>Korkmaz, Ayse Nurdan</dc:creator>
-                    <dc:creator>Caliskan, Billur</dc:creator>
-                    <dc:creator>Erkan, Melih Engin</dc:creator>
-                    <dc:creator>Ilce, Huri Tilla</dc:creator>
-                    <dc:creator>Yildirim, Mustafa</dc:creator>
-                    <dc:creator>Dogan, Ahmet Semih</dc:creator>
-                    <dc:subject xml:lang="en-US"></dc:subject>
-                    <dc:subject xml:lang="en-US">Myocardial perfusion scintigraphy, coronary artery disease, risk factors</dc:subject>
-                    <dc:description xml:lang="en-US">Introduction: Coronary artery disease risk factors to be considered are one of the important approaches in terms of early diagnosis and treatment. Gated SPECT provides important diagnostic and prognostic information for coronary artery disease. The aim of this retrospective study is to investigate the relationship between these risk factors for coronary artery disease and gated myocardial perfusion scintigraphy findings.Methodology: Two hundred fifty-three (144 women, 109 men) referred to our clinic without a previously known coronary artery disease were included to this study. The mean age of the patients was 57.42 ± 10.71 years. Major cardiovascular risk factors (age, gender, hypertension, diabetes mellitus, hyperlipidaemia, smoking, family history) were investigated. Statistical analysis of the relationship between risk factors for coronary artery disease and myocardial perfusion scintigraphy findings was performed using SPSS 15.0.Results: A mild correlation was found between the myocardial perfusion findings and risk factors of the evaluated 253 patients. Significantly negative results were found in ischemia/scar findings (p=0.01), wall movement disorder (p=0.004), left ventricular ejection fractions (p=0.002), end-systolic volume and end-diastolic volume (p=0.001), total thickening and movement scores (p=0.001, p=0.002, respectively) in the group with more than 2 risk factors.Conclusions: Increased number of risk factors for coronary artery disease was found to be associated with more frequent positive findings in gated myocardial perfusion scintigraphy. Our findings show that accuracy of myocardial perfusion scintigraphy may increase with appropriate assessment of risk factors.</dc:description>
-                    <dc:publisher xml:lang="en-US">Acta Medica Anatolia</dc:publisher>
-                    <dc:contributor xml:lang="en-US"></dc:contributor>
-                    <dc:date>2014-06-16</dc:date>
-                    <dc:type>info:eu-repo/semantics/article</dc:type>
-                    <dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
-                    <dc:type xml:lang="en-US"></dc:type>
-                    <dc:type xml:lang="tr-TR"></dc:type>
-                    <dc:format>application/pdf</dc:format>
-                    <dc:identifier>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147</dc:identifier>
-                    <dc:identifier>10.15824/actamedica.86518</dc:identifier>
-                    <dc:source xml:lang="en-US">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                    <dc:source xml:lang="tr-TR">Acta Medica Anatolia; Vol 2, No 3 (2014); 97-102</dc:source>
-                    <dc:source>2148-2357</dc:source>
-                    <dc:language>eng</dc:language>
-                    <dc:relation>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147/pdf_47</dc:relation>
-                    <dc:rights xml:lang="en-US">The copyright of the articles accepted for publication belong to the Acta Medica Anatolia. “Copyright Transfer Form” that will be sent to the e-mail of the corresponding author after acceptance of the manuscript for publication (This form must be signed by corresponding author and should be returned to the editorial office via e-mail: info@anatoliamedica.com) </dc:rights>
-                    <dc:rights xml:lang="tr-TR">The copyright of the articles accepted for publication belong to the Acta Medica Anatolia. “Copyright Transfer Form” that will be sent to the e-mail of the corresponding author after acceptance of the manuscript for publication should be signed by all authors.</dc:rights>
-                </oai_dc:dc>
-            </metadata>
-        </record>
     </ListRecords>
 {% endblock %}
