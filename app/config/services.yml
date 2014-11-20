@@ -65,3 +65,6 @@ services:
         class: Ojs\SiteBundle\Twig\CommonExtension
         tags:
             - {name: twig.extension }
+    ojs.user_provider.username_email:
+        class: Ojs\UserBundle\Security\EmailUserProvider
+        arguments: [@service_container]
