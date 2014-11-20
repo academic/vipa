@@ -38,6 +38,11 @@ Ojs\UserBundle\Entity\User:
             length: 255
             unique: false
             nullable: true
+        title:
+            type: string
+            length: 255
+            unique: false
+            nullable: true
         firstName:
             column: first_name
             type: string

@@ -127,7 +127,10 @@ avalanche_imagine:
             options: { heighten: 60 } 
         wide_100:
             type:    relative_resize
-            options: { widen: 100 }   
+            options: { widen: 100 }
+        journal_cover:
+            type:    thumbnail
+            options: { start: [0,0], size: [200,300], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
