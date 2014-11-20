@@ -16,7 +16,7 @@ class UserJournalRoleRepository extends EntityRepository
      * get user list of users a journal with journal_id
      * @param integer $journal_id
      */
-    public function getUsers($journal_id)
+    public function getUsers($journal_id, $grouppedByRole = false)
     {
         $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findByJournalId($journal_id);
         $entites = array();
@@ -27,14 +27,28 @@ class UserJournalRoleRepository extends EntityRepository
             $entites[] = $item->getUser();
         }
 
-        return $entites;
+        if (!$grouppedByRole)
+            return $entites;
+
+        $users = [];
+        foreach ($entites as $user) {
+            /** @var User $user */
+            foreach ($user->getRoles() as $role) {
+                /** @var Role $role */
+                if ($role->getIsSystemRole())
+                    continue;
+                $users[$role->getName()][] = $user;
+            }
+        }
+        return $users;
+
     }
 
     public function userJournalsWithRoles($user_id, $onlyJournalIds = false)
     {
         $data = $this->getEntityManager()->createQuery(
-                        'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
-                )->setParameter('user_id', $user_id)->getResult();
+            'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
+        )->setParameter('user_id', $user_id)->getResult();
         $entities = array();
         if ($data) {
             foreach ($data as $item) {

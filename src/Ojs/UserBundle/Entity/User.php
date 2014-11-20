@@ -584,5 +584,30 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this->getIsActive();
     }
 
+    public function getFullName()
+    {
+        return $this->getFirstName().' '.$this->getLastName();
+    }
+
+    private $title;
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
 
 }
