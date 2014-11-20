@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" name="journalId" value="{{ submissionData.journalId }}"/>
+    <input type="hidden" name="journalId" value="{%if submissionData.journalId is defined %}{{ submissionData.journalId }}{%endif%}"/>
     <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
