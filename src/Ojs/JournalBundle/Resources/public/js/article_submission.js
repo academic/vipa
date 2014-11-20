@@ -104,12 +104,8 @@ var OjsArticleSubmission = {
         if (!articleParams) {
             OjstrCommon.errorModal("Please select and fill metadata for article's language.");
             return;
-        }
-        /**
-         * 1. post primaryLanguage's meta data
-         * 2. get articleId from response
-         * 3. post other meta datas for other languages
-         */
+        } 
+        
         OjstrCommon.waitModal();
         if (translationParams) {
             articleParams.data.translations = JSON.stringify(translationParams);
@@ -119,10 +115,11 @@ var OjsArticleSubmission = {
             OjstrCommon.hideallModals();
             if (response.submissionId) { 
                 OjsArticleSubmission.submissionId = response.submissionId;
+                $("input[name=submissionId]").attr('value',response.submissionId);
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
             } else {
-                OjstrCommon.errorModal("Error occured. Try again.");
+                OjstrCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
         });
     },
