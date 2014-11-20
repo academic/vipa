@@ -51,7 +51,11 @@
     {{  parent()  }}
     <script>
     var articleId = {{item.getId()}};</script>
-
-    <script src="{{ asset('@OjsJournalBundle/Resources/public/js/article_cite.js') }}" type="text/javascript"></script>
+ 
+    {% javascripts "@OjsJournalBundle/Resources/public/js/article_cite.js" 
+            output="c/article_cite.js"
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 {% endblock %}
