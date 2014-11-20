@@ -1,3 +1,7 @@
+ojs_feedback:
+    resource: "@OjsFeedbackBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ojs_report:
     resource: "@OjsReportBundle/Resources/config/routing.yml"
     prefix:   /
@@ -70,5 +74,5 @@ apidoc:
 jms_job_queue_bundle:
     resource: "@JMSJobQueueBundle/Controller/"
     type: annotation
-    prefix: /admin/jobs
+    prefix: /admin/jobs 
 

@@ -10,7 +10,44 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class CitationRestController extends FOSRestController {
+class CitationRestController extends FOSRestController
+{
+
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Parse citations",
+     *  statusCodes={
+     *         200="Returned when successful"
+     *  },
+     * parameters={
+     *      {
+     *          "name"="citations",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="citations separated with newline"
+     *      },
+     *      {
+     *          "name"="apikey",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="Apikey"
+     *      }
+     *  }
+     * )
+     * @Get("/citation/parse")
+     */
+    public function getCitationParseAction(Request $request)
+    {
+        $citations = $request->get('citations') ? $request->get('citations') : 12;
+        if (empty($citations)) {
+            throw new HttpException(400, 'Missing parameter : citations');
+        }
+        $citationParser = \Okulbilisim\CitationParser\CitationParser();
+        $parsedCitations = $citationParser->parse($citations);
+        return $parsedCitations;
+    }
 
     /**
      *
@@ -23,7 +60,8 @@ class CitationRestController extends FOSRestController {
      * )
      * @Get("/journal/{id}/citations")
      */
-    public function getCitationAction($id) {
+    public function getCitationAction($id)
+    {
         $citation = $this->getDoctrine()->getRepository('OjsJournalBundle:Citation')->find($id);
         if (!is_object($citation)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
@@ -43,7 +81,8 @@ class CitationRestController extends FOSRestController {
      *  }
      * )
      */
-    public function deleteCitationAction($id, Request $request) {
+    public function deleteCitationAction($id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $citation = $this->getDoctrine()->getRepository('OjsJournalBundle:Citation')->find($id);
         $citation_settings = $citation->getSettings();
