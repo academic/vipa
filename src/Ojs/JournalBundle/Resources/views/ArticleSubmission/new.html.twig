@@ -31,10 +31,10 @@
         <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
     </ul>
 
-    <form name="base" class="form-horizontal" role="form">
-        <div class="form-group">
-            <label class="col-md-2 control-label">{{"articles.language.primary"|trans}}</label>
-            <div class="col-md-9">
+    <form name="base" class="form-horizontal row" role="form">
+        <div class="form-group col-md-6">
+            <label class="col-md-6 control-label">{{"articles.language.primary"|trans}}</label>
+            <div class="col-md-4">
                 <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
                     {% for lang in journal.languages %}
                         <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
@@ -42,6 +42,11 @@
                 </select>
             </div>
         </div>
+                <div class="col-md-6">
+                    <span id="resumeNote" class="label label-info">
+                   
+                    </span>
+                </div>
     </form>
 
     <div id="step1-container" class="step">
@@ -197,9 +202,16 @@
 
     <script>
         OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        function showResumeNote(submissionId){
+            $rnt = $("#resumeNote");
+            $rnt.html("You can resume your submission progress anytime with this url  "+
+                    "<a href='{{path("article_submission_new")}}"+submissionId+"'>#"+submissionId+"</a>");
+            $rnt.show();
+        }
         $(document).ready(function () {
-        {%if submissionId is defined %}
+        {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
+                showResumeNote(OjsArticleSubmission.submissionId);
                 {#
                 Load submission steps with data
                 #}

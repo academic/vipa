@@ -46,7 +46,7 @@ var OjsArticleSubmission = {
         // check if selected language tab already exists
         if (OjsCommon.inArray(langcode, OjsArticleSubmission.languages)) {
             return false;
-        } 
+        }
         $tpl = Mustache.render($('#step1_tpl').html(), params);
         $("#step1").append('<div class="tab-pane step1" id="' + langcode + '">' + $tpl);
 
@@ -104,8 +104,8 @@ var OjsArticleSubmission = {
         if (!articleParams) {
             OjsCommon.errorModal("Please select and fill metadata for article's language.");
             return;
-        } 
-        
+        }
+
         OjsCommon.waitModal();
         if (translationParams) {
             articleParams.data.translations = JSON.stringify(translationParams);
@@ -113,11 +113,12 @@ var OjsArticleSubmission = {
         articleParams.data.submissionId = $("input[name=submissionId]").val();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.submissionId) { 
+            if (response.submissionId) {
                 OjsArticleSubmission.submissionId = response.submissionId;
-                $("input[name=submissionId]").attr('value',response.submissionId);
+                $("input[name=submissionId]").attr('value', response.submissionId);
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
+                showResumeNote(OjsArticleSubmission.submissionId);
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
