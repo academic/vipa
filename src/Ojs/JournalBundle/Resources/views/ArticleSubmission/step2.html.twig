@@ -6,20 +6,26 @@
             <input type="hidden" name="authorid" value="" />
             <div class="col-md-12">
                 <div class="controls form-inline"> 
-                    <input name="order" type="number" id="orderinput" class="form-control input-sm" placeholder="{{"author.order"|trans}}"/>
+                    <input name="order" type="number" id="orderinput" class="form-control input-sm"
+                           value="{% raw %}{{author_order}}{% endraw %}" placeholder="{{"author.order"|trans}}"/>
                 </div>
                 <div class="controls">
                     <span class="control-label"> </span>
                     <div class="controls form-inline">
-                        <input name="initials" id="initialsinput" class="form-control" placeholder="{{"author.initials"|trans}}"/>
-                        <input name="firstName" id="firstnameinput" class="form-control" placeholder="{{"author.firstname"|trans}}"/>
-                        <input name="middleName" id="middlenameinput" class="form-control" placeholder="{{"author.middlename"|trans}}"/>
-                        <input name="lastName" id="lastnameinput" class="form-control" placeholder="{{"author.lastname"|trans}}"/>
+                        <input name="initials" id="initialsinput" class="form-control" 
+                               value="{% raw %}{{author_initials}}{% endraw %}" placeholder="{{"author.initials"|trans}}"/>
+                        <input name="firstName" id="firstnameinput" class="form-control" 
+                               value="{% raw %}{{author_firstName}}{% endraw %}" placeholder="{{"author.firstname"|trans}}"/>
+                        <input name="middleName" id="middlenameinput" class="form-control" 
+                               value="{% raw %}{{author_middleName}}{% endraw %}" placeholder="{{"author.middlename"|trans}}"/>
+                        <input name="lastName" id="lastnameinput" class="form-control" 
+                               value="{% raw %}{{author_lastName}}{% endraw %}" placeholder="{{"author.lastname"|trans}}"/>
                     </div>
                 </div>
                 <div class="controls">
                     <label class="control-label">{{"email"|trans}} <span class="mandotary"></span></label>
-                    <input name="email" name="email"  id="emailinput" class="form-control" placeholder="{{"email"|trans}}"/>
+                    <input name="email" name="email"  id="emailinput" class="form-control" 
+                           value="{% raw %}{{author_email}}{% endraw %}" placeholder="{{"email"|trans}}"/>
                 </div>
                 <br>
                 <a class="btn btn-sm btn-info pull-right" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"add"|trans}}</a>
@@ -29,7 +35,7 @@
                 <div style="display:none">
                     <div class="controls">
                         <label class="control-label">{{"summary"|trans}}</label>
-                        <textarea name="summary" id="summaryinput" class="form-control" rows="6"></textarea>
+                        <textarea name="summary" id="summaryinput" class="form-control" rows="6">{% raw %}{{author_summary}}{% endraw %}</textarea>
                     </div>
                 </div>
             </div> 
