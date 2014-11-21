@@ -41,11 +41,29 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
     /**
      * @param  string                              $username
-     * @return \Application\UserBundle\Entity\User
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function loadUserByUsername($username)
     {
-        return $this->findOneBy(array('username' => $username));
+        try{
+
+            $q = $this
+            ->createQueryBuilder('u')
+            ->select('u, r')
+            ->leftJoin('u.roles','r')
+            ->where('u.username = :username OR u.email = :email')
+            ->setParameters([
+                'username'=>$username,
+                'email'=>$username
+            ])
+            ->getQuery()
+        ;
+            $user = $q->getSingleResult();
+            return $user;
+        }catch(\Exception $e){
+            $message = sprintf('Unable to find an active admin OjsUserBundle:User object identified by "%s".', $username);
+            throw new UsernameNotFoundException($message, 0, $e);
+        }
     }
 
     public function refreshUser(UserInterface $user)

@@ -18,7 +18,7 @@
             <a href="{{path("ojs_last_articles_index",{"journal_id":journal.id})}}"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
         </li>
         <li class="list-group-item">
-            <a href="/journal/1/archive"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+            <a href="{{ url('ojs_archive_index',{journal_id: journal.id}) }}"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
         </li>
         {% if isJournalManager() %}
             <li class="list-group-item"><a href="#">

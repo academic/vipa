@@ -10,7 +10,8 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN]
     providers:
         user_db:
-            entity: {  class: Ojs\UserBundle\Entity\User, property: username }
+            id: ojs.user_provider.username_email
+            #entity: {  class: Ojs\UserBundle\Entity\User, property: username }
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
