@@ -36,8 +36,8 @@ var OjsArticleSubmission = {
             $("li.lang a[href=#" + firsttab + "]").tab("show");
         }
     },
-    addAuthorForm: function () {
-        $("#step2").append(Mustache.render($("#step2_tpl").html()));
+    addAuthorForm: function (params) {
+        $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
     },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
