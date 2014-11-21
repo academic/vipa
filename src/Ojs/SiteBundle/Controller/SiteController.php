@@ -113,6 +113,7 @@ class SiteController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal_id,true);
         $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
         return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
