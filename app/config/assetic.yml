@@ -47,6 +47,11 @@ assetic:
         apptour_js:
                inputs:
                   - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour.min.js
+        user_admin:
+            inputs:
+                - @OjsUserBundle/Resources/public/js/user.js
+                - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
+                - %kernel.root_dir%/../web/vendor/select2/select2.js
  
 braincrafted_bootstrap:
     less_filter: none
