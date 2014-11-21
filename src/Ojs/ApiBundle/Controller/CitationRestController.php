@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
-use OkulBilisim\CitationParser\CitationParser;
+use OkulBilisim\CitationParser\Parser as CitationParser;
 
 class CitationRestController extends FOSRestController
 {
@@ -48,6 +48,7 @@ class CitationRestController extends FOSRestController
         }
         $citationParser = new CitationParser();
         $parsedCitations = $citationParser->parse($citations);
+        error_log(print_r($parsedCitations, 1));
         return $parsedCitations;
     }
 
