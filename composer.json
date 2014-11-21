@@ -44,7 +44,8 @@
         "ircmaxell/password-compat": "~1.0",
 	"jms/job-queue-bundle": "dev-master",
         "pagerfanta/pagerfanta": "dev-master",
-	"okulbilisim/citation-parser": "dev-master"
+	"okulbilisim/citation-parser": "dev-master",
+	"okulbilisim/feedback-bundle": "dev-master"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"
