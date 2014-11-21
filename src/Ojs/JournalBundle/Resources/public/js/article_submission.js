@@ -44,7 +44,7 @@ var OjsArticleSubmission = {
     },
     step1AddLanguageForm: function (langcode, langtitle, params) {
         // check if selected language tab already exists
-        if (OjstrCommon.inArray(langcode, OjsArticleSubmission.languages)) {
+        if (OjsCommon.inArray(langcode, OjsArticleSubmission.languages)) {
             return false;
         } 
         $tpl = Mustache.render($('#step1_tpl').html(), params);
@@ -78,7 +78,7 @@ var OjsArticleSubmission = {
     step1: function (actionUrl) {
         forms = $("#step1 .tab-pane");
         if (forms.length === 0) {
-            OjstrCommon.errorModal("Add at least one language to your submission.");
+            OjsCommon.errorModal("Add at least one language to your submission.");
             return false;
         }
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
@@ -102,31 +102,31 @@ var OjsArticleSubmission = {
             }
         });
         if (!articleParams) {
-            OjstrCommon.errorModal("Please select and fill metadata for article's language.");
+            OjsCommon.errorModal("Please select and fill metadata for article's language.");
             return;
         } 
         
-        OjstrCommon.waitModal();
+        OjsCommon.waitModal();
         if (translationParams) {
             articleParams.data.translations = JSON.stringify(translationParams);
         }
         articleParams.data.submissionId = $("input[name=submissionId]").val();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
-            OjstrCommon.hideallModals();
+            OjsCommon.hideallModals();
             if (response.submissionId) { 
                 OjsArticleSubmission.submissionId = response.submissionId;
                 $("input[name=submissionId]").attr('value',response.submissionId);
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
             } else {
-                OjstrCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
+                OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
         });
     },
     step2: function (actionUrl) {
         forms = $(".author-item");
         if (forms.length === 0) {
-            OjstrCommon.errorModal("Add at least one author.");
+            OjsCommon.errorModal("Add at least one author.");
             return false;
         }
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
@@ -136,15 +136,15 @@ var OjsArticleSubmission = {
         forms.each(function () {
             dataArray.push($("form", this).serializeObject());
         });
-        $.post(actionUrl, {"authorsData": JSON.stringify(dataArray)}, function (response) {
+        $.post(actionUrl, {"authorsData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
             /**
              * @todo parse response and fill authorId values
              */
-            OjstrCommon.hideallModals();
+            OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step3();
         }).error(function () {
-            OjstrCommon.errorModal("Something is wrong. Check your data and try again.");
+            OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
     },
     step3: function (actionUrl) {
@@ -163,7 +163,7 @@ var OjsArticleSubmission = {
 
         },
         step2: function () {
-            OjstrCommon.scrollTop();
+            OjsCommon.scrollTop();
             if ($("#step2").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(2);
                 OjsArticleSubmission.loadStepTemplate(2);
@@ -171,7 +171,7 @@ var OjsArticleSubmission = {
             OjsArticleSubmission.showStep(2);
         },
         step3: function () {
-            OjstrCommon.scrollTop();
+            OjsCommon.scrollTop();
             if ($("#step3").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(3);
                 OjsArticleSubmission.loadStepTemplate(3);
@@ -179,7 +179,7 @@ var OjsArticleSubmission = {
             OjsArticleSubmission.showStep(3);
         },
         step4: function () {
-            OjstrCommon.scrollTop();
+            OjsCommon.scrollTop();
             if ($("#step4").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(4);
                 OjsArticleSubmission.loadStepTemplate(4);
@@ -187,7 +187,7 @@ var OjsArticleSubmission = {
             OjsArticleSubmission.showStep(4);
         },
         step5: function () {
-            OjstrCommon.scrollTop();
+            OjsCommon.scrollTop();
             if ($("#step4").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(4);
                 OjsArticleSubmission.loadStepTemplate(4);

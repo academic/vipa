@@ -1,14 +1,22 @@
 var REST_API_BASEURL = "/api/";
 
 var OjstrApp;
-OjstrApp = OjstrApp || (function() {
+OjstrApp = OjstrApp || (function () {
 
 })();
 
 
 
-var OjstrCommon = {
-    scrollTop: function() {
+var OjsCommon = {
+    api: {
+        userApikey: null,
+        urls: {
+            citeParser: "/api/citation/parse",
+            userSearch: "",
+            journalSearc: ""
+        }
+    },
+    scrollTop: function () {
         $('html, body').animate({
             scrollTop: 0
         }, {
@@ -27,25 +35,25 @@ var OjstrCommon = {
         warning: BootstrapDialog.TYPE_WARNING,
         danger: BootstrapDialog.TYPE_DANGER
     },
-    errorModal: function(message, title) {
+    errorModal: function (message, title) {
         BootstrapDialog.show({
             title: title ? title : 'Warning',
             message: message,
-            type: OjstrCommon.modalTypes.danger
+            type: OjsCommon.modalTypes.danger
         });
     },
-    hideallModals: function() {
+    hideallModals: function () {
         BootstrapDialog.closeAll();
     },
-    waitModal: function(customWaitingMessage) {
+    waitModal: function (customWaitingMessage) {
         BootstrapDialog.show({
             title: 'Wait',
             message: customWaitingMessage ? customWaitingMessage : 'Please wait...',
-            type: OjstrCommon.modalTypes.info,
+            type: OjsCommon.modalTypes.info,
             closable: false
         });
     },
-    inArray: function(needle, haystack) {
+    inArray: function (needle, haystack) {
         var length = haystack.length;
         for (var i = 0; i < length; i++) {
             if (haystack[i] === needle)
