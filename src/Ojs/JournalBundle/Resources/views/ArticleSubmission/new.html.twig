@@ -205,7 +205,7 @@
         function showResumeNote(submissionId){
             $rnt = $("#resumeNote");
             $rnt.html("You can resume your submission progress anytime with this url  "+
-                    "<a href='{{path("article_submission_new")}}"+submissionId+"'>#"+submissionId+"</a>");
+                    "<a href='{{path("article_submission_new")}}/resume/"+submissionId+"'>#"+submissionId+"</a>");
             $rnt.show();
         }
         $(document).ready(function () {
