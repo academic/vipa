@@ -10,6 +10,9 @@ var CitationEditor = {
         $("#citationPasteField").show("fast");
     },
     parseAndAppend: function (txt) {
+        $.post(OjsCommon.api.urls.citeParser,{"citations":txt,"apikey":OjsCommon.api.userApikey},function(res){
+            console.log(res);
+        });
         items = txt.split("\n");
         for (i in items) {
             if (items[i].length > 0) {

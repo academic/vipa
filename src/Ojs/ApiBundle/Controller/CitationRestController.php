@@ -9,6 +9,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use OkulBilisim\CitationParser\CitationParser;
 
 class CitationRestController extends FOSRestController
 {
@@ -36,15 +38,15 @@ class CitationRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Get("/citation/parse")
+     * @Post("/citation/parse")
      */
-    public function getCitationParseAction(Request $request)
+    public function postCitationParseAction(Request $request)
     {
         $citations = $request->get('citations') ? $request->get('citations') : 12;
         if (empty($citations)) {
             throw new HttpException(400, 'Missing parameter : citations');
         }
-        $citationParser = \Okulbilisim\CitationParser\CitationParser();
+        $citationParser = new CitationParser();
         $parsedCitations = $citationParser->parse($citations);
         return $parsedCitations;
     }
