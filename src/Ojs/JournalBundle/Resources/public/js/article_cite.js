@@ -10,13 +10,27 @@ var CitationEditor = {
         $("#citationPasteField").show("fast");
     },
     parseAndAppend: function (txt) {
-        $.post(OjsCommon.api.urls.citeParser,{"citations":txt,"apikey":OjsCommon.api.userApikey},function(res){
-            console.log(res);
-        });
+        OjsCommon.waitModal();
+        $.post(OjsCommon.api.urls.citeParser, {"citations": txt, "apikey": OjsCommon.api.userApikey}, function (res) {
+            if (typeof res === "object") {
+                for (i in res) {
+                    citationItem = res[i];
+                    CitationEditor.newCitationField(citationItem.raw);
+                }
+            }
+        })
+                .done(function () {
+                    OjsCommon.hideallModals();
+                })
+                .error(function () {
+                    OjsCommon.errorModal("We can't parse your citation for now. Please add one by one or try again.");
+                });
+    },
+    parseAndAppendByNewLine: function () {
         items = txt.split("\n");
         for (i in items) {
             if (items[i].length > 0) {
-                this.newCitationField(items[i]);
+                CitationEditor.newCitationField(items[i]);
             }
         }
     },
@@ -34,7 +48,7 @@ var CitationEditor = {
                     '<input type="text" class="form-control has-warning" placeholder="' +
                     $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
         }
-         for (var i in $shouldFields) {
+        for (var i in $shouldFields) {
             $(".citationDetailsFields", $el.parent()).append(
                     '<input type="text" class="form-control" placeholder="' +
                     $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
