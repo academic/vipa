@@ -16,13 +16,18 @@ class InstitutionType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('about')
             ->add('address')
+            ->add('city')
             ->add('country')
             ->add('addressLat')
             ->add('addressLong')
             ->add('phone')
             ->add('fax')
             ->add('email')
+            ->add('url')
+            ->add('wiki')
+            ->add('logo')
         ;
     }
 
