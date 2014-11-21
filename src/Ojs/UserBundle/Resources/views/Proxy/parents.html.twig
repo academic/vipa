@@ -50,9 +50,9 @@
                 buttons: [{
                         label: 'Save',
                         action: function (dialogRef) {
-                            OjstrCommon.waitModal();
+                            OjsCommon.waitModal();
                             $.post($action, {ttl: $("#ttl").val()}, function (data) {
-                                OjstrCommon.hideallModals();
+                                OjsCommon.hideallModals();
                                 dialogRef.close();
                                 $("#date_" + data.id).html(data.ttl.date);
                             });

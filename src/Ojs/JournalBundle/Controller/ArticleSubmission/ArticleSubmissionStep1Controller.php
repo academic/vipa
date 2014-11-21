@@ -22,6 +22,7 @@ class ArticleSubmissionStep1Controller extends Controller
      */
     public function addArticleAction(Request $request, $locale)
     {
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $articleData = $request->request->all();
         $articleData['translations'] = isset($articleData['translations']) ?
                 json_decode($articleData['translations'], true) :
@@ -31,14 +32,17 @@ class ArticleSubmissionStep1Controller extends Controller
         $article = $this->generateArticleArray($articleData, $locale);
         $articleSubmissionData[$locale] = $article;
         if ($articleData['translations']) {
-            foreach ($articleData['translations'] as $params) { 
+            foreach ($articleData['translations'] as $params) {
                 $languages[] = $params['data']['locale'];
                 $articleSubmissionData[$params['data']['locale']] = $this->generateArticleArray($params['data'], $params['data']['locale'], $article);
             }
         }
         // save submission data to mongodb for resume action
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleSubmission = new ArticleSubmissionProgress(); 
+        if (!$articleData["submissionId"]) {
+            $articleSubmission = new ArticleSubmissionProgress();
+        }else{
+            $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($articleData["submissionId"]);
+        }
         $articleSubmission->setArticleData($articleSubmissionData);
         $articleSubmission->setUserId($this->getUser()->getId());
         $articleSubmission->setJournalId($articleData["journalId"]);
@@ -48,23 +52,23 @@ class ArticleSubmissionStep1Controller extends Controller
         $articleSubmission->setLanguages($languages);
         $dm->persist($articleSubmission);
         $dm->flush();
-        
+
+
         return new JsonResponse(array(
-            'submissionId'=>$articleSubmission->getId(),
+            'submissionId' => $articleSubmission->getId(),
             'locale' => $locale));
     }
- 
 
-      
-    private function generateArticleArray($data,$locale=null)
-    { 
+    private function generateArticleArray($data, $locale = null)
+    {
         $article['title'] = $data['title'];
-        $article['titleTransliterated']  = $data['titleTransliterated'];
+        $article['titleTransliterated'] = $data['titleTransliterated'];
         $article['subtitle'] = $data['subtitle'];
-        $article['keywords']  =$data['keywords'];
-        $article['subjects']  =$data['subjects'];
-        $article['abstract']  =$data['abstract'];
-        $article['locale']  =$locale; 
+        $article['keywords'] = $data['keywords'];
+        $article['subjects'] = $data['subjects'];
+        $article['abstract'] = $data['abstract'];
+        $article['locale'] = $locale;
         return $article;
     }
+
 }
