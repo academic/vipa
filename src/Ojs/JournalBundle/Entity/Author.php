@@ -256,7 +256,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  integer                            $userId
+     * @param  integer $userId
      * @return \Ojs\JournalBundle\Entity\Author
      */
     public function setUserId($userId)
@@ -472,4 +472,26 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         $this->articleAuthors->removeElement($articleAuthors);
     }
+
+    private $title;
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $title;
+    }
+
+
 }

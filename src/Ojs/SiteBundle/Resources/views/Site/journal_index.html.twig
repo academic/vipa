@@ -13,7 +13,7 @@
         <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="holder.js/200x300/#f9A497:#ffffff/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                    <img src="{{ journal.image }}" onerror="this.src='holder.js/200x300/#f9A497:#ffffff/text:{{journal.title}}'" class="img-responsive img-rounded float-left" alt="" />
                 </div>
 
                 <div class="col-md-8">
@@ -41,16 +41,15 @@
                 <div class="col-md-12">
                     <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
                     <p>
-                        <strong>{{"editor"|trans}}</strong>
-                        <br>
-                        Prof. Dr. Rauf AMİROV
-                        <br>
-                        <strong>Assistant Editors</strong><br>
-                        Assoc. Prof. Dr. Nilüfer TOPSAKAL<br>
-                        Assoc. Prof. Dr. Şifa TÜRKOĞLU<br>
-                        Assist. Prof. Dr. Nüket KARTAL TEMEL<br>
-                        Assist. Prof. Dr. Serkan AKKOYUN<br>
+                       {% for key,user in users %}
+                           <strong>{{ key|trans }}</strong> <br/>
+                           {% for u in user %}
+                               {{ u.title }} {{ u.fullName }}<br/>
+                           {% endfor %}
+                           <br/>
+                       {% endfor %}
                     </p>
+
                     <table class="record_properties  table">
 
                         <tbody>
