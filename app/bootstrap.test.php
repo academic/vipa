@@ -17,7 +17,7 @@ $application->setAutoExit(false);
 deleteDatabase();
 executeCommand($application,"doctrine:schema:create");
 executeCommand($application, "ojs:install:travis");
-executeCommand($application, "doctrine:fixtures:load",['--append'=>true,'-v'=>true]);
+executeCommand($application, "h4cc_alice_fixtures:load:sets");
 backupDatabase();
 
 

@@ -69,7 +69,7 @@ class InstallCommand extends ContainerAwareCommand
 
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>sudo php app/console doctrine:fixtures:load --append -v</info> "
+                . "<info>sudo php app/console h4cc_alice_fixtures:load:sets </info> "
                 . "to add sample data\n");
 
     }
@@ -117,6 +117,7 @@ class InstallCommand extends ContainerAwareCommand
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
         $user->setIsActive(true);
+        $user->setApiKey('MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==');
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
         $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
         $role_admin = $role_repo->findOneByRole('ROLE_USER');
