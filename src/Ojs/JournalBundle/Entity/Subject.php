@@ -37,7 +37,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     
     /**
      * This data will be pre-calculated with scheduled tasks
-     * @var type 
+     * @var int
      */
     private $totalJournalCount;
 

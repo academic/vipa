@@ -1,0 +1,8 @@
+\Ojs\JournalBundle\Entity\Issue:
+  issue{1..50}:
+    datePublished: <dateTimeThisYear()>
+    number: <randomDigit()>
+    title: <text(25)>
+    volume: <randomDigit()>
+    year: <randomDigit()>
+    journal: @journal*

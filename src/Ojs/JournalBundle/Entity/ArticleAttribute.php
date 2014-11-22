@@ -13,12 +13,48 @@ class ArticleAttribute extends GenericExtendedEntity
     private $article;
     private $attribute;
     private $value;
+    private $article_id;
+    private $id;
 
-    public function __construct($name, $value, $article)
+    /**
+     * @return integer
+     */
+    public function getId()
     {
-        $this->attribute = $name;
-        $this->value = $value;
-        $this->article = $article;
+        return $this->id;
+    }
+
+    /**
+     * @param integer $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getArticleId()
+    {
+        return $this->article_id;
+    }
+
+    /**
+     * @param mixed $article_id
+     * @return $this
+     */
+    public function setArticleId($article_id)
+    {
+        $this->article_id = $article_id;
+        return $this;
+    }
+
+    public function __construct($name = null, $value = null, $article = null)
+    {
+        $name != null && $this->attribute = $name;
+        $value != null && $this->value = $value;
+        $article != null && $this->article = $article;
     }
 
 
@@ -38,7 +74,7 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Get attribute
      *
-     * @return string 
+     * @return string
      */
     public function getAttribute()
     {
@@ -61,7 +97,7 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -84,7 +120,7 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Get article
      *
-     * @return \Ojs\JournalBundle\Entity\Article 
+     * @return \Ojs\JournalBundle\Entity\Article
      */
     public function getArticle()
     {
