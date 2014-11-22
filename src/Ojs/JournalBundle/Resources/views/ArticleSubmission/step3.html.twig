@@ -39,7 +39,7 @@
                 <select class="form-control" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                     <option value="">[Select Citation Type]</option>
                     {% for type in citationTypes %}
-                        <option value="{{type.name}}" should='{{type.should|json_encode()}}' must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
+                        <option value="{{type.name}}" data-should='{{type.should|json_encode()}}' data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
                     {%endfor%}
                 </select> 
                 <br>

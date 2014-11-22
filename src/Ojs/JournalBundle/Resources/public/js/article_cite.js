@@ -40,8 +40,8 @@ var CitationEditor = {
         });
     },
     citationTypeSelected: function ($el) {
-        var $mustFields = JSON.parse($("option:selected", $el).attr("must"));
-        var $shouldFields = JSON.parse($("option:selected", $el).attr("should"));
+        var $mustFields = $($("option:selected", $el)).data("must");
+        var $shouldFields = $($("option:selected", $el)).data("should");
         $(".citationDetailsFields", $el.parent()).html("");
         for (var i in $mustFields) {
             $(".citationDetailsFields", $el.parent()).append(
