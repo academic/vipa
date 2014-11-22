@@ -44,11 +44,13 @@ Ojs\JournalBundle\Entity\File:
            gedmo:
              blameable:
                on: create
+           nullable: true
         updatedBy:
            type: string
            gedmo:
              blameable:
                on: update
+           nullable: true
     gedmo:
         soft_deleteable:
             field_name: deletedAt

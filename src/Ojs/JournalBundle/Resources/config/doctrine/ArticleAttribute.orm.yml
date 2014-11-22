@@ -2,18 +2,26 @@ Ojs\JournalBundle\Entity\ArticleAttribute:
   lifecycleCallbacks: {}
   type: entity
   id:
-    article:
-      associationKey: true
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+
+  fields:
     attribute:
       type: string
-  fields:
     value:
       type: string
+    article_id:
+      type: integer
+      nullable: true
     createdBy:
-           type: string
-           gedmo:
-             blameable:
-               on: create
+       type: string
+       gedmo:
+         blameable:
+           on: create
+       nullable: true
     updatedBy:
        type: string
        gedmo:
@@ -23,3 +31,6 @@ Ojs\JournalBundle\Entity\ArticleAttribute:
     article:
       targetEntity: Article
       inversedBy: attributes
+      joinColumn:
+        name: article_id
+        referencedColumnName: id

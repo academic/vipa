@@ -1,0 +1,4 @@
+\Ojs\JournalBundle\Entity\InstitutionTypes:
+  i_type{1..20}:
+    name: <text(20)>
+    description: <paragraph(1)>

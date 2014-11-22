@@ -37,3 +37,21 @@ swiftmailer:
         path: "%kernel.root_dir%/spool" #(where to store the messages)
     #delivery_address: (an email address where to send ALL emails)
     #disable_delivery: (set to true to disable delivery completely)
+
+h4cc_alice_fixtures:
+    default_manager: orm
+    managers:
+        orm:
+            locale: en_US                               # default
+            seed: 1                                     # default
+            do_flush: true                              # default
+
+            schema_tool: null                           # default
+            doctrine: orm                               # default
+        mongodb:
+            locale: en_US
+            seed: 1
+            do_flush: true
+
+            schema_tool: null
+            doctrine: mongodb-odm
