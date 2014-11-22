@@ -25,7 +25,7 @@
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
         <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"articles.article"|trans}}</li>
-        <li id="submission-progress-step2"><span class="badge">2</span> {{"authors"|trans}}</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
         <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
         <li id="submission-progress-step4"><span class="badge">4</span>  {{"articles.files"|trans}}</li>
         <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
@@ -43,7 +43,7 @@
             </div>
         </div>
                 <div class="col-md-6">
-                    <span id="resumeNote" class="label label-info">
+                    <span id="resumeNote" class="">
                    
                     </span>
                 </div>
@@ -206,7 +206,7 @@
         {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-                {#
+            {#
                 Load submission steps with data
                 #} 
             $("select[name=primaryLanguage]").select2("val","{{submissionData.primaryLanguage}}");

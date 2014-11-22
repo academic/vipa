@@ -78,6 +78,9 @@ author:
     lastname: Last Name
     initials: Initials
     order: Order
+    plural: Authors
+    singular: Author
+    
     
 trans: Transliterated
 email: Email

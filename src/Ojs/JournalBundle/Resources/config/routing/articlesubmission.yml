@@ -35,7 +35,7 @@ article_submission_step2:
 
 article_submission_step3:
     pattern:  /author/article/submit/step3
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep3:step3" }
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep3:addCitations" }
     requirements: { _method: post }
 
 article_submission_step4:

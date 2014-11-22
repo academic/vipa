@@ -1,54 +1,49 @@
-<hr>
-<form class="form-horizontal" role="form">
+<hr> 
+<h2>{{"citations"|trans}}</h2>
+<div class="row">
+    <button class="btn btn-success" id="pasteArticleCitationInline">
+        <i class="fa fa-edit"></i> Paste&amp;Extract Citations
+    </button>
+    <button class="btn btn-info" id="addArticleCitationInline">
+        <i class="fa fa-plus"></i> New Citation
+    </button>
 
-
-    <h2>{{"citations"|trans}}</h2>
-    <div class="row">
-        <button class="btn btn-success" id="pasteArticleCitationInline">
-            <i class="fa fa-edit"></i> Paste&amp;Extract Citations
-        </button>
-        <button class="btn btn-info" id="addArticleCitationInline">
-            <i class="fa fa-plus"></i> New Citation
-        </button>
-
-        <div id="citationPasteField" style="display: block!important">
-            <div class="form-row well">
-                <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
-            </div>
+    <div id="citationPasteField" style="display: block!important">
+        <div class="form-row well">
+            <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
         </div>
     </div>
+</div>
 
-    <div id="citationContainer"></div>
+<div id="citationContainer"></div>
 
-    <div class="hide" id="citationInfoFields">
-        <div class="cite-item row"> 
-            <div class="col-md-1">
-                <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
-            </div>
-            <div class="col-md-11">
-                <input type="text" class="pull-left form-control" value="" name="raw" placeholder="Citation"> 
-            </div>
-            <div class="col-md-12">
-                <a class="pull-right btn btn-sm btn-warning removeArticleCitationInline">
-                    <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
-                </a>
-                <a href="#details" class="pull-right btn btn-sm btn-info addCitationDetails">{{"details"|trans}}</a>
-
-            </div>
-            <div class="citationDetails form-inline">
-                <select class="form-control citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
-                    <option value="">[Select Citation Type]</option>
-                    {% for type in citationTypes %}
-                        <option value="{{type.name}}" data-should='{{type.should|json_encode()}}' data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
-                    {%endfor%}
-                </select> 
-                <br>
-                <div class="citationDetailsFields form-inline"></div>
-                <hr>
-            </div>
+<div class="hide" id="citationInfoFields">
+    <form class="cite-item row"> 
+        <div class="col-md-1">
+            <input type="number" class="form-control" style="width:80px" name="orderNum" value="0" placeholder="Order">
         </div>
-    </div>
+        <div class="col-md-11">
+            <input type="text" class="pull-left form-control" value="" name="raw" placeholder="Citation"> 
+        </div>
+        <div class="col-md-12">
+            <a class="pull-right btn btn-sm btn-warning removeArticleCitationInline">
+                <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
+            </a>
+            <a href="#details" class="pull-right btn btn-sm btn-info addCitationDetails">{{"details"|trans}}</a>
 
-</form>
+        </div>
+        <div class="citationDetails form-inline">
+            <select class="form-control citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+                <option value="">[Select Citation Type]</option>
+                {% for type in citationTypes %}
+                    <option value="{{type.name}}" data-should='{{type.should|json_encode()}}' data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
+                {%endfor%}
+            </select> 
+            <br>
+            <div class="citationDetailsFields form-inline"></div>
+            <hr>
+        </div>
+    </form>
+</div> 
 <hr>
 <br>

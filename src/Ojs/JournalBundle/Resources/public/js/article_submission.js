@@ -19,6 +19,7 @@ var OjsArticleSubmission = {
         }
     },
     backTo: function (step) {
+        this.configureProgressBar(step);
         this.hideAllSteps();
         this.configureProgressBar(step);
         this.showStep(step);
@@ -145,10 +146,8 @@ var OjsArticleSubmission = {
         forms.each(function () {
             dataArray.push($("form", this).serializeObject());
         });
+        OjsCommon.waitModal();
         $.post(actionUrl, {"authorsData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
-            /**
-             * @todo parse response and fill authorId values
-             */
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step3();
@@ -157,8 +156,23 @@ var OjsArticleSubmission = {
         });
     },
     step3: function (actionUrl) {
-        this.hideAllSteps();
-        this.prepareStep.step4();
+        forms = $("form.cite-item");
+        if (forms.length > 0) {
+            $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+            // prepare post params 
+            var dataArray = [];
+            forms.each(function () {
+                dataArray.push($("form", this).serializeObject());
+            });
+            OjsCommon.waitModal();
+            $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+                OjsCommon.hideallModals();
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep.step4();
+            }).error(function () {
+                OjsCommon.errorModal("Something is wrong. Check your data and try again.");
+            });
+        }
     },
     step4: function (actionUrl) {
         this.hideAllSteps();
