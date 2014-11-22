@@ -2,16 +2,18 @@
 
 namespace Ojs\WikiBundle\Tests\Controller;
 
+use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class DefaultControllerTest extends BaseTestCase
 {
-    public function testIndex()
+    public function testJournalWiki()
     {
-        $client = static::createClient();
+        $this->assertTrue($this->isAccessible(['wiki_detail', ['type' => 'journal']]));
+    }
 
-        $crawler = $client->request('GET', '/hello/Fabien');
-
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    public function testInstitutionWiki()
+    {
+        $this->assertTrue($this->isAccessible(['wiki_detail', ['type' => 'institution']]));
     }
 }

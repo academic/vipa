@@ -77,7 +77,8 @@ abstract class BaseTestCase extends WebTestCase
         $firewall = 'main';
         $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username ? $username : 'admin');
         if (!($user instanceof UserInterface))
-            throw new \Exception("User not find");
+            throw new \Exception("User not find. ".get_class($user));
+
         $token = new UsernamePasswordToken($user, null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));
         $session->set('_security_' . $firewall, serialize($token));
         $session->save();
