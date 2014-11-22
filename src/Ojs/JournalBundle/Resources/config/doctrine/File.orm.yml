@@ -8,7 +8,7 @@ Ojs\JournalBundle\Entity\File:
             id: true
             generator:
                 strategy: AUTO
-    manyToOne:
+    oneToMany:
         articleFiles:
             targetEntity: ArticleFile
             mappedBy: file
