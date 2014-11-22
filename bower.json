@@ -33,7 +33,7 @@
         "morrisjs": "*",
         "angular": "1.2.*",
         "mustache": "*",
-        "bootstrap-tour": "*",
+	"bootstrap-tour": "*",
         "holderjs": "*",
         "jquery-sortable": "*"
     }
