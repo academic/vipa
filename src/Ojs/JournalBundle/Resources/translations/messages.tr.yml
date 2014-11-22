@@ -77,6 +77,8 @@ author:
     lastname: Soyad
     initials: Başharfler
     order: Order
+    plural: Yazar
+    singular: Yazarlar
     
 trans: Transliterated
 email: E-posta
