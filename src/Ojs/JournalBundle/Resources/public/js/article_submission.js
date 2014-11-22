@@ -32,6 +32,8 @@ var OjsArticleSubmission = {
     },
     showStep: function (step) {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
+        history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
+        window.location.hash = step;
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
@@ -125,7 +127,6 @@ var OjsArticleSubmission = {
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-                history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
