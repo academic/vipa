@@ -6,6 +6,12 @@ var OjsArticleSubmission = {
     submissionId: null,
     languages: [],
     activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
+    showResumeNote: function (submissionId) {
+        $rnt = $("#resumeNote");
+        $rnt.html("You can resume your submission progress anytime with this url  " +
+                "<a href='/author/article/submit/resume/" + submissionId + "'>#" + submissionId + "</a>");
+        $rnt.show();
+    },
     loadStepTemplate: function (step) {
         if (!this.activatedSteps["step" + step]) {
             $("#step" + step).append(Mustache.render($("#step" + step + "_tpl").html()));
@@ -118,7 +124,8 @@ var OjsArticleSubmission = {
                 $("input[name=submissionId]").attr('value', response.submissionId);
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
-                showResumeNote(OjsArticleSubmission.submissionId);
+                OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
+                history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }

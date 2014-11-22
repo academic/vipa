@@ -202,19 +202,14 @@
 
     <script>
         OjsCommon.api.userApikey = "{{app.user.apiKey}}";
-        function showResumeNote(submissionId){
-            $rnt = $("#resumeNote");
-            $rnt.html("You can resume your submission progress anytime with this url  "+
-                    "<a href='{{path("article_submission_new")}}/resume/"+submissionId+"'>#"+submissionId+"</a>");
-            $rnt.show();
-        }
         $(document).ready(function () {
         {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
-                showResumeNote(OjsArticleSubmission.submissionId);
+                OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
                 {#
                 Load submission steps with data
                 #} 
+            $("select[name=primaryLanguage]").select2("val","{{submissionData.primaryLanguage}}");
             {% for key,article in submissionData.articleData %}
                 var params = {
                     "article_title":"{{article.title|raw}}",
