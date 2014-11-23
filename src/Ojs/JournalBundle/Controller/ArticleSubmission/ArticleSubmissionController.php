@@ -92,7 +92,7 @@ class ArticleSubmissionController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-        return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
+        return $this->render('OjsJournalBundle:ArticleSubmission:preview.html.twig', array(
                     'submissionId' => $articleSubmission->getId(),
                     'submissionData' => $articleSubmission,
                     'journal' => $journal,
