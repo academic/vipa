@@ -36,6 +36,7 @@ var OjsCommon = {
         danger: BootstrapDialog.TYPE_DANGER
     },
     errorModal: function (message, title) {
+        this.hideallModals();
         BootstrapDialog.show({
             title: title ? title : 'Warning',
             message: message,
