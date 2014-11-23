@@ -48,6 +48,11 @@ var OjsArticleSubmission = {
     addAuthorForm: function (params) {
         $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
     },
+    addFileForm: function (params) {
+        $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
+        this.bindFileUploader();
+        this.setupUi();
+    },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
     },
@@ -217,11 +222,24 @@ var OjsArticleSubmission = {
             }
             OjsArticleSubmission.showStep(4);
         }
+    },
+    bindFileUploader: function () {
+        $('.article_file_upload').fileupload({});
+        $('.article_file_upload').bind('fileuploadsend', function (e, data) {
+            $(this).parent().next('.upload_progress').show();
+            $(this).parent().next('.upload_progress').html("Uploading...");
+        }).bind('fileuploaddone', function (e, data) {
+            $(this).parent().next('.upload_progress').html("Done.");
+            $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
+        });
+    },
+    setupUi: function () {
+        $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
     }
 };
 
 $(document).ready(function () {
-    $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+    OjsArticleSubmission.setupUi();
     $("ul#mainTabs li a").click(function (e) {
         e.preventDefault();
     });
@@ -236,14 +254,5 @@ $(document).ready(function () {
         langcode = $(this).parent().attr("href").replace("#", "");
         $tab = $("#" + langcode);
         OjsArticleSubmission.step1RemoveLanguageForm(langcode, $tab);
-    });
-    // article file uploader
-    $('#article_file_upload').fileupload({});
-    $('#article_file_upload').bind('fileuploadsend', function (e, data) {
-        $(this).parent().next('.upload_progress').show();
-        $(this).parent().next('.upload_progress').html("Uploading...");
-    }).bind('fileuploaddone', function (e, data) {
-        $(this).parent().next('.upload_progress').html("Done.");
-        $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
     });
 });

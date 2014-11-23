@@ -35,7 +35,7 @@
         <div class="form-group col-md-6">
             <label class="col-md-6 control-label">{{"articles.language.primary"|trans}}</label>
             <div class="col-md-4">
-                <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
+                <select class="select2-element" name="primaryLanguage" class="form-control" style="width:200px">
                     {% for lang in journal.languages %}
                         <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
                     {% endfor %}
@@ -133,9 +133,11 @@
             </div>
 
             <div id="citationContainer">
-                {% for citationItem in submissionData.citations %}
-                    {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
-                {% endfor %}
+                {%if citation is defined %}
+                    {% for citationItem in submissionData.citations %}
+                        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
+                    {% endfor %}
+                {% endif %}
 
 
             </div>
@@ -159,6 +161,19 @@
 
 
     <div id="step4-container" class="step hide">
+        <h2>{{ "articles.files"|trans }}
+            <small><button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-sm btn-default btn-circle">+</button></small>
+        </h2>
+
+        <div class="col-md-12">
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+                <span>Select Article File</span>
+                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+            </span>
+            <span class="upload_progress label label-info" style="display: none"></span>
+        </div>
 
         <div id="step4">
 
@@ -194,6 +209,10 @@
         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
     </script>
 
+    <script id="step4_tpl" type="x-tmplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}    
+    </script>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -204,7 +223,6 @@
     {% endjavascripts %}
 
     {% javascripts 'vendor/mustache/mustache.js' 
-                    'vendor/angular/angular.min.js'
                     'vendor/select2/select2.min.js'
                     'vendor/jquery-sortable/source/js/jquery-sortable-min.js'
                     'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
