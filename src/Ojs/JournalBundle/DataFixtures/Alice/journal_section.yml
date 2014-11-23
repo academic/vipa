@@ -1,0 +1,6 @@
+Ojs\JournalBundle\Entity\JournalSection:
+  section{1..20}:
+    journal: @journal*
+    title: <text(20)>
+    hideTitle: false
+    allowIndex: true

@@ -1,0 +1,7 @@
+\Ojs\JournalBundle\Entity\Contact:
+  contact{1..25}:
+    address: <address()>
+    email: <email()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+    phone: <phoneNumber()>

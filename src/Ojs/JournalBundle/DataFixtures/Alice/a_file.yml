@@ -1,0 +1,10 @@
+\Ojs\JournalBundle\Entity\ArticleFile:
+  a_file{1..50}:
+    article: @article*
+    file: @file*
+    type: <randomDigit()>
+    version: 1
+    keywords: <text(80)>, <text(80)>, <text(80)>
+    title: <text(100)>
+    description: <paragraph(1)>
+    langCode: @lang*->code
