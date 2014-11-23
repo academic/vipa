@@ -162,7 +162,7 @@ var OjsArticleSubmission = {
             // prepare post params 
             var dataArray = [];
             forms.each(function () {
-                dataArray.push($("form", this).serializeObject());
+                dataArray.push($(this).serializeObject());
             });
             OjsCommon.waitModal();
             $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {

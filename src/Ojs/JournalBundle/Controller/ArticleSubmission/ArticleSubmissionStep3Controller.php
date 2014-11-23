@@ -19,6 +19,11 @@ class ArticleSubmissionStep3Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
+        for ($i = 0; $i < count($citeData); $i++) {
+            if (strlen($citeData[$i]->raw)<1) {
+                unset($citeData[$i]);
+            }
+        }
         $articleSubmission->setCitations($citeData);
         $dm->persist($articleSubmission);
         $dm->flush();

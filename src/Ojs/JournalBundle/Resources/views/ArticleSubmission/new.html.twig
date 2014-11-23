@@ -42,11 +42,11 @@
                 </select>
             </div>
         </div>
-                <div class="col-md-6">
-                    <span id="resumeNote" class="">
-                   
-                    </span>
-                </div>
+        <div class="col-md-6">
+            <span id="resumeNote" class="">
+
+            </span>
+        </div>
     </form>
 
     <div id="step1-container" class="step">
@@ -116,9 +116,34 @@
     <div id="step3-container" class="step hide">
 
         <div id="step3">
+            <h2>{{"citations"|trans}}</h2>
+            <div class="row">
+                <button class="btn btn-success" id="pasteArticleCitationInline">
+                    <i class="fa fa-edit"></i> Paste&amp;Extract Citations
+                </button>
+                <button class="btn btn-info" id="addArticleCitationInline">
+                    <i class="fa fa-plus"></i> New Citation
+                </button>
+
+                <div id="citationPasteField" style="display: block!important">
+                    <div class="form-row well">
+                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="citationContainer">
+                {% for citationItem in submissionData.citations %}
+                    {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
+                {% endfor %}
+
+
+            </div>
+
 
         </div>
         <div class="step3_actions record_actions col-md-12">
+
             <br>
             <a class="btn btn-default btn-lg"
                onclick="javascript:OjsArticleSubmission.backTo(2);">
@@ -198,43 +223,46 @@
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
     <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endif %}
-    {% endjavascripts %}
+        {% endjavascripts %}
 
-    <script>
-        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
-        $(document).ready(function () {
-        {%if submissionId is defined %} 
+        <script>
+            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+            $(document).ready(function () {
+            {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-            {#
-                Load submission steps with data
-                #} 
-            $("select[name=primaryLanguage]").select2("val","{{submissionData.primaryLanguage}}");
-            {% for key,article in submissionData.articleData %}
-                var params = {
-                    "article_title":"{{article.title|raw}}",
-                    "article_subtitle":"{{article.subtitle|raw}}",
-                    "article_title_trans":"{{article.titleTransliterated|raw}}",
-                    "article_keywords":"{{article.keywords|raw}}",
-                    "article_subjects":"{{article.subjects|raw}}",
-                    "article_abstract":"{{article.abstract|raw}}"
-                };
-                OjsArticleSubmission.step1AddLanguageForm( "{{languages[key].code}}","{{languages[key].name}} ", params);
-            {% endfor %}
-            {% for author in submissionData.authors %}
-                var authorParams = {
-                    "author_order":"{{author.order}}",
-                    "author_initials":"{{author.initials|raw}}",
-                    "author_firstName":"{{author.firstName|raw}}",
-                    "author_middleName":"{{author.middleName|raw}}",
-                    "author_lastName":"{{author.lastName|raw}}",
-                    "author_email":"{{author.email|raw}}",
-                    "author_summary":"{{author.summary|raw}}"
-                };
-                OjsArticleSubmission.addAuthorForm( authorParams );
-            {% endfor %}
-                OjsArticleSubmission.activatedSteps["step1"] = true;
-        {% endif %}
-        });
-    </script>
-{% endblock %}
+                {#
+                    Load submission steps with data
+                    #} 
+                $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
+                {% for key,article in submissionData.articleData %}
+                        var params = {
+                            "article_title": "{{article.title|raw}}",
+                            "article_subtitle": "{{article.subtitle|raw}}",
+                            "article_title_trans": "{{article.titleTransliterated|raw}}",
+                            "article_keywords": "{{article.keywords|raw}}",
+                            "article_subjects": "{{article.subjects|raw}}",
+                            "article_abstract": "{{article.abstract|raw}}"
+                        };
+                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+                {% endfor %}
+
+                {# load authors #}
+                {% for author in submissionData.authors %}
+                        OjsArticleSubmission.addAuthorForm({
+                            "author_order": "{{author.order}}",
+                            "author_initials": "{{author.initials|raw}}",
+                            "author_firstName": "{{author.firstName|raw}}",
+                            "author_middleName": "{{author.middleName|raw}}",
+                            "author_lastName": "{{author.lastName|raw}}",
+                            "author_email": "{{author.email|raw}}",
+                            "author_summary": "{{author.summary|raw}}"
+                        });
+                {% endfor %}
+
+
+                        OjsArticleSubmission.activatedSteps["step1"] = true;
+            {% endif %}
+                });
+        </script>
+        {% endblock %}
