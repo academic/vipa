@@ -16,7 +16,7 @@
 
         </div>
         <div class="citationDetails form-inline">
-            <select class="select2 citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+            <select class="select2-element citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                 <option value="">[Select Citation Type]</option>
                 {% for type in citationTypes %}
                     <option value="{{type.name}}" 
