@@ -1,6 +1,6 @@
 {% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
-{% block title %}Submit New Article{% endblock %}
+{% block title %}Preview Article Before Submit{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" %}
@@ -16,15 +16,110 @@
     <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
-        <li id="submission-progress-step1"><span class="badge">1</span> {{"articles.article"|trans}}</li>
+        <li id="submission-progress-step1"><span class="badge">1</span> {{"article.article"|trans}}</li>
         <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
-        <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
-        <li id="submission-progress-step4"><span class="badge">4</span>  {{"articles.files"|trans}}</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> {{"article.citations"|trans}}</li>
+        <li id="submission-progress-step4"><span class="badge">4</span>  {{"article.files"|trans}}</li>
         <li class="laststep" class="active"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
     </ul>
 
     <div class="col-md-12">
         <h1>{{"preview"|trans}}</h1>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">{{"article.metadata"|trans}}</div>
+            <div class="panel panel-body">
+                {% for key,article in submissionData.articleData %}
+                    <span class="label label-info">{{key}}</span>
+                    <table class="table">
+                        <tr>
+                            <td>{{"title"|trans}}</td>
+                            <td>{{article.title}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"titleTransliterated"|trans}}</td>
+                            <td>{{article.titleTransliterated}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"subtitle"|trans}}</td>
+                            <td>{{article.subtitle}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"keywords"|trans}}</td>
+                            <td>{{article.keywords}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"subjects"|trans}}</td>
+                            <td>{{article.subjects}}</td>
+                        </tr>
+                    </table>
+                    <hr>
+                {%endfor%}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">{{"article.authors"|trans}}</div>
+            <div class="panel panel-body">
+                {% for key,author in submissionData.authors %}
+                    <table class="table">
+                        <tr>
+                            <td>{{"author.order"|trans}}</td>
+                            <td>{{author.order}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"author.initials"|trans}}</td>
+                            <td>{{author.initials}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"author.firstname"|trans}}</td>
+                            <td>{{author.firstName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"author.middlename"|trans}}</td>
+                            <td>{{author.middleName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"author.lastname"|trans}}</td>
+                            <td>{{author.lastName}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"email"|trans}}</td>
+                            <td>{{author.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{"author.summary"|trans}}</td>
+                            <td>{{author.summary}}</td>
+                        </tr>
+                    </table>
+                    <hr>
+                {%endfor%}
+
+
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">{{"article.citations"|trans}}</div>
+            <div class="panel panel-body">
+
+                {% for key,citation submissionData.citations %}
+                    <span class="label label-info">{{key}}</span>
+                    <table class="table">
+                        <tr>
+                        </tr>
+                    </table>
+                    <hr>
+                {%endfor%}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">{{"article.files"|trans}}</div>
+            <div class="panel panel-body">
+
+            </div>
+        </div>
 
     </div>
 {% endblock %}

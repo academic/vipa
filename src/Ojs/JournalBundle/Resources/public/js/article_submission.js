@@ -180,6 +180,8 @@ var OjsArticleSubmission = {
         }
     },
     step4: function (actionUrl) {
+        OjsCommon.waitModal();
+        
         this.hideAllSteps();
         window.location.href = actionUrl;
     },
