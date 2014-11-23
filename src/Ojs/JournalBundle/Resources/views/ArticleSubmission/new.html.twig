@@ -3,12 +3,10 @@
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' output="c/upload.css" %}
+    {% stylesheets '@submission_css' output="c/submission.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <link rel="stylesheet" href="{{asset("/vendor/select2/select2.css")}}" type="text/css"/>
-    <link rel="stylesheet" href="{{asset("/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css")}}" type="text/css"/>
     <style>
         .slip-reordering {  box-shadow: 0 2px 10px rgba(0,0,0,0.45); }
         .slip-swiping-container {  overflow-x: hidden;  }
@@ -218,18 +216,7 @@
 {% block javascripts %}
 
     {{ parent() }}
-    {% javascripts '@upload_js' output="c/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% javascripts 'vendor/mustache/mustache.js' 
-                    'vendor/select2/select2.min.js'
-                    'vendor/jquery-sortable/source/js/jquery-sortable-min.js'
-                    'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
-                    '@OjsJournalBundle/Resources/public/js/article_submission.js'
-                    '@OjsJournalBundle/Resources/public/js/article_cite.js' 
-                    
-        output="c/submission_js.js" %}
+    {% javascripts  '@submission_js' output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %} 
 

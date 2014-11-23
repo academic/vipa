@@ -181,7 +181,7 @@ var OjsArticleSubmission = {
     },
     step4: function (actionUrl) {
         this.hideAllSteps();
-        this.prepareStep.step5();
+        window.location.href = actionUrl;
     },
     /**
      * prepare and show steps
@@ -207,14 +207,6 @@ var OjsArticleSubmission = {
             OjsArticleSubmission.showStep(3);
         },
         step4: function () {
-            OjsCommon.scrollTop();
-            if ($("#step4").html().length > 0) {
-                OjsArticleSubmission.configureProgressBar(4);
-                OjsArticleSubmission.loadStepTemplate(4);
-            }
-            OjsArticleSubmission.showStep(4);
-        },
-        step5: function () {
             OjsCommon.scrollTop();
             if ($("#step4").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(4);

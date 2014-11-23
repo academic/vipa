@@ -1,0 +1,52 @@
+{% set hideleft = 1 %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}Submit New Article{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@submission_css' output="c/submission.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %} 
+{% endblock %}
+
+{% block body -%}
+    <input type="hidden" name="journalId" value="{%if journal.id %}{{ journal.id }}{%endif%}"/>
+    <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
+
+    <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
+        <li id="submission-progress-step1"><span class="badge">1</span> {{"articles.article"|trans}}</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
+        <li id="submission-progress-step4"><span class="badge">4</span>  {{"articles.files"|trans}}</li>
+        <li class="laststep" class="active"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
+    </ul>
+
+    <div class="col-md-12">
+        <h1>{{"preview"|trans}}</h1>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {% javascripts  '@submission_js' output="c/submission_js.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %} 
+
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endjavascripts %}
+
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
+    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endif %}
+        {% endjavascripts %}
+
+        <script>
+            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        </script>
+        {% endblock %}
