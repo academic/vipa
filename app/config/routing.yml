@@ -1,3 +1,7 @@
+ojs_wiki:
+    resource: "@OjsWikiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ojs_report:
     resource: "@OjsReportBundle/Resources/config/routing.yml"
     prefix:   /

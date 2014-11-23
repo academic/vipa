@@ -1,0 +1,49 @@
+\Ojs\UserBundle\Entity\Role:
+  role1:
+    role: ROLE_USER
+    name: Default registered user
+    isSystemRole: True
+  role2:
+    role: ROLE_SUPER_ADMIN
+    name: System Super Administrator
+    isSystemRole: True
+  role3:
+    role: ROLE_JOURNAL_MANAGER
+    name: Journal Manager
+    isSystemRole: False
+  role4:
+    role: ROLE_SUBSCRIPTION_MANAGER
+    name: Subscription Manager
+    isSystemRole: False
+  role5:
+    role: ROLE_EDITOR
+    name: Editor
+    isSystemRole: False
+  role6:
+    role: ROLE_SECTION_EDITOR
+    name: Section Editor
+    isSystemRole: False
+  role7:
+    role: ROLE_LAYOUT_EDITOR
+    name: Layout Editor
+    isSystemRole: False
+  role8:
+    role: ROLE_REVIEWER
+    name: Reviewer
+    isSystemRole: False
+  role9:
+    role: ROLE_COPYEDITOR
+    name: Copyeditor
+    isSystemRole: False
+  role10:
+    role: ROLE_PROOFREADER
+    name: Proofreader
+    isSystemRole: False
+  role11:
+    role: ROLE_AUTHOR
+    name: Author
+    isSystemRole: False
+  role12:
+    role: ROLE_READER
+    name: Reader
+    isSystemRole: False
