@@ -33,11 +33,12 @@ class ArticleSubmissionProgress
 
     /** @MongoDb\Int @MongoDb\Index() */
     protected $userId;
+
     /**
      * @MongoDb\Int
      */
     protected $journal_id;
-    
+
     /**
      * @MongoDb\String
      */
@@ -54,7 +55,7 @@ class ArticleSubmissionProgress
      * @MongoDB\Hash
      */
     protected $article_data;
-    
+
     /**
      * authors
      * @MongoDB\Hash
@@ -64,13 +65,12 @@ class ArticleSubmissionProgress
     /**
      * @MongoDB\Hash
      */
-    protected $citatoins;
+    protected $citations;
 
     /**
      * @MongoDB\Hash
      */
     protected $files;
- 
 
     /**
      * Get id
@@ -259,25 +259,25 @@ class ArticleSubmissionProgress
     }
 
     /**
-     * Set citatoins
+     * Set citations
      *
-     * @param hash $citatoins
+     * @param hash $citations
      * @return self
      */
-    public function setCitatoins($citatoins)
+    public function setCitations($citations)
     {
-        $this->citatoins = $citatoins;
+        $this->citations = $citations;
         return $this;
     }
 
     /**
-     * Get citatoins
+     * Get citations
      *
-     * @return hash $citatoins
+     * @return hash $citations
      */
-    public function getCitatoins()
+    public function getCitations()
     {
-        return $this->citatoins;
+        return $this->citations;
     }
 
     /**
@@ -345,4 +345,5 @@ class ArticleSubmissionProgress
     {
         return $this->primary_language;
     }
+
 }

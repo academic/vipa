@@ -75,9 +75,17 @@ abstract class BaseTestCase extends WebTestCase
     {
         $session = $this->client->getContainer()->get('session');
         $firewall = 'main';
-        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($username ? $username : 'admin');
+        $user = $this->em->getRepository('OjsUserBundle:User')
+            ->findOneByUsername($username ? $username : 'admin');
+        if (!$user) {
+            $_role = $this->em->getRepository('OjsUserBundle:Role')
+                ->findOneByRole($role[0]);
+            $user = $this->em->getRepository('OjsUserBundle:User')
+                ->findOneByRole($_role);
+        }
         if (!($user instanceof UserInterface))
-            throw new \Exception("User not find");
+            throw new \Exception("User not find. " . get_class($user));
+
         $token = new UsernamePasswordToken($user, null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));
         $session->set('_security_' . $firewall, serialize($token));
         $session->save();
@@ -109,15 +117,18 @@ abstract class BaseTestCase extends WebTestCase
         return $stream;
     }
 
-    protected function isAccessible($params, $data = [])
+    protected function isAccessible($params, $data = [],$type='GET')
     {
         $this->client->request(
-            'GET',
+            $type,
             call_user_func_array([$this->router, 'generate'], $params),
             $data
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
+        if($params ===['article_delete', ['id' => 2]] ){
+            echo $response->getContent();
+        }
         return $response->isSuccessful();
     }
 } 

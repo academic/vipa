@@ -42,10 +42,13 @@
         "friendsofsymfony/elastica-bundle": "3.0.*@alpha",
         "braincrafted/bootstrap-bundle": "~2.0",
         "ircmaxell/password-compat": "~1.0",
-	"jms/job-queue-bundle": "dev-master",
+        "jms/job-queue-bundle": "dev-master",
         "pagerfanta/pagerfanta": "dev-master",
-	"okulbilisim/citation-parser": "dev-master",
-	"okulbilisim/feedback-bundle": "dev-master"
+        "okulbilisim/citation-parser": "dev-master",
+        "fzaninotto/faker": "dev-master",
+        "nelmio/alice": "1.7.2",
+        "h4cc/alice-fixtures-bundle": "~0.5",
+    	"okulbilisim/feedback-bundle": "dev-master"
     },
     "require-dev": {
         "ojstr/ojstr-message-bundle": "dev-master"

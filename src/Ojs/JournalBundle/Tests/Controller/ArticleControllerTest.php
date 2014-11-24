@@ -32,7 +32,6 @@ class ArticleControllerTest extends BaseTestCase
     {
         $this->logIn();
         $this->assertTrue($this->isAccessible(['article_show', ['id' => 1]]));
-        echo $this->client->getResponse()->getStatusCode();
     }
 
     public function testArticleNew()
@@ -56,7 +55,8 @@ class ArticleControllerTest extends BaseTestCase
     public function testArticleDelete()
     {
         $this->logIn();
-        $this->assertTrue($this->isAccessible(['article_delete', ['id' => 2]]));
+        $this->assertTrue($this->isAccessible(['article_delete', ['id' => 2]],[],'DELETE'));
+        echo $this->client->getResponse();
     }
 
     public function testStatus()

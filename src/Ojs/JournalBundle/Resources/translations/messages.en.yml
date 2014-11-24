@@ -47,13 +47,17 @@ journal:
     all: All Journals
     users: Journal Users
     
-articles:
-    articles: Articles
-    article: Article
+article:    
+    plural: Articles
+    singular: Article
     submit: Submit Article
     files: Article Files
     authors: Article Authors
     citations: Article Citations
+    metadata: Article Meta Data
+    titleTransliterated: Article Title Latin Transliterated 
+    title: Article Title
+    subtitle: Article Subtitle
     language: 
         primary: Article Primary Language
         other: Article Other Languages
@@ -78,7 +82,17 @@ author:
     lastname: Last Name
     initials: Initials
     order: Order
+    plural: Authors
+    singular: Author
+    summary: Author Summary
     
+title: Title
+titleTransliterated: Transliterated Title
+subtitle: Subtitle
+keywords: Keywords
+subjects: Subjects
+abstract: Abstract
+
 trans: Transliterated
 email: Email
 address: Address

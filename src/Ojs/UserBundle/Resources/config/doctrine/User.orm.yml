@@ -133,7 +133,7 @@ Ojs\UserBundle\Entity\User:
             orderBy: null
         restrictedJournals:
             targetEntity: Ojs\JournalBundle\Entity\Journal
-            inversedBy: bannedUsers
+            mappedBy: bannedUsers
     gedmo:
         soft_deleteable:
             field_name: deletedAt

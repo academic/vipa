@@ -1,0 +1,10 @@
+\Ojs\JournalBundle\Entity\Author:
+  author{1..50}:
+    address: <address()>
+    email: <email()>
+    firstName: <firstName()>
+    initials: <text(5)>
+    lastName: <lastName()>
+    summary: <paragraph(3)>
+    title: <title()>
+    institutionId: @institution*->id

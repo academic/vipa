@@ -86,6 +86,19 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
+    public function previewAction($submissionId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+        return $this->render('OjsJournalBundle:ArticleSubmission:preview.html.twig', array(
+                    'submissionId' => $articleSubmission->getId(),
+                    'submissionData' => $articleSubmission,
+                    'journal' => $journal,
+        ));
+    }
+
     /**
      * Finds and displays a Article entity.
      *

@@ -1,4 +1,7 @@
 var CitationEditor = {
+    addCitationTpl : function(params){
+       $("#citationContainer").append(Mustache.render($("#step3_tpl").html(),params));
+    },
     newCitationField: function (citationItem) {
         if (typeof citationItem !== "undefined") {
             $("#citationInfoFields input[name=raw]").attr("value", citationItem.title);
@@ -10,21 +13,11 @@ var CitationEditor = {
     },
     parseAndAppend: function (txt) {
         OjsCommon.waitModal();
-        var raw_items = txt.split("\n");
-        var raw_citations = [];
-        for (i in raw_items) {
-            if (raw_items[i].length > 0) {
-                raw_citations.push(raw_items[i]);
-            }
-        }
         $.post(OjsCommon.api.urls.citeParser, {"citations": txt, "apikey": OjsCommon.api.userApikey}, function (res) {
             var citationInfoFields = $('#citationInfoFields');
             if (typeof res === "object") {
                 for (i in res) {
                     citationItem = res[i];
-                    if (typeof citationItem !== "undefined") {
-                        $("input[name=raw]", citationInfoFields).attr("value", raw_citations[i]);
-                    }
                     var tmp_citation_div_id = "citation_" + Math.round(Math.random() * 10000000);
 
                     $("#citationContainer").append('<div id="' + tmp_citation_div_id + '">' + $("#citationInfoFields").html() + '</div>');
@@ -32,7 +25,6 @@ var CitationEditor = {
                     var $mustFields = $($("option[value=" + citationItem.type + "]", citationInfoFields)).data("must");
                     var $shouldFields = $($("option[value=" + citationItem.type + "]", citationInfoFields)).data("should");
                     var fields = $mustFields.concat($shouldFields);
-                    console.debug(citationItem, fields);
                     $(".citationDetailsFields", tmp_citation_div).html("");
                     $('.citation_type option[value=' + citationItem.type + ']',tmp_citation_div).prop('selected', true);
                     for (var i in $mustFields) {
@@ -45,10 +37,9 @@ var CitationEditor = {
                                 '<input type="text" class="form-control" placeholder="' +
                                 $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
                     }
-
+                    $("input[name=raw]", tmp_citation_div).attr("value",citationItem.raw);
                     $.each(citationItem, function (k, v) {
                         if ($.inArray(k,fields)>-1) {
-                            console.debug(k,v,tmp_citation_div);
                             $('.citationDetailsFields input[name=' + k + ']', tmp_citation_div).val(v);
                         }
                     });
