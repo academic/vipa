@@ -9,7 +9,7 @@ class JournalRepository extends EntityRepository
 {
     private $currentPage;
     private $count;
-    private $limit = 1;
+    private $limit = 12;
     private $filter = [];
 
     /**

@@ -16,4 +16,9 @@ class DefaultControllerTest extends BaseTestCase
     {
         $this->assertTrue($this->isAccessible(['wiki_detail', ['type' => 'institution']]));
     }
+
+    public function testSimpleWiki()
+    {
+        $this->assertTrue($this->isAccessible(['wiki_detail'], []));
+    }
 }
