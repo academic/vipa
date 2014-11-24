@@ -53,6 +53,10 @@ articles:
     files: Makale Dosyaları
     authors: Makale Yazarları
     citations: Makale Referansları
+    metadata: Makale Üst Bilgisi
+    titleTransliterated: Makale Başlığı (transliterated)
+    title: Makale Başlığı
+    subtitle: Makale Altbaşlığı
     language: 
         primary: Makalenin Birincil Dili
         other: Makalenin Diğer Dilleri
@@ -77,7 +81,18 @@ author:
     lastname: Soyad
     initials: Başharfler
     order: Order
+    plural: Yazarlar
+    singular: Yazar
+    summary: Yazar Özeti
     
+
+title: Başlık
+titleTransliterated: Latin Başlık
+subtitle: Alt başlık
+keywords: Anahtar kelimeler
+subjects: Konular
+abstract: Özet
+
 trans: Transliterated
 email: E-posta
 address: Adres

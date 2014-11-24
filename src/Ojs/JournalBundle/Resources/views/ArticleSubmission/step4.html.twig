@@ -1,40 +1,34 @@
-<hr>
 <form class="form-horizontal" role="form">
-    <h2>{{ "articles.files"|trans }}
-        <small><a href="" class="btn btn-sm btn-default btn-circle">+</a></small>
-    </h2>
-
-    <div class="col-md-12">
-        <span class="btn btn-success fileinput-button">
-            <i class="fa fa-plus"></i>
-            <span>Select Article File</span>
-            <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-            <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
-        </span>
-        <span class="upload_progress label label-info" style="display: none"></span>
-    </div>
-
-
-    <div id="supp_file_tpl">
+    <hr>
+    <div id="supp_file">
         <div class="col-md-12">
-            <select name="type">
+            <select name="type" class="select2-element">
                 {% for type in fileTypes %}
-                    <option>{{ type }}</option>
+                    <option value="{{type}}">{{ type }}</option>
                 {% endfor %}
             </select>
+
+            <select name="lang" class="select2-element">
+                {% for lang in journal.languages %}
+                    <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                {% endfor %}
+            </select>
+            <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
+            <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
+            <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
 
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
 
                 <span>Select Supplementary Article File</span>
-                <input id="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename" id="article_file_input" value="" type="hidden"/>
+                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
             </span>
             <span class="upload_progress label label-info" style="display: none"></span>
         </div>
     </div>
-
-
+    <hr>
+    <br>
 </form>
-<hr><br>
+
 

@@ -1,0 +1,12 @@
+\Ojs\UserBundle\Entity\User:
+  user{1..50}:
+    username (unique): <username()>
+    password: <password()>
+    firstName: <firstName()>
+    lastName: <lastName()>
+    email (unique): <email()>
+    isActive: true
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    status: 1
+    title: <title()>
+    roles: 2x @role*

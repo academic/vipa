@@ -19,6 +19,7 @@ var OjsArticleSubmission = {
         }
     },
     backTo: function (step) {
+        this.configureProgressBar(step);
         this.hideAllSteps();
         this.configureProgressBar(step);
         this.showStep(step);
@@ -32,6 +33,8 @@ var OjsArticleSubmission = {
     },
     showStep: function (step) {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
+        history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
+        window.location.hash = step;
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
@@ -44,6 +47,11 @@ var OjsArticleSubmission = {
     },
     addAuthorForm: function (params) {
         $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
+    },
+    addFileForm: function (params) {
+        $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
+        this.bindFileUploader();
+        this.setupUi();
     },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
@@ -125,7 +133,6 @@ var OjsArticleSubmission = {
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-                history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
@@ -144,10 +151,8 @@ var OjsArticleSubmission = {
         forms.each(function () {
             dataArray.push($("form", this).serializeObject());
         });
+        OjsCommon.waitModal();
         $.post(actionUrl, {"authorsData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
-            /**
-             * @todo parse response and fill authorId values
-             */
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step3();
@@ -156,12 +161,29 @@ var OjsArticleSubmission = {
         });
     },
     step3: function (actionUrl) {
-        this.hideAllSteps();
-        this.prepareStep.step4();
+        forms = $("form.cite-item");
+        if (forms.length > 0) {
+            $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+            // prepare post params 
+            var dataArray = [];
+            forms.each(function () {
+                dataArray.push($(this).serializeObject());
+            });
+            OjsCommon.waitModal();
+            $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+                OjsCommon.hideallModals();
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep.step4();
+            }).error(function () {
+                OjsCommon.errorModal("Something is wrong. Check your data and try again.");
+            });
+        }
     },
     step4: function (actionUrl) {
+        OjsCommon.waitModal();
+        
         this.hideAllSteps();
-        this.prepareStep.step5();
+        window.location.href = actionUrl;
     },
     /**
      * prepare and show steps
@@ -193,20 +215,25 @@ var OjsArticleSubmission = {
                 OjsArticleSubmission.loadStepTemplate(4);
             }
             OjsArticleSubmission.showStep(4);
-        },
-        step5: function () {
-            OjsCommon.scrollTop();
-            if ($("#step4").html().length > 0) {
-                OjsArticleSubmission.configureProgressBar(4);
-                OjsArticleSubmission.loadStepTemplate(4);
-            }
-            OjsArticleSubmission.showStep(4);
         }
+    },
+    bindFileUploader: function () {
+        $('.article_file_upload').fileupload({});
+        $('.article_file_upload').bind('fileuploadsend', function (e, data) {
+            $(this).parent().next('.upload_progress').show();
+            $(this).parent().next('.upload_progress').html("Uploading...");
+        }).bind('fileuploaddone', function (e, data) {
+            $(this).parent().next('.upload_progress').html("Done.");
+            $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
+        });
+    },
+    setupUi: function () {
+        $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
     }
 };
 
 $(document).ready(function () {
-    $('select').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+    OjsArticleSubmission.setupUi();
     $("ul#mainTabs li a").click(function (e) {
         e.preventDefault();
     });
@@ -221,14 +248,5 @@ $(document).ready(function () {
         langcode = $(this).parent().attr("href").replace("#", "");
         $tab = $("#" + langcode);
         OjsArticleSubmission.step1RemoveLanguageForm(langcode, $tab);
-    });
-    // article file uploader
-    $('#article_file_upload').fileupload({});
-    $('#article_file_upload').bind('fileuploadsend', function (e, data) {
-        $(this).parent().next('.upload_progress').show();
-        $(this).parent().next('.upload_progress').html("Uploading...");
-    }).bind('fileuploaddone', function (e, data) {
-        $(this).parent().next('.upload_progress').html("Done.");
-        $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
     });
 });

@@ -279,10 +279,10 @@ class ArticleFile extends GenericExtendedEntity
     /**
      * Set file
      *
-     * @param \Ojs\JournalBundle\Entity\Article $file
+     * @param \Ojs\JournalBundle\Entity\File $file
      * @return ArticleFile
      */
-    public function setFile(\Ojs\JournalBundle\Entity\Article $file = null)
+    public function setFile(\Ojs\JournalBundle\Entity\File $file = null)
     {
         $this->file = $file;
 

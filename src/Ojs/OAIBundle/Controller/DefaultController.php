@@ -12,7 +12,7 @@ class DefaultController extends Controller
         return $this->render('OjsOAIBundle:Default:index.html.twig');
     }
 
-    public function identifiersAction()
+    public function identifyAction()
     {
         return new Response();
     }

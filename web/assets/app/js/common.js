@@ -1,18 +1,8 @@
 // to serialize form data as Json object
 $.fn.serializeObject = function ()
 {
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function () {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
-    });
+    var o = {};var a = this.serializeArray();
+    $.each(a, function () {if (o[this.name] !== undefined) {if (!o[this.name].push) {o[this.name] = [o[this.name]];}o[this.name].push(this.value || '');} else {o[this.name] = this.value || '';}});
     return o;
 };
 
@@ -28,11 +18,11 @@ $(document).ready(function () {
     $(window).bind("load resize", function () {
         //console.log($(this).width());
         if ($(this).width() < 768) {
-            $('div.sidebar-collapse').addClass('collapse')
+            $('div.sidebar-collapse').addClass('collapse');
         } else {
-            $('div.sidebar-collapse').removeClass('collapse')
+            $('div.sidebar-collapse').removeClass('collapse');
         }
-    })
+    });
 
     $('a[href="#search"]').on('click', function (event) {
         event.preventDefault();
@@ -41,7 +31,7 @@ $(document).ready(function () {
     });
 
     $('#search, #search button.close').on('click keyup', function (event) {
-        if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+        if (event.target == this || event.target.className === 'close' || event.keyCode === 27) {
             $(this).removeClass('open');
         }
     });

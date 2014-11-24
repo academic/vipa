@@ -1,0 +1,6 @@
+ojs_wiki_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: OjsWikiBundle:Default:index }
+wiki_detail:
+    path: /wiki/{type}
+    defaults: {_controller: OjsWikiBundle:Default:detail , type: simple}

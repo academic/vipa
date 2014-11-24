@@ -1,0 +1,7 @@
+\Ojs\JournalBundle\Entity\Institution:
+  institution{1..50}:
+    email (unique): <email()>
+    url: <url()>
+    name: <text(20)> University
+    about: <text(399)>
+    phone: <tr_TR:phoneNumber()>

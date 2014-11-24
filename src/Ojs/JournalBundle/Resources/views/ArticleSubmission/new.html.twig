@@ -3,12 +3,10 @@
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' output="c/upload.css" %}
+    {% stylesheets '@submission_css' output="c/submission.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <link rel="stylesheet" href="{{asset("/vendor/select2/select2.css")}}" type="text/css"/>
-    <link rel="stylesheet" href="{{asset("/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css")}}" type="text/css"/>
     <style>
         .slip-reordering {  box-shadow: 0 2px 10px rgba(0,0,0,0.45); }
         .slip-swiping-container {  overflow-x: hidden;  }
@@ -24,29 +22,29 @@
     <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
-        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"articles.article"|trans}}</li>
-        <li id="submission-progress-step2"><span class="badge">2</span> {{"authors"|trans}}</li>
-        <li id="submission-progress-step3"><span class="badge">3</span> {{"articles.citations"|trans}}</li>
-        <li id="submission-progress-step4"><span class="badge">4</span>  {{"articles.files"|trans}}</li>
+        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"article.article"|trans}}</li>
+        <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
+        <li id="submission-progress-step3"><span class="badge">3</span> {{"article.citations"|trans}}</li>
+        <li id="submission-progress-step4"><span class="badge">4</span>  {{"article.files"|trans}}</li>
         <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
     </ul>
 
     <form name="base" class="form-horizontal row" role="form">
         <div class="form-group col-md-6">
-            <label class="col-md-6 control-label">{{"articles.language.primary"|trans}}</label>
+            <label class="col-md-6 control-label">{{"article.language.primary"|trans}}</label>
             <div class="col-md-4">
-                <select class="select2" name="primaryLanguage" class="form-control" style="width:200px">
+                <select class="select2-element" name="primaryLanguage" class="form-control" style="width:200px">
                     {% for lang in journal.languages %}
                         <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-                <div class="col-md-6">
-                    <span id="resumeNote" class="label label-info">
-                   
-                    </span>
-                </div>
+        <div class="col-md-6">
+            <span id="resumeNote" class="">
+
+            </span>
+        </div>
     </form>
 
     <div id="step1-container" class="step">
@@ -91,7 +89,7 @@
         </div>
     </div>
     <div id="step2-container" class="step hide">
-        <h2>{{"articles.authors"|trans}} 
+        <h2>{{"article.authors"|trans}} 
             <a href="#" onclick="OjsArticleSubmission.addAuthorForm();" 
                class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a>
         </h2>
@@ -116,9 +114,36 @@
     <div id="step3-container" class="step hide">
 
         <div id="step3">
+            <h2>{{"citations"|trans}}</h2>
+            <div class="row">
+                <button class="btn btn-success" id="pasteArticleCitationInline">
+                    <i class="fa fa-edit"></i> Paste&amp;Extract Citations
+                </button>
+                <button class="btn btn-info" id="addArticleCitationInline">
+                    <i class="fa fa-plus"></i> New Citation
+                </button>
+
+                <div id="citationPasteField" style="display: block!important">
+                    <div class="form-row well">
+                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="citationContainer">
+                {%if citation is defined %}
+                    {% for citationItem in submissionData.citations %}
+                        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
+                    {% endfor %}
+                {% endif %}
+
+
+            </div>
+
 
         </div>
         <div class="step3_actions record_actions col-md-12">
+
             <br>
             <a class="btn btn-default btn-lg"
                onclick="javascript:OjsArticleSubmission.backTo(2);">
@@ -134,6 +159,19 @@
 
 
     <div id="step4-container" class="step hide">
+        <h2>{{ "articles.files"|trans }}
+            <small><button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-sm btn-default btn-circle">+</button></small>
+        </h2>
+
+        <div class="col-md-12">
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+                <span>Select Article File</span>
+                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+            </span>
+            <span class="upload_progress label label-info" style="display: none"></span>
+        </div>
 
         <div id="step4">
 
@@ -169,24 +207,16 @@
         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
     </script>
 
+    <script id="step4_tpl" type="x-tmplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}    
+    </script>
+
 {% endblock %}
 
 {% block javascripts %}
 
     {{ parent() }}
-    {% javascripts '@upload_js' output="c/upload.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% javascripts 'vendor/mustache/mustache.js' 
-                    'vendor/angular/angular.min.js'
-                    'vendor/select2/select2.min.js'
-                    'vendor/jquery-sortable/source/js/jquery-sortable-min.js'
-                    'vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js'
-                    '@OjsJournalBundle/Resources/public/js/article_submission.js'
-                    '@OjsJournalBundle/Resources/public/js/article_cite.js' 
-                    
-        output="c/submission_js.js" %}
+    {% javascripts  '@submission_js' output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %} 
 
@@ -198,43 +228,46 @@
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
     <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endif %}
-    {% endjavascripts %}
+        {% endjavascripts %}
 
-    <script>
-        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
-        $(document).ready(function () {
-        {%if submissionId is defined %} 
+        <script>
+            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+            $(document).ready(function () {
+            {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
                 {#
-                Load submission steps with data
-                #} 
-            $("select[name=primaryLanguage]").select2("val","{{submissionData.primaryLanguage}}");
-            {% for key,article in submissionData.articleData %}
-                var params = {
-                    "article_title":"{{article.title|raw}}",
-                    "article_subtitle":"{{article.subtitle|raw}}",
-                    "article_title_trans":"{{article.titleTransliterated|raw}}",
-                    "article_keywords":"{{article.keywords|raw}}",
-                    "article_subjects":"{{article.subjects|raw}}",
-                    "article_abstract":"{{article.abstract|raw}}"
-                };
-                OjsArticleSubmission.step1AddLanguageForm( "{{languages[key].code}}","{{languages[key].name}} ", params);
-            {% endfor %}
-            {% for author in submissionData.authors %}
-                var authorParams = {
-                    "author_order":"{{author.order}}",
-                    "author_initials":"{{author.initials|raw}}",
-                    "author_firstName":"{{author.firstName|raw}}",
-                    "author_middleName":"{{author.middleName|raw}}",
-                    "author_lastName":"{{author.lastName|raw}}",
-                    "author_email":"{{author.email|raw}}",
-                    "author_summary":"{{author.summary|raw}}"
-                };
-                OjsArticleSubmission.addAuthorForm( authorParams );
-            {% endfor %}
-                OjsArticleSubmission.activatedSteps["step1"] = true;
-        {% endif %}
-        });
-    </script>
-{% endblock %}
+                    Load submission steps with data
+                    #} 
+                $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
+                {% for key,article in submissionData.articleData %}
+                        var params = {
+                            "article_title": "{{article.title|raw}}",
+                            "article_subtitle": "{{article.subtitle|raw}}",
+                            "article_title_trans": "{{article.titleTransliterated|raw}}",
+                            "article_keywords": "{{article.keywords|raw}}",
+                            "article_subjects": "{{article.subjects|raw}}",
+                            "article_abstract": "{{article.abstract|raw}}"
+                        };
+                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+                {% endfor %}
+
+                {# load authors #}
+                {% for author in submissionData.authors %}
+                        OjsArticleSubmission.addAuthorForm({
+                            "author_order": "{{author.order}}",
+                            "author_initials": "{{author.initials|raw}}",
+                            "author_firstName": "{{author.firstName|raw}}",
+                            "author_middleName": "{{author.middleName|raw}}",
+                            "author_lastName": "{{author.lastName|raw}}",
+                            "author_email": "{{author.email|raw}}",
+                            "author_summary": "{{author.summary|raw}}"
+                        });
+                {% endfor %}
+
+
+                        OjsArticleSubmission.activatedSteps["step1"] = true;
+            {% endif %}
+                });
+        </script>
+        {% endblock %}

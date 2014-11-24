@@ -31,7 +31,6 @@
         "jquery.inputmask": "*",
         "flot": "*",
         "morrisjs": "*",
-        "angular": "1.2.*",
         "mustache": "*",
 	"bootstrap-tour": "*",
         "holderjs": "*",

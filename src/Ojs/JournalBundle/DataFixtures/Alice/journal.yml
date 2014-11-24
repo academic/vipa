@@ -1,0 +1,16 @@
+\Ojs\JournalBundle\Entity\Journal:
+  journal{1..50}:
+    issn: <regexify('\d{4}-\d{4}')>
+    mission: <text(50)>
+    period: <randomDigit(2)>
+    published: '1'
+    scope: <text(50)>
+    subtitle: <text(100)>
+    title: <text(75)>
+    titleAbbr: <text(5)>
+    titleTransliterated: null
+    url: <url()>
+    subdomain: <domainWord()>
+    institution: @institution*
+    subject: 5x @subject*
+    status: '3'

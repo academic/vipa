@@ -1,30 +1,35 @@
 article_submissions_me:
-    pattern:  /manager/article/submissions/me
+    pattern:  /manager/article/submissions/me/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:index" }
 
 article_submissions_all:
-    pattern:  /admin/article/submissions/all
+    pattern:  /admin/article/submissions/all/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:indexAll" }
 
 article_submission_new:
-    pattern:  /author/article/submit
+    pattern:  /author/article/submit/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:new" }
 
 article_submission_resume:
-    pattern:  /author/article/submit/resume/{submissionId}
+    pattern:  /author/article/submit/resume/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:resume" }
+
+article_submission_preview:
+    pattern:  /author/article/submit/preview/{submissionId}/
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:preview" }
+
 
 
 article_submission_addlocale:
-    pattern:  /author/article/submit/addlocale
+    pattern:  /author/article/submit/addlocale/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep:addlocale" }
 
 article_submission_removelocale:
-    pattern:  /author/article/submit/removelocale
+    pattern:  /author/article/submit/removelocale/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep:removelocale" }
 
 article_submission_step1:
-    pattern:  /author/article/submit/step1/{locale}
+    pattern:  /author/article/submit/step1/{locale}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep1:addArticle" }
     requirements: { _method: post }
 
@@ -35,7 +40,7 @@ article_submission_step2:
 
 article_submission_step3:
     pattern:  /author/article/submit/step3
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep3:step3" }
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep3:addCitations" }
     requirements: { _method: post }
 
 article_submission_step4:
