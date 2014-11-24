@@ -7,7 +7,7 @@
     keywords: <text(10)>,<text(10)>,<text(10)>
     lastPage: <randomNumber(3)>
     pubdate: <dateTimeThisYear()>
-    status: <boolean(80)>
+    status: 3
     subjects: <text(85)>,<text(84)>,<text(83)>
     title: <text(255)>
     submitterId: @user*->id
