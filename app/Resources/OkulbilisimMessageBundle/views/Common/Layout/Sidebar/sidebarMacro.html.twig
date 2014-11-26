@@ -1,7 +1,7 @@
 {%- spaceless -%}
 	{%- macro folder(folder) -%}
 <li	{%- if folder.getCachedUnreadCount %} class="marked_unread"{%- endif -%}>
-    <a href="{{- path('ojstr_message_message_user_folder_show', {'folderName': folder.getName }) -}}">
+    <a href="{{- path('okulbilisim_message_user_folder_show', {'folderName': folder.getName }) -}}">
         {%- if folder.getCachedUnreadCount %}
         <span class="badge pull-right">{{- folder.getCachedUnreadCount -}}</span>
         {%- endif -%}
@@ -48,7 +48,7 @@
     {%- endif -%}
 {%- endif -%}
     >
-    <a href="{{- path('ojstr_message_message_user_folder_show', {'folderName': folder.getName }) -}}">
+    <a href="{{- path('okulbilisim_message_user_folder_show', {'folderName': folder.getName }) -}}">
 				{%- if folder.getCachedUnreadCount %}
         <span class="badge pull-right">{{- folder.getCachedUnreadCount -}}</span>
 				{%- endif -%}

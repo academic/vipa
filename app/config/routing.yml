@@ -20,8 +20,8 @@ ojs_search:
     resource: "@OjsSearchBundle/Resources/config/routing.yml"
     prefix:   /
 
-OjstrMessageMessageBundle:
-    resource: "@OjstrMessageMessageBundle/Resources/config/routing.yml"
+OkulbilisimMessageBundle:
+    resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
     prefix: /
     
     

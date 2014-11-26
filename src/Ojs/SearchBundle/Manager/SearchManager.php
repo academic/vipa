@@ -31,7 +31,7 @@ class SearchManager
     private $finder;
     private $search;
 
-    private $page = 0, $limit = 1, $result = null, $count = 0;
+    private $page = 0, $limit = 12, $result = null, $count = 0;
 
     private $param = [];
 

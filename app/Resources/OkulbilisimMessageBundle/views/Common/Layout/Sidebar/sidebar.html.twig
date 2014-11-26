@@ -11,20 +11,20 @@
 		{%- endif -%}
 
 		{%- if
-			route == 'ojstr_message_message_user_mail_compose' or
-			route == 'ojstr_message_message_user_mail_compose_to' or
-			route == 'ojstr_message_message_user_mail_compose_reply' or
-			route == 'ojstr_message_message_user_mail_compose_forward'
+			route == 'okulbilisim_message_user_mail_compose' or
+			route == 'okulbilisim_message_user_mail_compose_to' or
+			route == 'okulbilisim_message_user_mail_compose_reply' or
+			route == 'okulbilisim_message_user_mail_compose_forward'
 		-%}
     <li class="active">
-        <a href="{{- path('ojstr_message_message_user_mail_compose') -}}">
+        <a href="{{- path('okulbilisim_message_user_mail_compose') -}}">
             <i class="glyphicon glyphicon-pencil"></i>
 					{{- 'link.message.compose' | trans({}, 'OkulBilisimMessageBundle') -}}
         </a>
     </li>
 		{%- else -%}
     <li>
-        <a href="{{- path('ojstr_message_message_user_mail_compose') -}}">
+        <a href="{{- path('okulbilisim_message_user_mail_compose') -}}">
             <i class="glyphicon glyphicon-pencil"></i>
 					{{- 'link.message.compose' | trans({}, 'OkulBilisimMessageBundle') -}}
         </a>
@@ -38,10 +38,10 @@
 
 			{%- for folder in folders['folders'] -%}
 				{%- if current_folder is defined
-					and route != 'ojstr_message_message_user_mail_compose'
-					and route != 'ojstr_message_message_user_mail_compose_to'
-					and route != 'ojstr_message_message_user_mail_compose_reply'
-					and route != 'ojstr_message_message_user_mail_compose_forward'
+					and route != 'okulbilisim_message_user_mail_compose'
+					and route != 'okulbilisim_message_user_mail_compose_to'
+					and route != 'okulbilisim_message_user_mail_compose_reply'
+					and route != 'okulbilisim_message_user_mail_compose_forward'
 				-%}
 					{{- format.folderWithCurrentFolder(folder, current_folder) -}}
 				{%- else -%}

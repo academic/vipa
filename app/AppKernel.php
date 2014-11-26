@@ -28,7 +28,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-            new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
@@ -43,8 +42,9 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
             new Ojs\ReportBundle\OjsReportBundle(),
-	    new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
+            new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Ojs\WikiBundle\OjsWikiBundle(),
+            new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -52,7 +52,6 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
-
         }
 
         return $bundles;

@@ -32,19 +32,19 @@ framework:
     fragments:       ~
     http_method_override: true
 
-ojstr_message_message:  
+okulbilisim_message:  
     entity:            
         user:         
             class: Ojs\UserBundle\Entity\User
     component:
         dashboard:
             integrator:
-                class: OjstrMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
+                class: Okulbilisim\MessageBundle\Component\Dashboard\DashboardIntegrator
         twig_extension:
             folder_list:
-                class: OjstrMessage\MessageBundle\Component\TwigExtension\FolderListExtension
+                class: Okulbilisim\MessageBundle\Component\TwigExtension\FolderListExtension
             
-# Twig Configuration
+# Twig Configuration    
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
