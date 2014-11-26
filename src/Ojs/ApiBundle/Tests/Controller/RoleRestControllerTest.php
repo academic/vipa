@@ -1,11 +1,8 @@
 <?php
 /**
- * User: aybarscengaver
  * Date: 17.11.14
  * Time: 10:26
- * URI: www.emre.xyz
  * Devs: [
- * 'Aybars Cengaver'=>'aybarscengaver@yahoo.com',
  *   ]
  */
 
