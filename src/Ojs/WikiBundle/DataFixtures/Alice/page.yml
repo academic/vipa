@@ -1,0 +1,6 @@
+\Ojs\WikiBundle\Entity\Page:
+  wiki_page{1..100}:
+    title: <text(30)>
+    content: <paragraph(5)>
+    tags: <text(10)>, <text(12)>
+    journal: @journal*
