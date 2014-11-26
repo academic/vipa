@@ -43,6 +43,11 @@ analytics :
   resource:     "OjsApiBundle:AnalyticsRest"
   name_prefix:  api_
 
+wiki :
+  type: rest
+  resource:     "OjsApiBundle:WikiRest"
+  name_prefix:  api_
+
 ojs_api_homepage:
   pattern:  /
   defaults: { _controller: OjsApiBundle:Default:index }

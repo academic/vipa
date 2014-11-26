@@ -24,7 +24,11 @@
     </ul>
 
     <div class="col-md-12">
-        <h1>{{"preview"|trans}}</h1>
+        <h1>{{"preview"|trans}} 
+            <small class="pull-right">
+                <a class="btn btn-link"><i class="fa fa-print"></i></a>
+            </small>
+        </h1>
 
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.metadata"|trans}}</div>
@@ -103,10 +107,10 @@
             <div class="panel-heading">{{"article.citations"|trans}}</div>
             <div class="panel panel-body">
 
-                {% for key,citation submissionData.citations %}
-                    <span class="label label-info">{{key}}</span>
+                {% for key,citation  in submissionData.citations %}
                     <table class="table">
                         <tr>
+                            <td><span class="badge">{{citation.orderNum}}</span> {{citation.raw}}</td>
                         </tr>
                     </table>
                     <hr>
@@ -117,10 +121,21 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.files"|trans}}</div>
             <div class="panel panel-body">
-
+                {% for key,file  in submissionData.files %}
+                    <table class="table">
+                        <tr>
+                            <td><span class="badge">{{"file.types."~file.type|trans}}</span> #{{file.title}}</td>
+                        </tr>
+                    </table>
+                    <hr>
+                {%endfor%}
             </div>
         </div>
-
+        <a class="btn btn-info btn-lg pull-right"
+           onclick="javascript: OjsArticleSubmission.submit('{{ path('article_submission_step4') }}');">
+            {{ "article.submit"|trans }}
+            <i class="fa fa-check"></i>
+        </a>
     </div>
 {% endblock %}
 
