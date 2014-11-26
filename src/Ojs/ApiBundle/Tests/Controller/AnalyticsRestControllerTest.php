@@ -1,10 +1,8 @@
 <?php
 /** 
- * User: aybarscengaver
  * Date: 12.11.14
  * Time: 18:30
  * Devs: [
- * 'Aybars Cengaver'=>'aybarscengaver@yahoo.com',
  * ]
  * \note "test not work correctly for commands"
  */

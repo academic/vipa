@@ -1,11 +1,9 @@
 <?php
 /**
- * User: aybarscengaver
  * Date: 12.11.14
  * Time: 09:33
  * Company: OkulBilişim
  * Devs: [
- * 'Aybars Cengaver'=>'aybarscengaver@yahoo.com',
  *
  *   ]
  */
