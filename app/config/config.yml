@@ -84,6 +84,7 @@ stof_doctrine_extensions:
             blameable: true
             loggable: true
             uploadable: true
+            sluggable: true
 
 jms_serializer:
     metadata:
