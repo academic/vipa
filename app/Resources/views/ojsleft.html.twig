@@ -68,6 +68,10 @@
                             <i class="fa fa-th"></i> 
                             {{"reports.title"|trans}}
                         </a>
+                        <a class="list-group-item" href="{{ url('ojs_wiki_object_pages',{object:selectedJournal().id,type:'journal'}) }}">
+                            <i class="fa fa-file-word-o"></i>
+                            {{ "Pages"|trans }}
+                        </a>
                     </div>
                 </div>
             {% endif %} 

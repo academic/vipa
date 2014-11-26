@@ -24,7 +24,7 @@ services:
             - { name: kernel.event_subscriber }
     ojstr.twig.ojs_extension:
         class: Ojs\Common\Twig\OjsExtension
-        arguments: [@service_container]
+        arguments: [@service_container,  @doctrine.orm.entity_manager]
         tags:
             - { name: twig.extension }
     ojstr.loginlistener:

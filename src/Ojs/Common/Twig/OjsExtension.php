@@ -8,10 +8,12 @@ class OjsExtension extends \Twig_Extension
 {
 
     private $container;
+    private $em;
 
-    public function __construct(Container $container = null)
+    public function __construct(Container $container = null, \Doctrine\ORM\EntityManager $em = null)
     {
         $this->container = $container;
+        $this->em = $em;
     }
 
     public function getFilters()
@@ -33,7 +35,8 @@ class OjsExtension extends \Twig_Extension
             'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
-            'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html')))
+            'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
+            'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html')))
         );
     }
 
@@ -177,6 +180,12 @@ class OjsExtension extends \Twig_Extension
     public function issnValidateFilter($issn)
     {
         return $issn;
+    }
+
+    public function selectedJournal()
+    {
+        $selectedJournalId = $this->getSession('selectedJournalId');
+        return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
     }
 
     public function getName()

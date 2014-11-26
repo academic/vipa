@@ -1,0 +1,23 @@
+{% extends '::ojsbase.html.twig' %}
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'title': '<strong>Page Management</strong>' },
+    { 'title': 'New Page' }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h3>{{ "Yeni İçerik"|trans }} | {{ object.title }} | {{ type }} </h3>
+
+    <hr/>
+
+    <form action="" method="post">
+        {{ form_widget(form) }}
+
+        <div class="record_actions">
+            <button class="btn btn-default" type="submit">{{ "Kaydet"|trans }}</button>
+        </div>
+    </form>
+{% endblock %}
