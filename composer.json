@@ -51,12 +51,12 @@
     	"okulbilisim/feedback-bundle": "dev-master"
     },
     "require-dev": {
-        "ojstr/ojstr-message-bundle": "dev-master"
+        "okulbilisim/ojstr-message-bundle": "dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/hasantayyar/OjstrMessageBundle.git"
+            "url": "https://github.com/okulbilisim/OjsMessageBundle.git"
         }
     ],
     "scripts": {
