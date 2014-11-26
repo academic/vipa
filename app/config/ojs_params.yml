@@ -1,4 +1,4 @@
-# This is common Ojstr app parameters
+# This is common Ojs app parameters
 parameters:
     # languages with ISO 639-1 codes
     languages:

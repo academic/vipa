@@ -30,7 +30,7 @@
             <br>
 
             <div class="citationDetailsFields form-inline">
-                {% if citationItem is defined and citationItem.type %}
+                {% if citationItem is defined and citationItem.type and citationTypes[citationItem.type] is defined%}
                     {% for field in citationTypes[citationItem.type].must %}
                         {% if citationItem[field] is defined %}
                             <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" />

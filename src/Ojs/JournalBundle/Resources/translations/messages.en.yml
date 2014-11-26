@@ -46,7 +46,7 @@ journal:
     about: About Journal
     all: All Journals
     users: Journal Users
-    
+
 article:    
     plural: Articles
     singular: Article
@@ -99,8 +99,8 @@ address: Address
 country: Country
 summary: Summary
 
-save:
-    next: Save & Next
+save: Save
+save.next: Save & Next
     
 user:
     new: New User

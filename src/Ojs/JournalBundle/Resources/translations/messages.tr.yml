@@ -46,9 +46,9 @@ journal:
     all: Tüm Dergiler
     users: Dergi Kullanıcıları
 
-articles:
-    articles: Makaleler
-    article: Makale
+article:
+    plural: Makaleler
+    singular: Makale
     submit: Makale Gönder
     files: Makale Dosyaları
     authors: Makale Yazarları
@@ -99,8 +99,8 @@ address: Adres
 country: Ülke
 summary: Özet
 
-save:
-    next: Kaydet ve Devam Et
+save: Kaydet
+save.next: Kaydet ve Devam Et
     
 user:
     new: Yeni Kullanıcı

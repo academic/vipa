@@ -131,8 +131,8 @@
             </div>
 
             <div id="citationContainer">
-                {%if citation is defined %}
-                    {% for citationItem in submissionData.citations %}
+                {%if citations is defined %}
+                    {% for citationItem in citations %}
                         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
                     {% endfor %}
                 {% endif %}
@@ -231,6 +231,10 @@
         {% endjavascripts %}
 
         <script>
+            window.onbeforeunload = function () {
+                return "Are you sure you want to navigate away from this page?\n\nYour changes may be lost.";
+            };
+
             OjsCommon.api.userApikey = "{{app.user.apiKey}}";
             $(document).ready(function () {
             {%if submissionId is defined %} 
