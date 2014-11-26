@@ -8,10 +8,12 @@ class OjsExtension extends \Twig_Extension
 {
 
     private $container;
+    private $em;
 
-    public function __construct(Container $container = null)
+    public function __construct(Container $container = null, \Doctrine\ORM\EntityManager $em = null)
     {
         $this->container = $container;
+        $this->em = $em;
     }
 
     public function getFilters()
@@ -182,9 +184,8 @@ class OjsExtension extends \Twig_Extension
 
     public function currentJournal()
     {
-        /* @var $journalDomain \Ojs\Common\Model\JournalDomain */
-        $journalDomain = $this->container->get('journal_domain');
-        return $journalDomain->getCurrentJournal();
+        $selectedJournalId = $this->getSession('selectedJournalId');
+        return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
     }
 
     public function getName()
