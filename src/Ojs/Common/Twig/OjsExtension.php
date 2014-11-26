@@ -33,7 +33,8 @@ class OjsExtension extends \Twig_Extension
             'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
-            'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html')))
+            'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
+            'currentJournal' => new \Twig_Function_Method($this, 'currentJournal', array('is_safe' => array('html')))
         );
     }
 
@@ -177,6 +178,13 @@ class OjsExtension extends \Twig_Extension
     public function issnValidateFilter($issn)
     {
         return $issn;
+    }
+
+    public function currentJournal()
+    {
+        /* @var $journalDomain \Ojs\Common\Model\JournalDomain */
+        $journalDomain = $this->container->get('journal_domain');
+        return $journalDomain->getCurrentJournal();
     }
 
     public function getName()
