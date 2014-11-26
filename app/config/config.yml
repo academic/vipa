@@ -32,17 +32,17 @@ framework:
     fragments:       ~
     http_method_override: true
 
-ojstr_message_message:  
+ojs_message_message:  
     entity:            
         user:         
             class: Ojs\UserBundle\Entity\User
     component:
         dashboard:
             integrator:
-                class: OjstrMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
+                class: OjsMessage\MessageBundle\Component\Dashboard\DashboardIntegrator
         twig_extension:
             folder_list:
-                class: OjstrMessage\MessageBundle\Component\TwigExtension\FolderListExtension
+                class: OjsMessage\MessageBundle\Component\TwigExtension\FolderListExtension
             
 # Twig Configuration
 twig:

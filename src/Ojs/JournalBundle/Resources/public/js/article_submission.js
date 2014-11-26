@@ -1,7 +1,3 @@
-window.onbeforeunload = function () {
-    return "Are you sure you want to navigate away from this page?\n\nYour changes may be lost.";
-};
-
 var OjsArticleSubmission = {
     submissionId: null,
     languages: [],
@@ -50,7 +46,6 @@ var OjsArticleSubmission = {
     },
     addFileForm: function (params) {
         $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
-        this.bindFileUploader();
         this.setupUi();
     },
     removeAuthor: function ($el) {
@@ -181,9 +176,16 @@ var OjsArticleSubmission = {
     },
     step4: function (actionUrl) {
         OjsCommon.waitModal();
-        
+
         this.hideAllSteps();
         window.location.href = actionUrl;
+    },
+    submit: function () {
+        var check = confirm("Are you sure to submit your article?");
+        if (check) {
+            OjsCommon.waitModal();
+            window.location.href = "/";
+        }
     },
     /**
      * prepare and show steps
@@ -228,6 +230,7 @@ var OjsArticleSubmission = {
         });
     },
     setupUi: function () {
+        this.bindFileUploader();
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
     }
 };

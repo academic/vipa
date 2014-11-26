@@ -82,6 +82,7 @@ class ArticleSubmissionController extends Controller
                     'submissionData' => $articleSubmission,
                     'journal' => $journal,
                     'fileTypes' => ArticleFileParams::$FILE_TYPES,
+                    'citations' => $articleSubmission->getCitations(),
                     'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }

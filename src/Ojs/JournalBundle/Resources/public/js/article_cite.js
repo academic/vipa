@@ -1,6 +1,6 @@
 var CitationEditor = {
-    addCitationTpl : function(params){
-       $("#citationContainer").append(Mustache.render($("#step3_tpl").html(),params));
+    addCitationTpl: function (params) {
+        $("#citationContainer").append(Mustache.render($("#step3_tpl").html(), params));
     },
     newCitationField: function (citationItem) {
         if (typeof citationItem !== "undefined") {
@@ -26,7 +26,7 @@ var CitationEditor = {
                     var $shouldFields = $($("option[value=" + citationItem.type + "]", citationInfoFields)).data("should");
                     var fields = $mustFields.concat($shouldFields);
                     $(".citationDetailsFields", tmp_citation_div).html("");
-                    $('.citation_type option[value=' + citationItem.type + ']',tmp_citation_div).prop('selected', true);
+                    $('.citation_type option[value=' + citationItem.type + ']', tmp_citation_div).prop('selected', true);
                     for (var i in $mustFields) {
                         $(".citationDetailsFields", tmp_citation_div).append(
                                 '<input type="text" class="form-control has-warning" placeholder="' +
@@ -37,9 +37,9 @@ var CitationEditor = {
                                 '<input type="text" class="form-control" placeholder="' +
                                 $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
                     }
-                    $("input[name=raw]", tmp_citation_div).attr("value",citationItem.raw);
+                    $("input[name=raw]", tmp_citation_div).attr("value", citationItem.raw);
                     $.each(citationItem, function (k, v) {
-                        if ($.inArray(k,fields)>-1) {
+                        if ($.inArray(k, fields) > -1) {
                             $('.citationDetailsFields input[name=' + k + ']', tmp_citation_div).val(v);
                         }
                     });
@@ -52,10 +52,11 @@ var CitationEditor = {
                     OjsCommon.hideallModals();
                 })
                 .error(function () {
-                    OjsCommon.errorModal("We can't parse your citation for now. Please add one by one or try again.");
+                    OjsCommon.errorModal("We can't parse your citation for now. Please add your citation details below.");
+                    CitationEditor.parseAndAppendByNewLine(txt);
                 });
     },
-    parseAndAppendByNewLine: function () {
+    parseAndAppendByNewLine: function (txt) {
         items = txt.split("\n");
         for (i in items) {
             if (items[i].length > 0) {

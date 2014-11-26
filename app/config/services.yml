@@ -22,27 +22,27 @@ services:
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
-    ojstr.twig.ojs_extension:
+    ojs.twig.ojs_extension:
         class: Ojs\Common\Twig\OjsExtension
         arguments: [@service_container,  @doctrine.orm.entity_manager]
         tags:
             - { name: twig.extension }
-    ojstr.loginlistener:
+    ojs.loginlistener:
         class: Ojs\UserBundle\Listeners\LoginListener
         arguments: [@doctrine.orm.entity_manager,@service_container]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login } 
-    ojstr.security_switch_user:
+    ojs.security_switch_user:
         class: Ojs\Common\Listener\SecuritySwitchUserListener
         arguments: [@security.context]
         tags:
             - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
-    ojstr.ojs_upload_listener:
+    ojs.ojs_upload_listener:
         class: Ojs\Common\Listener\UploadListener
         arguments: ["%kernel.root_dir%"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
-    ojstr.ojs_mailer:
+    ojs.ojs_mailer:
         class: Ojs\UserBundle\Controller\MailController
         arguments: [@service_container, @mailer]
     gedmo.listener.softdeleteable:

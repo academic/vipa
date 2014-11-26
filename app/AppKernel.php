@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-            new OjstrMessage\MessageBundle\OjstrMessageMessageBundle(),
+            new OjsMessage\MessageBundle\OjsMessageMessageBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
