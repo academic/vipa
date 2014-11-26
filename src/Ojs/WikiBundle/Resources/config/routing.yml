@@ -4,3 +4,13 @@ ojs_wiki_homepage:
 wiki_detail:
     path: /wiki/{type}
     defaults: {_controller: OjsWikiBundle:Default:detail , type: simple}
+
+ojs_wiki_page_create:
+    pattern: /{type}/{object}/create-page
+    defaults: { _controller: OjsWikiBundle:Default:create }
+ojs_wiki_page_detail:
+    pattern: /{type}/{object}/{slug}
+    defaults: { _controller: OjsWikiBundle:Default:detail }
+ojs_wiki_object_pages:
+    pattern: /manager/{type}/{object}/list
+    defaults: { _controller: OjsWikiBundle:Manager:list }

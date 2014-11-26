@@ -53,4 +53,6 @@ ojs_archive_index:
 ojs_article_page:
     pattern:  /journal/{journal_id}/{article_id}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
- 
+    requirements:
+      article_id: \d+
+      journal_id: \d+
