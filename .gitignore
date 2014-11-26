@@ -89,3 +89,5 @@ files
 
 # node
 node_modules/
+
+*.php~
