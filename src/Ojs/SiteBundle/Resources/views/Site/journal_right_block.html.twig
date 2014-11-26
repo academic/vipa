@@ -1,50 +1,56 @@
-
-
 {% if isJournalManager() %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <a href="#">
                 <span class="panel-title">
-                    <i class="fa fa-plus"></i> {{"new.block"|trans}}
+                    <i class="fa fa-plus"></i> {{ "new.block"|trans }}
                 </span>
             </a></div>
     </div>
 {% endif %}
 
 <div class="panel panel-default">
-    <div class="panel-heading"><span class="panel-title">{{"for.readers"|trans}}</span></div>
+    <div class="panel-heading"><span class="panel-title">{{ "for.readers"|trans }}</span></div>
     <ul class="list-group">
         <li class="list-group-item">
-            <a href="{{path("ojs_last_articles_index",{"journal_id":journal.id})}}"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
+            <a href="{{ path("ojs_last_articles_index",{"journal_id":journal.id}) }}"><i
+                        class="fa fa-eye"></i> {{ "read.lastissue"|trans }}</a>
         </li>
         <li class="list-group-item">
-            <a href="{{ url('ojs_archive_index',{journal_id: journal.id}) }}"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+            <a href="{{ url('ojs_archive_index',{journal_id: journal.id}) }}"><i
+                        class="fa fa-archive"></i> {{ "archive"|trans }}</a>
         </li>
         {% if isJournalManager() %}
             <li class="list-group-item"><a href="#">
-                    <i class="fa fa-plus"></i> <strong>{{"new.link"|trans}}</strong></a>
+                    <i class="fa fa-plus"></i> <strong>{{ "new.link"|trans }}</strong></a>
             </li>
         {% endif %}
     </ul>
 </div>
 
 <div class="panel panel-warning">
-    <div class="panel-heading"><span class="panel-title">{{"for.authors"|trans}}</span></div>
+    <div class="panel-heading"><span class="panel-title">{{ "for.authors"|trans }}</span></div>
     <ul class="list-group">
-        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> {{"onlineSubmission"|trans}}</a></li>
-        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a></li>
-            {% if isJournalManager() %}
-            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>{{"add_link"|trans}}</strong></a></li>
-            {%endif%}
+        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> {{ "onlineSubmission"|trans }}</a></li>
+        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a>
+        </li>
+        {% if isJournalManager() %}
+            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i>
+                    <strong>{{ "add_link"|trans }}</strong></a></li>
+        {% endif %}
     </ul>
 </div>
 <div class="panel panel-success">
     <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
     <ul class="list-group">
-        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-link"></i> {{"mission"|trans}}</a></li>
-        <li class="list-group-item"><a href="/journal/1/scope"><i class="fa fa-link"></i> {{"scope"|trans }}</a></li>
-            {% if isJournalManager() %}
-            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> <strong>Link ekle</strong></a></li>
-            {%endif%}
+        {% for p in pages %}
+            <li class="list-group-item"><a
+                        href="{{ url('ojs_wiki_page_detail',{object: journal.id, type:'journal', slug:p.slug}) }}"><i
+                            class="fa fa-link"></i> {{ p.title|trans }}</a></li>
+        {% endfor %}
+        {% if isJournalManager() %}
+            <li class="list-group-item"><a href="{{ url('ojs_wiki_page_create',{object: journal.id,type: 'journal'}) }}"><i class="fa fa-plus"></i> <strong>{{ "Sayfa Ekle"|trans }}</strong></a>
+            </li>
+        {% endif %}
     </ul>
 </div>
