@@ -9,12 +9,10 @@ class ManagerControllerTest extends BaseTestCase
 
     public function testManagerDashboard()
     {
-        $this->logIn('demo_editor', array('ROLE_EDITOR'));
-        $this->client->request('GET', '/editor/dashboard');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->logIn(null,['ROLE_EDITOR']);
+        $this->assertTrue($this->isAccessible(['dashboard_editor']));
 
-        $this->client->request('GET', '/editor/myjournals');
-        $this->assertTrue($this->client->getResponse()->isSuccessful());
+        $this->assertTrue($this->isAccessible(['editor_show_my_journals']));
     }
 
 }
