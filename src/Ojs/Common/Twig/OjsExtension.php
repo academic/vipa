@@ -36,7 +36,7 @@ class OjsExtension extends \Twig_Extension
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
             'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
-            'currentJournal' => new \Twig_Function_Method($this, 'currentJournal', array('is_safe' => array('html')))
+            'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html')))
         );
     }
 
@@ -182,7 +182,7 @@ class OjsExtension extends \Twig_Extension
         return $issn;
     }
 
-    public function currentJournal()
+    public function selectedJournal()
     {
         $selectedJournalId = $this->getSession('selectedJournalId');
         return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
