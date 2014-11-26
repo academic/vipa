@@ -51,7 +51,7 @@
     	"okulbilisim/feedback-bundle": "dev-master"
     },
     "require-dev": {
-        "okulbilisim/ojstr-message-bundle": "dev-master"
+        "okulbilisim/ojs-message-bundle": "dev-master"
     },
     "repositories": [
         {
