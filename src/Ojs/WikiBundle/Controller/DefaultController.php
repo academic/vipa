@@ -15,31 +15,6 @@ class DefaultController extends Controller
         return $this->render('OjsWikiBundle:Default:index.html.twig', array('name' => $name));
     }
 
-    public function createAction(Request $request, $object, $type)
-    {
-        $data = [];
-        $page = new Page();
-        $form = $this->createForm(new PageType(), $page, ['object_id' => $object, 'object_type' => $type]);
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $data['object'] = $this->getObject($object, $type);
-
-        if ($request->isMethod('POST')) {
-            $form->submit($request);
-            if($form->isValid()){
-                $page->setJournal($this->getObject($object,$type));
-                $em->persist($page);
-                $em->flush();
-                return $this->redirect($this->get('router')->generate('ojs_journal_index',['journal_id'=>$object]));
-            }else{
-                echo 'diil';
-            }
-            exit;
-        }
-        $data['form'] = $form->createView();
-        $data['type'] = $type;
-        return $this->render('OjsWikiBundle:Default:create.html.twig', $data);
-    }
 
     public function detailAction(Request $request, $object, $type, $slug)
     {

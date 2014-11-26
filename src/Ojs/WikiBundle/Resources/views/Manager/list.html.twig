@@ -1,0 +1,43 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>Journal List</h1>
+    <table class="records_list table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Tags</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.tags }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('ojs_wiki_page_create', { 'id': entity.id,'object': object.id,'type':type}) }}">edit</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ url('ojs_wiki_page_delete',{ 'id': entity.id ,'object': object.id,'type':type}) }}">delete</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ojs_wiki_page_create',{object: object.id, type: type}) }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+{% endblock %}
