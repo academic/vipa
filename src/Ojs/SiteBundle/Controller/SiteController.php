@@ -158,6 +158,8 @@ class SiteController extends Controller
             $data['issues_grouped'][$issue->getYear()][] = $issue;
         }
         $data['page'] = 'archive';
+        $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $data['journal']]);
+
         return $this->render('OjsSiteBundle::Site/archive_index.html.twig', $data);
     }
 
