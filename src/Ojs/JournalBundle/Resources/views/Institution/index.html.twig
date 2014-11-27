@@ -1,7 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, { 'title': 'Institution Manager'} ])}}
+{% endblock %} 
+
 {% block body -%}
-    <h1>Institution list</h1>
 
     <table class="records_list  table">
         <thead>
@@ -9,11 +12,8 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Country</th>
-                <th>Addresslat</th>
-                <th>Addresslong</th>
+                <th>Country</th> 
                 <th>Phone</th>
-                <th>Fax</th>
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
@@ -21,15 +21,12 @@
         <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('institution_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td><a class="badge" href="{{ path('institution_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.address }}</td>
-                    <td>{{ entity.country }}</td>
-                    <td>{{ entity.addressLat }}</td>
-                    <td>{{ entity.addressLong }}</td>
+                    <td>{{ entity.country }}</td> 
                     <td>{{ entity.phone }}</td>
-                    <td>{{ entity.fax }}</td>
-                    <td>{{ entity.email }}</td>
+                    <td><span class="label label-default">{{ entity.email }}</span></td>
                     <td>
                         {% set edit_path = 'institution_edit' %}
                         {% set show_path = 'institution_show' %}
@@ -39,13 +36,8 @@
                 </tr>
             {% endfor %}
         </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('institution_new') }}"  class="btn btn-success">
-                {% trans %}c{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    </table> 
+    <a href="{{ path('institution_new') }}"  class="btn btn-success">
+        {% trans %}c{% endtrans %}
+    </a> 
 {% endblock %}
