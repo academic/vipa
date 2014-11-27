@@ -1,5 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
+    { 'link': path('author'), 'title': 'Author Manager'},
+    { 'title' : 'Author Details'} ])}}
+{% endblock %}
+
 {% block body -%}
 <h1>Author <small>{% if entity.user %} Linked User : &#x3C;{{ entity.user.username }}&#x3E; {{ entity.user.email }} {%endif%}</small></h1>
 

@@ -1,4 +1,9 @@
 {% extends '::ojsbase.html.twig' %}
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
+    { 'link': path('author'), 'title': 'Author Manager'},
+    { 'title' : 'New Author'} ])}}
+{% endblock %}
 
 {% block body -%}
     <h1>Author creation</h1>
