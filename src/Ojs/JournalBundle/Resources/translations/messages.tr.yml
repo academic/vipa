@@ -80,6 +80,7 @@ author:
     middlename: İkinci Ad
     lastname: Soyad
     initials: Başharfler
+    title: Ünvan
     order: Order
     plural: Yazarlar
     singular: Yazar
