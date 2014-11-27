@@ -1,5 +1,5 @@
-<div class="{% if citationItem is defined %}{%else%}hide{% endif %}" id="citationInfoFields">
-    <form class="cite-item row"> 
+<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item">
+    <form class="row"> 
         <div class="col-md-1">
             <input type="number" class="form-control" style="width:80px" name="orderNum" 
                    value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" placeholder="Order">
