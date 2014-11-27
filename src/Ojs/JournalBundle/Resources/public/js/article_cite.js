@@ -105,7 +105,7 @@ $(document).ready(function () {
 
     $("body").on("click", ".addCitationDetails", function (e) {
         e.preventDefault();
-        $(this).parent().next(".citationDetails").slideToggle("fast");
+        $(this).parent().parent().next(".citationDetails").slideToggle("fast");
     });
 
     $("body").on("click", "#pasteArticleCitationInline", function (e) {

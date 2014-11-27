@@ -25,6 +25,7 @@ class ArticleSubmissionStep3Controller extends Controller
             }
         }
         $articleSubmission->setCitations($citeData);
+        error_log(print_r($citeData,true));
         $dm->persist($articleSubmission);
         $dm->flush();
         return new JsonResponse($articleSubmission->getId());
