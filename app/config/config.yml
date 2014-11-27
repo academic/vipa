@@ -10,7 +10,7 @@ imports:
 parameters:
     avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
     avatar_upload_base_url: %base_host%/uploads/avatarfiles/
-
+    admin_base_view: '::ojsbase.html.twig'
 framework:
     #esi:             ~
     translator:      { fallback: en }
@@ -52,6 +52,7 @@ twig:
     globals:
         languages : "%languages%"
         base_host: %base_host%
+        admin_base_view: %admin_base_view%
 
 fos_rest:
     param_fetcher_listener: true
