@@ -1,5 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
+    { 'link': path('article'), 'title': 'Article Manager'},
+    { 'title' : 'Article Detail'} ])}}
+{% endblock %}
+
 {% block body -%}
     <h1>Article Detail <small title="ojs unique id">#{{ entity.id }}</small></h1>
 

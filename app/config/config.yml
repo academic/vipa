@@ -9,6 +9,7 @@ imports:
     - { resource: elastica.yml }
 parameters:
     avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
+    avatar_upload_base_url: %base_host%/uploads/avatarfiles/
 
 framework:
     #esi:             ~

@@ -1,5 +1,9 @@
 {% extends '::ojsbase.html.twig' %}
-
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
+    { 'link': path('contact'), 'title': 'Contact Manager'},
+    { 'title' : 'Contact Details'} ])}}
+{% endblock %}
 {% block body -%}
     <h1>Contact</h1>
 
