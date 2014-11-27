@@ -1,5 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
+    { 'link': path('article'), 'title': 'Article Manager'},
+    { 'title' : 'New Article'} ])}}
+{% endblock %}
+
 {% block body -%}
     <h1>{{"add_article"|trans}}</h1>
 
