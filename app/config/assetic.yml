@@ -33,6 +33,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js
+                    - @OkulbilisimFeedbackBundle/Resources/public/js/admin.js
         admin_main_css:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css
