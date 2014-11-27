@@ -81,6 +81,7 @@ author:
     middlename: Middle Name
     lastname: Last Name
     initials: Initials
+    title: Title
     order: Order
     plural: Authors
     singular: Author
