@@ -117,6 +117,7 @@ class SiteController extends Controller
         $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $data['journal']]);
         $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
         return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
     }
 
@@ -159,6 +160,7 @@ class SiteController extends Controller
         }
         $data['page'] = 'archive';
         $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $data['journal']]);
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
 
         return $this->render('OjsSiteBundle::Site/archive_index.html.twig', $data);
     }
