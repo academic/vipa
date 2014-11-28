@@ -25,7 +25,7 @@ class JournalThemeType extends AbstractType
                     'property' => 'title',
                     'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isPublic = FALSE ');
+                                ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
                     })
                 )
         ;
