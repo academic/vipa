@@ -3,7 +3,7 @@
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@submission_css' output="c/submission.css" %}
+    {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
@@ -184,13 +184,15 @@
         </h2>
 
         <div class="col-md-12">
-            <span class="btn btn-success fileinput-button">
-                <i class="fa fa-plus"></i>
-                <span>Select Article File</span>
-                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
-            </span>
-            <span class="upload_progress label label-info" style="display: none"></span>
+            <form class="file-item">
+                <span class="btn btn-success fileinput-button">
+                    <i class="fa fa-plus"></i>
+                    <span>Select Article File</span>
+                    <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                    <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+                </span>
+                <span class="upload_progress label label-info" style="display: none"></span>
+            </form>
         </div>
 
         <div id="step4">

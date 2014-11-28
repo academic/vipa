@@ -179,10 +179,27 @@ var OjsArticleSubmission = {
         }
     },
     step4: function (actionUrl) {
-        OjsCommon.waitModal();
-
-        this.hideAllSteps();
-        window.location.href = actionUrl;
+        forms = $("form.file-item");
+        if (forms.length > 0) {
+            $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+            // prepare post params 
+            var dataArray = [];
+            forms.each(function () {
+                dataArray.push($(this).serializeObject());
+            });
+            OjsCommon.waitModal();
+            console.log(dataArray);
+            $.post(actionUrl, {"filesData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+                OjsCommon.hideallModals();
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep.step4();
+                if (response.redirect) {
+                    window.location.href = response.redirect;
+                }
+            }).error(function () {
+                OjsCommon.errorModal("Something is wrong. Check your data and try again.");
+            });
+        }
     },
     submit: function () {
         var check = confirm("Are you sure to submit your article?");
@@ -221,6 +238,7 @@ var OjsArticleSubmission = {
                 OjsArticleSubmission.loadStepTemplate(4);
             }
             OjsArticleSubmission.showStep(4);
+            OjsArticleSubmission.setupUi();
         }
     },
     bindFileUploader: function () {

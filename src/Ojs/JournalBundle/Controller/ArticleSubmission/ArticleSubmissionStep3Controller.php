@@ -20,12 +20,11 @@ class ArticleSubmissionStep3Controller extends Controller
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
         for ($i = 0; $i < count($citeData); $i++) {
-            if (strlen($citeData[$i]->raw)<1) {
+            if (strlen($citeData[$i]->raw) < 1) {
                 unset($citeData[$i]);
             }
         }
         $articleSubmission->setCitations($citeData);
-        error_log(print_r($citeData,true));
         $dm->persist($articleSubmission);
         $dm->flush();
         return new JsonResponse($articleSubmission->getId());
