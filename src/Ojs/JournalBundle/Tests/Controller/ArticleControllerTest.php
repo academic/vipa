@@ -55,8 +55,7 @@ class ArticleControllerTest extends BaseTestCase
     public function testArticleDelete()
     {
         $this->logIn();
-        $this->assertTrue($this->isAccessible(['article_delete', ['id' => 2]],[],'DELETE'));
-        echo $this->client->getResponse();
+        $this->assertTrue($this->isAccessible(['article_delete', ['id' => 2]],[],'DELETE',true));
     }
 
     public function testStatus()

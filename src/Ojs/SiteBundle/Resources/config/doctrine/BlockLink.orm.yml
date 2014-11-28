@@ -1,0 +1,27 @@
+Ojs\SiteBundle\Entity\BlockLink:
+  type: entity
+  table: block_links
+  repositoryClass: Ojs\SiteBundle\Entity\BlockLinkRepository
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    block_id:
+      type: integer
+    text:
+      type: string
+    url:
+      type: string
+    link_order:
+      type: integer
+      nullable: true
+  manyToOne:
+    block:
+      targetEntity: Ojs\SiteBundle\Entity\Block
+      joinColumn:
+        name: block_id
+        referencedColumnName: id
+      inversedBy: links
