@@ -30,8 +30,6 @@
                     <tr>
                         <th>Title</th>
                         <th>Issn</th>
-                        <th>First Publish Date</th> 
-
                         <th width="60px">Actions</th>
                     </tr>
                 </thead>
@@ -40,13 +38,16 @@
                         <tr>
                             <td><a  class="label label-success" href="{{ path('journal_show', { 'id': entity.id }) }}">id: {{ entity.id }}</a>
                                 <a href="{{ entity.url }}">{{ entity.title }}</a> 
-                                <span class="badge" title="published">{{ entity.published }}</span>
+
+                                {% if entity.published == 1 %}
+                                    <span class="label label-success" title="published"><i class="fa fa-check"></i></span>
+                                {%else%}
+                                    <span class="label label-danger" title="not-published"><i class="fa fa-circle-o"></i></span>
+                                    {% endif %}
+
                                 <span class="label label-info" title="Status">{{entity.status}}</span>
                             </td>
                             <td>{{ entity.issn }}</td>
-                            <td>{% if entity.firstPublishDate %}{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-
-                            <td>{{ entity.status }}</td>
                             <td>
                                 {% set show_path = 'journal_show' %}
                                 {% set edit_path = 'journal_edit' %}
@@ -75,5 +76,5 @@
     {% endjavascripts %}
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
     {% if app.user.setting('tour.admin.journal') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-    {% endjavascripts %}
-{% endblock %}
+        {% endjavascripts %}
+        {% endblock %}
