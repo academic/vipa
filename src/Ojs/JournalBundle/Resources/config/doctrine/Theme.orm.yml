@@ -2,6 +2,10 @@ Ojs\JournalBundle\Entity\Theme:
     type: entity
     table: null
     #repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
+    oneToMany:
+        journalThemes: 
+            targetEntity: JournalTheme
+            mappedBy: theme
     id:
         id:
             type: integer
