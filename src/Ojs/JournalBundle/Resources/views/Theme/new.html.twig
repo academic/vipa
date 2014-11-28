@@ -5,11 +5,7 @@
 
     {{ form(form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('theme') }}">
-                {% trans %}back{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    <a class="btn btn-default" href="{{ path('theme') }}">
+        {% trans %}back{% endtrans %}
+    </a>
 {% endblock %}
