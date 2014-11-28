@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Block
- * @ORM\OrderBy({"block_order" = "ASC"})
  */
 class Block
 {

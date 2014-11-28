@@ -67,8 +67,11 @@ ojs_block_order:
     pattern: /block/order/{block}/{order}
     defaults: { _controller: OjsSiteBundle:Block:order }
 ojs_block_link_new:
-    pattern: /block_link/new/{block}
-    defaults: { _controller: OjsSiteBundle:Block:newLink }
+    pattern: /block_link/new/{block}/{id}
+    defaults: { _controller: OjsSiteBundle:Block:newLink, id: 0 }
 ojs_block_link_order:
     pattern: /block_link/order/{block_link}/{order}
     defaults: { _controller: OjsSiteBundle:Block:orderLink }
+ojs_block_link_delete:
+    pattern: /block_link/delete/{object}/{type}/{block_link}
+    defaults: { _controller: OjsSiteBundle:Block:deleteLink }

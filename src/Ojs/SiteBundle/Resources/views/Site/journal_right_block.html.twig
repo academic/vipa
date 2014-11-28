@@ -13,6 +13,8 @@
         <div class="panel-heading">
             <span class="panel-title">{{ block.title|trans }}</span>
             {% if isJournalManager() %}
+                <input type="number" class="col-xs-2 pull-right no-pad block_order_updater"
+                       data-block-id="{{ block.id }}" value="{{ block.blockOrder|default(0) }}">
                 <a href="{{ url('ojs_block_new',{object: journal.id, type:'journal',id:block.id}) }}" title="Edit Block"
                    class="pull-right"><i class="fa fa-pencil "></i></a>
                 <a href="{{ url('ojs_block_delete',{object: journal.id, type:'journal',block:block.id}) }}"
@@ -27,7 +29,13 @@
                     <li class="list-group-item">
                         <a href="{{ link.url }}" target="_blank">{{ link.text }}</a>
                         {% if isJournalManager() %}
-                            <input type="number"  name="blocklink[{{ link.id }}]" data-link-id="{{ link.id }}"   value="{{ link.linkOrder|default(0) }}" class="col-xs-2 no-pad pull-right blocklink_order_updater"/>
+                            <input type="number" name="blocklink[{{ link.id }}]" data-link-id="{{ link.id }}"
+                                   value="{{ link.linkOrder|default(0) }}"
+                                   class="col-xs-2 no-pad pull-right blocklink_order_updater"/>
+                            <a href="{{ url('ojs_block_link_new',{block: block.id, id:link.id}) }}" title="Edit Link"
+                               class="pull-right"><i class="fa fa-pencil "></i></a>
+                            <a href="{{ url('ojs_block_link_delete',{object: journal.id, type:'journal',block_link:link.id}) }}"
+                               title="Delete Link" class="pull-right"><i class="fa fa-trash "></i></a>
                         {% endif %}
 
                     </li>
@@ -42,33 +50,3 @@
         {% endif %}
     </div>
 {% endfor %}
-
-
-<div class="panel panel-warning">
-    <div class="panel-heading"><span class="panel-title">{{ "for.authors"|trans }}</span></div>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i> {{ "onlineSubmission"|trans }}</a></li>
-        <li class="list-group-item"><a href="/journal/1/mission"><i class="fa fa-adjust"></i> Dergi Kapsamı ve Amacı</a>
-        </li>
-        {% if isJournalManager() %}
-            <li class="list-group-item"><a href="#"><i class="fa fa-plus"></i>
-                    <strong>{{ "add_link"|trans }}</strong></a></li>
-        {% endif %}
-    </ul>
-</div>
-<div class="panel panel-success">
-    <div class="panel-heading"><span class="panel-title">{{ "journal.about"|trans }}</span></div>
-    <ul class="list-group">
-        {% for p in pages %}
-            <li class="list-group-item"><a
-                        href="{{ url('ojs_wiki_page_detail',{object: journal.id, type:'journal', slug:p.slug}) }}"><i
-                            class="fa fa-link"></i> {{ p.title|trans }}</a></li>
-        {% endfor %}
-        {% if isJournalManager() %}
-            <li class="list-group-item"><a
-                        href="{{ url('ojs_wiki_page_create',{object: journal.id,type: 'journal'}) }}"><i
-                            class="fa fa-plus"></i> <strong>{{ "Sayfa Ekle"|trans }}</strong></a>
-            </li>
-        {% endif %}
-    </ul>
-</div>
