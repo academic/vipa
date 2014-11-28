@@ -114,7 +114,7 @@ abstract class BaseTestCase extends WebTestCase
         return $stream;
     }
 
-    protected function isAccessible($params, $data = [],$type='GET')
+    protected function isAccessible($params, $data = [],$type='GET',$redirectOnSuccess=false)
     {
         $this->client->request(
             $type,
@@ -123,9 +123,8 @@ abstract class BaseTestCase extends WebTestCase
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
-        if($params ===['article_delete', ['id' => 2]] ){
-            echo $response->getContent();
-        }
+        if($redirectOnSuccess)
+            return $response->isRedirection();
         return $response->isSuccessful();
     }
 } 
