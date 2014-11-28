@@ -29,14 +29,14 @@ class UserType extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:200px')
+                'attr' => array('class' => 'select2', 'style' => 'width:100%')
             ))
             ->add('subjects', 'entity', array(
                 'class' => 'Ojs\JournalBundle\Entity\Subject',
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:200px')
+                'attr' => array('class' => 'select2', 'style' => 'width:100%')
             ))
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojs\JournalBundle\Entity\Journal',

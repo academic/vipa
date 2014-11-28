@@ -1,21 +1,24 @@
-<div class="{% if citationItem is defined %}{%else%}hide{% endif %}" id="citationInfoFields">
-    <form class="cite-item row"> 
+<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item">
+    <form class="row"> 
         <div class="col-md-1">
             <input type="number" class="form-control" style="width:80px" name="orderNum" 
-                   value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" placeholder="Order">
+                   value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="Order">
         </div>
         <div class="col-md-11">
             <input type="text" class="pull-left form-control" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" 
                    name="raw" placeholder="Citation"> 
         </div>
         <div class="col-md-12">
-            <a class="pull-right btn btn-sm btn-warning removeArticleCitationInline">
-                <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
-            </a>
-            <a href="#details" class="pull-right btn btn-sm btn-info addCitationDetails">{{"details"|trans}}</a>
-
+            <div class="btn-group pull-right" role="group">
+                <a class="btn btn-sm btn-warning removeArticleCitationInline">
+                    <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
+                </a>
+                <a href="#details" class="btn btn-sm btn-info addCitationDetails">
+                    <i class="fa fa-eye"></i> {{"details"|trans}}
+                </a>
+            </div>
         </div>
-        <div class="citationDetails form-inline">
+        <div class="citationDetails col-md-12">
             <select class="select2-element citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                 <option value="">[Select Citation Type]</option>
                 {% for type in citationTypes %}
@@ -29,16 +32,26 @@
             </select> 
             <br>
 
-            <div class="citationDetailsFields form-inline">
+            <div class="citationDetailsFields form-horizontal">
                 {% if citationItem is defined and citationItem.type and citationTypes[citationItem.type] is defined%}
                     {% for field in citationTypes[citationItem.type].must %}
                         {% if citationItem[field] is defined %}
-                            <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" />
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">{{field|trans}} </label> 
+                                <div class="col-md-10">
+                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                </div>
+                            </div>
                         {% endif %}
                     {% endfor %}
-                    {% for field in citationTypes[citationItem.type].must%}
+                    {% for field in citationTypes[citationItem.type].should%}
                         {% if citationItem[field] is defined %}
-                            <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" />
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">{{field|trans}} </label>
+                                <div class="col-md-10">
+                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                </div>
+                            </div>
                         {%endif%}
                     {% endfor %}
                 {%endif%}

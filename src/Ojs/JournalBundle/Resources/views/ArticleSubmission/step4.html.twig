@@ -1,31 +1,46 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal file-item" role="form">
+    <br>
     <hr>
-    <div id="supp_file">
-        <div class="col-md-12">
-            <select name="type" class="select2-element">
-                {% for type in fileTypes %}
-                    <option value="{{type}}">{{ type }}</option>
-                {% endfor %}
-            </select>
+    <div class="col-md-12">
+        <select name="type" class="select2-element">
+            {% for key,type in fileTypes %}
+                <option value="{{key}}">{{ type }}</option>
+            {% endfor %}
+        </select>
 
-            <select name="lang" class="select2-element">
-                {% for lang in journal.languages %}
-                    <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
-                {% endfor %}
-            </select>
-            <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
-            <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
-            <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
-
-            <span class="btn btn-success fileinput-button">
-                <i class="fa fa-plus"></i>
-
-                <span>Select Supplementary Article File</span>
-                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
-            </span>
-            <span class="upload_progress label label-info" style="display: none"></span>
+        <select name="lang" class="select2-element">
+            {% for lang in journal.languages %}
+                <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+            {% endfor %}
+        </select>
+        <div class="form-group">
+            <label class="col-md-2">{{"title"|trans}}</label>
+            <div class="col-md-9">
+                <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
+            </div>
         </div>
+        <div class="form-group">
+            <label class="col-md-2">{{"description"|trans}}</label>
+            <div class="col-md-9">
+                <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2">{{"keywords"|trans}}</label>
+            <div class="col-md-9">
+                <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
+            </div>
+        </div>
+
+        <span class="btn btn-success fileinput-button">
+            <i class="fa fa-plus"></i>
+
+            <span>Select Supplementary Article File</span>
+            <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+            <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+        </span>
+        <span class="upload_progress label label-info" style="display: none"></span>
     </div>
     <hr>
     <br>
