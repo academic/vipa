@@ -14,3 +14,4 @@
     institution: @institution*
     subject: 5x @subject*
     status: '3'
+    languages: [ @lang1, @lang2, @lang3 ]
