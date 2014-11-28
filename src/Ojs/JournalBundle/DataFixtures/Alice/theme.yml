@@ -1,0 +1,13 @@
+\Ojs\JournalBundle\Entity\Theme:
+  theme_notpublic1:
+    name: demo_theme1
+    title: Demo Theme 1
+    isPublic: false
+  theme_notpublic2:
+    name: demo_theme2
+    title: Demo Theme 2
+    isPublic: false
+  theme_public1:
+    name: demo_public_theme
+    title: Demo Public Theme
+    isPublic: false
