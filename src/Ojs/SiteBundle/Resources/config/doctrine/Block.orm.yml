@@ -1,0 +1,35 @@
+Ojs\SiteBundle\Entity\Block:
+  type: entity
+  table: blocks
+  repositoryClass: Ojs\SiteBundle\Entity\BlockRepository
+  oneToMany:
+    links:
+      targetEntity: Ojs\SiteBundle\Entity\BlockLink
+      mappedBy: block
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
+      orderBy: { link_order: 'asc' }
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    object_type:
+      type: string
+    object_id:
+      type: integer
+    title:
+      type: string
+    type:
+      type: string
+    content:
+      type: text
+      nullable: true
+    color:
+      type: string
+      nullable: true
+    block_order:
+      type: integer
+      nullable: true

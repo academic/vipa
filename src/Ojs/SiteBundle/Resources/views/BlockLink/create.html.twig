@@ -1,0 +1,17 @@
+{% extends '::ojsbase.html.twig' %}
+{% block body -%}
+    <h4>Create New Block Link</h4>
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <form action="" method="post">
+        {{ form_widget(form) }}
+        <div class="record_actions">
+            <button class="btn btn-default" type="submit">{{ "Kaydet"|trans }}</button>
+        </div>
+    </form>
+{% endblock %}
