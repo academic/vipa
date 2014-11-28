@@ -161,7 +161,7 @@ class UserJournalRoleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data = $em->createQuery(
             'SELECT  u  FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
-        )->setParameter(' user_id', $user_id)->getResult();
+        )->setParameter('user_id', $user_id)->getResult();
         $entities = array();
         if ($data) {
             foreach ($data as $item) {
