@@ -1,5 +1,5 @@
 /**
- * Deault Theme's javascript file
+ * Default Theme's javascript file
  */
 
 $(function(){
@@ -26,6 +26,7 @@ $(function(){
         });
         return false;
     })
+
 });
 
 var regenerateAPI = function(response){
