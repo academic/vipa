@@ -3,7 +3,7 @@
 {% block title %}Submit New Article{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@submission_css' output="c/submission.css" %}
+    {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
@@ -22,13 +22,29 @@
     <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
 
     <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
-        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"article.article"|trans}}</li>
+        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"article.singular"|trans}}</li>
         <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
         <li id="submission-progress-step3"><span class="badge">3</span> {{"article.citations"|trans}}</li>
         <li id="submission-progress-step4"><span class="badge">4</span>  {{"article.files"|trans}}</li>
         <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
-    </ul>
-
+    </ul> 
+    {% if session('selectedJournalId')  %}
+        <div class="dropdown">
+            <button class="dropdown-toggle btn btn-block btn-default" type="button" id="changeSelectedJournal" data-toggle="dropdown">
+                {{ userjournals[session('selectedJournalId')].title  }}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu list-group" role="menu">
+                {%for journal in userjournals%}
+                    <li class=list-group-item">
+                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                            {{journal.title}}
+                        </a>
+                    </li> 
+                {%endfor%}
+            </ul>
+        </div> 
+    {%endif%}
     <form name="base" class="form-horizontal row" role="form">
         <div class="form-group col-md-6">
             <label class="col-md-6 control-label">{{"article.language.primary"|trans}}</label>
@@ -95,7 +111,11 @@
         </h2>
 
         <div id="step2" class="authorlist">
-
+            {% if submissionData is defined and submissionData.authors is defined %}
+                {% for author in submissionData.authors %}
+                    {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}    
+                {% endfor %}
+            {% endif %}
         </div>
         <div class="step2_actions record_actions col-md-12">
             <br>
@@ -159,18 +179,20 @@
 
 
     <div id="step4-container" class="step hide">
-        <h2>{{ "articles.files"|trans }}
+        <h2>{{ "article.files"|trans }}
             <small><button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-sm btn-default btn-circle">+</button></small>
         </h2>
 
         <div class="col-md-12">
-            <span class="btn btn-success fileinput-button">
-                <i class="fa fa-plus"></i>
-                <span>Select Article File</span>
-                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
-            </span>
-            <span class="upload_progress label label-info" style="display: none"></span>
+            <form class="file-item">
+                <span class="btn btn-success fileinput-button">
+                    <i class="fa fa-plus"></i>
+                    <span>Select Article File</span>
+                    <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                    <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+                </span>
+                <span class="upload_progress label label-info" style="display: none"></span>
+            </form>
         </div>
 
         <div id="step4">
@@ -254,21 +276,7 @@
                             "article_abstract": "{{article.abstract|raw}}"
                         };
                         OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
-                {% endfor %}
-
-                {# load authors #}
-                {% for author in submissionData.authors %}
-                        OjsArticleSubmission.addAuthorForm({
-                            "author_order": "{{author.order}}",
-                            "author_initials": "{{author.initials|raw}}",
-                            "author_firstName": "{{author.firstName|raw}}",
-                            "author_middleName": "{{author.middleName|raw}}",
-                            "author_lastName": "{{author.lastName|raw}}",
-                            "author_email": "{{author.email|raw}}",
-                            "author_summary": "{{author.summary|raw}}"
-                        });
-                {% endfor %}
-
+                {% endfor %} 
 
                         OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
