@@ -124,7 +124,17 @@
                 {% for key,file  in submissionData.files %}
                     <table class="table">
                         <tr>
-                            <td><span class="badge">{{"file.types."~file.type|trans}}</span> #{{file.title}}</td>
+                            <td>
+                                {% if file.type is defined %} 
+                                    <span class="badge">
+                                        {{("file.types."~file.type~"")|trans}}
+                                    </span> 
+                                    #{{file.title}}
+                                {% else %}
+                                    {{"article.fulltext"|trans}}
+                                {% endif %}
+                                <a href="{{file.article_file}}"><i class="fa fa-download"></i></a>
+                            </td>
                         </tr>
                     </table>
                     <hr>

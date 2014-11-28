@@ -47,7 +47,8 @@ journal:
     all: All Journals
     users: Journal Users
 
-article:    
+article:
+    fulltext: Full Text
     plural: Articles
     singular: Article
     submit: Submit Article
@@ -81,6 +82,7 @@ author:
     middlename: Middle Name
     lastname: Last Name
     initials: Initials
+    title: Title
     order: Order
     plural: Authors
     singular: Author
@@ -90,6 +92,7 @@ title: Title
 titleTransliterated: Transliterated Title
 subtitle: Subtitle
 keywords: Keywords
+description: Description
 subjects: Subjects
 abstract: Abstract
 
@@ -104,3 +107,13 @@ save.next: Save & Next
     
 user:
     new: New User
+    
+file:
+    types:
+       - Research Instrument
+       - Research Materials
+       - Research Results
+       - Transcripts
+       - Data Analysis
+       - Data Set
+       - Source Text

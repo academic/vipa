@@ -47,6 +47,7 @@ journal:
     users: Dergi Kullanıcıları
 
 article:
+    fulltext: Tam Metin
     plural: Makaleler
     singular: Makale
     submit: Makale Gönder
@@ -80,6 +81,7 @@ author:
     middlename: İkinci Ad
     lastname: Soyad
     initials: Başharfler
+    title: Ünvan
     order: Order
     plural: Yazarlar
     singular: Yazar
@@ -90,6 +92,7 @@ title: Başlık
 titleTransliterated: Latin Başlık
 subtitle: Alt başlık
 keywords: Anahtar kelimeler
+description: Açıklama
 subjects: Konular
 abstract: Özet
 
@@ -104,3 +107,13 @@ save.next: Kaydet ve Devam Et
     
 user:
     new: Yeni Kullanıcı
+    
+file:
+    types:
+       - Research Instrument
+       - Research Materials
+       - Research Results
+       - Transcripts
+       - Data Analysis
+       - Data Set
+       - Source Text
