@@ -38,17 +38,18 @@ class BlockController extends Controller
         return $this->render("OjsSiteBundle:Block:create.html.twig", $data);
     }
 
-    public function newLinkAction(Request $request, Block $block)
+    public function newLinkAction(Request $request, Block $block, $id = 0)
     {
         $data = [];
-        $BlockLink = new BlockLink();
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $BlockLink = $id ? $em->find('OjsSiteBundle:BlockLink', $id) : new BlockLink();
         $form = $this->createForm(new BlockLinkType(), $BlockLink, ['block_id' => $block->getId()]);
         if ($request->isMethod('POST')) {
             $form->submit($request);
             if ($form->isValid()) {
                 $BlockLink->setBlock($block);
-                /** @var \Doctrine\ORM\EntityManager $em */
-                $em = $this->getDoctrine()->getManager();
+
                 $em->persist($BlockLink);
                 $block->addLink($BlockLink);
                 $em->persist($block);
@@ -67,12 +68,28 @@ class BlockController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($block);
         $em->flush();
-        return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $block->getObjectId()]));
+        return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $object]));
+    }
+
+    public function deleteLinkAction(Request $request, $object, $type, BlockLink $block_link)
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($block_link);
+        $em->flush();
+        return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $object]));
     }
 
     public function orderAction(Request $request, Block $block, $order)
     {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
+        $block->setBlockOrder($order);
+        $em->persist($block);
+        $em->flush();
+
+        return JsonResponse::create(['status' => true]);
     }
 
     public function orderLinkAction(Request $request, BlockLink $block_link, $order)

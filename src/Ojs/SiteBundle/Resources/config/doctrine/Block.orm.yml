@@ -8,6 +8,7 @@ Ojs\SiteBundle\Entity\Block:
       mappedBy: block
       cascade: ["all"]
       fetch: EXTRA_LAZY
+      orderBy: { link_order: 'asc' }
   id:
     id:
       type: integer
