@@ -69,7 +69,7 @@ class InstallCommand extends ContainerAwareCommand
 
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>php app/console h4cc_alice_fixtures:load:sets </info> "
+                . "<info>php app/console ojs:install:sampledata </info> "
                 . "to add sample data\n");
 
     }

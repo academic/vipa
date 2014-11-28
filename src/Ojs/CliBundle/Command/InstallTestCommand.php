@@ -39,7 +39,7 @@ class InstallTestCommand extends ContainerAwareCommand
         $installCommand->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>sudo php app/console h4cc_alice_fixtures:load:sets</info> "
+                . "<info>sudo php app/console ojs:install:sampledata</info> "
                 . "to add sample data\n");
     }
 
