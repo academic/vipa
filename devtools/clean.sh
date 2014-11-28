@@ -30,7 +30,7 @@ then
 		fi
 		
 		php app/console ojs:install
-		php app/console doctrine:fixtures:load --append -v
+		php app/console ojs:install:sampledata
 		php app/console doctrine:mongodb:fixtures:load --append -v
 	fi
 fi
