@@ -35,6 +35,9 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY
+        journalThemes: 
+            targetEntity: JournalTheme
+            mappedBy: journal
     manyToMany:
         languages:
             targetEntity: Lang
