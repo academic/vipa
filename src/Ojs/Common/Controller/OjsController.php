@@ -2,7 +2,7 @@
 
 namespace Ojs\Common\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller; 
 
 /**
  * Ojs Base Controller controller.
@@ -23,6 +23,6 @@ class OjsController extends Controller
         }
 
         return TRUE;
-    }
+    } 
 
 }

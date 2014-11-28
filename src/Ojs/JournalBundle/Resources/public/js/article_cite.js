@@ -2,47 +2,47 @@ var CitationEditor = {
     addCitationTpl: function (params) {
         $("#citationContainer").append(Mustache.render($("#step3_tpl").html(), params));
     },
-    newCitationField: function (citationItem) {
-        if (typeof citationItem !== "undefined") {
-            $("#citationInfoFields input[name=raw]").attr("value", citationItem.title);
+    newCitationField: function (raw) {
+        var $tpl = $.parseHTML($("#step3_tpl").html().trim());
+        if (typeof raw !== "undefined") {
+            $("input[name=raw]", $tpl).attr("value", raw);
         }
-
-        $("#citationContainer").append('<div id="' + Math.round(Math.random() * 10000000) + '">' + $("#citationInfoFields").html() + '</div>');
+        $($tpl).removeClass("hide");
+        $("#citationContainer").append($tpl);
         this.refreshCitationOrders();
         $("#citationPasteField").show("fast");
     },
     parseAndAppend: function (txt) {
         OjsCommon.waitModal();
         $.post(OjsCommon.api.urls.citeParser, {"citations": txt, "apikey": OjsCommon.api.userApikey}, function (res) {
-            var citationInfoFields = $('#citationInfoFields');
             if (typeof res === "object") {
                 for (i in res) {
                     citationItem = res[i];
-                    var tmp_citation_div_id = "citation_" + Math.round(Math.random() * 10000000);
-
-                    $("#citationContainer").append('<div id="' + tmp_citation_div_id + '">' + $("#citationInfoFields").html() + '</div>');
-                    var tmp_citation_div = $("#" + tmp_citation_div_id);
-                    var $mustFields = $($("option[value=" + citationItem.type + "]", citationInfoFields)).data("must");
-                    var $shouldFields = $($("option[value=" + citationItem.type + "]", citationInfoFields)).data("should");
+                    var $tpl = $.parseHTML($("#step3_tpl").html().trim);
+                    $($tpl).removeClass("hide");
+                    var $mustFields = $($("option[value=" + citationItem.type + "]", $tpl)).data("must");
+                    var $shouldFields = $($("option[value=" + citationItem.type + "]", $tpl)).data("should");
                     var fields = $mustFields.concat($shouldFields);
-                    $(".citationDetailsFields", tmp_citation_div).html("");
-                    $('.citation_type option[value=' + citationItem.type + ']', tmp_citation_div).prop('selected', true);
+                    $(".citationDetailsFields", $tpl).html("");
+                    $('.citation_type option[value=' + citationItem.type + ']', $tpl).prop('selected', true);
                     for (var i in $mustFields) {
-                        $(".citationDetailsFields", tmp_citation_div).append(
+                        $(".citationDetailsFields", $tpl).append(
                                 '<input type="text" class="form-control has-warning" placeholder="' +
                                 $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
                     }
                     for (var i in $shouldFields) {
-                        $(".citationDetailsFields", tmp_citation_div).append(
+                        $(".citationDetailsFields", $tpl).append(
                                 '<input type="text" class="form-control" placeholder="' +
                                 $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
                     }
-                    $("input[name=raw]", tmp_citation_div).attr("value", citationItem.raw);
+                    $("input[name=raw]", $tpl).attr("value", citationItem.raw);
                     $.each(citationItem, function (k, v) {
                         if ($.inArray(k, fields) > -1) {
-                            $('.citationDetailsFields input[name=' + k + ']', tmp_citation_div).val(v);
+                            $('.citationDetailsFields input[name=' + k + ']', $tpl).val(v);
                         }
                     });
+                    $("#citationContainer").append($tpl);
+
                 }
             }
         })
@@ -98,14 +98,14 @@ $(document).ready(function () {
 
     $("body").on("click", "a.removeArticleCitationInline", function (e) {
         e.preventDefault();
-        $(this).parents().closest(".cite-item ").slideUp();
+        $(this).parents().closest(".cite-item").slideUp();
         $(this).parents().closest(".cite-item").remove();
         CitationEditor.refreshCitationOrders();
     });
 
     $("body").on("click", ".addCitationDetails", function (e) {
         e.preventDefault();
-        $(this).parent().next(".citationDetails").slideToggle("fast");
+        $(this).parent().parent().next(".citationDetails").slideToggle("fast");
     });
 
     $("body").on("click", "#pasteArticleCitationInline", function (e) {

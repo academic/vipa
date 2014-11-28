@@ -8,25 +8,27 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AuthorType extends AbstractType
 {
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('middleName')
-            ->add('lastName')
-            ->add('firstNameTransliterated')
-            ->add('middleNameTransliterated')
-            ->add('lastNameTransliterated')
-            ->add('initials')
-            ->add('email')
-            ->add('address')
-            ->add('institutionId')
-            ->add('country')
-            ->add('summary')
+                ->add('title')
+                ->add('firstName')
+                ->add('middleName')
+                ->add('lastName')
+                ->add('firstNameTransliterated')
+                ->add('middleNameTransliterated')
+                ->add('lastNameTransliterated')
+                ->add('initials')
+                ->add('email')
+                ->add('address')
+                ->add('institutionId')
+                ->add('country')
+                ->add('summary')
         ;
     }
 
@@ -47,4 +49,5 @@ class AuthorType extends AbstractType
     {
         return 'ojs_journalbundle_author';
     }
+
 }

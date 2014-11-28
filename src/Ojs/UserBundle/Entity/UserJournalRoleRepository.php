@@ -27,16 +27,18 @@ class UserJournalRoleRepository extends EntityRepository
             $entites[] = $item->getUser();
         }
 
-        if (!$grouppedByRole)
+        if (!$grouppedByRole){
             return $entites;
+        }
 
         $users = [];
         foreach ($entites as $user) {
             /** @var User $user */
             foreach ($user->getRoles() as $role) {
                 /** @var Role $role */
-                if ($role->getIsSystemRole())
+                if ($role->getIsSystemRole()){
                     continue;
+                }
                 $users[$role->getName()][] = $user;
             }
         }
