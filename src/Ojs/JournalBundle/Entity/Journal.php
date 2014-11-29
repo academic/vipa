@@ -119,6 +119,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @Expose
      */
     private $mission;
+    
+    
+    /**
+     * @var string
+     * @Expose
+     */
+    private $slug;
 
     /**
      * @var integer
@@ -783,15 +790,38 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
         return $this;
     }
+    
+    /**
+     * Get mission
+     *
+     * @return string
+     */
+    public function getMission()
+    {
+        return $this->mission;
+    }
 
     /**
-     * Get themeId
+     * Set slug
      *
-     * @return integer
+     * @param  string $slug
+     * @return Journal
      */
-    public function getThemeId()
+    public function setSlug($slug)
     {
-        return $this->themeId;
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
