@@ -37,7 +37,8 @@ class OjsExtension extends \Twig_Extension
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
             'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
             'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html'))),
-            'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html')))
+            'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
+            'imagePath'=>new \Twig_Function_Method($this, 'generateImagePath')
         );
     }
 
@@ -194,6 +195,13 @@ class OjsExtension extends \Twig_Extension
         $fileHelper = new \Ojs\Common\Helper\FileHelper();
         $rootPath = $this->container->getParameter('avatar_upload_base_url');
         return $rootPath.$fileHelper->generatePath($fileName, false).'thumbnail2/'.$fileName;
+    }
+
+    public function generateImagePath($file)
+    {
+        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+
+        return $fileHelper->generatePath($file,false).$file;
     }
 
     public function getName()

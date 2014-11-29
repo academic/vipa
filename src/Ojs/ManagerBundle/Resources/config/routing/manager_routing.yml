@@ -2,6 +2,11 @@ manager_journal_users:
     pattern:  /users
     defaults: { _controller: OjsManagerBundle:Manager:users }
 
+manager_journal_settings:
+    pattern:  /journal/{journalId}/settings
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettings }
+    
+    
 manager_journal_user_add:
     pattern:  /user/add
     defaults: { _controller: OjsManagerBundle:Admin:addUser }
