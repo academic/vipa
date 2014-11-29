@@ -45,7 +45,14 @@ journal:
     about: Dergi Hakkında
     all: Tüm Dergiler
     users: Dergi Kullanıcıları
-
+    
+citation:
+    citation: Referans
+    add: Referans Ekle
+    new: Yeni Referans
+    paste_extract: Yapıştır ve Referansları Ayrıştır
+    type: Referans Tipi
+    
 article:
     fulltext: Tam Metin
     plural: Makaleler
@@ -61,6 +68,9 @@ article:
     language: 
         primary: Makalenin Birincil Dili
         other: Makalenin Diğer Dilleri
+    add: Makale Ekle
+first_page: İlk Sayfa
+last_page: Son Sayfa
 
 wflow: Süreç
 admin: Yönetim
@@ -95,15 +105,13 @@ keywords: Anahtar kelimeler
 description: Açıklama
 subjects: Konular
 abstract: Özet
+pubdate: Yayınlanma Tarihi
 
 trans: Transliterated
 email: E-posta
 address: Adres
 country: Ülke
 summary: Özet
-
-save: Kaydet
-save.next: Kaydet ve Devam Et
     
 user:
     new: Yeni Kullanıcı
@@ -113,7 +121,7 @@ file:
        - Research Instrument
        - Research Materials
        - Research Results
-       - Transcripts
-       - Data Analysis
-       - Data Set
-       - Source Text
+       - Transkript
+       - Veri Analizi
+       - Veri Seti
+       - Kaynak Metin
