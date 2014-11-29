@@ -1,1 +1,17 @@
-{{"api"|trans}}
+{% extends "::ojsbase.html.twig" %}
+{% block body %}
+    <div class="container">
+
+        <h1 class="page-header">{{"api"|trans}}</h1>
+        <div class="row">
+            <div class="col-xs-12">
+                {% image '@OjsApiBundle/Resources/public/images/api_preview.png' %}
+                <a href="/api/doc/" class="btn btn-success">
+                    <i class="fa fa-link pull-left"></i> <span class="text-left">{{"api_motto"|trans}}</span>
+                    <hr />
+                    <img class="img-responsive img-rounded" src="{{ asset_url }}" alt="{{"api"|trans}}" /></a>
+                {% endimage %}
+            </div>
+        </div>
+    </div>
+{%endblock%}
