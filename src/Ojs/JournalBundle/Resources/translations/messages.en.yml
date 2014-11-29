@@ -26,6 +26,7 @@ status:
     rejected: Rejected
     inreview: in-Review
     spam: Spam
+    
 messages: Messages
 
 reports: 
@@ -46,6 +47,13 @@ journal:
     about: About Journal
     all: All Journals
     users: Journal Users
+    
+citation:
+    citation: Citation
+    add: Add Citation
+    new: New Citation
+    paste_extract: Paste and Extract Cititaion
+    type: Citation Type
 
 article:
     fulltext: Full Text
@@ -62,6 +70,9 @@ article:
     language: 
         primary: Article Primary Language
         other: Article Other Languages
+    add: Add Article
+first_page: First Page
+last_page: Last Page
 
 workflow: Workflow
 admin: Admin
@@ -95,15 +106,13 @@ keywords: Keywords
 description: Description
 subjects: Subjects
 abstract: Abstract
+pubdate: Publication Date
 
 trans: Transliterated
 email: Email
 address: Address
 country: Country
 summary: Summary
-
-save: Save
-save.next: Save & Next
     
 user:
     new: New User
