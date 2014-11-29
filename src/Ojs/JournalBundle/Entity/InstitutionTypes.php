@@ -2,11 +2,18 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * InstitutionTypes
  */
 class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
 {
+    public function __construct()
+    {
+        $this->institutions = new ArrayCollection();
+    }
+
     /**
      * @var integer
      */
@@ -35,7 +42,7 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set name
      *
-     * @param  string           $name
+     * @param  string $name
      * @return InstitutionTypes
      */
     public function setName($name)
@@ -58,7 +65,7 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set description
      *
-     * @param  string           $description
+     * @param  string $description
      * @return InstitutionTypes
      */
     public function setDescription($description)
@@ -78,4 +85,42 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->description;
     }
 
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    private $institutions;
+
+    public function addInstitution(Institution $institution)
+    {
+        $this->institutions[] = $institution;
+        return $this;
+    }
+
+    public function removeInstitution(Institution $institution)
+    {
+        $this->institutions->remove($institution);
+        return $this;
+    }
+
+    public function getInstitutions()
+    {
+        return $this->institutions;
+    }
 }
