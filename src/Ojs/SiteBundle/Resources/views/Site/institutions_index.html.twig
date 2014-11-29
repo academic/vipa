@@ -9,6 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
+                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|apply_filter('institution_logo') }}" alt=""/>
                     <div itemscope itemtype="http://schema.org/Organization">
                         <span itemprop="name">{{entity.name}}</span>
                         Contact Details:

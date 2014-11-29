@@ -15,7 +15,13 @@ class InstitutionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name','text',['required'=>true])
+            ->add('slug','text',[
+                'required'=>true,
+            ])
+            ->add('institution_type','entity',[
+                'class'=>'Ojs\JournalBundle\Entity\InstitutionTypes'
+            ])
             ->add('about')
             ->add('address')
             ->add('city')
@@ -27,7 +33,7 @@ class InstitutionType extends AbstractType
             ->add('email')
             ->add('url')
             ->add('wiki')
-            ->add('logo')
+            ->add('logo','hidden')
         ;
     }
 

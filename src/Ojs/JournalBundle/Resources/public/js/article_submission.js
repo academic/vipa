@@ -190,11 +190,12 @@ var OjsArticleSubmission = {
             OjsCommon.waitModal();
             console.log(dataArray);
             $.post(actionUrl, {"filesData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
-                OjsCommon.hideallModals();
                 OjsArticleSubmission.hideAllSteps();
-                OjsArticleSubmission.prepareStep.step4();
                 if (response.redirect) {
+                    window.onbeforeunload = null;
                     window.location.href = response.redirect;
+                } else {
+                    OjsCommon.errorModal("Something is wrong. Check your data and try again.");
                 }
             }).error(function () {
                 OjsCommon.errorModal("Something is wrong. Check your data and try again.");

@@ -6,6 +6,7 @@ use \Symfony\Component\HttpFoundation\Request;
 
 class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 {
+
     public function indexAction()
     {
         $steps = $this->get('doctrine_mongodb')
@@ -22,17 +23,15 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
      */
     public function newAction()
     {
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
-        $selectedJournalId = $session->get('selectedJournalId');
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
-        if (!$selectedJournalId) {
+        if (!$selectedJournal) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
-        $selectedJournal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($selectedJournalId);
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findByJournalid($selectedJournalId);
+                ->findByJournalid($selectedJournal->getId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:new.html.twig', array(
                     'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $selectedJournal));

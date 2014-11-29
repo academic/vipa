@@ -26,9 +26,6 @@ ojs_topic_index:
     pattern:  /topics
     defaults: { _controller: OjsSiteBundle:Site:topicsIndex }
 
-ojs_user_index:
-    pattern:  /user
-    defaults: { _controller: OjsSiteBundle:Site:userIndex }
 
 ojs_profile_index:
     pattern:  /profile
