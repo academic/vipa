@@ -22,6 +22,8 @@ class SampleDataCommand extends ContainerAwareCommand
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $output->writeln('<info>Adding fake data</info>');
         $application->run(new \Symfony\Component\Console\Input\StringInput('h4cc_alice_fixtures:load:sets'));
+        $output->writeln('<info>Recalculating precalculated fields</info>');
+        $application->run(new \Symfony\Component\Console\Input\StringInput('ojs:count:journals:subjects'));
         $output->writeln("\nDONE\n");
     }
 
