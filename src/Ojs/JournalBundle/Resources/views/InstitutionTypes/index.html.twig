@@ -1,15 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>InstitutionTypes list</h1>
+    <h1>{{"institutiontype.list"|trans}}</h1>
+    <a href="{{ path('institution_types_new') }}" class="btn btn-success">{{"c"|trans}}</a>
 
     <table class="records_list  table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>{{"name"|trans}}</th>
+                <th>{{"description"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,12 +33,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('institution_types_new') }}" class="btn btn-success">
-                {% trans %}c{% endtrans %}
-            </a>
-        </li>
-    </ul>
 {% endblock %}

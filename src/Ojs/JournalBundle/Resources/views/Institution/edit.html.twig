@@ -22,11 +22,11 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
-        <label class="control-label" for="fileupload">Logo</label>
+        <label class="control-label" for="fileupload">{{"logo"|trans}}</label>
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>Select image file...</span>
+                <span>{{"file.select"|trans}}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
             </span>
 

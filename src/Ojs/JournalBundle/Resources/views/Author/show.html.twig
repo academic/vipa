@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>Author <small>{% if entity.user %} Linked User : &#x3C;{{ entity.user.username }}&#x3E; {{ entity.user.email }} {%endif%}</small></h1>
+    <h1>{{"author.singular"|trans}} <small>{% if entity.user %} {{"linked.user"|trans}} : &#x3C;{{ entity.user.username }}&#x3E; {{ entity.user.email }} {%endif%}</small></h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -16,55 +16,55 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>{{"author.firstname"|trans}}</th>
                 <td>{{ entity.firstName }}</td>
             </tr>
             <tr>
-                <th>Middlename</th>
+                <th>{{"author.middlename"|trans}}</th>
                 <td>{{ entity.middleName }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>{{"author.lastname"|trans}}</th>
                 <td>{{ entity.lastName }}</td>
             </tr>
             <tr>
-                <th>Firstnametransliterated</th>
+                <th>{{"author.firstnametransliterated"|trans}}</th>
                 <td>{{ entity.firstNameTransliterated }}</td>
             </tr>
             <tr>
-                <th>Middlenametransliterated</th>
+                <th>{{"author.middlenametransliterated"|trans}}</th>
                 <td>{{ entity.middleNameTransliterated }}</td>
             </tr>
             <tr>
-                <th>Lastnametransliterated</th>
+                <th>{{"author.lastnametransliterated"|trans}}</th>
                 <td>{{ entity.lastNameTransliterated }}</td>
             </tr>
             <tr>
-                <th>Initials</th>
+                <th>{{"initials"|trans}}</th>
                 <td>{{ entity.initials }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>{{"email"|trans}}</th>
                 <td>{{ entity.email }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>{{"adress"|trans}}</th>
                 <td>{{ entity.address }}</td>
             </tr>
             <tr>
-                <th>Institutionid</th>
+                <th>{{"institution.id"|trans}}</th>
                 <td>{{ entity.institutionId }}</td>
             </tr>
             <tr>
-                <th>Country</th>
+                <th>{{"country"|trans}}</th>
                 <td>{{ entity.country }}</td>
             </tr>
             <tr>
-                <th>Summary</th>
+                <th>{{"summary"|trans}}</th>
                 <td>{{ entity.summary }}</td>
             </tr>
         </tbody>

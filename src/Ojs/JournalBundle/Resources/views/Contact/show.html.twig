@@ -5,7 +5,7 @@
     { 'title' : 'Contact Details'} ])}}
 {% endblock %}
 {% block body -%}
-    <h1>Contact</h1>
+    <h1>{{"contact"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -14,39 +14,39 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>{{"firstname"|trans}}</th>
                 <td>{{ entity.firstName }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>{{"lastname"|trans}}</th>
                 <td>{{ entity.lastName }}</td>
             </tr>
             <tr>
-                <th>Address</th>
+                <th>{{"adress"|trans}}</th>
                 <td>{{ entity.address }}</td>
             </tr>
             <tr>
-                <th>Country</th>
+                <th>{{"country"|trans}}</th>
                 <td>{{ entity.country }}</td>
             </tr>
             <tr>
-                <th>City</th>
+                <th>{{"city"|trans}}</th>
                 <td>{{ entity.city }}</td>
             </tr>
             <tr>
-                <th>Phone</th>
+                <th>{{"phone"|trans}}</th>
                 <td>{{ entity.phone }}</td>
             </tr>
             <tr>
-                <th>Fax</th>
+                <th>{{"fax"|trans}}</th>
                 <td>{{ entity.fax }}</td>
             </tr>
             <tr>
-                <th>Email</th>
+                <th>{{"email"|trans}}</th>
                 <td>{{ entity.email }}</td>
             </tr>
         </tbody>

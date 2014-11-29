@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>File Details</h1>
+    <h1>{{"file.details"|trans}}</h1>
 
     <table class="record_properties table">
         <tbody>
@@ -10,19 +10,19 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Path</th>
+                <th>{{"file.path"|trans}}</th>
                 <td><small>{{ entity.path }}</small></td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"name"|trans}}</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Mimetype</th>
+                <th>{{"mimetype"|trans}}</th>
                 <td>{{ entity.mimeType }}</td>
             </tr>
             <tr>
-                <th>Size</th>
+                <th>{{"size"|trans}}</th>
                 <td>{{ entity.size }}</td>
             </tr>
         </tbody>

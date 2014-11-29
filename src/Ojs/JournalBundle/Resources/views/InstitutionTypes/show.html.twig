@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>InstitutionTypes</h1>
+    <h1>{{"institutiontype.list"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,11 +10,11 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"name"|trans}}</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{"description"|trans}}</th>
                 <td>{{ entity.description }}</td>
             </tr>
         </tbody>
@@ -22,14 +22,10 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('institution_types') }}">
-                {% trans %}back{% endtrans %}
-            </a>
+            <a href="{{ path('institution_types') }}">{{"b"|trans}}</a>
         </li>
         <li>
-            <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}">
-                Edit
-            </a>
+            <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
         </li>
         <li>{{ form(delete_form) }}</li>
     </ul>

@@ -14,7 +14,7 @@
 {% block body -%}
     <p>
         <a href="{{ path('article_new') }}" id="create-new-article" class="btn btn-success">
-            {% trans %}c{% endtrans %}
+            {{"c"|trans}}
         </a>
     </p>
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}

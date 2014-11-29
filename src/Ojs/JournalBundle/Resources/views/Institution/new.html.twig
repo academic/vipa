@@ -20,11 +20,11 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
-        <label class="control-label" for="fileupload">Logo</label>
+        <label class="control-label" for="fileupload">{{"logo"|trans}}</label>
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>Select image file...</span>
+                <span>{{"file.select"|trans}}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
             </span>
 
@@ -33,7 +33,7 @@
         </div>
     </div>
     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-        {{ "Create"|trans }}
+        {{ "create"|trans }}
     </button>
     {{ form_end(form) }}
     {% set back_path = 'institution' %}
@@ -51,9 +51,9 @@
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#institution_logo_upload_progress').show();
-                $('#institution_logo_upload_progress').html("Uploading...");
+                $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#institution_logo_upload_progress').html("Done.");
+                $('#institution_logo_upload_progress').html("{{"done"|trans}}");
                 $('#ojs_journalbundle_institution_logo').attr('value', JSON.parse(data.result).files.name);
             });
         });

@@ -68,7 +68,7 @@
             <li class="lang dropdown">
                 <a href="#" id="languageDrop" class="dropdown-toggle"
                    data-toggle="dropdown">
-                    <i class="fa fa-plus"></i> Add language
+                    <i class="fa fa-plus"></i> {{"add.language"|trans}}
                     <span class="caret"></span>
                 </a>
                 <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
@@ -95,7 +95,7 @@
             <br>
             <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
                href="{{ path('article_submission_new') }}">
-                {% trans %}res{% endtrans %}
+                {{"res"|trans}}
             </a>
             <a class="btn btn-info btn-lg"
                onclick="javascript: OjsArticleSubmission.step1('{{ path('article_submission_step1',{'locale':'locale'}) }}');">
@@ -107,7 +107,7 @@
     <div id="step2-container" class="step hide">
         <h2>{{"article.authors"|trans}} 
             <a href="#" onclick="OjsArticleSubmission.addAuthorForm();" 
-               class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add</a>
+               class="btn btn-sm btn-info"><i class="fa fa-plus"></i> {{"add"|trans}}</a>
         </h2>
 
         <div id="step2" class="authorlist">
@@ -137,10 +137,10 @@
             <h2>{{"citations"|trans}}</h2>
             <div class="row">
                 <button class="btn btn-success" id="pasteArticleCitationInline">
-                    <i class="fa fa-edit"></i> Paste&amp;Extract Citations
+                    <i class="fa fa-edit"></i> {{"citation.paste_extract"|trans}}
                 </button>
                 <button class="btn btn-info" id="addArticleCitationInline">
-                    <i class="fa fa-plus"></i> New Citation
+                    <i class="fa fa-plus"></i> {{"citation.add"|trans}}
                 </button>
 
                 <div id="citationPasteField" style="display: block!important">
@@ -187,7 +187,7 @@
             <form class="file-item">
                 <span class="btn btn-success fileinput-button">
                     <i class="fa fa-plus"></i>
-                    <span>Select Article File</span>
+                    <span>{{"select_article_file"|trans}}</span>
                     <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
                     <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
                 </span>
@@ -254,7 +254,7 @@
 
         <script>
             window.onbeforeunload = function () {
-                return "Are you sure you want to navigate away from this page?\n\nYour changes may be lost.";
+                return "{{"sure_data_lost"|trans}}";
             };
 
             OjsCommon.api.userApikey = "{{app.user.apiKey}}";

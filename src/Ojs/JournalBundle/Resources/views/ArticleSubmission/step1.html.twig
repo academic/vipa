@@ -2,32 +2,32 @@
     <hr>
     <form class="form" role="form">
         <div class="form-group">
-            <label class="control-label">Title <span class="mandotary"></span></label>
+            <label class="control-label">{{"title"|trans}} <span class="mandotary"></span></label>
             <input name="title" id="titleintput" class="form-control"
-                   placeholder="Article's original title" value="{{article_title}}"/>
+                   placeholder="{{"article_original_title"|trans}}" value="{{article_title}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Title Transliterated</label>
+            <label class="control-label">{{"title_transliterated"|trans}}</label>
             <input id="titletransliteratedinput"
                    placeholder="You can leave blank this field if your `title` is all Latin characters."
                    name="titleTransliterated" class="form-control" value="{{article_title_trans}}" />
         </div> 
 
         <div class="form-group">
-            <label class="control-label">Subtitle</label>
+            <label class="control-label">{{"subtitle"|trans}}</label>
             <input name="subtitle" class="form-control" value="{{article_subtitle}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Keywords <span class="mandotary"></span></label>
+            <label class="control-label">{{"keywords"|trans}} <span class="mandotary"></span></label>
             <input name="keywords" class="form-control"
                    placeholder="Comma-seperated keyword list" value="{{article_keywords}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Subjects</label>
+            <label class="control-label">{{"subjects"|trans}}</label>
             <input name="subjects" class="form-control"  value="{{article_subjects}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">Abstract <span class="mandotary"></span></label>
+            <label class="control-label">{{"abstract"|trans}} <span class="mandotary"></span></label>
             <textarea name="abstract" class="editor form-control" rows="6">{{article_abstract}}</textarea>
         </div>
     </form>

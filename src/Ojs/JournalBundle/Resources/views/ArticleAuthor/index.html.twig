@@ -1,40 +1,34 @@
 {% extends '::ojsbase.html.twig' %}
-
 {% block body -%}
-<h1>ArticleAuthor list</h1>
+    <h1>{{"article_author_list"|trans}}</h1>
+    <a class="btn btn-success" href="{{ path('articleauthor_new') }}">{{"articleauthor_new"|trans}}</a>
+    <table class="table records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>{{"author_order"|trans}}</th>
+                <th>{{"author_id"|trans}}</th>
+                <th>{{"article_id"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.authorOrder }}</td>
+                    <td><a href="{{path('author_show',{id:entity.author.Id })}}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}</td>
+                    <td><a href="{{path('article_show',{id:entity.article.Id })}}">#{{ entity.article.Id }}</a> {{ entity.article.title }}</td>
+                    <td>
 
-<table class="table records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Authororder</th>
-            <th>Authorid</th>
-            <th>Articleid</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('articleauthor_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.authorOrder }}</td>
-            <td><a href="{{path('author_show',{id:entity.author.Id })}}">#{{ entity.author.Id }}</a> {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}</td>
-            <td><a href="{{path('article_show',{id:entity.article.Id })}}">#{{ entity.article.Id }}</a> {{ entity.article.title }}</td>
-            <td>
+                        {% set show_path = 'articleauthor_show' %}
+                        {% set edit_path = 'articleauthor_edit' %}
+                        {% set delete_path = 'articleauthor_delete' %}
+                        {% include '::actionbtns.html.twig' %}
 
-                {% set show_path = 'articleauthor_show' %}
-                {% set edit_path = 'articleauthor_edit' %}
-                {% set delete_path = 'articleauthor_delete' %}
-                {% include '::actionbtns.html.twig' %}
-
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<a class="btn btn-success" href="{{ path('articleauthor_new') }}">
-    Create a new entry
-</a>
-
-    {% endblock %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

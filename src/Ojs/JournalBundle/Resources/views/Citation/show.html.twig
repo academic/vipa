@@ -1,41 +1,41 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Citation</h1>
+    <h1>{{"citation"|trans}}</h1>
 
-<table class="record_properties  table">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Source</th>
-            <td>{{ entity.raw }}</td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ entity.type }}</td>
-        </tr>
-        <tr>
-            <th>Ordernum</th>
-            <td>{{ entity.orderNum }}</td>
-        </tr>
+    <table class="record_properties  table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{{"source"|trans}}</th>
+                <td>{{ entity.raw }}</td>
+            </tr>
+            <tr>
+                <th>{{"type"|trans}}</th>
+                <td>{{ entity.type }}</td>
+            </tr>
+            <tr>
+                <th>{{"order"|trans}}</th>
+                <td>{{ entity.orderNum }}</td>
+            </tr>
 
-        <tr>
-            <th>Settings</th>
-            <td>
+            <tr>
+                <th>{{"setting"|trans}}</th>
+                <td>
 
-            {% for setting in entity.settings %}
-                {{setting.setting}} - {{setting.value}}
-            {% endfor %}
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    {% for setting in entity.settings %}
+                        {{setting.setting}} - {{setting.value}}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-            {% set edit_path = 'citation_edit' %}
-            {% set back_path = 'citation' %}
-            {% set delete_path = 'citation_delete' %}
-            {% include '::actionbtns.html.twig' %}
+    {% set edit_path = 'citation_edit' %}
+    {% set back_path = 'citation' %}
+    {% set delete_path = 'citation_delete' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}
