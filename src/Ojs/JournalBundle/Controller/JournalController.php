@@ -65,7 +65,6 @@ class JournalController extends Controller
             'action' => $this->generateUrl('journal_create'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
@@ -105,7 +104,7 @@ class JournalController extends Controller
         $editForm = $this->createEditForm($entity);
         return $this->render('OjsJournalBundle:Journal:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $editForm->createView(),
         ));
     }
 
@@ -118,9 +117,8 @@ class JournalController extends Controller
     {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
         return $form;
     }
 

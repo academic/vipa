@@ -13,11 +13,66 @@
 {% block body -%}
     <h1>Journal edit</h1>
 
-    {{ form(edit_form) }}
+
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_errors(form) }}
+
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <label class="control-label" for="fileupload">Cover</label>
+
+    <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>Select image file...</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+            </span>
+
+        <div id="journal_cover_upload_progress" style="display: none" class="label label-info">
+
+        </div>
+    </div>
+    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+        {{ "Create"|trans }}
+    </button>
+    {{ form_end(form) }}
 
     <div class="record_actions">
         {% set back_path = 'journal' %}
         {% set delete_path = 'journal_delete' %}
         {% include '::actionbtns.html.twig' %} 
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileupload').fileupload({});
+            $('#fileupload').bind('fileuploadsend', function (e, data) {
+                $('#journal_cover_upload_progress').show();
+                $('#journal_cover_upload_progress').html("Uploading...");
+            }).bind('fileuploaddone', function (e, data) {
+                $('#journal_cover_upload_progress').html("Done.");
+                $('#ojs_journalbundle_journal_image').attr('value', JSON.parse(data.result).files.name);
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
 {% endblock %}
