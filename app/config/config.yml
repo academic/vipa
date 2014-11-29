@@ -20,7 +20,6 @@ framework:
         strict_requirements: ~
     form:            ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
     templating:
          {engines: ['twig'],assets_version: v3 }
         #assets_version: SomeVersionScheme
@@ -105,6 +104,9 @@ oneup_uploader:
         avatarfiles:
             enable_progress: true
             frontend: blueimp
+        institutionfiles:
+            enable_progress: true
+            frontend: blueimp
             
             
 avalanche_imagine:
@@ -124,7 +126,7 @@ avalanche_imagine:
             options: { heighten: 60 }  
         height_200:
             type:    relative_resize
-            options: { heighten: 200 }  
+            options: { heighten: 200 }
         height_60:
             type:    relative_resize
             options: { heighten: 60 } 
@@ -134,6 +136,10 @@ avalanche_imagine:
         journal_cover:
             type:    thumbnail
             options: { start: [0,0], size: [200,300], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+
+        institution_logo:
+            type:    thumbnail
+            options: { start: [0,0], size: [200,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -1,0 +1,10 @@
+Ojs\JournalBundle\Entity\Institution:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+  properties:
+    slug:
+      - NotBlank: ~
+    address:
+      - NotBlank: ~
+    email:
+      - Email: ~

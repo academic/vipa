@@ -23,7 +23,7 @@ class InstitutionController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Institution')->findAll();
 
         return $this->render('OjsJournalBundle:Institution:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -40,13 +40,12 @@ class InstitutionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('institution_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:Institution:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -63,7 +62,6 @@ class InstitutionController extends Controller
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -78,8 +76,8 @@ class InstitutionController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:Institution:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -94,7 +92,7 @@ class InstitutionController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Institution:show.html.twig', array(
-                    'entity' => $entity,));
+            'entity' => $entity,));
     }
 
     /**
@@ -109,8 +107,8 @@ class InstitutionController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -150,8 +148,8 @@ class InstitutionController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
