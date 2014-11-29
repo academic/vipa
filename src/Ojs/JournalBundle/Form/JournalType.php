@@ -40,6 +40,7 @@ class JournalType extends AbstractType
                 ->add('image')
                 ->add('scope')
                 ->add('mission')
+                ->add('slug')
                 ->add('themeId')
         ;
     }
