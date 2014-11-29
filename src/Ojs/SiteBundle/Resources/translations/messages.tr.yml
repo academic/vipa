@@ -18,6 +18,12 @@ submit: Submit
 onlineSubmission: Online Makale Gönder
 journal_home: Dergi Ana Sayfa
 topics: Konular
+save: Kaydet
+save.next: Kaydet ve Devam Et
+part: Parça
+url: Bağlantı
+username: Kullanıcı Adı
+
 
 book: Kitap
 journal: Dergi
@@ -34,8 +40,31 @@ inbook: In-book
 booklet: Kitapçık
 manual: Manual
 misc: Çeşitli/Diğer
-
+primaly_language: Primaly Language
+read.lastissue: Read Last Issue
 details: Ayrıntılar
+
 role: 
     singular: Rol
     plural: Roller
+    
+ojs: OJS
+toggle_navigation: Yönelendiriciyi Aç
+home: Ana Sayfa
+institutions: Enstitü
+journals: Dergiler
+register_journal: Dergi Kaydet
+send_article: Makale Gönder
+search: Ara
+search_query: aranacak kelimeler
+login: Giriş
+dashboard: Ana Ekran
+log_out_from_user: Kullanıcı Oturumunu Kapat
+user_page: Kullanıcı Sayfası
+profile: Profil
+log_out: Oturumu Kapat
+proxy_users: Vekil Kullanıcılar
+login_as: Gibi oturum aç
+list_my_proxys: Vekil Kullanıcılarım
+privacy: Gizlilik
+tos: Kullanım Şartları

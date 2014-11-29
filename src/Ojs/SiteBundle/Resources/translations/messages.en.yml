@@ -18,6 +18,11 @@ submit: Submit
 onlineSubmission: Online Submission
 journal_home: Journal Home Page
 topics: Topics
+save: Save
+save.next: Save and Continue
+part: Part
+url: URL
+username: User name
 
 book: Book
 journal: Journal
@@ -34,9 +39,10 @@ inbook: In-book
 booklet: Booklet
 manual: Manual
 misc: Miscellaneous
-
+primaly_language: Primaly Language
+read.lastissue: Read Last Issue
 details: Details
- 
+
 role: 
     singular: Role
     plural: Rolles
