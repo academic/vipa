@@ -121,6 +121,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $mission;
 
     /**
+     * @var string
+     * @Expose
+     */
+    private $slug;
+
+    /**
      * @var integer
      * @Expose
      */
@@ -168,6 +174,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var \Doctrine\Common\Collections\Collection
      */
     private $pages;
+
     /**
      *
      * arbitrary settings
@@ -191,6 +198,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @Expose
      */
     private $institutionId;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -246,8 +254,8 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function removePage(\Ojs\WikiBundle\Entity\Page $page)
     {
         $this->pages->removeElement($page);
-
     }
+
     /**
      * @param  \Ojs\JournalBundle\Entity\JournalSection $section
      * @return Journal
@@ -274,7 +282,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->sections;
     }
 
-     /**
+    /**
      * @param  \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
      * @return Journal
      */
@@ -785,7 +793,30 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * Get themeId
+     * Set slug
+     *
+     * @param  string $slug
+     * @return Journal
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Get theme
      *
      * @return integer
      */
@@ -988,6 +1019,5 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->bannedUsers;
     }
-
 
 }

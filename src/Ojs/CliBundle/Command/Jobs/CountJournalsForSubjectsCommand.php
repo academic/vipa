@@ -27,6 +27,18 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
         $output->writeln("<info>Counting all journals grouped by Subjects</info>\n");
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
+
+        $doctrine = $this->getContainer()->get('doctrine');
+        $em = $doctrine->getManager();
+        $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+
+        foreach ($subjects as $subject) {
+            $count = $subject->getJournals()->count();
+            $subject->setTotalJournalCount($count);
+            $em->persist($subject);
+            $em->flush();
+            echo ".";
+        }
         $application->setAutoExit(false);
     }
 
