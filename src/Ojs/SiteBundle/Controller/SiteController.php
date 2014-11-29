@@ -98,7 +98,7 @@ class SiteController extends Controller
         // TODO find only has journal(s) and count them
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
         foreach ($subjects as $subject) {
-            if ($subject->hasJournals()) {
+            if ($subject->getTotalJournalCount() > 0) {
                 $data["subjects"][] = $subject;
             }
         }
