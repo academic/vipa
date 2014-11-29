@@ -7,7 +7,7 @@
     published: '1'
     scope: <text(50)>
     subtitle: <text(100)>
-    title: <text(75)>
+    title: <text(40)>
     titleAbbr: <text(5)>
     titleTransliterated: null
     url: <url()>
