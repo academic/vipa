@@ -1,0 +1,6 @@
+status:
+    inreview: Görüşme
+    published: Yayında
+    rejected: Reddedilmiş
+    unpublished: Yayından Kaldırılmış
+    waiting: Beklemede
