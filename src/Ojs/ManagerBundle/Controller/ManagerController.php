@@ -3,13 +3,28 @@
 namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\JournalBundle\Form\JournalType;
 
 class ManagerController extends Controller
 {
 
-    public function journalSettingsAction()
+    public function journalSettingsAction($journalId = null)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$journalId) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        } else {
+            $em = $this->getDoctrine()->getManager();
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
+        $form = $this->createForm(new JournalType(), $journal, array(
+            'action' => $this->generateUrl('journal_update', array('id' => $journal->getId())),
+            'method' => 'PUT',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Update'));
+        return $this->render('OjsManagerBundle:Manager:journal_settings.html.twig', array(
+                    'journal' => $journal,
+                    'form' => $form->createView(),
+        ));
     }
 
     public function userIndexAction()

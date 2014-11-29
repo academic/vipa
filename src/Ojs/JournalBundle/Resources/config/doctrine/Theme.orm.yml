@@ -6,6 +6,9 @@ Ojs\JournalBundle\Entity\Theme:
         journalThemes: 
             targetEntity: JournalTheme
             mappedBy: theme
+        journals:
+          targetEntity: Journal
+          mappedBy: theme
     id:
         id:
             type: integer
