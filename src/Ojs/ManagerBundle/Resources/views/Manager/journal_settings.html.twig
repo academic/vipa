@@ -1,17 +1,7 @@
-{% extends "::ojsbase.html.twig" %}
+{% extends "OjsJournalBundle:Journal:edit.html.twig" %}
 
-{% block body %} 
-
-    <div class="row">
-        <div class="panel">
-            <h1><strong>{{journal.title}}</strong> Settings</h1>
-            
-            {{form(form)}}
-
-            <a href="#" class="btn btn-info">
-                <i class="fa fa-plus"></i> Save Settings
-            </a>
-        </div>
-    </div>
-
+{% block cancelbtn %} 
+    <a class="btn btn-default" href="{{path('user_show_my_journals')}}">
+        <i class="fa fa-backward"></i> {{ "Cancel"|trans }}
+    </a>
 {% endblock %}

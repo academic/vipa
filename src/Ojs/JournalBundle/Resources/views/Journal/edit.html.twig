@@ -39,10 +39,11 @@
         </div>
     </div>
     <div class="btn-group">
-        <button class="btn btn-default" href="{{path("journal")}}">
-            <i class="fa fa-backward"></i> {{ "Cancel"|trans }}
-        </button> 
-
+        {% block cancelbtn %}
+            <button class="btn btn-default" href="{{path("journal")}}">
+                <i class="fa fa-backward"></i> {{ "Cancel"|trans }}
+            </button> 
+        {%endblock%}
         <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
             {{ "Update"|trans }}
         </button>
