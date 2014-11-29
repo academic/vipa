@@ -108,7 +108,7 @@ class InstitutionController extends Controller
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
         ));
     }
 
@@ -149,7 +149,7 @@ class InstitutionController extends Controller
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
         ));
     }
 
