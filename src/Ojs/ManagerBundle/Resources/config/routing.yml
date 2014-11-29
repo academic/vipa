@@ -23,3 +23,7 @@ editor_show_my_journals:
 editor_journal_show:
     pattern: /editor/journal/{id}
     defaults: { _controller: OjsManagerBundle:Editor:showJournal}
+
+ojs_user_index:
+    pattern:  /user
+    defaults: { _controller: OjsManagerBundle:Manager:userIndex }

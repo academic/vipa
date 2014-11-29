@@ -7,6 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ManagerController extends Controller
 {
 
+    public function userIndexAction()
+    {
+        $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        if ($super_admin) {
+            return $this->redirect($this->generateUrl('dashboard_admin'));
+        }
+        return $this->render('OjsManagerBundle:User:userwelcome.html.twig');
+    }
+
     /**
      * list journal users 
      */

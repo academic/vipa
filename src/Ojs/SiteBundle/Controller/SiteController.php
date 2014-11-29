@@ -31,12 +31,6 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/anonymous_index.html.twig', $data);
     }
 
-    public function userIndexAction()
-    {
-        $data['page'] = 'user';
-        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', $data);
-    }
-
     public function browseIndexAction()
     {
         $data['page'] = 'browse';
