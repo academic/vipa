@@ -197,4 +197,24 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
         $totalJournals = $this->journals->count();
         return $totalJournals > 0;
     }
+
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
 }

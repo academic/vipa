@@ -2,6 +2,12 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
     type: entity
     table: null
     #repositoryClass: Ojs\JournalBundle\Entity\InstitutionTypesRepository
+    oneToMany:
+        institutions:
+            targetEntity: Ojs\JournalBundle\Entity\Institution
+            mappedBy: institution_type
+            fetch: EXTRA_LAZY
+            cascade: ["all"]
     id:
         id:
             type: integer
@@ -15,6 +21,14 @@ Ojs\JournalBundle\Entity\InstitutionTypes:
             gedmo:
                 - translatable
                 - versioned
+        slug:
+            type: string
+            length: 255
+            gedmo:
+              slug:
+                seperator: _
+                fields:
+                  - name
         description:
             type: text
             nullable: true
