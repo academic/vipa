@@ -4,9 +4,7 @@ services:
     kernel.listener.domain_listener:
        class: Ojs\Common\Listener\DomainListener
        arguments: 
-            - "@journal_domain"
-            - @doctrine.orm.entity_manager
-            - "%base_host%"
+            [@journal_domain, @doctrine.orm.entity_manager, %base_host%, @service_container]
        tags:
             -
                 name: kernel.event_listener
