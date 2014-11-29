@@ -26,7 +26,7 @@ class EditorController extends Controller
 
     public function myJournalsAction()
     {
-        $user_id = $this->container->get('security.context')->getToken()->getUser()->getId();
+        $user_id = $this->getUser()->getId();
         if (!$user_id) {
             throw new HttpException(403, 'There is a problem while getting user information. Access denied');
         }
