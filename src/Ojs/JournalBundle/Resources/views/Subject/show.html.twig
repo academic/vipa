@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Subject</h1>
+    <h1>{{"subject"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,11 +10,11 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Subject</th>
+                <th>{{"subject"|trans}}</th>
                 <td>{{ entity.subject }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{"description"|trans}}</th>
                 <td>{{ entity.description }}</td>
             </tr>
         </tbody>
@@ -25,7 +25,7 @@
             {{"b"|trans}}
         </a>
         <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="button">
-            {%trans%}e{%endtrans%}
+            {{"e"|trans}}
         </a>
         {{ form(delete_form) }}
     </div>

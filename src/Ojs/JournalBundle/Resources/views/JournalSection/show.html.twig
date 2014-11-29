@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalSection</h1>
+    <h1>{{"journalsection"|trans}}</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,19 +10,19 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Allowindex</th>
+                <th>{{"allow_index.list"|trans}}</th>
                 <td>{{ entity.allowIndex }}</td>
             </tr>
             <tr>
-                <th>Hidetitle</th>
+                <th>{{"hide_title"|trans}}</th>
                 <td>{{ entity.hideTitle }}</td>
             </tr>
             <tr>
-                <th>Journalid</th>
+                <th>{{"journal.id"|trans}}</th>
                 <td>
                     <a href="#">
                         <strong class="badge">{% if entity.journal%}{{ entity.journal.title }}{%endif%}</strong>
@@ -35,12 +35,12 @@
     <ul class="record_actions">
         <li>
             <a href="{{ path('admin_journal_section') }}">
-                Back to the list
+                {{"b"|trans}}
             </a>
         </li>
         <li>
             <a href="{{ path('admin_journal_section_edit', { 'id': entity.id }) }}">
-                {%trans%}e{%endtrans%}
+                {{"e"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

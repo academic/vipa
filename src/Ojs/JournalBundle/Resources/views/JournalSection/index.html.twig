@@ -1,17 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalSection list</h1>
+    <h1>{{"journalsection.list"|trans}}</h1>
 
     <table class="table records_list">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Allowindex</th>
-                <th>Hidetitle</th>
-                <th>Journalid</th>
-                <th>Actions</th>
+                <th>{{"title"|trans}}</th>
+                <th>{{"allow_index"|trans}}</th>
+                <th>{{"hide_title"|trans}}</th>
+                <th>{{"journal.id"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
                     <td>
                         <ul>
                             <li>
-                                <a href="{{ path('admin_journal_section_show', { 'id': entity.id }) }}">show</a>
+                                <a href="{{ path('admin_journal_section_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
                             </li>
                             <li>
-                                <a href="{{ path('admin_journal_section_edit', { 'id': entity.id }) }}">edit</a>
+                                <a href="{{ path('admin_journal_section_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
                             </li>
                         </ul>
                     </td>
@@ -44,7 +44,7 @@
     <ul>
         <li>
             <a href="{{ path('admin_journal_section_new') }}">
-                Create a new entry
+                {{"c"|trans}}
             </a>
         </li>
     </ul>

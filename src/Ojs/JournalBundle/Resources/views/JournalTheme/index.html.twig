@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Add Themes to Journals</h1>
+    <h1>{{"journaltheme.list"|trans}}</h1>
 
     <table class="records_list table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Journal</th>
-                <th>Theme</th>
-                <th>Actions</th>
+                <th>{{"journal"|trans}}</th>
+                <th>{{"theme"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,8 @@
                     <td>{{ entity.journalId }}</td>
                     <td>{{ entity.themeId }}</td>
                     <td>
-                        <a href="{{ path('admin_journaltheme_show', { 'id': entity.id }) }}">show</a>
-                        <a href="{{ path('admin_journaltheme_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('admin_journaltheme_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
+                        <a href="{{ path('admin_journaltheme_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
                     </td>
                 </tr>
             {% endfor %}
