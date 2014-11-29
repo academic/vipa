@@ -13,7 +13,7 @@
         <div class="col-lg-9 col-md-9 col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ journal.image }}" onerror="this.src='holder.js/200x300/#f9A497:#ffffff/text:{{journal.title}}'" class="img-responsive img-rounded float-left" alt="" />
+                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}" data-src="/holder.js/200x300/#f9A497:#ffffff/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                 </div>
 
                 <div class="col-md-8">

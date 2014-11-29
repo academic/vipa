@@ -107,6 +107,9 @@ oneup_uploader:
         institutionfiles:
             enable_progress: true
             frontend: blueimp
+        journalfiles:
+            enable_progress: true
+            frontend: blueimp
             
             
 avalanche_imagine:
@@ -136,7 +139,6 @@ avalanche_imagine:
         journal_cover:
             type:    thumbnail
             options: { start: [0,0], size: [200,300], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
-
         institution_logo:
             type:    thumbnail
             options: { start: [0,0], size: [200,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}

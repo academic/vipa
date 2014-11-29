@@ -7,10 +7,37 @@
 {% endblock %}  
 
 
-{% block body -%} 
+{% block body -%}
 
-    {{ form(edit_form) }}
 
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_errors(form) }}
+
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <label class="control-label" for="fileupload">Logo</label>
+
+    <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>Select image file...</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
+            </span>
+
+        <div id="institution_logo_upload_progress" style="display: none" class="label label-info">
+
+        </div>
+    </div>
+    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+        {{ "Create"|trans }}
+    </button>
+    {{ form_end(form) }}
     {% set back_path = 'institution' %}
     {% set delete_path = 'institution_delete' %}
     {% include '::actionbtns.html.twig' %}
