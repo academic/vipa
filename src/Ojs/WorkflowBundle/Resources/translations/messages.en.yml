@@ -1,0 +1,6 @@
+status:
+    inreview: Interview
+    published: Published
+    rejected: Rejected
+    unpublished: Unpublished
+    waiting: Waiting
