@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Theme</h1>
+    <h1>{{"theme"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,15 +10,15 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"name"|trans}}</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>{{"content"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Basetheme</th>
+                <th>{{"basetheme"|trans}}</th>
                 <td>{{ entity.isPublic }}</td>
             </tr>
         </tbody>
@@ -32,7 +32,7 @@
         </li>
         <li>
             <a href="{{ path('theme_edit', { 'id': entity.id }) }}">
-                {%trans%}e{%endtrans%}
+                {{"e"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

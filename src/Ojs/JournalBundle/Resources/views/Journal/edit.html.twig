@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>Journal edit</h1>
+    <h1>{{"journal.edit"|trans}}</h1>
 
 
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
@@ -26,11 +26,11 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
-        <label class="control-label" for="fileupload">Cover</label>
+        <label class="control-label" for="fileupload">{{"cover"|trans}}</label>
 
         <span class="btn btn-success fileinput-button form-control">
             <i class="fa fa-plus"></i>
-            <span>Select image file...</span>
+            <span>{{"file.select"|trans}}</span>
             <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
         </span>
 
@@ -41,11 +41,11 @@
     <div class="btn-group">
         {% block cancelbtn %}
             <button class="btn btn-default" href="{{path("journal")}}">
-                <i class="fa fa-backward"></i> {{ "Cancel"|trans }}
+                <i class="fa fa-backward"></i> {{ "cancel"|trans }}
             </button> 
         {%endblock%}
         <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-            {{ "Update"|trans }}
+            {{ "update"|trans }}
         </button>
     </div>
     {{ form_end(form) }}
@@ -62,9 +62,9 @@
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#journal_cover_upload_progress').show();
-                $('#journal_cover_upload_progress').html("Uploading...");
+                $('#journal_cover_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#journal_cover_upload_progress').html("Done.");
+                $('#journal_cover_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_journal_image').attr('value', JSON.parse(data.result).files.name);
             });
         });

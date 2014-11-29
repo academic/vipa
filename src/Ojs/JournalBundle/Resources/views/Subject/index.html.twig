@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Subject list</h1>
+    <h1>{{"subject.list"|trans}}</h1>
 
     <table class="records_list  table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Subject</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>{{"subject"|trans}}</th>
+                <th>{{"description"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +20,8 @@
                     <td>{{ entity.description }}</td>
                     <td>
                         <small>
-                            <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{% trans %}s{% endtrans %}</a>
-                            <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{% trans %}e{% endtrans %}</a>
+                            <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{{"s"|trans}}</a>
+                            <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{{"e"|trans}}</a>
                         </small>
                     </td>
                 </tr>
@@ -31,7 +31,7 @@
 
     <div>
         <a href="{{ path('subject_new') }}" class="btn btn-success">
-            {% trans %}c{% endtrans %}
+            {{"c"|trans}}
         </a>
     </div>
 {% endblock %}

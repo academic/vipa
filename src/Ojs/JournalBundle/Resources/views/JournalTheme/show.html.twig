@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalTheme</h1>
+    <h1>{{"journaltheme"|trans}}</h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,11 +10,11 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Journalid</th>
+                <th>{{"journal.id"|trans}}</th>
                 <td>{{ entity.journalId }}</td>
             </tr>
             <tr>
-                <th>Themeid</th>
+                <th>{{"theme.id"|trans}}</th>
                 <td>{{ entity.themeId }}</td>
             </tr>
         </tbody>
@@ -23,7 +23,7 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('admin_journaltheme') }}">
-            Back to the list
+            {{"b"|trans}}
         </a>
     </li>
     <li>

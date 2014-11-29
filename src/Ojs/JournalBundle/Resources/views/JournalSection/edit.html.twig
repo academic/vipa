@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalSection edit</h1>
+    <h1>{{"journalsection.edit"|trans}}</h1>
 
     {{ form(edit_form) }}
 
     <ul class="record_actions">
         <li>
             <a href="{{ path('admin_journal_section') }}">
-                Back to the list
+                {{"b"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

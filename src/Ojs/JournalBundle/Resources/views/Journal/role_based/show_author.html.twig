@@ -10,77 +10,77 @@ journal.show tpl for authors
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Titleabbr</th>
+                <th>{{"titleabbr"|trans}}</th>
                 <td>{{ entity.titleAbbr }}</td>
             </tr>
             <tr>
-                <th>Titletransliterated</th>
+                <th>{{"titletransliterated"|trans}}</th>
                 <td>{{ entity.titleTransliterated }}</td>
             </tr>
             <tr>
-                <th>Journal Languages</th>
+                <th>{{"journal.langs"|trans}}</th>
                 <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
             </tr>
 
             <tr>
-                <th>Subtitle</th>
+                <th>{{"subtitle"|trans}}</th>
                 <td>{{ entity.subtitle }}</td>
             </tr>
             <tr>
-                <th>Issn</th>
+                <th>ISSN</th>
                 <td>{{ entity.issn }}</td>
             </tr>
             <tr>
-                <th>Eissn</th>
+                <th>E-ISSN</th>
                 <td>{{ entity.eissn }}</td>
             </tr>
             <tr>
-                <th>Firstpublishdate</th>
+                <th>{{"firstpublishdate"|trans}}</th>
                 <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Period</th>
+                <th>{{"period"|trans}}</th>
                 <td>{{ entity.period }}</td>
             </tr>
             <tr>
-                <th>Url</th>
+                <th>{{"url"|trans}}</th>
                 <td>{{ entity.url }}</td>
             </tr>
             <tr>
-                <th>Country</th>
+                <th>{{"country"|trans}}</th>
                 <td>{{ entity.country }}</td>
             </tr>
             <tr>
-                <th>published</th>
+                <th>{{"published"|trans}}</th>
                 <td>{{ entity.published }}</td>
             </tr>
             <tr>
-                <th>Status</th>
+                <th>{{"status"|trans}}</th>
                 <td>{{ entity.status }}</td>
             </tr>
             <tr>
-                <th>Image</th>
+                <th>{{"image"|trans}}</th>
                 <td>{{ entity.image }}</td>
             </tr>
             <tr>
-                <th>Scope</th>
+                <th>{{"scope"|trans}}</th>
                 <td>{{ entity.scope }}</td>
             </tr>
             <tr>
-                <th>Mission</th>
+                <th>{{"mission"|trans}}</th>
                 <td>{{ entity.mission }}</td>
             </tr>
             <tr>
-                <th>Themeid</th>
+                <th>{{"theme.id"|trans}}</th>
                 <td>{{ entity.themeId }}</td>
             </tr>
             <tr>
-                <th>Users</th>
-                <td><a href="{{ path('ujr_show_users_ofjournal',{ 'journal_id': entity.id }) }}">Show Users</a>
+                <th>{{"users"|trans}}</th>
+                <td><a href="{{ path('ujr_show_users_ofjournal',{ 'journal_id': entity.id }) }}">{{"users"|trans}}</a>
                 </td>
             </tr>
         </tbody>

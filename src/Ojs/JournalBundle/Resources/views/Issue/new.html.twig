@@ -1,12 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Issue creation</h1>
+    <h1>{{"issue.new"|trans}}</h1>
 
+    <a class="btn btn-default" href="{{ path('issue') }}">{{"back"|trans}}</a>
     {{ form(form) }}
-
-    <hr>
-    <a class="btn btn-default" href="{{ path('issue') }}">
-        Back to the list
-    </a>
 {% endblock %}

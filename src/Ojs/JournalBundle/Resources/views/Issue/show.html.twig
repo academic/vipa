@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 {% block body -%}
-    <h1>Issue</h1>
+    <h1>{{"issue"|trans}}</h1>
     <table class="table record_properties">
         <tbody>
             <tr>
@@ -8,51 +8,51 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Journalid</th>
+                <th>{{"journal.id"|trans}}</th>
                 <td>{{ entity.journalId }}</td>
             </tr>
             <tr>
-                <th>Volume</th>
+                <th>{{"volume"|trans}}</th>
                 <td>{{ entity.volume }}</td>
             </tr>
             <tr>
-                <th>Number</th>
+                <th>{{"number"|trans}}</th>
                 <td>{{ entity.number }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{{"title"|trans}}</th>
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Cover</th>
+                <th>{{"cover"|trans}}</th>
                 <td>{{ entity.cover }}</td>
             </tr>
             <tr>
-                <th>Special</th>
+                <th>{{"special"|trans}}</th>
                 <td>{{ entity.special }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{"desc"|trans}}</th>
                 <td>{{ entity.description }}</td>
             </tr>
             <tr>
-                <th>Year</th>
+                <th>{{"year"|trans}}</th>
                 <td>{{ entity.year }}</td>
             </tr>
             <tr>
-                <th>Datepublished</th>
+                <th>{{"publishdate"|trans}}</th>
                 <td>{{ entity.datePublished|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Created</th>
+                <th>{{"created"|trans}}</th>
                 <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Updated</th>
+                <th>{{"updated"|trans}}</th>
                 <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Deletedat</th>
+                <th>{{"deleted"|trans}}</th>
                 <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>

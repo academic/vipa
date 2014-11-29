@@ -1,22 +1,22 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Issue list</h1>
-
+    <h1>{{"issue.list"|trans}}</h1>
+    <a class="btn btn-sm btn-info" href="{{ path('issue_new') }}">{{"c"|trans}}</a>
     <table class="records_listb table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Journalid</th>
-                <th>Volume</th>
-                <th>Number</th>
-                <th>Title</th>
-                <th>Cover</th>
-                <th>Special</th>
-                <th>Description</th>
-                <th>Year</th>
-                <th>Datepublished</th>
-                <th>Actions</th>
+                <th>{{"journal.id"|trans}}</th>
+                <th>{{"volume"|trans}}</th>
+                <th>{{"number"|trans}}</th>
+                <th>{{"title"|trans}}</th>
+                <th>{{"cover"|trans}}</th>
+                <th>{{"special"|trans}}</th>
+                <th>{{"description"|trans}}</th>
+                <th>{{"year"|trans}}</th>
+                <th>{{"publishdate"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -44,9 +44,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <a class="btn btn-sm btn-info" href="{{ path('issue_new') }}">
-        Create a new entry
-    </a>
-</ul>
 {% endblock %}

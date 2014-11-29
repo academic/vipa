@@ -18,19 +18,19 @@
 {% block body -%} 
     <div class="large-12 columns">
         <div class="panel">
-            <h1>Journal List</h1>
+            <h1>{{"journal.list"|trans}}</h1>
             <div class="panel">
                 <a class="btn btn-info" href="{{path('journal')}}">
-                    <i class="fa fa-asterisk" id="link-admin-all-journals"></i> All journals</a>
+                    <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{"journal.all"|trans}}</a>
                 <a class="btn btn-default" id="link-admin-my-journals" href="{{path('user_show_my_journals')}}">
-                    <i class="fa fa-user"></i> My journals</a>
+                    <i class="fa fa-user"></i> {{"journal.my"|trans}}</a>
             </div>
             <table class="records_list  table" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Issn</th>
-                        <th width="60px">Actions</th>
+                        <th>{{"title"|trans}}</th>
+                        <th>ISSN</th>
+                        <th width="60px">{{"actions"|trans}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
 
                                 {% if entity.published == 1 %}
                                     <span class="label label-success" title="published"><i class="fa fa-check"></i></span>
-                                {%else%}
+                                    {%else%}
                                     <span class="label label-danger" title="not-published"><i class="fa fa-circle-o"></i></span>
                                     {% endif %}
 
@@ -61,7 +61,7 @@
 
             <div>
                 <a href="{{ path('journal_new') }}" class="btn btn-success">
-                    {% trans %}c{% endtrans %}
+                    {{"c"|trans}}
                 </a>
             </div>
         </div> 
@@ -75,6 +75,8 @@
     <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endjavascripts %}
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
-    {% if app.user.setting('tour.admin.journal') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-        {% endjavascripts %}
-        {% endblock %}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endif %}
+    {% endjavascripts %}
+{% endblock %}

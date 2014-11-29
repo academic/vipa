@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalTheme creation</h1>
+    <h1>{{"journaltheme.new"|trans}}</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('admin_journaltheme') }}">
-            Back to the list
+            {{"b"|trans}}
         </a>
     </li>
 </ul>

@@ -27,12 +27,12 @@
     <ul class="record_actions">
         <li>
             <a href="{{ path('journalcontact') }}">
-                Back to the list
+                {{"b"|trans}}
             </a>
         </li>
         <li>
             <a href="{{ path('journalcontact_edit', { 'id': entity.id }) }}">
-                {%trans%}e{%endtrans%}
+                {{"e"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

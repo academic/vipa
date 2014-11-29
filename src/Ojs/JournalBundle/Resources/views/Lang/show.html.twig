@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>Langguage <small>{{ entity.id }}</small></h1>
+    <h1>{{"lang"|trans}} <small>{{ entity.id }}</small></h1>
 
     <table class="record_properties">
         <tbody>
@@ -10,15 +10,15 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Code</th>
+                <th>{{"lang.code"|trans}}</th>
                 <td>{{ entity.code }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"lang.name"|trans}}</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Rtl</th>
+                <th>{{"lang.rtl"|trans}}</th>
                 <td>{{ entity.rtl }}</td>
             </tr>
         </tbody>
@@ -27,12 +27,12 @@
     <ul class="record_actions">
         <li>
             <a href="{{ path('lang') }}">
-                Back to the list
+                {{"b"|trans}}
             </a>
         </li>
         <li>
             <a href="{{ path('lang_edit', { 'id': entity.id }) }}">
-                {%trans%}e{%endtrans%}
+                {{"e"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>
