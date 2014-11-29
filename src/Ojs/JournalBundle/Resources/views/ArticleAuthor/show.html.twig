@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>ArticleAuthor</h1>
+    <h1>{{"articleauthor"|trans}}</h1>
 
     <table class="table record_properties">
         <tbody>
@@ -10,21 +10,19 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Authororder</th>
+                <th>{{"author_order"|trans}}</th>
                 <td>{{ entity.authorOrder }}</td>
             </tr>
             <tr>
-                <th>Author</th>
+                <th>{{"author"|trans}}</th>
                 <td>#{{ entity.author.Id }} {{ entity.author.firstName }} {{ entity.author.middleName }} {{ entity.author.lastName }}</td>
             </tr>
             <tr>
-                <th>Article</th>
+                <th>{{"article.singular"|trans}}</th>
                 <td><a href="{{path('article_show',{id:entity.article.Id })}}">#{{ entity.article.Id }}</a> {{ entity.article.title }}</td>
             </tr>
         </tbody>
     </table>
-
-
 
     {% set back_path = 'articleauthor' %}
     {% set edit_path = 'articleauthor_edit' %}

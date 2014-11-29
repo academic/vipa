@@ -6,17 +6,20 @@
 {% endblock %} 
 
 {% block body -%} 
+
+    <a href="{{ path('contact_new') }}" class="btn btn-success">{{"c"|trans}}</a>
+
     <table class="records_list  table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Firstname</th>
-                <th>Lastname</th> 
-                <th>Country</th> 
-                <th>Phone</th> 
-                <th>Email</th>
-                <th>Actions</th>
+                <th>{{"title"|trans}}</th>
+                <th>{{"firstname"|trans}}</th>
+                <th>{{"lastname"|trans}}</th> 
+                <th>{{"country"|trans}}</th> 
+                <th>{{"phone"|trans}}</th> 
+                <th>{{"email"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -39,9 +42,5 @@
                 </tr>
             {% endfor %}
         </tbody>
-    </table>
-
-    <a href="{{ path('contact_new') }}" class="btn btn-success">
-        {% trans %}c{% endtrans %}
-    </a>  
+    </table>  
 {% endblock %}

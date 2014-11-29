@@ -9,7 +9,7 @@ read:
     article: Read Article
 citations: Citations
 editorial: Editorial
-
+sure_data_lost: Are you sure you want to navigate away from this page?\n\nYour changes may be lost.
 new: 
     link: New Link
     block: New Block

@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>ContactTypes</h1>
+    <h1>{{"contact.type"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,11 +10,11 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>{{"name"|trans}}</th>
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{"description"|trans}}</th>
                 <td>{{ entity.description }}</td>
             </tr>
         </tbody>

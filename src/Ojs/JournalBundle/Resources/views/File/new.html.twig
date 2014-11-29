@@ -11,12 +11,12 @@
 
 
 {% block body -%}
-    <h1>New File</h1>
+    <h1>{{"file.new"|trans}}</h1>
     <div class="col-md-12">
         <form action="" enctyp="multipart/form-data">
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
-                <span>Select file...</span>
+                <span>{{"file.select"|trans}}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
                 <input name="file" id="file_input" value="" type="hidden" />
             </span>
@@ -27,9 +27,7 @@
             <br>
             <div class="form-row">
 
-                <a class="btn btn-default" href="{{ path('admin_file') }}">
-                    Back to the list
-                </a>
+                <a class="btn btn-default" href="{{ path('admin_file') }}">{{"back"|trans}}</a>
             </div>
         </form>
     </div>
@@ -53,9 +51,9 @@
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#file_upload_progress').show();
-                $('#file_upload_progress').html("Uploading...");
+                $('#file_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#file_upload_progress').html("Done.");
+                $('#file_upload_progress').html("{{"done"|trans}}");
                 $('#file_input').attr('value', JSON.parse(data.result).files.name);
             });
         });

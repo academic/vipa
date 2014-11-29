@@ -2,23 +2,23 @@
 
 {% block body -%}
 
-    <h1>New Articles</h1>
+    <h1>{{"articles.new"|trans}}</h1>
 
     <div>
-        <a href="{{path('article_submission_new')}}" class="btn btn-success pull-right"> {% trans %}article.submit{% endtrans %}</a>
+        <a href="{{path('article_submission_new')}}" class="btn btn-success pull-right"> {{"article.submit"|trans}}</a>
     </div>
-    <a class="btn btn-default" href="{{path('article_submissions_me')}}">My Submissions</a>
+    <a class="btn btn-default" href="{{path('article_submissions_me')}}">{{"article.mysubmits"|trans}}</a>
     {% if isSystemAdmin() or isJournalManager()  %}
-        <a class="btn btn-default" href="{{path('article_submissions_all')}}">All Submissions</a>
+        <a class="btn btn-default" href="{{path('article_submissions_all')}}">{{"article.all"|trans}}</a>
     {% endif %}
     <table class="records_list table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Journalid</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>{{"journal.id"|trans}}</th>
+                <th>{{"title"|trans}}</th>
+                <th>{{"status"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>

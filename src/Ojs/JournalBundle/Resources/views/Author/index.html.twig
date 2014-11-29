@@ -6,17 +6,17 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>Author list</h1>
-
+    <h1>{{"author.list"|trans}}</h1>
+    <a href="{{ path('author_new') }}" class="btn btn-success">{{"author.new"|trans}}</a>
     <table class="records_list  table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Full name</th>
-                <th>Initials</th>
-                <th>Email</th> 
-                <th>Actions</th>
+                <th>{{"title"|trans}}</th>
+                <th>{{"fullname"|trans}}</th>
+                <th>{{"initials"|trans}}</th>
+                <th>{{"email"|trans}}</th> 
+                <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -37,10 +37,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-
-    <a href="{{ path('author_new') }}" class="btn btn-success">
-        {% trans %}c{% endtrans %}
-    </a>
 
 {% endblock %}

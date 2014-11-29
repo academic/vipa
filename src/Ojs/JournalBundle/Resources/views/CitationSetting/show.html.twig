@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>CitationSetting</h1>
+    <h1>{{"citation.setting"|trans}}</h1>
 
     <table class="record_properties  table">
         <tbody>
@@ -10,15 +10,15 @@
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Citationid</th>
+                <th>{{"citation.id"|trans}}</th>
                 <td>{{ entity.citationId }}</td>
             </tr>
             <tr>
-                <th>Setting</th>
+                <th>{{"citation.setting"|trans}}</th>
                 <td>{{ entity.setting }}</td>
             </tr>
             <tr>
-                <th>Value</th>
+                <th>{{"value"|trans}}</th>
                 <td>{{ entity.value }}</td>
             </tr>
         </tbody>
@@ -26,13 +26,11 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('citationsetting') }}">
-                Back to the list
-            </a>
+            <a href="{{ path('citationsetting') }}">{{"b"|trans}}</a>
         </li>
         <li>
             <a href="{{ path('citationsetting_edit', { 'id': entity.id }) }}">
-                {% trans %}e{% endtrans %}
+                {{"e"|trans}}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

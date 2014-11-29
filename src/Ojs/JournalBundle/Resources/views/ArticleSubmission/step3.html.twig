@@ -2,11 +2,11 @@
     <form class="row"> 
         <div class="col-md-1">
             <input type="number" class="form-control" style="width:80px" name="orderNum" 
-                   value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="Order">
+                   value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="{{"order"|trans}}">
         </div>
         <div class="col-md-11">
             <input type="text" class="pull-left form-control" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" 
-                   name="raw" placeholder="Citation"> 
+                   name="raw" placeholder="{{"citation"|trans}}"> 
         </div>
         <div class="col-md-12">
             <div class="btn-group pull-right" role="group">
@@ -20,7 +20,7 @@
         </div>
         <div class="citationDetails col-md-12">
             <select class="select2-element citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
-                <option value="">[Select Citation Type]</option>
+                <option value="">{{"citation.type"|trans}}</option>
                 {% for type in citationTypes %}
                     <option value="{{type.name}}" 
                             {% if citationItem is defined and citationItem.type == type.name%}

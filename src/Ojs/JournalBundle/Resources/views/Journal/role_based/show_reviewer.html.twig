@@ -88,7 +88,7 @@ journal.show tpl for reviewers
     </table>
     <div class="record_actions">
         <a href="{{ path('journal') }}" class="btn btn-primary">
-            {% trans %}back{% endtrans %}
+            {{"b"|trans}}
         </a>
         <a href="{{ path('journal_edit', { 'id': entity.id }) }}" class="btn btn-success pull-right">
             Edit
