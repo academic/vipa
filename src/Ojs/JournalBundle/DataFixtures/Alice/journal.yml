@@ -2,6 +2,7 @@
   journal{1..50}:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(50)>
+    slug (unique): <domainWord()>
     period: <randomDigit(2)>
     published: '1'
     scope: <text(50)>
@@ -10,7 +11,7 @@
     titleAbbr: <text(5)>
     titleTransliterated: null
     url: <url()>
-    subdomain: <domainWord()>
+    subdomain (unique): <domainWord()>
     institution: @institution*
     subject: 5x @subject*
     status: '3'

@@ -186,6 +186,9 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             gedmo:
                 - translatable
+        slug:
+            type: string
+            nullable: true
         themeId:
             type: integer
             column: theme_id
@@ -236,4 +239,7 @@ Ojs\JournalBundle\Entity\Journal:
         translation:
             locale: locale
         loggable: true
+    uniqueConstraints:
+        slugx:
+            columns: slug
     lifecycleCallbacks: {  }
