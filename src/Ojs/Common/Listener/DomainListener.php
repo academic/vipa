@@ -6,6 +6,7 @@ use \Ojs\Common\Model\JournalDomain;
 use \Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DomainListener
 {
@@ -13,12 +14,14 @@ class DomainListener
     private $journalDomain;
     private $em;
     private $baseHost;
+    private $container;
 
-    public function __construct(JournalDomain $journalDomain, EntityManager $em, $baseHost)
+    public function __construct(JournalDomain $journalDomain, EntityManager $em, $baseHost, ContainerInterface $container)
     {
         $this->journalDomain = $journalDomain;
         $this->em = $em;
         $this->baseHost = $baseHost;
+        $this->container = $container;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -28,7 +31,15 @@ class DomainListener
         $currentHost = $request->getHttpHost();
         $subdomain = str_replace('.' . $this->baseHost, '', $currentHost);
         if ($this->baseHost === $subdomain) {
-            // no journal selected. this url may refer a management page under baseurl.
+            $request = $this->container->get('request');
+            $routeName = $request->get('_route');
+            if ($routeName == 'ojs_journal_index') {
+                $params = $request->attributes->get('_route_params');
+                $journalId = isset($params['journal_id']) ? $params['journal_id'] : null;
+                $journal = $this->em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+            }else{
+                $journal = null;
+            }
         } else {
             // search o for subdomains or domains 
             $qb = $this->em->getRepository('OjsJournalBundle:Journal')->createQueryBuilder('do');
@@ -39,9 +50,9 @@ class DomainListener
             /**
              * @todo show human friendly error page if there is no journal for this subdomain or domain
              */
-            if ($journal) {
-                $this->journalDomain->setCurrentJournal($journal);
-            }
+        }
+        if ($journal) {
+            $this->journalDomain->setCurrentJournal($journal);
         }
     }
 
