@@ -1,0 +1,3 @@
+ojs_api_homepage:
+  pattern:  /
+  defaults: { _controller: OjsApiBundle:Default:index }

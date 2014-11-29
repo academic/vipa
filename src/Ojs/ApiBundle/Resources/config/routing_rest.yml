@@ -48,6 +48,3 @@ wiki :
   resource:     "OjsApiBundle:WikiRest"
   name_prefix:  api_
 
-ojs_api_homepage:
-  pattern:  /
-  defaults: { _controller: OjsApiBundle:Default:index }
