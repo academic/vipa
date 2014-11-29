@@ -157,7 +157,7 @@ class JournalController extends Controller
         $em->flush();
         return $this->redirect($this->generateUrl('journal'));
     }
-    
+
     public function applyAction()
     {
         return $this->render('OjsJournalBundle:Journal:apply.html.twig', array());

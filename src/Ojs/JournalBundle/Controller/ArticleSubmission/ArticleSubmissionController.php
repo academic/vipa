@@ -52,15 +52,11 @@ class ArticleSubmissionController extends Controller
      */
     public function newAction()
     {
-        $session = new Session();
-        $selectedJournalId = $session->get('selectedJournalId');
-        if (!$selectedJournalId) {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$journal) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $entity = new Article();
-        $em = $this->getDoctrine()->getManager();
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId);
-
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
                     'articleId' => NULL,
                     'entity' => $entity,
@@ -76,7 +72,7 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if($articleSubmission->getUserId() !== $this->getUser()->getId()){
+        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
@@ -95,7 +91,7 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if($articleSubmission->getUserId() !== $this->getUser()->getId()){
+        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
