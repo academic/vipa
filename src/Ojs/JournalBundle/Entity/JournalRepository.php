@@ -4,13 +4,52 @@ namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 
 class JournalRepository extends EntityRepository
 {
     private $currentPage;
     private $count;
-    private $limit = 12;
     private $filter = [];
+
+    private $start;
+    private $offset = 12;
+
+    /**
+     * @return mixed
+     */
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    /**
+     * @param mixed $offset
+     * @return $this
+     */
+    public function setOffset($offset)
+    {
+        $this->offset = $offset;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * @param mixed $start
+     * @return $this
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+        return $this;
+    }
 
     /**
      * @return array
@@ -21,11 +60,27 @@ class JournalRepository extends EntityRepository
     }
 
     /**
-     * @param array $filter
+     * @param Request $request
+     * @return $this
      */
-    public function setFilter($filter)
+    public function setFilter(Request $request)
     {
-        $this->filter = $filter;
+        $filters = [];
+        $filters['institution'] = $this->parseFilter($request->get('institution'));
+        $filters['subject'] = $this->parseFilter($request->get('subject'));
+        $this->filter = $filters;
+        return $this;
+    }
+
+    /**
+     * @param $filter
+     * @return array|null
+     */
+    public function parseFilter($filter)
+    {
+        if(empty($filter))
+            return null;
+        return explode('|', $filter);
     }
 
     /**
@@ -38,10 +93,12 @@ class JournalRepository extends EntityRepository
 
     /**
      * @param mixed $count
+     * @return $this
      */
     public function setCount($count)
     {
         $this->count = $count;
+        return $this;
     }
 
     /**
@@ -60,25 +117,10 @@ class JournalRepository extends EntityRepository
         $this->currentPage = $currentPage;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLimit()
+    public function all()
     {
-        return $this->limit;
-    }
+        $this->setCurrentPage($this->getOffset());
 
-    /**
-     * @param mixed $limit
-     */
-    public function setLimit($limit)
-    {
-        $this->limit = $limit;
-    }
-
-    public function all($page)
-    {
-        $this->setCurrentPage($page - 1);
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
             ->where(
@@ -86,34 +128,39 @@ class JournalRepository extends EntityRepository
             )
             ->setParameter('status', 3);
 
-
         if (isset($this->getFilter()['subject'])) {
-            $subject_id = $this->getFilter()['subject'];
-            $qb
-                ->join('j.subjects', 's', 'WITH', 's.id=:subject_id')
-                ->setParameter('subject_id', $subject_id);
+            $subjects = $this->getFilter()['subject'];
+            foreach($subjects as $key=>$subject){
+                $qb
+                    ->join('j.subjects', 's_'.$key, 'WITH', 's_'.$key.'.slug=:subject_'.$key)
+                    ->setParameter('subject_'.$key, $subject);
+            }
+
         }
 
         if (isset($this->getFilter()['institution'])) {
-            $instution_id = $this->getFilter()['institution'];
-            $qb
-                ->join('j.institution', 'i', 'WITH', 'i.=:institution_id')
-                ->setParameter('institution_id', $instution_id);
+            $institutions = $this->getFilter()['institution'];
+            foreach ($institutions as $key=>$institution) {
+                $qb
+                    ->join('j.institution', 'i_'.$key)
+                    ->join('i_'.$key.'.institution_type','it_'.$key,'WITH','it_'.$key.'.slug=:institution_type_slug_'.$key)
+                    ->setParameter('institution_type_slug_'.$key, $institution);
+            }
+
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
         $qb
             ->select('j')
-            ->setFirstResult($this->getCurrentPage() * $this->getLimit())
-            ->setMaxResults($this->getLimit());
-
+            ->setFirstResult($this->getStart())
+            ->setMaxResults($this->getOffset());
         return $qb->getQuery()->getResult();
     }
 
 
     public function getTotalPageCount()
     {
-        return ceil($this->getCount() / $this->getLimit());
+        return ceil($this->getCount() / $this->getOffset());
     }
 
 

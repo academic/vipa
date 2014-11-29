@@ -14,13 +14,27 @@ Ojs\JournalBundle\Entity\Institution:
           mappedBy: institution
           cascade: ["persist", "merge"]
           fetch: LAZY
+    manyToOne:
+        institution_type:
+          targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
+          joinColumn:
+            name: institution_type_id
+            referencedColumnName: id
+          inversedBy: institutions
     fields:
+        institution_type_id:
+            type: integer
+            nullable: true
         name:
             type: string
             length: 255
             gedmo:
                 - translatable
                 - versioned
+        slug:
+            type: string
+            length: 255
+            unique: true
         address:
             type: text
             nullable: TRUE
