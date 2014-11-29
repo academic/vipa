@@ -21,8 +21,13 @@ security:
             stateless: true
             security: false
             anonymous: true
+        api_home:
+            pattern: /api
+            stateless: true
+            security: false
+            anonymous: true
         api:
-            pattern: ^/api
+            pattern: ^/api/
             stateless: true
             security: true
             provider: user_db

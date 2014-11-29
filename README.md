@@ -11,7 +11,7 @@
 
 **Open Journal Systems (OJS)** is a journal management and publishing system with **Symfony 2 Framework** that has been developed by the Public Knowledge Project through its federally funded efforts to expand and improve access to research.
 
-As a company we [OkulBilişim](http://www.okulbilisim.com), analyze [PKP/OJS](http://pkp.sfu.ca/ojs/) and make it: harder, better, faster and stronger with [SF2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing).
+As a company we [OkulBilişim](http://www.okulbilisim.com), analyze [PKP/OJS](http://pkp.sfu.ca/ojs/) and make it: harder, better, faster and stronger with [SF2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing) with sponsorship of [TÜBİTAK-ULAKBİM](http://www.ulakbim.gov.tr)
 
 - please do [fork](https://github.com/okulbilisim/ojs/fork) us
 - please [open](https://github.com/okulbilisim/ojs/issues/new) an issue for improvement/feature/bug  
