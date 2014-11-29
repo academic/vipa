@@ -9,17 +9,17 @@
 {% block body -%}
     <div class="row">
         <div class="panel">
-            <h1>User list</h1>
+            <h1>{{"user.list"|trans}}</h1>
 
             <table class="records_list  table">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>IsActive</th>
-                    <th>Roles</th>
-                    <th>Actions</th>
+                    <th>{{"username"|trans}}</th>
+                    <th>{{"email"|trans}}</th>
+                    <th>{{"status"|trans}}</th>
+                    <th>{{"roles"|trans}}</th>
+                    <th>{{"actions"|trans}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,7 +65,7 @@
             </table>
 
             <a href="{{ path('user_new') }}" class="btn btn-info">
-                <i class="fa fa-plus"></i> {% trans %}c{% endtrans %}
+                <i class="fa fa-plus"></i> {{"c"|trans}}
             </a>
         </div>
     </div>
