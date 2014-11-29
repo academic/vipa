@@ -119,8 +119,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @Expose
      */
     private $mission;
-    
-    
+
     /**
      * @var string
      * @Expose
@@ -175,6 +174,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var \Doctrine\Common\Collections\Collection
      */
     private $pages;
+
     /**
      *
      * arbitrary settings
@@ -198,6 +198,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @Expose
      */
     private $institutionId;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -253,8 +254,8 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function removePage(\Ojs\WikiBundle\Entity\Page $page)
     {
         $this->pages->removeElement($page);
-
     }
+
     /**
      * @param  \Ojs\JournalBundle\Entity\JournalSection $section
      * @return Journal
@@ -281,7 +282,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->sections;
     }
 
-     /**
+    /**
      * @param  \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
      * @return Journal
      */
@@ -790,16 +791,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
         return $this;
     }
-    
-    /**
-     * Get mission
-     *
-     * @return string
-     */
-    public function getMission()
-    {
-        return $this->mission;
-    }
 
     /**
      * Set slug
@@ -822,6 +813,16 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return integer
+     */
+    public function getThemeId()
+    {
+        return $this->themeId;
     }
 
     /**
@@ -1018,6 +1019,5 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->bannedUsers;
     }
-
 
 }
