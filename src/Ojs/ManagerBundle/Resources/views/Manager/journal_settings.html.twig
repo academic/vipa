@@ -5,29 +5,11 @@
     <div class="row">
         <div class="panel">
             <h1><strong>{{journal.title}}</strong> Settings</h1>
-            <table class="records_list  table"> 
-                <tbody>
-
-                    <tr>
-                        <td>{{ entity.user.username }}</td>
-                        <td>{{ entity.user.email }}</td>
-                        <td>{{ entity.user.isActive }}</td>
-                        <td style="width: 180px">
-                            <a class="label label-info" href="{{ path("manager_journal_role_users" , { "roleId": entity.role.id } )}}">{{entity.role.role}}</a>
-                        </td>
-                        <td>
-                            {% if isSystemAdmin() %}
-                                <a class="btn-sm btn btn-info" href="/?_su={{entity.user.username}}">
-                                    <i class="fa fa-sign-in"></i>
-                                </a>
-                            {%endif%}
-                        </td>
-                    </tr> 
-                </tbody>
-            </table>
+            
+            {{form(form)}}
 
             <a href="#" class="btn btn-info">
-                <i class="fa fa-plus"></i> Add user
+                <i class="fa fa-plus"></i> Save Settings
             </a>
         </div>
     </div>

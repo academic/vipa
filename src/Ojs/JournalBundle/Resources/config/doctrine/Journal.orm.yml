@@ -9,6 +9,12 @@ Ojs\JournalBundle\Entity\Journal:
             name: institution_id
             referencedColumnName: id
           inversedBy: journals
+        theme:
+          targetEntity: Theme
+          joinColumn:
+            name: theme_id
+            referencedColumnName: id
+          inversedBy: journals
     oneToMany:
         settings:
             targetEntity: JournalSetting

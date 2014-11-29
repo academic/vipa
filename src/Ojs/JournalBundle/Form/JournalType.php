@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class JournalType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -41,7 +42,14 @@ class JournalType extends AbstractType
                 ->add('scope')
                 ->add('mission')
                 ->add('slug')
-                ->add('themeId')
+                ->add('theme', 'entity', array(
+                    'class' => 'Ojs\JournalBundle\Entity\Theme',
+                    'property' => 'title',
+                    'multiple' => true,
+                    'expanded' => false,
+                    'required' => false
+                        )
+                )
         ;
     }
 

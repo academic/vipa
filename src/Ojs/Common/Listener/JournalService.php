@@ -5,6 +5,9 @@ namespace Ojs\Common\Listener;
 use \Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Common methods for journal
+ */
 class JournalService
 {
 
@@ -12,6 +15,11 @@ class JournalService
     private $container;
     private $session;
 
+    /**
+     * 
+     * @param ContainerInterface $container
+     * @param EntityManager $em
+     */
     public function __construct(ContainerInterface $container, EntityManager $em)
     {
         $this->container = $container;
@@ -19,6 +27,10 @@ class JournalService
         $this->em = $em;
     }
 
+    /**
+     * get user's current selected journal
+     * @return Ojs\JournalBundle\Entity\Journal
+     */
     public function getSelectedJournal()
     {
         $em = $this->container->get('doctrine')->getManager();

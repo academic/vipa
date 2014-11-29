@@ -126,3 +126,6 @@ file:
        - Data Analysis
        - Data Set
        - Source Text
+       
+haveNoJournals: You have no journals
+createOne: Create new one

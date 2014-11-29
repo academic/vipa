@@ -49,29 +49,36 @@
                         {{"messages"|trans}}</a>
                 </div>
             </div>
-            
+
             {% if hasRole('ROLE_JOURNAL_MANAGER') %}
 
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{"Journal Manager"|trans}}</div>
                     <div>
                         {# Links for journal manager  #}
-                        <a class="list-group-item"  href="{{path('dashboard')}}">
-                            <i class="fa fa-cog"></i> 
-                            {{"settings"|trans}}
-                        </a>
-                        <a class="list-group-item"  href="{{path('dashboard')}}">
-                            <i class="fa fa-th"></i> 
-                            {{"journal.users"|trans}}
-                        </a>
-                        <a class="list-group-item"  href="{{path('reports_index')}}">
-                            <i class="fa fa-th"></i> 
-                            {{"reports.title"|trans}}
-                        </a>
-                        <a class="list-group-item" href="{{ url('ojs_wiki_object_pages',{object:selectedJournal().id,type:'journal'}) }}">
-                            <i class="fa fa-file-word-o"></i>
-                            {{ "Pages"|trans }}
-                        </a>
+                        {% if session('selectedJournalId') %}
+                            <a class="list-group-item"  href="{{path('manager_journal_settings',{"journalId":session('selectedJournalId')})}}">
+                                <i class="fa fa-cog"></i> 
+                                {{"settings"|trans}}
+                            </a>
+                            <a class="list-group-item"  href="{{path('dashboard')}}">
+                                <i class="fa fa-th"></i> 
+                                {{"journal.users"|trans}}
+                            </a>
+                            <a class="list-group-item"  href="{{path('reports_index')}}">
+                                <i class="fa fa-th"></i> 
+                                {{"reports.title"|trans}}
+                            </a>
+                            <a class="list-group-item" href="{{ url('ojs_wiki_object_pages',{object:selectedJournal().id,type:'journal'}) }}">
+                                <i class="fa fa-file-word-o"></i>
+                                {{ "Pages"|trans }}
+                            </a>
+                        {% else %}
+                            <a class="list-group-item list-group-item-warning" href="#">
+                                <i class="fa fa-exclamation-circle"></i>
+                                {{ "haveNoJournals"|trans }} {{"createOne"|trans}}
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endif %} 

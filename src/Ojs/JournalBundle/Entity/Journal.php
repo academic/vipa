@@ -133,6 +133,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $themeId;
 
     /**
+     * @var Theme
+     * @Expose
+     */
+    private $theme;
+
+    /**
      * @var boolean
      * @Expose
      */
@@ -816,7 +822,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * Get theme
+     * Get themeId
      *
      * @return integer
      */
@@ -834,6 +840,28 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return Theme
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Set theme
+     *
+     * @param  Theme $theme
+     * @return Journal
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
         return $this;
     }
 
