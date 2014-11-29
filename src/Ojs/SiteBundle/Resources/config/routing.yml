@@ -39,8 +39,8 @@ ojs_journal_index:
     defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
     
 ojs_journals_index:
-    pattern:  /journals/{page}
-    defaults: { _controller: OjsSiteBundle:Site:journalsIndex,page: 1 }
+    pattern:  /journals/{start}/{offset}
+    defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }
     
 ojs_last_articles_index:
     pattern:  /journal/{journal_id}/last

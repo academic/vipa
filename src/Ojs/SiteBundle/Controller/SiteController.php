@@ -83,14 +83,16 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle:Site:static/tos.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $page = 1)
+    public function journalsIndexAction(Request $request, $start=0, $offset=12)
     {
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
-        $journalRepo->setFilter($request->get('filters'));
-        $data["journals"] = $journalRepo->all($page);
+        $journalRepo->setStart($start);
+        $journalRepo->setOffset($offset);
+        $journalRepo->setFilter($request);
+        $data["journals"] = $journalRepo->all();
         $data['totalPageCount'] = $journalRepo->getTotalPageCount();
 
         $data["institution_types"] = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
@@ -105,7 +107,9 @@ class SiteController extends Controller
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'journals';
 
-        $data['currentPage'] = $page;
+        $data['currentPage'] = 1;
+        $data['offset'] = $offset;
+        $data['start'] = $start;
         return $this->render('OjsSiteBundle::Site/journals_index.html.twig', $data);
     }
 

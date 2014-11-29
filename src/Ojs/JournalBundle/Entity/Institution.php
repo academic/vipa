@@ -414,4 +414,65 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this->logo;
     }
 
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    private $institution_type;
+
+    /**
+     * @return mixed
+     */
+    public function getInstitutionType()
+    {
+        return $this->institution_type;
+    }
+
+    /**
+     * @param mixed $institution_type
+     * @return $this
+     */
+    public function setInstitutionType(InstitutionTypes $institution_type)
+    {
+        $this->institution_type = $institution_type;
+        $this->setInstitutionTypeId($institution_type->getId());
+        return $this;
+    }
+
+    private  $institution_type_id;
+
+    /**
+     * @return mixed
+     */
+    public function getInstitutionTypeId()
+    {
+        return $this->institution_type_id;
+    }
+
+    /**
+     * @param mixed $institution_type_id
+     * @return $this
+     */
+    public function setInstitutionTypeId($institution_type_id)
+    {
+        $this->institution_type_id = $institution_type_id;
+        return $this;
+    }
+
 }

@@ -14,6 +14,14 @@ Ojs\JournalBundle\Entity\Subject:
             gedmo:
                 - translatable
                 - versioned
+        slug:
+            type: string
+            length: 255
+            gedmo:
+                slug:
+                    seperator: _
+                    fields:
+                      - subject
         description:
             type: text
             nullable: TRUE
