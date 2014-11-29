@@ -68,3 +68,6 @@ services:
     ojs.user_provider.username_email:
         class: Ojs\UserBundle\Security\EmailUserProvider
         arguments: [@service_container]
+    ojs.journal_service:
+        class: Ojs\Common\Listener\JournalService
+        arguments: [ @service_container, @doctrine.orm.entity_manager ]

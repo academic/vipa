@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('OjsWikiBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('OjsWikiBundle:Default:index.html.twig');
     }
 
     public function detailAction(Request $request, $object, $type, $slug)
