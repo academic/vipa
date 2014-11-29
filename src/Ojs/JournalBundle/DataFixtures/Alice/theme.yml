@@ -8,6 +8,10 @@
     title: Demo Theme 2
     isPublic: false
   theme_public1:
-    name: demo_public_theme
-    title: Demo Public Theme
-    isPublic: false
+    name: demo_public_theme1
+    title: Demo Public Theme 1
+    isPublic: true
+  theme_public2:
+    name: demo_public_theme2
+    title: Demo Public Theme 2
+    isPublic: true
