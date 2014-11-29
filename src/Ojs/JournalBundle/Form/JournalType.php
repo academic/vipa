@@ -38,17 +38,20 @@ class JournalType extends AbstractType
                 ->add('country')
                 ->add('published')
                 ->add('status')
-                ->add('image','hidden')
+                ->add('image', 'hidden')
                 ->add('scope')
                 ->add('mission')
                 ->add('slug')
                 ->add('theme', 'entity', array(
                     'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
-                    'multiple' => true,
+                    'multiple' => false,
                     'expanded' => false,
-                    'required' => false
-                        )
+                    'required' => false,
+                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                                ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                    })
                 )
         ;
     }

@@ -28,26 +28,27 @@
     <div class="form-group">
         <label class="control-label" for="fileupload">Cover</label>
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>Select image file...</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>Select image file...</span>
+            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_cover_upload_progress" style="display: none" class="label label-info">
 
         </div>
     </div>
-    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-        {{ "Create"|trans }}
-    </button>
+    <div class="btn-group">
+        <button class="btn btn-default" href="{{path("journal")}}">
+            <i class="fa fa-backward"></i> {{ "Cancel"|trans }}
+        </button> 
+
+        <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+            {{ "Update"|trans }}
+        </button>
+    </div>
     {{ form_end(form) }}
 
-    <div class="record_actions">
-        {% set back_path = 'journal' %}
-        {% set delete_path = 'journal_delete' %}
-        {% include '::actionbtns.html.twig' %} 
-    </div>
 {% endblock %}
 
 {% block javascripts %}
