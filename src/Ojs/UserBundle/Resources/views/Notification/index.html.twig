@@ -1,17 +1,17 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Notification list</h1>
+<h1>{{ "notification.list"|trans }}</h1>
 
 <table class="records_list table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Senderid</th>
-            <th>Recipientid</th>
-            <th>Text</th>
-            <th>Isread</th>
-            <th>Level</th>
+            <th>{{ "notification.id"|trans }}</th>
+            <th>{{ "notification.sender.id"|trans }}</th>
+            <th>{{ "notification.recipient.id"|trans }}</th>
+            <th>{{ "notification.test"|trans }}</th>
+            <th>{{ "notification.isread"|trans }}</th>
+            <th>{{ "notification.level"|trans }}</th>
             <th>{{"actions"|trans}}</th>
         </tr>
     </thead>

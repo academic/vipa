@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>MailLog list</h1>
+    <h1>{{ "maillog.list" }}</h1>
 
     <table class="table records_list">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Mailobject</th>
-            <th>Recipientemail</th>
+            <th>{{ "maillog.id"|trans }}</th>
+            <th>{{ "maillog.mailobject"|trans }}</th>
+            <th>{{ "maillog.recipientemail"|trans }}</th>
             <th>{{"actions"|trans}}</th>
         </tr>
         </thead>

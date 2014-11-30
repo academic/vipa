@@ -1,28 +1,28 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>EventLog</h1>
+<h1>{{ "eventlog"|trans }}</h1>
 
 <table class="record_properties  table">
     <tbody>
         <tr>
-            <th>Id</th>
+            <th>{{ "event.id"|trans }}</th>
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Eventinfo</th>
+            <th>{{ "event.info"|trans }}</th>
             <td>{{ entity.eventInfo }}</td>
         </tr>
         <tr>
-            <th>Eventdate</th>
+            <th>{{ "event.date"|trans }}</th>
             <td>{{ entity.eventDate|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <th>Ip</th>
+            <th>{{ "event.ip"|trans }}</th>
             <td>{{ entity.ip }}</td>
         </tr>
         <tr>
-            <th>Userid</th>
+            <th>{{ "event.user.id"|trans }}</th>
             <td>{{ entity.userId }}</td>
         </tr>
     </tbody>
@@ -32,5 +32,4 @@
 <a class="btn btn-default" href="{{ path('eventlog') }}">
     {{"b"|trans}}
 </a>
-</ul>
 {% endblock %}

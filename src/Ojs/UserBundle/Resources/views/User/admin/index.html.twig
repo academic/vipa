@@ -1,8 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'Dashboard'},
-    { 'title': 'User Manager'},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'user.manager'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -15,10 +15,10 @@
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>{{"username"|trans}}</th>
-                    <th>{{"email"|trans}}</th>
-                    <th>{{"status"|trans}}</th>
-                    <th>{{"roles"|trans}}</th>
+                    <th>{{"user.username"|trans}}</th>
+                    <th>{{"user.email"|trans}}</th>
+                    <th>{{"user.status"|trans}}</th>
+                    <th>{{"user.roles"|trans}}</th>
                     <th>{{"actions"|trans}}</th>
                 </tr>
                 </thead>
@@ -49,7 +49,7 @@
 
                             {% if entity.isEnabled %}
                                 <a class="btn-xs btn btn-primary"
-                                   onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                                   onclick="return confirm('{{ "sure.ban"|trans }}');"
                                    href="{{ path('user_block', { 'id': entity.id }) }}">
                                     <i class="fa fa-ban"></i>
                                 </a>

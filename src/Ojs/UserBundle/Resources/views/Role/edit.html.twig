@@ -3,7 +3,7 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>Role edit #{{ entity.id }}</h1>
+        <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
 
     {{ form(edit_form) }}
 
@@ -16,7 +16,7 @@
 
             {{ form(delete_form) }}
 
-        </ul>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -10,7 +10,7 @@
             <div class="container" style="margin-top:60px">
                 <div class="col-md-6 col-md-offset-4">
                     <div class="panel panel-info">
-                        <div class="panel-heading"><h1 class="panel-title"><i class="fa fa-user"></i> Register</h1></div>
+                        <div class="panel-heading"><h1 class="panel-title"><i class="fa fa-user"></i> {{ "register"|trans }}</h1></div>
                         <div class="panel-body">
 
 
@@ -20,7 +20,7 @@
                                 <div class="form-group">
                                     {{ form_label(form.username) }}
                                     {{ form_widget(form.username,{ 'attr': { 'class': 'form-control' } }) }}
-                                    <span class="help-block">This will be your unique short name in application</span>
+                                    <span class="help-block">{{ "This will be your unique short name in application"|trans }}</span>
                                     {{ form_errors(form.username) }}
                                 </div>
 
@@ -53,14 +53,16 @@
                                     {{ form_errors(form.password) }}
                                 </div>
                                 <div class="form-group">
-                                    By registering you accept <a target="_blank" href="{{path('tos')}}">terms of use</a>. 
+                                    {% trans with {'%tos%': path('tos')}%}
+                                    By registering you accept <a target="_blank" href="%tos%">terms of use</a>.
+                                    {% endtrans %}
                                 </div>
 
 
                                 {{ form_widget(form._token) }}
 
                                 <button type="submit" class="btn btn-lg btn-primary pull-right">
-                                    <i class="fa fa-sign-in"></i> Register
+                                    <i class="fa fa-sign-in"></i> {{ "register"|trans }}
                                 </button>
 
                             </form>

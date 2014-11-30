@@ -13,12 +13,12 @@
                 {%if isProxy %}
                 <a class="btn btn-danger pull-right"
                    href="{{path('user_drop_proxy',{'proxyUserId':entity.id})}}">
-                    Drop Proxy User
-                </a>pr
+                    {{ "drop.proxy.user"|trans }}
+                </a>
                 {%else%}
                 <a class="btn btn-warning pull-right"
                    href="{{path('user_make_proxy',{'proxyUserId':entity.id})}}">
-                    Add as Proxy
+                    {{ "add.as.proxy"|trans }}
                 </a>
                 {%endif%}
                 {%endif%}
@@ -29,19 +29,19 @@
         <table class="record_properties  table">
             <tbody> 
                 <tr>
-                    <th>{{"Username"|trans}}</th>
+                    <th>{{"user.username"|trans}}</th>
                     <td>{{ entity.username }}</td>
                 </tr>
                 <tr>
-                    <th>{{"Email"|trans}}</th>
+                    <th>{{"user.email"|trans}}</th>
                     <td>{{ entity.email }}</td>
                 </tr>
                 <tr>
-                    <th>{{ "API Key"|trans }}</th>
-                    <td><span id="user_api_key">{{ entity.apiKey }}</span> (<a href="{{ url('regenerate_apikey') }}" rel="ajax">{{ "Regenerate API Key" }}</a>)</td>
+                    <th>{{ "user.apikey"|trans }}</th>
+                    <td><span id="user_api_key">{{ entity.apiKey }}</span> (<a href="{{ url('regenerate_apikey') }}" rel="ajax">{{ "regenerate.apikey"|trans }}</a>)</td>
                 </tr>
                 <tr>
-                    <th>{{"Roles"|trans}}</th>
+                    <th>{{"user.roles"|trans}}</th>
                     <td>
                         {% for role in entity.roles %}
                             <span class="label label-info" title="{{role.role}}">{{role.name}}</span>  <br/>

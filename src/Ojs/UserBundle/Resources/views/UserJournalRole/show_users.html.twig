@@ -3,15 +3,15 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>Users of Journal</h1>
+        <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
 {% if entities %}
         <table class="records_list  table">
             <thead>
                 <tr>
-                    <th>Userid</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>{{ "user.journalrole.user.id"|trans }}</th>
+                    <th>{{ "user.journalrole.user.username"|trans }}</th>
+                    <th>{{ "user.journalrole.email"|trans }}</th>
+                    <th>{{ "user.journalrole.role"|trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
         {%else %}
 
         <div class="alert alert-warning">
-            <p>This journal has no user.</p>
+            <p>{{ "user.journalrole.thisjournalhasnouser"|trans }}</p>
         </div>
  {%endif%}
 

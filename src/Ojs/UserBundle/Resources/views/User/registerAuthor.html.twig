@@ -2,8 +2,8 @@
 
 {% block breadcrumb %}
 {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'title': 'Register yourself as author'},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'title': 'register.yourself.as.author'|trans},
 
 ] %}
 {{breadcrumb(list)}}
@@ -13,7 +13,7 @@
 {% block body -%}
 <div class="col-md-12">
     <div class="panel panel-default">
-        <div class="panel-heading"><h3>Register Yourself as Author</h3></div>
+        <div class="panel-heading"><h3>{{ 'register.yourself.as.author'|trans }}</h3></div>
         <div class="panel-body">
             <div class="list-group alljournallist">
                 {%for entity in entities %}

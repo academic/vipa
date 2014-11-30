@@ -334,11 +334,11 @@
                                                     <tr>
                                                         <td valign="top" class="bodyContent">
                                                             <div>
-                                                                <h1 class="h1">You've joined to OJS</h1> <br/><br/>
-                                                                <h3>One More Step</h3>
-                                                                To protect your privacy, please confirm your email address by clicking the activation link
+                                                                <h1 class="h1">{{ "You've joined to OJS"|trans }}</h1> <br/><br/>
+                                                                <h3>{{ "One More Step"|trans }}</h3>
+                                                                {{ "To protect your privacy, please confirm your email address by clicking the activation link"|trans }}
                                                                 <br /><br/>
-                                                                <small>If the clicking the button below doesn't work try copying and pasting this URL to your browser window.
+                                                                <small>{{ "If the clicking the button below doesn't work try copying and pasting this URL to your browser window."|trans }}
                                                                 </small>
                                                                 <br />
                                                                 <code> <small>{{path('email_confirm',{code : user.token})}}  </small></code>
@@ -354,7 +354,7 @@
                                                                     <td valign="middle" class="templateButtonContent">
 
                                                                         <a style="color: #FFFFFF; font-family: Arial;  font-size: 15px; font-weight: bold; letter-spacing: -.5px; line-height: 100%; text-align: center;text-decoration: none;" 
-                                                                           href="http://{{base_host}}{{path('email_confirm',{code : user.token})}}" target="_blank">Activate Now</a>
+                                                                           href="http://{{base_host}}{{path('email_confirm',{code : user.token})}}" target="_blank">{{ "Activate Now"|trans }}</a>
 
                                                                     </td>
                                                                 </tr>
@@ -391,7 +391,7 @@
                                                     <tr>
                                                         <td valign="middle" id="utility">
                                                             <div>
-                                                                &nbsp;<a href="#" target="_blank">view this in your browser</a> | <a href="{{base_host}}">Main page</a>&nbsp;
+                                                                &nbsp;<a href="#" target="_blank">{{ "view this in your browser"|trans }}</a> | <a href="{{base_host}}">Main page</a>&nbsp;
                                                             </div>
                                                         </td>
                                                     </tr>

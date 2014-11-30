@@ -9,29 +9,28 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h1 class="panel-title"><i class="fa fa-key"></i> Sign in </h1>
+                        <h1 class="panel-title"><i class="fa fa-key"></i> {{ "sign.in"|trans }}</h1>
                     </div>
                     <div class="panel-body">
                         <form action="{{ path('login_check') }}" method="post">
                             {% include '::flashbag.html.twig' %}
                             <div class="form-group">
-                                <label for="username">Username or Email</label>
+                                <label for="username">{{ "username.or.email"|trans }}</label>
                                 <input tabindex="1" name="_username" value="{{ last_username }}" type="text"
                                        class="form-control" style="border-radius:0px" id="username"
-                                       placeholder="Username">
+                                       placeholder="{{ "username"|trans }}">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password
-                                    <a tabindex="3" href="/sessions/forgot_password">(forgot
-                                        password)</a></label>
+                                <label for="password">{{ "password"|trans }}
+                                    <a tabindex="3" href="/sessions/forgot_password">({{ "forgot.password"|trans }})</a></label>
                                 <input tabindex="2" name="_password" type="password" class="form-control"
-                                       style="border-radius:0px" id="password" placeholder="Password">
+                                       style="border-radius:0px" id="password" placeholder="{{ "password"|trans }}">
                             </div>
                             <button type="submit" class="btn btn-sm btn-primary pull-right">
-                                <i class="fa fa-sign-in"></i> Sign in
+                                <i class="fa fa-sign-in"></i> {{ "sign.in"|trans }}
                             </button>
                             <a href="{{ path('register') }}"
-                               class="btn btn-sm btn-default pull-left">New User</a>
+                               class="btn btn-sm btn-default pull-left">{{ "user.new"|trans }}</a>
                         </form>
                     </div>
                 </div>

@@ -3,15 +3,15 @@
 {% block body -%}
 <div class="col-md-12">
     <div class="panel">
-        <h1>Role list</h1>
+        <h1>{{ "role.list"|trans }}</h1>
 
         <table class="table table-striped" style="width: 100%">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>System Role?</th>
+                    <th>{{ "role.id"|trans }}</th>
+                    <th>{{ "role.name"|trans }}</th>
+                    <th>{{ "role.role"|trans }}</th>
+                    <th>{{ "role.issystemrole"|trans }}</th>
                     <th>{{"actions"|trans}}</th>
                 </tr>
             </thead>
