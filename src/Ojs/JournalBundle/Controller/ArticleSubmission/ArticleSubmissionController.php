@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Author;
+use \Ojs\JournalBundle\Entity\Citation;
+use \Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\Journal;
 use \Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Form\ArticleType;
@@ -172,10 +174,56 @@ class ArticleSubmissionController extends Controller
             $em->persist($articleAuthor);
             $em->flush();
         }
-        
-        // citation data
-        
 
+        // citation data
+        foreach ($articleSubmission->getCitations() as $citationData) {
+            $citation = new Citation();
+            $citation->setRaw($citationData['raw']);
+            $citation->setType($citationData['type']);
+            $citation->setOrderNum($citationData['orderNum']);
+            $em->persist($citation);
+            $em->flush();
+            unset($citationData['raw']);
+            unset($citationData['type']);
+            unset($citationData['orderNum']);
+            /// add as citation setting other 
+            foreach ($citationData as $setting => $value) {
+                $citationSetting = new CitationSetting();
+                $citationSetting->setSetting($setting);
+                $citationSetting->setValue($value);
+                $citationSetting->setCitation($citation);
+                $em->persist($citationSetting);
+                $em->flush($citationSetting);
+            }
+        }
+
+        // file data
+        foreach ($articleSubmission->getFiles() as $fileData) {
+            $file = new \Ojs\JournalBundle\Entity\File();
+            $file->setPath($fileData['article_file']);
+            $file->setName($fileData['article_file']);
+            // @todo add get mime type and name
+            $em->persist($file);
+            $em->flush();
+            $articleFile = new \Ojs\JournalBundle\Entity\ArticleFile();
+            $articleFile->setArticle($article);
+            $articleFile->setFile($file);
+
+
+            $articleFile->setTitle($fileData['title']);
+            $articleFile->setDescription($fileData['desc']);
+            $articleFile->setKeywords($fileData['keywords']);
+            $articleFile->setLangCode($fileData['lang']);
+            $articleFile->setType($fileData['type']); // @see ArticleFileParams::$FILE_TYPES
+            // article full text 
+            $articleFile->setLangCode($fileData['type'] == 0 ? $articleSubmission->getPrimaryLanguage() : $fileData['type']);
+
+            $em->persist($articleFile);
+            $em->flush();
+        }
+
+        // @todo add success/error message
+        // @todo give ref. link or code or directives to author
 
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
