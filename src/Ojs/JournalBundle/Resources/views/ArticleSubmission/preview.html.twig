@@ -32,10 +32,16 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.metadata"|trans}}</div>
-            <div class="panel panel-body">
-                {% for key,article in submissionData.articleData %}
-                    <span class="label label-info">{{key}}</span>
-                    <table class="table">
+            <div class="panel panel-body table-responsive">
+                <table class="table table-striped">
+
+                    {% for key,article in submissionData.articleData %}
+                        <tr>
+                            <td colspan="2">
+                                <br>
+                                <span class="label label-info">{{key}}</span>
+                            </td>
+                        </tr>
                         <tr>
                             <td>{{"title"|trans}}</td>
                             <td>{{article.title}}</td>
@@ -56,20 +62,26 @@
                             <td>{{"subjects"|trans}}</td>
                             <td>{{article.subjects}}</td>
                         </tr>
-                    </table>
-                    <hr>
-                {%endfor%}
+                        <tr>
+                            <td>{{"abstract"|trans}}</td>
+                            <td>{{article.abstract}}</td>
+                        </tr>
+                    {%endfor%}
+                </table>
+
             </div>
+            <div class="panel-footer"></div>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.authors"|trans}}</div>
-            <div class="panel panel-body">
-                {% for key,author in submissionData.authors %}
-                    <table class="table">
+            <div class="panel panel-body table-responsive">
+                <table class="table table-condensed">
+                    {% for key,author in submissionData.authors %}
                         <tr>
-                            <td>{{"author.order"|trans}}</td>
-                            <td>{{author.order}}</td>
+                            <td colspan="2">
+                                <br>
+                                <span class="label label-info">{{author.order}}</span></td>
                         </tr>
                         <tr>
                             <td>{{"author.initials"|trans}}</td>
@@ -95,12 +107,11 @@
                             <td>{{"author.summary"|trans}}</td>
                             <td>{{author.summary}}</td>
                         </tr>
-                    </table>
-                    <hr>
-                {%endfor%}
 
-
+                    {%endfor%}
+                </table>
             </div>
+            <div class="panel-footer"></div>
         </div>
 
         <div class="panel panel-default">
@@ -116,11 +127,12 @@
                     <hr>
                 {%endfor%}
             </div>
+            <div class="panel-footer"></div>
         </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.files"|trans}}</div>
-            <div class="panel panel-body">
+            <div class="panel panel-body table-responsive">
                 {% for key,file  in submissionData.files %}
                     <table class="table">
                         <tr>
@@ -140,12 +152,22 @@
                     <hr>
                 {%endfor%}
             </div>
-        </div>
-        <a class="btn btn-info btn-lg pull-right"
-           onclick="javascript: OjsArticleSubmission.submit('{{ path('article_submission_step4') }}');">
-            {{ "article.submit"|trans }}
-            <i class="fa fa-check"></i>
-        </a>
+            <div class="panel-footer"></div>
+        </div>           
+        <form action="{{ path('article_submission_finish') }}" method="POST">
+            <input type="hidden" name="submissionId" value="{{submissionId}}">
+            <div class="btn-group pull-right">
+                <a class="btn btn-lg btn-default" href="{{path('article_submission_resume',{'submissionId':submissionId})}}">
+                    <i class="fa fa-backward"></i> Back & Continue Editing
+                </a>
+                <button class="btn btn-primary btn-lg"
+                        onclick="javascript: OjsArticleSubmission.submit('');">
+                    {{ "article.submit"|trans }}
+                    <i class="fa fa-check"></i>
+                </button>
+            </div>
+        </form>
+
     </div>
 {% endblock %}
 
