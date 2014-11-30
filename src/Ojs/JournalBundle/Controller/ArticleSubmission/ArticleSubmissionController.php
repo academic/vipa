@@ -6,6 +6,9 @@ use Ojs\Common\Params\ArticleFileParams;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Journal;
+use \Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Form\ArticleType;
 use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -102,106 +105,79 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a Article entity.
-     *
-     */
-    public function showAction($id)
+    public function finishAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojs\JournalBundle\Entity\Article */
-        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        $this->throw404IfNotFound($entity);
-
-        return $this->render('OjsJournalBundle:Article:show.html.twig', array(
-                    'entity' => $entity));
-    }
-
-    /**
-     * Displays a form to edit an existing Article entity.
-     *
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        $this->throw404IfNotFound($entity);
-        $editForm = $this->createEditForm($entity);
-
-        return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView()
-        ));
-    }
-
-    /**
-     * Creates a form to edit a Article entity.
-     *
-     * @param Article $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(Article $entity)
-    {
-        $form = $this->createForm(new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-
-    /**
-     * Edits an existing Article entity.
-     *
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        $this->throw404IfNotFound($entity);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
+        $submissionId = $request->get('submissionId');
+        if (!$submissionId) {
+            throw $this->createNotFoundException("Submission not found");
         }
-
-        return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView()
-        ));
-    }
-
-    /**
-     * Deletes a Article entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        $this->throw404IfNotFound($entity);
-        $em->remove($entity);
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException("Access denied!");
+        }
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+
+        if (!$journal) {
+            throw $this->createNotFoundException('Journal not found');
+        }
+        $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
+
+        /* article submission data will be moved from mongdb to mysql */
+        $articleData = $articleSubmission->getArticleData();
+        $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
+
+        // article primary data
+        $article = new Article();
+        $article->setPrimaryLanguage($articleSubmission->getPrimaryLanguage());
+
+        $article->setJournalId($articleSubmission->getJournalId());
+        $article->setTitle($articlePrimaryData['title']);
+        $article->setTitleTransliterated($articlePrimaryData['titleTransliterated']);
+        $article->setAbstract($articlePrimaryData['abstract']);
+        $article->setKeywords($articlePrimaryData['keywords']);
+        $article->setSubjects($articlePrimaryData['subjects']);
+        $article->setSubtitle($articlePrimaryData['title']);
+
+        // article data for other languages if provided
+        unset($articleData[$articleSubmission->getPrimaryLanguage()]);
+        foreach ($articleData as $locale => $data) {
+            $translationRepository->translate($article, 'title', $locale, $data['title'])
+                    ->translate($article, 'titleTransliterated', $locale, $data['titleTransliterated'])
+                    ->translate($article, 'abstract', $locale, $data['abstract'])
+                    ->translate($article, 'keywords', $locale, $data['keywords'])
+                    ->translate($article, 'subjects', $locale, $data['subjects'])
+                    ->translate($article, 'title', $locale, $data['title']);
+        }
+        $em->persist($article);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('article'));
-    }
+        // author data
+        foreach ($articleSubmission->getAuthors() as $authorData) {
+            $author = new Author();
+            $author->setEmail($authorData['email']);
+            $author->setTitle($authorData['title']);
+            $author->setInitials($authorData['initials']);
+            $author->setFirstName($authorData['firstName']);
+            $author->setLastName($authorData['lastName']);
+            $author->setMiddleName($authorData['middleName']);
+            $author->setSummary($authorData['summary']);
+            $em->persist($author);
+            $em->flush();
+            $articleAuthor = new ArticleAuthor();
+            $articleAuthor->setArticle($article);
+            $articleAuthor->setAuthorOrder($authorData['order']);
+            $articleAuthor->setAuthor($author);
+            $em->persist($articleAuthor);
+            $em->flush();
+        }
+        
+        // citation data
+        
 
-    /**
-     * Creates a form to delete a Article entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        $formHelper = new CommonFormHelper();
 
-        return $formHelper->createDeleteForm($this, $id, 'article_delete');
+        return $this->redirect($this->generateUrl('ojs_user_index'));
     }
 
 }
