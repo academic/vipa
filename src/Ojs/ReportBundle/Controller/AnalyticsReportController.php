@@ -4,12 +4,12 @@ namespace Ojs\ReportBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ReportController extends Controller
+class AnalyticsReportController extends Controller
 {
 
     public function indexAction()
     {
-        return $this->render('OjsReportBundle::index.html.twig');
+        return $this->render('OjsReportBundle:analytics:index.html.twig');
     }
 
 }

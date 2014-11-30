@@ -1,0 +1,26 @@
+{% extends '::ojsbase.html.twig' %}
+
+
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                { 'title': 'Reports'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+
+{% block body -%} 
+    <div class="col-md-12">
+
+        <a class="btn btn-lg btn-default" href="{{path("user_reports")}}">
+            <i class="fa fa-users"></i> {{"reports.user"|trans }}
+        </a>
+        <a class="btn btn-lg btn-default" href="{{path("article_reports")}}">
+            <i class="fa fa-file"></i> {{"reports.article"|trans }}
+        </a>
+        <a class="btn btn-lg btn-default" href="{{path("analytics_reports")}}">
+            <i class="fa fa-line-chart"></i> {{"reports.analytics"|trans }}
+        </a>
+    </div>
+{% endblock %}

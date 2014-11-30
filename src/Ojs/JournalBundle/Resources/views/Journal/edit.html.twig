@@ -13,7 +13,6 @@
 {% block body -%}
     <h1>{{"journal.edit"|trans}}</h1>
 
-
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
