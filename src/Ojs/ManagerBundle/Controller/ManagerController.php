@@ -20,7 +20,6 @@ class ManagerController extends Controller
             'action' => $this->generateUrl('journal_update', array('id' => $journal->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
         return $this->render('OjsManagerBundle:Manager:journal_settings.html.twig', array(
                     'journal' => $journal,
                     'form' => $form->createView(),

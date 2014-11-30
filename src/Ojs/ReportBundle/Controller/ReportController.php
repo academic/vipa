@@ -9,7 +9,7 @@ class ReportController extends Controller
 
     public function indexAction()
     {
-        return $this->render('OjsReportBundle:Default:index.html.twig');
+        return $this->render('OjsReportBundle::index.html.twig');
     }
 
 }

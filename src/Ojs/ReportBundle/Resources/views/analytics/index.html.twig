@@ -5,23 +5,25 @@
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 { 'title': 'Reports'}
+                { 'title': 'Analytics Reports'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 
 {% block body -%} 
-    <div class="col-md-12">
-        <h2>Reports</h2>
+    <div class="col-md-12"> 
 
         <a class="btn btn-lg btn-default" href="{{path("user_reports")}}">
-            <i class="fa fa-users"></i> {{"reports.user"|trans }}
+            <i class="fa fa-eye"></i> {{"reports.analytics-view"|trans }}
         </a>
         <a class="btn btn-lg btn-default" href="{{path("article_reports")}}">
-            <i class="fa fa-file"></i> {{"reports.article"|trans }}
+            <i class="fa fa-download"></i> {{"reports.analytics-download"|trans }}
         </a>
         <a class="btn btn-lg btn-default" href="{{path("analytics_reports")}}">
-            <i class="fa fa-line-chart"></i> {{"reports.analytics"|trans }}
+            <i class="fa fa-line-chart"></i> {{"reports.analytics-bookmark"|trans }}
         </a>
+        
+        {# @todo a summary analytics chart should be added here #}
     </div>
 {% endblock %}
