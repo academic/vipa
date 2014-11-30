@@ -13,11 +13,15 @@ article_submission_new:
 article_submission_resume:
     pattern:  /author/article/submit/resume/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:resume" }
+ 
+article_submission_finish:
+    pattern:  /author/article/submit/finish/
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:finish" }
+    requirements: { _method: post }
 
 article_submission_preview:
     pattern:  /author/article/submit/preview/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:preview" }
-
 
 
 article_submission_addlocale:

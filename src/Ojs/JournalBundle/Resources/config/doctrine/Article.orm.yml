@@ -190,6 +190,8 @@ Ojs\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+        - translatable
     uri:
       length: 255
       type: string
