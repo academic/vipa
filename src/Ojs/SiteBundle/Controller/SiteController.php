@@ -130,6 +130,8 @@ class SiteController extends Controller
         $this->throw404IfNotFound($data['journal']);
         $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
         $data['page'] = 'articles';
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+        
         return $this->render('OjsSiteBundle::Site/last_articles_index.html.twig', $data);
     }
 
