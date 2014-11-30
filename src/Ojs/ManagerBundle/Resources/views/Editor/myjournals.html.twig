@@ -3,13 +3,13 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>My Journals</h1>
+        <h1>{{"journal.my"|trans}}</h1>
 {% if entities %}
         <table class="records_list  table">
             <thead>
                 <tr>
                     <th>{{"journal"|trans}}</th>
-                    <th>Role</th>
+                    <th>{{"role.singuler"|trans}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,7 +30,7 @@
 {%else %}
 
         <div class="alert alert-warning">
-            <p>You have no journal.</p>
+            <p>{{"journal.nothave"|trans}}</p>
         </div>
  {%endif%}
     </div>

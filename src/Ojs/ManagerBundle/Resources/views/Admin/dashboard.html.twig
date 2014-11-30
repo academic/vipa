@@ -1,36 +1,35 @@
 {% extends "::ojsbase.html.twig" %}
 
 {% block body %}
-    <h1>Admin Dashboard</h1>
+    <h1>{{"dashboard.admin"|trans}}</h1>
 
     <div class="col-md-6">
-        <a href="{{path("dashboard_editor")}}"><strong>Editor Dashboard</strong></a>
+        <a href="{{path("dashboard_editor")}}"><strong>{{"dashboard.editor"|trans}}</strong></a>
 
-        <h2>Objects</h2>
+        <h2>{{"dashboard.objects"|trans}}</h2>
 
         <ul class="list-group">
 
-            <li class="list-group-item"><a href="{{path('article')}}">Articles</a></li>
-            <li class="list-group-item"><a href="{{path('author')}}">Authors</a></li>
-            <li class="list-group-item"><a href="{{path('contact')}}">Contacts</a></li>
-            <li class="list-group-item"><a href="{{path('contacttypes')}}">Contact Types</a></li>
-            <li class="list-group-item"><a href="{{path('institution')}}">Institutions</a></li>
-            <li class="list-group-item"><a href="{{path('institution_types')}}">Institution Types</a></li>
-            <li class="list-group-item"><a href="{{path('issue')}}">Issues</a></li>
-            <li class="list-group-item"><a href="{{path('journal')}}">Journals</a></li>
-            <li class="list-group-item"><a href="{{path('subject')}}">Subjects</a></li>
-            <li class="list-group-item"><a href="{{path('lang')}}">System Languages</a></li>
-            <li class="list-group-item"><a href="{{path('theme')}}">Themes</a></li>
-            <li class="list-group-item"><a href="{{path('admin_journaltheme')}}">Journal Themes</a></li>
+            <li class="list-group-item"><a href="{{path('article')}}">{{"article.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('author')}}">{{"author.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('contact')}}">{{"contact.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('contacttypes')}}">{{"contacttype.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('institution')}}">{{"institution.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('institution_types')}}">{{"institutiontype.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('issue')}}">{{"issue.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('journal')}}">{{"journal.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('subject')}}">{{"subject.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('lang')}}">{{"lang.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('theme')}}">{{"theme.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('admin_journaltheme')}}">{{"journal.theme"|trans}}</a></li>
         </ul>
     </div>
 
     <div class="col-md-6">
-        <h2>System Operations</h2>
+        <h2>{{"dashobard.operations"|trans}}</h2>
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{path('user')}}">Users</a></li>
-            <li class="list-group-item"><a href="{{path('role')}}">Roles</a></li>
-
+            <li class="list-group-item"><a href="{{path('user')}}">{{"user.plural"|trans}}</a></li>
+            <li class="list-group-item"><a href="{{path('role')}}">{{"role.plural"|trans}}</a></li>
         </ul>
     </div>
 
