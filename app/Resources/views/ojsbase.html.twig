@@ -14,7 +14,7 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
             {% if journalTheme() %}
-                <link rel="stylesheet" href="/assets/theme/{{ journalTheme() }}/css/main.css" />
+                <link rel="stylesheet" href="/assets/theme/{{ journalTheme() }}/css/style.css" />
             {% endif %}
             
         {% endblock %}
@@ -76,6 +76,9 @@
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
+        {% if journalTheme() %}
+            <script type="text/javascript" src="/assets/theme/{{ journalTheme() }}/js/main.js"></script>
+            {% endif %}
     {% endblock %}
 </body>
 </html>
