@@ -25,7 +25,7 @@ class UploadListener
         $filePath = $file->getPathName();
         $fileName = $file->getFileName();
         $fileSize = $file->getSize();
-
+        $fileMimeType = $file->getMimeType();
         // move to folder or create a nested folder structure
         $fileHelper = new FileHelper();
         $uploadRootPath = $this->rootDir . '/../web/uploads/' . $uploadType . '/';
@@ -48,7 +48,8 @@ class UploadListener
         $response['files'] = array(
             'name' => $file->getFileName(),
             'size' => $fileSize,
-            'url' => ''
+            'url' => '',
+            'mimeType'=> $fileMimeType
         );
 
         return $response;
