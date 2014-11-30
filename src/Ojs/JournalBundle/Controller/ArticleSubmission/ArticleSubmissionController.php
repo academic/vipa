@@ -202,6 +202,9 @@ class ArticleSubmissionController extends Controller
             $file = new \Ojs\JournalBundle\Entity\File();
             $file->setPath($fileData['article_file']);
             $file->setName($fileData['article_file']);
+            $file->setMimeType($fileData['article_file_mime_type']);
+            $file->setSize($fileData['article_file_size']);
+
             // @todo add get mime type and name
             $em->persist($file);
             $em->flush();
@@ -210,21 +213,26 @@ class ArticleSubmissionController extends Controller
             $articleFile->setFile($file);
 
 
-            $articleFile->setTitle($fileData['title']);
-            $articleFile->setDescription($fileData['desc']);
-            $articleFile->setKeywords($fileData['keywords']);
-            $articleFile->setLangCode($fileData['lang']);
+            if ($fileData['type'] != 0) {
+                $articleFile->setTitle($fileData['title']);
+                $articleFile->setDescription($fileData['desc']);
+                $articleFile->setKeywords($fileData['keywords']);
+                $articleFile->setLangCode($fileData['lang']);
+            } else {
+                $articleFile->setLangCode($articleSubmission->getPrimaryLanguage());
+            }
+            $articleFile->setVersion(1);
             $articleFile->setType($fileData['type']); // @see ArticleFileParams::$FILE_TYPES
             // article full text 
-            $articleFile->setLangCode($fileData['type'] == 0 ? $articleSubmission->getPrimaryLanguage() : $fileData['type']);
 
             $em->persist($articleFile);
             $em->flush();
         }
 
-        // @todo add success/error message
-        // @todo give ref. link or code or directives to author
+        $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
 
+        // @todo give ref. link or code or directives to author 
+        $articleSubmission->setSubmitted(1);
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
 

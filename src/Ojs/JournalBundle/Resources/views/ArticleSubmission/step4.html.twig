@@ -1,6 +1,4 @@
 <form class="form-horizontal file-item" role="form">
-    <br>
-    <hr>
     <div class="col-md-12">
         <select name="type" class="select2-element">
             {% for key,type in fileTypes %}
@@ -39,6 +37,9 @@
             <span>{{"select_supplementary_article_file"|trans}}</span>
             <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
             <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
+            <input name="article_file_mime_type" value="" type="hidden"/>
+            <input name="article_file_size" value="" type="hidden"/>
+
         </span>
         <span class="upload_progress label label-info" style="display: none"></span>
     </div>

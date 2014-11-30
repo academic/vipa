@@ -73,6 +73,11 @@ class ArticleSubmissionProgress
     protected $files;
 
     /**
+     * @MongoDB\Boolean
+     */
+    protected $submitted = 0;
+
+    /**
      * Get id
      *
      * @return id $id
@@ -344,6 +349,28 @@ class ArticleSubmissionProgress
     public function getPrimaryLanguage()
     {
         return $this->primary_language;
+    }
+
+    /**
+     * Set submitted
+     *
+     * @param boolean $submitted
+     * @return self
+     */
+    public function setSubmitted($submitted)
+    {
+        $this->submitted = $submitted;
+        return $this;
+    }
+
+    /**
+     * Get submitted
+     *
+     * @return boolean $submitted
+     */
+    public function getSubmitted()
+    {
+        return $this->submitted;
     }
 
 }
