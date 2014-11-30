@@ -145,6 +145,8 @@ class SiteController extends Controller
         }
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+        
         return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
 
