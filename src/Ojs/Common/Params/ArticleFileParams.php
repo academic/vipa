@@ -5,13 +5,14 @@ namespace Ojs\Common\Params;
 class ArticleFileParams
 {
     public static $FILE_TYPES = array(
-        0 => 'Research Instrument',
-        1 => 'Research Materials',
-        2 => 'Research Results',
-        3 => 'Transcripts',
-        4 => 'Data Analysis',
-        5 => 'Data Set',
-        6 => 'Source Text'
+        0 => 'Full Text',
+        1 => 'Research Instrument',
+        2 => 'Research Materials',
+        3 => 'Research Results',
+        4 => 'Transcripts',
+        5 => 'Data Analysis',
+        6 => 'Data Set',
+        7 => 'Source Text'
     );
 
     public static function fileType($typeNum)

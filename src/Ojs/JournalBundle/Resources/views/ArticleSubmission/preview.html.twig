@@ -137,7 +137,7 @@
                     <table class="table">
                         <tr>
                             <td>
-                                {% if file.type is defined %} 
+                                {% if file.type != 0%} 
                                     <span class="badge">
                                         {{("file.types."~file.type~"")|trans}}
                                     </span> 
