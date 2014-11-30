@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'title': 'Reports'}
+                { 'title': 'Reports', 'link': path('reports_index') },
                 { 'title': 'Analytics Reports'}
 ] %}
     {{breadcrumb(list)}}
