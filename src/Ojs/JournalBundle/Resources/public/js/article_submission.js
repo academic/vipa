@@ -249,7 +249,10 @@ var OjsArticleSubmission = {
             $(this).parent().next('.upload_progress').html("Uploading...");
         }).bind('fileuploaddone', function (e, data) {
             $(this).parent().next('.upload_progress').html("Done.");
-            $('.filename', $(this).parent()).attr('value', JSON.parse(data.result).files.name);
+            $obj = JSON.parse(data.result);
+            $('.filename', $(this).parent()).attr('value', $obj.files.name);
+            $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.size);
+            $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.mimeType);
         });
     },
     setupUi: function () {
