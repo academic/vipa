@@ -6,15 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalType extends AbstractType
-{
+class JournalType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('title')
                 ->add('titleAbbr')
@@ -32,7 +30,13 @@ class JournalType extends AbstractType
                 ->add('domain')
                 ->add('issn')
                 ->add('eissn')
-                ->add('firstPublishDate')
+                ->add('firstPublishDate', 'datetime', array(
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text',
+                    'date_format' => 'yyyy-MM-dd',
+                    'with_seconds' => true,
+                    'data' => new \DateTime()
+                ))
                 ->add('period')
                 ->add('url')
                 ->add('country')
@@ -59,8 +63,7 @@ class JournalType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Journal'
         ));
@@ -69,8 +72,7 @@ class JournalType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'ojs_journalbundle_journal';
     }
 
