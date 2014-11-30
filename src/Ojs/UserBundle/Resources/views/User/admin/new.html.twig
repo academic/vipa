@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('user'), 'title': 'User Manager'},
-                { 'title': 'New User '},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                { 'link': path('user'), 'title': 'user.manager'|trans},
+                { 'title': 'user.new'|trans},
 
 ] %}
     {{breadcrumb(list)}}
@@ -22,14 +22,14 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{% trans %}user.new{% endtrans %}</h1>
+            <h1>{{ "user.new"|trans }}</h1>
 
             {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
             {{ form_errors(form) }}
 
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
-                <span>Select image file...</span>
+                <span>{{ "select.image.file"|trans }}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
                 <input name="user_avatar" id="avatar_input" value="" type="hidden" />
             </span>
@@ -65,9 +65,9 @@
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#avatar_upload_progress').show();
-                $('#avatar_upload_progress').html("Uploading...");
+                $('#avatar_upload_progress').html("{{ "uploading"|trans }}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#avatar_upload_progress').html("Done.");
+                $('#avatar_upload_progress').html("{{ "done"|trans }}");
                 $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
             });
         });

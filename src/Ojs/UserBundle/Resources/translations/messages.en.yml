@@ -1,0 +1,107 @@
+event.id: ID
+event.info: 'Event Info'
+event.date: 'Event Date'
+event.ip: IP
+event.user.id: 'User ID'
+actions: Actions
+eventlog: Eventlog
+maillog.edit: 'Maillog Edit'
+maillog.id: ID
+maillog.mailobject: 'Mail Object'
+maillog.recipientemail: 'Recipient Email'
+'You''ve joined to OJS': 'You`ve joined to OJS'
+'One More Step': 'One More Step'
+'To protect your privacy, please confirm your email address by clicking the activation link': 'To protect your privacy, please confirm your email address by clicking the activation link'
+'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'If the clicking the button below doesn`t work try copying and pasting this URL to your browser window.'
+'Activate Now': 'Activate Now'
+'view this in your browser': 'view this in your browser'
+notification.edit: 'Edit Notification'
+notification.list: 'List Notifications'
+notification.id: ID
+notification.sender.id: 'Sender ID'
+notification.recipient.id: 'Recipient ID'
+notification.test: 'Notification Test'
+notification.isread: 'Is Read?'
+notification.level: Level
+notification.creation: 'Notification Creation'
+notification.singular: Notification
+notification.entity.id: 'Entity ID'
+notification.entity.name: 'Entity Name'
+notification.subject: Subject
+notification.verb: Verb
+proxy.edit: 'Edit Proxy'
+proxy.list: 'Proxy List'
+proxy.id: ID
+proxy.proxy.user.id: 'Proxy User Id'
+proxy.client.user.id: 'Client User Id'
+proxy.creation: 'Proxy Creation'
+proxy.singular: Proxy
+proxy.clients.list: 'List Proxy Clients'
+proxy.target.user.username: 'Target Username'
+proxy.target.user.email: 'Target User Email'
+proxy.lastlogin: 'Last Login'
+proxy.your.proxy.user.list: 'Your Proxy User List'
+proxy.username: Username
+proxy.user.email: Email
+proxy.end.time: 'End Time'
+drop: Drop
+update.ttl: 'Update TTL'
+cancel: Cancel
+role.edit: 'Edit Role'
+role.list: 'Role List'
+role.id: ID
+role.name: Name
+role.role: Role
+role.issystemrole: 'Is System Role?'
+role.new: 'New Role'
+role.singular: Role
+role.users: 'Role Users'
+sign.in: 'Sign In'
+username.or.email: 'Username Or Email'
+username: Username
+password: Password
+forgot.password: 'forgot password'
+user.new: 'New User'
+register: Register
+'This will be your unique short name in application': 'This will be your unique short name in application'
+'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
+unconfirmed.user: 'Unconfirmed User'
+user.manager: 'User Manager'
+user.edit: 'User Edit'
+uploading: Uploading...
+done: Done.
+user.list: 'User List'
+user.username: Username
+user.email: Email
+user.status: Status
+user.roles: Roles
+sure.ban: 'Are you sure for ban user ?'
+select.image.file: 'Select Image File...'
+user.show: 'Show User'
+user.id: ID
+user.subjects: Subjects
+drop.proxy.user: 'Drop Proxy User'
+add.as.proxy: 'Add As Proxy'
+user.apikey: 'API Key'
+regenerate.apikey: 'Regenerate APIKEY'
+register.yourself.as.author: 'Register Yourself As Author'
+user.journalrole.edit: 'Edit Journal Role'
+user.journalrole.list: 'Journal Role List'
+user.journalrole.id: ID
+user.journalrole.user: User
+user.journalrole.journal: Journal
+user.journalrole.role: Role
+user.journalrole.creation: 'Journal Role Creation'
+user.journalrole.singular: 'Journal Role'
+user.journalrole.journals.of.user: 'Journals Of User'
+user.journalrole.journal.id: ID
+user.journalrole.journal.name: Name
+user.journalrole.myjournals: 'My Journals'
+user.journalrole.alljournals: 'All Journals'
+journal.singular: Journal
+user.journalrole.youhavenojournal: 'You have no journal'
+user.journalrole.usersofjournal: 'Users of journal'
+user.journalrole.user.id: ID
+user.journalrole.user.username: Username
+user.journalrole.email: Email
+user.journalrole.thisjournalhasnouser: 'This Journal Has No User!'

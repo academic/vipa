@@ -3,14 +3,14 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>My Journals</h1>
+            <h1>{{ "user.journalrole.myjournals"|trans }}</h1>
 
             {% if isSystemAdmin()%}
                 <a class="btn btn-default" href="{{path('journal')}}">
-                    <i class="fa fa-asterisk"></i> All journals</a>
+                    <i class="fa fa-asterisk"></i> {{ "user.journalrole.alljournals"|trans }}</a>
                 {%endif%}
             <a class="btn btn-info" href="{{path('user_show_my_journals')}}">
-                <i class="fa fa-user"></i> My journals</a>
+                <i class="fa fa-user"></i> {{ "user.journalrole.myjournals"|trans }}</a>
             <hr>
             {% if entities %}
                 <table class="records_list  table">
@@ -38,7 +38,7 @@
             {%else %}
 
                 <div class="alert alert-warning">
-                    <p>You have no journal.</p>
+                    <p>{{ "user.journalrole.youhavenojournal"|trans }}</p>
                 </div>
             {%endif%}
         </div>

@@ -1,16 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>EventLog list</h1>
+<h1>{{ "eventlog.list" }}</h1>
 
 <table class="records_list table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Eventinfo</th>
-            <th>Eventdate</th>
-            <th>Ip</th>
-            <th>Userid</th>
+            <th>{{ "event.id"|trans }}</th>
+            <th>{{ "event.info"|trans }}</th>
+            <th>{{ "event.date"|trans }}</th>
+            <th>{{ "event.ip"|trans }}</th>
+            <th>{{ "event.user.id"|trans }}</th>
             <th>{{"actions"|trans}}</th>
         </tr>
     </thead>
@@ -24,9 +24,8 @@
             <td>{{ entity.userId }}</td>
             <td>
                 <a class="btn btn-info" href="{{ path('eventlog_show', { 'id': entity.id }) }}">
-                    <i class="fa fa-info-sign"></i></a>
-
-
+                    <i class="fa fa-info-sign"></i>
+                </a>
             </td>
         </tr>
         {% endfor %}

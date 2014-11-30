@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %}Your proxy users list{%endblock%}
+{% block breadcrumb %}{{ "proxy.your.proxy.user.list"|trans  }}{%endblock%}
 
 {% block body -%}
     
     <table class="table records_list">
         <thead>
             <tr>
-                <th>Username</th>
-                <th>User Email</th>
-                <th>Proxy End Time</th>
+                <th>{{ "proxy.username"|trans  }}</th>
+                <th>{{ "proxy.user.email"|trans }}</th>
+                <th>{{ "proxy.end.time"|trans  }}</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,10 +27,10 @@
                     <td>
                         <a href="{{path('user_drop_proxy',{'proxyUserId' : entity.proxyUser.id})}}"
                            class="btn btn-danger btn-sm">
-                            <i class="fa fa-trash-o"></i> Drop</a>
+                            <i class="fa fa-trash-o"></i> {{ "drop"|trans }}</a>
 
                         <a href="#" onclick="showUpdateTtlForm('{{path('user_proxy_ttl_update',{id: entity.id })}}');" class="btn btn-warning btn-sm">
-                            <i class="fa fa-pencil"></i> Update end time</a>
+                            <i class="fa fa-pencil"></i> {{ "update.end.time" }}</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -44,11 +44,11 @@
         function showUpdateTtlForm($action) {
             $html = '<input class="form-control" id="ttl" name="ttl" />';
             BootstrapDialog.show({
-                title: 'Update ttl',
+                title: '{{ "update.ttl"|trans }}',
                 message: $html,
                 type: BootstrapDialog.TYPE_WARNING,
                 buttons: [{
-                        label: 'Save',
+                        label: '{{ "save"|trans  }}',
                         action: function (dialogRef) {
                             OjsCommon.waitModal();
                             $.post($action, {ttl: $("#ttl").val()}, function (data) {
@@ -58,7 +58,7 @@
                             });
                         }
                     }, {
-                        label: 'Cancel',
+                        label: '{{ "cancel"|trans  }}',
                         action: function (dialogRef) {
                             dialogRef.close();
                         }

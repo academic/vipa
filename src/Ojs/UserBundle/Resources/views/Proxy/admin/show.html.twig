@@ -1,20 +1,20 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>proxy</h1>
+    <h1>{{ "proxy.singular"|trans  }}</h1>
 
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ "proxy.id"|trans  }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Proxy User id</th>
+                <th>{{ "proxy.proxy.user.id"|trans  }}</th>
                 <td>{{ entity.proxyUserId }}</td>
             </tr>
             <tr>
-                <th>Client User id</th>
+                <th>{{ "proxy.client.user.id"|trans  }}</th>
                 <td>{{ entity.clientUserId }}</td>
             </tr>
 
@@ -26,7 +26,7 @@
             {{"b"|trans}}
         </a>
         <a href="{{ path('admin_proxy_edit', { 'id': entity.id }) }}">
-            Edit
+            {{ "e"|trans  }}
         </a>
         {{ form(delete_form) }}
     </ul>

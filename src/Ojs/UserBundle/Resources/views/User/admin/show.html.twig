@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
 {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('user'), 'title': 'User Manager'},
-                { 'title': 'Show User '},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                { 'link': path('user'), 'title': 'user.manager'|trans},
+                { 'title': 'user.show'|trans},
 
 ] %}
 {{breadcrumb(list)}}
@@ -25,19 +25,19 @@
 <table class="record_properties  table">
     <tbody>
         <tr>
-            <th>Id</th>
+            <th>{{ "user.id"|trans }}</th>
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Username</th>
+            <th>{{ "user.username"|trans }}</th>
             <td>{{ entity.username }}</td>
         </tr>
         <tr>
-            <th>Email</th>
+            <th>{{ "user.email"|trans }}</th>
             <td>{{ entity.email }}</td>
         </tr>
         <tr>
-            <th>Roles</th>
+            <th>{{ "user.roles"|trans }}</th>
             <td>
                 {% for role in entity.roles %}
                 <span class="label label-info" title="{{role.role}}">{{role.name}}</span> <br/>
@@ -45,7 +45,7 @@
             </td>
         </tr>
         <tr>
-            <th>Subjects</th>
+            <th>{{ "user.subjects"|trans }}</th>
             <td>
                 {% for subject in entity.subjects%}
                 <span class="label label-primary">{{subject.subject}}</span>

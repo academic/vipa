@@ -3,24 +3,24 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>UserJournalRole</h1>
+        <h1>{{ "user.journalrole.singular"|trans }}</h1>
 
         <table class="record_properties  table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>{{ "user.journalrole.id"|trans }}</th>
                     <td>{{ entity.id }}</td>
                 </tr>
                 <tr>
-                    <th>User</th>
+                    <th>{{ "user.journalrole.user"|trans }}</th>
                     <td><span class="label label-default">{{ entity.userId }}</span> {{ entity.user.username}}</td>
                 </tr>
                 <tr>
-                    <th>Journal</th>
+                    <th>{{ "user.journalrole.journal"|trans }}</th>
                     <td><span class="label label-default">{{ entity.journalId }}</span> {{ entity.journal.title}}</td>
                 </tr>
                 <tr>
-                    <th>Role</th>
+                    <th>{{ "user.journalrole.role"|trans }}</th>
                     <td><span class="label label-default">{{ entity.roleId }}</span> {{ entity.role.role}}</td>
                 </tr>
             </tbody>

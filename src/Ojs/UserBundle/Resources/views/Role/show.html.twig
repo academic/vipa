@@ -3,25 +3,25 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
-        <h1>Role #{{ entity.id }}</h1>
+        <h1>{{ "role.singular"|trans }} #{{ entity.id }}</h1>
 
         <table class="record_properties  table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>{{ "role.id"|trans }}</th>
                     <td>{{ entity.id }}</td>
                 </tr>
                 <tr>
-                    <th>Name</th>
+                    <th>{{ "role.name"|trans }}</th>
                     <td>{{ entity.name }}</td>
                 </tr>
                 <tr>
-                    <th>Role</th>
+                    <th>{{ "role.role"|trans }}</th>
                     <td>{{ entity.role }}</td>
                 </tr>
 
                 <tr>
-                    <th>Users</th>
+                    <th>{{ "role.users"|trans }}</th>
                     <td>
                 {% for user in entity.users %}
                         <a href="{{ path('user_show', { 'id': user.id }) }}">
@@ -42,7 +42,7 @@
                 {{"b"|trans}}
             </a>
             <a  class="button" href="{{ path('role_edit', { 'id': entity.id }) }}">
-                Edit
+                {{ "e"|trans }}
             </a>
         </div>
     {{ form(delete_form) }}

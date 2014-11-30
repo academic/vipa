@@ -1,20 +1,20 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>MailLog</h1>
+    <h1>{{ "maillog.singular" }}</h1>
 
     <table class="record_properties">
         <tbody>
         <tr>
-            <th>Id</th>
+            <th>{{ "maillog.id" }}</th>
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Mailobject</th>
+            <th>{{ "maillog.mailobject" }}</th>
             <td>{{ entity.mailObject }}</td>
         </tr>
         <tr>
-            <th>Recipientemail</th>
+            <th>{{ "maillog.recipientemail" }}</th>
             <td>{{ entity.recipientEmail }}</td>
         </tr>
         </tbody>

@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>proxy list</h1>
+    <h1>{{ "proxy.list"|trans  }}</h1>
 
     <table class="table records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Proxy User id</th>
-                <th>Client User id</th>
+                <th>{{ "proxy.id"|trans  }}</th>
+                <th>{{ "proxy.proxy.user.id"|trans  }}</th>
+                <th>{{ "proxy.client.user.id"|trans  }}</th>
                 <th>{{"actions"|trans}}</th>
             </tr>
         </thead>

@@ -5,9 +5,9 @@
     <table class="records_list table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Tags</th>
+            <th>{{ "wiki.id"|trans }}</th>
+            <th>{{ "wiki.title"|trans }}</th>
+            <th>{{ "wiki.tags" }}</th>
             <th>{{"actions"|trans}}</th>
         </tr>
         </thead>
@@ -24,7 +24,7 @@
                         </li>
 
                         <li>
-                            <a href="{{ url('ojs_wiki_page_delete',{ 'id': entity.id ,'object': object.id,'type':type}) }}">delete</a>
+                            <a href="{{ url('ojs_wiki_page_delete',{ 'id': entity.id ,'object': object.id,'type':type}) }}">{{ "d"|trans }}</a>
                         </li>
                     </ul>
                 </td>

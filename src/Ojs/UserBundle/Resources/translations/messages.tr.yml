@@ -1,0 +1,107 @@
+event.id: ID
+event.info: 'Olay Bilgisi'
+event.date: 'Olay Tarihi'
+event.ip: IP
+event.user.id: 'Kullanıcı ID'
+actions: İşlemler
+eventlog: Olay Kayıtları
+maillog.edit: 'Mail Kaydı Düzenle'
+maillog.id: ID
+maillog.mailobject: 'Mail Nesnesi'
+maillog.recipientemail: 'Alıcı maili'
+'You''ve joined to OJS': 'OJS`ye katıldınız.'
+'One More Step': 'Bir Adım Daha'
+'To protect your privacy, please confirm your email address by clicking the activation link': 'Gizliliğinizi koruyabilmemz için lütfen eposta adresinize gönderdiğimiz etkinleştirme bağlantısına tıklayınız.'
+'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'Eğer bağlantı tıklanamaz ise, lütfen kopyalayıp tarayıcınızın adres çubuğuna yapıştırınız.'
+'Activate Now': 'Şimdi Etkinleştir'
+'view this in your browser': 'tarayıcınızda görüntüleyin'
+notification.edit: 'Hatırlatma Düzenle'
+notification.list: 'Hatırlatmaları Listele'
+notification.id: ID
+notification.sender.id: 'Gönderen ID'
+notification.recipient.id: 'Alıcı ID'
+notification.test: 'Hatırlatma Testi'
+notification.isread: 'Okundu mu?'
+notification.level: Seviye
+notification.creation: 'Hatırlatıcı Oluşturma'
+notification.singular: Hatırlatıcı
+notification.entity.id: 'Girdi ID'
+notification.entity.name: 'Girdi Adı'
+notification.subject: Konu
+notification.verb: Fiil
+proxy.edit: 'Vekil Düzenle'
+proxy.list: 'Vekil Listesi'
+proxy.id: ID
+proxy.proxy.user.id: 'Vekil Kullanıcı Id'
+proxy.client.user.id: 'Müvekkil Kullanıcı Id'
+proxy.creation: 'Vekil Oluşturma'
+proxy.singular: Vekil
+proxy.clients.list: 'Vekil Olunan Kullanıcılar'
+proxy.target.user.username: 'Hedef Kullanıcı Adı'
+proxy.target.user.email: 'Hedef Kullanıcı Eposta'
+proxy.lastlogin: 'Son Giriş'
+proxy.your.proxy.user.list: 'Sizin Vekil Kullanıcı Listeniz'
+proxy.username: Kullanıcı Adı
+proxy.user.email: Eposta
+proxy.end.time: 'Sonlanma Zamanı'
+drop: Düşür
+update.ttl: 'TTL`i güncelle'
+cancel: İptal
+role.edit: 'Rol Düzenle'
+role.list: 'Rol Listesi'
+role.id: ID
+role.name: Tanım
+role.role: Rol
+role.issystemrole: 'Sistem Rolü mü?'
+role.new: 'Yeni Rol'
+role.singular: Rol
+role.users: 'Role sahip kullanıcılar'
+sign.in: 'Giriş'
+username.or.email: 'Kullanıcı Adı veya Şifre'
+username: Kullanıcı Adı
+password: Şifre
+forgot.password: 'şifremi unuttum'
+user.new: 'Yeni Kullanıcı'
+register: Kayıt
+'This will be your unique short name in application': 'Bu uygulamada sizin kısa adınız olacak'
+'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
+unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'
+user.manager: 'Kullanıcı Yöneticisi'
+user.edit: 'Kullanıcı Düzenle'
+uploading: Yükleniyor...
+done: Tamamlandı.
+user.list: 'Kullanıcı Listesi'
+user.username: Kullanıcı Adı
+user.email: Eposta
+user.status: Durum
+user.roles: Roller
+sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
+select.image.file: 'Resim dosyası seç...'
+user.show: 'Kullanıcıyı Göster'
+user.id: ID
+user.subjects: Konular
+drop.proxy.user: 'Vekil Kullanıcıyı Düşür'
+add.as.proxy: 'Vekil Olarak Ata'
+user.apikey: 'API Anahtarı'
+regenerate.apikey: 'API Anahtarını Güncelle'
+register.yourself.as.author: 'Yazar Olarak Kayıtol'
+user.journalrole.edit: 'Dergi Rolü Düzenle'
+user.journalrole.list: 'Dergi Rolleri Listesi'
+user.journalrole.id: ID
+user.journalrole.user: Kullanıcı
+user.journalrole.journal: Dergi
+user.journalrole.role: rol
+user.journalrole.creation: 'Dergi Rolü Atama'
+user.journalrole.singular: 'Dergi Rolü'
+user.journalrole.journals.of.user: 'Derginin Kullanıcıları'
+user.journalrole.journal.id: ID
+user.journalrole.journal.name: Dergi Adı
+user.journalrole.myjournals: 'Dergilerim'
+user.journalrole.alljournals: 'Tüm Dergiler'
+journal.singular: Dergi
+user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
+user.journalrole.usersofjournal: 'Kullanıcıların Dergileri'
+user.journalrole.user.id: ID
+user.journalrole.user.username: Kullanıcı Adı
+user.journalrole.email: Eposta
+user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'

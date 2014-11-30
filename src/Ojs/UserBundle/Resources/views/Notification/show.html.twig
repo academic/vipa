@@ -1,45 +1,45 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>Notification</h1>
+<h1>{{ "notification.singular"|trans }}</h1>
 
 <table class="record_properties table">
     <tbody>
         <tr>
-            <th>Id</th>
+            <th>{{ "notification.id"|trans }}</th>
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Senderid</th>
+            <th>{{ "notification.sender.id"|trans }}</th>
             <td>{{ entity.senderId }}</td>
         </tr>
         <tr>
-            <th>Recipientid</th>
+            <th>{{ "notification.recipient.id"|trans }}</th>
             <td>{{ entity.recipientId }}</td>
         </tr>
         <tr>
-            <th>Entityid</th>
+            <th>{{ "notification.entity.id"|trans }}</th>
             <td>{{ entity.entityId }}</td>
         </tr>
         <tr>
-            <th>Entityname</th>
+            <th>{{ "notification.entity.name"|trans }}</th>
             <td>{{ entity.entityName }}</td>
         </tr>
         <tr>
-            <th>Subject</th>
+            <th>{{ "notification.subject"|trans }}</th>
             <td>{{ entity.subject }}</td>
         </tr>
 
         <tr>
-            <th>Verb</th>
+            <th>{{ "notification.verb"|trans }}</th>
             <td>{{ entity.action }}</td>
         </tr>
         <tr>
-            <th>Isread</th>
+            <th>{{ "notification.isread"|trans }}</th>
             <td>{{ entity.isRead }}</td>
         </tr>
         <tr>
-            <th>Level</th>
+            <th>{{ "notification.level"|trans }}</th>
             <td>{{ entity.level }}</td>
         </tr>
     </tbody>
