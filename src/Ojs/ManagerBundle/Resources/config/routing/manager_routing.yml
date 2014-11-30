@@ -5,6 +5,10 @@ manager_journal_users:
 manager_journal_settings:
     pattern:  /journal/{journalId}/settings
     defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
+
+manager_current_journal_settings:
+    pattern:  /journal/settings
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
     
 manager_journal_user_add:
     pattern:  /user/add

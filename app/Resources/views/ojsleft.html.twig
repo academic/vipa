@@ -57,7 +57,7 @@
                     <div>
                         {# Links for journal manager  #}
                         {% if session('selectedJournalId') %}
-                            <a class="list-group-item"  href="{{path('manager_journal_settings',{"journalId":session('selectedJournalId')})}}">
+                            <a class="list-group-item"  href="{{path('manager_current_journal_settings')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"settings"|trans}}
                             </a>
