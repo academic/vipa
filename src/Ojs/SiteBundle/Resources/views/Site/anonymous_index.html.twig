@@ -4,68 +4,10 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 col-md-3">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="fa fa-folder"></span> {{"institutions"|trans}}</a>
-                            </h4>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="/journals">Universities</a>
-                                <span class="badge pull-right">130</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">Goverments</a>
-                                <span class="badge pull-right">56</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">NGO</a>
-                                <span class="badge pull-right">80</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    <span class="fa fa-th"></span> {%trans%}topics{%endtrans%}</a>
-                            </h4>
-                        </div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <a href="/journals">Sağlık Bilimleri</a>
-                                <span class="label label-success pull-right">320</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">Yaşam Bilimleri</a>
-                                <span class="label label-success pull-right">120</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">Hukuk</a>
-                                <span class="label label-success pull-right">10</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">Mühendislik ve Temel Bilimler</a>
-                                <span class="label label-success pull-right">10</span>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="/journals">{{"journal.all"|trans}}</a>
-                                <span class="label label-info pull-right">560</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="col-sm-9 col-md-9">
+            <div class="col-sm-12 col-md-12">
                 <div class="row">
                     {% for journal in journals %}
-                        <div class="col-sm-3 col-md-3">
+                        <div class="col-sm-2 col-md-2">
                             <div class="post">
                                 <div class="post-img-content">
                                     <a href="/journal/{{journal.id}}">
@@ -74,14 +16,9 @@
                                 </div>
                                 <div class="content">
                                     <span class="post-title"><b>{{journal.title}}</b></span>
-                                    <div class="smallinfo">
-                                        <span class="pull-left">Cil 8/Sayı 4 </span>
-                                        <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
-                                    </div>
 
                                     <div>
-                                        <a href="/journal/{{journal.id}}" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
-                                        <a href="/journal/{{journal.id}}/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                        <a href="/journal/{{journal.id}}" class="btn-link btn-sm"><i class="fa fa-link"></i> {{"journal"|trans}}</a>
                                     </div>
                                 </div>
                             </div>
