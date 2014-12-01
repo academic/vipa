@@ -18,7 +18,7 @@ var CitationEditor = {
             if (typeof res === "object") {
                 for (i in res) {
                     citationItem = res[i];
-                    var $tpl = $.parseHTML($("#step3_tpl").html().trim);
+                    var $tpl = $.parseHTML($("#step3_tpl").html().trim());
                     $($tpl).removeClass("hide");
                     var $mustFields = $($("option[value=" + citationItem.type + "]", $tpl)).data("must");
                     var $shouldFields = $($("option[value=" + citationItem.type + "]", $tpl)).data("should");

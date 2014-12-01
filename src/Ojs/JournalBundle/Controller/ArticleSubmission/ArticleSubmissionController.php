@@ -231,6 +231,8 @@ class ArticleSubmissionController extends Controller
 
         // @todo give ref. link or code or directives to author 
         $articleSubmission->setSubmitted(1);
+        $dm->persist($articleSubmission);
+        $dm->flush();
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
 
