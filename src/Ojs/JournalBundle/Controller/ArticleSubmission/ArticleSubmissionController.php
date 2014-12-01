@@ -136,7 +136,6 @@ class ArticleSubmissionController extends Controller
 
         $article->setJournalId($articleSubmission->getJournalId());
         $article->setTitle($articlePrimaryData['title']);
-        $article->setTitleTransliterated($articlePrimaryData['titleTransliterated']);
         $article->setAbstract($articlePrimaryData['abstract']);
         $article->setKeywords($articlePrimaryData['keywords']);
         $article->setSubjects($articlePrimaryData['subjects']);
@@ -146,7 +145,6 @@ class ArticleSubmissionController extends Controller
         unset($articleData[$articleSubmission->getPrimaryLanguage()]);
         foreach ($articleData as $locale => $data) {
             $translationRepository->translate($article, 'title', $locale, $data['title'])
-                    ->translate($article, 'titleTransliterated', $locale, $data['titleTransliterated'])
                     ->translate($article, 'abstract', $locale, $data['abstract'])
                     ->translate($article, 'keywords', $locale, $data['keywords'])
                     ->translate($article, 'subjects', $locale, $data['subjects'])
