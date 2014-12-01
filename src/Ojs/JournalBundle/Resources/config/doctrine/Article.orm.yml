@@ -1,5 +1,5 @@
 Ojs\JournalBundle\Entity\Article:
-  #repositoryClass: Ojs\JournalBundle\Entity\ArticleRepository
+  repositoryClass: Ojs\JournalBundle\Entity\ArticleRepository
   table: ~
   type: entity
   id:
