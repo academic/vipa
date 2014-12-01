@@ -74,7 +74,7 @@ com_crashlytics_export_strings.xml
 /web/uploads/
 /web/c/
 /web/assetic/
-
+/web/media
 # PHPUnit
 /app/phpunit.xml
 
