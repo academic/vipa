@@ -23,7 +23,7 @@
                             {% for institution_type in institution_types %}
                                 <li class="list-group-item">
                                     <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution', institution_type.slug) }}">{{institution_type.name}}</a>
-                                    <span class="badge pull-right">130</span>
+                                    <!-- span class="badge pull-right">130</span -->
                                 </li>
                             {% endfor%}
                         </ul>

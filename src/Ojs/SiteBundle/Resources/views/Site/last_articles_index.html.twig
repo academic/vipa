@@ -22,22 +22,19 @@
 
                 <div class="col-md-9">
                     <ol class="breadcrumb">
-                        <li><a href="/">Ujs</a></li>
+                        <li><a href="/">{{"home"|trans}}</a></li>
                         <li><a href="/journal">{{journal.title}}</a></li>
-                        <li><a href="/archive">Arşiv</a></li>
-                        <li class="active">Cilt4 / Sayı 12-A</li>
+                        <li><a href="/archive">{{"archive"|trans}}</a></li>
                     </ol>
 
                     <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div class="panel-heading">X Makaleleri</div>
 
                         <ul class="list-group">
                             {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
-                                    <a href="./{{ article.id }}"><i class="fa fa-file-text"></i> {{ article.title }} </a>(1876 – 1986)<br />
+                                    <a href="./{{ article.id }}"><i class="fa fa-file-text"></i> {{ article.title }} </a><br />
                                     <i class="fa fa-users"></i>
-                                    <span class="text-muted"> A. J. P. Aparicio, J. M. Vaquero, V. M. S. Carrasco, M. C. Gallego 
+                                    <span class="text-muted">
                                         ({% if article.created.date %}{{ article.created.date|date('Y-m-d') }}{% endif %})
                                     </span>
                                 </li>

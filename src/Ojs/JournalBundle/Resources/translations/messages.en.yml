@@ -14,7 +14,7 @@ last_page: 'Last Page'
 workflow: Workflow
 admin: Admin
 dashboard: Dashboard
-title: Title
+title: 'Title'
 titleTransliterated: 'Transliterated Title'
 subtitle: Subtitle
 keywords: Keywords
@@ -53,6 +53,7 @@ journal.plural: Journals
 journal.about: 'About Journal'
 journal.all: 'All Journals'
 journal.users: 'Journal Users'
+journal.theme: Journal's Theme
 citation.citation: Citation
 citation.add: 'Add Citation'
 citation.new: 'New Citation'
@@ -179,12 +180,14 @@ phone: Phone
 contact.new: New Contact
 contact.detail: Contact Detail
 contact: Contact
+contact.plural: Contacts
 city: City
 fax: Fax
 contact.type: Contact Type
 contact.type.list: List Contact Type
 name: Name
 contact.type.new: New Contact Type
+contacttype.plural: Contacts
 file.edit: Edit File
 file.list: File List
 mimetype: Mime Type
@@ -198,11 +201,13 @@ institution.edit: Edit Institution
 logo: Logo
 institution.new: New Institution
 institution.detail: Institution Detail
+institution.plural: Institutions
 address_lat: Latitude
 address_long: Longitude
 institutiontype.edit: Edit Institution Type
 institutiontype.list: Institution Type List
 institutiontype.new: New Institution Type
+institutiontype.plural: Institution Types
 issue.edit: Edit Issue
 issue.list: Issue List
 journal.id: ID
@@ -260,6 +265,7 @@ allow_index.list: Allow Index List
 journaltheme.edit: Edit Journal Theme
 journaltheme.list: Journal Theme List
 theme: Theme
+theme.plural: Themes
 journaltheme.new: New Journal theme
 journaltheme: Journal Theme
 lang.edit: Edit
@@ -267,12 +273,14 @@ lang.list: List
 lang.code: Code
 lang.name: Name
 lang.rtl: RTL
-lang.new: New Lang
-lang: Lang
+lang.new: New Langues
+lang: Languages
+lang.plural: Languages
 subject.edit: Edit Subject
 subject.list: Subject List
 subject: Subject
 subject.new: New Subject
+subject.plural: Subjects
 theme.edit: Edit Theme
 theme.list: Theme List
 content: Content
