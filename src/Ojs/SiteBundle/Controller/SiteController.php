@@ -175,6 +175,7 @@ class SiteController extends Controller
         $this->throw404IfNotFound($data['journal']);
         // get all issues
         $data['issues'] = $em->getRepository('OjsJournalBundle:Issue')->findBy(array('journalId' => $journal_id));
+        $data['issues_grouped']=[];
         foreach ($data['issues'] as $issue) {
             $data['issues_grouped'][$issue->getYear()][] = $issue;
         }
