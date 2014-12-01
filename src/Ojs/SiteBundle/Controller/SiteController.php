@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -77,7 +78,7 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle:Site:static/tos.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $start=0, $offset=12)
+    public function journalsIndexAction(Request $request, $start = 0, $offset = 12)
     {
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
@@ -119,6 +120,23 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Site/journal_index.html.twig', $data);
     }
 
+    public function journalArticlesAction($journal_id)
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $articles = $journal->getArticles();
+        $data = [
+            'journal' => $journal,
+            'articles' => $articles,
+            'page' => 'journal',
+            'blocks' => $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal),
+            'pages'=>$em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $journal])
+        ];
+        return $this->render('OjsSiteBundle::Site/journal_articles.html.twig',$data);
+    }
+
     /**
      * Also means last issue's articles
      * @param integer $journal_id
@@ -131,7 +149,7 @@ class SiteController extends Controller
         $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
         $data['page'] = 'articles';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
-        
+
         return $this->render('OjsSiteBundle::Site/last_articles_index.html.twig', $data);
     }
 
@@ -146,7 +164,7 @@ class SiteController extends Controller
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
-        
+
         return $this->render('OjsSiteBundle::Site/article_page.html.twig', $data);
     }
 
