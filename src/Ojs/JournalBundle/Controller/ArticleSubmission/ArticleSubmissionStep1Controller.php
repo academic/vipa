@@ -62,7 +62,6 @@ class ArticleSubmissionStep1Controller extends Controller
     private function generateArticleArray($data, $locale = null)
     {
         $article['title'] = $data['title'];
-        $article['titleTransliterated'] = $data['titleTransliterated'];
         $article['subtitle'] = $data['subtitle'];
         $article['keywords'] = $data['keywords'];
         $article['subjects'] = $data['subjects'];
