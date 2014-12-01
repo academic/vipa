@@ -2,11 +2,10 @@
 
 {% block body -%}
     <h1>{{"file.details"|trans}}</h1>
-
     <table class="record_properties table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>

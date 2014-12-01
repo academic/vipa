@@ -13,7 +13,7 @@
 {% block body -%}
     <h1>{{"file.new"|trans}}</h1>
     <div class="col-md-12">
-        <form action="" enctyp="multipart/form-data">
+        <form action="" enctype="multipart/form-data">
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
                 <span>{{"file.select"|trans}}</span>
@@ -36,11 +36,6 @@
 
 {% block javascripts %}
     {{parent()}}
-
-
-
-
-
     {% javascripts '@upload_js' output="c/upload.js"%}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

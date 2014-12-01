@@ -2,9 +2,9 @@
 
 {% block body -%}
 
-    {{"article.plural"|trans}} Issue <strong>{{issue.title }}</strong> {{"journal"|trans}} <em>{{issue.journal.title }}</em>
+    {{"article.plural"|trans}} {{ 'issue.plural'|trans }} <strong>{{issue.title }}</strong> {{"journal"|trans}} <em>{{issue.journal.title }}</em>
     
-        <p>Here you can find all articles for selected issue <strong>{{issue.title }}</strong></p>
+        <p>{% trans with {'%title%':issue.title}%}Here you can find all articles for selected issue <strong>%title%</strong>{% endtrans %}</p>
     
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
     <a href="{{ path('article_new') }}" class="btn btn-success">

@@ -1,8 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'link': path('author'), 'title': 'Author Manager'},
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('author'), 'title': 'author.manager'|trans},
     { 'title' : 'Edit Author'} ])}}
 {% endblock %}
 

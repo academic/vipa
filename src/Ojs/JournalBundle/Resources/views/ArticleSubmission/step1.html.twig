@@ -4,12 +4,12 @@
         <div class="form-group">
             <label class="control-label">{{"title"|trans}} <span class="mandotary"></span></label>
             <input name="title" id="titleintput" class="form-control"
-                   placeholder="{{"article_original_title"|trans}}" value="{{article_title}}"/>
+                   placeholder=" {{'article_original_title'|trans}} " value="{{article_title}}"/>
         </div>
         <div class="form-group">
             <label class="control-label">{{"title_transliterated"|trans}}</label>
             <input id="titletransliteratedinput"
-                   placeholder="You can leave blank this field if your `title` is all Latin characters."
+                   placeholder="{{ 'You can leave blank this field if your `title` is all Latin characters.'|trans }}"
                    name="titleTransliterated" class="form-control" value="{{article_title_trans}}" />
         </div> 
 

@@ -6,75 +6,75 @@ journal.show tpl for anonymous users
     <table class="record_properties  table">
 
         <tbody>
-            <tr>
-                <th width="300px">Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"title"|trans}}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{"titleabbr"|trans}}</th>
-                <td>{{ entity.titleAbbr }}</td>
-            </tr>
-            <tr>
-                <th>{{"titletransliterated"|trans}}</th>
-                <td>{{ entity.titleTransliterated }}</td>
-            </tr>
-            <tr>
-                <th>{{"journal.langs"|trans}}</th>
-                <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
-            </tr>
+        <tr>
+            <th width="300px">{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "titleabbr"|trans }}</th>
+            <td>{{ entity.titleAbbr }}</td>
+        </tr>
+        <tr>
+            <th>{{ "titletransliterated"|trans }}</th>
+            <td>{{ entity.titleTransliterated }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journal.langs"|trans }}</th>
+            <td>{% for language in entity.languages %}{{ language.name }}{% endfor %}</td>
+        </tr>
 
-            <tr>
-                <th>{{"subtitle"|trans}}</th>
-                <td>{{ entity.subtitle }}</td>
-            </tr>
-            <tr>
-                <th>ISSN</th>
-                <td>{{ entity.issn }}</td>
-            </tr>
-            <tr>
-                <th>E-ISSN</th>
-                <td>{{ entity.eissn }}</td>
-            </tr>
-            <tr>
-                <th>{{"firstpublishdate"|trans}}</th>
-                <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>{{"period"|trans}}</th>
-                <td>{{ entity.period }}</td>
-            </tr>
-            <tr>
-                <th>{{"url"|trans}}</th>
-                <td>{{ entity.url }}</td>
-            </tr>
-            <tr>
-                <th>{{"country"|trans}}</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>{{"published"|trans}}</th>
-                <td>{{ entity.published }}</td>
-            </tr>
-            <tr>
-                <th>{{"status"|trans}}</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-            <tr>
-                <th>{{"image"|trans}}</th>
-                <td>{{ entity.image }}</td>
-            </tr>
-            <tr>
-                <th>{{"scope"|trans}}</th>
-                <td>{{ entity.scope }}</td>
-            </tr>
-            <tr>
-                <th>{{"mission"|trans}}</th>
-                <td>{{ entity.mission }}</td>
-            </tr>
+        <tr>
+            <th>{{ "subtitle"|trans }}</th>
+            <td>{{ entity.subtitle }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'ISSN'|trans }}</th>
+            <td>{{ entity.issn }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'E-ISSN'|trans }}</th>
+            <td>{{ entity.eissn }}</td>
+        </tr>
+        <tr>
+            <th>{{ "firstpublishdate"|trans }}</th>
+            <td>{{ entity.firstPublishDate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>{{ "period"|trans }}</th>
+            <td>{{ entity.period }}</td>
+        </tr>
+        <tr>
+            <th>{{ "url"|trans }}</th>
+            <td>{{ entity.url }}</td>
+        </tr>
+        <tr>
+            <th>{{ "country"|trans }}</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>{{ "published"|trans }}</th>
+            <td>{{ entity.published }}</td>
+        </tr>
+        <tr>
+            <th>{{ "status"|trans }}</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
+            <th>{{ "image"|trans }}</th>
+            <td>{{ entity.image }}</td>
+        </tr>
+        <tr>
+            <th>{{ "scope"|trans }}</th>
+            <td>{{ entity.scope }}</td>
+        </tr>
+        <tr>
+            <th>{{ "mission"|trans }}</th>
+            <td>{{ entity.mission }}</td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

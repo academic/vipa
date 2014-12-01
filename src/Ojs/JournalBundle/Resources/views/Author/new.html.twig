@@ -1,12 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'link': path('author'), 'title': 'Author Manager'},
-    { 'title' : 'New Author'} ])}}
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('author'), 'title': 'author.manager'|trans},
+    { 'title' : 'author.new'|trans} ])}}
 {% endblock %}
 
 {% block body -%}
-    <h1>Author creation</h1>
+    <h1>{{ 'author.creation'|trans }}</h1>
 
     {{ form(form) }}
 

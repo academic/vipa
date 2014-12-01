@@ -1,130 +1,280 @@
-ROLE_JOURNAL_MANAGER: Dergi Yöneticisi
+ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_EDITOR: Editör
-
 scope: Kapsam
 mission: Amaç
 archive: Arşiv
-read:
-    lastissue: Son Sayıyı Oku
-    article: Makaleyi Oku
 citations: Referanslar
 editorial: Editoryal
-
-new: 
-    link: Yeni Link
-    block: Yeni Blok
-
-for:
-    readers: Okuyucular için
-    authors: Yazarlar için
-    author_editor: Yazarlar ve Editörler için
-    
-status:
-    waiting: Bekliyor
-    published: Yayında
-    unpublished: Yayından Kaldırılmış
-    rejected: Reddildi
-    inreview: İncelemede
-    spam: Spam
 messages: Mesajlar
-
-reports: 
-    title: Raporlar
-    journal: Dergi Raporları
-    article: Makale Raporları
-    author: Yazar Raporları
-    user: Kullanıcı Raporarı
-    analytics: İstatistik Raporları
-    
-settings: Ayarları 
-
+settings: Ayarları
 journals: Dergiler
-journal: 
-    singular: Dergi
-    plural: Dergiler
-    about: Dergi Hakkında
-    all: Tüm Dergiler
-    users: Dergi Kullanıcıları
-    
-citation:
-    citation: Referans
-    add: Referans Ekle
-    new: Yeni Referans
-    paste_extract: Yapıştır ve Referansları Ayrıştır
-    type: Referans Tipi
-    
-article:
-    fulltext: Tam Metin
-    plural: Makaleler
-    singular: Makale
-    submit: Makale Gönder
-    files: Makale Dosyaları
-    authors: Makale Yazarları
-    citations: Makale Referansları
-    metadata: Makale Üst Bilgisi
-    titleTransliterated: Makale Başlığı (transliterated)
-    title: Makale Başlığı
-    subtitle: Makale Altbaşlığı
-    language: 
-        primary: Makalenin Birincil Dili
-        other: Makalenin Diğer Dilleri
-    add: Makale Ekle
-first_page: İlk Sayfa
-last_page: Son Sayfa
-
+first_page: 'İlk Sayfa'
+last_page: 'Son Sayfa'
 workflow: Süreç
 admin: Yönetim
 dashboard: Panel
-
-suppfiles:
-    resins: Araştırma Araçları
-    resmat: Araştırma Materyalleri
-    resres: Araştırma Sonuçları
-    data: Veri Analizi
-    trans: Kopyalar 
-    set: Veri Seti
-    source: Kaynak Metin 
-    supp: Ek Dosya
-
-author:
-    firstname: Ad
-    middlename: İkinci Ad
-    lastname: Soyad
-    initials: Başharfler
-    title: Ünvan
-    order: Order
-    plural: Yazarlar
-    singular: Yazar
-    summary: Yazar Özeti
-    
-
 title: Başlık
-titleTransliterated: Latin Başlık
-subtitle: Alt başlık
-keywords: Anahtar kelimeler
+titleTransliterated: 'Latin Başlık'
+subtitle: 'Alt başlık'
+keywords: 'Anahtar kelimeler'
 description: Açıklama
 subjects: Konular
 abstract: Özet
-pubdate: Yayınlanma Tarihi
-
+pubdate: 'Yayınlanma Tarihi'
 trans: Transliterated
 email: E-posta
 address: Adres
 country: Ülke
 summary: Özet
-    
-user:
-    new: Yeni Kullanıcı
-    
-file:
-    types:
-       - Research Instrument
-       - Research Materials
-       - Research Results
-       - Transkript
-       - Veri Analizi
-       - Veri Seti
-       - Kaynak Metin
-       
-haveNoJournals: Hiç derginiz bulunmuyor
-createOne: Bir tane oluşturun
+haveNoJournals: 'Hiç derginiz bulunmuyor'
+createOne: 'Bir tane oluşturun'
+read.lastissue: 'Son Sayıyı Oku'
+read.article: 'Makaleyi Oku'
+new.link: 'Yeni Link'
+new.block: 'Yeni Blok'
+for.readers: 'Okuyucular için'
+for.authors: 'Yazarlar için'
+for.author_editor: 'Yazarlar ve Editörler için'
+status.waiting: Bekliyor
+status.published: Yayında
+status.unpublished: 'Yayından Kaldırılmış'
+status.rejected: Reddildi
+status.inreview: İncelemede
+status.spam: Spam
+reports.title: Raporlar
+reports.journal: 'Dergi Raporları'
+reports.article: 'Makale Raporları'
+reports.author: 'Yazar Raporları'
+reports.user: 'Kullanıcı Raporarı'
+reports.analytics: 'İstatistik Raporları'
+journal.singular: Dergi
+journal.plural: Dergiler
+journal.about: 'Dergi Hakkında'
+journal.all: 'Tüm Dergiler'
+journal.users: 'Dergi Kullanıcıları'
+citation.citation: Referans
+citation.add: 'Referans Ekle'
+citation.new: 'Yeni Referans'
+citation.paste_extract: 'Yapıştır ve Referansları Ayrıştır'
+citation.type: 'Referans Tipi'
+article.fulltext: 'Tam Metin'
+article.plural: Makaleler
+article.singular: Makale
+article.submit: 'Makale Gönder'
+article.files: 'Makale Dosyaları'
+article.authors: 'Makale Yazarları'
+article.citations: 'Makale Referansları'
+article.metadata: 'Makale Üst Bilgisi'
+article.titleTransliterated: 'Makale Başlığı (transliterated)'
+article.title: 'Makale Başlığı'
+article.subtitle: 'Makale Altbaşlığı'
+article.language.primary: 'Makalenin Birincil Dili'
+article.language.other: 'Makalenin Diğer Dilleri'
+article.add: 'Makale Ekle'
+suppfiles.resins: 'Araştırma Araçları'
+suppfiles.resmat: 'Araştırma Materyalleri'
+suppfiles.resres: 'Araştırma Sonuçları'
+suppfiles.data: 'Veri Analizi'
+suppfiles.trans: Kopyalar
+suppfiles.set: 'Veri Seti'
+suppfiles.source: 'Kaynak Metin'
+suppfiles.supp: 'Ek Dosya'
+author.firstname: Ad
+author.middlename: 'İkinci Ad'
+author.lastname: Soyad
+author.initials: Başharfler
+author.title: Ünvan
+author.order: Order
+author.plural: Yazarlar
+author.singular: Yazar
+author.summary: 'Yazar Özeti'
+user.new: 'Yeni Kullanıcı'
+file.types.0: 'Research Instrument'
+file.types.1: 'Research Materials'
+file.types.2: 'Research Results'
+file.types.3: Transkript
+file.types.4: 'Veri Analizi'
+file.types.5: 'Veri Seti'
+file.types.6: 'Kaynak Metin'
+details: Detaylar
+article.manager: Makale Yöneticisi
+issue.plural: Sayı
+journal: Dergi
+'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
+articles_in_journal: Dergideki Makaleler
+primaly_language: Öncelikli Dil
+issue: Sayı
+article.new: Yeni Makale
+article.detail: Makale Detayı
+title.transliterated: Dönüştürülmüş Başlık
+author: Yazar
+section: Bölüm
+languages: Diller
+status: Durum
+doi: DOI
+check: Kontrol
+otherid: Diğer ID
+journalid: JournalID
+isAnonymous: Anonim mi?
+Pubdateseason: Yayın Tarihi Sezonu
+part: Parça
+url: URL
+abstract.transliterated: Dönüştürülmüş Özet
+citation.editor: Alıntı Editörü
+article_author_edit: Makale Yazarı Düzenle
+article_author_list: Makale Yazarı Listesi
+articleauthor_new: Yeni Makale Yazarı
+author_order: Yazar Sırası
+author_id: Yazar ID
+article_id: Makale ID
+articleauthor_create: Makale Yazarı Oluştur
+articleauthor: Makale Yazarı
+article.mysubmits: Makale Gönderilerim
+article.all: Tüm Makaleler
+preview: İncele
+submit: Gönder
+add.language: Dil ekle
+sure: Emin misiniz ?
+res: Res
+select_article_file: Makale Dosyası Seç
+Supplementary.File: İlave Dosya
+sure_data_lost: Veri kaybını onaylıyor musunuz?
+'Preview Article Before Submit': 'Göndermeden Önce Makaleyi İncele'
+'Back & Continue Editing': 'Geri Dön ve Devam Et'
+remove: Kaldır
+order: Sıra
+citation: Alıntı
+select_supplementary_article_file: İlave Makale Dosyası Seç
+author.manager: Yazar Yöneticisi
+author.list: Yazar Listesi
+author.new: Yeni Yazar
+fullname: Tam İsim
+initials: Baş Harfler
+author.creation: Yazar Oluşturma
+author.details: Yazar Detayı
+linked.user: Bağlı Kullanıcı
+id: ID
+author.firstnametransliterated: Dönüştürülmüş İsim
+author.middlenametransliterated: Dönüştürülmüş İkinciisim
+author.lastnametransliterated: Dönüştürülmüş Soyisim
+adress: Adres
+institution.id: Alıntı ID
+citation.edit: Alıntı Düzenle
+citation.list: Alıntı Listesi
+source: Kaynak
+type: Tür
+citation.create: Alıntı Oluştur
+setting: Ayar
+citation.setting.edit: Alıntı Ayarı Düzenle
+citation.setting.list: Alıntı Ayarı Listesi
+citation.setting.new: Yeni Alıntı Ayarı
+citation.id: Alıntı ID
+citation.setting: Alıntı Ayarları
+value: Değer
+contact.manager: İletişim Yöneticisi
+contact.edit: İletişim Düzenle
+firstname: Ad
+lastname: Soyad
+phone: Telefon
+contact.new: Yeni İletişim
+contact.detail: İletişim Detayı
+contact: İletişim
+city: Şehir
+fax: Faks
+contact.type: İletişim Türü
+contact.type.list: İletişim Türü Listesi
+name: Tanım
+contact.type.new: Yeni İletişim Türü
+file.edit: Dosya Düzenle
+file.list: Dosya Listesi
+mimetype: Tür
+size: Boyut
+file.new: Yeni Dosya
+file.select: Dosya Seç
+file.details: Dosya Detayları
+file.path: Dosya Yolu
+institution.manager: Kurum Yöneticisi
+institution.edit: Kurum Düzenle
+logo: Logo
+institution.new: Yeni Kurum
+institution.detail: Kurum Detay
+address_lat: Adres Enlem
+address_long: Adres Boylam
+institutiontype.edit: Kurum Türü Düzenle
+institutiontype.list: Kurum Türü Listesi
+institutiontype.new: Yeni Kurum Türü
+issue.edit: Sayı Düzenle
+issue.list: Sayı Listesi
+journal.id: ID
+volume: Cilt
+number: Numara
+cover: Kapak
+special: Özel
+year: Yıl
+publishdate: Yayın Tarihi
+issue.new: Yeni Sayı
+desc: Açıklama
+created: oluşturulma
+updated: güncelleme
+deleted: silinme
+apply.for.new.journal: Yeni Dergi Başvurusu
+journal.new: Yeni Dergi
+journal.apply: Dergi Başvur
+journal.manager: Dergi Yöneticisi
+journal.update: Dergi Güncelle
+journal.edit: Dergi Düzenle
+update: Güncelle
+cancel: İptal
+journal.list: Dergi Listesi
+journal.my: Dergim
+ISSN: ISSN
+create: Oluştur
+titleabbr: Başlık Kısaltması
+titletransliterated: Dönüştürülmüş Başlık
+journal.langs: Dergi Dilleri
+E-ISSN: E-ISSN
+firstpublishdate: İlk Yayın tarihi
+period: Periyod
+published: Yayında
+image: Resim
+theme.id: Tema ID
+users: Kullanıcılar
+editor.dashboard: Editör Yönetim Ekranı
+journal.detail: Dergi Detayı
+e-ISSN: e-ISSN
+URL: URL
+journalContact.edit: Dergi İletişim Düzenle
+journalcontact.list: Dergi İletişim Listesi
+journalcontact.journal.id: Dergi ID
+journalcontact.contact.id: Dergi İletişim ID
+journalcontact.contact.type.id: Dergi İletişim Tür ID
+journalcontact.creation: Dergi İletişim Oluştur
+journalcontact.singular: Dergi İletişim
+journalsection.edit: Dergi Bölümü Düzenle
+journalsection.list: Dergi Bölümü Listesi
+allow_index: __allow_index
+hide_title: Başlığı Gizle
+journalsection.new: Yeni Dergi Bölümü
+journalsection: Dergi Bölümü
+allow_index.list: __allow_index.list
+journaltheme.edit: Dergi Teması Düzenle
+journaltheme.list: Dergi Teması Listesi
+theme: Tema
+journaltheme.new: Yeni Dergi Teması
+journaltheme: Dergi Teması
+lang.edit: Dil Düzenle
+lang.list: Dil Listesi
+lang.code: Kod
+lang.name: Tanım
+lang.rtl: Sağdan Sola
+lang.new: Yeni Dil
+lang: Dil
+subject.edit: Konu Düzenle
+subject.list: Konu Listesi
+subject: Konu
+subject.new: Yeni Konu
+theme.edit: Tema Düzenle
+theme.list: Tema Listesi
+content: İçerik
+basetheme: Orjinal Tema
+theme.new: Yeni Tema

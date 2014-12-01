@@ -1,131 +1,280 @@
-ROLE_JOURNAL_MANAGER: Journal Manager
+ROLE_JOURNAL_MANAGER: 'Journal Manager'
 ROLE_EDITOR: Editor
-
 scope: Scope
 mission: Mission
 archive: Archive
-read:
-    lastissue: Read Last Issue
-    article: Read Article
 citations: Citations
 editorial: Editorial
-sure_data_lost: Are you sure you want to navigate away from this page?\n\nYour changes may be lost.
-new: 
-    link: New Link
-    block: New Block
-
-for:
-    readers: For Readers
-    authors: For Authors
-    author_editor: For Autors and Editors
-    
-status:
-    waiting: Waiting
-    published: Published
-    unpublished: Unpublished 
-    rejected: Rejected
-    inreview: in-Review
-    spam: Spam
-    
+sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
 messages: Messages
-
-reports: 
-    title: Reports
-    journal: Journal Reports
-    article: Article Reports
-    author: Author Reports
-    user: User Reports
-    analytics: Analytics Reports
-
-reports: Reports
-settings: Settings 
-
+settings: Settings
 journals: Journals
-journal: 
-    singular: Journal
-    plural: Journals
-    about: About Journal
-    all: All Journals
-    users: Journal Users
-    
-citation:
-    citation: Citation
-    add: Add Citation
-    new: New Citation
-    paste_extract: Paste and Extract Cititaion
-    type: Citation Type
-
-article:
-    fulltext: Full Text
-    plural: Articles
-    singular: Article
-    submit: Submit Article
-    files: Article Files
-    authors: Article Authors
-    citations: Article Citations
-    metadata: Article Meta Data
-    titleTransliterated: Article Title Latin Transliterated 
-    title: Article Title
-    subtitle: Article Subtitle
-    language: 
-        primary: Article Primary Language
-        other: Article Other Languages
-    add: Add Article
-first_page: First Page
-last_page: Last Page
-
+first_page: 'First Page'
+last_page: 'Last Page'
 workflow: Workflow
 admin: Admin
 dashboard: Dashboard
-
-suppfiles:
-    resins: Research Instrument
-    resmat: Research Materials
-    resres: Research Results
-    data: Data Analysis 
-    trans: Transcripts 
-    set: Data Set
-    source: Source Text 
-    supp: Supplementary File
-
-author:
-    firstname: First Name
-    middlename: Middle Name
-    lastname: Last Name
-    initials: Initials
-    title: Title
-    order: Order
-    plural: Authors
-    singular: Author
-    summary: Author Summary
-    
 title: Title
-titleTransliterated: Transliterated Title
+titleTransliterated: 'Transliterated Title'
 subtitle: Subtitle
 keywords: Keywords
 description: Description
 subjects: Subjects
 abstract: Abstract
-pubdate: Publication Date
-
+pubdate: 'Publication Date'
 trans: Transliterated
 email: Email
 address: Address
 country: Country
 summary: Summary
-    
-user:
-    new: New User
-    
-file:
-    types:
-       - Research Instrument
-       - Research Materials
-       - Research Results
-       - Transcripts
-       - Data Analysis
-       - Data Set
-       - Source Text
-       
-haveNoJournals: You have no journals
-createOne: Create new one
+haveNoJournals: 'You have no journals'
+createOne: 'Create new one'
+read.lastissue: 'Read Last Issue'
+read.article: 'Read Article'
+new.link: 'New Link'
+new.block: 'New Block'
+for.readers: 'For Readers'
+for.authors: 'For Authors'
+for.author_editor: 'For Autors and Editors'
+status.waiting: Waiting
+status.published: Published
+status.unpublished: Unpublished
+status.rejected: Rejected
+status.inreview: in-Review
+status.spam: Spam
+reports.title: Reports
+reports.journal: 'Journal Reports'
+reports.article: 'Article Reports'
+reports.author: 'Author Reports'
+reports.user: 'User Reports'
+reports.analytics: 'Analytics Reports'
+journal.singular: Journal
+journal.plural: Journals
+journal.about: 'About Journal'
+journal.all: 'All Journals'
+journal.users: 'Journal Users'
+citation.citation: Citation
+citation.add: 'Add Citation'
+citation.new: 'New Citation'
+citation.paste_extract: 'Paste and Extract Cititaion'
+citation.type: 'Citation Type'
+article.fulltext: 'Full Text'
+article.plural: Articles
+article.singular: Article
+article.submit: 'Submit Article'
+article.files: 'Article Files'
+article.authors: 'Article Authors'
+article.citations: 'Article Citations'
+article.metadata: 'Article Meta Data'
+article.titleTransliterated: 'Article Title Latin Transliterated'
+article.title: 'Article Title'
+article.subtitle: 'Article Subtitle'
+article.language.primary: 'Article Primary Language'
+article.language.other: 'Article Other Languages'
+article.add: 'Add Article'
+suppfiles.resins: 'Research Instrument'
+suppfiles.resmat: 'Research Materials'
+suppfiles.resres: 'Research Results'
+suppfiles.data: 'Data Analysis'
+suppfiles.trans: Transcripts
+suppfiles.set: 'Data Set'
+suppfiles.source: 'Source Text'
+suppfiles.supp: 'Supplementary File'
+author.firstname: 'First Name'
+author.middlename: 'Middle Name'
+author.lastname: 'Last Name'
+author.initials: Initials
+author.title: Title
+author.order: Order
+author.plural: Authors
+author.singular: Author
+author.summary: 'Author Summary'
+user.new: 'New User'
+file.types.0: 'Research Instrument'
+file.types.1: 'Research Materials'
+file.types.2: 'Research Results'
+file.types.3: Transcripts
+file.types.4: 'Data Analysis'
+file.types.5: 'Data Set'
+file.types.6: 'Source Text'
+details: Details
+article.manager: Article Manager
+article.detail: Article Detail
+title.transliterated: Title Transliterated
+author: Author
+journal: Journal
+section: Section
+languages: Languages
+primaly_language: Primaly Language
+status: Status
+doi: DOI
+check: Check
+otherid: Other ID
+journalid: Journal ID
+isAnonymous: Is Anonymous
+Pubdateseason: Pub Date Season
+part: Part
+url: Url
+abstract.transliterated: Abstract Transliterated
+citation.editor: Citation Editor
+'Preview Article Before Submit': 'Preview Article Before Submit'
+preview: Previw
+submit: Submit
+'Back & Continue Editing': 'Back & Continue Editing'
+issue.plural: Issue
+'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
+articles_in_journal: Articles In Journal
+issue: Issue
+article.new: New Article
+article_author_edit: Article Author Edit
+article_author_list: List Article Author
+articleauthor_new: New Article Author
+author_order: Author Order
+author_id: Author ID
+article_id: Article ID
+articleauthor_create: Article Author Create
+back: Back
+articleauthor: Article Author
+article.mysubmits: My Submits
+article.all: All Articles
+add.language: Add Language
+res: Res
+select_article_file: Select Article File
+Supplementary.File: Supplementary File
+remove: Remove
+order: Order
+citation: Citation
+select_supplementary_article_file: Select Supplementary Article File
+author.manager: Author Manager
+author.list: List Author
+author.new: New Author
+fullname: Full Name
+initials: Initials
+author.creation: Author Creation
+author.details: Author Details
+linked.user: Linked User
+id: ID
+author.firstnametransliterated: Firstname Transliterated
+author.middlenametransliterated: Middle Name Transliterated
+author.lastnametransliterated: Lastname Transliterated
+adress: Address
+institution.id: Institution ID
+citation.edit: Edit Citation
+citation.list: Citation List
+source: Source
+type: Type
+citation.create: Create Citation
+setting: Setting
+citation.setting.edit: Edit Citation Setting
+citation.setting.list: Citation Setting List
+citation.setting.new: New Citation Setting
+citation.id: ID
+citation.setting: Citation Setting
+value: Value
+contact.manager: Contact Manager
+contact.edit: Edit Contact
+firstname: Firstname
+lastname: Lastname
+phone: Phone
+contact.new: New Contact
+contact.detail: Contact Detail
+contact: Contact
+city: City
+fax: Fax
+contact.type: Contact Type
+contact.type.list: List Contact Type
+name: Name
+contact.type.new: New Contact Type
+file.edit: Edit File
+file.list: File List
+mimetype: Mime Type
+size: Size
+file.new: New File
+file.select: Select File
+file.details: File Details
+file.path: File Path
+institution.manager: Institution Manager
+institution.edit: Edit Institution
+logo: Logo
+institution.new: New Institution
+institution.detail: Institution Detail
+address_lat: Latitude
+address_long: Longitude
+institutiontype.edit: Edit Institution Type
+institutiontype.list: Institution Type List
+institutiontype.new: New Institution Type
+issue.edit: Edit Issue
+issue.list: Issue List
+journal.id: ID
+volume: Volume
+number: Number
+cover: Cover
+special: Special
+year: Year
+publishdate: Publish Date
+issue.new: New Issue
+desc: Description
+created: Created
+updated: Updated
+deleted: Deleted
+apply.for.new.journal: Apply For New Journal
+journal.new: New Journal
+journal.apply: Apply Journal
+journal.manager: Journal Manager
+journal.update: Journal Update
+journal.edit: Journal Edit
+update: Update
+cancel: Cancel
+journal.list: List Journals
+journal.my: My Journal
+ISSN: ISSN
+create: Create
+titleabbr: Title Abbr
+titletransliterated: Title Transliterated
+journal.langs: Languages
+E-ISSN: E-ISSN
+firstpublishdate: First Publish Date
+period: Period
+published: Published
+image: Image
+theme.id: Theme ID
+users: Users
+editor.dashboard: Editor Dashboard
+journal.detail: Journal Detail
+e-ISSN: e-ISSN
+URL: URL
+journalContact.edit: Edit Journal Contact
+journalcontact.list: Journal Contact List
+journalcontact.journal.id: Journal ID
+journalcontact.contact.id: Contact ID
+journalcontact.contact.type.id: Contact Type ID
+journalcontact.creation: Journal Contact Creation
+journalcontact.singular: Journal Contact
+journalsection.edit: Edit Journal Section
+journalsection.list: Journal Section List
+allow_index: Allow Index
+hide_title: Hide Title
+journalsection.new: New Journal Section
+journalsection: Journal Section
+allow_index.list: Allow Index List
+journaltheme.edit: Edit Journal Theme
+journaltheme.list: Journal Theme List
+theme: Theme
+journaltheme.new: New Journal theme
+journaltheme: Journal Theme
+lang.edit: Edit
+lang.list: List
+lang.code: Code
+lang.name: Name
+lang.rtl: RTL
+lang.new: New Lang
+lang: Lang
+subject.edit: Edit Subject
+subject.list: Subject List
+subject: Subject
+subject.new: New Subject
+theme.edit: Edit Theme
+theme.list: Theme List
+content: Content
+basetheme: Base Theme
+theme.new: New Theme
