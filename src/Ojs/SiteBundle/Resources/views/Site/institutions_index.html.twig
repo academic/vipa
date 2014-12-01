@@ -9,10 +9,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
-                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|apply_filter('institution_logo') }}" alt=""/>
+                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|apply_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
                     <div itemscope itemtype="http://schema.org/Organization">
-                        <span itemprop="name">{{entity.name}}</span>
-                        Contact Details:
+                        <span itemprop="name" class="text-primary">{{entity.name}}</span>
+                        <h4>Contact Details:</h4>
                         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                             Main address:
                             <span itemprop="address">{{entity.address}}</span>
@@ -22,8 +22,8 @@
                         </div>
                         Tel:<span itemprop="telephone">{{entity.phone}}</span>,
                         Fax:<span itemprop="faxNumber">{{entity.fax}}</span>,
-                        E-mail: <span itemprop="email">{{entity.email}}</span>
-                        Web: <span itemprop="url">{{entity.url}}</span>
+                        E-mail: <span itemprop="email"><a href="mailto:{{entity.email}}">{{entity.email}}</a></span>
+                        Web: <span itemprop="url"><a href="{{entity.url}}">{{entity.url}}</a></span>
                         Wiki: <span itemprop="url">{{entity.url}}</span>
                     </div>
                     <ul class="list-group">
@@ -36,10 +36,12 @@
 
                 <div class="panel-footer">
                     <a href="/institution/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
+                    
                     <i class="fa fa-tags"></i>{{"tags"|trans}}
                     <a href="#"><span class="badge">ojs</span></a>
                     <a href="#"><span class="badge">university</span></a>
                     <a href="#"><span class="badge">paper</span></a>
+                    
                 </div>
             </div>
 
