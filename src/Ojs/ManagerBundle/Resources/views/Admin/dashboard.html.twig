@@ -3,6 +3,7 @@
 {% block body %}
     <h1>{{"dashboard.admin"|trans}}</h1>
 
+    {% include '::flashbag.html.twig' %}
     <div class="col-md-6">
         <a href="{{path("dashboard_editor")}}"><strong>{{"dashboard.editor"|trans}}</strong></a>
 
