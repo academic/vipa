@@ -35,7 +35,7 @@ class JournalService
     {
         $em = $this->container->get('doctrine')->getManager();
         $selectedJournalId = $this->session->get("selectedJournalId");
-        return $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId);
+        return $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
     }
 
 }
