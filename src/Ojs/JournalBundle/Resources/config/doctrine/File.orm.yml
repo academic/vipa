@@ -25,7 +25,9 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             column: mime_type
         size:
-            type: decimal
+            type: string
+            length: 255
+            column: size
         created:
            type: datetime
            gedmo:

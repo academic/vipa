@@ -29,10 +29,15 @@ class ArticleSubmissionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->getUser();
 
+        $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0, 'submitterId' => $user->getId()));
+        $resumableSubmissions = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
+                findBy(array('user_id'=>$user->getId(), 'sumitted'=>false));
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
-                    'entities' => $entities,
+                    'submissions' => $submissions,
+                    'resumableSubmissions' => $resumableSubmissions
         ));
     }
 
@@ -134,13 +139,14 @@ class ArticleSubmissionController extends Controller
         $article = new Article();
         $article->setPrimaryLanguage($articleSubmission->getPrimaryLanguage());
 
-        $article->setJournalId($articleSubmission->getJournalId());
+        $article->setJournal($journal);
         $article->setTitle($articlePrimaryData['title']);
         $article->setAbstract($articlePrimaryData['abstract']);
         $article->setKeywords($articlePrimaryData['keywords']);
         $article->setSubjects($articlePrimaryData['subjects']);
         $article->setSubtitle($articlePrimaryData['title']);
-
+        $article->setSubmitterId($this->getUser()->getId());
+        $article->setStatus(0);
         // article data for other languages if provided
         unset($articleData[$articleSubmission->getPrimaryLanguage()]);
         foreach ($articleData as $locale => $data) {
@@ -233,7 +239,7 @@ class ArticleSubmissionController extends Controller
         $articleSubmission->setSubmitted(1);
         $dm->persist($articleSubmission);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_user_index'));
+        return $this->redirect($this->generateUrl('article_submissions_me'));
     }
 
 }
