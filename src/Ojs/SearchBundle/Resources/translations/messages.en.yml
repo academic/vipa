@@ -1,3 +1,4 @@
 search.resutls: 'Search Results'
 search.results: 'Search Results'
-"<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>": "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
+"<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>": "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
+

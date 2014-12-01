@@ -34,7 +34,10 @@ ojs_profile_index:
 ojs_journal_index:
     pattern:  /journal/{journal_id}
     defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
-    
+
+ojs_journal_index_articles:
+    pattern: /journal/{journal_id}/articles
+    defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 ojs_journals_index:
     pattern:  /journals/{start}/{offset}
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }

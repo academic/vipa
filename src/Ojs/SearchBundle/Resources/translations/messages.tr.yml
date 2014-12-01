@@ -1,3 +1,3 @@
 search.resutls: 'Arama Sonuçları'
-search.results: __search.results
-"<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
+search.results: 'Arama Sonuçları'
+"<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>": "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
