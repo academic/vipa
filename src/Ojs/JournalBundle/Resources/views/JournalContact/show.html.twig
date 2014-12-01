@@ -1,24 +1,24 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalContact</h1>
+    <h1>{{ 'journalcontact.singular'|trans }}</h1>
 
     <table class="record_properties  table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Journalid</th>
+                <th>{{ 'journalcontact.journal.id'|trans }}</th>
                 <td>{{ entity.journalId }}</td>
             </tr>
             <tr>
-                <th>Contactid</th>
+                <th>{{ 'journalcontact.contact.id'|trans }}</th>
                 <td>{{ entity.contactId }}</td>
             </tr>
             <tr>
-                <th>Contacttypeid</th>
+                <th>{{ 'journalcontact.contact.type.id'|trans }}</th>
                 <td>{{ entity.contactTypeId }}</td>
             </tr>
         </tbody>

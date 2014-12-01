@@ -1,8 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'title': 'Contact Manager'}])}}
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'contact.manager'|trans}])}}
 {% endblock %} 
 
 {% block body -%} 
@@ -12,7 +12,7 @@
     <table class="records_list  table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <th>{{"title"|trans}}</th>
                 <th>{{"firstname"|trans}}</th>
                 <th>{{"lastname"|trans}}</th> 

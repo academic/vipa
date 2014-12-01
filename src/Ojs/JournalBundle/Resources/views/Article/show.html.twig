@@ -1,13 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'link': path('article'), 'title': 'Article Manager'},
-    { 'title' : 'Article Detail'} ])}}
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('article'), 'title': 'article.manager'|trans},
+    { 'title' : 'article.detail'|trans} ])}}
 {% endblock %}
 
 {% block body -%}
-    <h1>Article Detail <small title="ojs unique id">#{{ entity.id }}</small></h1>
+    <h1>{{ 'article.detail'|trans }}<small title="ojs unique id">#{{ entity.id }}</small></h1>
 
     <table class="record_properties table">
         <tbody>
@@ -16,7 +16,7 @@
                 <td>{{ entity.title }}</td>
             </tr>
             <tr>
-                <th>Titletransliterated</th>
+                <th>{{ "title.transliterated"|trans }}</th>
                 <td>{{ entity.titleTransliterated }}</td>
             </tr>
 
@@ -70,7 +70,7 @@
                 <td style="background: {{entity.statusColor}}"><span >{{ entity.statusText }}</span></td>
             </tr>
             <tr>
-                <th>DOI</th>
+                <th>{{ "doi"|trans }}</th>
                 <td>
                     {{ entity.doi }}
                     {% if entity.doi %}
@@ -98,16 +98,16 @@
                 <td> {{ entity.keywords }} </td>
             </tr>
             <tr>
-                <th>Otherid</th>
+                <th>{{ "otherid"|trans }}</th>
                 <td>{{ entity.otherId }}</td>
             </tr>
             <tr>
-                <th>Journalid</th>
+                <th>{{ "journalid"|trans }}</th>
                 <td>{{ entity.journalId }}</td>
             </tr>
 
             <tr>
-                <th>Isanonymous</th>
+                <th>{{ "isAnonymous"|trans }}</th>
                 <td>{{ entity.isAnonymous }}</td>
             </tr>
             <tr>
@@ -115,7 +115,7 @@
                 <td>{{ entity.pubdate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th>Pubdateseason</th>
+                <th>{{ "Pubdateseason"|trans }}</th>
                 <td>{{ entity.pubdateSeason }}</td>
             </tr>
             <tr>
@@ -139,7 +139,7 @@
                 <td>{{ entity.abstract }}</td>
             </tr>
             <tr>
-                <th>Abstracttransliterated</th>
+                <th>{{ "abstract.transliterated"|trans }}</th>
                 <td>{{ entity.abstractTransliterated }}</td>
             </tr>
             <tr>

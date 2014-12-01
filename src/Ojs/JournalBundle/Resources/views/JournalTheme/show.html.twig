@@ -6,7 +6,7 @@
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
@@ -28,7 +28,7 @@
     </li>
     <li>
         <a href="{{ path('admin_journaltheme_edit', { 'id': entity.id }) }}">
-            Edit
+            {{ 'e'|trans }}
         </a>
     </li>
     <li>{{ form(delete_form) }}</li>

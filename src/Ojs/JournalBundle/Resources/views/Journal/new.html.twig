@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'},
-                { 'title': 'New Journal '},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                { 'link': path('journal'), 'title': 'journal.manager'|trans},
+                { 'title': 'journal.new'|trans},
 
 ] %}
     {{breadcrumb(list)}}
@@ -30,7 +30,7 @@
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
+                <span>{{"select.image.file"|trans}}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
             </span>
 

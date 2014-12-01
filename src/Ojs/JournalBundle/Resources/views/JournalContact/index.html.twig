@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalContact list</h1>
+    <h1>{{ 'journalcontact.list'|trans }}</h1>
 
     <table class="records_list  table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Journalid</th>
-                <th>Contactid</th>
-                <th>Contacttypeid</th>
+                <th>{{ 'id'|trans }}</th>
+                <th>{{ 'journalcontact.journal.id'|trans }}</th>
+                <th>{{ 'journalcontact.contact.id'|trans }}</th>
+                <th>{{ 'journalcontact.contact.type.id'|trans }}</th>
                 <th>{{"actions"|trans}}</th>
             </tr>
         </thead>

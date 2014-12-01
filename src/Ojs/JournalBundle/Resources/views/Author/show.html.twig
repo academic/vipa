@@ -1,9 +1,9 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'link': path('author'), 'title': 'Author Manager'},
-    { 'title' : 'Author Details'} ])}}
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('author'), 'title': 'author.manager'|trans},
+    { 'title' : 'author.details'|trans} ])}}
 {% endblock %}
 
 {% block body -%}
@@ -12,7 +12,7 @@
     <table class="record_properties  table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>

@@ -2,8 +2,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'title': 'Journal Manager'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                { 'title': 'journal.manager'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -29,7 +29,7 @@
                 <thead>
                     <tr>
                         <th>{{"title"|trans}}</th>
-                        <th>ISSN</th>
+                        <th>{{ 'ISSN'|trans }}</th>
                         <th width="60px">{{"actions"|trans}}</th>
                     </tr>
                 </thead>

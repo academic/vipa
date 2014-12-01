@@ -1,6 +1,6 @@
 {% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
-{% block title %}Submit New Article{% endblock %}
+{% block title %}{{ 'article.new.submit' }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
@@ -196,10 +196,9 @@
                 </span>
                 <span class="upload_progress label label-info" style="display: none"></span>
             </form>
-        </div>
-        <hr>
+        </div><hr>
         <br>
-        <h3>Supplementary Files</h3>
+        <h3>{{ 'Supplementary.File'|trans }}</h3>
         <div id="step4">
 
         </div>

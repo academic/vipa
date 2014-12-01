@@ -5,8 +5,8 @@ journal.show tpl for editors
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Editor Dashboard'},
-                { 'title': 'Journal Detail'},
+                {'link': path('dashboard'), 'title': 'editor.dashboard'|trans},
+                { 'title': 'journal.detail'|trans},
 
 ] %}
     {{breadcrumb(list)}}
@@ -16,7 +16,7 @@ journal.show tpl for editors
 
         <tbody>
             <tr>
-                <th width="300px">Id</th>
+                <th width="300px">{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
@@ -41,11 +41,11 @@ journal.show tpl for editors
                 <td>{{ entity.subtitle }}</td>
             </tr>
             <tr>
-                <th>ISSN</th>
+                <th>{{ 'ISSN'|trans }}</th>
                 <td>{{ entity.issn }}</td>
             </tr>
             <tr>
-                <th>E-ISSN</th>
+                <th>{{ 'E-ISSN'|trans }}</th>
                 <td>{{ entity.eissn }}</td>
             </tr>
             <tr>

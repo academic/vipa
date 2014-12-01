@@ -1,9 +1,9 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'}, 
-    { 'title': 'Institution Manager', 'link' : path('institution')},
-    { 'title': 'Edit Institution'}])}}
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'institution.manager'|trans, 'link' : path('institution')},
+    { 'title': 'institution.edit'|trans}])}}
 {% endblock %}  
 
 
@@ -26,7 +26,7 @@
 
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
+                <span>{{"select.image.file"|trans}}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
             </span>
 
@@ -35,7 +35,7 @@
         </div>
     </div>
     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-        {{ "Create"|trans }}
+        {{ "c"|trans }}
     </button>
     {{ form_end(form) }}
     {% set back_path = 'institution' %}

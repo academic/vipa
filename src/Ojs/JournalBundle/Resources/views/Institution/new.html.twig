@@ -1,9 +1,9 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'Dashboard'},
-    { 'title': 'Institution Manager', 'link' : path('institution')},
-    { 'title': 'New Institution'}]) }}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'institution.manager'|trans, 'link' : path('institution')},
+    { 'title': 'institution.new'|trans}]) }}
 {% endblock %} 
 
 {% block body -%}
@@ -33,7 +33,7 @@
         </div>
     </div>
     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-        {{ "create"|trans }}
+        {{ "c"|trans }}
     </button>
     {{ form_end(form) }}
     {% set back_path = 'institution' %}

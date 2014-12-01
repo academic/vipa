@@ -5,9 +5,9 @@ journal.show tpl for super admin users
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'link': path('journal'), 'title': 'Journal Manager'},
-                { 'title': 'Journal Detail'},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                { 'link': path('journal'), 'title': 'journal.manager'|trans},
+                { 'title': 'journal.detail'|trans},
 
 ] %}
     {{breadcrumb(list)}}
@@ -22,7 +22,7 @@ journal.show tpl for super admin users
 
                 <tbody>
                     <tr>
-                        <th width="300px">Id</th>
+                        <th width="300px">{{ 'id'|trans }}</th>
                         <td>{{ entity.id }}</td>
                     </tr>
                     <tr>
@@ -47,11 +47,11 @@ journal.show tpl for super admin users
                         <td>{{ entity.subtitle }}</td>
                     </tr>
                     <tr>
-                        <th>ISSN</th>
+                        <th>{{ 'ISSN'|trans }}</th>
                         <td>{{ entity.issn }}</td>
                     </tr>
                     <tr>
-                        <th>e-ISSN</th>
+                        <th>{{ 'e-ISSN'|trans }}</th>
                         <td>{{ entity.eissn }}</td>
                     </tr>
                     <tr>

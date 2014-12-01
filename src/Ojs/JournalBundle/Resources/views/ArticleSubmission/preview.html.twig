@@ -1,6 +1,6 @@
 {% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
-{% block title %}Preview Article Before Submit{% endblock %}
+{% block title %}{{ 'Preview Article Before Submit'|trans }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" %}
@@ -158,7 +158,7 @@
             <input type="hidden" name="submissionId" value="{{submissionId}}">
             <div class="btn-group pull-right">
                 <a class="btn btn-lg btn-default" href="{{path('article_submission_resume',{'submissionId':submissionId})}}">
-                    <i class="fa fa-backward"></i> Back & Continue Editing
+                    <i class="fa fa-backward"></i> {{ 'Back & Continue Editing'|trans }}
                 </a>
                 <button class="btn btn-primary btn-lg"
                         onclick="javascript: OjsArticleSubmission.submit('');">
