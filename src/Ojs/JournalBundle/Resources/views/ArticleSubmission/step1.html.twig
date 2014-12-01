@@ -2,32 +2,26 @@
     <hr>
     <form class="form" role="form">
         <div class="form-group">
-            <label class="control-label">{{"title"|trans}} <span class="mandotary"></span></label>
+            <label class="control-label">{% endraw %}{{"title"|trans}}{% raw %} <span class="mandotary"></span></label>
             <input name="title" id="titleintput" class="form-control"
-                   placeholder=" {{'article_original_title'|trans}} " value="{{article_title}}"/>
+                   placeholder="{% endraw %}{{'article.title'|trans}}{% raw %}" value="{{article_title}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">{{"title_transliterated"|trans}}</label>
-            <input id="titletransliteratedinput"
-                   placeholder="{{ 'You can leave blank this field if your `title` is all Latin characters.'|trans }}"
-                   name="titleTransliterated" class="form-control" value="{{article_title_trans}}" />
-        </div> 
-
-        <div class="form-group">
-            <label class="control-label">{{"subtitle"|trans}}</label>
-            <input name="subtitle" class="form-control" value="{{article_subtitle}}"/>
+            <label class="control-label">{% endraw %}{{"subtitle"|trans}}{% raw %}</label>
+            <input name="subtitle" class="form-control" 
+                   placeholder="{% endraw %}{{'article.subtitle'|trans}}{% raw %}" value="{{article_subtitle}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">{{"keywords"|trans}} <span class="mandotary"></span></label>
+            <label class="control-label">{% endraw %}{{"keywords"|trans}}{% raw %} <span class="mandotary"></span></label>
             <input name="keywords" class="form-control"
                    placeholder="Comma-seperated keyword list" value="{{article_keywords}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">{{"subjects"|trans}}</label>
+            <label class="control-label">{% endraw %}{{"subjects"|trans}}{% raw %}</label>
             <input name="subjects" class="form-control"  value="{{article_subjects}}"/>
         </div>
         <div class="form-group">
-            <label class="control-label">{{"abstract"|trans}} <span class="mandotary"></span></label>
+            <label class="control-label">{% endraw %}{{"abstract"|trans}}{% raw %} <span class="mandotary"></span></label>
             <textarea name="abstract" class="editor form-control" rows="6">{{article_abstract}}</textarea>
         </div>
     </form>
