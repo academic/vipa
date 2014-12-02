@@ -24,7 +24,7 @@ class AnalyticsRestController extends FOSRestController
      *      }
      *  }
      * )
-     * @Put("/analytics/view/{entity}/{id}/")
+     * @Put("/analytics/view/{entity}/{id}")
      */
     public function putObjectViewAction(Request $request, $id, $entity)
     {
@@ -51,10 +51,9 @@ class AnalyticsRestController extends FOSRestController
      */
     public function getObjectViewAction(Request $request, $id, $entity)
     {
-        $pageUrl = $request->get('page_url');
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectView')
-            ->findBy(['pageUrl'=>$pageUrl,'entity'=>$entity]);
+            ->findBy(['objectId'=>$id,'entity'=>$entity]);
         return $data;
     }
 

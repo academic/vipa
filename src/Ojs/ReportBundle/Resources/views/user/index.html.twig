@@ -2,18 +2,57 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                { 'title': 'Reports', 'link': path('reports_index') },
-                { 'title': 'Analytics Reports'}
-] %}
-    {{breadcrumb(list)}}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'report.plural'|trans, 'link': path('reports_index') },
+    { 'title': 'report.analytics'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
-{% block body -%} 
+{% block body -%}
     <div class="col-md-12">
         {# @todo a summary user chart should be added here #}
+        <div id="titles_chart"></div>
+        <div id="roles_chart"></div>
+    </div>
+{% endblock %}
 
-    </a>
-</div>
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script>
+        var datas = [
+            {
+                title: 'Subscriber User Titles',
+                element: 'titles_chart',
+                data: [
+                    ['Title', 'Count'],
+                    ['Dr.', 50],
+                    ['Prof.', 20]
+                ]
+            }, {
+                title: 'Roles',
+                element: 'roles_chart',
+                data: [
+                    ['Title', 'Count'],
+                    ['Dr.', 30],
+                    ['Prof.', 120]
+                ]
+            }
+        ];
+        google.load('visualization', '1.0', {'packages': ['corechart']});
+
+        var drawcharts = function () {
+            for (var i = 0; i < datas.length; i++) {
+                var data = new google.visualization.arrayToDataTable(datas[i].data);
+                var options = {
+                    title: datas[i].title
+                };
+                var chart = new google.visualization.PieChart(document.getElementById(datas[i].element));
+                chart.draw(data, options);
+            }
+        };
+        google.setOnLoadCallback(drawcharts);
+    </script>
 {% endblock %}

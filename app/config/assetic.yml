@@ -35,6 +35,7 @@ assetic:
                     - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js
                     - @OkulbilisimFeedbackBundle/Resources/public/js/admin.js
                     - @OjsSiteBundle/Resources/public/js/block.js
+                    - @OjsAnalyticsBundle/Resources/public/js/analytics.js
         admin_main_css:
                 inputs:
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/css/bootstrap.min.css

@@ -167,7 +167,7 @@ class UserJournalRole
     /**
      * Get journal
      *
-     * @return \Ojstr\Journalundle\Entity\Journal
+     * @return \Ojs\JournalBundle\Entity\Journal
      */
     public function getJournal()
     {
