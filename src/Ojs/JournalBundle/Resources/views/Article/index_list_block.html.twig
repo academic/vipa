@@ -1,43 +1,55 @@
-<table class="table table-striped records_list ">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>{{"primaly_language"|trans}}</th>
-            <th>{{"journal"|trans}}</th> 
-            <th>{{"title"|trans}}</th>
-            <th>{{"pubdate"|trans}}</th>
-            <th>{{"actions"|trans}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for entity in entities %}
+<div class="table-responsive">
+    <table class="table table-striped records_list">
+        <thead>
             <tr>
-                <td><a id="article-show-details" href="{{ path('article_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td> <span class="badge">{{ entity.primaryLanguage }}</span></td>
-                <td>
-                    {% if entity.journalId %}
-                        <a href="{{path('article_journal', { 'journalId': entity.journalId }) }}">
-                            <span class="badge"></span> {{ entity.journalId }} {{ entity.journal.title }}</a>
-                        {% endif %}
-                        {% if entity.issueId %} 
-                        <br>
-                        <a class="label label-info" href="{{path('article_issue', { 'issueId': entity.issueId }) }}">
-                            {{"issue"|trans}}
-                            {{ entity.issue.volume }}/{{ entity.issue.number }} {{ entity.issue.title }}
-                        </a> 
-                    {% endif %}
-                </td> 
-                <td>{{ entity.title }}</td>
-                <td>{% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>
-
-                    {% set show_path = 'article_show' %}
-                    {% set edit_path = 'article_edit' %}
-                    {% set delete_path = 'article_delete' %}
-                    {% include '::actionbtns.html.twig' %}
-
-                </td>
+                <th>Id</th> 
+                <th>{{"actions"|trans}}</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <a class="badge" id="article-show-details" href="{{ path('article_show', { 'id': entity.id }) }}">
+                            {{ entity.id }}
+                        </a>
+                    </td>
+                    <td>
+                        <dl>
+                            <dd><strong>{{"journal"|trans}} :</strong>
+                                {% if entity.journalId %}
+                                    <a href="{{path('article_journal', { 'journalId': entity.journalId }) }}">
+                                        {{ entity.journal.title }}
+                                    </a>
+                                {% endif %}
+                            </dd>
+
+                            <dd>
+                                <strong>{{"issue"|trans}} :</strong>
+                                {% if entity.issueId %}
+                                    <a class="label label-info" href="{{path('article_issue', { 'issueId': entity.issueId }) }}">
+                                        {{"issue"|trans}}
+                                        {{ entity.issue.volume }}/{{ entity.issue.number }} {{ entity.issue.title }}
+                                    </a>
+
+                                {% endif %}
+                            </dd>
+                            <dt>{{"title"|trans}} :</dt><dd>{{ entity.title }}</dd>
+                        </dl>
+                        <span  title="{{"pubdate"|trans}}" class="label label-default">
+                            {% if entity.pubdate %}{{ entity.pubdate|date('Y-m-d') }}{% endif %}
+                        </span>
+                    </td>
+                    <td>
+
+                        {% set show_path = 'article_show' %}
+                        {% set edit_path = 'article_edit' %}
+                        {% set delete_path = 'article_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
