@@ -4,7 +4,7 @@ article_submissions_me:
 
 article_submissions_all:
     pattern:  /admin/article/submissions/all/
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:indexAll" }
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:index" , all: true}
 
 article_submission_new:
     pattern:  /author/article/submit/

@@ -26,32 +26,27 @@ class ArticleSubmissionController extends Controller
      * Lists all new Article submissions entities.
      *
      */
-    public function indexAction()
+    public function indexAction($all = false)
     {
+
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $this->getUser();
-
-        $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0, 'submitterId' => $user->getId()));
-        $resumableSubmissions = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
-                findBy(array('user_id'=>$user->getId(), 'sumitted'=>false));
+        if ($all) {
+            // all submissions and submission drafts
+            $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
+            $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
+                    findBy(array('submitted' => false));
+        } else {
+            // just me
+            $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0, 'submitterId' => $user->getId()));
+            $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
+                    findBy(array('userId' => $user->getId(), 'submitted' => false));
+        }
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
                     'submissions' => $submissions,
-                    'resumableSubmissions' => $resumableSubmissions
-        ));
-    }
-
-    /**
-     * Lists all new Article submissions entities.
-     *
-     */
-    public function indexAllAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
-
-        return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
-                    'entities' => $entities,
+                    'drafts' => $drafts,
+                    'all' => $all
         ));
     }
 
