@@ -40,6 +40,11 @@ OJS assists with every stage of the refereed publishing process, from submission
 
 Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/INSTALL.md)
 
+extreme update command:
+
+```bash
+git pull origin master && bower update && composer update -vvv && mysql -u root -p -e "drop database ojs;" && php app/console doctrine:database:create && php app/console ojs:install:travis && php app/console h4cc_alice_fixtures:load:sets
+``
 
 ## 2) Checking System Configuration
 
