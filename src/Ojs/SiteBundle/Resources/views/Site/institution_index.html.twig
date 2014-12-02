@@ -49,3 +49,9 @@
     <!-- /.container -->
 
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('institution',{{ entity.id }})
+    </script>
+{% endblock %}

@@ -30,23 +30,25 @@ class UpdateCommand extends ContainerAwareCommand
     /** @var  DocumentManager $dm */
     private $dm;
 
-    /** @var  Serializer $serializer  */
-    private $serializer ;
+    /** @var  Serializer $serializer */
+    private $serializer;
 
     /** @var array $objects */
-    private $objects=[
-        'articles'=>'OjsJournalBundle:Article',
+    private $objects = [
+        'article' => 'OjsJournalBundle:Article',
+        'journal' => 'OjsJournalBundle:Journal',
+        'institution' => 'OjsJournalBundle:Institution',
     ];
 
     /** @var  EntityManager $em */
     private $em;
+
     protected function configure()
     {
         $this->setName("ojs:analytics:update")
             ->setDescription("Analytics total data updater")
             ->addArgument("type", InputArgument::REQUIRED, "What is the type you want to update? [view, download]")
-            ->addOption('test','t',null,"Test mode")
-        ;
+            ->addOption('test', 't', null, "Test mode");
 
     }
 
@@ -73,13 +75,13 @@ class UpdateCommand extends ContainerAwareCommand
     private function getObject($object)
     {
         $entity = $this->objects[$object->getEntity()];
-        $object = $this->em->find($entity,$object->getObjectId());
+        $object = $this->em->find($entity, $object->getObjectId());
         return $object;
     }
 
     private function updateViewData(OutputInterface $output)
     {
-        try{
+        try {
             $progress = $this->getHelper('progress');
 
             $allViews = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews')->findAll();
@@ -90,16 +92,17 @@ class UpdateCommand extends ContainerAwareCommand
                     $counts[$view->getPageUrl()]->total++;
                 } else {
                     $counts[$view->getPageUrl()] = new \stdClass();
+                    $counts[$view->getPageUrl()]->total = 1;
                     $counts[$view->getPageUrl()]->id = $view->getObjectId();
                     $counts[$view->getPageUrl()]->entity = $view->getEntity();
-                    $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize($this->getObject($view),'json');
+                    $counts[$view->getPageUrl()]->rawData = $this->serializer->serialize($this->getObject($view), 'json');
                 }
             }
-            $progress->start($output,count($counts));
+            $progress->start($output, count($counts));
             foreach ($counts as $key => $object) {
                 //check
                 $totalView = $this->dm->getRepository("OjsAnalyticsBundle:ObjectView")
-                    ->findOneBy(['pageUrl' => $key,'objectId'=>$object->id,'entity'=>$object->entity]);
+                    ->findOneBy(['pageUrl' => $key, 'objectId' => $object->id, 'entity' => $object->entity]);
 
                 $totalView = $totalView ? $totalView : new ObjectView();
 
@@ -115,39 +118,41 @@ class UpdateCommand extends ContainerAwareCommand
             }
             $progress->finish();
             $output->writeln("Successfully");
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
+            $output->writeln($e->getMessage());
             $output->writeln("An error has occured");
+
         }
 
     }
 
     private function updateDownloadData(OutputInterface $output)
     {
-        try{
+        try {
             $progress = $this->getHelper('progress');
 
             $allDownloads = $this->dm->getRepository("OjsAnalyticsBundle:ObjectDownloads")->findAll();
             $counts = [];
-            foreach($allDownloads as $download){
-                if(isset($count[$download->getFilePath()])){
+            foreach ($allDownloads as $download) {
+                if (isset($count[$download->getFilePath()])) {
                     $counts[$download->getFilePath()]->total++;
-                }else{
+                } else {
                     $counts[$download->getFilePath()] = new \stdClass();
                     $counts[$download->getFilePath()]->total = 1;
                     $counts[$download->getFilePath()]->id = $download->getObjectId();
                     $counts[$download->getFilePath()]->entity = $download->getEntity();
-                    $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($this->getObject($download),'json');
+                    $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($this->getObject($download), 'json');
 
                 }
             }
-            $progress->start($output,count($counts));
+            $progress->start($output, count($counts));
 
-            foreach($counts as $key=>$object){
+            foreach ($counts as $key => $object) {
                 //check data
                 $totalDownload = $this->dm
                     ->getRepository("OjsAnalyticsBundle:ObjectDownload")
-                    ->findOneBy(['filePath'=>$key,'objectId'=>$object->id,'entity'=>$object->entity]);
-                $totalDownload = $totalDownload? $totalDownload: new ObjectDownload();
+                    ->findOneBy(['filePath' => $key, 'objectId' => $object->id, 'entity' => $object->entity]);
+                $totalDownload = $totalDownload ? $totalDownload : new ObjectDownload();
 
                 $totalDownload->setTotal($object->total);
                 $totalDownload->setFilePath($key);
@@ -162,7 +167,7 @@ class UpdateCommand extends ContainerAwareCommand
             $progress->finish();
             $output->writeln("Successfully");
 
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             $output->writeln("An error has occured");
         }
     }

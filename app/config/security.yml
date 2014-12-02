@@ -26,6 +26,11 @@ security:
             stateless: true
             security: false
             anonymous: true
+        api_analytics:
+            pattern: ^/api/analytics
+            stateless: true
+            security: false
+            anonymous: true
         api:
             pattern: ^/api/
             stateless: true

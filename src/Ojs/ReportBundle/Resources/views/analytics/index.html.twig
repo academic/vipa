@@ -11,18 +11,54 @@
 {% endblock %}
 
 
-{% block body -%} 
+{% block body -%}
     <div class="col-md-12">
-        <a class="btn btn-lg btn-default" href="{{path("user_reports")}}">
-            <i class="fa fa-eye"></i> {{"reports.analytics-view"|trans }}
-        </a>
-        <a class="btn btn-lg btn-default" href="{{path("article_reports")}}">
-            <i class="fa fa-download"></i> {{"reports.analytics-download"|trans }}
-        </a>
-        <a class="btn btn-lg btn-default" href="{{path("analytics_reports")}}">
-            <i class="fa fa-line-chart"></i> {{"reports.analytics-bookmark"|trans }}
-        </a>
-
+        {% for stat in stats %}
+           {% for object in stat %}
+               <div id="stat_{{ object.info.id }}"></div>
+           {% endfor %}
+        {% endfor %}
         {# @todo a summary analytics chart should be added here #}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script>
+        var datas = [
+            {% for stat in stats %}
+                {% for object in stat %}
+                    {
+                        title: '{{ object.info.title[:100] }} Stats',
+                        element: 'stat_{{ object.info.id }}',
+                        data: [
+                            {% for s in object.stats %}
+                            {% if loop.first %}
+                                ['{{ s.entity }}', 'Total'],
+                            {% endif %}
+                                ['{{ s.pageUrl }}',{{ s.total }}]
+                            {% if not loop.last %},{% endif %}
+                            {% endfor %}
+                        ]
+                    }
+                {% if not loop.last %},{% endif %}
+                {% endfor %}
+            {% if not loop.last %},{% endif %}
+            {% endfor %}
+
+        ];
+        google.load('visualization', '1.0', {'packages': ['corechart']});
+
+        var drawcharts = function () {
+            for (var i = 0; i < datas.length; i++) {
+                var data = new google.visualization.arrayToDataTable(datas[i].data);
+                var options = {
+                    title: datas[i].title
+                };
+                var chart = new google.visualization.PieChart(document.getElementById(datas[i].element));
+                chart.draw(data, options);
+            }
+        };
+        google.setOnLoadCallback(drawcharts);
+    </script>
 {% endblock %}
