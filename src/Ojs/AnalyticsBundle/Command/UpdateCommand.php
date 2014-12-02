@@ -169,6 +169,7 @@ class UpdateCommand extends ContainerAwareCommand
 
         } catch (\Exception $e) {
             $output->writeln("An error has occured");
+            $output->writeln($e->getMessage());
         }
     }
 }
