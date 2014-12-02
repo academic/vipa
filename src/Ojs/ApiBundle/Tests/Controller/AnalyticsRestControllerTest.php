@@ -19,13 +19,13 @@ use Symfony\Component\Console\Input\StringInput;
  */
 class AnalyticsRestControllerTest extends BaseTestCase {
     private $objectId=1;
-    private $entity='articles';
+    private $entity='article';
 
     public function testPutObjectView()
     {
         $this->client->request(
             'PUT',
-            '/api/analytics/view/'.$this->entity.'/'.$this->objectId.'/?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
+            '/api/analytics/view/'.$this->entity.'/'.$this->objectId,
             [
                 'page_url'=>'/articles/test'
             ],
