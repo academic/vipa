@@ -3,3 +3,15 @@ Ojs\UserBundle\Entity\UserJournalRole:
     user: @user*
     role: @role*
     journal: @journal*
+  manager_journal_role:
+      user: @user_journal_manager
+      role: @role3
+      journal: @journal1
+  author_journal_role:
+      user: @user_author
+      role: @role11
+      journal: @journal1
+  author_journal_role2:
+      user: @user_author
+      role: @role11
+      journal: @journal2

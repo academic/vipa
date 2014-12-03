@@ -10,3 +10,25 @@
     status: 1
     title: <title()>
     roles: 2x @role*
+  user_author:
+    username (unique): demo_author
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Author
+    lastName: Demo
+    email (unique): demo.author@ojs.io
+    isActive: true
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    status: 1
+    title: Dr.
+    roles: [@role11]
+  user_journal_manager:
+    username (unique): demo_journal_manager
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Journal Manager
+    lastName: Demo
+    email (unique): demo.manager@ojs.io
+    isActive: true
+    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
+    status: 1
+    title: Prof. Dr.
+    roles: [@role3]
