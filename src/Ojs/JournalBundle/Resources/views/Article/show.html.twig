@@ -38,8 +38,11 @@
             <tr>
                 <th>{{"journal"|trans}}</th>
                 <td>
+                    {% if entity.journal %}
                     <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
-                        {{ entity.journal.title }}</a>
+                        {{ entity.journal.title }}
+                    </a>
+                    {% endif %}
                 </td>
             </tr>
             <tr>
