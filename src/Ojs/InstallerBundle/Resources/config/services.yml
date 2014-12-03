@@ -1,0 +1,4 @@
+services:
+#    ojs_installer.example:
+#        class: Ojs\InstallerBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
