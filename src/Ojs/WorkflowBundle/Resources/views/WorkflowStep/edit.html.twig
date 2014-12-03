@@ -1,5 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
+                {'title': 'Update Workflow Step'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
 <div class="panel">
     <div class="panel-heading">

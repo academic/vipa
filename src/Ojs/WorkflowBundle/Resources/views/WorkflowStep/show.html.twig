@@ -1,58 +1,68 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
+                {'title': 'Workflow Step Detail'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
-<div class="panel">
-    <div class="panel-heading">
-        <h1>Workflow Step Details</h1>
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>Workflow Step Details</h1>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <td>{{step.title}}</td>
+                </tr>
+                <tr>
+                    <th>Status text</th>
+                    <td>{{step.status}}</i></td>
+                </tr>
+                <tr>
+                    <th>First Step?</th>
+                    <td>{% if step.getFirststep() %}<i class="fa fa-ok">{%endif%}</i></td>
+                </tr>
+                <tr>
+                    <th>Last Step?</th>
+                    <td>{% if step.getLaststep() %}<i class="fa fa-ok">{%endif%}</td>
+                </tr>
+                <tr>
+                    <th>Next Steps</th>
+                    <td>
+                        {%for step in step.nextsteps%}
+                            <a class="label label-info" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
+                        {%endfor%}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td>
+                        {%for role in step.roles%}
+                            <span class="label label-default">{{role.name}}</span>
+                        {%endfor%}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Allowed max days</th>
+                    <td>
+                        <span class="badge">{{step.maxdays}}</span>
+                    </td>
+                </tr>
+            </table>
+            <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
+            {% if isJournalManager() %}
+                <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">{{"e"|trans}}</a>
+                <a class="btn btn-primary" href="{{path('workflowstep_new')}}">
+                    <i class="fa fa-plus"></i>
+                    {%trans%}c{%endtrans%}
+                </a>
+            {% endif %}
+        </div>
     </div>
-    <div class="panel-body">
-        <table class="table">
-            <tr>
-                <th>Title</th>
-                <td>{{step.title}}</td>
-            </tr>
-            <tr>
-                <th>Status text</th>
-                <td>{{step.status}}</i></td>
-            </tr>
-            <tr>
-                <th>First Step?</th>
-                <td>{% if step.getFirststep() %}<i class="fa fa-ok">{%endif%}</i></td>
-            </tr>
-            <tr>
-                <th>Last Step?</th>
-                <td>{% if step.getLaststep() %}<i class="fa fa-ok">{%endif%}</td>
-            </tr>
-            <tr>
-                <th>Next Steps</th>
-                <td>
-                    {%for step in step.nextsteps%}
-                    <span class="label label-info">{{step.title}}</span>
-                    {%endfor%}
-                </td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>
-                {%for role in step.roles%}
-                    <span class="label label-default">{{role.name}}</span>
-                {%endfor%}
-                </td>
-            </tr>
-            <tr>
-                <th>Allowed max days</th>
-                <td>
-                    <span class="badge">{{step.maxdays}}</span>
-                </td>
-            </tr>
-        </table>
-        <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
-        <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">{{"e"|trans}}</a>
-        <a class="btn btn-primary" href="{{path('workflowstep_new')}}">
-            <i class="fa fa-plus"></i>
-            {%trans%}c{%endtrans%}</a>
-
-
-    </div>
-</div>
 {% endblock %}
