@@ -1,0 +1,15 @@
+{% extends '::ojsbase.html.twig' %}
+{% set hideleft %}-1{% endset %}
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{{ "installer.welcome.title"|trans }}</h3>
+            <p>
+                {{ "installer.welcome.message"|trans }}
+            </p>
+            <a class="btn btn-primary" href="{{ url('ojs_installer_check') }}">
+                {{ "installer.check_configuration"|trans }}
+            </a>
+        </div>
+    </div>
+{% endblock %}
