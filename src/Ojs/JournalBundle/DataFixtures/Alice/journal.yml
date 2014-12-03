@@ -1,5 +1,22 @@
 \Ojs\JournalBundle\Entity\Journal:
-  journal{1..50}:
+  journal1:
+    issn: <regexify('\d{4}-\d{4}')>
+    mission: <text(250)>
+    slug (unique): demo
+    period: <randomDigit(2)>
+    published: '1'
+    scope: <text(250)>
+    subtitle: <text(100)>
+    title: Demo Ojs Journal
+    titleAbbr: A demo journal or ojs.io
+    titleTransliterated: null
+    url: null
+    subdomain (unique): demo
+    institution: @institution1
+    subject: 5x @subject*
+    status: '3'
+    languages: 3x @lang*
+  journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(50)>
     slug (unique): <domainWord()>
@@ -15,4 +32,4 @@
     institution: @institution*
     subject: 5x @subject*
     status: '3'
-    languages: [ @lang1, @lang2, @lang3 ]
+    languages: 3x @lang*
