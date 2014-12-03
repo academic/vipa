@@ -29,6 +29,9 @@ class JournalWorkflowStep
 
     /** @MongoDb\Boolean */
     protected $laststep;
+    
+    /** @MongoDb\Boolean */
+    protected $onlyreply;
 
     /**
      * possible next steps
@@ -170,6 +173,29 @@ class JournalWorkflowStep
     public function getFirststep()
     {
         return $this->firststep;
+    }
+    
+    /**
+     * Set onlyreply
+     *
+     * @param  boolean $onlyreply
+     * @return self
+     */
+    public function setOnlyReply($onlyreply)
+    {
+        $this->onlyreply = $onlyreply;
+
+        return $this;
+    }
+
+    /**
+     * Get onlyreply
+     *
+     * @return boolean  $onlyreply
+     */
+    public function getOnlyReply()
+    {
+        return $this->onlyreply;
     }
 
     /**

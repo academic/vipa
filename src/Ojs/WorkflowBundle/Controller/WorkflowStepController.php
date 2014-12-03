@@ -147,6 +147,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setStatus($request->get('status'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        $step->setOnlyReply($request->get('onlyreply'));
         $dm->persist($step);
         $dm->flush();
 
