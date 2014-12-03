@@ -8,7 +8,7 @@ $.fn.serializeObject = function ()
 
 $(document).ready(function () {
     $('a[title]').tooltip();
-    $(".panel-heading toggle-body").click(function () {
+    $(".panel-heading.toggle-body").click(function () {
         $(this).next(".panel-body").slideToggle();
     });
 

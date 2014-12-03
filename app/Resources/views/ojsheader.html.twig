@@ -56,7 +56,8 @@
                                 <li>
                                     <a href="{{ path('logout') }}">
                                         <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
-                                </li>                           
+                                </li>
+
                                 <li class="divider"></li>
                                 <li>
                                     <a href="{{path('user_my_proxy_parents')}}">{{"proxy_users"|trans}}</a>
@@ -78,6 +79,10 @@
                                         </a>
                                     </li>
                                 {%endif%}
+                                <li class="divider"></li>
+                                <li> 
+                                    <a><small>Last login : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small></a>
+                                </li>
                             </ul> 
                         </li>
                     {%endif%}

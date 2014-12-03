@@ -11,7 +11,7 @@
     {% include '::flashbag.html.twig' %}
     <div class="homebrand col-lg-8">
         <div class="panel panel panel-success">
-            <div class="panel-heading">
+            <div class="panel-heading toggle-body">
                 <i class="fa fa-bar-chart-o fa-fw"></i> Articles That Need Action
             </div>
             <div class="panel-body">
@@ -22,7 +22,7 @@
         <!-- /.panel -->
 
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading toggle-body">
                 <i class="fa fa-bar-chart-o fa-fw"></i> Last 30 days Analytics
 
             </div>
@@ -36,45 +36,29 @@
 
 
     </div>
-
-    <div class="col-lg-4 ">
-        <div class="alert alert-warning">
-            <small>Last login : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small>
-        </div>
-    </div>
-
+ 
     <div class="col-lg-4">
         <div class="panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading toggle-body">
                 <i class="fa fa-bell fa-fw"></i> Notifications Panel
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="list-group">
                     <a href="#" class="list-group-item">
-                        <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                        </span>
+                        <i class="fa fa-comment fa-fw"></i> New Comment 
                     </a>
                     <a href="#" class="list-group-item">
-                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                        </span>
+                        <i class="fa fa-envelope fa-fw"></i> Message Sent 
                     </a>
                     <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> New Task
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                        </span>
+                        <i class="fa fa-tasks fa-fw"></i> New Task 
                     </a>
                     <a href="#" class="list-group-item">
-                        <i class="fa fa-bolt fa-fw"></i> New Task
-                        <span class="pull-right text-muted small"><em>11:13 AM</em>
-                        </span>
+                        <i class="fa fa-bolt fa-fw"></i> New Task 
                     </a>
                     <a href="#" class="list-group-item">
-                        <i class="fa fa-warning fa-fw"></i> New Task
-                        <span class="pull-right text-muted small"><em>10:57 AM</em>
-                        </span>
+                        <i class="fa fa-warning fa-fw"></i> New Task 
                     </a>
                 </div>
                 <!-- /.list-group -->
@@ -85,7 +69,7 @@
         <!-- /.panel -->
 
         <div class="chat-panel panel panel-default">
-            <div class="panel-heading">
+            <div class="panel-heading toggle-body">
                 <i class="fa fa-comments fa-fw"></i> Inbox
             </div>
             <!-- /.panel-heading -->
