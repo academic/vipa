@@ -49,18 +49,89 @@
                     </span>
                     <br>
                     <small>Possible Next Steps</small>
-                    {%for step in entity.nextSteps%}
-                        <span class="label label-success">{{step.title}}</span>
-                    {%endfor%}
+                    {% if entity.getOnlyReply() %}
+                        <span class="label label-primary">
+                            Only Reply
+                            <i class="fa fa-ok"></i>
+                        </span>
+                    {% else %}
+                        {%for step in entity.nextSteps%}
+                            <span class="label label-success">{{step.title}}</span>
+                        {%endfor%}
+                    {% endif %}
                     <hr>
                 </div>
             {% endfor %}
             <hr>
+
             {% if isJournalManager() %}
                 <a href="{{path('workflowstep_new')}}" class="btn btn-success">
-                    <i class="fa fa-plus"></i> Create
+                    <i class="fa fa-plus"></i> {{"create"|trans}}
                 </a>
             {% endif %}
+            <a class="btn btn-primary" onclick="$('#holder').slideToggle();">
+                <i class="fa fa-eye"></i> Visualize
+            </a>
         </div>
+
+        <div id="holder" style="display:none"></div>
     </div>
+    <style type="text/css" media="screen">
+        #holder {
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border: solid 1px #333;
+            background: black;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="/vendor/raphael/raphael-min.js"></script>
+    <script src="/assets/app/js/plugins/raphael/graffle.js"></script>
+
+    <script>
+
+                var el;
+                window.onload = function () {
+                    var dragger = function () {
+                        this.ox = this.type === "rect" ? this.attr("x") : this.attr("cx");
+                        this.oy = this.type === "rect" ? this.attr("y") : this.attr("cy");
+                        this.animate({"fill-opacity": .2}, 500);
+                    };
+                    var r = Raphael("holder", 640, 480),
+                            connections = [],
+                            shapes = [
+                                r.rect(100, 20, 60, 40, 10),
+                                r.rect(200, 120, 60, 40, 10),
+                                r.rect(300, 180, 60, 40, 10),
+                                r.rect(400, 190, 60, 40, 10)
+                            ];
+
+                    var move = function (e, t) {
+                        var n = this.type === "rect" ? {x: this.ox + e, y: this.oy + t} : {cx: this.ox + e, cy: this.oy + t};
+                        this.attr(n);
+                        for (var i = connections.length; i--; ) {
+                            r.connection(connections[i]);
+                        }
+                        r.safari();
+                    };
+                    var up = function () {
+                        this.animate({"fill-opacity": 0}, 500);
+                    };
+                    for (var i = 0, ii = shapes.length; i < ii; i++) {
+                        var color = Raphael.getColor();
+                        shapes[i].attr({fill: color, stroke: color, "fill-opacity": 0, "stroke-width": 2, cursor: "move"});
+                        shapes[i].drag(move, dragger, up);
+                    }
+                    connections.push(r.connection(shapes[0], shapes[1], "#fff"));
+                    connections.push(r.connection(shapes[1], shapes[2], "#fff", "#fff|5"));
+                    connections.push(r.connection(shapes[1], shapes[3], "#000", "#fff"));
+                };
+    </script>
 {% endblock %}
