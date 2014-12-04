@@ -26,18 +26,26 @@
                 </tr>
                 <tr>
                     <th>First Step?</th>
-                    <td>{% if step.getFirststep() %}<i class="fa fa-ok">{%endif%}</i></td>
+                    <td>{% if step.getFirststep() %}<i class="fa fa-ok"></i>{%endif%}</td>
                 </tr>
                 <tr>
                     <th>Last Step?</th>
-                    <td>{% if step.getLaststep() %}<i class="fa fa-ok">{%endif%}</td>
+                    <td>{% if step.getLaststep() %}<i class="fa fa-ok"></i>{%endif%}</td>
                 </tr>
+
                 <tr>
                     <th>Next Steps</th>
                     <td>
-                        {%for step in step.nextsteps%}
-                            <a class="label label-info" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
-                        {%endfor%}
+                        {% if step.getOnlyReply() %}
+                            <span class="label label-primary">
+                                Only Reply
+                                <i class="fa fa-ok"></i>
+                            </span>
+                        {% else %}
+                            {%for step in step.nextsteps%}
+                                <a class="label label-info" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
+                            {%endfor%}
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
