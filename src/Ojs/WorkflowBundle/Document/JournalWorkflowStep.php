@@ -10,6 +10,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class JournalWorkflowStep
 {
+
     /**
      * @MongoDb\Id
      */
@@ -29,7 +30,7 @@ class JournalWorkflowStep
 
     /** @MongoDb\Boolean */
     protected $laststep;
-    
+
     /** @MongoDb\Boolean */
     protected $onlyreply;
 
@@ -174,7 +175,7 @@ class JournalWorkflowStep
     {
         return $this->firststep;
     }
-    
+
     /**
      * Set onlyreply
      *
