@@ -111,28 +111,68 @@ class ArticleSubmissionController extends Controller
     {
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
-            throw $this->createNotFoundException("Submission not found");
+            throw $this->createNotFoundException('Submission not found');
         }
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine')->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        $articleSubmission->setSubmitted(1);
+        $dm->persist($articleSubmission);
+        $dm->flush();
+        return $this->redirect($this->generateUrl('article_submissions_me'));
+    }
+
+    /**
+     * 
+     * @param integer $submissionId 
+     */
+    public function saveSubmissionAction($submissionId)
+    {
+        $em = $this->get('doctrine')->getManager();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-
         if (!$journal) {
             throw $this->createNotFoundException('Journal not found');
         }
-        $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
-
         /* article submission data will be moved from mongdb to mysql */
         $articleData = $articleSubmission->getArticleData();
         $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
-
         // article primary data
+        $article = $this->saveArticlePrimaryData($articlePrimaryData, $journal, $articlePrimaryData);
+        // article data for other languages if provided
+        unset($articleData[$articlePrimaryData]);
+        $this->saveArticleTranslations($articleData, $article);
+        // add authors data
+        $this->saveAuthorsData($articleSubmission->getAuthors(), $article);
+        // citation data
+        $this->saveCitationData($articleSubmission->getCitations(), $article);
+        // file data
+        $this->saveArticleFileData($articleSubmission->getFiles(), $articleSubmission->getPrimaryLanguage());
+
+        $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
+        // @todo give ref. link or code or directives to author 
+        
+        return $this->redirect($this->generateUrl('article_submissions_me'));
+    }
+
+    /**
+     * 
+     * @param array $articlePrimaryData
+     * @param Journal $journal
+     * @param string $lang
+     * @return Article
+     */
+    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
+    {
+        $em = $this->get('doctrine')->getManager();
+
         $article = new Article();
-        $article->setPrimaryLanguage($articleSubmission->getPrimaryLanguage());
+        $article->setPrimaryLanguage($lang);
 
         $article->setJournal($journal);
         $article->setTitle($articlePrimaryData['title']);
@@ -142,20 +182,41 @@ class ArticleSubmissionController extends Controller
         $article->setSubtitle($articlePrimaryData['title']);
         $article->setSubmitterId($this->getUser()->getId());
         $article->setStatus(0);
-        // article data for other languages if provided
-        unset($articleData[$articleSubmission->getPrimaryLanguage()]);
+
+        $em->persist($article);
+        $em->get('doctrine')->flush();
+        return $article;
+    }
+
+    /**
+     * 
+     * @param array $articleData
+     * @param Article $article
+     * @return bool
+     */
+    private function saveArticleTranslations($articleData, $article)
+    {
+        $em = $this->get('doctrine')->getManager();
+        $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($articleData as $locale => $data) {
             $translationRepository->translate($article, 'title', $locale, $data['title'])
                     ->translate($article, 'abstract', $locale, $data['abstract'])
                     ->translate($article, 'keywords', $locale, $data['keywords'])
-                    ->translate($article, 'subjects', $locale, $data['subjects'])
-                    ->translate($article, 'title', $locale, $data['title']);
+                    ->translate($article, 'subjects', $locale, $data['subjects']);
         }
         $em->persist($article);
-        $em->flush();
+        return $em->flush();
+    }
 
-        // author data
-        foreach ($articleSubmission->getAuthors() as $authorData) {
+    /**
+     * 
+     * @param array $authors
+     * @param Ojs\JournalBundle\Entity\Article $article
+     */
+    private function saveAuthorsData($authors, $article)
+    {
+        $em = $this->get('doctrine')->getManager();
+        foreach ($authors as $authorData) {
             $author = new Author();
             $author->setEmail($authorData['email']);
             $author->setTitle($authorData['title']);
@@ -173,19 +234,23 @@ class ArticleSubmissionController extends Controller
             $em->persist($articleAuthor);
             $em->flush();
         }
+    }
 
-        // citation data
-        foreach ($articleSubmission->getCitations() as $citationData) {
+    private function saveCitationData($citations, $article)
+    {
+        $em = $this->get('doctrine')->getManager();
+        foreach ($citations as $citationData) {
             $citation = new Citation();
             $citation->setRaw($citationData['raw']);
             $citation->setType($citationData['type']);
             $citation->setOrderNum($citationData['orderNum']);
+            $citation->addArticle($article);
             $em->persist($citation);
             $em->flush();
             unset($citationData['raw']);
             unset($citationData['type']);
             unset($citationData['orderNum']);
-            /// add as citation setting other 
+            /// add other data as citation setting  
             foreach ($citationData as $setting => $value) {
                 $citationSetting = new CitationSetting();
                 $citationSetting->setSetting($setting);
@@ -195,9 +260,18 @@ class ArticleSubmissionController extends Controller
                 $em->flush($citationSetting);
             }
         }
+    }
 
-        // file data
-        foreach ($articleSubmission->getFiles() as $fileData) {
+    /**
+     * 
+     * @param array $files
+     * @param Article $article
+     * @param string $lang
+     */
+    private function saveArticleFileData($files, $article, $lang)
+    {
+        $em = $this->get('doctrine')->getManager();
+        foreach ($files as $fileData) {
             $file = new \Ojs\JournalBundle\Entity\File();
             $file->setPath($fileData['article_file']);
             $file->setName($fileData['article_file']);
@@ -218,7 +292,7 @@ class ArticleSubmissionController extends Controller
                 $articleFile->setKeywords($fileData['keywords']);
                 $articleFile->setLangCode($fileData['lang']);
             } else {
-                $articleFile->setLangCode($articleSubmission->getPrimaryLanguage());
+                $articleFile->setLangCode($lang);
             }
             $articleFile->setVersion(1);
             $articleFile->setType($fileData['type']); // @see ArticleFileParams::$FILE_TYPES
@@ -227,14 +301,6 @@ class ArticleSubmissionController extends Controller
             $em->persist($articleFile);
             $em->flush();
         }
-
-        $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
-
-        // @todo give ref. link or code or directives to author 
-        $articleSubmission->setSubmitted(1);
-        $dm->persist($articleSubmission);
-        $dm->flush();
-        return $this->redirect($this->generateUrl('article_submissions_me'));
     }
 
 }

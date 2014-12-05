@@ -12,7 +12,7 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>Workflow Step Details</h1>
+            <h1>{{step.title}}</h1>
         </div>
         <div class="panel-body">
             <table class="table">
@@ -63,14 +63,16 @@
                     </td>
                 </tr>
             </table>
-            <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
-            {% if isJournalManager() %}
-                <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">{{"e"|trans}}</a>
-                <a class="btn btn-primary" href="{{path('workflowstep_new')}}">
-                    <i class="fa fa-plus"></i>
-                    {%trans%}c{%endtrans%}
-                </a>
-            {% endif %}
+            <div class="btn-group">
+                <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>
+                {% if isJournalManager() %}
+                    <a class="btn btn-primary" href="{{path('workflowstep_new')}}"> <i class="fa fa-plus"></i> {{"c"|trans}}</a>
+                    <a class="btn btn-warning" href="{{path('workflowsteps_edit',{'id':step.id})}}">{{"e"|trans}}</a>
+
+                {% endif %}
+            </div>
+            <a class="btn btn-danger pull-right" onclick="return confirm('{{"sure"|trans}}');" href="{{path('workflowsteps_delete',{'id':step.id})}}">{{"d"|trans}}</a>
+
         </div>
     </div>
 {% endblock %}

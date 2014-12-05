@@ -9,13 +9,15 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     public function indexAction()
     {
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$selectedJournal) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
         $steps = $this->get('doctrine_mongodb')
                 ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findAll();
+                ->findBy(array('journalid' => $selectedJournal->getId()));
 
-        return $this->render(
-                        'OjsWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps)
-        );
+        return $this->render('OjsWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps));
     }
 
     /**
@@ -28,7 +30,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         if (!$selectedJournal) {
             return $this->render('::mustselectjournal.html.twig');
         }
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine');
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
@@ -60,7 +62,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     /**
      * prepare given form values for JournalWorkflow $roles atrribute
-     * @param  array $nextSteps
+     * @param  array $roles
      * @return array
      */
     protected function prepareRoles($roles)
@@ -102,12 +104,15 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
-        $selectedJournalId = $request->getSession()->get('selectedJournalId');
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$selectedJournal) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findByJournalid($selectedJournalId);
+                ->findByJournalid($selectedJournal->getId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
                     'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $journal, 'step' => $step));

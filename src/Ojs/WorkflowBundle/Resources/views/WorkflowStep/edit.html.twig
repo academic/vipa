@@ -12,7 +12,7 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>Edit Workflow Step</h1>
+            <h1>{{step.title}}</h1>
         </div>
         <div class="panel-body">
             <form method="post" class="form-row" action="{{path('workflowsteps_update',{'id':step.id})}}">
@@ -65,7 +65,7 @@
                     <label class="label label-primary" style="line-height: 20px;display: inline-block;">
                         Can only reply back?
                         <input type="checkbox" name="onlyreply" value="1"
-                               {%if step.firststep %}checked="checked"{%endif%}>
+                               {%if step.onlyreply %}checked="checked"{%endif%}>
                     </label>
                 </div>
 
