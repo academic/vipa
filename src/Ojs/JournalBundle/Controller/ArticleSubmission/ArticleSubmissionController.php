@@ -11,6 +11,8 @@ use \Ojs\JournalBundle\Entity\Citation;
 use \Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\Journal;
 use \Ojs\JournalBundle\Entity\ArticleAuthor;
+use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
+
 use Ojs\JournalBundle\Form\ArticleType;
 use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -111,11 +113,37 @@ class ArticleSubmissionController extends Controller
     {
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
-            throw $this->createNotFoundException('Submission not found');
+            throw $this->createNotFoundException('There is no submission with this Id.');
         }
-        $em = $this->get('doctrine')->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
+        
+        $em = $this->get('doctrine')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('Submission not found.');
+        }
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+        if (!$journal) {
+            throw $this->createNotFoundException('Journal not found');
+        }
+        
+        $article = $this->saveArticleSubmission($articleSubmission,$journal);
+        
+        // get journal's first workflow step
+        $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->findOneBy(array('journalid' => $journal->getId(), 'firststep'=>true));
+	if($firstStep){
+            $reviewStep = new ArticleReviewStep();
+            $reviewStep->setArticleId($article->getId());
+            $reviewStep->setOwnerUser( $this->getUser());
+            $reviewStep->setStartedDate(new \DateTime());
+            $deadline = new \DateTime();
+            $deadline->modify("+" . $firstStep->getMaxdays() . " day");
+            $reviewStep->setReviewDeadline($deadline);
+            $reviewStep->setRootNode(true);
+            $dm->persist($reviewStep);
+            $dm->flush();
+        }
         $articleSubmission->setSubmitted(1);
         $dm->persist($articleSubmission);
         $dm->flush();
@@ -123,48 +151,39 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * 
+     * Saves article submission data from mongodb to mysql
+     * Article submission data will be kept on mongodb as archive data
      * @param integer $submissionId 
+     * @return 
      */
-    public function saveSubmissionAction($submissionId)
+    private function saveArticleSubmission($articleSubmission, $journal)
     {
-        $em = $this->get('doctrine')->getManager();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
-        }
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-        if (!$journal) {
-            throw $this->createNotFoundException('Journal not found');
         }
         /* article submission data will be moved from mongdb to mysql */
         $articleData = $articleSubmission->getArticleData();
         $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
         // article primary data
-        $article = $this->saveArticlePrimaryData($articlePrimaryData, $journal, $articlePrimaryData);
+        $article = $this->saveArticlePrimaryData($articlePrimaryData, $journal, $articleSubmission->getPrimaryLanguage());
         // article data for other languages if provided
-        unset($articleData[$articlePrimaryData]);
+        unset($articleData[$articleSubmission->getPrimaryLanguage()]);
         $this->saveArticleTranslations($articleData, $article);
         // add authors data
         $this->saveAuthorsData($articleSubmission->getAuthors(), $article);
         // citation data
         $this->saveCitationData($articleSubmission->getCitations(), $article);
         // file data
-        $this->saveArticleFileData($articleSubmission->getFiles(), $articleSubmission->getPrimaryLanguage());
+        $this->saveArticleFileData($articleSubmission->getFiles(),$article , $articleSubmission->getPrimaryLanguage());
 
         $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
         // @todo give ref. link or code or directives to author 
-        
-        return $this->redirect($this->generateUrl('article_submissions_me'));
+        return $article;
     }
 
     /**
-     * 
-     * @param array $articlePrimaryData
-     * @param Journal $journal
-     * @param string $lang
+     *  
      * @return Article
      */
     private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
@@ -184,7 +203,7 @@ class ArticleSubmissionController extends Controller
         $article->setStatus(0);
 
         $em->persist($article);
-        $em->get('doctrine')->flush();
+        $em->flush();
         return $article;
     }
 
@@ -284,7 +303,6 @@ class ArticleSubmissionController extends Controller
             $articleFile = new \Ojs\JournalBundle\Entity\ArticleFile();
             $articleFile->setArticle($article);
             $articleFile->setFile($file);
-
 
             if ($fileData['type'] != 0) {
                 $articleFile->setTitle($fileData['title']);

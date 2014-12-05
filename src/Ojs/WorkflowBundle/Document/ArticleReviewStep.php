@@ -337,14 +337,12 @@ class ArticleReviewStep
 
     /**
      * Set ownerUser
-     *
-     * @param  hash $ownerUser
+     * @param  Ojs\UserBundle\User $user
      * @return self
      */
-    public function setOwnerUser($ownerUser)
+    public function setOwnerUser($user)
     {
-        $this->ownerUser = $ownerUser;
-
+        $this->ownerUser = array('id'=>$user->getId(),'username'=>$user->getUsername(),'email'=>$user->getEmail());
         return $this;
     }
 
