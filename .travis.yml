@@ -16,8 +16,8 @@ before_script:
   - phpenv config-add phpmongodb.ini
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
-  - mysql -e "DROP DATABASE IF EXISTS ojs;create database ojs;" -uroot
-  - mysql -e "CREATE USER 'ojs'@'localhost' IDENTIFIED BY 'ojs';" -uroot
+  - mysql -e "create database ojs;" -uroot
+  - mysql -e "CREATE USER 'ojs'@'127.0.0.1' IDENTIFIED BY 'ojs';" -uroot
   - mysql -e "GRANT ALL PRIVILEGES ON * . * TO 'ojs'@'localhost';" -uroot
   - php app/console ojs:install:travis
   - npm install -g bower
