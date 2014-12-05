@@ -1,6 +1,6 @@
 {% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
-{% block title %}{{ 'article.submit' }}{% endblock %}
+{% block title %}{{ 'article.submit'|trans }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
