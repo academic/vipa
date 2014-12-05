@@ -21,45 +21,46 @@
                     <span>
                         <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
                             <strong>
-                                {%if entity.firststep%}<span class="badge">First</span><br>{%endif%}
-                                {%if entity.laststep%}<span class="badge">Last</span><br>{%endif%}
+                                {%if entity.firststep%}<span class="badge">First</span>{%endif%}
+                                {%if entity.laststep%}<span class="badge">Last</span>{%endif%}
                                 {{entity.title}}
-
                             </strong>
-                        </a>
-                        <br>
+                        </a> 
+
                         {%for role in entity.roles%}
                             <span class="label label-info">{{role.name}}</span>
                         {%endfor%}
-                        <br>
                     </span>
 
-                    <span class="pull-right">
-                        <a class="btn btn-info btn-sm" href="{{path('workflowsteps_show',{ 'id': entity.id })}}">
+                    <br>
+                    <span>
+                        <small>Next Steps :</small>
+                        {% if entity.getOnlyReply() %}
+                            <span class="label label-primary">
+                                Only Reply
+                                <i class="fa fa-ok"></i>
+                            </span>
+                        {% else %}
+                            {%for step in entity.nextSteps%}
+                                <a class="label label-success" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
+                            {%endfor%}
+                        {% endif %}
+                    </span>
+
+
+                    <span class="pull-right btn-group">
+                        <a class="btn btn-info btn-xs" href="{{path('workflowsteps_show',{ 'id': entity.id })}}">
                             <i class="fa fa-info"></i>
                         </a>
                         {% if isJournalManager() %}
-                            <a class="btn btn-warning btn-sm" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}">
+                            <a class="btn btn-warning btn-xs" href="{{path('workflowsteps_edit',{ 'id': entity.id })}}">
                                 <i class="fa fa-pencil"></i>
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
+                            <a class="btn btn-danger btn-xs" href="{{path('workflowsteps_delete',{ 'id': entity.id })}}">
                                 <i class="fa fa-trash"></i>
                             </a> 
                         {% endif %}
-                    </span>
-                    <br>
-                    <small>Possible Next Steps</small>
-                    {% if entity.getOnlyReply() %}
-                        <span class="label label-primary">
-                            Only Reply
-                            <i class="fa fa-ok"></i>
-                        </span>
-                    {% else %}
-                        {%for step in entity.nextSteps%}
-                            <span class="label label-success">{{step.title}}</span>
-                        {%endfor%}
-                    {% endif %}
-                    <hr>
+                    </span> 
                 </div>
             {% endfor %}
             <hr>
