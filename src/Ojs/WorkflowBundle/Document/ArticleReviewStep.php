@@ -4,6 +4,7 @@ namespace Ojs\WorkflowBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+
 /**
  *
  * @MongoDb\Document(collection="article_review_steps")
@@ -16,10 +17,8 @@ class ArticleReviewStep
      */
     protected $id;
 
-    /**
-     * @MongoDb\Id
-     */
-    protected $stepId;
+    /** @MongoDb\EmbedOne(targetDocument="JournalWorkflowStep") */
+    protected $step;
 
     /**
      * Is this is the first node of the article review steps?
@@ -194,19 +193,19 @@ class ArticleReviewStep
     }
 
     /**
-     * Get stepId
+     * Get step
      */
-    public function getStepId()
+    public function getStep()
     {
-        return $this->from;
+        return $this->step;
     }
 
     /**
-     * Set stepId
+     * Set step
      */
-    public function setStepId($stepId)
+    public function setStep($step)
     {
-        $this->stepId = $stepId;
+        $this->step = $step;
         return $this;
     }
 
