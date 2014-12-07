@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class JournalRepository extends EntityRepository
 {
+
     private $currentPage;
     private $count;
     private $filter = [];
-
     private $start;
     private $offset = 12;
 
@@ -78,7 +78,7 @@ class JournalRepository extends EntityRepository
      */
     public function parseFilter($filter)
     {
-        if(empty($filter))
+        if (empty($filter))
             return null;
         return explode('|', $filter);
     }
@@ -123,46 +123,42 @@ class JournalRepository extends EntityRepository
 
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
-            ->where(
-                $qb->expr()->eq('j.status', ':status')
-            )
-            ->setParameter('status', 3);
+                ->where(
+                        $qb->expr()->eq('j.status', ':status')
+                )
+                ->setParameter('status', 3);
 
         if (isset($this->getFilter()['subject'])) {
             $subjects = $this->getFilter()['subject'];
-            foreach($subjects as $key=>$subject){
+            foreach ($subjects as $key => $subject) {
                 $qb
-                    ->join('j.subjects', 's_'.$key, 'WITH', 's_'.$key.'.slug=:subject_'.$key)
-                    ->setParameter('subject_'.$key, $subject);
+                        ->join('j.subjects', 's_' . $key, 'WITH', 's_' . $key . '.slug=:subject_' . $key)
+                        ->setParameter('subject_' . $key, $subject);
             }
-
         }
 
         if (isset($this->getFilter()['institution'])) {
             $institutions = $this->getFilter()['institution'];
-            foreach ($institutions as $key=>$institution) {
+            foreach ($institutions as $key => $institution) {
                 $qb
-                    ->join('j.institution', 'i_'.$key)
-                    ->join('i_'.$key.'.institution_type','it_'.$key,'WITH','it_'.$key.'.slug=:institution_type_slug_'.$key)
-                    ->setParameter('institution_type_slug_'.$key, $institution);
+                        ->join('j.institution', 'i_' . $key)
+                        ->join('i_' . $key . '.institution_type', 'it_' . $key, 'WITH', 'it_' . $key . '.slug=:institution_type_slug_' . $key)
+                        ->setParameter('institution_type_slug_' . $key, $institution);
             }
-
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
         $qb
-            ->select('j')
-            ->setFirstResult($this->getStart())
-            ->setMaxResults($this->getOffset());
+                ->select('j')
+                ->setFirstResult($this->getStart())
+                ->setMaxResults($this->getOffset());
         return $qb->getQuery()->getResult();
     }
-
 
     public function getTotalPageCount()
     {
         return ceil($this->getCount() / $this->getOffset());
     }
-
 
     /**
      * Ban user
@@ -225,4 +221,27 @@ class JournalRepository extends EntityRepository
     {
         return $journal->getBannedUsers()->contains($user) ? false : true;
     }
+
+    /**
+     * Just get journal's last issue id
+     * @param  Journal $journal
+     * @return integer
+     */
+    public function getLastIssueId($journal)
+    {
+        $q = $this
+                ->createQuery('SELECT issue_id FROM OjsJournalBunel:Issue i WHERE journalId : ?1 '
+                        . 'AND datePublished IS NOT NULL ORDER BY ID DESC')
+                ->setMaxResults(1)
+                ->setParameter(1, $journal->getId())
+                ->getQuery();
+        try {
+            $issue = $q->getSingleScalarValue();
+            return $issue;
+        } catch (NoResultException $e) {
+            return false;
+        }
+        return false;
+    }
+
 }
