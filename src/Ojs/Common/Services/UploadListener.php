@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use Ojs\Common\Helper\FileHelper;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
