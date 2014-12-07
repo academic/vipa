@@ -1,0 +1,73 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ])}}
+{% endblock %}
+
+
+{% block body -%}
+    <span class="pull-right">
+        Step creation date 
+        <span class="label label-success">{{articleStep.startedDate|date('Y-m-d H:i:s') }}</span>
+    </span>
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>{{"article.singular"|trans}} 
+                <small class="badge">{{id}}</small> 
+            </h1>
+        </div>
+
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td>Title</td>
+                    <td>{{article.title}}</td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+
+        <div class="panel-heading">
+            <h2>Authors<h2/>
+        </div>
+
+        <div class="panel-body">
+            <table class="table">
+
+            </table>
+            <hr>
+        </div>
+
+
+        <div class="panel-heading">
+            <h2>Citations<h2/>
+        </div>
+
+        <div class="panel-body">
+            <table class="table">
+                {% for citation in article.citations %}
+                    <tr> 
+                        <td>{{citation.raw}}</td>
+                    </tr>
+                {% endfor%}
+            </table>
+            <hr>
+        </div>
+        <div class="panel-heading">
+            <h2>Files<h2/>
+        </div>
+
+        <div class="panel-body">
+            <table class="table">
+
+            </table>
+            <hr>
+        </div>
+
+
+        <div class="panel-footer">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

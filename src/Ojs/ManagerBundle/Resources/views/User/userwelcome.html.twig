@@ -11,7 +11,7 @@
     {% include '::flashbag.html.twig' %} 
     <div class="panel panel panel-success">
         <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> Articles That Need Action
+            <i class="fa fa-bar-chart-o fa-fw"></i> Articles That Need Action <i class="pull-right fa fa-angle-double-up"></i>
         </div>
         <div class="panel-body">
             <div id="articles-action-chart"></div>
@@ -20,8 +20,7 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> Last 30 days Analytics
-
+            <i class="fa fa-bar-chart-o fa-fw"></i> Last 30 days Analytics <i class="pull-right fa fa-angle-double-up"></i>
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -30,13 +29,14 @@
         <!-- /.panel-body -->
     </div>
     <!-- /.panel -->  
-    
+
 
     <!-- /.panel -->
 
     <div class="chat-panel panel panel-default hide">
         <div class="panel-heading toggle-body">
-            <i class="fa fa-comments fa-fw"></i> Inbox
+            <i class="fa fa-comments fa-fw"></i> Inbox <i class="pull-right fa fa-angle-double-up"></i>
+
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -83,7 +83,9 @@
         <!-- /.panel-footer -->
     </div>
     <!-- /.panel .chat-panel --> 
-
+    <style>
+        #articles-action-chart path{ cursor:pointer}
+        </style>
 
 {% endblock %}
 
@@ -105,17 +107,22 @@
             Morris.Donut({
                 element: 'articles-action-chart',
                 data: [
-                    {% for key,step in mySteps %}
-                    {
-                        color: "#"+(~~(Math.random()*(1<<24))).toString(16),
+                {% for key,step in mySteps %}
+                {
+                        objectid:  "{{step.id}}",
+                        color: "#" + (~~(Math.random() * (1 << 24))).toString(16),
                         label: "{{step.title}}",
                         value:{{waitingCount[step.id]}}
-                    }{% if loop.last == false %},{% endif %}
+                }
+                {% if loop.last == false %},{% endif %}
                 {% endfor %}
-                    ],
+                ],
                 resize: true
+            }).on('click', function(i, row){
+            console.log(row);
+                OjsCommon.waitModal();
+                window.location.href = "/manager/workflow/article/"+ row.objectid;
             });
-
             new Morris.Line({
                 element: 'analytics-chart',
                 data: [
