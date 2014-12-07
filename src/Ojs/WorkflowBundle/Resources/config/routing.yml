@@ -43,3 +43,7 @@ articles_assigned_me:
 article_step_preview:
     pattern:  /article/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:article }
+
+articles_step_list:
+    pattern:  /articles/{id}
+    defaults: { _controller: OjsWorkflowBundle:Manager:articles }

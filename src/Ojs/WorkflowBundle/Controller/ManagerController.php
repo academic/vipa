@@ -17,14 +17,28 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->get('doctrine')->getManager();
+ 
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
+        return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
+                    'articleStep' => $articleStep, 'article' => $article, 'id' => $id));
+    }
+
+    /**
+     * list articles with given step objectid
+     * @param string $id
+     */
+    public function articlesAction($id)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $em = $this->get('doctrine')->getManager();
 
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($id);
 
-        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->findOneBy(array('step' => $step));
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId()); 
-        return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
-                    'articleStep' => $articleStep, 'article' => $article, 'id' => $id));
+        $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->findBy(array('step' => $step));
+        return $this->render('OjsWorkflowBundle:Manager:articles.html.twig', array(
+                    'articlesStep' => $articlesStep, 'id' => $id));
     }
 
 }

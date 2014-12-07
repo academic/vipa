@@ -1,0 +1,28 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %} 
+    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ])}}
+{% endblock %}
+
+
+{% block body -%} 
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>{{"article.plural"|trans}} 
+                <small class="badge">{{id}}</small> 
+            </h1>
+        </div>
+        {% for articleStep in articlesStep %}
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td><a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a></td>
+                    </tr>
+                </table>
+                <hr>
+            </div>
+        {% endfor %} 
+    </div>
+</div>
+{% endblock %}
+
