@@ -28,11 +28,50 @@ class ManagerController extends Controller
 
     public function userIndexAction()
     {
+
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if ($journal) {
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            $allowedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                    ->findBy(array('journalid' => $journal->getId()));
+            // @todo we should query in a more elegant way  
+            // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
+            // Don't know how to query $elemMatch
+            $mySteps = [];
+            foreach ($allowedWorkflowSteps as $step) {
+                if ($this->checkStepAndUserRoles($step)) {
+                    $mySteps[] = $step;
+                }
+            }
+        }
+        $waitingTasksCount = [];
+        foreach ($mySteps as $step) {
+            $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
+                    ->createQueryBuilder('ars')
+                    ->requireIndexes(false);
+            $countQuery->field('step')->equals($step);
+            $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
+        }
+
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
         }
-        return $this->render('OjsManagerBundle:User:userwelcome.html.twig');
+        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', array('mySteps' => $mySteps, 'waitingCount' => $waitingTasksCount));
+    }
+
+    private function checkStepAndUserRoles($step)
+    {
+        $myRoles = $this->get('session')->get('userJournalRoles');
+        $stepRoles = $step->getRoles();
+        foreach ($myRoles as $myRole) {
+            foreach ($stepRoles as $stepRole) {
+                if ($stepRole['role'] === $myRole->getRole()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

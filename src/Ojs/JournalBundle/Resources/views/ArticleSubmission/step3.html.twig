@@ -33,27 +33,36 @@
             <br>
 
             <div class="citationDetailsFields form-horizontal">
-                {% if citationItem is defined and citationItem.type and citationTypes[citationItem.type] is defined%}
-                    {% for field in citationTypes[citationItem.type].must %}
-                        {% if citationItem[field] is defined %}
-                            <div class="form-group">
-                                <label class="col-md-1 control-label">{{field|trans}} </label> 
-                                <div class="col-md-10">
-                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                {% if citationItem is defined and citationItem.type%}
+                    {% if citationTypes[citationItem.type] is defined %}
+                        {% for field in citationTypes[citationItem.type].must %}
+                            {% if citationItem[field] is defined %}
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">{{field|trans}} </label> 
+                                    <div class="col-md-10">
+                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                    </div>
                                 </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                    {% for field in citationTypes[citationItem.type].should%}
-                        {% if citationItem[field] is defined %}
-                            <div class="form-group">
-                                <label class="col-md-1 control-label">{{field|trans}} </label>
-                                <div class="col-md-10">
-                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                            {% endif %}
+                        {% endfor %}
+                        {% for field in citationTypes[citationItem.type].should%}
+                            {% if citationItem[field] is defined %}
+                                <div class="form-group">
+                                    <label class="col-md-1 control-label">{{field|trans}} </label>
+                                    <div class="col-md-10">
+                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                    </div>
                                 </div>
+                            {%endif%}
+                        {% endfor %}
+                    {% else %}
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">{{field|trans}}~</label>
+                            <div class="col-md-10">
+                                <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
                             </div>
-                        {%endif%}
-                    {% endfor %}
+                        </div>
+                    {% endif %}
                 {%endif%}
             </div>
             <hr>

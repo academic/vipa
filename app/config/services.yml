@@ -2,7 +2,7 @@ services:
     journal_domain:
         class: Ojs\Common\Model\JournalDomain
     kernel.listener.domain_listener:
-       class: Ojs\Common\Listener\DomainListener
+       class: Ojs\Common\Services\DomainListener
        arguments: 
             [@journal_domain, @doctrine.orm.entity_manager, %base_host%, @service_container]
        tags:
@@ -11,12 +11,12 @@ services:
                 method: onKernelRequest
                 event: kernel.request
     listener.requestresponse:
-        class: Ojs\Common\Listener\UserListener
+        class: Ojs\Common\Services\UserListener
         arguments: [ @service_container, @router ]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     ojs_locale.locale_listener:
-        class: Ojs\Common\Listener\LocaleListener
+        class: Ojs\Common\Services\LocaleListener
         arguments: ["%kernel.default_locale%"]
         tags:
             - { name: kernel.event_subscriber }
@@ -31,12 +31,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: security.interactive_login } 
     ojs.security_switch_user:
-        class: Ojs\Common\Listener\SecuritySwitchUserListener
+        class: Ojs\Common\Services\SecuritySwitchUserListener
         arguments: [@security.context]
         tags:
             - { name: kernel.event_listener, event: security.switch_user, method: onSecuritySwitchUser }
     ojs.ojs_upload_listener:
-        class: Ojs\Common\Listener\UploadListener
+        class: Ojs\Common\Services\UploadListener
         arguments: ["%kernel.root_dir%"]
         tags:
             - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
@@ -67,5 +67,10 @@ services:
         class: Ojs\UserBundle\Security\EmailUserProvider
         arguments: [@service_container]
     ojs.journal_service:
-        class: Ojs\Common\Listener\JournalService
+        class: Ojs\Common\Services\JournalService
         arguments: [ @service_container, @doctrine.orm.entity_manager ]
+    roles.faker.provider:
+        class: Ojs\Common\Services\RolesFakerProvider
+        arguments: [ @service_container ]
+        tags:
+            -  { name: h4cc_alice_fixtures.provider }

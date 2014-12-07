@@ -9,7 +9,7 @@
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
     status: 1
     title: <title()>
-    roles: 2x @role*
+    roles: <defaultUserRole()> 
   user_author:
     username (unique): demo_author
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'

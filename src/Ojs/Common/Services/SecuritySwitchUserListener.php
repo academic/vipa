@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
 use Symfony\Component\Security\Core\SecurityContext;
