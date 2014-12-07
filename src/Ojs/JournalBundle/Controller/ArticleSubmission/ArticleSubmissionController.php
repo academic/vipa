@@ -12,7 +12,6 @@ use \Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\Journal;
 use \Ojs\JournalBundle\Entity\ArticleAuthor;
 use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
-
 use Ojs\JournalBundle\Form\ArticleType;
 use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -101,6 +100,9 @@ class ArticleSubmissionController extends Controller
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
+        if ($articleSubmission->getSubmitted()) {
+            throw $this->createAccessDeniedException("Access denied! This submission has already been submitted.");
+        }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         return $this->render('OjsJournalBundle:ArticleSubmission:preview.html.twig', array(
                     'submissionId' => $articleSubmission->getId(),
@@ -116,7 +118,7 @@ class ArticleSubmissionController extends Controller
             throw $this->createNotFoundException('There is no submission with this Id.');
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
-        
+
         $em = $this->get('doctrine')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
@@ -126,21 +128,23 @@ class ArticleSubmissionController extends Controller
         if (!$journal) {
             throw $this->createNotFoundException('Journal not found');
         }
-        
-        $article = $this->saveArticleSubmission($articleSubmission,$journal);
-        
+
+        $article = $this->saveArticleSubmission($articleSubmission, $journal);
+
         // get journal's first workflow step
         $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findOneBy(array('journalid' => $journal->getId(), 'firststep'=>true));
-	if($firstStep){
+                ->findOneBy(array('journalid' => $journal->getId(), 'firststep' => true));
+        if ($firstStep) {
             $reviewStep = new ArticleReviewStep();
             $reviewStep->setArticleId($article->getId());
-            $reviewStep->setOwnerUser( $this->getUser());
+            $reviewStep->setOwnerUser($this->getUser());
             $reviewStep->setStartedDate(new \DateTime());
             $deadline = new \DateTime();
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
+            $reviewStep->setTo(null);
+            $reviewStep->setStep($firstStep);
             $dm->persist($reviewStep);
             $dm->flush();
         }
@@ -175,7 +179,7 @@ class ArticleSubmissionController extends Controller
         // citation data
         $this->saveCitationData($articleSubmission->getCitations(), $article);
         // file data
-        $this->saveArticleFileData($articleSubmission->getFiles(),$article , $articleSubmission->getPrimaryLanguage());
+        $this->saveArticleFileData($articleSubmission->getFiles(), $article, $articleSubmission->getPrimaryLanguage());
 
         $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
         // @todo give ref. link or code or directives to author 
