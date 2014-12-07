@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use \Ojs\Common\Model\JournalDomain;
 use \Doctrine\ORM\EntityManager;

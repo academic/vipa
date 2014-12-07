@@ -4,16 +4,21 @@ namespace Ojs\WorkflowBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
+
 /**
  *
  * @MongoDb\Document(collection="article_review_steps")
  */
 class ArticleReviewStep
 {
+
     /**
      * @MongoDb\Id
      */
     protected $id;
+
+    /** @MongoDb\EmbedOne(targetDocument="JournalWorkflowStep") */
+    protected $step;
 
     /**
      * Is this is the first node of the article review steps?
@@ -34,13 +39,13 @@ class ArticleReviewStep
     protected $note;
 
     /** @MongoDB\Int */
-    protected $article_id;
+    protected $articleId;
 
     /**
      * article reviewed data
      * @MongoDB\Hash
      */
-    private $article_revised;
+    private $articleRevised;
 
     /**
      * @MongoDB\Hash
@@ -55,22 +60,22 @@ class ArticleReviewStep
     /**
      * @MongoDB\String
      */
-    protected $status_text;
+    protected $statusText;
 
     /**
      * @MongoDB\Date
      */
-    protected $started_date;
+    protected $startedDate;
 
     /**
      * @MongoDB\Date
      */
-    protected $finished_date;
+    protected $finishedDate;
 
     /**
      * @MongoDB\Date
      */
-    protected $review_deadline;
+    protected $reviewDeadline;
 
     /**
      * Get id
@@ -136,7 +141,7 @@ class ArticleReviewStep
      */
     public function setArticleId($articleId)
     {
-        $this->article_id = $articleId;
+        $this->articleId = $articleId;
 
         return $this;
     }
@@ -148,7 +153,7 @@ class ArticleReviewStep
      */
     public function getArticleId()
     {
-        return $this->article_id;
+        return $this->articleId;
     }
 
     /**
@@ -159,7 +164,7 @@ class ArticleReviewStep
      */
     public function setArticleRevised($articleRevised)
     {
-        $this->article_revised = $articleRevised;
+        $this->articleRevised = $articleRevised;
 
         return $this;
     }
@@ -171,7 +176,7 @@ class ArticleReviewStep
      */
     public function getArticleRevised()
     {
-        return $this->article_revised;
+        return $this->articleRevised;
     }
 
     /**
@@ -184,6 +189,23 @@ class ArticleReviewStep
     {
         $this->from = $from;
 
+        return $this;
+    }
+
+    /**
+     * Get step
+     */
+    public function getStep()
+    {
+        return $this->step;
+    }
+
+    /**
+     * Set step
+     */
+    public function setStep($step)
+    {
+        $this->step = $step;
         return $this;
     }
 
@@ -228,7 +250,7 @@ class ArticleReviewStep
      */
     public function setStatusText($statusText)
     {
-        $this->status_text = $statusText;
+        $this->statusText = $statusText;
 
         return $this;
     }
@@ -240,7 +262,7 @@ class ArticleReviewStep
      */
     public function getStatusText()
     {
-        return $this->status_text;
+        return $this->statusText;
     }
 
     /**
@@ -251,7 +273,7 @@ class ArticleReviewStep
      */
     public function setStartedDate($startedDate)
     {
-        $this->started_date = $startedDate;
+        $this->startedDate = $startedDate;
 
         return $this;
     }
@@ -263,7 +285,7 @@ class ArticleReviewStep
      */
     public function getStartedDate()
     {
-        return $this->started_date;
+        return $this->startedDate;
     }
 
     /**
@@ -274,7 +296,7 @@ class ArticleReviewStep
      */
     public function setFinishedDate($finishedDate)
     {
-        $this->finished_date = $finishedDate;
+        $this->finishedDate = $finishedDate;
 
         return $this;
     }
@@ -286,7 +308,7 @@ class ArticleReviewStep
      */
     public function getFinishedDate()
     {
-        return $this->finished_date;
+        return $this->finishedDate;
     }
 
     /**
@@ -297,7 +319,7 @@ class ArticleReviewStep
      */
     public function setReviewDeadline($reviewDeadline)
     {
-        $this->review_deadline = $reviewDeadline;
+        $this->reviewDeadline = $reviewDeadline;
 
         return $this;
     }
@@ -309,7 +331,7 @@ class ArticleReviewStep
      */
     public function getReviewDeadline()
     {
-        return $this->review_deadline;
+        return $this->reviewDeadline;
     }
 
     /**
@@ -342,7 +364,7 @@ class ArticleReviewStep
      */
     public function setOwnerUser($user)
     {
-        $this->ownerUser = array('id'=>$user->getId(),'username'=>$user->getUsername(),'email'=>$user->getEmail());
+        $this->ownerUser = array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
         return $this;
     }
 
@@ -355,4 +377,5 @@ class ArticleReviewStep
     {
         return $this->ownerUser;
     }
+
 }

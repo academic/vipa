@@ -17,6 +17,9 @@ parameters:
         de:
             name: German
             code: de
+        ar:
+            name: Arabic
+            code: ar
         
     roles:
         #dont modify

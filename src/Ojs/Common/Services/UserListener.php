@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;

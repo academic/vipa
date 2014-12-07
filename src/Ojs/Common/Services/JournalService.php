@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use \Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
