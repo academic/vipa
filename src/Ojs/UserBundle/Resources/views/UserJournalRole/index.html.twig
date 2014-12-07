@@ -1,45 +1,50 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{{ "user.journalrole.list"|trans }}</h1>
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "user.journalrole.list"|trans }}</h1>
 
-        <table class="records_list  table">
-            <thead>
-                <tr>
-                    <th>{{ "user.journalrole.id"|trans }}</th>
-                    <th>{{ "user.journalrole.user"|trans }}</th>
-                    <th>{{ "user.journalrole.journal"|trans }}</th>
-                    <th>{{ "user.journalrole.role"|trans }}</th>
-                    <th>{{"actions"|trans}}</th>
-                </tr>
-            </thead>
-            <tbody>
-        {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('ujr_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td><span class="label label-default">{{ entity.userId }}</span>  {{ entity.user.username }}</td>
-                    <td><span class="label label-default">{{ entity.journalId }}</span>  {{ entity.journal.title}}</td>
-                    <td>
-                        <span class="label label-default">{{ entity.roleId }}</span>
-                        {{ entity.role.role}}
-                    </td>
-                    <td>
-                        {% set show_path = 'ujr_show' %}
-                        {% set edit_path = 'ujr_edit' %}
-                        {% set delete_path = 'ujr_delete' %}
-                        {% include '::actionbtns.html.twig' %}
+            <table class="records_list  table">
+                <thead>
+                    <tr>
+                        <th>{{ "user.journalrole.id"|trans }}</th>
+                        <th>{{ "user.journalrole.user"|trans }}</th>
+                        <th>{{ "user.journalrole.journal"|trans }}</th>
+                        <th>{{ "user.journalrole.role"|trans }}</th>
+                        <th>{{"actions"|trans}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><a href="{{ path('ujr_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td><span class="label label-default">{{ entity.userId }}</span>  {{ entity.user.username }}</td>
+                            <td><span class="label label-default">{{ entity.journalId }}</span>  {{ entity.journal.title}}</td>
+                            <td>
+                                <span class="label label-default">{{ entity.roleId }}</span>
+                                {{ entity.role.role}}
+                            </td>
+                            <td>
+                                {% if isSystemAdmin() %}
+                                    <a class="btn-sm btn btn-info" href="/?_su={{ entity.user.username }}">
+                                        <i class="fa fa-sign-in"></i>
+                                    </a>
+                                {% endif %}
+                                {% set show_path = 'ujr_show' %}
+                                {% set edit_path = 'ujr_edit' %}
+                                {% set delete_path = 'ujr_delete' %}
+                                {% include '::actionbtns.html.twig' %}
 
-                    </td>
-                </tr>
-        {% endfor %}
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-        <a class="button" href="{{ path('ujr_new') }}">
-            {{"c"|trans}}
-        </a>
+            <a class="button" href="{{ path('ujr_new') }}">
+                {{"c"|trans}}
+            </a>
+        </div>
     </div>
-</div>
-    {% endblock %}
+{% endblock %}
