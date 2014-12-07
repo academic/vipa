@@ -30,14 +30,14 @@ class ManagerController extends Controller
     {
 
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $mySteps = [];
         if ($journal) {
             $dm = $this->get('doctrine_mongodb')->getManager();
             $allowedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                     ->findBy(array('journalid' => $journal->getId()));
             // @todo we should query in a more elegant way  
             // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
-            // Don't know how to query $elemMatch
-            $mySteps = [];
+            // Don't know how to query $elemMatch 
             foreach ($allowedWorkflowSteps as $step) {
                 if ($this->checkStepAndUserRoles($step)) {
                     $mySteps[] = $step;

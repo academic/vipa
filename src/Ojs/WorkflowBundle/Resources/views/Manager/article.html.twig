@@ -67,7 +67,23 @@
 
         <div class="panel-footer">
 
+            <select class="select2-element lg">
+                <option>Editor</option>
+                <option>Dil Kontrol</option>
+            </select>
+
+            <a class="btn btn-warning">Next</a> 
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $(document).ready(function () {
+            $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+        });
+    </script>
 {% endblock %}
