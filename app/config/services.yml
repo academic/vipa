@@ -69,3 +69,8 @@ services:
     ojs.journal_service:
         class: Ojs\Common\Services\JournalService
         arguments: [ @service_container, @doctrine.orm.entity_manager ]
+    roles.faker.provider:
+        class: Ojs\Common\Services\RolesFakerProvider
+        arguments: [ @service_container ]
+        tags:
+            -  { name: h4cc_alice_fixtures.provider }
