@@ -1,0 +1,104 @@
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <section role="welcome">
+            <div class="row">
+                <div class="col-md-4 col-xs-12 text-center ">
+                    <img src="http://dergipark.ulakbim.gov.tr/assets/images/dergipark_logo_tr.png" /> 
+                    <hr />
+                    <div id="stats">
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">10</div>
+                                <div class="panel-footer">entitü</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">443</div>
+                                <div class="panel-footer">dergi</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">106.576</div>
+                                <div class="panel-footer">makale</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="panel panel-default">
+                                <div class="panel-body">84.693</div>
+                                <div class="panel-footer">kullanıcı</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a href="#" target="_blank" title="Twitter"><i class="fa fa-3x fa-twitter"></i></a>
+                    <a href="#"  target="_blank" title="Facebook"><i class="fa fa-3x fa-facebook"></i></a>
+                    <span class="text-muted">/DergiPark</span>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <p class="lead">DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark> ve <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.</p>
+                    <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
+                    <p class="text-center">
+                        <a href="#" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i class="fa fa-user"></i></span> Üye Ol</a>
+                        <a href="#" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i class="fa fa-institution"></i></span> Enstitü Kaydet</a>
+                        <a href="#" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i class="fa fa-book"></i></span> Dergi Oluştur</a>
+                        <a href="#" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i class="fa fa-file-pdf-o"></i></span> Makale Gönder</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section role="featured">
+            <h3 class="page-header">Öne Çıkanlar</h3>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <p class="lead">Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz</p>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <h6>Dergiler</h6>
+                    <div class="row">
+                        {% for journal in journals %}
+                            <div class="col-sm-2 col-md-2">
+                                <a href="/journal/{{journal.id}}">
+                                    <img src="holder.js/96x128/random/text:{{journal.title}}" class="img-rounded" />
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr />
+                    <h6>Enstitüler</h6>
+                    <div class="row">
+                        {% for institution in institutions %}
+                            <div class="col-sm-2 col-md-2">
+                                <a href="/institution/{{institution.id}}">
+                                    <img src="holder.js/96x96/random/text:{{institution.name}}" class="img-rounded" />
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section role="topics">
+            <h3 class="page-header">Konular</h3>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <ul class="list-unstyled">
+                        {% for subject in subjects %}
+                            <li class="col-md-4">
+                                <a href="{{ path("ojs_journals_index",{filters: addFilters('subject',subject.id)}) }}">{{subject.subject}}</a>
+                                <span class="label label-info pull-right">{{subject.totalJournalCount}}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+

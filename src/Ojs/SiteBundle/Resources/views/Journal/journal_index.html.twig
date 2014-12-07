@@ -13,7 +13,7 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}" data-src="holder.js/200x300/#f9A497:#ffffff/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}" data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                 </div>
 
                 <div class="col-md-4">
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            {%include 'OjsSiteBundle:Site:journal_right_block.html.twig'%}
+            {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
         </div>
     </div>
 
