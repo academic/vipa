@@ -1,5 +1,5 @@
 <?php
-namespace Ojs\Common\Listener;
+namespace Ojs\Common\Services;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
