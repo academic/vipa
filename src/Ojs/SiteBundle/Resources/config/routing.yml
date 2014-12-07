@@ -9,6 +9,7 @@ ojs_public_index:
 ojs_browse_index:
     pattern:  /browse
     defaults: { _controller: OjsSiteBundle:Site:browseIndex }
+    
 
 ojs_institutions_index:
     pattern:  /institutions
