@@ -1,3 +1,4 @@
+.margin-auto{margin-left:auto; margin-right: auto}
 span.mandotary{color: #d45!important; font-family: monospace!important;}
 span.mandotary:after{content:"*"}
 .records_list ul{list-style: none;}
