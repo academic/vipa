@@ -5,6 +5,12 @@
 {% block body %}
 
     <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="http://i.imgur.com/AKBTm7T.png" class="img-responsive margin-auto" />
+            </div>
+        </div>
         <div class="page-header">
             <h1>{{journal.title}} <small>{{ journal.titleAbbr }}</small></h1>
             <h6>{{journal.subtitle}} <small>{{ journal.titleTransliterated }}</small></h6>
@@ -51,13 +57,13 @@
                 <div class="col-md-12">
                     <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
                     <p>
-                       {% for key,user in users %}
-                           <strong>{{ key|trans }}</strong> <br/>
-                           {% for u in user %}
-                               {{ u.title }} {{ u.fullName }}<br/>
-                           {% endfor %}
-                           <br/>
-                       {% endfor %}
+                        {% for key,user in users %}
+                            <strong>{{ key|trans }}</strong> <br/>
+                            {% for u in user %}
+                                {{ u.title }} {{ u.fullName }}<br/>
+                            {% endfor %}
+                            <br/>
+                        {% endfor %}
                     </p>
                 </div>
             </div>
@@ -71,6 +77,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }})
+        analytics.increase('journal',{{ journal.id }} )
     </script>
 {% endblock %}
