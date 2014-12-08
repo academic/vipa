@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
+use Ojs\WikiBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class SitemapController extends Controller
             'ojs_journals_sitemap',
             'ojs_institutions_sitemap',
             'ojs_subjects_sitemap',
+            'ojs_static_sitemap'
         ];
         foreach ($maps as $map) {
             $siteMap
@@ -88,7 +90,8 @@ class SitemapController extends Controller
             'ojs_journal_detail_sitemap',
             'ojs_articles_sitemap',
             'ojs_issues_sitemap',
-            'ojs_last_issue_sitemap'
+            'ojs_last_issue_sitemap',
+            'ojs_wiki_sitemap'
         ];
         foreach ($maps as $map) {
             $siteMapIndex->add(
@@ -102,6 +105,22 @@ class SitemapController extends Controller
 
     }
 
+    public function wikiAction(Request $request, Journal $journal, $_format = 'xml')
+    {
+        $siteMap = new Sitemap();
+        $router = $this->get('router');
+        $wikis = $journal->getPages();
+        foreach ($wikis as $wiki) {
+            /** @var Page $wiki */
+            $siteMap->add(
+                $request->getSchemeAndHttpHost().
+                $router->generate('ojs_wiki_page_detail',['slug'=>$wiki->getSlug()]),
+                $wiki->getUpdated()->format('Y-m-d')
+            );
+        }
+        return $this->response($siteMap);
+
+    }
     public function journalDetailAction(Request $request, Journal $journal, $_format = 'xml')
     {
         $siteMap = new Sitemap();
@@ -256,6 +275,30 @@ class SitemapController extends Controller
         return $this->response($siteMap);
     }
 
+    public function staticAction(Request $request,$_format='xml')
+    {
+        $siteMap = new Sitemap();
+        $router = $this->get('router');
+        $maps = [
+            'ojs_public_index',
+            'ojs_browse_index',
+            'ojs_institutions_index',
+            'ojs_categories_index',
+            'ojs_topic_index',
+            'ojs_profile_index',
+            'ojs_journals_index',
+            'tos',
+            'privacy',
+        ];
+        foreach ($maps as $map) {
+            $siteMap->add(
+                $request->getSchemeAndHttpHost().
+                $router->generate($map),
+                (new \DateTime())->format('Y-m-d')
+            );
+        }
+        return $this->response($siteMap);
+    }
     private function response($content)
     {
         $response = new Response();

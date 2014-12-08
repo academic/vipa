@@ -15,7 +15,7 @@ class DefaultController extends Controller
         return $this->render('OjsWikiBundle:Default:index.html.twig');
     }
 
-    public function detailAction(Request $request, $object, $type, $slug)
+    public function detailAction(Request $request, $slug)
     {
         $data = [];
         $data['content'] = $this->getDoctrine()->getManager()->getRepository('OjsWikiBundle:Page')->findOneBy(['slug' => $slug]);
