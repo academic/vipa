@@ -93,7 +93,8 @@ jms_serializer:
             FOSUB:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "%kernel.root_dir%/serializer/FOSUserBundle"
-
+jms_di_extra:
+    disable_grep: true
 nelmio_api_doc: ~
 
 oneup_uploader:

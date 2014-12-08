@@ -1,0 +1,33 @@
+#RSS
+ojs_index_sitemap:
+  pattern: /
+  defaults: {_controller: OjsSiteBundle:Sitemap:index }
+ojs_journals_sitemap:
+  pattern: /journals.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:journals }
+ojs_journal_sitemap:
+  pattern: /journal/{journal}.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:journal }
+ojs_journal_detail_sitemap:
+  pattern: /journal/{journal}/detail.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:journalDetail }
+ojs_articles_sitemap:
+  pattern: /journal/{journal}/articles.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:article }
+ojs_last_issue_sitemap:
+  pattern: /journal/{journal}/last.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:lastIssue }
+ojs_issues_sitemap:
+  pattern: /journal/{journal}/issues.{_format}
+  defaults: {_controller: OjsSiteBundle:Sitemap:issues }
+
+ojs_institution_sitemap:
+  pattern: /institution/{institution}.{_format}
+  defaults: {_controller: OjsSiteBundle:Sitemap:institution }
+ojs_institutions_sitemap:
+  pattern: /institutions.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:institutions }
+ojs_subjects_sitemap:
+  pattern: /subjects.{_format}
+ojs_subject_sitemap:
+  pattern: /subject/{subject}.{_format}
