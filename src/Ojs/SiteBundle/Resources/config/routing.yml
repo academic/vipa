@@ -75,6 +75,6 @@ ojs_block_link_order:
 ojs_block_link_delete:
     pattern: /block_link/delete/{object}/{type}/{block_link}
     defaults: { _controller: OjsSiteBundle:Block:deleteLink }
-ojs_rss:
-  prefix: /rss
-  resource: "@OjsSiteBundle/Resources/config/routing/rss.yml"
+ojs_sitemap:
+  prefix: /sitemap
+  resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
