@@ -31,7 +31,7 @@
                     <td>{{ entity.special }}</td>
                     <td>{{ entity.description }}</td>
                     <td>{{ entity.year }}</td>
-                    <td>{% if entity.datePublished %}{{ entity.datePublished|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{% if entity.datePublished %}{{ entity.datePublished|date('Y-m-d') }}{% endif %}</td>
                     <td>
                         {% set show_path = 'issue_show' %}
                         {% set edit_path = 'issue_edit' %}

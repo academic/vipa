@@ -38,7 +38,7 @@
                         <ul class="list-group">
                             {% for subject in subjects %}
                                 <li class="list-group-item">
-                                    <a href="{{ path("ojs_journals_index",{page: currentPage,filters: addFilters('subject',subject.id)}) }}">{{subject.subject}}</a>
+                                    <a href="{{ path("ojs_journals_index" , {start:start , offset: offset }) }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
                                     <span class="label label-success pull-right">{{subject.totalJournalCount}}</span>
                                 </li>
                             {% endfor %}

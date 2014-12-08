@@ -90,7 +90,7 @@
                     <ul class="list-unstyled">
                         {% for subject in subjects %}
                             <li class="col-md-4">
-                                <a href="{{ path("ojs_journals_index",{filters: addFilters('subject',subject.id)}) }}">{{subject.subject}}</a>
+                                <a href="{{ path("ojs_journals_index") }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
                                 <span class="label label-info pull-right">{{subject.totalJournalCount}}</span>
                             </li>
                         {% endfor %}

@@ -1,12 +1,8 @@
 ojs_wiki_homepage:
     path:     /wiki
     defaults: { _controller: OjsWikiBundle:Default:index }
-wiki_detail:
-    path: /wiki/{type}
-    defaults: {_controller: OjsWikiBundle:Default:detail , type: simple}
-
 ojs_wiki_page_detail:
-    pattern: /wiki/{type}/{object}/{slug}
+    pattern: /wiki/{slug}
     defaults: { _controller: OjsWikiBundle:Default:detail }
 ojs_wiki_object_pages:
     pattern: /manager/wiki/{type}/{object}/list

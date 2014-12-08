@@ -25,11 +25,9 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Lists all new Article submissions entities.
-     *
      */
     public function indexAction($all = false)
     {
-
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $this->getUser();
@@ -73,6 +71,11 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
+    /**
+     * Resume action for an article submission
+     * @param string $submissionId
+     * @throws 403 Access denied
+     */
     public function resumeAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -92,6 +95,11 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
+    /**
+     * Preview action for an article submission
+     * @param string $submissionId
+     * @throws 403 Access Denied
+     */
     public function previewAction($submissionId)
     {
         $em = $this->getDoctrine()->getManager();
@@ -111,6 +119,12 @@ class ArticleSubmissionController extends Controller
         ));
     }
 
+    /**
+     * Finish action for an article submission. 
+     * This action moves article's data from mongodb to mysql
+     * @param Request $request
+     * @throws 403 Acces Denied
+     */
     public function finishAction(Request $request)
     {
         $submissionId = $request->get('submissionId');
@@ -259,7 +273,12 @@ class ArticleSubmissionController extends Controller
         }
     }
 
-    private function saveCitationData($citations, $article)
+    /**
+     * 
+     * @param array $citations
+     * @param Article $article
+     */
+    private function saveCitationData($citations, Article $article)
     {
         $em = $this->get('doctrine')->getManager();
         foreach ($citations as $citationData) {
@@ -267,8 +286,11 @@ class ArticleSubmissionController extends Controller
             $citation->setRaw($citationData['raw']);
             $citation->setType($citationData['type']);
             $citation->setOrderNum($citationData['orderNum']);
-            $citation->addArticle($article);
             $em->persist($citation);
+            $em->flush();
+            // add relation to article
+            $article->addCitation($citation);
+            $em->persist($article);
             $em->flush();
             unset($citationData['raw']);
             unset($citationData['type']);
