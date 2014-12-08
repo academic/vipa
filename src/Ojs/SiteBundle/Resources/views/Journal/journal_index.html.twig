@@ -31,8 +31,8 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <a href="/journal/{{ journal.id }}/last" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
-                    <a href="/journal/{{ journal.id }}/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+                    <a href="/journal/{{ journal.slug }}/last" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
+                    <a href="/journal/{{ journal.slug }}/archive" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
                     <p class="text-default">
                         <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{journal.issn}}</span>
                         <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{journal.eissn}}</span>

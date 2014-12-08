@@ -33,30 +33,29 @@ ojs_profile_index:
     defaults: { _controller: OjsSiteBundle:Site:profileIndex }
     
 ojs_journal_index:
-    pattern:  /journal/{journal_id}
+    pattern:  /journal/{slug}
     defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
 
 ojs_journal_index_articles:
-    pattern: /journal/{journal_id}/articles
+    pattern: /journal/{slug}/articles
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 ojs_journals_index:
     pattern:  /journals/{start}/{offset}
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }
     
 ojs_last_articles_index:
-    pattern:  /journal/{journal_id}/last
+    pattern:  /journal/{slug}/last
     defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
     
 ojs_archive_index:
-    pattern:  /journal/{journal_id}/archive
+    pattern:  /journal/{slug}/archive
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
     
 ojs_article_page:
-    pattern:  /journal/{journal_id}/{article_id}
+    pattern:  /journal/{slug}/{article_id}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
     requirements:
       article_id: \d+
-      journal_id: \d+
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
