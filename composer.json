@@ -48,7 +48,9 @@
         "fzaninotto/faker": "dev-master",
         "nelmio/alice": "1.7.2",
         "h4cc/alice-fixtures-bundle": "~0.5",
-    	"okulbilisim/feedback-bundle": "dev-master"
+    	"okulbilisim/feedback-bundle": "dev-master",
+        "tackk/cartographer": "1.0.*"
+
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master"

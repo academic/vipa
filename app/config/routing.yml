@@ -2,8 +2,6 @@ ojs_installer:
     resource: "@OjsInstallerBundle/Resources/config/routing.yml"
     prefix:   /
 
-
-
 ojs_report:
     resource: "@OjsReportBundle/Resources/config/routing.yml"
     prefix:   /
@@ -27,8 +25,7 @@ ojs_search:
 OkulbilisimMessageBundle:
     resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
     prefix: /
-    
-    
+
 ojs_manager:
     resource: "@OjsManagerBundle/Resources/config/routing.yml"
     prefix:   /

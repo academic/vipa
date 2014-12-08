@@ -25,9 +25,10 @@
                     </div>
                 </form>
             </div>
-            <div class="navbar-right">
-                {%include '::language_selector.html.twig'%}
+            <div class="navbar-right col-md-4">
                 <ul class="nav navbar-nav"> 
+                    {%include '::language_selector.html.twig'%}
+
                     {% if app.user %}
                         <li>
                             <a title="User Page" href="{{path('ojs_user_index')}}">
@@ -128,14 +129,13 @@
                             </ul> 
                         </li>
                     {%endif%}
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if app.user == false %}
-                            <li>
-                                <a class="btn btn-link" href="{{path('login')}}">
-                                    <i class="fa fa-sign-in"></i> {{"login"|trans}}</a>
-                            </li>
-                        {%endif%}
-                    </ul>
+
+                    {% if app.user == false %}
+                        <li>
+                            <a class="btn btn-link" href="{{path('login')}}">
+                                <i class="fa fa-sign-in"></i> {{"login"|trans}}</a>
+                        </li>
+                    {%endif%}
                 </ul>
             </div>
         </div>
