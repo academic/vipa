@@ -2,27 +2,32 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class SiteController extends Controller {
+class SiteController extends Controller
+{
 
     /**
      * Global index page
-     * @return type
+     * @return Response
      */
-    public function indexAction() {
+    public function indexAction(Request $request)
+    {
         /* @var $journalDomain \Ojs\Common\Model\JournalDomain */
         $journalDomain = $this->container->get('journal_domain');
         $data['entity'] = $journalDomain->getCurrentJournal();
         $data['page'] = 'index';
 
         if ($data['entity']) {
-            return $this->journalIndexAction($data['entity']->getId());
+            return $this->journalIndexAction($request, $data['entity']->getSlug());
         }
-        
+
         $em = $this->getDoctrine()->getManager();
         $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array(), array(), 6);
         $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
@@ -38,46 +43,54 @@ class SiteController extends Controller {
     }
 
 
-    public function browseIndexAction() {
+    public function browseIndexAction()
+    {
         $data['page'] = 'browse';
         return $this->render('OjsSiteBundle::Site/browse_index.html.twig', $data);
     }
 
-    public function categoriesIndexAction() {
+    public function categoriesIndexAction()
+    {
         $data['page'] = 'categories';
         return $this->render('OjsSiteBundle::Site/categories_index.html.twig', $data);
     }
 
-    public function topicsIndexAction() {
+    public function topicsIndexAction()
+    {
         $data['page'] = 'topics';
         return $this->render('OjsSiteBundle::Site/topics_index.html.twig', $data);
     }
 
-    public function profileIndexAction() {
+    public function profileIndexAction()
+    {
         $data['page'] = 'profile';
         return $this->render('OjsSiteBundle::Site/profile_index.html.twig', $data);
     }
 
-    public function staticPagesAction($page = 'static') {
+    public function staticPagesAction($page = 'static')
+    {
         $data['page'] = $page;
         return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
     }
 
-    public function institutionsIndexAction() {
+    public function institutionsIndexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $data['page'] = 'institution';
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
     }
 
-    public function institutionPageAction($institution_id) {
+    public function institutionPageAction($institution_id)
+    {
         $em = $this->getDoctrine()->getManager();
         $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->find($institution_id);
         $data['page'] = 'organizations';
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $start = 0, $offset = 12) {
+    public function journalsIndexAction(Request $request, $start = 0, $offset = 12)
+    {
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
@@ -106,22 +119,29 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Journal/journals_index.html.twig', $data);
     }
 
-    public function journalIndexAction($journal_id) {
+    public function journalIndexAction(Request $request,$slug)
+    {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
-        $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal_id, true);
-        $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $data['journal']]);
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        if(!$journal)
+            throw new NotFoundHttpException("Journal Not Found!");
+        $data['journal'] = $journal;
+        $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers( $journal->getId(), true);
+        $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal_id' =>  $journal->getId()]);
         $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
-        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal);
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
 
-    public function journalArticlesAction($journal_id) {
+    public function journalArticlesAction($slug)
+    {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug'=>$slug]);
         $articles = $journal->getArticles();
         $data = [
             'journal' => $journal,
@@ -137,18 +157,20 @@ class SiteController extends Controller {
      * Also means last issue's articles
      * @param integer $journal_id
      */
-    public function lastArticlesIndexAction($journal_id) {
+    public function lastArticlesIndexAction($slug)
+    {
         $em = $this->getDoctrine()->getManager();
-        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug'=>$slug]);
         $this->throw404IfNotFound($data['journal']);
-        $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journal_id);
+        $data['articles'] = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($data['journal']->getId());
         $data['page'] = 'articles';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
 
         return $this->render('OjsSiteBundle::Journal/last_articles_index.html.twig', $data);
     }
 
-    public function articlePageAction($article_id) {
+    public function articlePageAction($article_id)
+    {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article */
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
@@ -162,12 +184,13 @@ class SiteController extends Controller {
         return $this->render('OjsSiteBundle::Journal/article_page.html.twig', $data);
     }
 
-    public function archiveIndexAction($journal_id) {
+    public function archiveIndexAction($slug)
+    {
         $em = $this->getDoctrine()->getManager();
-        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug'=>$slug]);
         $this->throw404IfNotFound($data['journal']);
         // get all issues
-        $data['issues'] = $em->getRepository('OjsJournalBundle:Issue')->findBy(array('journalId' => $journal_id));
+        $data['issues'] = $em->getRepository('OjsJournalBundle:Issue')->findBy(array('journalId' => $data['journal']->getId()));
         $data['issues_grouped'] = [];
         foreach ($data['issues'] as $issue) {
             $data['issues_grouped'][$issue->getYear()][] = $issue;

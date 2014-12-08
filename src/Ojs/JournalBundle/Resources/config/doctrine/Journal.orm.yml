@@ -195,6 +195,11 @@ Ojs\JournalBundle\Entity\Journal:
         slug:
             type: string
             nullable: true
+            gedmo:
+                slug:
+                    seperator: _
+                    fields:
+                      - title
         themeId:
             type: integer
             column: theme_id

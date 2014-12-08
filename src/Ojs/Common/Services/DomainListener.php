@@ -35,8 +35,8 @@ class DomainListener
             $routeName = $request->get('_route');
             if ($routeName == 'ojs_journal_index') {
                 $params = $request->attributes->get('_route_params');
-                $journalId = isset($params['journal_id']) ? $params['journal_id'] : null;
-                $journal = $this->em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+                $slug = isset($params['slug']) ? $params['slug'] : null;
+                $journal = $this->em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug'=>$slug]);
             }else{
                 $journal = null;
             }

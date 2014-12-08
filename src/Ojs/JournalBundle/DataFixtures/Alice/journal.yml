@@ -2,7 +2,6 @@
   journal1:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(250)>
-    slug (unique): demo
     period: <randomDigit(2)>
     published: '1'
     scope: <text(250)>
@@ -19,7 +18,6 @@
   journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(50)>
-    slug (unique): <domainWord()>
     period: <randomDigit(2)>
     published: '1'
     scope: <text(50)>
