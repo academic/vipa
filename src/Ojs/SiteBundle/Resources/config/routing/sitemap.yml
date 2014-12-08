@@ -29,5 +29,7 @@ ojs_institutions_sitemap:
   defaults: { _controller: OjsSiteBundle:Sitemap:institutions }
 ojs_subjects_sitemap:
   pattern: /subjects.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:subjects }
 ojs_subject_sitemap:
   pattern: /subject/{subject}.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:subject }
