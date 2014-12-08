@@ -57,24 +57,9 @@ ojs_article_page:
     requirements:
       article_id: \d+
       journal_id: \d+
-ojs_block_new:
-    pattern: /block/new/{object}/{type}/{id}
-    defaults: { _controller: OjsSiteBundle:Block:create , id: 0}
-ojs_block_delete:
-    pattern: /block/delete/{object}/{type}/{block}
-    defaults: { _controller: OjsSiteBundle:Block:delete }
-ojs_block_order:
-    pattern: /block/order/{block}/{order}
-    defaults: { _controller: OjsSiteBundle:Block:order }
-ojs_block_link_new:
-    pattern: /block_link/new/{block}/{id}
-    defaults: { _controller: OjsSiteBundle:Block:newLink, id: 0 }
-ojs_block_link_order:
-    pattern: /block_link/order/{block_link}/{order}
-    defaults: { _controller: OjsSiteBundle:Block:orderLink }
-ojs_block_link_delete:
-    pattern: /block_link/delete/{object}/{type}/{block_link}
-    defaults: { _controller: OjsSiteBundle:Block:deleteLink }
+ojs_block:
+    prefix: /block
+    resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
 ojs_sitemap:
-  prefix: /sitemap
-  resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
+    prefix: /sitemap
+    resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"

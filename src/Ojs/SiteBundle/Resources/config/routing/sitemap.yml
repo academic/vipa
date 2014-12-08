@@ -20,6 +20,9 @@ ojs_last_issue_sitemap:
 ojs_issues_sitemap:
   pattern: /journal/{journal}/issues.{_format}
   defaults: {_controller: OjsSiteBundle:Sitemap:issues }
+ojs_wiki_sitemap:
+  pattern: /journal/{journal}/wiki.{_format}
+  defaults: {_controller: OjsSiteBundle:Sitemap:wiki }
 
 ojs_institution_sitemap:
   pattern: /institution/{institution}.{_format}
@@ -33,3 +36,6 @@ ojs_subjects_sitemap:
 ojs_subject_sitemap:
   pattern: /subject/{subject}.{_format}
   defaults: { _controller: OjsSiteBundle:Sitemap:subject }
+ojs_static_sitemap:
+  pattern: /static.{_format}
+  defaults: { _controller: OjsSiteBundle:Sitemap:static }
