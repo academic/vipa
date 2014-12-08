@@ -1,0 +1,28 @@
+#RSS
+ojs_index_rss:
+  pattern: /
+  defaults: {_controller: OjsSiteBundle:Rss:index }
+ojs_journals_rss:
+  pattern: /journals.{_format}
+  defaults: { _controller: OjsSiteBundle:Rss:journals }
+ojs_journal_rss:
+  pattern: /journal/{journal}.{_format}
+  defaults: { _controller: OjsSiteBundle:Rss:journal }
+
+ojs_articles_rss:
+  pattern: /{journal}/articles.{_format}
+  defaults: { _controller: OjsSiteBundle:Rss:article }
+ojs_last_issue_rss:
+  pattern: /{journal}/last.{_format}
+ojs_issues_rss:
+  pattern: /{journal}/issues.{_format}
+  defaults: {_controller: OjsSiteBundle:Rss:issues }
+
+ojs_institution_rss:
+  pattern: /institution/{institution}.{_format}
+ojs_institutions_rss:
+  pattern: /institutions.{_format}
+ojs_subjects_rss:
+  pattern: /subjects.{_format}
+ojs_subject_rss:
+  pattern: /subject/{subject}.{_format}
