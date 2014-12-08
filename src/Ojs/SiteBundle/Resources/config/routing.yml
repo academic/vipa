@@ -57,7 +57,6 @@ ojs_article_page:
     requirements:
       article_id: \d+
       journal_id: \d+
-
 ojs_block_new:
     pattern: /block/new/{object}/{type}/{id}
     defaults: { _controller: OjsSiteBundle:Block:create , id: 0}
@@ -76,3 +75,6 @@ ojs_block_link_order:
 ojs_block_link_delete:
     pattern: /block_link/delete/{object}/{type}/{block_link}
     defaults: { _controller: OjsSiteBundle:Block:deleteLink }
+ojs_rss:
+  prefix: /rss
+  resource: "@OjsSiteBundle/Resources/config/routing/rss.yml"

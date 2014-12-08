@@ -19,22 +19,22 @@ class GenericExtendedEntity implements Translatable
     protected $locale;
 
     /**
-     * @var Datetime $created
+     * @var \DateTime $created
      */
     protected $created;
 
     /**
-     * @var Datetime $updated
+     * @var \DateTime $updated
      */
     protected $updated;
 
     /**
-     * @var Datetime $contentChanged
+     * @var \DateTime $contentChanged
      */
     protected $contentChanged;
 
     /**
-     * @var Datetime
+     * @var \DateTime
      */
     protected $deletedAt;
 
