@@ -169,11 +169,11 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/last_articles_index.html.twig', $data);
     }
 
-    public function articlePageAction($slug)
+    public function articlePageAction($slug, $article_slug)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article */
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['slug'=>$slug]);
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['slug'=>$article_slug]);
         if (!$data['article'])
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
 
