@@ -44,6 +44,11 @@ Ojs\JournalBundle\Entity\Journal:
         journalThemes: 
             targetEntity: JournalTheme
             mappedBy: journal
+        userRoles:
+          targetEntity: \Ojs\UserBundle\Entity\UserJournalRole
+          mappedBy: journal
+          cascade: ["all"]
+          fetch: EXTRA_LAZY
     manyToMany:
         languages:
             targetEntity: Lang

@@ -65,7 +65,7 @@ class ManagerController extends Controller
         $myRoles = $this->get('session')->get('userJournalRoles');
         $stepRoles = $step->getRoles();
         foreach ($myRoles as $myRole) {
-            foreach ($stepRoles as $stepRole) {
+            foreach ((array)$stepRoles as $stepRole) {
                 if ($stepRole['role'] === $myRole->getRole()) {
                     return true;
                 }

@@ -28,9 +28,11 @@ class CommonParams
         3 => '#3FFF23'
     );
 
-    public static function statusText($statusNum)
+    public static function statusText($statusNum=null)
     {
-        return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null;
+        if($statusNum)
+            return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null;
+        return self::$statusArray;
     }
 
     public static function statusColor($statusNum)
