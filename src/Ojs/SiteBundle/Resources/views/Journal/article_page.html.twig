@@ -8,8 +8,8 @@
             <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                 <ol class="breadcrumb">
                     <li><a href="/">{{"home"|trans}}</a></li>
-                    <li><a href="{{ path("ojs_journal_index",{"journal_id":article.journal.id})}}">{{ article.journal.title }}</a></li>
-                    <li class="active"><a href="{{ path("ojs_archive_index",{"journal_id" : article.journal.id}) }}">{{"archive"|trans}}</a></li>
+                    <li><a href="{{ path("ojs_journal_index",{"slug":article.journal.slug})}}">{{ article.journal.title }}</a></li>
+                    <li class="active"><a href="{{ path("ojs_archive_index",{"slug" : article.journal.slug}) }}">{{"archive"|trans}}</a></li>
                     
                 </ol>
 

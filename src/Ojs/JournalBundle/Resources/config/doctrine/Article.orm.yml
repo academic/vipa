@@ -192,6 +192,14 @@ Ojs\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
         - translatable
+    slug:
+      type: string
+      length: 255
+      gedmo:
+        slug:
+          seperator: _
+          fields:
+            - title
     uri:
       length: 255
       type: string
