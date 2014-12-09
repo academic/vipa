@@ -112,10 +112,17 @@ class ArticleController extends Controller
      */
     private function createCreateForm(Article $entity)
     {
-        $form = $this->createForm(new ArticleType(), $entity, array(
+        $journal = $this->get('session')->get("selectedJournalId");
+        $form = $this->createForm(
+            new ArticleType(),
+            $entity,
+            array(
             'action' => $this->generateUrl('article_create'),
             'method' => 'POST',
-        ));
+                'journal'=>$journal
+            ,
+                'user' => $this->getUser()
+            ));
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -177,9 +184,13 @@ class ArticleController extends Controller
      */
     private function createEditForm(Article $entity)
     {
+        $journal = $this->get('session')->get("selectedJournalId");
+
         $form = $this->createForm(new ArticleType(), $entity, array(
             'action' => $this->generateUrl('article_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'journal' => $journal,
+            'user' => $this->getUser()
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
