@@ -59,9 +59,11 @@ class ArticleAuthorController extends Controller
      */
     private function createCreateForm(ArticleAuthor $entity)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_create'),
             'method' => 'POST',
+            'journal_id'=>$journal
         ));
         $form->add('submit', 'submit', array('label' => 'Create New'));
 
@@ -128,9 +130,12 @@ class ArticleAuthorController extends Controller
      */
     private function createEditForm(ArticleAuthor $entity)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'journal_id'=>$journal
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
