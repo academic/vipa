@@ -59,9 +59,11 @@ class IssueController extends Controller
      */
     private function createCreateForm(Issue $entity)
     {
+        $user = $this->getUser();
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_create'),
             'method' => 'POST',
+            'user' => $user
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -122,9 +124,11 @@ class IssueController extends Controller
      */
     private function createEditForm(Issue $entity)
     {
+        $user = $this->getUser();
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user'=>$user
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
