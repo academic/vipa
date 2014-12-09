@@ -16,7 +16,7 @@ ojs_institutions_index:
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
 
 ojs_institution_page:
-    pattern:  /institution/{institution_id}
+    pattern:  /institution/{slug}
     defaults: { _controller: OjsSiteBundle:Site:institutionPage }
 
 ojs_categories_index:

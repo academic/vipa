@@ -81,10 +81,10 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
     }
 
-    public function institutionPageAction($institution_id)
+    public function institutionPageAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-        $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->find($institution_id);
+        $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug'=>$slug]);
         $data['page'] = 'organizations';
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
@@ -169,14 +169,14 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/last_articles_index.html.twig', $data);
     }
 
-    public function articlePageAction($article_id)
+    public function articlePageAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article */
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
-        if (!$data['article']) {
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['slug'=>$slug]);
+        if (!$data['article'])
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
-        }
+
         $data['journal'] = $data['article']->getJournal();
         $data['page'] = 'journals';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
