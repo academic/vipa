@@ -50,7 +50,7 @@ ojs_last_articles_index:
 ojs_archive_index:
     pattern:  /journal/{slug}/archive
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
-    
+
 ojs_article_page:
     pattern:  /journal/{slug}/{article_slug}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
