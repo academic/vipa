@@ -960,4 +960,23 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->articleFiles->removeElement($articleFiles);
     }
 
+    private $slug;
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
 }
