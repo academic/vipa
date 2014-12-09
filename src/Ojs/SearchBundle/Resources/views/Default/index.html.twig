@@ -46,19 +46,19 @@
         </nav>
         <section class="col-xs-6 col-sm-6 col-md-9">
             <ul>
-                {% for object in result %}
+                {% for article in result %}
                     <li>
                         <article>
-                            <h4><a href="#">{{ object.title }}</a></h4>
+                            <h4><a href="{{ url('ojs_article_page',{slug:article.journal.slug ,article_slug: article.slug}) }}">{{ article.title }}</a></h4>
                             <p>
-                                {% for author in object.articleAuthors %}
+                                {% for author in article.articleAuthors %}
                                     <a href="">{{ author.author.firstName }}</a>
                                 {% endfor %}
                             </p>
 
-                            <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: 10.1016/j.bpj.2014.07.038.</p>
-
-                            <p class="text-muted">PMID: 25185545</p>
+                            <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: {{ article.doi }}</p>
+                            {#I can't use correct values, because this values foreing for me#}
+                            <p class="text-muted">PMID: {{ article.id }}</p>
                         </article>
                     </li>
                 {% endfor %}

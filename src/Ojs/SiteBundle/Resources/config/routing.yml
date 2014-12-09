@@ -52,10 +52,8 @@ ojs_archive_index:
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
     
 ojs_article_page:
-    pattern:  /journal/{slug}/{article_id}
+    pattern:  /journal/{slug}/{article_slug}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
-    requirements:
-      article_id: \d+
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
