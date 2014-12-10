@@ -4,15 +4,16 @@ node_js:
    - "0.10.x"
 php:
   - 5.5
-mysql:
-  database: ojs
-  username: root
-  encoding: utf8
 
 services:
   - mysql
   - mongodb
   - elasticsearch
+
+mysql:
+  database: ojs
+  username: root
+  encoding: utf8
 
 before_script:
 # Install php packages
@@ -20,7 +21,7 @@ before_script:
   - phpenv config-add phpmongodb.ini
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
-  - mysql -e "create database ojs"
+  - mysql -e 'create database ojs;'
   - php app/console ojs:install:travis
   - npm install -g bower
   - bower install -f
