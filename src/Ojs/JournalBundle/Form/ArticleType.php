@@ -4,6 +4,8 @@ namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\CommonParams;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,14 +24,22 @@ class ArticleType extends AbstractType
             ->add('issue', 'entity', array(
                 'class' => 'Ojs\JournalBundle\Entity\Issue',
                 'required' => false,
-                'attr' => array('class' => ' form-control'),
-                'query_builder' => function (EntityRepository $er) use ($journal) {
+                'attr' => array('class' => ' form-control select2'),
+                'query_builder' => function (EntityRepository $er) use ($journal,$user) {
                     $qb = $er->createQueryBuilder('i');
+                    foreach ($user->getRoles() as $role) {
+                        /** @var Role $role */
+                        if($role->getRole()=='ROLE_SUPER_ADMIN') {
+                            return $qb;
+                            break;
+                        }
+                    }
                     $qb->where(
                         $qb->expr()->eq('i.journalId', ':journal')
                     )->setParameter('journal', $journal);
                     return $qb;
                 }
+
 
             ))
             ->add('status', 'choice', array(
@@ -40,10 +50,19 @@ class ArticleType extends AbstractType
             ->add('otherId', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
             ->add('keywords', 'text', array('attr' => array('class' => ' form-control')))
             ->add('journal', 'entity', array(
-                'attr' => array('class' => ' form-control'),
+                'attr' => array('class' => ' form-control select2'),
                 'class'=>'Ojs\JournalBundle\Entity\Journal',
                 'query_builder'=>function(EntityRepository $er)use($journal,$user){
+                    /** @var User $user $qb */
                     $qb = $er->createQueryBuilder('j');
+                    foreach ($user->getRoles() as $role) {
+                        /** @var Role $role */
+                        if($role->getRole()=='ROLE_SUPER_ADMIN') {
+                            return $qb;
+                            break;
+                        }
+                    }
+
                     $qb
                         ->join('j.userRoles','user_role','WITH','user_role.user=:user')
                         ->setParameter('user',$user)
