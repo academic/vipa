@@ -4,7 +4,7 @@ parameters:
     database_port:     3306
     database_name:     ojs
     database_user:     root
-    database_password: 
+    database_password: root
 
     system_email:      ojs@localhost
     mailer_transport:  smtp
