@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\UserBundle\Entity\UserJournalRole;
 
 /**
  * Journal
@@ -210,6 +211,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     private $bannedUsers;
 
+    private $userRoles;
     /**
      * Constructor
      */
@@ -223,6 +225,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -1048,4 +1051,39 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->bannedUsers;
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle()."[{$this->getId()}]";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRoles()
+    {
+        return $this->getUserRoles();
+    }
+
+    /**
+     * @param UserJournalRole $role
+     * @return $this
+     */
+    public function addUserRole(UserJournalRole $role){
+        $this->userRoles->add($role);
+        return $this;
+    }
+
+    /**
+     * @param UserJournalRole $role
+     * @return $this
+     */
+    public function removeUserRole(UserJournalRole $role)
+    {
+        $this->userRoles->removeElement($role);
+        return $this;
+    }
 }
+

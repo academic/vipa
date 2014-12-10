@@ -55,7 +55,7 @@ class SitemapController extends Controller
             /** @var Journal $journal */
             $siteMap->add(
                 $request->getSchemeAndHttpHost().
-                $router->generate('ojs_journal_index',['journal_id'=>$journal->getId()]),
+                $router->generate('ojs_journal_index',['slug'=>$journal->getSlug()]),
                 $journal->getUpdated()->format('Y-m-d')
             );
         }
@@ -135,7 +135,7 @@ class SitemapController extends Controller
         foreach ($maps as $map) {
             $siteMap->add(
                 $request->getSchemeAndHttpHost()
-                . $router->generate($map, ['journal_id' => $journal->getId()])
+                . $router->generate($map, ['slug' => $journal->getSlug()])
                 , $journal->getUpdated()->format('Y-m-d')
             );
         }
@@ -155,8 +155,8 @@ class SitemapController extends Controller
             $siteMap->add(
                 $request->getSchemeAndHttpHost() .
                 $router->generate('ojs_article_page', [
-                    'journal_id' => $article->getJournal()->getId(),
-                    'article_id' => $article->getId()
+                    'slug' => $article->getJournal()->getSlug(),
+                    'article_slug' => $article->getSlug()
                 ]),
                 $article->getUpdated()->format('Y-d-m')
             );
@@ -212,7 +212,7 @@ class SitemapController extends Controller
         $journals = $institution->getJournals();
         $siteMap->add(
             $request->getSchemeAndHttpHost() .
-            $router->generate('ojs_institution_page', ['institution_id' => $institution->getId()]),
+            $router->generate('ojs_institution_page', ['slug' => $institution->getSlug()]),
             $institution->getUpdated()->format('Y-m-d')
         );
         foreach ($journals as $journal) {
@@ -222,7 +222,7 @@ class SitemapController extends Controller
                 . $router->generate(
                     'ojs_journal_index',
                     [
-                        'journal_id' => $journal->getId()
+                        'slug' => $journal->getSlug()
                     ]
                 ),
                 $journal->getUpdated()->format('Y-d-m')
@@ -268,8 +268,8 @@ class SitemapController extends Controller
             /** @var Article $article */
             $siteMap
                 ->add($request->getSchemeAndHttpHost() . $router->generate('ojs_article_page', [
-                        'article_id' => $article->getId(),
-                        'journal_id' => $journal->getId(),
+                        'slug' => $journal->getSlug(),
+                        'article_slug' => $article->getSlug(),
                     ]), $article->getUpdated()->format('Y-m-d'));
         }
         return $this->response($siteMap);

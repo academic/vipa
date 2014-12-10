@@ -29,7 +29,7 @@ class JournalService
 
     /**
      * get user's current selected journal
-     * @return Ojs\JournalBundle\Entity\Journal
+     * @return \Ojs\JournalBundle\Entity\Journal
      */
     public function getSelectedJournal()
     {

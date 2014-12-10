@@ -129,4 +129,9 @@ class ArticleAuthor extends GenericExtendedEntity
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor()->getLastName();
+    }
+
 }

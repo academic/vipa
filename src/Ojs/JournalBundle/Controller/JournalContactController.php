@@ -65,6 +65,7 @@ class JournalContactController extends Controller
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_create'),
             'method' => 'POST',
+            'user'=>$this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -144,6 +145,7 @@ class JournalContactController extends Controller
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user'=>$this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

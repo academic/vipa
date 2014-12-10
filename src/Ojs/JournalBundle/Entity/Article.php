@@ -979,4 +979,9 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->slug = $slug;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getTitle()."[#{$this->getId()}]";
+    }
 }

@@ -7,7 +7,7 @@
         <h1 class="page-header">{{"institutions"|trans}}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="/institution/{{ entity.id }}">{{ entity.name }}</a></div>
+                <div class="panel-heading"><a href="/institution/{{ entity.slug }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
                     <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|apply_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
                     <div itemscope itemtype="http://schema.org/Organization">
@@ -28,14 +28,14 @@
                     </div>
                     <ul class="list-group">
                         {% for journal in entity.journals %}
-                            <li class="list-group-item"><a href="/journal/{{ journal.id }}">{{ journal.title }}</a></li>
+                            <li class="list-group-item"><a href="/journal/{{ journal.slug }}">{{ journal.title }}</a></li>
                             {%endfor%}
                     </ul>
                 </div>
 
 
                 <div class="panel-footer">
-                    <a href="/institution/{{ entity.id }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
+                    <a href="/institution/{{ entity.slug }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
                     
                     <i class="fa fa-tags"></i>{{"tags"|trans}}
                     <a href="#"><span class="badge">ojs</span></a>
