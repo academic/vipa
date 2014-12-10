@@ -9,7 +9,7 @@ namespace Ojs\SiteBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
 
-class RssControllerTest extends BaseTestCase
+class SitemapControllerTest extends BaseTestCase
 {
     const JOURNAL = 1;
     const INSTITUTION = 1;

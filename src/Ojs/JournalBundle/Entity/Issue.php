@@ -346,4 +346,9 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->articles;
     }
 
+    public function __toString()
+    {
+        return $this->getTitle()."[{$this->getId()}]";
+    }
+
 }

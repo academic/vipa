@@ -16,7 +16,7 @@ ojs_institutions_index:
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
 
 ojs_institution_page:
-    pattern:  /institution/{institution_id}
+    pattern:  /institution/{slug}
     defaults: { _controller: OjsSiteBundle:Site:institutionPage }
 
 ojs_categories_index:
@@ -50,12 +50,10 @@ ojs_last_articles_index:
 ojs_archive_index:
     pattern:  /journal/{slug}/archive
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
-    
+
 ojs_article_page:
-    pattern:  /journal/{slug}/{article_id}
+    pattern:  /journal/{slug}/{article_slug}
     defaults: { _controller: OjsSiteBundle:Site:articlePage}
-    requirements:
-      article_id: \d+
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
