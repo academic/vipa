@@ -10,7 +10,8 @@
             <!-- The carousel -->
             <div class="page-header row">
                 <div class="col-md-1 hidden-sm hidden-xs">
-                    <img src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
+                    {% set image %}{% if journal.issues|length %}{{ journal.issues[journal.issues|length-1].cover }}{% else %}{{ '' }}{% endif %}{% endset %}
+                    <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|apply_filter('journal_cover') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
                 </div>
                 <div class="col-md-11">
                     <h1>{{ journal.title }}</h1>
@@ -37,7 +38,7 @@
                             <ul class="list-group">
                                 {% for article in articles %}
                                     <li class="list-group-item list-group-item-default">
-                                        <a href="{{ url('ojs_article_page',{article_id: article.id, slug: journal.slug}) }}"><i
+                                        <a href="{{ url('ojs_article_page',{article_slug: article.slug, slug: journal.slug}) }}"><i
                                                     class="fa fa-file-text"></i> {{ article.title }}
                                         </a><br/>
                                         <i class="fa fa-users"></i>
