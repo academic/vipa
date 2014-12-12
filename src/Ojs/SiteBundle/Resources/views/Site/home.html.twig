@@ -62,7 +62,7 @@
                     <div class="row">
                         {% for journal in journals %}
                             <div class="col-sm-2 col-md-2">
-                                <a href="/journal/{{journal.slug}}">
+                                <a href="{{ url('ojs_journal_index',{slug:journal.slug, institution: journal.institution.slug}) }}">
                                     <img src="holder.js/96x128/random/text:{{journal.title}}" class="img-rounded" />
                                 </a>
                             </div>
@@ -73,7 +73,7 @@
                     <div class="row">
                         {% for institution in institutions %}
                             <div class="col-sm-2 col-md-2">
-                                <a href="/institution/{{institution.slug}}">
+                                <a href="{{ url('ojs_institution_page',{slug: institution.slug}) }}">
                                     <img src="holder.js/96x96/random/text:{{institution.name}}" class="img-rounded" />
                                 </a>
                             </div>
