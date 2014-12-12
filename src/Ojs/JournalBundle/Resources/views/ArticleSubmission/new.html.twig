@@ -256,32 +256,43 @@
         {% endjavascripts %}
 
         <script>
+            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+            var currentStep = parseInt(window.location.hash.replace("#", ""));
             window.onbeforeunload = function () {
                 return "{{"sure_data_lost"|trans}}";
             };
-
-            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+            function loadCurrentStep(currentStep) {
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep["step" + currentStep]();
+            }
+            $(window).on("hashchange", function (event) {
+                var currentStep = parseInt(window.location.hash.replace("#", ""));
+                if (window.currentStep !== currentStep) {
+                    window.currentStep = currentStep;
+                    loadCurrentStep(currentStep);
+                }
+            });
             $(document).ready(function () {
+                var currentStep = parseInt(window.location.hash.replace("#", ""));
+                loadCurrentStep(currentStep);
             {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
                 {#
                     Load submission steps with data
                     #} 
-                $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-                {% for key,article in submissionData.articleData %}
-                        var params = {
-                            "article_title": "{{article.title|raw}}",
-                            "article_subtitle": "{{article.subtitle|raw}}",
-                            "article_keywords": "{{article.keywords|raw}}",
-                            "article_subjects": "{{article.subjects|raw}}",
-                            "article_abstract": "{{article.abstract|raw}}"
-                        };
-                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+                $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");{% for key,article in submissionData.articleData %}
+                var params = {
+                    "article_title": "{{article.title|raw}}",
+                    "article_subtitle": "{{article.subtitle|raw}}",
+                    "article_keywords": "{{article.keywords|raw}}",
+                    "article_subjects": "{{article.subjects|raw}}",
+                    "article_abstract": "{{article.abstract|raw}}"
+                };
+                OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
                 {% endfor %} 
 
-                        OjsArticleSubmission.activatedSteps["step1"] = true;
-            {% endif %}
-                });
-        </script>
-        {% endblock %}
+                OjsArticleSubmission.activatedSteps["step1"] = true;{% endif %}
+            });
+                </script>
+                {% endblock %}
