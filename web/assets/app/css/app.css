@@ -1220,3 +1220,9 @@ div.user-menu div.user-menu-content:not(.active){
 
 #stats .panel-body{padding:4px; font-weight: bold}
 #stats .panel-footer{padding:4px; font-size:11px}
+
+.select2-choice{
+    margin: -7px -13px;
+    padding: 3px;
+    height: 34px !important;
+}

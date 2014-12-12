@@ -1,9 +1,15 @@
-ojs_site_admin_page:
+wojs_site_admin_page:
     resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
     prefix:   /admin/page
 
+
+ojs_user_profile:
+    pattern: /@{slug}
+    defaults: { _controller: OjsSiteBundle:User:profile }
+
 ojs_public_index:
     pattern:  /
+    host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:index }
 
 ojs_browse_index:
@@ -14,10 +20,6 @@ ojs_browse_index:
 ojs_institutions_index:
     pattern:  /institutions
     defaults: { _controller: OjsSiteBundle:Site:institutionsIndex }
-
-ojs_institution_page:
-    pattern:  /institution/{slug}
-    defaults: { _controller: OjsSiteBundle:Site:institutionPage }
 
 ojs_categories_index:
     pattern:  /categories
@@ -31,32 +33,45 @@ ojs_topic_index:
 ojs_profile_index:
     pattern:  /profile
     defaults: { _controller: OjsSiteBundle:Site:profileIndex }
-    
-ojs_journal_index:
-    pattern:  /journal/{slug}
-    defaults: { _controller: OjsSiteBundle:Site:journalIndex } 
 
-ojs_journal_index_articles:
-    pattern: /journal/{slug}/articles
-    defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 ojs_journals_index:
     pattern:  /journals/{start}/{offset}
+    host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }
-    
-ojs_last_articles_index:
-    pattern:  /journal/{slug}/last
-    defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
-    
-ojs_archive_index:
-    pattern:  /journal/{slug}/archive
-    defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
-
-ojs_article_page:
-    pattern:  /journal/{slug}/{article_slug}
-    defaults: { _controller: OjsSiteBundle:Site:articlePage}
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"
 ojs_sitemap:
     prefix: /sitemap
     resource: "@OjsSiteBundle/Resources/config/routing/sitemap.yml"
+
+#institution subdomain
+ojs_institution_page:
+    pattern:  /
+    host: "{slug}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:institutionPage }
+
+ojs_journal_index:
+    pattern:  /{slug}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalIndex }
+
+ojs_journal_index_articles:
+    pattern: /journal/{slug}/articles
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalArticles }
+
+ojs_last_articles_index:
+    pattern:  /{slug}/last
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:lastArticlesIndex }
+
+ojs_archive_index:
+    pattern:  /{slug}/archive
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
+
+ojs_article_page:
+    pattern:  /{slug}/{article_slug}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:articlePage}

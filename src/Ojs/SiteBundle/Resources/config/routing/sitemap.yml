@@ -1,41 +1,54 @@
 #RSS
 ojs_index_sitemap:
   pattern: /
+  host: %base_host%
   defaults: {_controller: OjsSiteBundle:Sitemap:index }
 ojs_journals_sitemap:
   pattern: /journals.{_format}
+  host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journals }
 ojs_journal_sitemap:
   pattern: /journal/{journal}.{_format}
+  host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journal }
 ojs_journal_detail_sitemap:
   pattern: /journal/{journal}/detail.{_format}
+  host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:journalDetail }
 ojs_articles_sitemap:
   pattern: /journal/{journal}/articles.{_format}
+  host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:article }
 ojs_last_issue_sitemap:
   pattern: /journal/{journal}/last.{_format}
+  host: "{institution}.%base_host%"
   defaults: { _controller: OjsSiteBundle:Sitemap:lastIssue }
 ojs_issues_sitemap:
   pattern: /journal/{journal}/issues.{_format}
+  host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:issues }
 ojs_wiki_sitemap:
   pattern: /journal/{journal}/wiki.{_format}
+  host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:wiki }
 
 ojs_institution_sitemap:
-  pattern: /institution/{institution}.{_format}
+  pattern: /
+  host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:institution }
 ojs_institutions_sitemap:
   pattern: /institutions.{_format}
+  host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:institutions }
 ojs_subjects_sitemap:
   pattern: /subjects.{_format}
+  host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:subjects }
 ojs_subject_sitemap:
   pattern: /subject/{subject}.{_format}
+  host: "{institution}.%base_host"
   defaults: { _controller: OjsSiteBundle:Sitemap:subject }
 ojs_static_sitemap:
   pattern: /static.{_format}
+  host: %base_host%
   defaults: { _controller: OjsSiteBundle:Sitemap:static }
