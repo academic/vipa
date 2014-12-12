@@ -11,21 +11,14 @@ services:
   - elasticsearch
 
 
-env:
-  - DB=mysql
-
-mysql:
-  database: ojs
-  username: root
-  encoding: utf8
-
 before_script:
 # Install php packages
   - sudo apt-get update > /dev/null
   - phpenv config-add phpmongodb.ini
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
-  - mysql -e "create database IF NOT EXISTS ojs;" -uroot
+  - php app/console doctrine:database:create -e=ojs
+  - php app/console doctrine:schema:create -e=ojs
   - php app/console ojs:install:travis
   - npm install -g bower
   - bower install -f
