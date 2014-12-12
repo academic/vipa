@@ -65,7 +65,6 @@ class IssueController extends Controller
             'method' => 'POST',
             'user' => $user
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -127,10 +126,9 @@ class IssueController extends Controller
         $user = $this->getUser();
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
             'user'=>$user
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
