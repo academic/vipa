@@ -22,6 +22,6 @@ Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/INSTALL.md)
 
 ## More information
 
-We also provide this SaaS (software as a service) from OJS.io](http://ojs.io)
+We also provide this SaaS (software as a service) from [OJS.io](http://ojs.io)
 
 [contact](mailto:info@okulbilisim.com) with [us](http://okulbilisim.com)
