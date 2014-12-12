@@ -74,6 +74,12 @@ class JournalWorkflowStep
      */
     protected $maxdays;
 
+    /** @MongoDb\Boolean */
+    protected $canSeeAuthor = true;
+
+    /** @MongoDb\Boolean */
+    protected $isVisible = true;
+
     /**
      * Get id
      *
@@ -177,29 +183,6 @@ class JournalWorkflowStep
     }
 
     /**
-     * Set onlyreply
-     *
-     * @param  boolean $onlyreply
-     * @return self
-     */
-    public function setOnlyReply($onlyreply)
-    {
-        $this->onlyreply = $onlyreply;
-
-        return $this;
-    }
-
-    /**
-     * Get onlyreply
-     *
-     * @return boolean  $onlyreply
-     */
-    public function getOnlyReply()
-    {
-        return $this->onlyreply;
-    }
-
-    /**
      * Set laststep
      *
      * @param  boolean $laststep
@@ -289,6 +272,72 @@ class JournalWorkflowStep
     public function getMaxdays()
     {
         return $this->maxdays;
+    }
+
+    /**
+     * Set onlyreply
+     *
+     * @param boolean $onlyreply
+     * @return self
+     */
+    public function setOnlyreply($onlyreply)
+    {
+        $this->onlyreply = $onlyreply;
+        return $this;
+    }
+
+    /**
+     * Get onlyreply
+     *
+     * @return boolean $onlyreply
+     */
+    public function getOnlyreply()
+    {
+        return $this->onlyreply;
+    }
+
+    /**
+     * Set canSeeAuthor
+     *
+     * @param boolean $canSeeAuthor
+     * @return self
+     */
+    public function setCanSeeAuthor($canSeeAuthor)
+    {
+        $this->canSeeAuthor = $canSeeAuthor;
+        return $this;
+    }
+
+    /**
+     * Get canSeeAuthor
+     *
+     * @return boolean $canSeeAuthor
+     */
+    public function getCanSeeAuthor()
+    {
+        return $this->canSeeAuthor;
+    }
+
+    /**
+     * Set isVisible
+     *
+     * @param boolean $isVisible
+     * @return self
+     */
+    public function setIsVisible($isVisible)
+    {
+        $this->isVisible = $isVisible;
+        return $this;
+    }
+
+    /**
+     * Get isVisible
+     *
+     * @return boolean $isVisible
+     */
+    public function getIsVisible()
+    {
+        return $this->isVisible;
     }
 
 }

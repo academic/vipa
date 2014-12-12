@@ -9,7 +9,7 @@
     <div class="panel">
         <div class="panel-heading">
             <h1>{{"article.plural"|trans}} 
-                <small class="badge">{{id}}</small> 
+                <span class="muted">{{step.title}}</span> 
             </h1>
         </div>
         {% for articleStep in articlesStep %}
@@ -23,6 +23,5 @@
             </div>
         {% endfor %} 
     </div>
-</div>
 {% endblock %}
 

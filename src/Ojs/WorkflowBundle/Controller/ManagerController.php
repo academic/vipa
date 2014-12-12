@@ -38,7 +38,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
 
         $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->findBy(array('step' => $step));
         return $this->render('OjsWorkflowBundle:Manager:articles.html.twig', array(
-                    'articlesStep' => $articlesStep, 'id' => $id));
+                    'articlesStep' => $articlesStep, 'step'=> $step,'id' => $id));
     }
 
 }
