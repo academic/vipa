@@ -1,7 +1,5 @@
 language: php
 
-node_js:
-   - "0.10.x"
 php:
   - 5.5
 
