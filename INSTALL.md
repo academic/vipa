@@ -12,6 +12,35 @@ following options.
 6. Mysql
 7. [ElasticSearch](https://github.com/okulbilisim/ojs/tree/master/docs/developers/ElasticSearch.md)
 
+
+extreme update command:
+
+```bash
+git pull origin master && bower update && composer update -vvv && mysql -u root -p -e "drop database ojs;" && php app/console doctrine:database:create && php app/console ojs:install:travis && php app/console h4cc_alice_fixtures:load:sets
+```
+
+## Checking System Configuration
+
+Before starting coding, make sure that your local system is properly
+configured for Symfony.
+
+Execute the `check.php` script from the command line:
+
+```bash
+php app/check.php
+```
+
+The script returns a status code of `0` if all mandatory requirements are met,
+`1` otherwise.
+
+Access the `config.php` script from a browser:
+```bash
+http://localhost/path/to/symfony/app/web/config.php
+```
+
+If you get any warnings or recommendations, fix them before moving on.
+
+
 #### Using Composer ( _recommended_ )
 
 As Symfony uses [Composer][2] to manage its dependencies, the recommended way
