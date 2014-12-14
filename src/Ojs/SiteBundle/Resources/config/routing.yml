@@ -57,7 +57,7 @@ ojs_journal_index:
     defaults: { _controller: OjsSiteBundle:Site:journalIndex }
 
 ojs_journal_index_articles:
-    pattern: /journal/{slug}/articles
+    pattern: /{slug}/articles
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
 

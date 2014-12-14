@@ -123,6 +123,8 @@ abstract class BaseTestCase extends WebTestCase
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
+        if($response->isServerError())
+            throw new \Exception($response->getContent());
         if($redirectOnSuccess)
             return $response->isRedirection();
         return $response->isSuccessful();

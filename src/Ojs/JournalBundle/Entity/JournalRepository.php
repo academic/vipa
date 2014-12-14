@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -244,4 +245,16 @@ class JournalRepository extends EntityRepository
         return false;
     }
 
+    public function getByInstitutionAndSubject($institution, Subject $subject)
+    {
+        $qb = $this->createQueryBuilder('j');
+        $qb
+            ->join('j.institution','i','WITH','i.slug=:institution')
+            ->join('j.subjects','s','WITH','s.id=:subject')
+            ->setParameter('institution',$institution)
+            ->setParameter('subject',$subject->getId())
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

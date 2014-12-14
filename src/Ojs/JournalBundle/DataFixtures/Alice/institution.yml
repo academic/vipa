@@ -1,5 +1,14 @@
 \Ojs\JournalBundle\Entity\Institution:
-  institution{1..50}:
+  institution1:
+    email: "demo@institution.com"
+    slug: "demoinst"
+    url: "demo"
+    name: "demo uni"
+    about: "test"
+    phone: "0191919"
+    address: "adres"
+    institution_type: @i_type1
+  institution{2..50}:
     email (unique): <email()>
     slug (unique): <domainWord()>
     url: <url()>
