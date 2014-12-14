@@ -24,10 +24,10 @@
                 <div class="col-md-12">
                     <ol class="breadcrumb">
                         <li><a href="/">{{ "home"|trans }}</a></li>
-                        <li><a href="{{ url('ojs_journal_index',{slug:journal.slug}) }}">{{ journal.title }}</a>
+                        <li><a href="{{ url('ojs_journal_index',{slug:journal.slug,institution: journal.institution.slug}) }}">{{ journal.title }}</a>
                         </li>
                         <li>
-                            <a href="{{ url('ojs_journal_index_articles',{slug:journal.slug}) }}">{{ "articles"|trans }}</a>
+                            <a href="{{ url('ojs_journal_index_articles',{slug:journal.slug,institution: journal.institution.slug}) }}">{{ "articles"|trans }}</a>
                         </li>
                     </ol>
 
@@ -36,7 +36,7 @@
                         <ul class="list-group">
                             {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
-                                    <a href="{{ url('ojs_article_page',{article_id: article.id,slug: journal.slug}) }}"><i
+                                    <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: journal.slug,institution: journal.institution.slug}) }}"><i
                                                 class="fa fa-file-text"></i> {{ article.title }}
                                     </a><br/>
                                     <i class="fa fa-users"></i>

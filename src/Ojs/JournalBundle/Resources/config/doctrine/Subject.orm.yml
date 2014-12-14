@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\Subject:
     type: entity
     table: null
+    repositoryClass: Ojs\JournalBundle\Entity\SubjectRepository
     id:
         id:
             type: integer
