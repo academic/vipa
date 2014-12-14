@@ -205,7 +205,7 @@ class SitemapController extends Controller
                     'article_slug' => $article->getSlug(),
                     'institution' => $journal->getInstitution()->getSlug()
                 ]),
-                $article->getUpdated()->format('Y-d-m')
+                $article->getUpdated()->format('Y-m-d')
             );
         }
         return $this->response($siteMap);
