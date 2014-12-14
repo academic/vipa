@@ -13,7 +13,7 @@ class SitemapControllerTest extends BaseTestCase
 {
     const JOURNAL = 'demo-ojs-journal';
     const INSTITUTION = 'demoinst';
-    const SUBJECT = 1;
+    const SUBJECT = 'guc-ve-enerji';
 
     public function testIndex()
     {
