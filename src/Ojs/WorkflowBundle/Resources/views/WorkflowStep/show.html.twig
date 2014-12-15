@@ -49,6 +49,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th>Is visible?</th>
+                    <td>{% if step.isVisible %}{{"yes"|trans}}{%else%}{{}}{%endif%}</td>
+                </tr>
+                <tr>
+                    <th>Can see author?</th>
+                    <td>{{step.canSeeAuthor}}</td>
+                </tr>
+                <tr>
                     <th>Roles</th>
                     <td>
                         {%for role in step.roles%}
