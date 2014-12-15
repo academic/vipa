@@ -69,6 +69,7 @@ var OjsArticleSubmission = {
                 '</span></a></li>';
         $("ul#mainTabs li.lang").last().before(tabhtml);
         OjsArticleSubmission.activateFirstLanguageTab();
+        OjsArticleSubmission.setupUi();
     },
     step1RemoveLanguageForm: function (langcode, $tab) {
         check = confirm("Are you sure to remove this language tab?");
@@ -257,6 +258,9 @@ var OjsArticleSubmission = {
     },
     setupUi: function () {
         this.bindFileUploader();
+        $('input[name=keywords], input[name=subjects]').tagsinput({
+            tagClass: 'label label-info'
+        });
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
     }
 };
