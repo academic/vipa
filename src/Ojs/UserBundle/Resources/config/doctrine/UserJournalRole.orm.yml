@@ -19,6 +19,7 @@ Ojs\UserBundle\Entity\UserJournalRole:
         journal:
           #cascade: [persist]
           targetEntity: Ojs\JournalBundle\Entity\Journal
+          inversedBy: userRoles
           joinColumn:
             name: journal_id
             referencedColumnName: id
