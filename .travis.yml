@@ -13,10 +13,10 @@ before_script:
 # Install php packages
   - sudo apt-get update > /dev/null
   - phpenv config-add phpmongodb.ini
+  - mysql -e 'create database ojs;'
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
   - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - mysql -e 'create database ojs;'
   - php app/console ojs:install:travis
   - npm install -g bower
   - bower install -f

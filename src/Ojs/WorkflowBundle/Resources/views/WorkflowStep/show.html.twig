@@ -26,11 +26,11 @@
                 </tr>
                 <tr>
                     <th>First Step?</th>
-                    <td>{% if step.getFirststep() %}<i class="fa fa-ok"></i>{%endif%}</td>
+                    <td>{{ printYesNo(step.firstStep ) }}</td>
                 </tr>
                 <tr>
                     <th>Last Step?</th>
-                    <td>{% if step.getLaststep() %}<i class="fa fa-ok"></i>{%endif%}</td>
+                    <td>{{  printYesNo(step.getLaststep()) }}</td>
                 </tr>
 
                 <tr>
@@ -47,6 +47,14 @@
                             {%endfor%}
                         {% endif %}
                     </td>
+                </tr>
+                <tr>
+                    <th>Is visible?</th>
+                    <td>{{ printYesNo(step.isVisible) }}</td>
+                </tr>
+                <tr>
+                    <th>Can see author?</th>
+                    <td>{{printYesNo(step.canSeeAuthor)}}</td>
                 </tr>
                 <tr>
                     <th>Roles</th>

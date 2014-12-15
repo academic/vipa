@@ -4,23 +4,27 @@ namespace Ojs\Common\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class OjsExtension extends \Twig_Extension {
+class OjsExtension extends \Twig_Extension
+{
 
     private $container;
     private $em;
 
-    public function __construct(Container $container = null, \Doctrine\ORM\EntityManager $em = null) {
+    public function __construct(Container $container = null, \Doctrine\ORM\EntityManager $em = null)
+    {
         $this->container = $container;
         $this->em = $em;
     }
 
-    public function getFilters() {
+    public function getFilters()
+    {
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
         );
     }
 
-    public function getFunctions() {
+    public function getFunctions()
+    {
         return array(
             //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
             'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
@@ -36,16 +40,19 @@ class OjsExtension extends \Twig_Extension {
             'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
             'imagePath' => new \Twig_Function_Method($this, 'generateImagePath'),
             'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
-            'journalTheme' => new \Twig_Function_Method($this, 'journalTheme')
+            'journalTheme' => new \Twig_Function_Method($this, 'journalTheme'),
+            'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
         );
     }
 
-    public function getCurrentJournal() {
+    public function getCurrentJournal()
+    {
         $journalDomain = $this->container->get('journal_domain');
         return $journalDomain->getCurrentJournal();
     }
 
-    public function journalTheme() {
+    public function journalTheme()
+    {
         $journal_domain = $this->container->get('journal_domain');
         if ($journal_domain) {
             $journal = $journal_domain->getCurrentJournal();
@@ -65,7 +72,8 @@ class OjsExtension extends \Twig_Extension {
      * @param array $list
      *                    $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
      */
-    public function generateBreadcrumb($list = null) {
+    public function generateBreadcrumb($list = null)
+    {
 
         $translator = $this->container->get('translator');
         $html = '<ol class="breadcrumb">';
@@ -84,7 +92,8 @@ class OjsExtension extends \Twig_Extension {
      * Check osj user and return user data as array
      * @return \Ojs\UserBundle\Entity\User
      */
-    public function checkUser() {
+    public function checkUser()
+    {
         $securityContext = $this->container->get('security.context');
         if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->container->get('security.context')->getToken()->getUser();
@@ -101,7 +110,8 @@ class OjsExtension extends \Twig_Extension {
      * @param  array   $haystack
      * @return boolean
      */
-    public function hasId($needle, $haystack) {
+    public function hasId($needle, $haystack)
+    {
         if (!is_array($haystack)) {
             return FALSE;
         }
@@ -114,7 +124,8 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function getSession($session_key) {
+    public function getSession($session_key)
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
 
         return $session->get($session_key);
@@ -124,7 +135,8 @@ class OjsExtension extends \Twig_Extension {
      *
      * @return mixed
      */
-    public function getUserJournals() {
+    public function getUserJournals()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
 
         return $session->get('userJournals');
@@ -134,7 +146,8 @@ class OjsExtension extends \Twig_Extension {
      *
      * @return mixed
      */
-    public function getUserClients() {
+    public function getUserClients()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
 
         return $session->get('userClients');
@@ -144,7 +157,8 @@ class OjsExtension extends \Twig_Extension {
      * get userJournalRoles session key
      * @return mixed
      */
-    public function getUserJournalRoles() {
+    public function getUserJournalRoles()
+    {
         $session = new \Symfony\Component\HttpFoundation\Session\Session();
         return $session->get('userJournalRoles');
     }
@@ -152,7 +166,8 @@ class OjsExtension extends \Twig_Extension {
     /**
      * @return \Ojs\UserBundle\Entity\User
      */
-    public function isSystemAdmin() {
+    public function isSystemAdmin()
+    {
         $user = $this->checkUser();
         if ($user) {
             foreach ($user->getRoles() as $role) {
@@ -165,7 +180,8 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function hasRole($roleCode) {
+    public function hasRole($roleCode)
+    {
         $userJournalRoles = $this->getSession('userJournalRoles');
         $user = $this->checkUser();
         if ($user && is_array($userJournalRoles)) {
@@ -178,7 +194,8 @@ class OjsExtension extends \Twig_Extension {
         return FALSE;
     }
 
-    public function isJournalManager() {
+    public function isJournalManager()
+    {
         return $this->hasRole('ROLE_JOURNAL_MANAGER');
     }
 
@@ -187,28 +204,45 @@ class OjsExtension extends \Twig_Extension {
      * @param  string $issn
      * @return string
      */
-    public function issnValidateFilter($issn) {
+    public function issnValidateFilter($issn)
+    {
         return $issn;
     }
 
-    public function selectedJournal() {
+    public function selectedJournal()
+    {
         $selectedJournalId = $this->getSession('selectedJournalId');
         return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
     }
 
-    public function generateAvatarPath($fileName) {
+    public function generateAvatarPath($fileName)
+    {
         $fileHelper = new \Ojs\Common\Helper\FileHelper();
         $rootPath = $this->container->getParameter('avatar_upload_base_url');
         return $rootPath . $fileHelper->generatePath($fileName, false) . 'thumbnail2/' . $fileName;
     }
 
-    public function generateImagePath($file) {
+    public function generateImagePath($file)
+    {
         $fileHelper = new \Ojs\Common\Helper\FileHelper();
 
         return $fileHelper->generatePath($file, false) . $file;
     }
 
-    public function getName() {
+    /**
+     * return translated "yes" or "no" statement after checking $arg
+     * @param bool $arg
+     */
+    public function printYesNo($arg)
+    {
+        $translator = $this->container->get('translator');
+        return '' .
+                ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
+                        '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
+    }
+
+    public function getName()
+    {
         return 'ojs_extension';
     }
 
