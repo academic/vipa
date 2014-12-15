@@ -2,18 +2,18 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                { 'link': path('user'), 'title': 'user.manager'|trans},
-                { 'title': 'user.new'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('user'), 'title': 'user.manager'|trans},
+    { 'title': 'user.new'|trans},
 
-] %}
-    {{breadcrumb(list)}}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block stylesheets %}
-    {{parent()}}
+    {{ parent() }}
     {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
 {% endblock %}
@@ -24,56 +24,70 @@
         <div class="panel">
             <h1>{{ "user.new"|trans }}</h1>
 
-            {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-            {{ form_errors(form) }}
+            <div class="record_actions">
+                {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }}">
+                            {{ flash }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
 
-            <span class="btn btn-success fileinput-button">
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+
+                <div class="form-group">
+                    <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
+
+    <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
                 <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-                <input name="user_avatar" id="avatar_input" value="" type="hidden" />
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('userfiles') }}">
             </span>
-            <div id="avatar_upload_progress" style="display: none" class="label label-info">
 
-            </div>
+                    <div id="user_header_upload_progress" style="display: none" class="label label-info">
 
-            <br>
+                    </div>
+                </div>
+                <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+                    {{ "e"|trans }}
+                </button>
+                {{ form_end(form) }}
 
-            <br>
+                {% include '::actionbtns.html.twig' %}
 
-            {{ form_end(form) }}
-            <div class="record_actions">
-                <a class="button" href="{{ path('user') }}">
-                    {{"b"|trans}}
-                </a>
+
             </div>
         </div>
     </div>
     <style>
-        select#ojs_userbundle_user_roles{height: 300px;margin-bottom: 30px}
+        select#ojs_userbundle_user_roles {
+            height: 300px;
+            margin-bottom: 30px
+        }
     </style>
 {% endblock %}
 
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
-        $(document).ready(function ()
-        {
+        $(document).ready(function () {
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#avatar_upload_progress').show();
-                $('#avatar_upload_progress').html("{{ "uploading"|trans }}");
+                $('#user_header_upload_progress').show();
+                $('#user_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#avatar_upload_progress').html("{{ "done"|trans }}");
-                $('#avatar_input').attr('value', JSON.parse(data.result).files.name);
+                $('#user_header_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_userbundle_user_header').attr('value', JSON.parse(data.result).files.name);
             });
         });
-    </script> 
+    </script>
 
     {% javascripts "@user_admin" output="c/admin_user.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %} 
+    {% endjavascripts %}
 {% endblock %}

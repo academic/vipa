@@ -111,6 +111,12 @@ oneup_uploader:
         journalfiles:
             enable_progress: true
             frontend: blueimp
+        articlefiles:
+            enable_progress: true
+            frontend: blueimp
+        userfiles:
+            enable_progress: true
+            frontend: blueimp
             
             
 avalanche_imagine:
@@ -137,12 +143,30 @@ avalanche_imagine:
         wide_100:
             type:    relative_resize
             options: { widen: 100 }
+        issue_cover:
+            type:    thumbnail
+            options: { start: [0,0], size: [75,75], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+        issue_header:
+            type:    thumbnail
+            options: { start: [0,0], size: [960,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
         journal_cover:
             type:    thumbnail
             options: { start: [0,0], size: [200,300], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+        journal_header:
+            type:    thumbnail
+            options: { start: [0,0], size: [960,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
         institution_logo:
             type:    thumbnail
             options: { start: [0,0], size: [200,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+        institution_header:
+            type:    thumbnail
+            options: { start: [0,0], size: [960, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
+        article_header:
+            type:    thumbnail
+            options: { start: [0,0], size: [960, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
+        user_header:
+            type:    thumbnail
+            options: { start: [0,0], size: [585, 390], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

@@ -38,6 +38,10 @@ ojs_journals_index:
     pattern:  /journals/{start}/{offset}
     host: %base_host%
     defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }
+ojs_journals_index_in_institution:
+    pattern:  /journals/{start}/{offset}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalsIndex,start: 0, offset: 12  }
 ojs_block:
     prefix: /block
     resource: "@OjsSiteBundle/Resources/config/routing/block.yml"

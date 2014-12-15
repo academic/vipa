@@ -207,6 +207,30 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     private $articleFiles;
 
     /**
+     * @var string
+     */
+    private $header;
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+        return $this;
+    }
+
+
+    /**
      * Constructor
      */
     public function __construct()
