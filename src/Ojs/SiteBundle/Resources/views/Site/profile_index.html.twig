@@ -5,20 +5,29 @@
 
     <div class="container">
         <div class="row user-menu-container square">
-            <div class="col-md-7 user-details">
+            <div class="col-md-12 user-details">
                 <div class="row coralbg white">
-                    <div class="col-md-6 no-pad">
+                    <div class="col-md-2 no-pad">
+                        <img src="{{ ('/uploads/avatarfiles/'~imagePath(user.avatar))|apply_filter('avatar_thumb') }}"
+                             data-src="holder.js/75x75/random/text:{{user.username}}" class="" alt="" />
+
+                    </div>
+                    <div class="col-md-4 no-pad">
                         <div class="user-pad">
-                            <h3>Welcome back, Jessica</h3>
-                            <h4 class="white"><i class="fa fa-check-circle-o"></i> San Antonio, TX</h4>
-                            <h4 class="white"><i class="fa fa-twitter"></i> CoolesOCool</h4>
-                            <button type="button" class="btn btn-labeled btn-info" href="#">
-                                <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</button>
+                            <h3>{{ user.title }} {{ user.firstName }} {{ user.lastName }} / @{{ user.username }}</h3>
+                            <h4 class="white"><i class="fa fa-times"></i> {{ user.lastLogin|date }}</h4>
+                            {% if me and user.id==me.id %}
+                                <button type="button" class="btn btn-labeled btn-info" href="#">
+                                    <span class="btn-label"><i class="fa fa-pencil"></i></span>Update
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-6 no-pad">
                         <div class="user-image">
-                            <img src="https://farm7.staticflickr.com/6163/6195546981_200e87ddaf_b.jpg" class="img-responsive thumbnail">
+                            <img src="{{ ('/uploads/userfiles/'~imagePath(user.header))|apply_filter('user_header') }}"
+                                 data-src="holder.js/585x390/random/text:{{user.username}}" class="img-responsive thumbnail" alt="" />
+
                         </div>
                     </div>
                 </div>
@@ -37,21 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1 user-menu-btns">
-                <div class="btn-group-vertical square" id="responsive">
-                    <a href="#" class="btn btn-block btn-default active">
-                        <i class="fa fa-bell-o fa-3x"></i>
-                    </a>
-                    <a href="#" class="btn btn-default">
-                        <i class="fa fa-envelope-o fa-3x"></i>
-                    </a>
-                    <a href="#" class="btn btn-default">
-                        <i class="fa fa-laptop fa-3x"></i>
-                    </a>
-                    <a href="#" class="btn btn-default">
-                        <i class="fa fa-cloud-upload fa-3x"></i>
-                    </a>
-                </div>
+
             </div>
             <div class="col-md-4 user-menu user-pad">
                 <div class="user-menu-content active">

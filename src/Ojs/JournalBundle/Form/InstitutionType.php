@@ -34,6 +34,7 @@ class InstitutionType extends AbstractType
             ->add('url')
             ->add('wiki')
             ->add('logo','hidden')
+            ->add('header','hidden')
         ;
     }
 

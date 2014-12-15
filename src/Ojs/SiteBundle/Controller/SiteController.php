@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -89,22 +90,32 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $start = 0, $offset = 12)
+    public function journalsIndexAction(Request $request, $start = 0, $offset = 12,$institution='www')
     {
         $journalDomain = $this->container->get('journal_domain');
         $em = $this->getDoctrine()->getManager();
         /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
+        /** @var SubjectRepository $subjectRepo */
+        $subjectRepo = $em->getRepository('OjsJournalBundle:Subject');
         $journalRepo->setStart($start);
         $journalRepo->setOffset($offset);
         $journalRepo->setFilter($request);
+        if($institution && $institution!='www'){
+            $journalRepo->setInstitution($institution);
+        }
         $data["journals"] = $journalRepo->all();
         $data['totalPageCount'] = $journalRepo->getTotalPageCount();
 
         $data["institution_types"] = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
 
         // TODO find only has journal(s) and count them
-        $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+        if($journalRepo->getInstitution()){
+            $subjects = $subjectRepo->getByInstitution($institution);
+        }else{
+            $subjects = $subjectRepo->findAll();
+        }
+
         foreach ($subjects as $subject) {
             if ($subject->getTotalJournalCount() > 0) {
                 $data["subjects"][] = $subject;
@@ -116,6 +127,7 @@ class SiteController extends Controller
         $data['currentPage'] = 1;
         $data['offset'] = $offset;
         $data['start'] = $start;
+        $data['institution'] = $journalRepo->getInstitution();
         return $this->render('OjsSiteBundle::Journal/journals_index.html.twig', $data);
     }
 

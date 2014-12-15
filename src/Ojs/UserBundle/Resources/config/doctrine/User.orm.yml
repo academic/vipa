@@ -79,8 +79,9 @@ Ojs\UserBundle\Entity\User:
         avatar:
             type: string
             nullable: true
-            gedmo:
-                - uploadableFilePath
+        header:
+            type: string
+            nullable: true
         created:
            type: datetime
            gedmo:

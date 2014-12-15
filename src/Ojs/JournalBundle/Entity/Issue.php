@@ -351,4 +351,26 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->getTitle()."[#{$this->getId()}]";
     }
 
+    /**
+     * @var string
+     */
+    private $header;
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+        return $this;
+    }
 }

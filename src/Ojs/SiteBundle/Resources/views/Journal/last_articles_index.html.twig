@@ -5,13 +5,15 @@
 
     <div class="container">
         <br>
+        {% set image %}{% if journal.issues|length %}{{ journal.issues[journal.issues|length-1].header }}{% else %}{{ '' }}{% endif %}{% endset %}
+        <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|apply_filter('issue_header') }}" data-src="holder.js/960x200/#f9A497:#ffffff/text:cover" class="img-responsive"/>
 
         <div class="row">
             <!-- The carousel -->
             <div class="page-header row">
                 <div class="col-md-1 hidden-sm hidden-xs">
                     {% set image %}{% if journal.issues|length %}{{ journal.issues[journal.issues|length-1].cover }}{% else %}{{ '' }}{% endif %}{% endset %}
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|apply_filter('journal_cover') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
+                    <img src="{{ ('/uploads/journalfiles/'~imagePath(image))|apply_filter('issue_cover') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:cover" class="img-responsive"/>
                 </div>
                 <div class="col-md-11">
                     <h1>{{ journal.title }}</h1>
@@ -38,7 +40,7 @@
                             <ul class="list-group">
                                 {% for article in articles %}
                                     <li class="list-group-item list-group-item-default">
-                                        <a href="{{ url('ojs_article_page',{article_slug: article.slug, slug: journal.slug,institution: journal.institution.sluga}) }}"><i
+                                        <a href="{{ url('ojs_article_page',{article_slug: article.slug, slug: journal.slug,institution: journal.institution.slug}) }}"><i
                                                     class="fa fa-file-text"></i> {{ article.title }}
                                         </a><br/>
                                         <i class="fa fa-users"></i>

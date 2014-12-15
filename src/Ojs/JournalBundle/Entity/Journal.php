@@ -113,6 +113,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var string
      * @Expose
      */
+    private $header;
+
+    /**
+     * @var string
+     * @Expose
+     */
     private $scope;
 
     /**
@@ -226,6 +232,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+        return $this;
     }
 
     /**

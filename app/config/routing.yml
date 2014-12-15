@@ -10,10 +10,6 @@ ojs_oai:
     resource: "@OjsOAIBundle/Resources/config/routing.yml"
     prefix:   /oai
 
-ojs_site:
-    resource: "@OjsSiteBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ojs_analytics:
     resource: "@OjsAnalyticsBundle/Resources/config/routing.yml"
     prefix:   /
@@ -83,4 +79,8 @@ feedback:
     prefix:   /
 ojs_wiki:
     resource: "@OjsWikiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ojs_site:
+    resource: "@OjsSiteBundle/Resources/config/routing.yml"
     prefix:   /

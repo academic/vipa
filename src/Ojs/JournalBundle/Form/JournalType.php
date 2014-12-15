@@ -43,6 +43,7 @@ class JournalType extends AbstractType {
                 ->add('published')
                 ->add('status')
                 ->add('image', 'hidden')
+                ->add('header', 'hidden')
                 ->add('scope')
                 ->add('mission')
                 ->add('slug')
