@@ -1,0 +1,30 @@
+mailtemplate:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:index" }
+
+mailtemplate_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:show" }
+
+mailtemplate_new:
+    path:     /new
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:new" }
+
+mailtemplate_create:
+    path:     /create
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:create" }
+    requirements: { _method: post }
+
+mailtemplate_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:edit" }
+
+mailtemplate_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:update" }
+    requirements: { _method: post|put }
+
+mailtemplate_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" }
+    requirements: { _method: post|delete }

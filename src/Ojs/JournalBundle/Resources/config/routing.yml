@@ -1,3 +1,7 @@
+ojs_journal_mailtemplate:
+    resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
+    prefix:   /admin/mailtemplate
+
 ojs_journal_admin_journaltheme:
     resource: "@OjsJournalBundle/Resources/config/routing/journaltheme.yml"
     prefix:   /admin/journaltheme

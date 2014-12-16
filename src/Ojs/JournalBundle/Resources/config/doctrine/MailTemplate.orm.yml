@@ -1,0 +1,23 @@
+Ojs\JournalBundle\Entity\MailTemplate:
+    type: entity
+    table: null
+    repositoryClass: Ojs\JournalBundle\Entity\MailTemplateRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+          targetEntity: Ojs\JournalBundle\Entity\Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+    fields:
+        journalId:
+            type: integer
+            column: journal_id
+        template:
+            type: text
+    lifecycleCallbacks: {  }
