@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\MailTemplateType;
 
@@ -26,9 +25,10 @@ class MailTemplateController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:MailTemplate')->findAll();
 
         return $this->render('OjsJournalBundle:MailTemplate:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new MailTemplate entity.
      *
@@ -48,8 +48,8 @@ class MailTemplateController extends Controller
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -79,11 +79,11 @@ class MailTemplateController extends Controller
     public function newAction()
     {
         $entity = new MailTemplate();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:MailTemplate:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -101,11 +101,8 @@ class MailTemplateController extends Controller
             throw $this->createNotFoundException('Unable to find MailTemplate entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:MailTemplate:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
         ));
     }
 
@@ -124,22 +121,19 @@ class MailTemplateController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:MailTemplate:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a MailTemplate entity.
-    *
-    * @param MailTemplate $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a MailTemplate entity.
+     *
+     * @param MailTemplate $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(MailTemplate $entity)
     {
         $form = $this->createForm(new MailTemplateType(), $entity, array(
@@ -151,6 +145,7 @@ class MailTemplateController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing MailTemplate entity.
      *
@@ -165,7 +160,6 @@ class MailTemplateController extends Controller
             throw $this->createNotFoundException('Unable to find MailTemplate entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -176,49 +170,30 @@ class MailTemplateController extends Controller
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a MailTemplate entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find MailTemplate entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find MailTemplate entity.');
         }
+
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('mailtemplate'));
     }
 
-    /**
-     * Creates a form to delete a MailTemplate entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('mailtemplate_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
+    
+
 }

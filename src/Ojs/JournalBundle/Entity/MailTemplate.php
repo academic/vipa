@@ -21,6 +21,11 @@ class MailTemplate
     private $journalId;
 
     /**
+     * @var integer
+     */
+    private $mailTypeId;
+
+    /**
      * @var string
      */
     private $template;
@@ -30,6 +35,12 @@ class MailTemplate
      * @var \Ojs\JournalBundle\Entity\Journal
      */
     private $journal;
+
+    /**
+     *
+     * @var \Ojs\JournalBundle\Entity\MailType
+     */
+    private $mailType;
 
     /**
      * Get id
@@ -65,6 +76,28 @@ class MailTemplate
     }
 
     /**
+     * Set mailTypeId
+     *
+     * @param integer $mailTypeId
+     * @return MailTemplate
+     */
+    public function setMailTypeId($mailTypeId)
+    {
+        $this->mailTypeId = $mailTypeId;
+        return $this;
+    }
+
+    /**
+     * Get mailTypeId
+     *
+     * @return integer 
+     */
+    public function getMailTypeId()
+    {
+        return $this->mailTypeId;
+    }
+
+    /**
      * Set template
      *
      * @param string $template
@@ -85,6 +118,26 @@ class MailTemplate
     public function getTemplate()
     {
         return $this->template;
+    }
+
+    /**
+     * 
+     * @param \Ojs\JournalBundle\Entity\MailType $mailType
+     * @return \Ojs\JournalBundle\Entity\MailTemplate
+     */
+    public function setMailType(\Ojs\JournalBundle\Entity\MailType $mailType)
+    {
+        $this->mailType = $mailType;
+        return $this;
+    }
+
+    /**
+     *
+     * @return \Ojs\JournalBundle\Entity\MailType
+     */
+    public function getMailType()
+    {
+        return $this->mailType;
     }
 
     /**
