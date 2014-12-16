@@ -1,0 +1,11 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>MailTemplate creation</h1>
+
+    {{ form(form) }}
+
+    {% set back_path = 'mailtemplate' %}
+    {% include '::actionbtns.html.twig' %}
+
+{% endblock %}
