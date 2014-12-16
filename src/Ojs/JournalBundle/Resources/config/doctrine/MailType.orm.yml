@@ -1,0 +1,15 @@
+Ojs\JournalBundle\Entity\MailType:
+    type: entity
+    table: null
+    repositoryClass: Ojs\JournalBundle\Entity\MailTypeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '255'
+    lifecycleCallbacks: {  }
