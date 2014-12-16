@@ -1,0 +1,34 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>MailType list</h1>
+
+    <table class="table records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_mailtype_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.title }}</td>
+                    <td>
+
+                        {% set show_path = 'admin_mailtype_show' %}
+                        {% set edit_path = 'admin_mailtype_edit' %}
+                        {% set delete_path = 'admin_mailtype_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <a class="btn btn-default" href="{{ path('admin_mailtype_new') }}">
+        Create a new entry
+    </a> 
+{% endblock %}

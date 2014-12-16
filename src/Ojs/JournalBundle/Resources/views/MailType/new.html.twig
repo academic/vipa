@@ -1,0 +1,11 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>MailType creation</h1>
+
+    {{ form(form) }}
+    <hr>
+    <a class="btn btn-default" href="{{ path('admin_mailtype') }}">
+        Back to the list
+    </a> 
+{% endblock %}
