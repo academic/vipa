@@ -14,10 +14,19 @@ Ojs\JournalBundle\Entity\MailTemplate:
           joinColumn:
             name: journal_id
             referencedColumnName: id
+        mailType:
+          targetEntity: Ojs\JournalBundle\Entity\MailType
+          joinColumn:
+            name: mailtype_id
+            referencedColumnName: id
+               
     fields:
         journalId:
             type: integer
             column: journal_id
+        mailTypeId:
+            type: integer
+            column: mailtype_id
         template:
             type: text
     lifecycleCallbacks: {  }

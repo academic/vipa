@@ -21,9 +21,16 @@ class MailTemplateType extends AbstractType
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
-                    'required' => true)
+                    'required' => false)
                 )
                 ->add('template')
+                ->add('mailType', 'entity', array(
+                    'class' => 'Ojs\JournalBundle\Entity\MailType',
+                    'property' => 'title',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'required' => false)
+                )
         ;
     }
 

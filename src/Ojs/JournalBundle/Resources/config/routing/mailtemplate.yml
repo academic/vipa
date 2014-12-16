@@ -26,5 +26,4 @@ mailtemplate_update:
 
 mailtemplate_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" }
-    requirements: { _method: post|delete }
+    defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" } 
