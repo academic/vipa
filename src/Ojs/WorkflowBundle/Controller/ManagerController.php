@@ -31,8 +31,6 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
     public function articlesAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $em = $this->get('doctrine')->getManager();
-
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($id);
 

@@ -42,6 +42,8 @@ class OjsExtension extends \Twig_Extension
             'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
             'journalTheme' => new \Twig_Function_Method($this, 'journalTheme'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
+            'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
+            'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
         );
     }
 
@@ -239,6 +241,19 @@ class OjsExtension extends \Twig_Extension
         return '' .
                 ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
                         '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
+    }
+
+    public function statusColor($arg)
+    {
+        $colors = \Ojs\Common\Params\CommonParams::getStatusColors();
+        return isset($colors[$arg]) ? $colors[$arg] : '#fff';
+    }
+
+    public function statusText($arg)
+    {
+        $translator = $this->container->get('translator');
+        $texts = \Ojs\Common\Params\CommonParams::getStatusTexts();
+        return isset($texts[$arg]) ? $translator->trans($texts[$arg]) : null;
     }
 
     public function getName()

@@ -45,6 +45,12 @@ ojs_article_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/article.yml"
     prefix:   /admin/article
 
+
+article_preview:
+    pattern:  /manager/article/{id}/preview
+    defaults: { _controller: "OjsJournalBundle:Article:preview" }
+    
+    
 ojs_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/articlesubmission.yml"
 

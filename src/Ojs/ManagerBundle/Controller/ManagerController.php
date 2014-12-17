@@ -52,7 +52,6 @@ class ManagerController extends Controller
             $countQuery->field('step')->equals($step);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
-
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
@@ -65,7 +64,7 @@ class ManagerController extends Controller
         $myRoles = $this->get('session')->get('userJournalRoles');
         $stepRoles = $step->getRoles();
         foreach ($myRoles as $myRole) {
-            foreach ((array)$stepRoles as $stepRole) {
+            foreach ((array) $stepRoles as $stepRole) {
                 if ($stepRole['role'] === $myRole->getRole()) {
                     return true;
                 }

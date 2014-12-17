@@ -1,5 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 
+
+{% block breadcrumb %}
+    {% set list = [
+                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+                { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
+
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+
 {% block body -%}
 
     <h1>Submissions</h1>
@@ -58,7 +69,7 @@
             {% for entity in submissions %}
                 <tr>
                     <td>
-                        <a href="{{ path('article_show', { 'id': entity.id }) }}">
+                        <a href="{{ path('article_preview', { 'id': entity.id }) }}">
                             {{ entity.id }}
                         </a>
                     </td>

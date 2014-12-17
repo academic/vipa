@@ -45,7 +45,9 @@ class ArticleSubmissionController extends Controller
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
                     'submissions' => $submissions,
                     'drafts' => $drafts,
-                    'all' => $all
+                    'all' => $all,
+                    'statusColors' => \Ojs\Common\Params\CommonParams::getStatusColors(),
+                    'statusTexts' => \Ojs\Common\Params\CommonParams::getStatusTexts()
         ));
     }
 

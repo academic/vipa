@@ -15,6 +15,15 @@
         </div>
         <div class="panel-body">
             <div id="articles-action-chart"></div>
+
+            <div class=" ">
+                {% for key,step in mySteps %} 
+                    <a class="btn btn-xs btn-default" href="/manager/workflow/articles/{{step.id}}">
+                        {{step.title}} <span class="label label-default">{{waitingCount[step.id]}}</span>
+                    </a>
+
+                {% endfor %}
+            </div>
         </div>
         <!-- /.panel-body -->
     </div>
@@ -85,7 +94,7 @@
     <!-- /.panel .chat-panel --> 
     <style>
         #articles-action-chart path{ cursor:pointer}
-        </style>
+    </style>
 
 {% endblock %}
 
@@ -105,40 +114,39 @@
         $(function () {
 
             Morris.Donut({
-                element: 'articles-action-chart',
-                data: [
-                {% for key,step in mySteps %}
-                {
+            element: 'articles-action-chart',
+                    data: [
+        {% for key,step in mySteps %}
+                        {
                         objectid:  "{{step.id}}",
-                        color: "#" + (~~(Math.random() * (1 << 24))).toString(16),
-                        label: "{{step.title}}",
-                        value:{{waitingCount[step.id]}}
-                }
-                {% if loop.last == false %},{% endif %}
-                {% endfor %}
-                ],
-                resize: true
-            }).on('click', function(i, row){
-            console.log(row);
-                OjsCommon.waitModal();
-                window.location.href = "/manager/workflow/articles/"+ row.objectid;
-            });
-            new Morris.Line({
+                                color: "#" + (~~(Math.random() * (1 << 24))).toString(16),
+                                label: "{{step.title}}",
+                                value:{{waitingCount[step.id]}}
+                        }
+        {% if loop.last == false %},{% endif %}{% endfor %}
+                            ],
+                            resize: true
+                }).on('click', function (i, row) {
+                    console.log(row);
+                    OjsCommon.waitModal();
+                    window.location.href = "/manager/workflow/articles/" + row.objectid;
+                });
+                new Morris.Line({
                 element: 'analytics-chart',
-                data: [
-                    {day: '2014-01-01', value: 20},
-                    {day: '2014-01-02', value: 10},
-                    {day: '2014-01-03', value: 12},
-                    {day: '2014-01-04', value: 15},
-                    {day: '2014-01-05', value: 20},
-                    {day: '2014-01-06', value: 25},
-                    {day: '2014-01-07', value: 18},
-                    {day: '2014-01-08', value: 20}
-                ],
-                xkey: 'day',
-                ykeys: ['value'],
-                labels: ['Value']
-            });
-        });
+                        data: [
+                        {day: '2014-01-01', value: 20},
+                        {day: '2014-01-02', value: 10},
+                        {day: '2014-01-03', value: 12},
+                        {day: '2014-01-04', value: 15},
+                        {day: '2014-01-05', value: 20},
+                        {day: '2014-01-06', value: 25},
+                        {day: '2014-01-07', value: 18},
+                        {day: '2014-01-08', value: 20}
+                        ],
+                        xkey: 'day',
+                        ykeys: ['value'],
+                        labels: ['Value']
+                });
+                });
     </script>
 {% endblock %}

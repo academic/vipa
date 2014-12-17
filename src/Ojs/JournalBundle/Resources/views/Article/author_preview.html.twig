@@ -1,0 +1,162 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+                { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans },
+                { 'title': 'Article Preview' }
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ 'article.detail'|trans }}<small title="ojs unique id">#{{ entity.id }}</small></h1>
+    <table class="record_properties table">
+        <tbody>
+            <tr>
+                <th>{{"title"|trans}}</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>{{ "title.transliterated"|trans }}</th>
+                <td>{{ entity.titleTransliterated }}</td>
+            </tr>
+
+            <tr>
+                <th>{{"subtitle"|trans}}</th>
+                <td>{{ entity.subtitle }}</td>
+            </tr>
+            <tr>
+                <th>{{"author"|trans}}</th>
+                <td>
+                    {% if entity.articleAuthors %}
+                        {% for authorsInfo in entity.articleAuthors %}
+                            <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span>
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <th>{{"journal"|trans}}</th>
+                <td>
+                    {% if entity.journal %}
+                        <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
+                            {{ entity.journal.title }}
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{{"section"|trans}}</th>
+                <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>{{"languages"|trans}}</th>
+                <td>
+                    {% if entity.languages %}
+                        {% for language in entity.languages %}
+                            <a class="btn btn-info btn-sm">
+                                <span>{{ language.name }} [{{ language.code}}]</span>
+                            </a>
+                        {% endfor %}
+                    {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <th>{{"primaly_language"|trans}}</th>
+                <td>
+
+                    <span class="label label-info">{{ entity.primaryLanguage}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th>{{"status"|trans}}</th>
+                <td style="background: {{ statusColor(entity.status) }}"><span >{{ statusText(entity.status) }}</span></td>
+            </tr>
+            <tr>
+                <th>{{ "doi"|trans }}</th>
+                <td>
+                    {{ entity.doi }}
+                    {% if entity.doi %}
+                        <a href="#" onclick="$('#doiform').submit();">
+                            <small>
+                                {{"check"|trans}}
+                            </small>
+                        </a>
+                    {% endif %}
+                    <form action="http://dx.doi.org/" method="POST" id="doiform">
+                        <input type="hidden" name="hdl" value="{{ entity.doi }}"/>
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{"subjects"|trans}}</th>
+                <td>
+                    {{ entity.subjects }}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{{"keywords"|trans}}</th>
+                <td> {{ entity.keywords }} </td>
+            </tr>
+            <tr>
+                <th>{{ "otherid"|trans }}</th>
+                <td>{{ entity.otherId }}</td>
+            </tr>
+            <tr>
+                <th>{{ "journalid"|trans }}</th>
+                <td>{{ entity.journalId }}</td>
+            </tr>
+
+            <tr>
+                <th>{{ "isAnonymous"|trans }}</th>
+                <td>{{ entity.isAnonymous }}</td>
+            </tr>
+            <tr>
+                <th>{{"pubdate"|trans}}</th>
+                <td>{{ entity.pubdate|date('Y-m-d') }}</td>
+            </tr>
+            <tr>
+                <th>{{ "Pubdateseason"|trans }}</th>
+                <td>{{ entity.pubdateSeason }}</td>
+            </tr>
+            <tr>
+                <th>{{"part"|trans}}</th>
+                <td>{{ entity.part }}</td>
+            </tr>
+            <tr>
+                <th>{{"first_page"|trans}}</th>
+                <td>{{ entity.firstPage }}</td>
+            </tr>
+            <tr>
+                <th>{{"last_page"|trans}}</th>
+                <td>{{ entity.lastPage }}</td>
+            </tr>
+            <tr>
+                <th>{{"url"|trans}}</th>
+                <td>{{ entity.uri }}</td>
+            </tr>
+            <tr>
+                <th>{{"abstract"|trans}}</th>
+                <td>{{ entity.abstract }}</td>
+            </tr>
+            <tr>
+                <th>{{ "abstract.transliterated"|trans }}</th>
+                <td>{{ entity.abstractTransliterated }}</td>
+            </tr>
+            <tr>
+                <th>{{"citations"|trans}}</th>
+                <td> 
+                    {% for citation in entity.citations%}
+                        
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

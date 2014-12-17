@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Form\ArticleType;
  */
 class ArticleController extends Controller
 {
+
     public function citationAction($id = null)
     {
         $em = $this->getDoctrine()->getManager();
@@ -23,7 +24,7 @@ class ArticleController extends Controller
             print_r(json_decode($_POST['cites']));
             exit();
         } else {
-
+            
         }
 
         return $this->render('OjsJournalBundle:Article:citation.html.twig', array(
@@ -114,15 +115,13 @@ class ArticleController extends Controller
     {
         $journal = $this->get('session')->get("selectedJournalId");
         $form = $this->createForm(
-            new ArticleType(),
-            $entity,
-            array(
+                new ArticleType(), $entity, array(
             'action' => $this->generateUrl('article_create'),
             'method' => 'POST',
-                'journal'=>$journal
+            'journal' => $journal
             ,
-                'user' => $this->getUser()
-            ));
+            'user' => $this->getUser()
+        ));
 
         return $form;
     }
@@ -143,7 +142,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Finds and displays a Article entity.
+     * Finds and displays an Article entity for admin user
      *
      */
     public function showAction($id)
@@ -155,6 +154,22 @@ class ArticleController extends Controller
 
         return $this->render('OjsJournalBundle:Article:show.html.twig', array(
                     'entity' => $entity));
+    }
+
+    /**
+     * Display an Article entity as author preview 
+     * @param integer $id
+     */
+    public function previewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /* @var $entity \Ojs\JournalBundle\Entity\Article  */
+        $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
+        $this->throw404IfNotFound($entity);
+
+        return $this->render('OjsJournalBundle:Article:author_preview.html.twig', array(
+                    'entity' => $entity
+        ));
     }
 
     /**
