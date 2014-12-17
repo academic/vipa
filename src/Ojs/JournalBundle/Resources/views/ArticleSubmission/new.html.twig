@@ -180,11 +180,11 @@
 
     <div id="step4-container" class="step hide">
         <h2>{{ "article.files"|trans }}</h2>
-        Article Full Text : <small><button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-sm btn-default btn-circle">+</button></small>
+
 
         <div class="col-md-12">
             <form class="file-item">
-                <span class="btn btn-success fileinput-button">
+                Article Full Text  :  <span class="btn btn-success fileinput-button">
                     <i class="fa fa-plus"></i>
                     <span>{{"select_article_file"|trans}}</span>
                     <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
@@ -197,7 +197,10 @@
             </form>
         </div><hr>
         <br>
-        <h3>{{ 'Supplementary.File'|trans }}</h3>
+        <h3>{{ 'Supplementary.File'|trans }} 
+            <button onclick="OjsArticleSubmission.addFileForm();" 
+                    class="btn btn-sm btn-info">+ New File</button>
+        </h3>
         <div id="step4">
 
         </div>
@@ -250,12 +253,12 @@
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
-        {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-        <script type="text/javascript" src="{{ asset_url }}"></script> 
-        {% endif %}
-    {% endjavascripts %}
+    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endif %}
+        {% endjavascripts %}
 
-    <script>
+        <script>
             OjsCommon.api.userApikey = "{{app.user.apiKey}}";
             var currentStep = parseInt(window.location.hash.replace("#", ""));
             window.onbeforeunload = function () {
@@ -274,29 +277,29 @@
             });
             $(document).ready(function () {
                 var currentStep = parseInt(window.location.hash.replace("#", ""));
-                if(currentStep){
+                if (currentStep) {
                     loadCurrentStep(currentStep);
                 }
-        {%if submissionId is defined %} 
+            {%if submissionId is defined %} 
                 OjsArticleSubmission.submissionId = "{{submissionId}}";
                 OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
                 {#
                 Load submission steps with data
                 #} 
                 $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-            {% for key,article in submissionData.articleData %}
-                var params = {
-                    "article_title": "{{article.title|raw}}",
-                    "article_subtitle": "{{article.subtitle|raw}}",
-                    "article_keywords": "{{article.keywords|raw}}",
-                    "article_subjects": "{{article.subjects|raw}}",
-                    "article_abstract": "{{article.abstract|raw}}"
-                };
-                OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
-            {% endfor %} 
+                {% for key,article in submissionData.articleData %}
+                        var params = {
+                            "article_title": "{{article.title|raw}}",
+                            "article_subtitle": "{{article.subtitle|raw}}",
+                            "article_keywords": "{{article.keywords|raw}}",
+                            "article_subjects": "{{article.subjects|raw}}",
+                            "article_abstract": "{{article.abstract|raw}}"
+                        };
+                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+                {% endfor %} 
 
-                OjsArticleSubmission.activatedSteps["step1"] = true;
-        {% endif %}
-            });
-    </script>
-                {% endblock %}
+                        OjsArticleSubmission.activatedSteps["step1"] = true;
+            {% endif %}
+                });
+        </script>
+        {% endblock %}
