@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\MailTemplateType;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * MailTemplate controller.
@@ -24,8 +25,14 @@ class MailTemplateController extends Controller
 
         $entities = $em->getRepository('OjsJournalBundle:MailTemplate')->findAll();
 
+        $yamlParser = new Parser();
+        $defaultTemplates = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
+        ));
         return $this->render('OjsJournalBundle:MailTemplate:index.html.twig', array(
                     'entities' => $entities,
+                    'defaultTemplate' => $defaultTemplates
         ));
     }
 
@@ -193,7 +200,5 @@ class MailTemplateController extends Controller
 
         return $this->redirect($this->generateUrl('mailtemplate'));
     }
-
-    
 
 }
