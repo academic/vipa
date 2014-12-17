@@ -9,19 +9,31 @@
     <div class="panel">
         <div class="panel-heading">
             <h1>{{"article.plural"|trans}} 
-                <span class="muted">{{step.title}}</span> 
+                <small class="pull-right label label-success">{{step.title}}</small> 
             </h1>
-        </div>
-        {% for articleStep in articlesStep %}
-            <div class="panel-body">
-                <table class="table">
+        </div> <div class="panel-body">
+            <table class="table">
+                {% for articleStep in articlesStep %}
+
                     <tr>
-                        <td><a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a></td>
-                    </tr>
-                </table>
-                <hr>
-            </div>
-        {% endfor %} 
+                        <td>
+                            <strong>Submission Refenrece Number :</strong> 
+                            <a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a>
+                            <br>
+                            <strong>Article Reference Number : </strong>
+                            <a href="{{path('article_preview',{'id':articleStep.articleId})}}">
+                                <span class="badge">{{articleStep.articleId}}</span>
+                            </a>
+                            <br>
+                            <strong>Start Date : </strong>
+                            <span class="label label-info">{{articleStep.startedDate.date}}</span>
+                            <br>
+                        </td>
+                    </tr> 
+                {% endfor %} 
+            </table>
+            <hr>
+        </div>
     </div>
 {% endblock %}
 
