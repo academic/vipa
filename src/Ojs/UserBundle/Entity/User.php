@@ -609,5 +609,27 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @var string
+     */
+    private $header;
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+        return $this;
+    }
 
 }

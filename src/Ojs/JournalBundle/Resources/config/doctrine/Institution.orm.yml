@@ -79,10 +79,16 @@ Ojs\JournalBundle\Entity\Institution:
             type: string
             length: 255
             nullable: TRUE
+        #IMAGES
         logo:
             type: string
             length: 255
             nullable: TRUE
+        header:
+            type: string
+            length: 255
+            nullable: true
+        #IMAGES#
         created:
             type: datetime
             gedmo:

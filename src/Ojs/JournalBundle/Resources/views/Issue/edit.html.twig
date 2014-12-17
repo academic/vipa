@@ -25,8 +25,21 @@
 
         </div>
     </div>
+    <div class="form-group">
+        <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+
+    <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>{{"select.image.file"|trans}}</span>
+                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+            </span>
+
+        <div id="journal_header_upload_progress" style="display: none" class="label label-info">
+
+        </div>
+    </div>
     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
-        {{ "create"|trans }}
+        {{ "e"|trans }}
     </button>
     {{ form_end(edit_form) }}
     <hr>
@@ -50,6 +63,14 @@
             }).bind('fileuploaddone', function (e, data) {
                 $('#journal_cover_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_issue_cover').attr('value', JSON.parse(data.result).files.name);
+            });
+            $('#fileupload_header').fileupload({});
+            $('#fileupload_header').bind('fileuploadsend', function (e, data) {
+                $('#journal_header_upload_progress').show();
+                $('#journal_header_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                $('#journal_header_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_issue_header').attr('value', JSON.parse(data.result).files.name);
             });
         });
     </script>

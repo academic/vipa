@@ -16,6 +16,8 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div id="articleTitle">
+                            <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|apply_filter('article_header') }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+
                             <h2>{{ article.title }}
                                 <br>
                                 {% if article.articleAuthors %}

@@ -8,7 +8,7 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="http://i.imgur.com/AKBTm27T.png" data-src="holder.js/1200x300/random/text:1200x300{{journal.title}}" class="img-responsive margin-auto" />
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|apply_filter('journal_header') }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
             </div>
         </div>
         <div class="page-header">

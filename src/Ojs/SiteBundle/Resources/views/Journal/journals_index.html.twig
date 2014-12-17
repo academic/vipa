@@ -11,6 +11,7 @@
         <div class="row">
             <div class="col-sm-3 col-md-3">
                 <div class="panel-group" id="accordion">
+                    {% if institution=='' %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -22,12 +23,14 @@
                         <ul class="list-group">
                             {% for institution_type in institution_types %}
                                 <li class="list-group-item">
-                                    <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution', institution_type.slug) }}">{{institution_type.name}}</a>
+                                    <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution_type', institution_type.slug) }}">{{institution_type.name}}</a>
                                     <!-- span class="badge pull-right">130</span -->
                                 </li>
                             {% endfor%}
                         </ul>
                     </div>
+                    {% endif %}
+
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
@@ -55,8 +58,9 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="post">
                                 <div class="post-img-content">
-                                    <a href="/journal/{{journal.slug}}">
-                                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}" data-src="holder.js/200x300/random/text:{{journal.slug}}" class="img-responsive img-rounded float-left" alt="" />
+                                    <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
+                                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}"
+                                             data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                                     </a>
                                 </div>
                                 <div class="content">
@@ -67,8 +71,10 @@
                                     </div>
 
                                     <div>
-                                        <a href="/journal/{{journal.slug}}" class="btn-link btn-sm"><i class="fa fa-link"></i> Dergi</a>
-                                        <a href="/journal/{{journal.slug}}/articles" class="btn-link btn-sm"><i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                        <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn-link btn-sm">
+                                            <i class="fa fa-link"></i> Dergi</a>
+                                        <a href="{{ url('ojs_last_articles_index',{slug: journal.slug,institution: journal.institution.slug}) }}" class="btn-link btn-sm">
+                                            <i class="fa fa-bookmark-o"></i> Son Sayı</a>
                                     </div>
                                 </div>
                             </div>

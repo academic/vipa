@@ -15,6 +15,28 @@ class JournalRepository extends EntityRepository
     private $filter = [];
     private $start;
     private $offset = 12;
+    private $institution = null;
+
+    /**
+     * @return null
+     */
+    public function getInstitution()
+    {
+        if (empty($this->institution))
+            return false;
+        return $this->institution;
+    }
+
+    /**
+     * @param null $institution
+     * @return $this
+     */
+    public function setInstitution($institution)
+    {
+        $this->institution = $institution;
+        return $this;
+    }
+
 
     /**
      * @return mixed
@@ -60,6 +82,18 @@ class JournalRepository extends EntityRepository
         return $this->filter;
     }
 
+    public function addFilter($key, $value)
+    {
+        $filter = $this->getFilter();
+        if (isset($filter[$key])) {
+            $filter[$key][] = $value;
+        } else {
+            $filter[$key] = [$value];
+        }
+        $this->filter = $filter;
+        return $this;
+    }
+
     /**
      * @param Request $request
      * @return $this
@@ -67,7 +101,7 @@ class JournalRepository extends EntityRepository
     public function setFilter(Request $request)
     {
         $filters = [];
-        $filters['institution'] = $this->parseFilter($request->get('institution'));
+        $filters['institution_type'] = $this->parseFilter($request->get('institution_type'));
         $filters['subject'] = $this->parseFilter($request->get('subject'));
         $this->filter = $filters;
         return $this;
@@ -124,35 +158,40 @@ class JournalRepository extends EntityRepository
 
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
-                ->where(
-                        $qb->expr()->eq('j.status', ':status')
-                )
-                ->setParameter('status', 3);
+            ->where(
+                $qb->expr()->eq('j.status', ':status')
+            )
+            ->setParameter('status', 3);
 
         if (isset($this->getFilter()['subject'])) {
             $subjects = $this->getFilter()['subject'];
             foreach ($subjects as $key => $subject) {
                 $qb
-                        ->join('j.subjects', 's_' . $key, 'WITH', 's_' . $key . '.slug=:subject_' . $key)
-                        ->setParameter('subject_' . $key, $subject);
+                    ->join('j.subjects', 's_' . $key, 'WITH', 's_' . $key . '.slug=:subject_' . $key)
+                    ->setParameter('subject_' . $key, $subject);
             }
         }
 
-        if (isset($this->getFilter()['institution'])) {
-            $institutions = $this->getFilter()['institution'];
+        if (isset($this->getFilter()['institution_type'])) {
+            $institutions = $this->getFilter()['institution_type'];
             foreach ($institutions as $key => $institution) {
                 $qb
-                        ->join('j.institution', 'i_' . $key)
-                        ->join('i_' . $key . '.institution_type', 'it_' . $key, 'WITH', 'it_' . $key . '.slug=:institution_type_slug_' . $key)
-                        ->setParameter('institution_type_slug_' . $key, $institution);
+                    ->join('j.institution', 'i_' . $key)
+                    ->join('i_' . $key . '.institution_type', 'it_' . $key, 'WITH', 'it_' . $key . '.slug=:institution_type_slug_' . $key)
+                    ->setParameter('institution_type_slug_' . $key, $institution);
             }
+        }
+        if($this->getInstitution()){
+            $qb
+                ->join('j.institution','inst','WITH','inst.slug=:institution')
+                ->setParameter('institution',$this->getInstitution());
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
         $qb
-                ->select('j')
-                ->setFirstResult($this->getStart())
-                ->setMaxResults($this->getOffset());
+            ->select('j')
+            ->setFirstResult($this->getStart())
+            ->setMaxResults($this->getOffset());
         return $qb->getQuery()->getResult();
     }
 
@@ -231,11 +270,11 @@ class JournalRepository extends EntityRepository
     public function getLastIssueId($journal)
     {
         $q = $this
-                ->createQuery('SELECT issue_id FROM OjsJournalBunel:Issue i WHERE journalId : ?1 '
-                        . 'AND datePublished IS NOT NULL ORDER BY ID DESC')
-                ->setMaxResults(1)
-                ->setParameter(1, $journal->getId())
-                ->getQuery();
+            ->createQuery('SELECT issue_id FROM OjsJournalBunel:Issue i WHERE journalId : ?1 '
+                . 'AND datePublished IS NOT NULL ORDER BY ID DESC')
+            ->setMaxResults(1)
+            ->setParameter(1, $journal->getId())
+            ->getQuery();
         try {
             $issue = $q->getSingleScalarValue();
             return $issue;
@@ -249,11 +288,10 @@ class JournalRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('j');
         $qb
-            ->join('j.institution','i','WITH','i.slug=:institution')
-            ->join('j.subjects','s','WITH','s.id=:subject')
-            ->setParameter('institution',$institution)
-            ->setParameter('subject',$subject->getId())
-            ;
+            ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
+            ->join('j.subjects', 's', 'WITH', 's.id=:subject')
+            ->setParameter('institution', $institution)
+            ->setParameter('subject', $subject->getId());
 
         return $qb->getQuery()->getResult();
     }

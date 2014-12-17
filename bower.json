@@ -35,6 +35,7 @@
 	"bootstrap-tour": "*",
         "holderjs": "*",
         "jquery-sortable": "*",
-	"raphael":"*"
+	"raphael":"*",
+	"bootstrap-tagsinput": "*"
     }
 }

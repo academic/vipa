@@ -4,9 +4,9 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{entity.name}}</h1>
-
-
+        <h1 class="page-header">{{entity.name}} </h1>
+        <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header))|apply_filter('institution_header') }}" data-src="holder.js/720x150/#f9A497:#ffffff/text:{{entity.name}}" alt=""/>
+        <div class="clearfix"></div>
         <div class="panel panel-default">
             <div class="panel-body">
                 <div itemscope itemtype="http://schema.org/Organization">

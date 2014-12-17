@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta property="og:title" content=""{{title}}" />
+        <title>{{title}}</title>
+        <style type="text/css">
+            #outlook a{padding:0;}
+            body{width:100%!important;-webkit-text-size-adjust:none;background-color:red;margin:0;padding:0;}
+            img{border:0;height:auto;line-height:100%;outline:none;text-decoration:none;}
+            table td{border-collapse:collapse;}
+            #ojsMailBody{font-size:12px;font-family:Arial;width:100%;border:1px solid #DDD;}
+            h1,.h1{color:#202020;display:block;font-family:Arial;font-size:34px;font-weight:700;line-height:100%;text-align:left;margin:0 0 10px;}
+            h3,.h3{color:#202020;display:block;font-family:Arial;font-size:26px;font-weight:700;line-height:100%;text-align:left;margin:0 0 10px;}
+        </style>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+        <center>
+            <table id="ojsMailBody" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+                <tr>
+                    <td align="center" valign="top" style="padding-top:20px;">
+                        <p>{{body}}</p>
+                        <center>
+                            {% include 'OjsUserBundle:Mails:globalMailFooter.html.twig' %}
+                        </center>
+                        <br />
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html> 
+
+
