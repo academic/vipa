@@ -1,7 +1,3 @@
-ojs_journal_admin_mailtype:
-    resource: "@OjsJournalBundle/Resources/config/routing/mailtype.yml"
-    prefix:   /admin/mailtype
-
 ojs_journal_mailtemplate:
     resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
     prefix:   /admin/mailtemplate
