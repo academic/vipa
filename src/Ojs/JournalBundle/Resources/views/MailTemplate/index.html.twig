@@ -8,7 +8,8 @@
             <tr>
                 <th>Id</th>
                 <th>Journalid</th>
-                <th>Template</th>
+                <th>Type</th>              
+                <th>Subject</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -17,7 +18,8 @@
                 <tr>
                     <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
-                    <td>{{ entity.template }}</td>
+                    <td>{{ entity.type }}</td>
+                    <td>{{ entity.subject }}</td>
                     <td>
                         {% set show_path = 'mailtemplate_show' %}
                         {% set edit_path = 'mailtemplate_edit' %}

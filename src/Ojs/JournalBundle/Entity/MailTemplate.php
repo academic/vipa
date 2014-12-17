@@ -2,12 +2,10 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * MailTemplate
  */
-class MailTemplate
+class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 {
 
     /**
@@ -21,9 +19,19 @@ class MailTemplate
     private $journalId;
 
     /**
-     * @var integer
+     * @var string
      */
-    private $mailTypeId;
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $lang;
+
+    /**
+     * @var string
+     */
+    private $subject;
 
     /**
      * @var string
@@ -35,12 +43,6 @@ class MailTemplate
      * @var \Ojs\JournalBundle\Entity\Journal
      */
     private $journal;
-
-    /**
-     *
-     * @var \Ojs\JournalBundle\Entity\MailType
-     */
-    private $mailType;
 
     /**
      * Get id
@@ -76,25 +78,69 @@ class MailTemplate
     }
 
     /**
-     * Set mailTypeId
+     * Set type
      *
-     * @param integer $mailTypeId
+     * @param string $type
      * @return MailTemplate
      */
-    public function setMailTypeId($mailTypeId)
+    public function setType($type)
     {
-        $this->mailTypeId = $mailTypeId;
+        $this->type = $type;
         return $this;
     }
 
     /**
-     * Get mailTypeId
+     * Get type
      *
-     * @return integer 
+     * @return string
      */
-    public function getMailTypeId()
+    public function getType()
     {
-        return $this->mailTypeId;
+        return $this->type;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return MailTemplate
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set lang
+     *
+     * @param string $lang
+     * @return MailTemplate
+     */
+    public function setLang($lang)
+    {
+        $this->lang = $lang;
+        return $this;
+    }
+
+    /**
+     * Get lang
+     *
+     * @return strşng 
+     */
+    public function getLang()
+    {
+        return $this->lang;
     }
 
     /**
@@ -118,26 +164,6 @@ class MailTemplate
     public function getTemplate()
     {
         return $this->template;
-    }
-
-    /**
-     * 
-     * @param \Ojs\JournalBundle\Entity\MailType $mailType
-     * @return \Ojs\JournalBundle\Entity\MailTemplate
-     */
-    public function setMailType(\Ojs\JournalBundle\Entity\MailType $mailType)
-    {
-        $this->mailType = $mailType;
-        return $this;
-    }
-
-    /**
-     *
-     * @return \Ojs\JournalBundle\Entity\MailType
-     */
-    public function getMailType()
-    {
-        return $this->mailType;
     }
 
     /**
