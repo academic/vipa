@@ -39,9 +39,9 @@
                 <th>{{"journal"|trans}}</th>
                 <td>
                     {% if entity.journal %}
-                    <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
-                        {{ entity.journal.title }}
-                    </a>
+                        <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
+                            {{ entity.journal.title }}
+                        </a>
                     {% endif %}
                 </td>
             </tr>
@@ -147,7 +147,13 @@
             </tr>
             <tr>
                 <th>{{"citations"|trans}}</th>
-                <td> @todo </td>
+                <td> 
+                    {% for citation in entity.citations%}
+                        <p>
+                            <span class="badge">{{loop.index}}</span> {{ citation.raw }}<br>
+                        <p>
+                        {% endfor %}
+                </td>
             </tr>
         </tbody>
     </table>

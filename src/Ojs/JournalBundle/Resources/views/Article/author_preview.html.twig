@@ -31,8 +31,12 @@
                 <td>
                     {% if entity.articleAuthors %}
                         {% for authorsInfo in entity.articleAuthors %}
-                            <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span>
-                            {% if not loop.last %}, {% endif %}
+                            <span>
+                                {{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}
+                            </span>
+                            {% if not loop.last %}
+                                , 
+                            {% endif %}
                         {% endfor %}
                     {%endif%}
                 </td>
@@ -41,15 +45,16 @@
                 <th>{{"journal"|trans}}</th>
                 <td>
                     {% if entity.journal %}
-                        <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
-                            {{ entity.journal.title }}
-                        </a>
+                        {{ entity.journal.title }}
                     {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>{{"section"|trans}}</th>
-                <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+                <td>
+                    {% if entity.section %}
+                        {{ entity.section.title }}
+                    {% endif %}</td>
             </tr>
             <tr>
                 <th>{{"languages"|trans}}</th>
@@ -72,7 +77,10 @@
             </tr>
             <tr>
                 <th>{{"status"|trans}}</th>
-                <td style="background: {{ statusColor(entity.status) }}"><span >{{ statusText(entity.status) }}</span></td>
+                <td style="background: {{ statusColor(entity.status) }}"><span>
+                        {{ statusText(entity.status) }}
+                    </span>
+                </td>
             </tr>
             <tr>
                 <th>{{ "doi"|trans }}</th>
@@ -141,7 +149,7 @@
             </tr>
             <tr>
                 <th>{{"abstract"|trans}}</th>
-                <td>{{ entity.abstract }}</td>
+                <td>{{ entity.abstract|raw }}</td>
             </tr>
             <tr>
                 <th>{{ "abstract.transliterated"|trans }}</th>
@@ -151,7 +159,9 @@
                 <th>{{"citations"|trans}}</th>
                 <td> 
                     {% for citation in entity.citations%}
-                        
+                        <p>
+                            <span class="badge">{{loop.index}}</span> {{ citation.raw }}<br>
+                        <p>
                     {% endfor %}
                 </td>
             </tr>
