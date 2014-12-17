@@ -186,6 +186,10 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             column: image
             nullable: true
+        header:
+            type: string
+            length: 255
+            nullable: true
         scope:
             type: text
             nullable: true

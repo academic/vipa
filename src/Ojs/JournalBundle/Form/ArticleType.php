@@ -86,7 +86,10 @@ class ArticleType extends AbstractType
             ->add('lastPage', 'integer', array('required' => false, 'attr' => array('class' => ' form-control')))
             ->add('uri', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
             ->add('abstract', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')))
-            ->add('abstractTransliterated', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')));
+            ->add('abstractTransliterated', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')))
+            ->add('header','hidden')
+        ;
+
     }
 
     /**

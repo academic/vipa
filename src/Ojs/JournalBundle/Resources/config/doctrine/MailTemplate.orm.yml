@@ -1,0 +1,75 @@
+Ojs\JournalBundle\Entity\MailTemplate:
+    type: entity
+    table: null
+    repositoryClass: Ojs\JournalBundle\Entity\MailTemplateRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+          targetEntity: Ojs\JournalBundle\Entity\Journal
+          joinColumn:
+            name: journal_id
+            referencedColumnName: id
+               
+    fields:
+        journalId:
+            type: integer
+            column: journal_id
+            gedmo:
+                - versioned
+        type:
+            type: string
+            length: 255
+            column: type
+            gedmo:
+                - versioned
+        lang:
+            type: string
+            length: 100
+            column: lang
+            gedmo:
+                - versioned
+        subject:
+            type: string
+            length: 100
+            column: subject
+            gedmo:
+                - versioned
+        template:
+            type: text
+            gedmo:
+                - versioned
+        created:
+            type: datetime
+            nullable: true
+            gedmo:
+              timestampable:
+                on: create
+        updated:
+            type: datetime
+            gedmo:
+              timestampable:
+                on: update
+        deletedAt:
+            type: date
+            nullable: true
+        createdBy:
+           type: string
+           gedmo:
+             blameable:
+               on: create
+        updatedBy:
+           type: string
+           gedmo:
+             blameable:
+               on: update
+    gedmo:
+        soft_deleteable:
+          field_name: deletedAt
+          time_aware: false
+        loggable: true
+    lifecycleCallbacks: {  }

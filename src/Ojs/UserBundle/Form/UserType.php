@@ -19,6 +19,7 @@ class UserType extends AbstractType
             ->add('username')
             ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
             ->add('email')
+            ->add('title')
             ->add('firstName')
             ->add('lastName')
             ->add('isActive')
@@ -36,8 +37,11 @@ class UserType extends AbstractType
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%')
+                'attr' => array('class' => 'select2', 'style' => 'width:100%'),
+                'required'=>false
             ))
+            ->add('avatar','hidden')
+            ->add('header','hidden')
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojs\JournalBundle\Entity\Journal',
 //                    'property' => 'title',

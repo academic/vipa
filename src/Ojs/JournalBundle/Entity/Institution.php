@@ -94,6 +94,29 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $logo;
 
     /**
+     * @var string
+     * @Expose
+     */
+    private $header;
+
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return $this->header;
+    }
+
+    /**
+     * @param string $header
+     * @return $this
+     */
+    public function setHeader($header)
+    {
+        $this->header = $header;
+        return $this;
+    }
+    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $journals;

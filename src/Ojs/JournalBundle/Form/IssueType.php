@@ -44,7 +44,8 @@ class IssueType extends AbstractType
             ->add('description')
             ->add('year')
             ->add('datePublished')
-            ->add('cover','hidden');
+            ->add('cover','hidden')
+            ->add('header','hidden');
     }
 
     /**
