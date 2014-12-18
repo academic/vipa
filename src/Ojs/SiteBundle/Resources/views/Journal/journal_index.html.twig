@@ -8,7 +8,9 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|apply_filter('journal_header') }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                {% set imageoptions=getImageOptions(journal,'header') %}
+
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
             </div>
         </div>
         <div class="page-header">
@@ -19,7 +21,9 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|apply_filter('journal_cover') }}" data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                    {% set imageoptions=getImageOptions(journal,'cover') %}
+
+                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                 </div>
 
                 <div class="col-md-4">

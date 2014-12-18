@@ -118,55 +118,91 @@ oneup_uploader:
             enable_progress: true
             frontend: blueimp
             
-            
-avalanche_imagine:
-    filters:
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
         avatar_thumb:
-            type:    thumbnail
-            options: { start : [0,0], size: [200, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 200 }
+                crop: {start:[0,0], size: [200, 200]}
         avatar_thumb_crop:
-            type:    crop
-            options: { start : [0,0], size: [200, 200],  quality: 90, cache_type: public, cache_expires: 2 weeks }
+            quality: 90
+            filters:
+                crop:  { start : [0,0], size: [200, 200]}
         medium:
-            type:    resize
-            options: { size: [800,600], mode: outbound, quality: 90}
-        
+            quality: 90
+            filters:
+                upscale: { min: [800,600]} #resize
         height_60:
-            type:    relative_resize
-            options: { heighten: 60 }  
+            quality: 90
+            filters:
+                relative_resize: { heighten: 60 }
         height_200:
-            type:    relative_resize
-            options: { heighten: 200 }
+            quality: 90
+            filters:
+                relative_resize: { heighten: 200 }
         height_60:
-            type:    relative_resize
-            options: { heighten: 60 } 
+            quality: 90
+            filters:
+                relative_resize: { heighten: 60 }
         wide_100:
-            type:    relative_resize
-            options: { widen: 100 }
+            quality: 90
+            filters:
+                relative_resize: { widen: 100 }
+        wide_200:
+            quality: 90
+            filters:
+                relative_resize: { widen: 200 }
+        wide_960:
+            quality: 90
+            filters:
+                relative_resize: { widen: 960 }
         issue_cover:
-            type:    thumbnail
-            options: { start: [0,0], size: [75,75], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 75 }
+                crop: {start:[0,0], size: [75, 75]}
         issue_header:
-            type:    thumbnail
-            options: { start: [0,0], size: [960,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 960 }
+                crop: {start:[0,0], size: [960, 200]}
         journal_cover:
-            type:    thumbnail
-            options: { start: [0,0], size: [200,300], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 200 }
+                crop: {start:[0,0], size: [200, 300]}
         journal_header:
-            type:    thumbnail
-            options: { start: [0,0], size: [960,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 960 }
+                crop: {start:[0,0], size: [960, 200]}
         institution_logo:
-            type:    thumbnail
-            options: { start: [0,0], size: [200,200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 weeks}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 200 }
+                crop: {start:[0,0], size: [200, 200]}
         institution_header:
-            type:    thumbnail
-            options: { start: [0,0], size: [960, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 960 }
+                crop: {start:[0,0], size: [960, 200]}
         article_header:
-            type:    thumbnail
-            options: { start: [0,0], size: [960, 200], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
+            quality: 90
+            filters:
+                relative_resize: {  widen: 960 }
+                crop: {start:[0,0], size: [960, 200]}
         user_header:
-            type:    thumbnail
-            options: { start: [0,0], size: [585, 390], mode: outbound, quality: 90, cache_type: public, cache_expires: 2 months}
+            quality: 90
+            filters:
+                relative_resize: { widen: 960 }
+                crop: {start:[0,0], size: [585, 390]}
+
 
 knp_paginator:
     page_range: 5                      # default page range used in pagination control

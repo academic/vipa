@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Oneup\UploaderBundle\OneupUploaderBundle(),
-            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),

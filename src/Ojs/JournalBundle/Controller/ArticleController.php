@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\SiteBundle\Document\ImageOptions;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
@@ -185,7 +187,7 @@ class ArticleController extends Controller
 
         return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -218,10 +220,17 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
+        /** @var DocumentManager $dm */
+        $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $header = $request->request->get('header');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+            $dm->flush();
             $em->flush();
 
             return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
