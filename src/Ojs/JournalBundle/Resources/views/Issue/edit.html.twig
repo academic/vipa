@@ -27,7 +27,18 @@
     </div>
     <div class="form-group">
         <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+        <div id="preview_image">
+            {% if entity.header %}
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960')}}"
+                     data-src="holder.js/960x200/random/text:{{entity.title}}" alt="" />
+                {% set imageoptions=getImageOptions(entity,'header') %}
+                <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
+                <input id="header_width"  name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
+                <input id="header_x"  name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
+                <input id="header_y"  name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
+            {% endif %}
 
+        </div>
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
                 <span>{{"select.image.file"|trans}}</span>
@@ -72,6 +83,28 @@
                 $('#journal_header_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_issue_header').attr('value', JSON.parse(data.result).files.name);
             });
+
+            $("#preview_image > img").cropper({
+                aspectRatio: 960/200,
+                maxWidth:960,
+                maxHeight:200,
+                {% if  entity.header %}
+                {% set imageoptions=getImageOptions(entity,'header') %}
+                data:{
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                {% endif %}
+                done: function(data){
+                    $("#header_height").val(data.height);
+                    $("#header_width").val(data.width);
+                    $("#header_x").val(data.x);
+                    $("#header_y").val(data.y)
+                }
+
+            })
         });
     </script>
 {% endblock %}
@@ -82,4 +115,9 @@
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
+    <style>
+        #preview_image,#preview_image div{
+            margin: 0 !important;
+        }
+    </style>
 {% endblock %}

@@ -32,6 +32,7 @@
         "flot": "*",
         "morrisjs": "*",
         "mustache": "*",
+        "cropper": "*",
 	"bootstrap-tour": "*",
         "holderjs": "*",
         "jquery-sortable": "*",

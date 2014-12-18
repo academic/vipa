@@ -34,7 +34,7 @@
         "nelmio/api-doc-bundle": "@dev",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "oneup/uploader-bundle": "1.3.*@dev",
-        "avalanche123/imagine-bundle": "v2.1",
+        "liip/imagine-bundle":"dev-master",
         "caseyamcl/Phpoaipmh": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",

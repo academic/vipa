@@ -61,6 +61,7 @@ services:
 
     ojs.twig.common_extension:
         class: Ojs\SiteBundle\Twig\CommonExtension
+        arguments: [@service_container,@doctrine.odm.mongodb.document_manager]
         tags:
             - {name: twig.extension }
     ojs.user_provider.username_email:

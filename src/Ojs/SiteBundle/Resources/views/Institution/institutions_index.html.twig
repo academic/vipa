@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="/institution/{{ entity.slug }}">{{ entity.name }}</a></div>
                 <div class="panel-body">
-                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|apply_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
+                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
                     <div itemscope itemtype="http://schema.org/Organization">
                         <span itemprop="name" class="text-primary">{{entity.name}}</span>
                         <h4>Contact Details:</h4>
