@@ -17,6 +17,14 @@
 
                     <tr>
                         <td>
+                            <h3>{{articles[loop.index0].title}} 
+                                <small>
+                                    {%for articleAuthor in articles[loop.index0].articleAuthors%}
+                                        {{articleAuthor.author.firstName}} {{articleAuthor.author.middleName}} {{articleAuthor.author.lastName}} 
+                                        {%if loop.last == false %},{% endif %}
+                                    {%endfor%}
+                                </small>
+                            </h3>
                             <strong>Submission Refenrece Number :</strong> 
                             <a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a>
                             <br>
