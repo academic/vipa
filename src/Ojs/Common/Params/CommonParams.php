@@ -5,10 +5,6 @@ namespace Ojs\Common\Params;
 class CommonParams
 {
 
-    /**
-     * @return string  *status* description
-     * @param  integer $status
-     */
     protected static $statusArray = array(
         -3 => "Rejected",
         -2 => "Unpublished",

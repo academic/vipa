@@ -17,8 +17,8 @@ class ArticleReviewStep
      */
     protected $id;
 
-    /** @MongoDb\EmbedOne(targetDocument="JournalWorkflowStep") */
-    protected $step;
+    /** @MongoDb\String */
+    protected $stepId;
 
     /**
      * Is this is the first node of the article review steps?
@@ -77,6 +77,12 @@ class ArticleReviewStep
      */
     protected $reviewDeadline;
 
+    
+    /**
+     * @MongoDB\String
+     */
+    protected $reviewResult;
+    
     /**
      * Get id
      *
@@ -193,19 +199,21 @@ class ArticleReviewStep
     }
 
     /**
-     * Get step
+     * Get stepId
+     * @return string
      */
-    public function getStep()
+    public function getStepId()
     {
-        return $this->step;
+        return $this->stepId;
     }
 
     /**
-     * Set step
+     * Set stepId
+     * @return ArticleReviewStep
      */
-    public function setStep($step)
+    public function setStepId($stepId)
     {
-        $this->step = $step;
+        $this->stepId = $stepId;
         return $this;
     }
 

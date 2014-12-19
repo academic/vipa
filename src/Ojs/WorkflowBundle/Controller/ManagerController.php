@@ -21,7 +21,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($articleStep->getStep()->getId());
+                ->find($articleStep->getStepId()); 
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true);
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
