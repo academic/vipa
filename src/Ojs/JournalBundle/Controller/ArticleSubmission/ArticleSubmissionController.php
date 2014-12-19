@@ -160,7 +160,7 @@ class ArticleSubmissionController extends Controller
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
             $reviewStep->setTo(null);
-            $reviewStep->setStep($firstStep);
+            $reviewStep->setStepId($firstStep->getId());
             $dm->persist($reviewStep);
             $dm->flush();
         }

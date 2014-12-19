@@ -289,3 +289,10 @@ theme.new: New Theme
 searchon.wikipedia: Search on Wikipedia
 searchon.google: Search on Google Scholar
 searchon.pubmed: Search on PubMed
+
+reviewResultCodes:
+    0: Reject
+    1: Must Rewrite
+    2: Major Revision
+    3: Minor Revision
+    4: Accept

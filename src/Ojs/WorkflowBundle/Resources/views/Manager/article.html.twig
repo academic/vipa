@@ -35,7 +35,7 @@
                         W
                     </a>
                     <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
-                        href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
+                       href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
                         PubMed
                     </a>
                 </span>
@@ -123,14 +123,24 @@
             <div class="jumbotron">
 
                 <textarea placeholder="notes" class="form-control" rows="4"></textarea>
-                <br><br>
-                <select class="select2-element lg" style="width:200px">
-                    {% for nextStep in step.nextSteps %}
-                        <option>{{ nextStep.title }}</option>
-                    {%endfor%}
-                </select>
+                <br>
+                <div class="form-inline">
+                    <select class="select2-element  form-control">
+                        {% for i in range(0,4) %}
+                            <option value="{{i}}">
+                                {{ ("reviewResultCodes."~i~"")|trans }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <select class="select2-element form-control" style="width:200px">
+                        <option value="0"></option>
+                        {% for nextStep in step.nextSteps %}
+                            <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
+                        {%endfor%}
+                    </select>
+                    <a class="btn btn-warning pull-right btn-lg">Next</a> 
+                </div>
 
-                <a class="btn btn-warning pull-right btn-lg">Next</a> 
             </div>
         </div>
     </div>
