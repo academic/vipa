@@ -49,7 +49,7 @@
                     </p>
                     <dl>
                         <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span>{%endfor%}</dd>
-                        <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d H:i:s') }}</dd>
+                        <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
                         <dt>{{"period"|trans}}</dt><dd>{{ journal.period }}</dd>
                         <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
                         <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
