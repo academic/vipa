@@ -38,8 +38,16 @@
                             </a>
                             <br>
                             <strong>Start Date : </strong>
-                            <span class="label label-info">{{articleStep.startedDate.date}}</span>
+                            <span class="label label-info">
+                                {{articleStep.startedDate.date}}
+                            </span>
                             <br>
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-lg"
+                               href="{{path('article_step_preview',{'id':articleStep.id})}}">
+                                <i class="fa fa-info"></i>
+                            </a>
                         </td>
                     </tr> 
                 {% endfor %} 

@@ -11,39 +11,61 @@
         <span class="label label-success">{{articleStep.startedDate|date('Y-m-d H:i:s') }}</span>
     </span>
     <div class="panel">
-        <div class="panel-heading">
+        <div class="panel-body">
             <h1>{{"article.singular"|trans}} 
                 <small class="badge">{{id}}</small> 
             </h1>
-        </div>
 
-        <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>Title</td>
-                    <td>{{article.title}}</td>
-                </tr>
-            </table>
-            <hr>
-        </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <td>Title</td>
+                        <td>{{article.title}}</td>
+                    </tr>
+                    <tr>
+                        <td>Subjects</td>
+                        <td>{{article.subjects}}</td>
+                    </tr>
+                    <tr>
+                        <td>Keywords</td>
+                        <td>{{article.keywords}}</td>
+                    </tr>
+                    <tr>
+                        <td>Abstract</td>
+                        <td>{{article.abstract|raw}}</td>
+                    </tr>  
+                </table>
+                <hr>
+            </div>
+            <hr />
 
-        <div class="panel-heading">
-            <h2>Authors<h2/>
-        </div>
+            {% if step.canSeeAuthor %}
+                <h2>Authors</h2>
 
-        <div class="panel-body">
-            <table class="table">
+                <table class="table">
+                    {% for articleAuthor in article.articleAuthors %}
+                        <tr> 
+                            <td>
+                                {{ articleAuthor.author.fullName }}
+                                <span class="btn-group">
+                                    <a class="btn btn-xs btn-default" title="Search on google"
+                                       href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
+                                        <i class="fa fa-google"></i>
+                                    </a>
+                                    <a class="btn btn-xs btn-default" title="Search on Wikipedia"
+                                       href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
+                                        W
+                                    </a>
+                                </span>
+                                <span class="label label-default">{{articleAuthor.author.email}}</span>
+                            </td>
+                        </tr>
+                    {% endfor%}
+                </table>
+                <hr/>
+            {% endif %}
 
-            </table>
-            <hr>
-        </div>
-
-
-        <div class="panel-heading">
-            <h2>Citations<h2/>
-        </div>
-
-        <div class="panel-body">
+            <h2>Citations</h2>
             <table class="table">
                 {% for citation in article.citations %}
                     <tr> 
@@ -51,28 +73,38 @@
                     </tr>
                 {% endfor%}
             </table>
+
             <hr>
-        </div>
-        <div class="panel-heading">
-            <h2>Files<h2/>
-        </div>
-
-        <div class="panel-body">
+            <h2>Files</h2>
             <table class="table">
-
+                {% for articlefile in article.articlefiles %}
+                    <tr> 
+                        <td>
+                            <span class="badge sm">#{{articlefile.file.id}}</span> 
+                            <span class="label label-info">{{fileType(articlefile.type)}}</span>
+                            {{articlefile.title}} <a href="{{articlefile.file.id}}"><i class="fa fa-download"></i></a>
+                                {% if articlefile.description %}
+                                <p> {{articlefile.description}} </p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor%}
             </table>
             <hr>
-        </div>
 
 
-        <div class="panel-footer">
+            <div class="jumbotron">
 
-            <select class="select2-element lg">
-                <option>Editor</option>
-                <option>Dil Kontrol</option>
-            </select>
+                <textarea placeholder="notes" class="form-control" rows="4"></textarea>
+                <br><br>
+                <select class="select2-element lg" style="width:200px">
+                    {% for nextStep in step.nextSteps %}
+                        <option>{{ nextStep.title }}</option>
+                    {%endfor%}
+                </select>
 
-            <a class="btn btn-warning">Next</a> 
+                <a class="btn btn-warning pull-right btn-lg">Next</a> 
+            </div>
         </div>
     </div>
 </div>
