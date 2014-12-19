@@ -6,14 +6,27 @@
 
 
 {% block body -%}
-    <span class="pull-right">
-        Step creation date 
-        <span class="label label-success">{{articleStep.startedDate|date('Y-m-d H:i:s') }}</span>
-    </span>
+
     <div class="panel">
         <div class="panel-body">
+            <span>
+                Started : 
+                <span class="label label-success">{{articleStep.startedDate|date('Y-m-d H:i:s') }}</span>
+                <br>
+                Deadline :         
+                <span class="label label-success">{{articleStep.reviewDeadline|date('Y-m-d H:i:s') }}</span>
+            </span>
+
             <h1>{{"article.singular"|trans}} 
                 <small class="badge">{{id}}</small> 
+
+                {% if daysRemaining %}
+                    <span class="pull-right label label-info">{{daysRemaining}} days remaining</span>
+                {% endif %}
+
+                {% if daysOverDue %}
+                    <span class="pull-right label label-danger">{{daysOverDue}} days overdue</span>
+                {% endif %}
             </h1>
 
             <div class="panel-body">

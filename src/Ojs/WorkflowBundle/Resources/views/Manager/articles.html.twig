@@ -27,6 +27,7 @@
                                     {% if articles[loop.index0].submissionDate %}
                                         <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
                                     {% endif %}
+                                    {{daysDiff(articleStep.startedDate, articleStep.reviewDeadline)}} 
                                 </small>
                             </h3>
                             <strong>Submission Refenrece Number :</strong> 

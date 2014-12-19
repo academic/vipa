@@ -45,6 +45,7 @@ class OjsExtension extends \Twig_Extension
             'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
             'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
             'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
+            'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
         );
     }
 
@@ -277,6 +278,22 @@ class OjsExtension extends \Twig_Extension
         $translator = $this->container->get('translator');
         $text = \Ojs\Common\Params\ArticleFileParams::fileType($arg);
         return $text ? $translator->trans($text) : null;
+    }
+
+    /**
+     * 
+     * @param DateTime $date1
+     * @param DateTime $date2
+     * @return string formatted string like +12 or -20 
+     */
+    public function daysDiff($date1, $date2)
+    {
+        $translator = $this->container->get('translator');
+        $daysFormatted = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($date1, $date2);
+        return (strpos($daysFormatted, '+') !== FALSE ?
+                        '<span class="label label-info">' :
+                        '<span class="label label-danger">')
+                . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
     }
 
     public function getName()
