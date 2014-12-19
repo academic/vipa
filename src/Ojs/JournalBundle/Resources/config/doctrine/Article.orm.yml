@@ -166,6 +166,10 @@ Ojs\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+    submissionDate:
+      column: submission_date
+      type: datetime
+      nullable: TRUE
     pubdate:
       type: datetime
       nullable: TRUE
