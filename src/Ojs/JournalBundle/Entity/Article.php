@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 {
+
     /**
      * auto-incremented article unique id
      * @var integer
@@ -90,6 +91,12 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      * @Expose
      */
     private $isAnonymous;
+
+    /**
+     * @var \DateTime
+     * @Expose
+     */
+    private $submissionDate;
 
     /**
      * @var \DateTime
@@ -228,7 +235,6 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->header = $header;
         return $this;
     }
-
 
     /**
      * Constructor
@@ -757,6 +763,29 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
+     * Set submissionDate
+     *
+     * @param  \DateTime $submissionDate
+     * @return Article
+     */
+    public function setSubmissionDate($submissionDate)
+    {
+        $this->submissionDate = $submissionDate;
+
+        return $this;
+    }
+
+    /**
+     * Get submissionDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmissionDate()
+    {
+        return $this->submissionDate;
+    }
+
+    /**
      * Set pubdateSeason
      *
      * @param  string  $pubdateSeason
@@ -917,7 +946,6 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->abstractTransliterated;
     }
 
-
     /**
      * Remove attributes
      *
@@ -1006,6 +1034,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     public function __toString()
     {
-        return $this->getTitle()."[#{$this->getId()}]";
+        return $this->getTitle() . "[#{$this->getId()}]";
     }
+
 }

@@ -23,6 +23,10 @@
                                         {{articleAuthor.author.firstName}} {{articleAuthor.author.middleName}} {{articleAuthor.author.lastName}} 
                                         {%if loop.last == false %},{% endif %}
                                     {%endfor%}
+
+                                    {% if articles[loop.index0].submissionDate %}
+                                        <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
+                                    {% endif %}
                                 </small>
                             </h3>
                             <strong>Submission Refenrece Number :</strong> 
