@@ -16,24 +16,38 @@
                 Deadline :         
                 <span class="label label-success">{{articleStep.reviewDeadline|date('Y-m-d H:i:s') }}</span>
             </span>
-
-            <h1>{{"article.singular"|trans}} 
-                <small class="badge">{{id}}</small> 
-
+            <h2 class="pull-right ">
+                {% if daysOverDue %}
+                    <span class="label label-danger">{{daysOverDue}} days overdue</span>
+                {% endif %}
                 {% if daysRemaining %}
                     <span class="pull-right label label-info">{{daysRemaining}} days remaining</span>
                 {% endif %}
-
-                {% if daysOverDue %}
-                    <span class="pull-right label label-danger">{{daysOverDue}} days overdue</span>
-                {% endif %}
-            </h1>
+            </h2>
+            <h2>{{article.title}}               
+                <span class="btn-group">
+                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                       href="http://scholar.google.com.tr/scholar?q={{ article.title|url_encode }}">
+                        <i class="fa fa-google"></i>
+                    </a>
+                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                       href="http://en.wikipedia.org/w/index.php?search={{ article.title|url_encode }}">
+                        W
+                    </a>
+                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+                        href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
+                        PubMed
+                    </a>
+                </span>
+            </h2>
 
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <td>Title</td>
-                        <td>{{article.title}}</td>
+                        <td>Submission Reference</td>
+                        <td>
+                            <small class="badge">{{id}}</small> 
+                        </td>
                     </tr>
                     <tr>
                         <td>Subjects</td>
@@ -61,11 +75,11 @@
                             <td>
                                 {{ articleAuthor.author.fullName }}
                                 <span class="btn-group">
-                                    <a class="btn btn-xs btn-default" title="Search on google"
+                                    <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                                        href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
                                         <i class="fa fa-google"></i>
                                     </a>
-                                    <a class="btn btn-xs btn-default" title="Search on Wikipedia"
+                                    <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
                                        href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
                                         W
                                     </a>

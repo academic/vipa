@@ -286,3 +286,6 @@ theme.list: Theme List
 content: Content
 basetheme: Base Theme
 theme.new: New Theme
+searchon.wikipedia: Search on Wikipedia
+searchon.google: Search on Google Scholar
+searchon.pubmed: Search on PubMed
