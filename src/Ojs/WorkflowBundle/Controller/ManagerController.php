@@ -20,8 +20,14 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
 
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->find($articleStep->getStep()->getId()); 
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
-                    'articleStep' => $articleStep, 'article' => $article, 'id' => $id));
+                    'articleStep' => $articleStep,
+                    'article' => $article,
+                    'id' => $id,
+                    'step' => $step
+        ));
     }
 
     /**
@@ -46,7 +52,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
                 ->setParameter(1, $ids);
         $articles = $query->getResult();
         return $this->render('OjsWorkflowBundle:Manager:articles.html.twig', array(
-                    'articles'=>$articles,'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id));
+                    'articles' => $articles, 'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id));
     }
 
 }
