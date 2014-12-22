@@ -514,12 +514,6 @@ div.user-menu div.user-menu-content:not(.active){
     display: none;
 }
 
-/* -- The btn stylings for the btn icons -- */
-.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
-.btn-labeled {padding-top: 0;padding-bottom: 0;}
-
-/* -- Custom classes for the snippet, won't effect any existing bootstrap classes of your site, but can be reused. -- */
-
 .user-pad {
     padding: 20px 25px;
 }
@@ -1214,7 +1208,6 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px; margin:-6px 0px}
-.btn-labeled {padding-top: 0;padding-bottom: 0;}
 .btn-lg .btn-label{padding: 11px 10px 11px 16px;left: -16px;margin:-11px 0px;border-radius: 6px 0 0 6px;}
 .navbar-form{margin-top:0px}
 
