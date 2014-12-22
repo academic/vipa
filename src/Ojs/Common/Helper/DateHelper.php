@@ -10,7 +10,7 @@ class DateHelper
      * @param \DateTime $date1
      * @param \DateTime $date2
      * @param Boolean $both if true return both daysRemaining and daysOverdue values in an array
-     * @return string | array  a string value formatted like +12 or -12 |  an array of remaining and overdue days count
+     * @return String | array  a string value formatted like +12 or -12 |  an array of remaining and overdue days count array(remaining,overdue)
      */
     public static function calculateDaysDiff($date1, $date2, $both = false)
     {
