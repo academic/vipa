@@ -11,6 +11,7 @@ use JMS\Serializer\Annotation\Expose;
  */
 class Author extends \Ojs\Common\Entity\GenericExtendedEntity
 {
+
     /**
      * @var integer
      * @Expose()
@@ -100,6 +101,12 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
      * @Expose()
      */
     private $user;
+
+    /**
+     * title + firstname + middlename + lastname
+     * @var string
+     */
+    private $fullName;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -493,5 +500,9 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $title;
     }
 
+    public function getFullName()
+    {
+        return $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
+    }
 
 }

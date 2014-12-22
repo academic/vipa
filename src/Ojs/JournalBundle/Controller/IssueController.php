@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Issue;
@@ -139,12 +140,19 @@ class IssueController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var DocumentManager $dm */
+        $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $header = $request->request->get('header');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+            $dm->flush();
             $em->flush();
 
             return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));

@@ -63,7 +63,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     }
 
     /**
-     * prepare given form values for JournalWorkflow $roles atrribute
+     * prepare an array given form values for JournalWorkflow $roles atrribute
      * @param  array $roles
      * @return array
      */
@@ -82,7 +82,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     }
 
     /**
-     * prepare given form values for JournalWorkflow nextSteps atrribute
+     * prepare an array from given form values for JournalWorkflow nextSteps atrribute
      * @param  array $nextSteps
      * @return array
      */

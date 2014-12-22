@@ -41,19 +41,19 @@
             </tr>
             <tr>
                 <th>{{"publishdate"|trans}}</th>
-                <td>{{ entity.datePublished|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.datePublished|date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>{{"created"|trans}}</th>
-                <td>{{ entity.created|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.created|date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>{{"updated"|trans}}</th>
-                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.updated|date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>{{"deleted"|trans}}</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.deletedAt|date('Y-m-d') }}</td>
             </tr>
         </tbody>
     </table>

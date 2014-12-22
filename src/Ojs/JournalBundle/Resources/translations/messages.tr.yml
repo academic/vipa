@@ -278,3 +278,13 @@ theme.list: Tema Listesi
 content: İçerik
 basetheme: Orjinal Tema
 theme.new: Yeni Tema
+searchon.wikipedia: Wikipedia'da ara
+searchon.google: Google'da ara
+searchon.pubmed: Pubmed'de ara
+
+reviewResultCodes:
+    0: Ret
+    1: Tekrar Yazılmalı
+    2: Major Revizyon
+    3: Minor Revizyon
+    4: Kabul

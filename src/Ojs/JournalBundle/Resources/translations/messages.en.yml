@@ -136,7 +136,7 @@ article_id: Article ID
 articleauthor_create: Article Author Create
 back: Back
 articleauthor: Article Author
-article.mysubmits: My Submits
+article.mysubmits: My Submissions
 article.all: All Articles
 add.language: Add Language
 res: Res
@@ -286,3 +286,13 @@ theme.list: Theme List
 content: Content
 basetheme: Base Theme
 theme.new: New Theme
+searchon.wikipedia: Search on Wikipedia
+searchon.google: Search on Google Scholar
+searchon.pubmed: Search on PubMed
+
+reviewResultCodes:
+    0: Reject
+    1: Must Rewrite
+    2: Major Revision
+    3: Minor Revision
+    4: Accept

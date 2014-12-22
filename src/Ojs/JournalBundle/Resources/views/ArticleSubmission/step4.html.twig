@@ -1,50 +1,58 @@
 <form class="form-horizontal file-item" role="form">
-    <div class="col-md-12">
-        <select name="type" class="select2-element">
-            {% for key,type in fileTypes %}
-                <option value="{{key}}">{{ type }}</option>
-            {% endfor %}
-        </select>
-
-        <select name="lang" class="select2-element">
-            {% for lang in journal.languages %}
-                <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
-            {% endfor %}
-        </select>
-        <div class="form-group">
-            <label class="col-md-2">{{"title"|trans}}</label>
-            <div class="col-md-9">
-                <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <select name="type" class="select2-element input-lg">
+                {% for key,type in fileTypes %}
+                    <option value="{{key}}">{{ type }}</option>
+                {% endfor %}
+            </select>   
+            <select name="lang" class="select2-element input-lg">
+                {% for lang in journal.languages %}
+                    <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                {% endfor %}
+            </select>
+            <span class="pull-right">
+                <a onclick="$(this).parents('form').remove();" 
+                   class="btn btn-warning"><i class="fa fa-trash"></i>
+                </a>
+            </span>
         </div>
-        <div class="form-group">
-            <label class="col-md-2">{{"description"|trans}}</label>
-            <div class="col-md-9">
-                <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-md-2">{{"title"|trans}}</label>
+                <div class="col-md-9">
+                    <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-md-2">{{"keywords"|trans}}</label>
-            <div class="col-md-9">
-                <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
+            <div class="form-group">
+                <label class="col-md-2">{{"description"|trans}}</label>
+                <div class="col-md-9">
+                    <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
+                </div>
             </div>
+
+            <div class="form-group">
+                <label class="col-md-2">{{"keywords"|trans}}</label>
+                <div class="col-md-9">
+                    <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
+                </div>
+            </div>
+
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+
+                <span>{{"select_supplementary_article_file"|trans}}</span>
+                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="article_file" class="filename article_file_input" value="" type="hidden"/>
+                <input name="article_file_mime_type" value="" type="hidden"/>
+                <input name="article_file_size" value="" type="hidden"/>
+
+            </span>
+            <span class="upload_progress label label-info" style="display: none"></span>
         </div>
-
-        <span class="btn btn-success fileinput-button">
-            <i class="fa fa-plus"></i>
-
-            <span>{{"select_supplementary_article_file"|trans}}</span>
-            <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-            <input name="article_file" class="filename article_file_input" value="" type="hidden"/>
-            <input name="article_file_mime_type" value="" type="hidden"/>
-            <input name="article_file_size" value="" type="hidden"/>
-
-        </span>
-        <span class="upload_progress label label-info" style="display: none"></span>
+        <hr>
+        <br>
     </div>
-    <hr>
-    <br>
 </form>
 
 
