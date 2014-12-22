@@ -9,12 +9,8 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Author;
 use \Ojs\JournalBundle\Entity\Citation;
 use \Ojs\JournalBundle\Entity\CitationSetting;
-use Ojs\JournalBundle\Entity\Journal;
 use \Ojs\JournalBundle\Entity\ArticleAuthor;
 use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
-use Ojs\JournalBundle\Form\ArticleType;
-use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Article Submission controller.
