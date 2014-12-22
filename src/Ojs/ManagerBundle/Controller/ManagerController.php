@@ -49,7 +49,7 @@ class ManagerController extends Controller
             $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
                     ->createQueryBuilder('ars')
                     ->requireIndexes(false);
-            $countQuery->field('step')->equals($step);
+            $countQuery->field('stepId')->equals($step->getId());
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
