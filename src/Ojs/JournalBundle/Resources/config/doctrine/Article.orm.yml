@@ -22,12 +22,14 @@ Ojs\JournalBundle\Entity\Article:
             name: journal_id
             referencedColumnName: id
           inversedBy: articles
+          fetch: EAGER
       issue:
           targetEntity: Issue
           joinColumn:
             name: issue_id
             referencedColumnName: id
           inversedBy: articles
+          fetch: EAGER
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -165,6 +167,10 @@ Ojs\JournalBundle\Entity\Article:
     part:
       length: 255
       type: string
+      nullable: TRUE
+    submissionDate:
+      column: submission_date
+      type: datetime
       nullable: TRUE
     pubdate:
       type: datetime

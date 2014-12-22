@@ -1,14 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('article'), 'title': 'article.manager'|trans},
-    { 'title' : 'article.detail'|trans} ])}}
+{% block breadcrumb %}
+    {% set list = [
+                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+                { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans },
+                { 'title': 'Article Preview' }
+] %}
+    {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%}
     <h1>{{ 'article.detail'|trans }}<small title="ojs unique id">#{{ entity.id }}</small></h1>
-
     <table class="record_properties table">
         <tbody>
             <tr>
@@ -29,8 +31,12 @@
                 <td>
                     {% if entity.articleAuthors %}
                         {% for authorsInfo in entity.articleAuthors %}
-                            <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span>
-                            {% if not loop.last %}, {% endif %}
+                            <span>
+                                {{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}
+                            </span>
+                            {% if not loop.last %}
+                                , 
+                            {% endif %}
                         {% endfor %}
                     {%endif%}
                 </td>
@@ -39,15 +45,16 @@
                 <th>{{"journal"|trans}}</th>
                 <td>
                     {% if entity.journal %}
-                        <a href="{{ path("journal_show",{'id':entity.journal.id}) }}">
-                            {{ entity.journal.title }}
-                        </a>
+                        {{ entity.journal.title }}
                     {% endif %}
                 </td>
             </tr>
             <tr>
                 <th>{{"section"|trans}}</th>
-                <td>{% if entity.section %}{{ entity.section.title }}{% endif %}</td>
+                <td>
+                    {% if entity.section %}
+                        {{ entity.section.title }}
+                    {% endif %}</td>
             </tr>
             <tr>
                 <th>{{"languages"|trans}}</th>
@@ -70,7 +77,10 @@
             </tr>
             <tr>
                 <th>{{"status"|trans}}</th>
-                <td style="background: {{entity.statusColor}}"><span >{{ entity.statusText }}</span></td>
+                <td style="background: {{ statusColor(entity.status) }}"><span>
+                        {{ statusText(entity.status) }}
+                    </span>
+                </td>
             </tr>
             <tr>
                 <th>{{ "doi"|trans }}</th>
@@ -139,7 +149,7 @@
             </tr>
             <tr>
                 <th>{{"abstract"|trans}}</th>
-                <td>{{ entity.abstract }}</td>
+                <td>{{ entity.abstract|raw }}</td>
             </tr>
             <tr>
                 <th>{{ "abstract.transliterated"|trans }}</th>
@@ -152,20 +162,11 @@
                         <p>
                             <span class="badge">{{loop.index}}</span> {{ citation.raw }}<br>
                         <p>
-                        {% endfor %}
+                    {% endfor %}
                 </td>
             </tr>
         </tbody>
     </table>
 
 
-    <div class="record_actions">
-        <a class="btn btn-info" href="{{ path('article_citation', { 'id': entity.id }) }}"><i class="fa fa-asterisk"></i> {{"citation.editor"|trans}}</a>
-
-        {% set back_path = 'article' %}
-        {% set edit_path = 'article_edit' %}
-        {% set delete_path = 'article_delete' %}
-        {% include '::actionbtns.html.twig' %}
-
-    </div>
 {% endblock %}

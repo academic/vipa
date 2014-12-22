@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -167,11 +168,23 @@ class UserController extends Controller
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        /** @var DocumentManager $dm */
+        $dm = $this->get('doctrine.odm.mongodb.document_manager');
         if ($editForm->isValid()) {
             $factory = $this->get('security.encoder_factory');
             $encoder = $factory->getEncoder($entity);
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
+
+            $header = $request->request->get('header');
+            $cover = $request->request->get('avatar');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+            $imageOptions = $ir->init($cover,$entity,'avatar');
+            $dm->persist($imageOptions);
+            $dm->flush();
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));

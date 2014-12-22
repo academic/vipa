@@ -1,0 +1,21 @@
+Ojs\SiteBundle\Document\ImageOptions:
+  type: document
+  collection: image_options
+  repositoryClass: Ojs\SiteBundle\Document\ImageOptionsRepository
+  fields:
+    id:
+      id: true
+    height:
+      type: int
+    width:
+      type: int
+    x:
+      type: int
+    y:
+      type: int
+    object:
+      type: string
+    object_id:
+      type: int
+    image_type:
+      type: string

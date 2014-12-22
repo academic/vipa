@@ -8,7 +8,9 @@
             <div class="col-md-12 user-details">
                 <div class="row coralbg white">
                     <div class="col-md-2 no-pad">
-                        <img src="{{ ('/uploads/avatarfiles/'~imagePath(user.avatar))|apply_filter('avatar_thumb') }}"
+                        {% set imageoptions=getImageOptions(app.user,'avatar') %}
+
+                        <img src="{{ ('/uploads/avatarfiles/'~imagePath(user.avatar))|imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
                              data-src="holder.js/75x75/random/text:{{user.username}}" class="" alt="" />
 
                     </div>
@@ -25,7 +27,9 @@
                     </div>
                     <div class="col-md-6 no-pad">
                         <div class="user-image">
-                            <img src="{{ ('/uploads/userfiles/'~imagePath(user.header))|apply_filter('user_header') }}"
+                            {% set imageoptions=getImageOptions(app.user,'header') %}
+
+                            <img src="{{ ('/uploads/userfiles/'~imagePath(user.header))|imagine_filter('user_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
                                  data-src="holder.js/585x390/random/text:{{user.username}}" class="img-responsive thumbnail" alt="" />
 
                         </div>

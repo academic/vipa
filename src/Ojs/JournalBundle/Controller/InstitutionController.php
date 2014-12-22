@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
@@ -125,7 +126,6 @@ class InstitutionController extends Controller
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -141,7 +141,18 @@ class InstitutionController extends Controller
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        /** @var DocumentManager $dm */
+        $dm = $this->get('doctrine.odm.mongodb.document_manager');
+
         if ($editForm->isValid()) {
+            $header = $request->request->get('header');
+            $cover = $request->request->get('logo');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+            $imageOptions = $ir->init($cover,$entity,'cover');
+            $dm->persist($imageOptions);
+            $dm->flush();
             $em->flush();
 
             return $this->redirect($this->generateUrl('institution_edit', array('id' => $id)));

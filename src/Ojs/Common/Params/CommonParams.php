@@ -5,10 +5,6 @@ namespace Ojs\Common\Params;
 class CommonParams
 {
 
-    /**
-     * @return string  *status* description
-     * @param  integer $status
-     */
     protected static $statusArray = array(
         -3 => "Rejected",
         -2 => "Unpublished",
@@ -28,9 +24,25 @@ class CommonParams
         3 => '#3FFF23'
     );
 
-    public static function statusText($statusNum=null)
+    /**
+     * @return array
+     */
+    public static function getStatusColors()
     {
-        if($statusNum)
+        return self::$statusColorArray;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusTexts()
+    {
+        return self::$statusArray;
+    }
+
+    public static function statusText($statusNum = null)
+    {
+        if ($statusNum)
             return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null;
         return self::$statusArray;
     }

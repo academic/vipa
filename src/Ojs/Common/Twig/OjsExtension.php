@@ -42,6 +42,10 @@ class OjsExtension extends \Twig_Extension
             'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
             'journalTheme' => new \Twig_Function_Method($this, 'journalTheme'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
+            'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
+            'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
+            'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
+            'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
         );
     }
 
@@ -239,6 +243,57 @@ class OjsExtension extends \Twig_Extension
         return '' .
                 ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
                         '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
+    }
+
+    /**
+     * Returns status color from given status integer value
+     * @param integer $arg
+     * @return string
+     */
+    public function statusColor($arg)
+    {
+        $colors = \Ojs\Common\Params\CommonParams::getStatusColors();
+        return isset($colors[$arg]) ? $colors[$arg] : '#fff';
+    }
+
+    /**
+     * Returns status text string from given status integer value
+     * @param integer $arg
+     * @return string 
+     */
+    public function statusText($arg)
+    {
+        $translator = $this->container->get('translator');
+        $texts = \Ojs\Common\Params\CommonParams::getStatusTexts();
+        return isset($texts[$arg]) ? $translator->trans($texts[$arg]) : null;
+    }
+
+    /**
+     * Return file type string from given filetype integer value
+     * @param integer $arg
+     * @return string
+     */
+    public function fileType($arg)
+    {
+        $translator = $this->container->get('translator');
+        $text = \Ojs\Common\Params\ArticleFileParams::fileType($arg);
+        return $text ? $translator->trans($text) : null;
+    }
+
+    /**
+     * 
+     * @param DateTime $date1
+     * @param DateTime $date2
+     * @return string formatted string like +12 or -20 
+     */
+    public function daysDiff($date1, $date2)
+    {
+        $translator = $this->container->get('translator');
+        $daysFormatted = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($date1, $date2);
+        return (strpos($daysFormatted, '+') !== FALSE ?
+                        '<span class="label label-info">' :
+                        '<span class="label label-danger">')
+                . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
     }
 
     public function getName()

@@ -270,7 +270,7 @@ class JournalRepository extends EntityRepository
     public function getLastIssueId($journal)
     {
         $q = $this
-            ->createQuery('SELECT issue_id FROM OjsJournalBunel:Issue i WHERE journalId : ?1 '
+            ->createQuery('SELECT issue_id FROM OjsJournalBundle:Issue i WHERE journalId : ?1 '
                 . 'AND datePublished IS NOT NULL ORDER BY ID DESC')
             ->setMaxResults(1)
             ->setParameter(1, $journal->getId())

@@ -9,19 +9,62 @@
     <div class="panel">
         <div class="panel-heading">
             <h1>{{"article.plural"|trans}} 
-                <span class="muted">{{step.title}}</span> 
+                <small class="pull-right label label-success">{{step.title}}</small> 
             </h1>
-        </div>
-        {% for articleStep in articlesStep %}
-            <div class="panel-body">
-                <table class="table">
+        </div> <div class="panel-body">
+            <table class="table">
+                {% for articleStep in articlesStep %}
+
                     <tr>
-                        <td><a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a></td>
-                    </tr>
-                </table>
-                <hr>
-            </div>
-        {% endfor %} 
+                        <td>
+                            <h3>{{articles[loop.index0].title}} 
+                                <small>
+                                    {%for articleAuthor in articles[loop.index0].articleAuthors%}
+                                        {{articleAuthor.author.firstName}} {{articleAuthor.author.middleName}} {{articleAuthor.author.lastName}} 
+                                        <span class="btn-group">
+                                            <a class="btn btn-xs btn-default" title="Search on google"
+                                               href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
+                                                <i class="fa fa-google"></i>
+                                            </a>
+                                            <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                                               href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
+                                                W
+                                            </a>
+                                        </span>
+                                        {%if loop.last == false %},{% endif %}
+                                    {%endfor%}
+
+                                    {% if articles[loop.index0].submissionDate %}
+                                        <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
+                                    {% endif %}
+                                    {{daysDiff(articleStep.startedDate, articleStep.reviewDeadline)}} 
+                                </small>
+                            </h3>
+                            <strong>Submission Refenrece Number :</strong> 
+                            <a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a>
+                            <br>
+                            <strong>Article Reference Number : </strong>
+                            <a href="{{path('article_preview',{'id':articleStep.articleId})}}">
+                                <span class="badge">{{articleStep.articleId}}</span>
+                            </a>
+                            <br>
+                            <strong>Start Date : </strong>
+                            <span class="label label-info">
+                                {{articleStep.startedDate.date}}
+                            </span>
+                            <br>
+                        </td>
+                        <td>
+                            <a class="btn btn-info btn-lg"
+                               href="{{path('article_step_preview',{'id':articleStep.id})}}">
+                                <i class="fa fa-info"></i>
+                            </a>
+                        </td>
+                    </tr> 
+                {% endfor %} 
+            </table>
+            <hr>
+        </div>
     </div>
 {% endblock %}
 

@@ -17,11 +17,11 @@
         "tests"
     ],
     "resolutions": {
-        "bootstrap": "3.2.0"
+        "bootstrap": "3.3.1"
     },
     "dependencies": {
         "jquery": "*",
-        "bootstrap": "3.2.0",
+        "bootstrap": "3.3.1",
         "bootstrap-material-design": "*",
         "font-awesome": "*",
         "bootstrap-dialog": "*",
@@ -32,6 +32,7 @@
         "flot": "*",
         "morrisjs": "*",
         "mustache": "*",
+        "cropper": "*",
 	"bootstrap-tour": "*",
         "holderjs": "*",
         "jquery-sortable": "*",
