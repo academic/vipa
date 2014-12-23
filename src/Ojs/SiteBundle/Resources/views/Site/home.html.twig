@@ -12,25 +12,25 @@
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">10</div>
-                                <div class="panel-footer">enstitü</div>
+                                <div class="panel-footer">{{"institution"|trans}}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">443</div>
-                                <div class="panel-footer">dergi</div>
+                                <div class="panel-footer">{{"journal"|trans}}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">106.576</div>
-                                <div class="panel-footer">makale</div>
+                                <div class="panel-footer">{{"article"|trans}}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">84.693</div>
-                                <div class="panel-footer">kullanıcı</div>
+                                <div class="panel-footer">{{"user"|trans}}</div>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     <p class="lead">Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz</p>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h6>Dergiler</h6>
+                    <h6>{{"journal.plural"|trans}}</h6>
                     <div class="row">
                         {% for journal in journals %}
                             <div class="col-sm-2 col-md-2">
@@ -69,7 +69,7 @@
                         {% endfor %}
                     </div>
                     <hr />
-                    <h6>Enstitüler</h6>
+                    <h6>{{"institution.plural"|trans}}</h6>
                     <div class="row">
                         {% for institution in institutions %}
                             <div class="col-sm-2 col-md-2">
@@ -84,16 +84,18 @@
         </section>
 
         <section role="topics">
-            <h3 class="page-header">Konular</h3>
+            <h3 class="page-header">{{"subject.plural"|trans}}</h3>
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <ul class="list-unstyled">
-                        {% for subject in subjects %}
-                            <li class="col-md-4">
-                                <a href="{{ path("ojs_journals_index") }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
-                                <span class="label label-info pull-right">{{subject.totalJournalCount}}</span>
-                            </li>
-                        {% endfor %}
+                        {% if subjects is defined %}
+                            {% for subject in subjects %}
+                                <li class="col-md-4">
+                                    <a href="{{ path("ojs_journals_index") }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
+                                    <span class="label label-info pull-right">{{subject.totalJournalCount}}</span>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                 </div>
             </div>
