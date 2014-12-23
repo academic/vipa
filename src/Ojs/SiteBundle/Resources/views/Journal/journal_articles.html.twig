@@ -36,12 +36,16 @@
                         <ul class="list-group">
                             {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
-                                    <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: journal.slug,institution: journal.institution.slug}) }}"><i
-                                                class="fa fa-file-text"></i> {{ article.title }}
-                                    </a><br/>
+                                    <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: journal.slug,institution: journal.institution.slug}) }}">
+                                        <i class="fa fa-file-text"></i> {{ article.title }}
+                                    </a>
+                                    <br/>
                                     <i class="fa fa-users"></i>
                                     <span class="text-muted">
-                                        ({% if article.created.date %}{{ article.created.date|date('Y-m-d') }}{% endif %}
+                                        (
+                                        {% if article.created.date %}
+                                            {{ article.created.date|date('Y-m-d') }}
+                                        {% endif %}
                                         )
                                     </span>
                                 </li>

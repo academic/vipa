@@ -1,0 +1,11 @@
+issue_manager_index:
+    pattern:  /issues
+    defaults: { _controller: OjsManagerBundle:IssueManager:index }
+    
+issue_manager_issue_edit:
+    pattern:  /issues/{issueId}/edit
+    defaults: { _controller: OjsManagerBundle:IssueManager:edit }
+
+issue_manager_issue_view:
+    pattern:  /issues/{issueId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:view }

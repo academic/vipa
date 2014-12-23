@@ -1,0 +1,41 @@
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %} 
+
+    <div class="row">
+        <div class="panel">
+            <h1>
+                {% if isJournalManager() %}
+                    <small>
+                        <a href="{{path("issue_manager_issue_edit", { "issueId": issue.id }) }}" class="">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </small>
+                {%endif%}
+                {{"issue"|trans}} 
+                <small>
+                    <br>vol : {{issue.volume}} 
+                    <br>number : {{issue.number}}
+                    <br>title: {{issue.title}} 
+                    {{journal.title}}
+                </small>
+            </h1>
+
+            {% for article in articles %}
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                            {{article.title}}
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="label label-default">{{article.firstPage}} - {{article.lastPage}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

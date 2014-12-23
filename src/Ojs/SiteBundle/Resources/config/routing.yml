@@ -1,4 +1,4 @@
-wojs_site_admin_page:
+ojs_site_admin_page:
     resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
     prefix:   /admin/page
 

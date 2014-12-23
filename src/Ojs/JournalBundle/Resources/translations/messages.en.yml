@@ -122,10 +122,11 @@ citation.editor: Citation Editor
 preview: Preview
 submit: Submit
 'Back & Continue Editing': 'Back & Continue Editing'
-issue.plural: Issue
+issue.plural: Issues
+issue: Issue
+issue.manager: Issue Manager
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
 articles_in_journal: Articles In Journal
-issue: Issue
 article.new: New Article
 article_author_edit: Article Author Edit
 article_author_list: List Article Author
