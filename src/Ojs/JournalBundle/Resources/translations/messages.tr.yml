@@ -98,12 +98,13 @@ file.types.5: 'Veri Seti'
 file.types.6: 'Kaynak Metin'
 details: Detaylar
 article.manager: Makale Yöneticisi
-issue.plural: Sayı
+issue.plural: Sayılar
+issue: Sayı
+issue.manager: Sayı Yöneticisi
 journal: Dergi
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
 articles_in_journal: Dergideki Makaleler
 primaly_language: Öncelikli Dil
-issue: Sayı
 article.new: Yeni Makale
 article.detail: Makale Detayı
 title.transliterated: Dönüştürülmüş Başlık

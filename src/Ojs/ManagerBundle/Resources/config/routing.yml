@@ -1,6 +1,10 @@
 manager_actions:
     resource: "@OjsManagerBundle/Resources/config/routing/manager_routing.yml"
     prefix:   /manager
+
+issue_manager_actions:
+    resource: "@OjsManagerBundle/Resources/config/routing/issue_manager.yml"
+    prefix:   /manager
     
     
 dashboard:

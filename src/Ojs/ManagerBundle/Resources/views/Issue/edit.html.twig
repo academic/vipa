@@ -1,0 +1,38 @@
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %} 
+
+    <div class="row">
+        <div class="panel">
+            <h1>{{"issue.edit"|trans}}
+                <small>
+                    <br>vol : {{issue.volume}} 
+                    <br>number : {{issue.number}}
+                    <br>title: {{issue.title}} 
+                    {{journal.title}}
+                </small>
+            </h1>
+            {% for article in articles %}
+                <div class="row">
+                    <div class="col-md-10">
+                        <a href="#"><i class="fa fa-arrow-up"></i></a>
+                        <a href="#"><i class="fa fa-arrow-down"></i></a>
+
+                        <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                            {{article.title}}
+                        </a>
+                    </div>
+                    <div class="col-md-2">
+                        <input value="{{article.firstPage}}" class="input-sm form-control" type="number">
+                        <input value="{{article.lastPage}}" class="input-sm form-control" type="number">
+                    </div>
+                </div>
+            {% endfor %}
+
+            <a href="#" class="btn btn-primary">
+                <i class="fa fa-save"></i> {{"save"|trans}}
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

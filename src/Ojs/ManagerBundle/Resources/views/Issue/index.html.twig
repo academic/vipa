@@ -1,0 +1,33 @@
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %} 
+
+    <div class="row">
+        <div class="panel">
+            <h1>{{"issue.plural"|trans}} <small>{{journal.title}}</small></h1>
+            <table class="records_list table">
+                <thead>
+                    <tr>
+                        <th></th>  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>
+                                <a href="{{path("issue_manager_issue_view", { "issueId": entity.id }) }}">
+                                    {{entity.title}}
+                                </a>
+                            </td> 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="#" class="btn btn-info">
+                <i class="fa fa-plus"></i> {{"create"|trans}}
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
