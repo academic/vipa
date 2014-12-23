@@ -92,6 +92,7 @@ class ArticleType extends AbstractType
                 ->add('abstract', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('abstractTransliterated', 'textarea', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('header', 'hidden')
+                ->add('order', 'integer', array('required' => false));
         ;
     }
 

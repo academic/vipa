@@ -79,6 +79,16 @@ Ojs\JournalBundle\Entity\Article:
         options:
           default: 0
         nullable: TRUE
+        gedmo:
+          - versioned
+    order:
+        column: order
+        type: integer
+        options:
+          default: 0
+        nullable: TRUE
+        gedmo:
+          - versioned
     issueId:
         column: issue_id
         type: integer
