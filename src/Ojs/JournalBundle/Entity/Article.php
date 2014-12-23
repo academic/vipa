@@ -219,6 +219,11 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     private $header;
 
     /**
+     * @var integer
+     */
+    private $order = 0;
+
+    /**
      * @return string
      */
     public function getHeader()
@@ -1029,6 +1034,24 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     public function setSlug($slug)
     {
         $this->slug = $slug;
+        return $this;
+    }
+    
+    /**
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param integer $order
+     * @return $this
+     */
+    public function setOrder($order)
+    {
+        $this->order= $order;
         return $this;
     }
 
