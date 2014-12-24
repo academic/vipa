@@ -16,3 +16,8 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     base_host: localhost
+
+    post_types:
+        default: Default
+        staticpage: Static Page
+        aboutus: About Us
