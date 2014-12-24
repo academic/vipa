@@ -46,6 +46,9 @@ class AppKernel extends Kernel
             new Ojs\WikiBundle\OjsWikiBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
             new Ojs\InstallerBundle\OjsInstallerBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

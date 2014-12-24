@@ -70,7 +70,8 @@ class SitemapController extends Controller
             /** @var Journal $journal */
             $siteMap->add(
                 $request->getScheme() .':'.
-                $router->generate('ojs_journal_index', ['slug' => $journal->getSlug(), 'institution' => $journal->getInstitution()->getSlug()]),
+                $router->generate('ojs_journal_index', ['slug' => $journal->getSlug(),
+                    'institution' => $journal->getInstitution()->getSlug()]),
                 $journal->getUpdated()->format('Y-m-d')
             );
         }

@@ -77,6 +77,8 @@
     </div><!-- .container -->
 
     {% block javascripts %}
+        {{ tinymce_init({'theme':{'simple':{'menubar':false}}}) }}
+
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
