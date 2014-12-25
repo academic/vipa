@@ -13,19 +13,23 @@
                 </small>
             </h1>
             {% for article in articles %}
-                <div class="row">
-                    <div class="col-md-10">
-                        <a href="#" class="moveArticleUp" rel="{{article.id}}"><i class="fa fa-arrow-up"></i></a>
-                        <a href="#" class="moveArticleDown" rel="{{article.id}}"><i class="fa fa-arrow-down"></i></a>
-
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="btn-group">
+                        <a href="#" class="moveArticleUp btn btn-sm btn-default" rel="{{article.id}}"><i class="fa fa-arrow-up"></i></a>
+                        <a href="#" class="moveArticleDown btn btn-sm btn-default" rel="{{article.id}}"><i class="fa fa-arrow-down"></i></a>
+                        </div>
                         <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
                             {{article.title}}
-                        </a>
+                        </a> 
+                        <br><br>
+                        
+                        <div class="form-inline">
+                            <input value="{{article.firstPage}}" class="input-sm form-control" style="width:80px" type="number">
+                            <input value="{{article.lastPage}}" class="input-sm form-control" style="width:80px" type="number">
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <input value="{{article.firstPage}}" class="input-sm form-control" type="number">
-                        <input value="{{article.lastPage}}" class="input-sm form-control" type="number">
-                    </div>
+
                 </div>
             {% endfor %}
 

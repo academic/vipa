@@ -26,7 +26,7 @@ class IssueManagerController extends Controller
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Issue')->findAll();
+        $entities = $em->getRepository('OjsJournalBundle:Issue')->findByJournalId($journal->getId());
 
         return $this->render('OjsManagerBundle:Issue:index.html.twig', array(
                     'entities' => $entities,

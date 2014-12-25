@@ -21,7 +21,7 @@ keywords: Keywords
 description: Description
 subjects: Subjects
 abstract: Abstract
-pubdate: 'Publication Date'
+date.publish: 'Publication Date'
 trans: Transliterated
 email: Email
 address: Address
@@ -290,7 +290,8 @@ theme.new: New Theme
 searchon.wikipedia: Search on Wikipedia
 searchon.google: Search on Google Scholar
 searchon.pubmed: Search on PubMed
-
+special: Special
+special.issue: Special Issue
 reviewResultCodes:
     0: Reject
     1: Must Rewrite
