@@ -85,6 +85,14 @@
         {% if journalTheme() %}
             <script type="text/javascript" src="/assets/theme/{{ journalTheme() }}/js/main.js"></script>
         {% endif %}
+
+        <script>
+            {% if apiKey() %}
+                        $(document).ready(function () {
+                            OjsCommon.api.userApikey = "{{apiKey()}}";
+                        });
+            {% endif%}
+        </script>
     {% endblock %}
 </body>
 </html>

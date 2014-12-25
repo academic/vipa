@@ -175,16 +175,13 @@
     {% endjavascripts %} 
 
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+        <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
-    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
-    {% endif %}
-        {% endjavascripts %}
+        {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+            <script type="text/javascript" src="{{ asset_url }}"></script> 
+        {% endif %}
+    {% endjavascripts %}
 
-        <script>
-            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
-        </script>
-        {% endblock %}
+{% endblock %}

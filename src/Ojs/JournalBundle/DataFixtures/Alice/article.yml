@@ -13,3 +13,4 @@
     submitterId: @user*->id
     section: @section*
     issue: @issue*
+    orderNum: <randomDigit()>
