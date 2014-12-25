@@ -46,6 +46,7 @@ class OjsExtension extends \Twig_Extension
             'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
             'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
+            'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
         );
     }
 
@@ -294,6 +295,16 @@ class OjsExtension extends \Twig_Extension
                         '<span class="label label-info">' :
                         '<span class="label label-danger">')
                 . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
+    }
+
+    /**
+     * Get current user's api key
+     * @return string
+     */
+    public function apiKey()
+    {
+        $user = $this->checkUser();
+        return $user ? $user->getApiKey() : null;
     }
 
     public function getName()

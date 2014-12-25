@@ -88,4 +88,25 @@ class IssueManagerController extends Controller
         ));
     }
 
+    /**
+     *  Move an article's postion in an issue by updating "order" field of Article 
+     * @param integer $articleId
+     * @param string $upOrDown "up" or "down" to specify the way of movement
+     * @throws 404
+     */
+    public function moveAction($articleId, $upOrDown = 'up')
+    {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$journal) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found!');
+        }
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
 }

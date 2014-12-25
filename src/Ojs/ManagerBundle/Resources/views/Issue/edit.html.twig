@@ -15,8 +15,8 @@
             {% for article in articles %}
                 <div class="row">
                     <div class="col-md-10">
-                        <a href="#"><i class="fa fa-arrow-up"></i></a>
-                        <a href="#"><i class="fa fa-arrow-down"></i></a>
+                        <a href="#" class="moveArticleUp" rel="{{article.id}}"><i class="fa fa-arrow-up"></i></a>
+                        <a href="#" class="moveArticleDown" rel="{{article.id}}"><i class="fa fa-arrow-down"></i></a>
 
                         <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
                             {{article.title}}

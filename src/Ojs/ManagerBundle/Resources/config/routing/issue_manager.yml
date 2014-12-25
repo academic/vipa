@@ -3,9 +3,14 @@ issue_manager_index:
     defaults: { _controller: OjsManagerBundle:IssueManager:index }
     
 issue_manager_issue_edit:
-    pattern:  /issues/{issueId}/edit
+    pattern:  /issue/{issueId}/edit
     defaults: { _controller: OjsManagerBundle:IssueManager:edit }
 
 issue_manager_issue_view:
-    pattern:  /issues/{issueId}
+    pattern:  /issue/{issueId}
     defaults: { _controller: OjsManagerBundle:IssueManager:view }
+    
+issue_manager_article_move:
+    pattern:  /article/{articleId}/toc/move/{upOrDown}
+    defaults: { _controller: OjsManagerBundle:IssueManager:move }
+ 
