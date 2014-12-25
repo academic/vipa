@@ -13,24 +13,24 @@
                     </small>
                 {%endif%}
                 {{"issue"|trans}} 
-                <small>
-                    <br>vol : {{issue.volume}} 
-                    <br>number : {{issue.number}}
-                    <br>title: {{issue.title}} 
-                    {{journal.title}}
-                </small>
             </h1>
 
-            {% for article in articles %}
-                <div class="row">
-                    <div class="col-md-10">
+            <p>
+            <ul>
+                <li>Volume : <strong>{{issue.volume}}</strong> </li>
+                <li>Number : <strong>{{issue.number}}</strong></li>
+                <li>Title : <strong>{{issue.title}}</strong></li>
+                <li>Year : <strong>{{issue.year}}</strong> </li>
+                <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
+            </ul>
 
+            {% for article in articles %}
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <span class="label label-default">{{article.firstPage}} - {{article.lastPage}}</span>
                         <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
                             {{article.title}}
-                        </a>
-                    </div>
-                    <div class="col-md-2">
-                        <span class="label label-default">{{article.firstPage}} - {{article.lastPage}}</span>
+                        </a> 
                     </div>
                 </div>
             {% endfor %}

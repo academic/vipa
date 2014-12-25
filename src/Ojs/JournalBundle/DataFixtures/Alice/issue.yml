@@ -6,3 +6,4 @@
     volume: <randomDigit()>
     year: <randomDigit()>
     journal: @journal*
+    special: <numberBetween(0, 1)>

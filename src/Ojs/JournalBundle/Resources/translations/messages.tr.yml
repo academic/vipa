@@ -20,7 +20,7 @@ keywords: 'Anahtar kelimeler'
 description: Açıklama
 subjects: Konular
 abstract: Özet
-pubdate: 'Yayınlanma Tarihi'
+date.publish: 'Yayınlanma Tarihi'
 trans: Transliterated
 email: E-posta
 address: Adres
@@ -282,7 +282,8 @@ theme.new: Yeni Tema
 searchon.wikipedia: Wikipedia'da ara
 searchon.google: Google'da ara
 searchon.pubmed: Pubmed'de ara
-
+special: Özel
+special.issue: Özel Sayı
 reviewResultCodes:
     0: Ret
     1: Tekrar Yazılmalı

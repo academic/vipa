@@ -15,15 +15,28 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
+                                {% if entity.special%}
+                                    <span class="btn btn-default btn-xs">
+                                        <i class="fa fa-star" title="{{"special.issue"|trans}}" style="color:yellowgreen"></i> {{"special"|trans}}
+                                    </span>
+                                {% endif %}
                                 <a href="{{path("issue_manager_issue_view", { "issueId": entity.id }) }}">
-                                    {{entity.title}}
+                                    {{entity.title}} 
                                 </a>
+                                <span class="label label-info">Num. : {{entity.number}}</span>
+                                <span class="label label-default">Vol. : {{entity.volume}}</span>
+                                <span class="label label-default">{{"year"|trans}} : {{entity.year}}</span>
+                                <span class="label label-default" title="{{"date.publish"|trans}}">{{entity.datePublished|date('Y-m-d')}}</span>
+                                {% if entity.description %}
+                                    <br>
+                                    <span>{{entity.description}}</span>
+                                {% endif%}
                             </td> 
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
+            <hr>
             <a href="#" class="btn btn-info">
                 <i class="fa fa-plus"></i> {{"create"|trans}}
             </a>
