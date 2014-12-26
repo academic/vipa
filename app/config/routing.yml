@@ -64,10 +64,6 @@ rest :
   type : rest
   resource : "routing_rest.yml"
   prefix : /api/
-
-apihome:
-    resource: "@OjsApiBundle/Resources/config/routing.yml"
-    prefix:   /api
     
 apidoc:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"

@@ -1,3 +1,7 @@
+apihome:
+    resource: "@OjsApiBundle/Resources/config/routing.yml"
+    prefix:   /
+    
 ojs_rest: 
   type : rest
   resource: "@OjsApiBundle/Resources/config/routing_rest.yml"
