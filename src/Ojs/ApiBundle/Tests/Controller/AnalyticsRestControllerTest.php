@@ -75,7 +75,7 @@ class AnalyticsRestControllerTest extends BaseTestCase {
     {
         $this->client->request(
             'GET',
-            '/api/'.$this->entity.'/'.$this->objectId.'/analytics/download/total',
+            '/api/analytics/download/'.$this->entity.'/'.$this->objectId.'/',
             [
                 'apikey'=>'MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
                 'file_path'=>'/var/tests.tar.gz'
