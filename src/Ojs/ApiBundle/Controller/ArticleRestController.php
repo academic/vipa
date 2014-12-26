@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\View as RestView;
 
 class ArticleRestController extends FOSRestController
 {
@@ -165,6 +166,78 @@ class ArticleRestController extends FOSRestController
                 $em->flush();
             }
         }
+
+        return $article;
+    }
+    
+    /**
+     *
+     * @ApiDoc(
+     *  description="Change article 'orderNum'",
+     *  method="PATCH",
+     *  requirements={
+     *      {
+     *          "name"="orderNum",
+     *          "dataType"="integer",
+     *          "requirement"="\d+",
+     *          "description"="change Article issue order"
+     *      }
+     *  },
+     * filters={
+     *      {"name"="article_id", "dataType"="integer"}
+     * }
+     * )
+     * @RestView()
+     */
+    public function ordernumArticlesAction(Request $request, $article_id)
+    {
+        return $this->patch('orderNum', $article_id, $request);
+    }
+    
+     /**
+     *
+     * @ApiDoc(
+     *  description="Change article 'status'",
+     *  method="PATCH",
+     *  requirements={
+     *      {
+     *          "name"="status",
+     *          "dataType"="integer",
+     *          "requirement"="\d+",
+     *          "description"="Change Article status"
+     *      }
+     *  },
+     * filters={
+     *      {"name"="article_id", "dataType"="integer"}
+     * }
+     * )
+     * @RestView()
+     */
+    public function statusArticlesAction(Request $request, $article_id)
+    {
+        return $this->patch('status', $article_id, $request);
+    }
+
+    protected function patch($field, $article_id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->findOneById($article_id);
+        if (!is_object($article)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        /* @var  $user \Ojs\UserBundle\Entity\User */
+        switch ($field) {
+            case 'orderNum':
+                $article->setIsActive($request->get('isActive'));
+                break;
+            case
+                'status':
+                $article->setStatus($request->get('status'));
+                break;
+            default:
+                break;
+        }
+        $em->flush();
 
         return $article;
     }
