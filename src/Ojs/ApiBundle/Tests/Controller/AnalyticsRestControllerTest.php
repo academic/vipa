@@ -87,7 +87,7 @@ class AnalyticsRestControllerTest extends BaseTestCase {
         $this->command("ojs:analytics:update",['type'=>'download']);
         $response = $this->client->getResponse();
 
-        $this->assertNotSame('[]', $response->getContent());
+        $this->assertEquals(200,$response->getStatusCode(),$response->getContent());
 
     }
 }
