@@ -23,7 +23,7 @@ security:
             security: false
             anonymous: true
         api_home:
-            pattern: /api$
+            pattern: /api/$
             stateless: true
             security: false
             anonymous: true
