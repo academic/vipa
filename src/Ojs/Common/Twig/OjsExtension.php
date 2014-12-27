@@ -100,13 +100,19 @@ class OjsExtension extends \Twig_Extension
     public function checkUser()
     {
         $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $user = $this->container->get('security.context')->getToken()->getUser();
-
-            return $user;
+        try {
+            if (!$securityContext->getToken()) {
+                return false;
+            }
+            if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+                $user = $securityContext->getToken()->getUser();
+                return $user;
+            }
+        } catch (Exceptin $e) {
+            return false;
         }
 
-        return FALSE;
+        return false;
     }
 
     /**

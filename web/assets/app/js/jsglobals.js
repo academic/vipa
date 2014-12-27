@@ -14,6 +14,15 @@ var OjsCommon = {
             citeParser: "/api/citation/parse",
             userSearch: "",
             journalSearc: ""
+        },
+        call: function (method, callUrl) {
+            params = {"apikey": OjsCommon.api.userApikey};
+            console.log(params);
+            $.ajax(
+                    {
+                        url: callUrl, data: params,
+                        type: method
+                    });
         }
     },
     scrollTop: function () {

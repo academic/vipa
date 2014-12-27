@@ -10,10 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
 
 class ArticleRestController extends FOSRestController
 {
+
     /**
      *
      * @ApiDoc(
@@ -169,7 +171,7 @@ class ArticleRestController extends FOSRestController
 
         return $article;
     }
-    
+
     /**
      *
      * @ApiDoc(
@@ -182,19 +184,44 @@ class ArticleRestController extends FOSRestController
      *          "requirement"="\d+",
      *          "description"="change Article issue order"
      *      }
-     *  },
-     * filters={
-     *      {"name"="article_id", "dataType"="integer"}
-     * }
+     *  }
      * )
      * @RestView()
      */
-    public function ordernumArticlesAction(Request $request, $article_id)
+    public function orderArticlesAction(Request $request, $article_id)
     {
         return $this->patch('orderNum', $article_id, $request);
     }
-    
-     /**
+
+    /**
+     *
+     * @ApiDoc(
+     *  description="Increment Article 'orderNum'",
+     *  method="PATCH"
+     * )
+     * @RestView()
+     * @Patch("/articles/{articleId}/order/up")
+     */
+    public function incrementOrderumArticlesAction($articleId)
+    {
+        return $this->upDownOrder($articleId, true);
+    }
+
+    /**
+     *
+     * @ApiDoc(
+     *  description="Increment Article 'orderNum'",
+     *  method="PATCH"
+     * )
+     * @RestView()
+     * @Patch("/articles/{articleId}/order/down")
+     */
+    public function decrementOrderumArticlesAction($articleId)
+    {
+        return $this->upDownOrder($articleId, false);
+    }
+
+    /**
      *
      * @ApiDoc(
      *  description="Change article 'status'",
@@ -206,10 +233,7 @@ class ArticleRestController extends FOSRestController
      *          "requirement"="\d+",
      *          "description"="Change Article status"
      *      }
-     *  },
-     * filters={
-     *      {"name"="article_id", "dataType"="integer"}
-     * }
+     *  }
      * )
      * @RestView()
      */
@@ -228,15 +252,30 @@ class ArticleRestController extends FOSRestController
         /* @var  $user \Ojs\UserBundle\Entity\User */
         switch ($field) {
             case 'orderNum':
-                $article->setIsActive($request->get('isActive'));
+                $article->setOrderNum($request->get('orderNum'));
                 break;
             case
-                'status':
+            'status':
                 $article->setStatus($request->get('status'));
                 break;
             default:
                 break;
         }
+        $em->flush();
+
+        return $article;
+    }
+
+    protected function upDownOrder($articleId, $up = true)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->findOneById($articleId);
+        if (!is_object($article)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+        /* @var  $user \Ojs\UserBundle\Entity\User */
+        $o = $article->getOrderNum();
+        $article->setOrderNum($up ? ($o + 1) : ($o - 1));
         $em->flush();
 
         return $article;

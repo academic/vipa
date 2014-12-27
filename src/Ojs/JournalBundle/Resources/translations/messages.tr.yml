@@ -290,3 +290,9 @@ reviewResultCodes:
     2: Major Revizyon
     3: Minor Revizyon
     4: Kabul
+
+page: 
+    plural: Sayfalar
+    singular: Sayfa
+    last: Son Sayfa
+    first: İlk Sayfa
