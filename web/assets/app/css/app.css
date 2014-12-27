@@ -1219,3 +1219,5 @@ div.user-menu div.user-menu-content:not(.active){
     padding: 3px;
     height: 34px !important;
 }
+
+.breadcrumb{margin-bottom:2px;}

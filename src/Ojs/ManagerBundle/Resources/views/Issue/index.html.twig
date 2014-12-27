@@ -1,5 +1,13 @@
 {% extends "::ojsbase.html.twig" %}
 
+{% block breadcrumb %}
+    {% set list = [
+                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+                { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans }
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body %} 
 
     <div class="row">
@@ -15,6 +23,7 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
+                                <span class="label label-info">Num. : {{entity.number}}</span><br>
                                 {% if entity.special%}
                                     <span class="btn btn-default btn-xs">
                                         <i class="fa fa-star" title="{{"special.issue"|trans}}" style="color:yellowgreen"></i> {{"special"|trans}}
@@ -23,7 +32,7 @@
                                 <a href="{{path("issue_manager_issue_view", { "issueId": entity.id }) }}">
                                     {{entity.title}} 
                                 </a>
-                                <span class="label label-info">Num. : {{entity.number}}</span>
+
                                 <span class="label label-default">Vol. : {{entity.volume}}</span>
                                 <span class="label label-default">{{"year"|trans}} : {{entity.year}}</span>
                                 <span class="label label-default" title="{{"date.publish"|trans}}">{{entity.datePublished|date('Y-m-d')}}</span>

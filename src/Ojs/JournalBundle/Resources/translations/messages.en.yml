@@ -298,3 +298,8 @@ reviewResultCodes:
     2: Major Revision
     3: Minor Revision
     4: Accept
+page: 
+    singular: Page
+    plural: Pages
+    last: Last Page
+    first: First Page
