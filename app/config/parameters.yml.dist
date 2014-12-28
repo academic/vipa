@@ -22,5 +22,5 @@ parameters:
         staticpage: Static Page
         aboutus: About Us
 
-    elasticsearch_host: 192.168.59.103
-    mongodb_host: 192.168.59.103
+    elasticsearch_host: 127.0.0.1
+    mongodb_host: 127.0.0.1
