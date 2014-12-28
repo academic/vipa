@@ -1,5 +1,8 @@
 Api documentation can be found under "http://<ojshost>/api/doc/", after installation.
 
+
+Api documentation can be found under "http://<ojshost>/api/doc/", after installation.
+
 ## /api/analytics/download/{entity}/{id}/ ##
 
 ### `GET` /api/analytics/download/{entity}/{id}/.{_format} ###
@@ -11,6 +14,7 @@ _Get object total download count_
 **_format**
 
   - Requirement: xml|json|html
+
 **entity**
 
 **id**
@@ -26,6 +30,7 @@ _Increment object download count_
 **_format**
 
   - Requirement: xml|json|html
+
 **entity**
 
 **id**
@@ -47,6 +52,7 @@ _Increment object view count_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **entity**
 
 **id**
@@ -64,6 +70,7 @@ _Get object total Views_
 **_format**
 
   - Requirement: xml|json|html
+
 **entity**
 
 **id**
@@ -81,6 +88,7 @@ _Get Specific Article_
 **_format**
 
   - Requirement: xml|json|html
+
 **id**
 
 
@@ -96,6 +104,7 @@ _Get citation data of an article_
 **_format**
 
   - Requirement: xml|json|html
+
 **id**
 
 
@@ -111,6 +120,7 @@ _Get Articles_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **page**
 
 **limit**
@@ -130,9 +140,10 @@ _Add bulk citation data to an article_
   - Requirement: \d+
   - Type: string
   - Description: json encoded citations
+ 
 **_format**
-
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -150,9 +161,10 @@ _Add a citation data to an article_
   - Requirement: \d+
   - Type: string
   - Description: raw citation in any format
+ 
 **_format**
-
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -208,6 +220,7 @@ _Delete a citation with it's settings_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -236,6 +249,7 @@ _Get Specific Journal_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -266,6 +280,7 @@ _Get Specific Journal Of Users Action_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -295,6 +310,7 @@ _Get Role Action_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -316,6 +332,7 @@ _Get Users with this role for this journal_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **roleId**
 
 **journalId**
@@ -359,6 +376,7 @@ _Get Users with this role_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **roleId**
 
 
@@ -394,6 +412,7 @@ _Get Test Action_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -415,6 +434,7 @@ _Get User Action_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **username**
 
 
@@ -436,6 +456,7 @@ _Get User Journals_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **username**
 
 
@@ -465,6 +486,7 @@ _Get User Roles_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **username**
 
 
@@ -520,6 +542,7 @@ _Update User Action_
   - Requirement: \d+
   - Type: integer
   - Description: user id
+ 
 **_format**
 
   - Requirement: xml|json|html
@@ -534,6 +557,7 @@ _Delete User Action_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **user_id**
 
 
@@ -555,9 +579,10 @@ _Change user 'isActive'_
   - Requirement: \d+
   - Type: boolean
   - Description: 0|1
+ 
 **_format**
-
   - Requirement: xml|json|html
+ 
 **user_id**
 
 
@@ -579,9 +604,11 @@ _Change user status_
   - Requirement: \d+
   - Type: integer
   - Description: new user status
+ 
 **_format**
 
   - Requirement: xml|json|html
+ 
 **user_id**
 
 
@@ -603,6 +630,7 @@ _Create new page_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **object**
 
 **type**
@@ -627,6 +655,7 @@ _Delete a page_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **id**
 
 
@@ -640,6 +669,7 @@ _Increment Article 'orderNum'_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **articleId**
 
 
@@ -653,6 +683,7 @@ _Increment Article 'orderNum'_
 **_format**
 
   - Requirement: xml|json|html
+ 
 **articleId**
 
 
@@ -668,9 +699,11 @@ _Change article 'orderNum'_
   - Requirement: \d+
   - Type: integer
   - Description: change Article issue order
+ 
 **_format**
 
   - Requirement: xml|json|html
+ 
 **article_id**
 
 
@@ -686,6 +719,7 @@ _Change article 'status'_
   - Requirement: \d+
   - Type: integer
   - Description: Change Article status
+ 
 **_format**
 
   - Requirement: xml|json|html
