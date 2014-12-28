@@ -18,7 +18,7 @@ As a company we [OkulBilişim](http://www.okulbilisim.com), analyze journal mana
 
 ## Installing
 
-Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/INSTALL.md)
+Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md)
 
 ## More information
 
