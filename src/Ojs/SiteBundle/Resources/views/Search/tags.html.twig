@@ -1,0 +1,59 @@
+{% set hideleft = 1 %}
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <hgroup class="page-header">
+            <h1>{{ "search.results"|trans }}</h1>
+
+            <h2 class="lead">
+                {% trans with {'%total%':total_count, '%term%':tag} %}
+                <strong class="text-danger">%total%</strong> results were found for the tag
+                for <strong class="text-danger">%term%</strong>
+                {% endtrans %}
+
+            </h2>
+        </hgroup>
+
+        <section class="col-xs-6 col-sm-6 col-md-9">
+            <div role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for key,result in results %}
+                        <li role="presentation" class="{% if loop.first %}in active{% endif %}">
+                            <a href="#content_{{ key }}" aria-controls="content_{{ key }}" role="tab"
+                               data-toggle="tab">
+                                {{ result.type }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="tab-content">
+                {% for key,result in results %}
+                    <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}" id="content_{{ key }}">
+                        <table class="table table-bordered">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                {% for res in result.data %}
+                                  <tr>
+                                      <td>
+                                          <a href="{{ getRoute(res) }}">{{ res|getDefinition }}</a>
+                                      </td>
+                                  </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <hr>
+    <small> &copy; Okulbilişim <a href="http://okulbilisim.com">okulbilisim.com</a></small>
+{% endblock %}

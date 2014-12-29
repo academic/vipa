@@ -1,3 +1,6 @@
 ojs_search_index:
     path:     /search/{page}
     defaults: { _controller: OjsSearchBundle:Default:index,page: 1 }
+ojs_search_tags:
+    path: /tag/{tag}
+    defaults: { _controller: OjsSearchBundle:Default:tag, page: 1 }

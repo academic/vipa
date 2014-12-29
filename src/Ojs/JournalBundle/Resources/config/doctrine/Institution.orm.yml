@@ -112,6 +112,9 @@ Ojs\JournalBundle\Entity\Institution:
            gedmo:
              blameable:
                on: update
+        tags:
+            type: string
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt

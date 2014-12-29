@@ -17,3 +17,4 @@
     phone: <tr_TR:phoneNumber()>
     address: <address()>
     institution_type: @i_type*
+    tags: <text(20)>, <text(10)>

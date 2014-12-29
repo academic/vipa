@@ -3,3 +3,4 @@
     subject: <current()>
     createdBy: @user1->username
     totalJournalCount: <numberBetween(1,30)>
+    tags: <text(20)>, <text(10)>

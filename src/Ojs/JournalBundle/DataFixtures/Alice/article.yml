@@ -14,3 +14,4 @@
     section: @section*
     issue: @issue*
     orderNum: <randomDigit()>
+    tags: <text(20)>, <text(10)>

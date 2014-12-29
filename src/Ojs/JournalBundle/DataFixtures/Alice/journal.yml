@@ -31,3 +31,4 @@
     subject: 5x @subject*
     status: '3'
     languages: 3x @lang*
+    tags: <text(20)>, <text(10)>

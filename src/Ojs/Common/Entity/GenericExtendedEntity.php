@@ -49,6 +49,7 @@ class GenericExtendedEntity implements Translatable
      */
     protected $updatedBy = "";
 
+    protected $tags='';
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
@@ -98,4 +99,24 @@ class GenericExtendedEntity implements Translatable
     {
         $this->updatedBy = $updatedBy;
     }
+
+    /**
+     * @return string
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param string $tags
+     * @return $this
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+
 }

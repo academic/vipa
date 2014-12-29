@@ -20,6 +20,7 @@ class OjsExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
+            new \Twig_SimpleFilter('getDefinition',[$this,'getDefinition'])
         );
     }
 
@@ -47,6 +48,7 @@ class OjsExtension extends \Twig_Extension
             'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
+            'getRoute'=>new \Twig_Function_Method($this, 'getRoute',[])
         );
     }
 
@@ -313,6 +315,65 @@ class OjsExtension extends \Twig_Extension
         return $user ? $user->getApiKey() : null;
     }
 
+    /**
+     * Get object definition field by object type.
+     * @param $object
+     */
+    public function getDefinition($object)
+    {
+        $fields = [
+            'username',
+            'title',
+            'name',
+            'subject',
+            'id'
+        ];
+        foreach ($fields as $field) {
+            if(property_exists($object,$field))
+                return $object->{'get'.strtoupper($field)}();
+        }
+    }
+
+    public function getRoute($object)
+    {
+        $routes = [
+            'ojs_institution_page'=>['slug'],
+            'ojs_journal_index'=>['journal','institution'],
+            'ojs_article_page'=>['slug','article_slug','institution'],
+        ];
+        $router = $this->container->get('router');
+
+        switch(get_class($object)){
+            case 'Ojs\JournalBundle\Entity\Issue':
+                return '#';
+                break;
+            case 'Ojs\JournalBundle\Entity\Journal':
+                return $router->generate('ojs_journal_index',[
+                    'slug'=>$object->getSlug(),
+                    'institution'=>$object->getInstitution()->getSlug()
+                ]);
+                break;
+            case 'Ojs\JournalBundle\Entity\Article':
+                return $router->generate('ojs_article_page',[
+                    'slug'=>$object->getJournal()->getSlug(),
+                    'article_slug'=>$object->getSlug(),
+                    'institution'=>$object->getJournal()->getInstitution()->getSlug()
+                ]);
+                break;
+            case 'Ojs\JournalBundle\Entity\Subject':
+                return $router->generate('ojs_journals_index',['subject'=>$object->getSlug()]);
+                break;
+            case 'Ojs\JournalBundle\Entity\Institution':
+                return $router->generate('ojs_institution_page',['slug'=>$object->getSlug()]);
+                break;
+            case 'Ojs\UserBundle\Entity\User':
+                return $router->generate('ojs_user_profile',['slug'=>$object->getUsername()]);
+                break;
+            default:
+                return '#';
+                break;
+        }
+    }
     public function getName()
     {
         return 'ojs_extension';

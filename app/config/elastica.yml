@@ -12,6 +12,7 @@ fos_elastica:
                         firstName: ~
                         lastName: ~
                         email: ~
+                        tags: ~
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
@@ -66,10 +67,50 @@ fos_elastica:
                             type: "object"
                             properties:
                                 title: ~
-
+                        tags: ~
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Article
                         provider: ~
                         listener: ~
+                        finder: ~
+                institution:
+                    mappings:
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Institution
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
+                issue:
+                    mappings:
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Issue
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
+                journal:
+                    mappings:
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Journal
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
+                subject:
+                    mappings:
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Subject
+                        provider: ~
+                        listener:
+                            immediate: ~
                         finder: ~

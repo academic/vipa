@@ -252,6 +252,9 @@ Ojs\JournalBundle\Entity\Journal:
              blameable:
                on: update
            nullable: true
+        tags:
+            type: string
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt
