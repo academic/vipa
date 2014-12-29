@@ -95,6 +95,9 @@ Ojs\UserBundle\Entity\User:
         deletedAt:
            type: date
            nullable: true
+        tags:
+            type: string
+            nullable: true
     manyToMany:
         subjects:
             targetEntity: Ojs\JournalBundle\Entity\Subject

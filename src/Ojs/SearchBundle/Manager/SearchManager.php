@@ -12,6 +12,10 @@ namespace Ojs\SearchBundle\Manager;
 use Elastica\Query;
 use Elastica\Query\Bool;
 use Elastica\Query\MultiMatch;
+use Elastica\Request;
+use Elastica\Result;
+use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
+use FOS\ElasticaBundle\Persister\ObjectPersister;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -39,6 +43,53 @@ class SearchManager
 
     }
 
+    public function tagSearch()
+    {
+        $search = $this->container->get('fos_elastica.index.search');
+        $query = new Query\Bool();
+        $must = new Query\Match();
+        $must->setField('tags',$this->getParam('term'));
+        $query->addMust($must);
+        $return_data = [];
+        $results = $search->search($query);
+        $count = 0;
+        foreach ($results as $result) {
+            /** @var Result $result $x */
+            if(!isset($return_data[$result->getType()]))
+                $return_data[$result->getType()]=['type','data'];
+            $return_data[$result->getType()]['type']=$this->getTypeText($result->getType());
+            if(isset($return_data[$result->getType()]['data'])):
+                $return_data[$result->getType()]['data'][]= $this->getObject($result);
+            else:
+                $return_data[$result->getType()]['data']= [$this->getObject($result)];
+            endif;
+
+            $count=$count+count($result->getData());
+        }
+        $this->setCount($count);
+        return $return_data;
+    }
+
+    public function getObject(Result $result)
+    {
+        $data = $this->container->get('fos_elastica.index.search');
+        $mapping = $data->getMapping();
+        $model = $mapping[$result->getType()]['_meta']['model'];
+        $qb= $this->container->get('doctrine.orm.entity_manager')->createQueryBuilder();
+        $data = $qb->from($model,'d')
+            ->select('d')
+            ->where($qb->expr()->eq('d.id',':id'))
+            ->setParameter('id',$result->getId())
+        ;
+        $cache = $data->getQuery()->getQueryCacheDriver();
+        if(!$cache->contains($result->getId()."-".$model))
+            $cache->save($result->getId()."-".$model,$data->getQuery()->getOneOrNullResult());
+        return $cache->fetch($result->getId()."-".$model);
+    }
+    public function getTypeText($type){
+        $translator = $this->container->get('translator');
+        return $translator->trans($type);
+    }
     public function search()
     {
         $finder = $this->container->get('fos_elastica.finder.search.articles');

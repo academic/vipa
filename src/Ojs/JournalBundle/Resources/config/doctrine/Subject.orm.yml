@@ -58,6 +58,9 @@ Ojs\JournalBundle\Entity\Subject:
            gedmo:
              blameable:
                on: update
+        tags:
+            type: string
+            nullable: true
     manyToMany:
         users:
             targetEntity: Ojs\UserBundle\Entity\User

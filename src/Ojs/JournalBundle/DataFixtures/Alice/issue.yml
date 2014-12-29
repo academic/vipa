@@ -7,3 +7,4 @@
     year: <randomDigit()>
     journal: @journal*
     special: <numberBetween(0, 1)>
+    tags: <text(20)>, <text(10)>
