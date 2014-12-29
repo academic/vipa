@@ -3,7 +3,7 @@
     "license": "MIT",
     "type": "project",
     "description": "Open Journal Systems",
-    "version": "0.0.1-alpha",
+    "version": "0.1.0",
     "keywords": ["ojs", "journal system", "open journal system"],
     "support": {
         "email": "info@okulbilisim.com"
