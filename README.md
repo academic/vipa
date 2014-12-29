@@ -2,9 +2,10 @@
 
 #Open Journal Software
 
-[![Build Status](https://travis-ci.org/okulbilisim/ojs.png?branch=master)](https://travis-ci.org/okulbilisim/ojs)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/okulbilisim/ojs/badges/quality-score.png?s=1f77d7ffae4541cee084070f5fb33819abd2c561)](https://scrutinizer-ci.com/g/okulbilisim/ojs/)
-[![License](https://poser.pugx.org/okulbilisim/ojs/license.png)](https://packagist.org/packages/okulbilisim/ojs)
+[![Build Status](https://img.shields.io/travis/okulbilisim/ojs/master.svg?style=flat-square)](https://travis-ci.org/okulbilisim/ojs)
+[![Quality Status](https://img.shields.io/scrutinizer/g/okulbilisim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/okulbilisim/ojs/)
+[![Software License](http://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+
 [![Latest Unstable Version](https://poser.pugx.org/okulbilisim/ojs/v/unstable.png)](https://packagist.org/packages/okulbilisim/ojs)
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11908.png)](http://dx.doi.org/10.5281/zenodo.11908)
 
