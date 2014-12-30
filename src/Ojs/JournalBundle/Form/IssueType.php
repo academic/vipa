@@ -18,7 +18,6 @@ class IssueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $journalId = $options['journalId'];
         $user = $options['user'];
         $builder
                 ->add('journal', 'entity', array(
