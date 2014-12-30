@@ -17,15 +17,15 @@ $.fn.serializeObject = function ()
 };
 
 $(document).ready(function () {
-    
-    
+
+
     $(document).on('pjax:send', function () {
         $('#loading').show()
     })
     $(document).on('pjax:complete', function () {
         $('#loading').hide()
     })
-    
+
     $('a[title]').tooltip();
     $(".select2").select2()
     $(".panel-heading.toggle-body").click(function () {
@@ -43,16 +43,18 @@ $(document).ready(function () {
             $('div.sidebar-collapse').removeClass('collapse');
         }
     });
-    $('#issuetree').treeview({
-        showTags: true,
-        data: alternateData,
-        onNodeSelected: function (event, node) {
-            /* @todo we should get issue content by ajax */
-            // $.pjax({url: node.href, container: '#issue-container'})
-                
-            console.log(node.text + ':' + node.href);
-        }
-    });
+    if ($('#issuetree').length>0) {
+        $('#issuetree').treeview({
+            showTags: true,
+            data: alternateData,
+            onNodeSelected: function (event, node) {
+                /* @todo we should get issue content by ajax */
+                // $.pjax({url: node.href, container: '#issue-container'})
+
+                console.log(node.text + ':' + node.href);
+            }
+        });
+    }
 
     var $btnSets = $('#responsive'),
             $btnLinks = $btnSets.find('a');

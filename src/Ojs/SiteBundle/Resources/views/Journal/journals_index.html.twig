@@ -12,23 +12,23 @@
             <div class="col-sm-3 col-md-3">
                 <div class="panel-group" id="accordion">
                     {% if institution=='' %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="fa fa-folder"></span> Kurum Türleri</a>
-                            </h4>
-                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        <span class="fa fa-folder"></span> Kurum Türleri</a>
+                                </h4>
+                            </div>
 
-                        <ul class="list-group">
-                            {% for institution_type in institution_types %}
-                                <li class="list-group-item">
-                                    <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution_type', institution_type.slug) }}">{{institution_type.name}}</a>
-                                    <!-- span class="badge pull-right">130</span -->
-                                </li>
-                            {% endfor%}
-                        </ul>
-                    </div>
+                            <ul class="list-group">
+                                {% for institution_type in institution_types %}
+                                    <li class="list-group-item">
+                                        <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution_type', institution_type.slug) }}">{{institution_type.name}}</a>
+                                        <!-- span class="badge pull-right">130</span -->
+                                    </li>
+                                {% endfor%}
+                            </ul>
+                        </div>
                     {% endif %}
 
                     <div class="panel panel-default">
@@ -39,12 +39,14 @@
                             </h4>
                         </div>
                         <ul class="list-group">
-                            {% for subject in subjects %}
-                                <li class="list-group-item">
-                                    <a href="{{ path("ojs_journals_index" , {start:start , offset: offset }) }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
-                                    <span class="label label-success pull-right">{{subject.totalJournalCount}}</span>
-                                </li>
-                            {% endfor %}
+                            {% if subjects %}
+                                {% for subject in subjects %}
+                                    <li class="list-group-item">
+                                        <a href="{{ path("ojs_journals_index" , {start:start , offset: offset }) }}?{{ addFilters('subject',subject.slug) }}">{{subject.subject}}</a>
+                                        <span class="label label-success pull-right">{{subject.totalJournalCount}}</span>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
                         </ul>
                     </div>
 
@@ -79,20 +81,20 @@
                                 </div>
                             </div>
                         </div>
-                        {% else %}
+                    {% else %}
                         <div class="alert alert-info">
                             No Content
                         </div>
                     {% endfor %}
                 </div>
                 {% if totalPageCount>0 %}
-                <div class="row">
-                    <ul class="pagination">
-                        {% for p in 0..totalPageCount-1 %}
-                            <li><a href="{{ url('ojs_journals_index',{start:p*offset, offset: offset }) }}?{{ addFilters() }}">{{ p+1 }}</a></li>
-                        {% endfor %}
+                    <div class="row">
+                        <ul class="pagination">
+                            {% for p in 0..totalPageCount-1 %}
+                                <li><a href="{{ url('ojs_journals_index',{start:p*offset, offset: offset }) }}?{{ addFilters() }}">{{ p+1 }}</a></li>
+                                {% endfor %}
                         </ul>
-                </div>
+                    </div>
                 {% endif %}
             </div>
 
