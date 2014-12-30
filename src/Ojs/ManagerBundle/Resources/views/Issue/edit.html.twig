@@ -3,45 +3,54 @@
 {% block body %} 
 
     <div class="row">
-        <div class="panel">
-            <h1>{{"issue.edit"|trans}}
-                <small>
-                    <br>vol : {{issue.volume}} 
-                    <br>number : {{issue.number}}
-                    <br>title: {{issue.title}} 
-                    {{journal.title}}
-                </small>
-            </h1>
-            {% for article in articles %}
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
-                            {{article.title}}
-                        </a> 
-                        <div class="row form-inline">
-                            <div class="col-md-12"> 
-                                {{"page.plural"|trans}} : 
-                                <input value="{{article.firstPage}}" class="input-sm form-control" style="width:80px" type="number">
-                                <input value="{{article.lastPage}}" class="input-sm form-control" style="width:80px" type="number">
-                            </div>
-                            <div class="col-md-12"> 
-                                <br>
-                                {{"order"|trans}}:
-                                <input class="form-control input-sm" value="{{article.orderNum}}" type="number" style="width:50px">
-                            </div>
-                        </div>
-                    </div>
+        <h1>{{"issue.edit"|trans}} </h1>
+        <ul>
+            <li>Journal : <strong>{{journal.title}}</strong> </li>
+            <li>Volume : <strong>{{issue.volume}}</strong> </li>
+            <li>Number : <strong>{{issue.number}}</strong></li>
+            <li>Title : <strong>{{issue.title}}</strong></li>
+            <li>Year : <strong>{{issue.year}}</strong> </li>
+            <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
+        </ul>
 
-                </div>
-            {% endfor %}
-            <hr>
-            <a href="#" class="btn btn-primary">
-                <i class="fa fa-save"></i> {{"save"|trans}}
-            </a>
-            <a href="#" class="btn btn-warning">
-                Cancel
-            </a> 
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{"order"|trans}}</th>
+                    <th>{{"article.singular"|trans}}</th>
+                    <th>{{"page.first"|trans}}</th>
+                    <th>{{"page.last"|trans}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td>                            
+                            <input class="form-control input-sm" value="{{article.orderNum}}" type="number" style="width:50px">
+                        </td>
+                        <td><a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                                {{article.title}}
+                            </a>
+                        </td>
+                        <td>
+                            <input value="{{article.firstPage}}" class="input-sm form-control" style="width:80px" type="number">
+                        </td>
+                        <td>
+                            <input value="{{article.lastPage}}" class="input-sm form-control" style="width:80px" type="number">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
     </div>
+    <hr>
+    <a href="#" class="btn btn-primary">
+        <i class="fa fa-save"></i> {{"save"|trans}}
+    </a>
+    <a href="#" class="btn btn-warning">{{"cancel"|trans}}</a> 
+</div>
+</div>
 
 {% endblock %}

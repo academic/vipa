@@ -2,6 +2,20 @@ Ojs\JournalBundle\Entity\Issue:
     type: entity
     table: null
     repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
+    manyToMany:
+        sections:
+            targetEntity: JournalSection
+            #inversedBy: issues
+            joinTable:
+              inverseJoinColumns:
+                section_id:
+                  referencedColumnName: id
+              joinColumns:
+                issue_id:
+                  referencedColumnName: id
+              name: Issue_JournalSection   
+              cascade: ["persist", "merge"]
+              fetch: LAZY
     oneToMany:
         articles:
           targetEntity: Article

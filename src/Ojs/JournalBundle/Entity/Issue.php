@@ -7,6 +7,7 @@ namespace Ojs\JournalBundle\Entity;
  */
 class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 {
+
     /**
      * @var integer
      */
@@ -68,6 +69,22 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
      * @var \Doctrine\Common\Collections\Collection
      */
     private $articles;
+
+    /**
+     * @var string
+     */
+    private $header;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sections;
+
+    public function __construct()
+    {
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -346,15 +363,38 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->articles;
     }
 
-    public function __toString()
+    /**
+     * Add section to issue
+     *
+     * @param  \Ojs\JournalBundle\Entity\JournalSection $article
+     * @return Language
+     */
+    public function addSection(\Ojs\JournalBundle\Entity\JournalSection $section)
     {
-        return $this->getTitle()."[#{$this->getId()}]";
+        $this->sections[] = $section;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Remove section from issue
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalSection $section
      */
-    private $header;
+    public function removeSection(\Ojs\JournalBundle\Entity\JournalSection $section)
+    {
+        $this->articles->removeElement($section);
+    }
+
+    /**
+     * Get secitons
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->articles;
+    }
 
     /**
      * @return string
@@ -373,4 +413,14 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->header = $header;
         return $this;
     }
+
+    /**
+     * Return formatted issue title and id eg. :  "Issue title [#id]"
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTitle() . "[#{$this->getId()}]";
+    }
+
 }
