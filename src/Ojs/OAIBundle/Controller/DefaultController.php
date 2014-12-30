@@ -2,13 +2,33 @@
 
 namespace Ojs\OAIBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $verb = $request->get('verb');
+        switch($verb){
+            case 'Identify':
+                return $this->identifyAction($request);
+                break;
+            case 'ListRecords':
+                return $this->recordsAction($request);
+                break;
+            case 'ListSets':
+                return $this->listSetsAction($request);
+                break;
+            case 'ListMetadataFormats':
+                return $this->listMetadataFormatsAction($request);
+                break;
+            case 'ListIdentifiers':
+                return $this->listIdentifierAction($request);
+                break;
+        }
         return $this->render('OjsOAIBundle:Default:index.html.twig');
     }
 
@@ -17,7 +37,7 @@ class DefaultController extends Controller
         return new Response();
     }
 
-    public function recordsAction()
+    public function recordsAction(Request $request)
     {
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -28,7 +48,7 @@ class DefaultController extends Controller
         return $this->render('OjsOAIBundle:Default:records.html.twig', $data);
     }
 
-    public function listSetsAction()
+    public function listSetsAction(Request $request)
     {
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */

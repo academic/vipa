@@ -10,7 +10,7 @@
                     <setSpec>:Articles</setSpec>
                 </header>
                 <metadata>
-                    <oai_dc:dc
+                    <{{ metadataPrefix() }}:dc
                             xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
                             xmlns:dc="http://purl.org/dc/elements/1.1/"
                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -36,7 +36,7 @@
                         <dc:relation>http://dergipark.ulakbim.gov.tr/ibuama/article/view/5000033147/pdf_47</dc:relation>
                         <dc:rights xml:lang="en-US">
                         </dc:rights>
-                    </oai_dc:dc>
+                    </{{ metadataPrefix() }}:dc>
                 </metadata>
             </record>
         {% endfor %}
