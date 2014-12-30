@@ -5,76 +5,205 @@
 {% block body %}
 
     <div class="container">
+        {% block journalheader %}
+            <div class="page-header">
+                {% set imageoptions=getImageOptions(journal,'header') %}
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/1200x300/random/text:{{journal.title}}" alt="" class="img-responsive" />
+                <h1>{{journal.title}} <small>{{ journal.titleAbbr }}</small></h1>
+                <h6>{{journal.subtitle}} <small>{{ journal.titleTransliterated }}</small></h6>
+
+            </div>
+        {% endblock %}
+        <div class="row">
+            <div class="col-md-2">
+                {% set imageoptions=getImageOptions(journal,'cover') %}
+
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/120x180/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+            </div>
+
+            <div class="col-md-4">
+                <h5>{{"scope"|trans}}</h5>
+                <p>
+                    {{journal.scope}}
+                </p>
+            </div>
+            <div class="col-md-3">
+
+                <h5>{{"mission"|trans}}</h5>
+                <p>
+                    {{journal.mission}}
+                </p>
+            </div>
+            <div class="col-md-3">
+                <div class="list-group journal-stats">
+                    <a href="#" class="list-group-item visitor">
+                        <h3 class="pull-right">
+                            <i class="fa fa-eye"></i>
+                        </h3>
+                        <h4 class="list-group-item-heading count">
+                            1000</h4>
+                        <p class="list-group-item-text">
+                            Journal Views</p>
+                    </a><a href="#" class="list-group-item facebook-like">
+                        <h3 class="pull-right">
+                            <i class="fa fa-facebook-square"></i>
+                        </h3>
+                        <h4 class="list-group-item-heading count">
+                            1000</h4>
+                        <p class="list-group-item-text">
+                            Facebook Likes</p>
+                    </a><a href="#" class="list-group-item google-plus">
+                        <h3 class="pull-right">
+                            <i class="fa fa-google-plus-square"></i>
+                        </h3>
+                        <h4 class="list-group-item-heading count">
+                            1000</h4>
+                        <p class="list-group-item-text">
+                            Google+</p>
+                    </a><a href="#" class="list-group-item twitter">
+                        <h3 class="pull-right">
+                            <i class="fa fa-twitter-square"></i>
+                        </h3>
+                        <h4 class="list-group-item-heading count">
+                            1000</h4>
+                        <p class="list-group-item-text">
+                            Twitter Followers</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p class="text-default">
+                    <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{journal.issn}}</span>
+                    <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{journal.eissn}}</span>
+                </p>
+            </div>
+
+            <div class="col-md-8">
+                <dl>
+                    <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span>{%endfor%}</dd>
+                    <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
+                    <dt>{{"period"|trans}}</dt><dd>{{ journal.period }}</dd>
+                    <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
+                    <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <h4 class="page-header"><span class="panel-title">{{"issues"|trans}}</span></h4>
+                <div class="col-md-3">
+
+                    <div id="issuetree"></div>
+                    <script>
+                        var alternateData = [
+                            {
+                                text: 'Parent 1',
+                                tags: ['2'],
+                                nodes: [
+                                    {
+                                        text: 'Child 1',
+                                        tags: ['3'],
+                                        nodes: [
+                                            {
+                                                text: 'Grandchild 1',
+                                                tags: ['6']
+                                            },
+                                            {
+                                                text: 'Grandchild 2',
+                                                tags: ['3']
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        text: 'Child 2',
+                                        tags: ['3']
+                                    }
+                                ]
+                            },
+                            {
+                                text: 'Parent 2',
+                                tags: ['7']
+                            },
+                            {
+                                text: 'Parent 3',
+                                icon: 'glyphicon glyphicon-earphone',
+                                href: '#demo',
+                                tags: ['11']
+                            },
+                            {
+                                text: 'Issue 2',
+                                icon: 'glyphicon glyphicon-cloud-download',
+                                href: '{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}',
+                                tags: ['19'],
+                                selected: false
+                            },
+                            {
+                                text: 'Issue 1',
+                                icon: 'glyphicon glyphicon-certificate',
+                                color: 'pink',
+                                backColor: 'green',
+                                href: 'http://www.hmert.com',
+                                tags: ['available', '0']
+                            }
+                        ];
+                    </script>
+                    <hr/>
+                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+
+                </div>
+                <div class="col-md-9" id="issue-container">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Issue 9</div>
+                        <div class="panel-body">
+                            <h4 class="page-header">Preface</h4>
+                            <ul class="list-unstyled">
+                                <li><input type="checkbox"> Preface
+                                    Page 1
+                                    PDF (118 K)
+                                </li>
+                            </ul>
+
+                            <h4 class="page-header">Sports Engineering</h4>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <input type="checkbox"> An Integrated Computer Assisted Training System for the Baseball Defense Concepts and CasesOriginal Research Article
+                                    Pages 2-8
+                                    Chueh-Wei Chang, Shih-Yang Lee, Shih-Kuei Huang, Chin-Long Yang
+                                    Abstract PDF (779 K)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            footer
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
         <div class="row">
-            <div class="col-md-12 text-center">
-                {% set imageoptions=getImageOptions(journal,'header') %}
-
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
-            </div>
-        </div>
-        <div class="page-header">
-            <h1>{{journal.title}} <small>{{ journal.titleAbbr }}</small></h1>
-            <h6>{{journal.subtitle}} <small>{{ journal.titleTransliterated }}</small></h6>
-        </div>
-
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="row">
-                <div class="col-md-4">
-                    {% set imageoptions=getImageOptions(journal,'cover') %}
-
-                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
-                </div>
-
-                <div class="col-md-4">
-                    <h3>{{"scope"|trans}}</h3>
-                    <p class="text-default">
-                        {{journal.scope}}
-                    </p>
-                    <h3>{{"mission"|trans}}</h3>
-                    <p class="text-default">
-                        {{journal.mission}}
-                    </p>
-                    <h3>{{"scope"|trans}}</h3>
-                    <p class="text-default">
-                        {{ journal.scope }}
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <a href="{{ url('ojs_last_articles_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn btn-alt btn-xs btn-sky"><i class="fa fa-eye"></i> {{"read.lastissue"|trans}}</a>
-                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn btn-alt btn-xs btn-sunny"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
-                    <p class="text-default">
-                        <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{journal.issn}}</span>
-                        <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{journal.eissn}}</span>
-                    </p>
-                    <dl>
-                        <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span>{%endfor%}</dd>
-                        <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
-                        <dt>{{"period"|trans}}</dt><dd>{{ journal.period }}</dd>
-                        <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                        <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
-                    </dl>  
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
-                    <p>
-                        {% for key,user in users %}
-                            <strong>{{ key|trans }}</strong> <br/>
-                            {% for u in user %}
-                                {{ u.title }} {{ u.fullName }}<br/>
-                            {% endfor %}
-                            <br/>
+            <div class="col-md-12">
+                <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
+                <p>
+                    {% for key,user in users %}
+                        <strong>{{ key|trans }}</strong> <br/>
+                        {% for u in user %}
+                            {{ u.title }} {{ u.fullName }}<br/>
                         {% endfor %}
-                    </p>
-                </div>
+                        <br/>
+                    {% endfor %}
+                </p>
             </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
-        </div>
+        {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
+
     </div>
 
 {% endblock %}
