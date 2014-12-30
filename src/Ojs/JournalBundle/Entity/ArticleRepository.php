@@ -32,4 +32,24 @@ class ArticleRepository extends EntityRepository
         }
     }
 
+    /**
+     * Get article list by issue_id with orderNum attribute ordered 
+     * @param \Ojs\JournalBundle\Entity\Issue $issue
+     */
+    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 1)
+    {
+        $q = $this->createQuery('SELECT a FROM OjsJournalBundle:Article a WHERE issueId = ?1 '
+                        . ' ORDER BY orderNum ?2')
+                ->setParameter(1, $issue->getId())
+                ->setParameter(2, ($asc ? 'ASC' : 'DESC'))
+                ->getQuery();
+        try {
+            $articles = $q->getResult();
+            return $articles;
+        } catch (NoResultException $e) {
+            return false;
+        }
+        return false;
+    }
+
 }
