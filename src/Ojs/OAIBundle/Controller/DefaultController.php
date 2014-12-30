@@ -43,7 +43,37 @@ class DefaultController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $records = $em->getRepository('OjsJournalBundle:Article')->findAll();
+        $from = $request->get('from',false);
+        $until = $request->get('until',false);
+        $qb = $em->createQueryBuilder();
+        $qb->select("a")
+            ->from("OjsJournalBundle:Article",'a')
+        ;
+        if($from){
+            $_from = new \DateTime();
+            $_from->setTimestamp(strtotime($from));
+            $qb->where(
+                $qb->expr()->gte('a.created',':from')
+            )
+                ->setParameter('from',$_from)
+            ;
+        }
+        if($until){
+            $_until = new \DateTime();
+            $_until->setTimestamp(strtotime($until));
+            $condition = $qb->expr()->lte('a.created',':until');
+            if($from){
+                $qb->andWhere(
+                    $condition
+                );
+            }else{
+                $qb->where(
+                    $condition
+                );
+            }
+            $qb->setParameter('until',$_until);
+        }
+        $records = $qb->getQuery()->getResult();
         $data['records'] = $records;
         return $this->render('OjsOAIBundle:Default:records.html.twig', $data);
     }
@@ -53,7 +83,37 @@ class DefaultController extends Controller
         $data = [];
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $sets = $em->getRepository('OjsJournalBundle:Journal')->findAll();
+        $from = $request->get('from',false);
+        $until = $request->get('until',false);
+        $qb = $em->createQueryBuilder();
+        $qb->select("j")
+            ->from("OjsJournalBundle:Journal",'j')
+        ;
+        if($from){
+            $_from = new \DateTime();
+            $_from->setTimestamp(strtotime($from));
+            $qb->where(
+                $qb->expr()->gte('j.created',':from')
+            )
+                ->setParameter('from',$_from)
+            ;
+        }
+        if($until){
+            $_until = new \DateTime();
+            $_until->setTimestamp(strtotime($until));
+            $condition = $qb->expr()->lte('j.created',':until');
+            if($from){
+                $qb->andWhere(
+                    $condition
+                );
+            }else{
+                $qb->where(
+                    $condition
+                );
+            }
+            $qb->setParameter('until',$_until);
+        }
+        $sets = $qb->getQuery()->getResult();
         $data['records'] = $sets;
         return $this->render('OjsOAIBundle:Default:sets.html.twig',$data);
     }
