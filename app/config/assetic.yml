@@ -32,6 +32,8 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap/dist/js/bootstrap.min.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-dialog/dist/js/bootstrap-dialog.min.js
                     - %kernel.root_dir%/../web/vendor/holderjs/holder.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap-treeview/dist/bootstrap-treeview.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery-pjax/jquery.pjax.js
                     - %kernel.root_dir%/../web/assets/app/js/jsglobals.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/js/bootstrap-tour-standalone.min.js
                     - @OkulbilisimFeedbackBundle/Resources/public/js/feedback.js

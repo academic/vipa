@@ -37,6 +37,8 @@
         "holderjs": "*",
         "jquery-sortable": "*",
 	"raphael":"*",
-	"bootstrap-tagsinput": "*"
+	"bootstrap-tagsinput": "*",
+        "bootstrap-treeview":"*",
+        "jquery-pjax":"*"
     }
 }

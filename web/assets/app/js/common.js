@@ -1,12 +1,31 @@
 // to serialize form data as Json object
 $.fn.serializeObject = function ()
 {
-    var o = {};var a = this.serializeArray();
-    $.each(a, function () {if (o[this.name] !== undefined) {if (!o[this.name].push) {o[this.name] = [o[this.name]];}o[this.name].push(this.value || '');} else {o[this.name] = this.value || '';}});
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
     return o;
 };
 
 $(document).ready(function () {
+    
+    
+    $(document).on('pjax:send', function () {
+        $('#loading').show()
+    })
+    $(document).on('pjax:complete', function () {
+        $('#loading').hide()
+    })
+    
     $('a[title]').tooltip();
     $(".select2").select2()
     $(".panel-heading.toggle-body").click(function () {
@@ -24,7 +43,16 @@ $(document).ready(function () {
             $('div.sidebar-collapse').removeClass('collapse');
         }
     });
-
+    $('#issuetree').treeview({
+        showTags: true,
+        data: alternateData,
+        onNodeSelected: function (event, node) {
+            /* @todo we should get issue content by ajax */
+            // $.pjax({url: node.href, container: '#issue-container'})
+                
+            console.log(node.text + ':' + node.href);
+        }
+    });
 
     var $btnSets = $('#responsive'),
             $btnLinks = $btnSets.find('a');
