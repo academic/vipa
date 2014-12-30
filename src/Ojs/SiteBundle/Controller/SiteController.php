@@ -115,6 +115,7 @@ class SiteController extends Controller
         }else{
             $subjects = $subjectRepo->findAll();
         }
+        $data["subjects"] = array();
 
         foreach ($subjects as $subject) {
             if ($subject->getTotalJournalCount() > 0) {
