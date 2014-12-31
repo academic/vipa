@@ -12,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
+use Noxlogic\RateLimitBundle\Annotation\RateLimit;
 
 class ArticleRestController extends FOSRestController
 {
@@ -23,6 +24,7 @@ class ArticleRestController extends FOSRestController
      *  description="Get Articles"
      * )
      * @Get("/articles/bulk/{page}/{limit}")
+     * @RateLimit(limit=1000, period=3600)
      */
     public function getArticlesAction($page = 0, $limit = 10)
     {
