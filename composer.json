@@ -52,7 +52,8 @@
         "tackk/cartographer": "1.0.*",
         "stfalcon/tinymce-bundle": "dev-master",
         "okulbilisim/cms-bundle": "dev-master",
-        "unifik/database-config-bundle": "dev-master"
+        "unifik/database-config-bundle": "dev-master",
+        "noxlogic/ratelimit-bundle": "1.x"
 
     },
     "require-dev": {

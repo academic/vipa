@@ -55,3 +55,5 @@ h4cc_alice_fixtures:
 
             schema_tool: null
             doctrine: mongodb-odm
+noxlogic_rate_limit:
+    enabled: false
