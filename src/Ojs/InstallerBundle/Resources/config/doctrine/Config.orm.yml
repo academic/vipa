@@ -1,0 +1,44 @@
+Ojs\InstallerBundle\Entity\Config:
+  type: entity
+  repositoryClass: Ojs\InstallBundle\Entity\ConfigRepository
+  id:
+    id:
+      id: true
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    database_driver:
+      type: string
+    database_host:
+      type: string
+    database_port:
+      type: string
+    database_name:
+      type: string
+    database_user:
+      type: string
+    database_password:
+      type: string
+    system_email:
+      type: string
+    mailer_transport:
+      type: string
+    mailer_host:
+      type: string
+    mailer_user:
+      type: string
+    mailer_password:
+      type: string
+    locale:
+      type: string
+    secret:
+      type: string
+    base_host:
+      type: string
+    post_types:
+      type: string
+    elasticsearch_host:
+      type: string
+    mongodb_host:
+      type: string
