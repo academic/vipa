@@ -51,7 +51,8 @@
     	"okulbilisim/feedback-bundle": "dev-master",
         "tackk/cartographer": "1.0.*",
         "stfalcon/tinymce-bundle": "dev-master",
-        "okulbilisim/cms-bundle": "dev-master"
+        "okulbilisim/cms-bundle": "dev-master",
+        "unifik/database-config-bundle": "dev-master"
 
     },
     "require-dev": {
