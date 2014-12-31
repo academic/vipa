@@ -1,15 +1,15 @@
 ojs_installer_homepage:
-    path: /installer
-    defaults: { _controller: OjsInstallerBundle:Default:index }
+    path: /install
+    defaults: { _controller: OjsInstallerBundle:Home:index }
 ojs_installer_check:
-    path: /installer/check
-    defaults: { _controller: OjsInstallerBundle:Default:check }
+    path: /install/check
+    defaults: { _controller: OjsInstallerBundle:Check:check }
 ojs_installer_configure:
-    path: /installer/configure
-    defaults: { _controller: OjsInstallerBundle:Default:configure }
+    path: /install/configure
+    defaults: { _controller: OjsInstallerBundle:Config:configure }
 ojs_installer_setup:
-    path: /installer/setup
-    defaults: { _controller: OjsInstallerBundle:Default:setup }
+    path: /install/setup
+    defaults: { _controller: OjsInstallerBundle:Setup:setup }
 ojs_installer_summary:
-    path: /installer/summary
-    defaults: { _controller: OjsInstallerBundle:Default:index }
+    path: /install/summary
+    defaults: { _controller: OjsInstallerBundle:Summary:summary }
