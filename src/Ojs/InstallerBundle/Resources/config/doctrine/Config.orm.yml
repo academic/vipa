@@ -20,16 +20,21 @@ Ojs\InstallerBundle\Entity\Config:
       type: string
     database_password:
       type: string
+      nullable: true
     system_email:
       type: string
     mailer_transport:
       type: string
+      nullable: true
     mailer_host:
       type: string
+      nullable: true
     mailer_user:
       type: string
+      nullable: true
     mailer_password:
       type: string
+      nullable: true
     locale:
       type: string
     secret:

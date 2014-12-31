@@ -500,4 +500,28 @@ class Config
     {
         return $this->mongodb_host;
     }
+
+    public function toArray(){
+        return [
+            'parameters'=>[
+                'database_driver'=>$this->getDatabaseDriver(),
+                'database_host'=>$this->getDatabaseHost(),
+                'database_port'=>$this->getDatabasePort(),
+                'database_name'=>$this->getDatabaseName(),
+                'database_user'=>$this->getDatabaseUser(),
+                'system_email'=>$this->getSystemEmail(),
+                'mailer_transport'=>$this->getMailerTransport(),
+                'mailer_host'=>$this->getMailerHost(),
+                'mailer_user'=>$this->getMailerUser(),
+                'mailer_password'=>$this->getMailerPassword(),
+                'locale'=>$this->getLocale(),
+                'secret'=>$this->getSecret(),
+                'base_host'=>$this->getBaseHost(),
+                'post_types'=>($this->getPostTypes()!=""?json_decode($this->getPostTypes(),true):[]),
+                'elasticsearch_host'=>$this->getElasticsearchHost(),
+                'mongodb_host'=>$this->getMongodbHost()
+
+            ]
+        ];
+    }
 }

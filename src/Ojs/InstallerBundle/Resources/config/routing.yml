@@ -7,6 +7,9 @@ ojs_installer_check:
 ojs_installer_configure:
     path: /install/configure
     defaults: { _controller: OjsInstallerBundle:Config:configure }
+ojs_installer_save_configure:
+    path: /install/saveconfiguration
+    defaults: { _controller: OjsInstallerBundle:Config:save }
 ojs_installer_setup:
     path: /install/setup
     defaults: { _controller: OjsInstallerBundle:Setup:setup }
