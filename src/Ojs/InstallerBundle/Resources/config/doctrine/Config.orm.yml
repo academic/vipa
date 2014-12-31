@@ -1,6 +1,6 @@
 Ojs\InstallerBundle\Entity\Config:
   type: entity
-  repositoryClass: Ojs\InstallBundle\Entity\ConfigRepository
+  repositoryClass: Ojs\InstallerBundle\Entity\ConfigRepository
   id:
     id:
       id: true
