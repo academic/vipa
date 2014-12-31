@@ -17,8 +17,7 @@ class ConfigController extends Controller {
     public function configureAction(Request $request) {
         $data=[];
         $data['data']['page'] = 'config';
-        $parametersFile = dirname($request->server->get('DOCUMENT_ROOT').'../')
-            .'/app/config/parameters.yml';
+        $parametersFile = __DIR__.'/../../../../app/config/parameters.yml';
         $parametersFileDist = $parametersFile.'.dist';
         $formData = new Config();
         $parser = new Parser();
