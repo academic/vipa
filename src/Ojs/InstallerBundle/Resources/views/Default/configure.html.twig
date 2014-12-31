@@ -2,7 +2,23 @@
 {% block body -%}
     <div class="row">
         <div class="col-md-12">
-        {{ form_widget(form) }}
+            {{ form_start(form) }}
+            {% for label, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-primary">
+                {{ "save"|trans }}
+            </button>
+            {{ form_end(form) }}
+
         </div>
     </div>
 {% endblock %}
