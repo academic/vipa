@@ -502,6 +502,10 @@ class Config
     }
 
     public function toArray(){
+        $posttypes = json_decode($this->getPostTypes(),true);
+        if(!is_array($posttypes))
+            $posttypes = json_decode($posttypes,true); //@todo i can't understand why its need double decode.
+
         return [
             'parameters'=>[
                 'database_driver'=>$this->getDatabaseDriver(),
@@ -509,6 +513,7 @@ class Config
                 'database_port'=>$this->getDatabasePort(),
                 'database_name'=>$this->getDatabaseName(),
                 'database_user'=>$this->getDatabaseUser(),
+                'database_password'=>$this->getDatabasePassword(),
                 'system_email'=>$this->getSystemEmail(),
                 'mailer_transport'=>$this->getMailerTransport(),
                 'mailer_host'=>$this->getMailerHost(),
@@ -517,10 +522,9 @@ class Config
                 'locale'=>$this->getLocale(),
                 'secret'=>$this->getSecret(),
                 'base_host'=>$this->getBaseHost(),
-                'post_types'=>($this->getPostTypes()!=""?json_decode($this->getPostTypes(),true):[]),
+                'post_types'=>$posttypes?$posttypes:[],
                 'elasticsearch_host'=>$this->getElasticsearchHost(),
                 'mongodb_host'=>$this->getMongodbHost()
-
             ]
         ];
     }
