@@ -53,8 +53,7 @@ class ConfigController extends Controller {
         if ($form->isValid()) {
 
             $dumper = new Dumper();
-
-            $yaml = $dumper->dump($entity->toArray(),2,2);
+            $yaml = $dumper->dump($entity->toArray(),2,0);
             $parametersFile = __DIR__.'/../../../../app/config/parameters.yml';
             $fs = new Filesystem();
             $fs->dumpFile($parametersFile,$yaml);
