@@ -1,0 +1,13 @@
+save: Kaydet
+installer.welcome.title: 'Ojs Kurulumuna Hoşgeldiniz'
+installer.welcome.message: 'Hoşgeldiniz Mesajı'
+installer.check_configuration: 'Ayarları Kontrol Et'
+installer.setup: Kurulum
+installer.congrat: Tebrikler
+'OJS Setup': 'OJS Kurulumu'
+installer.menu.home: Başlangıç
+installer.menu.check: Kontrol
+installer.menu.configure: Ayarlar
+installer.menu.setup: Kurulum
+installer.menu.summary: Özet
+installer.gohome: Siteye Git

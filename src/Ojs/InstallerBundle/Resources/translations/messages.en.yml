@@ -1,0 +1,13 @@
+save: Save
+installer.welcome.title: 'Welcome to OJS Web Installer'
+installer.welcome.message: 'Welcome message'
+installer.check_configuration: 'Check Configuration'
+installer.setup: Setup
+installer.congrat: 'Congrat! Installation has completed.'
+'OJS Setup': '__OJS Setup'
+installer.menu.home: Home
+installer.menu.check: Check
+installer.menu.configure: Configure
+installer.menu.setup: Setup
+installer.menu.summary: Summary
+installer.gohome: Go Home Yanky!
