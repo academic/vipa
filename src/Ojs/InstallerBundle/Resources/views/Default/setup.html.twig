@@ -2,7 +2,34 @@
 {% block body -%}
     <div class="row">
         <div class="col-md-12">
+            <h1>{{ "installer.setup"|trans }}</h1>
+            <div class="form-group">
+                <textarea name="resultarea" id="resultarea" class="uneditable-textarea form-control" rows="10">
+{{ schema_update }}
+---
+{{ role_insert }}
+                </textarea>
 
+            </div>
+        </div>
+        <div class="col-md-12">
+            <h1>{{ "installer.create_admin" }}</h1>
+            {{ form_start(user_form) }}
+            {% for label, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {{ form_errors(user_form) }}
+            {{ form_widget(user_form) }}
+
+            <button type="submit" class="btn btn-primary">
+                {{ "save"|trans }}
+            </button>
+            {{ form_end(user_form) }}
         </div>
     </div>
 {% endblock %}

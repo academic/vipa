@@ -13,6 +13,9 @@ ojs_installer_save_configure:
 ojs_installer_setup:
     path: /install/setup
     defaults: { _controller: OjsInstallerBundle:Setup:setup }
+ojs_installer_create_admin:
+    path: /install/createadmin
+    defaults: { _controller: OjsInstallerBundle:Setup:createUser }
 ojs_installer_summary:
     path: /install/summary
     defaults: { _controller: OjsInstallerBundle:Summary:summary }
