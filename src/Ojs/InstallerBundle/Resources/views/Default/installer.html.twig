@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>OJS Setup</title>
+        <title>{{ "OJS Setup"|trans }}</title>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -105,14 +105,16 @@
             <div class="header">
                 <nav>
                     <ul class="nav nav-pills pull-right">
-                        <li role="presentation" {%if data.page == 'home' %}class="active"{% endif%}><a href="{{ url('ojs_installer_homepage') }}">1. Home</a></li>
-                        <li role="presentation" {%if data.page == 'check' %}class="active"{% endif%}><a href="{{ url('ojs_installer_check') }}">2. Check</a></li>
-                        <li role="presentation" {%if data.page == 'config' %}class="active"{% endif%}><a href="{{ url('ojs_installer_configure') }}">3. Config</a></li>
-                        <li role="presentation" {%if data.page == 'setup' %}class="active"{% endif%}><a href="{{ url('ojs_installer_setup') }}">4. Setup</a></li>
-                        <li role="presentation" {%if data.page == 'summary' %}class="active"{% endif%}><a href="{{ url('ojs_installer_summary') }}">5. Summary</a></li>
+                        <li role="presentation" {%if data.page == 'home' %}class="active"{% endif%}><a href="{{ url('ojs_installer_homepage') }}">1. {{ "installer.menu.home"|trans }}</a></li>
+                        <li role="presentation" {%if data.page == 'check' %}class="active"{% endif%}><a href="{{ url('ojs_installer_check') }}">2. {{ "installer.menu.check"|trans }}</a></li>
+                        <li role="presentation" {%if data.page == 'config' %}class="active"{% endif%}><a href="{{ url('ojs_installer_configure') }}">3. {{ "installer.menu.configure"|trans }}</a></li>
+                        <li role="presentation" {%if data.page == 'setup' %}class="active"{% endif%}><a href="{{ url('ojs_installer_setup') }}">4. {{ "installer.menu.setup"|trans }}</a></li>
+                        <li role="presentation" {%if data.page == 'summary' %}class="active"{% endif%}><a href="{{ url('ojs_installer_summary') }}">5. {{ "installer.menu.summary"|trans }}</a></li>
                     </ul>
+
+
                 </nav>
-                <h3 class="text-muted">OJS Setup</h3>
+                <h3 class="text-muted">{{ "OJS Setup"|trans }}</h3>
             </div>
 
             {% block body %}
