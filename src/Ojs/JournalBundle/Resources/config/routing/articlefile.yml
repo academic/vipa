@@ -7,11 +7,11 @@ articlefile_show:
     defaults: { _controller: "OjsJournalBundle:ArticleFile:show" }
 
 articlefile_new:
-    path:     /new
+    path:     /new/{article}
     defaults: { _controller: "OjsJournalBundle:ArticleFile:new" }
 
 articlefile_create:
-    path:     /create
+    path:     /create/{article}
     defaults: { _controller: "OjsJournalBundle:ArticleFile:create" }
     requirements: { _method: post }
 
@@ -27,4 +27,4 @@ articlefile_update:
 articlefile_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:ArticleFile:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: post|delete|get }
