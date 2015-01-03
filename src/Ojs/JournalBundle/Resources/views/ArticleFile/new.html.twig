@@ -1,15 +1,81 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
+    <ul class="nav nav-tabs">
+        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+    </ul>
     <h1>ArticleFile creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <label class="control-label" for="fileupload">{{ "File"|trans }}</label>
+        <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>{{ "select.article.file"|trans }}</span>
+                <input id="articlefileupload" type="file"
+                       data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
+            </span>
 
-        <ul class="record_actions">
+        <progress id="articlefilesprogress" value="0" max="100" ></progress>
+        <div id="files"></div>
+        <input name="file" id="file" type="hidden" value=""/>
+
+    </div>
+
+    <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
+        {{ "c"|trans }}
+    </button>
+    {{ form_end(form) }}
+    <ul class="record_actions">
     <li>
-        <a href="{{ path('articlefile') }}">
+        <a href="{{ path('articlefile',{article: article.id}) }}">
             Back to the list
         </a>
     </li>
 </ul>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#articlefileupload").fileupload({
+                done: function (e, data) {
+                    var result = $.parseJSON(data.result);
+                    for(var i= 0;i<data.files.length;i++){
+                        $('#files').text(data.files[i].name);
+                        $('#file').val(result.files.name);
+                    }
+
+                },
+                progressall: function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('#articlefilesprogress').attr(
+                            'value',
+                            progress
+                    );
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
 {% endblock %}

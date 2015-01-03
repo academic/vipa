@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -35,18 +36,34 @@ class ArticleFileController extends Controller
      * Creates a new ArticleFile entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, Article $article)
     {
         $entity = new ArticleFile();
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity,$article);
         $form->handleRequest($request);
+        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
 
+        $file_entity = new File();
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $file = $request->request->get('file');
+            $file_entity->setName($file);
+            $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
+            $file_entity->setSize(filesize($imagepath.$file));
+            $file_entity->setMimeType(mime_content_type($imagepath.$file));
+            $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
+            $em->persist($file_entity);
+
+            $entity->setArticle($article);
+            $entity->setFile($file_entity);
             $em->persist($entity);
+            $article->addArticleFile($entity);
+            $em->persist($article);
+
             $em->flush();
 
-            return $this->redirect($this->generateUrl('articlefile_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('articlefile', array('article' => $article->getId())));
         }
 
         return $this->render('OjsJournalBundle:ArticleFile:new.html.twig', array(
@@ -62,10 +79,10 @@ class ArticleFileController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ArticleFile $entity)
+    private function createCreateForm(ArticleFile $entity,$article)
     {
         $form = $this->createForm(new ArticleFileType(), $entity, array(
-            'action' => $this->generateUrl('articlefile_create'),
+            'action' => $this->generateUrl('articlefile_create',['article'=> $article]),
             'method' => 'POST',
             'user'=>$this->getUser()
         ));
@@ -78,14 +95,15 @@ class ArticleFileController extends Controller
      * Displays a form to create a new ArticleFile entity.
      *
      */
-    public function newAction()
+    public function newAction(Article $article)
     {
         $entity = new ArticleFile();
-        $form   = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity,$article->getId());
 
         return $this->render('OjsJournalBundle:ArticleFile:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'article'=> $article
         ));
     }
 
@@ -200,22 +218,18 @@ class ArticleFileController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ArticleFile entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        /** @var ArticleFile $entity */
+        $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
         }
+        $articleid = $entity->getArticleId();
 
-        return $this->redirect($this->generateUrl('articlefile'));
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('articlefile',['article'=>$articleid]));
     }
 
     /**
@@ -229,8 +243,7 @@ class ArticleFileController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('articlefile_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->setMethod('GET')
             ->getForm()
         ;
     }
