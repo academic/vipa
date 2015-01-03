@@ -25,6 +25,7 @@ class DefaultControllerTest extends BaseTestCase
     }
     public function testSummary()
     {
+        $this->logIn();
         $this->isAccessible(['ojs_installer_summary']);
     }
 

@@ -1,0 +1,48 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class="active"><a href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+    </ul>
+
+    <table class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                <th>{{ "articlefile.id"|trans }}</th>
+                <th>{{ "articlefile.title"|trans }}</th>
+                <th>{{ "articlefile.type"|trans }}</th>
+                <th>{{ "articlefile.version"|trans }}</th>
+                <th>{{ "articlefile.langcode"|trans }}</th>
+                <th>{{ "articlefile.actions"|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('articlefile_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.version }}</td>
+                <td>{{ entity.langCode }}</td>
+                <td>
+
+                        <a class="btn-xs btn btn-warning" href="{{ path('articlefile_edit', { 'id': entity.id }) }}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn-xs btn btn-danger" onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                           href="{{ path('articlefile_delete', { 'id': entity.id }) }}">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ url('articlefile_new',{article: article.id}) }}">{{ "articlefile.new"|trans }}</a>
+
+
+    {% endblock %}

@@ -3,6 +3,8 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\JournalBundle\Entity\ArticleFile;
+use Ojs\JournalBundle\Entity\File;
 use Ojs\SiteBundle\Document\ImageOptions;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -26,12 +28,12 @@ class ArticleController extends Controller
             print_r(json_decode($_POST['cites']));
             exit();
         } else {
-            
+
         }
 
         return $this->render('OjsJournalBundle:Article:citation.html.twig', array(
-                    'item' => $article,
-                    'citationTypes' => $this->container->getParameter('citation_types')
+            'item' => $article,
+            'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
@@ -45,7 +47,7 @@ class ArticleController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Article')->findAll();
 
         return $this->render('OjsJournalBundle:Article:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -61,8 +63,8 @@ class ArticleController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Article')->findByJournalId($journalId);
 
         return $this->render('OjsJournalBundle:Article:index_journal.html.twig', array(
-                    'entities' => $entities,
-                    'journal' => $journal
+            'entities' => $entities,
+            'journal' => $journal
         ));
     }
 
@@ -78,8 +80,8 @@ class ArticleController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Article')->findByIssueId($issueId);
 
         return $this->render('OjsJournalBundle:Article:index_issue.html.twig', array(
-                    'entities' => $entities,
-                    'issue' => $issue
+            'entities' => $entities,
+            'issue' => $issue
         ));
     }
 
@@ -101,8 +103,8 @@ class ArticleController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Article:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -117,11 +119,11 @@ class ArticleController extends Controller
     {
         $journal = $this->get('session')->get("selectedJournalId");
         $form = $this->createForm(
-                new ArticleType(), $entity, array(
+            new ArticleType(), $entity, array(
             'action' => $this->generateUrl('article_create'),
             'method' => 'POST',
             'journal' => $journal
-            ,
+        ,
             'user' => $this->getUser()
         ));
 
@@ -138,8 +140,8 @@ class ArticleController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:Article:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -150,27 +152,27 @@ class ArticleController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojs\JournalBundle\Entity\Article  */
+        /* @var $entity \Ojs\JournalBundle\Entity\Article */
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Article:show.html.twig', array(
-                    'entity' => $entity));
+            'entity' => $entity));
     }
 
     /**
-     * Display an Article entity as author preview 
+     * Display an Article entity as author preview
      * @param integer $id
      */
     public function previewAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojs\JournalBundle\Entity\Article  */
+        /* @var $entity \Ojs\JournalBundle\Entity\Article */
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Article:author_preview.html.twig', array(
-                    'entity' => $entity
+            'entity' => $entity
         ));
     }
 
@@ -186,8 +188,8 @@ class ArticleController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -219,6 +221,7 @@ class ArticleController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Article $entity */
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         /** @var DocumentManager $dm */
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
@@ -228,8 +231,31 @@ class ArticleController extends Controller
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
+            $imageOptions = $ir->init($header, $entity, 'header');
             $dm->persist($imageOptions);
+
+            $files = $request->request->get('articlefiles', []);
+            $fileHelper = new \Ojs\Common\Helper\FileHelper();
+
+            foreach ($files as $file) {
+                $file_entity = new File();
+                $file_entity->setName($file);
+                $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
+                $file_entity->setSize(filesize($imagepath.$file));
+                $file_entity->setMimeType(mime_content_type($imagepath.$file));
+                $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
+                $em->persist($file_entity);
+                $articleFile = new ArticleFile();
+                $articleFile->setArticle($entity);
+                $articleFile->setFile($file_entity);
+                //ArticleFileParams::$FILE_TYPES
+                $articleFile->setType(0);
+                $articleFile->setVersion(1);
+                $articleFile->setLangCode('tr');//mock
+                $em->persist($articleFile);
+                $entity->addArticleFile($articleFile);
+            }
+
             $dm->flush();
             $em->flush();
 
@@ -237,8 +263,8 @@ class ArticleController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Article:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+            'entity' => $entity,
+            'edit_form' => $editForm->createView()
         ));
     }
 
