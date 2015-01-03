@@ -2,13 +2,20 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
+use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ArticleFileControllerTest extends WebTestCase
+class ArticleFileControllerTest extends BaseTestCase
 {
-    public function testTest()
+    public function testList()
     {
-        $this->assertTrue(true);
+        $this->logIn();
+        $this->isAccessible(['articlefile',['article'=>1]]);
+    }
+
+    public function testNew(){
+        $this->logIn();
+        $this->isAccessible(['articlefile_new',['article'=>1]]);
     }
     /*
     public function testCompleteScenario()
