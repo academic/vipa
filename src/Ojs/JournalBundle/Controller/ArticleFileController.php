@@ -67,9 +67,9 @@ class ArticleFileController extends Controller
         $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_create'),
             'method' => 'POST',
+            'user'=>$this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -146,10 +146,10 @@ class ArticleFileController extends Controller
     {
         $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
+            'user'=>$this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
@@ -161,8 +161,9 @@ class ArticleFileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var ArticleFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
-
+        $file_entity = $entity->getFile();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ArticleFile entity.');
         }
@@ -170,8 +171,18 @@ class ArticleFileController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        $fileHelper = new \Ojs\Common\Helper\FileHelper();
 
         if ($editForm->isValid()) {
+            $file = $request->request->get('file');
+            $file_entity->setName($file);
+            $file_entity->setName($file);
+            $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
+            $file_entity->setSize(filesize($imagepath.$file));
+            $file_entity->setMimeType(mime_content_type($imagepath.$file));
+            $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
+            $em->persist($file_entity);
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('articlefile_edit', array('id' => $id)));
