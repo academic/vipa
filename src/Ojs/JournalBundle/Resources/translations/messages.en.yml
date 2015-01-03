@@ -303,3 +303,11 @@ page:
     plural: Pages
     last: Last Page
     first: First Page
+articlefile:
+    id: ID
+    title: Title
+    type: Type
+    version: Version
+    langcode: Language
+    actions: Actions
+select.article.file: "Select File"

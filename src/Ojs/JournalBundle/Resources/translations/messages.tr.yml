@@ -296,3 +296,11 @@ page:
     singular: Sayfa
     last: Son Sayfa
     first: İlk Sayfa
+articlefile:
+    id: ID
+    title: Başlık
+    type: Tür
+    version: Sürüm
+    langcode: Dil
+    actions: İşlemler
+select.article.file: "Dosya Seç"
