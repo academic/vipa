@@ -167,5 +167,10 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
 
 }

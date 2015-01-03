@@ -18,7 +18,6 @@
             {% for entity in entities %}
                 <tr>
                     <td><a href="{{ path('admin_file_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.mimeType }}</td>
                     <td>{{ entity.size }}</td>

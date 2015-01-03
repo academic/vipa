@@ -8,7 +8,10 @@
 
 {% block body -%}
 
-    <h1>{{ "e"|trans }}</h1>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
+        <li role="presentation" class=""><a href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
+    </ul>
 
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
@@ -47,21 +50,7 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label" for="fileupload">{{ "Article Files"|trans }}</label>
-  <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.article.file"|trans }}</span>
-                <input id="articlefileupload" type="file" multiple
-                       data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
-            </span>
 
-        <progress id="articlefilesprogress" value="0" max="100" ></progress>
-        <div id="files"></div>
-        <select class="hidden" name="articlefiles[]" id="files_select" multiple>
-
-        </select>
-    </div>
     <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
         {{ "e"|trans }}
     </button>
