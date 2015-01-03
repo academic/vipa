@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleFileControllerTest extends WebTestCase
 {
+    public function testTest()
+    {
+        $this->assertTrue(true);
+    }
     /*
     public function testCompleteScenario()
     {
