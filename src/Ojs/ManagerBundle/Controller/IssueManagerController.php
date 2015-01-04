@@ -21,8 +21,7 @@ class IssueManagerController extends Controller
      */
     public function indexAction()
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
@@ -42,8 +41,7 @@ class IssueManagerController extends Controller
      */
     public function viewAction($issueId)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
@@ -51,26 +49,23 @@ class IssueManagerController extends Controller
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
+        $articles = $em->getRepository('OjsJournalBundle:Article')->getOrderedArticlesByIssue($issue, true);
         return $this->render('OjsManagerBundle:Issue:view.html.twig', array(
-                    /**
-                     * @todo get articles ordered
-                     */
-                    'articles' => $issue->getArticles(),
+                    'articles' => $articles,
                     'journal' => $journal,
                     'issue' => $issue
         ));
     }
 
     /**
-     * show issue manager edit page
+     * show issue manager arrange issue page
      * @param integer $issueId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws 404
      */
-    public function editAction($issueId)
+    public function arrangeAction($issueId)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
@@ -78,13 +73,87 @@ class IssueManagerController extends Controller
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
-        return $this->render('OjsManagerBundle:Issue:edit.html.twig', array(
-                    /**
-                     * @todo get articles ordered
-                     */
-                    'articles' => $issue->getArticles(),
+        $articles = $em->getRepository('OjsJournalBundle:Article')
+                ->getOrderedArticlesByIssue($issue, true);
+        $articlesUnissued = $em->getRepository('OjsJournalBundle:Article')
+                ->getArticlesUnissued();
+
+        return $this->render('OjsManagerBundle:Issue:arrange.html.twig', array(
+                    'articles' => $articles,
                     'journal' => $journal,
-                    'issue' => $issue
+                    'issue' => $issue,
+                    'articlesUnissued' => $articlesUnissued
+        ));
+    }
+
+    /**
+     * "create new issue" page customized for editors|journal managers
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function newAction(Request $request)
+    {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $issue = new Issue();
+        $form = $this->createForm(new IssueType(), $issue, array(
+            'action' => $this->generateUrl('issue_manager_issue_new'),
+            'method' => 'POST',
+            'user' => $this->getUser()
+        ));
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($issue);
+            $em->flush();
+
+            return $this->redirect(
+                            $this->generateUrl(
+                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                                    )
+            ));
+        }
+
+
+        return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
+                    'journal' => $journal,
+                    'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request, $issueId)
+    {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
+        $em = $this->getDoctrine()->getManager();
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        $form = $this->createForm(new IssueType(), $issue, array(
+            'action' => $this->generateUrl('issue_manager_issue_edit', array('issueId' => $issueId)),
+            'method' => 'PUT',
+            'user' => $this->getUser()
+        ));
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($issue);
+            $em->flush();
+            return $this->redirect(
+                            $this->generateUrl(
+                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                                    )
+            ));
+        }
+
+
+        return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
+                    'journal' => $journal,
+                    'entity' => $issue,
+                    'edit_form' => $form->createView()
         ));
     }
 
@@ -96,8 +165,7 @@ class IssueManagerController extends Controller
      */
     public function moveAction($articleId, $upOrDown = 'up')
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
             return $this->render('::mustselectjournal.html.twig');
         }
         $em = $this->getDoctrine()->getManager();
@@ -106,6 +174,25 @@ class IssueManagerController extends Controller
         if (!$article) {
             throw $this->createNotFoundException('Article not found!');
         }
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
+    public function addArticleAction(Request $request)
+    {
+        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
+            return $this->render('::mustselectjournal.html.twig');
+        }
+        $articleId = $request->get('unissued_article_id');
+        $issueId = $request->get('issue_id');
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found!');
+        }
+        $article->setIssueId($issueId);
+        $em->persist($article);
+        $em->flush();
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 

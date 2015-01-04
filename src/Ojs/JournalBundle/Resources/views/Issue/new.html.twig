@@ -3,7 +3,9 @@
 {% block body -%}
     <h1>{{"issue.new"|trans}}</h1>
 
-    <a class="btn btn-default" href="{{ path('issue') }}">{{"back"|trans}}</a>
+    {% if isSystemAdmin() %}
+        <a class="btn btn-default" href="{{ path('issue') }}">{{"back"|trans}}</a>
+    {%endif%}
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
@@ -17,11 +19,11 @@
     <div class="form-group">
         <label class="control-label" for="fileupload">{{"cover"|trans}}</label>
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{"select.image.file"|trans}}</span>
+            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_cover_upload_progress" style="display: none" class="label label-info">
 
@@ -31,11 +33,11 @@
     <div class="form-group">
         <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
-                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{"select.image.file"|trans}}</span>
+            <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_header_upload_progress" style="display: none" class="label label-info">
 
