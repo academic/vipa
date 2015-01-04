@@ -40,13 +40,27 @@ class CommonParams
         return self::$statusArray;
     }
 
-    public static function statusText($statusNum = null)
+    /**
+     * 
+     * @param type $statusText
+     * @return type
+     */
+    public static function getStatusCode($statusText)
     {
-        if ($statusNum)
-            return isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null;
-        return self::$statusArray;
+        $i = array_search($statusText, self::$statusArray);
+        return $i ? : null;
     }
 
+    public static function statusText($statusNum = null)
+    {
+        return $statusNum ? (isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null) : self::$statusArray;
+    }
+
+    /**
+     * Return color of this status via status code
+     * @param int $statusNum
+     * @return string
+     */
     public static function statusColor($statusNum)
     {
         return isset(self::$statusColorArray[$statusNum]) ? self::$statusColorArray[$statusNum] : null;

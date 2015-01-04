@@ -15,11 +15,11 @@
     <div class="form-group">
         <label class="control-label" for="fileupload">{{"cover"|trans}}</label>
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{"select.image.file"|trans}}</span>
+            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_cover_upload_progress" style="display: none" class="label label-info">
 
@@ -39,11 +39,11 @@
             {% endif %}
 
         </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
-                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{"select.image.file"|trans}}</span>
+            <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_header_upload_progress" style="display: none" class="label label-info">
 
@@ -54,10 +54,12 @@
     </button>
     {{ form_end(edit_form) }}
     <hr>
-
-    {% set back_path = 'issue' %}
-    {% set delete_path = 'issue_delete' %}
-    {% include '::actionbtns.html.twig' %}
+    {% if isSystemAdmin() %}
+        {% set back_path = 'issue' %}
+        {% set delete_path = 'issue_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    {% endif%}
+    
 {% endblock %}
 
 {% block javascripts %}
@@ -67,45 +69,42 @@
     {% endjavascripts %}
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fileupload').fileupload({});
-            $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#journal_cover_upload_progress').show();
+        $('#fileupload').fileupload({});
+                $('#fileupload').bind('fileuploadsend', function (e, data) {
+        $('#journal_cover_upload_progress').show();
                 $('#journal_cover_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#journal_cover_upload_progress').html("{{"done"|trans}}.");
+        }).bind('fileuploaddone', function (e, data) {
+        $('#journal_cover_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_issue_cover').attr('value', JSON.parse(data.result).files.name);
-            });
-            $('#fileupload_header').fileupload({});
-            $('#fileupload_header').bind('fileuploadsend', function (e, data) {
-                $('#journal_header_upload_progress').show();
-                $('#journal_header_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#journal_header_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_journalbundle_issue_header').attr('value', JSON.parse(data.result).files.name);
-            });
-
-            $("#preview_image > img").cropper({
-                aspectRatio: 960/200,
-                maxWidth:960,
-                maxHeight:200,
-                {% if  entity.header %}
-                {% set imageoptions=getImageOptions(entity,'header') %}
-                data:{
-                    x: {{ imageoptions.x }},
-                    y: {{ imageoptions.y }},
-                    height: {{ imageoptions.height }},
-                    width: {{ imageoptions.width }}
-                },
-                {% endif %}
-                done: function(data){
-                    $("#header_height").val(data.height);
-                    $("#header_width").val(data.width);
-                    $("#header_x").val(data.x);
-                    $("#header_y").val(data.y)
-                }
-
-            })
         });
+                $('#fileupload_header').fileupload({});
+                $('#fileupload_header').bind('fileuploadsend', function (e, data) {
+        $('#journal_header_upload_progress').show();
+                $('#journal_header_upload_progress').html("{{"uploading"|trans}}");
+        }).bind('fileuploaddone', function (e, data) {
+        $('#journal_header_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_issue_header').attr('value', JSON.parse(data.result).files.name);
+        });
+                $("#preview_image > img").cropper({
+        aspectRatio: 960 / 200,
+                maxWidth:960,
+                maxHeight:200,        {% if  entity.header %}
+            {% set imageoptions=getImageOptions(entity,'header') %}
+                        data:{
+                        x:{{ imageoptions.x }},
+                                y:{{ imageoptions.y }},
+                                height:{{ imageoptions.height }},
+                                width:{{ imageoptions.width }}
+                        },        {% endif %}
+                                    done: function(data){
+                                    $("#header_height").val(data.height);
+                                            $("#header_width").val(data.width);
+                                            $("#header_x").val(data.x);
+                                            $("#header_y").val(data.y)
+                                    }
+
+                            })
+                            });
     </script>
 {% endblock %}
 

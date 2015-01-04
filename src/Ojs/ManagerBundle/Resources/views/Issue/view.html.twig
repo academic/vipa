@@ -15,7 +15,11 @@
         <div class="panel">
             <h1>
                 {% if isJournalManager() %}
-                    <small>
+                    <small class="pull-right">
+                        <a href="{{path("issue_manager_issue_arrange", { "issueId": issue.id }) }}" class="">
+                            <i class="fa fa-cog"></i>
+                        </a>
+
                         <a href="{{path("issue_manager_issue_edit", { "issueId": issue.id }) }}" class="">
                             <i class="fa fa-edit"></i>
                         </a>
@@ -24,14 +28,13 @@
                 {{"issue"|trans}} 
             </h1>
 
-            <p>
             <ul>
                 <li>Volume : <strong>{{issue.volume}}</strong> </li>
                 <li>Number : <strong>{{issue.number}}</strong></li>
                 <li>Title : <strong>{{issue.title}}</strong></li>
                 <li>Year : <strong>{{issue.year}}</strong> </li>
                 <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
-            </ul>
+            </ul> 
 
             {% for article in articles %}
                 <div class="list-group">

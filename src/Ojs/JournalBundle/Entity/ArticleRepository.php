@@ -8,9 +8,10 @@ class ArticleRepository extends EntityRepository
 {
 
     /**
+     * Get Article full text file. 
      * @param  integer $articleId
      * @return ArticleFile
-     * @throws UsernameNotFoundException
+     * @throws NoResultException
      */
     public function getArticleFullTextFile($articleId)
     {
@@ -33,23 +34,53 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * Get article list by issue_id with orderNum attribute ordered 
-     * @param \Ojs\JournalBundle\Entity\Issue $issue
+     * Get articles that has no issue_id
+     * @param integer $status
+     * @return type
      */
-    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 1)
+    public function getArticlesUnissued($status = 3)
     {
-        $q = $this->createQuery('SELECT a FROM OjsJournalBundle:Article a WHERE issueId = ?1 '
-                        . ' ORDER BY orderNum ?2')
-                ->setParameter(1, $issue->getId())
-                ->setParameter(2, ($asc ? 'ASC' : 'DESC'))
+        $q = $this->createQueryBuilder('a')
+                ->select('a')
+                ->where('a.issueId IS NULL AND a.status = :status')
+                ->setParameter('status', $status)
                 ->getQuery();
         try {
             $articles = $q->getResult();
             return $articles;
-        } catch (NoResultException $e) {
-            return false;
+        } catch (\Exception $e) {
+            $logger = $this->get('logger');
+            $logger->error($e->getMessage());
         }
-        return false;
+        return array();
+    }
+
+    /**
+     * Get article list by issue_id with orderNum attribute ordered 
+     * @param \Ojs\JournalBundle\Entity\Issue $issue
+     * @param string $asc
+     * @param int $status  default 3 (published)  see Ojs\Common\CommongParams
+     * @return array
+     * @throws \Exception
+     */
+    public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 3)
+    {
+
+        $q = $this->createQueryBuilder('a')
+                ->select('a')
+                ->where('a.issueId = :issue_id AND a.status = :status')
+                ->orderBy('a.orderNum', $asc ? 'ASC' : 'DESC')
+                ->setParameter('issue_id', $issue->getId())
+                ->setParameter('status', $status)
+                ->getQuery();
+        try {
+            $articles = $q->getResult();
+            return $articles;
+        } catch (\Exception $e) {
+            $logger = $this->get('logger');
+            $logger->error($e->getMessage());
+        }
+        return array();
     }
 
 }

@@ -5,11 +5,7 @@
 
     {{ form(form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('lang') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-    </ul>
+    <a class="btn btn-default" href="{{ path('lang') }}">
+        {{"b"|trans}}
+    </a> 
 {% endblock %}

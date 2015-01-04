@@ -12,7 +12,18 @@
             <li>Year : <strong>{{issue.year}}</strong> </li>
             <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
         </ul>
-
+        <form action="{{path('issue_manager_issue_add_article')}}" method="post">
+            <input type="hiden" name="issue_id" value="{{issue.id}}">
+            <select name="unissued_article_id" class="select2  form-control">
+                <option></option>
+                {% for article in articlesUnissued %}
+                    <option value="{{article.id}}">[#{{article.id}}] {{article.title|slice(0,200)}}</option>
+                {% endfor %}
+            </select>
+            <a class="btn btn-primary">
+                <i class="fa fa-plus-circle"></i>
+            </a>
+        </form>
         <table class="table">
             <thead>
                 <tr>
