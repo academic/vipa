@@ -1,15 +1,30 @@
 issue_manager_index:
     pattern:  /issues
     defaults: { _controller: OjsManagerBundle:IssueManager:index }
+
     
 issue_manager_issue_edit:
     pattern:  /issue/{issueId}/edit
     defaults: { _controller: OjsManagerBundle:IssueManager:edit }
 
+issue_manager_issue_add_article:
+    pattern:  /issue/addArticle
+    defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
+    requirements: { _method: post }
+    
+issue_manager_issue_arrange:
+    pattern:  /issue/{issueId}/arrange
+    defaults: { _controller: OjsManagerBundle:IssueManager:arrange }
+
+issue_manager_issue_new:
+    pattern:  /issue/new
+    defaults: { _controller: OjsManagerBundle:IssueManager:new }
+    
 issue_manager_issue_view:
     pattern:  /issue/{issueId}
     defaults: { _controller: OjsManagerBundle:IssueManager:view }
-    
+
+
 issue_manager_article_move:
     pattern:  /article/{articleId}/toc/move/{upOrDown}
     defaults: { _controller: OjsManagerBundle:IssueManager:move }

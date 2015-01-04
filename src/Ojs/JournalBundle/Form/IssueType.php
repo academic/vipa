@@ -48,7 +48,10 @@ class IssueType extends AbstractType
                 ->add('special')
                 ->add('description')
                 ->add('year')
-                ->add('datePublished')
+                ->add('datePublished','date', array('required' => false,
+                    'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
+                    'attr' => array('class' => 'dateselector'))
+                )
                 ->add('cover', 'hidden')
                 ->add('header', 'hidden')
         ;
