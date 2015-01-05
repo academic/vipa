@@ -33,6 +33,10 @@ class JournalWorkflowStep
 
     /** @MongoDb\Boolean */
     protected $onlyreply;
+    
+    
+    /** @MongoDb\Boolean */
+    protected $canEdit;
 
     /**
      * possible next steps
@@ -340,4 +344,26 @@ class JournalWorkflowStep
         return $this->isVisible;
     }
 
+
+    /**
+     * Set canEdit
+     *
+     * @param boolean $canEdit
+     * @return self
+     */
+    public function setCanEdit($canEdit)
+    {
+        $this->canEdit = $canEdit;
+        return $this;
+    }
+
+    /**
+     * Get canEdit
+     *
+     * @return boolean $canEdit
+     */
+    public function getCanEdit()
+    {
+        return $this->canEdit;
+    }
 }

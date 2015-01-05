@@ -43,11 +43,6 @@ ojs_issues_sitemap:
   pattern: /{journal}/issues.{_format}
   host: "{institution}.%base_host%"
   defaults: {_controller: OjsSiteBundle:Sitemap:issues }
-ojs_wiki_sitemap:
-  pattern: /{journal}/wiki.{_format}
-  host: "{institution}.%base_host%"
-  defaults: {_controller: OjsSiteBundle:Sitemap:wiki }
-
 ojs_institutions_sitemap:
   pattern: /institutions.{_format}
   host: %base_host%

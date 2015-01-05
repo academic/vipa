@@ -99,7 +99,7 @@ class ArticleController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('article_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('articlefile', array('article' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:Article:new.html.twig', array(

@@ -36,11 +36,6 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
-        pages:
-          targetEntity: \Ojs\WikiBundle\Entity\Page
-          mappedBy: journal
-          cascade: ["all"]
-          fetch: EXTRA_LAZY
         journalThemes: 
             targetEntity: JournalTheme
             mappedBy: journal

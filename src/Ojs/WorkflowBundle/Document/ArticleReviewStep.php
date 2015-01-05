@@ -4,7 +4,6 @@ namespace Ojs\WorkflowBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-
 /**
  *
  * @MongoDb\Document(collection="article_review_steps")
@@ -77,12 +76,18 @@ class ArticleReviewStep
      */
     protected $reviewDeadline;
 
-    
     /**
+     * A short string or code like "rejected" "accepted"
      * @MongoDB\String
      */
     protected $reviewResult;
-    
+
+    /**
+     * Long text contains review notes
+     * @MongoDB\String
+     */
+    protected $reviewNotes;
+
     /**
      * Get id
      *
@@ -384,6 +389,50 @@ class ArticleReviewStep
     public function getOwnerUser()
     {
         return $this->ownerUser;
+    }
+
+    /**
+     * Set reviewResult
+     *
+     * @param string $reviewResult
+     * @return self
+     */
+    public function setReviewResult($reviewResult)
+    {
+        $this->reviewResult = $reviewResult;
+        return $this;
+    }
+
+    /**
+     * Get reviewResult
+     *
+     * @return string $reviewResult
+     */
+    public function getReviewResult()
+    {
+        return $this->reviewResult;
+    }
+
+    /**
+     * Set reviewNotes
+     *
+     * @param string $reviewNotes
+     * @return self
+     */
+    public function setReviewNotes($reviewNotes)
+    {
+        $this->reviewNotes = $reviewNotes;
+        return $this;
+    }
+
+    /**
+     * Get reviewNotes
+     *
+     * @return string $reviewNotes
+     */
+    public function getReviewNotes()
+    {
+        return $this->reviewNotes;
     }
 
 }
