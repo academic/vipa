@@ -150,6 +150,7 @@ class ArticleSubmissionController extends Controller
             $reviewStep = new ArticleReviewStep();
             $reviewStep->setArticleId($article->getId());
             $reviewStep->setOwnerUser($this->getUser());
+            $reviewStep->setSubmitterId($this->getUser()->getId());
             $reviewStep->setStartedDate(new \DateTime());
             $deadline = new \DateTime();
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
