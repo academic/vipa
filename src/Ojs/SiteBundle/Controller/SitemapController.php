@@ -12,7 +12,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
-use Ojs\WikiBundle\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -119,7 +118,6 @@ class SitemapController extends Controller
             'ojs_articles_sitemap',
             'ojs_issues_sitemap',
             'ojs_last_issue_sitemap',
-            'ojs_wiki_sitemap'
         ];
         foreach ($maps as $map) {
             $siteMapIndex->add(
@@ -137,26 +135,6 @@ class SitemapController extends Controller
 
     }
 
-    public function wikiAction(Request $request, $journal, $_format = 'xml')
-    {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug'=>$journal]);
-
-        $siteMap = new Sitemap();
-        $router = $this->get('router');
-        $wikis = $journal->getPages();
-        foreach ($wikis as $wiki) {
-            /** @var Page $wiki */
-            $siteMap->add(
-                $request->getSchemeAndHttpHost() .
-                $router->generate('ojs_wiki_page_detail', ['slug' => $wiki->getSlug()]),
-                $wiki->getUpdated()->format('Y-m-d')
-            );
-        }
-        return $this->response($siteMap);
-
-    }
 
     public function journalDetailAction(Request $request, $journal, $_format = 'xml')
     {

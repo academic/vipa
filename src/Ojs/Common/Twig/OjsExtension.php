@@ -346,32 +346,25 @@ class OjsExtension extends \Twig_Extension
         switch(get_class($object)){
             case 'Ojs\JournalBundle\Entity\Issue':
                 return '#';
-                break;
             case 'Ojs\JournalBundle\Entity\Journal':
                 return $router->generate('ojs_journal_index',[
                     'slug'=>$object->getSlug(),
                     'institution'=>$object->getInstitution()->getSlug()
-                ]);
-                break;
+                ]); 
             case 'Ojs\JournalBundle\Entity\Article':
                 return $router->generate('ojs_article_page',[
                     'slug'=>$object->getJournal()->getSlug(),
                     'article_slug'=>$object->getSlug(),
                     'institution'=>$object->getJournal()->getInstitution()->getSlug()
-                ]);
-                break;
+                ]); 
             case 'Ojs\JournalBundle\Entity\Subject':
-                return $router->generate('ojs_journals_index',['subject'=>$object->getSlug()]);
-                break;
+                return $router->generate('ojs_journals_index',['subject'=>$object->getSlug()]); 
             case 'Ojs\JournalBundle\Entity\Institution':
-                return $router->generate('ojs_institution_page',['slug'=>$object->getSlug()]);
-                break;
+                return $router->generate('ojs_institution_page',['slug'=>$object->getSlug()]); 
             case 'Ojs\UserBundle\Entity\User':
-                return $router->generate('ojs_user_profile',['slug'=>$object->getUsername()]);
-                break;
+                return $router->generate('ojs_user_profile',['slug'=>$object->getUsername()]); 
             default:
-                return '#';
-                break;
+                return '#'; 
         }
     }
     public function getName()

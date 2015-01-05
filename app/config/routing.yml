@@ -76,10 +76,6 @@ jms_job_queue_bundle:
 feedback:
     resource: "@OkulbilisimFeedbackBundle/Resources/config/routing.yml"
     prefix:   /
-ojs_wiki:
-    resource: "@OjsWikiBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ojs_site:
     resource: "@OjsSiteBundle/Resources/config/routing.yml"
     prefix:   /
