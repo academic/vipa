@@ -45,7 +45,7 @@
         "jms/job-queue-bundle": "1.1.0",
         "pagerfanta/pagerfanta": "1.0.3",
         "okulbilisim/citation-parser": "dev-master",
-        "fzaninotto/faker": "1.4.0",
+        "fzaninotto/faker": "1.5.*@dev",
         "nelmio/alice": "1.7.2",
         "h4cc/alice-fixtures-bundle": "~0.5",
     	"okulbilisim/feedback-bundle": "dev-master",
