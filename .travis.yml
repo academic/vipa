@@ -27,3 +27,6 @@ before_script:
   - php app/console h4cc_alice_fixtures:load:sets
 
 script: phpunit -c app
+
+notifications:
+  slack: okulbilisim:zJjSGCYwjyInYhk1cNFIuyuV
