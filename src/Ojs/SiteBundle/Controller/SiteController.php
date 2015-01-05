@@ -142,7 +142,6 @@ class SiteController extends Controller
             throw new NotFoundHttpException("Journal Not Found!");
         $data['journal'] = $journal;
         $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers( $journal->getId(), true);
-        $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal_id' =>  $journal->getId()]);
         $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal);
@@ -161,7 +160,6 @@ class SiteController extends Controller
             'articles' => $articles,
             'page' => 'journal',
             'blocks' => $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal),
-            'pages' => $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $journal])
         ];
         return $this->render('OjsSiteBundle::Journal/journal_articles.html.twig', $data);
     }
@@ -209,7 +207,6 @@ class SiteController extends Controller
             $data['issues_grouped'][$issue->getYear()][] = $issue;
         }
         $data['page'] = 'archive';
-        $data['pages'] = $em->getRepository('OjsWikiBundle:Page')->findBy(['journal' => $data['journal']]);
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
 
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);

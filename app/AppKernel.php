@@ -43,7 +43,6 @@ class AppKernel extends Kernel {
             new JMS\AopBundle\JMSAopBundle(),
             new Ojs\ReportBundle\OjsReportBundle(),
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
-            new Ojs\WikiBundle\OjsWikiBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
