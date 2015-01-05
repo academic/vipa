@@ -89,8 +89,13 @@ class ArticleReviewStep
     protected $reviewNotes;
 
     /**
-     * Get id
-     *
+     * At first step submitterId and ownerUser.id may be equal
+     * @MongoDb\Int
+     */
+    protected $submitterId;
+
+    /**
+     * Document Id
      * @return id $id
      */
     public function getId()
@@ -435,4 +440,26 @@ class ArticleReviewStep
         return $this->reviewNotes;
     }
 
+
+    /**
+     * Set submitterId
+     *
+     * @param int $submitterId
+     * @return self
+     */
+    public function setSubmitterId($submitterId)
+    {
+        $this->submitterId = $submitterId;
+        return $this;
+    }
+
+    /**
+     * Get submitterId
+     *
+     * @return int $submitterId
+     */
+    public function getSubmitterId()
+    {
+        return $this->submitterId;
+    }
 }
