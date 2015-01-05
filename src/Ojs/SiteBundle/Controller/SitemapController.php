@@ -125,7 +125,7 @@ class SitemapController extends Controller
                 . $router->generate($map, [
                         'journal' => $journal->getSlug(),
                         'institution' => $journal->getInstitution()->getSlug(),
-                  WkiBundle       '_format' => $_format]
+                        '_format' => $_format]
                 )
                 , $journal->getUpdated()->format('Y-m-d')
             );
