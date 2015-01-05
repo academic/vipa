@@ -5,7 +5,10 @@
 [![Build Status](https://img.shields.io/travis/okulbilisim/ojs/master.svg?style=flat-square)](https://travis-ci.org/okulbilisim/ojs)
 [![Quality Status](https://img.shields.io/scrutinizer/g/okulbilisim/ojs.svg?style=flat-square)](https://scrutinizer-ci.com/g/okulbilisim/ojs/)
 [![Software License](http://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Dependencies](https://img.shields.io/gemnasium/okulbilisim/ojs.svg?style=flat-square)](Dependencies)
+[![Dependencies](https://img.shields.io/gemnasium/okulbilisim/ojs.svg?style=flat-square)](https://gemnasium.com/okulbilisim/ojs)
+[![Dependencies](https://img.shields.io/github/issues/okulbilisim/ojs.svg?style=flat-square)](https://github.com/okulbilisim/ojs/issues)
+
+
 [![Latest Unstable Version](https://poser.pugx.org/okulbilisim/ojs/v/unstable.png)](https://packagist.org/packages/okulbilisim/ojs)
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11908.png)](http://dx.doi.org/10.5281/zenodo.11908)
 
