@@ -47,15 +47,16 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
-        $step->setFirststep($request->get('firststep')?true:false);
-        $step->setLaststep($request->get('laststep')?true:false);
+        $step->setFirststep($request->get('firststep') ? true : false);
+        $step->setLaststep($request->get('laststep') ? true : false);
         $step->setJournalid($request->get('journalId'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
-        $step->setIsVisible($request->get('isVisible')?true:false);
-        $step->setCanSeeAuthor($request->get('canSeeAuthor')?true:false);
+        $step->setIsVisible($request->get('isVisible') ? true : false);
+        $step->setCanEdit($request->get('canEdit') ? true : false);
+        $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
         $dm->persist($step);
         $dm->flush();
 
@@ -147,15 +148,16 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
         $step = $repo->find($id);
         $step->setTitle($request->get('title'));
-        $step->setFirststep($request->get('firststep')?true:false);
-        $step->setLaststep($request->get('laststep')?true:false);
+        $step->setFirststep($request->get('firststep') ? true : false);
+        $step->setLaststep($request->get('laststep') ? true : false);
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
         $step->setStatus($request->get('status'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
-        $step->setOnlyreply($request->get('onlyreply')?true:false);
-        $step->setIsVisible($request->get('isVisible')?true:false);
+        $step->setOnlyreply($request->get('onlyreply') ? true : false);
+        $step->setIsVisible($request->get('isVisible') ? true : false);
+        $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor'));
         $dm->persist($step);
         $dm->flush();
