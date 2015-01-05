@@ -184,11 +184,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $sections;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $pages;
-
-    /**
      *
      * arbitrary settings
      */
@@ -273,21 +268,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
-    public function addPage(\Ojs\WikiBundle\Entity\Page $page)
-    {
-        $this->pages[] = $page;
-        return $this;
-    }
-
-    public function getPages()
-    {
-        return $this->pages;
-    }
-
-    public function removePage(\Ojs\WikiBundle\Entity\Page $page)
-    {
-        $this->pages->removeElement($page);
-    }
 
     /**
      * @param  \Ojs\JournalBundle\Entity\JournalSection $section
