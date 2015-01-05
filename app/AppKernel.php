@@ -45,7 +45,6 @@ class AppKernel extends Kernel {
             new Okulbilisim\FeedbackBundle\OkulbilisimFeedbackBundle(),
             new Okulbilisim\MessageBundle\OkulbilisimMessageBundle(),
             new Ojs\InstallerBundle\OjsInstallerBundle(),
-            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
             new Noxlogic\RateLimitBundle\NoxlogicRateLimitBundle(),
