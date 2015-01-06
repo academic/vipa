@@ -44,18 +44,11 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY
-    manyToMany:
         languages:
             targetEntity: Lang
-            inversedBy: journals
-            joinTable:
-              inverseJoinColumns:
-                lang_id:
-                  referencedColumnName: id
-              joinColumns:
-                journal_id:
-                  referencedColumnName: id
-              name: Journal_Language
+            mappedBy: journal
+            fetch: EXTRA_LAZY
+    manyToMany:
         subjects:
             targetEntity: Subject
             cascade: ["persist"]
