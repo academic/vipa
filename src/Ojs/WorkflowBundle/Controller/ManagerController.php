@@ -66,7 +66,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($id);
 
-        $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->findBy(array('stepId' => $step->getId()));
+        $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")
+                ->findBy(
+                array('stepId' => $step->getId()), array('finishedDate' => null)
+        );
         $ids = [];
         foreach ($articlesStep as $stepNode) {
             $ids[] = $stepNode->getArticleId();

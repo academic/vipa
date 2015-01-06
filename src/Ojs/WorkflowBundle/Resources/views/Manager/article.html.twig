@@ -65,7 +65,7 @@
     </div>
     <hr />
 
-    {% if step.canSeeAuthor %}
+    {% if  isJournalManager() == true or step.canSeeAuthor %}
         <h2>Authors</h2>
 
         <table class="table">
