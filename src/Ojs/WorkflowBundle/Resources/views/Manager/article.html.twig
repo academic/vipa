@@ -7,143 +7,141 @@
 
 {% block body -%}
 
-    <div class="panel">
-        <div class="panel-body">
-            <span>
-                Started : 
-                <span class="label label-success">{{articleStep.startedDate|date('Y-m-d H:i:s') }}</span>
-                <br>
-                Deadline :         
-                <span class="label label-success">{{articleStep.reviewDeadline|date('Y-m-d H:i:s') }}</span>
-            </span>
-            <h2 class="pull-right ">
-                {% if daysOverDue %}
-                    <span class="label label-danger">{{daysOverDue}} days overdue</span>
-                {% endif %}
-                {% if daysRemaining %}
-                    <span class="pull-right label label-info">{{daysRemaining}} days remaining</span>
-                {% endif %}
-            </h2>
-            <h2>{{article.title}}               
-                <span class="btn-group">
-                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                       href="http://scholar.google.com.tr/scholar?q={{ article.title|url_encode }}">
-                        <i class="fa fa-google"></i>
-                    </a>
-                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                       href="http://en.wikipedia.org/w/index.php?search={{ article.title|url_encode }}">
-                        W
-                    </a>
-                    <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
-                       href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
-                        PubMed
-                    </a>
-                </span>
-            </h2>
-
-            <div class="panel-body">
-                <table class="table">
-                    <tr>
-                        <td>Submission Reference</td>
-                        <td>
-                            <small class="badge">{{id}}</small> 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Subjects</td>
-                        <td>{{article.subjects}}</td>
-                    </tr>
-                    <tr>
-                        <td>Keywords</td>
-                        <td>{{article.keywords}}</td>
-                    </tr>
-                    <tr>
-                        <td>Abstract</td>
-                        <td>{{article.abstract|raw}}</td>
-                    </tr>  
-                </table>
-                <hr>
-            </div>
-            <hr />
-
-            {% if step.canSeeAuthor %}
-                <h2>Authors</h2>
-
-                <table class="table">
-                    {% for articleAuthor in article.articleAuthors %}
-                        <tr> 
-                            <td>
-                                {{ articleAuthor.author.fullName }}
-                                <span class="btn-group">
-                                    <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                                       href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
-                                        <i class="fa fa-google"></i>
-                                    </a>
-                                    <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                                       href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
-                                        W
-                                    </a>
-                                </span>
-                                <span class="label label-default">{{articleAuthor.author.email}}</span>
-                            </td>
-                        </tr>
-                    {% endfor%}
-                </table>
-                <hr/>
-            {% endif %}
-
-            <h2>Citations</h2>
-            <table class="table">
-                {% for citation in article.citations %}
-                    <tr> 
-                        <td>{{citation.raw}}</td>
-                    </tr>
-                {% endfor%}
-            </table>
-
-            <hr>
-            <h2>Files</h2>
-            <table class="table">
-                {% for articlefile in article.articlefiles %}
-                    <tr> 
-                        <td>
-                            <span class="badge sm">#{{articlefile.file.id}}</span> 
-                            <span class="label label-info">{{fileType(articlefile.type)}}</span>
-                            {{articlefile.title}} <a href="{{articlefile.file.id}}"><i class="fa fa-download"></i></a>
-                                {% if articlefile.description %}
-                                <p> {{articlefile.description}} </p>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor%}
-            </table>
-            <hr>
-
-
-            <div class="jumbotron">
-
-                <textarea placeholder="notes" class="form-control" rows="4"></textarea>
-                <br>
-                <div class="form-inline">
-                    <select class="select2-element  form-control">
-                        {% for i in range(0,4) %}
-                            <option value="{{i}}">
-                                {{ ("reviewResultCodes."~i~"")|trans }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <select class="select2-element form-control" style="width:200px">
-                        <option value="0"></option>
-                        {% for nextStep in step.nextSteps %}
-                            <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
-                        {%endfor%}
-                    </select>
-                    <a class="btn btn-warning pull-right btn-lg">Next</a> 
-                </div>
-
-            </div>
-        </div>
+    <small>
+        <strong>Started :</strong> 
+        <span class="">{{articleStep.startedDate|date('Y-m-d') }}</span> | 
+        <strong>Deadline :</strong>          
+        <span class="">{{articleStep.reviewDeadline|date('Y-m-d') }}</span>
+    </small>
+    <h4 class="pull-right ">
+        {% if daysOverDue %}
+            <span class="label label-danger">{{daysOverDue}} days overdue</span>
+        {% endif %}
+        {% if daysRemaining %}
+            <span class="pull-right label label-info">{{daysRemaining}} days remaining</span>
+        {% endif %}
+    </h4>
+    <h2>{{article.title}}               
+        <span class="btn-group">
+            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+               href="http://scholar.google.com.tr/scholar?q={{ article.title|url_encode }}">
+                <i class="fa fa-google"></i>
+            </a>
+            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+               href="http://en.wikipedia.org/w/index.php?search={{ article.title|url_encode }}">
+                W
+            </a>
+            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+               href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
+                PubMed
+            </a>
+        </span>
+    </h2>
+    <a class="btn btn-warning" href="{{path('article_step_start_review',{"id":articleStep.id})}}">
+        <i class="fa fa-clock-o"></i> Start Review
+    </a>
+    <div class="panel-body">
+        <table class="table">
+            <tr>
+                <td>Submission Reference</td>
+                <td>
+                    <small class="badge">{{id}}</small> 
+                </td>
+            </tr>
+            <tr>
+                <td>Subjects</td>
+                <td>{{article.subjects}}</td>
+            </tr>
+            <tr>
+                <td>Keywords</td>
+                <td>{{article.keywords}}</td>
+            </tr>
+            <tr>
+                <td>Abstract</td>
+                <td>{{article.abstract|raw}}</td>
+            </tr>  
+        </table>
+        <hr>
     </div>
+    <hr />
+
+    {% if step.canSeeAuthor %}
+        <h2>Authors</h2>
+
+        <table class="table">
+            {% for articleAuthor in article.articleAuthors %}
+                <tr> 
+                    <td>
+                        {{ articleAuthor.author.fullName }}
+                        <span class="btn-group">
+                            <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                               href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
+                                <i class="fa fa-google"></i>
+                            </a>
+                            <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                               href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
+                                W
+                            </a>
+                        </span>
+                        <span class="label label-default">{{articleAuthor.author.email}}</span>
+                    </td>
+                </tr>
+            {% endfor%}
+        </table>
+        <hr/>
+    {% endif %}
+
+    <h2>Citations</h2>
+    <table class="table">
+        {% for citation in article.citations %}
+            <tr> 
+                <td>{{citation.raw}}</td>
+            </tr>
+        {% endfor%}
+    </table>
+
+    <hr>
+    <h2>Files</h2>
+    <table class="table">
+        {% for articlefile in article.articlefiles %}
+            <tr> 
+                <td>
+                    <span class="badge sm">#{{articlefile.file.id}}</span> 
+                    <span class="label label-info">{{fileType(articlefile.type)}}</span>
+                    {{articlefile.title}} <a href="{{articlefile.file.id}}"><i class="fa fa-download"></i></a>
+                        {% if articlefile.description %}
+                        <p> {{articlefile.description}} </p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor%}
+    </table>
+    <hr>
+
+
+    <div class="jumbotron">
+
+        <textarea placeholder="notes" class="form-control" rows="4"></textarea>
+        <br>
+        <div class="form-inline">
+            <select class="select2-element  form-control">
+                {% for i in range(0,4) %}
+                    <option value="{{i}}">
+                        {{ ("reviewResultCodes."~i~"")|trans }}
+                    </option>
+                {% endfor %}
+            </select>
+            <select class="select2-element form-control" style="width:200px">
+                <option value="0"></option>
+                {% for nextStep in step.nextSteps %}
+                    <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
+                {%endfor%}
+            </select>
+            <a class="btn btn-warning pull-right btn-lg">Next</a> 
+        </div>
+
+    </div>
+
 </div>
 {% endblock %}
 
