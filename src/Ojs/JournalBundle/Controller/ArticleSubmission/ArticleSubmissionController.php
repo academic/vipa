@@ -151,6 +151,7 @@ class ArticleSubmissionController extends Controller
             $reviewStep->setArticleId($article->getId());
             $reviewStep->setSubmitterId($this->getUser()->getId());
             $reviewStep->setStartedDate(new \DateTime());
+            $reviewStep->setStatusText($firstStep->getStatus());
             $deadline = new \DateTime();
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
             $reviewStep->setReviewDeadline($deadline);
