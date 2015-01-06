@@ -1,13 +1,6 @@
 Ojs\JournalBundle\Entity\Lang:
     type: entity
     table: null
-    manyToMany:
-        articles:
-          targetEntity: Article
-          mappedBy: languages
-        journals:
-          targetEntity: Journal
-          mappedBy: languages
     id:
         id:
             type: integer

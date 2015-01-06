@@ -12,6 +12,7 @@ use Ojs\Common\Entity\GenericExtendedEntity;
  */
 class Lang extends GenericExtendedEntity
 {
+
     /**
      * @var integer
      * @Expose()
@@ -35,88 +36,6 @@ class Lang extends GenericExtendedEntity
      * @Expose()
      */
     private $rtl;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articles;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $journals;
-
-    public function __construct()
-    {
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add article
-     *
-     * @param  \Ojs\JournalBundle\Entity\Article $article
-     * @return Language
-     */
-    public function addArticle(\Ojs\JournalBundle\Entity\Article $article)
-    {
-        $this->articles[] = $article;
-
-        return $this;
-    }
-
-    /**
-     * Remove article
-     *
-     * @param \Ojs\JournalBundle\Entity\Article $article
-     */
-    public function removeArticle(\Ojs\JournalBundle\Entity\Article $article)
-    {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
-    }
-
-    /**
-     * Add journal
-     *
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Language
-     */
-    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
-    {
-        $this->journals[] = $journal;
-
-        return $this;
-    }
-
-    /**
-     * Remove journal
-     *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
-     */
-    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
-    {
-        $this->journals->removeElement($journal);
-    }
-
-    /**
-     * Get journals
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getJournals()
-    {
-        return $this->journals;
-    }
 
     /**
      * Get id
