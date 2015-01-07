@@ -33,8 +33,7 @@ class JournalWorkflowStep
 
     /** @MongoDb\Boolean */
     protected $onlyreply;
-    
-    
+
     /** @MongoDb\Boolean */
     protected $canEdit;
 
@@ -85,8 +84,7 @@ class JournalWorkflowStep
     protected $isVisible = true;
 
     /**
-     * Get id
-     *
+     * Document Id
      * @return id $id
      */
     public function getId()
@@ -344,7 +342,6 @@ class JournalWorkflowStep
         return $this->isVisible;
     }
 
-
     /**
      * Set canEdit
      *
@@ -366,4 +363,5 @@ class JournalWorkflowStep
     {
         return $this->canEdit;
     }
+
 }

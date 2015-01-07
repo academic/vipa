@@ -2,6 +2,8 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Controller for journal's all users 
  * actions will check roles in their logic
@@ -21,7 +23,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($articleStep->getStepId()); 
+                ->find($articleStep->getStepId());
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true);
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
@@ -31,6 +33,25 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
                     'daysRemaining' => $daysRemaining,
                     'daysOverDue' => $daysOverDue
         ));
+    }
+
+    /**
+     * 
+     * @param string $id 
+     */
+    public function startReviewAction(Request $request, $id)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        if ($articleStep) {
+            $articleStep->setOwnerUser($this->getUser());
+            $dm->persist($articleStep);
+            $dm->flush();
+        }
+
+        $referer = $request->headers->get('referer');
+        return $this->redirect(empty($referer) ? "/" : $referer);
     }
 
     /**
@@ -45,7 +66,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($id);
 
-        $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->findBy(array('stepId' => $step->getId()));
+        $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")
+                ->findBy(
+                array('stepId' => $step->getId()), array('finishedDate' => null)
+        );
         $ids = [];
         foreach ($articlesStep as $stepNode) {
             $ids[] = $stepNode->getArticleId();

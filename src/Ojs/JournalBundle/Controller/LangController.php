@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Form\LangType;
 
@@ -26,9 +25,10 @@ class LangController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Lang')->findAll();
 
         return $this->render('OjsJournalBundle:Lang:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Lang entity.
      *
@@ -48,8 +48,8 @@ class LangController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Lang:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -79,11 +79,11 @@ class LangController extends Controller
     public function newAction()
     {
         $entity = new Lang();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:Lang:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -100,12 +100,8 @@ class LangController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Lang entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:Lang:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity
         ));
     }
 
@@ -124,22 +120,20 @@ class LangController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Lang:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView()
         ));
     }
 
     /**
-    * Creates a form to edit a Lang entity.
-    *
-    * @param Lang $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Lang entity.
+     *
+     * @param Lang $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Lang $entity)
     {
         $form = $this->createForm(new LangType(), $entity, array(
@@ -151,6 +145,7 @@ class LangController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Lang entity.
      *
@@ -165,7 +160,6 @@ class LangController extends Controller
             throw $this->createNotFoundException('Unable to find Lang entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -176,49 +170,26 @@ class LangController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Lang:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a Lang entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Lang entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Lang entity.');
         }
-
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('lang'));
     }
 
-    /**
-     * Creates a form to delete a Lang entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('lang_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
-    }
 }

@@ -269,6 +269,7 @@ lang.code: Kod
 lang.name: Tanım
 lang.rtl: Sağdan Sola
 lang.new: Yeni Dil
+lang.isTranslated: Çevrildi mi?
 lang: Dil
 subject.edit: Konu Düzenle
 subject.list: Konu Listesi
