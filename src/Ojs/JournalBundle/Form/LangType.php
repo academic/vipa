@@ -8,16 +8,24 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class LangType extends AbstractType
 {
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code')
-            ->add('name')
-            ->add('rtl')
+                ->add('code', 'text', array('attr' => array('placeholder' => 'Do not use special characters')))
+                ->add('name')
+                ->add('translated', 'checkbox', array(
+                    'label' => 'Is this language translated completely?',
+                    'required' => false,
+                ))
+                ->add('rtl', 'checkbox', array(
+                    'label' => 'Right to left?',
+                    'required' => false,
+                ))
         ;
     }
 
@@ -38,4 +46,5 @@ class LangType extends AbstractType
     {
         return 'ojs_journalbundle_lang';
     }
+
 }
