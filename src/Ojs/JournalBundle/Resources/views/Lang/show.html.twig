@@ -18,23 +18,19 @@
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
+                <th>{{"lang.isTranslated"|trans}}</th>
+                <td>{{ printYesNo(entity.translated) }}</td>
+            </tr>
+            <tr>
                 <th>{{"lang.rtl"|trans}}</th>
-                <td>{{ entity.rtl }}</td>
+                <td>{{ printYesNo(entity.rtl) }}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('lang') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('lang_edit', { 'id': entity.id }) }}">
-                {{"e"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    {% set back_path = 'lang' %}
+    {% set edit_path = 'lang_edit' %}
+    {% set delete_path = 'lang_delete' %}
+    {% include '::actionbtns.html.twig' %}
+
 {% endblock %}

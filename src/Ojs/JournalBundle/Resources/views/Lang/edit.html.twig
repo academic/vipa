@@ -4,13 +4,10 @@
     <h1>{{"lang.edit"|trans}}</h1>
 
     {{ form(edit_form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('lang') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    <hr>
+    <div class="record_actions">
+        {% set back_path = 'lang' %}
+        {% set delete_path = 'lang_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    </div> 
 {% endblock %}

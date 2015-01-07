@@ -1,13 +1,6 @@
 Ojs\JournalBundle\Entity\Lang:
     type: entity
     table: null
-    manyToMany:
-        articles:
-          targetEntity: Article
-          mappedBy: languages
-        journals:
-          targetEntity: Journal
-          mappedBy: languages
     id:
         id:
             type: integer
@@ -24,6 +17,10 @@ Ojs\JournalBundle\Entity\Lang:
         rtl:
             type: boolean
             nullable: true
+        translated:
+            type: boolean
+            nullable: true
+            default: true
         createdBy:
            type: string
            gedmo:
