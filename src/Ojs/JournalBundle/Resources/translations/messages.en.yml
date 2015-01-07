@@ -275,6 +275,7 @@ lang.code: Code
 lang.name: Name
 lang.rtl: RTL
 lang.new: New Langues
+lang.isTranslated: Is translated?
 lang: Languages
 lang.plural: Languages
 subject.edit: Edit Subject

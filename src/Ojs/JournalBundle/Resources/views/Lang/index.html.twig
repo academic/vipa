@@ -10,6 +10,7 @@
                 <th>{{"lang.code"|trans}}</th>
                 <th>{{"lang.name"|trans}}</th>
                 <th>{{"lang.rtl"|trans}}</th>
+                <th>{{"lang.isTranslated"|trans}}</th>
                 <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
@@ -19,27 +20,23 @@
                     <td><a href="{{ path('lang_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.code }}</td>
                     <td>{{ entity.name }}</td>
-                    <td>{{ entity.rtl }}</td>
+                    <td>{{ printYesNo(entity.rtl) }}</td>
+                    <td>{{ printYesNo(entity.translated) }}</td>
+
                     <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('lang_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('lang_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-                            </li>
-                        </ul>
+                        {% set show_path = 'lang_show' %}
+                        {% set edit_path = 'lang_edit' %}
+                        {% set delete_path = 'lang_delete' %}
+                        {% include '::actionbtns.html.twig' %}
+
+
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('lang_new') }}">
-                {{"c"|trans}}
-            </a>
-        </li>
-    </ul>
+    <a href="{{ path('lang_new') }}" class="btn btn-success">
+        {{"c"|trans}}
+    </a> 
 {% endblock %}

@@ -5,7 +5,6 @@
 
     {{ form(form) }}
 
-    <a class="btn btn-default" href="{{ path('lang') }}">
-        {{"b"|trans}}
-    </a> 
+    {% set back_path = 'lang' %} 
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}
