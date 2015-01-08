@@ -14,9 +14,14 @@
             <i class="fa fa-pencil"></i>
         </a>
     {% endif %}
+    {% if (cms_path is defined) %}
+        <a class="btn-xs btn-info" href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}">
+            <i class="fa fa-anchor"></i>
+        </a>
+    {% endif %}
     {% if(delete_path is defined) %}
         <a class="btn-xs btn btn-danger" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-           href="{{ path(delete_path, { 'id': entity.id }) }}">
+           href="{{ path(delete_path, { 'id': entity.id}) }}">
             <i class="fa fa-trash-o"></i>
         </a>
     {% endif %}
