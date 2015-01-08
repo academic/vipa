@@ -10,7 +10,6 @@
                 <th>{{"lang.code"|trans}}</th>
                 <th>{{"lang.name"|trans}}</th>
                 <th>{{"lang.rtl"|trans}}</th>
-                <th>{{"lang.isTranslated"|trans}}</th>
                 <th>{{"actions"|trans}}</th>
             </tr>
         </thead>
@@ -21,7 +20,6 @@
                     <td>{{ entity.code }}</td>
                     <td>{{ entity.name }}</td>
                     <td>{{ printYesNo(entity.rtl) }}</td>
-                    <td>{{ printYesNo(entity.translated) }}</td>
 
                     <td>
                         {% set show_path = 'lang_show' %}

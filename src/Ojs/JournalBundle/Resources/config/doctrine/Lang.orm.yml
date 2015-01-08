@@ -17,10 +17,6 @@ Ojs\JournalBundle\Entity\Lang:
         rtl:
             type: boolean
             nullable: true
-        translated:
-            type: boolean
-            nullable: true
-            default: true
         createdBy:
            type: string
            gedmo:
