@@ -32,7 +32,8 @@ class ConfigController extends Controller
             $setter = 'set' . join('', array_map(function ($s) {
                     return ucfirst($s);
                 }, explode('_', $key)));
-            $formData->{$setter}($value);
+            if(method_exists($formData,$setter))
+                $formData->{$setter}($value);
         }
         $form = $this->createForm(new ConfigType(), $formData, [
             'method' => 'post',
