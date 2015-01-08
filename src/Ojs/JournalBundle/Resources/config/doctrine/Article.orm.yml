@@ -42,11 +42,19 @@ Ojs\JournalBundle\Entity\Article:
     articleFiles:
       targetEntity: ArticleFile
       mappedBy: article
+
+  manyToMany:
     languages:
       targetEntity: Lang
-      mappedBy: article
+      joinTable:
+        inverseJoinColumns:
+          language_id:
+            referencedColumnName: id
+        joinColumns:
+          article_id:
+            referencedColumnName: id
+        name: Article_Language
       fetch: EXTRA_LAZY
-  manyToMany:
     citations:
       targetEntity: Citation
       inversedBy: articles
