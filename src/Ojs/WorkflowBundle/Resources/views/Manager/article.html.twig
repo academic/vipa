@@ -1,78 +1,105 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ])}}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}  
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ]) }}
 {% endblock %}
 
 
 {% block body -%}
 
     <small>
-        <strong>Started :</strong> 
-        <span class="">{{articleStep.startedDate|date('Y-m-d') }}</span> | 
-        <strong>Deadline :</strong>          
-        <span class="">{{articleStep.reviewDeadline|date('Y-m-d') }}</span>
+        <strong>Started :</strong>
+        <span class="">{{ articleStep.startedDate|date('Y-m-d') }}</span> |
+        <strong>Deadline :</strong>
+        <span class="">{{ articleStep.reviewDeadline|date('Y-m-d') }}</span>
     </small>
-    <h4 class="pull-right ">
+    <h4 class="pull-right " id="workflow_days">
         {% if daysOverDue %}
-            <span class="label label-danger">{{daysOverDue}} days overdue</span>
+            <span class="label label-danger">{{ daysOverDue }} days overdue</span>
         {% endif %}
         {% if daysRemaining %}
-            <span class="pull-right label label-info">{{daysRemaining}} days remaining</span>
+            <span class="pull-right label label-info">{{ daysRemaining }} days remaining</span>
         {% endif %}
     </h4>
-    <h2>{{article.title}}               
+    <h2>{{ article.title }}
         <span class="btn-group">
-            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+            <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                href="http://scholar.google.com.tr/scholar?q={{ article.title|url_encode }}">
                 <i class="fa fa-google"></i>
             </a>
-            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+            <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
                href="http://en.wikipedia.org/w/index.php?search={{ article.title|url_encode }}">
                 W
             </a>
-            <a target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+            <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
                href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
                 PubMed
             </a>
         </span>
     </h2>
-    <a class="btn btn-warning" href="{{path('article_step_start_review',{"id":articleStep.id})}}">
-        <i class="fa fa-clock-o"></i> Start Review
-    </a>
+    {% if articleStep.ownerUser %}
+        <div class="alert alert-danger" id="article_workflow_someone_working">
+            <i class="fa fa-cog fa-spin fa-2x"></i>
+            {% if isJournalManager() == true or step.isVisible %}
+                <a
+                    href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
+                    {{ articleStep.ownerUser.username }}
+                </a>
+            {% else %}
+                Someone
+            {% endif %}
+            is working on this step
+        </div>
+    {% else %}
+        <a class="btn btn-warning"
+           onclick="return confirm('{{ "sure"|trans }}');"
+           href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
+            <i class="fa fa-clock-o"></i> Start Review
+        </a>
+    {% endif %}
     <div class="panel-body">
         <table class="table">
             <tr>
                 <td>Submission Reference</td>
                 <td>
-                    <small class="badge">{{id}}</small> 
+                    <small class="badge">{{ id }}</small>
                 </td>
             </tr>
             <tr>
                 <td>Subjects</td>
-                <td>{{article.subjects}}</td>
+                <td>{{ article.subjects }}</td>
             </tr>
             <tr>
                 <td>Keywords</td>
-                <td>{{article.keywords}}</td>
+                <td>{{ article.keywords }}</td>
             </tr>
             <tr>
                 <td>Abstract</td>
-                <td>{{article.abstract|raw}}</td>
-            </tr>  
+                <td>{{ article.abstract|raw }}</td>
+            </tr>
         </table>
         <hr>
     </div>
-    <hr />
+    <hr/>
 
     {% if  isJournalManager() == true or step.canSeeAuthor %}
         <h2>Authors</h2>
 
         <table class="table">
             {% for articleAuthor in article.articleAuthors %}
-                <tr> 
+                <tr>
                     <td>
                         {{ articleAuthor.author.fullName }}
+
+                        <span class="label label-default">{{ articleAuthor.author.email }}</span>
+
                         <span class="btn-group">
                             <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                                href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
@@ -83,10 +110,9 @@
                                 W
                             </a>
                         </span>
-                        <span class="label label-default">{{articleAuthor.author.email}}</span>
                     </td>
                 </tr>
-            {% endfor%}
+            {% endfor %}
         </table>
         <hr/>
     {% endif %}
@@ -94,63 +120,80 @@
     <h2>Citations</h2>
     <table class="table">
         {% for citation in article.citations %}
-            <tr> 
-                <td>{{citation.raw}}</td>
+            <tr>
+                <td>{{ citation.raw }}</td>
             </tr>
-        {% endfor%}
+        {% endfor %}
     </table>
 
     <hr>
     <h2>Files</h2>
     <table class="table">
         {% for articlefile in article.articlefiles %}
-            <tr> 
+            <tr>
                 <td>
-                    <span class="badge sm">#{{articlefile.file.id}}</span> 
-                    <span class="label label-info">{{fileType(articlefile.type)}}</span>
-                    {{articlefile.title}} <a href="{{articlefile.file.id}}"><i class="fa fa-download"></i></a>
+                    <span class="badge sm">#{{ articlefile.file.id }}</span>
+                    <span class="label label-info">{{ fileType(articlefile.type) }}</span>
+                    {{ articlefile.title }} <a href="{{ articlefile.file.id }}"><i class="fa fa-download"></i></a>
                         {% if articlefile.description %}
-                        <p> {{articlefile.description}} </p>
+                        <p> {{ articlefile.description }} </p>
                     {% endif %}
                 </td>
             </tr>
-        {% endfor%}
+        {% endfor %}
     </table>
     <hr>
 
+    {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
+        <div class="jumbotron">
+            <form class=""
+                  action="{{ path("article_step_next",{id: articleStep.id }) }}"
+                  method="POST">
+                <textarea name="notes" placeholder="notes" class="form-control" rows="4"></textarea>
+                <br>
 
-    <div class="jumbotron">
+                <div class="form-inline">
+                    <select name="reviewResultCode" class="select2-element  form-control">
+                        {% for i in range(0,4) %}
+                            <option value="{{ i }}">
+                                {{ ("reviewResultCodes."~i~"")|trans }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <select name="nextStepId" class="select2-element form-control" style="width:200px">
+                        {% for nextStep in step.nextSteps %}
+                            <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-warning pull-right btn-lg">
+                        <i class="fa fa-arrow-right"></i> Next
+                    </button>
+                </div>
 
-        <textarea placeholder="notes" class="form-control" rows="4"></textarea>
-        <br>
-        <div class="form-inline">
-            <select class="select2-element  form-control">
-                {% for i in range(0,4) %}
-                    <option value="{{i}}">
-                        {{ ("reviewResultCodes."~i~"")|trans }}
-                    </option>
-                {% endfor %}
-            </select>
-            <select class="select2-element form-control" style="width:200px">
-                <option value="0"></option>
-                {% for nextStep in step.nextSteps %}
-                    <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
-                {%endfor%}
-            </select>
-            <a class="btn btn-warning pull-right btn-lg">Next</a> 
+            </form>
+
         </div>
-
-    </div>
+    {% endif %}
 
 </div>
 {% endblock %}
 
 
 {% block javascripts %}
-    {{parent()}}
-    <script>
-        $(document).ready(function () {
-            $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-        });
-    </script>
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endjavascripts %}
+    {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
+    {% if app.user.setting('tour.admin.workflow.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+    {% endjavascripts %}
+        <script>
+            $(document).ready(function () {
+                $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+            });
+        </script>
 {% endblock %}
+
+
+
+
