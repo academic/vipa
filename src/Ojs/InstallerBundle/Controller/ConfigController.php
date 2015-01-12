@@ -26,7 +26,6 @@ class ConfigController extends Controller
             $formDataFile = $parser->parse(file_get_contents($parametersFile));
         } else {
             $formDataFile = $parser->parse(file_get_contents($parametersFileDist));
-
         }
         foreach ($formDataFile['parameters'] as $key => $value) {
             $setter = 'set' . join('', array_map(function ($s) {
