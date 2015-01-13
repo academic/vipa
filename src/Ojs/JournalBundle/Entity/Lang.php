@@ -37,10 +37,6 @@ class Lang extends GenericExtendedEntity
      */
     private $rtl;
 
-    /**
-     * @var boolean
-     */
-    private $translated;
 
     /**
      * Get id
@@ -119,29 +115,6 @@ class Lang extends GenericExtendedEntity
     public function getRtl()
     {
         return $this->rtl;
-    }
-
-    /**
-     * Set translated
-     *
-     * @param boolean $translated
-     * @return Lang
-     */
-    public function setTranslated($translated)
-    {
-        $this->translated = $translated;
-
-        return $this;
-    }
-
-    /**
-     * Get translated
-     *
-     * @return boolean 
-     */
-    public function getTranslated()
-    {
-        return $this->translated;
     }
 
 }

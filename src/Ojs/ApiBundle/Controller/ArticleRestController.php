@@ -136,7 +136,8 @@ class ArticleRestController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
-
+        if(!$article)
+            return null;
         return $article->getCitations();
     }
 
@@ -156,6 +157,9 @@ class ArticleRestController extends FOSRestController
         // check and insert citation
         /* @var $article \Ojs\JournalBundle\Entity\Article  */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
+        if(!$article){
+            return null;
+        }
         $article->addCitation($citation);
         $em->persist($citation);
         $em->flush();

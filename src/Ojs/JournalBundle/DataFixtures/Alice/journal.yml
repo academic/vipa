@@ -14,7 +14,7 @@
     institution: @institution1
     subject: 5x @subject*
     status: '3'
-    languages: 3x @lang*
+    languages(unique): 3x @lang*
   journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(50)>
@@ -30,5 +30,5 @@
     institution: @institution*
     subject: 5x @subject*
     status: '3'
-    languages: 3x @lang*
+    languages(unique): 3x @lang*
     tags: <text(20)>, <text(10)>
