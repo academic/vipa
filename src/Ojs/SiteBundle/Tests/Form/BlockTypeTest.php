@@ -20,8 +20,8 @@ class BlockTypeTest extends BaseTypeTestcase
                 'title' => $this->faker->text(100),
                 'type' => 'html',
                 'content' => $this->faker->text(),
-                'object_id' => 1,
-                'object_type' => $this->faker->word,
+                //'object_id' => 1,
+                //'object_type' => $this->faker->word,
                 'color' => 'default'
             ],
             'Ojs\SiteBundle\Entity\Block');
