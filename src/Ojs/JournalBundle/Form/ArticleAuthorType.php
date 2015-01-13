@@ -27,8 +27,8 @@ class ArticleAuthorType extends AbstractType
                     $qb = $er->createQueryBuilder('a');
                     $qb->where(
                         $qb->expr()->eq('a.journalId', ':journal')
-                    )
-                        ->setParameter('journal', $journal);
+                    );
+                    $qb->setParameter('journal', $journal);
                     return $qb;
                 }
             ]);
