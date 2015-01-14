@@ -1,0 +1,12 @@
+{% extends 'OjsInstallerBundle:Update:layout.html.twig' %}
+{% block body -%}
+    <div class="jumbotron">
+        <h1>{{ "installer.update.welcome.title"|trans }}</h1>
+        <p class="lead">{{ "installer.update.welcome.message"|trans }}</p>
+        <p><textarea name="" style="font-size:11px;" id="" class="form-control" rows="10">{{ diff }}
+            </textarea></p>
+        <p>
+            <a class="btn btn-lg btn-success" href="{{ url('ojs_installer_update_confirm') }}" role="button">
+                {{ "installer.update"|trans }}</a></p>
+    </div>
+{% endblock %}
