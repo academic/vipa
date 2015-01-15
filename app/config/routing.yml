@@ -1,6 +1,3 @@
-okulbilisim_cms:
-    resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
-    prefix:   /
 
 ojs_installer:
     resource: "@OjsInstallerBundle/Resources/config/routing.yml"
@@ -78,4 +75,7 @@ feedback:
     prefix:   /
 ojs_site:
     resource: "@OjsSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+okulbilisim_cms:
+    resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
     prefix:   /

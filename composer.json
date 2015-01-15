@@ -52,8 +52,8 @@
         "tackk/cartographer": "1.0.*",
         "okulbilisim/cms-bundle": "0.0.1",
         "unifik/database-config-bundle": "dev-master",
-        "noxlogic/ratelimit-bundle": "1.4"
-
+        "noxlogic/ratelimit-bundle": "1.4",
+        "leaseweb/memcache-bundle": "*"
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master"

@@ -1,3 +1,11 @@
 noxlogic_rate_limit:
     enabled:              true
     storage_engine:       "memcache"
+    memcache_client: default
+lsw_memcache:
+    session:
+        client: default
+    clients:
+        default:
+            hosts:
+              - { dsn: localhost, port: 11211 }
