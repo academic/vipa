@@ -64,7 +64,7 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln($sb . 'Inserting system admin user to db' . $se);
         $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
 
-        $output->writeln($sb . 'Insertingdefault theme record' . $se);
+        $output->writeln($sb . 'Inserting default theme record' . $se);
         $this->insertTheme($this->getContainer());
 
         $output->writeln("\nDONE\n");
