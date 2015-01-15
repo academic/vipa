@@ -23,6 +23,8 @@ Debug::enable();
 require_once __DIR__.'/../app/AppKernel.php';
 
 $kernel = new AppKernel('dev', true);
+error_reporting('E_ALL & ~E_DEPRECATED & ~E_STRICT');
+
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
