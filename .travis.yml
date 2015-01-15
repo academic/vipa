@@ -3,16 +3,17 @@ language: php
 php:
   - 5.5
 
+
 services:
   - mysql
   - mongodb
   - elasticsearch
-
+  - memcached
 
 before_script:
 # Install php packages
   - sudo apt-get update > /dev/null
-  - phpenv config-add phpmongodb.ini
+  - phpenv config-add config.ini
   - mysql -e 'create database ojs;'
   - composer self-update
   - composer install --dev --no-interaction --prefer-dist
