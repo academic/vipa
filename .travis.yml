@@ -9,9 +9,12 @@ services:
   - mongodb
   - elasticsearch
   - memcached
+env: MEMCACHED__HOST=localhost
 
 before_script:
 # Install php packages
+  - memcached -p 11212 -d
+  - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
   - phpenv config-add config.ini
   - mysql -e 'create database ojs;'
