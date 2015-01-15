@@ -1,5 +1,8 @@
 <?php
 
+#https://github.com/SymBB/symbb_sandbox/commit/85587894baa7c15975bb86950366509a0850963a
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE);
+
 //use Symfony\Component\ClassLoader\ApcClassLoader;
 use Symfony\Component\HttpFoundation\Request;
 
