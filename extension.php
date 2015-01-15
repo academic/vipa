@@ -4,4 +4,4 @@
  * Time: 15:29
  */
 $extension = new \ReflectionExtension('memcached');
-echo $extension->getVersion();
+var_dump($extension->getVersion());
