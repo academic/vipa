@@ -9,10 +9,10 @@ services:
   - mongodb
   - elasticsearch
   - memcached
+env: MEMCACHED__HOST=localhost
 
 before_script:
 # Install php packages
-  - pecl install memcache
   - memcached -p 11212 -d
   - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
