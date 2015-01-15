@@ -28,5 +28,5 @@
 
     {% javascripts  '@OjsJournalBundle/Resources/public/js/tour/article_admin_tour.js' output="c/article_admin_tour.js" %}
     {% if app.user.setting('tour.admin.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-        {% endjavascripts %}
-        {% endblock %}
+    {% endjavascripts %}
+{% endblock %}

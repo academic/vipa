@@ -19,3 +19,10 @@ ojs_installer_create_admin:
 ojs_installer_summary:
     path: /install/summary
     defaults: { _controller: OjsInstallerBundle:Summary:summary }
+
+ojs_installer_update:
+    path: /update
+    defaults: { _controller: OjsInstallerBundle:Update:index }
+ojs_installer_update_confirm:
+    path: /update/confirm
+    defaults: { _controller: OjsInstallerBundle:Update:update }

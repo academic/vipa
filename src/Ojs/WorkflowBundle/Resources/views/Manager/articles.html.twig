@@ -1,96 +1,119 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ])}}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}  
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ]) }}
 {% endblock %}
 
 
-{% block body -%} 
+{% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>{{"article.plural"|trans}} 
-                <small class="pull-right label label-success">{{step.title}}</small> 
+            <h1>{{ "article.plural"|trans }}
+                <small class="pull-right label label-success">{{ step.title }}</small>
             </h1>
-        </div> <div class="panel-body">
+        </div>
+        <div class="panel-body">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Article Detail</th>
-                        <th>Reviewer</th>
-                    </tr>
+                <tr>
+                    <th>Article Detail</th>
+                    <th>Reviewer</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for articleStep in articlesStep %}
+                {% for articleStep in articlesStep %}
 
-                        <tr>
-                            <td>
-                                <h4>
-                                    <a href="{{path('article_step_preview',{'id':articleStep.id})}}"> 
-                                        {{articles[loop.index0].title}}
-                                    </a>
+                    <tr>
+                        <td>
+                            <h4>
+                                <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
+                                    {{ articles[loop.index0].title }}
+                                </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
-                                           href="http://scholar.google.com.tr/scholar?q={{articles[loop.index0].title|url_encode }}">
+                                           href="http://scholar.google.com.tr/scholar?q={{ articles[loop.index0].title|url_encode }}">
                                             <i class="fa fa-google"></i>
                                         </a>
                                         <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                                           href="http://en.wikipedia.org/w/index.php?search={{articles[loop.index0].title|url_encode }}">
+                                           href="http://en.wikipedia.org/w/index.php?search={{ articles[loop.index0].title|url_encode }}">
                                             W
                                         </a>
                                     </span>
-                                    {% if articles[loop.index0].submissionDate %}
-                                        <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
-                                    {% endif %}
-                                    {{daysDiff(articleStep.startedDate, articleStep.reviewDeadline)}} 
-                                </h4> 
-                                {% if  isJournalManager() == true or step.canSeeAuthor %}
-                                    <small>
-                                        {%for articleAuthor in articles[loop.index0].articleAuthors%}
-                                            {{articleAuthor.author.firstName}} {{articleAuthor.author.middleName}} {{articleAuthor.author.lastName}} 
-                                            {%if loop.last == false %},{% endif %}
-                                        {%endfor%} 
-                                    </small>
+                                {% if articles[loop.index0].submissionDate %}
+                                    <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
                                 {% endif %}
+                                {{ daysDiff(articleStep.startedDate, articleStep.reviewDeadline) }}
+                            </h4>
+                            {% if  isJournalManager() == true or step.canSeeAuthor %}
+                                <small>
+                                    {% for articleAuthor in articles[loop.index0].articleAuthors %}
+                                        {{ articleAuthor.author.firstName }} {{ articleAuthor.author.middleName }} {{ articleAuthor.author.lastName }}
+                                        {% if loop.last == false %},{% endif %}
+                                    {% endfor %}
+                                </small>
+                            {% endif %}
+                            <br>
+
+                            <small>
+                                <strong>Submission Refenrece Number :</strong>
+                                <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">{{ articleStep.id }}</a>
                                 <br>
 
-                                <small>
-                                    <strong>Submission Refenrece Number :</strong> 
-                                    <a href="{{path('article_step_preview',{'id':articleStep.id})}}">{{articleStep.id}}</a>
-                                    <br> 
-
-                                    <strong>Article Reference Number : </strong>
-                                    <a href="{{path('article_preview',{'id':articleStep.articleId})}}">
-                                        <span class="badge">{{articleStep.articleId}}</span>
-                                    </a>
-                                    <br>
-                                    <strong>Start Date : </strong>
-                                    {{articleStep.startedDate.date}}
-                                    <br>
-                                </small>
-                            </td>
-                            <td>
-                                {% if articleStep.ownerUser.username%}
+                                <strong>Article Reference Number : </strong>
+                                <a href="{{ path('article_preview',{'id':articleStep.articleId}) }}">
+                                    <span class="badge">{{ articleStep.articleId }}</span>
+                                </a>
+                                <br>
+                                <strong>Start Date : </strong>
+                                {{ articleStep.startedDate.date }}
+                                <br>
+                            </small>
+                        </td>
+                        <td>
+                            {% if articleStep.ownerUser %}
                                     {% if isJournalManager() == true or step.isVisible %}
-                                        <a href="{{path("user_profile",{"username":articleStep.ownerUser.username})}}">
-                                            <span class="label label-success">{{articleStep.ownerUser.username}}</span>
+                                        <a class="btn btn-danger btn-xs"
+                                                href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
+                                                   <i class="fa fa-cog fa-spin"></i>
+                                                    {{ articleStep.ownerUser.username }}
+
                                         </a>
-                                    {%else%}
-                                        Someone is working on this step
-                                    {%endif%}
-                                {% else %}
-                                    <a class="btn btn-warning" 
-                                       onclick="return confirm('{{"sure"|trans}}');"
-                                       href="{{path('article_step_start_review',{"id":articleStep.id})}}">
-                                        <i class="fa fa-clock-o"></i> Start Review
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr> 
-                    {% endfor %} 
+                                    {% else %}
+                                        Someone
+                                    {% endif %}
+                                    <!-- is working on this step -->
+                            {% else %}
+                                <a class="btn btn-warning"
+                                   onclick="return confirm('{{ "sure"|trans }}');"
+                                   href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
+                                    <i class="fa fa-clock-o"></i> Start Review
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
             <hr>
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endjavascripts %}
+    {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
+    {% if app.user.setting('tour.admin.workflow.articles') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+    {% endjavascripts %} 
+{% endblock %}
+
 

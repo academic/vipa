@@ -47,6 +47,7 @@ class AppKernel extends Kernel {
             new Ojs\InstallerBundle\OjsInstallerBundle(),
             new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
+            new Lsw\MemcacheBundle\LswMemcacheBundle(),
             new Noxlogic\RateLimitBundle\NoxlogicRateLimitBundle(),
         );
 

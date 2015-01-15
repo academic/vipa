@@ -382,7 +382,7 @@ class ArticleReviewStep
      */
     public function setOwnerUser($user)
     {
-        $this->ownerUser = array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
+        $this->ownerUser = !$user?null:array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
         return $this;
     }
 
@@ -440,7 +440,6 @@ class ArticleReviewStep
         return $this->reviewNotes;
     }
 
-
     /**
      * Set submitterId
      *
@@ -462,4 +461,15 @@ class ArticleReviewStep
     {
         return $this->submitterId;
     }
+
+    public function __toString()
+    {
+        return $this->getStatusText() . "[#{$this->getId()}]";
+    }
+
+    public function __clone()
+    {
+        $this->id = null;
+    }
+
 }

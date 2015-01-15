@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{{ "OJS Updater"|trans }}</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+        <!-- Custom styles for this template -->
+        <style type="text/css">
+            /* Space out content a bit */
+            body {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            /* Everything but the jumbotron gets side spacing for mobile first views */
+            .header,
+            .marketing,
+            .footer {
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+
+            /* Custom page header */
+            .header {
+                border-bottom: 1px solid #e5e5e5;
+            }
+            /* Make the masthead heading the same height as the navigation */
+            .header h3 {
+                padding-bottom: 19px;
+                margin-top: 0;
+                margin-bottom: 0;
+                line-height: 40px;
+            }
+
+            /* Custom page footer */
+            .footer {
+                padding-top: 19px;
+                color: #777;
+                border-top: 1px solid #e5e5e5;
+            }
+
+            /* Customize container */
+            @media (min-width: 768px) {
+                .container {
+                    max-width: 730px;
+                }
+            }
+            .container-narrow > hr {
+                margin: 30px 0;
+            }
+
+            /* Main marketing message and sign up button */
+            .jumbotron {
+                text-align: center;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .jumbotron .btn {
+                padding: 14px 24px;
+                font-size: 21px;
+            }
+
+            /* Supporting marketing content */
+            .marketing {
+                margin: 40px 0;
+            }
+            .marketing p + h4 {
+                margin-top: 28px;
+            }
+
+            /* Responsive: Portrait tablets and up */
+            @media screen and (min-width: 768px) {
+                /* Remove the padding we set earlier */
+                .header,
+                .marketing,
+                .footer {
+                    padding-right: 0;
+                    padding-left: 0;
+                }
+                /* Space out the masthead */
+                .header {
+                    margin-bottom: 30px;
+                }
+                /* Remove the bottom border on the jumbotron for visual effect */
+                .jumbotron {
+                    border-bottom: 0;
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="header">
+                <nav>
+                    <ul class="nav nav-pills pull-right">
+                        <li role="presentation" {%if data.page == 'home' %}class="active"{% endif%}><a href="{{ url('ojs_installer_update') }}">1. {{ "installer.menu.update"|trans }}</a></li>
+                        <li role="presentation" {%if data.page == 'update' %}class="active"{% endif%}><a href="{{ url('ojs_installer_update_confirm') }}">2. {{ "installer.menu.update_confirm"|trans }}</a></li>
+                    </ul>
+
+
+                </nav>
+                <h3 class="text-muted">{{ "OJS Updater"|trans }}</h3>
+            </div>
+
+            {% block body %}
+                
+            {% endblock%}
+
+            <footer class="footer">
+                <p>&copy; <a href="http://ojs.io">OJS.io</a> 2014</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+
+    </body>
+</html>
