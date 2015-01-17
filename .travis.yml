@@ -18,6 +18,7 @@ before_script:
   - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
   - sudo apt-get install php5-memcached
+  - cd vendor/leaseweb/memcache-bundle/Lsw/MemcacheBundle/Cache && php update.php && cd ../../../../../../
   - phpenv config-add config.ini
   - php -f extension.php
   - mysql -e 'create database ojs;'
