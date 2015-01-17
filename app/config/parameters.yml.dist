@@ -24,3 +24,5 @@ parameters:
 
     elasticsearch_host: 127.0.0.1
     mongodb_host: 127.0.0.1
+    cms_show_routes:
+        Ojs\JournalBundle\Entity\Journal: journal_show
