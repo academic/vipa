@@ -18,12 +18,12 @@ before_script:
   - memcached -p 11213 -d
   - sudo apt-get update > /dev/null
   - sudo apt-get install php5-memcached
-  - cd vendor/leaseweb/memcache-bundle/Lsw/MemcacheBundle/Cache && php update.php && cd ../../../../../../
   - phpenv config-add config.ini
   - php -f extension.php
   - mysql -e 'create database ojs;'
   - /home/travis/.phpenv/versions/5.5/bin/composer self-update
   - composer install --dev --no-interaction --prefer-dist
+  - cd vendor/leaseweb/memcache-bundle/Lsw/MemcacheBundle/Cache && php update.php && cd ../../../../../../
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - php app/console ojs:install:travis
   - npm install -g bower
