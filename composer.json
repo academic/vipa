@@ -50,7 +50,7 @@
         "h4cc/alice-fixtures-bundle": "~0.5",
     	"okulbilisim/feedback-bundle": "dev-master",
         "tackk/cartographer": "1.0.*",
-        "okulbilisim/cms-bundle": "0.0.1",
+        "okulbilisim/cms-bundle": "dev-master",
         "unifik/database-config-bundle": "dev-master",
         "noxlogic/ratelimit-bundle": "1.4",
         "leaseweb/memcache-bundle": "*"
