@@ -26,6 +26,7 @@ parameters:
     mongodb_host: 127.0.0.1
     cms_show_routes:
         Ojs\JournalBundle\Entity\Journal: journal_show
+        Ojs\JournalBundle\Entity\Article: article_show
 lsw_memcache:
     session:
         client: default
