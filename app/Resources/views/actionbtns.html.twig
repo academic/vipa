@@ -25,6 +25,11 @@
             <i class="fa fa-trash-o"></i>
         </a>
     {% endif %}
+    {% if invite_user_path is defined %}
+        <a class="btn-xs btn btn-danger" href="{{ url(invite_user_path,{'id':entity.id,'object':entity|cmsobject}) }}">
+            <i class="fa fa-users"></i>
+        </a>
+    {% endif %}
     {% if (block_path is defined) %}
 
     {% endif %}

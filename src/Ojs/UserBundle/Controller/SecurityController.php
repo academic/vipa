@@ -86,6 +86,23 @@ class SecurityController extends Controller {
         );
     }
 
+    public function anonymLoginAction(Request $request,$hash)
+    {
+        if($this->getUser()){
+            return $this->redirect($this->generateUrl('ojs_public_index'));
+        }
+        $session = $request->getSession();
+        // get the login error if there is one
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                SecurityContext::AUTHENTICATION_ERROR
+            );
+        } else {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+    }
     private function encodePassword(User $user, $plainPassword) {
         $encoder = $this->container->get('security.encoder_factory')
                 ->getEncoder($user);

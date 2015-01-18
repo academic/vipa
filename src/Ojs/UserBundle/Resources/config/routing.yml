@@ -52,6 +52,9 @@ privacy:
 login:
     path: /login
     defaults: { _controller: OjsUserBundle:Security:login }
+anon_login:
+    path: /anonymlogin/{hash}
+    defaults: { _controller: OjsUserBundle:Security:anonymLogin }
 register:
     path: /register
     defaults: { _controller: OjsUserBundle:Security:register }

@@ -1,0 +1,44 @@
+{% extends '::ojsbase.html.twig' %}
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'user.anonym'|trans},
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+{% block body -%}
+    <div class="row">
+        <div class="panel">
+            <h1>{{"user.list"|trans}}</h1>
+
+            <table class="records_list  table">
+                <thead>
+                <tr>
+                    <th>{{"user.anonym.firstname"|trans}}</th>
+                    <th>{{"user.anonym.lastname"|trans}}</th>
+                    <th>{{"user.anonym.email"|trans}}</th>
+                    <th>{{"user.anonym.role"|trans}}</th>
+                    <th>{{"user.anonym.object"|trans}}</th>
+                    <th>{{"actions"|trans}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td>{{ entity.firstname }}</td>
+                        <td>{{ entity.lastname}}</td>
+                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.role }}</td>
+                        <td>{{ getPostObject() }}</td>
+                        <td>
+                            {% set edit_path = 'user_edit_anonym' %}
+                            {% set delete_path = 'user_delete_anonym' %}
+                            {% include '::actionbtns.html.twig' %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
