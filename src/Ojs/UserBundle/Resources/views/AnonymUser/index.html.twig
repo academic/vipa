@@ -10,7 +10,6 @@
     <div class="row">
         <div class="panel">
             <h1>{{"user.list"|trans}}</h1>
-
             <table class="records_list  table">
                 <thead>
                 <tr>
@@ -18,6 +17,9 @@
                     <th>{{"user.anonym.lastname"|trans}}</th>
                     <th>{{"user.anonym.email"|trans}}</th>
                     <th>{{"user.anonym.role"|trans}}</th>
+                    <th>{{"user.anonym.has_logged"|trans}}</th>
+                    <th>{{"user.anonym.has_register"|trans}}</th>
+                    <th>{{"user.anonym.user"|trans}}</th>
                     <th>{{"user.anonym.object"|trans}}</th>
                     <th>{{"actions"|trans}}</th>
                 </tr>
@@ -29,7 +31,10 @@
                         <td>{{ entity.lastname}}</td>
                         <td>{{ entity.email }}</td>
                         <td>{{ entity.role }}</td>
-                        <td>{{ getPostObject() }}</td>
+                        <td>{{ entity.hasLogged }}</td>
+                        <td>{{ entity.hasRegister }}</td>
+                        <td>{{ entity.userId }}</td>
+                        <td>{{ getObject(entity.object,entity.objectId)|raw }}</td>
                         <td>
                             {% set edit_path = 'user_edit_anonym' %}
                             {% set delete_path = 'user_delete_anonym' %}

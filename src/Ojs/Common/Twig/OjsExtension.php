@@ -378,7 +378,7 @@ class OjsExtension extends \Twig_Extension
         /** @var Router $router */
         $router = $this->container->get('router');
         $route = $router->generate($cms_routes[$objectClass],['id'=>$id]);
-        return '<a href="'.$route.'" target="_blank">'.$object.'</a>';
+        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object,0,20).'</a>';
     }
 
     /**

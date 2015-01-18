@@ -243,5 +243,74 @@ class AnonymUser {
         return $this;
     }
 
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $has_logged;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $has_register;
+
+    /**
+     * @MongoDB\Int
+     */
+    protected $user_id;
+
+    /**
+     * @return mixed
+     */
+    public function getHasLogged()
+    {
+        return $this->has_logged;
+    }
+
+    /**
+     * @param mixed $has_logged
+     * @return $this
+     */
+    public function setHasLogged($has_logged)
+    {
+        $this->has_logged = $has_logged;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasRegister()
+    {
+        return $this->has_register;
+    }
+
+    /**
+     * @param mixed $has_register
+     * @return $this
+     */
+    public function setHasRegister($has_register)
+    {
+        $this->has_register = $has_register;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     * @return $this
+     */
+    public function setUserId($user_id)
+    {
+        $this->user_id = $user_id;
+        return $this;
+    }
+
 
 }

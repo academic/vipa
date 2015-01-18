@@ -105,3 +105,12 @@ user.journalrole.user.id: ID
 user.journalrole.user.username: Kullanıcı Adı
 user.journalrole.email: Eposta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
+user.anonym:
+  firstname: "Ad"
+  lastname: "Soyad"
+  email: "Eposta"
+  role: "Yetki"
+  has_logged: "Giriş"
+  has_register: "Kayıt"
+  user: "Kullanıcı"
+  object: "Nesne"

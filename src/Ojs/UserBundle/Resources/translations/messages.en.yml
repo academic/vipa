@@ -106,3 +106,12 @@ user.journalrole.user.id: ID
 user.journalrole.user.username: Username
 user.journalrole.email: Email
 user.journalrole.thisjournalhasnouser: 'This Journal Has No User!'
+user.anonym:
+  firstname: "Firstname"
+  lastname: "Lastname"
+  email: "Email"
+  role: "Role"
+  has_logged: "Logged"
+  has_register: "Registered"
+  user: "UserID"
+  object: "Object"
