@@ -2,6 +2,7 @@
 
 namespace Ojs\Common\Twig;
 
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class OjsExtension extends \Twig_Extension
@@ -48,7 +49,8 @@ class OjsExtension extends \Twig_Extension
             'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
-            'getRoute'=>new \Twig_Function_Method($this, 'getRoute',[])
+            'getRoute'=>new \Twig_Function_Method($this, 'getRoute',[]),
+            'getObject'=>new \Twig_Function_Method($this, 'getObject',[])
         );
     }
 
@@ -366,6 +368,45 @@ class OjsExtension extends \Twig_Extension
             default:
                 return '#'; 
         }
+    }
+
+    public function getObject($object, $id)
+    {
+        $objectClass = $this->decode($object);
+        $object = $this->em->find($objectClass,$id);
+        $cms_routes = $this->container->getParameter('cms_show_routes');
+        /** @var Router $router */
+        $router = $this->container->get('router');
+        $route = $router->generate($cms_routes[$objectClass],['id'=>$id]);
+        return '<a href="'.$route.'" target="_blank">'.$object.'</a>';
+    }
+
+    /**
+     * Basic encoding
+     * @param $string
+     * @return string
+     */
+    public function encode($string)
+    {
+        $string = base64_encode($string);
+        $len = strlen($string);
+        $piece = $len/2;
+        $encoded = substr($string,$piece,$len-1).substr($string,0,$piece);
+        return $encoded;
+    }
+
+    /**
+     * Basic encoding
+     * @param $string
+     * @return string
+     */
+    public function decode($string)
+    {
+        $len = strlen($string);
+        $piece = $len/2;
+        $string = substr($string,$piece,$len-1).substr($string,0,$piece);
+        $decoded = base64_decode($string);
+        return $decoded;
     }
     public function getName()
     {
