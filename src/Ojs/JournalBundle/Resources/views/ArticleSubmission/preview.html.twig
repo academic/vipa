@@ -31,7 +31,9 @@
         </h1>
 
         <div class="panel panel-default">
-            <div class="panel-heading">{{"article.metadata"|trans}}</div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{"article.metadata"|trans}}</h4>
+            </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-striped">
 
@@ -70,7 +72,9 @@
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">{{"article.authors"|trans}}</div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{"article.authors"|trans}}</h4>
+            </div>
             <div class="panel panel-body table-responsive">
                 <table class="table table-condensed">
                     {% for key,author in submissionData.authors %}
@@ -127,7 +131,9 @@
         </div>
 
         <div class="panel panel-default">
-            <div class="panel-heading">{{"article.files"|trans}}</div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{"article.files"|trans}}</h4>
+            </div>
             <div class="panel panel-body table-responsive">
                 {% for key,file  in submissionData.files %}
                     <table class="table">
@@ -149,7 +155,15 @@
                 {%endfor%}
             </div>
             <div class="panel-footer"></div>
-        </div>           
+        </div>    
+
+        <div class="panel panel-warning">
+            <div class="panel-heading"><h4 class="panel-title">{{"notes_to_editor"|trans}}</h4></div>
+            <div class="panel panel-body table-responsive">
+                <textarea class="editor form-control" name="notes"></textarea>
+            </div> 
+        </div>
+
         <form action="{{ path('article_submission_finish') }}" method="POST">
             <input type="hidden" name="submissionId" value="{{submissionId}}">
             <div class="btn-group pull-right">
@@ -175,13 +189,21 @@
     {% endjavascripts %} 
 
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-        <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
-        {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-            <script type="text/javascript" src="{{ asset_url }}"></script> 
-        {% endif %}
+    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    {% endif %}
     {% endjavascripts %}
+    
+    <script>
+    $(document).ready(function(){
+        $("textarea.editor").wysihtml5({
+            toolbar: {"font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+        });
+    })    
+    </script>
 
 {% endblock %}

@@ -208,6 +208,8 @@ var OjsArticleSubmission = {
         if (check) {
             OjsCommon.waitModal();
             window.location.href = "/";
+        }else{
+            return false;
         }
     },
     /**

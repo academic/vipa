@@ -158,6 +158,7 @@ class ArticleSubmissionController extends Controller
             $reviewStep->setRootNode(true);
             $reviewStep->setTo(null);
             $reviewStep->setStepId($firstStep->getId());
+            $reviewStep->setNote($request->get('note'));
             $dm->persist($reviewStep);
             $dm->flush();
         }

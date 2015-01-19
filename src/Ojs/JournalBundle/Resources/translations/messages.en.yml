@@ -312,3 +312,4 @@ articlefile:
     langcode: Language
     actions: Actions
 select.article.file: "Select File"
+notes_to_editor: Notes to Editor

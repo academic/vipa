@@ -305,3 +305,4 @@ articlefile:
     langcode: Dil
     actions: İşlemler
 select.article.file: "Dosya Seç"
+notes_to_editor: Editöre Notlar
