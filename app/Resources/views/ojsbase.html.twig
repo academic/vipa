@@ -13,8 +13,8 @@
             {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css"   %}   
             <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
-            {% if journalTheme() %}
-                <link rel="stylesheet" href="/assets/theme/{{ journalTheme() }}/css/style.css" />
+            {% if journal is defined and journal.theme %}
+                <link rel="stylesheet" href="/assets/theme/{{ journal.theme.name }}/css/style.css" />
             {% endif %}
 
         {% endblock %}
@@ -81,15 +81,15 @@
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
-        {% if journalTheme() %}
-            <script type="text/javascript" src="/assets/theme/{{ journalTheme() }}/js/main.js"></script>
+        {% if currnetJournal is defined and journal.theme %}
+            <script type="text/javascript" src="/assets/theme/{{ journal.theme.name }}/js/main.js"></script>
         {% endif %}
 
         <script>
             {% if apiKey() %}
-                        $(document).ready(function () {
-                            OjsCommon.api.userApikey = "{{apiKey()}}";
-                        });
+                $(document).ready(function () {
+                    OjsCommon.api.userApikey = "{{apiKey()}}";
+                });
             {% endif%}
         </script>
     {% endblock %}
