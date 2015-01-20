@@ -65,20 +65,19 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     /**
      * prepare an array given form values for JournalWorkflow $roles atrribute
+     * @param Symfony\Component\Serializer\Serializer $serializer
      * @param  array $roles
      * @return array
      */
-    protected function prepareRoles($roles)
+    public function prepareRoles($serializer, $roles)
     {
-        $serializer = $this->container->get('serializer');
-        $em = $this->getDoctrine()->getManager();
         $rolesArray = array();
         if ($roles) {
-            foreach ($roles as $roleId) {
-                $rolesArray[] = json_decode($serializer->serialize($em->getRepository("OjsUserBundle:Role")->findOneById($roleId), 'json'));
+            foreach ($roles as $role) {
+                $rolesArray[] = json_decode(
+                        $serializer->serialize($role, 'json'));
             }
         }
-
         return $rolesArray;
     }
 
@@ -87,15 +86,13 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
      * @param  array $nextSteps
      * @return array
      */
-    protected function prepareNextsteps($nextSteps)
+    public function prepareNextsteps($nextSteps)
     {
-        $repo = $this->get('doctrine_mongodb')->getManager()->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         $nextStepsArray = array();
         if ($nextSteps) {
-            foreach ($nextSteps as $stepId) {
-                $step = $repo->find($stepId);
+            foreach ($nextSteps as $step) {
                 $nextStepsArray[] = array(
-                    'id' => $stepId,
+                    'id' => $step->getId(),
                     'title' => $step->getTitle());
             }
         }
@@ -144,6 +141,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function updateAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
+        $em = $this->getDoctrine()->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
         $step = $repo->find($id);
@@ -153,8 +151,23 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
         $step->setStatus($request->get('status'));
-        $step->setRoles($this->prepareRoles($request->get('roles')));
-        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        $roleIds = $request->get('roles');
+        $rolesArray = array();
+        if ($roleIds) {
+            foreach ($roleIds as $roleId) {
+                $rolesArray[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
+            }
+        }
+        $step->setRoles($this->prepareRoles($this->container->get('serializer'), $rolesArray));
+        $nextStepIds = $request->get('nextsteps');
+        $nextStepsArray = array();
+        if ($nextStepIds) {
+            foreach ($nextStepIds as $nextStepId) {
+                $nextStepsArray[] = $dm->getRepository("OjsWorkflowBundle:Workflow")->findOneById($nextStepId);
+            }
+        }
+
+        $step->setNextsteps($this->prepareNextsteps($nextStepsArray));
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);

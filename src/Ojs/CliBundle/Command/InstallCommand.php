@@ -71,7 +71,6 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln("You can run "
                 . "<info>php app/console ojs:install:sampledata </info> "
                 . "to add sample data\n");
-
     }
 
     /**
