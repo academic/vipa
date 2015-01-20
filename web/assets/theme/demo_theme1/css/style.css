@@ -1,0 +1,21 @@
+/*
+Theme Name: 	demo_theme1
+Theme URI:      http://ojs.io/themes/default
+Description: 	OJS default theme for everyone
+Version:        1.0
+Author:         Hüseyin Mert<huseyin.mert@ojs.io>
+Author URI: 	http://ojs.io
+License:
+License URI:
+Tags: demo
+*/
+body{
+    color:#858500;
+    background-color: #ffe;
+} 
+a{
+    color:#5959ff;
+}
+h1{
+    font-family: Georgia; 
+}
