@@ -21,7 +21,7 @@ class OjsExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
-            new \Twig_SimpleFilter('getDefinition',[$this,'getDefinition'])
+            new \Twig_SimpleFilter('getDefinition', [$this, 'getDefinition'])
         );
     }
 
@@ -42,7 +42,6 @@ class OjsExtension extends \Twig_Extension
             'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
             'imagePath' => new \Twig_Function_Method($this, 'generateImagePath'),
             'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
-            'journalTheme' => new \Twig_Function_Method($this, 'journalTheme'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
             'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
             'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
@@ -52,30 +51,8 @@ class OjsExtension extends \Twig_Extension
             'getRoute'=>new \Twig_Function_Method($this, 'getRoute',[]),
             'getObject'=>new \Twig_Function_Method($this, 'getObject',[])
         );
-    }
-
-    public function getCurrentJournal()
-    {
-        $journalDomain = $this->container->get('journal_domain');
-        return $journalDomain->getCurrentJournal();
-    }
-
-    public function journalTheme()
-    {
-        $journal_domain = $this->container->get('journal_domain');
-        if ($journal_domain) {
-            $journal = $journal_domain->getCurrentJournal();
-            if ($journal) {
-                $theme = $journal->getTheme();
-
-                if ($theme) {
-                    return $journal->getTheme()->getName();
-                }
-            }
-        }
-        return null;
-    }
-
+    } 
+    
     /**
      *
      * @param array $list
@@ -331,45 +308,46 @@ class OjsExtension extends \Twig_Extension
             'id'
         ];
         foreach ($fields as $field) {
-            if(property_exists($object,$field))
-                return $object->{'get'.strtoupper($field)}();
+            if (property_exists($object, $field))
+                return $object->{'get' . strtoupper($field)}();
         }
     }
 
     public function getRoute($object)
     {
         $routes = [
-            'ojs_institution_page'=>['slug'],
-            'ojs_journal_index'=>['journal','institution'],
-            'ojs_article_page'=>['slug','article_slug','institution'],
+            'ojs_institution_page' => ['slug'],
+            'ojs_journal_index' => ['journal', 'institution'],
+            'ojs_article_page' => ['slug', 'article_slug', 'institution'],
         ];
         $router = $this->container->get('router');
 
-        switch(get_class($object)){
+        switch (get_class($object)) {
             case 'Ojs\JournalBundle\Entity\Issue':
                 return '#';
             case 'Ojs\JournalBundle\Entity\Journal':
-                return $router->generate('ojs_journal_index',[
-                    'slug'=>$object->getSlug(),
-                    'institution'=>$object->getInstitution()->getSlug()
-                ]); 
+                return $router->generate('ojs_journal_index', [
+                            'slug' => $object->getSlug(),
+                            'institution' => $object->getInstitution()->getSlug()
+                ]);
             case 'Ojs\JournalBundle\Entity\Article':
-                return $router->generate('ojs_article_page',[
-                    'slug'=>$object->getJournal()->getSlug(),
-                    'article_slug'=>$object->getSlug(),
-                    'institution'=>$object->getJournal()->getInstitution()->getSlug()
-                ]); 
+                return $router->generate('ojs_article_page', [
+                            'slug' => $object->getJournal()->getSlug(),
+                            'article_slug' => $object->getSlug(),
+                            'institution' => $object->getJournal()->getInstitution()->getSlug()
+                ]);
             case 'Ojs\JournalBundle\Entity\Subject':
-                return $router->generate('ojs_journals_index',['subject'=>$object->getSlug()]); 
+                return $router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
             case 'Ojs\JournalBundle\Entity\Institution':
-                return $router->generate('ojs_institution_page',['slug'=>$object->getSlug()]); 
+                return $router->generate('ojs_institution_page', ['slug' => $object->getSlug()]);
             case 'Ojs\UserBundle\Entity\User':
-                return $router->generate('ojs_user_profile',['slug'=>$object->getUsername()]); 
+                return $router->generate('ojs_user_profile', ['slug' => $object->getUsername()]);
             default:
-                return '#'; 
+                return '#';
         }
     }
 
+<<<<<<< HEAD
     public function getObject($object, $id)
     {
         $objectClass = $this->decode($object);
@@ -408,6 +386,8 @@ class OjsExtension extends \Twig_Extension
         $decoded = base64_decode($string);
         return $decoded;
     }
+=======
+>>>>>>> domain lister ypassed completely
     public function getName()
     {
         return 'ojs_extension';
