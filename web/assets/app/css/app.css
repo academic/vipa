@@ -1198,3 +1198,8 @@ a.vimeo i,.vimeo h4.list-group-item-heading { color:#44bbff; }
 a.vimeo:hover { background-color:#44bbff; }
 a.vimeo:hover * { color:#FFF; }
 
+
+.journal-meta{width:100%;overflow:hidden;}
+.journal-meta dt,dd{float: left;padding: 5px}
+.journal-meta dd{border-right: 1px solid #ccc; padding-right: 5px; margin-right: 5px}
+.journal-meta dd:last-child{border-right: none;}
