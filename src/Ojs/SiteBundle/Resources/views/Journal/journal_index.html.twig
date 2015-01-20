@@ -1,6 +1,5 @@
 {% extends "::ojsbase.html.twig" %}
 {% set hideleft = 1%}
-
 {%block breadcrumb %}{% endblock %}
 {% block body %}
 
@@ -72,21 +71,25 @@
                 </div>
             </div>
         </div>
+        <hr />
         <div class="row">
-            <div class="col-md-4">
-                <p class="text-default">
-                    <span id="journal-issn" class="label label-info"><strong>ISSN</strong>: {{journal.issn}}</span>
-                    <span id="journal-eissn" class="label label-info"><strong>e-ISSN</strong>: {{journal.eissn}}</span>
-                </p>
-            </div>
-
-            <div class="col-md-8">
-                <dl>
-                    <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span>{%endfor%}</dd>
+            <div class="col-md-12">
+                <dl class="journal-meta">
+                    {% if journal.issn%}
+                    <dt>ISSN</dt><dd>{{journal.issn}}</dd>
+                    {% endif %}
+                    {% if journal.eissn%}
+                    <dt>e-ISSN</dt><dd>{{journal.eissn}}</dd>
+                    {% endif %}
+                    <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span> {%endfor%}</dd>
                     <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
                     <dt>{{"period"|trans}}</dt><dd>{{ journal.period }}</dd>
-                    <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                    <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
+                    {% if journal.url%}
+                        <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
+                        {% endif %}
+                        {% if journal.country%}
+                        <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
+                    {% endif %}
                 </dl>
             </div>
         </div>
