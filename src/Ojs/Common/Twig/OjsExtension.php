@@ -347,7 +347,7 @@ class OjsExtension extends \Twig_Extension
         }
     }
 
-<<<<<<< HEAD
+            
     public function getObject($object, $id)
     {
         $objectClass = $this->decode($object);
@@ -386,8 +386,7 @@ class OjsExtension extends \Twig_Extension
         $decoded = base64_decode($string);
         return $decoded;
     }
-=======
->>>>>>> domain lister ypassed completely
+            
     public function getName()
     {
         return 'ojs_extension';
