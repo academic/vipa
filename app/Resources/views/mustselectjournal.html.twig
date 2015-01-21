@@ -1,19 +1,12 @@
-{% extends '::ojsbase.html.twig' %} 
+<p>
+    You must select a journal from left panel.  
+    <a href="{{path('ojs_user_index')}}"><strong class="gstrong">Go back</strong></a> and select a journal.
+</p>
+<p>
 
-{% block body -%}
-
-<div class="alert alert-warning">
-    <h1>{%trans%}Error{%endtrans%}</h1>
-    <p>
-        You must select a journal from left panel.  
-    </p>
-    <p>
-
-        If you don't see the journal selection module, 
-
-        <a class="" href="{{path('user_join_journal')}}">
-            <strong class="fstrong">please add yourself to a journal</strong></a>.
-    </p>
-</div>
-{% endblock %}
+    If you don't see the journal selection module, 
+    <a class="" href="{{path('user_join_journal')}}">
+        <strong class="fstrong">please add yourself to a journal</strong>
+    </a>.
+</p>
 

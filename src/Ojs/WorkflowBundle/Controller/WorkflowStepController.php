@@ -10,9 +10,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function indexAction()
     {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$selectedJournal) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+
         $steps = $this->get('doctrine_mongodb')
                 ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findBy(array('journalid' => $selectedJournal->getId()));
@@ -27,9 +25,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
-        if (!$selectedJournal) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+
         $em = $this->get('doctrine');
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
@@ -105,9 +101,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$selectedJournal) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();

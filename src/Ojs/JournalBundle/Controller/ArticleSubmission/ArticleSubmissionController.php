@@ -55,9 +55,7 @@ class ArticleSubmissionController extends Controller
     public function newAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        if (!$journal) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+
         $entity = new Article();
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
                     'articleId' => NULL,

@@ -13,6 +13,8 @@ sure: Are you sure?
 added: Added
 u: Update
 404: Not found
+error: Error
+error.oops: Oops! An Error Occurred
 summart: Summary
 res: Restart
 preview: Preview

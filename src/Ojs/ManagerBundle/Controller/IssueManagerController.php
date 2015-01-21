@@ -21,9 +21,7 @@ class IssueManagerController extends Controller
      */
     public function indexAction()
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsJournalBundle:Issue')->findByJournalId($journal->getId());
 
@@ -41,9 +39,7 @@ class IssueManagerController extends Controller
      */
     public function viewAction($issueId)
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         if (!$issue) {
@@ -65,9 +61,7 @@ class IssueManagerController extends Controller
      */
     public function arrangeAction($issueId)
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         if (!$issue) {
@@ -92,9 +86,7 @@ class IssueManagerController extends Controller
      */
     public function newAction(Request $request)
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $issue = new Issue();
         $form = $this->createForm(new IssueType(), $issue, array(
@@ -127,9 +119,7 @@ class IssueManagerController extends Controller
      */
     public function editAction(Request $request, $issueId)
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         $form = $this->createForm(new IssueType(), $issue, array(
@@ -165,9 +155,7 @@ class IssueManagerController extends Controller
      */
     public function moveAction($articleId, $upOrDown = 'up')
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
 
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
@@ -179,9 +167,7 @@ class IssueManagerController extends Controller
 
     public function addArticleAction(Request $request)
     {
-        if (!$journal = $this->get("ojs.journal_service")->getSelectedJournal()) {
-            return $this->render('::mustselectjournal.html.twig');
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $articleId = $request->get('unissued_article_id');
         $issueId = $request->get('issue_id');
         $em = $this->getDoctrine()->getManager();
