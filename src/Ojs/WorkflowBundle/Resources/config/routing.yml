@@ -5,6 +5,9 @@ ojs_workflow_homepage:
 ojs_workflowsteps:
     resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
 
+review_forms: 
+    resource: "@OjsWorkflowBundle/Resources/config/routing/review_forms.yml"
+
 manage_workflowsteps:
     pattern:  /manage/steps
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
