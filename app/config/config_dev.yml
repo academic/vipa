@@ -30,7 +30,7 @@ monolog:
 
 
 swiftmailer:
-    transport:  mail 
+    transport:  mail
     # (smtp, mail, sendmail, or gmail)
     spool:
         type: "file" #(how to queue the messages, file or memory is supported, see How to Spool Emails)

@@ -1,0 +1,8 @@
+swiftmailer:
+    transport:            %mailer_transport%
+    username:             %mailer_user%
+    password:             %mailer_password%
+    host:                 %mailer_host%
+    port:                 %mailer_port%    
+    spool:     
+        type: memory

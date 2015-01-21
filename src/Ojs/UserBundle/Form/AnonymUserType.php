@@ -28,13 +28,13 @@ class AnonymUserType extends AbstractType
         $builder->add('first_name')
             ->add('last_name')
             ->add('email')
-            ->add('expire_date')
-            ->add('object','hidden')
-            ->add('object_id','hidden')
-            ->add('role','entity',[
-                'class'=>'Ojs\UserBundle\Entity\Role',
-                'property'=>'role',
-            ])
+            ->add('roles', 'entity', array(
+                'class' => 'Ojs\UserBundle\Entity\Role',
+                'property' => 'name',
+                'multiple' => true,
+                'expanded' => false,
+                'attr' => array('class' => 'select2', 'style' => 'width:100%')
+            ))
         ;
     }
 
@@ -45,7 +45,7 @@ class AnonymUserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Document\AnonymUser'
+            'data_class' => 'Ojs\UserBundle\Entity\User'
         ));
     }
 }

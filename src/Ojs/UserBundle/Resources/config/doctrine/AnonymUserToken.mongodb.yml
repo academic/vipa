@@ -1,0 +1,13 @@
+Ojs\UserBundle\Document\AnonymUserToken:
+  type: document
+  collection: anonym_user_token
+  repositoryClass: Ojs\UserBundle\Document\AnonymUserTokenRepository
+  fields:
+    id:
+      id: true
+    user_id:
+      type: int
+    token:
+      type: string
+    used:
+      type: boolean
