@@ -4,5 +4,5 @@ swiftmailer:
     password:             %mailer_password%
     host:                 %mailer_host%
     port:                 %mailer_port%    
-    spool:     
+    spool:
         type: memory
