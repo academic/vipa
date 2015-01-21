@@ -342,7 +342,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     /**
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return array
      */
     public function getRoles()
     {

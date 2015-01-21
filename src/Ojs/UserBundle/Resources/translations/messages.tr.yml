@@ -106,6 +106,7 @@ user.journalrole.user.username: Kullanıcı Adı
 user.journalrole.email: Eposta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
 user.anonym:
+  new: "Yeni ekle"
   firstname: "Ad"
   lastname: "Soyad"
   email: "Eposta"

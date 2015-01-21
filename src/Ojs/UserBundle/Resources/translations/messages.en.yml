@@ -107,6 +107,7 @@ user.journalrole.user.username: Username
 user.journalrole.email: Email
 user.journalrole.thisjournalhasnouser: 'This Journal Has No User!'
 user.anonym:
+  new: "Create Anonym Login"
   firstname: "Firstname"
   lastname: "Lastname"
   email: "Email"
