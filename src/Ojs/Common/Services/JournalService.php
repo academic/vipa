@@ -31,6 +31,7 @@ class JournalService
     /**
      * get user's current selected journal
      * @return \Ojs\JournalBundle\Entity\Journal
+     * @throws HttpException
      */
     public function getSelectedJournal()
     {
