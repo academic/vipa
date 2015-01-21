@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  *
- * @MongoDb\Document(collection="journal_workflow_step_template",repositoryClass="Ojs\WorkflowBundle\Repository\JournalWorkflowStepTemplateRepository")
+ * @MongoDb\Document(collection="journal_workflow_step_template")
  */
 class JournalWorkflowStepTemplate extends JournalWorkflowStep
 {
