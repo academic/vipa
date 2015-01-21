@@ -9,7 +9,6 @@ use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -18,7 +17,7 @@ class SiteController extends Controller
      * Global index page
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $data['page'] = 'index';
         $em = $this->getDoctrine()->getManager();
@@ -130,7 +129,6 @@ class SiteController extends Controller
         $this->throw404IfNotFound($journal);
         $data['journal'] = $journal;
         $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal->getId(), true);
-        $this->throw404IfNotFound($data['journal']);
         $data['page'] = 'journal';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal);
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);

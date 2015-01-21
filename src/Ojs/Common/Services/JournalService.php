@@ -4,6 +4,7 @@ namespace Ojs\Common\Services;
 
 use \Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Common methods for journal
@@ -35,7 +36,12 @@ class JournalService
     {
         $em = $this->container->get('doctrine')->getManager();
         $selectedJournalId = $this->session->get("selectedJournalId");
-        return $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
+        $selectedJournal = $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
+        if ($selectedJournal) {
+            return $selectedJournal;
+        } else {
+            throw new HttpException(404, "mustselectjournal");
+        }
     }
 
 }
