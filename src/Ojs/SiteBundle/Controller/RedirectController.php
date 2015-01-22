@@ -16,10 +16,7 @@ class RedirectController extends Controller
      */
     public function redirectAction($type, $id)
     {
-        $doctrine = $this->get('doctrine');
-        echo "<pre>";
-        print_r($doctrine);
-        die();
+        $doctrine = $this->get('doctrine'); 
         switch ($type) {
             case 'article':
                 return $this->redirectArticle($doctrine, $id);
