@@ -62,14 +62,14 @@ class IssueManagerController extends Controller
     public function arrangeAction($issueId)
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        $doctrine = $this->getDoctrine();
+        $issue = $doctrine->getRepository('OjsJournalBundle:Issue')->find($issueId);
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
-        $articles = $em->getRepository('OjsJournalBundle:Article')
+        $articles = $doctrine->getRepository('OjsJournalBundle:Article')
                 ->getOrderedArticlesByIssue($issue, true);
-        $articlesUnissued = $em->getRepository('OjsJournalBundle:Article')
+        $articlesUnissued = $doctrine->getRepository('OjsJournalBundle:Article')
                 ->getArticlesUnissued();
 
         return $this->render('OjsManagerBundle:Issue:arrange.html.twig', array(
@@ -176,15 +176,11 @@ class IssueManagerController extends Controller
     {
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $issue = $doctrine->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($issue);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
-
-        if (!$article) {
-            throw $this->createNotFoundException('Article not found!');
-        }
-        $article->setIssueId($issueId);
+        $this->throw404IfNotFound($article);
+        $article->setIssueId($id);
         $em->persist($article);
         $em->flush();
         return $this->redirect($this->getRequest()->headers->get('referer'));

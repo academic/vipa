@@ -15,7 +15,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">Add article to this issue</div>
             <div class="panel-body">
-                <form action="{{path('issue_manager_issue_add_article')}}" method="post">
+                <form>
                     <input type="hidden" name="issue_id" value="{{issue.id}}">
                     <div class="form-row">
                         <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
@@ -93,8 +93,9 @@
                 }
             });
             $("#issueManagerAddArticle").click(function () {
-                if ($("#unissuedArticles").attr('rel').length > 0) {
-                    window.location.href = $("#unissuedArticles").attr('rel');
+                redirectUrl = $("#unissuedArticles option:selected").attr("rel");
+                if (redirectUrl.length > 0) {
+                    window.location.href = redirectUrl;
                 }
             });
         });
