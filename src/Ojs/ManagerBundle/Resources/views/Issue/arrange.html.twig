@@ -51,10 +51,15 @@
             <tbody>
                 {% for article in articles %}
                     <tr>
-                        <td>                            
+                        <td> 
+
                             <input class="form-control input-sm" value="{{article.orderNum}}" type="number" style="width:50px">
                         </td>
                         <td>
+                            <a class="btn btn-danger btn-xs" 
+                               href="{{path('issue_manager_issue_remove_article',{'id':issue.id,'articleId':article.id})}}">
+                                <i class="fa fa-remove"></i>
+                            </a>
                             <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
                                 <small>{{article.title}}</small>
                             </a>
