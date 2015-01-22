@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/okulbilisim/ojs.png?label=ready&title=Ready)](https://waffle.io/okulbilisim/ojs)
 **Warning** : This project is under development.
 
 #Open Journal Software
