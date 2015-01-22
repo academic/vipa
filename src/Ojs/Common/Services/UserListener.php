@@ -53,10 +53,10 @@ class UserListener
         }
         //for API_KEY based connection
         if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+            $user = $this->container->getDoctrine()->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
         }
 
-        $em = $this->container->get('doctrine')->getManager();
+        $em = $this->container->getDoctrine()->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $this->session->get('selectedJournalId')));
         $userJournalRoles = array();
@@ -81,10 +81,10 @@ class UserListener
 
         //for API_KEY based connection
         if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+            $user = $this->container->getDoctrine()->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
         }
 
-        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
+        $clients = $this->container->getDoctrine()->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
             array('proxyUserId' => $user->getId())
         );
         $this->session->set('userClients', $clients);
@@ -104,10 +104,10 @@ class UserListener
 
         //for API_KEY based connection
         if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+            $user = $this->container->getDoctrine()->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
         }
 
-        $em = $this->container->get('doctrine')->getManager();
+        $em = $this->container->getDoctrine()->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
         $userJournals = $repo->findByUserId($user->getId());
         if (!is_array($userJournals)) {

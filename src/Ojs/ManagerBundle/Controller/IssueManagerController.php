@@ -165,12 +165,20 @@ class IssueManagerController extends Controller
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
-    public function addArticleAction(Request $request)
+    /**
+     * 
+     * @param integer $id
+     * @param integer $articleId
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function addArticleAction($id, $articleId)
     {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $articleId = $request->get('unissued_article_id');
-        $issueId = $request->get('issue_id');
-        $em = $this->getDoctrine()->getManager();
+        $issue = $doctrine->getRepository('OjsJournalBundle:Issue')->find($id);
+        $this->throw404IfNotFound($issue);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
 
         if (!$article) {

@@ -21,7 +21,10 @@
                         <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
                             <option></option>
                             {% for article in articlesUnissued %}
-                                <option value="{{article.id}}">[#{{article.id}}] {{article.title|slice(0,200)}}</option>
+                                <option value="{{article.id}}" 
+                                        rel="{{path('issue_manager_issue_add_article',{'id':issue.id,'articleId':article.id})}}">
+                                    [#{{article.id}}] {{article.title|slice(0,200)}}
+                                </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -85,7 +88,14 @@
     <script>
         $(function () {
             $("#issueManagerPreviewArticle").click(function () {
-                window.location.href = '/redirect/article/' + $("#unissuedArticles").val();
+                if ($("#unissuedArticles").val().length > 0) {
+                    window.open('/redirect/article/' + $("#unissuedArticles").val());
+                }
+            });
+            $("#issueManagerAddArticle").click(function () {
+                if ($("#unissuedArticles").attr('rel').length > 0) {
+                    window.location.href = $("#unissuedArticles").attr('rel');
+                }
             });
         });
     </script>

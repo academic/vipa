@@ -129,7 +129,7 @@ class ArticleSubmissionController extends Controller
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
@@ -204,7 +204,7 @@ class ArticleSubmissionController extends Controller
      */
     private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
         $article->setPrimaryLanguage($lang);
@@ -231,7 +231,7 @@ class ArticleSubmissionController extends Controller
      */
     private function saveArticleTranslations($articleData, $article)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
         $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($articleData as $locale => $data) {
             $translationRepository->translate($article, 'title', $locale, $data['title'])
@@ -250,7 +250,7 @@ class ArticleSubmissionController extends Controller
      */
     private function saveAuthorsData($authors, $article)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
         foreach ($authors as $authorData) {
             $author = new Author();
             $author->setEmail($authorData['email']);
@@ -278,7 +278,7 @@ class ArticleSubmissionController extends Controller
      */
     private function saveCitationData($citations, Article $article)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
         foreach ($citations as $citationData) {
             $citation = new Citation();
             $citation->setRaw($citationData['raw']);
@@ -313,7 +313,7 @@ class ArticleSubmissionController extends Controller
      */
     private function saveArticleFileData($files, $article, $lang)
     {
-        $em = $this->get('doctrine')->getManager();
+        $em = $this->getDoctrine()->getManager();
         foreach ($files as $fileData) {
             $file = new \Ojs\JournalBundle\Entity\File();
             $file->setPath($fileData['article_file']);

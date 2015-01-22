@@ -28,7 +28,7 @@ class JobManagerCommand extends ContainerAwareCommand
     {
         $command = $input->getArgument('action');
         $options = $input->getArgument('options');
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->getContainer()->getDoctrine()->getManager();
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);

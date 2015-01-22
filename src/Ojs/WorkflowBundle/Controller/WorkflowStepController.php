@@ -26,7 +26,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
 
-        $em = $this->get('doctrine');
+        $em = $this->getDoctrine();
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());

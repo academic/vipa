@@ -25,7 +25,7 @@ class RolesFakerProvider
 
     public function defaultUserRole()
     {
-        $role = $this->container->get('doctrine')
+        $role = $this->container->getDoctrine()
                 ->getManager()->getRepository('OjsUserBundle:Role')
                 ->findBy(array('role' => 'ROLE_USER'));
         return $role;
