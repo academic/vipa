@@ -11,6 +11,10 @@ issue_manager_issue_add_article:
     pattern:  /issue/{id}/addArticle/{articleId}
     defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
     
+issue_manager_issue_remove_article:
+    pattern:  /issue/{id}/removeArticle/{articleId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:removeArticle }
+    
 issue_manager_issue_arrange:
     pattern:  /issue/{issueId}/arrange
     defaults: { _controller: OjsManagerBundle:IssueManager:arrange }

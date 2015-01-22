@@ -166,7 +166,7 @@ class IssueManagerController extends Controller
     }
 
     /**
-     * 
+     * add article to this issue
      * @param integer $id
      * @param integer $articleId
      * @return RedirectResponse
@@ -176,14 +176,46 @@ class IssueManagerController extends Controller
     {
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
-        $issue = $doctrine->getRepository('OjsJournalBundle:Issue')->find($id);
-        $this->throw404IfNotFound($issue);
+        $this->checkIssue($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
         $this->throw404IfNotFound($article);
         $article->setIssueId($id);
         $em->persist($article);
         $em->flush();
         return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
+    /**
+     * Remove article fro this issue
+     * @param integer $id Issue id
+     * @param integer $articleId Article id
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function removeArticleAction($id, $articleId)
+    {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getManager();
+        $this->checkIssue($id);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        $this->throw404IfNotFound($article);
+        $article->setIssueId(null);
+        $em->persist($article);
+        $em->flush();
+        return $this->redirect($this->getRequest()->headers->get('referer'));
+    }
+
+    /**
+     * Check if issue exists. If not throw exception. If so return issue
+     * @param integer $id
+     * @return Issue
+     * @throws \Exception
+     */
+    private function checkIssue($id)
+    {
+        $issue = $this->getDoctrine()->getRepository('OjsJournalBundle:Issue')->find($id);
+        $this->throw404IfNotFound($issue);
+        return $issue;
     }
 
 }
