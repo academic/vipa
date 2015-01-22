@@ -2,7 +2,6 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Issue;
@@ -54,12 +53,13 @@ class IssueManagerController extends Controller
     }
 
     /**
-     * show issue manager arrange issue page
+     * show issue manager arrange issue page , arrange and update
+     * @param Request $request
      * @param integer $issueId
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws 404
      */
-    public function arrangeAction($issueId)
+    public function arrangeAction(Request $request, $issueId)
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $doctrine = $this->getDoctrine();
@@ -67,6 +67,26 @@ class IssueManagerController extends Controller
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
+
+        if ($request->isMethod('POST')) {
+            $em = $doctrine->getManager();
+            // update with with new values
+            $articleIds = $request->get('articleId');
+            $orders = $request->get('order');
+            $firstPages = $request->get('firstPage');
+            $lastPages = $request->get('lastPage');
+            foreach ($articleIds as $i => $articleId) {
+                $article = $doctrine->getRepository('OjsJournalBundle:Article')
+                        ->find($articleId);
+                $this->throw404IfNotFound($article);
+                $article->setOrderNum($orders[$i]);
+                $article->setFirstPage($firstPages[$i]);
+                $article->setLastPage($lastPages[$i]);
+                $em->persist($article);
+                $em->flush();
+            }
+        }
+
         $articles = $doctrine->getRepository('OjsJournalBundle:Article')
                 ->getOrderedArticlesByIssue($issue, true);
         $articlesUnissued = $doctrine->getRepository('OjsJournalBundle:Article')
@@ -138,8 +158,6 @@ class IssueManagerController extends Controller
                                     )
             ));
         }
-
-
         return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
                     'journal' => $journal,
                     'entity' => $issue,
@@ -148,20 +166,55 @@ class IssueManagerController extends Controller
     }
 
     /**
-     *  Move an article's postion in an issue by updating "order" field of Article 
+     * Move an article's postion UP in an issue by updating "order" field of Article 
+     * @param integer $id issue id
      * @param integer $articleId
-     * @param string $upOrDown "up" or "down" to specify the way of movement
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws 404
      */
-    public function moveAction($articleId, $upOrDown = 'up')
+    public function moveArticleUpAction($id, $articleId)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
+        $this->checkIssue($id);
+        return $this->moveArticle($articleId, 1);
+    }
 
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
-        if (!$article) {
-            throw $this->createNotFoundException('Article not found!');
+    /**
+     * Move an article's postion DOWN in an issue by updating "order" field of Article 
+     * @param integer $id issue id
+     * @param integer $articleId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws 404
+     */
+    public function moveArticleDownAction($id, $articleId)
+    {
+        $this->checkIssue($id);
+        return $this->moveArticle($articleId, -1);
+    }
+
+    /**
+     *  Move an article's postion in an issue by updating "order" field of Article 
+     * @param integer $articleId
+     * @param string $direction "1" or "-1" to specify the way of movement
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws 404
+     */
+    public function moveArticleAction($articleId, $direction = 1)
+    {
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getmanager();
+        $article = $doctrine->getRepository('OjsJournalBundle:Article')->find($articleId);
+        /* @var $article Ojs\JournalBundle\Entity\Article */
+        $this->throw404IfNotFound($article);
+        $currentPosition = $article->getPosition();
+        $nextPosition = 0;
+        if ($direction > 0) {
+            $nextPosition = $currentPosition + $direction;
+        } else {
+            $nextPosition = ($currentPosition - $direction ) < 0 ? 0 : ($currentPosition - $direction);
         }
+        $article->setPosition($nextPosition);
+        $em->persist($article);
+        $em->flush();
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
@@ -169,7 +222,7 @@ class IssueManagerController extends Controller
      * add article to this issue
      * @param integer $id
      * @param integer $articleId
-     * @return RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
     public function addArticleAction($id, $articleId)
@@ -189,7 +242,7 @@ class IssueManagerController extends Controller
      * Remove article fro this issue
      * @param integer $id Issue id
      * @param integer $articleId Article id
-     * @return RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
     public function removeArticleAction($id, $articleId)
