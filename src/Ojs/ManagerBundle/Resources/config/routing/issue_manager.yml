@@ -7,6 +7,10 @@ issue_manager_issue_edit:
     pattern:  /issue/{issueId}/edit
     defaults: { _controller: OjsManagerBundle:IssueManager:edit }
 
+issue_manager_issue_arrange:
+    pattern:  /issue/{issueId}/arrange
+    defaults: { _controller: OjsManagerBundle:IssueManager:arrange }
+
 issue_manager_issue_add_article:
     pattern:  /issue/{id}/addArticle/{articleId}
     defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
@@ -15,9 +19,17 @@ issue_manager_issue_remove_article:
     pattern:  /issue/{id}/removeArticle/{articleId}
     defaults: { _controller: OjsManagerBundle:IssueManager:removeArticle }
     
-issue_manager_issue_arrange:
-    pattern:  /issue/{issueId}/arrange
-    defaults: { _controller: OjsManagerBundle:IssueManager:arrange }
+issue_manager_issue_moveup_article:
+    pattern:  /issue/{id}/moveArticleUp/{articleId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:moveArticleUp }
+    
+issue_manager_issue_movedown_article:
+    pattern:  /issue/{id}/moveArticleDown/{articleId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:moveArticleDown }
+    
+issue_manager_article_move:
+    pattern:  /article/{articleId}/toc/move/{direction}
+    defaults: { _controller: OjsManagerBundle:IssueManager:move }
 
 issue_manager_issue_new:
     pattern:  /issue/new
@@ -28,7 +40,5 @@ issue_manager_issue_view:
     defaults: { _controller: OjsManagerBundle:IssueManager:view }
 
 
-issue_manager_article_move:
-    pattern:  /article/{articleId}/toc/move/{upOrDown}
-    defaults: { _controller: OjsManagerBundle:IssueManager:move }
+
  
