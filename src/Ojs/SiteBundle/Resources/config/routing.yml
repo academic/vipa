@@ -1,7 +1,10 @@
 ojs_site_admin_page:
     resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
     prefix:   /admin/page
-
+    
+redirect:
+    pattern: /redirect/{type}/{id}
+    defaults: { _controller: OjsSiteBundle:Redirect:redirect }
 
 ojs_user_profile:
     pattern: /@{slug}

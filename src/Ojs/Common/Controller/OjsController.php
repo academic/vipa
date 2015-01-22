@@ -15,7 +15,8 @@ class OjsController extends Controller
      *
      * @param  mixed   $entity
      * @param string $message custom not found message
-     * @return boolean
+     * @return boolean 
+     * @throws NoResultException
      */
     public function throw404IfNotFound($entity, $message = 'Not Found')
     {

@@ -5,25 +5,37 @@
     <div class="row">
         <h1>{{"issue.edit"|trans}} </h1>
         <ul>
-            <li>Journal : <strong>{{journal.title}}</strong> </li>
-            <li>Volume : <strong>{{issue.volume}}</strong> </li>
-            <li>Number : <strong>{{issue.number}}</strong></li>
-            <li>Title : <strong>{{issue.title}}</strong></li>
-            <li>Year : <strong>{{issue.year}}</strong> </li>
-            <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
+            <li><small>Journal : <strong>{{journal.title}}</strong> </small></li>
+            <li><small>Volume : <strong>{{issue.volume}}</strong> </small></li>
+            <li><small>Number : <strong>{{issue.number}}</strong> </small></li>
+            <li><small>Title : <strong>{{issue.title}}</strong> </small></li>
+            <li><small>Year : <strong>{{issue.year}}</strong> </small></li>
+            <li><small>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </small></li>
         </ul>
-        <form action="{{path('issue_manager_issue_add_article')}}" method="post">
-            <input type="hiden" name="issue_id" value="{{issue.id}}">
-            <select name="unissued_article_id" class="select2  form-control">
-                <option></option>
-                {% for article in articlesUnissued %}
-                    <option value="{{article.id}}">[#{{article.id}}] {{article.title|slice(0,200)}}</option>
-                {% endfor %}
-            </select>
-            <a class="btn btn-primary">
-                <i class="fa fa-plus-circle"></i>
-            </a>
-        </form>
+        <div class="panel panel-info">
+            <div class="panel-heading">Add article to this issue</div>
+            <div class="panel-body">
+                <form action="{{path('issue_manager_issue_add_article')}}" method="post">
+                    <input type="hidden" name="issue_id" value="{{issue.id}}">
+                    <div class="form-row">
+                        <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
+                            <option></option>
+                            {% for article in articlesUnissued %}
+                                <option value="{{article.id}}">[#{{article.id}}] {{article.title|slice(0,200)}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <a class="btn btn-primary" id="issueManagerAddArticle">
+                            <i class="fa fa-plus-circle"></i> Add article
+                        </a>
+                        <a class="btn btn-default" id="issueManagerPreviewArticle">
+                            <i class="fa fa-external-link"></i> Preview Article
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -39,8 +51,9 @@
                         <td>                            
                             <input class="form-control input-sm" value="{{article.orderNum}}" type="number" style="width:50px">
                         </td>
-                        <td><a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
-                                {{article.title}}
+                        <td>
+                            <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                                <small>{{article.title}}</small>
                             </a>
                         </td>
                         <td>
@@ -61,7 +74,19 @@
         <i class="fa fa-save"></i> {{"save"|trans}}
     </a>
     <a href="#" class="btn btn-warning">{{"cancel"|trans}}</a> 
-</div>
-</div>
 
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{parent()}} 
+
+    <script>
+        $(function () {
+            $("#issueManagerPreviewArticle").click(function () {
+                window.location.href = '/redirect/article/' + $("#unissuedArticles").val();
+            });
+        });
+    </script>
 {% endblock %}
