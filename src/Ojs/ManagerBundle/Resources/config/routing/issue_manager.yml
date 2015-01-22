@@ -8,9 +8,8 @@ issue_manager_issue_edit:
     defaults: { _controller: OjsManagerBundle:IssueManager:edit }
 
 issue_manager_issue_add_article:
-    pattern:  /issue/addArticle
+    pattern:  /issue/{id}/addArticle/{articleId}
     defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
-    requirements: { _method: post }
     
 issue_manager_issue_arrange:
     pattern:  /issue/{issueId}/arrange

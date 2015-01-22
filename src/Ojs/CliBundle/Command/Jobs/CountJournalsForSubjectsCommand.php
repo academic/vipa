@@ -27,7 +27,7 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
         $output->writeln("<info>Counting all journals grouped by Subjects</info>\n");
         $kernel = $this->getContainer()->get('kernel');
 
-        $doctrine = $this->getContainer()->get('doctrine');
+        $doctrine = $this->getContainer()->getDoctrine();
         $em = $doctrine->getManager();
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
 

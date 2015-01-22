@@ -79,7 +79,7 @@ class InstallCommand extends ContainerAwareCommand
      */
     public function insertRoles($container, OutputInterface $output)
     {
-        $doctrine = $container->get('doctrine');
+        $doctrine = $container->getDoctrine();
         $em = $doctrine->getManager();
         $roles = $container->getParameter('roles');
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
@@ -104,7 +104,7 @@ class InstallCommand extends ContainerAwareCommand
 
     public function insertAdmin($container, $username, $email, $password)
     {
-        $doctrine = $container->get('doctrine');
+        $doctrine = $container->getDoctrine();
         $em = $doctrine->getManager();
 
         $factory = $container->get('security.encoder_factory');
@@ -134,7 +134,7 @@ class InstallCommand extends ContainerAwareCommand
 
     public function insertTheme($container)
     {
-        $em = $container->get('doctrine')->getManager();
+        $em = $container->getDoctrine()->getManager();
         $theme = new \Ojs\JournalBundle\Entity\Theme();
         $theme->setName("default");
         $theme->setTitle('Ojs');
