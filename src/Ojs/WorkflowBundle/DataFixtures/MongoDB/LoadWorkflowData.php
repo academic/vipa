@@ -31,7 +31,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
 
     public function load(ObjectManager $dm)
     {
-        $em = $this->container->getDoctrine()->getManager();
+        $em = $this->container->get('doctrine')->getManager();
         $journal = $em->createQuery('SELECT c FROM OjsJournalBundle:Journal c')
                         ->setMaxResults(1)->getResult();
         if (!isset($journal)) {

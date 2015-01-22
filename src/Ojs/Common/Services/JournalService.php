@@ -35,7 +35,7 @@ class JournalService
      */
     public function getSelectedJournal()
     {
-        $em = $this->container->getDoctrine()->getManager();
+        $em = $this->container->get('doctrine')->getManager();
         $selectedJournalId = $this->session->get("selectedJournalId");
         $selectedJournal = $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
         if ($selectedJournal) {
