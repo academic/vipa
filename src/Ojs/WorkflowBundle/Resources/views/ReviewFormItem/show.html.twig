@@ -3,8 +3,8 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
-                {'title': 'Review Form Preview'}
+                {'link': path('ojs_review_form_items'), 'title': 'Review Forms'},
+                {'title': 'Review Form Item Details'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -13,6 +13,10 @@
     <h1>{{form.title}}</h1>
 
     <table class="table table-responsive">
+        <tr>
+            <td>Input type</td>
+            <td>{{form.inputtype}}</td>
+        </tr>
         <tr>
             <td>
                 Mandotary?

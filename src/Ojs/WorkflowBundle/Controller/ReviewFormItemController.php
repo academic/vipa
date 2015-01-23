@@ -4,7 +4,7 @@ namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
-class ReviewFormController extends \Ojs\Common\Controller\OjsController
+class ReviewFormItemController extends \Ojs\Common\Controller\OjsController
 {
 
     /**
@@ -16,10 +16,10 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $forms = $this->get('doctrine_mongodb')
-                ->getRepository('OjsWorkflowBundle:ReviewForm')
+                ->getRepository('OjsWorkflowBundle:ReviewFormItem')
                 ->findBy(array('journalid' => $selectedJournal->getId()));
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:index.html.twig', array('forms' => $forms));
+        return $this->render('OjsWorkflowBundle:ReviewFormItem:index.html.twig', array('forms' => $forms));
     }
 
     /**
@@ -29,7 +29,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     public function newAction()
     {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        return $this->render('OjsWorkflowBundle:ReviewForm:new.html.twig', array('journal' => $selectedJournal));
+        return $this->render('OjsWorkflowBundle:ReviewFormItem:new.html.twig', array('journal' => $selectedJournal));
     }
 
     /**
@@ -39,7 +39,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $form = new \Ojs\WorkflowBundle\Document\ReviewForm();
+        $form = new \Ojs\WorkflowBundle\Document\ReviewFormItem();
         $form->setTitle($request->get('title'));
         $form->setMandotary($request->get('mandotary'));
         $form->setJournalid($selectedJournal->getId());
@@ -50,7 +50,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $dm->persist($form);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('ojs_review_forms_show', array('id' => $form->getId()))
+        return $this->redirect($this->generateUrl('ojs_review_form_items_show', array('id' => $form->getId()))
         );
     }
 
@@ -60,7 +60,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
-        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+        $form = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($form->getJournalId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
@@ -71,26 +71,26 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     public function deleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+        $form = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $dm->remove($form);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_forms')
+        return $this->redirect($this->generateUrl('ojs_review_form_items')
         );
     }
 
     public function showAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+        $form = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:show.html.twig', array('form' => $form)
+        return $this->render('OjsWorkflowBundle:ReviewFormItem:show.html.twig', array('form' => $form)
         );
     }
 
     public function updateAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjsWorkflowBundle:ReviewForm');
+        $repo = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem');
         $form = $repo->find($id);
 
         $dm->persist($form);

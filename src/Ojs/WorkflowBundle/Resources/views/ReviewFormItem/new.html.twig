@@ -3,8 +3,8 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
-                {'title': 'New Review Form'}
+                {'link': path('ojs_review_form_items'), 'title': 'Review Form Items'},
+                {'title': 'New Review Form Item'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -12,11 +12,11 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>New Review Form</h1>
+            <h1>New Review Form Item</h1>
         </div>
         <div class="panel-body"> 
             <div class="panel-body">
-                <form method="post" class="form-row" action="{{path('ojs_review_forms_create')}}">
+                <form method="post" class="form-row" action="{{path('ojs_review_form_items_create')}}">
                     <div class="form-group">
                         <label>Journal</label> 
                         <span>{{journal.title}}</span>

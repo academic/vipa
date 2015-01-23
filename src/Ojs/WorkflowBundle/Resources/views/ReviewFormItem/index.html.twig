@@ -1,0 +1,25 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_review_form_items'), 'title': 'Review Form Items'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%} 
+    {% for entity in forms %}
+        <div class="list-group-item"> 
+
+        </div>
+    {% endfor %}
+    <hr>
+
+    {% if isJournalManager() %}
+        <a href="{{path('ojs_review_form_items_new')}}" class="btn btn-success">
+            <i class="fa fa-plus"></i> {{"create"|trans}}
+        </a>
+    {% endif %}  
+
+{% endblock %}

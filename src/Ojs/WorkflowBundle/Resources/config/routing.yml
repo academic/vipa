@@ -6,7 +6,7 @@ ojs_workflowsteps:
     resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
 
 review_forms: 
-    resource: "@OjsWorkflowBundle/Resources/config/routing/review_forms.yml"
+    resource: "@OjsWorkflowBundle/Resources/config/routing/review_form_items.yml"
 
 manage_workflowsteps:
     pattern:  /manage/steps
