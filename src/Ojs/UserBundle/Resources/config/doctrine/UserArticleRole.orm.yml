@@ -1,0 +1,43 @@
+Ojs\UserBundle\Entity\UserArticleRole:
+    type: entity
+    table: null
+    repositoryClass: Ojs\UserBundle\Entity\UserArticleRoleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+    manyToOne:
+        user:
+          #cascade: [persist]
+          targetEntity: Ojs\UserBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+        article:
+          #cascade: [persist]
+          targetEntity: Ojs\JournalBundle\Entity\Article
+          inversedBy: userRoles
+          joinColumn:
+            name: article_id
+            referencedColumnName: id
+        role:
+          #cascade: [persist]
+          targetEntity: Ojs\UserBundle\Entity\Role
+          joinColumn:
+            name: role_id
+            referencedColumnName: id
+
+    fields:
+        userId:
+            type: integer
+            column: user_id
+        articleId:
+            type: integer
+            column: article_id
+        roleId:
+            type: integer
+            column: role_id
+    lifecycleCallbacks: {  }

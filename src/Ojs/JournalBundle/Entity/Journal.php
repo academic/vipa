@@ -1068,7 +1068,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function getUserRoles()
     {
-        return $this->getUserRoles();
+        return $this->userRoles;
     }
 
     /**

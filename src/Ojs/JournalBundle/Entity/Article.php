@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\UserBundle\Entity\UserArticleRole;
 
 /**
  * Article
@@ -245,6 +246,8 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     public function addAttribute($name, $value)
@@ -1036,5 +1039,32 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         return $this->getTitle() . "[#{$this->getId()}]";
     }
+    private $userRoles;
 
+    /**
+     * @return mixed
+     */
+    public function getUserRoles()
+    {
+        return $this->userRoles;
+    }
+
+    /**
+     * @param UserArticleRole $role
+     * @return $this
+     */
+    public function addUserRole(UserArticleRole $role){
+        $this->userRoles->add($role);
+        return $this;
+    }
+
+    /**
+     * @param UserArticleRole $role
+     * @return $this
+     */
+    public function removeUserRole(UserArticleRole $role)
+    {
+        $this->userRoles->removeElement($role);
+        return $this;
+    }
 }
