@@ -37,9 +37,6 @@ class ReviewForm
      */
     protected $inputType;
 
-    /** @MongoDb\Boolean */
-    protected $onlyreply;
-
     /** @MongoDb\Hash */
     protected $fields;
 
@@ -139,28 +136,6 @@ class ReviewForm
     public function getInputType()
     {
         return $this->inputType;
-    }
-
-    /**
-     * Set onlyreply
-     *
-     * @param boolean $onlyreply
-     * @return self
-     */
-    public function setOnlyreply($onlyreply)
-    {
-        $this->onlyreply = $onlyreply;
-        return $this;
-    }
-
-    /**
-     * Get onlyreply
-     *
-     * @return boolean $onlyreply
-     */
-    public function getOnlyreply()
-    {
-        return $this->onlyreply;
     }
 
     /**

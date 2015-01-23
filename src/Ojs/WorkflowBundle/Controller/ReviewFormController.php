@@ -29,7 +29,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     public function newAction()
     {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        return $this->render('OjsWorkflowBundle:Review:new.html.twig', array('journal' => $selectedJournal));
+        return $this->render('OjsWorkflowBundle:ReviewForm:new.html.twig', array('journal' => $selectedJournal));
     }
 
     /**
@@ -37,12 +37,21 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
      */
     public function createAction(Request $request)
     {
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = new \Ojs\WorkflowBundle\Document\ReviewForm();
+        $form->setTitle($request->get('title'));
+        $form->setMandotary($request->get('mandotary'));
+        $form->setJournalid($selectedJournal->getId());
+        $form->setInputType($request->get('inputtype'));
+        // explode fields by new line and filter null values 
+        $fields = array_filter(explode("\n", $request->get('fields')));
+        $form->setFields($fields);
         $dm->persist($form);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('ojs_review_forms_show', array('id' => $form->getId())));
+        return $this->redirect($this->generateUrl('ojs_review_forms_show', array('id' => $form->getId()))
+        );
     }
 
     public function editAction(Request $request, $id)
@@ -55,7 +64,8 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($form->getJournalId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
-                    'journal' => $journal, 'form' => $form));
+                    'journal' => $journal, 'form' => $form)
+        );
     }
 
     public function deleteAction($id)
@@ -64,7 +74,8 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
         $dm->remove($form);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_forms'));
+        return $this->redirect($this->generateUrl('ojs_review_forms')
+        );
     }
 
     public function showAction($id)
@@ -72,7 +83,8 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
 
-        return $this->render('OjsWorkflowBundle:ReviewForm:show.html.twig', array('form' => $form));
+        return $this->render('OjsWorkflowBundle:ReviewForm:show.html.twig', array('form' => $form)
+        );
     }
 
     public function updateAction(Request $request, $id)

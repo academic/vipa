@@ -9,12 +9,39 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}
-    <div class="panel">
-        <div class="panel-heading">
-            <h1>{{form.title}}</h1>
-        </div>
-        <div class="panel-body"> 
-        </div>
-    </div>
+{% block body -%} 
+    <h1>{{form.title}}</h1>
+
+    <table class="table table-responsive">
+        <tr>
+            <td>
+                Mandotary?
+            </td>
+            <td>
+                {% if form.mandotary %}  
+                    <span class="label label-warning">
+                        Yes    
+                        <i class="fa fa-warning"></i>
+                    </span>
+                {%else%}
+                    <span class="label label-info">
+                        Optional
+                        <i class="fa fa-check"></i>
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Fields</td>
+            <td>
+                {%if form.fields %}
+                    <ul>
+                        {% for field in form.fields%}
+                            <li>{{field}}</li>
+                            {%endfor%}
+                    </ul>
+                {%endif%}
+            </td>
+        </tr>
+    </table>
 {% endblock %}
