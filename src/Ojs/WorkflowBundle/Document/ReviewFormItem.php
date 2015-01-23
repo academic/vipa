@@ -6,9 +6,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  *
- * @MongoDb\Document(collection="review_forms",repositoryClass="Ojs\WorkflowBundle\Repository\ReviewFormRepository")
+ * @MongoDb\Document(collection="review_form_items",repositoryClass="Ojs\WorkflowBundle\Repository\ReviewFormItemRepository")
  */
-class ReviewForm
+class ReviewFormItem
 {
 
     /**
