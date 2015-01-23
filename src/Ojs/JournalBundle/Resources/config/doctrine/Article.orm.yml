@@ -30,11 +30,6 @@ Ojs\JournalBundle\Entity\Article:
             referencedColumnName: id
           inversedBy: articles
           fetch: EAGER
-      userRoles:
-        targetEntity: Ojs\UserBundle\Entity\UserArticleRole
-        mappedBy: article
-        cascade: ["all"]
-        fetch: EXTRA_LAZY
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -47,7 +42,11 @@ Ojs\JournalBundle\Entity\Article:
     articleFiles:
       targetEntity: ArticleFile
       mappedBy: article
-
+    userRoles:
+      targetEntity: Ojs\UserBundle\Entity\UserArticleRole
+      mappedBy: article
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
   manyToMany:
     languages:
       targetEntity: Lang

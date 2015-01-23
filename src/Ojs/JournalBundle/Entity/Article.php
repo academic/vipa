@@ -1039,10 +1039,12 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         return $this->getTitle() . "[#{$this->getId()}]";
     }
+
+    /** @var \Doctrine\Common\Collections\ArrayCollection */
     private $userRoles;
 
     /**
-     * @return mixed
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getUserRoles()
     {
