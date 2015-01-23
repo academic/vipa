@@ -38,6 +38,33 @@ class UserRestController extends FOSRestController
     }
 
     /**
+     * @ApiDoc(
+     *    resource=true,
+     *    description="Get user articles",
+     *    filters={
+     *      {"name"="username", "dataType"="string"}
+     *    }
+     * )
+     * @Get("/user/{username}/articles")
+     */
+    public function getUserArticlesAction($username)
+    {
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->createQueryBuilder();
+        $qb->from("OjsJournalBundle:Article", "a")
+            ->join("OjsJournalBundle:ArticleAuthor",'aa','WITH','a=aa.article')
+            ->join("OjsJournalBundle:Author","au","WITH","aa.author=au")
+            ->join("OjsUserBundle:User","u","WITH","au.userId=u.id")
+            ->where(
+                $qb->expr()->eq("u.username",":username")
+            )
+            ->setParameter("username",$username)
+        ;
+        return $qb->getQuery()->getResult();
+    }
+    /**
      *
      * @ApiDoc(
      *  resource=true,
@@ -104,7 +131,7 @@ class UserRestController extends FOSRestController
     {
         $limit = $request->get('limit',12);
         $page = $request->get('page',1);
-        
+
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
         }
