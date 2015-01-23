@@ -97,7 +97,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     private $userId;
 
     /**
-     * @var \Ojs\UserBundle/Entity/User
+     * @var \Ojs\UserBundle\Entity\User
      * @Expose()
      */
     private $user;
