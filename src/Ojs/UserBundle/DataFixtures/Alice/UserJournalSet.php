@@ -12,5 +12,6 @@ $set = new \h4cc\AliceFixturesBundle\Fixtures\FixtureSet([
 ]);
 
 $set->addFile(__DIR__ . '/journal_role.yml', 'yaml');
+$set->addFile(__DIR__ . '/article_role.yml', 'yaml');
 
 return $set;

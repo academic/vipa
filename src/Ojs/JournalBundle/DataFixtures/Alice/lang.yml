@@ -1,33 +1,33 @@
 \Ojs\JournalBundle\Entity\Lang:
-  lang1:
-    code: tr
-    name: Turkish
-    rtl: false
-  lang2:
-      code: en
-      name: English
-      rtl: false
-  lang3:
-      code: fr
-      name: French
-      rtl: false
-  lang4:
-      code: it
-      name: Italian
-      rtl: false
-  lang5:
-      code: de
-      name: German
-      rtl: false
-  lang6:
-      code: ar
-      name: Arabic
-      rtl: true
-  lang7:
-      code: ru
-      name: Russian
-      rtl: false
-  lang8:
-      code: es
-      name: Spanish
-      rtl: false
+    lang1:
+        code: tr
+        name: Turkish
+        rtl: false
+    lang2:
+        code: en
+        name: English
+        rtl: false
+    lang3:
+        code: fr
+        name: French
+        rtl: false
+    lang4:
+        code: it
+        name: Italian
+        rtl: false
+    lang5:
+        code: de
+        name: German
+        rtl: false
+    lang6:
+        code: ar
+        name: Arabic
+        rtl: true
+    lang7:
+        code: ru
+        name: Russian
+        rtl: false
+    lang8:
+        code: es
+        name: Spanish
+        rtl: false
