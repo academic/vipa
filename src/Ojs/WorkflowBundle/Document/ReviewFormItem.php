@@ -16,6 +16,12 @@ class ReviewFormItem
      */
     protected $id;
 
+    
+    /**
+     * @MongoDb\ObjectId
+     */
+    protected $formId;
+    
     /** @MongoDb\Int */
     protected $journalid;
 
@@ -30,7 +36,7 @@ class ReviewFormItem
      *  
      *  - textbox
      *  - textarea
-     *  - checkboxe 
+     *  - checkbox
      *  - radio
      *  - dropdown
      *  - scale_1_5
@@ -160,4 +166,26 @@ class ReviewFormItem
         return $this->fields;
     }
 
+
+    /**
+     * Get formId
+     *
+     * @return id $formId
+     */
+    public function getFormId()
+    {
+        return $this->formId;
+    }
+
+    /**
+     * Set formId
+     *
+     * @param object_id $formId
+     * @return self
+     */
+    public function setFormId($formId)
+    {
+        $this->formId = $formId;
+        return $this;
+    }
 }
