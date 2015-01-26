@@ -53,10 +53,12 @@ class UserRestController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
 
         $qb = $em->createQueryBuilder();
-        $qb->from("OjsJournalBundle:Article", "a")
+        $qb
+            ->select("a")
+            ->from("OjsJournalBundle:Article", "a")
             ->join("OjsJournalBundle:ArticleAuthor",'aa','WITH','a=aa.article')
             ->join("OjsJournalBundle:Author","au","WITH","aa.author=au")
-            ->join("OjsUserBundle:User","u","WITH","au.userId=u.id")
+            ->join("OjsUserBundle:User","u","WITH","au.user=u")
             ->where(
                 $qb->expr()->eq("u.username",":username")
             )

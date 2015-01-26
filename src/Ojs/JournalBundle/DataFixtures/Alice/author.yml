@@ -1,5 +1,5 @@
 \Ojs\JournalBundle\Entity\Author:
-  author{1..50}:
+  author{1..30}:
     address: <address()>
     email: <email()>
     firstName: <firstName()>
@@ -8,3 +8,4 @@
     summary: <paragraph(3)>
     title: <title()>
     institutionId: @institution*->id
+    user(unique): @user*
