@@ -3,6 +3,7 @@
 namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Event\RegisterEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -186,6 +187,8 @@ class SecurityController extends Controller
                 'OjsUserBundle:Mails:User/confirmEmail.html.twig', array('user' => $user)
             );
 
+            $event = new RegisterEvent();
+            $dispatcher = $this->get('event_dispatcher');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ojs Account Activation')
                 ->setFrom($this->container->getParameter('system_email'))
