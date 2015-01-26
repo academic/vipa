@@ -1,0 +1,14 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
+                {'title': 'Review Form Details'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%}  
+    <h2> {{form.title}}</h2>
+{% endblock %}

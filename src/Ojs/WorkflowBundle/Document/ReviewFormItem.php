@@ -21,9 +21,6 @@ class ReviewFormItem
      * @MongoDb\ObjectId
      */
     protected $formId;
-    
-    /** @MongoDb\Int */
-    protected $journalid;
 
     /** @MongoDb\String */
     protected $title;
