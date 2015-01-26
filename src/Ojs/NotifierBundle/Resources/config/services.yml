@@ -2,9 +2,3 @@ services:
 #    ojs_notifier.example:
 #        class: Ojs\NotifierBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
-    ojs_notifier.listener.mail:
-      class: Ojs\NotifierBundle\Event\MailNotifierEvent
-      tag:
-        name: 'kernel.event_listener'
-        event: ojs.notifier.mail
-        method: 'onMailEvent'
