@@ -113,7 +113,7 @@ class SecurityController extends Controller
         //find user on document by hash
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $anonymUserRepo = $dm->getRepository('OjsUserBundle:AnonymUserToken');
-        $token = $anonymUserRepo->findOneBy(['token' => '88538cf4ee5127b14d38777e5b1b85c1']);
+        $token = $anonymUserRepo->findOneBy(['token' => $hash]);
         if (!$token || $token->getUsed()) {
             $request->getSession()->getFlashBag()->add('error', $this->get('translator')->trans("Login hash is expired/incorrect!"));
             return $this->render(
