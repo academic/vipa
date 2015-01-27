@@ -28,12 +28,12 @@ class ArticleSubmissionController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $this->getUser();
         if ($all) {
-            // all submissions and submission drafts
+// all submissions and submission drafts
             $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
             $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
                     findBy(array('submitted' => false));
         } else {
-            // just me
+// just me
             $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0, 'submitterId' => $user->getId()));
             $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
                     findBy(array('userId' => $user->getId(), 'submitted' => false));
@@ -141,7 +141,7 @@ class ArticleSubmissionController extends Controller
 
         $article = $this->saveArticleSubmission($articleSubmission, $journal);
 
-        // get journal's first workflow step
+// get journal's first workflow step
         $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findOneBy(array('journalid' => $journal->getId(), 'firststep' => true));
         if ($firstStep) {
@@ -174,27 +174,27 @@ class ArticleSubmissionController extends Controller
      */
     private function saveArticleSubmission($articleSubmission, $journal)
     {
-        // security check for submission owner and current user
+// security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
         /* article submission data will be moved from mongdb to mysql */
         $articleData = $articleSubmission->getArticleData();
         $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
-        // article primary data
+// article primary data
         $article = $this->saveArticlePrimaryData($articlePrimaryData, $journal, $articleSubmission->getPrimaryLanguage());
-        // article data for other languages if provided
+// article data for other languages if provided
         unset($articleData[$articleSubmission->getPrimaryLanguage()]);
         $this->saveArticleTranslations($articleData, $article);
-        // add authors data
+// add authors data
         $this->saveAuthorsData($articleSubmission->getAuthors(), $article);
-        // citation data
+// citation data
         $this->saveCitationData($articleSubmission->getCitations(), $article);
-        // file data
+// file data
         $this->saveArticleFileData($articleSubmission->getFiles(), $article, $articleSubmission->getPrimaryLanguage());
 
         $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
-        // @todo give ref. link or code or directives to author 
+// @todo give ref. link or code or directives to author 
         return $article;
     }
 
@@ -286,14 +286,14 @@ class ArticleSubmissionController extends Controller
             $citation->setOrderNum($citationData['orderNum']);
             $em->persist($citation);
             $em->flush();
-            // add relation to article
+// add relation to article
             $article->addCitation($citation);
             $em->persist($article);
             $em->flush();
             unset($citationData['raw']);
             unset($citationData['type']);
             unset($citationData['orderNum']);
-            /// add other data as citation setting  
+/// add other data as citation setting  
             foreach ($citationData as $setting => $value) {
                 $citationSetting = new CitationSetting();
                 $citationSetting->setSetting($setting);
@@ -321,24 +321,22 @@ class ArticleSubmissionController extends Controller
             $file->setMimeType($fileData['article_file_mime_type']);
             $file->setSize($fileData['article_file_size']);
 
-            // @todo add get mime type and name
+// @todo add get mime type and name
             $em->persist($file);
             $em->flush();
             $articleFile = new \Ojs\JournalBundle\Entity\ArticleFile();
             $articleFile->setArticle($article);
             $articleFile->setFile($file);
 
-            if ($fileData['type'] != 0) {
-                $articleFile->setTitle($fileData['title']);
-                $articleFile->setDescription($fileData['desc']);
-                $articleFile->setKeywords($fileData['keywords']);
-                $articleFile->setLangCode($fileData['lang']);
-            } else {
-                $articleFile->setLangCode($lang);
-            }
+            $articleFile->setTitle($fileData['title']);
+            $articleFile->setDescription($fileData['desc']);
+            $articleFile->setKeywords($fileData['keywords']);
+            $articleFile->setLangCode($fileData['lang']);
+            $articleFile->setLangCode(isset($fileData['lang']) ? $fileData['lang'] : $lang);
+
             $articleFile->setVersion(1);
             $articleFile->setType($fileData['type']); // @see ArticleFileParams::$FILE_TYPES
-            // article full text 
+// article full text 
 
             $em->persist($articleFile);
             $em->flush();
