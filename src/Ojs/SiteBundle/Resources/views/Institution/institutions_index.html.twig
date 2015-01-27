@@ -11,7 +11,7 @@
                 <div class="panel-body">
                     <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
                     <div itemscope itemtype="http://schema.org/Organization">
-                        <span itemprop="name" class="text-primary">{{entity.name}}</span>
+                        <span itemprop="name" class="text-primary hidden">{{entity.name}}</span>
                         <h4>Contact Details:</h4>
                         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                             Main address:
@@ -26,22 +26,26 @@
                         Web: <span itemprop="url"><a href="{{entity.url}}">{{entity.url}}</a></span>
                         Wiki: <span itemprop="url">{{entity.url}}</span>
                     </div>
+                    {#
                     <ul class="list-group">
                         {% for journal in entity.journals %}
                             <li class="list-group-item"><a href="/journal/{{ journal.slug }}">{{ journal.title }}</a></li>
                             {%endfor%}
                     </ul>
+                    #}
                 </div>
 
 
                 <div class="panel-footer">
+                    &middot;
                     <a href="/institution/{{ entity.slug }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
-                    
-                    <i class="fa fa-tags"></i>{{"tags"|trans}}
-                    <a href="#"><span class="badge">ojs</span></a>
-                    <a href="#"><span class="badge">university</span></a>
-                    <a href="#"><span class="badge">paper</span></a>
-                    
+                    {% if entity.tags%}
+                    <i class="fa fa-tags"></i> {{"tags"|trans}} 
+                    {% set tags = entity.tags|split(',') %}
+                    {% for tag in tags %}
+                        <a href="#"><span class="badge">{{tag}}</span></a>
+                        {%endfor%}
+                    {% endif%}
                 </div>
             </div>
 
