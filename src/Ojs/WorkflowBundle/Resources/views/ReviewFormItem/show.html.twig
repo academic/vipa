@@ -1,0 +1,51 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_review_form_items'), 'title': 'Review Forms'},
+                {'title': 'Review Form Item Details'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%} 
+    <h1>{{form.title}}</h1>
+
+    <table class="table table-responsive">
+        <tr>
+            <td>Input type</td>
+            <td>{{form.inputtype}}</td>
+        </tr>
+        <tr>
+            <td>
+                Mandotary?
+            </td>
+            <td>
+                {% if form.mandotary %}  
+                    <span class="label label-warning">
+                        Yes    
+                        <i class="fa fa-warning"></i>
+                    </span>
+                {%else%}
+                    <span class="label label-info">
+                        Optional
+                        <i class="fa fa-check"></i>
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Fields</td>
+            <td>
+                {%if form.fields %}
+                    <ul>
+                        {% for field in form.fields%}
+                            <li>{{field}}</li>
+                            {%endfor%}
+                    </ul>
+                {%endif%}
+            </td>
+        </tr>
+    </table>
+{% endblock %}

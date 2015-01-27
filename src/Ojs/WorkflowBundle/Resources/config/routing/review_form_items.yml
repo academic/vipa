@@ -1,0 +1,25 @@
+ojs_review_form_items:
+    pattern:  /reviewformitems
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:index }
+
+ojs_review_form_items_update:
+    pattern:  /reviewformitems/{id}/update
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:update }
+
+ojs_review_form_items_delete:
+    pattern:  /reviewformitems/{id}/delete
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:delete }
+
+
+ojs_review_form_items_show:
+    pattern:  /reviewformitems/{id}/show
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:show }
+
+ojs_review_form_items_new:
+    pattern:  /reviewformitems/new
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:new }
+
+ojs_review_form_items_create:
+    pattern:  /reviewformitems/create
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:create }
+    requirements: { _method: post }

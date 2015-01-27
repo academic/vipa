@@ -49,6 +49,7 @@ class AppKernel extends Kernel {
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
             new Lsw\MemcacheBundle\LswMemcacheBundle(),
             new Noxlogic\RateLimitBundle\NoxlogicRateLimitBundle(),
+            new Ojs\NotifierBundle\OjsNotifierBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

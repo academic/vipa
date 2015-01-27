@@ -3,6 +3,7 @@
 namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Event\RegisterEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -113,7 +114,7 @@ class SecurityController extends Controller
         //find user on document by hash
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $anonymUserRepo = $dm->getRepository('OjsUserBundle:AnonymUserToken');
-        $token = $anonymUserRepo->findOneBy(['token' => '88538cf4ee5127b14d38777e5b1b85c1']);
+        $token = $anonymUserRepo->findOneBy(['token' => $hash]);
         if (!$token || $token->getUsed()) {
             $request->getSession()->getFlashBag()->add('error', $this->get('translator')->trans("Login hash is expired/incorrect!"));
             return $this->render(
@@ -186,6 +187,8 @@ class SecurityController extends Controller
                 'OjsUserBundle:Mails:User/confirmEmail.html.twig', array('user' => $user)
             );
 
+            $event = new RegisterEvent();
+            $dispatcher = $this->get('event_dispatcher');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ojs Account Activation')
                 ->setFrom($this->container->getParameter('system_email'))

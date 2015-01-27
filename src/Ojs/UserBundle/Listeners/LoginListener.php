@@ -25,7 +25,7 @@ class LoginListener
     {
         $token = $event->getAuthenticationToken();
         if ($token && $token->getUser() instanceof User) {
-            /* @var $user \User */
+            /* @var $user User */
             // save last login
             $user = $token->getUser();
             $user->setLastlogin(new \DateTime());

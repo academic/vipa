@@ -4,17 +4,11 @@
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
                 {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
-                {'title': 'Review Form Preview'}
+                {'title': 'Review Form Details'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}
-    <div class="panel">
-        <div class="panel-heading">
-            <h1>{{form.title}}</h1>
-        </div>
-        <div class="panel-body"> 
-        </div>
-    </div>
+{% block body -%}  
+    <h2> {{form.title}}</h2>
 {% endblock %}
