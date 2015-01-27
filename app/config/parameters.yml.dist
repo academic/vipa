@@ -28,10 +28,3 @@ parameters:
     cms_show_routes:
         Ojs\JournalBundle\Entity\Journal: journal_show
         Ojs\JournalBundle\Entity\Article: article_show
-lsw_memcache:
-    session:
-        client: default
-    clients:
-        default:
-            hosts:
-              - { dsn: localhost, port: 11211 }
