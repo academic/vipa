@@ -112,6 +112,7 @@ class ArticleSubmissionController extends Controller
                     'submissionId' => $articleSubmission->getId(),
                     'submissionData' => $articleSubmission,
                     'journal' => $journal,
+                    'fileTypes' => ArticleFileParams::$FILE_TYPES
         ));
     }
 
@@ -156,7 +157,7 @@ class ArticleSubmissionController extends Controller
             $reviewStep->setRootNode(true);
             $reviewStep->setTo(null);
             $reviewStep->setStepId($firstStep->getId());
-            $reviewStep->setNote($request->get('note'));
+            $reviewStep->setNote($request->get('notes')); 
             $dm->persist($reviewStep);
             $dm->flush();
         }
@@ -328,10 +329,9 @@ class ArticleSubmissionController extends Controller
             $articleFile->setArticle($article);
             $articleFile->setFile($file);
 
-            $articleFile->setTitle($fileData['title']);
-            $articleFile->setDescription($fileData['desc']);
-            $articleFile->setKeywords($fileData['keywords']);
-            $articleFile->setLangCode($fileData['lang']);
+            isset($fileData['title']) && $articleFile->setTitle($fileData['title']);
+            isset($fileData['desc']) && $articleFile->setDescription($fileData['desc']);
+            isset($fileData['keywords']) && $articleFile->setKeywords($fileData['keywords']);
             $articleFile->setLangCode(isset($fileData['lang']) ? $fileData['lang'] : $lang);
 
             $articleFile->setVersion(1);

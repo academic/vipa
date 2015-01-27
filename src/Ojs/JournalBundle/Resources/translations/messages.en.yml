@@ -91,13 +91,7 @@ author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
 user.new: 'New User'
-file.types.0: 'Research Instrument'
-file.types.1: 'Research Materials'
-file.types.2: 'Research Results'
-file.types.3: Transcripts
-file.types.4: 'Data Analysis'
-file.types.5: 'Data Set'
-file.types.6: 'Source Text'
+
 details: Details
 article.manager: Article Manager
 article.detail: Article Detail

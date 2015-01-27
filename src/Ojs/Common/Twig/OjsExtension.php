@@ -32,6 +32,7 @@ class OjsExtension extends \Twig_Extension
             'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin'),
             'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager'),
+            'isEditor' => new \Twig_Function_Method($this, 'isEditor'),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userclients' => new \Twig_Function_Method($this, 'getUserClients', array('is_safe' => array('html'))),
             'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
@@ -48,11 +49,11 @@ class OjsExtension extends \Twig_Extension
             'fileType' => new \Twig_Function_Method($this, 'fileType', array('is_safe' => array('html'))),
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
-            'getRoute'=>new \Twig_Function_Method($this, 'getRoute',[]),
-            'getObject'=>new \Twig_Function_Method($this, 'getObject',[])
+            'getRoute' => new \Twig_Function_Method($this, 'getRoute', []),
+            'getObject' => new \Twig_Function_Method($this, 'getObject', [])
         );
-    } 
-    
+    }
+
     /**
      *
      * @param array $list
@@ -189,6 +190,11 @@ class OjsExtension extends \Twig_Extension
     public function isJournalManager()
     {
         return $this->hasRole('ROLE_JOURNAL_MANAGER');
+    }
+
+    public function isEditor()
+    {
+        return $this->hasRole('ROLE_EDITOR');
     }
 
     /**
@@ -347,16 +353,15 @@ class OjsExtension extends \Twig_Extension
         }
     }
 
-            
     public function getObject($object, $id)
     {
         $objectClass = $this->decode($object);
-        $object = $this->em->find($objectClass,$id);
+        $object = $this->em->find($objectClass, $id);
         $cms_routes = $this->container->getParameter('cms_show_routes');
         /** @var Router $router */
         $router = $this->container->get('router');
-        $route = $router->generate($cms_routes[$objectClass],['id'=>$id]);
-        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object,0,20).'</a>';
+        $route = $router->generate($cms_routes[$objectClass], ['id' => $id]);
+        return '<a href="' . $route . '" target="_blank" title="' . $object . '">' . substr($object, 0, 20) . '</a>';
     }
 
     /**
@@ -368,8 +373,8 @@ class OjsExtension extends \Twig_Extension
     {
         $string = base64_encode($string);
         $len = strlen($string);
-        $piece = $len/2;
-        $encoded = substr($string,$piece,$len-1).substr($string,0,$piece);
+        $piece = $len / 2;
+        $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
         return $encoded;
     }
 
@@ -381,12 +386,12 @@ class OjsExtension extends \Twig_Extension
     public function decode($string)
     {
         $len = strlen($string);
-        $piece = $len/2;
-        $string = substr($string,$piece,$len-1).substr($string,0,$piece);
+        $piece = $len / 2;
+        $string = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
         $decoded = base64_decode($string);
         return $decoded;
     }
-            
+
     public function getName()
     {
         return 'ojs_extension';
