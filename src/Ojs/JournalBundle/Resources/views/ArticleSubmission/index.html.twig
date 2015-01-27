@@ -77,10 +77,12 @@
                     <td>{{ entity.title }}</td>
                     <td style="background: {{ statusColors[entity.status] }}">{{ statusTexts[entity.status] }}</td>
                     <td>
-                        {% set show_path = 'article_show' %}
-                        {% set edit_path = 'article_edit' %}
-                        {% set delete_path = 'article_delete' %}
-                        {% include '::actionbtns.html.twig' %}
+                        {% if isSystemAdmin() %}
+                            {% set show_path = 'article_show' %}
+                            {% set edit_path = 'article_edit' %}
+                            {% set delete_path = 'article_delete' %}
+                            {% include '::actionbtns.html.twig' %}
+                        {% endif %}
 
                     </td>
                 </tr>

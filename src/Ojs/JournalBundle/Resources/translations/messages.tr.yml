@@ -89,13 +89,7 @@ author.plural: Yazarlar
 author.singular: Yazar
 author.summary: 'Yazar Özeti'
 user.new: 'Yeni Kullanıcı'
-file.types.0: 'Research Instrument'
-file.types.1: 'Research Materials'
-file.types.2: 'Research Results'
-file.types.3: Transkript
-file.types.4: 'Veri Analizi'
-file.types.5: 'Veri Seti'
-file.types.6: 'Kaynak Metin'
+
 details: Detaylar
 article.manager: Makale Yöneticisi
 issue.plural: Sayılar
