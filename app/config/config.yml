@@ -203,7 +203,7 @@ liip_imagine:
             quality: 90
             filters:
                 relative_resize: { widen: 960 }
-                crop: {start:[0,0], size: [585, 390]}
+                crop: {start:[0,0], size: [1200, 300]}
 
 
 knp_paginator:
