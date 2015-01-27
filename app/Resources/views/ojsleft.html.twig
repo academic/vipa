@@ -13,6 +13,7 @@
                              class="img-circle img-responsive" />
                     {%endif%}  
                     <h4 class="panel-title">
+                        <small>{{app.user.getUsername()}}</small>
                         {% if userJournalRoles %}
                             {%for role in userJournalRoles %}
                                 <span class="label label-default">{{role.role|trans}}</span> 
