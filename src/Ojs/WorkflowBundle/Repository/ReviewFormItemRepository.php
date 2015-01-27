@@ -6,9 +6,9 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 
 /**
  *
- * @MongoDb\Document(collection="review_form")
+ * @MongoDb\Document(collection="review_form_items")
  */
-class ReviewFormRepository extends DocumentRepository
+class ReviewFormItemRepository extends DocumentRepository
 {
     
 }

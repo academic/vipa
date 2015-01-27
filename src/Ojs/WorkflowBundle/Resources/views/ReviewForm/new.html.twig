@@ -12,20 +12,34 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>New Review Form</h1>
+            <h1>New Review Form Item</h1>
         </div>
         <div class="panel-body"> 
+            <div class="panel-body">
+                <form method="post" class="form-row" action="{{path('ojs_review_forms_create')}}">
+                    <div class="form-group">
+                        <label>Journal</label> 
+                        <span>{{journal.title}}</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input  id="titleinput" class="form-control" name="title" >
+                    </div>
+
+
+                    <div>
+                        <input type="submit" class="btn btn-success" value="Save" />
+                        <a href="{{path('ojs_review_forms')}}" class="btn btn-default">
+                            <i class="fa fa-arrow-left"></i>
+                            Back to List
+                        </a>
+                    </div>
+                </form>
+
+            </div>
 
         </div>
     </div>
 {% endblock %}
 
-{% block javascripts -%}
-    {{  parent()  }}
-    <script>
-        $(document).ready(function () {
-
-        });
-    </script>
-
-{% endblock %}

@@ -22,7 +22,7 @@ Ojs\JournalBundle\Entity\Article:
             name: journal_id
             referencedColumnName: id
           inversedBy: articles
-          fetch: EAGER
+          fetch: EXTRA_LAZY
       issue:
           targetEntity: Issue
           joinColumn:
