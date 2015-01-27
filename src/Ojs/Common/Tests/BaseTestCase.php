@@ -48,7 +48,7 @@ abstract class BaseTestCase extends WebTestCase
 
 
         $this->em = static::$kernel->getContainer()
-            ->getDoctrine()
+            ->get('doctrine')
             ->getManager();
 
         $this->router = static::$kernel->getContainer()->get('router');
