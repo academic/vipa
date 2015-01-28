@@ -94,7 +94,7 @@ abstract class BaseTestCase extends WebTestCase
     {
         $this->client->request(
             $type,
-            $url . '?apikey=MWFlZDFlMTUwYzRiNmI2NDU3NzNkZDA2MzEyNzJkNTE5NmJmZjkyZQ==',
+            $url . '?apikey=NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw==',
             $data,
             [],
             ['HTTP_ACCEPT' => 'application/json']

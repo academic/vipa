@@ -35,3 +35,15 @@
     title: Prof. Dr.
     roles: [@role3]
     tags: <text(20)>, <text(10)>
+  user_demo_tester:
+    username (unique): demo_journal_tester
+    password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'
+    firstName: Journal Tester
+    lastName: Demo
+    email (unique): demo.tester@ojs.io
+    isActive: true
+    apikey (unique): 'NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw=='
+    status: 1
+    title: Prof. Dr.
+    roles: [@role3]
+    tags: <text(20)>, <text(10)>
