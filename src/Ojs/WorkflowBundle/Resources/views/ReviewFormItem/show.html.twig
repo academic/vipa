@@ -3,26 +3,28 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_review_form_items'), 'title': 'Review Forms'},
+                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
+                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'Form Items' },
                 {'title': 'Review Form Item Details'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%} 
-    <h1>{{form.title}}</h1>
+
+    <h2><small>Title: </small> {{formItem.title}}</h2>
 
     <table class="table table-responsive">
         <tr>
             <td>Input type</td>
-            <td>{{form.inputtype}}</td>
+            <td>{{formItem.inputtype}}</td>
         </tr>
         <tr>
             <td>
                 Mandotary?
             </td>
             <td>
-                {% if form.mandotary %}  
+                {% if formItem.mandotary %}  
                     <span class="label label-warning">
                         Yes    
                         <i class="fa fa-warning"></i>
@@ -35,12 +37,25 @@
                 {% endif %}
             </td>
         </tr>
+
+        <tr>
+            <td>
+                Confidentail?
+            </td>
+            <td>
+                {% if formItem.confidential %}  
+                    <span class="label label-warning">Yes <i class="fa fa-warning"></i></span>
+                    {%else%}
+                    <span class="label label-info"> No <i class="fa fa-check"></i></span>
+                    {% endif %}
+            </td>
+        </tr>
         <tr>
             <td>Fields</td>
             <td>
-                {%if form.fields %}
+                {%if formItem.fields %}
                     <ul>
-                        {% for field in form.fields%}
+                        {% for field in formItem.fields%}
                             <li>{{field}}</li>
                             {%endfor%}
                     </ul>

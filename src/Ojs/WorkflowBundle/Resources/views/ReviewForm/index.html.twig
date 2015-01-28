@@ -9,12 +9,27 @@
 {% endblock %}
 
 {% block body -%} 
-    {% for entity in forms %}
-        <div class="list-group-item"> 
-            {{entity.title}}
-        </div>
-    {% endfor %}
-    <hr>
+    <div class="list-group">
+        {% for entity in forms %}
+            <div class="list-group-item list-group-item-default"> 
+                <a href="{{path('ojs_review_form_items',{'formId':entity.id})}}">{{entity.title}}</a>
+                <span class="pull-right">
+                    <span class="btn-group">
+                        <a href="{{path('ojs_review_form_items',{'formId':entity.id})}}" class="btn btn-success btn-xs">
+                            <i class="fa fa-list"></i> Form items
+                        </a>
+                        <a href="{{path('ojs_review_forms_show',{'id':entity.id})}}" title="Form details" class="btn btn-info btn-xs">
+                            <i class="fa fa-info-circle"></i>
+                        </a>
+                        <a href="{{path('ojs_review_forms_edit',{'id':entity.id})}}" class="btn btn-warning btn-xs">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </span>
+
+                </span>
+            </div>
+        {% endfor %}
+    </div> 
 
     {% if isJournalManager() %}
         <a href="{{path('ojs_review_forms_new')}}" class="btn btn-success">

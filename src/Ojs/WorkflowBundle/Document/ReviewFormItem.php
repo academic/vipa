@@ -16,7 +16,6 @@ class ReviewFormItem
      */
     protected $id;
 
-    
     /**
      * @MongoDb\ObjectId
      */
@@ -27,6 +26,9 @@ class ReviewFormItem
 
     /** @MongoDb\Boolean */
     protected $mandotary;
+
+    /** @MongoDb\Boolean */
+    protected $confidential;
 
     /**
      * @MongoDb\String 
@@ -163,7 +165,6 @@ class ReviewFormItem
         return $this->fields;
     }
 
-
     /**
      * Get formId
      *
@@ -184,5 +185,28 @@ class ReviewFormItem
     {
         $this->formId = $formId;
         return $this;
+    }
+
+
+    /**
+     * Set confidential
+     *
+     * @param boolean $confidential
+     * @return self
+     */
+    public function setConfidential($confidential)
+    {
+        $this->confidential = $confidential;
+        return $this;
+    }
+
+    /**
+     * Get confidential
+     *
+     * @return boolean $confidential
+     */
+    public function getConfidential()
+    {
+        return $this->confidential;
     }
 }

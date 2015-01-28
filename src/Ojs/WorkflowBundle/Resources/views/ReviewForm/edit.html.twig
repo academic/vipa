@@ -10,9 +10,21 @@
 {% endblock %}
 
 {% block body -%}  
+    <h1>Update Form <small>{{form.title}}</small></h1>
+    <hr>
+    <form method="post" class="form-row" action="{{path('ojs_review_forms_update',{'id':form.id})}}">
 
-    <form>
+        <div class="form-group">
+            <label>Title</label>
+            <input  id="titleinput" class="form-control" name="title"  value="{{form.title}}">
+        </div>
 
-
+        <div>
+            <input type="submit" class="btn btn-success" value="Save" />
+            <a href="{{path('ojs_review_forms')}}" class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+                Back to List
+            </a>
+        </div>
     </form>
 {% endblock %}
