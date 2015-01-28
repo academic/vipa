@@ -1,6 +1,11 @@
-ojs_review_form_items:
+ojs_review_forms:
     pattern:  /reviewforms
     defaults: { _controller: OjsWorkflowBundle:ReviewForm:index }
+
+
+ojs_review_forms_edit:
+    pattern:  /reviewforms/{id}/edit
+    defaults: { _controller: OjsWorkflowBundle:ReviewForm:edit }
 
 ojs_review_forms_update:
     pattern:  /reviewforms/{id}/update

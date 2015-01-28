@@ -59,7 +59,7 @@
                     <div class="panel-heading">{{"Journal Manager"|trans}}</div>
                     <div>
                         {# Links for journal manager  #}
-                        
+
                         {% if session('selectedJournalId') %}
                             <a class="list-group-item"  href="{{path('issue_manager_index')}}">
                                 <i class="fa fa-cog"></i> 
@@ -68,6 +68,10 @@
                             <a class="list-group-item"  href="{{path('manager_current_journal_settings')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"settings"|trans}}
+                            </a>
+                            <a class="list-group-item"  href="{{path('ojs_review_forms')}}">
+                                <i class="fa fa-cog"></i> 
+                                {{"reviewForms.manager"|trans}}
                             </a>
                             <a class="list-group-item"  href="{{path('dashboard')}}">
                                 <i class="fa fa-th"></i> 

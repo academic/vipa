@@ -3,21 +3,38 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_review_form_items'), 'title': 'Review Form Items'}
+                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
+                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': form.title }
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%} 
-    {% for entity in forms %}
-        <div class="list-group-item"> 
-
-        </div>
-    {% endfor %}
+    <h1>Form items <small>{{form.title}}</small> </h1>
     <hr>
+    <div class='list-group'>
+        {% for entity in formItems %}
+            <div class="list-group-item list-group-item-info"> 
+                <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}">{{entity.title}}</a>
+                <span class='pull-right'>
+                    <span class="btn-group">
+                        <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}" 
+                           class="btn btn-info btn-xs"><i class="fa fa-info-circle"> {{"details"|trans}}</i>
+                        </a>
+                        <a href="{{path('ojs_review_form_items_edit',{'id':entity.id})}}" 
+                           class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{{path('ojs_review_form_items_delete',{'id':entity.id})}}"
+                           class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        {% endfor %}
+    </div> 
 
     {% if isJournalManager() %}
-        <a href="{{path('ojs_review_form_items_new')}}" class="btn btn-success">
+        <a href="{{path('ojs_review_form_items_new',{'formId':form.id})}}" class="btn btn-success">
             <i class="fa fa-plus"></i> {{"create"|trans}}
         </a>
     {% endif %}  

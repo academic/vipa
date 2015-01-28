@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_review_form_items'), 'title': 'Review Form Items'},
-                {'title': 'New Review Form Item'}
+                {'link': path('dashboard'), 'title': 'Dashboard'}, 
+                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'Form Items' },
+                {'title':'New Form Item'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -12,26 +12,29 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>New Review Form Item</h1>
+            <h1>New Review Form Item <small>{{form.title}}</small></h1>
         </div>
         <div class="panel-body"> 
             <div class="panel-body">
-                <form method="post" class="form-row" action="{{path('ojs_review_form_items_create')}}">
-                    <div class="form-group">
-                        <label>Journal</label> 
-                        <span>{{journal.title}}</span>
-                    </div>
+                <form method="post" class="form-row" action="{{path('ojs_review_form_items_create',{'formId':form.id})}}">
 
-                    <div class="form-group">
+
+                    <div>
                         <label>Title</label>
                         <input  id="titleinput" class="form-control" name="title" >
                     </div>
 
-                    <div class="form-group">
+                    <div>
                         <label>Mandotary?
                             <input type="checkbox" name="mandotary" id="mandotaryinput" value="1"> 
                         </label>
                         <span class="help-block">Is this question mandotary?</span>
+                    </div>
+                    <div>
+                        <label>Confidential?
+                            <input type="checkbox" name="confidential" id="confidentialinput" value="1"> 
+                        </label>
+                        <span class="help-block">If this question's answer may contain confidential data please check.</span>
                     </div>
 
                     <div class="form-inline">
@@ -47,7 +50,7 @@
 
                     </div>
 
-                    <div id="fieldspart" class="form-group" style="display:none">
+                    <div id="fieldspart"   style="display:none">
                         <label>Fields</label>
                         <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="Add each field text as one line" ></textarea>
                     </div>
