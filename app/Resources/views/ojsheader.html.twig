@@ -11,9 +11,9 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{%if page == 'index'%} class="active"{%endif%}><a href="/">{{"home"|trans}}</a></li>
-                <li{%if page == 'institution'%} class="active"{%endif%}><a href="/institutions">{{"institutions"|trans}}</a></li>
-                <li{%if page == 'journals'%} class="active"{%endif%}><a href="/journals">{{"journals"|trans}}</a></li>
+                <li{%if page == 'index'%} class="active"{%endif%}><a href={{ path('ojs_public_index') }}>{{"home"|trans}}</a></li>
+                <li{%if page == 'institution'%} class="active"{%endif%}><a href={{ path('ojs_institutions_index') }}>{{"institutions"|trans}}</a></li>
+                <li{%if page == 'journals'%} class="active"{%endif%}><a href={{ path('ojs_journals_index') }}>{{"journals"|trans}}</a></li>
             </ul>
             <div class="col-sm-3 col-md-3">
                 <form class="navbar-form" role="search" action="/search" method="get">
