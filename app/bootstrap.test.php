@@ -1,5 +1,5 @@
 <?php
-ini_set('memory_limit', '512M');
+ini_set('memory_limit', '1024M');
 require_once(__DIR__ . '/bootstrap.php.cache');
 require_once(__DIR__ . '/AppKernel.php');
 
