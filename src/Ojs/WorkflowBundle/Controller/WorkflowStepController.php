@@ -53,6 +53,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setJournalid($request->get('journalId'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
         $step->setIsVisible($request->get('isVisible') ? true : false);
@@ -78,6 +79,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $serializer = $this->get('serializer');
         $em = $this->get('doctrine')->getManager();
         $roles = array();
+        $rolesArray = array();
         if ($roleIds) {
             foreach ($roleIds as $roleId) {
                 $roles[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
