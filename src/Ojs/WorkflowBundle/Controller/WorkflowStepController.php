@@ -30,9 +30,14 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:new.html.twig', array(
-                    'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $selectedJournal));
+                    'roles' => $roles,
+                    'nextSteps' => $nextSteps,
+                    'journal' => $selectedJournal,
+                    'forms' => $journalReviewForms
+        ));
     }
 
     /**
@@ -61,13 +66,19 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     /**
      * prepare an array given form values for JournalWorkflow $roles atrribute
-     * @param Symfony\Component\Serializer\Serializer $serializer
-     * @param  array $roles
+     * @param  array $roleIds 
      * @return array
      */
-    public function prepareRoles($serializer, $roles)
+    public function prepareRoles($roleIds)
     {
-        $rolesArray = array();
+        $serializer = $this->get('serializer');
+        $em = $this->get('doctrine')->getManager();
+        $roles = array();
+        if ($roleIds) {
+            foreach ($roleIds as $roleId) {
+                $roles[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
+            }
+        }
         if ($roles) {
             foreach ($roles as $role) {
                 $rolesArray[] = json_decode(
@@ -79,12 +90,18 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     /**
      * prepare an array from given form values for JournalWorkflow nextSteps atrribute
-     * @param  array $nextSteps
+     * @param  array $nextStepIds
      * @return array
      */
-    public function prepareNextsteps($nextSteps)
+    public function prepareNextsteps($nextStepIds)
     {
-        $nextStepsArray = array();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $nextSteps = array();
+        if ($nextStepIds) {
+            foreach ($nextStepIds as $nextStepId) {
+                $nextSteps[] = $dm->getRepository("OjsWorkflowBundle:JournalWorkflowStep")->findOneById($nextStepId);
+            }
+        }
         if ($nextSteps) {
             foreach ($nextSteps as $step) {
                 $nextStepsArray[] = array(
@@ -92,15 +109,15 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
                     'title' => $step->getTitle());
             }
         }
-
         return $nextStepsArray;
     }
 
-    public function editAction(Request $request, $id)
+    public function editAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
 
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
@@ -109,7 +126,13 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
                 ->findByJournalid($selectedJournal->getId());
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
-                    'roles' => $roles, 'nextSteps' => $nextSteps, 'journal' => $journal, 'step' => $step));
+                    'roles' => $roles,
+                    'nextSteps' => $nextSteps,
+                    'journal' => $journal,
+                    'step' => $step,
+                    'forms' => $journalReviewForms
+                        )
+        );
     }
 
     public function deleteAction($id)
@@ -145,23 +168,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
         $step->setStatus($request->get('status'));
-        $roleIds = $request->get('roles');
-        $rolesArray = array();
-        if ($roleIds) {
-            foreach ($roleIds as $roleId) {
-                $rolesArray[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
-            }
-        }
-        $step->setRoles($this->prepareRoles($this->container->get('serializer'), $rolesArray));
-        $nextStepIds = $request->get('nextsteps');
-        $nextStepsArray = array();
-        if ($nextStepIds) {
-            foreach ($nextStepIds as $nextStepId) {
-                $nextStepsArray[] = $dm->getRepository("OjsWorkflowBundle:Workflow")->findOneById($nextStepId);
-            }
-        }
-
-        $step->setNextsteps($this->prepareNextsteps($nextStepsArray));
+        $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
+        $step->setReviewForm($reviewForm);
+        $step->setRoles($this->prepareRoles($request->get('roles')));
+        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);

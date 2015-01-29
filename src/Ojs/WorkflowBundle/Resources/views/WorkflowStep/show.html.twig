@@ -74,6 +74,14 @@
                         <span class="badge">{{step.maxdays}}</span>
                     </td>
                 </tr>
+                <tr>
+                    <th>Review Form</th>
+                    <td>
+                        {%if step.reviewForm %}
+                            <a href="#" title="{{step.reviewForm.id}}">{{step.reviewForm.title}}</a>
+                        {%endif%}
+                    </td>
+                </tr>
             </table>
             <div class="btn-group">
                 <a class="btn btn-default" href="{{path('manage_workflowsteps')}}">Back to list</a>

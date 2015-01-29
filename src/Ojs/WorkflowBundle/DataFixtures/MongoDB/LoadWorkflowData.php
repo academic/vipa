@@ -61,7 +61,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
 
     public function getOrder()
     {
-        return 20;
+        return 22;
     }
 
 }
