@@ -16,8 +16,14 @@
 
 As a company we [OkulBilişim](http://www.okulbilisim.com), analyze journal management systems and needs and We make a harder, better, faster and stronger content management and workflow software with [Symfony 2](http://en.wikipedia.org/wiki/Symfony) and [cloud](http://en.wikipedia.org/wiki/Cloud_computing) with parnership of [TÜBİTAK-ULAKBİM](http://www.ulakbim.gov.tr)
 
+## Contributing
+
+Feel free to add any issues. You are welcome to suggest new features. You can add issues through the GitHub interface or directly on our [Waffle.io board](http://waffle.io/okulbilisim/okulbilisim.io). It's best to existing issues to reduce duplicates and join in on the conversation.
+
 - please do [fork](https://github.com/okulbilisim/ojs/fork) us
 - please [open](https://github.com/okulbilisim/ojs/issues/new) an issue for improvement/feature/bug  
+
+[![Issue Throughput Graph](http://graphs.waffle.io/okulbilisim/ojs/throughput.svg)](https://waffle.io/okulbilisim/ojs/metrics)
 
 
 ## Installing
@@ -29,3 +35,6 @@ Read [Install.md](https://github.com/okulbilisim/ojs/tree/master/docs/INSTALL.md
 We also provide this SaaS (software as a service) from [OJS.io](http://ojs.io)
 
 [contact](mailto:info@okulbilisim.com) with [us](http://okulbilisim.com)
+
+
+
