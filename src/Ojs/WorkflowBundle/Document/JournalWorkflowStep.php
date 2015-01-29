@@ -38,7 +38,7 @@ class JournalWorkflowStep
     protected $canEdit;
 
     /**
-     *  @MongoDb\ReferenceOne(targetDocument="ReviewForm")
+     *  @MongoDb\ReferenceOne(targetDocument="ReviewForm",nullable=true)
      */
     private $reviewForm;
 

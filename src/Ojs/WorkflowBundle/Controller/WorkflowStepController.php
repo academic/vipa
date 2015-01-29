@@ -58,6 +58,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
+        $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
+        if ($reviewForm) {
+            $step->setReviewForm($reviewForm);
+        }
         $dm->persist($step);
         $dm->flush();
 
@@ -97,6 +101,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $nextSteps = array();
+        $nextStepsArray = array();
         if ($nextStepIds) {
             foreach ($nextStepIds as $nextStepId) {
                 $nextSteps[] = $dm->getRepository("OjsWorkflowBundle:JournalWorkflowStep")->findOneById($nextStepId);
@@ -169,7 +174,9 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setJournalid($request->get('journalId'));
         $step->setStatus($request->get('status'));
         $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
-        $step->setReviewForm($reviewForm);
+        if ($reviewForm) {
+            $step->setReviewForm($reviewForm);
+        }
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
