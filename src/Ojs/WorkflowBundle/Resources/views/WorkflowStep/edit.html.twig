@@ -101,6 +101,22 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label>Review Form</label>
+
+                    <select name="reviewform" class="form-control">
+                        <option>[No review form]</option>
+                        {%for form in forms%}
+                            <option 
+                                {%if step.reviewForm and step.reviewForm.id == form.id %}
+                                    selected="selected"
+                                {%endif%}
+                                value="{{form.id}}">{{form.title}}
+                            </option>
+                        {%endfor%}
+                    </select>
+                </div>
+
                 <div>
                     <input type="submit" class="btn btn-success" value="Save" />
                     <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">

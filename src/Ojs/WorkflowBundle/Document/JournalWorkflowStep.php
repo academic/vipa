@@ -38,6 +38,11 @@ class JournalWorkflowStep
     protected $canEdit;
 
     /**
+     *  @MongoDb\ReferenceOne(targetDocument="ReviewForm")
+     */
+    private $reviewForm;
+
+    /**
      * possible next steps
      *  {
      * 	"0" : {
@@ -362,6 +367,28 @@ class JournalWorkflowStep
     public function getCanEdit()
     {
         return $this->canEdit;
+    }
+
+    /**
+     * Set reviewForm
+     *
+     * @param Ojs\WorkflowBundle\Document\ReviewForm $reviewForm
+     * @return self
+     */
+    public function setReviewForm(\Ojs\WorkflowBundle\Document\ReviewForm $reviewForm)
+    {
+        $this->reviewForm = $reviewForm;
+        return $this;
+    }
+
+    /**
+     * Get reviewForm
+     *
+     * @return Ojs\WorkflowBundle\Document\ReviewForm $reviewForm
+     */
+    public function getReviewForm()
+    {
+        return $this->reviewForm;
     }
 
 }

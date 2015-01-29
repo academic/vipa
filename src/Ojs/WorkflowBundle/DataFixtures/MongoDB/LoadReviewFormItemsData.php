@@ -85,7 +85,7 @@ class LoadReviewFormItemsData extends AbstractFixture implements FixtureInterfac
 
     public function getOrder()
     {
-        return 22;
+        return 21;
     }
 
 }
