@@ -18,7 +18,7 @@ As a company we [OkulBilişim](http://www.okulbilisim.com), analyze journal mana
 
 ## Contributing
 
-Feel free to add any issues. You are welcome to suggest new features. You can add issues through the GitHub interface or directly on our [Waffle.io board](http://waffle.io/okulbilisim/okulbilisim.io). It's best to existing issues to reduce duplicates and join in on the conversation.
+Feel free to add any issues. You are welcome to suggest new features. You can add issues through the GitHub interface or directly on our [waffle.io board](http://waffle.io/okulbilisim/ojs). It's best to existing issues to reduce duplicates and join in on the conversation.
 
 - please do [fork](https://github.com/okulbilisim/ojs/fork) us
 - please [open](https://github.com/okulbilisim/ojs/issues/new) an issue for improvement/feature/bug  
