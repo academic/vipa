@@ -25,15 +25,14 @@ var CitationEditor = {
                     var fields = $mustFields.concat($shouldFields);
                     $(".citationDetailsFields", $tpl).html("");
                     $('.citation_type option[value=' + citationItem.type + ']', $tpl).prop('selected', true);
+                    var $citeItemMustTpl = $("#step3_cite_item1_tpl").html();
+                    var $citeItemShouldTpl = $("#step3_cite_item2_tpl").html();
                     for (var i in $mustFields) {
-                        $(".citationDetailsFields", $tpl).append(
-                                '<input type="text" class="form-control has-warning" placeholder="' +
-                                $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
+                        renderedTpl = Mustache.render($citeItemMustTpl, {'name': $mustFields[i], 'value': ''});
+                        $(".citationDetailsFields", $tpl).append(renderedTpl);
                     }
                     for (var i in $shouldFields) {
-                        $(".citationDetailsFields", $tpl).append(
-                                '<input type="text" class="form-control" placeholder="' +
-                                $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
+                        renderedTpl = Mustache.render($citeItemShouldTpl, {'name': $shouldFields[i], 'value': ''});
                     }
                     $("input[name=raw]", $tpl).attr("value", citationItem.raw);
                     $.each(citationItem, function (k, v) {

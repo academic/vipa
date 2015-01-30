@@ -47,12 +47,7 @@
                         {% endfor %}
                         {% for field in citationTypes[citationItem.type].should%}
                             {% if citationItem[field] is defined %}
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">{{field|trans}} </label>
-                                    <div class="col-md-10">
-                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
-                                    </div>
-                                </div>
+                                {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field, 'value':citationItem[field] } only %}    
                             {%endif%}
                         {% endfor %}
                     {% else %}
