@@ -51,19 +51,39 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
      */
     private function insertFirstTemplate($dm)
     {
+
+        $roleRepo = $this->container->get('doctrine')->getRepository('OjsUserBundle:Role');
+        $roleEditor = $roleRepo->findOneByRole('ROLE_EDITOR');
+        $roleAuthor = $roleRepo->findOneByRole('ROLE_AUTHOR');
+        $roleJournalManager = $roleRepo->findOneByRole('ROLE_JOURNAL_MANAGER');
+        $serializer = $this->container->get('serializer');
+
         $step1 = new JournalWorkflowTemplateStep();
         $step1->setFirststep(true);
         $step1->setStatus('Editor is reviewing');
         $step1->setTitle('Editor Review');
+        $step1->setRoles(array(
+            json_decode($serializer->serialize($roleEditor, 'json')),
+            json_decode($serializer->serialize($roleJournalManager, 'json'))
+        ));
 
         $step2 = new JournalWorkflowTemplateStep();
         $step2->setStatus('Author is updating');
         $step2->setTitle('Author Revision');
+        $step2->setRoles(array(
+            json_decode($serializer->serialize($roleAuthor, 'json')),
+            json_decode($serializer->serialize($roleEditor, 'json')),
+            json_decode($serializer->serialize($roleJournalManager, 'json'))
+        ));
 
         $step3 = new JournalWorkflowTemplateStep();
         $step3->setLaststep(true);
         $step3->setStatus('Ready to publish');
         $step3->setTitle('Publish');
+        $step1->setRoles(array(
+            json_decode($serializer->serialize($roleEditor, 'json')),
+            json_decode($serializer->serialize($roleJournalManager, 'json'))
+        ));
 
         $dm->persist($step1);
         $dm->persist($step2);
@@ -93,13 +113,13 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $dm->flush();
 
-        $template1 = new JournalWorkflowTemplate();
-        $template1->setTitle('One Step Review');
-        $template1->setFirstNode($step1);
+        $template = new JournalWorkflowTemplate();
+        $template->setTitle('One Step Review');
+        $template->setFirstNode($step1);
 
-        $dm->persist($template1);
+        $dm->persist($template);
         $dm->flush();
-        return $template1;
+        return $template;
     }
 
     /**

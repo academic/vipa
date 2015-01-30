@@ -213,8 +213,8 @@ class JournalWorkflowStep
     }
 
     /**
-     * Set nextsteps
-     *
+     * Set nextsteps in a custom array format
+     *   { id: xxx, title : "asd" } 
      * @param  hash $nextsteps
      * @return self
      */
@@ -236,8 +236,8 @@ class JournalWorkflowStep
     }
 
     /**
-     * Set roles
-     *
+     * Set roles in array format
+     * $serializer->serialize($role, 'json')); can be used to generate array from document
      * @param  hash $roles
      * @return self
      */
