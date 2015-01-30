@@ -106,7 +106,8 @@
     </div>
     <div id="step2-container" class="step hide">
         <h2>{{"article.authors"|trans}} 
-            <a href="#" onclick="javascript:OjsArticleSubmission.addAuthorForm();return false;" 
+            <a href="#" onclick="javascript:OjsArticleSubmission.addAuthorForm();
+                    return false;" 
                class="btn btn-xs btn-info"><i class="fa fa-plus"></i> {{"add"|trans}}</a>
         </h2>
 
@@ -237,6 +238,12 @@
 
     <script id="step4_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}    
+    </script>
+    <script id="step3_cite_item1_tpl" type="x-tplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}    
+    </script>
+    <script id="step3_cite_item2_tpl" type="x-tplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}    
     </script>
 
 {% endblock %}
