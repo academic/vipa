@@ -60,9 +60,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
         $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
-        if ($reviewForm) {
-            $step->setReviewForm($reviewForm);
-        }
+        $reviewForm && $step->setReviewForm($reviewForm);
         $dm->persist($step);
         $dm->flush();
 
@@ -145,8 +143,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     public function deleteAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
-        $step = $repo->find($id);
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $dm->remove($step);
         $dm->flush();
 
@@ -155,9 +152,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
 
     public function showAction($id)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
-        $step = $repo->find($id);
+        $step = $this->get('doctrine_mongodb')->getManager()
+                        ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
     }
