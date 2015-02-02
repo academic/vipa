@@ -309,4 +309,6 @@ select.article.file: "Select File"
 notes_to_editor: Notes to Editor
 review: Review
 review.form: Review Form
-review.form.plural: Review Forms
+review.forms: Review Forms
+template: Template
+templates: Templates
