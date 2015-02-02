@@ -92,12 +92,14 @@
                 </div>
 
                 <div class="form-group">
-                    <select name="reviewform" class="form-control" style="height:200px;" multiple="multiple">
+                    <select name="reviewform" class="form-control">
                         <option>[No review form]</option>
                         {%for form in forms%}
                             <option value="{{form.id}}">{{form.title}}</option>
                         {%endfor%}
                     </select>
+                    <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+
                 </div>
 
                 <div>
