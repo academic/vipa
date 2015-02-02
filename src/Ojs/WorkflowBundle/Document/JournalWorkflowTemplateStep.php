@@ -19,4 +19,31 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep
         $this->setJournalid(null);
     }
 
+    /**
+     * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowTemplate")
+     */
+    protected $template;
+
+    /**
+     * Set template
+     *
+     * @param Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
+     * @return self
+     */
+    public function setTemplate(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template)
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
 }

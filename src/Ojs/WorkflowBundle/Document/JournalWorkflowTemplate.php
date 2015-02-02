@@ -23,11 +23,6 @@ class JournalWorkflowTemplate
     protected $description;
 
     /**
-     *  @MongoDb\ReferenceOne(targetDocument="JournalWorkflowTemplateStep")
-     */
-    protected $firstNode;
-
-    /**
      * Get id
      *
      * @return id $id
@@ -60,29 +55,6 @@ class JournalWorkflowTemplate
     }
 
     /**
-     * Set firstNode
-     *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $firstNode
-     * @return self
-     */
-    public function setFirstNode(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $firstNode)
-    {
-        $this->firstNode = $firstNode;
-        return $this;
-    }
-
-    /**
-     * Get firstNode
-     *
-     * @return Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $firstNode
-     */
-    public function getFirstNode()
-    {
-        return $this->firstNode;
-    }
-
-
-    /**
      * Set description
      *
      * @param string $description
@@ -103,4 +75,5 @@ class JournalWorkflowTemplate
     {
         return $this->description;
     }
+
 }
