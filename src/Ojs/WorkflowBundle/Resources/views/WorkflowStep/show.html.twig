@@ -24,14 +24,19 @@
                     <th>Status text</th>
                     <td>{{step.status}}</i></td>
                 </tr>
-                <tr>
-                    <th>First Step?</th>
-                    <td>{{ printYesNo(step.firstStep ) }}</td>
-                </tr>
-                <tr>
-                    <th>Last Step?</th>
-                    <td>{{  printYesNo(step.getLaststep()) }}</td>
-                </tr>
+                {% if step.firstStep %}
+                    <tr>
+                        <th>First Step?</th>
+                        <td>{{ printYesNo(step.firstStep ) }}</td>
+                    </tr>
+                {% endif %}
+                {% if step.getLaststep %}
+
+                    <tr>
+                        <th>Last Step?</th>
+                        <td>{{  printYesNo(step.getLaststep()) }}</td>
+                    </tr>
+                {% endif %}
 
                 <tr>
                     <th>Next Steps</th>
