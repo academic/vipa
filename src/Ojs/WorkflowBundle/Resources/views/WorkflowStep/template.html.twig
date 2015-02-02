@@ -53,6 +53,11 @@
             </span> 
         </div>
     {% endfor %}
+    <hr>
+    <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right" 
+       onclick="return confirm('Your existing workflow design will be overwritten! Are you sure?');">
+        <i class="fa fa-check"></i> {{"useThisTemplate"|trans}}
+    </a> 
 
 
 {% endblock %} 
