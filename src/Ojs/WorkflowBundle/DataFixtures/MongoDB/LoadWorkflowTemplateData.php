@@ -115,6 +115,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $template = new JournalWorkflowTemplate();
         $template->setTitle('One Step Review');
+        $template->setDescription('No reviewer needed.');
         $template->setFirstNode($step1);
 
         $dm->persist($template);
@@ -204,6 +205,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $template = new JournalWorkflowTemplate();
         $template->setTitle('Basic Academic Workflow');
+        $template->setDescription('');
         $template->setFirstNode($step1);
 
         $dm->persist($template);
@@ -327,6 +329,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $template = new JournalWorkflowTemplate();
         $template->setTitle('Extended Academic Workflow');
+        $template->setDescription('Academic Workflow with extra steps. Contains "Redaction" and "Language Review" steps.');
         $template->setFirstNode($step1);
 
         $dm->persist($template);

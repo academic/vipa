@@ -19,11 +19,13 @@ class JournalWorkflowTemplate
     /** @MongoDb\String */
     protected $title;
 
+    /** @MongoDb\String */
+    protected $description;
+
     /**
      *  @MongoDb\ReferenceOne(targetDocument="JournalWorkflowTemplateStep")
      */
     protected $firstNode;
-
 
     /**
      * Get id
@@ -77,5 +79,28 @@ class JournalWorkflowTemplate
     public function getFirstNode()
     {
         return $this->firstNode;
+    }
+
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return self
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string $description
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
