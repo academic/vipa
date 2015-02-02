@@ -23,3 +23,12 @@ workflowstep_create:
     pattern:  /step/create
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:create }
     requirements: { _method: post }
+    
+workflow_templates:
+    pattern:  /template
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:index }
+    
+workflow_template_show:
+    pattern:  /template/{id}
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:show }
+
