@@ -37,6 +37,9 @@ class JournalWorkflowStep
     /** @MongoDb\Boolean */
     protected $canEdit;
 
+    /** @MongoDb\Boolean */
+    protected $mustBeAssigned;
+
     /**
      *  @MongoDb\ReferenceOne(targetDocument="ReviewForm",nullable=true)
      */
@@ -391,4 +394,26 @@ class JournalWorkflowStep
         return $this->reviewForm;
     }
 
+
+    /**
+     * Set mustBeAssigned
+     *
+     * @param boolean $mustBeAssigned
+     * @return self
+     */
+    public function setMustBeAssigned($mustBeAssigned)
+    {
+        $this->mustBeAssigned = $mustBeAssigned;
+        return $this;
+    }
+
+    /**
+     * Get mustBeAssigned
+     *
+     * @return boolean $mustBeAssigned
+     */
+    public function getMustBeAssigned()
+    {
+        return $this->mustBeAssigned;
+    }
 }
