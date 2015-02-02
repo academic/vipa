@@ -32,3 +32,6 @@ workflow_template_show:
     pattern:  /template/{id}
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:show }
 
+workflow_template_use:
+    pattern:  /template/{id}/use
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:use }
