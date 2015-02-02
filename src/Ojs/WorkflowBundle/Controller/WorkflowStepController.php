@@ -57,6 +57,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
         $step->setIsVisible($request->get('isVisible') ? true : false);
+        $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
         $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
@@ -179,6 +180,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
+        $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor'));
         $dm->persist($step);
