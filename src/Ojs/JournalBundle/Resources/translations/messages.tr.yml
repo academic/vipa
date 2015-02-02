@@ -303,4 +303,6 @@ notes_to_editor: Editöre Notlar
 review: Review
 review: İnceleme
 review.form: İnceleme Formu
-review.form.plural: İnceleme Formları
+review.forms: İnceleme Formları
+template: Şablon
+templates: Şablonlar
