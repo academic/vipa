@@ -10,7 +10,8 @@
 
 
 [![Latest Unstable Version](https://poser.pugx.org/okulbilisim/ojs/v/unstable.png)](https://packagist.org/packages/okulbilisim/ojs)
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.11908.png)](http://dx.doi.org/10.5281/zenodo.11908)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14791.svg)](http://dx.doi.org/10.5281/zenodo.14791)
+
 
 **Open Journal Software (OJS)** is a journal management and publishing software with **Symfony 2 Framework**.
 
