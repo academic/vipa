@@ -36,3 +36,9 @@ script: phpunit -c app
 
 notifications:
   slack: okulbilisim:zJjSGCYwjyInYhk1cNFIuyuV
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/887475d0b984c2634f7d
+    on_success: change  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: false     # default: false
