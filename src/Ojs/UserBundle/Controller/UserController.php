@@ -4,8 +4,11 @@ namespace Ojs\UserBundle\Controller;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Form\UpdateUserType;
 use Ojs\UserBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
@@ -123,6 +126,7 @@ class UserController extends Controller
                     'me' => ($sessionUser == $user),
                     'isProxy' => (bool) $check));
     }
+
 
     /**
      * Displays a form to edit an existing User entity.

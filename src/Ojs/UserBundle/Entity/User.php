@@ -632,4 +632,41 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $customFields;
+
+    /**
+     * Add customFields
+     *
+     * @param \Ojs\UserBundle\Entity\CustomField $customFields
+     * @return User
+     */
+    public function addCustomField(\Ojs\UserBundle\Entity\CustomField $customFields)
+    {
+        $this->customFields[] = $customFields;
+
+        return $this;
+    }
+
+    /**
+     * Remove customFields
+     *
+     * @param \Ojs\UserBundle\Entity\CustomField $customFields
+     */
+    public function removeCustomField(\Ojs\UserBundle\Entity\CustomField $customFields)
+    {
+        $this->customFields->removeElement($customFields);
+    }
+
+    /**
+     * Get customFields
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCustomFields()
+    {
+        return $this->customFields;
+    }
 }

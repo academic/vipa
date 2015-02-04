@@ -98,6 +98,10 @@ Ojs\UserBundle\Entity\User:
         tags:
             type: string
             nullable: true
+    oneToMany:
+        customFields:
+          targetEntity: Ojs\UserBundle\Entity\CustomField
+          mappedBy: user
     manyToMany:
         subjects:
             targetEntity: Ojs\JournalBundle\Entity\Subject

@@ -10,6 +10,18 @@ ojs_user_profile:
     pattern: /@{slug}
     defaults: { _controller: OjsSiteBundle:User:profile }
 
+ojs_user_edit_profile:
+    pattern: /user/update
+    defaults: { _controller: "OjsSiteBundle:User:editProfile"}
+ojs_user_custom_field:
+    pattern: /user/custom_field
+    defaults: { _controller: "OjsSiteBundle:User:customField"}
+ojs_user_custom_field_create:
+    pattern: /user/custom_field/create/{id}
+    defaults: { _controller: "OjsSiteBundle:User:createCustomField", id: null}
+ojs_user_custom_field_delete:
+    pattern: /user/custom_field/delete/{id}
+    defaults: { _controller: "OjsSiteBundle:User:deleteCustomField"}
 ojs_public_index:
     pattern:  /
     host: %base_host%
