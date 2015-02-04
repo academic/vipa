@@ -1,0 +1,54 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'user'|trans},
+    { 'link': path('user'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.custom_field.create'|trans},
+
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        <section class="tab-panel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                    <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
+                </li>
+            </ul>
+        </section>
+        <div class="tab-content">
+            <div class="panel">
+                <div class="record_actions">
+                    {{ form_start(form, { 'attr': { 'method':'post'} }) }}
+                    {% for label, flashes in app.session.flashbag.all %}
+                        {% for flash in flashes %}
+                            <div class="alert alert-{{ label }}">
+                                {{ flash }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {{ form_widget(form) }}
+
+                    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+                        {{ "c"|trans }}
+                    </button>
+                    {{ form_end(form) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

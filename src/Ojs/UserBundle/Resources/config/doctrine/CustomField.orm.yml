@@ -1,0 +1,42 @@
+Ojs\UserBundle\Entity\CustomField:
+    type: entity
+    table: custom_field
+    repositoryClass: Ojs\UserBundle\Entity\CustomFieldRepository
+    id:
+        id:
+            type: integer
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        label:
+            type: string
+            length: 255
+            unique: false
+            nullable: false
+        value:
+            type: string
+            length: 255
+            unique: false
+            nullable: true
+        is_url:
+            type: boolean
+            nullable: true
+        user_id:
+            type: integer
+            length: 11
+    manyToOne:
+        user:
+          #cascade: [persist]
+          targetEntity: Ojs\UserBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+    manyToMany:
+    gedmo:
+        loggable: true
+    lifecycleCallbacks: {  }

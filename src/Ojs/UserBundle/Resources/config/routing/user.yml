@@ -13,7 +13,6 @@ user_drop_proxy:
 user_profile:
     pattern:  /profile/{username}
     defaults: { _controller: "OjsUserBundle:User:profile" }
-
 user_show_my_journals:
     pattern:  /myjournals
     defaults: { _controller: "OjsUserBundle:UserJournalRole:myJournals" }

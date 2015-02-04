@@ -88,3 +88,14 @@ discovery: Discovery
 announcements: Announcements
 tubitak: Tübitak
 tubitak_journals: Tübitak Journals
+
+Yes: Yes
+No: No
+user:
+  update_profile: Update Profile
+  custom_fields: Custom Fields
+  custom_field:
+    label: Label
+    value: Value
+    is_url: Is Url?
+    action: Actions
