@@ -116,3 +116,5 @@ user.anonym:
   has_register: "Registered"
   user: "UserID"
   object: "Object"
+orcid:
+  login: "Login With ORCID"

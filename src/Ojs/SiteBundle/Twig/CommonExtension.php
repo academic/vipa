@@ -39,7 +39,8 @@ class CommonExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('addFilters', [$this, 'addFilters']),
-            new \Twig_SimpleFunction('getImageOptions', [$this, 'getImageOptions'])
+            new \Twig_SimpleFunction('getImageOptions', [$this, 'getImageOptions']),
+            new \Twig_SimpleFunction('orcidLoginUrl',[$this,'orcidLoginUrl'])
         ];
     }
 
@@ -97,5 +98,11 @@ class CommonExtension extends \Twig_Extension
         }
 
         return $document;
+    }
+
+    public function orcidLoginUrl()
+    {
+        $orcid = $this->container->get('ojs.orcid_service');
+        return $orcid->loginUrl();
     }
 }

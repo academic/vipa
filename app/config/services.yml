@@ -73,6 +73,9 @@ services:
     ojs.journal_service:
         class: Ojs\Common\Services\JournalService
         arguments: [ @service_container, @doctrine.orm.entity_manager ]
+    ojs.orcid_service:
+        class: Ojs\Common\Services\OrcidService
+        arguments: [ @service_container ]
     roles.faker.provider:
         class: Ojs\Common\Services\RolesFakerProvider
         arguments: [ @service_container ]
