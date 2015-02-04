@@ -89,3 +89,15 @@ discovery: Keşif
 announcements: Duyurular
 tubitak: Tübitak
 tubitak_journals: Tübitak Dergileri
+
+
+Yes: Evet
+No: Hayır
+user:
+  update_profile: Hesabımı Güncelle
+  custom_fields: Özel Alanlar
+  custom_field:
+    label: Tanım
+    value: Değer
+    is_url: Link mi?
+    action: İşlemler
