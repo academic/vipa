@@ -70,6 +70,7 @@ class UserJournalRoleController extends Controller
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_create'),
             'method' => 'POST',
+            'user'=>$this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'row btn btn-success')));
@@ -211,6 +212,7 @@ class UserJournalRoleController extends Controller
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user'=>$this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
