@@ -4,6 +4,7 @@ namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
+use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -217,6 +218,11 @@ class SecurityController extends Controller
 
             $session->remove('oauth_login');
             $session->save();
+
+            $event = new UserEvent($user);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch('user.register.complete',$event);
+
             return $this->redirect($this->generateUrl('login'));
         }
 
