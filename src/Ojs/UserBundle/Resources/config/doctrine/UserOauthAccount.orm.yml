@@ -1,0 +1,41 @@
+Ojs\UserBundle\Entity\UserOauthAccount:
+    type: entity
+    table: user_oauth_accounts
+    repositoryClass: Ojs\UserBundle\Entity\UserOauthAccountRepository
+    id:
+        id:
+            type: integer
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+      user_id:
+        type: integer
+        length: 11
+        nullable: false
+      provider:
+        type: string
+        length: 255
+        nullable: false
+      provider_user_id:
+        type: string
+      provider_access_token:
+        type: string
+      provider_refresh_token:
+        type: string
+        nullable: true
+    manyToOne:
+        user:
+          targetEntity: Ojs\UserBundle\Entity\User
+          joinColumn:
+            name: user_id
+            referencedColumnName: id
+          inversedBy: oauthAccounts
+    gedmo:
+        loggable: true
+
+    lifecycleCallbacks: {  }
