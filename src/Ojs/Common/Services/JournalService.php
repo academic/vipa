@@ -40,9 +40,9 @@ class JournalService
         $selectedJournal = $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
         if ($selectedJournal) {
             return $selectedJournal;
-        } else {
-            throw new HttpException(404, "mustselectjournal");
         }
+        @header("Location: ".$this->container->get('router')->generate('user_join_journal'),TRUE,302);
+        exit;
     }
 
 }
