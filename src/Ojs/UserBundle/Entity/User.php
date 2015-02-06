@@ -705,4 +705,9 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     {
         return $this->oauthAccounts;
     }
+
+    public function __toString()
+    {
+        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
+    }
 }

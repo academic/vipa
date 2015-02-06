@@ -15,8 +15,17 @@ class UserJournalRoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('userId')
-                ->add('journalId')
+                ->add('userId','entity',[
+                    'class'=>'Ojs\UserBundle\Entity\User',
+                    'attr' => array('class' => 'select2', 'style' => 'width:100%')
+
+                ])
+                ->add('journalId','entity',[
+                    'class'=>'Ojs\JournalBundle\Entity\Journal',
+                    'property'=>'title',
+                    'attr' => array('class' => 'select2', 'style' => 'width:100%')
+
+                ])
                 ->add('roleId', 'entity', array(
                     'class' => 'Ojs\UserBundle\Entity\Role',
                     'property' => 'name',
