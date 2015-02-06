@@ -14,8 +14,8 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 {
     /**
      * Load by email or username
-     * @param  type $username
-     * @return type
+     * @param  string $username
+     * @return User
      * @throws UsernameNotFoundException
      */
     public function loadUserByAny($username)
@@ -102,5 +102,29 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->setParameter('journal_id', $journal->getId())
             ->getResult();
         return $data ? true : false;
+    }
+
+    /**
+     * @param $id string
+     * @param $provider string
+     * @return User
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getByOauthId($id, $provider)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->join('u.oauthAccounts', 'oa', 'WITH')
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->eq('oa.provider', ':provider'),
+                    $qb->expr()->eq('oa.provider_user_id', ':user_id')
+                )
+            )
+            ->setParameters([
+                'provider' => $provider,
+                'user_id' => $id
+            ]);
+        $result = $qb->getQuery()->getOneOrNullResult();
+        return $result;
     }
 }

@@ -102,6 +102,9 @@ Ojs\UserBundle\Entity\User:
         customFields:
           targetEntity: Ojs\UserBundle\Entity\CustomField
           mappedBy: user
+        oauthAccounts:
+          targetEntity: Ojs\UserBundle\Entity\UserOauthAccount
+          mappedBy: user
     manyToMany:
         subjects:
             targetEntity: Ojs\JournalBundle\Entity\Subject

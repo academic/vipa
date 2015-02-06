@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OrcidService
 {
-    const PUBLIC_API = "http://pub.orcid.org";
+    const PUBLIC_API = "https://pub.orcid.org";
     const MEMBER_API = "https://orcid.org";
     const SANDBOX_API = "https://api.sandbox.orcid.org";
     const TOKEN_PATH = "oauth/token";
@@ -172,20 +172,28 @@ class OrcidService
     {
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL => $this->isSandbox() ? self::SANDBOX_API : self::MEMBER_API . DIRECTORY_SEPARATOR . $path,
+            CURLOPT_URL =>  self::PUBLIC_API . DIRECTORY_SEPARATOR . $path,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Accept: application/json'],
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => array_merge([
-                'code' => $code,
-                'grant_type' => $grant_type,
-                'client_id' => $this->getClientId(),
-                'client_secret' => $this->getClientSecret(),
-                'redirect_uri' => $this->getRedirectUri()
-            ], $fields)
+            CURLOPT_POSTFIELDS => http_build_query(
+                array_merge([
+                    'code' => $code,
+                    'grant_type' => $grant_type,
+                    'client_id' => $this->getClientId(),
+                    'client_secret' => $this->getClientSecret(),
+                    'redirect_uri' => $this->getRedirectUri()
+                ], $fields)
+            )
         ]);
         $result = curl_exec($curl);
         return json_decode($result);
+    }
+
+    public function authorize($code)
+    {
+        $auth = $this->post(self::TOKEN_PATH, $code, 'authorization_code');
+        return $auth;
     }
 
 

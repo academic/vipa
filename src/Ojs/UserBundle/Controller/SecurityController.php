@@ -3,6 +3,7 @@
 namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\RegisterEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -168,8 +169,24 @@ class SecurityController extends Controller
     {
         $error = null;
         $user = new User();
+        $session = $this->get('session');
+
+        //Add default data for oauth login
+        $oauth_login = $session->get('oauth_login', false);
+        if ($oauth_login) {
+            $name = explode(' ', $oauth_login['full_name']);
+            $firstName = $name[0];
+            unset($name[0]);
+            $lastName = join(' ', $name);
+            $user
+                ->setFirstName($firstName)
+                ->setLastName($lastName);
+        }
+
+
         $form = $this->createForm(new \Ojs\UserBundle\Form\RegisterFormType(), $user);
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             // check user name exists
             $em = $this->getDoctrine()->getManager();
@@ -180,6 +197,19 @@ class SecurityController extends Controller
             $user->setStatus(1);
             $user->setIsActive(0);
             $em->persist($user);
+
+            if ($oauth_login) {
+                $oauth = new UserOauthAccount();
+                $oauth->setProvider($oauth_login['provider'])
+                    ->setProviderAccessToken($oauth_login['access_token'])
+                    ->setProviderRefreshToken($oauth_login['refresh_token'])
+                    ->setProviderUserId($oauth_login['user_id'])
+                    ->setUser($user);
+                $em->persist($oauth);
+                $user->addOauthAccount($oauth);
+                $em->persist($user);
+            }
+
             $em->flush();
             //$this->authenticateUser($user); // auth. user
 
@@ -187,8 +217,6 @@ class SecurityController extends Controller
                 'OjsUserBundle:Mails:User/confirmEmail.html.twig', array('user' => $user)
             );
 
-            $event = new RegisterEvent();
-            $dispatcher = $this->get('event_dispatcher');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Ojs Account Activation')
                 ->setFrom($this->container->getParameter('system_email'))
@@ -197,11 +225,12 @@ class SecurityController extends Controller
                 ->setContentType('text/html');
             $this->get('mailer')->send($message);
 
-
             $request->getSession()
                 ->getFlashBag()
                 ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
 
+            $session->remove('oauth_login');
+            $session->save();
             return $this->redirect($this->generateUrl('login'));
         }
 
@@ -214,10 +243,9 @@ class SecurityController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function regenerateAPIAction(Request $request)
+    public function regenerateAPIAction()
     {
         try {
             /** @var User $user */

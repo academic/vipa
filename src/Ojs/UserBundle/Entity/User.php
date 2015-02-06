@@ -3,11 +3,8 @@
 namespace Ojs\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericExtendedEntity;
 use Ojs\JournalBundle\Entity\Subject;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -93,6 +90,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var integer
      */
     protected $status = 1;
+    /** @var  ArrayCollection */
     protected $restrictedJournals;
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -668,5 +666,43 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     public function getCustomFields()
     {
         return $this->customFields;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $oauthAccounts;
+
+    /**
+     * Add oauthAccounts
+     *
+     * @param \Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts
+     * @return User
+     */
+    public function addOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
+    {
+        $this->oauthAccounts[] = $oauthAccounts;
+
+        return $this;
+    }
+
+    /**
+     * Remove oauthAccounts
+     *
+     * @param \Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts
+     */
+    public function removeOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
+    {
+        $this->oauthAccounts->removeElement($oauthAccounts);
+    }
+
+    /**
+     * Get oauthAccounts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOauthAccounts()
+    {
+        return $this->oauthAccounts;
     }
 }
