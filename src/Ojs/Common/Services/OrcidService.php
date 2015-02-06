@@ -49,6 +49,8 @@ class OrcidService
     /** @var  ContainerInterface */
     private $container;
 
+    /** @var  string */
+    private $access_token;
     /**
      * @return ContainerInterface
      */
@@ -130,6 +132,22 @@ class OrcidService
     }
 
     /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->access_token;
+    }
+
+    /**
+     * @param string $access_token
+     */
+    public function setAccessToken($access_token)
+    {
+        $this->access_token = $access_token;
+    }
+
+    /**
      * Get OrcidLogin Url
      * @return string
      */
@@ -190,11 +208,36 @@ class OrcidService
         return json_decode($result);
     }
 
+    private function get($path)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl,[
+            CURLOPT_URL => self::PUBLIC_API . DIRECTORY_SEPARATOR . $path,
+            CURLOPT_RETURNTRANSFER=>true,
+            CURLOPT_HTTPHEADER=>[
+                'Accept: application/json',
+                'Authorization: Bearer '.$this->getAccessToken()
+            ],
+        ]);
+        //https://api.sandbox.orcid.org/v1.1/0000-0003-1495-7122/orcid-profile
+        $result = curl_exec($curl);
+        return json_decode($result);
+    }
+
     public function authorize($code)
     {
         $auth = $this->post(self::TOKEN_PATH, $code, 'authorization_code');
         return $auth;
     }
+
+    public function getBio($user_id, $access_token)
+    {
+        $this->setAccessToken($access_token);
+        $data = $this->get($user_id.'/orcid-profile');
+        return $data;
+    }
+
+
 
 
 }

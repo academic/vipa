@@ -10,6 +10,7 @@ namespace Ojs\SiteBundle\Controller;
 use Elastica\Exception\NotFoundException;
 use Ojs\UserBundle\Entity\CustomField;
 use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Form\CustomFieldType;
 use Ojs\UserBundle\Form\UpdateUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -130,6 +131,65 @@ class UserController extends Controller
         $em->remove($customField);
         $em->flush();
         return $this->redirectToRoute('ojs_user_custom_field');
+    }
+
+    public function connectedAccountAction()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user)
+            throw new AccessDeniedException;
+        $data = [];
+        $data['user'] = $user;
+        return $this->render('OjsSiteBundle:User:connected_account.html.twig', $data);
+    }
+
+    public function addConnectedAccountAction()
+    {
+        return $this->render('OjsSiteBundle:User:add_connected_account.html.twig');
+    }
+
+    public function addOrcidAccountAction(Request $request)
+    {
+        $user = $this->getUser();
+        if (!$user)
+            throw new AccessDeniedException;
+        $orcid = $this->get('ojs.orcid_service');
+        $code = $request->get('code');
+        $orcid->setRedirectUri('http://'
+            . $this->container->getParameter('base_host')
+            . $this->get('router')->generate('ojs_user_add_orcid_account')
+        );
+        if (!$code) {
+            return new RedirectResponse($orcid->loginUrl());
+        }
+        $post = $orcid->authorize($code);
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($post) {
+            $oauth = new UserOauthAccount();
+            $oauth->setProvider('orcid')
+                ->setProviderAccessToken($post->access_token)
+                ->setProviderRefreshToken($post->refresh_token)
+                ->setProviderUserId($post->orcid)
+                ->setUser($user);
+            $em->persist($oauth);
+            $user->addOauthAccount($oauth);
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('ojs_user_connected_account');
+        }
+        throw new \ErrorException;
+    }
+
+    public function deleteConnectedAccountAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $account = $em->find('OjsUserBundle:UserOauthAccount', $id);
+        if (!$account)
+            throw new NotFoundException;
+        $em->remove($account);
+        $em->flush();
+        return $this->redirectToRoute('ojs_user_connected_account');
     }
 
 } 

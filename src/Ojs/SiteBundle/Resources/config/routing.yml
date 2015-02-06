@@ -22,6 +22,18 @@ ojs_user_custom_field_create:
 ojs_user_custom_field_delete:
     pattern: /user/custom_field/delete/{id}
     defaults: { _controller: "OjsSiteBundle:User:deleteCustomField"}
+ojs_user_connected_account:
+    pattern: /user/connected_accounts
+    defaults: { _controller: "OjsSiteBundle:User:connectedAccount" }
+ojs_user_connected_account_add:
+    pattern: /user/connected_accounts/add
+    defaults: { _controller: "OjsSiteBundle:User:addConnectedAccount"}
+ojs_user_connected_account_delete:
+    pattern: /user/connected_accounts/delete/{id}
+    defaults: { _controller: "OjsSiteBundle:User:deleteConnectedAccount"}
+ojs_user_add_orcid_account:
+    pattern: /user/connected_accounts/add/orcid
+    defaults: { _controller: "OjsSiteBundle:User:addOrcidAccount" }
 ojs_public_index:
     pattern:  /
     host: %base_host%

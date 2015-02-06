@@ -1,42 +1,40 @@
 yes: Evet
 no: Hayır
 period: periyot
-back: Listeye geri dön
+back: 'Listeye geri dön'
 b: Geri
 d: Sil
 remove: Kaldır
-c: Yeni Oluştur 
+c: 'Yeni Oluştur'
 s: Göster
 e: Düzenle
 add: Ekle
-sure: Emin misiniz?
+sure: 'Emin misiniz?'
 added: Eklendi
 u: Güncelle
 404: Bulunamadı
 error: Hata
-error.oops: Ooops! Bir hata meydana geldi!
+error.oops: 'Ooops! Bir hata meydana geldi!'
 summart: Özet
-res: Yeniden Başlat
+res: 'Yeniden Başlat'
 preview: Preview
 submit: Submit
-onlineSubmission: Online Makale Gönder
-journal_home: Dergi Ana Sayfa
+onlineSubmission: 'Online Makale Gönder'
+journal_home: 'Dergi Ana Sayfa'
 topics: Konular
 save: Kaydet
-save.next: Kaydet ve Devam Et
+save.next: 'Kaydet ve Devam Et'
 part: Parça
 url: Bağlantı
-username: Kullanıcı Adı
-
-
+username: 'Kullanıcı Adı'
 book: Kitap
 journal: Dergi
 conference: Konferans
 article: Makale
-mastersthesis: Yüksek Lisans Tezi
-phdthesis: Doktora Tezi
+mastersthesis: 'Yüksek Lisans Tezi'
+phdthesis: 'Doktora Tezi'
 proceedings: Bildiri
-techreport: Teknik Rapor
+techreport: 'Teknik Rapor'
 unpublished: Yayınlanmamış
 inproceedings: In-proceedings
 incollection: In-collection
@@ -44,60 +42,58 @@ inbook: In-book
 booklet: Kitapçık
 manual: Manual
 misc: Çeşitli/Diğer
-primaly_language: Primaly Language
-read.lastissue: Read Last Issue
+primaly_language: 'Primaly Language'
+read.lastissue: 'Read Last Issue'
 details: Ayrıntılar
-
-role: 
-    singular: Rol
-    plural: Roller
-    
 ojs: OJS
-toggle_navigation: Yönelendiriciyi Aç
-home: Ana Sayfa
+toggle_navigation: 'Yönelendiriciyi Aç'
+home: 'Ana Sayfa'
 institutions: Enstitü
 journals: Dergiler
-register_journal: Dergi Kaydet
-send_article: Makale Gönder
+register_journal: 'Dergi Kaydet'
+send_article: 'Makale Gönder'
 search: Ara
-search_query: aranacak kelimeler
+search_query: 'aranacak kelimeler'
 login: Giriş
-dashboard: Ana Ekran
-log_out_from_user: Kullanıcı Oturumunu Kapat
-user_page: Kullanıcı Sayfası
+dashboard: 'Ana Ekran'
+log_out_from_user: 'Kullanıcı Oturumunu Kapat'
+user_page: 'Kullanıcı Sayfası'
 profile: Profil
-log_out: Oturumu Kapat
-proxy_users: Vekil Kullanıcılar
-login_as: Gibi oturum aç
-list_my_proxys: Vekil Kullanıcılarım
+log_out: 'Oturumu Kapat'
+proxy_users: 'Vekil Kullanıcılar'
+login_as: 'Gibi oturum aç'
+list_my_proxys: 'Vekil Kullanıcılarım'
 privacy: Gizlilik
-tos: Kullanım Şartları
+tos: 'Kullanım Şartları'
 articles: Makaleler
-
 ujs: Ujs
 about: Hakkında
 blog: Blog
-contact & help: İletişim & Yardım
-faq: Sıkça Sorulan Sorular
+'contact & help': 'İletişim & Yardım'
+faq: 'Sıkça Sorulan Sorular'
 documents: Dökümanlar
 presentations: Sunumlar
 videos: Videolar
-journals: Belgeler
 photos: Fotoğraflar
 ulakbim: Ulakbim
 discovery: Keşif
 announcements: Duyurular
 tubitak: Tübitak
-tubitak_journals: Tübitak Dergileri
-
-
+tubitak_journals: 'Tübitak Dergileri'
 Yes: Evet
 No: Hayır
-user:
-  update_profile: Hesabımı Güncelle
-  custom_fields: Özel Alanlar
-  custom_field:
-    label: Tanım
-    value: Değer
-    is_url: Link mi?
-    action: İşlemler
+role.singular: Rol
+role.plural: Roller
+user.update_profile: 'Hesabımı Güncelle'
+user.custom_fields: 'Özel Alanlar'
+user.custom_field.label: Tanım
+user.custom_field.value: Değer
+user.custom_field.is_url: 'Link mi?'
+user.custom_field.action: İşlemler
+user.connected_accounts: Bağlı Hesaplar
+user.connected_accounts.add_orcid_account: ORCID Hesabına Bağla
+user.connected_accounts.add: Hesap Bağla
+user.connected_accounts.provider: Sağlayıcı
+user.connected_accounts.provider_user_id: Sağlayıcı Kullanıcı Hesabı
+user.connected_accounts.action: İşlemler
+user.custom_field.create: Oluştur

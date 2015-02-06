@@ -20,10 +20,10 @@
                 <li role="presentation">
                     <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
                 </li>
-                <li role="presentation" class="active">
+                <li role="presentation" class="">
                     <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
                 </li>
-                <li role="presentation" class="">
+                <li role="presentation" class="active">
                     <a href="{{ url('ojs_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
                 </li>
             </ul>
@@ -40,35 +40,32 @@
                     {% endfor %}
 
                     <br/>
-                        <a class="btn btn-success" href="{{ url('ojs_user_custom_field_create') }}">{{ "c"|trans }}</a>
+                    <a class="btn btn-success"
+                       href="{{ url('ojs_user_connected_account_add') }}">{{ "user.connected_accounts.add"|trans }}</a>
                     <br/>
                     <br/>
                     <table class="table table-responsive table-bordered">
                         <thead>
                         <tr>
-                            <th>{{ "user.custom_field.label"|trans }}</th>
-                            <th>{{ "user.custom_field.value"|trans }}</th>
-                            <th>{{ "user.custom_field.is_url"|trans }}</th>
-                            <th>{{ "user.custom_field.action"|trans }}</th>
+                            <th>{{ "user.connected_accounts.provider"|trans }}</th>
+                            <th>{{ "user.connected_accounts.provider_user_id"|trans }}</th>
+                            <th>{{ "user.connected_accounts.action"|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for entity in user.customFields %}
-                                <tr>
-                                    <td>{{ entity.label }}</td>
-                                    <td>{{ entity.value }}</td>
-                                    <td>{% if entity.isUrl %}{{ "Yes"|trans }}{% else %}{{ "No"|trans }}{% endif %}</td>
-                                    <td>
-                                        <a class="btn-xs btn btn-warning" href="{{ path('ojs_user_custom_field_create', { 'id': entity.id }) }}">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <a class="btn-xs btn btn-danger" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-                                           href="{{ path('ojs_user_custom_field_delete', { 'id': entity.id}) }}">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                        {% for entity in user.oauthAccounts %}
+                            <tr>
+                                <td>{{ entity.provider }}</td>
+                                <td>{{ entity.providerUserId }}</td>
+                                <td>
+                                    <a class="btn-xs btn btn-danger"
+                                       onclick="return confirm('{% trans %}sure{% endtrans %}');"
+                                       href="{{ path('ojs_user_connected_account_delete', { 'id': entity.id}) }}">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
 

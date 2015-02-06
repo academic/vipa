@@ -180,7 +180,11 @@ class SecurityController extends Controller
             $lastName = join(' ', $name);
             $user
                 ->setFirstName($firstName)
-                ->setLastName($lastName);
+                ->setLastName($lastName)
+                ->setUsername($this->slugify($oauth_login['full_name']))
+            ;
+            //get bio
+
         }
 
 
@@ -294,5 +298,28 @@ class SecurityController extends Controller
         $data['form'] = $form->createView();
         return $this->render('OjsUserBundle:Security:create_password.html.twig', $data);
     }
+    private function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
 
+        // trim
+        $text = trim($text, '-');
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        if (empty($text))
+        {
+            return 'n-a';
+        }
+
+        return $text;
+    }
 }
