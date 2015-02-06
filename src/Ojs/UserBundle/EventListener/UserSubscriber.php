@@ -25,7 +25,9 @@ class UserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            'user.register.complete' => 'onRegisterComplete'
+            'user.register.complete' => 'onRegisterComplete',
+            'user.password.change' => 'onPasswordChange',
+            'user.password.reset' => 'onPasswordReset'
         ];
     }
 
@@ -38,6 +40,32 @@ class UserSubscriber implements EventSubscriberInterface
             ->setTo($event->getUser()->getEmail())
             ->setBody(
                 $this->container->get('twig')->render('OjsUserBundle:Mails:User/confirmEmail.html.twig', ['user' => $event->getUser()])
+            )
+            ->setContentType('text/html');
+        $mailer->send($message);
+    }
+    public function onPasswordChange(UserEvent $event)
+    {
+        $mailer = $this->container->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject('Password Change')
+            ->setFrom($this->container->getParameter('system_email'))
+            ->setTo($event->getUser()->getEmail())
+            ->setBody(
+                $this->container->get('twig')->render('OjsUserBundle:Mails:User/password_changed.html.twig', ['user' => $event->getUser()])
+            )
+            ->setContentType('text/html');
+        $mailer->send($message);
+    }
+    public function onPasswordReset(UserEvent $event)
+    {
+        $mailer = $this->container->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject('Password Reset Completed')
+            ->setFrom($this->container->getParameter('system_email'))
+            ->setTo($event->getUser()->getEmail())
+            ->setBody(
+                $this->container->get('twig')->render('OjsUserBundle:Mails:User/password_reset_successful.html.twig', ['user' => $event->getUser()])
             )
             ->setContentType('text/html');
         $mailer->send($message);

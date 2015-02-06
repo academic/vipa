@@ -34,6 +34,12 @@ ojs_user_connected_account_delete:
 ojs_user_add_orcid_account:
     pattern: /user/connected_accounts/add/orcid
     defaults: { _controller: "OjsSiteBundle:User:addOrcidAccount" }
+ojs_user_forgot_password:
+    pattern: /user/forgot_password
+    defaults: { _controller: "OjsSiteBundle:User:forgotPassword" }
+ojs_user_reset_password:
+    pattern: /reset_password/{token}
+    defaults: { _controller: "OjsSiteBundle:User:resetPassword" }
 ojs_public_index:
     pattern:  /
     host: %base_host%
