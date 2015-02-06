@@ -197,7 +197,7 @@ class UserController extends Controller
     public function forgotPasswordAction(Request $request)
     {
         $data = [];
-
+        $session = $this->get('session');
         if ($request->isMethod('POST')) {
             $username = $request->get('_username');
             $em = $this->getDoctrine()->getManager();
@@ -212,7 +212,15 @@ class UserController extends Controller
                     ->setSubject('Password Reset')
                     ->setFrom($this->container->getParameter('system_email'))
                     ->setTo($user->getEmail())
-                    ->setBody($this->renderView('Ojs'));
+                    ->setBody($this->renderView('OjsUserBundle:Mails/User:reset_password.html.twig', [
+                        'token' => $user->getToken()]))
+                    ->setContentType('text/html')
+                ;
+                $mailer->send($message);
+                $session->getFlashBag()->add('success',
+                    $this->get('translator')
+                        ->trans('We will send reset token to your registered email address. Please check in a few minutes')
+                );
 
             }
         }
@@ -234,13 +242,13 @@ class UserController extends Controller
         if ($request->isMethod('POST')) {
             $newPassword = $request->get('password');
             $newPasswordConfirm = $request->get('password_confirm');
-            if ($newPassword != $newPasswordConfirm || !$newPassword) {
+            if (empty($newPassword) || $newPassword != $newPasswordConfirm ) {
 
                 //something is wrong!
                 $session->getFlashBag()
                     ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
                 $session->save();
-                $this->redirectToRoute('ojs_user_reset_password');
+                return $this->redirectToRoute('ojs_user_reset_password',['token'=>$token]);
             }
 
             // Reset and save new password
@@ -258,7 +266,6 @@ class UserController extends Controller
             $dispatcher->dispatch('user.password.reset', $event);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Your password has been changed.'));
             $session->save();
-
             return $this->redirectToRoute('login');
         }
         $data['token'] = $token;
