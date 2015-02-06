@@ -29,15 +29,6 @@ monolog:
         #    level:  info
 
 
-swiftmailer:
-    transport:  mail
-    # (smtp, mail, sendmail, or gmail)
-    spool:
-        type: "file" #(how to queue the messages, file or memory is supported, see How to Spool Emails)
-        path: "%kernel.root_dir%/spool" #(where to store the messages)
-    #delivery_address: (an email address where to send ALL emails)
-    #disable_delivery: (set to true to disable delivery completely)
-
 h4cc_alice_fixtures:
     default_manager: orm
     managers:

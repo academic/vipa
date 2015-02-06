@@ -81,3 +81,8 @@ services:
         arguments: [ @service_container ]
         tags:
             -  { name: h4cc_alice_fixtures.provider }
+    user.event_subscriber:
+        class: Ojs\UserBundle\EventListener\UserSubscriber
+        arguments: [ @service_container ]
+        tags:
+            -  { name: kernel.event_subscriber }
