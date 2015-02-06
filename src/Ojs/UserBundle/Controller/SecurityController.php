@@ -4,7 +4,6 @@ namespace Ojs\UserBundle\Controller;
 
 use \Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
-use Ojs\UserBundle\Event\RegisterEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -183,11 +182,7 @@ class SecurityController extends Controller
                 ->setLastName($lastName)
                 ->setUsername($this->slugify($oauth_login['full_name']))
             ;
-            //get bio
-
         }
-
-
         $form = $this->createForm(new \Ojs\UserBundle\Form\RegisterFormType(), $user);
         $form->handleRequest($request);
 
@@ -213,21 +208,8 @@ class SecurityController extends Controller
                 $user->addOauthAccount($oauth);
                 $em->persist($user);
             }
-
             $em->flush();
             //$this->authenticateUser($user); // auth. user
-
-            $msgBody = $this->renderView(
-                'OjsUserBundle:Mails:User/confirmEmail.html.twig', array('user' => $user)
-            );
-
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Ojs Account Activation')
-                ->setFrom($this->container->getParameter('system_email'))
-                ->setTo($user->getEmail())
-                ->setBody($msgBody)
-                ->setContentType('text/html');
-            $this->get('mailer')->send($message);
 
             $request->getSession()
                 ->getFlashBag()
