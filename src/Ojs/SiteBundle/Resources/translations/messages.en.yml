@@ -91,11 +91,28 @@ user.custom_field.value: Value
 user.custom_field.is_url: 'Is Url?'
 user.custom_field.action: Actions
 'Link Ekle': 'Add Link'
-user.connected_accounts: Connected Accounts
-user.connected_accounts.add_orcid_account: Connect ORCID
-user.connected_accounts.add: Add Account
+user.connected_accounts: 'Connected Accounts'
+user.connected_accounts.add_orcid_account: 'Connect ORCID'
+user.connected_accounts.add: 'Add Account'
 user.connected_accounts.provider: Provider
-user.connected_accounts.provider_user_id: Provider User ID
+user.connected_accounts.provider_user_id: 'Provider User ID'
 user.connected_accounts.action: Actions
 user.custom_field.create: Create
 Avatar: Avatar
+User: User
+user.forgot_password: Forgot Password
+username.or.email: Username or Email
+user.reset_password: Reset Password
+user.new_password: New Password
+user.new_password_confirm: New Password (confirmation)
+
+'Password Change': Password Change
+Information: Information
+'Your password has been changed': 'Your password has been changed'
+'Password Reset': 'Password Reset'
+'Your password has been reset': 'Your password has been reset'
+'You are request password reset': 'You are request password reset'
+'Password Reset Process': 'Password Reset Process'
+'Click link below for reset to ojs account password': 'Click link below for reset to ojs account password'
+'Reset Now': 'Reset Now'
+forgot.password: forgot.password

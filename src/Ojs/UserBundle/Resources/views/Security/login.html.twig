@@ -14,6 +14,11 @@
                     <div class="panel-body">
                         <form action="{{ path('login_check') }}" method="post">
                             {% include '::flashbag.html.twig' %}
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error.message }}
+                                </div>
+                            {% endif %}
                             <div class="form-group">
                                 <label for="username">{{ "username.or.email"|trans }}</label>
                                 <input tabindex="1" name="_username" value="{{ last_username }}" type="text"

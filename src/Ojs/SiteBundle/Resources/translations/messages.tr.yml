@@ -90,10 +90,25 @@ user.custom_field.label: Tanım
 user.custom_field.value: Değer
 user.custom_field.is_url: 'Link mi?'
 user.custom_field.action: İşlemler
-user.connected_accounts: Bağlı Hesaplar
-user.connected_accounts.add_orcid_account: ORCID Hesabına Bağla
-user.connected_accounts.add: Hesap Bağla
+user.connected_accounts: 'Bağlı Hesaplar'
+user.connected_accounts.add_orcid_account: 'ORCID Hesabına Bağla'
+user.connected_accounts.add: 'Hesap Bağla'
 user.connected_accounts.provider: Sağlayıcı
-user.connected_accounts.provider_user_id: Sağlayıcı Kullanıcı Hesabı
+user.connected_accounts.provider_user_id: 'Sağlayıcı Kullanıcı Hesabı'
 user.connected_accounts.action: İşlemler
 user.custom_field.create: Oluştur
+user.forgot_password: Şifremi Unuttum
+username.or.email: Kullanıcı Adı / Eposta
+user.reset_password: Şifremi Sıfırla
+user.new_password: Yeni Şifre
+user.new_password_confirm: Yeni Şifre (doğrulama)
+'Password Change': Şifre Değiştirme
+Information: Bilgilendirme
+'Your password has been changed': 'Şifreniz Değiştirildi'
+'Password Reset': 'Şifre Sıfırla'
+'Your password has been reset': 'Şifreniz Sıfırlandı'
+'You are request password reset': 'Şifre Sıfırlama Talebiniz Var'
+'Password Reset Process': 'Şifre Sıfırlama İşlemi'
+'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
+'Reset Now': 'Şimdi Sıfırla'
+forgot.password: Şifremi Unuttum
