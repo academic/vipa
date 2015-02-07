@@ -42,3 +42,8 @@ analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"
   name_prefix:  api_
+
+mail_templates :
+  type: rest
+  resource:     "OjsApiBundle:MailTemplateRest"
+  name_prefix:  api_

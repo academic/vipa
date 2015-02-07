@@ -5,30 +5,37 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>#{{ entity.id }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>#{{ entity.id }}</td>
+        </tr>
+        {% if entity.journal %}
             <tr>
                 <th>Journal</th>
                 <td>{{ entity.journal.title }}</td>
             </tr>
+            {% else %}
             <tr>
-                <th>Type</th>
-                <td>{{ entity.type }}</td>
+                <th>Default Template</th>
+                <td>Yes</td>
             </tr>
-            <tr>
-                <th>Subject</th>
-                <td>{{ entity.subject }}</td>
-            </tr>
-            <tr>
-                <th>Language code</th>
-                <td>{{ entity.lang }}</td>
-            </tr>
-            <tr>
-                <th>Template</th>
-                <td>{{ entity.template }}</td>
-            </tr>
+        {% endif %}
+        <tr>
+            <th>Type</th>
+            <td>{{ entity.type }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ entity.subject }}</td>
+        </tr>
+        <tr>
+            <th>Language code</th>
+            <td>{{ entity.lang }}</td>
+        </tr>
+        <tr>
+            <th>Template</th>
+            <td>{{ entity.template }}</td>
+        </tr>
         </tbody>
     </table>
 

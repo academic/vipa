@@ -713,4 +713,19 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     {
         return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
     }
+
+    public function toJson()
+    {
+        $data = [
+            'username'=>$this->getUsername(),
+            'avatar'=>$this->getAvatar(),
+            'email'=>$this->getEmail(),
+            'first_name'=>$this->getFirstName(),
+            'last_name'=>$this->getLastName(),
+            'full_name'=>$this->getFullName(),
+            'header'=>$this->getHeader(),
+            'title'=>$this->getTitle(),
+        ];
+        return json_encode($data);
+    }
 }

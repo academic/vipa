@@ -5,34 +5,39 @@
 
     <table class="table records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Journalid</th>
-                <th>Type</th>              
-                <th>Subject</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Journalid</th>
+            <th>Type</th>
+            <th>Subject</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
-                    <td>{{ entity.type }}</td>
-                    <td>{{ entity.subject }}</td>
-                    <td>
-                        {% set show_path = 'mailtemplate_show' %}
-                        {% set edit_path = 'mailtemplate_edit' %}
-                        {% set delete_path = 'mailtemplate_delete' %}
-                        {% include '::actionbtns.html.twig' %}
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% if entity.journal %}
 
-                    </td>
-                </tr>
-            {% endfor %}
+                    <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
+                {% else %}
+                    <td>Default Template</td>
+                {% endif %}
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.subject }}</td>
+                <td>
+                    {% set show_path = 'mailtemplate_show' %}
+                    {% set edit_path = 'mailtemplate_edit' %}
+                    {% set delete_path = 'mailtemplate_delete' %}
+                    {% include '::actionbtns.html.twig' %}
+
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
     <hr>
     <a class="btn btn-default" href="{{ path('mailtemplate_new') }}">
         Create a new entry
-    </a> 
+    </a>
 {% endblock %}

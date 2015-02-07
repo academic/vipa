@@ -3,9 +3,6 @@
 namespace Ojs\UserBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
-use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Form\RegisterFormType;
-use Ojs\UserBundle\Form\UserType;
 
 class SecurityControllerTest extends BaseTestCase
 {
@@ -16,8 +13,7 @@ class SecurityControllerTest extends BaseTestCase
 
     public function testLogin()
     {
-        $this->client->request('GET', '/login');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->isAccessible(['login']);
     }
 
     public function testRegenerateAPI(){

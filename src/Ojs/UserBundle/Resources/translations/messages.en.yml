@@ -118,3 +118,9 @@ user.anonym:
   object: "Object"
 orcid:
   login: "Login With ORCID"
+user.journalrole.send_email: "Send Email To User"
+user.journalrole.mail.template: Template
+user.journalrole.mail.to: "Mail To"
+user.journalrole.mail.subject: "Subject"
+user.journalrole.mail.body: "Message Body"
+user.journalrole.mail.send: "Send"

@@ -115,3 +115,12 @@ user.anonym:
   has_register: "Kayıt"
   user: "Kullanıcı"
   object: "Nesne"
+
+orcid:
+  login: "ORCID ile bağlan"
+user.journalrole.send_email: "Eposta Gönder"
+user.journalrole.mail.template: Şablon
+user.journalrole.mail.to: "Alıcı"
+user.journalrole.mail.subject: "Konu"
+user.journalrole.mail.body: "Mesaj"
+user.journalrole.mail.send: "Gönder"
