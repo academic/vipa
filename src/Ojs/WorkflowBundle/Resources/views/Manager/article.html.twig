@@ -144,6 +144,12 @@
     </table>
     <hr>
 
+    <div>
+        <h2>Notes</h2>
+        {{articleStep.note }}
+    </div>
+
+    <hr>
     {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
         <div class="jumbotron">
             <form class=""
@@ -186,13 +192,13 @@
     {% endjavascripts %}
     {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
     {% if app.user.setting('tour.admin.workflow.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-    {% endjavascripts %}
+        {% endjavascripts %}
         <script>
             $(document).ready(function () {
                 $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
             });
         </script>
-{% endblock %}
+        {% endblock %}
 
 
 
