@@ -17,12 +17,16 @@
             <div id="articles-action-chart"></div>
 
             <div class=" ">
-                {% for key,step in mySteps %} 
-                    <a class="btn btn-xs btn-default" href="/manager/workflow/articles/{{step.id}}">
-                        {{step.title}} <span class="label label-default">{{waitingCount[step.id]}}</span>
-                    </a>
+                <div>
+                    {% for key,step in mySteps %} 
 
-                {% endfor %}
+                        <a class="list-group-item {%if waitingCount[step.id]>0%}list-group-item-warning{%else%}list-group-item-default{%endif%}" href="/manager/workflow/articles/{{step.id}}">
+                            {{step.title}}
+
+                            <span class="pull-right label {%if waitingCount[step.id]>0%}label-warning{%else%}label-default{%endif%}">{{waitingCount[step.id]}}</span>
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <!-- /.panel-body -->
@@ -124,29 +128,29 @@
                                 value:{{waitingCount[step.id]}}
                         }
         {% if loop.last == false %},{% endif %}{% endfor %}
-                            ],
-                            resize: true
-                }).on('click', function (i, row) {
-                    console.log(row);
-                    OjsCommon.waitModal();
-                    window.location.href = "/manager/workflow/articles/" + row.objectid;
-                });
-                new Morris.Line({
-                element: 'analytics-chart',
-                        data: [
-                        {day: '2014-01-01', value: 20},
-                        {day: '2014-01-02', value: 10},
-                        {day: '2014-01-03', value: 12},
-                        {day: '2014-01-04', value: 15},
-                        {day: '2014-01-05', value: 20},
-                        {day: '2014-01-06', value: 25},
-                        {day: '2014-01-07', value: 18},
-                        {day: '2014-01-08', value: 20}
                         ],
-                        xkey: 'day',
-                        ykeys: ['value'],
-                        labels: ['Value']
-                });
-                });
+                        resize: true
+            }).on('click', function (i, row) {
+                console.log(row);
+                OjsCommon.waitModal();
+                window.location.href = "/manager/workflow/articles/" + row.objectid;
+            });
+            new Morris.Line({
+            element: 'analytics-chart',
+                    data: [
+                    {day: '2014-01-01', value: 20},
+                    {day: '2014-01-02', value: 10},
+                    {day: '2014-01-03', value: 12},
+                    {day: '2014-01-04', value: 15},
+                    {day: '2014-01-05', value: 20},
+                    {day: '2014-01-06', value: 25},
+                    {day: '2014-01-07', value: 18},
+                    {day: '2014-01-08', value: 20}
+                    ],
+                    xkey: 'day',
+                    ykeys: ['value'],
+                    labels: ['Value']
+            });
+            });
     </script>
 {% endblock %}
