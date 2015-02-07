@@ -48,7 +48,7 @@ class ManagerController extends Controller
         foreach ($mySteps as $step) {
             $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
                     ->createQueryBuilder('ars');
-            $countQuery->field('stepId')->equals($step->getId());
+            $countQuery->field('step.$id')->equals(new \MongoId($step->getId()));
             $countQuery->field('finishedDate')->equals(null);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }

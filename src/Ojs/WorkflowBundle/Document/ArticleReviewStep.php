@@ -16,8 +16,10 @@ class ArticleReviewStep
      */
     protected $id;
 
-    /** @MongoDb\String */
-    protected $stepId;
+    /**
+     * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowStep",nullable=true)
+     */
+    protected $step;
 
     /**
      * Is this is the first node of the article review steps?
@@ -194,25 +196,7 @@ class ArticleReviewStep
     {
         return $this->articleRevised;
     }
-
-    /**
-     * Get stepId
-     * @return string
-     */
-    public function getStepId()
-    {
-        return $this->stepId;
-    }
-
-    /**
-     * Set stepId
-     * @return ArticleReviewStep
-     */
-    public function setStepId($stepId)
-    {
-        $this->stepId = $stepId;
-        return $this;
-    }
+ 
 
     /**
      * Set statusText
@@ -469,5 +453,27 @@ class ArticleReviewStep
     public function getTo()
     {
         return $this->to;
+    }
+
+    /**
+     * Set step
+     *
+     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
+     * @return self
+     */
+    public function setStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $step)
+    {
+        $this->step = $step;
+        return $this;
+    }
+
+    /**
+     * Get step
+     *
+     * @return Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
+     */
+    public function getStep()
+    {
+        return $this->step;
     }
 }

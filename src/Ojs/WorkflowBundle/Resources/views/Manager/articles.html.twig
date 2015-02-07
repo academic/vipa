@@ -34,26 +34,27 @@
                         <td>
                             <h4>
                                 <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
-                                    {{ articles[loop.index0].title }}
+                                     
+                                    {{ articles[0].title }}
                                 </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
-                                           href="http://scholar.google.com.tr/scholar?q={{ articles[loop.index0].title|url_encode }}">
+                                           href="http://scholar.google.com.tr/scholar?q={{ articles[0].title|url_encode }}">
                                             <i class="fa fa-google"></i>
                                         </a>
                                         <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                                           href="http://en.wikipedia.org/w/index.php?search={{ articles[loop.index0].title|url_encode }}">
+                                           href="http://en.wikipedia.org/w/index.php?search={{ articles[0].title|url_encode }}">
                                             W
                                         </a>
                                     </span>
-                                {% if articles[loop.index0].submissionDate %}
-                                    <span class="badge">{{ articles[loop.index0].submissionDate|date('Y-m-d') }}</span>
+                                {% if articles[0].submissionDate %}
+                                    <span class="badge">{{ articles[0].submissionDate|date('Y-m-d') }}</span>
                                 {% endif %}
                                 {{ daysDiff(articleStep.startedDate, articleStep.reviewDeadline) }}
                             </h4>
                             {% if  isJournalManager() == true or step.canSeeAuthor %}
                                 <small>
-                                    {% for articleAuthor in articles[loop.index0].articleAuthors %}
+                                    {% for articleAuthor in articles[0].articleAuthors %}
                                         {{ articleAuthor.author.firstName }} {{ articleAuthor.author.middleName }} {{ articleAuthor.author.lastName }}
                                         {% if loop.last == false %},{% endif %}
                                     {% endfor %}
