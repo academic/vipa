@@ -155,7 +155,6 @@ class ArticleSubmissionController extends Controller
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
-            $reviewStep->setTo(null);
             $reviewStep->setStepId($firstStep->getId());
             $reviewStep->setNote($request->get('notes')); 
             $dm->persist($reviewStep);

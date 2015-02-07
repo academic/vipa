@@ -144,10 +144,12 @@
     </table>
     <hr>
 
-    <div>
-        <h2>Notes</h2>
-        {{articleStep.note }}
-    </div>
+    {% if articleStep.note %}
+        <div>
+            <h2>Notes</h2>
+            {{articleStep.note }}
+        </div>
+    {% endif %}
 
     <hr>
     {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
@@ -166,13 +168,18 @@
                             </option>
                         {% endfor %}
                     </select>
-                    <select name="nextStepId" class="select2-element form-control" style="width:200px">
-                        {% for nextStep in step.nextSteps %}
-                            <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
-                        {% endfor %}
-                    </select>
+                    {% if step.onlyReply %}
+                        <input type="hidden" name="nextStepId" value="{{ articleStep.from.id }}" />
+                    {%else%}
+                        <select name="nextStepId" class="select2-element form-control" style="width:200px">
+                            {% for nextStep in step.nextSteps %}
+                                <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
+                            {% endfor %}
+                        </select>
+                    {%endif %}
+
                     <button type="submit" class="btn btn-warning pull-right btn-lg">
-                        <i class="fa fa-arrow-right"></i> Next
+                        <i class="fa fa-arrow-right"></i> Send Review
                     </button>
                 </div>
 

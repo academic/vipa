@@ -115,9 +115,12 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $deadline->modify("+" . $nextStep->getMaxdays() . " day");
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
-        $newStep->setFrom($articleStep->getId());
+        $newStep->setFrom($articleStep);
         $newStep->setStepId($nextStepId);
-
+        $newStep->setAction($request->get('reviewResultCode'));
+        $newStep->setNote(null);
+        $newStep->setReviewNotes($request->get('note'));
+        //$newStep
 
 
         $dm->detach($newStep);
@@ -125,13 +128,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $dm->flush();
 
 
-        $articleStep->setTo($newStep->getId());
-        $articleStep->setFrom(false);
+        $articleStep->setTo($newStep);
+        $articleStep->setFrom(null);
         $articleStep->setFinishedDate(new \DateTime());
-        $dm->persist($articleStep);
-        $dm->flush();
-
-        $articleStep->setTo($newStep->getId());
         $dm->persist($articleStep);
         $dm->flush();
         return $this->redirect($this->generateUrl('ojs_user_index'));
