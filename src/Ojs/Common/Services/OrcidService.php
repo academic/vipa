@@ -10,6 +10,7 @@ namespace Ojs\Common\Services;
 
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class OrcidService
 {
@@ -154,8 +155,6 @@ class OrcidService
     public function loginUrl()
     {
         $state = bin2hex(openssl_random_pseudo_bytes(16));
-        setcookie('state', $state, time() + 3600, null, null, false, true);
-
         if ($this->isSandbox()) {
             $url = self::SANDBOX_API
                 . DIRECTORY_SEPARATOR

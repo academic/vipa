@@ -123,8 +123,9 @@ abstract class BaseTestCase extends WebTestCase
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
-        if($response->isServerError())
-            throw new \Exception($response->getStatusCode());
+        if($response->isServerError()){
+            echo $response->getContent();
+        }
         if($redirectOnSuccess)
             return $response->isRedirection();
         return $response->isSuccessful();
