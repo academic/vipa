@@ -293,4 +293,17 @@ class JournalRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getVolumes(Journal $journal)
+    {
+        $issues = $journal->getIssues();
+        $volumes = [];
+        foreach ($issues as $issue) {
+            /** @var Issue $issue */
+            $volume = $issue->getVolume();
+            $volumes[$volume]['issues'][]=$issue;
+            $volumes[$volume]['volume']=$volume;
+        }
+        return $volumes;
+    }
+
 }

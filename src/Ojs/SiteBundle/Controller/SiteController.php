@@ -7,6 +7,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\SubjectRepository;
+use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -124,9 +125,13 @@ class SiteController extends Controller
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
         /** @var Journal $journal */
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
+
+        $volumes = $journalRepo->getVolumes($journal);
+        $data['volumes'] = $volumes;
         $data['journal'] = $journal;
         $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal->getId(), true);
         $data['page'] = 'journal';
@@ -198,4 +203,17 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
     }
 
+    public function issuePageAction($id)
+    {
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        $issueRepo = $em->getRepository('OjsJournalBundle:Issue');
+        /** @var Issue $issue */
+        $issue = $issueRepo->find($id)
+        ;
+        $data['issue']=$issue;
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($issue->getJournal());
+
+        return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
+    }
 }
