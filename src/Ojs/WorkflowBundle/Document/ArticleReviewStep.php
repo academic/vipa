@@ -47,12 +47,12 @@ class ArticleReviewStep
     private $articleRevised;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDb\ReferenceOne(targetDocument="ArticleReviewStep",nullable=true)
      */
     protected $from;
 
     /**
-     * @MongoDB\Hash
+     * @MongoDb\ReferenceOne(targetDocument="ArticleReviewStep",nullable=true)
      */
     protected $to;
 
@@ -196,19 +196,6 @@ class ArticleReviewStep
     }
 
     /**
-     * Set from
-     *
-     * @param  hash $from
-     * @return self
-     */
-    public function setFrom($from)
-    {
-        $this->from = $from;
-
-        return $this;
-    }
-
-    /**
      * Get stepId
      * @return string
      */
@@ -225,39 +212,6 @@ class ArticleReviewStep
     {
         $this->stepId = $stepId;
         return $this;
-    }
-
-    /**
-     * Get from
-     *
-     * @return hash $from
-     */
-    public function getFrom()
-    {
-        return $this->from;
-    }
-
-    /**
-     * Set to
-     *
-     * @param  hash $to
-     * @return self
-     */
-    public function setTo($to)
-    {
-        $this->to = $to;
-
-        return $this;
-    }
-
-    /**
-     * Get to
-     *
-     * @return hash $to
-     */
-    public function getTo()
-    {
-        return $this->to;
     }
 
     /**
@@ -472,4 +426,48 @@ class ArticleReviewStep
         $this->id = null;
     }
 
+
+    /**
+     * Set from
+     *
+     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $from
+     * @return self
+     */
+    public function setFrom(\Ojs\WorkflowBundle\Document\ArticleReviewStep $from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Get from
+     *
+     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $from
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
+     * Set to
+     *
+     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $to
+     * @return self
+     */
+    public function setTo(\Ojs\WorkflowBundle\Document\ArticleReviewStep $to)
+    {
+        $this->to = $to;
+        return $this;
+    }
+
+    /**
+     * Get to
+     *
+     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $to
+     */
+    public function getTo()
+    {
+        return $this->to;
+    }
 }
