@@ -125,11 +125,12 @@ class SiteController extends Controller
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        /** @var JournalRepository $journalRepo */
         $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
         /** @var Journal $journal */
         $journal = $journalRepo->findOneBy(['slug' => $slug]);
         $this->throw404IfNotFound($journal);
-
+        $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $volumes = $journalRepo->getVolumes($journal);
         $data['volumes'] = $volumes;
         $data['journal'] = $journal;

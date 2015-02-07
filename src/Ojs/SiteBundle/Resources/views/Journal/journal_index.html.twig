@@ -1,15 +1,21 @@
 {% extends "::ojsbase.html.twig" %}
-{% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+{% set hideleft = 1 %}
+{% block breadcrumb %}{% endblock %}
 {% block body %}
 
     <div class="container">
         {% block journalheader %}
             <div class="page-header">
                 {% set imageoptions=getImageOptions(journal,'header') %}
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/1200x300/random/text:{{journal.title}}" alt="" class="img-responsive" />
-                <h1>{{journal.title}} <small>{{ journal.titleAbbr }}</small></h1>
-                <h6>{{journal.subtitle}} <small>{{ journal.titleTransliterated }}</small></h6>
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                     data-src="holder.js/1200x300/random/text:{{ journal.title }}" alt="" class="img-responsive"/>
+
+                <h1>{{ journal.title }}
+                    <small>{{ journal.titleAbbr }}</small>
+                </h1>
+                <h6>{{ journal.subtitle }}
+                    <small>{{ journal.titleTransliterated }}</small>
+                </h6>
 
             </div>
         {% endblock %}
@@ -17,20 +23,24 @@
             <div class="col-md-2">
                 {% set imageoptions=getImageOptions(journal,'cover') %}
 
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/120x180/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                     data-src="holder.js/120x180/random/text:{{ journal.title }}"
+                     class="img-responsive img-rounded float-left" alt=""/>
             </div>
 
             <div class="col-md-4">
-                <h5>{{"scope"|trans}}</h5>
+                <h5>{{ "scope"|trans }}</h5>
+
                 <p>
-                    {{journal.scope}}
+                    {{ journal.scope }}
                 </p>
             </div>
             <div class="col-md-3">
 
-                <h5>{{"mission"|trans}}</h5>
+                <h5>{{ "mission"|trans }}</h5>
+
                 <p>
-                    {{journal.mission}}
+                    {{ journal.mission }}
                 </p>
             </div>
             <div class="col-md-3">
@@ -41,6 +51,7 @@
                         </h3>
                         <h4 class="list-group-item-heading count">
                             1000</h4>
+
                         <p class="list-group-item-text">
                             Journal Views</p>
                     </a><a href="#" class="list-group-item facebook-like">
@@ -49,6 +60,7 @@
                         </h3>
                         <h4 class="list-group-item-heading count">
                             1000</h4>
+
                         <p class="list-group-item-text">
                             Facebook Likes</p>
                     </a><a href="#" class="list-group-item google-plus">
@@ -57,6 +69,7 @@
                         </h3>
                         <h4 class="list-group-item-heading count">
                             1000</h4>
+
                         <p class="list-group-item-text">
                             Google+</p>
                     </a><a href="#" class="list-group-item twitter">
@@ -65,30 +78,39 @@
                         </h3>
                         <h4 class="list-group-item-heading count">
                             1000</h4>
+
                         <p class="list-group-item-text">
                             Twitter Followers</p>
                     </a>
                 </div>
             </div>
         </div>
-        <hr />
+        <hr/>
         <div class="row">
             <div class="col-md-12">
                 <dl class="journal-meta">
-                    {% if journal.issn%}
-                    <dt>ISSN</dt><dd>{{journal.issn}}</dd>
+                    {% if journal.issn %}
+                        <dt>ISSN</dt>
+                        <dd>{{ journal.issn }}</dd>
                     {% endif %}
-                    {% if journal.eissn%}
-                    <dt>e-ISSN</dt><dd>{{journal.eissn}}</dd>
+                    {% if journal.eissn %}
+                        <dt>e-ISSN</dt>
+                        <dd>{{ journal.eissn }}</dd>
                     {% endif %}
-                    <dt>{{"journal_langs"|trans}}</dt><dd>{% for language in journal.languages %}<span class="badge badge-success">{{language.name}}</span> {%endfor%}</dd>
-                    <dt>{{"first_publish_date"|trans}}</dt><dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
-                    <dt>{{"period"|trans}}</dt><dd>{{ journal.period }}</dd>
-                    {% if journal.url%}
-                        <dt>{{"url"|trans}}</dt><dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                        {% endif %}
-                        {% if journal.country%}
-                        <dt>{{"country"|trans}}</dt><dd>{{ journal.country }}</dd>
+                    <dt>{{ "journal_langs"|trans }}</dt>
+                    <dd>{% for language in journal.languages %}<span
+                                class="badge badge-success">{{ language.name }}</span> {% endfor %}</dd>
+                    <dt>{{ "first_publish_date"|trans }}</dt>
+                    <dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
+                    <dt>{{ "period"|trans }}</dt>
+                    <dd>{{ journal.period }}</dd>
+                    {% if journal.url %}
+                        <dt>{{ "url"|trans }}</dt>
+                        <dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
+                    {% endif %}
+                    {% if journal.country %}
+                        <dt>{{ "country"|trans }}</dt>
+                        <dd>{{ journal.country }}</dd>
                     {% endif %}
                 </dl>
             </div>
@@ -96,14 +118,16 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h4 class="page-header"><span class="panel-title">{{"issues"|trans}}</span></h4>
+                <h4 class="page-header"><span class="panel-title">{{ "issues"|trans }}</span></h4>
+
                 <div class="col-md-3">
 
                     <div id="issuetree">
                         <ul>
                             {% for volume in volumes %}
                                 <li>
-                                    <a href="#"> {{ "Volume"|trans }} {{ volume.volume }} - {{ volume.issues|length }} {{ "Issues " }}</a>
+                                    <a href="#"> {{ "Volume"|trans }} {{ volume.volume }}
+                                        - {{ volume.issues|length }} {{ "Issues " }}</a>
                                     <ul>
                                         {% for issue in volume.issues %}
                                             <li>
@@ -117,31 +141,22 @@
                     </div>
 
                     <hr/>
-                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
+                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{ "archive"|trans }}</a>
 
                 </div>
                 <div class="col-md-9" id="issue-container">
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">Issue 9</div>
+                        <div class="panel-heading">{{ "Issue"|trans }} {{ last_issue.number }}
+                            - {{ last_issue.datePublished|date("M Y") }}</div>
                         <div class="panel-body">
-                            <h4 class="page-header">Preface</h4>
-                            <ul class="list-unstyled">
-                                <li><input type="checkbox"> Preface
-                                    Page 1
-                                    PDF (118 K)
-                                </li>
-                            </ul>
+                            {% for article in last_issue.articles %}
+                                <h4 class="page-header"><a
+                                            href="{{ url('ojs_article_page',{slug:article.journal.slug,article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                </h4>
+                            {% endfor %}
 
-                            <h4 class="page-header">Sports Engineering</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <input type="checkbox"> An Integrated Computer Assisted Training System for the Baseball Defense Concepts and CasesOriginal Research Article
-                                    Pages 2-8
-                                    Chueh-Wei Chang, Shih-Yang Lee, Shih-Kuei Huang, Chin-Long Yang
-                                    Abstract PDF (779 K)
-                                </li>
-                            </ul>
                         </div>
                         <div class="panel-footer">
                             footer
@@ -156,7 +171,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="page-header"><span class="panel-title">{{"editorial"|trans}}</span></h4>
+                <h4 class="page-header"><span class="panel-title">{{ "editorial"|trans }}</span></h4>
+
                 <p>
                     {% for key,user in users %}
                         <strong>{{ key|trans }}</strong> <br/>
@@ -168,7 +184,7 @@
                 </p>
             </div>
         </div>
-        {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
+        {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
 
     </div>
 
@@ -176,6 +192,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }} )
+        analytics.increase('journal', {{ journal.id }})
     </script>
 {% endblock %}

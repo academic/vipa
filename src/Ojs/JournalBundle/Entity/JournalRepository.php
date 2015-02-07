@@ -266,14 +266,15 @@ class JournalRepository extends EntityRepository
      */
     public function getLastIssueId($journal)
     {
-        $q = $this
-                ->createQuery('SELECT issue_id FROM OjsJournalBundle:Issue i WHERE journalId : ?1 '
-                        . 'AND datePublished IS NOT NULL ORDER BY ID DESC')
+
+        $q = $this->_em
+                ->createQuery('SELECT i FROM OjsJournalBundle:Issue i WHERE i.journalId =:j '
+                        . 'AND i.datePublished IS NOT NULL ORDER BY i.datePublished DESC')
                 ->setMaxResults(1)
-                ->setParameter(1, $journal->getId())
-                ->getQuery();
+                ->setParameter('j', $journal->getId())
+                ;
         try {
-            $issue = $q->getSingleScalarValue();
+            $issue = $q->getOneOrNullResult();
             return $issue;
         } catch (NoResultException $e) {
             return false;
