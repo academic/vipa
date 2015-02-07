@@ -21,6 +21,7 @@ Ojs\JournalBundle\Entity\MailTemplate:
             column: journal_id
             gedmo:
                 - versioned
+            nullable: true
         type:
             type: string
             length: 255

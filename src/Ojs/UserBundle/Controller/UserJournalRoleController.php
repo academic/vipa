@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,7 +25,7 @@ class UserJournalRoleController extends Controller
         $entities = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
 
         return $this->render('OjsUserBundle:UserJournalRole:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -53,8 +54,8 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -70,7 +71,7 @@ class UserJournalRoleController extends Controller
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_create'),
             'method' => 'POST',
-            'user'=>$this->getUser()
+            'user' => $this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'row btn btn-success')));
@@ -88,8 +89,8 @@ class UserJournalRoleController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsUserBundle:UserJournalRole:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -110,8 +111,8 @@ class UserJournalRoleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsUserBundle:UserJournalRole:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -136,13 +137,20 @@ class UserJournalRoleController extends Controller
      */
     public function showUsersOfJournalAction($journal_id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->createQuery(
-            'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.journal_id = :jid '
-        )->setParameter('jid', $journal_id);
-
+        $qb = $em->createQueryBuilder();
+        $qb->select('ujr')
+            ->from('OjsUserBundle:UserJournalRole', 'ujr')
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->eq('ujr.journalId', ':jid')
+                )
+            )
+            ->setParameter('jid', $journal_id);
+        $entities = $qb->getQuery()->getResult();
         return $this->render('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
-                    'entities' => $entities
+            'entities' => $entities
         ));
     }
 
@@ -212,7 +220,7 @@ class UserJournalRoleController extends Controller
         $form = $this->createForm(new UserJournalRoleType(), $entity, array(
             'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'user'=>$this->getUser()
+            'user' => $this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -268,4 +276,39 @@ class UserJournalRoleController extends Controller
         return $this->redirect($this->generateUrl('ujr'));
     }
 
+    public function sendAction(Request $request, UserJournalRole $user_journal_role)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        $session = $this->get('session');
+        if ($request->isMethod('POST')) {
+            $mailData = $request->get('mail');
+            $mailer = $this->get('mailer');
+            $message = $mailer->createMessage()
+                ->setFrom($this->container->getParameter('system_email'))
+                ->setTo($user_journal_role->getUser()->getEmail())
+                ->setSubject($mailData['subject'])
+                ->setBody($mailData['body'])
+                ->setContentType('text/html');
+            $mailer->send($message);
+            $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
+            $session->save();
+            return $this->redirectToRoute('ujr_show_users_ofjournal', ['journal_id' => $user_journal_role->getJournalId()]);
+        }
+        $qb = $em->createQueryBuilder();
+        $qb->select('t')
+            ->from('OjsJournalBundle:MailTemplate', 't')
+            ->where(
+                $qb->expr()->orX(
+                    $qb->expr()->isNull('t.journalId'),
+                    $qb->expr()->eq('t.journalId', ':journal')
+                )
+            )
+            ->setParameter('journal', $user_journal_role->getJournalId());
+        $templates = $qb->getQuery()->getResult();
+        $data['templates'] = $templates;
+        $data['user'] = $user_journal_role->getUser();
+        return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
+    }
 }

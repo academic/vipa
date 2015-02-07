@@ -1,0 +1,62 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "user.journalrole.send_email"|trans }}</h1>
+
+            <form action="" method="post" role="form">
+                <div class="form-group">
+                    <label class="control-label" for="">{{ "user.journalrole.mail.template"|trans }}</label>
+                    <select name="mail[template]" id="mail_template" class="form-control">
+                        <option value="">
+                            Seçiniz
+                        </option>
+                        {% for entity in templates %}
+                            <option value="{{ entity.id }}">{{ entity.subject }} [{{ entity.lang }}]</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="">{{ 'user.journalrole.mail.to'|trans }}</label>
+                    <input class="form-control" type="text" readonly value="{{ user.email }}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="">{{ 'user.journalrole.mail.subject'|trans }}</label>
+                    <input class="form-control" type="text" id="mail_subject" name="mail[subject]"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="">{{ 'user.journalrole.mail.body'|trans }}</label>
+                    <textarea name="mail[body]" class="form-control" id="mail_body" cols="30" rows="10"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="{{ 'user.journalrole.mail.send'|trans }}"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+        {% block javascripts %}
+            {{ parent() }}
+            <script src="{{ asset('/vendor/twig.js/twig.min.js') }}"></script>
+            <script type="text/javascript">
+                var user = '{{ user.toJson|raw }}';
+                $(document).ready(function(){
+                    $(document).on('change','#mail_template',function(){
+                        var template = $(this).val();
+                        $.ajax({
+                            url: '/api/mail_template/'+template,
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function(d){
+                                var tmpl = twig({data: d.template});
+
+                                $("#mail_body").val(tmpl.render({journal: d.journal,user: user}));
+                                var sbjt = twig({data: d.subject});
+                                $("#mail_subject").val(sbjt.render({journal: d.journal,user: user}));
+                            }
+                        })
+                    })
+                });
+            </script>
+        {% endblock %}
+

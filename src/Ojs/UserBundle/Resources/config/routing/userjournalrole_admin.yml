@@ -38,3 +38,7 @@ ujr_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsUserBundle:UserJournalRole:delete" }
     requirements: { _method: get|post|delete }
+
+ujr_send_mail:
+    pattern: /mail/send/{user_journal_role}
+    defaults: { _controller: "OjsUserBundle:UserJournalRole:send" }

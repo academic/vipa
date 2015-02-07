@@ -5,13 +5,16 @@
     <div class="panel">
         <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
 {% if entities %}
-        <table class="records_list  table">
+    {% include '::flashbag.html.twig' %}
+
+    <table class="records_list  table">
             <thead>
                 <tr>
                     <th>{{ "user.journalrole.user.id"|trans }}</th>
                     <th>{{ "user.journalrole.user.username"|trans }}</th>
                     <th>{{ "user.journalrole.email"|trans }}</th>
                     <th>{{ "user.journalrole.role"|trans }}</th>
+                    <th>{{ "user.journalrole.send_email"|trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +24,11 @@
                     <td>{{ entity.user.username}}</td>
                     <td>{{ entity.user.email }}</td>
                     <td>{{ entity.role.name }} </td>
+                    <td>
+                        <a class="btn-xs btn btn-primary" href="{{ url('ujr_send_mail',{user_journal_role:entity.id}) }}">
+                            <i class="fa fa-envelope-o"></i>
+                        </a>
+                    </td>
                 </tr>
         {% endfor %}
             </tbody>
