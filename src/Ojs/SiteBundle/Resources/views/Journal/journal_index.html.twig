@@ -99,60 +99,23 @@
                 <h4 class="page-header"><span class="panel-title">{{"issues"|trans}}</span></h4>
                 <div class="col-md-3">
 
-                    <div id="issuetree"></div>
-                    <script>
-                        var alternateData = [
-                            {
-                                text: 'Parent 1',
-                                tags: ['2'],
-                                nodes: [
-                                    {
-                                        text: 'Child 1',
-                                        tags: ['3'],
-                                        nodes: [
-                                            {
-                                                text: 'Grandchild 1',
-                                                tags: ['6']
-                                            },
-                                            {
-                                                text: 'Grandchild 2',
-                                                tags: ['3']
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        text: 'Child 2',
-                                        tags: ['3']
-                                    }
-                                ]
-                            },
-                            {
-                                text: 'Parent 2',
-                                tags: ['7']
-                            },
-                            {
-                                text: 'Parent 3',
-                                icon: 'glyphicon glyphicon-earphone',
-                                href: '#demo',
-                                tags: ['11']
-                            },
-                            {
-                                text: 'Issue 2',
-                                icon: 'glyphicon glyphicon-cloud-download',
-                                href: '{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}',
-                                tags: ['19'],
-                                selected: false
-                            },
-                            {
-                                text: 'Issue 1',
-                                icon: 'glyphicon glyphicon-certificate',
-                                color: 'pink',
-                                backColor: 'green',
-                                href: 'http://www.hmert.com',
-                                tags: ['available', '0']
-                            }
-                        ];
-                    </script>
+                    <div id="issuetree">
+                        <ul>
+                            {% for volume in volumes %}
+                                <li>
+                                    <a href="#"> {{ "Volume"|trans }} {{ volume.volume }} - {{ volume.issues|length }} {{ "Issues " }}</a>
+                                    <ul>
+                                        {% for issue in volume.issues %}
+                                            <li>
+                                                <a href="{{ url('ojs_issue_page',{institution: issue.journal.institution.slug,id: issue.id}) }}">{{ "Issue"|trans }} {{ issue.title }} {{ issue.datePublished|date("M Y") }}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
                     <hr/>
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{"archive"|trans}}</a>
 

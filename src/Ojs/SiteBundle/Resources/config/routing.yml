@@ -108,6 +108,10 @@ ojs_archive_index:
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
 
+ojs_issue_page:
+    pattern: /issue/{id}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:issuePage}
 ojs_article_page:
     pattern:  /{slug}/{article_slug}
     host: "{institution}.%base_host%"
