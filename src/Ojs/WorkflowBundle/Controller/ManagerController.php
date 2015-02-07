@@ -25,8 +25,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($articleStep->getStepId());
-        list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true);
+                ->find($articleStep->getStep()->getId());
+        list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
+                        $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
+        );
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -52,7 +54,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
 
         $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")
                 ->findBy(
-                array('stepId' => $step->getId()), array('finishedDate' => null)
+                array('step.$id' => new \MongoId($step->getId())), array('finishedDate' => null)
         );
         $ids = [];
         foreach ($articlesStep as $stepNode) {
@@ -109,27 +111,26 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         }
 
         $newStep = clone $articleStep;
-        $newStep->setStepId($nextStepId);
+        $newStep->setStep($nextStep);
         $newStep->setStatusText($nextStep->getStatus());
         $deadline = new \DateTime();
         $deadline->modify("+" . $nextStep->getMaxdays() . " day");
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
         $newStep->setFrom($articleStep);
-        $newStep->setStepId($nextStepId);
         $newStep->setAction($request->get('reviewResultCode'));
         $newStep->setNote(null);
-        $newStep->setReviewNotes($request->get('note'));
+        $newStep->setReviewNotes($request->get('notes'));
         //$newStep
 
-
-        $dm->detach($newStep);
         $dm->persist($newStep);
         $dm->flush();
 
 
+        $dm->detach($newStep);
+
         $articleStep->setTo($newStep);
-        $articleStep->setFrom(null);
+        //$articleStep->setFrom(null);
         $articleStep->setFinishedDate(new \DateTime());
         $dm->persist($articleStep);
         $dm->flush();
