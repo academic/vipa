@@ -204,7 +204,7 @@ class OrcidService
             )
         ]);
         $result = curl_exec($curl);
-        $this->container->get('logger')->addDebug('#Orcid Debug',$result);
+        $this->container->get('logger')->addDebug('#Orcid Debug',[$result]);
         return json_decode($result);
     }
 
