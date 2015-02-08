@@ -10,8 +10,8 @@ class ArticleFileParams
      * @var array
      */
     public static $FILE_TYPES = array(
-        0 => 'Supplementary File',
-        1 => 'Full Text',
+        0 => 'Full Text',
+        1 => 'Supplementary File',
         2 => 'Research Materials',
         3 => 'Research Results',
         4 => 'Transcripts',
