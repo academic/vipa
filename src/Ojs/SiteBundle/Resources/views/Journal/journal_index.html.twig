@@ -72,7 +72,8 @@
 
                         <p class="list-group-item-text">
                             Google+</p>
-                    </a><a href="#" class="list-group-item twitter">
+                    </a>
+                    <a href="#" class="list-group-item twitter">
                         <h3 class="pull-right">
                             <i class="fa fa-twitter-square"></i>
                         </h3>
@@ -82,6 +83,8 @@
                         <p class="list-group-item-text">
                             Twitter Followers</p>
                     </a>
+                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{ "archive"|trans }}</a>
                 </div>
             </div>
         </div>
@@ -112,6 +115,9 @@
                         <dt>{{ "country"|trans }}</dt>
                         <dd>{{ journal.country }}</dd>
                     {% endif %}
+
+
+
                 </dl>
             </div>
         </div>
@@ -120,14 +126,14 @@
             <div class="col-md-12">
                 <h4 class="page-header"><span class="panel-title">{{ "issues"|trans }}</span></h4>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
 
                     <div id="issuetree">
                         <ul>
                             {% for volume in volumes %}
                                 <li>
-                                    <a href="#"> {{ "Volume"|trans }} {{ volume.volume }}
-                                        - {{ volume.issues|length }} {{ "Issues " }}</a>
+                                    {{ "Volume"|trans }} {{ volume.volume }}
+                                    - {{ volume.issues|length }} {{ "Issues " }}
                                     <ul>
                                         {% for issue in volume.issues %}
                                             <li>
@@ -140,26 +146,20 @@
                         </ul>
                     </div>
 
-                    <hr/>
-                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{ "archive"|trans }}</a>
-
                 </div>
-                <div class="col-md-9" id="issue-container">
+                <div class="col-md-8" id="issue-container">
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ "Issue"|trans }} {{ last_issue.number }}
+                        <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
                             - {{ last_issue.datePublished|date("M Y") }}</div>
                         <div class="panel-body">
-                            {% for article in last_issue.articles %}
-                                <h4 class="page-header"><a
-                                            href="{{ url('ojs_article_page',{slug:article.journal.slug,article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
-                                </h4>
-                            {% endfor %}
+                            <ul>
+                                {% for article in last_issue.articles %}
+                                    <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
 
-                        </div>
-                        <div class="panel-footer">
-                            footer
                         </div>
                     </div>
 
