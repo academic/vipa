@@ -64,6 +64,7 @@ Ojs\JournalBundle\Entity\Author:
         orcid:
             type: string
             length: 255
+            nullable: true
         email:
             type: string
             length: 255
