@@ -109,6 +109,29 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     private $fullName;
 
     /**
+     * @var string
+     */
+    private $orcid;
+
+    /**
+     * @return string
+     */
+    public function getOrcid()
+    {
+        return $this->orcid;
+    }
+
+    /**
+     * @param string $orcid
+     * @return $this
+     */
+    public function setOrcid($orcid)
+    {
+        $this->orcid = $orcid;
+        return $this;
+    }
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */

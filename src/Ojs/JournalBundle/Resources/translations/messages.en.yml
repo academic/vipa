@@ -90,6 +90,7 @@ author.order: Order
 author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
+author.orcid: 'ORCID'
 user.new: 'New User'
 
 details: Details
