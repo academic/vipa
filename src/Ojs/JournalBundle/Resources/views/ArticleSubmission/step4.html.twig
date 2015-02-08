@@ -3,12 +3,12 @@
         <div class="panel-heading">
             <select name="type" class="select2-element input-lg">
                 {% for key,type in fileTypes %}
-                    <option value="{{key}}">{{ type }}</option>
+                    <option value="{{key}}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type }}</option>
                 {% endfor %}
             </select>   
             <select name="lang" class="select2-element input-lg">
                 {% for lang in journal.languages %}
-                    <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                    <option value="{{ lang.code }}" {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name }} [{{ lang.code }}]</option>
                 {% endfor %}
             </select>
             <span class="pull-right">
@@ -21,31 +21,39 @@
             <div class="form-group">
                 <label class="col-md-2">{{"title"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="title" class="form-control" placeholder="{{"title"|trans}}" />
+                    <input name="title" class="form-control" placeholder="{{"title"|trans}}" value="{% if file is defined %}{{ file.title}}{% endif %}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2">{{"description"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="desc" class="form-control" placeholder="{{"description"|trans}}" />
+                    <input name="desc" class="form-control" placeholder="{{"description"|trans}}" value="{% if file is defined %}{{ file.desc }}{% endif %}" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-md-2">{{"keywords"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" />
+                    <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" value="{% if file is defined %}{{ file.keywords }}{% endif %}" />
                 </div>
             </div>
+
+            {% if file is defined  %}
+                <a class="label label-info" href="/uploads/generic/{{filePath(file.article_file)}}" target="_blank">
+                    {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{file.lang}}) {% endif %}
+                    <i class="fa fa-download"></i>
+                </a>
+                <div class="clearfix"></div>
+            {% endif %}
 
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
 
-                <span>{{"select_supplementary_article_file"|trans}}</span>
+                <span>{{"select.article.file"|trans}}</span>
                 <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                <input name="article_file" class="filename article_file_input" value="" type="hidden"/>
-                <input name="article_file_mime_type" value="" type="hidden"/>
-                <input name="article_file_size" value="" type="hidden"/>
+                <input name="article_file" class="filename article_file_input"  value="{% if file is defined %}{{ file.article_file }}{% endif %}" type="hidden"/>
+                <input name="article_file_mime_type"  value="{% if file is defined %}{{ file.article_file_mime_type }}{% endif %}" type="hidden"/>
+                <input name="article_file_size"  value="{% if file is defined %}{{ file.article_file_size }}{% endif %}" type="hidden"/>
 
             </span>
             <span class="upload_progress label label-info" style="display: none"></span>

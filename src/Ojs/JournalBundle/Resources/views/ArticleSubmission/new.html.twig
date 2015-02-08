@@ -180,30 +180,16 @@
 
 
     <div id="step4-container" class="step hide">
-        <h2>{{ "article.files"|trans }}</h2>
-
-
-        <div class="col-md-12">
-            <form class="file-item">
-                Article Full Text  :  <span class="btn btn-success fileinput-button">
-                    <i class="fa fa-plus"></i>
-                    <span>{{"select_article_file"|trans}}</span>
-                    <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
-                    <input name="type" type="hidden" value="1" />
-                    <input name="article_file" class="filename" class="article_file_input" value="" type="hidden"/>
-                    <input name="article_file_mime_type" value="" type="hidden"/>
-                    <input name="article_file_size" value="" type="hidden"/>
-                </span>
-                <span class="upload_progress label label-info" style="display: none"></span>
-            </form>
-        </div><hr>
-        <br>
-        <h3>{{ 'Supplementary.File'|trans }} 
+        <h3>{{ 'article.files'|trans }}
             <button onclick="OjsArticleSubmission.addFileForm();" 
                     class="btn btn-sm btn-info">+ New File</button>
         </h3>
         <div id="step4">
-
+            {% if submissionData is defined and submissionData.files is defined %}
+                {% for file in submissionData.files %}
+                    {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
+                {% endfor %}
+            {% endif %}
         </div>
         <div class="step4_actions record_actions col-md-12">
             <br>

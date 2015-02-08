@@ -104,6 +104,10 @@
                             <td>{{author.email}}</td>
                         </tr>
                         <tr>
+                            <td>{{"author.orcid"|trans}}</td>
+                            <td>{{author.orcid}}</td>
+                        </tr>
+                        <tr>
                             <td>{{"author.summary"|trans}}</td>
                             <td>{{author.summary}}</td>
                         </tr>
@@ -140,7 +144,7 @@
                         <tr>
                             <td>
 
-                                <a class="label label-info" href="{{file.article_file}}">
+                                <a class="label label-info" target="_blank" href="/uploads/generic/{{filePath(file.article_file)}}">
                                     {{ fileTypes[file.type] }}  {% if file.lang is defined %}({{file.lang}}) {% endif %}
                                     <i class="fa fa-download"></i>
                                 </a>

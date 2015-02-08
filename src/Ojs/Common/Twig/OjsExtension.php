@@ -42,6 +42,7 @@ class OjsExtension extends \Twig_Extension
             'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html'))),
             'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
             'imagePath' => new \Twig_Function_Method($this, 'generateImagePath'),
+            'filePath' => new \Twig_Function_Method($this, 'generateFilePath'),
             'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
             'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
@@ -90,7 +91,7 @@ class OjsExtension extends \Twig_Extension
                 $user = $securityContext->getToken()->getUser();
                 return $user;
             }
-        } catch (Exceptin $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -227,6 +228,12 @@ class OjsExtension extends \Twig_Extension
         return $fileHelper->generatePath($file, false) . $file;
     }
 
+    public function generateFilePath($file)
+    {
+        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+
+        return $fileHelper->generatePath($file, false) . $file;
+    }
     /**
      * return translated "yes" or "no" statement after checking $arg
      * @param bool $arg
@@ -276,8 +283,8 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * 
-     * @param DateTime $date1
-     * @param DateTime $date2
+     * @param \DateTime $date1
+     * @param \DateTime $date2
      * @return string formatted string like +12 or -20 
      */
     public function daysDiff($date1, $date2)
