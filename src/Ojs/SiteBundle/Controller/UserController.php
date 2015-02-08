@@ -62,7 +62,7 @@ class UserController extends Controller
                 $bag->add('error', $this->get('translator')->trans("An error has occured!"));
                 $session->save();
             }
-            return new RedirectResponse($this->get('router')->generate('user_edit_profile'));
+            return new RedirectResponse($this->get('router')->generate('ojs_user_edit_profile'));
 
         } else {
         }
