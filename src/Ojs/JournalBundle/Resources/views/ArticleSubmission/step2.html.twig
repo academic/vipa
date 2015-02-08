@@ -22,6 +22,8 @@
                                value="{% if author is defined %}{{author.middleName}}{% endif %}" placeholder="{{"author.middlename"|trans}}"/>
                         <input name="lastName" id="lastnameinput" class="form-control" 
                                value="{% if author is defined %}{{author.lastName}}{% endif %}" placeholder="{{"author.lastname"|trans}}"/>
+                        <input name="orcid" id="orcidinput" class="form-control"
+                               value="{% if author is defined %}{{author.orcid}}{% endif %}" placeholder="{{"author.orcid"|trans}}"/>
                     </div>
                 </div>
                 <div class="controls">

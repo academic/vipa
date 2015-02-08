@@ -246,7 +246,7 @@ class ArticleSubmissionController extends Controller
     /**
      * 
      * @param array $authors
-     * @param Ojs\JournalBundle\Entity\Article $article
+     * @param \Ojs\JournalBundle\Entity\Article $article
      */
     private function saveAuthorsData($authors, $article)
     {
@@ -260,6 +260,7 @@ class ArticleSubmissionController extends Controller
             $author->setLastName($authorData['lastName']);
             $author->setMiddleName($authorData['middleName']);
             $author->setSummary($authorData['summary']);
+            $author->setOrcid($authorData['orcid']);
             $em->persist($author);
             $em->flush();
             $articleAuthor = new ArticleAuthor();
