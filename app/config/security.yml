@@ -9,6 +9,7 @@ security:
         ROLE_JOURNAL_MANAGER: [ROLE_EDITOR]
         ROLE_ADMIN: [ROLE_EDITOR, ROLE_AUTHOR]
         ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
+        ROLE_USER: [ROLE_AUTHOR]
     providers:
         user_db:
             id: ojs.user_provider.username_email
