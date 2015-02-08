@@ -166,7 +166,7 @@ class UserController extends Controller
             return new RedirectResponse($orcid->loginUrl());
         }
         $post = $orcid->authorize($code);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         if ($post) {
             $oauth = new UserOauthAccount();
             $oauth->setProvider('orcid')
@@ -185,7 +185,7 @@ class UserController extends Controller
 
     public function deleteConnectedAccountAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $account = $em->find('OjsUserBundle:UserOauthAccount', $id);
         if (!$account)
             throw new NotFoundException;
