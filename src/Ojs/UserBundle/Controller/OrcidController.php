@@ -17,7 +17,7 @@ class OrcidController extends Controller
         $orcid = $this->get('ojs.orcid_service');
         $code = $request->get('code');
         $post = $orcid->authorize($code);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         /** @var UserRepository $userRepo */
         $userRepo = $em->getRepository('OjsUserBundle:User');
