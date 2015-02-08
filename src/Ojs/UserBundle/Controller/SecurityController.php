@@ -41,24 +41,24 @@ class SecurityController extends Controller
     {
         /** @var Session $session */
         $session = $request->getSession();
+        $em = $this->getDoctrine()->getManager();
+
         /**
          * @var User $user
          */
-        $user = $this->getUser();
+        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['token'=>$code]);
         if (!$user) {
             $session->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
             return $this->redirect($this->generateUrl('login'), 302);
         }
         $do = $this->getDoctrine();
-        $em = $this->getDoctrine()->getManager();
         /** @var FlashBag $flashBag */
         $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
             // add ROLE_USER and ROLE_AUTHOR to new activated user
-            $user->addRole($do->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
-            $user->addRole($do->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR')));
             $user->setToken(null);
+            $user->setIsActive(true);
             $em->persist($user);
             $em->flush();
             $flashBag->add('success', 'You\'ve confirmed your email successfully!');
