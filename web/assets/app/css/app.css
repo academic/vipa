@@ -1154,7 +1154,7 @@ div.user-menu div.user-menu-content:not(.active){
 
 .btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px; margin:-6px 0px}
 .btn-lg .btn-label{padding: 11px 10px 11px 16px;left: -16px;margin:-11px 0px;border-radius: 6px 0 0 6px;}
-.navbar-form{margin-top:0px}
+
 
 #stats .panel-body{padding:4px; font-weight: bold}
 #stats .panel-footer{padding:4px; font-size:11px}
