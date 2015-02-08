@@ -180,7 +180,7 @@ class UserController extends Controller
             $em->flush();
             return $this->redirectToRoute('ojs_user_connected_account');
         }
-        throw new \ErrorException;
+        throw new \ErrorException("An error",serialize($post));
     }
 
     public function deleteConnectedAccountAction(Request $request, $id)
