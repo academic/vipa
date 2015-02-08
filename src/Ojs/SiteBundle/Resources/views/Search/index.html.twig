@@ -14,7 +14,7 @@
 
             </h2>
         </hgroup>
-
+        {% if search is defined %}
         <nav class="col-xs-6 col-sm-6 col-md-3">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
@@ -44,25 +44,25 @@
                 </div>
             </div>
         </nav>
-        <section class="col-xs-6 col-sm-6 col-md-9">
-            <ul>
+        {% endif %}
+        <section class="col-xs-12 col-sm-12 col-md-12">
+            <ol>
                 {% for article in result %}
+
                     <li>
                         <article>
-                            <h4><a href="{{ url('ojs_article_page',{slug:article.journal.slug ,article_slug: article.slug}) }}">{{ article.title }}</a></h4>
+
+                            <h4><a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">{{ article.title }}</a></h4>
                             <p>
                                 {% for author in article.articleAuthors %}
-                                    <a href="">{{ author.author.firstName }}</a>
+                                    <a href="">{{ author.author.lastName }}, {{ author.author.firstName }}</a>
                                 {% endfor %}
                             </p>
-
-                            <p>Biophys J. 2014 Sep 2;107(5):1090-104. doi: {{ article.doi }}</p>
-                            {#I can't use correct values, because this values foreing for me#}
-                            <p class="text-muted">PMID: {{ article.id }}</p>
+                            <p class="text-muted">DOI: {{ article.doi }}</p>
                         </article>
                     </li>
                 {% endfor %}
-            </ul>
+            </ol>
             <nav>
 
             </nav>
