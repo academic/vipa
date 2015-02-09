@@ -172,20 +172,7 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/last_articles_index.html.twig', $data);
     }
 
-    public function articlePageAction($slug, $article_slug)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojs\JournalBundle\Entity\Article */
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['slug' => $article_slug]);
-        if (!$data['article'])
-            throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
 
-        $data['journal'] = $data['article']->getJournal();
-        $data['page'] = 'journals';
-        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
-
-        return $this->render('OjsSiteBundle::Journal/article_page.html.twig', $data);
-    }
 
     public function archiveIndexAction($slug)
     {
