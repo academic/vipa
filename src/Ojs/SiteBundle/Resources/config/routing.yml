@@ -117,4 +117,4 @@ ojs_issue_page:
 ojs_article_page:
     pattern:  /{slug}/{article_slug}
     host: "{institution}.%base_host%"
-    defaults: { _controller: OjsSiteBundle:Site:articlePage}
+    defaults: { _controller: OjsSiteBundle:Article:articlePage}
