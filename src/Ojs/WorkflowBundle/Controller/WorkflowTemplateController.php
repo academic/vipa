@@ -60,11 +60,24 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
                 ->execute();
         $newSteps = [];
         foreach ($steps as $step) {
-
-            $newSteps[$step->getId()] = $this->cloneStep($step,$newSteps);
-            ;
+            $newSteps[$step->getId()] = $this->cloneStep($step, $newSteps);
         }
-
+        // add nextstep relations
+        foreach ($steps as $step) {
+            $nextSteps = [];
+            $enity = $newSteps[$step->getId()];
+            foreach ($step->getNextSteps() as $nStep) {
+                if (isset($newSteps[$nStep['id']])) {
+                    $nextSteps[] = array('id' => $newSteps[$nStep['id']]->getId(), 'title' => $newSteps[$nStep['id']]->getTitle());
+                }
+            } 
+            /* @var \Ojs\WorkflowBundle\Document\JournalWorkflowStep $newSteps[$step->getId()] */
+            if ($nextSteps) {
+                $enity->setNextsteps($nextSteps);
+                $dm->persist($enity);
+                $dm->flush();
+            }
+        }
         /**
          * @todo
          * clone new steps and relate them 
