@@ -58,12 +58,49 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
                 ->equals(new \MongoId($template->getId()))
                 ->getQuery()
                 ->execute();
+        $newSteps = [];
+        foreach ($steps as $step) {
+
+            $newSteps[$step->getId()] = $this->cloneStep($step,$newSteps);
+            ;
+        }
 
         /**
          * @todo
          * clone new steps and relate them 
          */
         return $this->redirect($this->generateUrl('ojs_workflow_homepage'));
+    }
+
+    /**
+     * 
+     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $tplStep
+     * @param array $newSteps
+     * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
+     */
+    protected function cloneStep(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $tplStep, $newSteps)
+    {
+        if (in_array($tplStep->getId(), $newSteps)) {
+            return $newSteps[$tplStep->getId()];
+        }
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
+        $step->setJournalid($selectedJournal->getId());
+        $step->setCanEdit($tplStep->getCanEdit());
+        $step->getCanSeeAuthor($tplStep->getCanSeeAuthor());
+        $step->setFirststep($tplStep->getFirststep());
+        $step->setIsVisible($tplStep->getIsVisible());
+        $step->setLaststep($tplStep->getLaststep());
+        $step->setMaxdays($tplStep->getMaxdays());
+        $step->setMustBeAssigned($tplStep->getMustBeAssigned());
+        $step->setOnlyreply($tplStep->getOnlyreply());
+        $step->setRoles($tplStep->getRoles());
+        $step->setStatus($tplStep->getStatus());
+        $step->setTitle($tplStep->getTitle());
+        $dm->persist($step);
+        $dm->flush();
+        return $step;
     }
 
 }
