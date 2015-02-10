@@ -10,3 +10,10 @@ suggestion_institute_show:
 suggestion_institute_delete:
   pattern: /institute/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Suggestion:instituteDelete'}
+
+suggestion_journal_show:
+  pattern: /journal/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalDetail'}
+suggestion_journal_delete:
+  pattern: /journal/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalDelete'}
