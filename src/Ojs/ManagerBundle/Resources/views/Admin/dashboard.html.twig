@@ -34,5 +34,12 @@
             <li class="list-group-item"><a href="{{path('user_create_anonym_login')}}">{{"user.anonym.new"|trans}}</a></li>
         </ul>
     </div>
+    <div class="col-md-6">
+        <h2>{{ "dashboard.suggestion"|trans }}</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ path('journal_suggestion') }}">{{ "suggestion.journal"|trans }}</a></li>
+            <li class="list-group-item"><a href="{{ path('institute_suggestion') }}">{{ "suggestion.institute"|trans }}</a></li>
+        </ul>
+    </div>
 
 {% endblock %}
