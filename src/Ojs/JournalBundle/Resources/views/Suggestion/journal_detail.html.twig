@@ -1,0 +1,135 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'suggestion.journal'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "suggestion.journal.detail"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+
+            <table class="records_list  table" style="width:100%">
+                <tr>
+                    <th>{{ "journal.id"|trans }}</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "journal.title"|trans }}</th>
+                    <td>{{ entity.title }}</td>
+                    </tr>
+                <tr>
+                    <th>{{ "journal.subtitle"|trans }}</th>
+                    <td>{{ entity.subtitle }}</td>
+                    </tr>
+                <tr>
+                    <th>{{ 'journal.titleAbbr'|trans }}</th>
+                    <td>{{ entity.titleAbbr }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.titleTransliterated'|trans }}</th>
+                    <td>{{ entity.titleTransliterated }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.domain'|trans }}</th>
+                    <td>{{ entity.domain }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.subdomain'|trans }}</th>
+                    <td>{{ entity.subdomain }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.issn'|trans }}</th>
+                    <td>{{ entity.issn }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.eissn'|trans }}</th>
+                    <td>{{ entity.eissn }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.firstPublishDate'|trans }}</th>
+                    <td>{{ entity.firstPublishDate|date("d-m-Y") }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.period'|trans }}</th>
+                    <td>{{ entity.period }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.url'|trans }}</th>
+                    <td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.country'|trans }}</th>
+                    <td>{{ entity.country }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.scope'|trans }}</th>
+                    <td>{{ entity.scope}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.mission'|trans }}</th>
+                    <td>{{ entity.mission}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.languages'|trans }}</th>
+                    <td>{{ languages }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.institution'|trans }}</th>
+                    <td>{{ institution }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.subjects'|trans }}</th>
+                    <td>{{ subjects }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.cover_image'|trans }}</th>
+                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.coverImage) }}" alt=""/></td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.header_image'|trans }}</th>
+                    <td><img src="/uploads/journalfiles/{{ imagePath(entity.headerImage) }}" alt=""/></td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.tags'|trans }}</th>
+                    <td>{{ entity.tags }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.createdAt'|trans }}</th>
+                    <td>{{ entity.createdAt|date('d-m-y') }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'journal.user'|trans }}</th>
+                    <td>{{ entity.user|user }}</td>
+                </tr>
+            </table>
+            <a class="btn btn-primary" href="{{ url('suggestion_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endif %}
+    {% endjavascripts %}
+{% endblock %}

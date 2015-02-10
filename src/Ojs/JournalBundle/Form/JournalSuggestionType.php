@@ -3,16 +3,12 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Institution;
-use Ojs\JournalBundle\Entity\InstitutionTypes;
-use Ojs\UserBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ojs\UserBundle\Entity\User;
 
 class JournalSuggestionType extends AbstractType
 {
@@ -48,8 +44,6 @@ class JournalSuggestionType extends AbstractType
             /** @var Subject $subject */
             $choices['subjects'][$subject->getId()] = $subject->getSubject();
         }
-
-
         $builder
             ->add('title')
             ->add('titleAbbr')

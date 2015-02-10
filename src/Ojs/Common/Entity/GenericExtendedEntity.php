@@ -93,6 +93,7 @@ class GenericExtendedEntity implements Translatable
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
+        return $this;
     }
 
     public function setUpdatedBy($updatedBy)

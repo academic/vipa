@@ -17,3 +17,10 @@ suggestion_journal_show:
 suggestion_journal_delete:
   pattern: /journal/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Suggestion:journalDelete'}
+
+suggestion_institute_saveasnew:
+  pattern: /institute/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:instituteSave' }
+suggestion_journal_saveasnew:
+  pattern: /journal/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalSave' }

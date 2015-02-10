@@ -129,7 +129,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Add journal
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Language
+     * @return Institution
      */
     public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
     {
@@ -251,7 +251,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Set country
      *
-     * @param  integer     $country
+     * @param  string     $country
      * @return Institution
      */
     public function setCountry($country) {
@@ -263,7 +263,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Get country
      *
-     * @return integer
+     * @return string
      */
     public function getCountry() {
         return $this->country;

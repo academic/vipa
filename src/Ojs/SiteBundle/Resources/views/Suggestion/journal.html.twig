@@ -63,7 +63,7 @@
                 $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
                 $('#institution_logo_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_journalsuggestion_logo_image').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_journalsuggestion_coverimage').attr('value', JSON.parse(data.result).files.name);
             });
             $('#fileupload_header').fileupload({});
             $('#fileupload_header').bind('fileuploadsend', function (e, data) {
@@ -71,7 +71,7 @@
                 $('#institution_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
                 $('#institution_header_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_journalsuggestion_header_image').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_journalsuggestion_headerimage').attr('value', JSON.parse(data.result).files.name);
             });
         });
         $('.tags').tagsinput({

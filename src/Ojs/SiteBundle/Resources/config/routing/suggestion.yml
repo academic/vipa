@@ -7,3 +7,6 @@ ojs_suggest_institute:
 ojs_suggest_institute_success:
   pattern: /institute/success
   defaults: { _controller: OjsSiteBundle:Suggestion:instituteSuccess }
+ojs_suggest_journal_success:
+  pattern: /journal/success
+  defaults: { _controller: OjsSiteBundle:Suggestion:journalSuccess }
