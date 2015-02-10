@@ -44,10 +44,10 @@ Ojs\JournalBundle\Entity\Institution:
             gedmo:
                 - translatable
         city:
-            type: integer
+            type: string
             nullable: TRUE
         country:
-            type: integer
+            type: string
             nullable: TRUE
         addressLat:
             type: string

@@ -116,3 +116,6 @@ Information: Information
 'Click link below for reset to ojs account password': 'Click link below for reset to ojs account password'
 'Reset Now': 'Reset Now'
 forgot.password: forgot.password
+
+institute.register: "Register Institute"
+journal.register: "Register Journal"

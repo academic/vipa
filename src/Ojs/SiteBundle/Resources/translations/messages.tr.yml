@@ -112,3 +112,6 @@ Information: Bilgilendirme
 'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
 'Reset Now': 'Şimdi Sıfırla'
 forgot.password: Şifremi Unuttum
+
+institute.register: "Enstitü Kaydet"
+journal.register: "Dergi Oluştur"

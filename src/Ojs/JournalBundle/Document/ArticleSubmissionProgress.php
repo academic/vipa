@@ -10,7 +10,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class ArticleSubmissionProgress
 {
-
     /**
      * @MongoDb\Id
      */
