@@ -86,6 +86,7 @@ security:
         - { path: ^/author, roles: ROLE_AUTHOR }
         - { path: ^/editor, roles: ROLE_EDITOR }
         - { path: ^/api/*, roles: ROLE_USER }
+        - { path: ^/suggest, roles: ROLE_USER }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 #jms_security_extra:

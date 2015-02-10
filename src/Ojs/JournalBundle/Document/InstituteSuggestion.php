@@ -115,8 +115,8 @@ class InstituteSuggestion
      */
     protected $createdAt;
     /**
-     * @MongoDB\Collection
-     * @var User
+     * @MongoDB\Int
+     * @var int
      */
     protected $user;
 

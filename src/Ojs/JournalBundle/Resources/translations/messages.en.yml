@@ -14,7 +14,7 @@ last_page: 'Last Page'
 workflow: Workflow
 admin: Admin
 dashboard: Dashboard
-title: 'Title'
+title: Title
 titleTransliterated: 'Transliterated Title'
 subtitle: Subtitle
 keywords: Keywords
@@ -53,7 +53,7 @@ journal.plural: Journals
 journal.about: 'About Journal'
 journal.all: 'All Journals'
 journal.users: 'Journal Users'
-journal.theme: Journal's Theme
+journal.theme: 'Journals Theme'
 citation.citation: Citation
 citation.add: 'Add Citation'
 citation.new: 'New Citation'
@@ -90,227 +90,261 @@ author.order: Order
 author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
-author.orcid: 'ORCID'
+author.orcid: ORCID
 user.new: 'New User'
-
 details: Details
-article.manager: Article Manager
-article.detail: Article Detail
-title.transliterated: Title Transliterated
+article.manager: 'Article Manager'
+article.detail: 'Article Detail'
+title.transliterated: 'Title Transliterated'
 author: Author
 journal: Journal
 section: Section
 languages: Languages
-primaly_language: Primaly Language
+primaly_language: 'Primaly Language'
 status: Status
 doi: DOI
 check: Check
-otherid: Other ID
-journalid: Journal ID
-isAnonymous: Is Anonymous
-Pubdateseason: Pub Date Season
+otherid: 'Other ID'
+journalid: 'Journal ID'
+isAnonymous: 'Is Anonymous'
+Pubdateseason: 'Pub Date Season'
 part: Part
 url: Url
-abstract.transliterated: Abstract Transliterated
-citation.editor: Citation Editor
+abstract.transliterated: 'Abstract Transliterated'
+citation.editor: 'Citation Editor'
 'Preview Article Before Submit': 'Preview Article Before Submit'
 preview: Preview
 submit: Submit
 'Back & Continue Editing': 'Back & Continue Editing'
 issue.plural: Issues
 issue: Issue
-issue.manager: Issue Manager
+issue.manager: 'Issue Manager'
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
-articles_in_journal: Articles In Journal
-article.new: New Article
-article_author_edit: Article Author Edit
-article_author_list: List Article Author
-articleauthor_new: New Article Author
-author_order: Author Order
-author_id: Author ID
-article_id: Article ID
-articleauthor_create: Article Author Create
+articles_in_journal: 'Articles In Journal'
+article.new: 'New Article'
+article_author_edit: 'Article Author Edit'
+article_author_list: 'List Article Author'
+articleauthor_new: 'New Article Author'
+author_order: 'Author Order'
+author_id: 'Author ID'
+article_id: 'Article ID'
+articleauthor_create: 'Article Author Create'
 back: Back
-articleauthor: Article Author
-article.mysubmits: My Submissions
-article.all: All Articles
-add.language: Add Language
+articleauthor: 'Article Author'
+article.mysubmits: 'My Submissions'
+article.all: 'All Articles'
+add.language: 'Add Language'
 res: Res
-select_article_file: Select Article File
-Supplementary.File: Supplementary File
+select_article_file: 'Select Article File'
+Supplementary.File: 'Supplementary File'
 remove: Remove
 order: Order
 citation: Citation
-select_supplementary_article_file: Select Supplementary Article File
-author.manager: Author Manager
-author.list: List Author
-author.new: New Author
-fullname: Full Name
+select_supplementary_article_file: 'Select Supplementary Article File'
+author.manager: 'Author Manager'
+author.list: 'List Author'
+author.new: 'New Author'
+fullname: 'Full Name'
 initials: Initials
-author.creation: Author Creation
-author.details: Author Details
-linked.user: Linked User
+author.creation: 'Author Creation'
+author.details: 'Author Details'
+linked.user: 'Linked User'
 id: ID
-author.firstnametransliterated: Firstname Transliterated
-author.middlenametransliterated: Middle Name Transliterated
-author.lastnametransliterated: Lastname Transliterated
+author.firstnametransliterated: 'Firstname Transliterated'
+author.middlenametransliterated: 'Middle Name Transliterated'
+author.lastnametransliterated: 'Lastname Transliterated'
 adress: Address
-institution.id: Institution ID
-citation.edit: Edit Citation
-citation.list: Citation List
+institution.id: 'Institution ID'
+citation.edit: 'Edit Citation'
+citation.list: 'Citation List'
 source: Source
 type: Type
-citation.create: Create Citation
+citation.create: 'Create Citation'
 setting: Setting
-citation.setting.edit: Edit Citation Setting
-citation.setting.list: Citation Setting List
-citation.setting.new: New Citation Setting
+citation.setting.edit: 'Edit Citation Setting'
+citation.setting.list: 'Citation Setting List'
+citation.setting.new: 'New Citation Setting'
 citation.id: ID
-citation.setting: Citation Setting
+citation.setting: 'Citation Setting'
 value: Value
-contact.manager: Contact Manager
-contact.edit: Edit Contact
+contact.manager: 'Contact Manager'
+contact.edit: 'Edit Contact'
 firstname: Firstname
 lastname: Lastname
 phone: Phone
-contact.new: New Contact
-contact.detail: Contact Detail
+contact.new: 'New Contact'
+contact.detail: 'Contact Detail'
 contact: Contact
 contact.plural: Contacts
 city: City
 fax: Fax
-contact.type: Contact Type
-contact.type.list: List Contact Type
+contact.type: 'Contact Type'
+contact.type.list: 'List Contact Type'
 name: Name
-contact.type.new: New Contact Type
+contact.type.new: 'New Contact Type'
 contacttype.plural: Contacts
-file.edit: Edit File
-file.list: File List
-mimetype: Mime Type
+file.edit: 'Edit File'
+file.list: 'File List'
+mimetype: 'Mime Type'
 size: Size
-file.new: New File
-file.select: Select File
-file.details: File Details
-file.path: File Path
-institution.manager: Institution Manager
-institution.edit: Edit Institution
+file.new: 'New File'
+file.select: 'Select File'
+file.details: 'File Details'
+file.path: 'File Path'
+institution.manager: 'Institution Manager'
+institution.edit: 'Edit Institution'
 logo: Logo
-institution.new: New Institution
-institution.detail: Institution Detail
+institution.new: 'New Institution'
+institution.detail: 'Institution Detail'
 institution.plural: Institutions
 address_lat: Latitude
 address_long: Longitude
-institutiontype.edit: Edit Institution Type
-institutiontype.list: Institution Type List
-institutiontype.new: New Institution Type
-institutiontype.plural: Institution Types
-issue.edit: Edit Issue
-issue.list: Issue List
+institutiontype.edit: 'Edit Institution Type'
+institutiontype.list: 'Institution Type List'
+institutiontype.new: 'New Institution Type'
+institutiontype.plural: 'Institution Types'
+issue.edit: 'Edit Issue'
+issue.list: 'Issue List'
 journal.id: ID
 volume: Volume
 number: Number
 cover: Cover
 special: Special
 year: Year
-publishdate: Publish Date
-issue.new: New Issue
+publishdate: 'Publish Date'
+issue.new: 'New Issue'
 desc: Description
 created: Created
 updated: Updated
 deleted: Deleted
-apply.for.new.journal: Apply For New Journal
-journal.new: New Journal
-journal.apply: Apply Journal
-journal.manager: Journal Manager
-journal.update: Journal Update
-journal.edit: Journal Edit
+apply.for.new.journal: 'Apply For New Journal'
+journal.new: 'New Journal'
+journal.apply: 'Apply Journal'
+journal.manager: 'Journal Manager'
+journal.update: 'Journal Update'
+journal.edit: 'Journal Edit'
 update: Update
 cancel: Cancel
-journal.list: List Journals
-journal.my: My Journal
+journal.list: 'List Journals'
+journal.my: 'My Journal'
 ISSN: ISSN
 create: Create
-titleabbr: Title Abbr
-titletransliterated: Title Transliterated
+titleabbr: 'Title Abbr'
+titletransliterated: 'Title Transliterated'
 journal.langs: Languages
 E-ISSN: E-ISSN
-firstpublishdate: First Publish Date
+firstpublishdate: 'First Publish Date'
 period: Period
 published: Published
 image: Image
-theme.id: Theme ID
+theme.id: 'Theme ID'
 users: Users
-editor.dashboard: Editor Dashboard
-journal.detail: Journal Detail
+editor.dashboard: 'Editor Dashboard'
+journal.detail: 'Journal Detail'
 e-ISSN: e-ISSN
 URL: URL
-journalContact.edit: Edit Journal Contact
-journalcontact.list: Journal Contact List
-journalcontact.journal.id: Journal ID
-journalcontact.contact.id: Contact ID
-journalcontact.contact.type.id: Contact Type ID
-journalcontact.creation: Journal Contact Creation
-journalcontact.singular: Journal Contact
-journalsection.edit: Edit Journal Section
-journalsection.list: Journal Section List
-allow_index: Allow Index
-hide_title: Hide Title
-journalsection.new: New Journal Section
-journalsection: Journal Section
-allow_index.list: Allow Index List
-journaltheme.edit: Edit Journal Theme
-journaltheme.list: Journal Theme List
+journalContact.edit: 'Edit Journal Contact'
+journalcontact.list: 'Journal Contact List'
+journalcontact.journal.id: 'Journal ID'
+journalcontact.contact.id: 'Contact ID'
+journalcontact.contact.type.id: 'Contact Type ID'
+journalcontact.creation: 'Journal Contact Creation'
+journalcontact.singular: 'Journal Contact'
+journalsection.edit: 'Edit Journal Section'
+journalsection.list: 'Journal Section List'
+allow_index: 'Allow Index'
+hide_title: 'Hide Title'
+journalsection.new: 'New Journal Section'
+journalsection: 'Journal Section'
+allow_index.list: 'Allow Index List'
+journaltheme.edit: 'Edit Journal Theme'
+journaltheme.list: 'Journal Theme List'
 theme: Theme
 theme.plural: Themes
-journaltheme.new: New Journal theme
-journaltheme: Journal Theme
+journaltheme.new: 'New Journal theme'
+journaltheme: 'Journal Theme'
 lang.edit: Edit
 lang.list: List
 lang.code: Code
 lang.name: Name
 lang.rtl: RTL
-lang.new: New Langues
-lang.isTranslated: Is translated?
+lang.new: 'New Langues'
+lang.isTranslated: 'Is translated?'
 lang: Languages
 lang.plural: Languages
-subject.edit: Edit Subject
-subject.list: Subject List
+subject.edit: 'Edit Subject'
+subject.list: 'Subject List'
 subject: Subject
-subject.new: New Subject
+subject.new: 'New Subject'
 subject.plural: Subjects
-theme.edit: Edit Theme
-theme.list: Theme List
+theme.edit: 'Edit Theme'
+theme.list: 'Theme List'
 content: Content
-basetheme: Base Theme
-theme.new: New Theme
-searchon.wikipedia: Search on Wikipedia
-searchon.google: Search on Google Scholar
-searchon.pubmed: Search on PubMed
-special: Special
-special.issue: Special Issue
-reviewResultCodes:
-    0: Reject
-    1: Must Rewrite
-    2: Major Revision
-    3: Minor Revision
-    4: Accept
-page: 
-    singular: Page
-    plural: Pages
-    last: Last Page
-    first: First Page
-articlefile:
-    id: ID
-    title: Title
-    type: Type
-    version: Version
-    langcode: Language
-    actions: Actions
-select.article.file: "Select File"
-notes_to_editor: Notes to Editor
+basetheme: 'Base Theme'
+theme.new: 'New Theme'
+searchon.wikipedia: 'Search on Wikipedia'
+searchon.google: 'Search on Google Scholar'
+searchon.pubmed: 'Search on PubMed'
+special.issue: 'Special Issue'
+select.article.file: 'Select File'
+notes_to_editor: 'Notes to Editor'
 review: Review
-review.form: Review Form
-review.forms: Review Forms
+review.form: 'Review Form'
+review.forms: 'Review Forms'
 template: Template
 templates: Templates
-useThisTemplate: Use this template
+useThisTemplate: 'Use this template'
+reviewResultCodes.0: Reject
+reviewResultCodes.1: 'Must Rewrite'
+reviewResultCodes.2: 'Major Revision'
+reviewResultCodes.3: 'Minor Revision'
+reviewResultCodes.4: Accept
+page.singular: Page
+page.plural: Pages
+page.last: 'Last Page'
+page.first: 'First Page'
+articlefile.id: ID
+articlefile.title: Title
+articlefile.type: Type
+articlefile.version: Version
+articlefile.langcode: Language
+articlefile.actions: Actions
+save: Save
+Info: Info
+'Article Files': 'Article Files'
+'Header Image': 'Header Image'
+File: File
+suggestion.institute: Institute Suggestion
+suggestion.institute.list: Institute Suggestions
+institute.id: ID
+institute.name: Name
+institute.country: Country
+suggestion.institute.detail: Detail
+institute.slug: Slug
+institute.merge_as_new_institute: Merge As New Institute
+suggestion.journal: Journal Suggestion
+suggestion.journal.list: Journal Suggestions
+journal.title: Title
+journal.subtitle: Subtitle
+suggestion.journal.detail: Detail
+journal.titleAbbr: Title Abbr
+journal.titleTransliterated: Title Transliterated
+journal.domain: Domain
+journal.subdomain: Subdomain
+journal.issn: ISSN
+journal.eissn: EISSN
+journal.firstPublishDate: First Publish Date
+journal.period: Period
+journal.url: URL
+journal.country: Country`
+journal.scope: Scope
+journal.mission: Mission
+journal.languages: Languages
+journal.institution: Institution
+journal.subjects: Subjects
+journal.cover_image: Cover Image
+journal.header_image: Header Image
+journal.tags: Tags
+journal.createdAt: Created at
+journal.user: User
+journal.merge_as_new_journal: Merge As New Journal

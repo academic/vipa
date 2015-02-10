@@ -86,7 +86,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $url;
 
     /**
-     * @var integer
+     * @var string
      * @Expose
      */
     private $country;
@@ -681,7 +681,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set country
-     * @param  integer $country
+     * @param  string $country
      * @return Journal
      */
     public function setCountry($country)

@@ -32,6 +32,8 @@ class CommonExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
+            new \Twig_SimpleFilter('user', [$this, 'getUserById']),
+
         ];
     }
 
@@ -40,7 +42,7 @@ class CommonExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('addFilters', [$this, 'addFilters']),
             new \Twig_SimpleFunction('getImageOptions', [$this, 'getImageOptions']),
-            new \Twig_SimpleFunction('orcidLoginUrl',[$this,'orcidLoginUrl'])
+            new \Twig_SimpleFunction('orcidLoginUrl', [$this, 'orcidLoginUrl']),
         ];
     }
 
@@ -86,14 +88,14 @@ class CommonExtension extends \Twig_Extension
                 'object_id' => call_user_func([$entity, 'getId']),
                 'image_type' => $type
             ]);
-        if (!$document){
+        if (!$document) {
             $null = $this->dm->getRepository('OjsSiteBundle:ImageOptions')
-            ->init([
-                'height' => 0,
-                'width' => 0,
-                'x' => 0,
-                'y' => 0
-            ],$entity,$type);
+                ->init([
+                    'height' => 0,
+                    'width' => 0,
+                    'x' => 0,
+                    'y' => 0
+                ], $entity, $type);
             return $null;
         }
 
@@ -104,5 +106,13 @@ class CommonExtension extends \Twig_Extension
     {
         $orcid = $this->container->get('ojs.orcid_service');
         return $orcid->loginUrl();
+    }
+
+    public function getUserById($id)
+    {
+        $user = $this->container->get('doctrine')->getManager()->find('OjsUserBundle:User', $id);
+        if (!$user)
+            return null;
+        return "{$user->getUsername()} ~ {$user->getEmail()} - {$user->getFirstName()} {$user->getLastName()}";
     }
 }

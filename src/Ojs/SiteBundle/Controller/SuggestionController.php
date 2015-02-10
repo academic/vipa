@@ -27,7 +27,7 @@ class SuggestionController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
-                $suggestion->setUser($this->getUser());
+                $suggestion->setUser($this->getUser()->getId());
                 $suggestion->setCreatedAt(new \DateTime());
                 $dm->persist($suggestion);
                 $dm->flush();
@@ -51,7 +51,7 @@ class SuggestionController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
-                $suggestion->setUser($this->getUser());
+                $suggestion->setUser($this->getUser()->getId());
                 $suggestion->setCreatedAt(new \DateTime());
                 $dm->persist($suggestion);
                 $dm->flush();
@@ -69,5 +69,9 @@ class SuggestionController extends Controller
     public function instituteSuccessAction()
     {
         return $this->render('OjsSiteBundle:Suggestion:institute_success.html.twig');
+    }
+    public function journalSuccessAction()
+    {
+        return $this->render('OjsSiteBundle:Suggestion:journal_success.html.twig');
     }
 }

@@ -112,8 +112,8 @@ class JournalSuggestion
      */
     protected $createdAt;
     /**
-     * @MongoDB\Collection
-     * @var User
+     * @MongoDB\Int
+     * @var integer
      */
     protected $user;
 
@@ -135,8 +135,8 @@ class JournalSuggestion
      */
     protected $subjects;
     /**
-     * @MongoDB\Collection
-     * @var Institution
+     * @MongoDB\Int
+     * @var integer
      */
     protected $institution;
 
@@ -498,7 +498,7 @@ class JournalSuggestion
     }
 
     /**
-     * @return User
+     * @return int
      */
     public function getUser()
     {
@@ -506,7 +506,7 @@ class JournalSuggestion
     }
 
     /**
-     * @param User $user
+     * @param int $user
      */
     public function setUser($user)
     {

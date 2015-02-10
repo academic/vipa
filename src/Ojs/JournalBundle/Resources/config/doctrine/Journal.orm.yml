@@ -159,7 +159,7 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             nullable: true
         country:
-            type: integer
+            type: string
             nullable: true
         published:
             type: integer

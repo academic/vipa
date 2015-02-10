@@ -16,9 +16,12 @@
 {% endblock %}
 
 {% block body -%}
+
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "suggestion.institute.detail"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+
             <table class="records_list  table" style="width:100%">
                 <tr>
                     <th>{{ "institute.id"|trans }}</th>
@@ -86,10 +89,10 @@
                 </tr>
                 <tr>
                     <th>{{ 'institute.user' }}</th>
-                    <td>{{ entity.user }}</td>
+                    <td>{{ entity.user|user }}</td>
                 </tr>
             </table>
-
+            <a class="btn btn-primary" href="{{ url('suggestion_institute_saveasnew',{id: entity.id}) }}">{{ "institute.merge_as_new_institute"|trans }}</a>
         </div>
     </div>
 {% endblock %}
