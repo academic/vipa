@@ -39,6 +39,7 @@ class ArticleSubmissionController extends Controller
                     findBy(array('userId' => $user->getId(), 'submitted' => false));
         }
         return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
+                    'page' => 'submission',
                     'submissions' => $submissions,
                     'drafts' => $drafts,
                     'all' => $all,
