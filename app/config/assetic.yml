@@ -42,6 +42,7 @@ assetic:
                     - @OjsAnalyticsBundle/Resources/public/js/analytics.js
                     - %kernel.root_dir%/../web/vendor/select2/select2.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
 
         admin_main_css:
                 inputs:
@@ -53,6 +54,7 @@ assetic:
                     - %kernel.root_dir%/../web/assets/app/css/app.css
                     - %kernel.root_dir%/../web/vendor/select2/select2.css
                     - %kernel.root_dir%/../web/assets/app/css/admin.css
+                    - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
 
 
         apptour_css:

@@ -34,13 +34,13 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $about;
 
     /**
-     * @var integer
+     * @var string
      * @Expose
      */
     private $city;
     
     /**
-     * @var integer
+     * @var string
      * @Expose
      */
     private $country;

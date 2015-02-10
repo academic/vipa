@@ -1,0 +1,89 @@
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}
+    <div class="container">
+        <!-- Page Content -->
+        <h1 class="page-header">{{"suggestion.journal.suggest"|trans}}</h1>
+        {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <label class="control-label" for="fileupload">{{"Cover Image"|trans}}</label>
+
+    <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>{{"file.select"|trans}}</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+            </span>
+
+            <div id="institution_logo_upload_progress" style="display: none" class="label label-info">
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+
+    <span class="btn btn-success fileinput-button form-control">
+                <i class="fa fa-plus"></i>
+                <span>{{"file.select"|trans}}</span>
+                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+            </span>
+
+            <div id="institution_header_upload_progress" style="display: none" class="label label-info">
+
+            </div>
+        </div>
+        <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
+            {{ "suggest"|trans }}
+        </button>
+        {{ form_end(form) }}
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fileupload').fileupload({});
+            $('#fileupload').bind('fileuploadsend', function (e, data) {
+                $('#institution_logo_upload_progress').show();
+                $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                $('#institution_logo_upload_progress').html("{{"done"|trans}}");
+                $('#ojs_journalbundle_journalsuggestion_logo_image').attr('value', JSON.parse(data.result).files.name);
+            });
+            $('#fileupload_header').fileupload({});
+            $('#fileupload_header').bind('fileuploadsend', function (e, data) {
+                $('#institution_header_upload_progress').show();
+                $('#institution_header_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                $('#institution_header_upload_progress').html("{{"done"|trans}}");
+                $('#ojs_journalbundle_journalsuggestion_header_image').attr('value', JSON.parse(data.result).files.name);
+            });
+        });
+        $('.tags').tagsinput({
+            tagClass: 'label label-info'
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+{% endblock %}
