@@ -121,6 +121,11 @@ class InstituteSuggestion
     protected $user;
 
     /**
+     * @MongoDB\Boolean
+     * @var bool
+     */
+    protected $merged;
+    /**
      * @return mixed
      */
     public function getAbout()
@@ -439,6 +444,23 @@ class InstituteSuggestion
     {
         $this->slug = $slug;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isMerged()
+    {
+        return $this->merged;
+    }
+
+    /**
+     * @param boolean $merged
+     */
+    public function setMerged($merged)
+    {
+        $this->merged = $merged;
+    }
+
     
     
 }

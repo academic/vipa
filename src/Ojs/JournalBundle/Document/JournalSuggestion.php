@@ -141,6 +141,11 @@ class JournalSuggestion
     protected $institution;
 
     /**
+     * @MongoDB\Boolean
+     * @var bool
+     */
+    protected $merged;
+    /**
      * @return string
      */
     public function getCountry()
@@ -508,5 +513,20 @@ class JournalSuggestion
         $this->user = $user;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isMerged()
+    {
+        return $this->merged;
+    }
+
+    /**
+     * @param boolean $merged
+     */
+    public function setMerged($merged)
+    {
+        $this->merged = $merged;
+    }
 
 }
