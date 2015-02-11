@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="citationDetails col-md-12">
-            <select class="select2-element citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+            <select class="citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                 <option value="">{{"citation.type"|trans}}</option>
                 {% for type in citationTypes %}
                     <option value="{{type.name}}" 
