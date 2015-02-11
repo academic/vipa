@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label class="control-label" for="fileupload_avatar">{{ "Avatar"|trans }}</label>
                     <div id="preview_image_avatar"  style="width:200px">
-                        {% if entity.header %}
+                        {% if entity.avatar %}
                             <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200")}}"
                                  data-src="holder.js/960x200/random/text:{{entity.username}}" alt="" />
                             {% set imageoptions=getImageOptions(entity,'avatar') %}
