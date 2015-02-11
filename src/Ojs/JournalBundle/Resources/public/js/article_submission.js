@@ -206,7 +206,7 @@ var OjsArticleSubmission = {
     },
     submit: function () {
         var check = confirm("Are you sure to submit your article?");
-        if (check) {
+        if (check===true) {
             OjsCommon.waitModal();
             window.location.href = "/";
         }else{
