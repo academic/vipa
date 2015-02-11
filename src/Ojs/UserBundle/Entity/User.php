@@ -117,6 +117,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
+        $this->oauthAccounts = new ArrayCollection();
     }
 
     /**
@@ -684,7 +685,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function addOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
     {
-        $this->oauthAccounts[] = $oauthAccounts;
+        $this->oauthAccounts->add($oauthAccounts);
 
         return $this;
     }
