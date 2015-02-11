@@ -19,9 +19,9 @@
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
                 <li id="submission-progress-step1" class="active"><a href="#"><span class="badge">1</span> {{ "article.singular"|trans }}</a></li>
-                <li id="submission-progress-step2"><a href="#"><span class="badge">2</span> {{ "author.plural"|trans }}</a></li>
-                <li id="submission-progress-step3"><a href="#"><span class="badge">3</span> {{ "article.citations"|trans }}</a></li>
-                <li id="submission-progress-step4"><a href="#"><span class="badge">4</span>  {{ "article.files"|trans }}</a></li>
+                <li id="submission-progress-step2"><a href="#2"><span class="badge">2</span> {{ "author.plural"|trans }}</a></li>
+                <li id="submission-progress-step3"><a href="#3"><span class="badge">3</span> {{ "article.citations"|trans }}</a></li>
+                <li id="submission-progress-step4"><a href="#4"><span class="badge">4</span>  {{ "article.files"|trans }}</a></li>
                 <li id="submission-progress-step5 last-step"><a href="#"><span class="badge">5</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
                 <li id="resumeNote" class="text-right"></li>
             </ul>
@@ -144,10 +144,11 @@
                         <button class="btn btn-info" id="addArticleCitationInline">
                             <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
                         </button>
-
-                        <div id="citationPasteField" style="display: block!important">
-                            <div class="form-row well">
-                                <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                        <div class="col-sm-12">
+                            <div id="citationPasteField" style="display: block!important">
+                                <div class="form-row well">
+                                    <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,24 +159,22 @@
                                 {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
                             {% endfor %}
                         {% endif %}
-
-
                     </div>
-
-
                 </div>
-                <div class="step3_actions record_actions col-md-12">
-
-                    <br>
-                    <a class="btn btn-default btn-lg"
-                       onclick="javascript:OjsArticleSubmission.backTo(2);">
-                        <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                    </a>
-                    <a class="btn btn-info btn-lg"
-                       onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
-                        {{ "save.next"|trans }}
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
+                <div class="step3_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(2);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -227,10 +226,10 @@
     <script id="step4_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
     </script>
-    <script id="step3_cite_item1_tpl" type="x-tplmustache">
+    <script id="step3_cite_item_must_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
     </script>
-    <script id="step3_cite_item2_tpl" type="x-tplmustache">
+    <script id="step3_cite_item_should_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
     </script>
 
