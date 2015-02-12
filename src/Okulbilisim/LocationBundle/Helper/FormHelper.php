@@ -17,9 +17,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class FormHelper {
-    /** @var ContainerInterface  */
+class FormHelper
+{
+    /** @var ContainerInterface */
     private $container;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -42,49 +44,50 @@ class FormHelper {
     }
 
 
-    public function addCityField(FormBuilderInterface &$builder,$dataClass)
+    public function addCityField(FormBuilderInterface &$builder, $dataClass, $isMongo = false)
     {
         /** @var EntityManager $em */
         $em = $this->container->get('doctrine')->getManager();
 
         $factory = $builder->getFormFactory();
 
-        $refreshTown = function ($form, $country) use ($factory, $em) {
+        $refreshTown = function ($form, $country) use ($factory, $em, $isMongo) {
             $cities = [];
             if (!empty($country)) {
                 $country = $em->find('OkulbilisimLocationBundle:Country', $country);
                 foreach ($country->getCities() as $city) {
                     /** @var City $city */
-                    $cities[$city->getId()] = $city;
+                    $cities[$city->getId()] = $isMongo===false ? $city : $city->getName();
                 }
             }
             $options = [
-                'class' => 'Okulbilisim\LocationBundle\Entity\City',
                 'empty_value' => 'Seçin',
                 'choices' => $cities,
                 'auto_initialize' => false,
                 'label' => "Şehir",
-                'attr'=>[
-                    'class'=>'select2',
+                'attr' => [
+                    'class' => 'select2',
                 ]
             ];
+            if ($isMongo===false)
+                $options['class'] = 'Okulbilisim\LocationBundle\Entity\City';
 
             if (empty($cities)) {
                 $options['attr']['disabled'] = 'disabled';
             }
 
-            $form->add($factory->createNamed('city', 'entity', null, $options));
+            $form->add($factory->createNamed('city', $isMongo ? 'choice' : 'entity', null, $options));
         };
 
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshTown, $builder, $em,$dataClass) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshTown, $builder, $em, $dataClass) {
             $form = $event->getForm();
             $data = $event->getData();
 
             if ($data == null) {
                 return;
             }
-            if (is_a($data,$dataClass)) {
+            if (is_a($data, $dataClass)) {
                 if ($data->getCountry() instanceof Country) {
                     $refreshTown($form, $data->getCountry());
                 } else {

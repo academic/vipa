@@ -24,11 +24,12 @@ class JournalSuggestionType extends AbstractType
         $institution = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $languages = $em->getRepository('OjsJournalBundle:Lang')->findAll();
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Country')->findAll();
         $choices = [
             'subjects' => [],
             'institutions' => [],
-            'languages' => []
+            'languages' => [],
+            'countries' => []
         ];
         foreach ($institution as $ins) {
             /** @var Institution $ins */
@@ -44,6 +45,10 @@ class JournalSuggestionType extends AbstractType
             /** @var Subject $subject */
             $choices['subjects'][$subject->getId()] = $subject->getSubject();
         }
+        foreach ($countries as $country) {
+            $choices['countries'][$country->getId()] = $country->getName();
+        }
+
         $builder
             ->add('title')
             ->add('titleAbbr')
@@ -51,7 +56,7 @@ class JournalSuggestionType extends AbstractType
             ->add('subtitle')
             ->add('domain')
             ->add('subdomain')
-            ->add('country')
+            ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2']])
             ->add('issn')
             ->add('eissn')
             ->add('firstPublishDate')

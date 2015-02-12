@@ -82,8 +82,8 @@ class JournalSuggestion
      */
     protected $url;
     /**
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Int
+     * @var int
      */
     protected $country;
     /**
@@ -146,7 +146,7 @@ class JournalSuggestion
      */
     protected $merged;
     /**
-     * @return string
+     * @return int
      */
     public function getCountry()
     {
@@ -154,7 +154,7 @@ class JournalSuggestion
     }
 
     /**
-     * @param string $country
+     * @param int $country
      */
     public function setCountry($country)
     {

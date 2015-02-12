@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\UserBundle\Entity\Role;
+use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -20,25 +21,34 @@ class InstituteSuggestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        /** @var FormHelper $helper */
+        $helper = $options['helper'];
         /** @var EntityManager $em */
         $em = $options['em'];
         $institutionTypes = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
-        $choices = [];
+        $choices = [
+            'types'=>[],
+            'countries'=>[]
+        ];
         foreach ($institutionTypes as $choice) {
             /** @var InstitutionTypes $choice*/
-            $choices[$choice->getId()]=$choice->getName();
+            $choices['types'][$choice->getId()]=$choice->getName();
         }
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Country')->findAll();
+        foreach ($countries as $country) {
+            $choices['countries'][$country->getId()]=$country->getName();
+        }
+
 
         $builder
             ->add('name')
             ->add('slug')
             ->add('type','choice',[
-                'choices'=>$choices
+                'choices'=>$choices['types']
             ])
             ->add('about')
             ->add('address')
-            ->add('city')
-            ->add('country')
             ->add('lat')
             ->add('lon')
             ->add('email')
@@ -49,7 +59,15 @@ class InstituteSuggestionType extends AbstractType
             ->add('tags')
             ->add('logo_image','hidden')
             ->add('header_image','hidden')
-        ;
+
+            ->add('country', 'choice', [
+                'choices' => $choices['countries'],
+                'attr' => [
+                    'class' => 'select2  bridged-dropdown',
+                    'data-to'=>'#'.$this->getName().'_city'
+                ]
+            ]);
+        $helper->addCityField($builder,'Ojs\JournalBundle\Document\InstituteSuggestion',true);
     }
 
     /**
@@ -59,7 +77,9 @@ class InstituteSuggestionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Document\InstituteSuggestion',
-            'em'=>null
+            'em'=>null,
+            'helper' => null
+
         ));
     }
 
