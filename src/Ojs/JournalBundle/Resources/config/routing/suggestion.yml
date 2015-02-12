@@ -1,0 +1,26 @@
+journal_suggestion:
+  pattern: /journal
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journal' }
+institute_suggestion:
+  pattern: /institute
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:institute' }
+suggestion_institute_show:
+  pattern: /institute/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:instituteDetail'}
+suggestion_institute_delete:
+  pattern: /institute/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:instituteDelete'}
+
+suggestion_journal_show:
+  pattern: /journal/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalDetail'}
+suggestion_journal_delete:
+  pattern: /journal/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalDelete'}
+
+suggestion_institute_saveasnew:
+  pattern: /institute/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:instituteSave' }
+suggestion_journal_saveasnew:
+  pattern: /journal/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Suggestion:journalSave' }

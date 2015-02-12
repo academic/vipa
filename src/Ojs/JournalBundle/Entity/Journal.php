@@ -6,6 +6,7 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Okulbilisim\LocationBundle\Entity\Country;
 
 /**
  * Journal
@@ -86,11 +87,16 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $url;
 
     /**
-     * @var integer
+     * @var Country
      * @Expose
      */
     private $country;
 
+    /**
+     * @var integer
+     * @Expose
+     */
+    private $country_id;
     /**
      * @var integer
      * @Expose
@@ -672,7 +678,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get country
      *
-     * @return integer
+     * @return Country
      */
     public function getCountry()
     {
@@ -681,13 +687,30 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set country
-     * @param  integer $country
+     * @param  Country $country
      * @return Journal
      */
-    public function setCountry($country)
+    public function setCountry(Country $country)
     {
         $this->country = $country;
+        $this->country_id = $country->getId();
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * @param int $country_id
+     */
+    public function setCountryId($country_id)
+    {
+        $this->country_id = $country_id;
     }
 
     /**

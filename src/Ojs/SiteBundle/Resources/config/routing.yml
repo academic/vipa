@@ -1,7 +1,9 @@
 ojs_site_admin_page:
     resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
     prefix:   /admin/page
-    
+ojs_suggestion:
+    resource: "@OjsSiteBundle/Resources/config/routing/suggestion.yml"
+    prefix: /suggest
 redirect:
     pattern: /redirect/{type}/{id}
     defaults: { _controller: OjsSiteBundle:Redirect:redirect }
@@ -115,4 +117,4 @@ ojs_issue_page:
 ojs_article_page:
     pattern:  /{slug}/{article_slug}
     host: "{institution}.%base_host%"
-    defaults: { _controller: OjsSiteBundle:Site:articlePage}
+    defaults: { _controller: OjsSiteBundle:Article:articlePage}

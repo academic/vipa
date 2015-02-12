@@ -1,0 +1,62 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'suggestion.journal'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body -%}
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "suggestion.journal.list"|trans }}</h1>
+            <table class="records_list  table" style="width:100%">
+                <thead>
+                <tr>
+                    <th>{{ "journal.id"|trans }}</th>
+                    <th>{{ "journal.title"|trans }}</th>
+                    <th>{{ 'journal.subtitle'|trans }}</th>
+                    <th width="60px">{{ "actions"|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td> {{ entity.id }}</td>
+                        <td>{{ entity.title }}</td>
+                        <td>{{ entity.subtitle }}</td>
+                        <td>
+                            {% set show_path = 'suggestion_journal_show' %}
+                            {% set delete_path = 'suggestion_journal_delete' %}
+                            {% include '::actionbtns.html.twig' %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endif %}
+    {% endjavascripts %}
+{% endblock %}

@@ -1,0 +1,7 @@
+services:
+#    okulbilisim_location.example:
+#        class: Okulbilisim\LocationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+  okulbilisim_location.form.helper:
+    class: Okulbilisim\LocationBundle\Helper\FormHelper
+    arguments: [@service_container]

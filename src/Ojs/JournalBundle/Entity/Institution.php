@@ -3,6 +3,9 @@
 namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Okulbilisim\LocationBundle\Entity\City;
+use Okulbilisim\LocationBundle\Entity\Country;
+
 /**
  * Institution
  * @ExclusionPolicy("all")
@@ -34,17 +37,27 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $about;
 
     /**
-     * @var integer
+     * @var City
      * @Expose
      */
     private $city;
-    
     /**
      * @var integer
      * @Expose
      */
+    private $city_id;
+    
+    /**
+     * @var Country
+     * @Expose
+     */
     private $country;
 
+    /**
+     * @var string
+     * @Expose
+     */
+    private $country_id;
     /**
      * @var string
      * @Expose
@@ -129,7 +142,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Add journal
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Language
+     * @return Institution
      */
     public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
     {
@@ -167,19 +180,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Set city
      *
-     * @param  string      $city
+     * @param  City      $city
      * @return Institution
      */
-    public function setCity($city) {
+    public function setCity(City $city) {
         $this->city = $city;
-
+        $this->city_id = $city->getId();
         return $this;
     }
 
     /**
      * Get city
      *
-     * @return string
+     * @return City
      */
     public function getCity() {
         return $this->city;
@@ -251,19 +264,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Set country
      *
-     * @param  integer     $country
+     * @param  Country     $country
      * @return Institution
      */
-    public function setCountry($country) {
+    public function setCountry(Country $country) {
         $this->country = $country;
-
+        $this->country_id = $country->getId();
         return $this;
     }
 
     /**
      * Get country
      *
-     * @return integer
+     * @return Country
      */
     public function getCountry() {
         return $this->country;
@@ -496,6 +509,38 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     {
         $this->institution_type_id = $institution_type_id;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCityId()
+    {
+        return $this->city_id;
+    }
+
+    /**
+     * @param int $city_id
+     */
+    public function setCityId($city_id)
+    {
+        $this->city_id = $city_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * @param string $country_id
+     */
+    public function setCountryId($country_id)
+    {
+        $this->country_id = $country_id;
     }
 
 }

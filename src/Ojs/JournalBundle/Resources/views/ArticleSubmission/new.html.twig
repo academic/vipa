@@ -4,209 +4,210 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-
-    <style>
-        .slip-reordering {  box-shadow: 0 2px 10px rgba(0,0,0,0.45); }
-        .slip-swiping-container {  overflow-x: hidden;  }
-        #authorlist li {  user-select: none;  -moz-user-select: none; -webkit-user-select: none; cursor: default; }
-    </style>
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %} 
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" name="journalId" value="{%if journal.id %}{{ journal.id }}{%endif%}"/>
-    <input type="hidden" name="submissionId" value="{%if submissionId is defined %}{{submissionId}}{%endif%}"/>
+    <input type="hidden" name="journalId" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
+    <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
-    <ul class='nav nav-wizard submission-progress' id="article-submission-steps">
-        <li id="submission-progress-step1" class="active"><span class="badge">1</span> {{"article.singular"|trans}}</li>
-        <li id="submission-progress-step2"><span class="badge">2</span> {{"author.plural"|trans}}</li>
-        <li id="submission-progress-step3"><span class="badge">3</span> {{"article.citations"|trans}}</li>
-        <li id="submission-progress-step4"><span class="badge">4</span>  {{"article.files"|trans}}</li>
-        <li class="laststep"><span class="badge">5</span> {{"preview"|trans}} & {{"submit"|trans}}</li>
-    </ul> 
-    {% if session('selectedJournalId')  %}
-        <div class="dropdown">
-            <button class="dropdown-toggle btn btn-block btn-default" type="button" id="changeSelectedJournal" data-toggle="dropdown">
-                {{ userjournals[session('selectedJournalId')].title  }}
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu list-group" role="menu">
-                {%for journal in userjournals%}
-                    <li class=list-group-item">
-                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
-                            {{journal.title}}
-                        </a>
-                    </li> 
-                {%endfor%}
+    <div class="panel panel-default panel-steps">
+        <div class="panel-heading">
+            <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
+                <li id="submission-progress-step1" class="active"><a href="#"><span class="badge">1</span> {{ "article.singular"|trans }}</a></li>
+                <li id="submission-progress-step2"><a href="#2"><span class="badge">2</span> {{ "author.plural"|trans }}</a></li>
+                <li id="submission-progress-step3"><a href="#3"><span class="badge">3</span> {{ "article.citations"|trans }}</a></li>
+                <li id="submission-progress-step4"><a href="#4"><span class="badge">4</span>  {{ "article.files"|trans }}</a></li>
+                <li id="submission-progress-step5 last-step"><a href="#"><span class="badge">5</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
+                <li id="resumeNote" class="text-right"></li>
             </ul>
-        </div> 
-    {%endif%}
-    <form name="base" class="form-horizontal row" role="form">
-        <div class="form-group col-md-6">
-            <label class="col-md-6 control-label">{{"article.language.primary"|trans}}</label>
-            <div class="col-md-4">
-                <select class="select2-element" name="primaryLanguage" class="form-control" style="width:200px">
-                    {% for lang in journal.languages %}
-                        <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
-                    {% endfor %}
-                </select>
-            </div>
         </div>
-        <div class="col-md-6">
-            <span id="resumeNote" class="">
+        <div class="panel-body">
+            <div id="step1-container" class="step row">
+                <div class="row">
+                    {% if session('selectedJournalId') %}
+                        <div class="col-md-3 col-xs-12"><label></label><span class="badge">1.1</span> Select journal to submit</label></div>
+                        <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
+                            <select id="changeSelectedJournal" class="form-control select2-element">
+                                {% for journal in userjournals %}
+                                    <option value="{{ path('change_selected_journal',{'journal_id':journal.id}) }}"
+                                            {% if journal.id == selected_journal_id  %}selected="selected" {% endif %}>
+                                        {{ journal.title }} {% if journal.id == selected_journal_id  %} {{ "(selected)"|trans }} {% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-12"><span class="badge">1.2</span> {{ "article.language.primary"|trans }}</div>
+                    <div class="col-md-9 col-xs-12">
+                        <select name="primaryLanguage" class="form-control select2-element">
+                            {% for lang in journal.languages %}
+                                <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-12"><span class="badge">1.3</span> {{ "article.language.primary"|trans }}</div>
+                    <div class="col-md-9 col-xs-12">
+                        <ul id="mainTabs" class="nav nav-tabs" role="tablist">
+                            <li class="lang dropdown">
+                                <a href="#" id="languageDrop" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-plus"></i> {{ "add.language"|trans }} <span class="caret"></span>
+                                </a>
+                                <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
+                                    {% for lang in  journal.languages %}
+                                        <li>
+                                            <a href="#" id="langitem_{{ lang.code }}"
+                                               code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
+                                                {{ lang.name }}
+                                                <small>({{ lang.code }})</small>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
 
-            </span>
-        </div>
-    </form>
+                        <!-- Tab panes -->
 
-    <div id="step1-container" class="step">
-        <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-            <li class="lang dropdown">
-                <a href="#" id="languageDrop" class="dropdown-toggle"
-                   data-toggle="dropdown">
-                    <i class="fa fa-plus"></i> {{"add.language"|trans}}
-                    <span class="caret"></span>
-                </a>
-                <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                    {% for lang in  journal.languages %}
-                        <li>
-                            <a href="#"
-                               id="langitem_{{ lang.code }}"
-                               code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
-                                {{ lang.name }}
-                                <small>({{ lang.code }})</small>
+                        <div class="tab-content" id="step1">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="step1_actions record_actions">
+                        <div class="col-sm-12">
+                            <hr />
+                            <a class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
+                               href="{{ path('article_submission_new') }}">
+                                <i class="fa fa-repeat"></i>
+                                {{ "restart"|trans }}
                             </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul> 
+                            <a class="btn btn-success btn-lg pull-right"
+                               onclick="javascript: OjsArticleSubmission.step1('{{ path('article_submission_step1',{'locale':'locale'}) }}');">
+                                <i class="fa fa-save"></i>
+                                {{ "save.next"|trans }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="step2-container" class="step hide">
+                <h2>{{ "article.authors"|trans }}</h2>
 
-        <!-- Tab panes -->
+                <div id="step2" class="authorlist">
+                    {% if submissionData is defined and submissionData.authors is defined %}
+                        {% for author in submissionData.authors %}
+                            {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
+                        {% endfor %}
+                    {% endif %}
 
-        <div class="tab-content" id="step1">
+                </div>
+                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"add_new_author"|trans}}</a>
 
-        </div>
-        <div class="step1_actions record_actions col-md-12">
-            <br>
-            <a class="btn btn-default btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
-               href="{{ path('article_submission_new') }}">
-                {{"res"|trans}}
-            </a>
-            <a class="btn btn-info btn-lg"
-               onclick="javascript: OjsArticleSubmission.step1('{{ path('article_submission_step1',{'locale':'locale'}) }}');">
-                {{ "save.next"|trans }}
-                <i class="fa fa-chevron-right"></i>
-            </a>
-        </div>
-    </div>
-    <div id="step2-container" class="step hide">
-        <h2>{{"article.authors"|trans}} 
-            <a href="#" onclick="javascript:OjsArticleSubmission.addAuthorForm();
-                    return false;" 
-               class="btn btn-xs btn-info"><i class="fa fa-plus"></i> {{"add"|trans}}</a>
-        </h2>
-
-        <div id="step2" class="authorlist">
-            {% if submissionData is defined and submissionData.authors is defined %}
-                {% for author in submissionData.authors %}
-                    {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}    
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="step2_actions record_actions col-md-12">
-            <br>
-            <a class="btn btn-default btn-lg"
-               onclick="javascript:OjsArticleSubmission.backTo(1);">
-                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-            </a>
-            <a class="btn btn-info btn-lg"
-               onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
-                {{ "save.next"|trans }} 
-                <i class="fa fa-chevron-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <div id="step3-container" class="step hide">
-
-        <div id="step3">
-            <h2>{{"citations"|trans}}</h2>
-            <div class="row">
-                <button class="btn btn-success" id="pasteArticleCitationInline">
-                    <i class="fa fa-edit"></i> {{"citation.paste_extract"|trans}}
-                </button>
-                <button class="btn btn-info" id="addArticleCitationInline">
-                    <i class="fa fa-plus"></i> {{"citation.add"|trans}}
-                </button>
-
-                <div id="citationPasteField" style="display: block!important">
-                    <div class="form-row well">
-                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                <div class="step2_actions record_actions">
+                    <div class="col-sm-12">
+                    <hr>
+                    <a class="btn btn-danger btn-lg"
+                       onclick="javascript:OjsArticleSubmission.backTo(1);">
+                        <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                    </a>
+                    <a class="btn btn-success btn-lg pull-right"
+                       onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
+                        <i class="fa fa-save"></i>
+                        {{ "save.next"|trans }}
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
                     </div>
                 </div>
             </div>
 
-            <div id="citationContainer">
-                {%if citations is defined %}
-                    {% for citationItem in citations %}
-                        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
-                    {% endfor %}
-                {% endif %}
+            <div id="step3-container" class="step hide">
 
+                <div id="step3">
+                    <h2>{{ "citations"|trans }}</h2>
 
+                    <div class="row">
+                        <button class="btn btn-success" id="pasteArticleCitationInline">
+                            <i class="fa fa-edit"></i> {{ "citation.paste_extract"|trans }}
+                        </button>
+                        <button class="btn btn-info" id="addArticleCitationInline">
+                            <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
+                        </button>
+                        <div class="col-sm-12">
+                            <div id="citationPasteField" style="display: block!important">
+                                <div class="form-row well">
+                                    <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="citationContainer">
+                        {% if citations is defined %}
+                            {% for citationItem in citations %}
+                                {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="step3_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(2);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
 
 
-        </div>
-        <div class="step3_actions record_actions col-md-12">
+            <div id="step4-container" class="step hide">
+                <h3>{{ 'article.files'|trans }}
+                    <button onclick="OjsArticleSubmission.addFileForm();"
+                            class="btn btn-sm btn-info">+ New File
+                    </button>
+                </h3>
+                <div id="step4">
+                    {% if submissionData is defined and submissionData.files is defined %}
+                        {% for file in submissionData.files %}
+                            {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="step4_actions record_actions col-md-12">
+                    <br>
+                    <a class="btn btn-default btn-lg"
+                       onclick="javascript:OjsArticleSubmission.backTo(3);">
+                        <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                    </a>
 
-            <br>
-            <a class="btn btn-default btn-lg"
-               onclick="javascript:OjsArticleSubmission.backTo(2);">
-                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-            </a>
-            <a class="btn btn-info btn-lg"
-               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
-                {{ "save.next"|trans }}
-                <i class="fa fa-chevron-right"></i>
-            </a>
-        </div>
-    </div>
-
-
-    <div id="step4-container" class="step hide">
-        <h3>{{ 'article.files'|trans }}
-            <button onclick="OjsArticleSubmission.addFileForm();" 
-                    class="btn btn-sm btn-info">+ New File</button>
-        </h3>
-        <div id="step4">
-            {% if submissionData is defined and submissionData.files is defined %}
-                {% for file in submissionData.files %}
-                    {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="step4_actions record_actions col-md-12">
-            <br>
-            <a class="btn btn-default btn-lg"
-               onclick="javascript:OjsArticleSubmission.backTo(3);">
-                <i class="fa fa-chevron-left"></i> {{ "b"|trans}} 
-            </a>
-
-            <a class="btn btn-info btn-lg"
-               onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
-                {{ "save.next"|trans }}
-                <i class="fa fa-chevron-right"></i>
-            </a>
+                    <a class="btn btn-info btn-lg"
+                       onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
+                        {{ "save.next"|trans }}
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-
-
 
 
 
@@ -215,21 +216,21 @@
     </script>
 
     <script id="step2_tpl" type="x-tmplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}    
+        {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
     </script>
 
     <script id="step3_tpl" type="x-tmplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}    
+        {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
     </script>
 
     <script id="step4_tpl" type="x-tmplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}    
+        {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
     </script>
-    <script id="step3_cite_item1_tpl" type="x-tplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}    
+    <script id="step3_cite_item_must_tpl" type="x-tplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
     </script>
-    <script id="step3_cite_item2_tpl" type="x-tplmustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}    
+    <script id="step3_cite_item_should_tpl" type="x-tplmustache">
+        {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
     </script>
 
 {% endblock %}
@@ -239,60 +240,60 @@
     {{ parent() }}
     {% javascripts  '@submission_js' output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %} 
+    {% endjavascripts %}
 
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-        {% endjavascripts %}
+    {% endjavascripts %}
 
-        <script>
-            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+    <script>
+        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        var currentStep = parseInt(window.location.hash.replace("#", ""));
+        window.onbeforeunload = function () {
+            //return "{{"sure_data_lost"|trans}}";
+        };
+        function loadCurrentStep(currentStep) {
+            OjsArticleSubmission.hideAllSteps();
+            OjsArticleSubmission.prepareStep["step" + currentStep]();
+        }
+        $(window).on("hashchange", function (event) {
             var currentStep = parseInt(window.location.hash.replace("#", ""));
-            window.onbeforeunload = function () {
-                return "{{"sure_data_lost"|trans}}";
-            };
-            function loadCurrentStep(currentStep) {
-                OjsArticleSubmission.hideAllSteps();
-                OjsArticleSubmission.prepareStep["step" + currentStep]();
+            if (window.currentStep !== currentStep) {
+                window.currentStep = currentStep;
+                loadCurrentStep(currentStep);
             }
-            $(window).on("hashchange", function (event) {
-                var currentStep = parseInt(window.location.hash.replace("#", ""));
-                if (window.currentStep !== currentStep) {
-                    window.currentStep = currentStep;
-                    loadCurrentStep(currentStep);
-                }
-            });
-            $(document).ready(function () {
-                var currentStep = parseInt(window.location.hash.replace("#", ""));
-                if (currentStep) {
-                    loadCurrentStep(currentStep);
-                }
-            {%if submissionId is defined %} 
-                OjsArticleSubmission.submissionId = "{{submissionId}}";
-                OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-                {#
-                Load submission steps with data
-                #} 
-                $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-                {% for key,article in submissionData.articleData %}
-                        var params = {
-                            "article_title": "{{article.title|raw}}",
-                            "article_subtitle": "{{article.subtitle|raw}}",
-                            "article_keywords": "{{article.keywords|raw}}",
-                            "article_subjects": "{{article.subjects|raw}}",
-                            "article_abstract": "{{article.abstract|raw}}"
-                        };
-                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
-                {% endfor %} 
+        });
+        $(document).ready(function () {
+            var currentStep = parseInt(window.location.hash.replace("#", ""));
+            if (currentStep) {
+                loadCurrentStep(currentStep);
+            }
+            {%if submissionId is defined %}
+            OjsArticleSubmission.submissionId = "{{submissionId}}";
+            OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
+            {#
+            Load submission steps with data
+            #}
+            $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
+            {% for key,article in submissionData.articleData %}
+            var params = {
+                "article_title": "{{article.title|raw}}",
+                "article_subtitle": "{{article.subtitle|raw}}",
+                "article_keywords": "{{article.keywords|raw}}",
+                "article_subjects": "{{article.subjects|raw}}",
+                "article_abstract": "{{article.abstract|raw}}"
+            };
+            OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+            {% endfor %}
 
-                        OjsArticleSubmission.activatedSteps["step1"] = true;
+            OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
-                });
-        </script>
-        {% endblock %}
+        });
+    </script>
+{% endblock %}

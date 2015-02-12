@@ -31,9 +31,7 @@
                     <input  name="email"  id="emailinput" class="form-control"
                            value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
                 </div>
-                <br>
-                <a class="btn btn-sm btn-info pull-right" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"add"|trans}}</a>
-                <a class="btn btn-sm btn-warning" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
+                <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
                 <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
 
                 <div style="display:none">

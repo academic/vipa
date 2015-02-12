@@ -1,0 +1,111 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'suggestion.institute'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "suggestion.institute.detail"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
+
+            <table class="records_list  table" style="width:100%">
+                <tr>
+                    <th>{{ "institute.id"|trans }}</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ "institute.name"|trans }}</th>
+                    <td>{{ entity.name }}</td>
+                    </tr>
+                <tr>
+                    <th>{{ 'institute.slug'|trans }}</th>
+                    <td>{{ entity.slug }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.address' }}</th>
+                    <td>{{ entity.address }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.about' }}</th>
+                    <td>{{ entity.about }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.city' }}</th>
+                    <td>{{ entity.city }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.lat-lon' }}</th>
+                    <td>{{ entity.lat }}, {{ entity.lon }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.phone' }}</th>
+                    <td>{{ entity.phone }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.fax' }}</th>
+                    <td>{{ entity.fax }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.email' }}</th>
+                    <td>{{ entity.email }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.url' }}</th>
+                    <td><a href="{{ entity.url }}" target="_blank">{{ entity.url }}</a></td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.wiki_url' }}</th>
+                    <td><a href="{{ entity.wikiUrl }}" target="_blank">{{ entity.wikiUrl }}</a></td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.logo' }}</th>
+                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.logoImage) }}" alt=""/></td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.header' }}</th>
+                    <td><img src="/uploads/institutionfiles/{{ imagePath(entity.headerImage) }}" alt=""/></td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.tags' }}</th>
+                    <td>{{ entity.tags }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.createdAt' }}</th>
+                    <td>{{ entity.createdAt|date('d-m-y') }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'institute.user' }}</th>
+                    <td>{{ entity.user|user }}</td>
+                </tr>
+            </table>
+            <a class="btn btn-primary" href="{{ url('suggestion_institute_saveasnew',{id: entity.id}) }}">{{ "institute.merge_as_new_institute"|trans }}</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
+    {% if app.user.setting('tour.admin.journal') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endif %}
+    {% endjavascripts %}
+{% endblock %}

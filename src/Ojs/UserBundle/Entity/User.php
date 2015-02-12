@@ -5,6 +5,8 @@ namespace Ojs\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\Common\Entity\GenericExtendedEntity;
 use Ojs\JournalBundle\Entity\Subject;
+use Okulbilisim\LocationBundle\Entity\City;
+use Okulbilisim\LocationBundle\Entity\Country;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -112,11 +114,33 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     private $settings;
 
+    /**
+     * @var integer
+     * @Expose
+     */
+    private $country_id;
+    /**
+     * @var Country
+     * @Expose
+     */
+    private $country;
+    /**
+     * @var integer
+     * @Expose
+     */
+    private $city_id;
+    /**
+     * @var City
+     * @Expose
+     */
+    private $city;
+
     public function __construct()
     {
         $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
+        $this->oauthAccounts = new ArrayCollection();
     }
 
     /**
@@ -587,7 +611,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function getFullName()
     {
-        return $this->getFirstName().' '.$this->getLastName();
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     private $title;
@@ -664,7 +688,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Get customFields
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCustomFields()
     {
@@ -684,7 +708,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function addOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
     {
-        $this->oauthAccounts[] = $oauthAccounts;
+        $this->oauthAccounts->add($oauthAccounts);
 
         return $this;
     }
@@ -702,7 +726,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Get oauthAccounts
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOauthAccounts()
     {
@@ -711,21 +735,101 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function __toString()
     {
-        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
+        return $this->getUsername() . '( ' . $this->getFullName() . ' ~ ' . $this->getEmail() . ' ) ';
     }
 
     public function toJson()
     {
         $data = [
-            'username'=>$this->getUsername(),
-            'avatar'=>$this->getAvatar(),
-            'email'=>$this->getEmail(),
-            'first_name'=>$this->getFirstName(),
-            'last_name'=>$this->getLastName(),
-            'full_name'=>$this->getFullName(),
-            'header'=>$this->getHeader(),
-            'title'=>$this->getTitle(),
+            'username' => $this->getUsername(),
+            'avatar' => $this->getAvatar(),
+            'email' => $this->getEmail(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'full_name' => $this->getFullName(),
+            'header' => $this->getHeader(),
+            'title' => $this->getTitle(),
         ];
+        if($this->getCountry() instanceof Country){
+            $data['country'] = $this->getCountry()->getName();
+        }
+        if($this->getCity() instanceof City){
+            $data['city'] = $this->getCity()->getName();
+        }
         return json_encode($data);
     }
+
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return User
+     */
+    public function setCity(City $city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCityId()
+    {
+        return $this->city_id;
+    }
+
+    /**
+     * @param int $city_id
+     * @return User
+     */
+    public function setCityId($city_id)
+    {
+        $this->city_id = $city_id;
+        return $this;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     * @return User
+     */
+    public function setCountry(Country $country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * @param int $country_id
+     * @return User
+     */
+    public function setCountryId($country_id)
+    {
+        $this->country_id = $country_id;
+        return $this;
+    }
+
+
 }

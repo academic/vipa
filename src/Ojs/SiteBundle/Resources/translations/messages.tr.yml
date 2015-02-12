@@ -117,3 +117,7 @@ archive: Arşiv
 title : Makalenin Başlığı
 subtitle: Makalenin Alt Başlığı
 author: Yazar
+
+institute.register: "Enstitü Kaydet"
+journal.register: "Dergi Oluştur"
+

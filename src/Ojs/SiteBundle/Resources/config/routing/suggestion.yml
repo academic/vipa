@@ -1,0 +1,12 @@
+ojs_suggest_journal:
+  pattern: /journal
+  defaults: { _controller: OjsSiteBundle:Suggestion:journal }
+ojs_suggest_institute:
+  pattern: /institute
+  defaults: { _controller: OjsSiteBundle:Suggestion:institute }
+ojs_suggest_institute_success:
+  pattern: /institute/success
+  defaults: { _controller: OjsSiteBundle:Suggestion:instituteSuccess }
+ojs_suggest_journal_success:
+  pattern: /journal/success
+  defaults: { _controller: OjsSiteBundle:Suggestion:journalSuccess }

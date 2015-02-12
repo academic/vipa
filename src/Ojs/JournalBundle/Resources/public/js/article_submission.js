@@ -1,12 +1,12 @@
 var OjsArticleSubmission = {
     submissionId: null,
+    step:null,
     languages: [],
     activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
-    showResumeNote: function (submissionId) {
-        $rnt = $("#resumeNote");
-        $rnt.html("You can resume your submission progress anytime with this url  " +
-                "<a href='/author/article/submit/resume/" + submissionId + "'>#" + submissionId + "</a>");
-        $rnt.show();
+    showResumeNote: function () {
+
+        var html = '<a href="/author/article/submit/resume/' + this.submissionId + '#' + this.step + '">' + this.submissionId + '</a>';
+        $("#resumeNote").html(html);
     },
     loadStepTemplate: function (step) {
         if (!this.activatedSteps["step" + step]) {
@@ -31,6 +31,8 @@ var OjsArticleSubmission = {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
         history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
         window.location.hash = step;
+        this.step = step;
+        this.showResumeNote();
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
@@ -111,6 +113,7 @@ var OjsArticleSubmission = {
                 translationParams.push(tmpParam);
             }
         });
+
         if (!articleParams) {
             OjsCommon.errorModal("Please select and fill metadata for article's language.");
             return;
@@ -128,7 +131,6 @@ var OjsArticleSubmission = {
                 $("input[name=submissionId]").attr('value', response.submissionId);
                 OjsArticleSubmission.hideAllSteps();
                 OjsArticleSubmission.prepareStep.step2();
-                OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
@@ -189,7 +191,6 @@ var OjsArticleSubmission = {
                 dataArray.push($(this).serializeObject());
             });
             OjsCommon.waitModal();
-            console.log(dataArray);
             $.post(actionUrl, {"filesData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
                 OjsArticleSubmission.hideAllSteps();
                 if (response.redirect) {
@@ -205,7 +206,7 @@ var OjsArticleSubmission = {
     },
     submit: function () {
         var check = confirm("Are you sure to submit your article?");
-        if (check) {
+        if (check===true) {
             OjsCommon.waitModal();
             window.location.href = "/";
         }else{
@@ -260,9 +261,15 @@ var OjsArticleSubmission = {
     },
     setupUi: function () {
         this.bindFileUploader();
+        $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+        OjsArticleSubmission.step1AddLanguageForm($primaryLang, $("#langitem_" + $primaryLang).attr("lang"));
         $('input[name=keywords], input[name=subjects]').tagsinput({
             tagClass: 'label label-info'
         });
+
+        $('#changeSelectedJournal').on("select2-selecting", function(e) {
+            window.location.href = "" + e.val;
+        })
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
     }
 };
