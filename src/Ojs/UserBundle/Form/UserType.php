@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Form;
 
+use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -48,6 +49,16 @@ class UserType extends AbstractType
 //                    'multiple' => true,
 //                    'expanded' => false,
 //                ))
+            ->add('country', 'entity', [
+                'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                'attr' => [
+                    'class' => 'select2  bridged-dropdown',
+                    'data-to'=>'#'.$this->getName().'_city'
+                ]
+            ]);
+        /** @var FormHelper $helper */
+        $helper = $options['helper'];
+        $helper->addCityField($builder,'Ojs\UserBundle\Entity\User');
         ;
     }
 
@@ -57,7 +68,8 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\User'
+            'data_class' => 'Ojs\UserBundle\Entity\User',
+            'helper' => null
         ));
     }
 

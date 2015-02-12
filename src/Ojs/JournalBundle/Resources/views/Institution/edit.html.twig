@@ -85,6 +85,8 @@
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script src="{{ asset('/bundles/okulbilisimlocation/js/location.js') }}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fileupload').fileupload({});
@@ -148,6 +150,7 @@
                 }
 
             })
+            okulbilisimlocation.bridge('.bridged-dropdown');
         });
     </script>
 {% endblock %}

@@ -1,0 +1,35 @@
+Okulbilisim\LocationBundle\Entity\City:
+  type: entity
+  table: cities
+  repositoryClass: Okulbilisim\LocationBundle\Entity\CityRepository
+  id:
+    id:
+      type: integer
+      nullable: false
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    code:
+      type: string
+      length: 5
+    name:
+      type: string
+      lenght: 255
+    latitude:
+      type: string
+      length: 255
+    longitude:
+      type: string
+      length: 255
+    country_code:
+      type: string
+    country_id:
+      type: integer
+  manyToOne:
+    country:
+      targetEntity: Okulbilisim\LocationBundle\Entity\Country
+      inversedBy: cities
+      joinColumn:
+        name: country_id
+        referencedColumnName: id

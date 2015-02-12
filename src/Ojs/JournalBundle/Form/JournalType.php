@@ -39,7 +39,9 @@ class JournalType extends AbstractType {
                 ))
                 ->add('period')
                 ->add('url')
-                ->add('country')
+                ->add('country','entity',[
+                    'class'=>'Okulbilisim\LocationBundle\Entity\Country',
+                ])
                 ->add('published')
                 ->add('status')
                 ->add('image', 'hidden')
