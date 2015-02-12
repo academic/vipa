@@ -307,3 +307,26 @@ review.form: İnceleme Formu
 review.forms: İnceleme Formları
 template: Şablon
 templates: Şablonlar
+save: Kaydet
+home: AnaSayfa
+journal_langs: Derginin Dilleri
+first_publish_date: Yayınlanma Tarihi
+issues: Sayılar
+Volume: Cilt
+Issue: Sayı
+Info: Bilgi
+Article Files: Makalenin Dosyaları
+Header Image: Başlık Resmi
+select.image.file: Bir Resim Dosyası Seç
+uploading: Yükleniyor
+done: Tamamlandı
+actions: İşlemler
+back: Geri
+File: Dosya
+articlefile.new: Yeni Makale Dosyası
+save.next: Kaydet ve Devam Et
+add: Ekle
+
+
+
+

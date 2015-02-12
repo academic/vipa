@@ -1,0 +1,47 @@
+dashboard:
+    admin: Yönetim Paneli
+    editor: Editör Yönetim Paneli
+    objects: Objeler
+    operations: İşlemler
+    
+    
+article.plural: Makaleler
+author.plural: Yazarlar
+contact.plural: İletişim Adresleri
+contacttype.plural: İletişim Tipleri
+institution.plural: Kurumlar
+institutiontype.plural: Kurum tipleri
+issue.plural: Sayılar
+journal.plural: Dergiler
+subject.plural: Konular
+lang.plural: Diller
+theme.plural: Temalar
+journal.theme: Derginin Temaları
+user.plural: Kullanıcılar
+role.plural: Roller
+user.anonym.new: Yeni Kullanıcı Ekle
+journal.my: Dergilerim
+journal : Dergi
+role.singular: Rol
+journal.nothave: Herhangi bir dergiye kayıtlı değilsiniz
+issue.edit: Sayıyı düzenle
+date.publish: Yayınlanma Tarihi
+order: Sıra
+article.singular: Makale
+page.first: İlk Sayfa
+page.last: Son Sayfa
+save: Kaydet
+cancel: İptal
+dashboard: Panel
+issue.manager: Sayı Yöneticisi
+special.issue : Özel Sayı
+special: Özel
+year: Yıl
+create: Oluştur
+issue: Sayı
+role.forusers: Kullanıcının Rolleri 
+username: Kullanıcı Adı
+email: Email Adresi
+status: Durum
+roles : Rolleri
+actions : İşlemler
