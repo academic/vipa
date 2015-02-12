@@ -46,7 +46,10 @@ class SuggestionController extends Controller
     {
         $data = [];
         $suggestion = new InstituteSuggestion();
-        $form = $this->createForm(new InstituteSuggestionType(), $suggestion, ['em' => $this->getDoctrine()->getManager()]);
+        $form = $this->createForm(new InstituteSuggestionType(), $suggestion, [
+            'em' => $this->getDoctrine()->getManager(),
+            'helper'=>$this->get('okulbilisim_location.form.helper')
+        ]);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {

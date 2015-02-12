@@ -10,6 +10,7 @@ use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
+use Okulbilisim\LocationBundle\Entity\Country;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -68,10 +69,13 @@ class SuggestionController extends Controller
         /** @var Institution $institution */
         $institution = $em->find('OjsJournalBundle:Institution', $entity->getInstitution());
 
+        /** @var Country $country */
+        $country = $em->find('OkulbilisimLocationBundle:Country',$entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = join(',', $languages);
         $data['institution'] = $institution->getName() . "[" . $institution->getSlug() . "]";
+        $data['country'] = $country->getName();
         $data['subjects'] = join(',', $subjects);
         return $this->render('OjsJournalBundle:Suggestion:journal_detail.html.twig', $data);
     }
@@ -133,7 +137,7 @@ class SuggestionController extends Controller
             $journal = new Journal();
             $journal->setUrl($entity->getUrl())
                 ->setTags($entity->getTags())
-                ->setCountry($entity->getCountry())
+                ->setCountryId($entity->getCountry())
                 ->setCreatedBy($user->getUsername())
                 ->setDomain($entity->getDomain())
                 ->setEissn($entity->getEissn())
@@ -192,8 +196,8 @@ class SuggestionController extends Controller
                 ->setAddress($entity->getAddress())
                 ->setAddressLat($entity->getLat())
                 ->setAddressLong($entity->getLon())
-                ->setCity($entity->getCity())
-                ->setCountry($entity->getCountry())
+                ->setCityId($entity->getCity())
+                ->setCountryId($entity->getCountry())
                 ->setCreatedBy($user->getUsername())
                 ->setEmail($entity->getEmail())
                 ->setFax($entity->getFax())

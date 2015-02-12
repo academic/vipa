@@ -525,6 +525,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     public function setCityId($city_id)
     {
         $this->city_id = $city_id;
+        return $this;
     }
 
     /**
@@ -541,6 +542,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     public function setCountryId($country_id)
     {
         $this->country_id = $country_id;
+        return $this;
     }
 
 }

@@ -50,13 +50,13 @@ class InstituteSuggestion
      */
     protected $about;
     /**
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Int
+     * @var int
      */
     protected $city;
     /**
-     * @MongoDB\String
-     * @var string
+     * @MongoDB\Int
+     * @var int
      */
     protected $country;
     /**
@@ -158,7 +158,7 @@ class InstituteSuggestion
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getCity()
     {
