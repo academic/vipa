@@ -83,3 +83,6 @@ ojs_site:
 okulbilisim_cms:
     resource: "@OkulbilisimCmsBundle/Resources/config/routing.yml"
     prefix:   /
+okulbilisim_location:
+    resource: "@OkulbilisimLocationBundle/Resources/config/routing.yml"
+    prefix: /

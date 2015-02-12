@@ -48,6 +48,7 @@ class AppKernel extends Kernel {
             new Okulbilisim\CmsBundle\OkulbilisimCmsBundle(),
             new Unifik\DatabaseConfigBundle\UnifikDatabaseConfigBundle(),
             new Ojs\NotifierBundle\OjsNotifierBundle(),
+            new Okulbilisim\LocationBundle\OkulbilisimLocationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

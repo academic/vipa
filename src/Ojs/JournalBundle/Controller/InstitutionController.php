@@ -62,6 +62,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
+            'helper'=>$this->get('okulbilisim_location.form.helper')
         ));
 
         return $form;
@@ -125,6 +126,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'POST',
+            'helper'=>$this->get('okulbilisim_location.form.helper')
         ));
 
         return $form;

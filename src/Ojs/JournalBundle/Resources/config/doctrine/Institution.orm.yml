@@ -21,6 +21,16 @@ Ojs\JournalBundle\Entity\Institution:
             name: institution_type_id
             referencedColumnName: id
           inversedBy: institutions
+        country:
+          targetEntity: Okulbilisim\LocationBundle\Entity\Country
+          joinColumn:
+            name: country_id
+            referencedColumnName: id
+        city:
+          targetEntity: Okulbilisim\LocationBundle\Entity\City
+          joinColumn:
+            name: city_id
+            referencedColumnName: id
     fields:
         institution_type_id:
             type: integer
@@ -43,11 +53,11 @@ Ojs\JournalBundle\Entity\Institution:
             nullable: TRUE
             gedmo:
                 - translatable
-        city:
-            type: string
+        city_id:
+            type: integer
             nullable: TRUE
-        country:
-            type: string
+        country_id:
+            type: integer
             nullable: TRUE
         addressLat:
             type: string

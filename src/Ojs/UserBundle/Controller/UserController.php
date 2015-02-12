@@ -68,6 +68,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
+            'helper' => $this->get('okulbilisim_location.form.helper')
         ));
 
         return $form;
@@ -156,6 +157,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'POST',
+            'helper' => $this->get('okulbilisim_location.form.helper')
         ));
         return $form;
     }

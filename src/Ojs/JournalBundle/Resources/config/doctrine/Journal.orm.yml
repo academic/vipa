@@ -15,6 +15,11 @@ Ojs\JournalBundle\Entity\Journal:
             name: theme_id
             referencedColumnName: id
           inversedBy: journals
+        country:
+          targetEntity: Okulbilisim\LocationBundle\Entity\Country
+          joinColumn:
+            name: country_id
+            referencedColumnName: id
     oneToMany:
         settings:
             targetEntity: JournalSetting
@@ -158,8 +163,8 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
-        country:
-            type: string
+        country_id:
+            type: integer
             nullable: true
         published:
             type: integer
