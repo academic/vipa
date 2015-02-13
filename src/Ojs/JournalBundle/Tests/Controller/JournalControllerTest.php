@@ -37,7 +37,7 @@ class JournalControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journal[firstPublishDate][time]'] = '01:01:43';
         $form['ojs_journalbundle_journal[period]'] = 'Content';
         $form['ojs_journalbundle_journal[url]'] = 'Content';
-        $form['ojs_journalbundle_journal[countryId]'] = 1;
+        $form['ojs_journalbundle_journal[country]'] = 1;
         $form['ojs_journalbundle_journal[published]'] = 1;
         $form['ojs_journalbundle_journal[status]'] = 1;
         $form['ojs_journalbundle_journal[image]'] = 'Content';
