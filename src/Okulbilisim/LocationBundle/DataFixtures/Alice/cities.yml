@@ -1,0 +1,8 @@
+\Okulbilisim\LocationBundle\Entity\City:
+  cities{1..100}:
+    code: <text(5)>
+    name: <city()>
+    latitude: <latitude()>
+    longitude: <longitude()>
+    country_code: @countries*->isoCode
+    country: @countries*
