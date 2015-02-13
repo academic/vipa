@@ -10,6 +10,8 @@ namespace Ojs\SiteBundle\Twig;
 
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
+use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Ojs\SiteBundle\Document\ImageOptions;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -80,7 +82,7 @@ class CommonExtension extends \Twig_Extension
         return explode('|', $filter);
     }
 
-    public function getImageOptions($entity, $type)
+    public function getImageOptions($entity, $type, $filter = null)
     {
         $document = $this->dm->getRepository('OjsSiteBundle:ImageOptions')
             ->findOneBy([
@@ -88,14 +90,30 @@ class CommonExtension extends \Twig_Extension
                 'object_id' => call_user_func([$entity, 'getId']),
                 'image_type' => $type
             ]);
-        if (!$document) {
+        if (!$document || $document->getHeight() < 1 || $document->getWidth() < 1) {
+            $defaultConfig = [
+                'height' => 0,
+                'width' => 0,
+                'x' => 0,
+                'y' => 0
+            ];
+            /** @var FilterManager $filterManager */
+            $filterManager = $this->container->get('liip_imagine.filter.manager');
+            if ($filter) {
+                $config = $filterManager->getFilterConfiguration()->get($filter);
+                if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['size'])) {
+                    $size = $config['filters']['crop']['size'];
+                    $defaultConfig['height'] = $size[0];
+                    $defaultConfig['width'] = $size[1];
+                }
+                if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['start'])) {
+                    $start = $config['filters']['crop']['start'];
+                    $defaultConfig['x'] = $start[0];
+                    $defaultConfig['y'] = $start[1];
+                }
+            }
             $null = $this->dm->getRepository('OjsSiteBundle:ImageOptions')
-                ->init([
-                    'height' => 0,
-                    'width' => 0,
-                    'x' => 0,
-                    'y' => 0
-                ], $entity, $type);
+                ->init($defaultConfig, $entity, $type);
             return $null;
         }
 

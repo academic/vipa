@@ -5,7 +5,7 @@
     <div class="container">
         <!-- Page Content -->
         <h1 class="page-header">{{entity.name}} </h1>
-        {% set imageoptions=getImageOptions(entity,'header') %}
+        {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
 
         <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header))|imagine_filter('institution_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/720x150/#f9A497:#ffffff/text:{{entity.name}}" alt=""/>
         <div class="clearfix"></div>

@@ -52,9 +52,19 @@ class UserController extends Controller
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
+            $dm = $this->get('doctrine.odm.mongodb.document_manager');
             if ($form->isValid()) {
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($user);
+                $header = $request->request->get('header');
+                $cover = $request->request->get('avatar');
+                $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+                $imageOptions = $ir->init($header,$user,'header');
+                $dm->persist($imageOptions);
+                $imageOptions = $ir->init($cover,$user,'avatar');
+                $dm->persist($imageOptions);
+                $dm->flush();
+
                 $em->flush();
             } else {
                 $session = $this->get('session');
