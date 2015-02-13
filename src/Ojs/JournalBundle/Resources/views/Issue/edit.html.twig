@@ -31,7 +31,7 @@
             {% if entity.header %}
                 <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960')}}"
                      data-src="holder.js/960x200/random/text:{{entity.title}}" alt="" />
-                {% set imageoptions=getImageOptions(entity,'header') %}
+                {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
                 <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
                 <input id="header_width"  name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
                 <input id="header_x"  name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
@@ -89,7 +89,7 @@
         aspectRatio: 960 / 200,
                 maxWidth:960,
                 maxHeight:200,        {% if  entity.header %}
-            {% set imageoptions=getImageOptions(entity,'header') %}
+            {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
                         data:{
                         x:{{ imageoptions.x }},
                                 y:{{ imageoptions.y }},

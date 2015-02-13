@@ -4,7 +4,7 @@
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
                     {% if(app.user.getAvatar()) %}
-                        {% set imageoptions=getImageOptions(app.user,'avatar') %}
+                        {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
 
                         <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}})}}"
                              class="avatar img-circle img-responsive" />
