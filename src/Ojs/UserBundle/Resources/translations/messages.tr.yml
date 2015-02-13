@@ -105,8 +105,11 @@ user.journalrole.user.id: ID
 user.journalrole.user.username: Kullanıcı Adı
 user.journalrole.email: Eposta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
+
+user.anonym : Yeni Kullanıcı
+
 user.anonym:
-  new: "Yeni ekle"
+  new: "Yeni Kullanıcı ekle"
   firstname: "Ad"
   lastname: "Soyad"
   email: "Eposta"
@@ -115,6 +118,7 @@ user.anonym:
   has_register: "Kayıt"
   user: "Kullanıcı"
   object: "Nesne"
+  create_password: "Şifre Oluştur"
 
 orcid:
   login: "ORCID ile bağlan"
@@ -124,3 +128,27 @@ user.journalrole.mail.to: "Alıcı"
 user.journalrole.mail.subject: "Konu"
 user.journalrole.mail.body: "Mesaj"
 user.journalrole.mail.send: "Gönder"
+
+
+dashboard: Panel
+
+You've invited to OJS: "Dergipark'a davet edildiniz"
+Click link below for login to ojs if you are accept invitation: "Daveti kabul ediyorsanız, asağıdaki linke tıklayınız."
+Login Now : "Şimdi Giriş Yap"
+Password Change : "Şifre Değiştir"
+Information: "Bilgi"
+Your password has been changed: "Şifreniz değişmiştir"
+Password Reset: "Şifreyi Resetle"
+Your password has been reset: "Şifreniz resetlenmiştir"
+You are request password reset: "Şifreyi resetlemek istediğinize emin misiniz?"
+Password Reset Process: "Şifrenin resetlenme süreci"
+Click link below for reset to ojs account password : "DergiPark'a giriş şifrenizi resetlemek için aşağıdaki linke tıklayınız."
+Reset Now: "Resetle"
+save: Kaydet
+Avatar: Avatar
+Header Image: "Başlık Resmi"
+
+
+  
+  
+ 

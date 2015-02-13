@@ -117,6 +117,51 @@ archive: Arşiv
 title : Makalenin Başlığı
 subtitle: Makalenin Alt Başlığı
 author: Yazar
+section: Bölüm
+languages: Diller
+subjects: Konular
+keywords: Anahtar Kelimeler
+date.publish: Yayınlanma Tarihi
+first_page: İlk Sayfa
+last_page: Son Sayfa
+abstract: Özet
+citations: Referanslar
+tags: Etiketler
+more: Detayı
+Issue: Sayı
+No Content: İçerik Yok
+scope: Kapsam
+mission: Misyon
+journal_langs: Derginin Dilleri
+first_publish_date : Yayınlanma Tarihi
+country: Ülke
+issues: Sayılar
+Volume: Cilt
+editorial: Editör
+new.block: Yeni Alan
+Link Ekle: Link Ekle
+Journals: Dergiler
+List: Liste
+actions: İşlemler
+search.results: Arama Sonuçları
+'results were found for the search for <strong class="text-danger">%term%</strong>':  <strong class="text-danger">%term%</strong> için bulunan sonuçlar
+'results were found for the tag for <strong class="text-danger">%term%</strong>' : <strong class="text-danger">%term%</strong> etiketi için bulunan sonuçlar
+institution: Enstitü
+user: kullanıcı
+journal.plural: Dergiler
+institution.plural: Enstitüler
+subject.plural: Konular
+User: Kullanıcı
+user.new: Yeni Kullanıcı
+orcid.login: ORCID ID ile Giriş Yap
+Avatar: Avatar
+select.image.file: Resim Dosyası Seç
+Header Image: Başlık Resmi
+uploading: Yükleniyor
+done: Tamamlandı
+
+
+    
 
 institute.register: "Enstitü Kaydet"
 journal.register: "Dergi Oluştur"
