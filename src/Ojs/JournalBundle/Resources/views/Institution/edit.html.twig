@@ -110,7 +110,7 @@
                 maxWidth:960,
                 maxHeight:200,
                 {% if  entity.header %}
-                {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
+                {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
 
                 data:{
                     x: {{ imageoptions.x }},
@@ -134,7 +134,7 @@
                 width:200,
 
                 {% if  entity.logo %}
-                {% set imageoptions=getImageOptions(entity,'cover','height_200') %}
+                {% set imageoptions=getImageOptions(entity,'cover','institution_logo') %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},

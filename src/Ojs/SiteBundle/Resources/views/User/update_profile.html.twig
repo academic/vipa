@@ -139,7 +139,7 @@
                 maxHeight:200,
 
                 {% if  entity.avatar %}
-                {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
+                {% set imageoptions=getImageOptions(entity,'avatar',"avatar_thumb_crop") %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -161,7 +161,7 @@
                 maxHeight:390,
 
                 {% if  entity.avatar %}
-                {% set imageoptions=getImageOptions(entity,'header',"wide_960") %}
+                {% set imageoptions=getImageOptions(entity,'header',"user_header") %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},

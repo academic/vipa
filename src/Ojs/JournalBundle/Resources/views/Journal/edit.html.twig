@@ -128,7 +128,7 @@
                 maxWidth:960,
                 maxHeight:200,
                 {% if  entity.header %}
-                {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
+                {% set imageoptions=getImageOptions(entity,'header','journal_header') %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -149,7 +149,7 @@
                 maxWidth:200,
                 maxHeight:300,
                 {% if  entity.header %}
-                {% set imageoptions=getImageOptions(entity,'cover','wide_200') %}
+                {% set imageoptions=getImageOptions(entity,'cover','journal_cover') %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
