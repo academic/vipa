@@ -31,6 +31,7 @@ before_script:
   - php app/console assets:install web --symlink
   - app/console assetic:dump
   - php app/console h4cc_alice_fixtures:load:sets
+  - mysql ojs < src/Okulbilisim/LocationBundle/Resources/data/location.sql
 
 script: phpunit -c app
 
