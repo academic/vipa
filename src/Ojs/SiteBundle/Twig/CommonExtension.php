@@ -126,11 +126,13 @@ class CommonExtension extends \Twig_Extension
         return $orcid->loginUrl();
     }
 
-    public function getUserById($id)
+    public function getUserById($id,$object=false)
     {
         $user = $this->container->get('doctrine')->getManager()->find('OjsUserBundle:User', $id);
         if (!$user)
             return null;
+        if($object)
+            return $user;
         return "{$user->getUsername()} ~ {$user->getEmail()} - {$user->getFirstName()} {$user->getLastName()}";
     }
 }

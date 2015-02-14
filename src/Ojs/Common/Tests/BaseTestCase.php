@@ -17,9 +17,10 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\BrowserKit\Client;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +40,8 @@ abstract class BaseTestCase extends WebTestCase
     protected $router;
 
 
+    /** @var  Crawler */
+    protected $crawler;
     public function setUp()
     {
         $this->client = $this->createClient();
@@ -116,7 +119,7 @@ abstract class BaseTestCase extends WebTestCase
 
     protected function isAccessible($params, $data = [],$type='GET',$redirectOnSuccess=false)
     {
-        $this->client->request(
+        $this->crawler = $this->client->request(
             $type,
             call_user_func_array([$this->router, 'generate'], $params),
             $data

@@ -9,7 +9,7 @@
 {% block body -%}
     <div class="row">
         <div class="panel">
-            <h1>{{"user.list"|trans}}</h1>
+            <h1>{{"user.anonym.list"|trans}}</h1>
             <table class="records_list  table">
                 <thead>
                 <tr>
@@ -26,14 +26,13 @@
                 </thead>
                 <tbody>
                 {% for entity in entities %}
+                    {% set _user=entity.userId|user(true) %}
                     <tr>
-                        <td>{{ entity.firstname }}</td>
-                        <td>{{ entity.lastname}}</td>
-                        <td>{{ entity.email }}</td>
-                        <td>{{ entity.role }}</td>
-                        <td>{{ entity.hasLogged }}</td>
-                        <td>{{ entity.hasRegister }}</td>
-                        <td>{{ entity.userId }}</td>
+                        <td>{{ _user.firstName}}</td>
+                        <td>{{ _user.lastName}}</td>
+                        <td>{{ _user.email }}</td>
+                        <td>{{ _user.roles|join(',') }}</td>
+                        <td>{{ entity.used }}</td>
                         <td>{{ getObject(entity.object,entity.objectId)|raw }}</td>
                         <td>
                             {% set edit_path = 'user_edit_anonym_login' %}

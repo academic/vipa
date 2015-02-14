@@ -6,14 +6,20 @@ framework:
     session:
         storage_id: session.storage.mock_file
     profiler:
-        collect: false
+        collect: true
 
 web_profiler:
     toolbar: false
     intercept_redirects: false
 
 swiftmailer:
-    disable_delivery: true
+    transport:  mail
+    # (smtp, mail, sendmail, or gmail)
+    spool:
+        type: "file" #(how to queue the messages, file or memory is supported, see How to Spool Emails)
+        path: "%kernel.root_dir%/spool" #(where to store the messages)
+    #delivery_address: (an email address where to send ALL emails)
+    #disable_delivery: (set to true to disable delivery completely)
 
 doctrine_mongodb:
     connections:

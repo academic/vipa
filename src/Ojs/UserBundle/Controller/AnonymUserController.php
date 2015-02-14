@@ -14,6 +14,7 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\AnonymUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnonymUserController extends Controller
 {
@@ -42,14 +43,16 @@ class AnonymUserController extends Controller
         $entity = $user ? $user : new \Ojs\UserBundle\Entity\User();
 
         $entity
-            ->setUsername($user_formdata['email'])
             ->setStatus(1)
             ->setIsActive(true);
         if(!$entity->getPassword()){
             $entity
                 ->setPassword(time());
         }
-
+        if(!$entity->getUsername()){
+            $entity
+                ->setUsername($user_formdata['email']);
+        }
         $roles = $entity->getRoles();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -130,13 +133,19 @@ class AnonymUserController extends Controller
         return $form;
     }
 
-    public function listAction(Request $request, $object, $id)
+    public function listAction(Request $request, $object=null, $id=0)
     {
         $dm = $this->container->get('doctrine.odm.mongodb.document_manager')
-            ->getRepository('OjsUserBundle:AnonymUser');
-        $users = $dm->findBy(['object' => $object, 'object_id' => (int)$id]);
+        ->getRepository('OjsUserBundle:AnonymUserToken');
+        $params = [];
+        if($object)
+            $params['object']=$object;
+        if($id)
+            $params['object_id']=(int)$id;
+        $users = $dm->findBy($params);
         $data = [];
         $data['entities'] = $users;
+        //@todo object based roles not stable.
         return $this->render('OjsUserBundle:AnonymUser:index.html.twig', $data);
     }
 
@@ -168,6 +177,14 @@ class AnonymUserController extends Controller
         $data['form'] = $form->createView();
 
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
+    }
 
+    public function deleteAction(Request $request, $id)
+    {
+        $login = $this->container->get('doctrine.odm.mongodb.document_manager')
+            ->find('OjsUserBundle:AnonymUser',$id);
+        if(!$login)
+            throw new NotFoundHttpException;
+        return $this->redirectToRoute('user_list_anonym_login');
     }
 }

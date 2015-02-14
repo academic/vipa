@@ -116,6 +116,7 @@ user.anonym:
   has_register: "Registered"
   user: "UserID"
   object: "Object"
+  list: "List Anonym Login"
 orcid:
   login: "Login With ORCID"
 user.journalrole.send_email: "Send Email To User"

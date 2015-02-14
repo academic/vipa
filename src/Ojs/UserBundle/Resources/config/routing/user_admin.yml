@@ -42,7 +42,7 @@ user_create_anonym_login_success:
     defaults: { _controller: "OjsUserBundle:AnonymUser:createSuccess" }
 user_list_anonym_login:
     pattern: /anonym/list/{object}/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:list" }
+    defaults: { _controller: "OjsUserBundle:AnonymUser:list", object: null, id: 0 }
 user_edit_anonym_login:
     pattern: /anonym/edit/{id}
     defaults: { _controller: "OjsUserBundle:AnonymUser:edit" }
