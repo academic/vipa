@@ -115,6 +115,7 @@ user.anonym:
   has_register: "Kayıt"
   user: "Kullanıcı"
   object: "Nesne"
+  list: "Listele"
 
 orcid:
   login: "ORCID ile bağlan"
