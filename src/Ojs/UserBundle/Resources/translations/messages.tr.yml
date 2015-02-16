@@ -119,6 +119,7 @@ user.anonym:
   user: "Kullanıcı"
   object: "Nesne"
   create_password: "Şifre Oluştur"
+  list: "Listele"
 
 orcid:
   login: "ORCID ile bağlan"
