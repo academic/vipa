@@ -43,7 +43,7 @@ $(document).ready(function () {
             $('div.sidebar-collapse').removeClass('collapse');
         }
     });
-    if ($('#issuetree').length>0) {
+    if ($('#issuetree').length > 0 && typeof alternateData != "undefined") {
         $('#issuetree').treeview({
             showTags: true,
             data: alternateData,
