@@ -1,20 +1,23 @@
 \Ojs\JournalBundle\Entity\Journal:
   journal1:
-    issn: <regexify('\d{4}-\d{4}')>
-    mission: <text(250)>
-    period: <randomDigit(2)>
+    issn: null
+    eissn: 2148-2357
+    mission: "One of the most important areas of interest of Acta Medica Anatolia is Anatolian History of Medicine. Many communities such as Hittites, Phrygians, Lydians, Alexander's Empire, and the Byzantines lived in the region of Anatolia, and Turks have lived since 1071. Many important names in the history of medicine have lived in this region where hosted so many different cultures and beliefs. For these reasons, Acta Medica Anatolia gives a special importance to every type of articles (Review, short report, letter, etc.) written about the comparisons of old and new medical practices conducted in this region."
+    period: 3
     published: '1'
-    scope: <text(250)>
-    subtitle: <text(100)>
-    title: Demo Ojs Journal
-    titleAbbr: A demo journal or ojs.io
+    scope: "Acta Medica Anatolia is a peer-reviewed general medical journal and welcomes manuscripts in English. The Journal publishes scientific researches, reviews, editorials, letters to the editors, and interesting case reports in all fields of clinical specialties. It is issued four times per year (March, June, September, and December), and is distributed in electronic format."
+    subtitle: Acta Medica Anatolia
+    title: Acta Medica Anatolia
+    titleAbbr: Acta Med Anatol
     titleTransliterated: null
-    url: null
-    subdomain (unique): demo
+    url: "http://www.anatoliamedica.com"
+    subdomain (unique): acta-medica
+    slug: acta-medica
     institution: @institution1
     subject: 5x @subject*
     status: '3'
     languages: 3x @lang*
+    
   journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
     mission: <text(50)>
