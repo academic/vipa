@@ -1,4 +1,24 @@
 \Ojs\JournalBundle\Entity\Institution:
+  institution1: 
+      email: info@anatoliamedica.com
+      slug: anatoliamedica
+      name: "Acta Medica Anatolia"    
+      url: "demo"
+      name: "demo uni"
+      about:  null
+      phone: null
+      address: "Bolu, Turkey"
+      institution_type: @i_type
+  institution{2..50}:
+    email (unique): <email()>
+    slug (unique): <domainWord()>
+    url: <url()>
+    name: <text(20)> University
+    about: <text(399)>
+    phone: <tr_TR:phoneNumber()>
+    address: <address()>
+    institution_type: @i_type*
+    tags: <text(20)>, <text(10)>
   institution1:
     email: "demo@institution.com"
     slug: "demoinst"

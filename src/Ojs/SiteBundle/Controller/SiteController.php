@@ -22,7 +22,7 @@ class SiteController extends Controller
     {
         $data['page'] = 'index';
         $em = $this->getDoctrine()->getManager();
-        $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array(), array(), 6);
+        $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array(), array(), 12);
         $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
         foreach ($subjects as $subject) {
