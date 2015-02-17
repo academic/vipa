@@ -10,6 +10,33 @@
                 <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                      data-src="holder.js/1200x300/random/text:{{ journal.title }}" alt="" class="img-responsive"/>
 
+                <div class="col-md-12">
+                    <dl class="journal-meta">
+                        {% if journal.issn %}
+                            <dt>ISSN</dt>
+                            <dd>{{ journal.issn }}</dd>
+                        {% endif %}
+                        {% if journal.eissn %}
+                            <dt>e-ISSN</dt>
+                            <dd>{{ journal.eissn }}</dd>
+                        {% endif %}
+                        <dt>{{ "journal_langs"|trans }}</dt>
+                        <dd>{% for language in journal.languages %}<span
+                                class="badge badge-success">{{ language.name }}</span> {% endfor %}</dd>
+                        <dt>{{ "first_publish_date"|trans }}</dt>
+                        <dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
+                        <dt>{{ "period"|trans }}</dt>
+                        <dd>{{ journal.period }}</dd>
+                        {% if journal.url %}
+                            <dt>{{ "url"|trans }}</dt>
+                            <dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
+                            {% endif %}
+                            {% if journal.country %}
+                            <dt>{{ "country"|trans }}</dt>
+                            <dd>{{ journal.country }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
                 <h1>{{ journal.title }}
                     <small>{{ journal.titleAbbr }}</small>
                 </h1>
@@ -27,7 +54,6 @@
                      data-src="holder.js/120x180/random/text:{{ journal.title }}"
                      class="img-responsive img-rounded float-left" alt=""/>
             </div>
-
             <div class="col-md-4">
                 <h5>{{ "scope"|trans }}</h5>
 
@@ -45,30 +71,46 @@
             </div>
             <div class="col-md-3">
                 <div class="list-group journal-stats">
+
+                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4></a>
+
                     <a href="#" class="list-group-item visitor">
                         <h3 class="pull-right">
                             <i class="fa fa-eye"></i>
                         </h3>
                         <h4 class="list-group-item-heading count">
-                            1000</h4>
+                            {{random(10000)}}</h4>
 
                         <p class="list-group-item-text">
-                            Journal Views</p>
-                    </a><a href="#" class="list-group-item facebook-like">
+                            Article Views</p>
+                    </a>
+                    <a href="#" class="list-group-item visitor">
+                        <h3 class="pull-right">
+                            <i class="fa fa-download"></i>
+                        </h3>
+                        <h4 class="list-group-item-heading count">
+                            {{random(10000)}}</h4>
+
+                        <p class="list-group-item-text">
+                            Article Downloads</p>
+                    </a>
+                    <a href="#" class="list-group-item facebook-like">
                         <h3 class="pull-right">
                             <i class="fa fa-facebook-square"></i>
                         </h3>
                         <h4 class="list-group-item-heading count">
-                            1000</h4>
+                            {{random(10000)}}</h4>
 
                         <p class="list-group-item-text">
                             Facebook Likes</p>
-                    </a><a href="#" class="list-group-item google-plus">
+                    </a>
+                    <a href="#" class="list-group-item google-plus">
                         <h3 class="pull-right">
                             <i class="fa fa-google-plus-square"></i>
                         </h3>
                         <h4 class="list-group-item-heading count">
-                            1000</h4>
+                            {{random(10000)}}</h4>
 
                         <p class="list-group-item-text">
                             Google+</p>
@@ -83,44 +125,10 @@
                         <p class="list-group-item-text">
                             Twitter Followers</p>
                     </a>
-                    <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="btn btn-primary btn-block"><i class="fa fa-archive"></i> {{ "archive"|trans }}</a>
                 </div>
             </div>
         </div>
-        <hr/>
-        <div class="row">
-            <div class="col-md-12">
-                <dl class="journal-meta">
-                    {% if journal.issn %}
-                        <dt>ISSN</dt>
-                        <dd>{{ journal.issn }}</dd>
-                    {% endif %}
-                    {% if journal.eissn %}
-                        <dt>e-ISSN</dt>
-                        <dd>{{ journal.eissn }}</dd>
-                    {% endif %}
-                    <dt>{{ "journal_langs"|trans }}</dt>
-                    <dd>{% for language in journal.languages %}<span
-                                class="badge badge-success">{{ language.name }}</span> {% endfor %}</dd>
-                    <dt>{{ "first_publish_date"|trans }}</dt>
-                    <dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
-                    <dt>{{ "period"|trans }}</dt>
-                    <dd>{{ journal.period }}</dd>
-                    {% if journal.url %}
-                        <dt>{{ "url"|trans }}</dt>
-                        <dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                    {% endif %}
-                    {% if journal.country %}
-                        <dt>{{ "country"|trans }}</dt>
-                        <dd>{{ journal.country }}</dd>
-                    {% endif %}
-
-
-
-                </dl>
-            </div>
-        </div>
+        <hr/> 
         <div class="row">
 
             <div class="col-md-12">
