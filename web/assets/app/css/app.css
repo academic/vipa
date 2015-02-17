@@ -974,33 +974,5 @@ a.vimeo:hover * { color:#FFF; }
 
 .panel-steps .row {margin-bottom: 20px}
 
+#search-box-1{position:relative;width:100%;margin:20px 0}#search-form-1{height:40px;border:1px solid #999;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background-color:#fff;overflow:hidden}#search-text-1{font-size:14px;color:#ddd;border-width:0;background:0 0}#search-box-1 input[type="text"]{width:90%;padding:11px 0 12px 1em;color:#333;outline:none}#search-button-1{position:absolute;top:0;right:0;height:40px;width:80px;font-size:14px;color:#fff;text-align:center;line-height:40px;border-width:0;background-color:#999;-webkit-border-radius:0 5px 5px 0;-moz-border-radius:0 5px 5px 0;border-radius:0 5px 5px 0;cursor:pointer}
 
-.searchContainer{
-    width: 100%;vertical-align: middle;white-space: nowrap;position: relative;
-}
-.searchContainer input#search{
-    width: 100%; height: 50px; background: #2b303b;
-    border: none;font-size: 10pt; float: left;color: #262626;
-    padding-left: 45px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
-    border-radius: 5px;  -webkit-transition: all .55s ease;-moz-transition: all .55s ease;-ms-transition: all .55s ease;-o-transition: all .55s ease;
-    transition: all .55s ease;
-}
-.searchContainer input#search::-webkit-input-placeholder {
-    color: #65737e;
-}
-.searchContainer input#search:-moz-placeholder { /* Firefox 18- */
-    color: #65737e;
-}
-.searchContainer input#search::-moz-placeholder {  /* Firefox 19+ */
-    color: #65737e;
-}
-.searchContainer input#search:-ms-input-placeholder {
-    color: #65737e;
-}
-.searchContainer .icon{
-    position: absolute;  top: 50%; margin-left: 17px; margin-top: 17px;z-index: 1; color: #4f5b66;
-}
-.searchContainer input#search:focus, .searchContainer input#search:active{
-    outline:none;
-    background: #ffffff;
-}
