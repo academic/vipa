@@ -973,3 +973,34 @@ a.vimeo:hover * { color:#FFF; }
 .journal-meta dd:last-child{border-right: none;}
 
 .panel-steps .row {margin-bottom: 20px}
+
+
+.searchContainer{
+    width: 100%;vertical-align: middle;white-space: nowrap;position: relative;
+}
+.searchContainer input#search{
+    width: 100%; height: 50px; background: #2b303b;
+    border: none;font-size: 10pt; float: left;color: #262626;
+    padding-left: 45px; -webkit-border-radius: 5px; -moz-border-radius: 5px;
+    border-radius: 5px;  -webkit-transition: all .55s ease;-moz-transition: all .55s ease;-ms-transition: all .55s ease;-o-transition: all .55s ease;
+    transition: all .55s ease;
+}
+.searchContainer input#search::-webkit-input-placeholder {
+    color: #65737e;
+}
+.searchContainer input#search:-moz-placeholder { /* Firefox 18- */
+    color: #65737e;
+}
+.searchContainer input#search::-moz-placeholder {  /* Firefox 19+ */
+    color: #65737e;
+}
+.searchContainer input#search:-ms-input-placeholder {
+    color: #65737e;
+}
+.searchContainer .icon{
+    position: absolute;  top: 50%; margin-left: 17px; margin-top: 17px;z-index: 1; color: #4f5b66;
+}
+.searchContainer input#search:focus, .searchContainer input#search:active{
+    outline:none;
+    background: #ffffff;
+}

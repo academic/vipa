@@ -51,16 +51,29 @@
                     </p>
                     <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 
-                    <p class="text-center">
-                        <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
+                    <div class="col-md-12">
+                        <div class="searchContainer">
+                            <form action="/search" method="get">
+                                <span class="icon"><i class="fa fa-search"></i></span>
+                                <input type="search" id="search" placeholder="{{"search"|trans}}...">
+                            </form>
+                        </div>
+                    </div>
+                    <hr><br><br>
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
                                     class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}</a>
-                        <a href="{{ url("ojs_suggest_institute") }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
-                                        class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
-                        <a href="{{ url('ojs_suggest_journal') }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
+                            <!--
+                            <a href="{{ url("ojs_suggest_institute") }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
+                                            class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
+                            -->
+                            <a href="{{ url('ojs_suggest_journal') }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
                                         class="fa fa-book"></i></span> {{ "journal.register"|trans }}</a>
-                        <a href="{{ url('article_submission_new') }}" class="btn btn-default btn-lg btn-labeled"><span
+                            <a href="{{ url('article_submission_new') }}" class="btn btn-default btn-lg btn-labeled"><span
                                     class="btn-label"><i class="fa fa-file-pdf-o"></i></span>{{ 'article.submit'|trans }}</a>
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -74,11 +87,11 @@
                     </p>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <h6>{{ "journal.plural"|trans }}</h6>
+                    <h4>{{ "journal.plural"|trans }}</h4>
 
                     <div class="row">
                         {% for journal in journals %}
-                            <div class="col-sm-2 col-md-2">
+                            <div class="col-sm-2 col-md-2" style="margin-top:10px">
                                 <a href="{{ url('ojs_journal_index',{slug:journal.slug, institution: journal.institution.slug}) }}">
                                     <img src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
                                 </a>
@@ -86,17 +99,18 @@
                         {% endfor %}
                     </div>
                     <hr/>
+                    <!--
                     <h6>{{ "institution.plural"|trans }}</h6>
-
                     <div class="row">
-                        {% for institution in institutions %}
-                            <div class="col-sm-2 col-md-2">
-                                <a href="{{ url('ojs_institution_page',{slug: institution.slug}) }}">
-                                    <img src="holder.js/96x96/random/text:{{ institution.name }}" class="img-rounded"/>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    </div>
+                    {% for institution in institutions %}
+                        <div class="col-sm-2 col-md-2">
+                            <a href="{{ url('ojs_institution_page',{slug: institution.slug}) }}">
+                                <img src="holder.js/96x96/random/text:{{ institution.name }}" class="img-rounded"/>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                    -->
                 </div>
             </div>
         </section>
