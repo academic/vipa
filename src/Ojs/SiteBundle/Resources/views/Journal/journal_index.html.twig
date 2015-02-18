@@ -5,11 +5,10 @@
 
     <div class="container">
         {% block journalheader %}
-            <div class="page-header">
+            <div id="header">
                 {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                 <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
-                     data-src="holder.js/1200x300/random/text:{{ journal.title }}" alt="" class="img-responsive"/>
-
+                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef" alt="" class="img-responsive"/>
                 <div class="col-md-12">
                     <dl class="journal-meta">
                         {% if journal.issn %}
@@ -27,23 +26,25 @@
                         <dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
                         <dt>{{ "period"|trans }}</dt>
                         <dd>{{ journal.period }}</dd>
+                        <!--
                         {% if journal.url %}
                             <dt>{{ "url"|trans }}</dt>
                             <dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                            {% endif %}
-                            {% if journal.country %}
-                            <dt>{{ "country"|trans }}</dt>
-                            <dd>{{ journal.country }}</dd>
                         {% endif %}
+                        {% if journal.country %}
+                        <dt>{{ "country"|trans }}</dt>
+                        <dd>{{ journal.country }}</dd>
+                        {% endif %}
+                        -->
                     </dl>
                 </div>
-                <h1>{{ journal.title }}
-                    <small>{{ journal.titleAbbr }}</small>
-                </h1>
+                <h1>{{ journal.title }}</h1>
+                <h6> {{ journal.titleAbbr }}  </h6>
+                <!--
                 <h6>{{ journal.subtitle }}
                     <small>{{ journal.titleTransliterated }}</small>
                 </h6>
-
+                -->
             </div>
         {% endblock %}
         <div class="row">
@@ -70,8 +71,19 @@
                 </p>
             </div>
             <div class="col-md-3">
-                <div class="list-group journal-stats">
 
+
+                <div class="list-group journal-stats">
+                    <div class="list-group-item ">
+                        <form   role="search" action="/search" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="{{"search"|trans}}" name="q">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                        class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4></a>
 

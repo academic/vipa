@@ -15,16 +15,7 @@
                 <li{%if page == 'institution'%} class="active"{%endif%}><a href={{ path('ojs_institutions_index') }}>{{"institutions"|trans}}</a></li>
                 <li{%if page == 'journals'%} class="active"{%endif%}><a href={{ path('ojs_journals_index') }}>{{"journals"|trans}}</a></li>
             </ul>
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search" action="/search" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="{{"search"|trans}}" name="q">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            
             <div class="navbar-right col-md-4">
                 <ul class="nav navbar-nav"> 
                     {%include '::language_selector.html.twig'%}
