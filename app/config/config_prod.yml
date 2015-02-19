@@ -4,20 +4,6 @@ imports:
 #framework:
 #    validation:
 #        cache: memcache
-swiftmailer:
-    transport:  smtp
-    #encryption: ssl #ssl or tsl
-    #auth_mode:  login #(plain, login, or cram-md5)
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:
-        type: "file" 
-        #type: (file or mail / how to queue the messages)
-        path: "%kernel.root_dir%/spool" #(where to store the messages)
-    #delivery_address: (an email address where to send ALL emails)
-    #disable_delivery: (set to true to disable delivery completely)
     
 doctrine:
     orm:
