@@ -4,3 +4,12 @@ swiftmailer:
     password:             %mailer_password%
     host:                 %mailer_host%
     port:                 %mailer_port%    
+    #encryption: ssl #ssl or tsl
+    #auth_mode:  login #(plain, login, or cram-md5)
+    spool:
+        type: "file"
+        #type: (file or mail / how to queue the messages)
+        path: "%kernel.root_dir%/spool" #(where to store the messages)
+    #delivery_address: (an email address where to send ALL emails)
+    #disable_delivery: (set to true to disable delivery completely)
+
