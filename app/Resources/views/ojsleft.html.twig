@@ -2,6 +2,25 @@
     <div class="col-sm-3 col-md-3">
         <div class="panel-group">
             <div class="panel panel-default left-menu-bgcolor">
+                {%if userjournals%}
+                    <div class="dropdown">
+                        <button class="dropdown-toggle btn btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            {{ userjournals[session('selectedJournalId')].title[:22]  }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
+                            {%for journal in userjournals%}
+                                <li class=list-group-item">
+                                    <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
+                                        {{journal.title}}
+                                    </a>
+                                </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                {%endif%}
+            </div>
+            <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
                     {% if(app.user.getAvatar()) %}
                         {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
@@ -22,23 +41,6 @@
                     </h4>
                 </div>
                 <div class="panel-collapse collapse in">
-                    {%if userjournals%}
-                        <div class="dropdown">
-                            <button class="dropdown-toggle btn btn-block" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                {{ userjournals[session('selectedJournalId')].title[:22]  }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
-                                {%for journal in userjournals%}
-                                    <li class=list-group-item">
-                                        <a href="{{path('change_selected_journal',{'journal_id':journal.id})}}">
-                                            {{journal.title}}
-                                        </a>
-                                    </li> 
-                                {%endfor%}
-                            </ul>
-                        </div>
-                    {%endif%}
                     <a class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
                         <i class="fa fa-plus-circle"></i> 
                         {{"article.submit"|trans}}
