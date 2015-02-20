@@ -95,7 +95,7 @@ $(document).ready(function () {
     $("#citationContainer").on("change", ".citationDetails select", function () {
 
     });
-    $("div").on("click", "#addArticleCitationInline", function (e) {
+    $("#addArticleCitationInline").click(function (e) {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
