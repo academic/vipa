@@ -12,7 +12,7 @@
                 <div class="controls">
                     <span class="control-label"> </span>
                     <div class="controls-row form-inline">
-                        <input name="order" type="number" min="1" max="1000" id="orderinput" class="form-control input-sm"
+                        <input name="order" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm"
                                value="{% if author is defined %}{{author.order}}{% endif %}" placeholder="{{"author.order"|trans}}"/>
                         <input name="title" id="titleinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.title}}{% endif %}" placeholder="{{"author.title"|trans}}"/>
