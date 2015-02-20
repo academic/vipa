@@ -50,12 +50,14 @@
                 <i class="fa fa-plus"></i>
 
                 <span>{{"select.article.file"|trans}}</span>
-                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input class="article_file_upload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}" />
+                <br>
                 <input name="article_file" class="filename article_file_input"  value="{% if file is defined %}{{ file.article_file }}{% endif %}" type="hidden"/>
                 <input name="article_file_mime_type"  value="{% if file is defined %}{{ file.article_file_mime_type }}{% endif %}" type="hidden"/>
                 <input name="article_file_size"  value="{% if file is defined %}{{ file.article_file_size }}{% endif %}" type="hidden"/>
 
             </span>
+            <a class="label label-info hide previewLink" href="#">{{"preview"|trans}}</a>
             <span class="upload_progress label label-info" style="display: none"></span>
         </div>
         <hr>
