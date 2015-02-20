@@ -11,7 +11,17 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{%if page == 'index'%} class="active"{%endif%}><a href={{ path('ojs_public_index') }}>{{"home"|trans}}</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{"DergiPark"|trans}} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li{%if page == 'index'%} class="active"{%endif%}><a href={{ path('ojs_public_index') }}>{{"home"|trans}}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">{{ "about"|trans }}</a></li>
+                        <li><a href="#">{{ "wiki"|trans }}</a></li>
+                        <li><a href="#">{{ "support"|trans }}</a></li>
+                    </ul>
+                </li>
+
                 <li{%if page == 'institution'%} class="active"{%endif%}><a href={{ path('ojs_institutions_index') }}>{{"institutions"|trans}}</a></li>
                 <li{%if page == 'journals'%} class="active"{%endif%}><a href={{ path('ojs_journals_index') }}>{{"journals"|trans}}</a></li>
             </ul>
