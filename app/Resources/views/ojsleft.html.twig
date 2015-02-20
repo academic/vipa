@@ -51,15 +51,37 @@
                     </a> 
                 </div>
             </div>
+            <div class="panel panel-default left-menu-bgcolor">
+                <div class="panel-heading">
+                    {{"Articles"|trans}}
+                </div>
+                <div class="panel-collapse collapse in">
+                    {% if isSystemAdmin() or isJournalManager()  %}
+                        {%set submissions_path = "article_submissions_all" %}
+                    {%else%}
+                        {%set submissions_path = "article_submissions_me" %}
+                    {% endif %}
+                    <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
+                        <i class="fa fa-flag"></i>
+                        Submissions
+                    </a>
 
-            {% if hasRole('ROLE_JOURNAL_MANAGER') %}
+                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
+                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
+                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
+                </div>
+            </div>
+
+            {% if isJournalManager() or isEditor()  %}
 
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{"Journal Manager"|trans}}</div>
                     <div>
-                        {# Links for journal manager  #}
-
-                        {% if session('selectedJournalId') %}
+                        {# Links for journal manager  #} 
+                        <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
+                            <i class="fa fa-recycle"></i>  
+                            {{"workflow"|trans}} </a> 
+                            {% if session('selectedJournalId') %}
                             <a class="list-group-item"  href="{{path('issue_manager_index')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"issue.manager"|trans}}
@@ -88,35 +110,9 @@
                         {% endif %}
                     </div>
                 </div>
-            {% endif %}  
+            {% endif %}   
 
-            <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">
-                    {{"Articles"|trans}}
-                </div>
-                <div class="panel-collapse collapse in">
-                    {% if isSystemAdmin() or isJournalManager()  %}
-                        {%set submissions_path = "article_submissions_all" %}
-                    {%else%}
-                        {%set submissions_path = "article_submissions_me" %}
-                    {% endif %}
-                    <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
-                        <i class="fa fa-flag"></i>
-                        Submissions
-                    </a>
-
-                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
-                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
-                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
-                </div>
-            </div>
-
-            <div class="panel panel-default left-menu-bgcolor">
-                {% if  isJournalManager() or isEditor()  %}
-                    <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
-                        <i class="fa fa-recycle"></i>  
-                        {{"workflow"|trans}} </a>
-                    {%endif %}
+            <div class="panel panel-default left-menu-bgcolor"> 
                 <a class="list-group-item" href="{{path('user_show_my_journals')}}">
                     <i class="fa fa-list"></i>  
                     {{"journals"|trans}} </a>
