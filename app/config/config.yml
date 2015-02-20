@@ -2,13 +2,13 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: ojs_params.yml }
-    - { resource: "bibliography_params.yml" }
+    - { resource: bibliography_params.yml }
     - { resource: services.yml }
     - { resource: assetic.yml }
     - { resource: doctrine.yml }
     - { resource: elastica.yml }
-    - { resource: "api.yml" }
-    - { resource: "swift.yml" }
+    - { resource: api.yml }
+    - { resource: swift.yml }
 parameters:
     avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
     avatar_upload_base_url: %base_host%/uploads/avatarfiles/
