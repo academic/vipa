@@ -23,12 +23,14 @@
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
                     <center>
-                        {% if( session('selectedJournalId') and userjournals[session('selectedJournalId')].image) %}
-                            <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
-                                 class="avatar img-circle img-responsive" />
-                        {%else%}
-                            <img src="holder.js/200x200/#459:#fff/text: {{userjournals[session('selectedJournalId')].title[:22]}} " 
-                                 style="border-radius: 6px" class="img-responsive" />
+                        {% if( session('selectedJournalId'))  %}
+                            {% if(userjournals[session('selectedJournalId')].image) %}
+                                <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                     class="avatar img-circle img-responsive" />
+                            {%else%}
+                                <img src="holder.js/200x200/#459:#fff/text: {{userjournals[session('selectedJournalId')].title[:22]}} " 
+                                     style="border-radius: 6px" class="img-responsive" />
+                            {%endif%}  
                         {%endif%}  
                         <h4 class="panel-title">
                             <small>{{app.user.getUsername()}}</small><br>
