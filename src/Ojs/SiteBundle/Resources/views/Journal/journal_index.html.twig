@@ -27,10 +27,6 @@
                         <dt>{{ "period"|trans }}</dt>
                         <dd>{{ journal.period }}</dd>
                         <!--
-                        {% if journal.url %}
-                            <dt>{{ "url"|trans }}</dt>
-                            <dd><a href="{{ journal.url }}" target="_blank">{{ journal.url }}</a></dd>
-                        {% endif %}
                         {% if journal.country %}
                         <dt>{{ "country"|trans }}</dt>
                         <dd>{{ journal.country }}</dd>
@@ -38,7 +34,11 @@
                         -->
                     </dl>
                 </div>
-                <h1>{{ journal.title }}</h1>
+                <h1>{{ journal.title }}
+                    {% if journal.url %}
+                        <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
+                    {% endif %}
+                </h1>
                 <h6> {{ journal.titleAbbr }}  </h6>
                 <!--
                 <h6>{{ journal.subtitle }}
