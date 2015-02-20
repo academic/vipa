@@ -34,12 +34,20 @@
                 </div>
                 <div class="controls">
                     <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
-                    <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
+                    <a class="btn btn-sm btn-default" onclick="$(this).parent().next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
                 </div>
                 <div style="display:none">
-                    <div class="controls">
+                    <div class="controls-row">
+                        <label class="control-label">{{"institution"|trans}}</label>
+                        <input name="institution" id="institutioninput" class="form-control" />
+                    </div>
+                    <div class="controls-row">
+                        <label class="control-label">{{"phone"|trans}}</label>
+                        <input name="phone" id="phoneinput" class="form-control" />
+                    </div>
+                    <div class="controls-row">
                         <label class="control-label">{{"summary"|trans}}</label>
-                        <textarea name="summary" id="summaryinput" class="form-control" rows="6">{% if author is defined %}{{author.summary}}{% endif %}</textarea>
+                        <textarea name="summary" id="summaryinput" class="form-control" rows="3">{% if author is defined %}{{author.summary}}{% endif %}</textarea>
                     </div>
                 </div>
             </div> 
