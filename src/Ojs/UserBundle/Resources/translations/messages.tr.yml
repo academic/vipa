@@ -1,3 +1,5 @@
+
+
 event.id: ID
 event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'
@@ -62,7 +64,7 @@ username: Kullanıcı Adı
 password: Şifre
 forgot.password: 'şifremi unuttum'
 user.new: 'Yeni Kullanıcı'
-register: Kayıt
+register: Kayıt Ol
 'This will be your unique short name in application': 'Bu uygulamada sizin kısa adınız olacak'
 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
 unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'

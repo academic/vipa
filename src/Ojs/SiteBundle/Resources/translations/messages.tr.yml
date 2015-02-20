@@ -14,7 +14,7 @@ added: Eklendi
 u: Güncelle
 404: Bulunamadı
 error: Hata
-error.oops: 'Ooops! Bir hata meydana geldi!'
+error.oops: 'Olamaz! Bir hata meydana geldi!'
 summart: Özet
 res: 'Yeniden Başlat'
 preview: Preview
@@ -50,7 +50,7 @@ toggle_navigation: 'Yönelendiriciyi Aç'
 home: 'Ana Sayfa'
 institutions: Enstitü
 journals: Dergiler
-register_journal: 'Dergi Kaydet'
+
 send_article: 'Makale Gönder'
 search: Ara
 search_query: 'aranacak kelimeler'
@@ -109,7 +109,7 @@ Information: Bilgilendirme
 'Your password has been reset': 'Şifreniz Sıfırlandı'
 'You are request password reset': 'Şifre Sıfırlama Talebiniz Var'
 'Password Reset Process': 'Şifre Sıfırlama İşlemi'
-'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
+'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
 'Reset Now': 'Şimdi Sıfırla'
 forgot.password: Şifremi Unuttum
 
@@ -164,5 +164,5 @@ done: Tamamlandı
     
 
 institute.register: "Enstitü Kaydet"
-journal.register: "Dergi Oluştur"
+journal.register: "DergiPark Başvuru"
 

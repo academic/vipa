@@ -294,8 +294,6 @@ review.forms: 'Review Forms'
 template: Template
 templates: Templates
 
-save: Save
-
 useThisTemplate: 'Use this template'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
