@@ -80,12 +80,12 @@ var CitationEditor = {
         $(".citationDetailsFields", $el.parent()).html("");
         for (var i in $mustFields) {
             $(".citationDetailsFields", $el.parent()).append(
-                    '<input type="text" class="form-control has-warning" placeholder="' +
+                    '<input type="text" class="form-control input-sm has-warning" placeholder="' +
                     $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
         }
         for (var i in $shouldFields) {
             $(".citationDetailsFields", $el.parent()).append(
-                    '<input type="text" class="form-control" placeholder="' +
+                    '<input type="text" class="form-control input-sm " placeholder="' +
                     $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
         }
     }
