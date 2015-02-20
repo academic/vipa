@@ -10,7 +10,6 @@ var CitationEditor = {
         $($tpl).removeClass("hide");
         $("#citationContainer").append($tpl);
         this.refreshCitationOrders();
-        $("#citationPasteField").show("fast");
     },
     parseAndAppend: function (txt) {
         OjsCommon.waitModal();
@@ -97,7 +96,7 @@ $(document).ready(function () {
     $("#citationContainer").on("change", ".citationDetails select", function () {
 
     });
-    $("#citationContainer").on("click", "#addArticleCitationInline", function (e) {
+    $("div").on("click", "#addArticleCitationInline", function (e) {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
