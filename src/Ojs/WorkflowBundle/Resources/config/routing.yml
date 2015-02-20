@@ -1,20 +1,22 @@
 ojs_workflow_homepage:
-    pattern:  /
+    pattern:  /editor/worflow
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
 
 ojs_workflowsteps:
     resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
+    prefix: /editor/worflow/
 
 review_form_items: 
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_form_items.yml"
-
+    prefix: /editor/worflow/
+     
 review_forms: 
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_forms.yml"
-    
+    prefix: /editor/worflow/
+     
 manage_workflowsteps:
-    pattern:  /manage/steps
+    pattern:   /editor/worflow/manage/steps
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
-
 
 editor_articles_rejected:
     pattern:  /editor/articles/rejected
@@ -43,21 +45,21 @@ editor_articles_published:
 
 
 articles_assigned_me:
-    pattern:  /articles/assigned/me
+    pattern:  /manager/workflow/articles/assigned/me
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
     
 article_step_preview:
-    pattern:  /article/{id}
+    pattern:  /manager/workflow/article/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:article }
 
 articles_step_list:
-    pattern:  /articles/{id}
+    pattern:  /manager/workflow/articles/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:articles }
 
 article_step_start_review:
-    pattern:  /article/startReview/{id}
+    pattern:  /manager/workflow/article/startReview/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:startReview }
 
 article_step_next:
-  pattern: /article/next/{id}
+  pattern: /manager/workflow/article/next/{id}
   defaults: { _controller: OjsWorkflowBundle:Manager:next }

@@ -22,36 +22,33 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
-                    {% if(app.user.getAvatar()) %}
-                        {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
-
-                        <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}})}}"
-                             class="avatar img-circle img-responsive" />
-                    {%else%}
-                        <img src="/assets/app/images/buddy_sample.png" 
-                             class="img-circle img-responsive" />
-                    {%endif%}  
-                    <h4 class="panel-title">
-                        <small>{{app.user.getUsername()}}</small>
-                        {% if userJournalRoles %}
-                            {%for role in userJournalRoles %}
-                                <span class="label label-default">{{role.role|trans}}</span> 
-                            {%endfor%}
-                        {%endif%}
-                    </h4>
+                    <center>
+                        {% if( session('selectedJournalId') and userjournals[session('selectedJournalId')].image) %}
+                            <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                 class="avatar img-circle img-responsive" />
+                        {%else%}
+                            <img src="holder.js/200x200/#459:#fff/text: {{userjournals[session('selectedJournalId')].title[:22]}} " 
+                                 style="border-radius: 6px" class="img-responsive" />
+                        {%endif%}  
+                        <h4 class="panel-title">
+                            <small>{{app.user.getUsername()}}</small><br>
+                            {% if userJournalRoles %}
+                                {%for role in userJournalRoles %}
+                                    <span class="label label-default">{{role.role|trans}}</span> 
+                                {%endfor%}
+                            {%endif%}
+                        </h4>
+                    </center>
                 </div>
                 <div class="panel-collapse collapse in">
-                    <a class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
+                    <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
                         <i class="fa fa-plus-circle"></i> 
                         {{"article.submit"|trans}}
                     </a>
                     <a class="list-group-item"  href="{{path('dashboard')}}">
                         <i class="fa fa-dashboard"></i> 
                         {{"dashboard"|trans}}
-                    </a>
-                    <a class="list-group-item list-group-item-warning" href="{{path('okulbilisim_message_user_index')}}">
-                        <i class="fa fa-envelope"></i>
-                        {{"messages"|trans}}</a>
+                    </a> 
                 </div>
             </div>
 
@@ -91,19 +88,12 @@
                         {% endif %}
                     </div>
                 </div>
-            {% endif %} 
+            {% endif %}  
 
             <div class="panel panel-default left-menu-bgcolor">
-                <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
-                    <i class="fa fa-recycle"></i>  
-                    {{"workflow"|trans}} </a>
-
-                <a class="list-group-item" href="{{path('user_show_my_journals')}}">
-                    <i class="fa fa-list"></i>  
-                    {{"journals"|trans}} </a>
-
-                <div class="panel-heading"><i class="fa fa-list"></i>
-                    {{"Articles"|trans}}</div>
+                <div class="panel-heading">
+                    {{"Articles"|trans}}
+                </div>
                 <div class="panel-collapse collapse in">
                     {% if isSystemAdmin() or isJournalManager()  %}
                         {%set submissions_path = "article_submissions_all" %}
@@ -119,6 +109,17 @@
                     <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
                     <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
                 </div>
+            </div>
+
+            <div class="panel panel-default left-menu-bgcolor">
+                {% if  isJournalManager() or isEditor()  %}
+                    <a class="list-group-item" href="{{path('ojs_workflow_homepage')}}">
+                        <i class="fa fa-recycle"></i>  
+                        {{"workflow"|trans}} </a>
+                    {%endif %}
+                <a class="list-group-item" href="{{path('user_show_my_journals')}}">
+                    <i class="fa fa-list"></i>  
+                    {{"journals"|trans}} </a>
             </div>
 
             {% if isSystemAdmin() %}
