@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label class="col-md-1 control-label">{{field}} </label>
+    <label class="col-md-1 control-label">{%raw%}{{field}}{%endraw%} </label>
     <div class="col-md-10">
-        <input name="{{field}}" value="{{value}}" class="form-control" />
+        <input name="{%raw%}{{field}}{%endraw%}" value="{%raw%}{{value}}{%endraw%}" class="form-control" />
     </div>
 </div>
