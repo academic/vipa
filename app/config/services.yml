@@ -96,4 +96,9 @@ services:
             arguments: [@service_container]
             tags:
                 - { name: doctrine.event_listener, event: postPersist }
-                - { name: doctrine.event_listener, event: postUpdate }
+    proxy.event_listener:
+                class: Ojs\UserBundle\Listeners\ProxyListener
+                arguments: [@service_container]
+                tags:
+                    - { name: doctrine.event_listener, event: postPersist }
+                    - { name: doctrine.event_listener, event: preRemove }
