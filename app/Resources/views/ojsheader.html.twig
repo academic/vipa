@@ -93,10 +93,11 @@
                                     <a href="{{path('ojs_user_index')}}">
                                         <i class="fa fa-cog"></i> {{"user_page"|trans}}</a>
                                 </li>
-                                <li>
-                                    <a href="{{path('myprofile')}}">
-                                        <i class="fa fa-user"></i> {{"profile"|trans}}</a>
-                                </li>
+                                {% if app.user.id==user.id %}
+                                    <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
+                                        <i class="fa fa-edit">{{"profile"|trans}}</i>
+                                    </a>
+                                {% endif %}
                                 <li>
                                     <a href="{{ path('logout') }}">
                                         <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
