@@ -36,6 +36,7 @@
                                 <i class="fa fa-cog"></i>
                             </a>
                         </li>
+                        {% if has_notification is defined %}
                         <li class="dropdown user user-menu">
                             {# notification dropdown #}
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -70,6 +71,7 @@
                                 </li>
                             </ul>
                         </li>
+                        {% endif %}
                         <li class="dropdown user user-menu">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
