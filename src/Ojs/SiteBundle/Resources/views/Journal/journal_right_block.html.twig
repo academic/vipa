@@ -13,13 +13,13 @@
         <div class="panel-heading">
             <span class="panel-title">{{ block.title|trans }}</span>
             {% if isJournalManager() %}
-                <input type="number" class="col-xs-2 pull-right no-pad block_order_updater"
+                <input type="number"  min="1" max="10000" class="col-xs-2 pull-right no-pad block_order_updater"
                        data-block-id="{{ block.id }}" value="{{ block.blockOrder|default(0) }}">
                 <a href="{{ url('ojs_block_new',{object: journal.id, type:'journal',id:block.id}) }}" title="Edit Block"
                    class="pull-right"><i class="fa fa-pencil "></i></a>
                 <a href="{{ url('ojs_block_delete',{object: journal.id, type:'journal',block:block.id}) }}"
                    title="Delete Block" class="pull-right"><i class="fa fa-trash "></i></a>
-            {% endif %}
+                {% endif %}
         </div>
         {% if block.type=='html' %}
             {{ block.content|raw }}
@@ -29,21 +29,21 @@
                     <li class="list-group-item">
                         <a href="{{ link.url }}" target="_blank">{{ link.text }}</a>
                         {% if isJournalManager() %}
-                            <input type="number" name="blocklink[{{ link.id }}]" data-link-id="{{ link.id }}"
+                            <input type="number" min="1" max="10000"  name="blocklink[{{ link.id }}]" data-link-id="{{ link.id }}"
                                    value="{{ link.linkOrder|default(0) }}"
                                    class="col-xs-2 no-pad pull-right blocklink_order_updater"/>
                             <a href="{{ url('ojs_block_link_new',{block: block.id, id:link.id}) }}" title="Edit Link"
                                class="pull-right"><i class="fa fa-pencil "></i></a>
                             <a href="{{ url('ojs_block_link_delete',{object: journal.id, type:'journal',block_link:link.id}) }}"
                                title="Delete Link" class="pull-right"><i class="fa fa-trash "></i></a>
-                        {% endif %}
+                            {% endif %}
 
                     </li>
                 {% endfor %}
                 {% if isJournalManager() %}
                     <li class="list-group-item"><a
-                                href="{{ url('ojs_block_link_new',{block: block.id}) }}"><i
-                                    class="fa fa-plus"></i> <strong>{{ "Link Ekle"|trans }}</strong></a>
+                            href="{{ url('ojs_block_link_new',{block: block.id}) }}"><i
+                                class="fa fa-plus"></i> <strong>{{ "Link Ekle"|trans }}</strong></a>
                     </li>
                 {% endif %}
             </ul>

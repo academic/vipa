@@ -59,7 +59,7 @@
                                 <input name="order[]"
                                        class="form-control input-sm" 
                                        value="{{article.orderNum}}" 
-                                       type="number" style="width:50px">
+                                       type="number" style="width:50px" min="1" max="10000" >
                             </td>
                             <td>
                                 <a class="btn btn-danger btn-xs" 
@@ -73,12 +73,12 @@
                             <td>
                                 <input name="firstPage[]" 
                                        value="{{article.firstPage}}" 
-                                       class="input-sm form-control" style="width:80px" type="number">
+                                       class="input-sm form-control" style="width:80px" type="number" min="1" max="10000" >
                             </td>
                             <td>
                                 <input name="lastPage[]"
                                        value="{{article.lastPage}}" 
-                                       class="input-sm form-control" style="width:80px" type="number">
+                                       class="input-sm form-control" style="width:80px" type="number"  min="1" max="10000" >
                             </td>
                         </tr>
                     {% endfor %}
