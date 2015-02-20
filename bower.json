@@ -41,6 +41,7 @@
 	"raphael":"*",
 	"bootstrap-tagsinput": "*",
         "bootstrap-treeview":"*",
-        "jquery-pjax":"*"
+        "jquery-pjax":"*",
+	"keyboard": "*"
     }
 }

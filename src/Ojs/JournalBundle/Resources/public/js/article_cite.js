@@ -14,6 +14,8 @@ var CitationEditor = {
     },
     parseAndAppend: function (txt) {
         OjsCommon.waitModal();
+        $(".citationPasteTextArea").val("");
+        $("#citationPasteField").slideUp();
         $.post(OjsCommon.api.urls.citeParser, {"citations": txt, "apikey": OjsCommon.api.userApikey}, function (res) {
             if (typeof res === "object") {
                 for (i in res) {
@@ -40,7 +42,7 @@ var CitationEditor = {
                     $.each(citationItem, function (k, v) {
                         if ($.inArray(k, fields) > -1) {
                             $('.citationDetailsFields input[name=' + k + ']', $tpl).val(v);
-                            console.log($tpl,k,v);
+                            console.log($tpl, k, v);
                         }
                     });
                     $("#citationContainer").append($tpl);
@@ -49,7 +51,6 @@ var CitationEditor = {
             }
         })
                 .done(function () {
-
                     CitationEditor.refreshCitationOrders();
                     OjsCommon.hideallModals();
                 })

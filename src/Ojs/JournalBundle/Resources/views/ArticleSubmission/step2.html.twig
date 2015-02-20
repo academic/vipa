@@ -6,34 +6,36 @@
             <input type="hidden" name="authorid" value="" />
             <div class="col-md-12">
                 <div class="controls form-inline"> 
-                    <input name="order" type="number" min="1" max="1000" id="orderinput" class="form-control input-sm"
-                           value="{% if author is defined %}{{author.order}}{% endif %}" placeholder="{{"author.order"|trans}}"/>
+                    <input name="orcid" id="orcidinput" class="form-control input-xs"
+                           value="{% if author is defined %}{{author.orcid}}{% endif %}" placeholder="{{"author.orcid"|trans}}"/>
                 </div>
                 <div class="controls">
                     <span class="control-label"> </span>
-                    <div class="controls form-inline">
-                        <input name="title" id="titleinput" class="form-control" 
+                    <div class="controls-row form-inline">
+                        <input name="order" type="number" min="1" max="1000" id="orderinput" class="form-control input-sm"
+                               value="{% if author is defined %}{{author.order}}{% endif %}" placeholder="{{"author.order"|trans}}"/>
+                        <input name="title" id="titleinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.title}}{% endif %}" placeholder="{{"author.title"|trans}}"/>
-                        <input name="initials" id="initialsinput" class="form-control" 
+                        <input name="initials" id="initialsinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.initials}}{% endif %}" placeholder="{{"author.initials"|trans}}"/>
-                        <input name="firstName" id="firstnameinput" class="form-control" 
+                        <input name="firstName" id="firstnameinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.firstName}}{% endif %}" placeholder="{{"author.firstname"|trans}}"/>
-                        <input name="middleName" id="middlenameinput" class="form-control" 
+                        <input name="middleName" id="middlenameinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.middleName}}{% endif %}" placeholder="{{"author.middlename"|trans}}"/>
-                        <input name="lastName" id="lastnameinput" class="form-control" 
+                        <input name="lastName" id="lastnameinput" class="form-control input-sm" 
                                value="{% if author is defined %}{{author.lastName}}{% endif %}" placeholder="{{"author.lastname"|trans}}"/>
-                        <input name="orcid" id="orcidinput" class="form-control"
-                               value="{% if author is defined %}{{author.orcid}}{% endif %}" placeholder="{{"author.orcid"|trans}}"/>
+
                     </div>
                 </div>
-                <div class="controls">
+                <div class="controls-row">
                     <label class="control-label">{{"email"|trans}} <span class="mandotary"></span></label>
-                    <input  name="email"  id="emailinput" class="form-control"
-                           value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
+                    <input  name="email"  id="emailinput" class="form-control input-sm"
+                            value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
                 </div>
-                <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
-                <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
-
+                <div class="controls">
+                    <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
+                    <a class="btn btn-sm btn-default" onclick="$(this).next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
+                </div>
                 <div style="display:none">
                     <div class="controls">
                         <label class="control-label">{{"summary"|trans}}</label>
