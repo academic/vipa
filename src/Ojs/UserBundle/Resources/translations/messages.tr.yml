@@ -5,6 +5,7 @@ event.ip: IP
 event.user.id: 'Kullanıcı ID'
 actions: İşlemler
 eventlog: Olay Kayıtları
+eventlog.list: Olay Kayıt Listesi
 maillog.edit: 'Mail Kaydı Düzenle'
 maillog.id: ID
 maillog.mailobject: 'Mail Nesnesi'
@@ -125,3 +126,6 @@ user.journalrole.mail.to: "Alıcı"
 user.journalrole.mail.subject: "Konu"
 user.journalrole.mail.body: "Mesaj"
 user.journalrole.mail.send: "Gönder"
+
+flush:
+  all.log : "Logları Sil"
