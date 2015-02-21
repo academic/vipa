@@ -1,4 +1,4 @@
-services: 
+services:
     kernel.listener.domain_listener:
        class: Ojs\Common\Services\DomainListener
        arguments: 
@@ -32,7 +32,12 @@ services:
         class: Ojs\UserBundle\Listeners\LoginListener
         arguments: [@doctrine.orm.entity_manager,@service_container]
         tags:
-            - { name: kernel.event_listener, event: security.interactive_login } 
+            - { name: kernel.event_listener, event: security.interactive_login }
+    ojs.logout_listener:
+       class:  Ojs\UserBundle\Listeners\LogoutListener
+       arguments:  [@doctrine.orm.entity_manager,@service_container,@security.context]
+       tags:
+            - { name: kernel.event_listener ,event: security.logout}
     ojs.security_switch_user:
         class: Ojs\Common\Services\SecuritySwitchUserListener
         arguments: [@security.context]
@@ -86,3 +91,14 @@ services:
         arguments: [ @service_container ]
         tags:
             -  { name: kernel.event_subscriber }
+    user.event_listener:
+            class: Ojs\UserBundle\Listeners\UserListener
+            arguments: [@service_container]
+            tags:
+                - { name: doctrine.event_listener, event: postPersist }
+    proxy.event_listener:
+                class: Ojs\UserBundle\Listeners\ProxyListener
+                arguments: [@service_container]
+                tags:
+                    - { name: doctrine.event_listener, event: postPersist }
+                    - { name: doctrine.event_listener, event: preRemove }
