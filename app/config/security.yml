@@ -60,6 +60,7 @@ security:
             logout:
                 path: /logout
                 target: /
+                success_handler: ojs.logout_listener
 #                invalidate_session: false
 #                delete_cookies:
 #                    a: { path: null, domain: null }
