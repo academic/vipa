@@ -1,35 +1,42 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>{{ "eventlog.list" }}</h1>
+    <div class="col-sm-12">
+        <h1 class="pull-left">{{ "eventlog.list"|trans }}</h1>
+        <a href="{{ path('eventlog_flush') }}" class="btn btn-danger pull-right">{{ "flush.all.log"|trans }}</a>
+    </div>
 
-<table class="records_list table">
-    <thead>
+    <div class="col-sm-12">
+        {% include '::flashbag.html.twig' %}
+    </div>
+
+    <table class="records_list table">
+        <thead>
         <tr>
             <th>{{ "event.id"|trans }}</th>
             <th>{{ "event.info"|trans }}</th>
             <th>{{ "event.date"|trans }}</th>
             <th>{{ "event.ip"|trans }}</th>
             <th>{{ "event.user.id"|trans }}</th>
-            <th>{{"actions"|trans}}</th>
+            <th>{{ "actions"|trans }}</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('eventlog_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td><span class="badge">{{ entity.eventInfo }}</span></td>
-            <td>{% if entity.eventDate %}{{ entity.eventDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.ip }}</td>
-            <td>{{ entity.userId }}</td>
-            <td>
-                <a class="btn btn-info" href="{{ path('eventlog_show', { 'id': entity.id }) }}">
-                    <i class="fa fa-info-sign"></i>
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <td><a href="{{ path('eventlog_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><span class="badge">{{ entity.eventInfo }}</span></td>
+                <td>{% if entity.eventDate %}{{ entity.eventDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.ip }}</td>
+                <td>{{ entity.userId }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('eventlog_show', { 'id': entity.id }) }}">
+                        <i class="fa fa-info"></i>
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-    {% endblock %}
+{% endblock %}
