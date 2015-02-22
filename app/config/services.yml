@@ -92,13 +92,19 @@ services:
         tags:
             -  { name: kernel.event_subscriber }
     user.event_listener:
-            class: Ojs\UserBundle\Listeners\UserListener
-            arguments: [@service_container]
-            tags:
-                - { name: doctrine.event_listener, event: postPersist }
+        class: Ojs\UserBundle\Listeners\UserListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
     proxy.event_listener:
-                class: Ojs\UserBundle\Listeners\ProxyListener
-                arguments: [@service_container]
-                tags:
-                    - { name: doctrine.event_listener, event: postPersist }
-                    - { name: doctrine.event_listener, event: preRemove }
+        class: Ojs\UserBundle\Listeners\ProxyListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: preRemove }
+    article.event_listener:
+        class: Ojs\UserBundle\Listeners\ArticleListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: preRemove }

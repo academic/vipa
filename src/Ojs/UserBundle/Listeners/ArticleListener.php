@@ -2,10 +2,10 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Ojs\UserBundle\Entity\Proxy;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ProxyListener
+class ArticleListener
 {
     protected $container;
 
@@ -15,26 +15,29 @@ class ProxyListener
     }
 
     /**
-     * Every new proxy create event log to event log
+     * Every article submission event, event log
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
      * @link http://docs.doctrine-project.org/en/latest/reference/events.html#postupdate-postremove-postpersist
-     * @return Response never null
+     * @return null
      */
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
+        /* @var $user User */
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
         /**
-         * perhaps you only want to act on some "Proxy" entity
+         * perhaps you only want to act on some "Article" entity
          * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
          */
-        if ($entity instanceof Proxy) {
+        if ($entity instanceof Article) {
 
             //log as eventlog
             $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setUserId($entity->getClientUser()->getId());
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_CREATE);
+            $event->setUserId($user->getId());
+            $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_SUBMISSION);
             $event->setIp($this->container->get('request')->getClientIp());
             $entityManager->persist($event);
 
@@ -43,7 +46,7 @@ class ProxyListener
     }
 
     /**
-     * Proxy drop event event log function.
+     * Article remove event event log function.
      * @param LifecycleEventArgs $args
      * @return null
      */
@@ -52,17 +55,20 @@ class ProxyListener
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
+        /* @var $user User */
+        $user = $this->container->get('security.context')->getToken()->getUser();
+
         /**
-         * perhaps you only want to act on some "Proxy" entity
+         * perhaps you only want to act on some "Article" entity
          * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
          */
-        if ($entity instanceof Proxy) {
+        if ($entity instanceof Article) {
 
             //log as eventlog
             $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_REMOVE);
+            $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_REMOVE);
             $event->setIp($this->container->get('request')->getClientIp());
-            $event->setUserId($entity->getClientUserId());
+            $event->setUserId($user->getId());
             $entityManager->persist($event);
 
             $entityManager->flush();
