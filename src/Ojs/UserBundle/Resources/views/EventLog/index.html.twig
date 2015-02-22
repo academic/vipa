@@ -1,10 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <div class="col-sm-12">
-        <h1 class="pull-left">{{ "eventlog.list"|trans }}</h1>
-        <a href="{{ path('eventlog_flush') }}" class="btn btn-danger pull-right">{{ "flush.all.log"|trans }}</a>
-    </div>
+
+    {% if isSystemAdmin() %}
+        <div class="col-sm-12">
+            <h1 class="pull-left">{{ "eventlog.list"|trans }}</h1>
+            <a href="{{ path('eventlog_flush') }}" class="btn btn-danger pull-right">{{ "flush.all.log"|trans }}</a>
+        </div>
+    {% endif %}
 
     <div class="col-sm-12">
         {% include '::flashbag.html.twig' %}
