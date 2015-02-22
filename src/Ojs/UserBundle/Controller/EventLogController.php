@@ -2,9 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use GuzzleHttp\Subscriber\Redirect;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Ojs\UserBundle\Entity\EventLog;
 
 /**
  * EventLog controller.
@@ -46,7 +44,7 @@ class EventLogController extends Controller
     /**
      * Removes all EventLog records
      *
-     * @return mixed
+     * @return redirect
      */
     public function flushAction(){
 
@@ -67,7 +65,6 @@ class EventLogController extends Controller
         $em->flush();
 
         $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('All records removed successfully!'));
-
 
         return $this->redirect($this->generateUrl('eventlog'));
     }
