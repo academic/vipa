@@ -22,20 +22,23 @@ class UserListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        if ($this->container->hasScope('request')) {
 
-        // perhaps you only want to act on some "User" entity
-        if ($entity instanceof User) {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-            //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_ADD);
-            $event->setIp($this->container->get('request')->getClientIp());
-            $event->setUserId($entity->getId());
-            $entityManager->persist($event);
+            // perhaps you only want to act on some "User" entity
+            if ($entity instanceof User) {
 
-            $entityManager->flush();
+                //log as eventlog
+                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_ADD);
+                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setUserId($entity->getId());
+                $entityManager->persist($event);
+
+                $entityManager->flush();
+            }
         }
     }
 }
