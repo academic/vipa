@@ -12,9 +12,11 @@ class DefaultController extends Controller
     {
         $data = [];
         $term = $request->get('q');
+        $filter = $request->get('filter', []);
         $searchManager = $this->get('ojs_search_manager');
         $searchManager->addParam('term', $term);
         $searchManager->setPage($page);
+        $searchManager->addFilters($filter);
         $result = $searchManager->search()->getResult();
         $data['result'] = $result;
         $data['total_count'] = $searchManager->getCount();
@@ -22,6 +24,7 @@ class DefaultController extends Controller
         $data['page_count'] = $searchManager->getPageCount();
         $data['term'] = $term;
         $data['aggregations'] = $searchManager->getAggregations();
+        $data['filter'] = $filter;
         return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 

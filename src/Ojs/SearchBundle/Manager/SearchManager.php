@@ -45,11 +45,15 @@ class SearchManager
     /** @var Array */
     private $aggregations;
 
+    /** @var  Array */
+    private $filter;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->finder = $this->search = new \stdClass();
         $this->aggregations = [];
+        $this->filter = [];
     }
 
     public function tagSearch()
@@ -113,6 +117,14 @@ class SearchManager
         $multiMatch->setQuery($this->getParam('term'));
         $bool->addMust($multiMatch);
 
+        if ($this->filter) {
+        $filterObj = new \Elastica\Query\Match();
+            foreach ($this->filter as $key => $filter) {
+                $this->applyFilter($filterObj, $key, $filter);
+            }
+        $bool->addMust($filterObj);
+        }
+
         $query = new Query();
         $query->setQuery($bool);
         $query->setFrom($this->getPage() * $this->getLimit());
@@ -128,6 +140,7 @@ class SearchManager
         $aggregation->setField('articleAuthors.author.id');
         $aggregation->setOrder('_count', 'desc');
         $query->addAggregation($aggregation);
+
 
         $search = $search->search($query);
         $result = $search->getResults();
@@ -321,5 +334,31 @@ class SearchManager
     public function getAggregations()
     {
         return $this->aggregations;
+    }
+
+    public function addFilter($key, $value)
+    {
+        $this->filter[$key] = $value;
+        return $this;
+    }
+
+    public function addFilters(array $filters)
+    {
+        $this->filter = array_merge($this->filter, $filters);
+        return $this;
+    }
+
+    public function applyFilter(Query\Match &$query, $key, $value)
+    {
+        switch ($key) {
+            case 'journal':
+                $query->setField('journal.id', $value);
+                break;
+            case 'author':
+                $query->setField('articleAuthors.author.id', $value);
+                break;
+            default:
+                throw new \ErrorException("Filter not exist. allowed filters: journal, author");
+        }
     }
 }

@@ -20,17 +20,17 @@
                 <div class="panel-heading">Journals</div>
                 <div class="list-group">
                     {% for journal in aggregations.journal %}
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment-o"></i> {{ journal.data.title }} <span class="badge">{{ journal.bucket.doc_count }}</span>
+                        <a href="{{ url('ojs_search_index',{q:term,filter:{journal:journal.data.id}|merge(filter)}) }}" class="list-group-item">
+                            <i class="fa fa-book"></i> {{ journal.data.title }} <span class="badge">{{ journal.bucket.doc_count }}</span>
                         </a>
                     {% endfor %}
                 </div>
                 <div class="panel-heading">Authors</div>
 
                 <div class="list-group">
-                    {% for journal in aggregations.author %}
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment-o"></i> {{ journal.data.fullName }} <span class="badge">{{ journal.bucket.doc_count }}</span>
+                    {% for author in aggregations.author %}
+                        <a href="{{ url('ojs_search_index',{q:term,filter:{author:author.data.id}|merge(filter)}) }}" class="list-group-item">
+                            <i class="fa fa-user"></i> {{ author.data.fullName }} <span class="badge">{{ author.bucket.doc_count }}</span>
                         </a>
                     {% endfor %}
                 </div>
