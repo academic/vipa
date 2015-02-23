@@ -22,7 +22,7 @@ class ProxyListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        if ($this->container->hasScope('request')) {
+        if (php_sapi_name()!='cli') {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
 
@@ -51,7 +51,7 @@ class ProxyListener
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        if ($this->container->hasScope('request')) {
+        if (php_sapi_name()!='cli') {
 
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
