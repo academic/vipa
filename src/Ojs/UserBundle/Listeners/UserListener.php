@@ -22,7 +22,7 @@ class UserListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        if ($this->container->hasScope('request')) {
+        if (php_sapi_name()!='cli') {
 
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
