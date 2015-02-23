@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction(Request $request,$page=1)
+    public function indexAction(Request $request, $page = 1)
     {
-        $data =[];
+        $data = [];
         $term = $request->get('q');
         $searchManager = $this->get('ojs_search_manager');
-        $searchManager->addParam('term',$term);
+        $searchManager->addParam('term', $term);
         $searchManager->setPage($page);
         $result = $searchManager->search()->getResult();
         $data['result'] = $result;
@@ -21,21 +21,22 @@ class DefaultController extends Controller
         $data['page'] = $searchManager->getPageCount();
         $data['page_count'] = $searchManager->getPageCount();
         $data['term'] = $term;
-        return $this->render('OjsSiteBundle:Search:index.html.twig',$data);
+        $data['aggregations'] = $searchManager->getAggregations();
+        return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 
 
     public function tagAction(Request $request, $tag, $page = 1)
     {
-        $data =[];
+        $data = [];
         $searchManager = $this->get('ojs_search_manager');
-        $searchManager->addParam('term',$tag);
+        $searchManager->addParam('term', $tag);
         $searchManager->setPage($page);
         $result = $searchManager->tagSearch();
         $data['results'] = $result;
 
-        $data['tag'] =$tag;
+        $data['tag'] = $tag;
         $data['total_count'] = $searchManager->getCount();
-        return $this->render('OjsSiteBundle:Search:tags.html.twig',$data);
+        return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
     }
 }
