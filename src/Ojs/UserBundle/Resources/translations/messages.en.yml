@@ -5,6 +5,7 @@ event.ip: IP
 event.user.id: 'User ID'
 actions: Actions
 eventlog: Eventlog
+eventlog.list: Event Log List
 maillog.edit: 'Maillog Edit'
 maillog.id: ID
 maillog.mailobject: 'Mail Object'
@@ -125,3 +126,6 @@ user.journalrole.mail.to: "Mail To"
 user.journalrole.mail.subject: "Subject"
 user.journalrole.mail.body: "Message Body"
 user.journalrole.mail.send: "Send"
+
+flush:
+  all.log : "Flush Logs"

@@ -98,6 +98,8 @@ user.connected_accounts.provider_user_id: 'Sağlayıcı Kullanıcı Hesabı'
 user.connected_accounts.action: İşlemler
 user.custom_field.create: Oluştur
 user.forgot_password: Şifremi Unuttum
+user.private_account: Gizli Hesap
+'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
 username.or.email: Kullanıcı Adı / Eposta
 user.reset_password: Şifremi Sıfırla
 user.new_password: Yeni Şifre

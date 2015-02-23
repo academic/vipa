@@ -7,6 +7,7 @@ event.ip: IP
 event.user.id: 'Kullanıcı ID'
 actions: İşlemler
 eventlog: Olay Kayıtları
+eventlog.list: Olay Kayıt Listesi
 maillog.edit: 'Mail Kaydı Düzenle'
 maillog.id: ID
 maillog.mailobject: 'Mail Nesnesi'
@@ -151,7 +152,7 @@ save: Kaydet
 Avatar: Avatar
 Header Image: "Başlık Resmi"
 
+  
+flush:
+  all.log : "Logları Sil"
 
-  
-  
- 

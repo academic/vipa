@@ -37,7 +37,6 @@ ojs_journal:
 
 ojs_workflow:
     resource: "@OjsWorkflowBundle/Resources/config/routing.yml"
-    prefix:   /manager/workflow
 
 ojs_user:
     resource: "@OjsUserBundle/Controller/"

@@ -128,7 +128,7 @@
                         resize: true
             }).on('click', function (i, row) {
                 console.log(row);
-                OjsCommon.waitModal();
+                OjsCommon.waitModal(); 
                 window.location.href = "/manager/workflow/articles/" + row.objectid;
             });
             new Morris.Line({

@@ -3,7 +3,8 @@ var tour = new Tour({
         {
             element: "#article-submission-steps",
             title: "Submission steps",
-            content: "You can watch your article submission proccess"
+            content: "You can watch your article submission proccess",
+            placement: "bottom"
         }
     ]}
 );

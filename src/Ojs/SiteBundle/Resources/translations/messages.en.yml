@@ -106,6 +106,9 @@ user.reset_password: Reset Password
 user.new_password: New Password
 user.new_password_confirm: New Password (confirmation)
 
+user.private_account: Private Account
+'This account is private.': 'This account is private.'
+
 'Password Change': Password Change
 Information: Information
 'Your password has been changed': 'Your password has been changed'

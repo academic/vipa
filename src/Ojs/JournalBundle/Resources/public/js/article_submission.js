@@ -1,6 +1,6 @@
 var OjsArticleSubmission = {
     submissionId: null,
-    step:null,
+    step: null,
     languages: [],
     activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
     showResumeNote: function () {
@@ -206,10 +206,10 @@ var OjsArticleSubmission = {
     },
     submit: function () {
         var check = confirm("Are you sure to submit your article?");
-        if (check===true) {
+        if (check === true) {
             OjsCommon.waitModal();
             window.location.href = "/";
-        }else{
+        } else {
             return false;
         }
     },
@@ -249,11 +249,13 @@ var OjsArticleSubmission = {
     bindFileUploader: function () {
         $('.article_file_upload').fileupload({});
         $('.article_file_upload').bind('fileuploadsend', function (e, data) {
-            $(this).parent().next('.upload_progress').show();
-            $(this).parent().next('.upload_progress').html("Uploading...");
+            $uploadIndicator = $('.upload_progress', $(this).parent().parent());
+            $uploadIndicator.show();
+            $uploadIndicator.html("Uploading...");
         }).bind('fileuploaddone', function (e, data) {
-            $(this).parent().next('.upload_progress').html("Done.");
+            $('.upload_progress', $(this).parent().parent()).html("Done.");
             $obj = JSON.parse(data.result);
+            $('.previewLink', $(this).parent().parent()).attr('href', $obj.files.name).removeClass('hide');
             $('.filename', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.size);
             $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.mimeType);
@@ -267,7 +269,7 @@ var OjsArticleSubmission = {
             tagClass: 'label label-info'
         });
 
-        $('#changeSelectedJournal').on("select2-selecting", function(e) {
+        $('#changeSelectedJournal').on("select2-selecting", function (e) {
             window.location.href = "" + e.val;
         })
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});

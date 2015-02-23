@@ -29,6 +29,7 @@ class UserController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        /** @var User $user */
         $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug]);
         if ($slug == "me") {
             $user = $this->getUser();
@@ -38,6 +39,8 @@ class UserController extends Controller
         $data = [];
         $data['user'] = $user;
         $data['me'] = $this->getUser();
+        if($user->isPrivacy())
+            return $this->render('OjsSiteBundle:User:private_account.html.twig');
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
     }
 

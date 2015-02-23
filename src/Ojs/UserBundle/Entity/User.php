@@ -831,5 +831,25 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return $this;
     }
 
+    /** @var  boolean */
+    private $privacy;
+
+    /**
+     * @return boolean
+     */
+    public function isPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    /**
+     * @param boolean $privacy
+     * @return $this
+     */
+    public function setPrivacy($privacy)
+    {
+        $this->privacy = $privacy;
+        return $this;
+    }
 
 }

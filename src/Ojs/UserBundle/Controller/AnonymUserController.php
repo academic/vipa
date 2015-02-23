@@ -182,7 +182,7 @@ class AnonymUserController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $login = $this->container->get('doctrine.odm.mongodb.document_manager')
-            ->find('OjsUserBundle:AnonymUser',$id);
+            ->find('OjsUserBundle:AnonymUserToken',$id);
         if(!$login)
             throw new NotFoundHttpException;
         return $this->redirectToRoute('user_list_anonym_login');

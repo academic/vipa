@@ -1,25 +1,29 @@
-<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item">
-    <form class="row"> 
+<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item row">
+    <form> 
         <div class="col-md-1">
-            <input type="number" class="form-control" style="width:80px" name="orderNum" 
+            <input type="number" min="0" max="10000" class="form-control input-sm" style="width:80px" name="orderNum" 
                    value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="{{"order"|trans}}">
         </div>
-        <div class="col-md-11">
-            <input type="text" class="pull-left form-control" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" 
+        <div class="col-md-12">
+            <input type="text" class="form-control input-sm" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" 
                    name="raw" placeholder="{{"citation"|trans}}"> 
         </div>
         <div class="col-md-12">
             <div class="btn-group pull-right" role="group">
-                <a class="btn btn-sm btn-warning removeArticleCitationInline">
+
+                <a class="btn btn-xs btn-warning removeArticleCitationInline">
                     <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
                 </a>
-                <a href="#details" class="btn btn-sm btn-info addCitationDetails">
+                <a class="btn btn-xs btn-info parseArticleCitationInline">
+                    <i class="fa fa-refresh"></i> {{"parse"|trans}}
+                </a>
+                <a href="#details" class="btn btn-xs btn-info addCitationDetails">
                     <i class="fa fa-eye"></i> {{"details"|trans}}
                 </a>
             </div>
         </div>
         <div class="citationDetails col-md-12">
-            <select class="citation_type" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+            <select class="select2-element citation_type row" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
                 <option value="">{{"citation.type"|trans}}</option>
                 {% for type in citationTypes %}
                     <option value="{{type.name}}" 
@@ -29,10 +33,8 @@
                             data-should='{{type.should|json_encode()}}' 
                             data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
                 {%endfor%}
-            </select> 
-            <br>
-
-            <div class="citationDetailsFields form-horizontal">
+            </select>  
+            <div class="citationDetailsFields form-horizontal row">
                 {% if citationItem is defined and citationItem.type%}
                     {% if citationTypes[citationItem.type] is defined %}
                         {% for field in citationTypes[citationItem.type].must %}
@@ -40,7 +42,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label">{{field|trans}} </label> 
                                     <div class="col-md-10">
-                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
                                     </div>
                                 </div>
                             {% endif %}
@@ -54,7 +56,7 @@
                         <div class="form-group">
                             <label class="col-md-1 control-label">{{field|trans}}~</label>
                             <div class="col-md-10">
-                                <input name="{{field}}" value="{{citationItem[field]}}" class="form-control" /><br>
+                                <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
                             </div>
                         </div>
                     {% endif %}

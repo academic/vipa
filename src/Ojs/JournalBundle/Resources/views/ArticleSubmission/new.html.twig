@@ -117,17 +117,17 @@
 
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
-                    <hr>
-                    <a class="btn btn-danger btn-lg"
-                       onclick="javascript:OjsArticleSubmission.backTo(1);">
-                        <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                    </a>
-                    <a class="btn btn-success btn-lg pull-right"
-                       onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
-                        <i class="fa fa-save"></i>
-                        {{ "save.next"|trans }}
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(1);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -138,14 +138,17 @@
                     <h2>{{ "citations"|trans }}</h2>
 
                     <div class="row">
-                        <button class="btn btn-success" id="pasteArticleCitationInline">
-                            <i class="fa fa-edit"></i> {{ "citation.paste_extract"|trans }}
-                        </button>
-                        <button class="btn btn-info" id="addArticleCitationInline">
-                            <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
-                        </button>
                         <div class="col-sm-12">
-                            <div id="citationPasteField" style="display: block!important">
+                            <button class="btn btn-success" id="pasteArticleCitationInline">
+                                <i class="fa fa-edit"></i> {{ "citation.paste_extract"|trans }}
+                            </button>
+                            <button class="btn btn-info" id="addArticleCitationInline">
+                                <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
+                            </button>
+                        </div>
+                            <hr>
+                        <div class="col-sm-12">
+                            <div id="citationPasteField" style="display: none!important">
                                 <div class="form-row well">
                                     <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
                                 </div>
@@ -248,52 +251,52 @@
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-    {% endjavascripts %}
+        {% endjavascripts %}
 
-    <script>
-        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
-        var currentStep = parseInt(window.location.hash.replace("#", ""));
-        window.onbeforeunload = function () {
-            //return "{{"sure_data_lost"|trans}}";
-        };
-        function loadCurrentStep(currentStep) {
-            OjsArticleSubmission.hideAllSteps();
-            OjsArticleSubmission.prepareStep["step" + currentStep]();
-        }
-        $(window).on("hashchange", function (event) {
+        <script>
+            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
             var currentStep = parseInt(window.location.hash.replace("#", ""));
-            if (window.currentStep !== currentStep) {
-                window.currentStep = currentStep;
-                loadCurrentStep(currentStep);
-            }
-        });
-        $(document).ready(function () {
-            var currentStep = parseInt(window.location.hash.replace("#", ""));
-            if (currentStep) {
-                loadCurrentStep(currentStep);
-            }
-            {%if submissionId is defined %}
-            OjsArticleSubmission.submissionId = "{{submissionId}}";
-            OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-            {#
-            Load submission steps with data
-            #}
-            $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-            {% for key,article in submissionData.articleData %}
-            var params = {
-                "article_title": "{{article.title|raw}}",
-                "article_subtitle": "{{article.subtitle|raw}}",
-                "article_keywords": "{{article.keywords|raw}}",
-                "article_subjects": "{{article.subjects|raw}}",
-                "article_abstract": "{{article.abstract|raw}}"
+            window.onbeforeunload = function () {
+                //return "{{"sure_data_lost"|trans}}";
             };
-            OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
-            {% endfor %}
+            function loadCurrentStep(currentStep) {
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep["step" + currentStep]();
+            }
+            $(window).on("hashchange", function (event) {
+                var currentStep = parseInt(window.location.hash.replace("#", ""));
+                if (window.currentStep !== currentStep) {
+                    window.currentStep = currentStep;
+                    loadCurrentStep(currentStep);
+                }
+            });
+            $(document).ready(function () {
+                var currentStep = parseInt(window.location.hash.replace("#", ""));
+                if (currentStep) {
+                    loadCurrentStep(currentStep);
+                }
+            {%if submissionId is defined %}
+                    OjsArticleSubmission.submissionId = "{{submissionId}}";
+                    OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
+                {#
+                Load submission steps with data
+                #}
+                        $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
+                {% for key,article in submissionData.articleData %}
+                        var params = {
+                            "article_title": "{{article.title|raw}}",
+                            "article_subtitle": "{{article.subtitle|raw}}",
+                            "article_keywords": "{{article.keywords|raw}}",
+                            "article_subjects": "{{article.subjects|raw}}",
+                            "article_abstract": "{{article.abstract|raw}}"
+                        };
+                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
+                {% endfor %}
 
-            OjsArticleSubmission.activatedSteps["step1"] = true;
+                        OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
-        });
-    </script>
-{% endblock %}
+                });
+        </script>
+        {% endblock %}

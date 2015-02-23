@@ -10,10 +10,11 @@ var CitationEditor = {
         $($tpl).removeClass("hide");
         $("#citationContainer").append($tpl);
         this.refreshCitationOrders();
-        $("#citationPasteField").show("fast");
     },
-    parseAndAppend: function (txt) {
+    parseAndAppend: function (txt, elem) {
         OjsCommon.waitModal();
+        $(".citationPasteTextArea").val("");
+        $("#citationPasteField").slideUp();
         $.post(OjsCommon.api.urls.citeParser, {"citations": txt, "apikey": OjsCommon.api.userApikey}, function (res) {
             if (typeof res === "object") {
                 for (i in res) {
@@ -27,29 +28,31 @@ var CitationEditor = {
                     $('.citation_type option[value=' + citationItem.type + ']', $tpl).prop('selected', true);
                     var $citeItemMustTpl = $("#step3_cite_item_must_tpl").html();
                     var $citeItemShouldTpl = $("#step3_cite_item_should_tpl").html();
-
                     for (var i in $mustFields) {
-                        renderedTpl = Mustache.render($citeItemMustTpl, {'name': $mustFields[i], 'value': ''});
+                        renderedTpl = Mustache.render($citeItemMustTpl, {'field': $mustFields[i], 'value': ''});
                         $(".citationDetailsFields", $tpl).append(renderedTpl);
                     }
                     for (var i in $shouldFields) {
-                        renderedTpl = Mustache.render($citeItemShouldTpl, {'name': $shouldFields[i], 'value': ''});
+                        renderedTpl = Mustache.render($citeItemShouldTpl, {'field': $shouldFields[i], 'value': ''});
                         $(".citationDetailsFields", $tpl).append(renderedTpl);
                     }
                     $("input[name=raw]", $tpl).attr("value", citationItem.raw);
                     $.each(citationItem, function (k, v) {
                         if ($.inArray(k, fields) > -1) {
-                            $('.citationDetailsFields input[name=' + k + ']', $tpl).val(v);
-                            console.log($tpl,k,v);
+                            $('.citationDetailsFields input[name=' + k + ']', $tpl).attr('value', v);
                         }
                     });
-                    $("#citationContainer").append($tpl);
+                    if (typeof elem === "undefined") {
+                        $("#citationContainer").append($tpl);
+                    } else {
+                        elem.after($tpl);
+                        elem.remove();
+                    }
 
                 }
             }
         })
                 .done(function () {
-
                     CitationEditor.refreshCitationOrders();
                     OjsCommon.hideallModals();
                 })
@@ -77,44 +80,45 @@ var CitationEditor = {
         $(".citationDetailsFields", $el.parent()).html("");
         for (var i in $mustFields) {
             $(".citationDetailsFields", $el.parent()).append(
-                    '<input type="text" class="form-control has-warning" placeholder="' +
+                    '<input type="text" class="form-control input-sm has-warning" placeholder="' +
                     $mustFields[i] + ' *" name="' + $mustFields[i] + '" /> ');
         }
         for (var i in $shouldFields) {
             $(".citationDetailsFields", $el.parent()).append(
-                    '<input type="text" class="form-control" placeholder="' +
+                    '<input type="text" class="form-control input-sm " placeholder="' +
                     $shouldFields[i] + '" name="' + $shouldFields[i] + '" /> ');
         }
     }
 };
-
 $(document).ready(function () {
 
     $("#citationContainer").on("change", ".citationDetails select", function () {
 
     });
-    $("#citationContainer").on("click", "#addArticleCitationInline", function (e) {
+    $("#addArticleCitationInline").click(function (e) {
         e.preventDefault();
         CitationEditor.newCitationField();
     });
-
     $("body").on("click", "a.removeArticleCitationInline", function (e) {
         e.preventDefault();
         $(this).parents().closest(".cite-item").slideUp();
         $(this).parents().closest(".cite-item").remove();
         CitationEditor.refreshCitationOrders();
     });
-
+    $("body").on("click", "a.parseArticleCitationInline", function (e) {
+        e.preventDefault();
+        $citeItem = $(this).parents().closest(".cite-item");
+        $citeText = $('input[name=raw]', $citeItem).val();
+        CitationEditor.parseAndAppend($citeText, $citeItem);
+    });
     $("body").on("click", ".addCitationDetails", function (e) {
         e.preventDefault();
         $(this).parent().parent().next(".citationDetails").slideToggle("fast");
     });
-
     $("body").on("click", "#pasteArticleCitationInline", function (e) {
         e.preventDefault();
         $("#citationPasteField").slideToggle();
     });
-
     $("body").on("paste", '.citationPasteTextArea', function () {
         var element = this;
         setTimeout(function () {
@@ -122,8 +126,6 @@ $(document).ready(function () {
             CitationEditor.parseAndAppend(txt);
         }, 100);
     });
-
-
     var citeDetails = [];
     $("#saveArticleCitation").on("click", function () {
         $(".cite-item").each(function () {
@@ -137,7 +139,6 @@ $(document).ready(function () {
                     details['settings'][$(this).attr('name')] = $(this).val();
                 });
                 citeDetails.push(details);
-
             }
         });
         $.post(REST_API_BASEURL + "articles/" + articleId + "/bulkcitations", {cites: JSON.stringify(citeDetails)}, function (resp) {

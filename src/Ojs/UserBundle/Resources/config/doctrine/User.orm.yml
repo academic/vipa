@@ -75,6 +75,9 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             options:
                 default: 0
+        privacy:
+            type: boolean
+            nullable: true
         settings:
             type: text
             nullable: true
