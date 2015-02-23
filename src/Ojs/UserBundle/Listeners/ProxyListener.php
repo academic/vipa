@@ -22,23 +22,25 @@ class ProxyListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        if ($this->container->hasScope('request')) {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-        /**
-         * perhaps you only want to act on some "Proxy" entity
-         * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
-         */
-        if ($entity instanceof Proxy) {
+            /**
+             * perhaps you only want to act on some "Proxy" entity
+             * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
+             */
+            if ($entity instanceof Proxy) {
 
-            //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setUserId($entity->getClientUser()->getId());
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_CREATE);
-            $event->setIp($this->container->get('request')->getClientIp());
-            $entityManager->persist($event);
+                //log as eventlog
+                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event->setUserId($entity->getClientUser()->getId());
+                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_CREATE);
+                $event->setIp($this->container->get('request')->getClientIp());
+                $entityManager->persist($event);
 
-            $entityManager->flush();
+                $entityManager->flush();
+            }
         }
     }
 
@@ -49,23 +51,26 @@ class ProxyListener
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        if ($this->container->hasScope('request')) {
 
-        /**
-         * perhaps you only want to act on some "Proxy" entity
-         * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
-         */
-        if ($entity instanceof Proxy) {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-            //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_REMOVE);
-            $event->setIp($this->container->get('request')->getClientIp());
-            $event->setUserId($entity->getClientUserId());
-            $entityManager->persist($event);
+            /**
+             * perhaps you only want to act on some "Proxy" entity
+             * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
+             */
+            if ($entity instanceof Proxy) {
 
-            $entityManager->flush();
+                //log as eventlog
+                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_REMOVE);
+                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setUserId($entity->getClientUserId());
+                $entityManager->persist($event);
+
+                $entityManager->flush();
+            }
         }
     }
 }

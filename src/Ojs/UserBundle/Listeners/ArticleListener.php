@@ -3,11 +3,14 @@ namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class ArticleListener
 {
     protected $container;
+
 
     public function __construct(ContainerInterface $container = null)
     {
@@ -22,26 +25,33 @@ class ArticleListener
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        if ($this->container->hasScope('request')) {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-        /* @var $user User */
-        $user = $this->container->get('security.context')->getToken()->getUser();
+            $token = $this->container->get('security.context')->getToken();
+            if (!$token) {
+                $user = $entityManager->getReference('OjsUserBundle:User', 1);
+            } else {
+                /* @var $user User */
+                $user = $token->getUser();
+            }
 
-        /**
-         * perhaps you only want to act on some "Article" entity
-         * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
-         */
-        if ($entity instanceof Article) {
+            /**
+             * perhaps you only want to act on some "Article" entity
+             * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
+             */
+            if ($entity instanceof Article) {
 
-            //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setUserId($user->getId());
-            $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_SUBMISSION);
-            $event->setIp($this->container->get('request')->getClientIp());
-            $entityManager->persist($event);
+                //log as eventlog
+                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event->setUserId($user->getId());
+                $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_SUBMISSION);
+                $event->setIp($this->container->get('request')->getClientIp());
+                $entityManager->persist($event);
 
-            $entityManager->flush();
+                $entityManager->flush();
+            }
         }
     }
 
@@ -52,26 +62,28 @@ class ArticleListener
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        if ($this->container->hasScope('request')) {
+            $entity = $args->getEntity();
+            $entityManager = $args->getEntityManager();
 
-        /* @var $user User */
-        $user = $this->container->get('security.context')->getToken()->getUser();
+            /* @var $user User */
+            $user = $this->container->get('security.context')->getToken()->getUser();
 
-        /**
-         * perhaps you only want to act on some "Article" entity
-         * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
-         */
-        if ($entity instanceof Article) {
+            /**
+             * perhaps you only want to act on some "Article" entity
+             * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events
+             */
+            if ($entity instanceof Article) {
 
-            //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_REMOVE);
-            $event->setIp($this->container->get('request')->getClientIp());
-            $event->setUserId($user->getId());
-            $entityManager->persist($event);
+                //log as eventlog
+                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_REMOVE);
+                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setUserId($user->getId());
+                $entityManager->persist($event);
 
-            $entityManager->flush();
+                $entityManager->flush();
+            }
         }
     }
 }
