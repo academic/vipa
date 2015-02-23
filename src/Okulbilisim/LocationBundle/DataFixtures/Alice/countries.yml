@@ -2,5 +2,5 @@
   countries{1..20}:
     continentCode: <text(5)>
     continentName: <text(20>
-    isoCode: <text(5)
+    isoCode: <text(5)>
     name: <country()>
