@@ -7,7 +7,7 @@
             <header class="page-header text-center">
                 <figure>
                     {% set avatar_imageoptions=getImageOptions(app.user,'avatar','avatar_thumb_crop') %}
-                    <img class="img-circle" alt="" src="{{ ('/uploads/avatarfiles/'~imagePath(user.avatar))|imagine_filter('avatar_thumb_crop',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                    <img class="img-circle" alt="" src="{{ ('/uploads/avatarfiles/'~imagePath(user.avatar))|imagine_filter('avatar_thumb_crop',{"crop":{"start":[avatar_imageoptions.x,avatar_imageoptions.y],"size":[avatar_imageoptions.width,avatar_imageoptions.height]}}) }}"
                          data-src="holder.js/200x200/random/text:{{user.username}}" />
                 </figure>
                 <h1 class="page-title">{{ user.title }} {{ user.firstName }} {{ user.lastName }} / @{{ user.username }}</h1>
