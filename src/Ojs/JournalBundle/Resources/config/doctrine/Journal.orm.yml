@@ -57,7 +57,7 @@ Ojs\JournalBundle\Entity\Journal:
                   language_id:
                     referencedColumnName: id
                 joinColumns:
-                  article_id:
+                  journal_id:
                     referencedColumnName: id
                 name: Journal_Language
               fetch: EXTRA_LAZY
