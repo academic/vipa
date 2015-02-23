@@ -26,8 +26,11 @@ class ArticleListener
         $entityManager = $args->getEntityManager();
 
         /* @var $user User */
-        $user = $this->container->get('security.context')->getToken()->getUser();
-
+        if(!$this->container->get('security.context')->getToken()){
+		return false;
+	}
+	$user = $this->container->get('security.context')->getToken()->getUser();
+	
         /**
          * perhaps you only want to act on some "Article" entity
          * @link http://docs.doctrine-project.org/en/latest/reference/events.html#listening-and-subscribing-to-lifecycle-events

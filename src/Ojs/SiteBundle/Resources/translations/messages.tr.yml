@@ -164,6 +164,8 @@ done: Tamamlandı
 
 institution.type: Kurum türleri
 current.issue: Son Sayı
+new_block: Yeni Blok Oluştur
+new_block_link: Blok Linki Oluştur
     
 
 institute.register: "Enstitü Kaydet"
