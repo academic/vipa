@@ -30,6 +30,9 @@ class UpdateUserType extends AbstractType
             ))
             ->add('avatar','hidden')
             ->add('header','hidden')
+            ->add('privacy','checkbox',[
+                'label'=>'Hide my account'
+            ])
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojs\JournalBundle\Entity\Journal',
 //                    'property' => 'title',
