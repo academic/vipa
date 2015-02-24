@@ -43,7 +43,7 @@ class JournalType extends AbstractType {
                 ->add('country','entity',[
                     'class'=>'Okulbilisim\LocationBundle\Entity\Country',
                     'attr'=>[
-                        'class'=>'select2'
+                        'class'=>'select2-element'
                     ]
                 ])
                 ->add('published')

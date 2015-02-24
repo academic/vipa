@@ -27,7 +27,7 @@ class ArticleFileType extends AbstractType
                 'choices'=>ArticleFileParams::$FILE_TYPES
             ])
             ->add('article', 'entity', array(
-                'attr' => array('class' => ' form-control select2'),
+                'attr' => array('class' => ' form-control select2-element'),
                 'class' => 'Ojs\JournalBundle\Entity\Article',
                 'query_builder' => function(EntityRepository $er)use($user) {
                     /** @var User $user $qb */

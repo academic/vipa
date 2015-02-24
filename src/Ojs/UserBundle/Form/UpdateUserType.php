@@ -25,7 +25,7 @@ class UpdateUserType extends AbstractType
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%'),
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                 'required'=>false
             ))
             ->add('avatar','hidden')

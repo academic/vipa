@@ -56,7 +56,7 @@ class JournalSuggestionType extends AbstractType
             ->add('subtitle')
             ->add('domain')
             ->add('subdomain')
-            ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2']])
+            ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2-element']])
             ->add('issn')
             ->add('eissn')
             ->add('firstPublishDate')
@@ -65,9 +65,9 @@ class JournalSuggestionType extends AbstractType
             ->add('scope')
             ->add('tags',null,['attr'=>['class'=>'tags form-control']])
             ->add('url')
-            ->add('institution', 'choice', ['choices' => $choices['institutions'], 'attr' => ['class' => 'select2']])
-            ->add('languages', 'choice', ['choices' => $choices['languages'], 'multiple' => true, 'attr' => ['class' => 'select2']])
-            ->add('subjects', 'choice', ['choices' => $choices['subjects'], 'multiple' => true, 'attr' => ['class' => 'select2']])
+            ->add('institution', 'choice', ['choices' => $choices['institutions'], 'attr' => ['class' => 'select2-element']])
+            ->add('languages', 'choice', ['choices' => $choices['languages'], 'multiple' => true, 'attr' => ['class' => 'select2-element']])
+            ->add('subjects', 'choice', ['choices' => $choices['subjects'], 'multiple' => true, 'attr' => ['class' => 'select2-element']])
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden');
     }

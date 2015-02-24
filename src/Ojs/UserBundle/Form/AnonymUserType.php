@@ -33,7 +33,7 @@ class AnonymUserType extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%')
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
             ))
         ;
     }

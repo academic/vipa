@@ -10,22 +10,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ArticleType extends AbstractType
-{
+class ArticleType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $journal = $options['journal'];
         $user = $options['user'];
         $builder
                 ->add('issue', 'entity', array(
                     'class' => 'Ojs\JournalBundle\Entity\Issue',
                     'required' => false,
-                    'attr' => array('class' => ' form-control select2'),
+                    'attr' => array('class' => ' form-control select2-element'),
                     'query_builder' => function (EntityRepository $er) use ($journal, $user) {
                 $qb = $er->createQueryBuilder('i');
                 foreach ($user->getRoles() as $role) {
@@ -49,7 +47,7 @@ class ArticleType extends AbstractType
                 ->add('otherId', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('keywords', 'text', array('attr' => array('class' => ' form-control')))
                 ->add('journal', 'entity', array(
-                    'attr' => array('class' => ' form-control select2'),
+                    'attr' => array('class' => ' form-control select2-element'),
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function(EntityRepository $er)use($journal, $user) {
                 /** @var User $user $qb */
@@ -98,8 +96,7 @@ class ArticleType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Article',
             'journal' => 0,
@@ -110,8 +107,7 @@ class ArticleType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return 'ojs_journalbundle_article';
     }
 
