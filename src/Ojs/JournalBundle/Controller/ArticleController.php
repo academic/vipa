@@ -98,7 +98,12 @@ class ArticleController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $dm = $this->get('doctrine.odm.mongodb.document_manager');
+            $header = $request->request->get('header');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header, $entity, 'header');
+            $dm->persist($imageOptions);
+            $dm->flush();
             return $this->redirect($this->generateUrl('articlefile', array('article' => $entity->getId())));
         }
 
@@ -120,12 +125,12 @@ class ArticleController extends Controller
         $journal = $this->get('session')->get("selectedJournalId");
         $form = $this->createForm(
             new ArticleType(), $entity, array(
-            'action' => $this->generateUrl('article_create'),
-            'method' => 'POST',
-            'journal' => $journal
-        ,
-            'user' => $this->getUser()
-        ));
+                'action' => $this->generateUrl('article_create'),
+                'method' => 'POST',
+                'journal' => $journal
+            ,
+                'user' => $this->getUser()
+            ));
 
         return $form;
     }
@@ -241,8 +246,8 @@ class ArticleController extends Controller
                 $file_entity = new File();
                 $file_entity->setName($file);
                 $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
-                $file_entity->setSize(filesize($imagepath.$file));
-                $file_entity->setMimeType(mime_content_type($imagepath.$file));
+                $file_entity->setSize(filesize($imagepath . $file));
+                $file_entity->setMimeType(mime_content_type($imagepath . $file));
                 $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
                 $em->persist($file_entity);
                 $articleFile = new ArticleFile();
