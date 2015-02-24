@@ -1,70 +1,77 @@
-<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item row">
-    <form> 
-        <div class="col-md-1">
-            <input type="number" min="0" max="10000" class="form-control input-sm" style="width:80px" name="orderNum" 
-                   value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="{{"order"|trans}}">
+<div class="{% if citationItem is defined %}{%else%}hide{% endif %} cite-item">
+    <form class="well well-default">
+        <div class="row">
+            <div class="col-xs-1">
+                <input type="number" min="0" max="10000" class="form-control input-sm" style="width:80px" name="orderNum"
+                       value="{% if citationItem is defined%}{{ citationItem.orderNum}}{%endif%}" placeholder="{{"order"|trans}}">
+            </div>
+            <div class="col-xs-11">
+                <input type="text" class="form-control input-sm" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}"
+                       name="raw" placeholder="{{"citation"|trans}}">
+            </div>
         </div>
-        <div class="col-md-12">
-            <input type="text" class="form-control input-sm" value="{% if citationItem is defined%}{{ citationItem.raw}}{%endif%}" 
-                   name="raw" placeholder="{{"citation"|trans}}"> 
-        </div>
-        <div class="col-md-12">
-            <div class="btn-group pull-right" role="group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="btn-group pull-right" role="group">
 
-                <a class="btn btn-xs btn-warning removeArticleCitationInline">
-                    <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
-                </a>
-                <a class="btn btn-xs btn-info parseArticleCitationInline">
-                    <i class="fa fa-refresh"></i> {{"parse"|trans}}
-                </a>
-                <a href="#details" class="btn btn-xs btn-info addCitationDetails">
-                    <i class="fa fa-eye"></i> {{"details"|trans}}
-                </a>
+                    <a class="btn btn-xs btn-warning removeArticleCitationInline">
+                        <i class="fa fa-minus-circle"></i> {{"remove"|trans}}
+                    </a>
+                    <a class="btn btn-xs btn-info parseArticleCitationInline">
+                        <i class="fa fa-refresh"></i> {{"parse"|trans}}
+                    </a>
+                    <a href="#details" class="btn btn-xs btn-info addCitationDetails">
+                        <i class="fa fa-eye"></i> {{"details"|trans}}
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="citationDetails col-md-12">
-            <select class="select2-element citation_type row" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
-                <option value="">{{"citation.type"|trans}}</option>
-                {% for type in citationTypes %}
-                    <option value="{{type.name}}" 
-                            {% if citationItem is defined and citationItem.type == type.name%}
-                                selected="selected"
-                            {% endif%}
-                            data-should='{{type.should|json_encode()}}' 
-                            data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
-                {%endfor%}
-            </select>  
-            <div class="citationDetailsFields form-horizontal row">
-                {% if citationItem is defined and citationItem.type%}
-                    {% if citationTypes[citationItem.type] is defined %}
-                        {% for field in citationTypes[citationItem.type].must %}
-                            {% if citationItem[field] is defined %}
-                                <div class="form-group">
-                                    <label class="col-md-1 control-label">{{field|trans}} </label> 
-                                    <div class="col-md-10">
-                                        <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
+            <div class="citationDetails col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="select2-element form-control citation_type row" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+                            <option value="">{{"citation.type"|trans}}</option>
+                            {% for type in citationTypes %}
+                                <option value="{{type.name}}"
+                                        {% if citationItem is defined and citationItem.type == type.name%}
+                                            selected="selected"
+                                        {% endif%}
+                                        data-should='{{type.should|json_encode()}}'
+                                        data-must='{{type.must|json_encode()}}'>{{type.name|trans}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="citationDetailsFields form-horizontal row">
+                            {% if citationItem is defined and citationItem.type%}
+                                {% if citationTypes[citationItem.type] is defined %}
+                                    {% for field in citationTypes[citationItem.type].must %}
+                                        {% if citationItem[field] is defined %}
+                                            <div class="form-group">
+                                                <label class="col-md-1 control-label">{{field|trans}} </label>
+                                                <div class="col-md-10">
+                                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for field in citationTypes[citationItem.type].should%}
+                                        {% if citationItem[field] is defined %}
+                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field, 'value':citationItem[field] } only %}
+                                        {%endif%}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">{{field|trans}}~</label>
+                                        <div class="col-md-10">
+                                            <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
+                                        </div>
                                     </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        {% for field in citationTypes[citationItem.type].should%}
-                            {% if citationItem[field] is defined %}
-                                {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field, 'value':citationItem[field] } only %}    
+                                {% endif %}
                             {%endif%}
-                        {% endfor %}
-                    {% else %}
-                        <div class="form-group">
-                            <label class="col-md-1 control-label">{{field|trans}}~</label>
-                            <div class="col-md-10">
-                                <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
-                            </div>
                         </div>
-                    {% endif %}
-                {%endif%}
+                    </div>
+                </div>
             </div>
-            <hr>
         </div>
     </form>
-    <hr>
-    <br>
 </div>
