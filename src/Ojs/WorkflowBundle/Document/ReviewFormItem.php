@@ -38,7 +38,7 @@ class ReviewFormItem
      *  - checkbox
      *  - radiobutton
      *  - dropdown
-     *  - scale_1_5
+     *  - scale1_5
      */
     protected $inputType;
 

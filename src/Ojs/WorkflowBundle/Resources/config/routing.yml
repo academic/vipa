@@ -8,11 +8,11 @@ ojs_workflowsteps:
 
 review_form_items: 
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_form_items.yml"
-    prefix: /editor/worflow/
+    prefix: /editor/
      
 review_forms: 
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_forms.yml"
-    prefix: /editor/worflow/
+    prefix: /editor/
      
 manage_workflowsteps:
     pattern:   /editor/worflow/manage/steps
