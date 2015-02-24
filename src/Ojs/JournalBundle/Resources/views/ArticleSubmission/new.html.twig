@@ -4,7 +4,7 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission.css" filter="cssrewrite" %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
+    <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
@@ -27,10 +27,10 @@
             </ul>
         </div>
         <div class="panel-body">
-            <div id="step1-container" class="step row">
+            <div id="step1-container" class="step">
                 <div class="row">
                     {% if session('selectedJournalId') %}
-                        <div class="col-md-3 col-xs-12"><label></label><span class="badge">1.1</span> Select journal to submit</label></div>
+                        <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> Select journal to submit</label></div>
                         <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
                             <select id="changeSelectedJournal" class="form-control select2-element">
                                 {% for journal in userjournals %}
@@ -44,7 +44,7 @@
                     {% endif %}
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><span class="badge">1.2</span> {{ "article.language.primary"|trans }}</div>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.2</span> {{ "article.language.primary"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12">
                         <select name="primaryLanguage" class="form-control select2-element">
                             {% for lang in journal.languages %}
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><span class="badge">1.3</span> {{ "article.language.primary"|trans }}</div>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.language.primary"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12">
                         <ul id="mainTabs" class="nav nav-tabs" role="tablist">
                             <li class="lang dropdown">
@@ -113,7 +113,7 @@
                     {% endif %}
 
                 </div>
-                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"add_new_author"|trans}}</a>
+                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"author"|trans}}</a>
 
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
@@ -183,11 +183,7 @@
 
 
             <div id="step4-container" class="step hide">
-                <h3>{{ 'article.files'|trans }}
-                    <button onclick="OjsArticleSubmission.addFileForm();"
-                            class="btn btn-sm btn-info">+ New File
-                    </button>
-                </h3>
+                <h3>{{ 'article.files'|trans }}</h3>
                 <div id="step4">
                     {% if submissionData is defined and submissionData.files is defined %}
                         {% for file in submissionData.files %}
@@ -195,18 +191,21 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <div class="step4_actions record_actions col-md-12">
-                    <br>
-                    <a class="btn btn-default btn-lg"
-                       onclick="javascript:OjsArticleSubmission.backTo(3);">
-                        <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                    </a>
-
-                    <a class="btn btn-info btn-lg"
-                       onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
-                        {{ "save.next"|trans }}
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
+                <button onclick="OjsArticleSubmission.addFileForm();"class="btn btn-block btn-primary"><i class="fa fa-plus"></i> New File</button>
+                <div class="step4_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(3);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step4') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

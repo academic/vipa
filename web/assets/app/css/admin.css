@@ -122,10 +122,3 @@ table.dataTable thead .sorting:after {
 .show-grid {
     margin: 15px 0;
 }
-
-.cite-item{
-    background-color: #efefef;
-    border: 1px #dfdfdf solid;
-    padding: 2px;
-    display:block;
-}
