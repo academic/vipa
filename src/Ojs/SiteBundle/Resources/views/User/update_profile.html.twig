@@ -46,15 +46,13 @@
                     <div class="form-group">
                         <label class="control-label" for="fileupload_avatar">{{ "Avatar"|trans }}</label>
                         <div id="preview_image_avatar"  style="width:200px">
-                            {% if entity.avatar %}
                                 <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200")}}"
-                                     data-src="holder.js/960x200/random/text:{{entity.username}}" alt="" />
+                                     data-src="holder.js/200x200/random/text:{{entity.username}}" alt="" />
                                 {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
                                 <input id="avatar_height" name="avatar[height]" type="hidden" value="{{ imageoptions.height }}"/>
                                 <input id="avatar_width"  name="avatar[width]" type="hidden" value="{{ imageoptions.width }}"/>
                                 <input id="avatar_x"  name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
                                 <input id="avatar_y"  name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
-                            {% endif %}
 
                         </div>
     <span class="btn btn-success fileinput-button form-control">
@@ -68,30 +66,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
-                        <div id="preview_image_header" >
-                            {% if entity.header %}
-                                <img src="{{ ('/uploads/userfiles/'~imagePath(entity.header))|imagine_filter("wide_960")}}"
-                                     data-src="holder.js/960x200/random/text:{{entity.username}}" alt="" />
-                                {% set imageoptions=getImageOptions(entity,'header',"wide_960") %}
-                                <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                                <input id="header_width"  name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                                <input id="header_x"  name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                                <input id="header_y"  name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
-                            {% endif %}
-
-                        </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('userfiles') }}">
-            </span>
-
-                        <div id="user_header_upload_progress" style="display: none" class="label label-info">
-
-                        </div>
-                    </div>
                     <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
                         {{ "u"|trans }}
                     </button>
@@ -122,23 +96,30 @@
                 $('#user_header_upload_progress').show();
                 $('#user_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#user_header_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_userbundle_updateuser_header').attr('value', JSON.parse(data.result).files.name);
+                $("#preview_image_header > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
+
             });
             $('#fileupload_avatar').fileupload({});
             $('#fileupload_avatar').bind('fileuploadsend', function (e, data) {
                 $('#user_avatar_upload_progress').show();
                 $('#user_avatar_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#user_avatar_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_userbundle_updateuser_avatar').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_userbundle_updateuser_avatar').attr('value', result.files.name);
+                $("#preview_image_avatar > img").cropper('replace', '/media/cache/resolve/wide_200' + result.files.fullpath + '/' + result.files.name);
+
             });
             $("#preview_image_avatar > img").cropper({
                 aspectRatio: 1,
                 maxWidth:200,
                 maxHeight:200,
 
-                {% if  entity.avatar %}
                 {% set imageoptions=getImageOptions(entity,'avatar',"avatar_thumb_crop") %}
                 data:{
                     x: {{ imageoptions.x }},
@@ -146,7 +127,6 @@
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                {% endif %}
                 done: function(data){
                     $("#avatar_height").val(data.height)
                     $("#avatar_width").val(data.width)
@@ -160,7 +140,6 @@
                 maxWidth:585,
                 maxHeight:390,
 
-                {% if  entity.avatar %}
                 {% set imageoptions=getImageOptions(entity,'header',"user_header") %}
                 data:{
                     x: {{ imageoptions.x }},
@@ -168,7 +147,6 @@
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                {% endif %}
                 done: function(data){
                     $("#header_height").val(data.height)
                     $("#header_width").val(data.width)
