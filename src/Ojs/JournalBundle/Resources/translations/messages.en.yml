@@ -91,6 +91,7 @@ author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
 author.orcid: ORCID
+author.add: 'Add Author'
 user.new: 'New User'
 details: Details
 article.manager: 'Article Manager'
