@@ -20,7 +20,7 @@ class DefaultController extends Controller
         $result = $searchManager->search()->getResult();
         $data['result'] = $result;
         $data['total_count'] = $searchManager->getCount();
-        $data['page'] = $searchManager->getPageCount();
+        $data['page'] = $page;
         $data['page_count'] = $searchManager->getPageCount();
         $data['term'] = $term;
         $data['aggregations'] = $searchManager->getAggregations();
