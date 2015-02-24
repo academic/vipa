@@ -15,7 +15,52 @@
             <h1>Edit Form Item <small>{{form.title}}</small></h1>
         </div>
         <div class="panel-body"> 
+            <form method="post" class="form-row" action="{{path('ojs_review_form_items_update',{'id':formItem.id})}}">
+                <div>
+                    <label>Title</label>
+                    <input value="{{formItem.title}}"  id="titleinput"  class="form-control" name="title" >
+                </div>
 
+                <div>
+                    <label>Mandotary?
+                        <input type="checkbox" name="mandotary" {% if formItem.mandotary %}checked="checked"{%endif%} id="mandotaryinput" value="1"> 
+                    </label>
+                    <span class="help-block">Is this question mandotary?</span>
+                </div>
+                <div>
+                    <label>Confidential?
+                        <input type="checkbox" name="confidential" {% if formItem.confidential %}checked="checked"{%endif%} id="confidentialinput" value="1"> 
+                    </label>
+                    <span class="help-block">If this question's answer may contain confidential data please check.</span>
+                </div>
+
+                <div class="form-inline">
+                    <label>Input Type</label>
+                    <select class="form-control select2" name="inputtype" id="inputtypeinput">
+                        <option value="textbox"  {% if formItem.inputType == 'textbox' %}selected="selected"{%endif%} >Textbox</option>
+                        <option value="textarea"  {% if formItem.inputType == 'textarea' %}selected="selected"{%endif%} >Textarea</option>
+                        <option rel="hasfields" value="checkboxes"  {% if formItem.inputType == 'checkboxes' %}selected="selected"{%endif%} >Checkbox</option>
+                        <option rel="hasfields" value="radiobutton"  {% if formItem.inputType == 'radiobutton' %}selected="selected"{%endif%} >Radiobutton</option>
+                        <option rel="hasfields" value="dropdown"  {% if formItem.inputType == 'dropdown' %}selected="selected"{%endif%} >Dropdown</option>
+                        <option value="scale1_5"  {% if formItem.inputType == 'scale1_5' %}selected="selected"{%endif%} >Scale 1-5</option>
+                    </select>
+
+                </div>
+
+                <div id="fieldspart"   style="{% if formItem.inputType  in [ 'radiobutton','radiobutton','checkboxes'] %}display:block{%else%}display:none{%endif%}">
+                    <label>Fields</label>
+                    <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="Add each field text as one line" >{%for field in formItem.fields%}{{field}}
+{%endfor%}</textarea>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="Save" />
+                    <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
+                        <i class="fa fa-arrow-left"></i>
+                       {{"b"|trans}}
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

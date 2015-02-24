@@ -81,8 +81,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController
     { 
         $dm = $this->get('doctrine_mongodb')->getManager();
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
-        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId());
-
+        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId()); 
         return $this->render('OjsWorkflowBundle:ReviewFormItem:edit.html.twig', array(
                     'formItem' => $formItem,
                     'form' => $form)
