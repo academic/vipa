@@ -15,6 +15,7 @@ use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Router;
 use Tackk\Cartographer\Sitemap;
 use Tackk\Cartographer\SitemapIndex;
 
@@ -57,20 +58,20 @@ class SitemapController extends Controller
         $siteMap = new Sitemap();
         $router = $this->get('router');
         $siteMap->add(
-            $request->getScheme().':' .
             $router->generate('ojs_journals_index',
                 [
                     'subject' => $subject->getSlug(),
                     'institution' => $institution
-                ])
+                ],
+                Router::ABSOLUTE_URL)
         );
 
         foreach ($journals as $journal) {
             /** @var Journal $journal */
             $siteMap->add(
-                $request->getScheme() .':'.
                 $router->generate('ojs_journal_index', ['slug' => $journal->getSlug(),
-                    'institution' => $journal->getInstitution()->getSlug()]),
+                    'institution' => $journal->getInstitution()->getSlug()],
+                    Router::ABSOLUTE_URL),
                 $journal->getUpdated()->format('Y-m-d')
             );
         }

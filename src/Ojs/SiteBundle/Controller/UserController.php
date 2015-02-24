@@ -122,7 +122,8 @@ class UserController extends Controller
                 $customField->setUser($user);
                 $em->persist($customField);
                 $em->flush();
-                return $this->redirectToRoute('ojs_user_custom_field');
+                return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
+
             } else {
                 $session = $this->get('session');
                 $bag = $session->getFlashBag();
@@ -145,7 +146,8 @@ class UserController extends Controller
 
         $em->remove($customField);
         $em->flush();
-        return $this->redirectToRoute('ojs_user_custom_field');
+        return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
+
     }
 
     public function connectedAccountAction()
@@ -191,7 +193,8 @@ class UserController extends Controller
             $user->addOauthAccount($oauth);
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('ojs_user_connected_account');
+            return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
+
         }
         throw new \ErrorException("An error",serialize($post));
     }
@@ -204,7 +207,8 @@ class UserController extends Controller
             throw new NotFoundException;
         $em->remove($account);
         $em->flush();
-        return $this->redirectToRoute('ojs_user_connected_account');
+        return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
+
     }
 
     public function forgotPasswordAction(Request $request)
@@ -261,7 +265,8 @@ class UserController extends Controller
                 $session->getFlashBag()
                     ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
                 $session->save();
-                return $this->redirectToRoute('ojs_user_reset_password',['token'=>$token]);
+                return $this->redirect($this->get('router')->generate('ojs_user_reset_password',['token'=>$token]));
+
             }
 
             // Reset and save new password
@@ -279,7 +284,9 @@ class UserController extends Controller
             $dispatcher->dispatch('user.password.reset', $event);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Your password has been changed.'));
             $session->save();
-            return $this->redirectToRoute('login');
+
+            return $this->redirect($this->get('router')->generate('login'));
+
         }
         $data['token'] = $token;
         return $this->render('OjsSiteBundle:User:reset_password.html.twig', $data);

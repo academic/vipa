@@ -103,7 +103,11 @@ class UserControllerTest extends BaseTestCase
     public function testAnonymLoginDelete()
     {
         $this->logIn();
-        $this->isAccessible(['user_delete_anonym_login',['id'=>1]]);
+        $em = $this->app->getKernel()->getContainer()->get('doctrine.orm.entity_manager');
+        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['email'=>'root@localhost.com']);
+        $dm = $this->app->getKernel()->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $aut = $dm->getRepository('OjsUserBundle:AnonymUserToken')->findOneBy(['user_id'=>$user->getId()]);
+        $this->isAccessible(['user_delete_anonym_login',['id'=>$aut->getId()]]);
         $result = $this->client->followRedirect();
         $this->assertEquals(1,$result->filter('html:contains("List Anonym Login")')->count());
 
