@@ -17,10 +17,7 @@
                     <th>{{"user.anonym.lastname"|trans}}</th>
                     <th>{{"user.anonym.email"|trans}}</th>
                     <th>{{"user.anonym.role"|trans}}</th>
-                    <th>{{"user.anonym.has_logged"|trans}}</th>
-                    <th>{{"user.anonym.has_register"|trans}}</th>
-                    <th>{{"user.anonym.user"|trans}}</th>
-                    <th>{{"user.anonym.object"|trans}}</th>
+                    <th>{{"user.anonym.used"|trans}}</th>
                     <th>{{"actions"|trans}}</th>
                 </tr>
                 </thead>
@@ -33,7 +30,6 @@
                         <td>{{ _user.email }}</td>
                         <td>{{ _user.roles|join(',') }}</td>
                         <td>{{ entity.used }}</td>
-                        <td>{{ getObject(entity.object,entity.objectId)|raw }}</td>
                         <td>
                             {% set edit_path = 'user_edit_anonym_login' %}
                             {% set delete_path = 'user_delete_anonym_login' %}

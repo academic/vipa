@@ -12,7 +12,7 @@ use Ojs\Common\Tests\BaseTestCase;
 class SitemapControllerTest extends BaseTestCase
 {
     const JOURNAL = 'acta-medica';
-    const INSTITUTION = 'acta-medica';
+    const INSTITUTION = 'anatoliamedica';
     const SUBJECT = 'guc-ve-enerji';
 
     public function testIndex()
