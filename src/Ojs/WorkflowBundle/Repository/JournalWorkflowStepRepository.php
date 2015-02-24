@@ -8,8 +8,8 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  *
  * @MongoDb\Document(collection="journal_workflow_steps")
  */
-class JournalWorkflowStepRepository extends DocumentRepository
-{
+class JournalWorkflowStepRepository extends DocumentRepository {
+
     /**
      *
      * $firstStep = $this->get('doctrine_mongodb')
@@ -19,8 +19,7 @@ class JournalWorkflowStepRepository extends DocumentRepository
      *
      * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
      */
-    public function findFirstStep()
-    {
+    public function findFirstStep() {
         return $this->createQueryBuilder()
                         ->field('firststep')->equals(true)
                         ->getQuery()
@@ -31,16 +30,14 @@ class JournalWorkflowStepRepository extends DocumentRepository
      *
      * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
      */
-    public function findLastStepStep()
-    {
+    public function findLastStepStep() {
         return $this->createQueryBuilder()
                         ->field('lastStep')->equals(true)
                         ->getQuery()
                         ->getSingleResult();
     }
 
-    public function findAllOrderedByTitle()
-    {
+    public function findAllOrderedByTitle() {
         return $this->createQueryBuilder()
                         ->sort('title', 'ASC')
                         ->getQuery()

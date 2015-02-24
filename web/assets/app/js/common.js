@@ -18,7 +18,9 @@ $.fn.serializeObject = function ()
 
 $(document).ready(function () {
 
-
+    if ($(".select2-element").length) {
+        $(".select2-element").select2();
+    }
     $(document).on('pjax:send', function () {
         $('#loading').show()
     })
