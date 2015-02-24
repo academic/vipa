@@ -17,8 +17,6 @@
         <div class="panel-body"> 
             <div class="panel-body">
                 <form method="post" class="form-row" action="{{path('ojs_review_form_items_create',{'formId':form.id})}}">
-
-
                     <div>
                         <label>Title</label>
                         <input  id="titleinput" class="form-control" name="title" >
@@ -57,9 +55,9 @@
 
                     <div>
                         <input type="submit" class="btn btn-success" value="Save" />
-                        <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
+                        <a href="{{path('ojs_review_form_items')}}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i>
-                            Back to List
+                            {{"b"|trans}}
                         </a>
                     </div>
                 </form>
