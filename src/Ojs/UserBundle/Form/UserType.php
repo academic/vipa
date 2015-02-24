@@ -31,14 +31,14 @@ class UserType extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%')
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
             ))
             ->add('subjects', 'entity', array(
                 'class' => 'Ojs\JournalBundle\Entity\Subject',
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%'),
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                 'required'=>false
             ))
             ->add('avatar','hidden')
@@ -52,7 +52,7 @@ class UserType extends AbstractType
             ->add('country', 'entity', [
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                 'attr' => [
-                    'class' => 'select2  bridged-dropdown',
+                    'class' => 'select2-element  bridged-dropdown',
                     'data-to'=>'#'.$this->getName().'_city'
                 ]
             ]);

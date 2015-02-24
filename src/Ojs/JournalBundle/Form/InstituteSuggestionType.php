@@ -63,7 +63,7 @@ class InstituteSuggestionType extends AbstractType
             ->add('country', 'choice', [
                 'choices' => $choices['countries'],
                 'attr' => [
-                    'class' => 'select2  bridged-dropdown',
+                    'class' => 'select2-element  bridged-dropdown',
                     'data-to'=>'#'.$this->getName().'_city'
                 ]
             ]);

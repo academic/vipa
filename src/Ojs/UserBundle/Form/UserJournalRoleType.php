@@ -20,13 +20,13 @@ class UserJournalRoleType extends AbstractType
         $builder
                 ->add('userId','entity',[
                     'class'=>'Ojs\UserBundle\Entity\User',
-                    'attr' => array('class' => 'select2', 'style' => 'width:100%')
+                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
 
                 ])
                 ->add('journalId','entity',[
                     'class'=>'Ojs\JournalBundle\Entity\Journal',
                     'property'=>'title',
-                    'attr' => array('class' => 'select2', 'style' => 'width:100%'),
+                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                     'query_builder' => function(EntityRepository $er)use($user) {
                         /** @var User $user $qb */
                         $qb = $er->createQueryBuilder('j');

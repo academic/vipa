@@ -79,7 +79,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css'  output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 

@@ -21,7 +21,7 @@ class IssueType extends AbstractType
         $user = $options['user'];
         $builder
                 ->add('journal', 'entity', array(
-                    'attr' => array('class' => ' form-control select2'),
+                    'attr' => array('class' => ' form-control select2-element'),
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' =>
                     function (EntityRepository $er) use ($user) {
