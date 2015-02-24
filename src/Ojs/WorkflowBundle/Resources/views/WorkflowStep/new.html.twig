@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     <label>Roles</label>
-                    <select id="rolesinput" name="roles[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
                         {%for role in roles%}
                             <option value="{{role.id}}">{{role.role}}</option>
                         {%endfor%}
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 
-                    <select name="nextsteps[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select name="nextsteps[]"  style="min-width:200px" multiple="multiple" class="select2-element">
                         {%for step in nextSteps%}
                             <option value="{{step.id}}">{{step.title}}</option>
                         {%endfor%}
@@ -96,7 +96,8 @@
                 </div>
 
                 <div class="form-group">
-                    <select name="reviewform" class="form-control">
+                    <label>Review Forms</label>
+                    <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
                         <option>[No review form]</option>
                         {%for form in forms%}
                             <option value="{{form.id}}">{{form.title}}</option>

@@ -87,19 +87,19 @@
                         <input type="checkbox" name="canEdit" value="1"
                                {%if step.canEdit%}checked="checked"{%endif%}> 
                     </label>
-                    
+
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         Must be assigned to someone?
                         <input type="checkbox" name="mustBeAssigned" value="1"
                                {%if step.mustBeAssigned%}checked="checked"{%endif%}> 
                     </label>
-                    
+
                 </div>
 
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 
-                    <select name="nextsteps[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select name="nextsteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
                         {%for nstep in nextSteps%}
                             <option
                                 {%if hasid(nstep.id,step.nextsteps)%}selected="selected"{%endif%}
@@ -109,15 +109,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Review Form</label>
+                    <label>Review Forms</label>
 
-                    <select name="reviewform" class="form-control">
+                    <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
                         <option>[No review form]</option>
                         {%for form in forms%}
                             <option 
-                                {%if step.reviewForm and step.reviewForm.id == form.id %}
-                                    selected="selected"
-                                {%endif%}
+                                {%if step.hasForm(form)%}selected="selected"{%endif%}
                                 value="{{form.id}}">{{form.title}}
                             </option>
                         {%endfor%}
