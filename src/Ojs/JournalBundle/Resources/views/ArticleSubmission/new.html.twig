@@ -183,11 +183,7 @@
 
 
             <div id="step4-container" class="step hide">
-                <h3>{{ 'article.files'|trans }}
-                    <button onclick="OjsArticleSubmission.addFileForm();"
-                            class="btn btn-sm btn-info">+ New File
-                    </button>
-                </h3>
+                <h3>{{ 'article.files'|trans }}                 </h3>
                 <div id="step4">
                     {% if submissionData is defined and submissionData.files is defined %}
                         {% for file in submissionData.files %}
