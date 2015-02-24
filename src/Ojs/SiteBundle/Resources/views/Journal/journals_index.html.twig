@@ -10,21 +10,19 @@
         </ol>
         <div class="row">
             <div class="col-sm-3 col-md-3">
-                <div class="panel-group" id="accordion">
+                <div class="panel-group">
                     {% if institution=='' %}
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        <span class="fa fa-folder"></span> Kurum Türleri</a>
+                                        <span class="fa fa-folder"></span> {{ "institutiontype.plural"|trans}}
                                 </h4>
                             </div>
 
-                            <ul class="list-group">
+                            <ul class="list-group" id="institution_types">
                                 {% for institution_type in institution_types %}
                                     <li class="list-group-item">
                                         <a href="{{ url('ojs_journals_index',{start:start ,offset: offset }) }}?{{ addFilters('institution_type', institution_type.slug) }}">{{institution_type.name}}</a>
-                                        <!-- span class="badge pull-right">130</span -->
                                     </li>
                                 {% endfor%}
                             </ul>
@@ -34,8 +32,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    <span class="fa fa-th"></span> Konular</a>
+                                    <span class="fa fa-th"></span> {{ "subject.plural"|trans}}
                             </h4>
                         </div>
                         <ul class="list-group">
@@ -65,19 +62,18 @@
                                              data-src="holder.js/200x300/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                                     </a>
                                 </div>
+
                                 <div class="content">
                                     <span class="post-title"><b>{{journal.title}}</b></span>
-                                    <div class="smallinfo">
-                                        <span class="pull-left">Cil 8/Sayı 4 </span>
-                                        <time datetime="2014-01-20"  class="pull-right">18 Haziran 2014</time>
-                                    </div>
-
+                                    {% if journal_detail_box is defined %}
                                     <div>
                                         <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}" class="btn-link btn-sm">
                                             <i class="fa fa-link"></i> Dergi</a>
                                         <a href="{{ url('ojs_last_articles_index',{slug: journal.slug,institution: journal.institution.slug}) }}" class="btn-link btn-sm">
                                             <i class="fa fa-bookmark-o"></i> Son Sayı</a>
                                     </div>
+
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
