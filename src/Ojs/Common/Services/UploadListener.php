@@ -6,15 +6,18 @@ use Ojs\Common\Helper\FileHelper;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Ojs\Common\Helper\ImageResizeHelper;
 
-class UploadListener {
+class UploadListener
+{
 
     protected $rootDir;
 
-    public function __construct($rootDir = './') {
+    public function __construct($rootDir = './')
+    {
         $this->rootDir = $rootDir;
     }
 
-    public function onUpload(PostPersistEvent $event) {
+    public function onUpload(PostPersistEvent $event)
+    {
         $request = $event->getRequest();
         $response = $event->getResponse();
         $file = $event->getFile();
@@ -47,7 +50,8 @@ class UploadListener {
             'path' => $fileHelper->generatePath($file->getFileName(), false),
             'size' => $fileSize,
             'url' => '',
-            'mimeType' => $fileMimeType
+            'mimeType'=> $fileMimeType,
+            'fullpath'=>DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath($file->getFileName(), false)
         );
 
         return $response;
