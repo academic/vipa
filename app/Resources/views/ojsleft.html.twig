@@ -24,11 +24,11 @@
                 <div class="panel-heading  text-center">
                     <center>
                         {% if( session('selectedJournalId'))  %}
-                            {% if(userjournals[session('selectedJournalId')].image) %}
+                            {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
                                 <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
                                      class="avatar img-circle img-responsive" />
                             {%else%}
-                                <img src="holder.js/200x200/#459:#fff/text: {{userjournals[session('selectedJournalId')].title[:22]}} " 
+                                <img src="holder.js/200x200/#459:#fff/text:ojs"
                                      style="border-radius: 6px" class="img-responsive" />
                             {%endif%}  
                         {%endif%}  
