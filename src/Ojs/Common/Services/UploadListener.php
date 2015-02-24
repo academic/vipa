@@ -6,18 +6,15 @@ use Ojs\Common\Helper\FileHelper;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Ojs\Common\Helper\ImageResizeHelper;
 
-class UploadListener
-{
+class UploadListener {
 
     protected $rootDir;
 
-    public function __construct($rootDir = './')
-    {
+    public function __construct($rootDir = './') {
         $this->rootDir = $rootDir;
     }
 
-    public function onUpload(PostPersistEvent $event)
-    {
+    public function onUpload(PostPersistEvent $event) {
         $request = $event->getRequest();
         $response = $event->getResponse();
         $file = $event->getFile();
@@ -38,18 +35,19 @@ class UploadListener
         $uploadUrl = str_replace($uploadRootPath, $uploadType, $fileDir);
         if ($uploadType === 'avatarfiles') {
             $helper = new ImageResizeHelper(array(
-                    'image_name' => $fileName,
-                    'upload_dir' => $fileDir,
-                    'upload_url' => $uploadUrl
-                )
+                'image_name' => $fileName,
+                'upload_dir' => $fileDir,
+                'upload_url' => $uploadUrl
+                    )
             );
             $helper->resize();
         }
         $response['files'] = array(
             'name' => $file->getFileName(),
+            'path' => $fileHelper->generatePath($file->getFileName(), false),
             'size' => $fileSize,
             'url' => '',
-            'mimeType'=> $fileMimeType
+            'mimeType' => $fileMimeType
         );
 
         return $response;
