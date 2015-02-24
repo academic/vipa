@@ -281,7 +281,7 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('ojs_public_index');
+            return $this->redirect($this->get('router')->generate('ojs_public_index'));
         }
         $data['form'] = $form->createView();
         return $this->render('OjsUserBundle:Security:create_password.html.twig', $data);
