@@ -105,7 +105,7 @@ class SuggestionController extends Controller
         }
         $dm->remove($entity);
         $dm->flush();
-        return $this->redirectToRoute('journal_suggestion');
+        return $this->redirect($this->get('router')->generate('journal_suggestion'));
     }
 
     public function instituteDeleteAction($id)
@@ -117,7 +117,8 @@ class SuggestionController extends Controller
         }
         $dm->remove($entity);
         $dm->flush();
-        return $this->redirectToRoute('institute_suggestion');
+        return $this->redirect($this->get('router')->generate('institute_suggestion'));
+
     }
 
 
@@ -168,12 +169,14 @@ class SuggestionController extends Controller
             $entity->setMerged(true);
             $dm->persist($entity);
             $dm->flush();
-            return $this->redirectToRoute('journal_edit',['id'=>$journal->getId()]);
+            return $this->redirect($this->get('router')->generate('journal_edit',['id'=>$journal->getId()]));
+
         } catch (\Exception $e) {
             $session = $this->get('session');
             $session->getFlashBag()->add('error', $e->getMessage());
             $session->save();
-            return $this->redirectToRoute('suggestion_journal_show', ['id' => $id]);
+            return $this->redirect($this->get('router')->generate('suggestion_journal_show', ['id' => $id]));
+
         }
     }
 
@@ -215,12 +218,14 @@ class SuggestionController extends Controller
             $entity->setMerged(true);
             $dm->persist($entity);
             $dm->flush();
-            return $this->redirectToRoute('institution_edit', ['id' => $institute->getId()]);
+            return $this->redirect($this->get('router')->generate('institution_edit', ['id' => $institute->getId()]));
+
         } catch (\Exception $e) {
             $session = $this->get('session');
             $session->getFlashBag()->add('error', $e->getMessage());
             $session->save();
-            return $this->redirectToRoute('suggestion_institute_show', ['id' => $id]);
+            return $this->redirect($this->get('router')->generate('suggestion_institute_show', ['id' => $id]));
+
         }
     }
 
