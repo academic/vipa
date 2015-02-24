@@ -78,12 +78,12 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController
      * @return Response
      */
     public function editAction($id)
-    {
+    { 
         $dm = $this->get('doctrine_mongodb')->getManager();
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId());
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
+        return $this->render('OjsWorkflowBundle:ReviewFormItem:edit.html.twig', array(
                     'formItem' => $formItem,
                     'form' => $form)
         );
@@ -100,7 +100,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $dm->remove($formItem);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_form_items')
+        return $this->redirect($this->generateUrl('ojs_review_form_items',array('formId'=>$formItem->getFormId()))
         );
     }
 

@@ -4,7 +4,7 @@ ojs_review_form_items:
 
 ojs_review_form_items_edit:
     pattern:  /reviewformitems/{id}/edit
-    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:update }
+    defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:edit }
     
 ojs_review_form_items_update:
     pattern:  /reviewformitems/{id}/update
