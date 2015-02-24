@@ -62,26 +62,25 @@
 
             </nav>
             <ul class="pagination ">
+                {% if page_count>1 and page!=1 %}
+                <li>
+                    <a href="{{ url('ojs_search_index',{page:page-1,q:term }) }}">
+                        <span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a>
+                </li>
+                {% endif %}
+
                 {% for p in 1..page_count %}
-                    {% if loop.first %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
-                                <span aria-hidden="true">&laquo;</span><span class="sr-only">{{ p }}</span></a>
-                        </li>
-                    {% elseif loop.last %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
-                                <span aria-hidden="true">&raquo;</span><span class="sr-only">{{ p }}</span>
-                            </a>
-                        </li>
-                    {% else %}
                         <li>
                             <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">{{ p }}</a>
                         </li>
-                    {% endif %}
-
                 {% endfor %}
-
+                {% if page_count>1 and page!=page_count %}
+                    <li>
+                        <a href="{{ url('ojs_search_index',{page:page+1,q:term }) }}">
+                            <span aria-hidden="true">&raquo;</span><span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
 
         </section>

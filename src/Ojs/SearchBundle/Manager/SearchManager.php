@@ -107,6 +107,8 @@ class SearchManager
 
     public function search()
     {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
         //$finder = $this->container->get('fos_elastica.finder.search.articles');
         $search = $this->container->get('fos_elastica.index.search.articles');
 
@@ -118,11 +120,11 @@ class SearchManager
         $bool->addMust($multiMatch);
 
         if ($this->filter) {
-        $filterObj = new \Elastica\Query\Match();
+            $filterObj = new \Elastica\Query\Match();
             foreach ($this->filter as $key => $filter) {
                 $this->applyFilter($filterObj, $key, $filter);
             }
-        $bool->addMust($filterObj);
+            $bool->addMust($filterObj);
         }
 
         $query = new Query();
@@ -133,18 +135,26 @@ class SearchManager
         $aggregation = new Terms('journals');
         $aggregation->setField('journal.id');
         $aggregation->setOrder('_count', 'desc');
-        $aggregation->setSize(50);
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:Journal', 'r')
+            ->where($qb->expr()->eq('r.status', 3));
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
         $query->addAggregation($aggregation);
 
         $aggregation = new Terms('authors');
         $aggregation->setField('articleAuthors.author.id');
         $aggregation->setOrder('_count', 'desc');
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:Author', 'r');
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
+
         $query->addAggregation($aggregation);
 
 
         $search = $search->search($query);
         $result = $search->getResults();
-        $em = $this->container->get('doctrine.orm.entity_manager');
         $connection = $em->getConnection();
         $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
         $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Article');
@@ -361,4 +371,5 @@ class SearchManager
                 throw new \ErrorException("Filter not exist. allowed filters: journal, author");
         }
     }
+
 }
