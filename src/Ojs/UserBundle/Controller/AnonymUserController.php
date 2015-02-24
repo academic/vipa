@@ -185,6 +185,6 @@ class AnonymUserController extends Controller
             ->find('OjsUserBundle:AnonymUserToken',$id);
         if(!$login)
             throw new NotFoundHttpException;
-        return $this->redirectToRoute('user_list_anonym_login');
+        return $this->redirect($this->get('router')->generate('user_list_anonym_login'));
     }
 }

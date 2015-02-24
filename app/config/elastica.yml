@@ -38,6 +38,7 @@ fos_elastica:
                                 author:
                                     type: "object"
                                     properties:
+                                        id: ~
                                         firstName: ~
                                         lastName: ~
                                         middleName: ~
@@ -49,6 +50,7 @@ fos_elastica:
                         journal:
                             type: "object"
                             properties:
+                                id: ~
                                 title: ~
                                 titleAbbr: ~
                                 subtitle: ~

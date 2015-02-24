@@ -528,4 +528,5 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
     }
 
+
 }

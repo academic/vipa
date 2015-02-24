@@ -31,7 +31,8 @@ class SuggestionController extends Controller
                 $suggestion->setCreatedAt(new \DateTime());
                 $dm->persist($suggestion);
                 $dm->flush();
-                return $this->redirectToRoute('ojs_suggest_journal_success');
+                return $this->redirect($this->get('router')->generate('ojs_suggest_journal_success'));
+
             }
             $session = $this->get('session');
             $session->getFlashBag()
@@ -58,7 +59,8 @@ class SuggestionController extends Controller
                 $suggestion->setCreatedAt(new \DateTime());
                 $dm->persist($suggestion);
                 $dm->flush();
-                return $this->redirectToRoute('ojs_suggest_institute_success');
+                return $this->redirect($this->get('router')->generate('ojs_suggest_institute_success'));
+
             }
             $session = $this->get('session');
             $session->getFlashBag()
