@@ -22,6 +22,9 @@ class JournalWorkflowStep {
     protected $title;
 
     /** @MongoDb\String */
+    protected $color;
+
+    /** @MongoDb\String */
     protected $status;
 
     /** @MongoDb\Boolean */
@@ -415,6 +418,26 @@ class JournalWorkflowStep {
      */
     public function removeAllReviewForms() {
         $this->reviewForms = [];
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return self
+     */
+    public function setColor($color) {
+        $this->color = $color;
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string $color
+     */
+    public function getColor() {
+        return $this->color;
     }
 
 }

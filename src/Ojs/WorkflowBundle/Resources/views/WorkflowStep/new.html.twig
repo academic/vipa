@@ -28,6 +28,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="" /> 
+                    <a style="padding:2px;height:24px;display:block; " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
+                </div>
+
+                <div class="form-group">
                     <label>Status Text</label>
                     <input id="statusinput" class="form-control" name="status" >
                     <span class="help-block">Authors <strong>won't</strong> see this status text.</span>
@@ -123,11 +129,22 @@
 {% block javascripts -%}
     {{  parent()  }}
     <script>
+        function randomColor() {
+            $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            $("#inputcolor").val($rndcolor);
+            $("#previewcolor").css("backgroundColor", $rndcolor);
+            console.log($rndcolor);
+        }
         $(document).ready(function () {
             $("#titleinput").blur(function () {
                 $("#statusinput").val($(this).val());
                 $("#statusauthorinput").val('Review');
             });
+            $("#inputcolor").on('keyup', function () {
+                $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
+            });
+            randomColor();
+            $(".generateRandomColor").click(randomColor);
         });
 
     </script>

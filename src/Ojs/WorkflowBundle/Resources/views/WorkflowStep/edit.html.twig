@@ -28,6 +28,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="{{step.color}}" /> 
+                    <a style="padding:2px;height:24px;display:block;background-color: {{step.color}} " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
+                </div>
+
+                <div class="form-group">
                     <label>Status Text</label>
                     <input class="form-control" name="status" value="{{step.status}}">
                 </div>
@@ -134,4 +140,26 @@
 
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts -%}
+    {{  parent()  }}
+    <script>
+        function randomColor() {
+            $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            $("#inputcolor").val($rndcolor);
+            $("#previewcolor").css("backgroundColor", $rndcolor);
+            console.log($rndcolor);
+        }
+        $(document).ready(function () {
+
+            $("#inputcolor").on('keyup', function () {
+                $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
+            });
+            $(".generateRandomColor").click(randomColor);
+        });
+
+    </script>
+
+
 {% endblock %}
