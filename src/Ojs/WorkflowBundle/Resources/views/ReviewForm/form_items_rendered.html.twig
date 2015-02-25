@@ -10,13 +10,13 @@
         <div class="form-group">
             {{item.title}}<br>
             {% for field in item.fields %}
-                <label><input type="checkbox" value="{{field}}" name="{{item.id}}"> {{field}}</label>
+                <label><input type="checkbox" value="{{field}}" name="{{item.id}}[]"> {{field}}</label>
                 {%endfor%}
         </div>
     {% elseif item.inputType == 'dropdown' %}
         <div class="form-group">
             {{item.title}}<br>
-            <select class="form-control">
+            <select class="form-control" name="{{item.id}}">
                 {% for field in item.fields %}
                     <option  name="{{item.id}}" value="{{field}}"> {{field}}</option>
                 {%endfor%}
