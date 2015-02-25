@@ -161,9 +161,11 @@
     <hr>
     {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
         <div class="jumbotron">
-            <h3>Previous Review Report</h3>
-            {{prevStep.reviewFormResults~""}}
-            <hr>
+            {% if prevStep %}
+                <h3>Previous Review Report</h3>
+                {{prevStep.reviewFormResults|raw}}
+                <hr>
+            {% endif %}
             <form class=""
                   action="{{ path("article_step_next",{id: articleStep.id }) }}"
                   method="POST">
