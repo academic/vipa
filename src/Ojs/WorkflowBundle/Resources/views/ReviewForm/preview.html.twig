@@ -15,52 +15,7 @@
     <div class="panel panel-info">
         <div class="panel-heading"> <h3> {{form.title}}</h3></div>
         <div class="panel-body">
-            {% for item in items %}
-                {% if item.inputType == 'radiobutton' %}
-                    <div class="form-group">
-                        {{item.title}}<br>
-                        {% for field in item.fields %}
-                            <label><input type="radio" value="{{field}}" name="{{item.id}}"> {{field}}</label>
-                            {%endfor%}
-                    </div>
-                {% elseif item.inputType == 'checkboxes' %}
-                    <div class="form-group">
-                        {{item.title}}<br>
-                        {% for field in item.fields %}
-                            <label><input type="checkbox" value="{{field}}" name="{{item.id}}"> {{field}}</label>
-                            {%endfor%}
-                    </div>
-                {% elseif item.inputType == 'dropdown' %}
-                    <div class="form-group">
-                        {{item.title}}<br>
-                        <select class="form-control">
-                        {% for field in item.fields %}
-                            <option  name="{{item.id}}" value="{{field}}"> {{field}}</option>
-                            {%endfor%}
-                        </select>
-                    </div>
-                {% elseif item.inputType == 'textarea' %}
-                    <div class="form-group"> 
-                        <label for="input{{item.id}}"> {{item.title}}</label>
-                        <textarea name="{{item.id}}" id="input{{item.id}}" class="form-control"> </textarea>
-                    </div>
-                {% elseif item.inputType == 'textbox' %}
-                    <div class="form-group"> 
-                        <label for="input{{item.id}}"> {{item.title}}</label>
-                        <input type="text" name="{{item.id}}" id="input{{item.id}}" class="form-control">
-                    </div>
-                {%  elseif item.inputType == 'scale1_5' %}
-                    <div class="form-group"> 
-                        {{item.title}}
-                        <label><input type="radio" value="1" name="{{item.id}}"> 1 </label>
-                        <label><input type="radio" value="1" name="{{item.id}}"> 2 </label>
-                        <label><input type="radio" value="1" name="{{item.id}}"> 3 </label>
-                        <label><input type="radio" value="1" name="{{item.id}}"> 4 </label>
-                        <label><input type="radio" value="1" name="{{item.id}}"> 5 </label>
-                    </div>
-                {% endif%}
-
-            {%endfor %}
+            {% include 'OjsWorkflowBundle:ReviewForm:form_items_rendered.html.twig' %}
         </div>
         <div class="panel-footer"></div>
     </div>

@@ -28,4 +28,10 @@ class ReviewFormRepository extends DocumentRepository {
                         ->execute();
     }
 
+    public function getItems($id) {
+        return $this->getDocumentManager()
+                        ->getRepository('OjsWorkflowBundle:ReviewFormItem')
+                        ->findBy(array('formId' => new \MongoId($id)));
+    }
+
 }

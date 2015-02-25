@@ -9,16 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
  * Controller for journal's all users
  * actions will check roles in their logic
  */
-class ManagerController extends \Ojs\Common\Controller\OjsController
-{
+class ManagerController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * Preview article's current data with given object id
      * @param string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function articleAction($id)
-    {
+    public function articleAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->get('doctrine')->getManager();
 
@@ -28,12 +26,13 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
                 ->find($articleStep->getStep()->getId());
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
                         $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
-        );
+        );   
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
                     'id' => $id,
                     'step' => $step,
+                    'prevStep' => $articleStep->getFrom(),
                     'daysRemaining' => $daysRemaining,
                     'daysOverDue' => $daysOverDue
         ));
@@ -44,8 +43,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
      * @param string $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function articlesAction($id)
-    {
+    public function articlesAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->get('doctrine.orm.entity_manager');
 
@@ -74,8 +72,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function startReviewAction($id)
-    {
+    public function startReviewAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
 
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
@@ -93,8 +90,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
-    public function nextAction(Request $request, $id)
-    {
+    public function nextAction(Request $request, $id) {
         $nextStepId = $request->get('nextStepId');
 
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -126,12 +122,28 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $dm->persist($newStep);
         $dm->flush();
 
-
-        $dm->detach($newStep);
-
         $articleStep->setTo($newStep);
-        //$articleStep->setFrom(null);
         $articleStep->setFinishedDate(new \DateTime());
+        /* generate reviewform and append to reviewNotes */
+        $reviewFormResults = '';
+        $reviewForm = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->find($request->get('reviewFormId'));
+        $reviewFormItems = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->getItems($reviewForm->getId());
+
+        /* @var  $item      \Ojs\WorkflowBundle\Document\ReviewFormItem */
+        foreach ($reviewFormItems as $item) {
+            $reviewFormResults.='<div class="reviewFormItemRow">';
+            $reviewFormResults.='<strong class="reviewFormItemLabel">' . $item->getTitle() . '</strong> ';
+            if ($item->getInputType() == 'checkboxes') {
+                foreach ($request->get($item->getId()) as $value) {
+                    $reviewFormResults.='<span class="reviewFormItemValue">' . $value . '</span> ';
+                }
+            } else {
+                $reviewFormResults.='<span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
+            }
+            $reviewFormResults.='<br></div>';
+        }
+        $articleStep->setReviewFormResults($reviewFormResults);
+        $articleStep->setReviewNotes($request->get('notes'));
         $dm->persist($articleStep);
         $dm->flush();
         return $this->redirect($this->generateUrl('ojs_user_index'));
