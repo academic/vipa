@@ -165,9 +165,12 @@ Header Image: Header Image
 uploading: Uploading
 done: Done
 
-institution.type: Institution Type
+institution.type: Institutions
 current.issue: Current Issue
 
 
 institute.register: "Register Institute"
 journal.register: "Register for JournalPark"
+
+
+popular.journals: Top Journals

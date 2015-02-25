@@ -162,7 +162,7 @@ Header Image: Başlık Resmi
 uploading: Yükleniyor
 done: Tamamlandı
 
-institution.type: Kurum türleri
+institution.type: Kurumlar
 current.issue: Son Sayı
 new_block: Yeni Blok Oluştur
 new_block_link: Blok Linki Oluştur
@@ -170,4 +170,9 @@ new_block_link: Blok Linki Oluştur
 
 institute.register: "Enstitü Kaydet"
 journal.register: "DergiPark Başvuru"
+
+
+popular.journals: Öne Çıkanlar
+
+
 

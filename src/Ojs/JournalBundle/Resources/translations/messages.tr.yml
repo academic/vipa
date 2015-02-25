@@ -69,7 +69,7 @@ article.titleTransliterated: 'Makale Başlığı (transliterated)'
 article.title: 'Makale Başlığı'
 article.subtitle: 'Makale Altbaşlığı'
 article.language.primary: 'Makalenin Birincil Dili'
-article.language.other: 'Makalenin Diğer Dilleri'
+article.languages: 'Makalenin Dilleri'
 article.add: 'Makale Ekle'
 suppfiles.resins: 'Araştırma Araçları'
 suppfiles.resmat: 'Araştırma Materyalleri'
@@ -184,7 +184,7 @@ file.edit: 'Dosya Düzenle'
 file.list: 'Dosya Listesi'
 mimetype: Tür
 size: Boyut
-file.new: 'Yeni Dosya'
+file.new: Yeni Dosya
 file.select: 'Dosya Seç'
 file.details: 'Dosya Detayları'
 file.path: 'Dosya Yolu'
@@ -355,4 +355,8 @@ journal.tags: Etiketler
 journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
+
+
+select.journal: "Makalenin Gönderileceği Dergiyi Seç"
+parse: Ayrıştır
 

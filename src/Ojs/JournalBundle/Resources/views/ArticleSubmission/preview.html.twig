@@ -151,14 +151,14 @@
 
                                 {% if file.title is defined %}
                                     <br>
-                                    <small><b>Title : </b>
+                                    <small><b>{{"title"|trans}} : </b>
                                         {{file.title}}
                                     </small>
                                 {% endif %}
                                 {% if file.desc is defined %}
                                     <br>
                                     <small>
-                                        <b>Description : </b>
+                                        <b>{{"description"|trans}} : </b>
                                         {{ file.desc }}
                                     </small>
                                 {% endif %}  
@@ -166,7 +166,7 @@
                                 {% if file.keywords is defined %}
                                     <br>
                                     <small>
-                                        <b>Keywords : </b>
+                                        <b>{{"keywords"|trans}} : </b>
                                         {{ file.keywords }}
                                     </small>
                                 {% endif %}  

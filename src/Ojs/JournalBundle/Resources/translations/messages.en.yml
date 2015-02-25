@@ -71,7 +71,7 @@ article.titleTransliterated: 'Article Title Latin Transliterated'
 article.title: 'Article Title'
 article.subtitle: 'Article Subtitle'
 article.language.primary: 'Article Primary Language'
-article.language.other: 'Article Other Languages'
+article.languages: 'Article Languages'
 article.add: 'Add Article'
 suppfiles.resins: 'Research Instrument'
 suppfiles.resmat: 'Research Materials'
@@ -350,3 +350,5 @@ journal.createdAt: Created at
 journal.user: User
 journal.merge_as_new_journal: Merge As New Journal
 
+select.journal: "Select a Journal to Submit the Article"
+parse: Parse
