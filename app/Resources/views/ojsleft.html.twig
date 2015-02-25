@@ -50,7 +50,16 @@
                     <a class="list-group-item"  href="{{path('dashboard')}}">
                         <i class="fa fa-dashboard"></i> 
                         {{"dashboard"|trans}}
-                    </a> 
+                    </a>
+                    {% if isSystemAdmin() %}
+                        {%set activity_log_path = "eventlog" %}
+                    {%else%}
+                        {%set activity_log_path = "user_eventlog" %}
+                    {% endif %}
+                    <a class="list-group-item"  href="{{path(activity_log_path)}}">
+                        <i class="fa fa-cogs"></i>
+                        {{"Activity Log"|trans}}
+                    </a>
                 </div>
             </div>
             <div class="panel panel-default left-menu-bgcolor">
@@ -87,6 +96,14 @@
                             <a class="list-group-item"  href="{{path('issue_manager_index')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"issue.manager"|trans}}
+                            </a>
+                            <a class="list-group-item" href="{{path('ujr_show_users_ofjournal',{'journal_id':session('selectedJournalId')})}}">
+                                <i class="fa fa-users"></i>
+                                Journal Users
+                            </a>
+                            <a class="list-group-item" href="{{path('mailtemplate_manager')}}">
+                                <i class="fa fa-envelope-o"></i> 
+                                Mail templates
                             </a>
                             <a class="list-group-item"  href="{{path('manager_current_journal_settings')}}">
                                 <i class="fa fa-cog"></i> 
@@ -130,7 +147,6 @@
                         <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
                         <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
                         <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
-                        <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
                         <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> Feedback</a>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ event.info: 'Event Info'
 event.date: 'Event Date'
 event.ip: IP
 event.user.id: 'User ID'
+event.affectedUser.id: 'Affected User ID'
 actions: Actions
 eventlog: Eventlog
 eventlog.list: Event Log List
