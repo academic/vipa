@@ -23,4 +23,8 @@ Ojs\UserBundle\Entity\EventLog:
         userId:
             type: integer
             column: user_id
+        affectedUserId:
+            type: integer
+            column: affected_user_id
+            nullable: true
     lifecycleCallbacks: {  }
