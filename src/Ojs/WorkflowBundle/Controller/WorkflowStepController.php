@@ -52,6 +52,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
+        $step->setColor($request->get('color'));
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
@@ -164,6 +165,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setLaststep($request->get('laststep') ? true : false);
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
+        $step->setColor($request->get('color'));
         $step->setStatus($request->get('status'));
         $step->removeAllReviewForms();
         $reviewFormIds = $request->get('reviewforms');
