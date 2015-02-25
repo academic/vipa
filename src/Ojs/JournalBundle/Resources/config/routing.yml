@@ -2,10 +2,14 @@ ojs_journal_articlefile:
     resource: "@OjsJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile
 
-ojs_journal_mailtemplate:
-    resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
+ojs_journal_mailtemplate_admin:
+    resource: "@OjsJournalBundle/Resources/config/routing/admin/mailtemplate.yml"
     prefix:   /admin/mailtemplate
 
+ojs_journal_mailtemplate:
+    resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
+    prefix:   /manager/mailtemplate
+    
 ojs_journal_admin_journaltheme:
     resource: "@OjsJournalBundle/Resources/config/routing/journaltheme.yml"
     prefix:   /admin/journaltheme

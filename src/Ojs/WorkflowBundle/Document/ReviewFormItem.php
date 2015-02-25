@@ -35,7 +35,7 @@ class ReviewFormItem
      *  
      *  - textbox
      *  - textarea
-     *  - checkbox
+     *  - checkboxes
      *  - radiobutton
      *  - dropdown
      *  - scale1_5

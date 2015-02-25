@@ -24,3 +24,8 @@ user_join_journal_action:
 user_join_journal:
     pattern:  /join/journal/
     defaults: { _controller: "OjsUserBundle:User:registerAsAuthor" }
+
+
+user_send_mail:
+    pattern: /mail/send/{user}
+    defaults: { _controller: "OjsUserBundle:User:sendMail" }

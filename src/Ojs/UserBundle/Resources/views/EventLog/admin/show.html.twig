@@ -18,20 +18,24 @@
             <td>{{ entity.eventDate|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
+            <th>{{ "event.ip"|trans }}</th>
+            <td>{{ entity.ip }}</td>
+        </tr>
+        <tr>
             <th>{{ "event.user.id"|trans }}</th>
             <td>{{ entity.userId }}</td>
         </tr>
         {% if entity.affectedUserId is not null %}
-            <tr>
-                <th>{{ "event.affectedUser.id"|trans }}</th>
-                <td>{{ entity.affectedUserId }}</td>
-            </tr>
+        <tr>
+            <th>{{ "event.affectedUser.id"|trans }}</th>
+            <td>{{ entity.affectedUserId }}</td>
+        </tr>
         {% endif %}
     </tbody>
 </table>
 
 
-<a class="btn btn-default" href="{{ path('user_eventlog') }}">
+<a class="btn btn-default" href="{{ path('eventlog') }}">
     {{"b"|trans}}
 </a>
 {% endblock %}

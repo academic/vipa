@@ -4,6 +4,7 @@ namespace Ojs\UserBundle\Listeners;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\UserBundle\Entity\Proxy;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use \Ojs\Common\Params\ProxyEventLogParams;
 
 class ProxyListener
 {
@@ -35,7 +36,8 @@ class ProxyListener
                 //log as eventlog
                 $event = new \Ojs\UserBundle\Entity\EventLog();
                 $event->setUserId($entity->getClientUser()->getId());
-                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_CREATE);
+                $event->setEventInfo(ProxyEventLogParams::$PROXY_CREATE);
+                $event->setAffectedUserId($entity->getProxyUser()->getId());
                 $event->setIp($this->container->get('request')->getClientIp());
                 $entityManager->persist($event);
 
@@ -64,8 +66,9 @@ class ProxyListener
 
                 //log as eventlog
                 $event = new \Ojs\UserBundle\Entity\EventLog();
-                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$PROXY_REMOVE);
+                $event->setEventInfo(ProxyEventLogParams::$PROXY_DROP);
                 $event->setIp($this->container->get('request')->getClientIp());
+                $event->setAffectedUserId($entity->getProxyUserId());
                 $event->setUserId($entity->getClientUserId());
                 $entityManager->persist($event);
 
