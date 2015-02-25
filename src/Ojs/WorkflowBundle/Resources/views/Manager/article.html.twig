@@ -161,6 +161,9 @@
     <hr>
     {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
         <div class="jumbotron">
+            <h3>Previous Review Report</h3>
+            {{prevStep.reviewFormResults~""}}
+            <hr>
             <form class=""
                   action="{{ path("article_step_next",{id: articleStep.id }) }}"
                   method="POST">
@@ -168,7 +171,7 @@
                 <br> 
                 {% if step.reviewForms %}
                     <div class="form-group">
-                        <select style="min-width:120px" id="reviewFormSelector" class="select2-element">
+                        <select name="reviewFormId" style="min-width:120px" id="reviewFormSelector" class="select2-element">
                             {% for reviewForm in step.reviewForms%}
                                 <option value="{{reviewForm.id}}">{{reviewForm.title}}</option> 
                             {% endfor %}
@@ -225,9 +228,9 @@
         <script>
             $(document).ready(function () {
                 $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-                $('#reviewFormSelector').on("change", function (e) { 
+                $('#reviewFormSelector').on("change", function (e) {
                     $(".panel_reviewforms").hide();
-                    $("#panel_"+$("#reviewFormSelector").val()).show();
+                    $("#panel_" + $("#reviewFormSelector").val()).show();
                 });
 
             });
