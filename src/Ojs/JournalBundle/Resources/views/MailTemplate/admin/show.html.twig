@@ -1,0 +1,47 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>MailTemplate</h1>
+
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>#{{ entity.id }}</td>
+        </tr>
+        {% if entity.journal %}
+            <tr>
+                <th>Journal</th>
+                <td>{{ entity.journal.title }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <th>Default Template</th>
+                <td>Yes</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Type</th>
+            <td>{{ entity.type }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ entity.subject }}</td>
+        </tr>
+        <tr>
+            <th>Language code</th>
+            <td>{{ entity.lang }}</td>
+        </tr>
+        <tr>
+            <th>Template</th>
+            <td>{{ entity.template }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% set back_path = 'mailtemplate' %}
+    {% set edit_path = 'mailtemplate_edit' %}
+    {% set delete_path = 'mailtemplate_delete' %}
+    {% include '::actionbtns.html.twig' %}
+
+{% endblock %}
