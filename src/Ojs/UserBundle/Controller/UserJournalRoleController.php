@@ -274,42 +274,5 @@ class UserJournalRoleController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ujr'));
-    }
-
-    public function sendAction(Request $request, UserJournalRole $user_journal_role)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
-        $session = $this->get('session');
-        if ($request->isMethod('POST')) {
-            $mailData = $request->get('mail');
-            $mailer = $this->get('mailer');
-            $message = $mailer->createMessage()
-                ->setFrom($this->container->getParameter('system_email'))
-                ->setTo($user_journal_role->getUser()->getEmail())
-                ->setSubject($mailData['subject'])
-                ->setBody($mailData['body'])
-                ->setContentType('text/html');
-            $mailer->send($message);
-            $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
-            $session->save();
-            return $this->redirect($this->get('router')->generate('ujr_show_users_ofjournal', ['journal_id' => $user_journal_role->getJournalId()]));
-
-        }
-        $qb = $em->createQueryBuilder();
-        $qb->select('t')
-            ->from('OjsJournalBundle:MailTemplate', 't')
-            ->where(
-                $qb->expr()->orX(
-                    $qb->expr()->isNull('t.journalId'),
-                    $qb->expr()->eq('t.journalId', ':journal')
-                )
-            )
-            ->setParameter('journal', $user_journal_role->getJournalId());
-        $templates = $qb->getQuery()->getResult();
-        $data['templates'] = $templates;
-        $data['user'] = $user_journal_role->getUser();
-        return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
-    }
+    } 
 }
