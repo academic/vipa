@@ -25,7 +25,7 @@
                     <td>{{ entity.user.email }}</td>
                     <td>{{ entity.role.name }} </td>
                     <td>
-                        <a class="btn-xs btn btn-primary" href="{{ url('ujr_send_mail',{user_journal_role:entity.id}) }}">
+                        <a class="btn-xs btn btn-primary" href="{{ url('user_send_mail',{user:entity.id}) }}">
                             <i class="fa fa-envelope-o"></i>
                         </a>
                     </td>
