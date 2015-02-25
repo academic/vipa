@@ -15,6 +15,9 @@ ojs_review_forms_delete:
     pattern:  /reviewforms/{id}/delete
     defaults: { _controller: OjsWorkflowBundle:ReviewForm:delete }
 
+ojs_review_forms_preview:
+    pattern:  /reviewforms/{id}/preview
+    defaults: { _controller: OjsWorkflowBundle:ReviewForm:preview }
 
 ojs_review_forms_show:
     pattern:  /reviewforms/{id}/show

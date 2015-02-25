@@ -28,6 +28,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="" /> 
+                    <a style="padding:2px;height:24px;display:block; " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
+                </div>
+
+                <div class="form-group">
                     <label>Status Text</label>
                     <input id="statusinput" class="form-control" name="status" >
                     <span class="help-block">Authors <strong>won't</strong> see this status text.</span>
@@ -50,7 +56,7 @@
 
                 <div class="form-group">
                     <label>Roles</label>
-                    <select id="rolesinput" name="roles[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
                         {%for role in roles%}
                             <option value="{{role.id}}">{{role.role}}</option>
                         {%endfor%}
@@ -88,7 +94,7 @@
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 
-                    <select name="nextsteps[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select name="nextsteps[]"  style="min-width:200px" multiple="multiple" class="select2-element">
                         {%for step in nextSteps%}
                             <option value="{{step.id}}">{{step.title}}</option>
                         {%endfor%}
@@ -96,7 +102,8 @@
                 </div>
 
                 <div class="form-group">
-                    <select name="reviewform" class="form-control">
+                    <label>Review Forms</label>
+                    <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
                         <option>[No review form]</option>
                         {%for form in forms%}
                             <option value="{{form.id}}">{{form.title}}</option>
@@ -122,11 +129,22 @@
 {% block javascripts -%}
     {{  parent()  }}
     <script>
+        function randomColor() {
+            $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            $("#inputcolor").val($rndcolor);
+            $("#previewcolor").css("backgroundColor", $rndcolor);
+            console.log($rndcolor);
+        }
         $(document).ready(function () {
             $("#titleinput").blur(function () {
                 $("#statusinput").val($(this).val());
                 $("#statusauthorinput").val('Review');
             });
+            $("#inputcolor").on('keyup', function () {
+                $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
+            });
+            randomColor();
+            $(".generateRandomColor").click(randomColor);
         });
 
     </script>

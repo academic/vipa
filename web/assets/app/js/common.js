@@ -18,16 +18,17 @@ $.fn.serializeObject = function ()
 
 $(document).ready(function () {
 
-
+    if ($(".select2-element").length) {
+        $(".select2-element").select2();
+    }
     $(document).on('pjax:send', function () {
-        $('#loading').show()
-    })
+        $('#loading').show();
+    });
     $(document).on('pjax:complete', function () {
-        $('#loading').hide()
-    })
+        $('#loading').hide();
+    });
 
-    $('a[title]').tooltip();
-    $(".select2").select2()
+    $('a[title]').tooltip(); 
     $(".panel-heading.toggle-body").click(function () {
         $(this).next(".panel-body").slideToggle();
     });

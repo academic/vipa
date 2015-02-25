@@ -21,6 +21,10 @@
                     <td>{{step.title}}</td>
                 </tr>
                 <tr>
+                    <th>Color</th>
+                    <td style="background-color:{{step.color}}">{{step.color}}</td>
+                </tr>
+                <tr>
                     <th>Status text</th>
                     <td>{{step.status}}</i></td>
                 </tr>
@@ -84,10 +88,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Review Form</th>
+                    <th>Review Forms</th>
                     <td>
-                        {%if step.reviewForm %}
-                            <a href="#" title="{{step.reviewForm.id}}">{{step.reviewForm.title}}</a>
+                        {%if step.reviewForms %}
+                            {% for form in step.reviewForms%}
+                                <a href="#" title="{{form.id}}" class="badge">{{form.title}}</a>
+                            {%endfor%}
                         {%endif%}
                     </td>
                 </tr>

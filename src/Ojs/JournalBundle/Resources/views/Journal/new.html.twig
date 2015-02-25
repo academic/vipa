@@ -26,24 +26,43 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
-        <label class="control-label" for="fileupload">{{"cover"|trans}}</label>
+        <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+        <div id="preview_image_cover" style="width:200px">
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.image)) | imagine_filter('wide_200') }}"
+                 data-src="holder.js/200x300/random/text:{{ entity.title }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'cover','wide_200') %}
+            <input id="cover_height" name="cover[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="cover_width" name="cover[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="cover_x" name="cover[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="cover_y" name="cover[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
+        </div>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{ "select.image.file"|trans }}</span>
+            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
 
         <div id="journal_cover_upload_progress" style="display: none" class="label label-info">
 
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+        <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
 
+        <div id="preview_image">
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
+                 data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
+            <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
+        </div>
         <span class="btn btn-success fileinput-button form-control">
             <i class="fa fa-plus"></i>
-            <span>{{"select.image.file"|trans}}</span>
+            <span>{{ "select.image.file"|trans }}</span>
             <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
         </span>
 
@@ -73,24 +92,71 @@
                 $('#journal_cover_upload_progress').show();
                 $('#journal_cover_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#journal_cover_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_journalbundle_journal_image').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_journal_image').attr('value', result.files.name);
+                $("#preview_image_cover > img").cropper('replace', '/media/cache/resolve/wide_200' + result.files.fullpath + '/' + result.files.name);
             });
             $('#fileupload_header').fileupload({});
             $('#fileupload_header').bind('fileuploadsend', function (e, data) {
                 $('#journal_header_upload_progress').show();
                 $('#journal_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#journal_header_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_journalbundle_journal_header').attr('value', JSON.parse(data.result).files.name);
+                $('#ojs_journalbundle_journal_header').attr('value', result.files.name);
+                $("#preview_image > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
             });
+            var preview_image_data = {
+                aspectRatio: 960 / 200,
+                maxWidth: 960,
+                maxHeight: 200,
+                {% set imageoptions=getImageOptions(entity,'header','journal_header') %}
+                data: {
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                done: function (data) {
+                    $("#header_height").val(data.height);
+                    $("#header_width").val(data.width);
+                    $("#header_x").val(data.x);
+                    $("#header_y").val(data.y)
+                }
+            };
+            $("#preview_image > img").cropper(preview_image_data);
+            var preview_image_cover_data = {
+                aspectRatio: 200 / 300,
+                maxWidth: 200,
+                maxHeight: 300,
+                {% if  entity.header %}
+                {% set imageoptions=getImageOptions(entity,'cover','journal_cover') %}
+                data: {
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                {% endif %}
+                done: function (data) {
+                    $("#cover_height").val(data.height);
+                    $("#cover_width").val(data.width);
+                    $("#cover_x").val(data.x);
+                    $("#cover_y").val(data.y)
+                }
+
+            };
+            $("#preview_image_cover > img").cropper(preview_image_cover_data)
         });
     </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 

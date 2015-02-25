@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
+use Ojs\Common\Params\CommonParams;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -41,9 +42,14 @@ class JournalType extends AbstractType {
                 ->add('url')
                 ->add('country','entity',[
                     'class'=>'Okulbilisim\LocationBundle\Entity\Country',
+                    'attr'=>[
+                        'class'=>'select2-element'
+                    ]
                 ])
                 ->add('published')
-                ->add('status')
+                ->add('status','choice',[
+                    'choices'=>CommonParams::getStatusTexts()
+                ])
                 ->add('image', 'hidden')
                 ->add('header', 'hidden')
                 ->add('scope')

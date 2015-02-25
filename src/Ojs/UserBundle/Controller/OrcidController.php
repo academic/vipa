@@ -24,7 +24,8 @@ class OrcidController extends Controller
         $user = $userRepo->getByOauthId($post->orcid, 'orcid');
         if ($user) {
             $this->authenticateUser($user);
-            return $this->redirectToRoute('ojs_public_index');
+            return $this->redirect($this->get('router')->generate('ojs_public_index'));
+
         }
         $session = $this->get('session');
         $session->set('oauth_login', [
@@ -35,7 +36,8 @@ class OrcidController extends Controller
             'full_name'=>$post->name,
         ]);
         $session->save();
-        return $this->redirectToRoute('register');
+        return $this->redirect($this->get('router')->generate('register'));
+
     }
 
 

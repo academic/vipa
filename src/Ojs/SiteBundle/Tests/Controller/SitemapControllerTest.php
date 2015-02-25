@@ -11,8 +11,8 @@ use Ojs\Common\Tests\BaseTestCase;
 
 class SitemapControllerTest extends BaseTestCase
 {
-    const JOURNAL = 'demo-ojs-journal';
-    const INSTITUTION = 'demoinst';
+    const JOURNAL = 'acta-medica';
+    const INSTITUTION = 'anatoliamedica';
     const SUBJECT = 'guc-ve-enerji';
 
     public function testIndex()

@@ -113,7 +113,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function getByOauthId($id, $provider)
     {
         $qb = $this->createQueryBuilder('u');
-        $qb->join('u.oauthAccounts', 'oa', 'WITH','oa.user_id=u.id')
+        $qb->join('OjsUserBundle:UserOauthAccount', 'oa', 'WITH','oa.user_id=u.id')
             ->where(
                 $qb->expr()->andX(
                     $qb->expr()->eq('oa.provider', ':provider'),

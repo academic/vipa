@@ -45,7 +45,7 @@ class InstitutionType extends AbstractType
             ->add('country', 'entity', [
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                 'attr' => [
-                    'class' => 'select2  bridged-dropdown',
+                    'class' => 'select2-element  bridged-dropdown',
                     'data-to'=>'#'.$this->getName().'_city'
                 ]
             ]);

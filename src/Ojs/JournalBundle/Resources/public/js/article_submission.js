@@ -255,7 +255,7 @@ var OjsArticleSubmission = {
         }).bind('fileuploaddone', function (e, data) {
             $('.upload_progress', $(this).parent().parent()).html("Done.");
             $obj = JSON.parse(data.result);
-            $('.previewLink', $(this).parent().parent()).attr('href', $obj.files.name).removeClass('hide');
+            $('.previewLink', $(this).parent().parent()).attr('href', '/uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
             $('.filename', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.size);
             $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.mimeType);

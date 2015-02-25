@@ -89,6 +89,7 @@ author.plural: Yazarlar
 author.singular: Yazar
 author.summary: 'Yazar Özeti'
 author.orcid: ORCID
+author.add: 'Yeni Yazar'
 user.new: 'Yeni Kullanıcı'
 details: Detaylar
 article.manager: 'Makale Yöneticisi'

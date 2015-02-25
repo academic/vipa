@@ -294,7 +294,8 @@ class UserJournalRoleController extends Controller
             $mailer->send($message);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
             $session->save();
-            return $this->redirectToRoute('ujr_show_users_ofjournal', ['journal_id' => $user_journal_role->getJournalId()]);
+            return $this->redirect($this->get('router')->generate('ujr_show_users_ofjournal', ['journal_id' => $user_journal_role->getJournalId()]));
+
         }
         $qb = $em->createQueryBuilder();
         $qb->select('t')

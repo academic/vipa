@@ -1,13 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('article'), 'title': 'article.manager'|trans},
-    { 'title' : 'article.new'|trans} ])}}
+    { 'title' : 'article.new'|trans} ]) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"article.add"|trans}}</h1>
+    <h1>{{ "article.add"|trans }}</h1>
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
@@ -20,11 +20,21 @@
     {{ form_widget(form) }}
 
     <div class="form-group">
-        <label class="control-label" for="fileupload">{{"Header Image"|trans}}</label>
+        <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
 
+        <div id="preview_image">
+            <img src="{{ ('/uploads/articlefiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
+                 data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
+            <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
+        </div>
     <span class="btn btn-success fileinput-button form-control">
                 <i class="fa fa-plus"></i>
-                <span>{{"select.image.file"|trans}}</span>
+                <span>{{ "select.image.file"|trans }}</span>
                 <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
             </span>
 
@@ -38,7 +48,7 @@
     {{ form_end(form) }}
     <div class="record_actions">
         <a class="button success" href="{{ path('article') }}">
-            {{"b"|trans}}
+            {{ "b"|trans }}
         </a>
     </div>
 {% endblock %}
@@ -55,17 +65,41 @@
                 $('#article_header_upload_progress').show();
                 $('#article_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#article_header_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_article_header').attr('value', JSON.parse(data.result).files.name);
-            });
+                $("#preview_image > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
 
+            });
+            $("#preview_image > img").cropper({
+                aspectRatio: 960 / 200,
+                maxWidth: 960,
+                maxHeight: 200,
+                {% if  entity.header %}
+                {% set imageoptions=getImageOptions(entity,'header','article_header') %}
+
+                data: {
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                {% endif %}
+                done: function (data) {
+                    $("#header_height").val(data.height)
+                    $("#header_width").val(data.width)
+                    $("#header_x").val(data.x)
+                    $("#header_y").val(data.y)
+                }
+            })
         });
     </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css'  output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 

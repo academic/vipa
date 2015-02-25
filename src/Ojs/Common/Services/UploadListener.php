@@ -38,18 +38,20 @@ class UploadListener
         $uploadUrl = str_replace($uploadRootPath, $uploadType, $fileDir);
         if ($uploadType === 'avatarfiles') {
             $helper = new ImageResizeHelper(array(
-                    'image_name' => $fileName,
-                    'upload_dir' => $fileDir,
-                    'upload_url' => $uploadUrl
-                )
+                'image_name' => $fileName,
+                'upload_dir' => $fileDir,
+                'upload_url' => $uploadUrl
+                    )
             );
             $helper->resize();
         }
         $response['files'] = array(
             'name' => $file->getFileName(),
+            'path' => $fileHelper->generatePath($file->getFileName(), false),
             'size' => $fileSize,
             'url' => '',
-            'mimeType'=> $fileMimeType
+            'mimeType'=> $fileMimeType,
+            'fullpath'=>DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath($file->getFileName(), false)
         );
 
         return $response;

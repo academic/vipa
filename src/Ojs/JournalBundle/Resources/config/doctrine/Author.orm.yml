@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\Author:
     type: entity
     table: null
-    #repositoryClass: Ojs\JournalBundle\Entity\AuthorRepository
+    repositoryClass: Ojs\JournalBundle\Entity\AuthorRepository
     oneToOne:
         user:
           targetEntity: Ojs\UserBundle\Entity\User

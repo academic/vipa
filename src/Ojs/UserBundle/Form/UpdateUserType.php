@@ -25,13 +25,14 @@ class UpdateUserType extends AbstractType
                 'property' => 'subject',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2', 'style' => 'width:100%'),
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                 'required'=>false
             ))
             ->add('avatar','hidden')
             ->add('header','hidden')
             ->add('privacy','checkbox',[
-                'label'=>'Hide my account'
+                'label'=>'Hide my account',
+                'required'=>false
             ])
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojs\JournalBundle\Entity\Journal',

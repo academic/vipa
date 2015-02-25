@@ -4,11 +4,9 @@ namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
-class WorkflowStepController extends \Ojs\Common\Controller\OjsController
-{
+class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
 
-    public function indexAction()
-    {
+    public function indexAction() {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $steps = $this->get('doctrine_mongodb')
@@ -21,8 +19,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     /**
      * render "new workflow" flow
      */
-    public function newAction()
-    {
+    public function newAction() {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
 
@@ -43,8 +40,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
     /**
      * insert new step with data from "new workflow" form data
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
@@ -56,12 +52,16 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
+        $step->setColor($request->get('color'));
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
-        $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
-        $reviewForm && $step->setReviewForm($reviewForm);
+        $reviewFormIds = $request->get('reviewforms');
+        foreach ($reviewFormIds as $formId) {
+            $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
+            $form && $step->addReviewForm($form);
+        }
         $dm->persist($step);
         $dm->flush();
 
@@ -73,8 +73,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
      * @param  array $roleIds 
      * @return array
      */
-    public function prepareRoles($roleIds)
-    {
+    public function prepareRoles($roleIds) {
         $serializer = $this->get('serializer');
         $em = $this->get('doctrine')->getManager();
         $roles = array();
@@ -98,8 +97,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
      * @param  array $nextStepIds
      * @return array
      */
-    public function prepareNextsteps($nextStepIds)
-    {
+    public function prepareNextsteps($nextStepIds) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $nextSteps = array();
         $nextStepsArray = array();
@@ -118,8 +116,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         return $nextStepsArray;
     }
 
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
@@ -141,8 +138,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         );
     }
 
-    public function deleteAction($id)
-    {
+    public function deleteAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         $dm->remove($step);
@@ -151,16 +147,14 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         return $this->redirect($this->generateUrl('manage_workflowsteps'));
     }
 
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $step = $this->get('doctrine_mongodb')->getManager()
                         ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:show.html.twig', array('step' => $step));
     }
 
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
@@ -171,10 +165,13 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController
         $step->setLaststep($request->get('laststep') ? true : false);
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
+        $step->setColor($request->get('color'));
         $step->setStatus($request->get('status'));
-        $reviewForm = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($request->get('reviewform'));
-        if ($reviewForm) {
-            $step->setReviewForm($reviewForm);
+        $step->removeAllReviewForms();
+        $reviewFormIds = $request->get('reviewforms');
+        foreach ($reviewFormIds as $formId) {
+            $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
+            $form && $step->addReviewForm($form);
         }
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));

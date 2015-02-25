@@ -66,7 +66,7 @@ class FormHelper
                 'auto_initialize' => false,
                 'label' => "Şehir",
                 'attr' => [
-                    'class' => 'select2',
+                    'class' => 'select2-element',
                 ]
             ];
             if ($isMongo===false)

@@ -4,14 +4,12 @@ namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
-class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
-{
+class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * @return Response
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $templates = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->findAll();
         return $this->render('OjsWorkflowBundle:WorkflowStep:templates.html.twig', array('templates' => $templates));
     }
@@ -21,8 +19,7 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
      * @param string $id template document id
      * @return Response
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($id);
 
@@ -39,8 +36,7 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
      * @param string $id template document id
      * @return RedirectResponse
      */
-    public function useAction($id)
-    {
+    public function useAction($id) {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($id);
@@ -66,11 +62,13 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         foreach ($steps as $step) {
             $nextSteps = [];
             $enity = $newSteps[$step->getId()];
-            foreach ($step->getNextSteps() as $nStep) {
-                if (isset($newSteps[$nStep['id']])) {
-                    $nextSteps[] = array('id' => $newSteps[$nStep['id']]->getId(), 'title' => $newSteps[$nStep['id']]->getTitle());
+            if (is_array($step->getNextSteps())) {
+                foreach ($step->getNextSteps() as $nStep) {
+                    if (isset($newSteps[$nStep['id']])) {
+                        $nextSteps[] = array('id' => $newSteps[$nStep['id']]->getId(), 'title' => $newSteps[$nStep['id']]->getTitle());
+                    }
                 }
-            } 
+            }
             /* @var \Ojs\WorkflowBundle\Document\JournalWorkflowStep $newSteps[$step->getId()] */
             if ($nextSteps) {
                 $enity->setNextsteps($nextSteps);
@@ -91,8 +89,7 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
      * @param array $newSteps
      * @return \Ojs\WorkflowBundle\Document\JournalWorkflowStep
      */
-    protected function cloneStep(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $tplStep, $newSteps)
-    {
+    protected function cloneStep(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $tplStep, $newSteps) {
         if (in_array($tplStep->getId(), $newSteps)) {
             return $newSteps[$tplStep->getId()];
         }

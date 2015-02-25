@@ -39,8 +39,21 @@ class IssueController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $dm = $this->get('doctrine.odm.mongodb.document_manager');
             $em->persist($entity);
             $em->flush();
+
+            $header = $request->request->get('header');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+
+            $cover = $request->request->get('cover');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($cover,$entity,'cover');
+            $dm->persist($imageOptions);
+
+            $dm->flush();
 
             return $this->redirect($this->generateUrl('issue_show', array('id' => $entity->getId())));
         }
@@ -152,6 +165,12 @@ class IssueController extends Controller
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
             $imageOptions = $ir->init($header,$entity,'header');
             $dm->persist($imageOptions);
+
+            $cover = $request->request->get('cover');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($cover,$entity,'cover');
+            $dm->persist($imageOptions);
+
             $dm->flush();
             $em->flush();
 

@@ -4,15 +4,13 @@ namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
 
-class ReviewFormController extends \Ojs\Common\Controller\OjsController
-{
+class ReviewFormController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * list review forms for selected journal
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $forms = $this->get('doctrine_mongodb')
@@ -26,8 +24,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
      * render "new review form" form
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction()
-    {
+    public function newAction() {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         return $this->render('OjsWorkflowBundle:ReviewForm:new.html.twig', array('journal' => $selectedJournal));
     }
@@ -35,10 +32,9 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     /**
      * insert new review form
      * @param Request $request
-     * @return ResponseRedirect
+     * @return \Symfony\Component\HttpFoundation\ResponseRedirect
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = new \Ojs\WorkflowBundle\Document\ReviewForm();
@@ -54,10 +50,9 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     /**
      * 
      * @param integer $id
-     * @return Resnpose
+     * @return \Symfony\Component\HttpFoundation\Resnpose
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
         return $this->render('OjsWorkflowBundle:ReviewForm:edit.html.twig', array(
@@ -69,10 +64,9 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
      * 
      * @param Request $request
      * @param string $id
-     * @return ResponseRedirect
+     * @return \Symfony\Component\HttpFoundation\ResponseRedirect
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:ReviewForm');
         $form = $repo->find($id);
@@ -86,12 +80,13 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     /**
      * 
      * @param integer $id
-     * @return ResponseRedirect
+     * @throws NoResultException
+     * @return \Symfony\Component\HttpFoundation\ResponseRedirect
      */
-    public function deleteAction($id)
-    {
+    public function deleteAction($id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+        $this->throw404IfNotFound($form);
         $dm->remove($form);
         $dm->flush();
         return $this->redirect($this->generateUrl('ojs_review_forms')
@@ -101,14 +96,40 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController
     /**
      * 
      * @param integer $id
-     * @return ResponseRedirect
+     * @throws NoResultException
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
-    {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+    public function showAction($id) {
+        $form = $this->safeGet($id);
         return $this->render('OjsWorkflowBundle:ReviewForm:show.html.twig', array('form' => $form)
         );
+    }
+
+    /**
+     * 
+     * @param integer $id
+     * @throws NoResultException
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function previewAction($id) {
+        $form = $this->safeGet($id);
+        $formItems = $this->get('doctrine_mongodb')
+                ->getRepository('OjsWorkflowBundle:ReviewFormItem')
+                ->findBy(array('formId' => new \MongoId($form->getId()))); 
+        return $this->render('OjsWorkflowBundle:ReviewForm:preview.html.twig', array('items' => $formItems, 'form' => $form));
+    }
+
+    /**
+     * 
+     * @param type $id
+     * @throws NoResultException
+     * @return type
+     */
+    private function safeGet($id) {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($id);
+        $this->throw404IfNotFound($form);
+        return $form;
     }
 
 }

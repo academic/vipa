@@ -17,8 +17,6 @@
         <div class="panel-body"> 
             <div class="panel-body">
                 <form method="post" class="form-row" action="{{path('ojs_review_form_items_create',{'formId':form.id})}}">
-
-
                     <div>
                         <label>Title</label>
                         <input  id="titleinput" class="form-control" name="title" >
@@ -39,13 +37,13 @@
 
                     <div class="form-inline">
                         <label>Input Type</label>
-                        <select class="form-control select2" name="inputtype" id="inputtypeinput">
+                        <select class="form-control select2-element" name="inputtype" id="inputtypeinput">
                             <option value="textbox">Textbox</option>
                             <option value="textarea">Textarea</option>
-                            <option rel="hasfields" value="checkboxes">Checkboxes</option>
-                            <option rel="hasfields" value="radio">Radio</option>
+                            <option rel="hasfields" value="checkboxes">Checkbox</option>
+                            <option rel="hasfields" value="radiobutton">Radiobutton</option>
                             <option rel="hasfields" value="dropdown">Dropdown</option>
-                            <option value="scale_1_5">Scale 1-5</option>
+                            <option value="scale1_5">Scale 1-5</option>
                         </select>
 
                     </div>
@@ -57,9 +55,9 @@
 
                     <div>
                         <input type="submit" class="btn btn-success" value="Save" />
-                        <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
+                        <a href="{{path('ojs_review_form_items',{'formId':form.id})}}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i>
-                            Back to List
+                            {{"b"|trans}}
                         </a>
                     </div>
                 </form>

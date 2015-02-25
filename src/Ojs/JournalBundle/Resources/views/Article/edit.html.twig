@@ -10,7 +10,8 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class=""><a href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation" class=""><a
+                    href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
     </ul>
 
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
@@ -28,15 +29,13 @@
         <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
 
         <div id="preview_image">
-            {% if entity.header %}
-                <img src="{{ ('/uploads/articlefiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
-                     data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
-                {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
-                <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
-            {% endif %}
+            <img src="{{ ('/uploads/articlefiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
+                 data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
+            <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="header_x" name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="header_y" name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
 
         </div>
     <span class="btn btn-success fileinput-button form-control">
@@ -74,15 +73,19 @@
                 $('#article_header_upload_progress').show();
                 $('#article_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
                 $('#article_header_upload_progress').html("{{"done"|trans}}.");
                 $('#ojs_journalbundle_article_header').attr('value', JSON.parse(data.result).files.name);
+                $("#preview_image > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
+
             });
             $("#articlefileupload").fileupload({
                 done: function (e, data) {
                     var result = $.parseJSON(data.result);
-                    for(var i= 0;i<data.files.length;i++){
+                    for (var i = 0; i < data.files.length; i++) {
                         $('<p/>').text(data.files[i].name).appendTo('#files');
-                        $('#files_select').append("<option selected='selected' value='"+result.files.name+"'>"+data.files[i].name+"</option>");
+                        $('#files_select').append("<option selected='selected' value='" + result.files.name + "'>" + data.files[i].name + "</option>");
                         console.dir(data.files[i])
                     }
 
@@ -122,7 +125,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' '%kernel.root_dir%/../web/vendor/select2/select2.css' output="c/user_admin.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style>

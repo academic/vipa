@@ -7,57 +7,52 @@
             <h1>{{ "search.results"|trans }}</h1>
 
             <h2 class="lead">
-                {% trans with {'%total%':total_count, '%term%':term}%}
+                {% trans with {'%total%':total_count, '%term%':term} %}
                 <strong class="text-danger">%total%</strong> results were found for the search
                 for <strong class="text-danger">%term%</strong>
                 {% endtrans %}
 
             </h2>
         </hgroup>
-        {% if search is defined %}
-        <nav class="col-xs-6 col-sm-6 col-md-3">
+        <nav class="col-xs-12 col-sm-6 col-md-3">
             <div class="panel panel-default">
                 <!-- Default panel contents -->
-                <div class="panel-heading">Panel heading</div>
-                <div class="panel-body">
-                    <p>...</p>
-                </div>
+                <div class="panel-heading">Journals</div>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-comment-o"></i> Lorem ipsum
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-search"></i> Lorem ipsum
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-user"></i> Lorem ipsum
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-folder-open-o"></i> Lorem ipsum <span class="badge">14</span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-bar-chart-o"></i> Lorem ipsumr <span class="badge">14</span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-envelope"></i> Lorem ipsum
-                    </a>
+                    {% for journal in aggregations.journal %}
+                        <a href="{{ url('ojs_search_index',{q:term,filter:{journal:journal.data.id}|merge(filter)}) }}" class="list-group-item">
+                            <i class="fa fa-book"></i> {{ journal.data.title }} <span class="badge">{{ journal.bucket.doc_count }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+                <div class="panel-heading">Authors</div>
+
+                <div class="list-group">
+                    {% for author in aggregations.author %}
+                        <a href="{{ url('ojs_search_index',{q:term,filter:{author:author.data.id}|merge(filter)}) }}" class="list-group-item">
+                            <i class="fa fa-user"></i> {{ author.data.fullName }} <span class="badge">{{ author.bucket.doc_count }}</span>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </nav>
-        {% endif %}
-        <section class="col-xs-12 col-sm-12 col-md-12">
+        <section class="col-xs-12 col-sm-12 col-md-9">
             <ol>
                 {% for article in result %}
 
                     <li>
                         <article>
 
-                            <h4><a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">{{ article.title }}</a></h4>
+                            <h4>
+                                <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">{{ article.title }}</a>
+                            </h4>
+
                             <p>
                                 {% for author in article.articleAuthors %}
                                     <a href="">{{ author.author.lastName }}, {{ author.author.firstName }}</a>
                                 {% endfor %}
                             </p>
+
                             <p class="text-muted">DOI: {{ article.doi }}</p>
                         </article>
                     </li>
@@ -67,26 +62,25 @@
 
             </nav>
             <ul class="pagination ">
+                {% if page_count>1 and page!=1 %}
+                <li>
+                    <a href="{{ url('ojs_search_index',{page:page-1,q:term }) }}">
+                        <span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a>
+                </li>
+                {% endif %}
+
                 {% for p in 1..page_count %}
-                    {% if loop.first %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
-                                <span aria-hidden="true">&laquo;</span><span class="sr-only">{{ p }}</span></a>
-                        </li>
-                    {% elseif loop.last %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">
-                                <span aria-hidden="true">&raquo;</span><span class="sr-only">{{ p }}</span>
-                            </a>
-                        </li>
-                    {% else %}
                         <li>
                             <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">{{ p }}</a>
                         </li>
-                    {% endif %}
-
                 {% endfor %}
-
+                {% if page_count>1 and page!=page_count %}
+                    <li>
+                        <a href="{{ url('ojs_search_index',{page:page+1,q:term }) }}">
+                            <span aria-hidden="true">&raquo;</span><span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
 
         </section>

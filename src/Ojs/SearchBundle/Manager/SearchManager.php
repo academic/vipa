@@ -9,13 +9,19 @@
 namespace Ojs\SearchBundle\Manager;
 
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Util\Debug;
+use Elastica\Aggregation\GlobalAggregation;
+use Elastica\Aggregation\Terms;
 use Elastica\Query;
 use Elastica\Query\Bool;
 use Elastica\Query\MultiMatch;
-use Elastica\Request;
 use Elastica\Result;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
-use FOS\ElasticaBundle\Persister\ObjectPersister;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Debug\Exception\UndefinedMethodException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -36,11 +42,18 @@ class SearchManager
 
     private $param = [];
 
+    /** @var Array */
+    private $aggregations;
+
+    /** @var  Array */
+    private $filter;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
         $this->finder = $this->search = new \stdClass();
-
+        $this->aggregations = [];
+        $this->filter = [];
     }
 
     public function tagSearch()
@@ -48,23 +61,23 @@ class SearchManager
         $search = $this->container->get('fos_elastica.index.search');
         $query = new Query\Bool();
         $must = new Query\Match();
-        $must->setField('tags',$this->getParam('term'));
+        $must->setField('tags', $this->getParam('term'));
         $query->addMust($must);
         $return_data = [];
         $results = $search->search($query);
         $count = 0;
         foreach ($results as $result) {
             /** @var Result $result $x */
-            if(!isset($return_data[$result->getType()]))
-                $return_data[$result->getType()]=['type','data'];
-            $return_data[$result->getType()]['type']=$this->getTypeText($result->getType());
-            if(isset($return_data[$result->getType()]['data'])):
-                $return_data[$result->getType()]['data'][]= $this->getObject($result);
+            if (!isset($return_data[$result->getType()]))
+                $return_data[$result->getType()] = ['type', 'data'];
+            $return_data[$result->getType()]['type'] = $this->getTypeText($result->getType());
+            if (isset($return_data[$result->getType()]['data'])):
+                $return_data[$result->getType()]['data'][] = $this->getObject($result);
             else:
-                $return_data[$result->getType()]['data']= [$this->getObject($result)];
+                $return_data[$result->getType()]['data'] = [$this->getObject($result)];
             endif;
 
-            $count=$count+count($result->getData());
+            $count = $count + count($result->getData());
         }
         $this->setCount($count);
         return $return_data;
@@ -75,24 +88,28 @@ class SearchManager
         $data = $this->container->get('fos_elastica.index.search');
         $mapping = $data->getMapping();
         $model = $mapping[$result->getType()]['_meta']['model'];
-        $qb= $this->container->get('doctrine.orm.entity_manager')->createQueryBuilder();
-        $data = $qb->from($model,'d')
+        $qb = $this->container->get('doctrine.orm.entity_manager')->createQueryBuilder();
+        $data = $qb->from($model, 'd')
             ->select('d')
-            ->where($qb->expr()->eq('d.id',':id'))
-            ->setParameter('id',$result->getId())
-        ;
+            ->where($qb->expr()->eq('d.id', ':id'))
+            ->setParameter('id', $result->getId());
         $cache = $data->getQuery()->getQueryCacheDriver();
-        if(!$cache->contains($result->getId()."-".$model))
-            $cache->save($result->getId()."-".$model,$data->getQuery()->getOneOrNullResult());
-        return $cache->fetch($result->getId()."-".$model);
+        if (!$cache->contains($result->getId() . "-" . $model))
+            $cache->save($result->getId() . "-" . $model, $data->getQuery()->getOneOrNullResult());
+        return $cache->fetch($result->getId() . "-" . $model);
     }
-    public function getTypeText($type){
+
+    public function getTypeText($type)
+    {
         $translator = $this->container->get('translator');
         return $translator->trans($type);
     }
+
     public function search()
     {
-        $finder = $this->container->get('fos_elastica.finder.search.articles');
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        //$finder = $this->container->get('fos_elastica.finder.search.articles');
         $search = $this->container->get('fos_elastica.index.search.articles');
 
         $bool = new Bool();
@@ -102,17 +119,86 @@ class SearchManager
         $multiMatch->setQuery($this->getParam('term'));
         $bool->addMust($multiMatch);
 
+        if ($this->filter) {
+            $filterObj = new \Elastica\Query\Match();
+            foreach ($this->filter as $key => $filter) {
+                $this->applyFilter($filterObj, $key, $filter);
+            }
+            $bool->addMust($filterObj);
+        }
+
         $query = new Query();
         $query->setQuery($bool);
         $query->setFrom($this->getPage() * $this->getLimit());
         $query->setSize($this->getLimit());
-        $this->result = $finder->find($query);
 
-        $this->setCount($search->count($query));
+        $aggregation = new Terms('journals');
+        $aggregation->setField('journal.id');
+        $aggregation->setOrder('_count', 'desc');
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:Journal', 'r')
+            ->where($qb->expr()->eq('r.status', 3));
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
+        $query->addAggregation($aggregation);
 
+        $aggregation = new Terms('authors');
+        $aggregation->setField('articleAuthors.author.id');
+        $aggregation->setOrder('_count', 'desc');
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:Author', 'r');
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
+
+        $query->addAggregation($aggregation);
+
+
+        $search = $search->search($query);
+        $result = $search->getResults();
+        $connection = $em->getConnection();
+        $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
+        $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Article');
+        $transformer->setPropertyAccessor($this->container->get('property_accessor'));
+        $this->result = $transformer->transform($result);
+
+        $this->setCount($search->getTotalHits());
+        $this->addAggregation('journal', $this->transform($search->getAggregation('journals')['buckets'], 'OjsJournalBundle:Journal'));
+        $this->addAggregation('author', $this->transform($search->getAggregation('authors')['buckets'], 'OjsJournalBundle:Author'));
         return $this;
     }
 
+    /**
+     * @param $bucket array
+     * @param $class string
+     * @return array
+     */
+    private function transform($bucket, $class)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $repo = $em->getRepository($class);
+        if (!method_exists($repo, 'getByIds')) {
+            throw new \BadMethodCallException("Undefined method.");
+        }
+        $ids = [];
+        foreach ($bucket as $id) {
+            $ids[] = $id['key'];
+        }
+        $data = $repo->getByIds($ids);
+        $_data = [];
+        foreach ($data as $value) {
+            $_data[$value->getId()]['data'] = $value;
+            foreach ($bucket as $val) {
+                if ((int)$val['key'] == (int)$value->getId()) {
+                    $_data[$value->getId()]['bucket'] = $val;
+                }
+            }
+        }
+        return $_data;
+    }
+
+    /**
+     * @return float
+     */
     public function getPageCount()
     {
         return ceil($this->getCount() / $this->getLimit());
@@ -133,7 +219,7 @@ class SearchManager
      */
     public function getPage()
     {
-        return $this->page - 1 ;
+        return $this->page - 1;
     }
 
     /**
@@ -241,6 +327,49 @@ class SearchManager
     {
         $this->count = $count;
         return $this;
+    }
+
+    /**
+     * @param $value
+     * @param $key
+     */
+    public function addAggregation($key, $value)
+    {
+        $this->aggregations[$key] = $value;
+    }
+
+    /**
+     * @return Array
+     */
+    public function getAggregations()
+    {
+        return $this->aggregations;
+    }
+
+    public function addFilter($key, $value)
+    {
+        $this->filter[$key] = $value;
+        return $this;
+    }
+
+    public function addFilters(array $filters)
+    {
+        $this->filter = array_merge($this->filter, $filters);
+        return $this;
+    }
+
+    public function applyFilter(Query\Match &$query, $key, $value)
+    {
+        switch ($key) {
+            case 'journal':
+                $query->setField('journal.id', $value);
+                break;
+            case 'author':
+                $query->setField('articleAuthors.author.id', $value);
+                break;
+            default:
+                throw new \ErrorException("Filter not exist. allowed filters: journal, author");
+        }
     }
 
 }
