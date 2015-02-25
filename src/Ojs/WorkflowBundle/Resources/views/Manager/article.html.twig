@@ -165,7 +165,22 @@
                   action="{{ path("article_step_next",{id: articleStep.id }) }}"
                   method="POST">
                 <textarea name="notes" placeholder="notes" class="form-control" rows="4"></textarea>
-                <br>
+                <br> 
+                {% if step.reviewForms %}
+                    <div class="form-group">
+                        <select style="min-width:120px" id="reviewFormSelector" class="select2-element">
+                            {% for reviewForm in step.reviewForms%}
+                                <option value="{{reviewForm.id}}">{{reviewForm.title}}</option> 
+                            {% endfor %}
+                        </select> 
+                    </div>
+                    {% for reviewForm in step.reviewForms%}
+                        <div class="panel panel_reviewforms" id="panel_{{reviewForm.id}}" style="{% if loop.first == false%}display:none{%endif%}">
+                            <div class="panel-body"> {{ render(controller( 'OjsWorkflowBundle:ReviewForm:itemsBlock',{ 'id': reviewForm.id })) }}      </div>    
+                        </div>
+                    {% endfor %}
+
+                {% endif%}
 
                 <div class="form-inline">
                     <select name="reviewResultCode" class="select2-element  form-control">
@@ -210,6 +225,11 @@
         <script>
             $(document).ready(function () {
                 $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
+                $('#reviewFormSelector').on("change", function (e) { 
+                    $(".panel_reviewforms").hide();
+                    $("#panel_"+$("#reviewFormSelector").val()).show();
+                });
+
             });
         </script>
         {% endblock %}
