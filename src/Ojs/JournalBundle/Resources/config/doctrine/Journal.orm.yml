@@ -191,6 +191,10 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
+        logo:
+            type: string
+            length: 255
+            nullable: true
         scope:
             type: text
             nullable: true

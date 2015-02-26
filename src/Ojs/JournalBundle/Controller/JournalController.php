@@ -46,6 +46,19 @@ class JournalController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            /** @var DocumentManager $dm */
+            $dm = $this->get('doctrine.odm.mongodb.document_manager');
+            $header = $request->request->get('header');
+            $cover = $request->request->get('cover');
+            $logo = $request->request->get('logo');
+            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
+            $imageOptions = $ir->init($header,$entity,'header');
+            $dm->persist($imageOptions);
+            $imageOptions = $ir->init($cover,$entity,'cover');
+            $dm->persist($imageOptions);
+            $imageOptions = $ir->init($logo,$entity,'logo');
+            $dm->persist($imageOptions);
+            $dm->flush();
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
 
@@ -139,10 +152,13 @@ class JournalController extends Controller
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
+            $logo = $request->request->get('logo');
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
             $imageOptions = $ir->init($header,$entity,'header');
             $dm->persist($imageOptions);
             $imageOptions = $ir->init($cover,$entity,'cover');
+            $dm->persist($imageOptions);
+            $imageOptions = $ir->init($logo,$entity,'logo');
             $dm->persist($imageOptions);
             $dm->flush();
             $em->flush();

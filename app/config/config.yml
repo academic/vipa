@@ -185,6 +185,11 @@ liip_imagine:
             filters:
                 relative_resize: {  widen: 960 }
                 crop: {start:[0,0], size: [960, 200]}
+        journal_logo:
+            quality: 90
+            filters:
+                relative_resize: {  widen: 200 }
+                crop: {start:[0,0], size: [200, 200]}
         institution_logo:
             quality: 90
             filters:
