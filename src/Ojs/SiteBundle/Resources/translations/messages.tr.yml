@@ -174,5 +174,18 @@ journal.register: "DergiPark Başvuru"
 
 popular.journals: Öne Çıkanlar
 
+Edit_Profile: Hesabımı Güncelle
+
+submissions: Gönderilmiş
+published: Yayında
+waiting: Bekleyen
+rejected: Red Edilmiş
+
+users: Kullanıcılar
+roles: Roller
+user_journal_roles: Dergi Kullanıcı Rolleri
+instutions: Enstitüler
+activity_log: Olay Kayıt
+feedback: Geri Bildirim
 
 

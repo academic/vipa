@@ -55,7 +55,7 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading">
-                    {{"Articles"|trans}}
+                    {{"articles"|trans}}
                 </div>
                 <div class="panel-collapse collapse in">
                     {% if isSystemAdmin() or isJournalManager()  %}
@@ -65,12 +65,12 @@
                     {% endif %}
                     <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                         <i class="fa fa-flag"></i>
-                        Submissions
+                        {{"submissions"|trans}}
                     </a>
 
-                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
-                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
-                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
+                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> {{"published"|trans}}</a>
+                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> {{"waiting"|trans}}</a>
+                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> {{"rejected"|trans}}</a>
                 </div>
             </div>
 
@@ -124,14 +124,14 @@
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{"Admin"|trans}}</div>
                     <div class="panel-collapse collapse in">
-                        <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
-                        <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
-                        <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
-                        <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
-                        <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
-                        <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
-                        <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i> Activity Log</a>
-                        <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> Feedback</a>
+                        <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> {{"users"|trans}}</a>
+                        <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> {{"roles"|trans}}</a>
+                        <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> {{"user_journal_roles"|trans}}</a>
+                        <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> {{"article"|trans}}</a>
+                        <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> {{"instutions"|trans}}</a>
+                        <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> {{"subjects"|trans}}</a>
+                        <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i>{{"activity_log"|trans}}</a>
+                        <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> {{"feedback"|trans}}</a>
                     </div>
                 </div>
             {% endif %}

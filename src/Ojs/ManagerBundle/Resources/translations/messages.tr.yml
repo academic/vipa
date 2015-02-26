@@ -3,8 +3,7 @@ dashboard:
     editor: Editör Yönetim Paneli
     objects: Objeler
     operations: İşlemler
-    
-    
+    suggestion: Öneriler
 article.plural: Makaleler
 author.plural: Yazarlar
 contact.plural: İletişim Adresleri
