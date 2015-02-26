@@ -33,7 +33,7 @@
         "flot": "*",
         "morrisjs": "*",
         "mustache": "*",
-        "cropper": "*",
+        "cropper": "0.7.5",
         "twig.js": "*",
 	"bootstrap-tour": "*",
         "holderjs": "*",
