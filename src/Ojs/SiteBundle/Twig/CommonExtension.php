@@ -103,8 +103,8 @@ class CommonExtension extends \Twig_Extension
                 $config = $filterManager->getFilterConfiguration()->get($filter);
                 if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['size'])) {
                     $size = $config['filters']['crop']['size'];
-                    $defaultConfig['height'] = $size[0];
-                    $defaultConfig['width'] = $size[1];
+                    $defaultConfig['height'] = $size[1];
+                    $defaultConfig['width'] = $size[0];
                 }
                 if (isset($config['filters']) and isset($config['filters']['crop']) and isset($config['filters']['crop']['start'])) {
                     $start = $config['filters']['crop']['start'];
