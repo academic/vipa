@@ -38,6 +38,26 @@
 
     {{ form_widget(form) }}
     <div class="form-group">
+        <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
+
+        <div id="preview_image_logo" style="width:200px">
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.logo)) | imagine_filter('wide_200') }}"
+                 data-src="holder.js/200x200/random/text:{{ entity.title }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'logo','journal_logo') %}
+            <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="logo_x" name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="logo_y" name="logo[y]" type="hidden" value="{{ imageoptions.y }}"/>
+        </div>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{ "select.image.file"|trans }}</span>
+            <input id="fileupload_logo" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+        </span>
+        <div id="journal_logo_upload_progress" style="display: none" class="label label-info">
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
 
         <div id="preview_image_cover" style="width:200px">
@@ -124,6 +144,17 @@
                 $('#ojs_journalbundle_journal_header').attr('value', result.files.name);
                 $("#preview_image > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
             });
+            $('#fileupload_logo').fileupload({});
+            $('#fileupload_logo').bind('fileuploadsend', function (e, data) {
+                $('#journal_logo_upload_progress').show();
+                $('#journal_logo_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
+                $('#journal_logo_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_journal_logo').attr('value', result.files.name);
+                $("#preview_image_logo > img").cropper('replace', '/media/cache/resolve/wide_200' + result.files.fullpath + '/' + result.files.name);
+            });
             $("#preview_image > img").cropper({
                 aspectRatio: 960 / 200,
                 maxWidth: 960,
@@ -161,7 +192,25 @@
                     $("#cover_x").val(data.x);
                     $("#cover_y").val(data.y)
                 }
-            })
+            });
+            $("#preview_image_logo > img").cropper({
+                aspectRatio: 200 / 200,
+                maxWidth: 200,
+                maxHeight: 200,
+                {% set imageoptions=getImageOptions(entity,'logo','journal_logo') %}
+                data: {
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                done: function (data) {
+                    $("#logo_height").val(data.height);
+                    $("#logo_width").val(data.width);
+                    $("#logo_x").val(data.x);
+                    $("#logo_y").val(data.y)
+                }
+            });
         });
     </script>
 {% endblock %}
