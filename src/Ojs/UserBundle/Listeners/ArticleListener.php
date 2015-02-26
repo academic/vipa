@@ -5,7 +5,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use \Ojs\Common\Params\ArticleEventLogParams;
 
 class ArticleListener
 {
@@ -46,7 +46,7 @@ class ArticleListener
                 //log as eventlog
                 $event = new \Ojs\UserBundle\Entity\EventLog();
                 $event->setUserId($user->getId());
-                $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_SUBMISSION);
+                $event->setEventInfo(ArticleEventLogParams::$ARTICLE_SUBMISSION);
                 $event->setIp($this->container->get('request')->getClientIp());
                 $entityManager->persist($event);
 
@@ -77,9 +77,10 @@ class ArticleListener
 
                 //log as eventlog
                 $event = new \Ojs\UserBundle\Entity\EventLog();
-                $event->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_REMOVE);
+                $event->setEventInfo(ArticleEventLogParams::$ARTICLE_REMOVE);
                 $event->setIp($this->container->get('request')->getClientIp());
                 $event->setUserId($user->getId());
+                $event->setAffectedUserId($entity->getSubmitterId());
                 $entityManager->persist($event);
 
                 $entityManager->flush();

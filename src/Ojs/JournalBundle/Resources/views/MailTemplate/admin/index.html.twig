@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>{{"journal"|trans}}</th>
                 <th>Type</th>
                 <th>Subject</th>
                 <th>Actions</th>
@@ -15,14 +16,19 @@
         <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td><a href="{{ path('mailtemplate_manager_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        {% if entity.journal %}
 
+                        <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
+                    {% else %}
+                        <td>Default Template</td>
+                    {% endif %}
                     <td>{{ entity.type }}</td>
                     <td>{{ entity.subject }}</td>
                     <td>
-                        {% set show_path = 'mailtemplate_manager_show' %}
-                        {% set edit_path = 'mailtemplate_manager_edit' %}
-                        {% set delete_path = 'mailtemplate_manager_delete' %}
+                        {% set show_path = 'mailtemplate_show' %}
+                        {% set edit_path = 'mailtemplate_edit' %}
+                        {% set delete_path = 'mailtemplate_delete' %}
                         {% include '::actionbtns.html.twig' %}
 
                     </td>
@@ -31,7 +37,7 @@
         </tbody>
     </table>
     <hr>
-    <a class="btn btn-default" href="{{ path('mailtemplate_manager_new') }}">
-      {{"c"|trans}}
+    <a class="btn btn-default" href="{{ path('mailtemplate_new') }}">
+        Create a new entry
     </a>
 {% endblock %}

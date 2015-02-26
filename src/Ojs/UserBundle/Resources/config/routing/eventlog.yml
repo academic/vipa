@@ -1,0 +1,7 @@
+user_eventlog:
+    pattern:  /
+    defaults: { _controller: "OjsUserBundle:EventLog:index" }
+
+user_eventlog_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "OjsUserBundle:EventLog:show" }

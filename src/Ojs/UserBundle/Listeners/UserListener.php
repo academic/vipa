@@ -4,7 +4,7 @@ namespace Ojs\UserBundle\Listeners;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use \Ojs\Common\Params\UserEventLogParams;
 class UserListener
 {
     protected $container;
@@ -32,7 +32,7 @@ class UserListener
 
                 //log as eventlog
                 $event = new \Ojs\UserBundle\Entity\EventLog();
-                $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_ADD);
+                $event->setEventInfo(UserEventLogParams::$USER_ADD);
                 $event->setIp($this->container->get('request')->getClientIp());
                 $event->setUserId($entity->getId());
                 $entityManager->persist($event);

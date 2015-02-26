@@ -5,6 +5,7 @@ namespace Ojs\UserBundle\Listeners;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Ojs\UserBundle\Entity\User as User;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use \Ojs\Common\Params\UserEventLogParams;
 
 class LoginListener
 {
@@ -33,7 +34,7 @@ class LoginListener
 
             //log as eventlog
             $event = new \Ojs\UserBundle\Entity\EventLog();
-            $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_LOGIN);
+            $event->setEventInfo(UserEventLogParams::$USER_LOGIN);
             $event->setIp($this->container->get('request')->getClientIp());
             $event->setUserId($user->getId());
             $this->em->persist($event);

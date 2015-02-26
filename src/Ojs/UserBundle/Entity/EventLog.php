@@ -33,6 +33,11 @@ class EventLog
     private $userId;
 
     /**
+     * @var integer
+     */
+    private $affectedUserId;
+
+    /**
      * Get id
      *
      * @return integer
@@ -132,5 +137,28 @@ class EventLog
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set affectedUserId
+     *
+     * @param  integer  $affectedUserId
+     * @return EventLog
+     */
+    public function setAffectedUserId($affectedUserId)
+    {
+        $this->affectedUserId = $affectedUserId;
+
+        return $this;
+    }
+
+    /**
+     * Get affectedUserId
+     *
+     * @return integer
+     */
+    public function getAffectedUserId()
+    {
+        return $this->affectedUserId;
     }
 }

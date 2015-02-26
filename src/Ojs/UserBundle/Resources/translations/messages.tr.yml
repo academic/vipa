@@ -5,6 +5,7 @@ event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'
 event.ip: IP
 event.user.id: 'Kullanıcı ID'
+event.affectedUser.id: 'Etkilenen Kullanıcı ID'
 actions: İşlemler
 eventlog: Olay Kayıtları
 eventlog.list: Olay Kayıt Listesi

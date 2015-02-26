@@ -50,7 +50,16 @@
                     <a class="list-group-item"  href="{{path('dashboard')}}">
                         <i class="fa fa-dashboard"></i> 
                         {{"dashboard"|trans}}
-                    </a> 
+                    </a>
+                    {% if isSystemAdmin() %}
+                        {%set activity_log_path = "eventlog" %}
+                    {%else%}
+                        {%set activity_log_path = "user_eventlog" %}
+                    {% endif %}
+                    <a class="list-group-item"  href="{{path(activity_log_path)}}">
+                        <i class="fa fa-cogs"></i>
+                        {{"Activity Log"|trans}}
+                    </a>
                 </div>
             </div>
             <div class="panel panel-default left-menu-bgcolor">
@@ -88,6 +97,14 @@
                                 <i class="fa fa-cog"></i> 
                                 {{"issue.manager"|trans}}
                             </a>
+                            <a class="list-group-item" href="{{path('ujr_show_users_ofjournal',{'journal_id':session('selectedJournalId')})}}">
+                                <i class="fa fa-users"></i>
+                                Journal Users
+                            </a>
+                            <a class="list-group-item" href="{{path('mailtemplate_manager')}}">
+                                <i class="fa fa-envelope-o"></i> 
+                                Mail templates
+                            </a>
                             <a class="list-group-item"  href="{{path('manager_current_journal_settings')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"settings"|trans}}
@@ -124,14 +141,15 @@
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{"Admin"|trans}}</div>
                     <div class="panel-collapse collapse in">
+
                         <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> {{"users"|trans}}</a>
                         <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> {{"roles"|trans}}</a>
                         <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> {{"user_journal_roles"|trans}}</a>
                         <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> {{"article"|trans}}</a>
                         <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> {{"instutions"|trans}}</a>
                         <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> {{"subjects"|trans}}</a>
-                        <a class="list-group-item" href="{{path('eventlog')}}"><i class="fa fa-cogs"></i>{{"activity_log"|trans}}</a>
                         <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> {{"feedback"|trans}}</a>
+
                     </div>
                 </div>
             {% endif %}

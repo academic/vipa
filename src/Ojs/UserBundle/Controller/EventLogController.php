@@ -11,17 +11,52 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class EventLogController extends Controller
 {
     /**
-     * Lists all EventLog entities.
+     * Lists all EventLog according to user role.
      *
+     * @todo \Ojs\Common\Params\EventLogParams role level logs classes can expand for every role
+     *
+     * @return mixed
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $author = $this->container->get('security.context')->isGranted('ROLE_AUTHOR');
+        $editor = $this->container->get('security.context')->isGranted('ROLE_EDITOR');
 
-        $entities = $em->getRepository('OjsUserBundle:EventLog')->findAll();
+        //get eventLog parameters according to user role
+        if ($superAdmin) {
+            $logTypes = \Ojs\Common\Params\EventLogParams::adminLevelEventLogs();
+        } elseif ($author) {
+            $logTypes = \Ojs\Common\Params\EventLogParams::authorLevelEventLogs();
+        } elseif ($editor) {
+            $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();
+        } else {
+            //if unlisted user_role.
+            $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $entities = $qb
+            ->select('e')
+            ->from('OjsUserBundle:EventLog', 'e')
+            ->where($qb->expr()->in('e.eventInfo', ':logTypes'))
+            ->setParameter('logTypes', $logTypes);
+
+        //admin can see every user log. But other users can see only own considered logs
+        if (!$superAdmin) {
+            $entities = $entities
+                ->andWhere('e.userId = :userId OR e.affectedUserId = :userId')
+                ->setParameter('userId', $userId);
+        }
+        $entities = $entities
+            ->getQuery()
+            ->getResult();
 
         return $this->render('OjsUserBundle:EventLog:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -31,22 +66,38 @@ class EventLogController extends Controller
      */
     public function showAction($id)
     {
+        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:EventLog')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find EventLog entity.');
         }
+        $user = $this->getUser();
+        $userId = $user->getId();
 
-        return $this->render('OjsUserBundle:EventLog:show.html.twig', array(
-                    'entity' => $entity));
+        //if event isn't consider user throw 403
+        if($entity->getUserId() !== $userId && $entity->getAffectedUserId() !== $userId && !$superAdmin){
+            throw $this->createNotFoundException('You have not permission to see this activity.');
+        }
+
+        if ($superAdmin) {
+            $tpl = 'OjsUserBundle:EventLog:admin/show.html.twig';
+        } else {
+            $tpl = 'OjsUserBundle:EventLog:show.html.twig';
+        }
+
+        return $this->render($tpl, array(
+            'entity' => $entity));
     }
 
     /**
-     * Removes all EventLog records
+     * Removes all EventLog records.
+     * Function only open for admin users.
      *
      * @return redirect
      */
-    public function flushAction(){
+    public function flushAction()
+    {
 
         /**
          * All entities delete. Function not truncate table only removes all entry, not resets FOREIGN_KEY.
@@ -58,7 +109,7 @@ class EventLogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:EventLog')->findAll();
 
-        foreach($entities as $entity){
+        foreach ($entities as $entity) {
 
             $em->remove($entity);
         }

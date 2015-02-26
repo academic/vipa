@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use \Ojs\Common\Params\UserEventLogParams;
 
 class LogoutListener implements LogoutSuccessHandlerInterface
 {
@@ -35,7 +36,7 @@ class LogoutListener implements LogoutSuccessHandlerInterface
 
         //log as eventlog
         $event = new \Ojs\UserBundle\Entity\EventLog();
-        $event->setEventInfo(\Ojs\Common\Params\UserEventLogParams::$USER_LOGOUT);
+        $event->setEventInfo(UserEventLogParams::$USER_LOGOUT);
         $event->setIp($this->container->get('request')->getClientIp());
         $event->setUserId($user->getId());
         $this->em->persist($event);
