@@ -124,7 +124,7 @@
                 $('#ojs_journalbundle_journal_header').attr('value', result.files.name);
                 $("#preview_image > img").cropper('replace', '/media/cache/resolve/wide_960' + result.files.fullpath + '/' + result.files.name);
             });
-            var preview_image_data = {
+            $("#preview_image > img").cropper({
                 aspectRatio: 960 / 200,
                 maxWidth: 960,
                 maxHeight: 200,
@@ -141,9 +141,8 @@
                     $("#header_x").val(data.x);
                     $("#header_y").val(data.y)
                 }
-            };
-            $("#preview_image > img").cropper(preview_image_data);
-            var preview_image_cover_data = {
+            });
+            $("#preview_image_cover > img").cropper({
                 aspectRatio: 200 / 300,
                 maxWidth: 200,
                 maxHeight: 300,
@@ -162,9 +161,7 @@
                     $("#cover_x").val(data.x);
                     $("#cover_y").val(data.y)
                 }
-
-            };
-            $("#preview_image_cover > img").cropper(preview_image_cover_data)
+            })
         });
     </script>
 {% endblock %}
