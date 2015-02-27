@@ -13,12 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\Expose;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * User
  * @ExclusionPolicy("all")
  * @UniqueEntity(fields="username", message="That username is taken!")
  * @UniqueEntity(fields="email", message="That email is taken!")
+ * @GRID\Source(columns="id,username,email,status")
  */
 class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface
 {
@@ -26,6 +28,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="user.id")
      */
     protected $id;
 
@@ -34,6 +37,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @Expose
      * @Assert\NotBlank(message="Username can't be blank")
      * @Assert\Length(min=3, minMessage="Username should be longer then 3 characters.")
+     * @GRID\Column(title="user.username")
      */
     protected $username;
 
@@ -48,6 +52,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @Expose
      * @Assert\NotBlank(message="Email can't be blank")
      * @Assert\Email
+     * @GRID\Column(title="user.email")
      */
     protected $email;
 
@@ -93,6 +98,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     protected $apiKey;
     /**
      * @var integer
+     * @GRID\Column(title="user.status")
      */
     protected $status = 1;
     /** @var  ArrayCollection */
@@ -101,7 +107,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
-    private $roles;
+    protected $roles;
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
@@ -750,10 +756,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
             'header' => $this->getHeader(),
             'title' => $this->getTitle(),
         ];
-        if($this->getCountry() instanceof Country){
+        if ($this->getCountry() instanceof Country) {
             $data['country'] = $this->getCountry()->getName();
         }
-        if($this->getCity() instanceof City){
+        if ($this->getCity() instanceof City) {
             $data['city'] = $this->getCity()->getName();
         }
         return json_encode($data);
@@ -851,5 +857,4 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->privacy = $privacy;
         return $this;
     }
-
 }
