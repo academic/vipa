@@ -62,7 +62,7 @@ article.plural: Makaleler
 article.singular: Makale
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
-article.authors: 'Makale Yazarları'
+article.authors: 'Makalenin Yazarları'
 article.citations: 'Makale Referansları'
 article.metadata: 'Makale Üst Bilgisi'
 article.titleTransliterated: 'Makale Başlığı (transliterated)'
@@ -84,12 +84,12 @@ author.middlename: 'İkinci Ad'
 author.lastname: Soyad
 author.initials: Başharfler
 author.title: Ünvan
-author.order: Order
+author.order: Sıra
 author.plural: Yazarlar
 author.singular: Yazar
 author.summary: 'Yazar Özeti'
 author.orcid: ORCID
-author.add: 'Yeni Yazar'
+author.add: 'Yeni Yazar Ekle'
 user.new: 'Yeni Kullanıcı'
 details: Detaylar
 article.manager: 'Makale Yöneticisi'
@@ -119,8 +119,7 @@ abstract.transliterated: 'Dönüştürülmüş Özet'
 citation.editor: 'Alıntı Editörü'
 article_author_edit: 'Makale Yazarı Düzenle'
 article_author_list: 'Makale Yazarı Listesi'
-articleauthor_new: 'Yeni Makale Yazarı'
-author_order: 'Yazar Sırası'
+articleauthor_new: 'Yeni Yazar'
 author_id: 'Yazar ID'
 article_id: 'Makale ID'
 articleauthor_create: 'Makale Yazarı Oluştur'
@@ -185,7 +184,7 @@ file.edit: 'Dosya Düzenle'
 file.list: 'Dosya Listesi'
 mimetype: Tür
 size: Boyut
-file.new: Yeni Dosya
+file.new: Yeni Dosya Alanı
 file.select: 'Dosya Seç'
 file.details: 'Dosya Detayları'
 file.path: 'Dosya Yolu'
@@ -318,9 +317,9 @@ page.last: 'Son Sayfa'
 page.first: 'İlk Sayfa'
 articlefile.id: ID
 articlefile.title: Başlık
-articlefile.type: Tür
-articlefile.version: Sürüm
-articlefile.langcode: Dil
+articlefile.type: Dosya Türü
+articlefile.version: Dosya Sürümü
+articlefile.langcode: Dosya Dili
 articlefile.actions: İşlemler
 suggestion.institute: Enstitü Önerisi
 suggestion.institute.list: Enstitü Önerileri
@@ -358,6 +357,7 @@ journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 
 
-select.journal: "Makalenin Gönderileceği Dergiyi Seç"
+select.journal: "Makalenin Gönderileceği Dergi"
 parse: Ayrıştır
-
+comma_keyword_list: virgül ile ayrılmış anahtar kelimeler
+comma_subject_list: virgül ile ayrılmış konular 

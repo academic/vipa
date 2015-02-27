@@ -5,3 +5,15 @@ status:
     unpublished: Unpublished
     waiting: Waiting
 useThisTemplate: Bu temayı kullan
+
+
+editor:
+    articles_uncomplete: Uncompleted Articles (Not submitted yet)
+    articles_waiting: Waiting Articles (Submitted)
+    articles_assigned: in-Review Articles
+    articles_published: Published Articles
+    articles_unpublished: Unpublished Articles
+    articles_rejected: Rejected Articles
+    
+articles_notsubmitted: These articles are not submitted yet  
+articles_waiting: These articles are submitted but waiting to be assigned

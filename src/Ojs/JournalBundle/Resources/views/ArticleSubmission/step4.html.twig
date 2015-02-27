@@ -3,7 +3,7 @@
         <div class="panel-heading ">
             <div class="row">
                 <div class="col-md-6">
-                    <span class="hidden-sm hidden-xs"> File Type : </span>
+                    <span class="hidden-sm hidden-xs"> {{"articlefile.type"|trans}}  : </span>
                     <select style="min-width:120px;margin:10px 20px" name="type" class="select2-element input-xs">
                         {% for key,type in fileTypes %}
                             <option value="{{key}}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type }}</option>
@@ -11,7 +11,7 @@
                     </select>  
                 </div>
                 <div class="col-md-6">
-                    <span class="hidden-sm hidden-xs"> File Language :</span> 
+                    <span class="hidden-sm hidden-xs">{{"articlefile.langcode"|trans}} :</span> 
                     <select  style="min-width:120px;margin:10px 20px"  name="lang" class="select2-element input-xs">
                         {% for lang in journal.languages %}
                             <option value="{{ lang.code }}" {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name }} [{{ lang.code }}]</option>

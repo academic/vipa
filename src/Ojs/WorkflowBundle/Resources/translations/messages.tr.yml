@@ -16,3 +16,15 @@ create: Oluştur
 details: Detaylar
 templates: Şablonlar
 useThisTemplate: Bu Şablonu Kullan
+
+
+editor:
+    articles_uncomplete: Gönderimi Tamamlanmamış Makaleler
+    articles_waiting: Beklemede Olan Makaleler
+    articles_assigned: Değerlendirmede Olan Makaleler
+    articles_published: Yayınlanmış Makalaler
+    articles_unpublished: Yayınlanmamış Makaleler
+    articles_rejected: Reddedilen Makaleler
+    
+articles_notsubmitted: Bu makaleler henüz gönderilmemiş
+articles_waiting: Bu makaleler gönderilmiş fakat bekleme aşamasında

@@ -188,7 +188,7 @@ file.edit: 'Edit File'
 file.list: 'File List'
 mimetype: 'Mime Type'
 size: Size
-file.new: 'New File'
+file.new: 'New File Block'
 file.select: 'Select File'
 file.details: 'File Details'
 file.path: 'File Path'
@@ -305,12 +305,12 @@ page.singular: Page
 page.plural: Pages
 page.last: 'Last Page'
 page.first: 'First Page'
-articlefile.id: ID
-articlefile.title: Title
-articlefile.type: Type
-articlefile.version: Version
-articlefile.langcode: Language
-articlefile.actions: Actions
+articlefile.id: File ID
+articlefile.title: File Title
+articlefile.type: File Type
+articlefile.version: File Version
+articlefile.langcode: File Language
+articlefile.actions: File Actions
 save: Save
 Info: Info
 'Article Files': 'Article Files'
@@ -353,3 +353,5 @@ journal.merge_as_new_journal: Merge As New Journal
 
 select.journal: "Select a Journal to Submit the Article"
 parse: Parse
+comma_keyword_list: Comma-seperated keyword list
+comma_subject_list: Comma-seperated subject list

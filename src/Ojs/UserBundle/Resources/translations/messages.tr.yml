@@ -90,7 +90,7 @@ user.apikey: 'API Anahtarı'
 regenerate.apikey: 'API Anahtarını Güncelle'
 register.yourself.as.author: 'Yazar Olarak Kayıtol'
 user.journalrole.edit: 'Dergi Rolü Düzenle'
-user.journalrole.list: 'Dergi Rolleri Listesi'
+user.journalrole.list: 'Dergilerin Kullanıcı Listesi'
 user.journalrole.id: ID
 user.journalrole.user: Kullanıcı
 user.journalrole.journal: Dergi
@@ -104,7 +104,7 @@ user.journalrole.myjournals: 'Dergilerim'
 user.journalrole.alljournals: 'Tüm Dergiler'
 journal.singular: Dergi
 user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
-user.journalrole.usersofjournal: 'Kullanıcıların Dergileri'
+user.journalrole.usersofjournal: 'Derginin Kullanıcıları'
 user.journalrole.user.id: ID
 user.journalrole.user.username: Kullanıcı Adı
 user.journalrole.email: Eposta
