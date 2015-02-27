@@ -2,7 +2,12 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Mapping\Column;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -148,9 +153,37 @@ class UserJournalRoleController extends Controller
                 )
             )
             ->setParameter('jid', $journal_id);
+
         $entities = $qb->getQuery()->getResult();
-        return $this->render('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
-            'entities' => $entities
+        $source = new Entity('OjsUserBundle:UserJournalRole');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal_id,$ta) {
+            return $qb->where(
+                $qb->expr()->andX(
+                    $qb->expr()->eq($ta.'.journalId', ':jid')
+                )
+            )->setParameter('jid', $journal_id);
+        });
+        $grid = $this->get('grid');
+
+        $grid->setSource($source);
+
+        $rowAction = new RowAction('<i class="fa fa-envelope-o"></i>','user_send_mail');
+        $rowAction->setAttributes(['class'=>'btn-xs btn btn-primary']);
+        $rowAction->setRouteParameters(['id']);
+        $rowAction->setRouteParametersMapping([
+            'id'=>'user'
+        ]);
+        $rowAction->setColumn('actions');
+        $column = new ActionsColumn('actions','user.journalrole.send_email');
+        $column->setSafe(false);
+
+        $grid->addColumn($column);
+        $grid->addRowAction($rowAction);
+
+        return $grid->getGridResponse('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
+            'entities' => $entities,
+            'grid' => $grid
         ));
     }
 
@@ -274,5 +307,5 @@ class UserJournalRoleController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ujr'));
-    } 
+    }
 }

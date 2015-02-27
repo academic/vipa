@@ -51,7 +51,8 @@
     	"okulbilisim/feedback-bundle": "dev-master",
         "tackk/cartographer": "1.0.*",
         "okulbilisim/cms-bundle": "dev-master",
-        "unifik/database-config-bundle": "dev-master"
+        "unifik/database-config-bundle": "dev-master",
+        "apy/datagrid-bundle": "dev-master"
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master"

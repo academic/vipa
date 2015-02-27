@@ -6,7 +6,7 @@
         <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
 {% if entities %}
     {% include '::flashbag.html.twig' %}
-
+    {{ grid(grid) }}
     <table class="records_list  table">
             <thead>
                 <tr>
