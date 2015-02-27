@@ -1,14 +1,16 @@
 <?php
 
 namespace Ojs\UserBundle\Entity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * UserJournalRole
+ * @GRID\Source(columns="id,user.username,user.email,role.name")
  */
 class UserJournalRole
 {
     /**
      * @var integer
+     * @GRID\Column(title="user.journalrole.user.id")
      */
     private $id;
 
@@ -115,6 +117,8 @@ class UserJournalRole
 
     /**
      * @var \Ojs\UserBundle\Entity\User
+     * @GRID\Column(title="user.journalrole.user.username",field="user.username")
+     * @GRID\Column(title="user.journalrole.email",field="user.email")
      */
     private $user;
 
