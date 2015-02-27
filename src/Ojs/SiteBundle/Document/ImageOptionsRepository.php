@@ -30,7 +30,6 @@ class ImageOptionsRepository extends DocumentRepository
         }
         $option
             ->setHeight($data['height'])
-            ->setHeight($data['height'])
             ->setWidth($data['width'])
             ->setX($data['x'])
             ->setY($data['y']);

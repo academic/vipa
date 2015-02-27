@@ -219,6 +219,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $bannedUsers;
 
     private $userRoles;
+
     /**
      * Constructor
      */
@@ -266,7 +267,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      *
-     * @param  string                   $settingName
+     * @param  string $settingName
      * @return ArticleAttribute|boolean
      */
     public function getAttribute($settingName)
@@ -424,7 +425,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set subdomain
      *
-     * @param  string  $subdomain
+     * @param  string $subdomain
      * @return Journal
      */
     public function setSubdomain($subdomain)
@@ -1083,7 +1084,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function __toString()
     {
-        return $this->getTitle()."[{$this->getId()}]";
+        return $this->getTitle() . "[{$this->getId()}]";
     }
 
     /**
@@ -1098,7 +1099,8 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param UserJournalRole $role
      * @return $this
      */
-    public function addUserRole(UserJournalRole $role){
+    public function addUserRole(UserJournalRole $role)
+    {
         $this->userRoles->add($role);
         return $this;
     }
@@ -1112,5 +1114,30 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->userRoles->removeElement($role);
         return $this;
     }
+
+    /**
+     * @var string
+     */
+    private $logo;
+
+    /**
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     * @return $this
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+        return $this;
+    }
+
+
 }
 
