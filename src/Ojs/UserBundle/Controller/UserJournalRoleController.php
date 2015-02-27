@@ -158,7 +158,7 @@ class UserJournalRoleController extends Controller
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(function (QueryBuilder $qb) use ($journal_id,$ta) {
-            return $qb->where(
+            $qb->andWhere(
                 $qb->expr()->andX(
                     $qb->expr()->eq($ta.'.journalId', ':jid')
                 )

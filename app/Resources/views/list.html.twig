@@ -1,5 +1,4 @@
 {% extends 'APYDataGridBundle::blocks_js.jquery.html.twig' %}
-
 {% block grid %}
     <div class="grid">
         {% if grid.totalCount > 0 or grid.isFiltered or grid.noDataMessage is sameas(false) %}
@@ -9,9 +8,7 @@
                         {{ grid_actions(grid) }}
                     {% endif %}
                 </div>
-                {% if grid.isFilterSectionVisible %}
-                    {{ grid_filters(grid) }}
-                {% endif %}
+                {{ grid_search(grid) }}
                 <div class="grid_body">
                     <table class="table table-bordered">
                         {% if grid.isTitleSectionVisible %}
@@ -58,35 +55,112 @@
     </ul>
 {% endblock grid_column_actions_cell %}
 
-{% block grid_filters %}
-    <div class="grid-row-filters">
-        <div class="hide" id="filters">
-            {% for column in grid.columns %}
-                {% if column.visible(grid.isReadyForExport) %}
-                    <div class="{% if column.class %}{{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"
-                            {% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>
-                        {% if column.filterable %}{{ grid_filter(column, grid)|raw }}{% endif %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        <a class="btn btn-info pull-right" href="#" id="show-filter">
-            {{ 'Filter'|trans }}
-        </a>
-        <div class="clearfix"></div>
-    </div>
-{% endblock grid_filters %}
 
 {% block grid_scripts %}
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-   {{ parent() }}
+    {{ parent() }}
     <script type="text/javascript">
-        $(document).ready(function(){
-           $("#show-filter").on('click',function(){
-               $("#filters").slideToggle();
-               console.log(1);
-           });
+        $(document).ready(function () {
+            $("#show-filter").on('click', function () {
+                $("#filters").fadeToggle();
+            });
+            $("#search_toggle").on('click',function(){
+               $("#search_box").fadeToggle();
+            });
         });
     </script>
 {% endblock grid_scripts %}
+
+{% block grid_search %}
+        <div class="grid-search jumbotron" id="search_box" style="display: none">
+            {{ parent() }}
+        </div>
+        <a class="btn btn-success pull-right" href="#" id="search_toggle"><i class="fa fa-search"></i></a>
+{% endblock grid_search %}
+
+{# -------------------------------------------- grid_column_filter_type_input --------------------------------------- #}
+{% block grid_column_filter_type_input %}
+    {% set btwOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTW') %}
+    {% set btweOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTWE') %}
+    {% set isNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNULL') %}
+    {% set isNotNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNOTNULL') %}
+    {% set op = column.data.operator is defined ? column.data.operator : column.defaultOperator %}
+    {% set from = column.data.from is defined ? column.data.from : null %}
+    {% set to = column.data.to is defined ? column.data.to : null %}
+    {{ grid_column_operator(column, grid, op, submitOnChange) }}
+    <input type="{{ column.inputType }}" value="{{ from }}" class="form-control grid-filter-input-query-from"
+           name="{{ grid.hash }}[{{ column.id }}][from]" id="{{ grid.hash }}__{{ column.id }}__query__from"
+           {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }} />
+    <input type="{{ column.inputType }}" value="{{ to }}" class="form-control  grid-filter-input-query-to"
+           name="{{ grid.hash }}[{{ column.id }}][to]" id="{{ grid.hash }}__{{ column.id }}__query__to"
+           {% if submitOnChange is sameas(true) %}onkeypress="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }} />
+    </span>
+{% endblock grid_column_filter_type_input %}
+{# -------------------------------------------- grid_column_filter_type_select --------------------------------------- #}
+{% block grid_column_filter_type_select %}
+    {% set btwOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTW') %}
+    {% set btweOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTWE') %}
+    {% set isNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNULL') %}
+    {% set isNotNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNOTNULL') %}
+    {% set op = column.data.operator is defined ? column.data.operator : column.defaultOperator %}
+    {% set from = column.data.from is defined ? column.data.from : null %}
+    {% set to = column.data.to is defined ? column.data.to : null %}
+    {% set multiple = column.selectMulti %}
+    {% set expanded = column.selectExpanded %}
+    {{ grid_column_operator(column, grid, op, submitOnChange) }}
+    <span class="grid-filter-select-query">
+    {% if expanded %}
+        <span class="grid-filter-select-query-from"
+              id="{{ grid.hash }}__{{ column.id }}__query__from" {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+        {% for key, value in column.values %}
+            <input class="form-control" type="{% if multiple %}checkbox{% else %}radio{% endif %}"
+                   name="{{ grid.hash }}[{{ column.id }}][from][]"
+                   value="{{ key }}" {% if key in from %}
+                checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %}/>
+            <label>{{ value }}</label>
+        {% endfor %}
+        </span>
+        <span class="grid-filter-select-query-to"
+              id="{{ grid.hash }}__{{ column.id }}__query__to" {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
+        {% for key, value in column.values %}
+            <span><input class="form-control" type="{% if multiple %}checkbox{% else %}radio{% endif %}"
+                         name="{{ grid.hash }}[{{ column.id }}][to]"
+                         value="{{ key }}" {% if not to is null and to == key %} checked="checked"{% endif %} {% if submitOnChange is sameas(true) %}onclick="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %}/><label>{{ value }}</label></span>
+        {% endfor %}
+        </span>
+        {% if multiple %}<input type="submit" value="{{ 'Go'|trans }}" />{% endif %}
+    {% else %}
+        <select{% if multiple %} multiple="multiple"{% endif %} name="{{ grid.hash }}[{{ column.id }}][from][]"
+                                                                class=" form-control grid-filter-select-query-from"
+                                                                id="{{ grid.hash }}__{{ column.id }}__query__from" {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == isNullOperator or op == isNotNullOperator ) ? 'style="display: none;" disabled="disabled"' : '' }}>
+            <option value="">&nbsp;</option>
+            {% for key, value in column.values %}
+                <option value="{{ key }}"{% if key in from %} selected="selected"{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        <select name="{{ grid.hash }}[{{ column.id }}][to]" class="form-control grid-filter-select-query-to"
+                id="{{ grid.hash }}__{{ column.id }}__query__to"
+                {% if submitOnChange is sameas(true) %}onchange="return {{ grid.hash }}_submitForm(event, this.form);"{% endif %} {{ ( op == btwOperator or op == btweOperator ) ? '': 'style="display: none;" disabled="disabled"' }}>
+            <option value="">&nbsp;</option>
+            {% for key, value in column.values %}
+                <option value="{{ key }}"{% if not to is null and to == key %} selected="selected"{% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+        {% if multiple %}<input type="submit" class="btn btn-primary" value="{{ 'Go'|trans }}" />{% endif %}
+    {% endif %}
+</span>
+{% endblock grid_column_filter_type_select %}
+
+{# -------------------------------------------- grid_column_operator --------------------------------------- #}
+{% block grid_column_operator %}
+    {% if column.operatorsVisible %}
+        <span class="grid-filter-operator">
+    <select name="{{ grid.hash }}[{{ column.id }}][operator]" class="form-control"
+            onchange="{{ grid.hash }}_switchOperator(this, '{{ grid.hash }}__{{ column.id }}__query__'{% if submitOnChange is sameas(false) %}, false{% endif %});">
+        {% for operator in column.operators %}
+            <option value="{{ operator }}"{% if op == operator %} selected="selected"{% endif %}>{{ operator |trans }}</option>
+        {% endfor %}
+    </select>
+</span>
+    {% endif %}
+{% endblock grid_column_operator %}
