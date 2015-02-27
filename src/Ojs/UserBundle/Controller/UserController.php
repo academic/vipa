@@ -2,7 +2,10 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\UpdateUserType;
 use Ojs\UserBundle\Form\UserType;
@@ -16,24 +19,35 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
  * User controller.
  *
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     /**
      * Lists all User entities.
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:User')->findAll();
+        $source = new Entity("OjsUserBundle:User");
+        $grid = $this->get('grid');
+        $grid->setSource($source);
 
-        return $this->render('OjsUserBundle:User:admin/index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction = ActionHelper::deleteAction('user_delete', 'id');
+        $actionColumn->setRowActions([
+            $rowAction
+        ]);
+        $grid->addColumn($actionColumn);
+
+        return $grid->getGridResponse('OjsUserBundle:User:admin/index.html.twig', ['grid' => $grid,'entities'=>$entities]);
     }
 
     /**
      * Creates a new User entity.
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -51,17 +65,18 @@ class UserController extends Controller {
         }
 
         return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
     /**
      * Creates a form to create a User entity.
-     * @param  User                         $entity The entity
+     * @param  User $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(User $entity) {
+    private function createCreateForm(User $entity)
+    {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
@@ -74,20 +89,22 @@ class UserController extends Controller {
     /**
      * Displays a form to create a new User entity.
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new User();
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
     /**
      * Finds and displays a User entity.
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -95,16 +112,17 @@ class UserController extends Controller {
         }
 
         return $this->render('OjsUserBundle:User:admin/show.html.twig', array(
-                    'entity' => $entity));
+            'entity' => $entity));
     }
 
-    public function profileAction($username = false) {
+    public function profileAction($username = false)
+    {
         $userRepo = $this->getDoctrine()->getRepository('OjsUserBundle:User');
         $sessionUser = $this->getUser();
         /** @var User $user */
         $user = $username ?
-                $userRepo->findOneByUsername($username) :
-                $sessionUser;
+            $userRepo->findOneByUsername($username) :
+            $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($user->getId());
         if (!$entity) {
@@ -112,20 +130,21 @@ class UserController extends Controller {
         }
 
         $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-                array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
+            array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
         );
 
         return $this->render('OjsUserBundle:User:profile.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => array(),
-                    'me' => ($sessionUser == $user),
-                    'isProxy' => (bool) $check));
+            'entity' => $entity,
+            'delete_form' => array(),
+            'me' => ($sessionUser == $user),
+            'isProxy' => (bool)$check));
     }
 
     /**
      * Displays a form to edit an existing User entity.
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -134,17 +153,18 @@ class UserController extends Controller {
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Creates a form to edit a User entity.
-     * @param  User                         $entity The entity
+     * @param  User $entity The entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(User $entity) {
+    private function createEditForm(User $entity)
+    {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'POST',
@@ -156,7 +176,8 @@ class UserController extends Controller {
     /**
      * Edits an existing User entity.
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -187,15 +208,16 @@ class UserController extends Controller {
         }
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a User entity.
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -208,7 +230,8 @@ class UserController extends Controller {
         return $this->redirect($this->generateUrl('user'));
     }
 
-    public function blockAction(Request $request, $id) {
+    public function blockAction(Request $request, $id)
+    {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
@@ -222,7 +245,8 @@ class UserController extends Controller {
         return $this->redirect($this->generateUrl('user'));
     }
 
-    public function unblockAction(Request $request, $id) {
+    public function unblockAction(Request $request, $id)
+    {
 
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -236,7 +260,8 @@ class UserController extends Controller {
         return $this->redirect($this->generateUrl('user'));
     }
 
-    public function registerAsAuthorAction(Request $request, $journalId = null) {
+    public function registerAsAuthorAction(Request $request, $journalId = null)
+    {
         $userId = $this->getUser()->getId();
         $doc = $this->getDoctrine();
         $em = $doc->getManager();
@@ -261,7 +286,7 @@ class UserController extends Controller {
             return $this->redirect($this->generateUrl('user_join_journal'));
         }
         $myJournals = $doc->getRepository('OjsUserBundle:UserJournalRole')
-                ->userJournalsWithRoles($userId, true); // only ids
+            ->userJournalsWithRoles($userId, true); // only ids
         $entities = array();
         $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
         foreach ($journals as $journal) {
@@ -271,7 +296,7 @@ class UserController extends Controller {
         }
 
         return $this->render('OjsUserBundle:User:registerAuthor.html.twig', array(
-                    'entities' => $entities
+            'entities' => $entities
         ));
     }
 
@@ -280,22 +305,24 @@ class UserController extends Controller {
      * @param  mixed $id The entity id
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         $t = $this->get('translator');
 
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array(
-                            'label' => $t->trans('Delete User Record'),
-                            'attr' => array(
-                                'class' => 'button alert',
-                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
-                        ))
-                        ->getForm();
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array(
+                'label' => $t->trans('Delete User Record'),
+                'attr' => array(
+                    'class' => 'button alert',
+                    'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
+            ))
+            ->getForm();
     }
 
-    public function sendMailAction(Request $request, User $user) {
+    public function sendMailAction(Request $request, User $user)
+    {
         /** @var EntityManager $em */
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
@@ -305,11 +332,11 @@ class UserController extends Controller {
             $mailData = $request->get('mail');
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
-                    ->setFrom($this->container->getParameter('system_email'))
-                    ->setTo($user->getEmail())
-                    ->setSubject($mailData['subject'])
-                    ->setBody($mailData['body'])
-                    ->setContentType('text/html');
+                ->setFrom($this->container->getParameter('system_email'))
+                ->setTo($user->getEmail())
+                ->setSubject($mailData['subject'])
+                ->setBody($mailData['body'])
+                ->setContentType('text/html');
             $mailer->send($message);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
             $session->save();
@@ -317,13 +344,13 @@ class UserController extends Controller {
         }
         $qb = $em->createQueryBuilder();
         $qb->select('t')
-                ->from('OjsJournalBundle:MailTemplate', 't')
-                ->where(
-                        $qb->expr()->orX(
-                                $qb->expr()->isNull('t.journalId'), $qb->expr()->eq('t.journalId', ':journal')
-                        )
+            ->from('OjsJournalBundle:MailTemplate', 't')
+            ->where(
+                $qb->expr()->orX(
+                    $qb->expr()->isNull('t.journalId'), $qb->expr()->eq('t.journalId', ':journal')
                 )
-                ->setParameter('journal', $journal->getId());
+            )
+            ->setParameter('journal', $journal->getId());
         $templates = $qb->getQuery()->getResult();
         $data['templates'] = $templates;
         $data['user'] = $user;
