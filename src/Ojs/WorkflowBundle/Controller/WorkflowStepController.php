@@ -58,9 +58,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
         $reviewFormIds = $request->get('reviewforms');
-        foreach ($reviewFormIds as $formId) {
-            $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
-            $form && $step->addReviewForm($form);
+        if (!empty($reviewFormIds)) {
+            foreach ($reviewFormIds as $formId) {
+                $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
+                $form && $step->addReviewForm($form);
+            }
         }
         $dm->persist($step);
         $dm->flush();
@@ -106,7 +108,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
                 $nextSteps[] = $dm->getRepository("OjsWorkflowBundle:JournalWorkflowStep")->findOneById($nextStepId);
             }
         }
-        if ($nextSteps) {
+        if (!empty($nextSteps)) {
             foreach ($nextSteps as $step) {
                 $nextStepsArray[] = array(
                     'id' => $step->getId(),
@@ -169,9 +171,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setStatus($request->get('status'));
         $step->removeAllReviewForms();
         $reviewFormIds = $request->get('reviewforms');
-        foreach ($reviewFormIds as $formId) {
-            $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
-            $form && $step->addReviewForm($form);
+        if (!$reviewFormIds) {
+            foreach ($reviewFormIds as $formId) {
+                $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
+                $form && $step->addReviewForm($form);
+            }
         }
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
