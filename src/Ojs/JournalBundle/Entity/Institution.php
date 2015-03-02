@@ -1,35 +1,44 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericExtendedEntity;
 use Okulbilisim\LocationBundle\Entity\City;
 use Okulbilisim\LocationBundle\Entity\Country;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Institution
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id,name,address,country.name,phone,email")
  */
-class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
+class Institution extends GenericExtendedEntity
+{
 
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="address")
      */
     private $address;
-    
+
     /**
      * @var string
      * @Expose
@@ -46,10 +55,11 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @Expose
      */
     private $city_id;
-    
+
     /**
      * @var Country
      * @Expose
+     * @GRID\Column(field="country.name" , title="country")
      */
     private $country;
 
@@ -73,6 +83,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="phone")
      */
     private $phone;
 
@@ -85,6 +96,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="email")
      */
     private $email;
 
@@ -93,13 +105,13 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @Expose
      */
     private $url;
-    
+
     /**
      * @var string
      * @Expose
      */
     private $wiki;
-    
+
     /**
      * @var string
      * @Expose
@@ -129,14 +141,18 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
         $this->header = $header;
         return $this;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $journals;
-    
+
+    /**
+     *
+     */
     public function __construct()
     {
-        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journals = new ArrayCollection();
     }
 
     /**
@@ -144,7 +160,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
      * @return Institution
      */
-    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function addJournal(Journal $journal)
     {
         $this->journals[] = $journal;
         return $this;
@@ -154,7 +170,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      * Remove journal
      * @param \Ojs\JournalBundle\Entity\Journal $journal
      */
-    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function removeJournal(Journal $journal)
     {
         $this->journals->removeElement($journal);
     }
@@ -173,17 +189,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set city
      *
-     * @param  City      $city
+     * @param  City $city
      * @return Institution
      */
-    public function setCity(City $city) {
+    public function setCity(City $city)
+    {
         $this->city = $city;
         $this->city_id = $city->getId();
         return $this;
@@ -194,17 +212,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return City
      */
-    public function getCity() {
+    public function getCity()
+    {
         return $this->city;
     }
-    
+
     /**
      * Set name
      *
-     * @param  string      $name
+     * @param  string $name
      * @return Institution
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -215,17 +235,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
     /**
      * Set address
      *
-     * @param  string      $address
+     * @param  string $address
      * @return Institution
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
 
         return $this;
@@ -236,17 +258,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
     /**
      * Set about
      *
-     * @param  string      $about
+     * @param  string $about
      * @return Institution
      */
-    public function setAbout($about) {
+    public function setAbout($about)
+    {
         $this->about = $about;
 
         return $this;
@@ -257,17 +281,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAbout() {
+    public function getAbout()
+    {
         return $this->about;
     }
 
     /**
      * Set country
      *
-     * @param  Country     $country
+     * @param  Country $country
      * @return Institution
      */
-    public function setCountry(Country $country) {
+    public function setCountry(Country $country)
+    {
         $this->country = $country;
         $this->country_id = $country->getId();
         return $this;
@@ -278,17 +304,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return Country
      */
-    public function getCountry() {
+    public function getCountry()
+    {
         return $this->country;
     }
 
     /**
      * Set addressLat
      *
-     * @param  string      $addressLat
+     * @param  string $addressLat
      * @return Institution
      */
-    public function setAddressLat($addressLat) {
+    public function setAddressLat($addressLat)
+    {
         $this->addressLat = $addressLat;
 
         return $this;
@@ -299,17 +327,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAddressLat() {
+    public function getAddressLat()
+    {
         return $this->addressLat;
     }
 
     /**
      * Set addressLong
      *
-     * @param  string      $addressLong
+     * @param  string $addressLong
      * @return Institution
      */
-    public function setAddressLong($addressLong) {
+    public function setAddressLong($addressLong)
+    {
         $this->addressLong = $addressLong;
 
         return $this;
@@ -320,17 +350,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getAddressLong() {
+    public function getAddressLong()
+    {
         return $this->addressLong;
     }
 
     /**
      * Set phone
      *
-     * @param  string      $phone
+     * @param  string $phone
      * @return Institution
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
 
         return $this;
@@ -341,17 +373,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
     /**
      * Set fax
      *
-     * @param  string      $fax
+     * @param  string $fax
      * @return Institution
      */
-    public function setFax($fax) {
+    public function setFax($fax)
+    {
         $this->fax = $fax;
 
         return $this;
@@ -362,17 +396,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getFax() {
+    public function getFax()
+    {
         return $this->fax;
     }
 
     /**
      * Set email
      *
-     * @param  string      $email
+     * @param  string $email
      * @return Institution
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -383,17 +419,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
     /**
      * Set url
      *
-     * @param  string      $url
+     * @param  string $url
      * @return Institution
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -404,17 +442,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
-    
+
     /**
      * Set wiki
      *
-     * @param  string      $wiki
+     * @param  string $wiki
      * @return Institution
      */
-    public function setWiki($wiki) {
+    public function setWiki($wiki)
+    {
         $this->wiki = $wiki;
 
         return $this;
@@ -425,17 +465,19 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getWiki() {
+    public function getWiki()
+    {
         return $this->wiki;
     }
-    
+
     /**
      * Set logo
      *
-     * @param  string      $logo
+     * @param  string $logo
      * @return Institution
      */
-    public function setLogo($logo) {
+    public function setLogo($logo)
+    {
         $this->logo = $logo;
 
         return $this;
@@ -446,7 +488,8 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
      *
      * @return string
      */
-    public function getLogo() {
+    public function getLogo()
+    {
         return $this->logo;
     }
 
@@ -491,7 +534,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this;
     }
 
-    private  $institution_type_id;
+    private $institution_type_id;
 
     /**
      * @return mixed
@@ -521,6 +564,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
 
     /**
      * @param int $city_id
+     * @return $this
      */
     public function setCityId($city_id)
     {
@@ -538,6 +582,7 @@ class Institution extends \Ojs\Common\Entity\GenericExtendedEntity {
 
     /**
      * @param string $country_id
+     * @return $this
      */
     public function setCountryId($country_id)
     {
