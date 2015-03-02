@@ -4,7 +4,7 @@ namespace Ojs\UserBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * UserJournalRole
- * @GRID\Source(columns="id,user.username,user.email,role.name")
+ * @GRID\Source(columns="id,user.username,user.email,journal.title,role.name")
  */
 class UserJournalRole
 {
@@ -124,11 +124,13 @@ class UserJournalRole
 
     /**
      * @var \Ojs\JournalBundle\Entity\Journal
+     * @GRID\Column(field="journal.title",title="Journal",type="text",visible="false")
      */
     private $journal;
 
     /**
      * @var \Ojs\UserBundle\Entity\Role
+     * @GRID\Column(field="role.name",title="user.journalrole.role")
      */
     private $role;
 

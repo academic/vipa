@@ -8,6 +8,7 @@ use APY\DataGridBundle\Grid\Mapping\Column;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,13 +26,20 @@ class UserJournalRoleController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
-
-        return $this->render('OjsUserBundle:UserJournalRole:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $source = new Entity('OjsUserBundle:UserJournalRole');
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username']);
+        $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
+        $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('ujr_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $grid->showColumns(['journal.title']);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:UserJournalRole:index.html.twig', $data);
     }
 
     /**
@@ -142,25 +150,12 @@ class UserJournalRoleController extends Controller
      */
     public function showUsersOfJournalAction($journal_id)
     {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $qb->select('ujr')
-            ->from('OjsUserBundle:UserJournalRole', 'ujr')
-            ->where(
-                $qb->expr()->andX(
-                    $qb->expr()->eq('ujr.journalId', ':jid')
-                )
-            )
-            ->setParameter('jid', $journal_id);
-
-        $entities = $qb->getQuery()->getResult();
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal_id,$ta) {
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal_id, $ta) {
             $qb->andWhere(
                 $qb->expr()->andX(
-                    $qb->expr()->eq($ta.'.journalId', ':jid')
+                    $qb->expr()->eq($ta . '.journalId', ':jid')
                 )
             )->setParameter('jid', $journal_id);
         });
@@ -168,21 +163,20 @@ class UserJournalRoleController extends Controller
 
         $grid->setSource($source);
 
-        $rowAction = new RowAction('<i class="fa fa-envelope-o"></i>','user_send_mail');
-        $rowAction->setAttributes(['class'=>'btn-xs btn btn-primary']);
+        $rowAction = new RowAction('<i class="fa fa-envelope-o"></i>', 'user_send_mail');
+        $rowAction->setAttributes(['class' => 'btn-xs btn btn-primary']);
         $rowAction->setRouteParameters(['id']);
         $rowAction->setRouteParametersMapping([
-            'id'=>'user'
+            'id' => 'user'
         ]);
         $rowAction->setColumn('actions');
-        $column = new ActionsColumn('actions','user.journalrole.send_email');
+        $column = new ActionsColumn('actions', 'user.journalrole.send_email');
         $column->setSafe(false);
 
         $grid->addColumn($column);
         $grid->addRowAction($rowAction);
 
         return $grid->getGridResponse('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
-            'entities' => $entities,
             'grid' => $grid
         ));
     }
