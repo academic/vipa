@@ -56,6 +56,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
+        $step->setCanReview($request->get('canReview') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor') ? true : false);
         $reviewFormIds = $request->get('reviewforms');
         if (!empty($reviewFormIds)) {
@@ -182,9 +183,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
         $step->setCanEdit($request->get('canEdit') ? true : false);
+        $step->setCanReview($request->get('canReview') ? true : false);
         $step->setCanSeeAuthor($request->get('canSeeAuthor'));
         $dm->persist($step);
-        $dm->flush();
+        $dm->flush(); 
+
 
         return $this->redirect($this->generateUrl('workflowsteps_show', array('id' => $id)));
     }

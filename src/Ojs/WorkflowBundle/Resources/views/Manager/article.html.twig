@@ -66,12 +66,14 @@
     {% endif %}
     <div class="panel-body">
         <table class="table">
-            <tr>
-                <td>Previous Review Result</td>
-                <td>
-                    <small class="label label-info">{{  ("reviewResultCodes."~prevStep.action)|trans }}</small>
-                </td>
-            </tr>
+            {% if prevStep.action is defined %}
+                <tr>
+                    <td>Previous Review Result</td>
+                    <td>
+                        <small class="label label-info">{{  ("reviewResultCodes."~prevStep.action)|trans }}</small>
+                    </td>
+                </tr>
+            {% endif %}
             <tr>
                 <td>Submission Reference</td>
                 <td>
@@ -164,8 +166,9 @@
         </div>
     {% endif %}  
 
-    <hr>
+    <hr> 
     {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
+
         <div class="jumbotron">
             {% if prevStep %}
                 <h3>Previous Review Report</h3>
@@ -195,6 +198,7 @@
                 {% endif%}
 
                 <div class="form-inline">
+                    {% if step.canReview %}
                     <select name="reviewResultCode" class="select2-element  form-control">
                         {% for i in range(0,4) %}
                             <option value="{{ i }}">
@@ -202,6 +206,7 @@
                             </option>
                         {% endfor %}
                     </select>
+                    {% endif %}
                     {% if step.onlyReply %}
                         <input type="hidden" name="nextStepId" value="{{ articleStep.from.step.id }}" />
                     {%else%}
