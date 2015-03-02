@@ -6,34 +6,39 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Role
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id, name, role, isSystemRole")
  */
 class Role implements RoleInterface
 {
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="role.id")
      */
     private $id;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="role.name")
      */
     private $name;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="role.role")
      */
     private $role;
 
     /**
      * @var boolean
      * @Expose
+     * @GRID\Column(title="role.issystemrole")
      */
     private $isSystemRole;
 
