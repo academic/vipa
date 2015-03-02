@@ -5,6 +5,11 @@ namespace Ojs\Common\Params;
 class CommonParams
 {
 
+    public static $userStatusArray = [
+        0 => "Passive",
+        1 => "Active",
+        2 => "Banned"
+    ];
     protected static $statusArray = array(
         -3 => "Rejected",
         -2 => "Unpublished",
@@ -41,14 +46,14 @@ class CommonParams
     }
 
     /**
-     * 
+     *
      * @param type $statusText
      * @return type
      */
     public static function getStatusCode($statusText)
     {
         $i = array_search($statusText, self::$statusArray);
-        return $i ? : null;
+        return $i ?: null;
     }
 
     public static function statusText($statusNum = null)
