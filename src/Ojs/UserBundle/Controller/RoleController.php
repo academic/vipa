@@ -2,6 +2,11 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\UserBundle\Entity\Role;
@@ -15,10 +20,23 @@ class RoleController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $source = new Entity('OjsUserBundle:Role');
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        $rowAction[] = ActionHelper::showAction('role_show', 'id');
+        $rowAction[] = ActionHelper::editAction('role_edit', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:Role:index.html.twig', $data);
         $entities = $em->getRepository('OjsUserBundle:Role')->findAll();
 
         return $this->render('OjsUserBundle:Role:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -67,8 +85,8 @@ class RoleController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsUserBundle:Role:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -85,8 +103,8 @@ class RoleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsUserBundle:Role:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -104,9 +122,9 @@ class RoleController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsUserBundle:Role:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -124,7 +142,7 @@ class RoleController extends Controller
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('attr' => array('label ' =>
-                $this->get('translator')->trans('Update'))
+            $this->get('translator')->trans('Update'))
         ));
 
         return $form;
@@ -188,16 +206,15 @@ class RoleController extends Controller
         $t = $this->get('translator');
 
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('role_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' =>
-                            $t->trans('Delete'),
-                            'attr' => array(
-                                'class' => 'button alert',
-                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
-                        ))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('role_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' =>
+                $t->trans('Delete'),
+                'attr' => array(
+                    'class' => 'button alert',
+                    'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
+            ))
+            ->getForm();
     }
 
 }
