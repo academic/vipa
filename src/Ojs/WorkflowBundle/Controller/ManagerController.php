@@ -26,7 +26,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
                 ->find($articleStep->getStep()->getId());
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
                         $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
-        );   
+        );
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -52,7 +52,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
         $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")
                 ->findBy(
-                array('step.$id' => new \MongoId($step->getId())), array('finishedDate' => null)
+                array('step.$id' => new \MongoId($step->getId()), 'finishedDate' => null)
         );
         $ids = [];
         foreach ($articlesStep as $stepNode) {
@@ -114,7 +114,6 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
         $newStep->setFrom($articleStep);
-        $newStep->setAction($request->get('reviewResultCode'));
         $newStep->setNote(null);
         $newStep->setReviewNotes($request->get('notes'));
         //$newStep
@@ -124,6 +123,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
         $articleStep->setTo($newStep);
         $articleStep->setFinishedDate(new \DateTime());
+        $articleStep->setAction($request->get('reviewResultCode'));
         /* generate reviewform and append to reviewNotes */
         $reviewFormResults = '';
         $reviewForm = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->find($request->get('reviewFormId'));
