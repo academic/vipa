@@ -11,7 +11,6 @@
     titleAbbr: Acta Med Anatol
     titleTransliterated: null
     url: "http://www.anatoliamedica.com"
-    subdomain (unique): acta-medica
     slug: acta-medica
     institution: @institution1
     subject: 5x @subject*
@@ -29,7 +28,6 @@
     titleAbbr: <text(5)>
     titleTransliterated: null
     url: <url()>
-    subdomain (unique): <domainWord()>
     institution: @institution*
     subject: 5x @subject*
     status: '3'
