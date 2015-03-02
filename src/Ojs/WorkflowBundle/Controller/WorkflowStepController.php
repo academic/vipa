@@ -158,7 +158,6 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
 
     public function updateAction(Request $request, $id) {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $em = $this->getDoctrine()->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep');
         /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
         $step = $repo->find($id);
@@ -171,7 +170,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setStatus($request->get('status'));
         $step->removeAllReviewForms();
         $reviewFormIds = $request->get('reviewforms');
-        if (!$reviewFormIds) {
+        if (!empty($reviewFormIds)) {
             foreach ($reviewFormIds as $formId) {
                 $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
                 $form && $step->addReviewForm($form);
