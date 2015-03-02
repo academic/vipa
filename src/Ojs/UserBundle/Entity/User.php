@@ -98,9 +98,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     protected $apiKey;
     /**
      * @var integer
-     * @GRID\Column(title="user.status")
+     * @GRID\Column(title="user.status",filter="select",selectFrom="values",values={0="Passive",1="Active"} )
      */
     protected $status = 1;
+
     /** @var  ArrayCollection */
     protected $restrictedJournals;
     /**
