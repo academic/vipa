@@ -120,7 +120,7 @@ Ojs\JournalBundle\Entity\Journal:
         path:
             type: string
             length: 255
-            column: subdomain
+            column: path
             nullable: true
             gedmo:
                 - translatable

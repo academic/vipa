@@ -317,7 +317,7 @@ suggestion.journal.detail: Detay
 journal.titleAbbr: Başlık Kısaltması
 journal.titleTransliterated: Çevrilmiş Başlık
 journal.domain: Domain
-journal.subdomain: Subdomain
+journal.path: Path
 journal.issn: ISSN
 journal.eissn: EISSN
 journal.firstPublishDate: İlk Yayın Tarihi

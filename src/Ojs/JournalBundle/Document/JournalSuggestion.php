@@ -44,7 +44,7 @@ class JournalSuggestion
      * @MongoDB\String
      * @var string
      */
-    protected $subdomain;
+    protected $path;
     /**
      * @MongoDB\String
      * @var string
@@ -372,17 +372,17 @@ class JournalSuggestion
     /**
      * @return string
      */
-    public function getSubdomain()
+    public function getPath()
     {
-        return $this->subdomain;
+        return $this->path;
     }
 
     /**
-     * @param string $subdomain
+     * @param string $path
      */
-    public function setSubdomain($subdomain)
+    public function setPath($path)
     {
-        $this->subdomain = $subdomain;
+        $this->path = $path;
     }
 
     /**
