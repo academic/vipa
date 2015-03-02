@@ -5,36 +5,7 @@
 {% endblock %} 
 
 {% block body -%}
-    <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a> 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{"name"|trans}}</th>
-                <th>{{"address"|trans}}</th>
-                <th>{{"country"|trans}}</th> 
-                <th>{{"phone"|trans}}</th>
-                <th>{{"email"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a class="badge" href="{{ path('institution_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.name }}</td>
-                    <td>{{ entity.address }}</td>
-                    <td>{{ entity.country }}</td> 
-                    <td>{{ entity.phone }}</td>
-                    <td><span class="label label-default">{{ entity.email }}</span></td>
-                    <td>
-                        {% set edit_path = 'institution_edit' %}
-                        {% set show_path = 'institution_show' %}
-                        {% set delete_path = 'institution_delete' %}
-                        {% include '::actionbtns.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table> 
+    <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a>
+    {{ grid(grid) }}
+
 {% endblock %}

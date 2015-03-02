@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
@@ -20,12 +23,20 @@ class InstitutionController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Institution')->findAll();
+        $source = new Entity('OjsJournalBundle:Institution');
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:Institution:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('institution_show', 'id');
+        $rowAction[] = ActionHelper::editAction('institution_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('institution_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Institution:index.html.twig', $data);
     }
 
     /**
@@ -62,7 +73,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
-            'helper'=>$this->get('okulbilisim_location.form.helper')
+            'helper' => $this->get('okulbilisim_location.form.helper')
         ));
 
         return $form;
@@ -126,7 +137,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'helper'=>$this->get('okulbilisim_location.form.helper')
+            'helper' => $this->get('okulbilisim_location.form.helper')
         ));
 
         return $form;
@@ -150,9 +161,9 @@ class InstitutionController extends Controller
             $header = $request->request->get('header');
             $cover = $request->request->get('logo');
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
+            $imageOptions = $ir->init($header, $entity, 'header');
             $dm->persist($imageOptions);
-            $imageOptions = $ir->init($cover,$entity,'cover');
+            $imageOptions = $ir->init($cover, $entity, 'cover');
             $dm->persist($imageOptions);
             $dm->flush();
             $em->flush();
