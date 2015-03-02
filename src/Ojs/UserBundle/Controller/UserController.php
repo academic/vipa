@@ -34,13 +34,16 @@ class UserController extends Controller
         $grid->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction = ActionHelper::deleteAction('user_delete', 'id');
-        $actionColumn->setRowActions([
-            $rowAction
-        ]);
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index',['username']);
+        $rowAction[] = ActionHelper::showAction('user_show','id');
+        $rowAction[] = ActionHelper::editAction('user_edit','id');
+        $rowAction[] = ActionHelper::userBanAction();
+        $rowAction[] = ActionHelper::deleteAction('user_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        return $grid->getGridResponse('OjsUserBundle:User:admin/index.html.twig', ['grid' => $grid,'entities'=>$entities]);
+        return $grid->getGridResponse('OjsUserBundle:User:admin/index.html.twig', ['grid' => $grid, 'entities' => $entities]);
     }
 
     /**
