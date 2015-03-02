@@ -40,6 +40,9 @@ class JournalWorkflowStep {
     protected $canEdit;
 
     /** @MongoDb\Boolean */
+    protected $canReview;
+
+    /** @MongoDb\Boolean */
     protected $mustBeAssigned;
 
     /**
@@ -440,4 +443,26 @@ class JournalWorkflowStep {
         return $this->color;
     }
 
+
+    /**
+     * Set canReview
+     *
+     * @param boolean $canReview
+     * @return self
+     */
+    public function setCanReview($canReview)
+    {
+        $this->canReview = $canReview;
+        return $this;
+    }
+
+    /**
+     * Get canReview
+     *
+     * @return boolean $canReview
+     */
+    public function getCanReview()
+    {
+        return $this->canReview;
+    }
 }
