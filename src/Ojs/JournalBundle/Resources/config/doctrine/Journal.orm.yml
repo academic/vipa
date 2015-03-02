@@ -117,7 +117,7 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             column: title_transliterated
             nullable: true
-        subdomain:
+        path:
             type: string
             length: 255
             column: subdomain
