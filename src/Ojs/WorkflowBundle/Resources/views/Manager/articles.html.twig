@@ -34,8 +34,7 @@
                             <td>
                                 <h4>
                                     <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
-
-                                        {{ articles[0].title }}
+                                    {{ articles[loop.index0].title }}
                                     </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
