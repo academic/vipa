@@ -4,10 +4,11 @@ namespace Ojs\JournalBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Subject
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id,subject,description")
  */
 class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -15,18 +16,21 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="subject")
      */
     private $subject;
 
     /**
      * @var string
      * @Expose
+     * @GRID\Column(title="description")
      */
     private $description;
 
