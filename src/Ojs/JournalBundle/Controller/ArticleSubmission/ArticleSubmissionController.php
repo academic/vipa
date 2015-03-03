@@ -16,14 +16,12 @@ use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
  * Article Submission controller.
  *
  */
-class ArticleSubmissionController extends Controller
-{
+class ArticleSubmissionController extends Controller {
 
     /**
      * Lists all new Article submissions entities.
      */
-    public function indexAction($all = false)
-    {
+    public function indexAction($all = false) {
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $user = $this->getUser();
@@ -53,8 +51,7 @@ class ArticleSubmissionController extends Controller
      * 
      * @param int $submissionId 
      */
-    public function newAction()
-    {
+    public function newAction() {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $entity = new Article();
@@ -73,8 +70,7 @@ class ArticleSubmissionController extends Controller
      * @param string $submissionId
      * @throws 403 Access denied
      */
-    public function resumeAction($submissionId)
-    {
+    public function resumeAction($submissionId) {
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -97,8 +93,7 @@ class ArticleSubmissionController extends Controller
      * @param string $submissionId
      * @throws 403 Access Denied
      */
-    public function previewAction($submissionId)
-    {
+    public function previewAction($submissionId) {
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -123,8 +118,7 @@ class ArticleSubmissionController extends Controller
      * @param Request $request
      * @throws 403 Acces Denied
      */
-    public function finishAction(Request $request)
-    {
+    public function finishAction(Request $request) {
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
@@ -132,6 +126,7 @@ class ArticleSubmissionController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
 
         $em = $this->getDoctrine()->getManager();
+        /* @var  $articleSubmission Ojs\JournalBundle\Document\ArticleSubmissionProgress   */
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
@@ -152,12 +147,19 @@ class ArticleSubmissionController extends Controller
             $reviewStep->setSubmitterId($this->getUser()->getId());
             $reviewStep->setStartedDate(new \DateTime());
             $reviewStep->setStatusText($firstStep->getStatus());
+            $reviewStep->setArticleRevised(array(
+                'articleData' => $articleSubmission->getArticleData(),
+                'authors' => $articleSubmission->getAuthors(),
+                'citation' => $articleSubmission->getCitations(),
+                'files' => $articleSubmission->getFiles()
+            ));
+            
             $deadline = new \DateTime();
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
             $reviewStep->setStep($firstStep);
-            $reviewStep->setNote($request->get('notes')); 
+            $reviewStep->setNote($request->get('notes'));
             $dm->persist($reviewStep);
             $dm->flush();
         }
@@ -173,8 +175,7 @@ class ArticleSubmissionController extends Controller
      * @param integer $submissionId 
      * @return 
      */
-    private function saveArticleSubmission($articleSubmission, $journal)
-    {
+    private function saveArticleSubmission($articleSubmission, $journal) {
 // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
@@ -203,8 +204,7 @@ class ArticleSubmissionController extends Controller
      *  
      * @return Article
      */
-    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
-    {
+    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang) {
         $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
@@ -230,8 +230,7 @@ class ArticleSubmissionController extends Controller
      * @param Article $article
      * @return bool
      */
-    private function saveArticleTranslations($articleData, $article)
-    {
+    private function saveArticleTranslations($articleData, $article) {
         $em = $this->getDoctrine()->getManager();
         $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($articleData as $locale => $data) {
@@ -249,8 +248,7 @@ class ArticleSubmissionController extends Controller
      * @param array $authors
      * @param \Ojs\JournalBundle\Entity\Article $article
      */
-    private function saveAuthorsData($authors, $article)
-    {
+    private function saveAuthorsData($authors, $article) {
         $em = $this->getDoctrine()->getManager();
         foreach ($authors as $authorData) {
             $author = new Author();
@@ -278,8 +276,7 @@ class ArticleSubmissionController extends Controller
      * @param array $citations
      * @param Article $article
      */
-    private function saveCitationData($citations, Article $article)
-    {
+    private function saveCitationData($citations, Article $article) {
         $em = $this->getDoctrine()->getManager();
         foreach ($citations as $citationData) {
             $citation = new Citation();
@@ -313,8 +310,7 @@ class ArticleSubmissionController extends Controller
      * @param Article $article
      * @param string $lang
      */
-    private function saveArticleFileData($files, $article, $lang)
-    {
+    private function saveArticleFileData($files, $article, $lang) {
         $em = $this->getDoctrine()->getManager();
         foreach ($files as $fileData) {
             $file = new \Ojs\JournalBundle\Entity\File();

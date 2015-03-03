@@ -14,38 +14,8 @@
 
 {% block body -%}
 
-    <small>
-        <strong>Started :</strong>
-        <span class="">{{ articleStep.startedDate|date('Y-m-d') }}</span> |
-        <strong>Deadline :</strong>
-        <span class="">{{ articleStep.reviewDeadline|date('Y-m-d') }}</span>
-    </small>
-    <h4 class="pull-right " id="workflow_days">
-        {% if daysOverDue %}
-            <span class="label label-danger">{{ daysOverDue }} days overdue</span>
-        {% endif %}
-        {% if daysRemaining %}
-            <span class="pull-right label label-info">{{ daysRemaining }} days remaining</span>
-        {% endif %}
-    </h4>
-    <h2>{{ article.title }}
-        <span class="btn-group">
-            <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-               href="http://scholar.google.com.tr/scholar?q={{ article.title|url_encode }}">
-                <i class="fa fa-google"></i>
-            </a>
-            <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-               href="http://en.wikipedia.org/w/index.php?search={{ article.title|url_encode }}">
-                W
-            </a>
-            <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
-               href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ article.title|url_encode }}&cmd=search">
-                PubMed
-            </a>
-        </span>
-    </h2>
     {% if articleStep.ownerUser %}
-        <div class="alert alert-warning" id="article_workflow_someone_working">
+        <div class="alert alert-warning " id="article_workflow_someone_working">
             <i class="fa fa-cog"></i>
             {% if isJournalManager() == true or step.isVisible %}
                 <a
@@ -55,7 +25,7 @@
             {% else %}
                 Someone
             {% endif %}
-            is working on this step
+            is working on this step 
         </div>
     {% else %}
         <a class="btn btn-warning"
@@ -64,6 +34,22 @@
             <i class="fa fa-clock-o"></i> Start Review
         </a>
     {% endif %}
+    <small>
+        <strong>Started :</strong>
+        <span class="">{{ articleStep.startedDate|date('Y-m-d') }}</span> |
+        <strong>Deadline :</strong>
+        <span class="">{{ articleStep.reviewDeadline|date('Y-m-d') }}</span>
+    </small>
+
+    <h4 class="pull-right btn-group " id="workflow_days">
+        {%if step.canEdit %}<a href="#" class="  editSection btn btn-warning"><i class="fa fa-edit"></i> Edit</a>{%endif%}
+        {% if daysOverDue %}
+            <a class="btn btn-danger">{{ daysOverDue }} days overdue</a>
+        {% endif %}
+        {% if daysRemaining %}
+            <a class=" btn btn-info">{{ daysRemaining }} days remaining</a>
+        {% endif %}
+    </h4> 
     <div class="panel-body">
         <table class="table">
             {% if prevStep.action is defined and  prevStep.action %}
@@ -80,19 +66,55 @@
                     <small class="badge">{{ id }}</small>
                 </td>
             </tr>
-            <tr>
-                <td>Subjects</td>
-                <td>{{ article.subjects }}</td>
-            </tr>
-            <tr>
-                <td>Keywords</td>
-                <td>{{ article.keywords }}</td>
-            </tr>
-            <tr>
-                <td>Abstract</td>
-                <td>{{ article.abstract|raw }}</td>
-            </tr>
         </table>
+    </div>  
+    {% for lang, articleRevised in articleStep.articleRevised.articleData  %}
+        <h2>
+            <span class="badge">{{lang}}</span> 
+            {{ article.title }}
+            <span class="btn-group">
+                <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                   href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
+                    <i class="fa fa-google"></i>
+                </a>
+                <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                   href="http://en.wikipedia.org/w/index.php?search={{ articleRevised.title|url_encode }}">
+                    W
+                </a>
+                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+                   href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
+                    PubMed
+                </a>
+            </span>
+        </h2>
+
+        <div class="panel-body">
+            <table class="table">
+
+                <tr>
+                    <td>Subjects</td>
+                    <td>
+                        <span class="editable">{{ article.subjects }}</span>
+                        <input  name="subjects[{{lang}}]" class="form-control hide" value="{{ articleRevised.subjects }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Keywords</td>
+                    <td>
+                        <span class="editable">{{ article.keywords }}</span>
+                        <input name="keywords[{{lang}}]" class="form-control hide" value="{{ articleRevised.subjects }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Abstract</td>
+                    <td>
+                        <span class="editable">{{ article.abstract|raw }}</span>
+                        <textarea  name="abstract[{{lang}}]" class="form-control hide" >{{ articleRevised.abstract|raw }}</textarea>
+                    </td>
+                </tr>
+            </table>  
+
+        {% endfor %}
         <hr>
     </div>
     <hr/>
@@ -101,20 +123,25 @@
         <h2>Authors</h2>
 
         <table class="table">
-            {% for articleAuthor in article.articleAuthors %}
+            {% for author in articleStep.articleRevised.authors %}
                 <tr>
                     <td>
-                        {{ articleAuthor.author.fullName }}
-
-                        <span class="label label-default">{{ articleAuthor.author.email }}</span>
+                        <span class="editable">{{ author.firstName }}</span>
+                        <input style="margin:4px" name="authorFirstname[]" class="hide form-control hide" value="{{ author.firstName }}">
+                        <span class="editable">{{ author.firstName }}</span>
+                        <input style="margin:4px" name="authorMiddlename[]" class="hide form-control hide" value="{{ author.middleName }}">
+                        <span class="editable">{{ author.firstName }}</span>
+                        <input style="margin:4px" name="authorLastname[]" class="hide form-control hide" value="{{ author.lastName }}">
+                        <span class="editable label label-default">{{ author.email }}</span>
+                        <input style="margin:4px" name="authorEmail[]"  class="hide form-control hide" value="{{ author.email }}">
 
                         <span class="btn-group">
                             <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                               href="http://scholar.google.com.tr/scholar?q={{ articleAuthor.author.fullName|url_encode }}">
+                               href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
                                 <i class="fa fa-google"></i>
                             </a>
                             <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                               href="http://en.wikipedia.org/w/index.php?search={{ articleAuthor.author.fullName|url_encode }}">
+                               href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
                                 W
                             </a>
                         </span>
@@ -127,9 +154,12 @@
 
     <h2>Citations</h2>
     <table class="table">
-        {% for citation in article.citations %}
+        {% for citation in articleStep.articleRevised.citation %}
             <tr>
-                <td>{{ citation.raw }}</td>
+                <td>
+                    <span class="editable">{{ citation.raw }}</span>
+                    <input style="margin:4px" name="citationRaw[]"  class="hide form-control hide" value="{{ citation.raw }}">
+                </td>
             </tr>
         {% endfor %}
     </table>
@@ -199,13 +229,13 @@
 
                 <div class="form-inline">
                     {% if step.canReview %}
-                    <select name="reviewResultCode" class="select2-element  form-control">
-                        {% for i in range(0,4) %}
-                            <option value="{{ i }}">
-                                {{ ("reviewResultCodes."~i~"")|trans }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                        <select name="reviewResultCode" class="select2-element  form-control">
+                            {% for i in range(0,4) %}
+                                <option value="{{ i }}">
+                                    {{ ("reviewResultCodes."~i~"")|trans }}
+                                </option>
+                            {% endfor %}
+                        </select>
                     {% endif %}
                     {% if step.onlyReply %}
                         <input type="hidden" name="nextStepId" value="{{ articleStep.from.step.id }}" />
@@ -240,7 +270,26 @@
     {% if app.user.setting('tour.admin.workflow.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
         {% endjavascripts %}
         <script>
+            function toggleEditableAll(el) {
+                var section = el.parent().closest('.panel-body');
+                $(".editable", section).toggle();
+                $(".form-control", section).toggleClass('hide');
+            }
+
+            function toggleEditableDblOne(el) {
+                el.toggle();
+                el.next(".form-control").toggleClass('hide');
+            }
+
             $(document).ready(function () {
+                $(".editSection").click(function () {
+                    toggleEditableAll($(this));
+                    return false;
+                });
+                $(".editable").dblclick(function () {
+                    toggleEditableDblOne($(this));
+                    return false;
+                });
                 $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
                 $('#reviewFormSelector').on("change", function (e) {
                     $(".panel_reviewforms").hide();
