@@ -332,7 +332,7 @@ suggestion.journal.detail: Detail
 journal.titleAbbr: Title Abbr
 journal.titleTransliterated: Title Transliterated
 journal.domain: Domain
-journal.subdomain: Subdomain
+journal.path: Path
 journal.issn: ISSN
 journal.eissn: EISSN
 journal.firstPublishDate: First Publish Date

@@ -1,48 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
-{% if entities %}
-    {% include '::flashbag.html.twig' %}
-
-    <table class="records_list  table">
-            <thead>
-                <tr>
-                    <th>{{ "user.journalrole.user.id"|trans }}</th>
-                    <th>{{ "user.journalrole.user.username"|trans }}</th>
-                    <th>{{ "user.journalrole.email"|trans }}</th>
-                    <th>{{ "user.journalrole.role"|trans }}</th>
-                    <th>{{ "user.journalrole.send_email"|trans }}</th>
-                </tr>
-            </thead>
-            <tbody>
-        {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('user_show', { 'id': entity.user.id }) }}">{{ entity.user.id }}</a></td>
-                    <td>{{ entity.user.username}}</td>
-                    <td>{{ entity.user.email }}</td>
-                    <td>{{ entity.role.name }} </td>
-                    <td>
-                        <a class="btn-xs btn btn-primary" href="{{ url('user_send_mail',{user:entity.id}) }}">
-                            <i class="fa fa-envelope-o"></i>
-                        </a>
-                    </td>
-                </tr>
-        {% endfor %}
-            </tbody>
-        </table>
-        {%else %}
-
-        <div class="alert alert-warning">
-            <p>{{ "user.journalrole.thisjournalhasnouser"|trans }}</p>
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "user.journalrole.usersofjournal"|trans }}</h1>
+            <hr/>
+            {% include '::flashbag.html.twig' %}
+            {{ grid(grid) }}
+            <a class="button btn btn-primary" href="{{ path('ujr_new') }}">
+                {{ "c"|trans }}
+            </a>
         </div>
- {%endif%}
-
-        <a class="button" href="{{ path('ujr_new') }}">
-            {{"c"|trans}}
-        </a>
     </div>
-</div>
-    {% endblock %}
+{% endblock %}

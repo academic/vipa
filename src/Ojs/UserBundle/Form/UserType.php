@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Form;
 
+use Ojs\Common\Params\CommonParams;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +26,10 @@ class UserType extends AbstractType
             ->add('lastName', null, array('label' => "lastName"))
             ->add('isActive', null, array('label' => "isActive"))
             //->add('avatar', 'file')
-            ->add('status', null, array('label' => "status"))
+            ->add('status','choice',[
+                'choices'=>CommonParams::$userStatusArray,
+                'label' => "status"
+            ])
             ->add('roles', 'entity', array(
               'label' => "roles",
                 'class' => 'Ojs\UserBundle\Entity\Role',

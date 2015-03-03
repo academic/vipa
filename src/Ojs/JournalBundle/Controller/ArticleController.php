@@ -2,7 +2,11 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\SiteBundle\Document\ImageOptions;
@@ -43,12 +47,27 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Article')->findAll();
+        $source = new Entity('OjsJournalBundle:Article');
+        $source->manipulateRow(function(Row $row){
+           if($row->getField("title") and strlen($row->getField('title'))>20){
+               $row->setField('title',substr($row->getField('title'),0,20)."...");
+           }
+            return $row;
+        });
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:Article:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('article_show', 'id');
+        $rowAction[] = ActionHelper::editAction('article_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
+        $rowAction[] = ActionHelper::userAnonymLoginAction();
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Article:index.html.twig', $data);
     }
 
     /**

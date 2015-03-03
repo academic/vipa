@@ -21,7 +21,7 @@ class JournalControllerTest extends BaseTestCase
 
     public function testCreate()
     {
-        $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
+        $this->logIn();
         $crawler = $this->client->request('GET', $this->router->generate('journal_new'));
         $form = $crawler->selectButton('Create')->form();
         $form['ojs_journalbundle_journal[title]'] = "Test Content";
@@ -29,7 +29,7 @@ class JournalControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journal[titleTransliterated]'] = 'Content';
         $form['ojs_journalbundle_journal[languages]'] = [1,2];
         $form['ojs_journalbundle_journal[subtitle]'] = 'Content';
-        $form['ojs_journalbundle_journal[subdomain]'] = 'Content';
+        $form['ojs_journalbundle_journal[path]'] = 'Content';
         $form['ojs_journalbundle_journal[domain]'] = 'Content';
         $form['ojs_journalbundle_journal[issn]'] = 'Content';
         $form['ojs_journalbundle_journal[eissn]'] = 'Content';

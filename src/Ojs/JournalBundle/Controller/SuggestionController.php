@@ -151,7 +151,7 @@ class SuggestionController extends Controller
                 ->setPeriod($entity->getPeriod())
                 ->setDomain($entity->getDomain())
                 ->setScope($entity->getScope())
-                ->setSubdomain($entity->getSubdomain())
+                ->setPath($entity->getPath())
                 ->setSubtitle($entity->getSubtitle())
                 ->setTitle($entity->getTitle())
                 ->setTitleAbbr($entity->getTitleAbbr())

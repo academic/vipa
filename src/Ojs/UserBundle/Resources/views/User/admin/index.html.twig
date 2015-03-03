@@ -1,71 +1,20 @@
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %}
-    {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'title': 'user.manager'|trans},
-    ] %}
-    {{ breadcrumb(list) }}
-{% endblock %}
+    {% block breadcrumb %}
+        {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'title': 'user.manager'|trans},
+        ] %}
+        {{ breadcrumb(list) }}
+    {% endblock %}
 {% block body -%}
     <div class="row">
         <div class="panel">
-            <h1>{{"user.list"|trans}}</h1>
+            <h1>{{ "user.list"|trans }}</h1>
 
-            <table class="records_list  table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>{{"user.username"|trans}}</th>
-                    <th>{{"user.email"|trans}}</th>
-                    <th>{{"user.status"|trans}}</th>
-                    <th>{{"user.roles"|trans}}</th>
-                    <th>{{"actions"|trans}}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr {% if not entity.isEnabled %}style="background-color:red"{% endif %}>
-                        <td>
-                            <a href="{{ path('user_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                        </td>
-                        <td>{{ entity.username }}</td>
-                        <td>{{ entity.email }}</td>
-                        <td>{{ entity.isActive }}</td>
-                        <td style="width: 180px">
-                            {% for role in entity.roles %}
-                                <span class="label label-default">{{ role.role }}</span>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% if isSystemAdmin() %}
-                                <a class="btn-sm btn btn-info" href="/?_su={{ entity.username }}">
-                                    <i class="fa fa-sign-in"></i>
-                                </a>
-                            {% endif %}
-                            {% set show_path = 'user_show' %}
-                            {% set edit_path = 'user_edit' %}
-                            {% set delete_path = 'user_delete' %}
-                            {% include '::actionbtns.html.twig' %}
-
-                            {% if entity.isEnabled %}
-                                <a class="btn-xs btn btn-primary"
-                                   onclick="return confirm('{{ "sure.ban"|trans }}');"
-                                   href="{{ path('user_block', { 'id': entity.id }) }}">
-                                    <i class="fa fa-ban"></i>
-                                </a>
-                            {% else %}
-                                <a class="btn-xs btn btn-primary" href="{{ url('user_unblock',{id: entity.id}) }}">
-                                    <i class="fa fa-check"></i>
-                                </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
+            {{ grid(grid) }}
+            <div class="clearfix"></div>
             <a href="{{ path('user_new') }}" class="btn btn-info">
-                <i class="fa fa-plus"></i> {{"c"|trans}}
+                <i class="fa fa-plus"></i> {{ "c"|trans }}
             </a>
         </div>
     </div>

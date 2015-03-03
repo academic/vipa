@@ -5,10 +5,11 @@ namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\UserBundle\Entity\UserArticleRole;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Article
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
  */
 class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -17,6 +18,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      * auto-incremented article unique id
      * @var integer
      * @Expose
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -44,6 +46,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      * (optional)
      * @var string
      * @Expose
+     * @GRID\Column(title="OAI")
      */
     private $doi;
 
@@ -64,6 +67,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      * Original article title
      * @var string
      * @Expose
+     * @GRID\Column(title="title")
      */
     private $title;
 
@@ -102,6 +106,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var \DateTime
      * @Expose
+     * @GRID\Column(title="pubdate")
      */
     private $pubdate;
 
@@ -170,6 +175,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var Issue
+     * @GRID\Column(field="issue.title", title="issue")
      */
     private $issue;
 
@@ -182,6 +188,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var \Ojs\JournalBundle\Entity\Journal
      * @Expose
+     * @GRID\Column(field="journal.title", title="journal")
      */
     private $journal;
 

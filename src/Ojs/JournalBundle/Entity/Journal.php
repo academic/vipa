@@ -49,7 +49,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var string
      * @Expose
      */
-    private $subdomain;
+    private $path;
 
     /**
      * @var string
@@ -413,24 +413,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * Get subdomain
+     * Get path
      *
      * @return string
      */
-    public function getSubdomain()
+    public function getPath()
     {
-        return $this->subdomain;
+        return $this->path;
     }
 
     /**
-     * Set subdomain
+     * Set path
      *
-     * @param  string $subdomain
+     * @param  string $path
      * @return Journal
      */
-    public function setSubdomain($subdomain)
+    public function setPath($path)
     {
-        $this->subdomain = $subdomain;
+        $this->path = $path;
         return $this;
     }
 
@@ -445,7 +445,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set domain
-     * @param  string $subdomain
+     * @param  string $domain
      * @return Journal
      */
     public function setDomain($domain)

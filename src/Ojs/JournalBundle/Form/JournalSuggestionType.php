@@ -55,7 +55,6 @@ class JournalSuggestionType extends AbstractType
             ->add('titleTransliterated')
             ->add('subtitle')
             ->add('domain')
-            ->add('subdomain')
             ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2-element']])
             ->add('issn')
             ->add('eissn')

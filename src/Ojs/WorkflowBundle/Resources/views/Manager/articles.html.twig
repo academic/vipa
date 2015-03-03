@@ -34,8 +34,7 @@
                             <td>
                                 <h4>
                                     <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
-
-                                        {{ articles[0].title }}
+                                    {{ articles[loop.index0].title }}
                                     </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
@@ -82,13 +81,12 @@
                                     {% if  articleStep.ownerUser.username == app.user.username %}
                                         <a href="{{ path('article_step_preview',{"id":articleStep.id}) }}" class="btn btn-info">Resume Review</a>
                                     {%endif%}
-                                    {% if isJournalManager() == true or step.isVisible %}
+                                    {% if isJournalManager() or step.isVisible %}
                                         <br>
                                         <a class="btn btn-link btn-xs"
                                            href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
-                                            <i class="fa fa-cog fa-spin"></i>
+                                            <i class="fa fa-cog"></i>
                                             {{ articleStep.ownerUser.username }}
-
                                         </a>
 
                                     {% else %}
@@ -96,7 +94,7 @@
                                     {% endif %}
                                     <!-- is working on this step -->
                                 {% else %}
-                                    <a class="btn btn-warning"
+                                    <a class="btn btn-danger"
                                        onclick="return confirm('{{ "sure"|trans }}');"
                                        href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
                                         <i class="fa fa-clock-o"></i> Start Review

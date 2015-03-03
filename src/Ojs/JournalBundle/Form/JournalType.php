@@ -27,7 +27,7 @@ class JournalType extends AbstractType {
                         )
                 )
                 ->add('subtitle')
-                ->add('subdomain')
+                ->add('path')
                 ->add('domain')
                 ->add('issn')
                 ->add('eissn')

@@ -2,32 +2,8 @@
 
 {% block body -%}
     <h1>{{"subject.list"|trans}}</h1>
+    {{ grid(grid) }}
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{"subject"|trans}}</th>
-                <th>{{"description"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('subject_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.subject }}</td>
-                    <td>{{ entity.description }}</td>
-                    <td>
-                        <small>
-                            <a href="{{ path('subject_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{{"s"|trans}}</a>
-                            <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{{"e"|trans}}</a>
-                        </small>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
     <div>
         <a href="{{ path('subject_new') }}" class="btn btn-success">

@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Subject;
@@ -20,12 +23,19 @@ class SubjectController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Subject')->findAll();
+        $source = new Entity("OjsJournalBundle:Subject");
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('subject_show', 'id');
+        $rowAction[] = ActionHelper::editAction('subject_edit', 'id');
 
-        return $this->render('OjsJournalBundle:Subject:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        $data = [];
+        $data['grid'] = $grid;
+
+        return $grid->getGridResponse('OjsJournalBundle:Subject:index.html.twig', $data);
     }
 
     /**
@@ -47,8 +57,8 @@ class SubjectController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Subject:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -80,8 +90,8 @@ class SubjectController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:Subject:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -97,8 +107,8 @@ class SubjectController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Subject:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -114,9 +124,9 @@ class SubjectController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Subject:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -157,9 +167,9 @@ class SubjectController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Subject:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -193,7 +203,7 @@ class SubjectController extends Controller
     {
         $formHelper = new CommonFormHelper();
 
-        return $formHelper->createDeleteForm($this, $id,'subject_delete');
+        return $formHelper->createDeleteForm($this, $id, 'subject_delete');
     }
 
 }
