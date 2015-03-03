@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <span class="hidden-sm hidden-xs"> File Type : </span>
-                    <select style="min-width:120px;margin:10px 20px" name="type" class="select2-element input-xs">
+                    <select style="min-width:120px;margin:10px 20px" name="type" class="select2-element input-sm">
                         {% for key,type in fileTypes %}
                             <option value="{{key}}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type }}</option>
                         {% endfor %}
@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6">
                     <span class="hidden-sm hidden-xs"> File Language :</span> 
-                    <select  style="min-width:120px;margin:10px 20px"  name="lang" class="select2-element input-xs">
+                    <select  style="min-width:120px;margin:10px 20px"  name="lang" class="select2-element input-sm">
                         {% for lang in journal.languages %}
                             <option value="{{ lang.code }}" {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name }} [{{ lang.code }}]</option>
                         {% endfor %}
@@ -24,20 +24,20 @@
             <div class="form-group">
                 <label class="col-md-2">{{"title"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="title" class="form-control" placeholder="{{"title"|trans}}" value="{% if file is defined %}{{ file.title}}{% endif %}"/>
+                    <input name="title" class="form-control input-sm" placeholder="{{"title"|trans}}" value="{% if file is defined %}{{ file.title}}{% endif %}"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2">{{"description"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="desc" class="form-control" placeholder="{{"description"|trans}}" value="{% if file is defined %}{{ file.desc }}{% endif %}" />
+                    <input name="desc" class="form-control input-sm" placeholder="{{"description"|trans}}" value="{% if file is defined %}{{ file.desc }}{% endif %}" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-md-2">{{"keywords"|trans}}</label>
                 <div class="col-md-9">
-                    <input name="keywords" class="form-control" placeholder="{{"keywords"|trans}}" value="{% if file is defined %}{{ file.keywords }}{% endif %}" />
+                    <input name="keywords" class="form-control input-sm" placeholder="{{"keywords"|trans}}" value="{% if file is defined %}{{ file.keywords }}{% endif %}" />
                 </div>
             </div>
 
