@@ -118,16 +118,16 @@
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                        <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(1);">
-                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                        </a>
-                        <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
-                            <i class="fa fa-save"></i>
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
+                            <a class="btn btn-danger btn-lg"
+                               onclick="javascript:OjsArticleSubmission.backTo(1);">
+                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                            </a>
+                            <a class="btn btn-success btn-lg pull-right"
+                               onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
+                                <i class="fa fa-save"></i>
+                                {{ "save.next"|trans }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -138,22 +138,25 @@
                     <h2>{{ "citations"|trans }}</h2>
 
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 ">
                             <button class="btn btn-success" id="pasteArticleCitationInline">
                                 <i class="fa fa-edit"></i> {{ "citation.paste_extract"|trans }}
                             </button>
                             <button class="btn btn-info" id="addArticleCitationInline">
                                 <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
                             </button>
+                            <button class="btn btn-warning" id="clearAllCitations">
+                                <i class="fa fa-trash-o"></i> {{ "citation.clear"|trans }}
+                            </button>
                         </div>
-                            <hr>
-                        <div class="col-sm-12">
-                            <div id="citationPasteField" style="display: none!important">
-                                <div class="form-row well">
-                                    <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                        <hr>
+                            <div class="col-sm-12">
+                                <div id="citationPasteField" style="display: none!important">
+                                    <div class="form-row well">
+                                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
 
                     <div id="citationContainer">
@@ -167,16 +170,16 @@
                 <div class="step3_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                        <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(2);">
-                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                        </a>
-                        <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
-                            <i class="fa fa-save"></i>
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
+                            <a class="btn btn-danger btn-lg"
+                               onclick="javascript:OjsArticleSubmission.backTo(2);">
+                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                            </a>
+                            <a class="btn btn-success btn-lg pull-right"
+                               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
+                                <i class="fa fa-save"></i>
+                                {{ "save.next"|trans }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
                     </div>
                 </div>
             </div>
@@ -195,16 +198,16 @@
                 <div class="step4_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                        <a class="btn btn-danger btn-lg"
-                           onclick="javascript:OjsArticleSubmission.backTo(3);">
-                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                        </a>
-                        <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
-                            <i class="fa fa-save"></i>
-                            {{ "save.next"|trans }}
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
+                            <a class="btn btn-danger btn-lg"
+                               onclick="javascript:OjsArticleSubmission.backTo(3);">
+                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                            </a>
+                            <a class="btn btn-success btn-lg pull-right"
+                               onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
+                                <i class="fa fa-save"></i>
+                                {{ "save.next"|trans }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
                     </div>
                 </div>
             </div>
