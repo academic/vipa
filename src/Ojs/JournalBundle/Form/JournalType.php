@@ -26,6 +26,14 @@ class JournalType extends AbstractType {
                     'required' => false
                         )
                 )
+                ->add('subjects','entity',[
+                    'class'=>'Ojs\JournalBundle\Entity\Subject',
+                    'property'=>'subject',
+                    'multiple'=>true,
+                    'attr'=>[
+                        'class'=>'select2-element'
+                    ]
+                ])
                 ->add('subtitle')
                 ->add('path')
                 ->add('domain')
