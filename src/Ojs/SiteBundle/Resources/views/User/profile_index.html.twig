@@ -30,6 +30,26 @@
                     <i class="fa fa-github"></i> </a>
                 <a href="#" class="btn btn-social btn-stackoverflow">
                     <i class="fa fa-stack-overflow"></i> </a>
+
+                {% if app.user != user %}
+                    {%if isProxy %} 
+                        <a class="btn btn-danger pull-right"
+                           href="{{path('user_drop_proxy',{'proxyUserId':user.id})}}">
+                            {{ "drop.proxy.user"|trans }}
+                        </a>
+                    {%else%}
+                        <a class="btn btn-warning pull-right"
+                           href="{{path('user_make_proxy',{'proxyUserId':user.id})}}">
+                            {{ "add.as.proxy"|trans }}
+                        </a>
+                    {%endif%}
+
+                    {% if isSystemAdmin() %}
+                        <a class="btn-sm btn btn-info" href="/?_su={{ user.username }}">
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                    {% endif %}
+                {%endif%}
             </header>
 
             <div class="bs-callout bs-callout-danger">
