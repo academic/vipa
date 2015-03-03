@@ -13,7 +13,7 @@
 
 {% block body -%}
 
-    <h1>Submissions</h1>
+    <h1> {{"Submissions"|trans}}</h1>
 
     <div>
         <a href="{{path('article_submission_new')}}" class="btn btn-success pull-right"> {{"article.submit"|trans}}</a>
@@ -25,7 +25,7 @@
         {% endif %}
     </div>
     {%if drafts is defined %}
-        <h3>Drafts</h3>
+        <h3>{{"Drafts"|trans}}</h3>
         <table class="records_list table table-striped">
             <thead>
                 <tr>
@@ -54,7 +54,7 @@
 
     {%endif%}
 
-    <h3>Submitted</h3>
+    <h3>{{"Submitted"|trans}}</h3>
     <table class="records_list table table-striped">
         <thead>
             <tr>

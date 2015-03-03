@@ -54,9 +54,9 @@ cancel: İptal
 role.edit: 'Rol Düzenle'
 role.list: 'Rol Listesi'
 role.id: ID
-role.name: Tanım
-role.role: Rol
-role.issystemrole: 'Sistem Rolü mü?'
+name: Tanım
+role: Rolü
+issystemrole: 'Sistem Rolü'
 role.new: 'Yeni Rol'
 role.singular: Rol
 role.users: 'Role sahip kullanıcılar'
@@ -79,6 +79,9 @@ user.username: Kullanıcı Adı
 user.email: Eposta
 user.status: Durum
 user.roles: Roller
+firstName: İsim
+lastName: Soyad
+isActive: Aktif
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
 user.show: 'Kullanıcıyı Göster'
@@ -88,7 +91,7 @@ drop.proxy.user: 'Vekil Kullanıcıyı Düşür'
 add.as.proxy: 'Vekil Olarak Ata'
 user.apikey: 'API Anahtarı'
 regenerate.apikey: 'API Anahtarını Güncelle'
-register.yourself.as.author: 'Yazar Olarak Kayıtol'
+register.yourself.as.author: 'Yazar Olarak Kayıt Ol'
 user.journalrole.edit: 'Dergi Rolü Düzenle'
 user.journalrole.list: 'Dergilerin Kullanıcı Listesi'
 user.journalrole.id: ID
@@ -156,4 +159,7 @@ Header Image: "Başlık Resmi"
   
 flush:
   all.log : "Logları Sil"
+  
+  
+messages: Mesajlar
 

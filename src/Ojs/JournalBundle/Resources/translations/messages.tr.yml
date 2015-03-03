@@ -110,7 +110,7 @@ status: Durum
 doi: DOI
 check: Kontrol
 otherid: 'Diğer ID'
-journalid: JournalID
+journalid: Dergi ID
 isAnonymous: 'Anonim mi?'
 Pubdateseason: 'Yayın Tarihi Sezonu'
 part: Parça
@@ -124,7 +124,7 @@ author_id: 'Yazar ID'
 article_id: 'Makale ID'
 articleauthor_create: 'Makale Yazarı Oluştur'
 articleauthor: 'Makale Yazarı'
-article.mysubmits: 'Makale Gönderilerim'
+article.mysubmits: 'Benim Gönderimlerim'
 article.all: 'Tüm Makaleler'
 preview: İncele
 submit: Gönder
@@ -361,3 +361,6 @@ select.journal: "Makalenin Gönderileceği Dergi"
 parse: Ayrıştır
 comma_keyword_list: virgül ile ayrılmış anahtar kelimeler
 comma_subject_list: virgül ile ayrılmış konular 
+Submissions: Gönderimler
+Drafts: Taslaklar
+Submitted: Gönderilmiş 
