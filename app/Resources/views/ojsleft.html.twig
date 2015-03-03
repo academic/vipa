@@ -24,13 +24,16 @@
                 <div class="panel-heading  text-center">
                     <center>
                         {% if( session('selectedJournalId'))  %}
-                            {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
-                                     class="avatar img-responsive" />
-                            {%else%}
-                                <img src="holder.js/200x200/#459:#fff/text:ojs"
-                                     style="border-radius: 6px" class="img-responsive" />
-                            {%endif%}  
+                            <a 
+                                href="{{ path( 'ojs_journal_index' ,{ 'institution': userjournals[session('selectedJournalId')].institution.slug ,'slug': userjournals[session('selectedJournalId')].slug })}}">
+                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                         class="avatar img-responsive" />
+                                {%else%}
+                                    <img src="holder.js/200x200/#459:#fff/text:ojs"
+                                         style="border-radius: 6px" class="img-responsive" />
+                                {%endif%}  
+                            </a>
                         {%endif%}  
                         <h4 class="panel-title">
                             <small>{{app.user.getUsername()}}</small><br>
@@ -43,11 +46,13 @@
                     </center>
                 </div>
                 <div class="panel-collapse collapse in">
+                      {% if hasRole('ROLE_AUTHOR')%} 
                     <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
                         <i class="fa fa-plus-circle"></i> 
                         {{"article.submit"|trans}}
                     </a>
-                    <a class="list-group-item"  href="{{path('dashboard')}}">
+                    {% endif %}
+                        <a class="list-group-item"  href="{{path('dashboard')}}">
                         <i class="fa fa-dashboard"></i> 
                         {{"dashboard"|trans}}
                     </a>
@@ -62,27 +67,30 @@
                     </a>
                 </div>
             </div>
-            <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">
-                    {{"Articles"|trans}}
-                </div>
-                <div class="panel-collapse collapse in">
-                    {% if isSystemAdmin() or isJournalManager()  %}
-                        {%set submissions_path = "article_submissions_all" %}
-                    {%else%}
-                        {%set submissions_path = "article_submissions_me" %}
-                    {% endif %}
-                    <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
-                        <i class="fa fa-flag"></i>
-                        Submissions
-                    </a>
 
-                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
-                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
-                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
-                </div>
-            </div>
+            {% if hasRole('ROLE_AUTHOR')%} 
+                <div class="panel panel-default left-menu-bgcolor">
+                    <div class="panel-heading">
+                        {{"Articles"|trans}}
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        {% if isSystemAdmin() or isJournalManager()  %}
+                            {%set submissions_path = "article_submissions_all" %}
+                        {%else%}
+                            {%set submissions_path = "article_submissions_me" %}
+                        {% endif %}
+                        <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
+                            <i class="fa fa-flag"></i>
+                            Submissions
+                        </a>
 
+                        <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
+                        <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
+                        <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
+                    </div>
+                </div>
+
+            {% endif%}
             {% if isJournalManager() or isEditor()  %}
 
                 <div class="panel panel-default left-menu-bgcolor">
