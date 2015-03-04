@@ -2,9 +2,7 @@
 
 {% block body -%}
     <h1>{{"subject.list"|trans}}</h1>
-    {{ grid(grid) }}
-
-
+    {{grid(grid)}}
     <div>
         <a href="{{ path('subject_new') }}" class="btn btn-success">
             {{"c"|trans}}
