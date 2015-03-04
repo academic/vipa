@@ -7,35 +7,10 @@
 
 {% block body -%}
     <h1>{{"author.list"|trans}}</h1>
+    {{ grid(grid) }}
+    <div class="clearfix">
+
+    </div>
     <a href="{{ path('author_new') }}" class="btn btn-success">{{"author.new"|trans}}</a>
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>{{"title"|trans}}</th>
-                <th>{{"fullname"|trans}}</th>
-                <th>{{"initials"|trans}}</th>
-                <th>{{"email"|trans}}</th> 
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('author_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.title }}</td>
-                    <td>{{ entity.firstName }} {{ entity.middleName }} {{ entity.lastName }}</td>
-                    <td>{{ entity.initials }}</td>
-                    <td>{{ entity.email }}</td> 
-                    <td>
-                        {% set show_path = 'author_show' %}
-                        {% set edit_path = 'author_edit' %}
-                        {% set delete_path = 'author_delete' %}
-                        {% include '::actionbtns.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
 {% endblock %}

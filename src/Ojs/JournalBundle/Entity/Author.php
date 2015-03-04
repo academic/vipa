@@ -4,10 +4,12 @@ namespace Ojs\JournalBundle\Entity;
 
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Author
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
 class Author extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -15,30 +17,35 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var integer
      * @Expose()
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="firstname")
      */
     private $firstName;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="middlename")
      */
     private $middleName;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="lastname")
      */
     private $lastName;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="email")
      */
     private $email;
 
@@ -63,6 +70,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="initials")
      */
     private $initials;
 
@@ -105,6 +113,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * title + firstname + middlename + lastname
      * @var string
+     * @GRID\Column(title="fullname",field="fullname")
      */
     private $fullName;
 
@@ -503,6 +512,11 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->articleAuthors->removeElement($articleAuthors);
     }
 
+    /**
+     * @var string
+     *
+     * @GRID\Column(title="title")
+     */
     private $title;
 
     /**
@@ -523,6 +537,9 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $title;
     }
 
+    /**
+     * @return string
+     */
     public function getFullName()
     {
         return $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
