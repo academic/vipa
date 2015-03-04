@@ -14,7 +14,7 @@
                 <small> <i class="fa fa-clock-o"></i> <time> {{ user.updated.date|date }}</time></small>
                 <br />
 
-
+                {% include '::flashbag.html.twig' %} 
                 {% for link in user.customFields %}
                     {{ link.label }}
                 {% endfor %}
@@ -39,7 +39,7 @@
                         </a>
                     {%else%}
                         <a class="btn btn-warning pull-right"
-                           href="{{path('user_make_proxy',{'proxyUserId':user.id})}}">
+                           href="{{path('user_make_proxy',{'proxyUserId':user.id})}}" title="{{"You can allow this user to login as you, by clicking this button"|trans}}">
                             {{ "add.as.proxy"|trans }}
                         </a>
                     {%endif%}

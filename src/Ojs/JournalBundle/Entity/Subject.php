@@ -5,13 +5,13 @@ namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Subject
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,subject,description")
  */
-class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
-{
+class Subject extends \Ojs\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -19,6 +19,12 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @GRID\Column(title="id")
      */
     private $id;
+    private $lft;
+    private $lvl;
+    private $rgt;
+    private $root;
+    private $parent;
+    private $children;
 
     /**
      * @var string
@@ -38,7 +44,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
-    
+
     /**
      * This data will be pre-calculated with scheduled tasks
      * @var int
@@ -50,10 +56,17 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     private $journals;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function setParent(Category $parent = null) {
+        $this->parent = $parent;
+    }
+
+    public function getParent() {
+        return $this->parent;
     }
 
     /**
@@ -61,8 +74,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -72,8 +84,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string  $subject
      * @return Subject
      */
-    public function setSubject($subject)
-    {
+    public function setSubject($subject) {
         $this->subject = $subject;
 
         return $this;
@@ -84,19 +95,16 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getSubject()
-    {
+    public function getSubject() {
         return $this->subject;
     }
-    
-    
+
     /**
      * Set totalJournalCount
      * @param  integer  $totalJournalCount
      * @return Subject
      */
-    public function setTotalJournalCount($totalJournalCount)
-    {
+    public function setTotalJournalCount($totalJournalCount) {
         $this->totalJournalCount = $totalJournalCount;
         return $this;
     }
@@ -105,8 +113,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * Get totalJournalCount
      * @return integer
      */
-    public function getTotalJournalCount()
-    {
+    public function getTotalJournalCount() {
         return $this->totalJournalCount;
     }
 
@@ -116,8 +123,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  string  $description
      * @return Subject
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
@@ -128,8 +134,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -139,8 +144,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  \Ojs\UserBundle\Entity\User $users
      * @return Role
      */
-    public function addUser(\Ojs\UserBundle\Entity\User $users)
-    {
+    public function addUser(\Ojs\UserBundle\Entity\User $users) {
         $this->users[] = $users;
         return $this;
     }
@@ -150,8 +154,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @param \Ojs\UserBundle\Entity\User $users
      */
-    public function removeUser(\Ojs\UserBundle\Entity\User $users)
-    {
+    public function removeUser(\Ojs\UserBundle\Entity\User $users) {
         $this->users->removeElement($users);
     }
 
@@ -160,8 +163,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
 
@@ -169,8 +171,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * Get subjects
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getJournals()
-    {
+    public function getJournals() {
         return $this->journals;
     }
 
@@ -180,8 +181,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
      * @return Subject
      */
-    public function addJournal(\Ojs\UserBundle\Entity\User $journal)
-    {
+    public function addJournal(\Ojs\UserBundle\Entity\User $journal) {
         $this->journals[] = $journal;
         return $this;
     }
@@ -191,13 +191,11 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      *
      * @param \Ojs\UserBundle\Entity\User $journal
      */
-    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
-    {
+    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal) {
         $this->journals->removeElement($journal);
     }
 
-    public function hasJournals()
-    {
+    public function hasJournals() {
         $totalJournals = $this->journals->count();
         return $totalJournals > 0;
     }
@@ -207,8 +205,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @return mixed
      */
-    public function getSlug()
-    {
+    public function getSlug() {
         return $this->slug;
     }
 
@@ -216,9 +213,13 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param mixed $slug
      * @return $this
      */
-    public function setSlug($slug)
-    {
+    public function setSlug($slug) {
         $this->slug = $slug;
         return $this;
     }
+
+    public function __toString() {
+        return $this->subject;
+    }
+
 }

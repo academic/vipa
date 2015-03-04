@@ -89,6 +89,7 @@ stof_doctrine_extensions:
             loggable: true
             uploadable: true
             sluggable: true
+            tree: true
 
 jms_serializer:
     metadata:
