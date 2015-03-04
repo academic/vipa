@@ -3,9 +3,10 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * InstitutionTypes
+ * @GRID\Source(columns="id,name,description")
  */
 class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -16,16 +17,19 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="description")
      */
     private $description;
 
