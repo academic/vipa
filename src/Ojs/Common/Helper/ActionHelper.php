@@ -93,4 +93,25 @@ class ActionHelper
         });
         return $rowAction;
     }
+
+    public static function cmsAction()
+    {
+        //        <a class="btn-xs btn-info" href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}">
+        global $kernel;
+        $route = 'okulbilisim_cms_admin';
+        $rowAction = new RowAction("", $route);
+        $rowAction->setTitle('<i class="fa fa-anchor"></i>');
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ']);
+        $postExtension = $kernel->getContainer()->get('okulbilisimcmsbundle.twig.post_extension');
+        $rowAction->setRouteParameters(['id', 'object']);
+        $rowAction->setRoute($route);
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($postExtension) {
+            $entity = $row->getEntity();
+            $object = $postExtension->cmsobject($entity);
+            $action->setRouteParameters(['id','object'=>$object]);
+            return $action;
+        });
+        return $rowAction;
+
+    }
 } 
