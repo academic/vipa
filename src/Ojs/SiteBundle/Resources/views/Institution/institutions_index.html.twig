@@ -7,7 +7,7 @@
         <h1 class="page-header">{{"institutions"|trans}}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="/institution/{{ entity.slug }}">
+                <div class="panel-heading"><a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}">
                         {% if entity.isVerified %}
                             <i class="fa fa-diamond"></i>
                             {% endif %}
