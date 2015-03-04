@@ -4,15 +4,18 @@ namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ojs\Common\Entity\GenericExtendedEntity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalTheme
+ * @GRID\Source(columns="id,journal.title,theme.title")
  */
 class JournalTheme extends GenericExtendedEntity
 {
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -29,12 +32,14 @@ class JournalTheme extends GenericExtendedEntity
     /**
      *
      * @var Journal
+     * @GRID\Column(title="journal",field="journal.title")
      */
     private $journal;
 
     /**
      *
      * @var Theme
+     * @GRID\Column(title="theme",field="theme.title")
      */
     private $theme;
 

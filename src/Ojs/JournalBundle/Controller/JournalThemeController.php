@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -21,13 +24,19 @@ class JournalThemeController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('OjsJournalBundle:JournalTheme');
+        $grid = $this->get('grid')->setSource($source);
 
-        $entities = $em->getRepository('OjsJournalBundle:JournalTheme')->findAll();
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('admin_journaltheme_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_journaltheme_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_journaltheme_delete', 'id');
 
-        return $this->render('OjsJournalBundle:JournalTheme:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:JournalTheme:index.html.twig',$data);
     }
     /**
      * Creates a new JournalTheme entity.
