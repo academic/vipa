@@ -3,30 +3,35 @@
 namespace Ojs\JournalBundle\Entity;
 
 use \Ojs\Common\Entity\GenericExtendedEntity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Theme
+ * @GRID\Source(columns="id,name,title,isPublic")
  */
 class Theme extends GenericExtendedEntity
 {
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="content")
      */
     private $title;
 
     /**
      * @var boolean
+     * @GRID\Column(title="basetheme")
      */
     private $isPublic;
 
