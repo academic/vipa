@@ -176,11 +176,11 @@ class SearchManager
         $bool->addMust($multiMatch);
 
         if ($this->filter) {
-            $filterObj = new \Elastica\Query\Match();
             foreach ($this->filter as $key => $filter) {
+                $filterObj = new \Elastica\Query\Match();
                 $this->applyFilter($filterObj, $key, $filter);
+                $bool->addMust($filterObj);
             }
-            $bool->addMust($filterObj);
         }
 
         $query = new Query();

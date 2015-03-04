@@ -22,10 +22,13 @@
                         <ul class="list-group" id="institution_types">
                             {% for institution_type in aggregations.institution %}
                                 <li class="list-group-item">
-                                    <a href="{{ url('ojs_journals_index',{filter:{institution:institution_type.data.id}|merge(filter)}) }}">
+                                    <a href="{{ url('ojs_journals_index',{filter:filter|merge({institution:institution_type.data.id})}) }}">
                                         {{ institution_type.data.name }}
                                     </a>
                                     <span class="badge">{{ institution_type.bucket.doc_count }}</span>
+                                    {% if filter['institution'] is defined and filter['institution']==institution_type.data.id %}
+                                        <a href="{{ url('ojs_journals_index',{filter:filter|merge({institution:null})}) }}"><i class="fa fa-close"></i></a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
@@ -40,8 +43,12 @@
                         <ul class="list-group">
                             {% for subject in aggregations.subject %}
                                 <li class="list-group-item">
-                                    <a href="{{ path("ojs_journals_index" ,{filter:{subject:subject.data.id}|merge(filter)}) }}">{{ subject.data.subject }}</a>
+                                    <a href="{{ path("ojs_journals_index" ,{filter:filter|merge({subject:subject.data.id})}) }}">{{ subject.data.subject }}</a>
                                     <span class="badge">{{ subject.bucket.doc_count }}</span>
+
+                                    {% if filter['subject'] is defined and filter['subject']==subject.data.id %}
+                                        <a href="{{ url('ojs_journals_index',{filter:filter|merge({subject:null})}) }}"><i class="fa fa-close"></i></a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
