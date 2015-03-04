@@ -23,6 +23,12 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $lvl;
     private $rgt;
     private $root;
+    
+    /*
+     * @var Subject
+     * @Expose
+     * @GRID\Column(title="parent")
+     */
     private $parent;
     private $children;
 
@@ -61,12 +67,24 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity {
         $this->journas = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function setParent(Category $parent = null) {
+    public function setParent(Subject $parent = null) {
         $this->parent = $parent;
     }
 
+    /**
+     * 
+     * @return Subject
+     */
     public function getParent() {
         return $this->parent;
+    }
+
+    public function getChildren() {
+        return $this->children;
+    }
+
+    public function getRoot() {
+        return $this->root;
     }
 
     /**
