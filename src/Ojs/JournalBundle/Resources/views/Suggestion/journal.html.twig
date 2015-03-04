@@ -19,30 +19,7 @@
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "suggestion.journal.list"|trans }}</h1>
-            <table class="records_list  table" style="width:100%">
-                <thead>
-                <tr>
-                    <th>{{ "journal.id"|trans }}</th>
-                    <th>{{ "journal.title"|trans }}</th>
-                    <th>{{ 'journal.subtitle'|trans }}</th>
-                    <th width="60px">{{ "actions"|trans }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    <tr>
-                        <td> {{ entity.id }}</td>
-                        <td>{{ entity.title }}</td>
-                        <td>{{ entity.subtitle }}</td>
-                        <td>
-                            {% set show_path = 'suggestion_journal_show' %}
-                            {% set delete_path = 'suggestion_journal_delete' %}
-                            {% include '::actionbtns.html.twig' %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            {{ grid(grid) }}
 
         </div>
     </div>
