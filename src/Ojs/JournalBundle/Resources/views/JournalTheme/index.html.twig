@@ -3,29 +3,7 @@
 {% block body -%}
     <h1>{{"journaltheme.list"|trans}}</h1>
 
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{"journal"|trans}}</th>
-                <th>{{"theme"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('admin_journaltheme_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.journalId }}</td>
-                    <td>{{ entity.themeId }}</td>
-                    <td>
-                        <a href="{{ path('admin_journaltheme_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
-                        <a href="{{ path('admin_journaltheme_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {{ grid(grid) }}
     <hr>
     <a href="{{ path('admin_journaltheme_new') }}" class="btn btn-success">
         {{"c"|trans}}
