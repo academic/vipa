@@ -125,6 +125,9 @@ Ojs\JournalBundle\Entity\Institution:
         tags:
             type: string
             nullable: true
+        verified:
+            type: boolean
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt
