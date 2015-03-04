@@ -11,16 +11,18 @@ namespace Ojs\JournalBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\UserBundle\Entity\User;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds resumable institute suggestion data
  * @MongoDB\Document(collection="institute_suggestion")
+ * @GRID\Source(columns="id,name,country")
  */
 class InstituteSuggestion
 {
     /**
      * @MongoDB\Id
      * @var integer
+     * @GRID\Column(title="institute.id")
      */
     protected $id;
 
@@ -32,6 +34,7 @@ class InstituteSuggestion
     /**
      * @MongoDB\String
      * @var string
+     * @GRID\Column(title="institute.name")
      */
     protected $name;
     /**
@@ -57,6 +60,7 @@ class InstituteSuggestion
     /**
      * @MongoDB\Int
      * @var int
+     * @GRID\Column(title="institute.country")
      */
     protected $country;
     /**

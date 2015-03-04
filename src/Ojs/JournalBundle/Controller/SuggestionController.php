@@ -2,7 +2,11 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Document;
+use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ORM\EntityManager;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Document\JournalSuggestion;
 use Ojs\JournalBundle\Document\InstituteSuggestion;
 use Ojs\JournalBundle\Entity\Journal;
@@ -25,20 +29,43 @@ class SuggestionController extends Controller
      */
     public function instituteAction()
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entities = $dm->getRepository('OjsJournalBundle:InstituteSuggestion')->findBy(['merged' => null]);
-        return $this->render('OjsJournalBundle:Suggestion:institute.html.twig', array(
-            'entities' => $entities,
-        ));
+        $source = new Document('OjsJournalBundle:InstituteSuggestion');
+        $source->manipulateQuery(function(Builder $query){
+            $query->where("typeof(this.merged)=='undefined'");
+            return $query;
+        });
+        $grid = $this->get('grid')->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('suggestion_institute_show', 'id');
+        $rowAction[] = ActionHelper::deleteAction('suggestion_institute_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Suggestion:institute.html.twig',$data);
     }
 
     public function journalAction()
     {
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entities = $dm->getRepository('OjsJournalBundle:JournalSuggestion')->findBy(['merged' => null]);
-        return $this->render('OjsJournalBundle:Suggestion:journal.html.twig', array(
-            'entities' => $entities,
-        ));
+
+        $source = new Document('OjsJournalBundle:JournalSuggestion');
+        $source->manipulateQuery(function(Builder $query){
+            $query->where("typeof(this.merged)=='undefined'");
+            return $query;
+        });
+        $grid = $this->get('grid')->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('suggestion_journal_show', 'id');
+        $rowAction[] = ActionHelper::deleteAction('suggestion_journal_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Suggestion:journal.html.twig',$data);
     }
 
     public function journalDetailAction($id)

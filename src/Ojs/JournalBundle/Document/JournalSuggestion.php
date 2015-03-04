@@ -13,21 +13,25 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\UserBundle\Entity\User;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * This collection holds journal suggestion data
  * @MongoDB\Document(collection="journal_suggestion")
+ * @GRID\Source(columns="id,title,subtitle")
  */
 class JournalSuggestion
 {
     /**
      * @MongoDB\Id
      * @var integer
+     * @GRID\Column(title="journal.id")
      */
     protected $id;
     /**
      * @MongoDB\String
      * @var string
+     * @GRID\Column(title="journal.title")
      */
     protected $title;
     /**
@@ -53,6 +57,7 @@ class JournalSuggestion
     /**
      * @MongoDB\String
      * @var string
+     * @GRID\Column(title="journal.subtitle")
      */
     protected $subtitle;
     /**
