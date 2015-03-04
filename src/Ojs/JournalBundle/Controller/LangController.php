@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\Lang;
@@ -20,13 +23,19 @@ class LangController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('OjsJournalBundle:Lang');
+        $grid = $this->get('grid')->setSource($source);
 
-        $entities = $em->getRepository('OjsJournalBundle:Lang')->findAll();
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('lang_show', 'id');
+        $rowAction[] = ActionHelper::editAction('lang_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('lang_delete', 'id');
 
-        return $this->render('OjsJournalBundle:Lang:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Lang:index.html.twig',$data);
     }
 
     /**
