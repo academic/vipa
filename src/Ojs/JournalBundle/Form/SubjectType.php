@@ -17,6 +17,7 @@ class SubjectType extends AbstractType
         $builder
                 ->add('subject')
                 ->add('description')
+                ->add('parent');
         ;
     }
 
