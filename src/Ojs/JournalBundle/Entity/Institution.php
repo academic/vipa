@@ -590,4 +590,25 @@ class Institution extends GenericExtendedEntity
         return $this;
     }
 
+    /**
+     * @var boolean
+     */
+    private $verified;
+
+    /**
+     * @return boolean
+     */
+    public function isVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
+     * @param boolean $verified
+     */
+    public function setVerified($verified)
+    {
+        $this->verified = $verified;
+    }
+
 }

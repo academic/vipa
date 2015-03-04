@@ -42,6 +42,7 @@ class InstitutionType extends AbstractType
             ->add('wiki')
             ->add('logo', 'hidden')
             ->add('header', 'hidden')
+            ->add('verified')
             ->add('country', 'entity', [
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                 'attr' => [
