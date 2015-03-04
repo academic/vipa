@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ContactTypes;
@@ -19,12 +22,19 @@ class ContactTypesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:ContactTypes')->findAll();
+        $source = new Entity('OjsJournalBundle:ContactTypes');
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:ContactTypes:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('contacttypes_show', 'id');
+        $rowAction[] = ActionHelper::editAction('contacttypes_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('contacttypes_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:ContactTypes:index.html.twig',$data);
     }
 
     /**
