@@ -22,4 +22,18 @@ class SubjectRepository extends NestedTreeRepository {
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function getByIds(array $data)
+    {
+        $qb = $this->createQueryBuilder('j');
+        $qb->where(
+            $qb->expr()->in('j.id', ':data')
+        )
+            ->setParameter('data', $data);
+        return $qb->getQuery()->getResult();
+    }
+
 }

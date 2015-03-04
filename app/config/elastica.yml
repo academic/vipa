@@ -99,6 +99,22 @@ fos_elastica:
                 journal:
                     mappings:
                         tags: ~
+                        status: ~
+                        subjects:
+                          type: object
+                          properties:
+                            id: ~
+                            subject: ~
+                        institution:
+                          type: object
+                          properties:
+                            tags: ~
+                            name: ~
+                            institution_type:
+                              type: object
+                              properties:
+                                name: ~
+                                id:
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Journal

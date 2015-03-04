@@ -105,6 +105,62 @@ class SearchManager
         return $translator->trans($type);
     }
 
+    public function searchJournal()
+    {
+        $em = $this->container->get('doctrine.orm.default_entity_manager');
+        $search = $this->container->get('fos_elastica.index.search.journal');
+        $bool = new Bool();
+        $match = new Query\Match();
+        $match->setField('status', '3');
+        $bool->addMust($match);
+        if ($this->filter) {
+            foreach ($this->filter as $key => $filter) {
+                $filterObj = new \Elastica\Query\Match();
+                $this->applyFilter($filterObj, $key, $filter);
+                $bool->addMust($filterObj);
+            }
+        }
+
+        $query = new Query();
+        $query->setQuery($bool);
+        $query->setFrom($this->getPage() * $this->getLimit());
+        $query->setSize($this->getLimit());
+
+        $aggregation = new Terms('institution');
+        $aggregation->setField('institution.institution_type.id');
+        $aggregation->setOrder('_count', 'desc');
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:InstitutionTypes', 'r');
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
+        $query->addAggregation($aggregation);
+
+        $aggregation = new Terms('subject');
+        $aggregation->setField('subjects.id');
+        $aggregation->setOrder('_count', 'desc');
+        $qb = $em->createQueryBuilder();
+        $qb->select('count(r.id)')
+            ->from('OjsJournalBundle:Subject', 'r');
+
+        $aggregation->setSize($qb->getQuery()->getSingleScalarResult());
+
+        $query->addAggregation($aggregation);
+
+        $search = $search->search($query);
+
+        $result = $search->getResults();
+        $connection = $em->getConnection();
+        $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
+        $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Journal');
+        $transformer->setPropertyAccessor($this->container->get('property_accessor'));
+        $this->result = $transformer->transform($result);
+
+        $this->setCount($search->getTotalHits());
+        $this->addAggregation('institution', $this->transform($search->getAggregation('institution')['buckets'], 'OjsJournalBundle:InstitutionTypes'));
+        $this->addAggregation('subject', $this->transform($search->getAggregation('subject')['buckets'], 'OjsJournalBundle:Subject'));
+        return $this;
+    }
+
     public function search()
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
@@ -177,6 +233,7 @@ class SearchManager
         $em = $this->container->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository($class);
         if (!method_exists($repo, 'getByIds')) {
+            die($class);
             throw new \BadMethodCallException("Undefined method.");
         }
         $ids = [];
@@ -367,8 +424,14 @@ class SearchManager
             case 'author':
                 $query->setField('articleAuthors.author.id', $value);
                 break;
+            case 'institution':
+                $query->setField('institution.institution_type.id', $value);
+                break;
+            case'subject':
+                $query->setField('subjects.id', $value);
+                break;
             default:
-                throw new \ErrorException("Filter not exist. allowed filters: journal, author");
+                throw new \ErrorException("Filter not exist. allowed filters: journal, author, institution, subject");
         }
     }
 

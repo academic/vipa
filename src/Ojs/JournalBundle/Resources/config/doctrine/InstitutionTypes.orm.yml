@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\InstitutionTypes:
     type: entity
     table: null
-    #repositoryClass: Ojs\JournalBundle\Entity\InstitutionTypesRepository
+    repositoryClass: Ojs\JournalBundle\Entity\InstitutionTypesRepository
     oneToMany:
         institutions:
             targetEntity: Ojs\JournalBundle\Entity\Institution
