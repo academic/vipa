@@ -2,7 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -28,10 +31,20 @@ class JournalController extends Controller
      */
     public function indexAction()
     {
-        $entities = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Journal')->findAll();
-        return $this->render('OjsJournalBundle:Journal:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $source = new Entity('OjsJournalBundle:Journal');
+        $grid = $this->get('grid')->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('journal_show', 'id');
+        $rowAction[] = ActionHelper::editAction('journal_edit', 'id');
+        $rowAction[] = ActionHelper::cmsAction();
+        $rowAction[] = ActionHelper::deleteAction('journal_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Journal:index.html.twig',$data);
     }
 
     /**
