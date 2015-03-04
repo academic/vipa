@@ -2,35 +2,8 @@
 
 {% block body -%}
     <h1>{{"institutiontype.list"|trans}}</h1>
+    {{ grid(grid) }}
     <a href="{{ path('institution_types_new') }}" class="btn btn-success">{{"c"|trans}}</a>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{"name"|trans}}</th>
-                <th>{{"description"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('institution_types_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.name }}</td>
-                    <td>{{ entity.description }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('institution_types_show', { 'id': entity.id }) }}" class="btn btn-info btn-sm">{{"s"|trans}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-sm">{{"e"|trans}}</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+
 {% endblock %}

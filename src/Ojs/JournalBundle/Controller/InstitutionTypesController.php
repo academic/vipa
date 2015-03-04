@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
@@ -20,12 +23,18 @@ class InstitutionTypesController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
+        $source = new Entity('OjsJournalBundle:InstitutionTypes');
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:InstitutionTypes:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('institution_types_show', 'id');
+        $rowAction[] = ActionHelper::editAction('institution_types_edit', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:InstitutionTypes:index.html.twig',$data);
     }
 
     /**
