@@ -1,29 +1,34 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Contact
+ * @GRID\Source(columns="id,title,firstName,lastName,country,phone,email")
  */
 class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="title")
      */
     private $title;
 
     /**
      * @var string
+     * @GRID\Column(title="firstname")
      */
     private $firstName;
 
     /**
      * @var string
+     * @GRID\Column(title="lastname")
      */
     private $lastName;
 
@@ -34,6 +39,7 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var integer
+     * @GRID\Column(title="country")
      */
     private $country;
 
@@ -44,6 +50,7 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
+     * @GRID\Column(title="phone")
      */
     private $phone;
 
@@ -54,6 +61,7 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
+     * @GRID\Column(title="email")
      */
     private $email;
 
