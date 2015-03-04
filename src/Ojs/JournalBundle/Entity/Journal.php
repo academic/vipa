@@ -711,6 +711,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * @param int $country_id
+     * @return $this
      */
     public function setCountryId($country_id)
     {
