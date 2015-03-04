@@ -349,3 +349,4 @@ journal.tags: Tags
 journal.createdAt: Created at
 journal.user: User
 journal.merge_as_new_journal: Merge As New Journal
+dashboard.suggestion: "Suggestions"
