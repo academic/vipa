@@ -34,7 +34,7 @@
         "nelmio/api-doc-bundle": "@dev",
         "stof/doctrine-extensions-bundle": "~1.1@dev",
         "oneup/uploader-bundle": "1.3.*@dev",
-        "liip/imagine-bundle":"1.2.2",
+        "liip/imagine-bundle": "1.2.2",
         "caseyamcl/Phpoaipmh": ">=v2.0",
         "knplabs/knp-paginator-bundle": "~2.4",
         "doctrine/mongodb-odm": "1.0.*@dev",
@@ -48,11 +48,12 @@
         "fzaninotto/faker": "1.5.*@dev",
         "nelmio/alice": "1.7.2",
         "h4cc/alice-fixtures-bundle": "~0.5",
-    	"okulbilisim/feedback-bundle": "dev-master",
+        "okulbilisim/feedback-bundle": "dev-master",
         "tackk/cartographer": "1.0.*",
         "okulbilisim/cms-bundle": "dev-master",
         "unifik/database-config-bundle": "dev-master",
-        "apy/datagrid-bundle": "dev-master"
+        "apy/datagrid-bundle": "dev-master",
+        "okulbilisim/ojs-tools-bundle": "dev-master"
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master"
