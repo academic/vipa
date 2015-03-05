@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label>Roles</label>
-                    <select name="roles[]" class="form-control" style="height:120px" multiple="multiple">
+                    <select name="roles[]" class="select2-element" style="height:120px" multiple="multiple">
                         {%for role in roles%}
                             <option
                                 {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
