@@ -365,19 +365,19 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\Role $submitRole
+     * @param  \Ojs\UserBundle\Entity\Role $submitRole
      * @return Journal
      */
-    public function addSubmitRole(\Ojs\JournalBundle\Entity\Role $submitRole)
+    public function addSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
     {
         $this->submitRoles[] = $submitRole;
         return $this;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\Role $submitRole
+     * @param \Ojs\UserBundle\Entity\Role $submitRole
      */
-    public function removeSubmitRole(\Ojs\JournalBundle\Entity\Role $submitRole)
+    public function removeSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
     {
         $this->submitRoles->removeElement($submitRole);
     }
