@@ -25,11 +25,11 @@
         {% endif %}
     </div>
     {%if drafts is defined %}
-        <h3>Drafts</h3>
+        <h3>{{"article.draft.plural"|trans}}</h3>
         <table class="records_list table table-striped">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>#</th>
                     <th>{{"journalid"|trans}}</th>
                     <th>{{"title"|trans}}</th> 
                     <th>{{"actions"|trans}}</th>
@@ -39,12 +39,12 @@
                 {% for entity in drafts %}
                     <tr>
                         <td>
-                            <a href="#">
+                            <a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}" class="btn btn-primary">
                                 {{ entity.id }}
                             </a>
                         </td>
                         <td>{{ entity.journalId }}</td>
-                        <td>{{ entity.articleData[entity.primaryLanguage]['title'] }}</td>
+                        <td><a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}">{{ entity.articleData[entity.primaryLanguage]['title'] }}</a></td>
                         <td><a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}" class="btn btn-primary">Resume</a></td>
 
                     </tr>
@@ -58,7 +58,7 @@
     <table class="records_list table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>#</th>
                 <th>{{"journalid"|trans}}</th>
                 <th>{{"title"|trans}}</th>
                 <th>{{"status"|trans}}</th>
@@ -74,7 +74,7 @@
                         </a>
                     </td>
                     <td>{{ entity.journalId }}</td>
-                    <td>{{ entity.title }}</td>
+                    <td><a href="{{ path('article_preview', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
                     <td style="background: {{ statusColors[entity.status] }}">{{ statusTexts[entity.status] }}</td>
                     <td>
                         {% if isSystemAdmin() %}
