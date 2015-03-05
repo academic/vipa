@@ -44,11 +44,17 @@
                         </h4>
                 </div>
                 <div class="panel-collapse collapse in">
-                      {% if hasRole('ROLE_AUTHOR')%} 
-                    <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
-                        <i class="fa fa-plus-circle"></i> 
-                        {{"article.submit"|trans}}
-                    </a>
+                    {% if hasRole('ROLE_AUTHOR')%}
+                        {% set submitButton = 0 %}
+                        {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
+                            {% if (hasRole(submitRole.role)) and (submitButton == 0) %}
+                                <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
+                                    <i class="fa fa-plus-circle"></i>
+                                    {{"article.submit"|trans}}
+                                </a>
+                                {% set submitButton = 1 %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
                     {% if hasRole('ROLE_AUTHOR')%}
                         {% if isSystemAdmin() or isJournalManager()  %}
