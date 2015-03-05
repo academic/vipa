@@ -61,6 +61,17 @@ Ojs\JournalBundle\Entity\Journal:
                     referencedColumnName: id
                 name: Journal_Language
               fetch: EXTRA_LAZY
+        submitRoles:
+              targetEntity: Ojs\UserBundle\Entity\Role
+              joinTable:
+                inverseJoinColumns:
+                  role_id:
+                    referencedColumnName: id
+                joinColumns:
+                  journal_id:
+                    referencedColumnName: id
+                name: Journal_Submit_Role
+              fetch: EXTRA_LAZY
         subjects:
             targetEntity: Subject
             cascade: ["persist"]
