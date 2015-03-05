@@ -7,10 +7,12 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Okulbilisim\LocationBundle\Entity\Country;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Journal
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id,title,issn,eissn,country.name,institution")
  */
 class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Translatable
 {
@@ -18,6 +20,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * @var integer
      * @Expose
+     *
      */
     private $id;
 
@@ -708,10 +711,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * @param int $country_id
+     * @return $this
      */
     public function setCountryId($country_id)
     {
         $this->country_id = $country_id;
+        return $this;
     }
 
     /**

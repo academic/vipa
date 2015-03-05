@@ -17,16 +17,29 @@
                 <th>{{"description"|trans}}</th>
                 <td>{{ entity.description }}</td>
             </tr>
+            {% if entity.parent %}
+                <tr>
+                    <th>{{"parent"|trans}}</th>
+                    <td><a href="{{ path('subject_show', {id: entity.parent.id})}}">{{ entity.parent}}</a></td>
+                </tr>
+            {% endif %}
+            {% if  entity.children|length >0 %}
+                <tr>
+                    <th>{{"children"|trans}}</th>
+                    <td>
+                        {% for c in entity.children %} 
+                            <a  class="badge" href="{{ path('subject_show', {id: c.id})}}">{{ c }}</a>
+                        {% endfor%}
+                    </td>
+                {% endif %}
+            </tr>
         </tbody>
     </table>
 
     <div class="record_actions">
-        <a href="{{ path('subject') }}" class="button">
-            {{"b"|trans}}
-        </a>
-        <a href="{{ path('subject_edit', { 'id': entity.id }) }}" class="button">
-            {{"e"|trans}}
-        </a>
-        {{ form(delete_form) }}
+        {% set back_path = 'subject' %}
+        {% set edit_path = 'subject_edit' %}
+        {% set delete_path = 'subject_delete' %}
+        {% include '::actionbtns.html.twig' %}
     </div>
 {% endblock %}

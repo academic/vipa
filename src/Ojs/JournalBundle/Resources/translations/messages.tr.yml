@@ -356,11 +356,13 @@ journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 
-
 select.journal: "Makalenin Gönderileceği Dergi"
 parse: Ayrıştır
 comma_keyword_list: virgül ile ayrılmış anahtar kelimeler
 comma_subject_list: virgül ile ayrılmış konular 
+
 Submissions: Gönderimler
 Drafts: Taslaklar
 Submitted: Gönderilmiş 
+
+dashboard.suggestion: "Öneriler"

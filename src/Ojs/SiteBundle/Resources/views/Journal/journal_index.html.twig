@@ -22,8 +22,7 @@
                         <dt>{{ "journal_langs"|trans }}</dt>
                         <dd>{% for language in journal.languages %}<span
                                 class="badge badge-success">{{ language.name }}</span> {% endfor %}</dd>
-                        <dt>{{ "first_publish_date"|trans }}</dt>
-                        <dd>{{ journal.firstPublishDate|date('Y-m-d') }}</dd>
+
                         <dt>{{ "period"|trans }}</dt>
                         <dd>{{ journal.period }}</dd>
                         <!--
@@ -35,9 +34,7 @@
                     </dl>
                 </div>
                 <h1>{{ journal.title }}
-                    {% if journal.url %}
-                        <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
-                    {% endif %}
+
                 </h1>
                 <h6> {{ journal.titleAbbr }}  </h6>
                 <!--
@@ -54,10 +51,25 @@
                 <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                      data-src="holder.js/120x180/random/text:{{ journal.title }}"
                      class="img-responsive img-rounded float-left" alt=""/>
+
+                <a href="#" class="list-group-item ">
+                    <span class="pull-right">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                    <span class="list-group-item-heading count">
+                        {{random(10000)|number_format(0, '.') }}</span> 
+                </a>
+                <a href="#" class="list-group-item ">
+                    <span class="pull-right">
+                        <i class="fa fa-download"></i>
+                    </span>
+                    <span class="list-group-item-heading count">
+                        {{random(10000)|number_format(0, '.') }}</span> 
+                </a>
             </div>
+
             <div class="col-md-4">
                 <h5>{{ "scope"|trans }}</h5>
-
                 <p>
                     {{ journal.scope }}
                 </p>
@@ -79,65 +91,53 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{{"search"|trans}}" name="q">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
+                    <a class="list-group-item" href="{{ url('ojs_issue_page',{id: last_issue.id, institution: journal.institution.slug}) }}">
+                        <h4><i class="fa fa-bolt"></i> {{ "read.lastissue"|trans }}</h4>
+                    </a>
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4></a>
-
-                    <a href="#" class="list-group-item visitor">
-                        <h3 class="pull-right">
-                            <i class="fa fa-eye"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            {{random(10000)}}</h4>
-
-                        <p class="list-group-item-text">
-                            Article Views</p>
+                       class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4>
                     </a>
-                    <a href="#" class="list-group-item visitor">
-                        <h3 class="pull-right">
-                            <i class="fa fa-download"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            {{random(10000)}}</h4>
 
-                        <p class="list-group-item-text">
-                            Article Downloads</p>
+                    <a href=""
+                       class="list-group-item "><h4><i class="fa fa-at"></i> {{ "about"|trans }}</h4>
                     </a>
+
                     {% if enable_social is defined  %}
-                    <a href="#" class="list-group-item facebook-like">
-                        <h3 class="pull-right">
-                            <i class="fa fa-facebook-square"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            {{random(10000)}}</h4>
+                        <a href="#" class="list-group-item facebook-like">
+                            <h3 class="pull-right">
+                                <i class="fa fa-facebook-square"></i>
+                            </h3>
+                            <h4 class="list-group-item-heading count">
+                                {{random(10000)}}</h4>
 
-                        <p class="list-group-item-text">
-                            Facebook Likes</p>
-                    </a>
-                    <a href="#" class="list-group-item google-plus">
-                        <h3 class="pull-right">
-                            <i class="fa fa-google-plus-square"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            {{random(10000)}}</h4>
+                            <p class="list-group-item-text">
+                                Facebook Likes</p>
+                        </a>
+                        <a href="#" class="list-group-item google-plus">
+                            <h3 class="pull-right">
+                                <i class="fa fa-google-plus-square"></i>
+                            </h3>
+                            <h4 class="list-group-item-heading count">
+                                {{random(10000)}}</h4>
 
-                        <p class="list-group-item-text">
-                            Google+</p>
-                    </a>
-                    <a href="#" class="list-group-item twitter">
-                        <h3 class="pull-right">
-                            <i class="fa fa-twitter-square"></i>
-                        </h3>
-                        <h4 class="list-group-item-heading count">
-                            1000</h4>
+                            <p class="list-group-item-text">
+                                Google+</p>
+                        </a>
+                        <a href="#" class="list-group-item twitter">
+                            <h3 class="pull-right">
+                                <i class="fa fa-twitter-square"></i>
+                            </h3>
+                            <h4 class="list-group-item-heading count">
+                                1000</h4>
 
-                        <p class="list-group-item-text">
-                            Twitter Followers</p>
-                    </a>
+                            <p class="list-group-item-text">
+                                Twitter Followers</p>
+                        </a>
                     {% endif %}
                 </div>
             </div>
@@ -208,6 +208,9 @@
         </div>
         {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
 
+        {% if journal.url %}
+            <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
+                {% endif %}
     </div>
 
 {% endblock %}

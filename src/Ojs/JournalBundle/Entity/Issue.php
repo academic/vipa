@@ -1,15 +1,17 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Issue
+ * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
  */
 class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 {
 
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -21,21 +23,25 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      *
      * @var Journal
+     * @GRID\Column(field="journal.title",title="Journal")
      */
     private $journal;
 
     /**
      * @var string
+     * @GRID\Column(title="volume")
      */
     private $volume;
 
     /**
      * @var string
+     * @GRID\Column(title="number")
      */
     private $number;
 
     /**
      * @var string
+     * @GRID\Column(title="title")
      */
     private $title;
 
@@ -47,6 +53,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var boolean
+     * @GRID\Column(title="special")
      */
     private $special;
 
@@ -57,11 +64,13 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
+     * @GRID\Column(title="year")
      */
     private $year;
 
     /**
      * @var \DateTime
+     * @GRID\Column(title="publishdate")
      */
     private $datePublished;
 

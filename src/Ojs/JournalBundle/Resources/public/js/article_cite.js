@@ -1,4 +1,5 @@
 var CitationEditor = {
+    
     addCitationTpl: function (params) {
         $("#citationContainer").append(Mustache.render($("#step3_tpl").html(), params));
     },
@@ -99,6 +100,12 @@ $(document).ready(function () {
     $("#addArticleCitationInline").click(function (e) {
         e.preventDefault();
         CitationEditor.newCitationField();
+    });
+    
+    $("#clearAllCitations").click(function (e) {
+        e.preventDefault();
+        $(".cite-item").slideUp("fast");
+        CitationEditor.refreshCitationOrders();
     });
     $("body").on("click", "a.removeArticleCitationInline", function (e) {
         e.preventDefault();

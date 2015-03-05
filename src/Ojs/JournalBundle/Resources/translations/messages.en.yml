@@ -355,3 +355,4 @@ select.journal: "Select a Journal to Submit the Article"
 parse: Parse
 comma_keyword_list: Comma-seperated keyword list
 comma_subject_list: Comma-seperated subject list
+dashboard.suggestion: "Suggestions"

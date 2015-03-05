@@ -121,15 +121,13 @@
         <div class="panel panel-default">
             <div class="panel-heading">{{"article.citations"|trans}}</div>
             <div class="panel panel-body">
-
-                {% for key,citation  in submissionData.citations %}
-                    <table class="table">
+                <table class="table">
+                    {% for key,citation  in submissionData.citations %}
                         <tr>
                             <td><span class="badge">{{citation.orderNum}}</span> {{citation.raw}}</td>
-                        </tr>
-                    </table>
-                    <hr>
-                {%endfor%}
+                        </tr> 
+                    {%endfor%}
+                </table>
             </div>
             <div class="panel-footer"></div>
         </div>
@@ -139,8 +137,9 @@
                 <h4 class="panel-title">{{"article.files"|trans}}</h4>
             </div>
             <div class="panel panel-body table-responsive">
-                {% for key,file  in submissionData.files %}
-                    <table class="table">
+                <table class="table">
+                    {% for key,file  in submissionData.files %}
+
                         <tr>
                             <td>
 
@@ -173,9 +172,10 @@
 
                             </td>
                         </tr>
-                    </table>
-                    <hr>
-                {%endfor%}
+
+                    {%endfor%}
+
+                </table>
             </div>
             <div class="panel-footer"></div>
         </div>    

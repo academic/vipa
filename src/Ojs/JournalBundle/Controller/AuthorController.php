@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
@@ -19,12 +22,19 @@ class AuthorController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Author')->findAll();
+        $source = new Entity('OjsJournalBundle:Author');
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:Author:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('author_show', 'id');
+        $rowAction[] = ActionHelper::editAction('author_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('author_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:Author:index.html.twig',$data);
     }
 
     /**

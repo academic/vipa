@@ -5,10 +5,11 @@ namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericExtendedEntity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Lang
  * @ExclusionPolicy("all")
+ * @GRID\Source(columns="id,code,name,rtl")
  */
 class Lang extends GenericExtendedEntity
 {
@@ -16,24 +17,28 @@ class Lang extends GenericExtendedEntity
     /**
      * @var integer
      * @Expose()
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="lang.code")
      */
     private $code;
 
     /**
      * @var string
      * @Expose()
+     * @GRID\Column(title="lang.name")
      */
     private $name;
 
     /**
      * @var boolean
      * @Expose()
+     * @GRID\Column(title="lang.rtl")
      */
     private $rtl;
 

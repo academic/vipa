@@ -81,43 +81,26 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
-    public function journalsIndexAction(Request $request, $start = 0, $offset = 12, $institution = 'www')
+    public function journalsIndexAction(Request $request, $page, $institution = null)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var JournalRepository $journalRepo */
-        $journalRepo = $em->getRepository('OjsJournalBundle:Journal');
-        /** @var SubjectRepository $subjectRepo */
-        $subjectRepo = $em->getRepository('OjsJournalBundle:Subject');
-        $journalRepo->setStart($start);
-        $journalRepo->setOffset($offset);
-        $journalRepo->setFilter($request);
-        if ($institution && $institution != 'www') {
-            $journalRepo->setInstitution($institution);
+        $searchManager = $this->get('ojs_search_manager');
+        $searchManager->setPage($page);
+        $filter = $request->get('filter', []);
+        if($institution){
+            $institutionObj =  $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug'=>$institution]);
+            $filter['institution'] = $institutionObj->getId();
+            $data['institutionObject'] = $institutionObj;
         }
-        $data["journals"] = $journalRepo->all();
-        $data['totalPageCount'] = $journalRepo->getTotalPageCount();
+        $searchManager->addFilters($filter);
 
-        $data["institution_types"] = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
+        $result = $searchManager->searchJournal()->getResult();
+        $data['result'] = $result;
+        $data['total_count'] = $searchManager->getCount();
+        $data['page'] = $page;
+        $data['page_count'] = $searchManager->getPageCount();
+        $data['aggregations'] = $searchManager->getAggregations();
+        $data['filter'] = $filter;
 
-        // TODO find only has journal(s) and count them
-        if ($journalRepo->getInstitution()) {
-            $subjects = $subjectRepo->getByInstitution($institution);
-        } else {
-            $subjects = $subjectRepo->findAll();
-        }
-        $data["subjects"] = array();
-
-        foreach ($subjects as $subject) {
-            if ($subject->getTotalJournalCount() > 0) {
-                $data["subjects"][] = $subject;
-            }
-        }
-        $data['page'] = 'journals';
-
-        $data['currentPage'] = 1;
-        $data['offset'] = $offset;
-        $data['start'] = $start;
-        $data['institution'] = $journalRepo->getInstitution();
         return $this->render('OjsSiteBundle::Journal/journals_index.html.twig', $data);
     }
 

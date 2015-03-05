@@ -7,7 +7,11 @@
         <h1 class="page-header">{{"institutions"|trans}}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
-                <div class="panel-heading"><a href="/institution/{{ entity.slug }}">{{ entity.name }}</a></div>
+                <div class="panel-heading"><a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}">
+                        {% if entity.isVerified %}
+                            <i class="fa fa-diamond"></i>
+                            {% endif %}
+                        {{ entity.name }}</a></div>
                 <div class="panel-body">
                     <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
                     <div itemscope itemtype="http://schema.org/Organization">

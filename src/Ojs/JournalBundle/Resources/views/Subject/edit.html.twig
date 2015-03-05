@@ -2,15 +2,13 @@
 
 {% block body -%}
     <h1>{{"subject.edit"|trans}}</h1>
-
+    <!-- 
+    {{ grid(grid) }}
+    -->
     {{ form(edit_form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('subject') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    <div class="record_actions">
+        {% set back_path = 'subject' %}
+        {% set delete_path = 'subject_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
 {% endblock %}

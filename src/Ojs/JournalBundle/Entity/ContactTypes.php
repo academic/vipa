@@ -1,24 +1,28 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * ContactTypes
+ * @GRID\Source(columns="id,name,description")
  */
 class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="description")
      */
     private $description;
 
