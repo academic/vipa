@@ -95,9 +95,9 @@
                     <div class="row">
 
                         <ul class="pagination ">
-                            {% if page_count>1 and page!=1 %}
+                            {% if page_count>1 and current_page!=1 %}
                                 <li>
-                                    <a href="{{ url('ojs_journals_index',{page:page-1 }) }}">
+                                    <a href="{{ url('ojs_journals_index',{page:current_page-1 }) }}">
                                         <span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a>
                                 </li>
                             {% endif %}
@@ -107,9 +107,9 @@
                                     <a href="{{ url('ojs_journals_index',{page:p }) }}">{{ p }}</a>
                                 </li>
                             {% endfor %}
-                            {% if page_count>1 and page!=page_count %}
+                            {% if page_count>1 and current_page!=page_count %}
                                 <li>
-                                    <a href="{{ url('ojs_journals_index',{page:page+1}) }}">
+                                    <a href="{{ url('ojs_journals_index',{page:current_page+1}) }}">
                                         <span aria-hidden="true">&raquo;</span><span class="sr-only"></span>
                                     </a>
                                 </li>

@@ -96,7 +96,8 @@ class SiteController extends Controller
         $result = $searchManager->searchJournal()->getResult();
         $data['result'] = $result;
         $data['total_count'] = $searchManager->getCount();
-        $data['page'] = $page;
+        $data['page'] = 'journals';
+        $data['current_page'] = $page;
         $data['page_count'] = $searchManager->getPageCount();
         $data['aggregations'] = $searchManager->getAggregations();
         $data['filter'] = $filter;
