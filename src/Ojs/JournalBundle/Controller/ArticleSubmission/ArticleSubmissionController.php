@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Params\ArticleFileParams;
@@ -32,11 +33,22 @@ class ArticleSubmissionController extends Controller
     public function indexAction($all = false)
     {
 
-        $source1 = new Entity('OjsJournalBundle:Article');
+        $source1 = new Entity('OjsJournalBundle:Article','submission');
         $ta = $source1->getTableAlias();
+        $source1->manipulateRow(function(Row $row){
+            if(null!==($row->getField('status'))){
+                $status = $row->getField('status');
+                $colors =  \Ojs\Common\Params\CommonParams::getStatusColors();
+                $text =  \Ojs\Common\Params\CommonParams::getStatusTexts();
+                $row->setField('status',"<span style='background: {$colors[$status]};display: block'>{$text[$status]}</span>");
+            }
+            return $row;
+        });
 
         $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
-        $source2->manipulateRow(function(Row $row){
+        $em = $this->getDoctrine()->getManager();
+        $router = $this->get('router');
+        $source2->manipulateRow(function(Row $row)use($em,$router){
             if($row->getField('article_data')){
                 $data = $row->getField('article_data');
                 $_d = [];
@@ -44,8 +56,13 @@ class ArticleSubmissionController extends Controller
                     $_d[]=$key.": ".$value['title'];
                 }
                 $row->setField('article_data', $_d);
-                return $row;
             }
+            if($row->getField('journal_id')){
+                $journal = $em->find('OjsJournalBundle:Journal',$row->getField('journal_id'));
+                $row->setField('journal_id',(string)$journal->getTitle());
+
+            }
+            return $row;
         });
         $user = $this->getUser();
 
@@ -75,12 +92,14 @@ class ArticleSubmissionController extends Controller
                 return $query;
             });
         }
+
         $gridManager = $this->get('grid.manager');
         $submissionsgrid = $gridManager->createGrid('submission');
         $drafts = $gridManager->createGrid('drafts');
         $submissionsgrid->setSource($source1);
         $drafts->setSource($source2);
 
+        $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::showAction('article_show', 'id','ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::editAction('article_edit', 'id','ROLE_SUPER_ADMIN');
@@ -88,17 +107,17 @@ class ArticleSubmissionController extends Controller
         $actionColumn->setRowActions($rowAction);
         $submissionsgrid->addColumn($actionColumn);
 
+        $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::submissionResumeAction('article_submission_resume', 'id');
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
 
+        $submissionsgrid->getColumn('status')->setSafe(false);
         $data = [ 'page' => 'submission',
             'submissions' => $submissionsgrid,
             'drafts' => $drafts,
-            'all' => $all,
-            'statusColors' => \Ojs\Common\Params\CommonParams::getStatusColors(),
-            'statusTexts' => \Ojs\Common\Params\CommonParams::getStatusTexts()];
+            'all' => $all];
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig',$data);
 
     }

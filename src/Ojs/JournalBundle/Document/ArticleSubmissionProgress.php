@@ -37,7 +37,7 @@ class ArticleSubmissionProgress
 
     /**
      * @MongoDb\Int
-     * @GRID\Column(title="journalid")
+     * @GRID\Column(title="journalid",type="text")
      */
     protected $journal_id;
 
