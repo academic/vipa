@@ -177,7 +177,6 @@
                 aspectRatio: 200 / 300,
                 maxWidth: 200,
                 maxHeight: 300,
-                {% if  entity.header %}
                 {% set imageoptions=getImageOptions(entity,'cover','journal_cover') %}
                 data: {
                     x: {{ imageoptions.x }},
@@ -185,7 +184,6 @@
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                {% endif %}
                 done: function (data) {
                     $("#cover_height").val(data.height);
                     $("#cover_width").val(data.width);
