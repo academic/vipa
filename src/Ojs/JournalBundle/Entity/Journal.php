@@ -189,6 +189,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $submitRoles;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $sections;
 
@@ -237,6 +243,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->submitRoles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -355,6 +362,32 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getLanguages()
     {
         return $this->languages;
+    }
+
+    /**
+     * @param  \Ojs\JournalBundle\Entity\Role $submitRole
+     * @return Journal
+     */
+    public function addSubmitRole(\Ojs\JournalBundle\Entity\Role $submitRole)
+    {
+        $this->submitRoles[] = $submitRole;
+        return $this;
+    }
+
+    /**
+     * @param \Ojs\JournalBundle\Entity\Role $submitRole
+     */
+    public function removeSubmitRole(\Ojs\JournalBundle\Entity\Role $submitRole)
+    {
+        $this->submitRoles->removeElement($submitRole);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubmitRoles()
+    {
+        return $this->submitRoles;
     }
 
     /**
