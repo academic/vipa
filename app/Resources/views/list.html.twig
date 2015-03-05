@@ -378,5 +378,11 @@
 {% endblock grid_column_filter_type_actions %}
 
 {% block grid_column_status_cell %}
-    {{ value == "true" ? "✓" : "✗" }}
+    {% if value=="true" %}
+        "✓"
+        {% elseif value=="false" %}
+            "✗"
+        {% else %}
+        {{ value|raw }}
+    {% endif %}
 {% endblock %}

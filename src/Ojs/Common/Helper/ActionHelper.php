@@ -13,8 +13,18 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Row;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
+/**
+ * Class ActionHelper
+ * @package Ojs\Common\Helper
+ */
 class ActionHelper
 {
+    /**
+     * @param $route
+     * @param $key
+     * @param null $role
+     * @return RowAction
+     */
     public static function deleteAction($route, $key,$role=null)
     {
         $rowAction = new RowAction("", $route);
@@ -29,6 +39,10 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param null $role
+     * @return RowAction
+     */
     public static function userBanAction($role=null)
     {
         $rowAction = new RowAction("", 'user_block');
@@ -51,6 +65,12 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param $route
+     * @param $key
+     * @param null $role
+     * @return RowAction
+     */
     public static function switchUserAction($route, $key,$role=null)
     {
         $rowAction = new RowAction("", $route);
@@ -64,6 +84,12 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param $route
+     * @param $key
+     * @param null $role
+     * @return RowAction
+     */
     public static function showAction($route, $key,$role=null)
     {
         $rowAction = new RowAction("", $route);
@@ -76,6 +102,12 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param $route
+     * @param $key
+     * @param null $role
+     * @return RowAction
+     */
     public static function editAction($route, $key,$role=null)
     {
         $rowAction = new RowAction("", $route);
@@ -87,11 +119,18 @@ class ActionHelper
         }
         return $rowAction;
     }
+
+    /**
+     * @param $route
+     * @param $key
+     * @param null $role
+     * @return RowAction
+     */
     public static function submissionResumeAction($route, $key,$role=null)
     {
         $rowAction = new RowAction("", $route);
-        $rowAction->setTitle('<i class="fa fa-pencil"></i>');
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip','title'=>"Edit"]);
+        $rowAction->setTitle('<i class="fa fa-reply"></i>');
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip','title'=>"Resume Submission"]);
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping(['id'=>'submissionId']);
         if($role){
@@ -100,6 +139,10 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param null $role
+     * @return RowAction
+     */
     public static function userAnonymLoginAction($role=null)
     {
         global $kernel;
@@ -123,6 +166,10 @@ class ActionHelper
         return $rowAction;
     }
 
+    /**
+     * @param null $role
+     * @return RowAction
+     */
     public static function cmsAction($role=null)
     {
         //        <a class="btn-xs btn-info" href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}">

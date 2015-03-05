@@ -6,10 +6,12 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\UserBundle\Entity\UserArticleRole;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Article
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
+ * @GRID\Source(columns="id ,status,title, journal.title",groups={"submission"})
  */
 class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -32,6 +34,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * @var integer
      * @Expose
+     * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
 
@@ -280,7 +283,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set subjects
      *
-     * @param  string  $subjects
+     * @param  string $subjects
      * @return Article
      */
     public function setSubjects($subjects = null)
@@ -319,7 +322,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Issue   $issue
+     * @param  \Ojs\JournalBundle\Entity\Issue $issue
      * @return \Ojs\JournalBundle\Entity\Article
      */
     public function setIssue(\Ojs\JournalBundle\Entity\Issue $issue)
@@ -437,7 +440,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  integer                             $orderNum
+     * @param  integer $orderNum
      * @return \Ojs\JournalBundle\Entity\Article
      */
     public function setOrderNum($orderNum)
@@ -458,7 +461,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  string                              $primaryLanguage
+     * @param  string $primaryLanguage
      * @return \Ojs\JournalBundle\Entity\Article
      */
     public function setPrimaryLanguage($primaryLanguage)
@@ -502,7 +505,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set doi
      *
-     * @param  string  $doi
+     * @param  string $doi
      * @return Article
      */
     public function setDoi($doi)
@@ -525,7 +528,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set otherId
      *
-     * @param  string  $otherId
+     * @param  string $otherId
      * @return Article
      */
     public function setOtherId($otherId)
@@ -660,7 +663,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set title
      *
-     * @param  string  $title
+     * @param  string $title
      * @return Article
      */
     public function setTitle($title)
@@ -683,7 +686,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set titleTransliterated
      *
-     * @param  string  $titleTransliterated
+     * @param  string $titleTransliterated
      * @return Article
      */
     public function setTitleTransliterated($titleTransliterated)
@@ -706,7 +709,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set subtitle
      *
-     * @param  string  $subtitle
+     * @param  string $subtitle
      * @return Article
      */
     public function setSubtitle($subtitle)
@@ -798,7 +801,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set pubdateSeason
      *
-     * @param  string  $pubdateSeason
+     * @param  string $pubdateSeason
      * @return Article
      */
     public function setPubdateSeason($pubdateSeason)
@@ -821,7 +824,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set part
      *
-     * @param  string  $part
+     * @param  string $part
      * @return Article
      */
     public function setPart($part)
@@ -890,7 +893,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set uri
      *
-     * @param  string  $uri
+     * @param  string $uri
      * @return Article
      */
     public function setUri($uri)
@@ -913,7 +916,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set abstract
      *
-     * @param  string  $abstract
+     * @param  string $abstract
      * @return Article
      */
     public function setAbstract($abstract)
@@ -936,7 +939,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set abstractTransliterated
      *
-     * @param  string  $abstractTransliterated
+     * @param  string $abstractTransliterated
      * @return Article
      */
     public function setAbstractTransliterated($abstractTransliterated)
@@ -969,7 +972,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get attributes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAttributes()
     {
@@ -1062,7 +1065,8 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      * @param UserArticleRole $role
      * @return $this
      */
-    public function addUserRole(UserArticleRole $role){
+    public function addUserRole(UserArticleRole $role)
+    {
         $this->userRoles->add($role);
         return $this;
     }
