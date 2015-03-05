@@ -30,7 +30,7 @@ class UserJournalRoleController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username']);
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'],'ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
         $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('ujr_delete', 'id');

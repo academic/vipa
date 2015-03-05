@@ -34,7 +34,7 @@ class UserController extends Controller
         $grid->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index',['username']);
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index',['username'],'ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::showAction('user_show','id');
         $rowAction[] = ActionHelper::editAction('user_edit','id');
         $rowAction[] = ActionHelper::userBanAction();
