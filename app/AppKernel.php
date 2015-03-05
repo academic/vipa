@@ -50,7 +50,7 @@ class AppKernel extends Kernel {
             new Ojs\NotifierBundle\OjsNotifierBundle(),
             new Okulbilisim\LocationBundle\OkulbilisimLocationBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
-
+            new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
