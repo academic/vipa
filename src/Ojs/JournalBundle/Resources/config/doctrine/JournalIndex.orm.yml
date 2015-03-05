@@ -1,0 +1,21 @@
+Ojs\JournalBundle\Entity\JournalIndex:
+  type: entity
+  repositoryClass: Ojs\JournalBundle\Entity\JournalIndexRepository
+  table: journal_indexs
+  fields:
+    name:
+      type: string
+      nullable: false
+      length: 255
+    logo:
+      type: string
+      nullable: false
+      length: 255
+    status:
+      type: boolean
+  id:
+     id:
+       generator:
+         strategy: AUTO
+       id: true
+       type: integer

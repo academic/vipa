@@ -1,3 +1,7 @@
+ojs_journal_admin_journalindex:
+    resource: "@OjsJournalBundle/Resources/config/routing/journalindex.yml"
+    prefix:   /admin/journalindex
+
 ojs_journal_articlefile:
     resource: "@OjsJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile

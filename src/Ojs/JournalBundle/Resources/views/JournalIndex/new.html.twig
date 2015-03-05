@@ -1,0 +1,99 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{ 'journalindex.create' }}</h1>
+
+    {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
+
+        <div id="preview_image_logo" style="width:200px">
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.logo)) | imagine_filter('wide_200') }}"
+                 data-src="holder.js/200x200/random/text:{{ entity.name }}" alt=""/>
+            {% set imageoptions=getImageOptions(entity,'logo','journalindex_logo') %}
+            <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
+            <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
+            <input id="logo_x" name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
+            <input id="logo_y" name="logo[y]" type="hidden" value="{{ imageoptions.y }}"/>
+        </div>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{ "select.image.file"|trans }}</span>
+            <input id="fileupload_logo" type="file" data-url="{{ oneup_uploader_endpoint('journalindexfiles') }}">
+        </span>
+        <div id="journal_logo_upload_progress" style="display: none" class="label label-info">
+        </div>
+    </div>
+
+    <button type="submit" id="ojs_journalbundle_journalindex_submit" class="btn btn-primary">
+        {{ "c"|trans }}
+    </button>
+    {{ form_end(form) }}
+
+        <a href="{{ path('admin_journalindex') }}" class="btn btn-warning">
+            <i class="fa fa-arrow-left"></i> {{ 'b'|trans }}
+        </a>
+</ul>
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    {% javascripts '@upload_js' output="c/upload.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script>
+        $(function(){
+            $('#fileupload_logo').fileupload({});
+            $('#fileupload_logo').bind('fileuploadsend', function (e, data) {
+                $('#journal_logo_upload_progress').show();
+                $('#journal_logo_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
+                $('#journal_logo_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_journalindex_logo').attr('value', result.files.name);
+                $("#preview_image_logo > img").cropper('replace', '/media/cache/resolve/wide_200' + result.files.fullpath + '/' + result.files.name);
+            });
+            $("#preview_image_logo > img").cropper({
+                aspectRatio: 200 / 200,
+                maxWidth: 200,
+                maxHeight: 200,
+                {% set imageoptions=getImageOptions(entity,'logo','journalindex_logo') %}
+                data: {
+                    x: {{ imageoptions.x }},
+                    y: {{ imageoptions.y }},
+                    height: {{ imageoptions.height }},
+                    width: {{ imageoptions.width }}
+                },
+                done: function (data) {
+                    $("#logo_height").val(data.height);
+                    $("#logo_width").val(data.width);
+                    $("#logo_x").val(data.x);
+                    $("#logo_y").val(data.y)
+                }
+            });
+        })
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    <style>
+        #preview_image, #preview_image div, #preview_image_cover, #preview_image_cover div {
+            margin: 0 !important;
+        }
+    </style>
+{% endblock %}
