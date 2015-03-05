@@ -36,6 +36,7 @@ Ojs\UserBundle\Entity\CustomField:
           joinColumn:
             name: user_id
             referencedColumnName: id
+          inversedBy: customFields
     manyToMany:
     gedmo:
         loggable: true
