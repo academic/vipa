@@ -3,11 +3,11 @@
 
 {% block breadcrumb %}
     {% set list = [
-                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-                { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
 
-] %}
-    {{breadcrumb(list)}}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
@@ -16,20 +16,22 @@
     <h1>Submissions</h1>
 
     <div>
-        <a href="{{path('article_submission_new')}}" class="btn btn-success pull-right"> {{"article.submit"|trans}}</a>
+        <a href="{{ path('article_submission_new') }}"
+           class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
     </div>
     <div class="btn-group">
-        <a class="btn btn-default" href="{{path('article_submissions_me')}}">{{"article.mysubmits"|trans}}</a>
-        {% if isSystemAdmin() or isJournalManager()  %}
-            <a class="btn {% if all %}btn-info{%else%}btn-default{%endif%}" href="{{path('article_submissions_all')}}">{{"article.all"|trans}}</a>
+        <a class="btn btn-default" href="{{ path('article_submissions_me') }}">{{ "article.mysubmits"|trans }}</a>
+        {% if isSystemAdmin() or isJournalManager() %}
+            <a class="btn {% if all %}btn-info{% else %}btn-default{% endif %}"
+               href="{{ path('article_submissions_all') }}">{{ "article.all"|trans }}</a>
         {% endif %}
     </div>
     {%if drafts is defined %}
-        <h3>{{"article.draft.plural"|trans}}</h3>
+        <h3>Drafts</h3>
         <table class="records_list table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>{{"journalid"|trans}}</th>
                     <th>{{"title"|trans}}</th> 
                     <th>{{"actions"|trans}}</th>
@@ -39,54 +41,18 @@
                 {% for entity in drafts %}
                     <tr>
                         <td>
-                            <a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}" class="btn btn-primary">
+                            <a href="#">
                                 {{ entity.id }}
                             </a>
                         </td>
                         <td>{{ entity.journalId }}</td>
-                        <td><a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}">{{ entity.articleData[entity.primaryLanguage]['title'] }}</a></td>
+                        <td>{{ entity.articleData[entity.primaryLanguage]['title'] }}</td>
                         <td><a href="{{path( 'article_submission_resume', {'submissionId':entity.id } ) }}" class="btn btn-primary">Resume</a></td>
 
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    {%endif%}
-
-    <h3>Submitted</h3>
-    <table class="records_list table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>{{"journalid"|trans}}</th>
-                <th>{{"title"|trans}}</th>
-                <th>{{"status"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in submissions %}
-                <tr>
-                    <td>
-                        <a href="{{ path('article_preview', { 'id': entity.id }) }}">
-                            {{ entity.id }}
-                        </a>
-                    </td>
-                    <td>{{ entity.journalId }}</td>
-                    <td><a href="{{ path('article_preview', { 'id': entity.id }) }}">{{ entity.title }}</a></td>
-                    <td style="background: {{ statusColors[entity.status] }}">{{ statusTexts[entity.status] }}</td>
-                    <td>
-                        {% if isSystemAdmin() %}
-                            {% set show_path = 'article_show' %}
-                            {% set edit_path = 'article_edit' %}
-                            {% set delete_path = 'article_delete' %}
-                            {% include '::actionbtns.html.twig' %}
-                        {% endif %}
-
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            <div role="tabpanel" class="tab-pane" id="submissions">
+                <h3>Submitted</h3>
+                {{ grid(submissions) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

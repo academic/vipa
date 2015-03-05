@@ -2,6 +2,13 @@
 
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Document;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\MongoDB\Query\Builder;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -16,52 +23,103 @@ use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
  * Article Submission controller.
  *
  */
-class ArticleSubmissionController extends Controller {
+class ArticleSubmissionController extends Controller
+{
 
     /**
      * Lists all new Article submissions entities.
      */
-    public function indexAction($all = false) {
-        $em = $this->getDoctrine()->getManager();
-        $dm = $this->get('doctrine_mongodb')->getManager();
+    public function indexAction($all = false)
+    {
+
+        $source1 = new Entity('OjsJournalBundle:Article');
+        $ta = $source1->getTableAlias();
+
+        $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
+        $source2->manipulateRow(function(Row $row){
+            if($row->getField('article_data')){
+                $data = $row->getField('article_data');
+                $_d = [];
+                foreach($data as $key=>$value){
+                    $_d[]=$key.": ".$value['title'];
+                }
+                $row->setField('article_data', $_d);
+                return $row;
+            }
+        });
         $user = $this->getUser();
-        if ($all) {
-// all submissions and submission drafts
-            $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0));
-            $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
-                    findBy(array('submitted' => false));
-        } else {
-// just me
-            $submissions = $em->getRepository('OjsJournalBundle:Article')->findBy(array('status' => 0, 'submitterId' => $user->getId()));
-            $drafts = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->
-                    findBy(array('userId' => $user->getId(), 'submitted' => false));
+
+        if($all){
+            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta) {
+                $qb->where(
+                    $qb->expr()->eq($ta . '.status', '0')
+                );
+                return $qb;
+            });
+            $source2->manipulateQuery(function(Builder $query){
+                $query->where("typeof(this.submitted)=='undefined' || this.submitted===false");
+                return $query;
+            });
+        }else{
+            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta,$user) {
+                $qb->where(
+                    $qb->expr()->andX(
+                        $qb->expr()->eq($ta . '.status', '0'),
+                        $qb->expr()->eq($ta . '.submitterId', $user->getId())
+                    )
+                );
+                return $qb;
+            });
+            $source2->manipulateQuery(function(Builder $query)use($user){
+                $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) && this.userId=={$user->getId()}");
+                return $query;
+            });
         }
-        return $this->render('OjsJournalBundle:ArticleSubmission:index.html.twig', array(
-                    'page' => 'submission',
-                    'submissions' => $submissions,
-                    'drafts' => $drafts,
-                    'all' => $all,
-                    'statusColors' => \Ojs\Common\Params\CommonParams::getStatusColors(),
-                    'statusTexts' => \Ojs\Common\Params\CommonParams::getStatusTexts()
-        ));
+        $gridManager = $this->get('grid.manager');
+        $submissionsgrid = $gridManager->createGrid('submission');
+        $drafts = $gridManager->createGrid('drafts');
+        $submissionsgrid->setSource($source1);
+        $drafts->setSource($source2);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('article_show', 'id','ROLE_SUPER_ADMIN');
+        $rowAction[] = ActionHelper::editAction('article_edit', 'id','ROLE_SUPER_ADMIN');
+        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id','ROLE_SUPER_ADMIN');
+        $actionColumn->setRowActions($rowAction);
+        $submissionsgrid->addColumn($actionColumn);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::submissionResumeAction('article_submission_resume', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $drafts->addColumn($actionColumn);
+
+        $data = [ 'page' => 'submission',
+            'submissions' => $submissionsgrid,
+            'drafts' => $drafts,
+            'all' => $all,
+            'statusColors' => \Ojs\Common\Params\CommonParams::getStatusColors(),
+            'statusTexts' => \Ojs\Common\Params\CommonParams::getStatusTexts()];
+        return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig',$data);
+
     }
 
     /**
      * Displays a form to create a new Article entity.
-     * 
-     * @param int $submissionId 
+     *
+     * @param int $submissionId
      */
-    public function newAction() {
+    public function newAction()
+    {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $entity = new Article();
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
-                    'articleId' => NULL,
-                    'entity' => $entity,
-                    'journal' => $journal,
-                    'submissionData' => NULL,
-                    'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                    'citationTypes' => $this->container->getParameter('citation_types')
+            'articleId' => NULL,
+            'entity' => $entity,
+            'journal' => $journal,
+            'submissionData' => NULL,
+            'fileTypes' => ArticleFileParams::$FILE_TYPES,
+            'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
@@ -70,7 +128,8 @@ class ArticleSubmissionController extends Controller {
      * @param string $submissionId
      * @throws 403 Access denied
      */
-    public function resumeAction($submissionId) {
+    public function resumeAction($submissionId)
+    {
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -79,12 +138,12 @@ class ArticleSubmissionController extends Controller {
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
-                    'submissionId' => $articleSubmission->getId(),
-                    'submissionData' => $articleSubmission,
-                    'journal' => $journal,
-                    'fileTypes' => ArticleFileParams::$FILE_TYPES,
-                    'citations' => $articleSubmission->getCitations(),
-                    'citationTypes' => $this->container->getParameter('citation_types')
+            'submissionId' => $articleSubmission->getId(),
+            'submissionData' => $articleSubmission,
+            'journal' => $journal,
+            'fileTypes' => ArticleFileParams::$FILE_TYPES,
+            'citations' => $articleSubmission->getCitations(),
+            'citationTypes' => $this->container->getParameter('citation_types')
         ));
     }
 
@@ -93,7 +152,8 @@ class ArticleSubmissionController extends Controller {
      * @param string $submissionId
      * @throws 403 Access Denied
      */
-    public function previewAction($submissionId) {
+    public function previewAction($submissionId)
+    {
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -105,20 +165,21 @@ class ArticleSubmissionController extends Controller {
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         return $this->render('OjsJournalBundle:ArticleSubmission:preview.html.twig', array(
-                    'submissionId' => $articleSubmission->getId(),
-                    'submissionData' => $articleSubmission,
-                    'journal' => $journal,
-                    'fileTypes' => ArticleFileParams::$FILE_TYPES
+            'submissionId' => $articleSubmission->getId(),
+            'submissionData' => $articleSubmission,
+            'journal' => $journal,
+            'fileTypes' => ArticleFileParams::$FILE_TYPES
         ));
     }
 
     /**
-     * Finish action for an article submission. 
+     * Finish action for an article submission.
      * This action moves article's data from mongodb to mysql
      * @param Request $request
      * @throws 403 Acces Denied
      */
-    public function finishAction(Request $request) {
+    public function finishAction(Request $request)
+    {
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
@@ -126,7 +187,7 @@ class ArticleSubmissionController extends Controller {
         $dm = $this->get('doctrine_mongodb')->getManager();
 
         $em = $this->getDoctrine()->getManager();
-        /* @var  $articleSubmission Ojs\JournalBundle\Document\ArticleSubmissionProgress   */
+        /* @var  $articleSubmission Ojs\JournalBundle\Document\ArticleSubmissionProgress */
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
@@ -140,7 +201,7 @@ class ArticleSubmissionController extends Controller {
 
 // get journal's first workflow step
         $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findOneBy(array('journalid' => $journal->getId(), 'firststep' => true));
+            ->findOneBy(array('journalid' => $journal->getId(), 'firststep' => true));
         if ($firstStep) {
             $reviewStep = new ArticleReviewStep();
             $reviewStep->setArticleId($article->getId());
@@ -153,7 +214,7 @@ class ArticleSubmissionController extends Controller {
                 'citation' => $articleSubmission->getCitations(),
                 'files' => $articleSubmission->getFiles()
             ));
-            
+
             $deadline = new \DateTime();
             $deadline->modify("+" . $firstStep->getMaxdays() . " day");
             $reviewStep->setReviewDeadline($deadline);
@@ -172,10 +233,11 @@ class ArticleSubmissionController extends Controller {
     /**
      * Saves article submission data from mongodb to mysql
      * Article submission data will be kept on mongodb as archive data
-     * @param integer $submissionId 
-     * @return 
+     * @param integer $submissionId
+     * @return
      */
-    private function saveArticleSubmission($articleSubmission, $journal) {
+    private function saveArticleSubmission($articleSubmission, $journal)
+    {
 // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
@@ -201,10 +263,11 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
-     *  
+     *
      * @return Article
      */
-    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang) {
+    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $article = new Article();
@@ -225,30 +288,32 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
-     * 
+     *
      * @param array $articleData
      * @param Article $article
      * @return bool
      */
-    private function saveArticleTranslations($articleData, $article) {
+    private function saveArticleTranslations($articleData, $article)
+    {
         $em = $this->getDoctrine()->getManager();
         $translationRepository = $em->getRepository('Gedmo\\Translatable\\Entity\\Translation');
         foreach ($articleData as $locale => $data) {
             $translationRepository->translate($article, 'title', $locale, $data['title'])
-                    ->translate($article, 'abstract', $locale, $data['abstract'])
-                    ->translate($article, 'keywords', $locale, $data['keywords'])
-                    ->translate($article, 'subjects', $locale, $data['subjects']);
+                ->translate($article, 'abstract', $locale, $data['abstract'])
+                ->translate($article, 'keywords', $locale, $data['keywords'])
+                ->translate($article, 'subjects', $locale, $data['subjects']);
         }
         $em->persist($article);
         return $em->flush();
     }
 
     /**
-     * 
+     *
      * @param array $authors
      * @param \Ojs\JournalBundle\Entity\Article $article
      */
-    private function saveAuthorsData($authors, $article) {
+    private function saveAuthorsData($authors, $article)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($authors as $authorData) {
             $author = new Author();
@@ -272,11 +337,12 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
-     * 
+     *
      * @param array $citations
      * @param Article $article
      */
-    private function saveCitationData($citations, Article $article) {
+    private function saveCitationData($citations, Article $article)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($citations as $citationData) {
             $citation = new Citation();
@@ -305,12 +371,13 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
-     * 
+     *
      * @param array $files
      * @param Article $article
      * @param string $lang
      */
-    private function saveArticleFileData($files, $article, $lang) {
+    private function saveArticleFileData($files, $article, $lang)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($files as $fileData) {
             $file = new \Ojs\JournalBundle\Entity\File();
