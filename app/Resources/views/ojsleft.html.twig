@@ -22,7 +22,6 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
-                    <center>
                         {% if( session('selectedJournalId'))  %}
                             <a 
                                 href="{{ path( 'ojs_journal_index' ,{ 'institution': userjournals[session('selectedJournalId')].institution.slug ,'slug': userjournals[session('selectedJournalId')].slug })}}">
@@ -43,7 +42,6 @@
                                 {%endfor%}
                             {%endif%}
                         </h4>
-                    </center>
                 </div>
                 <div class="panel-collapse collapse in">
                       {% if hasRole('ROLE_AUTHOR')%} 
@@ -52,28 +50,7 @@
                         {{"article.submit"|trans}}
                     </a>
                     {% endif %}
-                        <a class="list-group-item"  href="{{path('dashboard')}}">
-                        <i class="fa fa-dashboard"></i> 
-                        {{"dashboard"|trans}}
-                    </a>
-                    {% if isSystemAdmin() %}
-                        {%set activity_log_path = "eventlog" %}
-                    {%else%}
-                        {%set activity_log_path = "user_eventlog" %}
-                    {% endif %}
-                    <a class="list-group-item"  href="{{path(activity_log_path)}}">
-                        <i class="fa fa-cogs"></i>
-                        {{"Activity Log"|trans}}
-                    </a>
-                </div>
-            </div>
-
-            {% if hasRole('ROLE_AUTHOR')%} 
-                <div class="panel panel-default left-menu-bgcolor">
-                    <div class="panel-heading">
-                        {{"Articles"|trans}}
-                    </div>
-                    <div class="panel-collapse collapse in">
+                    {% if hasRole('ROLE_AUTHOR')%}
                         {% if isSystemAdmin() or isJournalManager()  %}
                             {%set submissions_path = "article_submissions_all" %}
                         {%else%}
@@ -81,16 +58,15 @@
                         {% endif %}
                         <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                             <i class="fa fa-flag"></i>
-                            Submissions
+                            {{"Articles"|trans}}
                         </a>
-
-                        <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> Published</a>
-                        <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> Waiting</a>
-                        <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> Rejected</a>
-                    </div>
+                    {% endif%}
+                    <a class="list-group-item"  href="{{path('dashboard')}}">
+                        <i class="fa fa-dashboard"></i> 
+                        {{"dashboard"|trans}}
+                    </a>
                 </div>
-
-            {% endif%}
+            </div>
             {% if isJournalManager() or isEditor()  %}
 
                 <div class="panel panel-default left-menu-bgcolor">
