@@ -1,28 +1,32 @@
 {% raw %}
-    <hr>
-    <form class="form" role="form">
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"title"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <input name="title" id="titleintput" class="form-control"
-                   placeholder="{% endraw %}{{'article.title'|trans}}{% raw %}" value="{{article_title}}"/>
+    <div class="panel panel-default">
+        <div class="panel-heading">{{ article_locale }}</div>
+        <div class="panel-body">
+            <form class="form" role="form">
+                <div class="form-group">
+                    <label class="control-label">{% endraw %}{{"title"|trans}}{% raw %} <span class="mandotary"></span></label>
+                    <input name="title" class="form-control"
+                           placeholder="{% endraw %}{{'article.title'|trans}}{% raw %}" value="{{article_title}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% endraw %}{{"subtitle"|trans}}{% raw %}</label>
+                    <input name="subtitle" class="form-control"
+                           placeholder="{% endraw %}{{'article.subtitle'|trans}}{% raw %}" value="{{article_subtitle}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% endraw %}{{"keywords"|trans}}{% raw %} <span class="mandotary"></span></label>
+                    <input name="keywords" class="form-control"
+                           placeholder="Comma-seperated keyword list" data-role="tagsinput" value="{{article_keywords}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% endraw %}{{"subjects"|trans}}{% raw %}</label>
+                    <input name="subjects" class="form-control" placeholder="Comma separated subject lists"  value="{{article_subjects}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{% endraw %}{{"abstract"|trans}}{% raw %} <span class="mandotary"></span></label>
+                    <textarea name="abstract" class="editor form-control" rows="6">{{article_abstract}}</textarea>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"subtitle"|trans}}{% raw %}</label>
-            <input name="subtitle" class="form-control" 
-                   placeholder="{% endraw %}{{'article.subtitle'|trans}}{% raw %}" value="{{article_subtitle}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"keywords"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <input name="keywords" class="form-control"
-                   placeholder="Comma-seperated keyword list" data-role="tagsinput" value="{{article_keywords}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"subjects"|trans}}{% raw %}</label>
-            <input name="subjects" class="form-control" placeholder="Comma separated subject lists"  value="{{article_subjects}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"abstract"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <textarea name="abstract" class="editor form-control" rows="6">{{article_abstract}}</textarea>
-        </div>
-    </form>
+    </div>
 {% endraw %}
