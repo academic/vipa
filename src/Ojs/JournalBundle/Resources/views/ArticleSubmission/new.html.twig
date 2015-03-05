@@ -257,7 +257,7 @@
     {% endif %}
         {% endjavascripts %}
 
-        <script>
+        <script type="text/javascript">
             OjsCommon.api.userApikey = "{{app.user.apiKey}}";
             var currentStep = parseInt(window.location.hash.replace("#", ""));
             window.onbeforeunload = function () {
@@ -288,6 +288,8 @@
                         $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
                 {% for key,article in submissionData.articleData %}
                         var params = {
+                            "article_lang_code":"{{languages[key].code}}"
+                            "article_lang_name":"{{languages[key].name}}"
                             "article_title": "{{article.title|raw}}",
                             "article_subtitle": "{{article.subtitle|raw}}",
                             "article_keywords": "{{article.keywords|raw}}",

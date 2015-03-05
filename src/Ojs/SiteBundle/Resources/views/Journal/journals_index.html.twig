@@ -27,7 +27,7 @@
                                     </a>
                                     <span class="badge">{{ institution_type.bucket.doc_count }}</span>
                                     {% if filter['institution'] is defined and filter['institution']==institution_type.data.id %}
-                                        <a href="{{ url('ojs_journals_index',{filter:filter|merge({institution:null})}) }}"><i class="fa fa-close"></i></a>
+                                        <a title="{{ "filter.remove"|trans }}" href="{{ url('ojs_journals_index',{filter:filter|merge({institution:null})}) }}" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></a>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -47,7 +47,7 @@
                                     <span class="badge">{{ subject.bucket.doc_count }}</span>
 
                                     {% if filter['subject'] is defined and filter['subject']==subject.data.id %}
-                                        <a href="{{ url('ojs_journals_index',{filter:filter|merge({subject:null})}) }}"><i class="fa fa-close"></i></a>
+                                        <a title="{{ "filter.remove"|trans }}" href="{{ url('ojs_journals_index',{filter:filter|merge({subject:null})}) }}" class="btn btn-danger btn-xs"><i class="fa fa-close"></i></a>
                                     {% endif %}
                                 </li>
                             {% endfor %}
