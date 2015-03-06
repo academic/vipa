@@ -54,31 +54,6 @@
 
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="fileupload">{{ "Header Image"|trans }}</label>
-                    <div id="preview_image_header" >
-                        {% if entity.header %}
-                            <img src="{{ ('/uploads/userfiles/'~imagePath(entity.header))|imagine_filter("wide_960")}}"
-                                 data-src="holder.js/960x200/random/text:{{entity.username}}" alt="" />
-                            {% set imageoptions=getImageOptions(entity,'header',"wide_960") %}
-                            <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                            <input id="header_width"  name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                            <input id="header_x"  name="header[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="header_y"  name="header[y]" type="hidden" value="{{ imageoptions.y }}"/>
-                        {% endif %}
-
-                    </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('userfiles') }}">
-            </span>
-
-                    <div id="user_header_upload_progress" style="display: none" class="label label-info">
-
-                    </div>
-                </div>
                 <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
                     {{ "e"|trans }}
                 </button>
@@ -110,14 +85,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fileupload').fileupload({});
-            $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#user_header_upload_progress').show();
-                $('#user_header_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#user_header_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_userbundle_user_header').attr('value', JSON.parse(data.result).files.name);
-            });
             $('#fileupload_avatar').fileupload({});
             $('#fileupload_avatar').bind('fileuploadsend', function (e, data) {
                 $('#user_avatar_upload_progress').show();
@@ -148,28 +115,6 @@
                 }
 
             })
-            $("#preview_image_header > img").cropper({
-                aspectRatio: 585/390,
-                maxWidth:585,
-                maxHeight:390,
-
-                {% if  entity.avatar %}
-                {% set imageoptions=getImageOptions(entity,'header',"user_header") %}
-                data:{
-                    x: {{ imageoptions.x }},
-                    y: {{ imageoptions.y }},
-                    height: {{ imageoptions.height }},
-                    width: {{ imageoptions.width }}
-                },
-                {% endif %}
-                done: function(data){
-                    $("#header_height").val(data.height)
-                    $("#header_width").val(data.width)
-                    $("#header_x").val(data.x)
-                    $("#header_y").val(data.y)
-                }
-
-            })
             okulbilisimlocation.bridge('.bridged-dropdown');
 
         });
@@ -188,7 +133,7 @@
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style>
-        #preview_image_avatar,#preview_image_avatar div,#preview_image_header, #preview_image_header div{
+        #preview_image_avatar,#preview_image_avatar div{
             margin: 0 !important;
         }
     </style>
