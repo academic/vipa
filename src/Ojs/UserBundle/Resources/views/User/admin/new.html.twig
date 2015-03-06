@@ -89,14 +89,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#fileupload').fileupload({});
-            $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#user_header_upload_progress').show();
-                $('#user_header_upload_progress').html("{{"uploading"|trans}}");
-            }).bind('fileuploaddone', function (e, data) {
-                $('#user_header_upload_progress').html("{{"done"|trans}}.");
-                $('#ojs_userbundle_user_header').attr('value', JSON.parse(data.result).files.name);
-            });
             $('#fileupload_avatar').fileupload({});
             $('#fileupload_avatar').bind('fileuploadsend', function (e, data) {
                 $('#user_avatar_upload_progress').show();

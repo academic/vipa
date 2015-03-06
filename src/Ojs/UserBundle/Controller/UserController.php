@@ -196,12 +196,9 @@ class UserController extends Controller
             $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
             $entity->setPassword($password);
 
-            $header = $request->request->get('header');
-            $cover = $request->request->get('avatar');
+            $avatar = $request->request->get('avatar');
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header, $entity, 'header');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($cover, $entity, 'avatar');
+            $imageOptions = $ir->init($avatar, $entity, 'avatar');
             $dm->persist($imageOptions);
             $dm->flush();
 
