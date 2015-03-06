@@ -15,7 +15,7 @@
     institution: @institution1
     subject: 5x @subject*
     status: '3'
-    languages: 3x @lang*
+    languages: [@lang1, @lang2]
     
   journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
