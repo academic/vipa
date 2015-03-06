@@ -173,7 +173,8 @@ var OjsArticleSubmission = {
      */
     prepareStep: {
         step1: function () {
-
+            OjsArticleSubmission.configureProgressBar(1);
+            OjsArticleSubmission.showStep(1);
         },
         step2: function () {
             OjsCommon.scrollTop();
