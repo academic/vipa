@@ -22,7 +22,7 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
-                        {% if( session('selectedJournalId'))  %}
+                        {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
                             <a 
                                 href="{{ path( 'ojs_journal_index' ,{ 'institution': userjournals[session('selectedJournalId')].institution.slug ,'slug': userjournals[session('selectedJournalId')].slug })}}">
                                 {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
@@ -44,7 +44,7 @@
                         </h4>
                 </div>
                 <div class="panel-collapse collapse in">
-                    {% if( session('selectedJournalId'))  %}
+                    {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
                         {% set submitButton = 0 %}
                         {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
                             {% if (hasRole(submitRole.role)) and (submitButton == 0) %}
