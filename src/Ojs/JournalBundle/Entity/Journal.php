@@ -275,16 +275,37 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this;
     }
 
+    
+    /**
+     * @param  string $settingName 
+     * @return bool
+     */
+    public function hasSetting($settingName) {
+        foreach ($this->settings as $setting) {
+            if($setting->getSetting() === $settingName ){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      *
      * @param  string $settingName
-     * @return ArticleAttribute|boolean
+     * @return JournalSetting|boolean
      */
-    public function getAttribute($settingName)
-    {
+    public function getSetting($settingName) {
         return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
+    /**
+     *
+     * @param  string $settingName
+     * @return JournalSetting|boolean
+     */
+    public function getAttribute($settingName) {
+        return $this->getSetting($settingName);
+    }
 
     /**
      * @param  \Ojs\JournalBundle\Entity\JournalSection $section
