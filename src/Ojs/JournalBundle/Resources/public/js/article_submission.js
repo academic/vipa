@@ -48,13 +48,13 @@ var OjsArticleSubmission = {
         $el.parents(".author-item").first().remove();
     },
     step1: function (actionUrl) {
-        forms = $("#step1");
+        forms = $("#step1 form");
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
         // prepare post params
         articleParams = false;
         translationParams = [];
         forms.each(function () {
-            data = $("form", this).serializeObject();
+            data = $(this).serializeObject();
             locale = $(this).attr('id');
             data.locale = locale;
             postUrl = actionUrl.replace('locale', locale);
