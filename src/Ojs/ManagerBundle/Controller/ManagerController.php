@@ -25,6 +25,40 @@ class ManagerController extends Controller
                     'form' => $form->createView(),
         ));
     }
+    
+      public function journalSettingsLanguageAction(\Symfony\Component\HttpFoundation\Request $req, $journalId = null)
+    { 
+          $em =  $this->getDoctrine()->getManager();
+          /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        if (!$journalId) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        } else {
+            $journal =$em->
+                            getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
+        $setting = $journal->getSetting('mandotaryLanguages');  
+        if ($req->getMethod() == 'POST' && !empty($req->get('languages'))) { 
+            $settingString = implode(',', $req->get('languages'));
+            if ($setting) {
+                $setting->setValue($settingString);
+            } else {
+                $setting = new \Ojs\JournalBundle\Entity\JournalSetting('mandotaryLanguages', $settingString, $journal);
+            }
+            $em->persist($setting);
+            $em->flush();
+        }
+        $languages = $setting ? function($setting) {
+            $languages = [];
+            foreach (explode(',',$setting) as $item) {
+                $languages[] = $item->getValue();
+            } return $languages;
+        } : [];
+        return $this->render('OjsManagerBundle:Manager:journal_settings_language.html.twig', array(
+                    'journal' => $journal,
+                    'languages' => $languages,
+                    'allLanguages' =>$journal->getLanguages()
+        ));
+    }
 
     public function userIndexAction()
     {
