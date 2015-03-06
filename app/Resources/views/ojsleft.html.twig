@@ -44,7 +44,7 @@
                         </h4>
                 </div>
                 <div class="panel-collapse collapse in">
-                    {% if hasRole('ROLE_AUTHOR')%}
+                    {% if( session('selectedJournalId'))  %}
                         {% set submitButton = 0 %}
                         {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
                             {% if (hasRole(submitRole.role)) and (submitButton == 0) %}
