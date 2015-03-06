@@ -5,27 +5,27 @@
         <h2 class="panel-title">{{ lang.name }} <span class="badge">{{lang.code}}</span></h2>
     </div>
     <div class="panel-body">
-        <form class="form" role="form">
+        <form class="form" role="form" id="{{lang.code}}">
             <div class="form-group">
                 <label class="control-label">{{"title"|trans}} <span class="mandotary"></span></label>
                 <input name="title" class="form-control"
-                       placeholder="{{'article.title'|trans}}" value=" {%if article is defined %}{{article.title}}{%endif%}"/>
+                       placeholder="{{'article.title'|trans}}" value="{%if article is defined %}{{article.title}}{%endif%}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">{{"subtitle"|trans}}</label>
                 <input name="subtitle" class="form-control"
-                       placeholder="{{'article.subtitle'|trans}}" value=" {%if article is defined %}{{article.subtitle}}{%endif%}"/>
+                       placeholder="{{'article.subtitle'|trans}}" value="{%if article is defined %}{{article.subtitle}}{%endif%}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">{{"keywords"|trans}} <span class="mandotary"></span></label>
                 <input name="keywords" class="form-control input-xs"
                        placeholder="Comma-seperated keyword list" data-role="tagsinput" 
-                       value=" {%if article is defined %}{{article.keywords}}{%endif%}"/>
+                       value="{%if article is defined %}{{article.keywords}}{%endif%}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">{{"subjects"|trans}}</label>
                 <input name="subjects" class="form-control" placeholder="Comma separated subject lists"  
-                       value=" {%if article is defined %}{{article.subjects}}{%endif%}"/>
+                       value="{%if article is defined %}{{article.subjects}}{%endif%}"/>
             </div>
             <div class="form-group">
                 <label class="control-label">{{"abstract"|trans}} <span class="mandotary"></span></label>

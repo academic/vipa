@@ -66,8 +66,8 @@
                         <br>
                             <div id="step1">
                                 {% for lang in  journal.languages %}
-                                    {%if article is defined %}
-                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':article,'lang':lang } %}
+                                    {%if submissionData  is defined %}
+                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':submissionData.articleData[lang.code],'lang':lang } %}
                                     {%else%}
                                         {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'lang':lang } %}
                                     {% endif %}
@@ -275,18 +275,6 @@
                 Load submission steps with data
                 #}
                         $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-                {% for key,article in submissionData.articleData %}
-                        var params = {
-                            "article_lang_code":"{{languages[key].code}}"
-                                    "article_lang_name":"{{languages[key].name}}"
-                                    "article_title": "{{article.title|raw}}",
-                                    "article_subtitle": "{{article.subtitle|raw}}",
-                                    "article_keywords": "{{article.keywords|raw}}",
-                                    "article_subjects": "{{article.subjects|raw}}",
-                                    "article_abstract": "{{article.abstract|raw}}"
-                        };
-
-                {% endfor %}
                         OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
                 });
