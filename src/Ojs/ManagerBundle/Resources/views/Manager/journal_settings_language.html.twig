@@ -11,19 +11,13 @@
 {% endblock %}
 
 {% block body -%}
-
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':3} only %}
     <div class="large-12 columns">
-        <div class="panel">
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active">
-                    <a href="#">{{ "journal.settings.language"|trans }}</a>
-                </li> 
-            </ul>
-                <br>
-                <form class="form" method="POST">
-                    <div class="form-group">
-                        <span>Select mandotary languages for article submitting</span>
-                    </div>
+        <div class="panel"> 
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <span>Select mandotary languages for article submitting</span>
+                </div>
                 <div class="form-group">
                     {% for lang in mandotaryLanguages %}
                         <span class="badge">{{lang}}</span>
@@ -38,9 +32,9 @@
                         {%endfor%}
                     </select>
                 </div>
-                    <div class="form-group">
-                        <button class="btn btn-default" type="submit">{{"submit"|trans}}</button>
-                    </div>
+                <div class="form-group">
+                    <button class="btn btn-default" type="submit">{{"submit"|trans}}</button>
+                </div>
             </form>
         </div>
     </div>

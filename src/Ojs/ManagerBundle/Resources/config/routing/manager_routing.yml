@@ -2,12 +2,12 @@ manager_journal_users:
     pattern:  /users
     defaults: { _controller: OjsManagerBundle:Manager:users }
     
-manager_journal_settings:
+manager_journal_language_settings:
     pattern:  /journal/{journalId}/settings/language
     defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage } 
     
 
-manager_current_journal_settings:
+manager_current_journal_language_settings:
     pattern:  /journal/settings/language
     defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage } 
     
