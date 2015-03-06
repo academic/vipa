@@ -3,15 +3,17 @@
 namespace Ojs\JournalBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds resumable article submission data
  * @MongoDb\Document(collection="article_submission_progress")
+ * @GRID\Source(columns="id,journal_id,article_data")
  */
 class ArticleSubmissionProgress
 {
     /**
      * @MongoDb\Id
+     * @GRID\Column(title="id")
      */
     protected $id;
 
@@ -35,6 +37,7 @@ class ArticleSubmissionProgress
 
     /**
      * @MongoDb\Int
+     * @GRID\Column(title="journalid",type="text")
      */
     protected $journal_id;
 
@@ -52,6 +55,7 @@ class ArticleSubmissionProgress
     /**
      * article data with locale key  array("en"=> [an array of article data for locale "en"], "tr"=> [...])
      * @MongoDB\Hash
+     * @GRID\Column(title="title",type="array")
      */
     protected $article_data;
 

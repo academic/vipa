@@ -189,6 +189,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
+     */
+    private $submitRoles;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $sections;
 
@@ -237,6 +243,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->submitRoles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -264,20 +271,41 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function addSetting($settingName, $value)
     {
-        $this->settings[$settingName] = new ArticleAttribute($settingName, $value, $this);
+        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
         return $this;
+    }
+
+    
+    /**
+     * @param  string $settingName 
+     * @return bool
+     */
+    public function hasSetting($settingName) {
+        foreach ($this->settings as $setting) {
+            if($setting->getSetting() === $settingName ){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      *
      * @param  string $settingName
-     * @return ArticleAttribute|boolean
+     * @return JournalSetting|boolean
      */
-    public function getAttribute($settingName)
-    {
+    public function getSetting($settingName) {
         return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
+    /**
+     *
+     * @param  string $settingName
+     * @return JournalSetting|boolean
+     */
+    public function getAttribute($settingName) {
+        return $this->getSetting($settingName);
+    }
 
     /**
      * @param  \Ojs\JournalBundle\Entity\JournalSection $section
@@ -355,6 +383,32 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getLanguages()
     {
         return $this->languages;
+    }
+
+    /**
+     * @param  \Ojs\UserBundle\Entity\Role $submitRole
+     * @return Journal
+     */
+    public function addSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
+    {
+        $this->submitRoles[] = $submitRole;
+        return $this;
+    }
+
+    /**
+     * @param \Ojs\UserBundle\Entity\Role $submitRole
+     */
+    public function removeSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
+    {
+        $this->submitRoles->removeElement($submitRole);
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubmitRoles()
+    {
+        return $this->submitRoles;
     }
 
     /**
@@ -925,7 +979,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add articles
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $articles
+     * @param  \Ojs\JournalBundle\Entity\Article $article
      * @return Journal
      */
     public function addArticle(\Ojs\JournalBundle\Entity\Article $article)

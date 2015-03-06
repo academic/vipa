@@ -1,0 +1,11 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" class="{% if active == 1%}active{% endif%}">
+        <a href="{{ url('manager_current_journal_settings') }}">{{ "journal.edit"|trans }}</a>
+    </li>
+    <li role="presentation"  class="{% if active == 2%}active{% endif%}">
+        <a href="{{ url('admin_journalindex') }}">{{ "journal.indexes"|trans }}</a>
+    </li>
+    <li role="presentation"  class="{% if active == 3%}active{% endif%}">
+        <a href="{{ url('manager_current_journal_language_settings') }}">{{ "journal.settings.language"|trans }}</a>
+    </li>
+</ul>

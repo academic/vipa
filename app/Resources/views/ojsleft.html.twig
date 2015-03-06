@@ -22,8 +22,7 @@
             </div>
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading  text-center">
-                    <center>
-                        {% if( session('selectedJournalId'))  %}
+                        {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
                             <a 
                                 href="{{ path( 'ojs_journal_index' ,{ 'institution': userjournals[session('selectedJournalId')].institution.slug ,'slug': userjournals[session('selectedJournalId')].slug })}}">
                                 {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
@@ -43,37 +42,22 @@
                                 {%endfor%}
                             {%endif%}
                         </h4>
-                    </center>
                 </div>
                 <div class="panel-collapse collapse in">
-                      {% if hasRole('ROLE_AUTHOR')%} 
-                    <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
-                        <i class="fa fa-plus-circle"></i> 
-                        {{"article.submit"|trans}}
-                    </a>
+                    {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
+                        {% set submitButton = 0 %}
+                        {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
+                            {% if (hasRole(submitRole.role)) and (submitButton == 0) %}
+                                <a id="summissionLinkLeft" class="list-group-item list-group-item-success"  href="{{path('article_submission_new')}}">
+                                    <i class="fa fa-plus-circle"></i>
+                                    {{"article.submit"|trans}}
+                                </a>
+                                {% set submitButton = 1 %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                        <a class="list-group-item"  href="{{path('dashboard')}}">
-                        <i class="fa fa-dashboard"></i> 
-                        {{"dashboard"|trans}}
-                    </a>
-                    {% if isSystemAdmin() %}
-                        {%set activity_log_path = "eventlog" %}
-                    {%else%}
-                        {%set activity_log_path = "user_eventlog" %}
-                    {% endif %}
-                    <a class="list-group-item"  href="{{path(activity_log_path)}}">
-                        <i class="fa fa-cogs"></i>
-                        {{"activity_log"|trans}}
-                    </a>
-                </div>
-            </div>
 
-            {% if hasRole('ROLE_AUTHOR')%} 
-                <div class="panel panel-default left-menu-bgcolor">
-                    <div class="panel-heading">
-                        {{"articles"|trans}}
-                    </div>
-                    <div class="panel-collapse collapse in">
+                    {% if hasRole('ROLE_AUTHOR')%}
                         {% if isSystemAdmin() or isJournalManager()  %}
                             {%set submissions_path = "article_submissions_all" %}
                         {%else%}
@@ -81,15 +65,16 @@
                         {% endif %}
                         <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                             <i class="fa fa-flag"></i>
-                            {{"submissions"|trans}}
-                        </a>
-                    <a class="list-group-item list-group-item-success" href="#"><i class="fa fa-check-circle"></i> {{"published"|trans}}</a>
-                    <a class="list-group-item list-group-item-warning" href="#"><i class="fa fa-clock-o"></i> {{"waiting"|trans}}</a>
-                    <a class="list-group-item list-group-item-danger" href="#"><i class="fa fa-exclamation-circle"></i> {{"rejected"|trans}}</a>
-                    </div>
-                </div>
 
-            {% endif%}
+                            {{"Articles"|trans}}
+                        </a>
+                    {% endif%}
+                    <a class="list-group-item"  href="{{path('dashboard')}}">
+                        <i class="fa fa-dashboard"></i> 
+                        {{"dashboard"|trans}}
+                    </a>
+                </div>
+            </div>
             {% if isJournalManager() or isEditor()  %}
 
                 <div class="panel panel-default left-menu-bgcolor">
@@ -119,10 +104,6 @@
                             <a class="list-group-item"  href="{{path('ojs_review_forms')}}">
                                 <i class="fa fa-cog"></i> 
                                 {{"review.forms"|trans}}
-                            </a>
-                            <a class="list-group-item"  href="{{path('dashboard')}}">
-                                <i class="fa fa-th"></i> 
-                                {{"journal.users"|trans}}
                             </a>
                             <a class="list-group-item"  href="{{path('reports_index')}}">
                                 <i class="fa fa-th"></i> 

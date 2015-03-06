@@ -4,6 +4,7 @@ namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
+use \Symfony\Component\HttpFoundation\Request;
 
 class ManagerController extends Controller
 {
@@ -23,6 +24,43 @@ class ManagerController extends Controller
         return $this->render('OjsManagerBundle:Manager:journal_settings.html.twig', array(
                     'journal' => $journal,
                     'form' => $form->createView(),
+        ));
+    }
+    
+      public function journalSettingsLanguageAction(Request $req, $journalId = null)
+    { 
+          $settingName = 'mandotaryLanguages';
+          $em =  $this->getDoctrine()->getManager();
+          /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        if (!$journalId) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        } else {
+            $journal =$em->
+                            getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
+        $setting = $em->
+                getRepository('OjsJournalBundle:JournalSetting')->
+                findOneBy(array('journal' => $journal, 'setting' => $settingName));
+        if ($req->getMethod() == 'POST' && !empty($req->get('languages'))) {
+            $settingString = implode(',', $req->get('languages'));
+            if ($setting) {
+                $setting->setValue($settingString);
+            } else {
+                $setting = new \Ojs\JournalBundle\Entity\JournalSetting($settingName, $settingString, $journal);
+            }
+            $em->persist($setting);
+            $em->flush();
+        } 
+        $languages = [];
+        if ($setting) {
+            foreach (explode(',', $setting->getValue()) as $item) {
+                $languages[] = $item;
+            }
+        }
+        return $this->render('OjsManagerBundle:Manager:journal_settings_language.html.twig', array(
+                    'journal' => $journal,
+                    'mandotaryLanguages' => $languages,
+                    'allLanguages' =>$journal->getLanguages()
         ));
     }
 

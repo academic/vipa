@@ -12,14 +12,16 @@ namespace Ojs\UserBundle\EventListener;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use \Ojs\Common\Params\UserEventLogParams;
 
 class UserSubscriber implements EventSubscriberInterface
 {
-    private $container;
+    private $container,$em;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container,\Doctrine\ORM\EntityManager $em)
     {
         $this->container = $container;
+        $this->em = $em;
     }
 
     public static function getSubscribedEvents()
@@ -56,6 +58,17 @@ class UserSubscriber implements EventSubscriberInterface
             )
             ->setContentType('text/html');
         $mailer->send($message);
+
+        try{
+            //log as eventlog
+            $eventLog = new \Ojs\UserBundle\Entity\EventLog();
+            $eventLog->setEventInfo(UserEventLogParams::$PASSWORD_CHANGE);
+            $eventLog->setIp($this->container->get('request')->getClientIp());
+            $eventLog->setUserId($event->getUser()->getId());
+            $this->em->persist($eventLog);
+
+            $this->em->flush();
+        }catch (Exception $e){}
     }
     public function onPasswordReset(UserEvent $event)
     {

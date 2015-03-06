@@ -1,3 +1,7 @@
+ojs_journal_admin_journalindex:
+    resource: "@OjsJournalBundle/Resources/config/routing/journalindex.yml"
+    prefix:   /admin/journalindex
+
 ojs_journal_articlefile:
     resource: "@OjsJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile
@@ -63,6 +67,9 @@ article_preview:
     
 ojs_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/articlesubmission.yml"
+
+ojs_journal_setup:
+    resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
 
 ojs_author_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/author.yml"

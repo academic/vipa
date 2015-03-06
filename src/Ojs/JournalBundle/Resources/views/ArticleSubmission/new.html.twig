@@ -18,7 +18,7 @@
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
-                <li id="submission-progress-step1" class="active"><a href="#"><span class="badge">1</span> {{ "article.singular"|trans }}</a></li>
+                <li id="submission-progress-step1" class="active"><a href="#1"><span class="badge">1</span> {{ "article.singular"|trans }}</a></li>
                 <li id="submission-progress-step2"><a href="#2"><span class="badge">2</span> {{ "author.plural"|trans }}</a></li>
                 <li id="submission-progress-step3"><a href="#3"><span class="badge">3</span> {{ "article.citations"|trans }}</a></li>
                 <li id="submission-progress-step4"><a href="#4"><span class="badge">4</span>  {{ "article.files"|trans }}</a></li>
@@ -56,34 +56,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.languages"|trans }}</label></div>
 
-                    <div class="col-md-9 col-xs-12">
-                        <ul id="mainTabs" class="nav nav-tabs" role="tablist">
-                            <li class="lang dropdown">
-                                <a href="#" id="languageDrop" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-plus"></i> {{ "add.language"|trans }} <span class="caret"></span>
-                                </a>
-                                <ul id="languageDropList" class="dropdown-menu" role="menu" aria-labelledby="languageDrop">
-                                    {% for lang in  journal.languages %}
-                                        <li>
-                                            <a href="#" id="langitem_{{ lang.code }}"
-                                               code="{{ lang.code }}" lang="{{ lang.name }}" tabindex="-1">
-                                                {{ lang.name }}
-                                                <small>({{ lang.code }})</small>
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                        </ul>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.metadata"|trans }}</label></div>
+                    <div class="col-md-9 col-xs-12"> 
 
-                        <!-- Tab panes -->
 
-                        <div class="tab-content" id="step1">
-
-                        </div>
-
+                        <div class="btn-group clear">
+                            {% for lang in  journal.languages %} 
+                                <a class="btn btn-xs btn-link" onclick="OjsArticleSubmission.step1ScrollToLangPanel('{{lang.code}}')">{{lang.name}}</a>
+                            {%endfor%}
+                        </div> 
+                        <br>
+                            <div id="step1">
+                                {% for lang in  journal.languages %}
+                                    {%if submissionData  is defined and submissionData.articleData is defined %}
+                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':submissionData.articleData[lang.code],'lang':lang } %}
+                                    {%else%}
+                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'lang':lang } %}
+                                    {% endif %}
+                                {% endfor %} 
+                            </div>
                     </div>
                 </div>
                 <div class="row">
@@ -223,9 +215,6 @@
 
 
 
-    <script id="step1_tpl" type="x-tmpl-mustache">
-        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' %}
-    </script>
 
     <script id="step2_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
@@ -264,7 +253,7 @@
     {% endif %}
         {% endjavascripts %}
 
-        <script>
+        <script type="text/javascript">
             OjsCommon.api.userApikey = "{{app.user.apiKey}}";
             var currentStep = parseInt(window.location.hash.replace("#", ""));
             window.onbeforeunload = function () {
@@ -293,17 +282,6 @@
                 Load submission steps with data
                 #}
                         $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-                {% for key,article in submissionData.articleData %}
-                        var params = {
-                            "article_title": "{{article.title|raw}}",
-                            "article_subtitle": "{{article.subtitle|raw}}",
-                            "article_keywords": "{{article.keywords|raw}}",
-                            "article_subjects": "{{article.subjects|raw}}",
-                            "article_abstract": "{{article.abstract|raw}}"
-                        };
-                        OjsArticleSubmission.step1AddLanguageForm("{{languages[key].code}}", "{{languages[key].name}} ", params);
-                {% endfor %}
-
                         OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
                 });

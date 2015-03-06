@@ -26,6 +26,7 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["ALL"]
             indexBy: setting
+            fetch: EXTRA_LAZY
         articles:
           targetEntity: Article
           mappedBy: journal
@@ -60,6 +61,17 @@ Ojs\JournalBundle\Entity\Journal:
                   journal_id:
                     referencedColumnName: id
                 name: Journal_Language
+              fetch: EXTRA_LAZY
+        submitRoles:
+              targetEntity: Ojs\UserBundle\Entity\Role
+              joinTable:
+                inverseJoinColumns:
+                  role_id:
+                    referencedColumnName: id
+                joinColumns:
+                  journal_id:
+                    referencedColumnName: id
+                name: Journal_Submit_Role
               fetch: EXTRA_LAZY
         subjects:
             targetEntity: Subject

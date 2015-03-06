@@ -1,28 +1,38 @@
-{% raw %}
-    <hr>
-    <form class="form" role="form">
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"title"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <input name="title" id="titleintput" class="form-control"
-                   placeholder="{% endraw %}{{'article.title'|trans}}{% raw %}" value="{{article_title}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"subtitle"|trans}}{% raw %}</label>
-            <input name="subtitle" class="form-control" 
-                   placeholder="{% endraw %}{{'article.subtitle'|trans}}{% raw %}" value="{{article_subtitle}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"keywords"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <input name="keywords" class="form-control"
-                   placeholder="{% endraw %}{{'comma_keyword_list'|trans}}{% raw %}" data-role="tagsinput" value="{{article_keywords}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"subjects"|trans}}{% raw %}</label>
-            <input name="subjects" class="form-control" placeholder="{% endraw %}{{'comma_subject_list'|trans}}{% raw %}"  value="{{article_subjects}}"/>
-        </div>
-        <div class="form-group">
-            <label class="control-label">{% endraw %}{{"abstract"|trans}}{% raw %} <span class="mandotary"></span></label>
-            <textarea name="abstract" class="editor form-control" rows="6">{{article_abstract}}</textarea>
-        </div>
-    </form>
-{% endraw %}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="#lang_{{lang.code}}" id="lang_{{lang.code}}" name="lang_{{lang.code}}"></a>
+        <h2 class="panel-title">{{ lang.name }} <span class="badge">{{lang.code}}</span></h2>
+    </div>
+    <div class="panel-body">
+        <form class="form" role="form" id="{{lang.code}}">
+            <div class="form-group">
+                <label class="control-label">{{"title"|trans}} <span class="mandotary"></span></label>
+                <input name="title" class="form-control"
+                       placeholder="{{'article.title'|trans}}" value="{%if article is defined %}{{article.title}}{%endif%}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">{{"subtitle"|trans}}</label>
+                <input name="subtitle" class="form-control"
+                       placeholder="{{'article.subtitle'|trans}}" value="{%if article is defined %}{{article.subtitle}}{%endif%}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">{{"keywords"|trans}} <span class="mandotary"></span></label>
+                <input name="keywords" class="form-control input-xs"
+                       placeholder="Comma-seperated keyword list" data-role="tagsinput" 
+                       value="{%if article is defined %}{{article.keywords}}{%endif%}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">{{"subjects"|trans}}</label>
+                <input name="subjects" class="form-control" placeholder={{'comma_subject_list'|trans}} 
+                       value="{%if article is defined %}{{article.subjects}}{%endif%}"/>
+            </div>
+            <div class="form-group">
+                <label class="control-label">{{"abstract"|trans}} <span class="mandotary"></span></label>
+                <textarea name="abstract" class="editor form-control" rows="6">{%if article is defined %}{{article.abstract}}{%endif%}</textarea>
+            </div>
+        </form>
+    </div>
+</div>
+

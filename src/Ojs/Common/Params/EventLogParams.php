@@ -16,7 +16,8 @@ class EventLogParams
             ProxyEventLogParams::$PROXY_DROP,
             UserEventLogParams::$USER_ADD,
             UserEventLogParams::$USER_LOGIN,
-            UserEventLogParams::$USER_LOGOUT
+            UserEventLogParams::$USER_LOGOUT,
+            UserEventLogParams::$PASSWORD_CHANGE,
         );
     }
 
@@ -30,7 +31,8 @@ class EventLogParams
             ProxyEventLogParams::$PROXY_CREATE,
             ProxyEventLogParams::$PROXY_DROP,
             UserEventLogParams::$USER_LOGIN,
-            UserEventLogParams::$USER_LOGOUT
+            UserEventLogParams::$USER_LOGOUT,
+            UserEventLogParams::$PASSWORD_CHANGE,
         );
     }
 
@@ -44,7 +46,8 @@ class EventLogParams
             ProxyEventLogParams::$PROXY_CREATE,
             ProxyEventLogParams::$PROXY_DROP,
             UserEventLogParams::$USER_LOGIN,
-            UserEventLogParams::$USER_LOGOUT
+            UserEventLogParams::$USER_LOGOUT,
+            UserEventLogParams::$PASSWORD_CHANGE,
         );
     }
 
@@ -54,7 +57,8 @@ class EventLogParams
             ProxyEventLogParams::$PROXY_CREATE,
             ProxyEventLogParams::$PROXY_DROP,
             UserEventLogParams::$USER_LOGIN,
-            UserEventLogParams::$USER_LOGOUT
+            UserEventLogParams::$USER_LOGOUT,
+            UserEventLogParams::$PASSWORD_CHANGE,
         );
     }
 }

@@ -24,8 +24,10 @@
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "journal.edit"|trans }}</h1>
 
+<div class="large-12 columns">
+    <div class="panel">
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':1} only %}
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
@@ -114,7 +116,8 @@
         </button>
     </div>
     {{ form_end(form) }}
-
+</div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -177,7 +180,6 @@
                 aspectRatio: 200 / 300,
                 maxWidth: 200,
                 maxHeight: 300,
-                {% if  entity.header %}
                 {% set imageoptions=getImageOptions(entity,'cover','journal_cover') %}
                 data: {
                     x: {{ imageoptions.x }},
@@ -185,7 +187,6 @@
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                {% endif %}
                 done: function (data) {
                     $("#cover_height").val(data.height);
                     $("#cover_width").val(data.width);

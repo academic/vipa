@@ -2,7 +2,6 @@ ojs_notifier:
     resource: "@OjsNotifierBundle/Resources/config/routing.yml"
     prefix:   /
 
-
 ojs_installer:
     resource: "@OjsInstallerBundle/Resources/config/routing.yml"
     prefix:   /

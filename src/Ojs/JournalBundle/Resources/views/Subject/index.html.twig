@@ -2,7 +2,12 @@
 
 {% block body -%}
     <h1>{{"subject.list"|trans}}</h1>
+    <a href="#" onclick="$('.grid').toggle();
+            $('.tree').toggle();
+            return false;" class="btn btn-info btn-sm">Toggle Tree</a>
+    <hr>
     {{grid(grid)}}
+    <div class="tree" style="display:none">{{htmlTree|raw}}</div>
     <div>
         <a href="{{ path('subject_new') }}" class="btn btn-success">
             {{"c"|trans}}

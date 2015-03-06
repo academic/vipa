@@ -93,36 +93,33 @@
                                     <span> <i class="caret"></i></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <!-- User image --> 
                                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                         <li>
-                                            <a href="/dashboard"><i class="fa fa-shield"></i> {{"dashboard"|trans}}</a>
+                                            <a href="/dashboard" title="{{"dashboard"|trans}}"><i class="fa fa-shield"></i> {{"dashboard"|trans}}</a>
                                         </li>
                                     {%endif%}
-                                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                        <li>
-                                            <a class="btn btn-link" href="/?_su=_exit"><i class="fa fa-sign-out"></i> {{"log_out_from_user"|trans}}</a>
-                                        </li>
-                                    {%endif%}
-                                    <!-- Menu Footer-->
+
                                     <li>
                                         <a href="{{path('ojs_user_index')}}">
                                             <i class="fa fa-cog"></i> {{"user_page"|trans}}</a>
                                     </li>
                                     <li>
                                         <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
-                                            <i class="fa fa-edit">{{"Edit_Profile"|trans}}</i>
+
+                                            <i class="fa fa-edit"> {{"Edit Profile"|trans}}</i>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('logout') }}">
-                                            <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
                                     </li>
 
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{path('user_my_proxy_parents')}}">{{"proxy_users"|trans}}</a>
                                     </li>
+                                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                        <li>
+                                            <a class="btn btn-link" href="/?_su=_exit" title=""><i class="fa fa-sign-out"></i> {{"log_out_from_user"|trans}}</a>
+                                        </li>
+                                    {%endif%}
+
                                     {% if userclients() %}
 
                                         <li>
@@ -143,6 +140,22 @@
                                     <li class="divider"></li>
                                     <li> 
                                         <a><small>{{"proxy.lastlogin"|trans}} : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small></a>
+                                    </li>
+                                    <li>
+                                        {% if isSystemAdmin() %}
+                                            {%set activity_log_path = "eventlog" %}
+                                        {%else%}
+                                            {%set activity_log_path = "user_eventlog" %}
+                                        {% endif %}
+                                        <a href="{{path(activity_log_path)}}" title="{{"activity.log"|trans}}">
+                                            <i class="fa fa-cogs"></i>
+                                            {{"activity.log"|trans}}
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{{ path('logout') }}">
+                                            <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
                                     </li>
                                 </ul> 
                             </li>
