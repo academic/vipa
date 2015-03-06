@@ -979,3 +979,5 @@ a.vimeo:hover * { color:#FFF; }
 .grid-row-actions{ margin: 0; width: auto;
     padding: 0;}
 .grid-row-actions li{ float: left; list-style-type: none}
+
+.select2-container.select2-container-multi.form-control{height: auto!important;}
