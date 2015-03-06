@@ -26,6 +26,7 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
             cascade: ["ALL"]
             indexBy: setting
+            fetch: EXTRA_LAZY
         articles:
           targetEntity: Article
           mappedBy: journal

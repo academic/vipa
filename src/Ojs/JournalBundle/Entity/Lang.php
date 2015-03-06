@@ -122,4 +122,7 @@ class Lang extends GenericExtendedEntity
         return $this->rtl;
     }
 
+    public function __toString() {
+        return $this->name;
+    }
 }

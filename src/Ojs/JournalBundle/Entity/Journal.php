@@ -271,7 +271,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function addSetting($settingName, $value)
     {
-        $this->settings[$settingName] = new ArticleAttribute($settingName, $value, $this);
+        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
         return $this;
     }
 
@@ -979,7 +979,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add articles
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $articles
+     * @param  \Ojs\JournalBundle\Entity\Article $article
      * @return Journal
      */
     public function addArticle(\Ojs\JournalBundle\Entity\Article $article)

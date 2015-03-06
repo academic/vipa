@@ -1,0 +1,49 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal'), 'title': 'journal.manager'|trans},
+    { 'title': 'journal.update'|trans},
+
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+
+    <div class="large-12 columns">
+        <div class="panel">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#">{{ "journal.settings.language"|trans }}</a>
+                </li> 
+            </ul>
+                <br>
+                <form class="form" method="POST">
+                    <div class="form-group">
+                        <span>Select mandotary languages for article submitting</span>
+                    </div>
+                <div class="form-group">
+                    {% for lang in languages %}
+                        <span class="badge">{{lang}}</span>
+                    {%endfor%}
+                </div>
+                <div class="form-group">
+                    <select name="languages[]" class="select2-element" style="min-width: 200px" multiple>
+                        {% for lang in allLanguages %}
+                            <option value="{{lang.code}}" {% if lang.code in languages|keys  %}selected{%endif%}>
+                                {{lang.name}}
+                            </option>
+                        {%endfor%}
+                    </select>
+                </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" type="submit">{{"submit"|trans}}</button>
+                    </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
