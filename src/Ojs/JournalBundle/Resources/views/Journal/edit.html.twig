@@ -27,14 +27,7 @@
 
 <div class="large-12 columns">
     <div class="panel">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active">
-                <a href="#">{{ "journal.edit"|trans }}</a>
-            </li>
-            <li role="presentation">
-                <a href="{{ url('admin_journalindex') }}">{{ "journal.indexes"|trans }}</a>
-            </li>
-        </ul>
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':1} only %}
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
