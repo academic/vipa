@@ -27,7 +27,27 @@ journal.show tpl for super admin users
                     </tr>
                     <tr>
                         <th>{{"title"|trans}}</th>
-                        <td>{{ entity.title }}</td>
+                        <td>
+                            {{ entity.title }}
+                            <div class="btn-group">
+                                <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                                   href="http://scholar.google.com.tr/scholar?q={{ entity.title|url_encode }}">
+                                    <i class="fa fa-google"></i>
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+                                   href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ entity.title|url_encode }}&cmd=search">
+                                    PubMed
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.doaj"|trans }}"
+                                   href="http://doaj.org/search?source={%raw%}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{%endraw%}{{ entity.title|url_encode }}{%raw%}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{%endraw%}">
+                                    Doaj
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.crossref"|trans }}"
+                                   href="http://www.crossref.org/titleList/?datatype=journals&search=title&view_records=Search&datatype=journals&search=title&jt=&offset=&rescount=7&journal={{ entity.title }}">
+                                    Crossref
+                                </a>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <th>{{"titleabbr"|trans}}</th>
