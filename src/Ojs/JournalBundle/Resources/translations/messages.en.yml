@@ -350,3 +350,5 @@ journal.createdAt: Created at
 journal.user: User
 journal.merge_as_new_journal: Merge As New Journal
 dashboard.suggestion: "Suggestions"
+setup.step: 'Step number'
+save.finish: 'Save & Finish'

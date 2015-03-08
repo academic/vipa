@@ -336,3 +336,5 @@ journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 dashboard.suggestion: "Öneriler"
+setup.step: 'number. Adım'
+save.finish: 'Kaydet ve Bitir'
