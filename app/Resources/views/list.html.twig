@@ -166,7 +166,7 @@
     {% if pagerfanta %}
         {{ grid_pagerfanta(grid) }}
     {% else %}
-        <div class="pager" style="float:left">
+        <div class="pager form-inline">
             {{ grid_pager_totalcount(grid) }}
             {{ grid_pager_selectpage(grid) }}
             {{ grid_pager_results_perpage(grid) }}
@@ -181,15 +181,21 @@
 {% block grid_pager_selectpage %}
     {{ 'Page'|trans }}
     {% spaceless %}
-        <input type="button" class="prev" {% if grid.page <= 0 %}disabled="disabled"{% endif %} value="<" onclick="return {{ grid.hash }}_previousPage();"/>
-        <input type="text" class="current" value="{{ grid.page + 1 }}" size="2" onkeypress="return {{ grid.hash }}_enterPage(event, parseInt(this.value)-1);"/>
-        <input type="button" value=">" class="next" {% if grid.page >= grid.pageCount-1 %}disabled="disabled"{% endif %} onclick="return {{ grid.hash }}_nextPage();"/> {{ 'of %count%'|trans({ '%count%' : grid.pageCount }) }}
+        <div class="input-group">
+            <span class="input-group-btn">
+                <input type="button" class="prev btn btn-default" {% if grid.page <= 0 %}disabled="disabled"{% endif %} value="&laquo;" onclick="return {{ grid.hash }}_previousPage();"/>
+            </span>
+            <input type="text" class="current form-control" value="{{ grid.page + 1 }}" size="2" onkeypress="return {{ grid.hash }}_enterPage(event, parseInt(this.value)-1);"/>
+            <span class="input-group-btn">
+                <input type="button" value="&raquo;" class="next btn btn-default" {% if grid.page >= grid.pageCount-1 %}disabled="disabled"{% endif %} onclick="return {{ grid.hash }}_nextPage();"/> {{ 'of %count%'|trans({ '%count%' : grid.pageCount }) }}
+            </span>
+        </div>
     {% endspaceless %}
 {% endblock grid_pager_selectpage %}
 {# ---------------------------------------------------- grid_pager_results_perpage -------------------------------------------------- #}
 {% block grid_pager_results_perpage %}
     {{ ', Display'|trans }}
-    <select onchange="return {{ grid.hash }}_resultsPerPage(this.value);">
+    <select class="form-control" onchange="return {{ grid.hash }}_resultsPerPage(this.value);">
         {% for key, value in grid.limits %}
             <option value="{{ key }}"{% if (key == grid.limit) %} selected="selected"{% endif %}>{{ value }}</option>
         {% endfor %}
