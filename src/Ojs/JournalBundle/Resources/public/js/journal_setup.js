@@ -1,6 +1,7 @@
 var OjsJournalSetup = {
     submissionId: null,
     journalSetupUrl: $('#journalSetupUrl').val(),
+    journalId: $('#journalIdInput').val(),
     step: null,
     languages: [],
     activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false, "step5": false, "step6": false},
@@ -25,30 +26,19 @@ var OjsJournalSetup = {
     },
     showStep: function (step) {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
-        history.pushState({}, "Article Submission", OjsJournalSetup.journalSetupUrl + $("input[name=submissionId]").val());
+        history.pushState({}, "Journal Setup", OjsJournalSetup.journalSetupUrl);
         window.location.hash = step;
         this.step = step;
-        this.showResumeNote();
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
-    },
-    addAuthorForm: function (params) {
-        $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
-    },
-    addFileForm: function (params) {
-        $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
-        this.setupUi();
-    },
-    removeAuthor: function ($el) {
-        $el.parents(".author-item").first().remove();
     },
     step1: function (actionUrl) {
         form = $("#step1 form");
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
@@ -66,7 +56,7 @@ var OjsJournalSetup = {
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
@@ -84,7 +74,7 @@ var OjsJournalSetup = {
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
@@ -102,7 +92,7 @@ var OjsJournalSetup = {
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
@@ -120,7 +110,7 @@ var OjsJournalSetup = {
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
@@ -138,28 +128,18 @@ var OjsJournalSetup = {
         journalParams = [];
         journalParams.postUrl = actionUrl;
         journalParams.data = form.serializeObject();
-        journalParams.data.journalId = actionUrl;
+        journalParams.data.journalId = OjsJournalSetup.journalId;
 
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
             if (response.success) {
-                OjsJournalSetup.hideAllSteps();
-                /*Show a demo with finish*/
-                OjsJournalSetup.prepareStep.preview();
+                //setup finished redirect to
+                window.location = 'http:'+response.journalLink;
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
         });
-    },
-    submit: function () {
-        var check = confirm("Are you sure to submit your article?");
-        if (check === true) {
-            OjsCommon.waitModal();
-            window.location.href = "/";
-        } else {
-            return false;
-        }
     },
     /**
      * prepare and show steps
@@ -173,7 +153,6 @@ var OjsJournalSetup = {
             OjsCommon.scrollTop();
             if ($("#step2").html().length > 0) {
                 OjsJournalSetup.configureProgressBar(2);
-                OjsJournalSetup.loadStepTemplate(2);
             }
             OjsJournalSetup.showStep(2);
         },
@@ -181,7 +160,6 @@ var OjsJournalSetup = {
             OjsCommon.scrollTop();
             if ($("#step3").html().length > 0) {
                 OjsJournalSetup.configureProgressBar(3);
-                OjsJournalSetup.loadStepTemplate(3);
             }
             OjsJournalSetup.showStep(3);
         },
@@ -189,7 +167,6 @@ var OjsJournalSetup = {
             OjsCommon.scrollTop();
             if ($("#step4").html().length > 0) {
                 OjsJournalSetup.configureProgressBar(4);
-                OjsJournalSetup.loadStepTemplate(4);
             }
             OjsJournalSetup.showStep(4);
             OjsJournalSetup.setupUi();
@@ -198,19 +175,15 @@ var OjsJournalSetup = {
             OjsCommon.scrollTop();
             if ($("#step5").html().length > 0) {
                 OjsJournalSetup.configureProgressBar(5);
-                OjsJournalSetup.loadStepTemplate(5);
             }
             OjsJournalSetup.showStep(5);
-            OjsJournalSetup.setupUi();
         },
         step6: function () {
             OjsCommon.scrollTop();
-            if ($("#step4").html().length > 0) {
+            if ($("#step6").html().length > 0) {
                 OjsJournalSetup.configureProgressBar(6);
-                OjsJournalSetup.loadStepTemplate(6);
             }
             OjsJournalSetup.showStep(6);
-            OjsJournalSetup.setupUi();
         }
     },
     bindFileUploader: function () {
@@ -250,11 +223,6 @@ var OjsJournalSetup = {
                 "blockquote": true
             }
         });
-    },
-    step1ScrollToLangPanel: function (lang) {
-        $('html, body').animate({
-            scrollTop: $("#lang_" + lang).offset().top
-        }, 500);
     }
 };
 

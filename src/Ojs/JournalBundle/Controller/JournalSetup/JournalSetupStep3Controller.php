@@ -12,15 +12,20 @@ class JournalSetupStep3Controller extends Controller
     /**
      * Journal Setup Wizard Step 3 - Saves Journal 's step 3 data
      * @param Request $request
+     * @param null $journalId
      * @return JsonResponse
      */
-    public function addIndexAction(Request $request)
+    public function updateAction(Request $request,$journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $step1Form = $this->createForm(new Step3(), $journal);
-        $step1Form->handleRequest($request);
-        if ($step1Form->isValid()) {
+        if (!$journalId) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        } else {
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
+        $step3Form = $this->createForm(new Step3(), $journal);
+        $step3Form->handleRequest($request);
+        if ($step3Form->isValid()) {
             $em->flush();
             return new JsonResponse(array(
                 'success' => '1'));

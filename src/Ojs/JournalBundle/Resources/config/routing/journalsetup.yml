@@ -1,42 +1,67 @@
-journal_setup:
+manager_current_journal_setup:
     pattern:  /manager/journal/setup/
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
 
-journal_setup_finish:
-    pattern:  /manager/journal/setup/finish
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:finish" }
-    requirements: { _method: post }
+manager_journal_setup:
+    pattern:  /manager/journal/{journalId}/setup/
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
 
-journal_setup_preview:
-    pattern:  /manager/journal/setup/preview
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:preview" }
-
-journal_setup_step1:
+manager_current_journal_setup_step1:
     pattern:  /manager/journal/setup/step1
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep1:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep1:update" }
     requirements: { _method: post }
 
-journal_setup_step2:
+manager_journal_setup_step1:
+    pattern:  /manager/journal/{journalId}/setup/step1
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep1:update" }
+    requirements: { _method: post }
+
+manager_current_journal_setup_step2:
     pattern:  /manager/journal/setup/step2
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep2:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep2:update" }
     requirements: { _method: post }
 
-journal_setup_step3:
+manager_journal_setup_step2:
+    pattern:  /manager/journal/{journalId}/setup/step2
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep2:update" }
+    requirements: { _method: post }
+
+manager_current_journal_setup_step3:
     pattern:  /manager/journal/setup/step3
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep3:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep3:update" }
     requirements: { _method: post }
 
-journal_setup_step4:
+manager_journal_setup_step3:
+    pattern:  /manager/journal/{journalId}/setup/step3
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep3:update" }
+    requirements: { _method: post }
+
+manager_current_journal_setup_step4:
     pattern:  /manager/journal/setup/step4
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:update" }
     requirements: { _method: post }
 
-journal_setup_step5:
+manager_journal_setup_step4:
+    pattern:  /manager/journal/{journalId}/setup/step4
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:update" }
+    requirements: { _method: post }
+
+manager_current_journal_setup_step5:
     pattern:  /manager/journal/setup/step5
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep5:update" }
     requirements: { _method: post }
 
-journal_setup_step6:
+manager_journal_setup_step5:
+    pattern:  /manager/journal/{journalId}/setup/step5
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep5:update" }
+    requirements: { _method: post }
+
+manager_current_journal_setup_step6:
     pattern:  /manager/journal/setup/step6
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:addIndex" }
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep6:update" }
+    requirements: { _method: post }
+
+manager_journal_setup_step6:
+    pattern:  /manager/journal/{journalId}/setup/step6
+    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep6:update" }
     requirements: { _method: post }

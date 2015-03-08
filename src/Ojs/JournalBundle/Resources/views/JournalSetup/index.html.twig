@@ -12,8 +12,9 @@
 {% endblock %}
 
 {% block body -%}
-    <input type="hidden" id="journalSetupUrl" value="{{ path('journal_setup') }}"/>
-    <input type="hidden" name="journalId" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
+    <input type="hidden" id="journalSetupUrl"
+           value="{{ path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params')) }}"/>
+    <input type="hidden" name="journalId" id="journalIdInput" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
     <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
     <div class="panel panel-default panel-steps">
@@ -49,7 +50,6 @@
                         <span class="badge">6</span> {{ "setup.step6"|trans }} & {{ "submit"|trans }}
                     </a>
                 </li>
-                <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
         <div class="panel-body">
@@ -66,7 +66,7 @@
                         <div class="col-sm-12">
                             <hr/>
                             <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsJournalSetup.step1('{{ path('journal_setup_step1') }}');">
+                               onclick="javascript: OjsJournalSetup.step1('{{ path(app.request.attributes.get('_route')~'_step1',app.request.attributes.get('_route_params')) }}');">
                                 <i class="fa fa-save"></i>
                                 {{ "save.next"|trans }}
                                 <i class="fa fa-chevron-right"></i>
@@ -89,7 +89,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step2('{{ path('journal_setup_step2') }}');">
+                           onclick="javascript: OjsJournalSetup.step2('{{ path(app.request.attributes.get('_route')~'_step2',app.request.attributes.get('_route_params')) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -111,7 +111,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step3('{{ path('journal_setup_step3') }}');">
+                           onclick="javascript: OjsJournalSetup.step3('{{ path(app.request.attributes.get('_route')~'_step3',app.request.attributes.get('_route_params')) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -134,7 +134,7 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step4('{{ path('journal_setup_step4') }}');">
+                           onclick="javascript: OjsJournalSetup.step4('{{ path(app.request.attributes.get('_route')~'_step4',app.request.attributes.get('_route_params')) }}');">
                             <i class="fa fa-save"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
@@ -156,8 +156,8 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step5('{{ path('journal_setup_step5') }}');">
-                            <i class="fa fa-save"></i>
+                           onclick="javascript: OjsJournalSetup.step5('{{ path(app.request.attributes.get('_route')~'_step5',app.request.attributes.get('_route_params')) }}');">
+                            <i class="fa fa-chevron-right"></i>
                             {{ "save.next"|trans }}
                             <i class="fa fa-chevron-right"></i>
                         </a>
@@ -178,9 +178,9 @@
                             <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
                         </a>
                         <a class="btn btn-success btn-lg pull-right"
-                           onclick="javascript: OjsJournalSetup.step6('{{ path('journal_setup_step6') }}');">
+                           onclick="javascript: OjsJournalSetup.step6('{{ path(app.request.attributes.get('_route')~'_step6',app.request.attributes.get('_route_params')) }}');">
                             <i class="fa fa-save"></i>
-                            {{ "save.next"|trans }}
+                            {{ "save.finish"|trans }}
                             <i class="fa fa-chevron-right"></i>
                         </a>
                     </div>
