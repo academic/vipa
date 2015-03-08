@@ -1,0 +1,24 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}  
+{% endblock %}
+
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ]) }}
+{% endblock %}
+
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+    <h3>Assign/Invite</h3>
+
+
+
+    <hr>  
+{% endblock %}
+
+

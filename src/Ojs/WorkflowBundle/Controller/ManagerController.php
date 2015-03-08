@@ -127,7 +127,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         /* generate reviewform and append to reviewNotes */
         $reviewFormResults = '';
         $reviewForm = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->find($request->get('reviewFormId'));
-        $reviewFormItems = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->getItems($reviewForm->getId());
+        $reviewFormItems = $reviewForm ? $dm->getRepository("OjsWorkflowBundle:ReviewForm")->getItems($reviewForm->getId()) : [];
 
         /* @var  $item      \Ojs\WorkflowBundle\Document\ReviewFormItem */
         foreach ($reviewFormItems as $item) {
@@ -135,10 +135,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
             $reviewFormResults.='<strong class="reviewFormItemLabel">' . $item->getTitle() . '</strong> ';
             if ($item->getInputType() == 'checkboxes') {
                 foreach ($request->get($item->getId()) as $value) {
-                    $reviewFormResults.='<span class="reviewFormItemValue">' . $value . '</span> ';
+                    $reviewFormResults.=' <span class="reviewFormItemValue">' . $value . '</span> ';
                 }
             } else {
-                $reviewFormResults.='<span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
+                $reviewFormResults.=' <span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
             }
             $reviewFormResults.='<br></div>';
         }
@@ -146,6 +146,12 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep->setReviewNotes($request->get('notes'));
         $dm->persist($articleStep);
         $dm->flush();
+        $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"'.$nextStep->getTitle().'"</strong>');
+        $mustBeAssigned = $nextStep->getMustBeAssigned();
+        if ($mustBeAssigned) {
+              $this->get('session')->getFlashBag()->add('warning', 'Now you should assign a/some user to this step.');
+          return  $this->render('OjsWorkflowBundle:Manager:assign.html.twig');
+        }
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
 

@@ -13,7 +13,8 @@
 
 
 {% block body -%}
-
+ {% include '::flashbag.html.twig' %}
+ 
     {% if articleStep.ownerUser %}
         <div class="alert alert-warning " id="article_workflow_someone_working">
             <i class="fa fa-cog"></i>
@@ -252,7 +253,7 @@
                     {%endif %}
 
                     <button type="submit" class="btn btn-warning pull-right btn-lg">
-                        <i class="fa fa-arrow-right"></i> Send Review
+                        <i class="fa fa-arrow-right"></i> Next
                     </button>
                 </div>
 
