@@ -63,3 +63,7 @@ article_step_start_review:
 article_step_next:
   pattern: /manager/workflow/article/next/{id}
   defaults: { _controller: OjsWorkflowBundle:Manager:next }
+
+article_step_asssign:
+  pattern: /manager/workflow/article/assign/{id}
+  defaults: { _controller: OjsWorkflowBundle:Manager:assign }
