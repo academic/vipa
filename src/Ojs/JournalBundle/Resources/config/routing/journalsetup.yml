@@ -1,10 +1,6 @@
 journal_setup:
-    pattern:  /manager/journal/setup
+    pattern:  /manager/journal/setup/
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
-
-journal_setup_resume:
-    pattern:  /manager/journal/setup/resume
-    defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:resume" }
 
 journal_setup_finish:
     pattern:  /manager/journal/setup/finish

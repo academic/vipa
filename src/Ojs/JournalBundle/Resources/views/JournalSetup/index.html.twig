@@ -1,1 +1,238 @@
-index
+{% set hideleft = 1 %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'journal.setup'|trans }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets '@submission_css' output="c/submission_css.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
+    {% endstylesheets %}
+    {% stylesheets '@apptour_css' output="c/apptour.css" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body -%}
+    <input type="hidden" id="journalSetupUrl" value="{{ path('journal_setup') }}"/>
+    <input type="hidden" name="journalId" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
+    <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
+
+    <div class="panel panel-default panel-steps">
+        <div class="panel-heading">
+            <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
+                <li id="submission-progress-step1" class="active">
+                    <a href="#1">
+                        <span class="badge">1</span> {{ "setup.step1"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step2">
+                    <a href="#2">
+                        <span class="badge">2</span> {{ "setup.step2"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step3">
+                    <a href="#3">
+                        <span class="badge">3</span> {{ "setup.step3"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step4">
+                    <a href="#4">
+                        <span class="badge">4</span>  {{ "setup.step4"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step5">
+                    <a href="#5">
+                        <span class="badge">5</span> {{ "setup.step5"|trans }}
+                    </a>
+                </li>
+                <li id="submission-progress-step6 last-step">
+                    <a href="#6">
+                        <span class="badge">6</span> {{ "setup.step6"|trans }} & {{ "submit"|trans }}
+                    </a>
+                </li>
+                <li id="resumeNote" class="text-right"></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div id="step1-container" class="step">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="step1">
+                            {{ form(steps.step1) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="step1_actions record_actions">
+                        <div class="col-sm-12">
+                            <hr/>
+                            <a class="btn btn-success btn-lg pull-right"
+                               onclick="javascript: OjsJournalSetup.step1('{{ path('journal_setup_step1') }}');">
+                                <i class="fa fa-save"></i>
+                                {{ "save.next"|trans }}
+                                <i class="fa fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="step2-container" class="step hide">
+
+                <div id="step2">
+                    {{ form(steps.step2) }}
+                </div>
+
+                <div class="step2_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsJournalSetup.backTo(1);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsJournalSetup.step2('{{ path('journal_setup_step2') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step3-container" class="step hide">
+
+                <div id="step3">
+                    {{ form(steps.step3) }}
+                </div>
+                <div class="step3_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsJournalSetup.backTo(2);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsJournalSetup.step3('{{ path('journal_setup_step3') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="step4-container" class="step hide">
+
+                <div id="step4">
+                    {{ form(steps.step4) }}
+                </div>
+                <div class="step4_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsJournalSetup.backTo(3);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsJournalSetup.step4('{{ path('journal_setup_step4') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step5-container" class="step hide">
+
+                <div id="step5">
+                    {{ form(steps.step5) }}
+                </div>
+                <div class="step5_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsJournalSetup.backTo(4);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsJournalSetup.step5('{{ path('journal_setup_step5') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step6-container" class="step hide">
+
+                <div id="step6">
+                    {{ form(steps.step6) }}
+                </div>
+                <div class="step6_actions record_actions">
+                    <div class="col-sm-12">
+                        <hr>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsJournalSetup.backTo(5);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsJournalSetup.step6('{{ path('journal_setup_step6') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {% javascripts  '@submission_js'
+    '@OjsJournalBundle/Resources/public/js/journal_setup.js'
+    output="c/setup_js.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@apptour_js' output="c/apptour.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_setup_tour.js' output="c/journal_setup_tour.js" %}
+    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endif %}
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        var currentStep = parseInt(window.location.hash.replace("#", ""));
+        window.onbeforeunload = function () {
+            //return "{{"sure_data_lost"|trans}}";
+        };
+        function loadCurrentStep(currentStep) {
+            OjsJournalSetup.hideAllSteps();
+            OjsJournalSetup.prepareStep["step" + currentStep]();
+        }
+        $(window).on("hashchange", function (event) {
+            var currentStep = parseInt(window.location.hash.replace("#", ""));
+            if (window.currentStep !== currentStep) {
+                window.currentStep = currentStep;
+                loadCurrentStep(currentStep);
+            }
+        });
+        $(document).ready(function () {
+            var currentStep = parseInt(window.location.hash.replace("#", ""));
+            if (currentStep) {
+                loadCurrentStep(currentStep);
+            }
+            OjsJournalSetup.activatedSteps["step1"] = true;
+        });
+    </script>
+{% endblock %}
