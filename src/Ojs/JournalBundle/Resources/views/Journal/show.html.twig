@@ -20,15 +20,11 @@ journal.show tpl for super admin users
 
             <table class="record_properties  table">
 
-                <tbody>
-                    <tr>
-                        <th width="300px">{{ 'id'|trans }}</th>
-                        <td>{{ entity.id }}</td>
-                    </tr>
+                <tbody> 
                     <tr>
                         <th>{{"title"|trans}}</th>
                         <td>
-                            {{ entity.title }}
+                            <small class="badge" title="{{ 'id'|trans }}"> #{{ entity.id }}</small>  {{ entity.title }} <small data-tooltip="{{"titletransliterated"|trans}}">{{ entity.titleTransliterated }}</small>
                             <div class="btn-group">
                                 <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                                    href="http://scholar.google.com.tr/scholar?q={{ entity.title|url_encode }}">
@@ -52,11 +48,7 @@ journal.show tpl for super admin users
                     <tr>
                         <th>{{"titleabbr"|trans}}</th>
                         <td>{{ entity.titleAbbr }}</td>
-                    </tr>
-                    <tr>
-                        <th>{{"titletransliterated"|trans}}</th>
-                        <td>{{ entity.titleTransliterated }}</td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <th>{{"journal.langs"|trans}}</th>
                         <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
@@ -84,7 +76,9 @@ journal.show tpl for super admin users
                     </tr>
                     <tr>
                         <th>{{"URL"|trans}}</th>
-                        <td>{{ entity.url }}</td>
+                        <td>
+                            <a href="{{ entity.url }}" target="_new">{{ entity.url }}</a>
+                        </td>
                     </tr>
                     <tr>
                         <th>{{"country"|trans}}</th>
