@@ -38,6 +38,8 @@ class JournalType extends AbstractType {
                         'class' => 'Ojs\UserBundle\Entity\Role',
                         'property' => 'name',
                         'multiple' => true,
+                        'expanded' => false,
+                        'required' => false,
                         'attr'=>[
                             'class'=>'select2-element'
                         ]
