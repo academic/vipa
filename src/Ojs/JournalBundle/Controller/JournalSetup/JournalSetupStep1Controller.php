@@ -9,15 +9,21 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JournalSetupStep1Controller extends Controller
 {
+
     /**
      * Journal Setup Wizard Step 1 - Saves Journal 's step 1 data
      * @param Request $request
+     * @param null $journalId
      * @return JsonResponse
      */
-    public function addIndexAction(Request $request)
+    public function updateAction(Request $request,$journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$journalId) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        } else {
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
         $step1Form = $this->createForm(new Step1(), $journal);
         $step1Form->handleRequest($request);
         if ($step1Form->isValid()) {

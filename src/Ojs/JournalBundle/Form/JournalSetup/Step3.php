@@ -39,6 +39,7 @@ class Step3 extends AbstractType {
                         ]
                     )
                 )
+                ->add('domain')
         ;
     }
 
