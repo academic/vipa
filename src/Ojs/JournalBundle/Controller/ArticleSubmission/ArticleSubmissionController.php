@@ -130,7 +130,10 @@ class ArticleSubmissionController extends Controller
     public function newAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-
+        $submitRoles = $journal->getSubmitRoles();
+        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+            throw $this->createAccessDeniedException();
+        }
         $entity = new Article();
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
             'articleId' => NULL,
@@ -149,6 +152,10 @@ class ArticleSubmissionController extends Controller
      */
     public function resumeAction($submissionId)
     {
+        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
+        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+            throw $this->createAccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -173,6 +180,10 @@ class ArticleSubmissionController extends Controller
      */
     public function previewAction($submissionId)
     {
+        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
+        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+            throw $this->createAccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
@@ -199,6 +210,10 @@ class ArticleSubmissionController extends Controller
      */
     public function finishAction(Request $request)
     {
+         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
+        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+            throw $this->createAccessDeniedException();
+        }
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
@@ -255,8 +270,7 @@ class ArticleSubmissionController extends Controller
      * @param integer $submissionId
      * @return
      */
-    private function saveArticleSubmission($articleSubmission, $journal)
-    {
+    private function saveArticleSubmission($articleSubmission, $journal) {
 // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
@@ -288,10 +302,8 @@ class ArticleSubmissionController extends Controller
     private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
     {
         $em = $this->getDoctrine()->getManager();
-
         $article = new Article();
         $article->setPrimaryLanguage($lang);
-
         $article->setJournal($journal);
         $article->setTitle($articlePrimaryData['title']);
         $article->setAbstract($articlePrimaryData['abstract']);
