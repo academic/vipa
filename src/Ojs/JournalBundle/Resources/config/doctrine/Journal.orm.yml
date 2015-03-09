@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\Journal:
     type: entity
     table: null
-    repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
+    repositoryClass: Ojs\JournalBundle\Entity\JournalsIndexRepository
     manyToOne:
         institution:
           targetEntity: Institution
@@ -47,6 +47,11 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: journal
         userRoles:
           targetEntity: \Ojs\UserBundle\Entity\UserJournalRole
+          mappedBy: journal
+          cascade: ["all"]
+          fetch: EXTRA_LAZY
+        journals_indexs:
+          targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY

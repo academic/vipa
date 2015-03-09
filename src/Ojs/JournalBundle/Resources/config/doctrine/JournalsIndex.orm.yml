@@ -1,0 +1,30 @@
+Ojs\JournalBundle\Entity\JournalsIndex:
+  type: entity
+  table: journals_index
+  repositoryClass: Ojs\JournalBundle\Entity\JournalsIndexRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    journal_index_id:
+      type: integer
+    journal_id:
+      type: integer
+    link:
+      type: text
+  manyToOne:
+    journal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      inversedBy: journals_indexs
+      joinColumn:
+        name: journal_id
+        referencedColumnName: id
+    journal_index:
+      targetEntity: Ojs\JournalBundle\Entity\JournalIndex
+      inversedBy: journals_indexs
+      joinColumn:
+        name: journal_index_id
+        referencedColumnName: id

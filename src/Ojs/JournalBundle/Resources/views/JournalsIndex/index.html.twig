@@ -1,0 +1,9 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{ 'journalsindex.list'|trans }}</h1>
+    {{ grid(grid) }}
+    <a class="btn btn-success" href="{{ path('admin_journalsindex_new',{journal: journal_id}) }}">
+        {{ 'c'|trans }}
+    </a>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{ 'journalsindex.singular'|trans }}</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'journalsindex.journalindex'|trans }}</th>
+                <td>{{ entity.journalIndex }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'journalsindex.journal'|trans }}</th>
+                <td>{{ entity.journal }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'journalsindex.link'|trans }}</th>
+                <td>{{ entity.link }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journalsindex',{journal: entity.journal.id}) }}">
+            {{ 'b'|trans }}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journalsindex_edit', { 'id': entity.id }) }}">
+            {{ 'e'|trans }}
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

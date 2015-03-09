@@ -19,3 +19,9 @@ Ojs\JournalBundle\Entity\JournalIndex:
          strategy: AUTO
        id: true
        type: integer
+  oneToMany:
+    journals_indexs:
+      targetEntity: Ojs\JournalBundle\Entity\JournalsIndex
+      mappedBy: journal_index
+      cascade: ["all"]
+      fetch: EXTRA_LAZY
