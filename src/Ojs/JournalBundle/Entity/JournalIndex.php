@@ -108,4 +108,54 @@ class JournalIndex
     {
         return $this->status;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals_indexs;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->journals_indexs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add journals_indexs
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @return JournalIndex
+     */
+    public function addJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    {
+        $this->journals_indexs[] = $journalsIndexs;
+
+        return $this;
+    }
+
+    /**
+     * Remove journals_indexs
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     */
+    public function removeJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    {
+        $this->journals_indexs->removeElement($journalsIndexs);
+    }
+
+    /**
+     * Get journals_indexs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJournalsIndexs()
+    {
+        return $this->journals_indexs;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

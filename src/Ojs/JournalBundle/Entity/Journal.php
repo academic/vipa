@@ -1198,5 +1198,67 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
 
-}
 
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $journals_indexs;
+
+
+
+    /**
+     * Add journalThemes
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalThemes
+     * @return Journal
+     */
+    public function addJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalThemes)
+    {
+        $this->journalThemes[] = $journalThemes;
+
+        return $this;
+    }
+    /**
+     * Remove journalThemes
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalThemes
+     */
+    public function removeJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalThemes)
+    {
+        $this->journalThemes->removeElement($journalThemes);
+    }
+
+    /**
+     * Add journals_indexs
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @return Journal
+     */
+    public function addJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    {
+        $this->journals_indexs[] = $journalsIndexs;
+
+        return $this;
+    }
+
+    /**
+     * Remove journals_indexs
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     */
+    public function removeJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    {
+        $this->journals_indexs->removeElement($journalsIndexs);
+    }
+
+    /**
+     * Get journals_indexs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getJournalsIndexs()
+    {
+        return $this->journals_indexs;
+    }
+}
