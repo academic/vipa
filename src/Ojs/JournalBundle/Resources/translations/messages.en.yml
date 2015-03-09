@@ -71,7 +71,7 @@ article.titleTransliterated: 'Article Title Latin Transliterated'
 article.title: 'Article Title'
 article.subtitle: 'Article Subtitle'
 article.language.primary: 'Article Primary Language'
-article.language.other: 'Article Other Languages'
+article.languages: 'Article Languages'
 article.add: 'Add Article'
 suppfiles.resins: 'Research Instrument'
 suppfiles.resmat: 'Research Materials'
@@ -188,7 +188,7 @@ file.edit: 'Edit File'
 file.list: 'File List'
 mimetype: 'Mime Type'
 size: Size
-file.new: 'New File'
+file.new: 'New File Block'
 file.select: 'Select File'
 file.details: 'File Details'
 file.path: 'File Path'
@@ -294,6 +294,7 @@ review.form: 'Review Form'
 review.forms: 'Review Forms'
 template: Template
 templates: Templates
+
 useThisTemplate: 'Use this template'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'
@@ -304,12 +305,12 @@ page.singular: Page
 page.plural: Pages
 page.last: 'Last Page'
 page.first: 'First Page'
-articlefile.id: ID
-articlefile.title: Title
-articlefile.type: Type
-articlefile.version: Version
-articlefile.langcode: Language
-articlefile.actions: Actions
+articlefile.id: File ID
+articlefile.title: File Title
+articlefile.type: File Type
+articlefile.version: File Version
+articlefile.langcode: File Language
+articlefile.actions: File Actions
 save: Save
 Info: Info
 'Article Files': 'Article Files'
@@ -349,6 +350,18 @@ journal.tags: Tags
 journal.createdAt: Created at
 journal.user: User
 journal.merge_as_new_journal: Merge As New Journal
+
+select.journal: "Select a Journal to Submit the Article"
+parse: Parse
+comma_keyword_list: Comma-seperated keyword list
+comma_subject_list: Comma-seperated subject list
 dashboard.suggestion: "Suggestions"
+
+
+Submissions: Submissions
+Drafts: Drafts
+Submitted: Submitted 
+
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
+

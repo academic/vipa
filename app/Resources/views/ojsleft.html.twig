@@ -56,6 +56,7 @@
                             {% endif %}
                         {% endfor %}
                     {% endif %}
+
                     {% if hasRole('ROLE_AUTHOR')%}
                         {% if isSystemAdmin() or isJournalManager()  %}
                             {%set submissions_path = "article_submissions_all" %}
@@ -64,6 +65,7 @@
                         {% endif %}
                         <a class="list-group-item list-group-item-info" href="{{path(submissions_path)}}">
                             <i class="fa fa-flag"></i>
+
                             {{"Articles"|trans}}
                         </a>
                     {% endif%}
@@ -127,13 +129,15 @@
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{"Admin"|trans}}</div>
                     <div class="panel-collapse collapse in">
-                        <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> Users</a>
-                        <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> Roles</a>
-                        <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> User Journal Roles</a>
-                        <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> Article</a>
-                        <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> Institutions</a>
-                        <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> Subjects</a>
-                        <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> Feedback</a>
+
+                        <a class="list-group-item" href="{{path('user')}}"><i class="fa fa-cogs"></i> {{"users"|trans}}</a>
+                        <a class="list-group-item" href="{{path('role')}}"><i class="fa fa-cogs"></i> {{"role.plural"|trans}}</a>
+                        <a class="list-group-item" href="{{path('ujr')}}"><i class="fa fa-cogs"></i> {{"user_journal_roles"|trans}}</a>
+                        <a class="list-group-item" href="{{path('article')}}"><i class="fa fa-cogs"></i> {{"articles"|trans}}</a>
+                        <a class="list-group-item" href="{{path('institution')}}"><i class="fa fa-cogs"></i> {{"instutions"|trans}}</a>
+                        <a class="list-group-item" href="{{path('subject')}}"><i class="fa fa-cogs"></i> {{"subjects"|trans}}</a>
+                        <a class="list-group-item" href="{{path('okulbilisim_feedback_homepage')}}"><i class="fa fa-envelope"></i> {{"feedback"|trans}}</a>
+
                     </div>
                 </div>
             {% endif %}

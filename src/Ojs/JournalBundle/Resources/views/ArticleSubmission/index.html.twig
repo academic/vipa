@@ -13,7 +13,7 @@
 
 {% block body -%}
 
-    <h1>Submissions</h1>
+    <h1> {{"Submissions"|trans}}</h1>
 
     <div>
         <a href="{{ path('article_submission_new') }}"
@@ -26,6 +26,7 @@
                href="{{ path('article_submissions_all') }}">{{ "article.all"|trans }}</a>
         {% endif %}
     </div>
+
     <div role="tabpanel">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
@@ -37,12 +38,12 @@
         </ul>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="drafts">
-                <h3>Drafts</h3>
+                <h3>{{"Drafts"|trans}}</h3>
                 {{ grid(drafts) }}
             </div>
 
             <div role="tabpanel" class="tab-pane" id="submissions">
-                <h3>Submitted</h3>
+                <h3>{{"Submitted"|trans}}</h3>
                 {{ grid(submissions) }}
             </div>
         </div>

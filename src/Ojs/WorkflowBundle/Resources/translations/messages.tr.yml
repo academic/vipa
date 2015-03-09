@@ -4,3 +4,27 @@ status:
     rejected: Reddedilmiş
     unpublished: Yayından Kaldırılmış
     waiting: Beklemede
+    
+workflow: Süreç Akışı
+article.plural: Makaleler
+dashboard: Panel
+searchon.google: Google'da Ara
+searchon.wikipedia: Wikipedia'da Ara
+searchon.pubmed: PubMed'de Ara
+sure: Emin Misiniz?
+create: Oluştur
+details: Detaylar
+templates: Şablonlar
+useThisTemplate: Bu Şablonu Kullan
+
+
+editor:
+    articles_uncomplete: Gönderimi Tamamlanmamış Makaleler
+    articles_waiting: Beklemede Olan Makaleler
+    articles_assigned: Değerlendirmede Olan Makaleler
+    articles_published: Yayınlanmış Makalaler
+    articles_unpublished: Yayınlanmamış Makaleler
+    articles_rejected: Reddedilen Makaleler
+    
+articles_notsubmitted: Bu makaleler henüz gönderilmemiş
+articles_waiting: Bu makaleler gönderilmiş fakat bekleme aşamasında

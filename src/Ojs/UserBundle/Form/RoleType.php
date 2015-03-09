@@ -15,9 +15,9 @@ class RoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('name')
-                ->add('role')
-                ->add('isSystemRole', 'checkbox')
+                ->add('name',null, array('label' => "name"))
+                ->add('role',null, array('label' => "role"))
+                ->add('isSystemRole', 'checkbox', array('label' => "issystemrole"))
         ;
     }
 

@@ -30,7 +30,9 @@
             <div id="step1-container" class="step">
                 <div class="row">
                     {% if session('selectedJournalId') %}
-                        <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> Select journal to submit</label></div>
+
+                        <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> {{ "select.journal"|trans }}</label></div>
+
                         <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
                             <select id="changeSelectedJournal" class="form-control select2-element">
                                 {% for journal in userjournals %}
@@ -54,6 +56,7 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.metadata"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12"> 
 
@@ -105,7 +108,7 @@
                     {% endif %}
 
                 </div>
-                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"author"|trans}}</a>
+                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"author.add"|trans}}</a>
 
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
@@ -178,7 +181,11 @@
 
 
             <div id="step4-container" class="step hide">
-                <h3>{{ 'article.files'|trans }}</h3>
+                <h3>{{ 'article.files'|trans }}
+                    <button onclick="OjsArticleSubmission.addFileForm();"
+                            class="btn btn-sm btn-info">+ {{ "file.new"|trans }}
+                    </button>
+                </h3>
                 <div id="step4">
                     {% if submissionData is defined and submissionData.files is defined %}
                         {% for file in submissionData.files %}
@@ -186,7 +193,7 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <button onclick="OjsArticleSubmission.addFileForm();"class="btn btn-block btn-primary"><i class="fa fa-plus"></i> New File</button>
+                <button onclick="OjsArticleSubmission.addFileForm();"class="btn btn-block btn-primary"><i class="fa fa-plus"></i> {{"file.new"|trans}}</button>
                 <div class="step4_actions record_actions">
                     <div class="col-sm-12">
                         <hr>

@@ -120,5 +120,69 @@ Information: Information
 'Reset Now': 'Reset Now'
 forgot.password: forgot.password
 
+archive: Archieve
+title : Article Title
+subtitle: Article Subtitle
+author: Author
+section: Section
+languages: Languages
+subjects: Subjects
+keywords: Keywords
+date.publish: Publication Date
+first_page: Fist Page
+last_page: Last Page
+abstract: Abstract
+citations: Citations
+tags: Tags
+more: More
+Issue: Issue
+No Content: No Content
+scope: Scope
+mission: Mission
+journal_langs: Journal Languages
+first_publish_date : Publication Date
+country: Country
+issues: Issues
+Volume: Volume
+editorial: Editorial
+new.block: New Block
+Link Ekle: Add a link
+Journals: Journals
+List: List
+actions: Actions
+search.results: Search Results
+institution: Institution
+user: User
+journal.plural: Journals
+institution.plural: Institutions
+subject.plural: Subjects
+User: User
+user.new: New User
+orcid.login: Login with ORCID
+Avatar: Avatar
+select.image.file: Select an Image File
+Header Image: Header Image
+uploading: Uploading
+done: Done
+submissions: Submissions
+published: Published
+waiting: Waiting
+rejected: Rejected
+
+institution.type: Institutions
+current.issue: Current Issue
+
+
 institute.register: "Register Institute"
-journal.register: "Register Journal"
+journal.register: "Register for JournalPark"
+
+
+popular.journals: Top Journals
+Edit_Profile: Edit My Profile
+
+users: Users
+roles: Roles
+user_journal_roles: User Journal Roles
+instutions: Instutions
+activity_log: Activity Log
+feedback: Feedback

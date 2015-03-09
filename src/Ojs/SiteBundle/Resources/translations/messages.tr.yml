@@ -14,7 +14,7 @@ added: Eklendi
 u: Güncelle
 404: Bulunamadı
 error: Hata
-error.oops: 'Ooops! Bir hata meydana geldi!'
+error.oops: 'Olamaz! Bir hata meydana geldi!'
 summart: Özet
 res: 'Yeniden Başlat'
 preview: Preview
@@ -50,7 +50,7 @@ toggle_navigation: 'Yönelendiriciyi Aç'
 home: 'Ana Sayfa'
 institutions: Enstitü
 journals: Dergiler
-register_journal: 'Dergi Kaydet'
+
 send_article: 'Makale Gönder'
 search: Ara
 search_query: 'aranacak kelimeler'
@@ -111,9 +111,81 @@ Information: Bilgilendirme
 'Your password has been reset': 'Şifreniz Sıfırlandı'
 'You are request password reset': 'Şifre Sıfırlama Talebiniz Var'
 'Password Reset Process': 'Şifre Sıfırlama İşlemi'
-'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
+'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
 'Reset Now': 'Şimdi Sıfırla'
 forgot.password: Şifremi Unuttum
 
+archive: Arşiv
+title : Makalenin Başlığı
+subtitle: Makalenin Alt Başlığı
+author: Yazar
+section: Bölüm
+languages: Diller
+subjects: Konular
+keywords: Anahtar Kelimeler
+date.publish: Yayınlanma Tarihi
+first_page: İlk Sayfa
+last_page: Son Sayfa
+abstract: Özet
+citations: Referanslar
+tags: Etiketler
+more: Detayı
+Issue: Sayı
+No Content: İçerik Yok
+scope: Kapsam
+mission: Misyon
+journal_langs: Derginin Dilleri
+first_publish_date : Yayınlanma Tarihi
+country: Ülke
+issues: Sayılar
+Volume: Cilt
+editorial: Editör
+new.block: Yeni Alan
+Link Ekle: Link Ekle
+Journals: Dergiler
+List: Liste
+actions: İşlemler
+search.results: Arama Sonuçları
+'results were found for the search for <strong class="text-danger">%term%</strong>':  <strong class="text-danger">%term%</strong> için bulunan sonuçlar
+'results were found for the tag for <strong class="text-danger">%term%</strong>' : <strong class="text-danger">%term%</strong> etiketi için bulunan sonuçlar
+institution: Enstitü
+user: kullanıcı
+journal.plural: Dergiler
+institution.plural: Enstitüler
+subject.plural: Konular
+User: Kullanıcı
+user.new: Yeni Kullanıcı
+orcid.login: ORCID ID ile Giriş Yap
+Avatar: Avatar
+select.image.file: Resim Dosyası Seç
+Header Image: Başlık Resmi
+uploading: Yükleniyor
+done: Tamamlandı
+
+institution.type: Kurumlar
+current.issue: Son Sayı
+new_block: Yeni Blok Oluştur
+new_block_link: Blok Linki Oluştur
+    
+
 institute.register: "Enstitü Kaydet"
-journal.register: "Dergi Oluştur"
+journal.register: "DergiPark Başvuru"
+
+
+popular.journals: Öne Çıkanlar
+
+Edit_Profile: Hesabımı Güncelle
+
+submissions: Gönderimler
+published: Yayında
+waiting: Bekleyen
+rejected: Red Edilmiş
+
+users: Kullanıcılar
+roles: Roller
+user_journal_roles: Dergilerin Kullanıcıları
+instutions: Enstitüler
+activity_log: Olay Kayıt
+feedback: Geri Bildirim
+
+

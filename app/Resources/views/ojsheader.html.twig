@@ -105,6 +105,7 @@
                                     </li>
                                     <li>
                                         <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
+
                                             <i class="fa fa-edit"> {{"Edit Profile"|trans}}</i>
                                         </a>
                                     </li>
@@ -138,7 +139,7 @@
                                     {%endif%}
                                     <li class="divider"></li>
                                     <li> 
-                                        <a><small>Last login : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small></a>
+                                        <a><small>{{"proxy.lastlogin"|trans}} : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small></a>
                                     </li>
                                     <li>
                                         {% if isSystemAdmin() %}

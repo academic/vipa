@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 {% block body -%}
-    <h4>Create New Block</h4>
+    <h4>{{"new_block"|trans}}</h4>
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
             <div class="alert alert-{{ label }}">
