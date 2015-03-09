@@ -2,172 +2,183 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">{{"toggle_navigation"|trans}}</span>
+                <span class="sr-only">{{ "toggle_navigation"|trans }}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="display:none">{{"ojs"|trans}}</a>
+            <a class="navbar-brand" href="/" style="display:none">{{ "ojs"|trans }}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{"DergiPark"|trans}} <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li{%if page == 'index'%} class="active"{%endif%}><a href={{ path('ojs_public_index') }}>{{"home"|trans}}</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">{{ "about"|trans }}</a></li>
-                        <li><a href="#">{{ "wiki"|trans }}</a></li>
-                        <li><a href="#">{{ "support"|trans }}</a></li>
-                    </ul>
-                </li>
-
-                <li{%if page == 'institution'%} class="active"{%endif%}><a href={{ path('ojs_institutions_index') }}>{{"institutions"|trans}}</a></li>
-                <li{%if page == 'journals'%} class="active"{%endif%}><a href={{ path('ojs_journals_index') }}>{{"journals"|trans}}</a></li>
+                <li{% if page == 'index' %} class="active"{% endif %}><a
+                            href={{ path('ojs_public_index') }}>{{ "home"|trans }}</a></li>
+                <li{% if page == 'institution' %} class="active"{% endif %}><a
+                            href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a></li>
+                <li{% if page == 'journals' %} class="active"{% endif %}><a
+                            href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a></li>
             </ul>
+            {% if page != 'index' %}
+                <div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search" action="{{ path('ojs_search_index') }}" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="{{ "search"|trans }}" name="q">
+
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
 
             <div class="navbar-right col-md-4">
-                <ul class="nav navbar-nav"> 
-                    {%include '::language_selector.html.twig'%}
+                <ul class="nav navbar-nav">
+                    {% include '::language_selector.html.twig' %}
 
                     {% if app.user %}
                         <!-- User avatar
                         <li>
                             {% if(app.user.getAvatar()) %}
                                 {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
-                                <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}})}}"
+                                <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
                                      class="avatar img-circle img-responsive" />
-                            {%endif%}
+                            {% endif %}
                             </li>
                             -->
-                            <li>
-                                <a title="User Page" href="{{path('ojs_user_index')}}">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a  href="{{path('okulbilisim_message_user_index')}}" title="{{"messages"|trans}}" >
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                            </li>
-                            {% if has_notification is defined %}
-                                <li class="dropdown user user-menu">
-                                    {# notification dropdown #}
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-bell-o"></i> <span class="label label-warning">5</span> 
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <!-- User image --> 
-                                        <li>
-                                            <a href="#"  >
-                                                <i class="fa fa-comment fa-fw"></i> New Comment 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-envelope fa-fw"></i> Message Sent 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-tasks fa-fw"></i> New Task 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-bolt fa-fw"></i> New Task 
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-warning fa-fw"></i> New Task 
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            {% endif %}
+                        <li>
+                            <a title="User Page" href="{{ path('ojs_user_index') }}">
+                                <i class="fa fa-cog"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('okulbilisim_message_user_index') }}" title="{{ "messages"|trans }}">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        {% if has_notification is defined %}
                             <li class="dropdown user user-menu">
-
+                                {# notification dropdown #}
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-user"></i>
-                                    <span> <i class="caret"></i></span>
+                                    <i class="fa fa-bell-o"></i> <span class="label label-warning">5</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-                                        <li>
-                                            <a href="/dashboard" title="{{"dashboard"|trans}}"><i class="fa fa-shield"></i> {{"dashboard"|trans}}</a>
-                                        </li>
-                                    {%endif%}
-
+                                    <!-- User image -->
                                     <li>
-                                        <a href="{{path('ojs_user_index')}}">
-                                            <i class="fa fa-cog"></i> {{"user_page"|trans}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
-                                            <i class="fa fa-edit"> {{"Edit Profile"|trans}}</i>
+                                        <a href="#">
+                                            <i class="fa fa-comment fa-fw"></i> New Comment
                                         </a>
                                     </li>
-
-                                    <li class="divider"></li>
                                     <li>
-                                        <a href="{{path('user_my_proxy_parents')}}">{{"proxy_users"|trans}}</a>
-                                    </li>
-                                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                        <li>
-                                            <a class="btn btn-link" href="/?_su=_exit" title=""><i class="fa fa-sign-out"></i> {{"log_out_from_user"|trans}}</a>
-                                        </li>
-                                    {%endif%}
-
-                                    {% if userclients() %}
-
-                                        <li>
-                                            <a> <i class="fa fa-key"></i> {{"login_as"|trans}}</a>          
-                                        </li>
-                                        <li >                             
-
-                                            {% for client in userclients()  %}
-                                            <li><a href="/?_su={{client.proxyUser.username}}">
-                                                    {{client.proxyUser.username}}</a>
-                                            </li>
-                                        {% endfor %}
-                                        <li><a href="{{path('user_my_proxy_clients')}}">
-                                                {{"list_my_proxys"|trans}} 
-                                            </a>
-                                        </li>
-                                    {%endif%}
-                                    <li class="divider"></li>
-                                    <li> 
-                                        <a><small>Last login : {{app.user.getLastlogin()|date('Y-m-d H:i:s')}}</small></a>
-                                    </li>
-                                    <li>
-                                        {% if isSystemAdmin() %}
-                                            {%set activity_log_path = "eventlog" %}
-                                        {%else%}
-                                            {%set activity_log_path = "user_eventlog" %}
-                                        {% endif %}
-                                        <a href="{{path(activity_log_path)}}" title="{{"activity.log"|trans}}">
-                                            <i class="fa fa-cogs"></i>
-                                            {{"activity.log"|trans}}
+                                        <a href="#">
+                                            <i class="fa fa-envelope fa-fw"></i> Message Sent
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-tasks fa-fw"></i> New Task
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-bolt fa-fw"></i> New Task
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-warning fa-fw"></i> New Task
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li class="dropdown user user-menu">
+
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i>
+                                <span> <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                                    <li>
+                                        <a href="/dashboard" title="{{ "dashboard"|trans }}"><i
+                                                    class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                                <li>
+                                    <a href="{{ path('ojs_user_index') }}">
+                                        <i class="fa fa-cog"></i> {{ "user_page"|trans }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
+                                        <i class="fa fa-edit"> {{ "Edit Profile"|trans }}</i>
+                                    </a>
+                                </li>
+
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ path('user_my_proxy_parents') }}">{{ "proxy_users"|trans }}</a>
+                                </li>
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li>
+                                        <a class="btn btn-link" href="/?_su=_exit" title=""><i
+                                                    class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
+                                    </li>
+                                {% endif %}
+
+                                {% if userclients() %}
 
                                     <li>
-                                        <a href="{{ path('logout') }}">
-                                            <i class="fa fa-sign-out"></i> {{"log_out"|trans}}</a>
+                                        <a> <i class="fa fa-key"></i> {{ "login_as"|trans }}</a>
                                     </li>
-                                </ul> 
-                            </li>
-                        {%endif%}
+                                    <li>
 
-                        {% if app.user == false %}
-                            <li>
-                                <a class="btn btn-link" href="{{path('login')}}">
-                                    <i class="fa fa-sign-in"></i> {{"login"|trans}}</a>
-                            </li>
-                        {%endif%}
-                    </ul>
-                </div>
+                                    {% for client in userclients() %}
+                                        <li><a href="/?_su={{ client.proxyUser.username }}">
+                                                {{ client.proxyUser.username }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    <li><a href="{{ path('user_my_proxy_clients') }}">
+                                            {{ "list_my_proxys"|trans }}
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li class="divider"></li>
+                                <li>
+                                    <a>
+                                        <small>Last login : {{ app.user.getLastlogin()|date('Y-m-d H:i:s') }}</small>
+                                    </a>
+                                </li>
+                                <li>
+                                    {% if isSystemAdmin() %}
+                                        {% set activity_log_path = "eventlog" %}
+                                    {% else %}
+                                        {% set activity_log_path = "user_eventlog" %}
+                                    {% endif %}
+                                    <a href="{{ path(activity_log_path) }}" title="{{ "activity.log"|trans }}">
+                                        <i class="fa fa-cogs"></i>
+                                        {{ "activity.log"|trans }}
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ path('logout') }}">
+                                        <i class="fa fa-sign-out"></i> {{ "log_out"|trans }}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    {% if app.user == false %}
+                        <li>
+                            <a class="btn btn-link" href="{{ path('login') }}">
+                                <i class="fa fa-sign-in"></i> {{ "login"|trans }}</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </div>
+</div>
