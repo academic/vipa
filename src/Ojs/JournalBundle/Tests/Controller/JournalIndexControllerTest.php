@@ -2,54 +2,35 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
-class JournalIndexControllerTest extends WebTestCase
+/**
+ * Class JournalIndexControllerTest
+ * @package Ojs\JournalBundle\Tests\Controller
+ */
+class JournalIndexControllerTest extends BaseTestCase
 {
-    /*
-    public function testCompleteScenario()
+    public function testCreate()
     {
-        // Create a new client to browse the application
-        $client = static::createClient();
-
-        // Create a new entry in the database
-        $crawler = $client->request('GET', '/admin/journalindex/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /admin/journalindex/");
-        $crawler = $client->click($crawler->selectLink('Create a new entry')->link());
-
-        // Fill in the form and submit it
-        $form = $crawler->selectButton('Create')->form(array(
-            'ojs_journalbundle_journalindex[field_name]'  => 'Test',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check data in the show view
-        $this->assertGreaterThan(0, $crawler->filter('td:contains("Test")')->count(), 'Missing element td:contains("Test")');
-
-        // Edit the entity
-        $crawler = $client->click($crawler->selectLink('Edit')->link());
-
-        $form = $crawler->selectButton('Update')->form(array(
-            'ojs_journalbundle_journalindex[field_name]'  => 'Foo',
-            // ... other fields to fill
-        ));
-
-        $client->submit($form);
-        $crawler = $client->followRedirect();
-
-        // Check the element contains an attribute with value equals "Foo"
-        $this->assertGreaterThan(0, $crawler->filter('[value="Foo"]')->count(), 'Missing element [value="Foo"]');
-
-        // Delete the entity
-        $client->submit($crawler->selectButton('Delete')->form());
-        $crawler = $client->followRedirect();
-
-        // Check the entity has been delete on the list
-        $this->assertNotRegExp('/Foo/', $client->getResponse()->getContent());
+        $this->logIn();
+        $crawler = $this->client->request('GET', $this->router->generate('admin_journalindex_new'));
+        $form = $crawler->selectButton('Create')->form();
+        $form['ojs_journalbundle_journalindex[name]'] = "Demo Index";
+        $form['ojs_journalbundle_journalindex[status]'] = "1";
+        $form['ojs_journalbundle_journalindex[logo]'] = "image.jpg";
+        $crawler = $this->client->submit($form);
+        $this->assertTrue((boolean)preg_match('~(Redirecting to .*)~',$crawler->text()));
     }
 
-    */
+
+    public function testStatus()
+    {
+        $this->logIn('admin', ['ROLE_SUPER_ADMIN']);
+
+        $this->client->request('GET', '/admin/journalindex/');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+
+        $this->client->request('GET', '/admin/journalindex/new');
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
+    }
 }

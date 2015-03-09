@@ -25,6 +25,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class BaseTestCase
+ * @package Ojs\Common\Tests
+ * @return WebTestCase
+ */
 abstract class BaseTestCase extends WebTestCase
 {
     /** @var Application */
