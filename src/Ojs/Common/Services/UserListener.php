@@ -151,5 +151,20 @@ class UserListener
 
         return FALSE;
     }
+    
+    /**
+     * 
+     * @param array $checkRoles
+     * @return boolean
+     */
+    public function hasAnyRole($checkRoles) {
+        $check = false;
+        foreach ($checkRoles as $checkRole) {
+            if ($this->container->get('security.context')->isGranted($checkRole)) {
+                $check = true;
+            }
+        }
+        return $check;
+    }
 
 }

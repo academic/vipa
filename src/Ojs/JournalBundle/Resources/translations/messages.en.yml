@@ -356,3 +356,12 @@ parse: Parse
 comma_keyword_list: Comma-seperated keyword list
 comma_subject_list: Comma-seperated subject list
 dashboard.suggestion: "Suggestions"
+
+
+Submissions: Submissions
+Drafts: Drafts
+Submitted: Submitted 
+
+setup.step: 'Step number'
+save.finish: 'Save & Finish'
+

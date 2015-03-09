@@ -20,23 +20,35 @@ journal.show tpl for super admin users
 
             <table class="record_properties  table">
 
-                <tbody>
-                    <tr>
-                        <th width="300px">{{ 'id'|trans }}</th>
-                        <td>{{ entity.id }}</td>
-                    </tr>
+                <tbody> 
                     <tr>
                         <th>{{"title"|trans}}</th>
-                        <td>{{ entity.title }}</td>
+                        <td>
+                            <small class="badge" title="{{ 'id'|trans }}"> #{{ entity.id }}</small>  {{ entity.title }} <small data-tooltip="{{"titletransliterated"|trans}}">{{ entity.titleTransliterated }}</small>
+                            <div class="btn-group">
+                                <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                                   href="http://scholar.google.com.tr/scholar?q={{ entity.title|url_encode }}">
+                                    <i class="fa fa-google"></i>
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
+                                   href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ entity.title|url_encode }}&cmd=search">
+                                    PubMed
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.doaj"|trans }}"
+                                   href="http://doaj.org/search?source={%raw%}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{%endraw%}{{ entity.title|url_encode }}{%raw%}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{%endraw%}">
+                                    Doaj
+                                </a> 
+                                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.crossref"|trans }}"
+                                   href="http://www.crossref.org/titleList/?datatype=journals&search=title&view_records=Search&datatype=journals&search=title&jt=&offset=&rescount=7&journal={{ entity.title }}">
+                                    Crossref
+                                </a>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <th>{{"titleabbr"|trans}}</th>
                         <td>{{ entity.titleAbbr }}</td>
-                    </tr>
-                    <tr>
-                        <th>{{"titletransliterated"|trans}}</th>
-                        <td>{{ entity.titleTransliterated }}</td>
-                    </tr>
+                    </tr> 
                     <tr>
                         <th>{{"journal.langs"|trans}}</th>
                         <td>{% for language in entity.languages %}{{language.name}}{%endfor%}</td>
@@ -64,7 +76,9 @@ journal.show tpl for super admin users
                     </tr>
                     <tr>
                         <th>{{"URL"|trans}}</th>
-                        <td>{{ entity.url }}</td>
+                        <td>
+                            <a href="{{ entity.url }}" target="_new">{{ entity.url }}</a>
+                        </td>
                     </tr>
                     <tr>
                         <th>{{"country"|trans}}</th>

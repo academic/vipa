@@ -96,6 +96,11 @@ services:
         arguments: [@service_container]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+    user.helper:
+        class: Ojs\Common\Services\UserListener
+        arguments: [ @service_container, @router ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     proxy.event_listener:
         class: Ojs\UserBundle\Listeners\ProxyListener
         arguments: [@service_container]

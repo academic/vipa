@@ -13,7 +13,8 @@
 
 
 {% block body -%}
-
+ {% include '::flashbag.html.twig' %}
+ 
     {% if articleStep.ownerUser %}
         <div class="alert alert-warning " id="article_workflow_someone_working">
             <i class="fa fa-cog"></i>
@@ -71,7 +72,7 @@
     {% for lang, articleRevised in articleStep.articleRevised.articleData  %}
         <h2>
             <span class="badge">{{lang}}</span> 
-            {{ article.title }}
+            {{ articleRevised.title|url_encode }}
             <span class="btn-group">
                 <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                    href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
@@ -84,7 +85,11 @@
                 <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.pubmed"|trans }}"
                    href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
                     PubMed
-                </a>
+                </a> 
+                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.doaj"|trans }}"
+                   href="http://doaj.org/search?source={%raw%}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{%endraw%}{{ articleRevised.title|url_encode }}{%raw%}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{%endraw%}">
+                    Doaj
+                </a> 
             </span>
         </h2>
 
@@ -248,7 +253,7 @@
                     {%endif %}
 
                     <button type="submit" class="btn btn-warning pull-right btn-lg">
-                        <i class="fa fa-arrow-right"></i> Send Review
+                        <i class="fa fa-arrow-right"></i> Next
                     </button>
                 </div>
 

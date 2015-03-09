@@ -8,14 +8,13 @@
     {% endblock %}
 {% block body -%}
     <div class="row">
-        <div class="panel">
+        <div class="col-sm-12">
+            <a href="{{ path('user_new') }}" class="btn btn-info pull-right">
+                <i class="fa fa-plus"></i> {{ "user.new"|trans }}
+            </a>
             <h1>{{ "user.list"|trans }}</h1>
 
             {{ grid(grid) }}
-            <div class="clearfix"></div>
-            <a href="{{ path('user_new') }}" class="btn btn-info">
-                <i class="fa fa-plus"></i> {{ "c"|trans }}
-            </a>
         </div>
     </div>
 {% endblock %}

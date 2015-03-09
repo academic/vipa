@@ -1,0 +1,100 @@
+/*
+Theme Name: 	superhero
+Theme URI:      http://ojs.io/themes/superhero
+Description: 	OJS superhero
+Version:        1.0
+Author:         Hüseyin Mert<huseyin.mert@ojs.io>
+Author URI: 	http://ojs.io
+License:
+License URI:
+Tags: demo
+*/
+
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #ebebeb;
+    background-color: #2b3e50;
+}
+a {
+    color: #eb6864;
+    text-decoration: none;
+}
+a:hover,
+a:focus {
+    color: #e22620;
+    text-decoration: underline;
+}
+a:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.navbar {
+    font-size: 18px;
+    font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+    font-weight: 700;
+}
+.navbar-default .badge {
+    background-color: #000;
+    color: #fff;
+}
+.navbar-inverse .badge {
+    background-color: #fff;
+    color: #eb6864;
+}
+.navbar-brand {
+    font-size: inherit;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.has-warning .help-block,
+.has-warning .control-label,
+.has-warning .form-control-feedback {
+    color: #f57a00;
+}
+.has-warning .form-control,
+.has-warning .form-control:focus {
+    border-color: #f57a00;
+}
+.has-error .help-block,
+.has-error .control-label,
+.has-error .form-control-feedback {
+    color: #eb6864;
+}
+.has-error .form-control,
+.has-error .form-control:focus {
+    border-color: #eb6864;
+}
+.has-success .help-block,
+.has-success .control-label,
+.has-success .form-control-feedback {
+    color: #22b24c;
+}
+.has-success .form-control,
+.has-success .form-control:focus {
+    border-color: #22b24c;
+}
+.badge {
+    padding-bottom: 4px;
+    vertical-align: 3px;
+    font-size: 10px;
+}
+.jumbotron h1,
+.jumbotron h2,
+.jumbotron h3,
+.jumbotron h4,
+.jumbotron h5,
+.jumbotron h6 {
+    font-family: "News Cycle", "Arial Narrow Bold", sans-serif;
+    font-weight: 700;
+    color: #000;
+}
+.panel-primary .panel-title,
+.panel-success .panel-title,
+.panel-warning .panel-title,
+.panel-danger .panel-title,
+.panel-info .panel-title {
+    color: #fff;
+}

@@ -78,7 +78,7 @@
         "flot": "*",
         "morrisjs": "*",
         "mustache": "*",
-        "cropper": "0.7.5",
+        "cropper": "0.8.0",
         "twig.js": "*",
 	"bootstrap-tour": "*",
         "holderjs": "*",
