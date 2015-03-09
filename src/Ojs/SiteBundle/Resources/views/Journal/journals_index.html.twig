@@ -75,10 +75,10 @@
                                         <div>
                                             <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                                                class="btn-link btn-sm">
-                                                <i class="fa fa-link"></i> Dergi</a>
+                                                <i class="fa fa-link"></i>{{ "journal"|trans }}</a>
                                             <a href="{{ url('ojs_last_articles_index',{slug: journal.slug,institution: journal.institution.slug}) }}"
                                                class="btn-link btn-sm">
-                                                <i class="fa fa-bookmark-o"></i> Son Sayı</a>
+                                                <i class="fa fa-bookmark-o"></i> {{ "current.issue"|trans }}</a>
                                         </div>
 
                                     {% endif %}
@@ -87,7 +87,7 @@
                         </div>
                     {% else %}
                         <div class="alert alert-info">
-                            No Content
+                           {{ "No Content"|trans }}
                         </div>
                     {% endfor %}
                 </div>

@@ -52,9 +52,9 @@ cancel: Cancel
 role.edit: 'Edit Role'
 role.list: 'Role List'
 role.id: ID
-role.name: Name
-role.role: Role
-role.issystemrole: 'Is System Role?'
+name: Name
+role: Role
+issystemrole: System Role
 role.new: 'New Role'
 role.singular: Role
 role.users: 'Role Users'
@@ -62,6 +62,9 @@ sign.in: 'Sign In'
 username.or.email: 'Username Or Email'
 username: Username
 password: Password
+firstName: First Name
+lastName: Last Name
+isActive: isActive
 forgot.password: 'forgot password'
 user.new: 'New User'
 user.plural: Users

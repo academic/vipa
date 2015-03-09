@@ -18,18 +18,20 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
-            ->add('email')
-            ->add('title')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('isActive')
+            ->add('username', null, array('label' => "username"))
+            ->add('password', 'password', array('label' => 'password','attr' => array('style' => 'color:#898989;font-size:80%')))
+            ->add('email', null, array('label' => "email"))
+            ->add('title', null, array('label' => "title"))
+            ->add('firstName', null, array('label' => "firstName"))
+            ->add('lastName', null, array('label' => "lastName"))
+            ->add('isActive', null, array('label' => "isActive"))
             //->add('avatar', 'file')
             ->add('status','choice',[
-                'choices'=>CommonParams::$userStatusArray
+                'choices'=>CommonParams::$userStatusArray,
+                'label' => "status"
             ])
             ->add('roles', 'entity', array(
+              'label' => "roles",
                 'class' => 'Ojs\UserBundle\Entity\Role',
                 'property' => 'name',
                 'multiple' => true,
@@ -37,6 +39,7 @@ class UserType extends AbstractType
                 'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
             ))
             ->add('subjects', 'entity', array(
+              'label' => "subjects",
                 'class' => 'Ojs\JournalBundle\Entity\Subject',
                 'property' => 'subject',
                 'multiple' => true,
@@ -52,7 +55,8 @@ class UserType extends AbstractType
 //                    'multiple' => true,
 //                    'expanded' => false,
 //                ))
-            ->add('country', 'entity', [
+            ->add('country', 'entity' ,[
+                'label' => "country",
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                 'attr' => [
                     'class' => 'select2-element  bridged-dropdown',

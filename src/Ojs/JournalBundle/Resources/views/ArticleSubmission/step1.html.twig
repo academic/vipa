@@ -1,4 +1,5 @@
 
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <a href="#lang_{{lang.code}}" id="lang_{{lang.code}}" name="lang_{{lang.code}}"></a>
@@ -24,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">{{"subjects"|trans}}</label>
-                <input name="subjects" class="form-control" placeholder="Comma separated subject lists"  
+                <input name="subjects" class="form-control" placeholder={{'comma_subject_list'|trans}} 
                        value="{%if article is defined %}{{article.subjects}}{%endif%}"/>
             </div>
             <div class="form-group">

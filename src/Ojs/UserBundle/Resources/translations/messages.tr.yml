@@ -1,3 +1,5 @@
+
+
 event.id: ID
 event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'
@@ -52,9 +54,9 @@ cancel: İptal
 role.edit: 'Rol Düzenle'
 role.list: 'Rol Listesi'
 role.id: ID
-role.name: Tanım
-role.role: Rol
-role.issystemrole: 'Sistem Rolü mü?'
+name: Tanım
+role: Rolü
+issystemrole: 'Sistem Rolü'
 role.new: 'Yeni Rol'
 role.singular: Rol
 role.users: 'Role sahip kullanıcılar'
@@ -64,7 +66,7 @@ username: Kullanıcı Adı
 password: Şifre
 forgot.password: 'şifremi unuttum'
 user.new: 'Yeni Kullanıcı'
-register: Kayıt
+register: Kayıt Ol
 'This will be your unique short name in application': 'Bu uygulamada sizin kısa adınız olacak'
 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '<a target="_blank" href="%tos%">Gizlilik sözleşmesini</a> okuyup, kabul etmelisiniz.'
 unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'
@@ -77,6 +79,9 @@ user.username: Kullanıcı Adı
 user.email: Eposta
 user.status: Durum
 user.roles: Roller
+firstName: İsim
+lastName: Soyad
+isActive: Aktif
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
 user.show: 'Kullanıcıyı Göster'
@@ -86,9 +91,9 @@ drop.proxy.user: 'Vekil Kullanıcıyı Düşür'
 add.as.proxy: 'Vekil Olarak Ata'
 user.apikey: 'API Anahtarı'
 regenerate.apikey: 'API Anahtarını Güncelle'
-register.yourself.as.author: 'Yazar Olarak Kayıtol'
+register.yourself.as.author: 'Yazar Olarak Kayıt Ol'
 user.journalrole.edit: 'Dergi Rolü Düzenle'
-user.journalrole.list: 'Dergi Rolleri Listesi'
+user.journalrole.list: 'Dergilerin Kullanıcı Listesi'
 user.journalrole.id: ID
 user.journalrole.user: Kullanıcı
 user.journalrole.journal: Dergi
@@ -102,13 +107,16 @@ user.journalrole.myjournals: 'Dergilerim'
 user.journalrole.alljournals: 'Tüm Dergiler'
 journal.singular: Dergi
 user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
-user.journalrole.usersofjournal: 'Kullanıcıların Dergileri'
+user.journalrole.usersofjournal: 'Derginin Kullanıcıları'
 user.journalrole.user.id: ID
 user.journalrole.user.username: Kullanıcı Adı
 user.journalrole.email: Eposta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
+
+user.anonym : Yeni Kullanıcı
+
 user.anonym:
-  new: "Yeni ekle"
+  new: "Yeni Kullanıcı ekle"
   firstname: "Ad"
   lastname: "Soyad"
   email: "Eposta"
@@ -117,6 +125,7 @@ user.anonym:
   has_register: "Kayıt"
   user: "Kullanıcı"
   object: "Nesne"
+  create_password: "Şifre Oluştur"
   list: "Listele"
 
 orcid:
@@ -128,5 +137,29 @@ user.journalrole.mail.subject: "Konu"
 user.journalrole.mail.body: "Mesaj"
 user.journalrole.mail.send: "Gönder"
 
+
+dashboard: Panel
+
+You've invited to OJS: "Dergipark'a davet edildiniz"
+Click link below for login to ojs if you are accept invitation: "Daveti kabul ediyorsanız, asağıdaki linke tıklayınız."
+Login Now : "Şimdi Giriş Yap"
+Password Change : "Şifre Değiştir"
+Information: "Bilgi"
+Your password has been changed: "Şifreniz değişmiştir"
+Password Reset: "Şifreyi Resetle"
+Your password has been reset: "Şifreniz resetlenmiştir"
+You are request password reset: "Şifreyi resetlemek istediğinize emin misiniz?"
+Password Reset Process: "Şifrenin resetlenme süreci"
+Click link below for reset to ojs account password : "DergiPark'a giriş şifrenizi resetlemek için aşağıdaki linke tıklayınız."
+Reset Now: "Resetle"
+save: Kaydet
+Avatar: Avatar
+Header Image: "Başlık Resmi"
+
+  
 flush:
   all.log : "Logları Sil"
+  
+  
+messages: Mesajlar
+
