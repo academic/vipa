@@ -77,7 +77,6 @@ class JournalIndexController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -157,7 +156,6 @@ class JournalIndexController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
