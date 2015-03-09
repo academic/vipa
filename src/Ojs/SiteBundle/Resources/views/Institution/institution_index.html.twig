@@ -1,51 +1,61 @@
 {% extends "::ojsbase.html.twig" %}
-{% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+{% set hideleft = 1 %}
+{% block breadcrumb %}{% endblock %}
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{entity.name}} </h1>
-        {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
-
-        <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header))|imagine_filter('institution_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/720x150/#f9A497:#ffffff/text:{{entity.name}}" alt=""/>
-        <div class="clearfix"></div>
+        <h1 class="page-header">{{ entity.name }} </h1>
+        {% if entity.header is not null %}
+            {% set imageoptions=getImageOptions(entity,'header','institution_header') %}
+            <img class="img-responsive"
+                 src="{{ ('/uploads/institutionfiles/'~imagePath(entity.header))|imagine_filter('institution_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                 alt=""/>
+            <div class="clearfix"></div>
+        {% endif %}
         <div class="panel panel-default">
             <div class="panel-body">
                 <div itemscope itemtype="http://schema.org/Organization">
-                    <span itemprop="name">{{entity.name}}</span>
+                    <span itemprop="name">{{ entity.name }}</span>
                     Contact Details:
                     <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                         Main address:
-                        <span itemprop="address">{{entity.address}}</span>
-                        <span itemprop="addressLat">{{entity.addressLat}}</span>
-                        <span itemprop="addressLong">{{entity.addressLong}}</span>
-                        <span itemprop="addressLocality">{{entity.city}},{{entity.country}}</span>
+                        <span itemprop="address">{{ entity.address }}</span>
+                        <span itemprop="addressLat">{{ entity.addressLat }}</span>
+                        <span itemprop="addressLong">{{ entity.addressLong }}</span>
+                        <span itemprop="addressLocality">{{ entity.city }},{{ entity.country }}</span>
                     </div>
-                    Tel:<span itemprop="telephone">{{entity.phone}}</span>,
-                    Fax:<span itemprop="faxNumber">{{entity.fax}}</span>,
-                    E-mail: <span itemprop="email">{{entity.email}}</span>
-                    Web: <span itemprop="url">{{entity.url}}</span>
-                    Wiki: <span itemprop="url">{{entity.url}}</span>
+                    Tel:<span itemprop="telephone">{{ entity.phone }}</span>,
+                    Fax:<span itemprop="faxNumber">{{ entity.fax }}</span>,
+                    E-mail: <span itemprop="email">{{ entity.email }}</span>
+                    Web: <span itemprop="url">{{ entity.url }}</span>
+                    Wiki: <span itemprop="url">{{ entity.url }}</span>
                 </div>
 
             </div>
 
 
             <div class="panel-footer">
-
-                <i class="fa fa-tags"></i>{{"tags"|trans}}
-                <a href="#"><span class="badge">ojs</span></a>
-                <a href="#"><span class="badge">university</span></a>
-                <a href="#"><span class="badge">paper</span></a>
+                {% if entity.tags %}
+                    <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                    {% set tags = entity.tags|split(',') %}
+                    {% for tag in tags %}
+                        <a href="#"><span class="badge">{{ tag }}</span></a>
+                    {% endfor %}
+                {% endif %}
 
             </div>
         </div>
-
-        <ul class="list-group">
-            {% for journal in entity.journals %}
-                <li class="list-group-item"><a href="{{ url('ojs_journal_index',{slug:journal.slug, institution:journal.institution.slug }) }}">{{ journal.title }}</a></li>
-                {%endfor%}
-        </ul>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">{{ "journal.plural"|trans }}</div>
+            <ul class="list-group">
+                {% for journal in entity.journals %}
+                    <li class="list-group-item"><a
+                                href="{{ url('ojs_journal_index',{slug:journal.slug, institution:journal.institution.slug }) }}">{{ journal.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
     </div>
     <!-- /.container -->
@@ -54,6 +64,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('institution',{{ entity.id }})
+        analytics.increase('institution', {{ entity.id }})
     </script>
 {% endblock %}
