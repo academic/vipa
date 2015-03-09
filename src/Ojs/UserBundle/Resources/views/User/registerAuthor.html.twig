@@ -1,40 +1,35 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-{% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                {'title': 'register.yourself.as.author'|trans},
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'register.yourself.as.author'|trans},
 
-] %}
-{{breadcrumb(list)}}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
 {% block body -%}
-<div class="col-md-12">
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3>{{ 'register.yourself.as.author'|trans }}</h3></div>
-        <div class="panel-body">
-            <div class="list-group alljournallist">
-                {%for entity in entities %}
-                <a {%if entity.roles == NULL %}href="{{path('user_join_journal_action',{'journalId': entity.journal.id})}}"{%endif%}
-                    rel="{{entity.journal.id}}" class="list-group-item
-                    {%if entity.roles%} list-group-item-success {%endif%}">
-                    {{entity.journal.title}}
-                    {%if entity.roles%}
-                        {%for role in entity.roles%}
-                            <span class="label label-info">
-                                {{role.role}}
-                            </span>
-                        {%endfor%}
-                    {%else%}
-                    <span class="fa fa-plus pull-right"></span>
-                    {%endif%}
+    <h3>{{ 'register.yourself.as.author'|trans }}</h3>
 
-                </a>
-                {%endfor%}
-            </div>
-        </div>
+    <div class="list-group alljournallist">
+        {% for entity in entities %}
+            <a {% if entity.roles == NULL %}href="{{ path('user_join_journal_action',{'journalId': entity.journal.id}) }}"{% endif %}
+               rel="{{ entity.journal.id }}" class="list-group-item
+                    {% if entity.roles %} list-group-item-success {% endif %}">
+                {{ entity.journal.title }}
+                {% if entity.roles %}
+                    {% for role in entity.roles %}
+                        <span class="label label-info">
+                                {{ role.role }}
+                            </span>
+                    {% endfor %}
+                {% else %}
+                    <span class="fa fa-plus pull-right"> {{ "author.add"|trans }}</span>
+                {% endif %}
+
+            </a>
+        {% endfor %}
     </div>
-</div>
 {% endblock %}
