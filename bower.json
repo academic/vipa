@@ -1,49 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "Ojs",
-  "version": "0.0.1",
-  "homepage": "http://okulbilisim.com",
-  "authors": [
-    "Tayyar Beşik <tayyar.besik@okulbilisim.com>",
-    "Hüseyin Mert <huseyin.mert@okulbilisim.com>"
-  ],
-  "description": "Open Journal System",
-  "license": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "resolutions": {
-    "bootstrap": "3.3.2"
-  },
-  "dependencies": {
-    "jquery": "*",
-    "bootstrap": "3.3.2",
-    "bootstrap-material-design": "*",
-    "font-awesome": "*",
-    "bootstrap-dialog": "*",
-    "bootstrap3-wysihtml5-bower": "*",
-    "select2-bootstrap-css": "*",
-    "jquery-file-upload": "*",
-    "jquery.inputmask": "*",
-    "flot": "*",
-    "morrisjs": "*",
-    "mustache": "*",
-    "cropper": "*",
-    "twig.js": "*",
-    "bootstrap-tour": "*",
-    "holderjs": "*",
-    "jquery-sortable": "*",
-    "raphael": "*",
-    "bootstrap-tagsinput": "*",
-    "bootstrap-treeview": "*",
-    "jquery-pjax": "*"
-  }
-=======
+
     "name": "Ojs",
     "version": "0.0.1",
     "homepage": "http://okulbilisim.com",
@@ -88,5 +44,4 @@
         "bootstrap-treeview":"*",
         "jquery-pjax":"*"
     }
->>>>>>> be1504c9108fc5e8e2b3b88e1a4c0fc53898bcc8
 }
