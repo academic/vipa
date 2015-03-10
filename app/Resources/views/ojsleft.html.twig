@@ -1,53 +1,54 @@
 {% block sidebar %}
     <div class="col-sm-3 col-md-3">
         <div class="panel-group">
-            <div class="panel panel-default left-menu-bgcolor">
-                {% if userjournals %}
-                    <div class="dropdown">
-                        <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
-                                data-toggle="dropdown">
-
-                            {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
-                                     class="avatar"/>
-                            {% else %}
-                                <img src="holder.js/96x96/#459:#fff/text:ojs" />
-                            {% endif %}
-                            {{ userjournals[session('selectedJournalId')].title[:22] }}
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
-                            {% for journal in userjournals %}
-                                <li class=list-group-item">
-                                    <a href="{{ path('change_selected_journal',{'journal_id':journal.id}) }}">
-                                        {{ journal.title }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
-                            <a class="text-center"
-                               href="{{ path( 'ojs_journal_index' ,{ 'institution': userjournals[session('selectedJournalId')].institution.slug ,'slug': userjournals[session('selectedJournalId')].slug }) }}">
-                                {{ userjournals[session('selectedJournalId')].title[:22] }}
-                            </a>
-                        {% endif %}
+            <div class="panel panel-default">
+                {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) %}
+                    <div class="panel-heading">
+                        {{ userjournals[session('selectedJournalId')].title }}
                     </div>
-                {% endif %}
-            </div>
-            <div class="panel panel-default left-menu-bgcolor">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        {{ app.user.getUsername() }}
+                    <div class="panel-bodyx">
+                        <div class="dropdown">
+                            <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown">
+
+                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                         class="avatar"/>
+                                {% else %}
+                                    <img src="holder.js/96x96/#459:#fff/text:ojs" />
+                                {% endif %}
+                                {{ userjournals[session('selectedJournalId')].title[:22] }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
+                                {% for journal in userjournals %}
+                                    <li class=list-group-item">
+                                        <a href="{{ path('change_selected_journal',{'journal_id':journal.id}) }}">
+                                            {{ journal.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
                         {% if userJournalRoles %}
-                            (
                             {% for role in userJournalRoles %}
                                 <span class="label label-default">{{ role.role|trans }}</span>
                             {% endfor %}
-                            )
                         {% endif %}
-                    </h4>
-                </div>
+                    </div>
+                    {% else %}
+
+                    <a href="{{ path(user_join_journal) }}">{{ "journal.join"|trans }}</a>
+                {% endif %}
+            </div>
+            <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-collapse collapse in">
+                    <a class="list-group-item" href="{{ path('dashboard') }}">
+                        <i class="fa fa-dashboard"></i>
+                        {{ "dashboard"|trans }}
+                    </a>
                     {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
                         {% set submitButton = 0 %}
                         {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
@@ -72,10 +73,6 @@
                             {{ "Articles"|trans }}
                         </a>
                     {% endif %}
-                    <a class="list-group-item" href="{{ path('dashboard') }}">
-                        <i class="fa fa-dashboard"></i>
-                        {{ "dashboard"|trans }}
-                    </a>
                 </div>
             </div>
             {% if isJournalManager() or isEditor() %}
