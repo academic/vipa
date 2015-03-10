@@ -41,6 +41,9 @@ class JournalWorkflowStep {
 
     /** @MongoDb\Boolean */
     protected $canReview;
+    
+        /** @MongoDb\Boolean */
+    protected $canRejectSubmission;
 
     /** @MongoDb\Boolean */
     protected $mustBeAssigned;
@@ -464,5 +467,27 @@ class JournalWorkflowStep {
     public function getCanReview()
     {
         return $this->canReview;
+    }
+
+    /**
+     * Set canRejectSubmission
+     *
+     * @param boolean $canRejectSubmission
+     * @return self
+     */
+    public function setCanRejectSubmission($canRejectSubmission)
+    {
+        $this->canRejectSubmission = $canRejectSubmission;
+        return $this;
+    }
+
+    /**
+     * Get canRejectSubmission
+     *
+     * @return boolean $canRejectSubmission
+     */
+    public function getCanRejectSubmission()
+    {
+        return $this->canRejectSubmission;
     }
 }
