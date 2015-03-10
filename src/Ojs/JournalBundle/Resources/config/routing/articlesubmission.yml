@@ -32,6 +32,10 @@ article_submission_removelocale:
     pattern:  /author/article/submit/removelocale/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep:removelocale" }
 
+article_submission_licence:
+    pattern: /author/article/submit/licence/{locale}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionLicence:save"}
+    requirements: { _method: post }
 article_submission_step1:
     pattern:  /author/article/submit/step1/{locale}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep1:addArticle" }

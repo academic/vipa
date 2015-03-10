@@ -115,7 +115,7 @@ class ArticleSubmissionProgress
     /**
      * Set startedDate
      *
-     * @param date $startedDate
+     * @param \DateTime $startedDate
      * @return self
      */
     public function setStartedDate($startedDate)
@@ -127,7 +127,7 @@ class ArticleSubmissionProgress
     /**
      * Get startedDate
      *
-     * @return date $startedDate
+     * @return \DateTime $startedDate
      */
     public function getStartedDate()
     {
@@ -137,7 +137,7 @@ class ArticleSubmissionProgress
     /**
      * Set lastResumeDate
      *
-     * @param date $lastResumeDate
+     * @param \DateTime $lastResumeDate
      * @return self
      */
     public function setLastResumeDate($lastResumeDate)

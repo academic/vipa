@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Mapping\Column;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
@@ -41,6 +42,7 @@ class JournalController extends Controller
         $rowAction[] = ActionHelper::deleteAction('journal_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
+
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
