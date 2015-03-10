@@ -1,10 +1,14 @@
 ojs_workflow_homepage:
-    pattern:  /editor/worflow
+    pattern:  /editor/workflow
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
+
+ojs_workflow_graph:
+    pattern:  /editor/workflow/graph
+    defaults: { _controller: OjsWorkflowBundle:WorkflowStep:graph }
 
 ojs_workflowsteps:
     resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
-    prefix: /editor/worflow/
+    prefix: /editor/workflow/
 
 review_form_items: 
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_form_items.yml"
@@ -15,7 +19,7 @@ review_forms:
     prefix: /editor/
      
 manage_workflowsteps:
-    pattern:   /editor/worflow/manage/steps
+    pattern:   /editor/workflow/manage/steps
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
 
 editor_articles_rejected:
