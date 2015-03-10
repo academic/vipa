@@ -62,6 +62,7 @@ citation.type: 'Citation Type'
 article.fulltext: 'Full Text'
 article.plural: Articles
 article.singular: Article
+article.licensing: Licensing
 article.submit: 'Submit Article'
 article.files: 'Article Files'
 article.authors: 'Article Authors'

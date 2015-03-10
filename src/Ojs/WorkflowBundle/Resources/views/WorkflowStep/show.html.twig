@@ -78,6 +78,10 @@
                     <td>{{printYesNo(step.canSeeAuthor)}}</td>
                 </tr>
                 <tr>
+                    <th>Can reject submission</th>
+                    <td>{{printYesNo(step.canRejectSubmission)}}</td>
+                </tr>
+                <tr>
                     <th>Roles</th>
                     <td>
                         {%for role in step.roles%}

@@ -22,11 +22,11 @@
                 {% if entity.roles %}
                     {% for role in entity.roles %}
                         <span class="label label-info">
-                                {{ role.role }}
+                                {{ role.name }}
                             </span>
                     {% endfor %}
                 {% else %}
-                    <span class="fa fa-plus pull-right"> {{ "author.add"|trans }}</span>
+                    <span class="fa fa-plus pull-right"> {{ "join.as.author"|trans }}</span>
                 {% endif %}
 
             </a>

@@ -162,7 +162,7 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
+        if (!method_exists($articleSubmission,'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());

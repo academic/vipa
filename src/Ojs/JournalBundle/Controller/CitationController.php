@@ -6,6 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Form\CitationType;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Citation controller.
@@ -19,13 +22,20 @@ class CitationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+         $source = new Entity('OjsJournalBundle:Citation');
+        $grid = $this->get('grid')->setSource($source);
 
-        $entities = $em->getRepository('OjsJournalBundle:Citation')->findAll();
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('citation_show', 'id');
+        $rowAction[] = ActionHelper::editAction('citation_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('citation_delete', 'id');
 
-        return $this->render('OjsJournalBundle:Citation:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn); 
+        return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig', array('grid'=>$grid));
+
+       // $entities = $em->getRepository('OjsJournalBundle:Citation')->findAll();
+ 
     }
 
     /**

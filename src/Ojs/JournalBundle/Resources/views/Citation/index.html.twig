@@ -3,32 +3,5 @@
 {% block body -%}
     <h1>{{"citation.list"|trans}}</h1>
     <a href="{{ path('citation_new') }}">{{"citation.new"|trans}}</a>
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>{{"source"|trans}}</th>
-                <th>{{"type"|trans}}</th>
-                <th>{{"order"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('citation_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.raw }}</td>
-                    <td>{{ entity.type }}</td>
-                    <td>{{ entity.orderNum }}</td>
-                    <td>
-                        {% set edit_path = 'citation_edit' %}
-                        {% set show_path = 'citation_show' %}
-                        {% set delete_path = 'citation_delete' %}
-                        {% include '::actionbtns.html.twig' %}
-
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {{grid(grid)}}
 {% endblock %}

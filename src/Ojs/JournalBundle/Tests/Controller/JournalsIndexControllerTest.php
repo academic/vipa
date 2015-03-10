@@ -10,7 +10,7 @@ class JournalsIndexControllerTest extends BaseTestCase
     public function testCreate()
     {
         $this->logIn();
-        $crawler = $this->client->request('GET', $this->router->generate('admin_journalsindex_new',['journal'=>1]));
+        $crawler = $this->client->request('GET', $this->router->generate('manager_journals_indexes_new',['journal'=>1]));
         $form = $crawler->selectButton('Create')->form();
         $form['ojs_journalbundle_journalsindex[journal_index]'] = "1";
         $form['ojs_journalbundle_journalsindex[link]'] = "http://google.com";

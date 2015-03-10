@@ -2,13 +2,17 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Citation
+ * @GRID\Source(columns="id,raw,type")
  */
 class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
+     * @GRID\Column(title="ID")
      */
     private $id;
 
