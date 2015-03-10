@@ -43,6 +43,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/select2/select2.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
+                    - %kernel.root_dir%/../web/vendor/mermaid/mermaid.full.min.js
 
         admin_main_css:
                 inputs:
