@@ -28,6 +28,9 @@ class JournalsIndexController extends Controller
      */
     public function indexAction($journal = null)
     {
+        if (!$journal) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
+        }
         $source = new Entity('OjsJournalBundle:JournalsIndex');
         if ($journal) {
             $ta = $source->getTableAlias();
