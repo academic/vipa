@@ -44,9 +44,9 @@ class JournalsIndexController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('admin_journalsindex_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_journalsindex_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_journalsindex_delete', 'id');
+        $rowAction[] = ActionHelper::showAction('manager_journals_indexes_show', 'id');
+        $rowAction[] = ActionHelper::editAction('manager_journals_indexes_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('manager_journals_indexes_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -77,7 +77,7 @@ class JournalsIndexController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_journalsindex_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('manager_journals_indexes_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:JournalsIndex:new.html.twig', array(
@@ -96,7 +96,7 @@ class JournalsIndexController extends Controller
     private function createCreateForm(JournalsIndex $entity)
     {
         $form = $this->createForm(new JournalsIndexType(), $entity, array(
-            'action' => $this->generateUrl('admin_journalsindex_create', ['journal' => $entity->getJournalId()]),
+            'action' => $this->generateUrl('manager_journals_indexes_create', ['journal' => $entity->getJournalId()]),
             'method' => 'POST',
             'user' => $this->getUser()
         ));
@@ -182,7 +182,7 @@ class JournalsIndexController extends Controller
     private function createEditForm(JournalsIndex $entity)
     {
         $form = $this->createForm(new JournalsIndexType(), $entity, array(
-            'action' => $this->generateUrl('admin_journalsindex_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('manager_journals_indexes_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'user' => $this->getUser()
         ));
@@ -213,7 +213,7 @@ class JournalsIndexController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_journalsindex_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('manager_journals_indexes_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:JournalsIndex:edit.html.twig', array(
@@ -244,7 +244,7 @@ class JournalsIndexController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_journalsindex'));
+        return $this->redirect($this->generateUrl('manager_journals_indexes'));
     }
 
     /**
@@ -257,7 +257,7 @@ class JournalsIndexController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_journalsindex_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('manager_journals_indexes_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
