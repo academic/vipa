@@ -11,6 +11,8 @@
                 {%endif%}
             <a class="btn btn-info" href="{{path('user_show_my_journals')}}">
                 <i class="fa fa-user"></i> {{ "user.journalrole.myjournals"|trans }}</a>
+
+            <a href="{{ path('user_join_journal') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'register.yourself.as.author'|trans }}</a>
             <hr>
             {% if entities %}
                 <table class="records_list  table">
