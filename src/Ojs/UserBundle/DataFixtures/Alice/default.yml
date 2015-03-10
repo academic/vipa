@@ -1,5 +1,5 @@
 \Ojs\UserBundle\Entity\User:
-  user{1..50}:
+  user{1..200}:
     username (unique): <username()>
     password: '$2y$13$9MeHwAKCITMHtMlFJa3U3.PFRAmbOuDbgwIuVIv07N9tSN.KhphHG'
     firstName: <firstName()>
