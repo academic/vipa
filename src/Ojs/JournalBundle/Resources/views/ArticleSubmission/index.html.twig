@@ -13,12 +13,9 @@
 
 {% block body -%}
 
-    <h1>Submissions</h1>
-
-    <div>
+    <h2>{{ 'Submissions'|trans }}</h2>
         <a href="{{ path('article_submission_new') }}"
            class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
-    </div>
     <div class="btn-group">
         <a class="btn btn-default" href="{{ path('article_submissions_me') }}">{{ "article.mysubmits"|trans }}</a>
         {% if isSystemAdmin() or isJournalManager() %}
@@ -26,25 +23,10 @@
                href="{{ path('article_submissions_all') }}">{{ "article.all"|trans }}</a>
         {% endif %}
     </div>
-    <div role="tabpanel">
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-                <a href="#drafts" aria-controls="drafts" role="tab" data-toggle="tab">{{ 'Drafts'|trans }}</a>
-            </li>
-            <li role="presentation">
-                <a href="#submissions" aria-controls="submissions" role="tab" data-toggle="tab">{{ 'Submissions'|trans }}</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="drafts">
-                <h3>Drafts</h3>
-                {{ grid(drafts) }}
-            </div>
 
-            <div role="tabpanel" class="tab-pane" id="submissions">
-                <h3>Submitted</h3>
-                {{ grid(submissions) }}
-            </div>
-        </div>
-    </div>
+    <h3>{{ 'Drafts'|trans }}</h3>
+    {{ grid(drafts) }}
+
+    <h3>{{ 'Submissions'|trans }}</h3>
+    {{ grid(submissions) }}
 {% endblock %}
