@@ -101,11 +101,9 @@ class ArticleSubmissionController extends Controller
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('article_show', 'id','ROLE_SUPER_ADMIN');
-        $rowAction[] = ActionHelper::editAction('article_edit', 'id','ROLE_SUPER_ADMIN');
-        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id','ROLE_SUPER_ADMIN');
-        $actionColumn->setRowActions($rowAction);
-        $submissionsgrid->addColumn($actionColumn);
+        $submissionsgrid->addRowAction(ActionHelper::showAction('article_show', 'id', ('ROLE_SUPER_ADMIN')));
+        $submissionsgrid->addRowAction(ActionHelper::editAction('article_edit', 'id', 'ROLE_SUPER_ADMIN'));
+        $submissionsgrid->addRowAction(ActionHelper::deleteAction('article_delete', 'id', 'ROLE_SUPER_ADMIN'));
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
