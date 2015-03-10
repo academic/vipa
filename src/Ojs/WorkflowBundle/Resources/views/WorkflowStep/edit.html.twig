@@ -88,6 +88,10 @@
                                {%if step.canSeeAuthor%}checked="checked"{%endif%}>
                     </label>
 
+
+
+                </div>
+                <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         Can edit?
                         <input type="checkbox" name="canEdit" value="1"
@@ -105,8 +109,12 @@
                                {%if step.mustBeAssigned%}checked="checked"{%endif%}> 
                     </label>
 
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Can reject the submission completely?
+                        <input type="checkbox" name="canRejectSubmission" value="1"
+                               {%if step.canRejectSubmission%}checked="checked"{%endif%}> 
+                    </label>
                 </div>
-
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 

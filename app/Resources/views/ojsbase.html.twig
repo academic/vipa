@@ -12,9 +12,9 @@
         {% block stylesheets %}
             {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css"   %}   
             <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
+            {% endstylesheets %} 
             {% if journal is defined and journal.theme %}
-                <link rel="stylesheet" href="/assets/theme/{{ journal.theme.name }}/css/style.css" />
+                <link rel="stylesheet" href="/assets/theme/{{ journal.theme.name }}/css/style.css" /> 
             {% endif %}
 
         {% endblock %}
@@ -31,7 +31,7 @@
         {% block header %}
             {%include '::ojsheader.html.twig'%}
         {% endblock %}
-        <div class="container">
+        <div class="container ">
             <div class="row">
                 {% if app.user and hideleft is not defined %}
                     {%include '::ojsleft.html.twig'%}

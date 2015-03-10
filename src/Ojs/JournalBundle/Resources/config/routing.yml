@@ -1,67 +1,22 @@
-ojs_journal_admin_journalsindex:
+ojs_journal_manager_journal_licence:
+    resource: "@OjsJournalBundle/Resources/config/routing/journallicence.yml"
+    prefix:   /manager/journal_licence
+
+ojs_journal_manager_journals_indexes:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsindex.yml"
-    prefix:   /admin/journalsindex
-
-ojs_journal_admin_journalindex:
-    resource: "@OjsJournalBundle/Resources/config/routing/journalindex.yml"
-    prefix:   /admin/journalindex
-
+    prefix:   /manager/journal/settings/indexes 
+    
 ojs_journal_articlefile:
     resource: "@OjsJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile
 
-ojs_journal_mailtemplate_admin:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/mailtemplate.yml"
-    prefix:   /admin/mailtemplate
-
 ojs_journal_mailtemplate:
     resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
     prefix:   /manager/mailtemplate
-    
-ojs_journal_admin_journaltheme:
-    resource: "@OjsJournalBundle/Resources/config/routing/journaltheme.yml"
-    prefix:   /admin/journaltheme
-
-#Crud pages
-
+  
 change_selected_journal:
     pattern:  /manager/journal/selected/{journal_id}
     defaults: { _controller: "OjsJournalBundle:Journal:changeSelected" }
-
-ojs_journal_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/journal.yml"
-    prefix:   /admin/journal
-
-ojs__issue:
-    resource: "@OjsJournalBundle/Resources/config/routing/issue.yml"
-    prefix:   /admin/issue
-
-ojs_theme:
-    resource: "@OjsJournalBundle/Resources/config/routing/theme.yml"
-    prefix:   /admin/theme
-
-ojs_institution_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/institution.yml"
-    prefix:   /admin/institution
-
-ojs_institution_types_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/institutiontypes.yml"
-    prefix:   /admin/institution_types
-ojs_suggestion_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/suggestion.yml"
-    prefix: /admin/suggestion
-
-ojs_contact_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/contact.yml"
-    prefix:   /admin/contact
-
-ojs__contacttypes_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/contacttypes.yml"
-    prefix:   /admin/contacttypes
-
-ojs_article_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/article.yml"
-    prefix:   /admin/article
 
 
 article_preview:
@@ -74,44 +29,6 @@ ojs_article_submission:
 
 ojs_journal_setup:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
-
-ojs_author_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/author.yml"
-    prefix:   /admin/author
-
-ostr_subject_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/subject.yml"
-    prefix:   /admin/subject
-
-ojs_language_crud:
-        resource: "@OjsJournalBundle/Resources/config/routing/lang.yml"
-        prefix:  /admin/language
-
-
-ostr_aadmin_file:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/file.yml"
-    prefix:   /admin/file
-
-ojs_journalcontact:
-    resource: "@OjsJournalBundle/Resources/config/routing/journalcontact.yml"
-    prefix:   /admin/journalcontact
-
-ojs_citation:
-    resource: "@OjsJournalBundle/Resources/config/routing/citation.yml"
-    prefix:   /admin/citation
-
-ojs_citationsetting:
-    resource: "@OjsJournalBundle/Resources/config/routing/citationsetting.yml"
-    prefix:   /admin/citationsetting
-
-
-ojs_articleauthor:
-    resource: "@OjsJournalBundle/Resources/config/routing/articleauthor.yml"
-    prefix:   /admin/articleauthor
-
-admin_journal_section:
-    resource: "@OjsJournalBundle/Resources/config/routing/journalsection.yml"
-    prefix:   /admin/journal/section
 
 journal_apply:
     pattern:  /journal/apply

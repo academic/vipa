@@ -1,15 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'journalsindex.create'|trans }}</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_journalsindex',{journal: entity.journalId}) }}">
-            {{ 'b'|trans }}
-        </a>
-    </li>
-</ul>
+
+    <a href="{{ path('manager_journals_indexes',{journal: entity.journalId}) }}">
+        {{ 'b'|trans }}
+    </a> 
 {% endblock %}

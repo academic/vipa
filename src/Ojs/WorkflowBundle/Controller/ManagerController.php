@@ -91,10 +91,8 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function nextAction(Request $request, $id) {
-        $nextStepId = $request->get('nextStepId');
-
-        $dm = $this->get('doctrine_mongodb')->getManager();
-
+        $nextStepId = $request->get('nextStepId'); 
+        $dm = $this->get('doctrine_mongodb')->getManager(); 
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
 
         if (!$articleStep) {
@@ -146,13 +144,20 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep->setReviewNotes($request->get('notes'));
         $dm->persist($articleStep);
         $dm->flush();
-        $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"'.$nextStep->getTitle().'"</strong>');
+        $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"' . $nextStep->getTitle() . '"</strong>');
         $mustBeAssigned = $nextStep->getMustBeAssigned();
         if ($mustBeAssigned) {
-              $this->get('session')->getFlashBag()->add('warning', 'Now you should assign a/some user to this step.');
-          return  $this->render('OjsWorkflowBundle:Manager:assign.html.twig');
+            $this->get('session')->getFlashBag()->add('warning', 'Now you should assign a/some user to this step.');
+            return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $nextStep->getId())));
         }
         return $this->redirect($this->generateUrl('ojs_user_index'));
+    }
+
+    public function assignAction($id) {
+        $dm = $this->get('doctrine_mongodb')->getManager(); 
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        
+        return $this->render('OjsWorkflowBundle:Manager:assign.html.twig');
     }
 
 }

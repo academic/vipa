@@ -55,6 +55,11 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY
+        licences:
+          targetEntity: Ojs\JournalBundle\Entity\JournalLicence
+          mappedBy: journal
+          cascade: ["all"]
+          fetch: EXTRA_LAZY
     manyToMany:
         languages:
               targetEntity: Lang

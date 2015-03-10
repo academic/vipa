@@ -32,15 +32,17 @@
                         </div>
                     </div>
                     <div class="panel-footer">
+                        <small>{%trans%}Logged in as{%endtrans%} <span style="color:#003399">{{app.user.username}}</span></small>
                         {% if userJournalRoles %}
                             {% for role in userJournalRoles %}
                                 <span class="label label-default">{{ role.role|trans }}</span>
                             {% endfor %}
                         {% endif %}
                     </div>
-                    {% else %}
-
-                    <a href="{{ path(user_join_journal) }}">{{ "journal.join"|trans }}</a>
+                {% else %}
+                    <a class="list-group-item" href="{{ path('user_join_journal') }}">
+                        <i class="fa fa-star"></i> {{ "journal.join"|trans }}
+                    </a>
                 {% endif %}
             </div>
             <div class="panel panel-default left-menu-bgcolor">
@@ -84,7 +86,7 @@
                         <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
                             <i class="fa fa-recycle"></i>
                             {{ "workflow"|trans }} </a>
-                        {% if session('selectedJournalId') %}
+                            {% if session('selectedJournalId') %}
                             <a class="list-group-item" href="{{ path('issue_manager_index') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "issue.manager"|trans }}
@@ -101,7 +103,7 @@
                             <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "settings"|trans }}
-                            </a>
+                            </a> 
                             <a class="list-group-item" href="{{ path('ojs_review_forms') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "review.forms"|trans }}
@@ -131,15 +133,31 @@
                     <div class="panel-heading">{{ "Admin"|trans }}</div>
                     <div class="panel-collapse collapse in">
                         <a class="list-group-item" href="{{ path('user') }}"><i class="fa fa-cogs"></i> Users</a>
-                        <a class="list-group-item" href="{{ path('role') }}"><i class="fa fa-cogs"></i> Roles</a>
-                        <a class="list-group-item" href="{{ path('ujr') }}"><i class="fa fa-cogs"></i> User Journal
-                            Roles</a>
+                        <a class="list-group-item" href="{{ path('role') }}">
+                            <i class="fa fa-cogs"></i> Roles
+                        </a>
+                        <a class="list-group-item" href="{{ path('ujr') }}">
+                            <i class="fa fa-cogs"></i> User Journal Roles
+                        </a> 
                         <a class="list-group-item" href="{{ path('article') }}"><i class="fa fa-cogs"></i> Article</a>
-                        <a class="list-group-item" href="{{ path('institution') }}"><i class="fa fa-cogs"></i>
-                            Institutions</a>
+                        <a class="list-group-item" href="{{ path('issue') }}">
+                            <i class="fa fa-cogs"></i> Issue
+                        </a>
+                        <a class="list-group-item" href="{{ path('admin_file') }}">
+                            <i class="fa fa-cogs"></i> File
+                        </a>
+                        <a class="list-group-item" href="{{ path('institution') }}">
+                            <i class="fa fa-cogs"></i> Institutions
+                        </a>
+                        <a class="list-group-item" href="{{ path('citation') }}">
+                            <i class="fa fa-cogs"></i> Citations
+                        </a>
+                        <a class="list-group-item" href="{{ path('contact') }}">
+                            <i class="fa fa-cogs"></i> Contact
+                        </a>
                         <a class="list-group-item" href="{{ path('subject') }}"><i class="fa fa-cogs"></i> Subjects</a>
                         <a class="list-group-item" href="{{ path('okulbilisim_feedback_homepage') }}"><i
-                                    class="fa fa-envelope"></i> Feedback</a>
+                                class="fa fa-envelope"></i> Feedback</a>
                     </div>
                 </div>
             {% endif %}

@@ -1,0 +1,17 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
+
+    <h1>{{ 'journal_licence.create'|trans }}</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_journal_licence') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}
