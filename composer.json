@@ -2,7 +2,7 @@
     "name": "okulbilisim/ojs",
     "license": "MIT",
     "type": "project",
-    "description": "Open Journal Systems",
+    "description": "Open Journal System",
     "version": "0.1.0",
     "keywords": ["ojs", "journal system", "open journal system"],
     "support": {
@@ -90,7 +90,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "0.0.1-dev"
+            "dev-master": "1.0-RC2"
         }
     }
 }
