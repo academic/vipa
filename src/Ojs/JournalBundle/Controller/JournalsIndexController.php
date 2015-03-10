@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\JournalsIndex;
 use Ojs\JournalBundle\Form\JournalsIndexType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * JournalsIndex controller.
@@ -28,9 +29,7 @@ class JournalsIndexController extends Controller
      */
     public function indexAction($journal = null)
     {
-        if (!$journal) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
-        }
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         $source = new Entity('OjsJournalBundle:JournalsIndex');
         if ($journal) {
             $ta = $source->getTableAlias();
@@ -41,6 +40,8 @@ class JournalsIndexController extends Controller
                     ->setParameter('journal', $journal);
             });
         }
+        if (!$journal)
+            throw new NotFoundHttpException("Journal not found!");
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -62,6 +63,7 @@ class JournalsIndexController extends Controller
      */
     public function createAction(Request $request, $journal = null)
     {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalsIndex();
         if ($journal) {
@@ -69,6 +71,8 @@ class JournalsIndexController extends Controller
             $entity->setJournalId($journal);
             $entity->setJournal($journalObj);
         }
+        if (!$journal)
+            throw new NotFoundHttpException("Journal not found!");
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -114,10 +118,12 @@ class JournalsIndexController extends Controller
     public function newAction($journal = null)
     {
         $entity = new JournalsIndex();
-
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         if ($journal) {
             $entity->setJournalId($journal);
         }
+        if(!$journal)
+            throw new NotFoundHttpException('Journal not found!');
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:JournalsIndex:new.html.twig', array(
