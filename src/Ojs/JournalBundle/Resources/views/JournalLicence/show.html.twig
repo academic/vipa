@@ -1,0 +1,48 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>JournalLicence</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ entity.label }}</td>
+            </tr>
+            <tr>
+                <th>Licence</th>
+                <td>{{ entity.licence }}</td>
+            </tr>
+            <tr>
+                <th>Journal_id</th>
+                <td>{{ entity.journalid }}</td>
+            </tr>
+            <tr>
+                <th>Visible</th>
+                <td>{{ entity.visible }}</td>
+            </tr>
+            <tr>
+                <th>Deletedat</th>
+                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_journal_licence') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('manager_journal_licence_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

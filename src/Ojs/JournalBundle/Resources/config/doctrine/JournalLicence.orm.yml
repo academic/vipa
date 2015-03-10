@@ -1,0 +1,32 @@
+Ojs\JournalBundle\Entity\JournalLicence:
+  type: entity
+  repositoryClass: Ojs\JournalBundle\Entity\JournalLicenceRepository
+  id:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+  fields:
+    label:
+      type: string
+    licence:
+      type: text
+      nullable: true
+    journal_id:
+      type: integer
+      nullable: false
+    visible:
+      type: boolean
+    deletedAt:
+      type: datetime
+      nullable: true
+  manyToone:
+    journal:
+      targetEntity: Ojs\JournalBundle\Entity\Journal
+      joinColumn:
+        referencedColumnName: id
+        name: journal_id
+  gedmo:
+    soft_deleteable:
+      field_name: deletedAt
