@@ -1261,4 +1261,41 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->journals_indexs;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $licences;
+
+    /**
+     * Add licences
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalLicence $licences
+     * @return Journal
+     */
+    public function addLicence(\Ojs\JournalBundle\Entity\JournalLicence $licences)
+    {
+        $this->licences[] = $licences;
+
+        return $this;
+    }
+
+    /**
+     * Remove licences
+     *
+     * @param \Ojs\JournalBundle\Entity\JournalLicence $licences
+     */
+    public function removeLicence(\Ojs\JournalBundle\Entity\JournalLicence $licences)
+    {
+        $this->licences->removeElement($licences);
+    }
+
+    /**
+     * Get licences
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLicences()
+    {
+        return $this->licences;
+    }
 }

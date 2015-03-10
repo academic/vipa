@@ -1,3 +1,7 @@
+ojs_journal_manager_journal_licence:
+    resource: "@OjsJournalBundle/Resources/config/routing/journallicence.yml"
+    prefix:   /manager/journal_licence
+
 ojs_journal_manager_journals_indexes:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsindex.yml"
     prefix:   /manager/journal/settings/indexes 
