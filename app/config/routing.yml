@@ -33,7 +33,11 @@ ojs_manager:
 ojs_journal:
     resource: "@OjsJournalBundle/Resources/config/routing.yml"
     prefix:   / 
-
+    
+ojs_journal_admin:
+    resource: "@OjsJournalBundle/Resources/config/routing_admin.yml"
+    prefix:   /
+    
 ojs_workflow:
     resource: "@OjsWorkflowBundle/Resources/config/routing.yml"
 
