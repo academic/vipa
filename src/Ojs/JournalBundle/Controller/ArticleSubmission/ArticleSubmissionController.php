@@ -102,8 +102,11 @@ class ArticleSubmissionController extends Controller
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::showAction('article_show', 'id','ROLE_SUPER_ADMIN');
-        $rowAction[] = ActionHelper::editAction('article_edit', 'id','ROLE_SUPER_ADMIN');
-        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id','ROLE_SUPER_ADMIN');
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if ($this->get('user.helper')->hasAnyRole(array('ROLE_JOURNAL_MANAGER','ROLE_EDITOR','ROLE_SUPER_ADMIN'))) {
+            $rowAction[] = ActionHelper::editAction('article_edit', 'id', 'ROLE_SUPER_ADMIN');
+            $rowAction[] = ActionHelper::deleteAction('article_delete', 'id', 'ROLE_SUPER_ADMIN');
+        }
         $actionColumn->setRowActions($rowAction);
         $submissionsgrid->addColumn($actionColumn);
 
