@@ -1,0 +1,47 @@
+{% extends '::ojsbase_modal.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
+                {'title': 'Workflow Steps Graph'}
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%}
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>Workflow Steps Graph</h1>
+        </div>
+        <div class="panel-body">
+
+
+            <div class="mermaid">
+sequenceDiagram
+    loop Review query
+        {{ firstStep.title }}->> asd: Hello Bob, how are you?
+        alt is sick
+            Bob->>Alice: Not so good :(
+        else is well
+            Bob->>Alice: Feeling fresh like a daisy
+        end
+
+        opt Extra response
+            Bob->>Alice: Thanks for asking
+    end
+end
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+{{parent()}}
+<script src="/vendor/mermaid/dist/mermaid.full.js"></script>
+
+{% endblock %}
+ 

@@ -16,6 +16,21 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         return $this->render('OjsWorkflowBundle:WorkflowStep:index.html.twig', array('steps' => $steps));
     }
 
+    public function graphAction() {
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+
+        $data['steps'] = $this->get('doctrine_mongodb')
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findBy(array('journalid' => $selectedJournal->getId()));
+    $data['firstStep'] = $this->get('doctrine_mongodb')
+        ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+        ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firststep' => true));
+        $data['lastStep'] = $this->get('doctrine_mongodb')
+            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'laststep' => true));
+        return $this->render('OjsWorkflowBundle:WorkflowStep:graph.html.twig',$data);
+    }
+
     /**
      * render "new workflow" flow
      */
