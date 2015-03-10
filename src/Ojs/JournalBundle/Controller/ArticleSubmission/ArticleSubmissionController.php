@@ -33,14 +33,14 @@ class ArticleSubmissionController extends Controller
     public function indexAction($all = false)
     {
 
-        $source1 = new Entity('OjsJournalBundle:Article','submission');
+        $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $ta = $source1->getTableAlias();
-        $source1->manipulateRow(function(Row $row){
-            if(null!==($row->getField('status'))){
+        $source1->manipulateRow(function (Row $row) {
+            if (null !== ($row->getField('status'))) {
                 $status = $row->getField('status');
-                $colors =  \Ojs\Common\Params\CommonParams::getStatusColors();
-                $text =  \Ojs\Common\Params\CommonParams::getStatusTexts();
-                $row->setField('status',"<span style='background: {$colors[$status]};display: block'>{$text[$status]}</span>");
+                $colors = \Ojs\Common\Params\CommonParams::getStatusColors();
+                $text = \Ojs\Common\Params\CommonParams::getStatusTexts();
+                $row->setField('status', "<span style='background: {$colors[$status]};display: block'>{$text[$status]}</span>");
             }
             return $row;
         });
@@ -48,37 +48,37 @@ class ArticleSubmissionController extends Controller
         $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
         $em = $this->getDoctrine()->getManager();
         $router = $this->get('router');
-        $source2->manipulateRow(function(Row $row)use($em,$router){
-            if($row->getField('article_data')){
+        $source2->manipulateRow(function (Row $row) use ($em, $router) {
+            if ($row->getField('article_data')) {
                 $data = $row->getField('article_data');
                 $_d = [];
-                foreach($data as $key=>$value){
-                    $_d[]=$key.": ".$value['title'];
+                foreach ($data as $key => $value) {
+                    $_d[] = $key . ": " . $value['title'];
                 }
                 $row->setField('article_data', $_d);
             }
-            if($row->getField('journal_id')){
-                $journal = $em->find('OjsJournalBundle:Journal',$row->getField('journal_id'));
-                $row->setField('journal_id',(string)$journal->getTitle());
+            if ($row->getField('journal_id')) {
+                $journal = $em->find('OjsJournalBundle:Journal', $row->getField('journal_id'));
+                $row->setField('journal_id', (string)$journal->getTitle());
 
             }
             return $row;
         });
         $user = $this->getUser();
 
-        if($all){
+        if ($all) {
             $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta) {
                 $qb->where(
                     $qb->expr()->eq($ta . '.status', '0')
                 );
                 return $qb;
             });
-            $source2->manipulateQuery(function(Builder $query){
+            $source2->manipulateQuery(function (Builder $query) {
                 $query->where("typeof(this.submitted)=='undefined' || this.submitted===false");
                 return $query;
             });
-        }else{
-            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta,$user) {
+        } else {
+            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $user) {
                 $qb->where(
                     $qb->expr()->andX(
                         $qb->expr()->eq($ta . '.status', '0'),
@@ -87,7 +87,7 @@ class ArticleSubmissionController extends Controller
                 );
                 return $qb;
             });
-            $source2->manipulateQuery(function(Builder $query)use($user){
+            $source2->manipulateQuery(function (Builder $query) use ($user) {
                 $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) && this.userId=={$user->getId()}");
                 return $query;
             });
@@ -101,7 +101,6 @@ class ArticleSubmissionController extends Controller
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
- 
         $submissionsgrid->addRowAction(ActionHelper::showAction('article_show', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
         $submissionsgrid->addRowAction(ActionHelper::editAction('article_edit', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
         $submissionsgrid->addRowAction(ActionHelper::deleteAction('article_delete', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
@@ -114,11 +113,11 @@ class ArticleSubmissionController extends Controller
         $drafts->addColumn($actionColumn);
 
         $submissionsgrid->getColumn('status')->setSafe(false);
-        $data = [ 'page' => 'submission',
+        $data = ['page' => 'submission',
             'submissions' => $submissionsgrid,
             'drafts' => $drafts,
             'all' => $all];
-        return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig',$data);
+        return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
 
     }
 
@@ -158,19 +157,26 @@ class ArticleSubmissionController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
+        $entity = new Article();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if (!method_exists($articleSubmission,'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
+        if (!method_exists($articleSubmission, 'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-        return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array(
+        $data = [
             'submissionId' => $articleSubmission->getId(),
             'submissionData' => $articleSubmission,
-            'journal' => $journal,
+            'entity'=>$entity,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $articleSubmission->getCitations(),
-            'citationTypes' => $this->container->getParameter('citation_types')
-        ));
+            'citationTypes' => $this->container->getParameter('citation_types')];
+        if($articleSubmission->getJournalId()){
+            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+            $data['journal']=$journal;
+        }else{
+            $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
+
+        }
+        return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 
     /**
@@ -210,7 +216,7 @@ class ArticleSubmissionController extends Controller
      */
     public function finishAction(Request $request)
     {
-         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
+        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
         if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException();
         }
@@ -270,7 +276,8 @@ class ArticleSubmissionController extends Controller
      * @param integer $submissionId
      * @return
      */
-    private function saveArticleSubmission($articleSubmission, $journal) {
+    private function saveArticleSubmission($articleSubmission, $journal)
+    {
 // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");

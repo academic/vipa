@@ -3,19 +3,22 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * JournalLicence
+ * @GRID\Source(columns="id,label,visible")
  */
 class JournalLicence
 {
     /**
      * @var integer
+     * @GRID\Column(title="ID")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="journal_licence.label")
      */
     private $label;
 
@@ -31,6 +34,7 @@ class JournalLicence
 
     /**
      * @var boolean
+     * @GRID\Column(title="journal_licence.visible")
      */
     private $visible;
 
@@ -163,5 +167,33 @@ class JournalLicence
     public function getDeletedAt()
     {
         return $this->deletedAt;
+    }
+    /**
+     * @var \Ojs\JournalBundle\Entity\Journal
+     */
+    private $journal;
+
+
+    /**
+     * Set journal
+     *
+     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @return JournalLicence
+     */
+    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
+    {
+        $this->journal = $journal;
+
+        return $this;
+    }
+
+    /**
+     * Get journal
+     *
+     * @return \Ojs\JournalBundle\Entity\Journal 
+     */
+    public function getJournal()
+    {
+        return $this->journal;
     }
 }

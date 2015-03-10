@@ -18,16 +18,20 @@
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
-                <li id="submission-progress-step1" class="active"><a href="#1"><span class="badge">1</span> {{ "article.singular"|trans }}</a></li>
-                <li id="submission-progress-step2"><a href="#2"><span class="badge">2</span> {{ "author.plural"|trans }}</a></li>
-                <li id="submission-progress-step3"><a href="#3"><span class="badge">3</span> {{ "article.citations"|trans }}</a></li>
-                <li id="submission-progress-step4"><a href="#4"><span class="badge">4</span>  {{ "article.files"|trans }}</a></li>
-                <li id="submission-progress-step5 last-step"><a href="#"><span class="badge">5</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
+                <li id="submission-progress-step0" class="active"><a href="#0"><span class="badge">1</span> {{ "article.licensing"|trans }}</a></li>
+                <li id="submission-progress-step1"><a href="#1"><span class="badge">2</span> {{ "article.singular"|trans }}</a></li>
+                <li id="submission-progress-step2"><a href="#2"><span class="badge">3</span> {{ "author.plural"|trans }}</a></li>
+                <li id="submission-progress-step3"><a href="#3"><span class="badge">4</span> {{ "article.citations"|trans }}</a></li>
+                <li id="submission-progress-step4"><a href="#4"><span class="badge">5</span>  {{ "article.files"|trans }}</a></li>
+                <li id="submission-progress-step5 last-step"><a href="#"><span class="badge">6</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
                 <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
         <div class="panel-body">
-            <div id="step1-container" class="step">
+            <div id="step0-container" class="step">
+                {{ render(controller('OjsJournalBundle:ArticleSubmission/ArticleSubmissionLicence:widget')) }}
+            </div>
+            <div id="step1-container" class="step hide">
                 <div class="row">
                     {% if session('selectedJournalId') %}
                         <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> Select journal to submit</label></div>
@@ -66,7 +70,7 @@
                         <br>
                             <div id="step1">
                                 {% for lang in  journal.languages %}
-                                    {%if submissionData  is defined and submissionData.articleData is defined %}
+                                    {%if submissionData  is defined and submissionData.articleData is defined and submissionData.articleData[lang.code] is defined%}
                                         {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':submissionData.articleData[lang.code],'lang':lang } %}
                                     {%else%}
                                         {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'lang':lang } %}
@@ -254,6 +258,7 @@
             };
             function loadCurrentStep(currentStep) {
                 OjsArticleSubmission.hideAllSteps();
+                console.dir("step" + currentStep);
                 OjsArticleSubmission.prepareStep["step" + currentStep]();
             }
             $(window).on("hashchange", function (event) {

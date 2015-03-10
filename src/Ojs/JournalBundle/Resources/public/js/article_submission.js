@@ -2,7 +2,7 @@ var OjsArticleSubmission = {
     submissionId: null,
     step: null,
     languages: [],
-    activatedSteps: {"step1": true, "step2": false, "step3": false, "step4": false},
+    activatedSteps: {"step0":true, "step1": false, "step2": false, "step3": false, "step4": false},
     showResumeNote: function () {
 
         var html = '<a href="/author/article/submit/resume/' + this.submissionId + '#' + this.step + '">' + this.submissionId + '</a>';
@@ -46,6 +46,33 @@ var OjsArticleSubmission = {
     },
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
+    },
+    step0: function(actionUrl){
+        var checkboxes = $("#step0-container input[type=checkbox]");
+        var form = $("#step0-container form").serialize();
+        var status = true;
+        checkboxes.each(function(){
+            if($(this).is(':checked')===false){
+                status=false;
+                OjsCommon.errorModal("Please check all field!");
+                return;
+            }
+        });
+        if(status===false){
+            return;
+        }
+        OjsCommon.waitModal();
+        $.post(actionUrl,form,function(resp){
+                if (resp.submissionId) {
+                    OjsArticleSubmission.submissionId = resp.submissionId;
+                    $("input[name=submissionId]").attr('value', resp.submissionId);
+                    OjsArticleSubmission.hideAllSteps();
+                    OjsArticleSubmission.prepareStep.step1();
+                    OjsCommon.hideallModals();
+                } else {
+                    OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
+                }
+        });
     },
     step1: function (actionUrl) {
         forms = $("#step1 form");
@@ -172,9 +199,18 @@ var OjsArticleSubmission = {
      * prepare and show steps
      */
     prepareStep: {
+        step0: function(){
+            OjsArticleSubmission.configureProgressBar(0);
+            OjsArticleSubmission.showStep(0);
+        },
         step1: function () {
-            OjsArticleSubmission.configureProgressBar(1);
+            OjsCommon.scrollTop();
+            if ($("#step1").html().length > 0) {
+                OjsArticleSubmission.configureProgressBar(1);
+                OjsArticleSubmission.loadStepTemplate(1);
+            }
             OjsArticleSubmission.showStep(1);
+
         },
         step2: function () {
             OjsCommon.scrollTop();

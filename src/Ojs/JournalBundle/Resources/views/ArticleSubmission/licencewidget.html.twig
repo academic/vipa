@@ -1,0 +1,42 @@
+<form action="">
+    <div class="jumbotron">
+        {% for licence in journal.licences %}
+            {% if licence.visible %}
+                <div class="licence">
+                    <fieldset>
+                        <legend>
+                                <label for="licence_{{ licence.id }}">
+                                    <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}"/>
+                                    {{ licence.label }}
+                                </label>
+                        </legend>
+                        {% if licence.licence %}
+                            <p style="height: 100px;overflow: scroll">
+                                {{ licence.licence }}
+                            </p>
+                        {% endif %}
+                    </fieldset>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="step1_actions record_actions">
+            <div class="col-sm-12">
+                <hr />
+                <a class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
+                   href="{{ path('article_submission_new') }}">
+                    <i class="fa fa-repeat"></i>
+                    {{ "restart"|trans }}
+                </a>
+                <a class="btn btn-success btn-lg pull-right"
+                   onclick="javascript: OjsArticleSubmission.step0('{{ path('article_submission_licence',{'locale':'locale'}) }}');">
+                    <i class="fa fa-save"></i>
+                    {{ "save.next"|trans }}
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>

@@ -21,7 +21,7 @@ Ojs\JournalBundle\Entity\JournalLicence:
     deletedAt:
       type: datetime
       nullable: true
-  manyToone:
+  manyToOne:
     journal:
       targetEntity: Ojs\JournalBundle\Entity\Journal
       joinColumn:

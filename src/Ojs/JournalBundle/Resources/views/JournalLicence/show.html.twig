@@ -1,33 +1,25 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>JournalLicence</h1>
+    <h1>{{ 'journal_licence.show'|trans }}</h1>
 
     <table class="record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{{ 'id'|trans }}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Label</th>
+                <th>{{ 'journal_licence.label'|trans }}</th>
                 <td>{{ entity.label }}</td>
             </tr>
             <tr>
-                <th>Licence</th>
+                <th>{{ 'journal_licence.licence' }}</th>
                 <td>{{ entity.licence }}</td>
             </tr>
             <tr>
-                <th>Journal_id</th>
-                <td>{{ entity.journalid }}</td>
-            </tr>
-            <tr>
                 <th>Visible</th>
-                <td>{{ entity.visible }}</td>
-            </tr>
-            <tr>
-                <th>Deletedat</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
+                <td>{% if entity.visible %}{{ 'yes'|trans }}{% else %}{{ 'no'|trans }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
