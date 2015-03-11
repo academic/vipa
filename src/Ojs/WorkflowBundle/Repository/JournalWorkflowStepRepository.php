@@ -21,7 +21,7 @@ class JournalWorkflowStepRepository extends DocumentRepository {
      */
     public function findFirstStep() {
         return $this->createQueryBuilder()
-                        ->field('firststep')->equals(true)
+                        ->field('firstStep')->equals(true)
                         ->getQuery()
                         ->getSingleResult();
     }

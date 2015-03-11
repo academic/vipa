@@ -20,17 +20,13 @@
             <div class="mermaid">
 sequenceDiagram
     loop Review query
-        {{ firstStep.title }}->> asd: Hello Bob, how are you?
-        alt is sick
-            Bob->>Alice: Not so good :(
-        else is well
-            Bob->>Alice: Feeling fresh like a daisy
-        end
 
-        opt Extra response
-            Bob->>Alice: Thanks for asking
+                {% for nStep in firstStep.nextSteps %}
+                {{ firstStep.title }}->>{{ nStep.title }}: {% if firstStep.canReview %}Review Result {% else %}Accept {% endif %}
+
+                {% endfor  %}
+
     end
-end
             </div>
 
 

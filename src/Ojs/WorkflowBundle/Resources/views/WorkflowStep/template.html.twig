@@ -20,8 +20,8 @@
             <span>
                 <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
                     <strong>
-                        {%if entity.firststep%}<span class="badge">First</span>{%endif%}
-                        {%if entity.laststep%}<span class="badge">Last</span>{%endif%}
+                        {%if entity.firstStep%}<span class="badge">First</span>{%endif%}
+                        {%if entity.lastStep%}<span class="badge">Last</span>{%endif%}
                         {{entity.title}}
                     </strong>
                 </a> 

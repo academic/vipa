@@ -24,10 +24,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
             ->findBy(array('journalid' => $selectedJournal->getId()));
     $data['firstStep'] = $this->get('doctrine_mongodb')
         ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-        ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firststep' => true));
+        ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firstStep' => true));
         $data['lastStep'] = $this->get('doctrine_mongodb')
             ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'laststep' => true));
+            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
         return $this->render('OjsWorkflowBundle:WorkflowStep:graph.html.twig',$data);
     }
 
@@ -59,8 +59,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
-        $step->setFirststep($request->get('firststep') ? true : false);
-        $step->setLaststep($request->get('laststep') ? true : false);
+        $step->setFirststep($request->get('firstStep') ? true : false);
+        $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setJournalid($request->get('journalId'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
         $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
@@ -179,8 +179,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         /* @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowStep  */
         $step = $repo->find($id);
         $step->setTitle($request->get('title'));
-        $step->setFirststep($request->get('firststep') ? true : false);
-        $step->setLaststep($request->get('laststep') ? true : false);
+        $step->setFirststep($request->get('firstStep') ? true : false);
+        $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setMaxdays($request->get('maxdays'));
         $step->setJournalid($request->get('journalId'));
         $step->setColor($request->get('color'));
