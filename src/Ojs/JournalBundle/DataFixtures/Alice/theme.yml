@@ -9,9 +9,21 @@
     isPublic: false
   theme_public1:
     name: default1
-    title: Default 1
+    title: Default Theme 1
     isPublic: true
   theme_public2:
     name: default2
     title: Default Theme 2
     isPublic: true
+  theme_public3:
+      name: journal
+      title: Journal
+      isPublic: true
+  theme_public4:
+      name: lumen
+      title: Lumen
+      isPublic: true
+  theme_public5:
+      name: superhero
+      title: SuperHero
+      isPublic: true
