@@ -18,6 +18,7 @@
         <div class="list-group-item">
 
             <span>
+
                 <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
                     <strong>
                         {%if entity.firstStep%}<span class="badge">First</span>{%endif%}
@@ -25,7 +26,8 @@
                         {{entity.title}}
                     </strong>
                 </a> 
-
+                    <!-- color preview -->
+                <span style="width:20px;height:10px;display:inline-block;background-color: {{entity.color}}"></span>
                 {%for role in entity.roles%}
                     <span class="label label-info">{{role.name}}</span>
                 {%endfor%}

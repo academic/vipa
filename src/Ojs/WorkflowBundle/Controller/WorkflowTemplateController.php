@@ -60,21 +60,13 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController {
         }
         // add nextstep relations
         foreach ($steps as $step) {
-            $nextSteps = [];
-            $enity = $newSteps[$step->getId()];
-            if (is_array($step->getNextSteps())) {
-                foreach ($step->getNextSteps() as $nStep) {
-                    if (isset($newSteps[$nStep['id']])) {
-                        $nextSteps[] = array('id' => $newSteps[$nStep['id']]->getId(), 'title' => $newSteps[$nStep['id']]->getTitle());
-                    }
-                }
-            }
-            /* @var \Ojs\WorkflowBundle\Document\JournalWorkflowStep $newSteps[$step->getId()] */
-            if ($nextSteps) {
-                $enity->setNextsteps($nextSteps);
-                $dm->persist($enity);
-                $dm->flush();
-            }
+            $entity = $newSteps[$step->getId()]; 
+            $nextSteps = $step->getNextSteps();
+            foreach ($nextSteps as $nStep) {
+                $entity->addNextStep($newSteps[$nStep->getId()]);
+            } 
+            $dm->persist($entity);
+            $dm->flush();
         }
         /**
          * @todo
@@ -108,6 +100,10 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController {
         $step->setRoles($tplStep->getRoles());
         $step->setStatus($tplStep->getStatus());
         $step->setTitle($tplStep->getTitle());
+        $step->setCanRejectSubmission($tplStep->getCanRejectSubmission());
+        $step->setCanReview($tplStep->getCanReview());
+        $step->setColor($tplStep->getColor());
+        $step->clearNextSteps();
         $dm->persist($step);
         $dm->flush();
         return $step;

@@ -118,10 +118,10 @@
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 
-                    <select name="nextsteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
+                    <select name="nextSteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
                         {%for nstep in nextSteps%}
                             <option
-                                {%if hasid(nstep.id,step.nextsteps)%}selected="selected"{%endif%}
+                                {%if hasid(nstep.id,step.nextSteps)%}selected="selected"{%endif%}
                                 value="{{nstep.id}}">{{nstep.title}}</option>
                         {%endfor%}
                     </select>

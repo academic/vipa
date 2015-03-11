@@ -20,14 +20,16 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
 
         $data['steps'] = $this->get('doctrine_mongodb')
-            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findBy(array('journalid' => $selectedJournal->getId()));
-    $data['firstStep'] = $this->get('doctrine_mongodb')
-        ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-        ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firstStep' => true));
+                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->findBy(array('journalid' => $selectedJournal->getId()));
+        
+        $data['firstStep'] = $this->get('doctrine_mongodb')
+                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->findOneBy(array('journalid' => $selectedJournal->getId(), 'firstStep' => true));
+        
         $data['lastStep'] = $this->get('doctrine_mongodb')
-            ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
+                ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
         return $this->render('OjsWorkflowBundle:WorkflowStep:graph.html.twig',$data);
     }
 
@@ -63,7 +65,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setJournalid($request->get('journalId'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
-        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        foreach($request->get('nextSteps') as $nId){
+            $nextStep = $dm->getRepository()->find($nId);
+            $step->addNextStep($nextStep);
+        }
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
@@ -109,30 +114,6 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
             }
         }
         return $rolesArray;
-    }
-
-    /**
-     * prepare an array from given form values for JournalWorkflow nextSteps atrribute
-     * @param  array $nextStepIds
-     * @return array
-     */
-    public function prepareNextsteps($nextStepIds) {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $nextSteps = array();
-        $nextStepsArray = array();
-        if ($nextStepIds) {
-            foreach ($nextStepIds as $nextStepId) {
-                $nextSteps[] = $dm->getRepository("OjsWorkflowBundle:JournalWorkflowStep")->findOneById($nextStepId);
-            }
-        }
-        if (!empty($nextSteps)) {
-            foreach ($nextSteps as $step) {
-                $nextStepsArray[] = array(
-                    'id' => $step->getId(),
-                    'title' => $step->getTitle());
-            }
-        }
-        return $nextStepsArray;
     }
 
     public function editAction($id) {
@@ -194,7 +175,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
             }
         }
         $step->setRoles($this->prepareRoles($request->get('roles')));
-        $step->setNextsteps($this->prepareNextsteps($request->get('nextsteps')));
+        foreach($request->get('nextSteps') as $nId){
+            $nextStep = $dm->getRepository()->find($nId);
+            $step->addNextStep($nextStep);
+        }
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);

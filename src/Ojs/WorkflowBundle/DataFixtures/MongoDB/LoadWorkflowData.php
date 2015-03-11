@@ -52,9 +52,9 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step2->setMaxdays(15);
         $step2->setStatus('Publish');
         $step2->setTitle('Publish');
-        $step2->setNextsteps(array(0 => array("id" => $step1->getId(), "title" => $step1->getTitle())));
+        $step2->addNextStep($step1);
         $dm->persist($step2);
-        $step1->setNextsteps(array(0 => array("id" => $step2->getId(), "title" => $step2->getTitle())));
+        $step1->addNextStep($step2);
         $dm->persist($step1);
         $dm->flush();
     }
