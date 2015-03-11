@@ -54,20 +54,9 @@ class JournalWorkflowStep {
     private $reviewForms;
 
     /**
-     * possible next steps
-     *  {
-     * 	"0" : {
-     * 		"id" : "53ba97facf93a1cf5e8b4567",
-     * 		"title" : "First Review"
-     * 	},
-     * 	"1" : {
-     * 		"id" : "53baa7aecf93a1dc268b456a",
-     * 		"title" : "Redaction"
-     * 	}
-     * },
-     * @MongoDB\Hash
+     *  @MongoDb\ReferenceMany(targetDocument="JournalWorkflowStep",nullable=true)
      */
-    private $nextsteps;
+    private $nextSteps;
 
     /**
      *
@@ -176,7 +165,7 @@ class JournalWorkflowStep {
      * @param  boolean $firstStep
      * @return self
      */
-    public function setFirststep($firstStep) {
+    public function setFirstStep($firstStep) {
         $this->firstStep = $firstStep;
 
         return $this;
@@ -187,7 +176,7 @@ class JournalWorkflowStep {
      *
      * @return boolean $firstStep
      */
-    public function getFirststep() {
+    public function getFirstStep() {
         return $this->firstStep;
     }
 
@@ -197,7 +186,7 @@ class JournalWorkflowStep {
      * @param  boolean $lastStep
      * @return self
      */
-    public function setLaststep($lastStep) {
+    public function setLastStep($lastStep) {
         $this->lastStep = $lastStep;
 
         return $this;
@@ -208,30 +197,11 @@ class JournalWorkflowStep {
      *
      * @return boolean $lastStep
      */
-    public function getLaststep() {
+    public function getLastStep() {
         return $this->lastStep;
     }
 
-    /**
-     * Set nextsteps in a custom array format
-     *   { id: xxx, title : "asd" } 
-     * @param  hash $nextsteps
-     * @return self
-     */
-    public function setNextsteps($nextsteps) {
-        $this->nextsteps = $nextsteps;
 
-        return $this;
-    }
-
-    /**
-     * Get nextsteps
-     *
-     * @return hash $nextsteps
-     */
-    public function getNextsteps() {
-        return $this->nextsteps;
-    }
 
     /**
      * Set roles in array format
@@ -489,5 +459,46 @@ class JournalWorkflowStep {
     public function getCanRejectSubmission()
     {
         return $this->canRejectSubmission;
+    }
+
+
+
+    /**
+     * Add nextStep
+     *
+     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     */
+    public function addNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep)
+    {
+        $this->nextSteps[] = $nextStep;
+    }
+    
+       /**
+     *  remove all nextsteps
+     * @return self
+     */
+    public function clearNextSteps() {
+        $this->nextSteps = null;
+        return $this;
+    }
+
+    /**
+     * Remove nextStep
+     *
+     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     */
+    public function removeNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep)
+    {
+        $this->nextSteps->removeElement($nextStep);
+    }
+
+    /**
+     * Get nextSteps
+     *
+     * @return Doctrine\Common\Collections\Collection $nextSteps
+     */
+    public function getNextSteps()
+    {
+        return $this->nextSteps;
     }
 }

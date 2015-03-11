@@ -64,6 +64,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $dm->persist($template);
 
         $step1 = new JournalWorkflowTemplateStep();
+        $step1->setColor('#818');
         $step1->setFirststep(true);
         $step1->setStatus('Editor is reviewing');
         $step1->setTitle('Editor Review');
@@ -76,6 +77,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         ));
 
         $step2 = new JournalWorkflowTemplateStep();
+        $step2->setColor('#611');
         $step2->setStatus('Author is updating');
         $step2->setTitle('Author Revision'); 
         $step2->setCanEdit(true);
@@ -87,6 +89,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         ));
 
         $step3 = new JournalWorkflowTemplateStep();
+        $step3->setcolor('#393');
         $step3->setLaststep(true);
         $step3->setStatus('Ready to publish');
         $step3->setTitle('Ready to Publish'); 
@@ -101,24 +104,14 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $dm->persist($step1);
         $dm->persist($step2);
         $dm->persist($step3);
-        $step1->setNextsteps(
-                array(
-                    array('id' => $step2->getId(), 'title' => $step2->gettitle()),
-                    array('id' => $step3->getId(), 'title' => $step3->gettitle())
-                )
-        );
-        $step2->setNextsteps(
-                array(
-                    array('id' => $step1->getId(), 'title' => $step1->gettitle())
-                )
-        );
 
-        $step3->setNextsteps(
-                array(
-                    array('id' => $step1->getId(), 'title' => $step1->gettitle()),
-                    array('id' => $step2->getId(), 'title' => $step2->gettitle())
-                )
-        );
+        $step1->addNextStep($step2);
+        $step1->addNextStep($step3);
+
+        $step2->addNextStep($step1);
+
+        $step3->addNextStep($step1);
+        $step3->addNextStep($step2);
 
         $dm->persist($step1);
         $dm->persist($step2);
@@ -149,7 +142,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step1 = new JournalWorkflowTemplateStep();
         $step1->setFirststep(true);
         $step1->setStatus('Editor is reviewing');
-        $step1->setTitle('Editor Review'); 
+        $step1->setTitle('Editor Review');
         $step1->setCanReview(true);
         $step1->setCanEdit(true);
         $step1->setTemplate($template);
@@ -160,7 +153,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $step2 = new JournalWorkflowTemplateStep();
         $step2->setStatus('Author is updating');
-        $step2->setTitle('Author Revision'); 
+        $step2->setTitle('Author Revision');
         $step2->setCanEdit(true);
         $step2->setOnlyreply(true);
         $step2->setTemplate($template);
@@ -174,7 +167,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step3 = new JournalWorkflowTemplateStep();
         $step3->setOnlyreply(true);
         $step3->setStatus('In Review');
-        $step3->setTitle('Review'); 
+        $step3->setTitle('Review');
         $step3->setCanReview(true);
         $step3->setCanEdit(true);
         $step3->setTemplate($template);
@@ -188,7 +181,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step4 = new JournalWorkflowTemplateStep();
         $step4->setLaststep(true);
         $step4->setStatus('Ready to Publish');
-        $step4->setTitle('Ready to Publish'); 
+        $step4->setTitle('Ready to Publish');
         $step4->setCanReview(true);
         $step4->setCanEdit(true);
         $step4->setTemplate($template);
@@ -202,20 +195,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $dm->persist($step3);
         $dm->persist($step4);
 
-        $step1->setNextsteps(
-                array(
-                    array('id' => $step2->getId(), 'title' => $step2->gettitle()),
-                    array('id' => $step3->getId(), 'title' => $step3->gettitle()),
-                    array('id' => $step4->getId(), 'title' => $step4->gettitle())
-                )
-        );
+        $step1->addNextStep($step2);
+        $step1->addNextStep($step3);
+        $step1->addNextStep($step4);
 
-        $step4->setNextsteps(
-                array(
-                    array('id' => $step1->getId(), 'title' => $step1->gettitle()),
-                    array('id' => $step2->getId(), 'title' => $step2->gettitle())
-                )
-        );
+        $step4->addNextStep($step1);
+        $step4->addNextStep($step2);
 
         $dm->persist($step1);
         $dm->persist($step2);
@@ -321,32 +306,16 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $dm->persist($step6);
 
 
-        $step1->setNextsteps(
-                array( 
-                    array('id' => $step3->getId(), 'title' => $step3->gettitle())
-                )
-        );
+        $step1->addNextStep($step3);
 
-        $step3->setNextsteps(
-                array(
-                    array('id' => $step2->getId(), 'title' => $step2->gettitle()),
-                     array('id' => $step4->getId(), 'title' => $step4->gettitle()),
-                     array('id' => $step5->getId(), 'title' => $step5->gettitle()),
-                    array('id' => $step6->getId(), 'title' => $step6->gettitle())
-                )
-        );
+        $step3->addNextStep($step2);
+        $step3->addNextStep($step4);
+        $step3->addNextStep($step5);
+        $step3->addNextStep($step6);
 
-        $step4->setNextsteps(
-                array(
-                    array('id' => $step3->getId(), 'title' => $step3->gettitle())
-                )
-        );
+        $step4->addNextStep($step3);
 
-        $step6->setNextsteps(
-                array(
-                    array('id' => $step3->getId(), 'title' => $step3->gettitle())
-                )
-        );
+        $step6->addNextStep($step3);
 
         $dm->persist($step1);
         $dm->persist($step2);

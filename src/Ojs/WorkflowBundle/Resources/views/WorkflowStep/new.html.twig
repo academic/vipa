@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <label>Possible Next Steps</label>
 
-                    <select name="nextsteps[]"  style="min-width:200px" multiple="multiple" class="select2-element">
+                    <select name="nextSteps[]"  style="min-width:200px" multiple="multiple" class="select2-element">
                         {%for step in nextSteps%}
                             <option value="{{step.id}}">{{step.title}}</option>
                         {%endfor%}

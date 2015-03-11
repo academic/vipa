@@ -10,7 +10,7 @@
 - **firstStep** : `@MongoDb\Boolean` is this step first step in the workflow?
 - **lastStep** : `@MongoDb\Boolean` is this step last step in the workflow?
 - **onlyreply** : `@MongoDb\Boolean` if true the user who works on this step can only reply to parent/redirected step.
-- **nextsteps** : `@MongoDB\Hash` possisble next steps that user can forward.
+- **nextSteps** : `@MongoDB\Hash` possisble next steps that user can forward.
     ````{
      "0" : {
          "id" : "53ba97facf93a1cf5e8b4567",

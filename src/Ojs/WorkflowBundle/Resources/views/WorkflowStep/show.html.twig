@@ -51,7 +51,7 @@
                                 <i class="fa fa-ok"></i>
                             </span>
                         {% else %}
-                            {%for step in step.nextsteps%}
+                            {%for step in step.nextSteps%}
                                 <a class="label label-info" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
                             {%endfor%}
                         {% endif %}
