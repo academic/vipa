@@ -7,8 +7,8 @@
 - **journalid** : `@MongoDb\Int` 
 - **title** :  `@MongoDb\String`
 - **status** :  `@MongoDb\String` 
-- **firststep** : `@MongoDb\Boolean` is this step first step in the workflow?
-- **laststep** : `@MongoDb\Boolean` is this step last step in the workflow?
+- **firstStep** : `@MongoDb\Boolean` is this step first step in the workflow?
+- **lastStep** : `@MongoDb\Boolean` is this step last step in the workflow?
 - **onlyreply** : `@MongoDb\Boolean` if true the user who works on this step can only reply to parent/redirected step.
 - **nextsteps** : `@MongoDB\Hash` possisble next steps that user can forward.
     ````{

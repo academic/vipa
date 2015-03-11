@@ -28,10 +28,10 @@ class JournalWorkflowStep {
     protected $status;
 
     /** @MongoDb\Boolean */
-    protected $firststep;
+    protected $firstStep;
 
     /** @MongoDb\Boolean */
-    protected $laststep;
+    protected $lastStep;
 
     /** @MongoDb\Boolean */
     protected $onlyreply;
@@ -171,45 +171,45 @@ class JournalWorkflowStep {
     }
 
     /**
-     * Set firststep
+     * Set firstStep
      *
-     * @param  boolean $firststep
+     * @param  boolean $firstStep
      * @return self
      */
-    public function setFirststep($firststep) {
-        $this->firststep = $firststep;
+    public function setFirststep($firstStep) {
+        $this->firstStep = $firstStep;
 
         return $this;
     }
 
     /**
-     * Get firststep
+     * Get firstStep
      *
-     * @return boolean $firststep
+     * @return boolean $firstStep
      */
     public function getFirststep() {
-        return $this->firststep;
+        return $this->firstStep;
     }
 
     /**
-     * Set laststep
+     * Set lastStep
      *
-     * @param  boolean $laststep
+     * @param  boolean $lastStep
      * @return self
      */
-    public function setLaststep($laststep) {
-        $this->laststep = $laststep;
+    public function setLaststep($lastStep) {
+        $this->lastStep = $lastStep;
 
         return $this;
     }
 
     /**
-     * Get laststep
+     * Get lastStep
      *
-     * @return boolean $laststep
+     * @return boolean $lastStep
      */
     public function getLaststep() {
-        return $this->laststep;
+        return $this->lastStep;
     }
 
     /**

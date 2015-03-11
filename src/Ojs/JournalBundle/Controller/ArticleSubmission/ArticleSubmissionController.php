@@ -241,7 +241,7 @@ class ArticleSubmissionController extends Controller
 
 // get journal's first workflow step
         $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-            ->findOneBy(array('journalid' => $journal->getId(), 'firststep' => true));
+            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
         if ($firstStep) {
             $reviewStep = new ArticleReviewStep();
             $reviewStep->setArticleId($article->getId());
