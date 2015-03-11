@@ -42,6 +42,7 @@ class ArticleSubmissionLicenceController extends Controller
         $articleSubmission->setUserId($this->getUser()->getId());
         $articleSubmission->setStartedDate(new \DateTime());
         $articleSubmission->setLastResumeDate(new \DateTime());
+        $articleSubmission->setLicences(json_encode($r->get('licence')));
         $dm->persist($articleSubmission);
         $dm->flush();
 

@@ -376,4 +376,25 @@ class ArticleSubmissionProgress
         return $this->submitted;
     }
 
+    /**
+     * @MongoDB\String
+     */
+    protected  $licences;
+
+    /**
+     * @return mixed
+     */
+    public function getLicences()
+    {
+        return $this->licences;
+    }
+
+    /**
+     * @param mixed $licences
+     */
+    public function setLicences($licences)
+    {
+        $this->licences = $licences;
+    }
+
 }

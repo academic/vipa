@@ -6,7 +6,7 @@
                     <fieldset>
                         <legend>
                                 <label for="licence_{{ licence.id }}">
-                                    <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}"/>
+                                    <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}" {% if licence.id in licences|keys %} checked="checked" {% endif %}/>
                                     {{ licence.label }}
                                 </label>
                         </legend>

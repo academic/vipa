@@ -140,8 +140,10 @@ class ArticleSubmissionController extends Controller
             'journal' => $journal,
             'submissionData' => NULL,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
-            'citationTypes' => $this->container->getParameter('citation_types')
-        ));
+            'citationTypes' => $this->container->getParameter('citation_types'),
+            'licences' => []
+
+    ));
     }
 
     /**
@@ -169,6 +171,7 @@ class ArticleSubmissionController extends Controller
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $articleSubmission->getCitations(),
             'citationTypes' => $this->container->getParameter('citation_types')];
+        $data['licences'] = json_decode($articleSubmission->getLicences(),true);
         if($articleSubmission->getJournalId()){
             $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
             $data['journal']=$journal;

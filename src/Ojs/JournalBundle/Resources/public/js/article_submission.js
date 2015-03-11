@@ -48,16 +48,8 @@ var OjsArticleSubmission = {
         $el.parents(".author-item").first().remove();
     },
     step0: function(actionUrl){
-        var checkboxes = $("#step0-container input[type=checkbox]");
         var form = $("#step0-container form").serialize();
-        var status = true;
-        checkboxes.each(function(){
-            if($(this).is(':checked')===false){
-                status=false;
-                OjsCommon.errorModal("Please check all field!");
-                return;
-            }
-        });
+        var status = OjsArticleSubmission.licenceCheck();
         if(status===false){
             return;
         }
@@ -73,6 +65,17 @@ var OjsArticleSubmission = {
                     OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
                 }
         });
+    },
+    licenceCheck: function(){
+        var checkboxes = $("#step0-container input[type=checkbox]");
+        var status = true;
+        checkboxes.each(function(){
+            if($(this).is(':checked')===false){
+                status=false;
+                OjsCommon.errorModal("Please check all licence field!");
+            }
+        });
+        return status;
     },
     step1: function (actionUrl) {
         forms = $("#step1 form");
@@ -187,8 +190,9 @@ var OjsArticleSubmission = {
         }
     },
     submit: function () {
+        var licenceCheck = OjsArticleSubmission.licenceCheck();
         var check = confirm("Are you sure to submit your article?");
-        if (check === true) {
+        if (check === true && licenceCheck === true) {
             OjsCommon.waitModal();
             window.location.href = "/";
         } else {
