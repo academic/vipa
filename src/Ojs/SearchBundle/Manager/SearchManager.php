@@ -233,7 +233,6 @@ class SearchManager
         $em = $this->container->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository($class);
         if (!method_exists($repo, 'getByIds')) {
-            die($class);
             throw new \BadMethodCallException("Undefined method.");
         }
         $ids = [];
