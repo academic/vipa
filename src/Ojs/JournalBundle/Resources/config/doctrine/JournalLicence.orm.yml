@@ -15,9 +15,9 @@ Ojs\JournalBundle\Entity\JournalLicence:
       nullable: true
     journal_id:
       type: integer
-      nullable: false
     visible:
       type: boolean
+      nullable: true
     deletedAt:
       type: datetime
       nullable: true
