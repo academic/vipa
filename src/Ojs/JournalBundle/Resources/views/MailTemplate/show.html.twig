@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>MailTemplate Details</h1>
+    <h1>{{ 'mailtemplate.show'|trans }}</h1>
 
     <table class="record_properties">
         <tbody>
@@ -11,29 +11,29 @@
             </tr>
             {% if entity.journal %}
                 <tr>
-                    <th>Journal</th>
+                    <th>{{ 'mailtemplate.journal'|trans }}</th>
                     <td>{{ entity.journal.title }}</td>
                 </tr>
             {% else %}
                 <tr>
-                    <th>Default Template</th>
-                    <td>Yes</td>
+                    <th>{{ 'mailtemplate.default_template'|trans }}</th>
+                    <td>{{ 'yes'|trans }}</td>
                 </tr>
             {% endif %}
             <tr>
-                <th>Type</th>
+                <th>{{ 'mailtemplate.type'|trans }}</th>
                 <td>{{ entity.type }}</td>
             </tr>
             <tr>
-                <th>Subject</th>
+                <th>{{ 'mailtemplate.subject'|trans }}</th>
                 <td>{{ entity.subject }}</td>
             </tr>
             <tr>
-                <th>Language code</th>
+                <th>{{ {{ 'mailtemplate.language'|trans }} }}</th>
                 <td>{{ entity.lang }}</td>
             </tr>
             <tr>
-                <th>Template</th>
+                <th>{{ 'mailtemplate.template'|trans }}</th>
                 <td>{{ entity.template }}</td>
             </tr>
         </tbody>

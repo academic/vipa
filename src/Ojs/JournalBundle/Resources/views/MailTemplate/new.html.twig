@@ -3,9 +3,78 @@
 {% block body -%}
     <h1>New MailTemplate</h1>
 
-    {{ form(form) }}
 
-    {% set back_path = 'mailtemplate_manager' %}
+    {{ form_start(form) }}
+    {{ form_row(form.journal) }}
+    {{ form_row(form.template) }}
+    <div class="form-group">
+        <div class="well well-sm">
+            <pre data-toggle="tooltip" title="{{ "journal.title"|trans }}"  >&lbrace;&lbrace; journal.title &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.subtitle"|trans }}" >&lbrace;&lbrace; journal.subtitle &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.titleAbbr"|trans }}" >&lbrace;&lbrace; journal.titleAbbr &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.issn"|trans }}" >&lbrace;&lbrace; journal.issn &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.eissn"|trans }}" >&lbrace;&lbrace; journal.eissn &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.period"|trans }}" >&lbrace;&lbrace; journal.period &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.tags"|trans }}" >&lbrace;&lbrace; journal.tags &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "journal.institution"|trans }}" >&lbrace;&lbrace; journal.institution.name &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "address"|trans }}" >&lbrace;&lbrace; journal.institution.address &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "phone"|trans }}" >&lbrace;&lbrace; journal.institution.phone &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "fax"|trans }}" >&lbrace;&lbrace; journal.institution.fax &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "email"|trans }}" >&lbrace;&lbrace; journal.institution.email &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "city"|trans }}" >&lbrace;&lbrace; journal.institution.city.name &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "country"|trans }}" >&lbrace;&lbrace; journal.institution.country.name &rbrace;&rbrace;</pre>
+            <div class="clearfix"></div>
+            <pre data-toggle="tooltip" title="{{ "title"|trans }}" >&lbrace;&lbrace; user.title &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "firstname"|trans }}" >&lbrace;&lbrace; user.firstName &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "lastname"|trans }}" >&lbrace;&lbrace; user.lastName &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "username"|trans }}" >&lbrace;&lbrace; user.username &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "city"|trans }}" >&lbrace;&lbrace; user.city.name &rbrace;&rbrace;</pre>
+            <pre data-toggle="tooltip" title="{{ "country"|trans }}" >&lbrace;&lbrace; user.country.name&rbrace;&rbrace;</pre>
+
+            <div class="clearfix"></div>
+            <div class="close"><i class="fa fa-close" id="close-well"></i></div>
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+    {{ form_row(form.type) }}
+    {{ form_row(form.subject) }}
+    {{ form_row(form.lang) }}
+    {{ form_end(form) }}
+    {% set back_path = 'mailtemplate' %}
     {% include '::actionbtns.html.twig' %}
 
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $('[data-toggle="popover"]').popover();
+            $('[data-toggle="tooltip"]').tooltip();
+            $("#ojs_journalbundle_mailtemplate_template").on('focus',function(){
+                $(".well").show();
+            });
+            $("#close-well").on('click',function(){
+                $(".well").hide();
+            });
+            $("pre").on('click',function(){
+
+            });
+        })
+    </script>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .well{
+            display: none;
+        }
+        .well pre{
+            display: inline; margin: 1px;
+            line-height: 28px;
+            font-size: 12px;
+            padding: 2px;
+            cursor: pointer;
+        }
+    </style>
 {% endblock %}

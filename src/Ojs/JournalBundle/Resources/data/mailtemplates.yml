@@ -1,9 +1,10 @@
 #suggested mail templates
 #these templates will be shown at every journal's dashboard
 -
+    id: '1'
     lang: en
     type: Revision
-    subject: Revision Request for Your Article - #{{articleId}}
+    subject: 'Revision Request for Your Article - #{{articleId}}'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -15,9 +16,10 @@
             {{journalUrl}}<br>
 
 -
+    id: '2'
     lang: en
     type: Minor Revision
-    subject: Minor Revision Request for Your Manuscript - #{{articleId}}
+    subject: 'Minor Revision Request for Your Manuscript - #{{articleId}}'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -29,9 +31,10 @@
             {{journalUrl}}<br>
             
 -
+    id: '3'
     lang: en
     type: Rewrite
-    subject: Your Article should be rewritten - #{{articleId}}
+    subject: 'Your Article should be rewritten - #{{articleId}}'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -43,9 +46,10 @@
             {{journalUrl}}<br>
 
 -
+    id: '4'
     lang: en
     type: Accepted
-    subject: About your manuscript - #{{articleId}}
+    subject: 'About your manuscript - #{{articleId}}'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -56,9 +60,10 @@
             {{journalUrl}}<br>
 
 -
+    id: '5'
     lang: en
     type: Rejection
-    subject: Your article format is not acceptable
+    subject: 'Your article format is not acceptable'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -68,9 +73,10 @@
             {{journalUrl}}<br>
 
 -
+    id: '6'
     lang: en
     type: Rejection
-    subject: Your article subject is not suitable
+    subject: 'Your article subject is not suitable'
     template:  >
             Ref. Code: #{{articleId}}<br>
             Title: {{articleTitle}} <br>
@@ -80,9 +86,10 @@
             {{journalUrl}}<br>
 
 -
+    id: '7'
     lang: en
     type: Reviewer Invitaion
-    subject: ...
+    subject: '...'
     template:  >
             Dear. {{fullName}}<br>
             

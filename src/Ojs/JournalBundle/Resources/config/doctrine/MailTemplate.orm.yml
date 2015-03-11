@@ -14,7 +14,18 @@ Ojs\JournalBundle\Entity\MailTemplate:
           joinColumn:
             name: journal_id
             referencedColumnName: id
-               
+    manyToMany:
+        languages:
+          targetEntity: Lang
+          joinTable:
+            inverseJoinColumns:
+              language_id:
+                referencedColumnName: id
+            joinColumns:
+              mailtemplate_id:
+                referencedColumnName: id
+            name: MailTemplate_Language
+          fetch: EXTRA_LAZY
     fields:
         journalId:
             type: integer
