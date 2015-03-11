@@ -186,4 +186,50 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->journal;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    protected  $languages;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    /**
+     * Add languages
+     *
+     * @param \Ojs\JournalBundle\Entity\Lang $languages
+     * @return MailTemplate
+     */
+    public function addLanguage(\Ojs\JournalBundle\Entity\Lang $languages)
+    {
+        $this->languages[] = $languages;
+
+        return $this;
+    }
+
+    /**
+     * Remove languages
+     *
+     * @param \Ojs\JournalBundle\Entity\Lang $languages
+     */
+    public function removeLanguage(\Ojs\JournalBundle\Entity\Lang $languages)
+    {
+        $this->languages->removeElement($languages);
+    }
+
+    /**
+     * Get languages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLanguages()
+    {
+        return $this->languages;
+    }
 }

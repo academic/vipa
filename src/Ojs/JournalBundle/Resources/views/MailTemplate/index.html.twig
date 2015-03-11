@@ -1,35 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>MailTemplate list</h1>
+    <h1>{{ 'mailtemplate.list' }}</h1>
+    {{ grid(db_templates) }}
 
-    <table class="table records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>Subject</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('mailtemplate_manager_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+    <h1>{{ 'mailtemplate.default.list' }}</h1>
+    {{ grid(default_templates) }}
 
-                    <td>{{ entity.type }}</td>
-                    <td>{{ entity.subject }}</td>
-                    <td>
-                        {% set show_path = 'mailtemplate_manager_show' %}
-                        {% set edit_path = 'mailtemplate_manager_edit' %}
-                        {% set delete_path = 'mailtemplate_manager_delete' %}
-                        {% include '::actionbtns.html.twig' %}
-
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
     <hr>
     <a class="btn btn-default" href="{{ path('mailtemplate_manager_new') }}">
       {{"c"|trans}}

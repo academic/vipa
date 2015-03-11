@@ -2,6 +2,15 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\NumberColumn;
+use APY\DataGridBundle\Grid\Column\TextColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Source\Vector;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
@@ -13,37 +22,84 @@ use Ojs\JournalBundle\Form\MailTemplateAltType;
  * MailTemplate controller.
  *
  */
-class MailTemplateController extends Controller {
+class MailTemplateController extends Controller
+{
 
     /**
      * Lists all MailTemplate entities.
      *
      */
-    public function indexAction() {
-        $em = $this->getDoctrine()->getManager();
+    public function indexAction()
+    {
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $source = new Entity('OjsJournalBundle:MailTemplate');
+        $source->manipulateRow(function (Row $row) {
+            if ($row->getField("title") and strlen($row->getField('title')) > 20) {
+                $row->setField('title', substr($row->getField('title'), 0, 20) . "...");
+            }
+            return $row;
+        });
+        /** @var User $user */
+        $user = $this->getUser();
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-        if ($isAdmin) {
-            $entities = $em->getRepository('OjsJournalBundle:MailTemplate')->findAll();
-        } else {
-            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-            $entities = $em->getRepository('OjsJournalBundle:MailTemplate')->findByJournalId($journal->getId());
-        }
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $user, $isAdmin, $ta) {
+            if ($isAdmin)
+                return $qb;
+            return $qb->andWhere(
+                $qb->expr()->eq("$ta.journalId", ':journal')
+            )
+                ->setParameter('journal', $journal->getId());
+        });
+        $grid = $this->get('grid.manager');
+
+        $db_templates = $grid->createGrid('db_templates');
+        $db_templates->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction = [];
+        $rowAction[] = ActionHelper::showAction('mailtemplate_manager_show', 'id');
+        $rowAction[] = ActionHelper::editAction('mailtemplate_manager_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('mailtemplate_manager_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $db_templates->addColumn($actionColumn);
+
+
+        $data = [];
+        $data['db_templates'] = $db_templates;
+
         $yamlParser = new Parser();
         $defaultTemplates = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir') .
-                        '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
+            $this->container->getParameter('kernel.root_dir') .
+            '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
         ));
-        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'index.html.twig', array(
-                    'entities' => $entities,
-                    'defaultTemplate' => $defaultTemplates
-        ));
+        $source = new Vector($defaultTemplates, [
+            new NumberColumn(['id' => 'id', 'field' => 'id', 'title' => 'ID', 'source' => true]),
+            new TextColumn(['id' => 'subject', 'field' => 'subject', 'title' => 'mailtemplate.subject', 'source' => true]),
+            new TextColumn(['id' => 'lang', 'field' => 'lang', 'title' => 'mailtemplate.language', 'source' => true]),
+            new TextColumn(['id' => 'type', 'field' => 'type', 'title' => 'mailtemplate.title', 'source' => true]),
+            new TextColumn(['id' => 'template', 'field' => 'template', 'title' => 'mailtemplate.template', 'source' => true, 'visible' => false]),
+        ]);
+        $defaultTemplates = $grid->createGrid('default_templates');
+        $defaultTemplates->setSource($source);
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction = [];
+        $rowAction[] = ActionHelper::copyAction('mailtemplate_manager_copy', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $defaultTemplates->addColumn($actionColumn);
+
+        $data['default_templates'] = $defaultTemplates;
+
+        return $grid->getGridManagerResponse('OjsJournalBundle:MailTemplate:index.html.twig', $data);
     }
 
     /**
      * Creates a new MailTemplate entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new MailTemplate();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -58,8 +114,8 @@ class MailTemplateController extends Controller {
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -70,21 +126,13 @@ class MailTemplateController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(MailTemplate $entity) {
-        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
-            $form = $this->createForm(new MailTemplateType(), $entity, array(
-                'action' => $this->generateUrl('mailtemplate_create'),
-                'method' => 'POST',
-            ));
-        } else {
-            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-            $form = $this->createForm(new MailTemplateAltType(), $entity, [
-                'method' => 'POST',
-                'action' => $this->get('router')->generate('mailtemplate_manager_create'),
-                'journal_id' => $journal->getId()
-                    ]
-            );
-        }
+    private function createCreateForm(MailTemplate $entity)
+    {
+        $form = $this->createForm(new MailTemplateType(), $entity, array(
+            'action' => $this->generateUrl('mailtemplate_create'),
+            'method' => 'POST',
+            'user' => $this->getUser()
+        ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -95,14 +143,15 @@ class MailTemplateController extends Controller {
      * Displays a form to create a new MailTemplate entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new MailTemplate();
         $form = $this->createCreateForm($entity);
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
 
         return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -110,7 +159,8 @@ class MailTemplateController extends Controller {
      * Finds and displays a MailTemplate entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
 
@@ -121,7 +171,7 @@ class MailTemplateController extends Controller {
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'show.html.twig', array(
-                    'entity' => $entity,
+            'entity' => $entity,
         ));
     }
 
@@ -129,7 +179,8 @@ class MailTemplateController extends Controller {
      * Displays a form to edit an existing MailTemplate entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
 
@@ -141,8 +192,8 @@ class MailTemplateController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -153,7 +204,8 @@ class MailTemplateController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(MailTemplate $entity) {
+    private function createEditForm(MailTemplate $entity)
+    {
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($isAdmin) {
             $form = $this->createForm(new MailTemplateType(), $entity, array(
@@ -165,7 +217,7 @@ class MailTemplateController extends Controller {
             $form = $this->createForm(new MailTemplateAltType(), $entity, array(
                 'action' => $this->generateUrl('mailtemplate_manager_update', array('id' => $entity->getId())),
                 'method' => 'PUT',
-                'journal_id'=>$journal->getId()
+                'journal_id' => $journal->getId()
             ));
         }
 
@@ -178,7 +230,8 @@ class MailTemplateController extends Controller {
      * Edits an existing MailTemplate entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
@@ -196,8 +249,8 @@ class MailTemplateController extends Controller {
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -205,7 +258,8 @@ class MailTemplateController extends Controller {
      * Deletes a MailTemplate entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
@@ -220,4 +274,51 @@ class MailTemplateController extends Controller {
         return $this->redirect($this->generateUrl($isAdmin ? 'mailtemplate' : 'mailtemplate_manager'));
     }
 
+
+    public function copyAction(Request $request, $id)
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+
+        $entity = new MailTemplate();
+
+        $yamlParser = new Parser();
+        $defaultTemplates = $yamlParser->parse(file_get_contents(
+            $this->container->getParameter('kernel.root_dir') .
+            '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
+        ));
+        $template = [];
+        foreach ($defaultTemplates as $temp) {
+            if ($temp['id'] == $id) {
+                $template = $temp;
+                break;
+            }
+        }
+
+        $entity
+            ->setLang($template['lang'])
+            ->setSubject($template['subject'])
+            ->setTemplate(str_replace('<br>', "\n", $template['template']))
+            ->setType($template['type']);
+        if (!$isAdmin) {
+            $entity->setJournal($journal);
+        }
+        $form = $this->createCreateForm($entity);
+
+        $form->handleRequest($request);
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPEr_ADMIN');
+            return $this->redirect($this->generateUrl('mailtemplate' . ($isAdmin ? '' : '_manager') . '_show', array('id' => $entity->getId())));
+        }
+
+        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'new.html.twig', array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+        ));
+    }
 }

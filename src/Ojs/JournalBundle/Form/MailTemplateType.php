@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,19 +18,36 @@ class MailTemplateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
+        $user = $options['user'];
         $builder
-                ->add('journal', 'entity', array(
-                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'property' => 'title',
-                    'multiple' => false,
-                    'expanded' => false,
-                    'required' => false)
-                )
-                ->add('template')
-                ->add('type')
-                ->add('subject')
-                ->add('lang')
-        ;
+            ->add('journal', 'entity', [
+                'attr' => ['class' => ' form-control select2-element'],
+                'class' => 'Ojs\JournalBundle\Entity\Journal',
+                'query_builder' => function (EntityRepository $er) use ($user) {
+                    /** @var User $user */
+                    $qb = $er->createQueryBuilder('j');
+                    foreach ($user->getRoles() as $role) {
+                        /** @var Role $role */
+                        if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
+                            return $qb;
+                            break;
+                        }
+                    }
+
+                    $qb
+                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                        ->setParameter('user', $user);
+                    return $qb;
+                }
+            ])
+            ->add('template')
+            ->add('type')
+            ->add('subject')
+            ->add('lang','entity',[
+                'class'=>'Ojs\JournalBundle\Entity\Lang',
+                'property'=>'name'
+            ]);
     }
 
     /**
@@ -36,7 +56,8 @@ class MailTemplateType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate'
+            'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
+            'user' => null
         ));
     }
 

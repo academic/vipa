@@ -118,6 +118,24 @@ class ActionHelper
     /**
      * @param $route
      * @param $key
+     * @param $role
+     * @return RowAction
+     */
+    public static function copyAction($route, $key, $role='')
+    {
+
+        $rowAction = new RowAction('<i class="fa fa-copy"></i>', $route);
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip','title'=>"Copy"]);
+        $rowAction->setRouteParameters($key);
+        if($role){
+            $rowAction->setRole($role);
+        }
+        return $rowAction;
+    }
+
+    /**
+     * @param $route
+     * @param $key
      * @param null $role
      * @return RowAction
      */
