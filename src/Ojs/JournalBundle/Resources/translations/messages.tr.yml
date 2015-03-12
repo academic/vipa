@@ -338,3 +338,16 @@ journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 dashboard.suggestion: "Öneriler"
 setup.step: 'number. Adım'
 save.finish: 'Kaydet ve Bitir'
+
+mailtemplate.journal: 'Dergi'
+mailtemplate.type: 'Tür'
+mailtemplate.subject: 'Konu'
+mailtemplate.language: 'Dil'
+mailtemplate.template: 'Şablon'
+mailtemplate.edit: 'Şablonu Düzenle'
+mailtemplate.list: 'Mail Şablonları'
+mailtemplate.new: 'Yeni Mail Şablonu'
+mailtemplate.languages: 'Dil'
+mailtemplate.title: 'Başlık'
+mailtemplate.default.list: 'Öntanımlı Şablonlar'
+mailtemplate.show: 'Görüntüle'

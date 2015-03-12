@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>{{ 'mailtemplate.list' }}</h1>
+    <h1>{{ 'mailtemplate.list'|trans }}</h1>
     {{ grid(db_templates) }}
 
-    <h1>{{ 'mailtemplate.default.list' }}</h1>
+    <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
     {{ grid(default_templates) }}
 
     <hr>
