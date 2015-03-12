@@ -26,7 +26,7 @@ class AuthorType extends AbstractType
                 ->add('initials')
                 ->add('email')
                 ->add('address')
-                ->add('institutionId')
+                ->add('institution')
                 ->add('country')
                 ->add('summary')
         ;
