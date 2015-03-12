@@ -14,8 +14,10 @@
                 <td>{{ entity.label }}</td>
             </tr>
             <tr>
-                <th>{{ 'journal_licence.licence' }}</th>
-                <td>{{ entity.licence }}</td>
+                <th>{{ 'journal_licence.licence'|trans }}</th>
+                <td><div class="well">
+                        {{ entity.licence }}
+                </div></td>
             </tr>
             <tr>
                 <th>Visible</th>
