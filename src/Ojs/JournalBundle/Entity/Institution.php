@@ -13,7 +13,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Institution
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,email")
+ * @GRID\Source(columns="id,name,address,email,verified")
  */
 class Institution extends GenericExtendedEntity {
 
@@ -29,7 +29,7 @@ class Institution extends GenericExtendedEntity {
     private $root;
 
     /*
-     * @var Subject
+     * @var Institution
      * @Expose
      * @GRID\Column(title="parent")
      */
@@ -134,14 +134,14 @@ class Institution extends GenericExtendedEntity {
      */
     private $header;
 
-    public function setParent(Subject $parent = null)
+    public function setParent(Institution $parent = null)
     {
         $this->parent = $parent;
     }
 
     /**
      * 
-     * @return Subject
+     * @return Institution
      */
     public function getParent()
     {
@@ -632,6 +632,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var boolean
+     * @GRID\Column(title="verified")
      */
     private $verified;
 
@@ -782,10 +783,10 @@ class Institution extends GenericExtendedEntity {
     /**
      * Add children
      *
-     * @param \Ojs\JournalBundle\Entity\Subject $children
+     * @param \Ojs\JournalBundle\Entity\Institution $children
      * @return Institution
      */
-    public function addChild(\Ojs\JournalBundle\Entity\Subject $children)
+    public function addChild(\Ojs\JournalBundle\Entity\Institution $children)
     {
         $this->children[] = $children;
 
@@ -795,9 +796,9 @@ class Institution extends GenericExtendedEntity {
     /**
      * Remove children
      *
-     * @param \Ojs\JournalBundle\Entity\Subject $children
+     * @param \Ojs\JournalBundle\Entity\Institution $children
      */
-    public function removeChild(\Ojs\JournalBundle\Entity\Subject $children)
+    public function removeChild(\Ojs\JournalBundle\Entity\Institution $children)
     {
         $this->children->removeElement($children);
     }
