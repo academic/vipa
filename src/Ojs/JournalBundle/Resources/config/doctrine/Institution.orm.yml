@@ -7,31 +7,62 @@ Ojs\JournalBundle\Entity\Institution:
             type: integer
             id: true
             generator:
-                strategy: AUTO
+                strategy: AUTO 
     oneToMany:
         journals:
-          targetEntity: Journal
-          mappedBy: institution
-          cascade: ["persist", "merge"]
-          fetch: LAZY
+            targetEntity: Journal
+            mappedBy: institution
+            cascade: ["persist", "merge"]
+            fetch: LAZY
+        children:
+            targetEntity: Subject
+            mappedBy: parent
+            orderBy:
+                  lft: ASC
     manyToOne:
         institution_type:
-          targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
-          joinColumn:
-            name: institution_type_id
-            referencedColumnName: id
-          inversedBy: institutions
+            targetEntity: Ojs\JournalBundle\Entity\InstitutionTypes
+            joinColumn:
+                name: institution_type_id
+                referencedColumnName: id
+            inversedBy: institutions
         country:
-          targetEntity: Okulbilisim\LocationBundle\Entity\Country
-          joinColumn:
-            name: country_id
-            referencedColumnName: id
+            targetEntity: Okulbilisim\LocationBundle\Entity\Country
+            joinColumn:
+                  name: country_id
+                  referencedColumnName: id
         city:
-          targetEntity: Okulbilisim\LocationBundle\Entity\City
-          joinColumn:
-            name: city_id
-            referencedColumnName: id
+            targetEntity: Okulbilisim\LocationBundle\Entity\City
+            joinColumn:
+                  name: city_id
+                  referencedColumnName: id
+        parent:
+              targetEntity: Subject
+              inversedBy: children
+              joinColumn:
+                    name: parent_id
+                    referencedColumnName: id
+                    onDelete: CASCADE
+              gedmo:
+                - treeParent 
     fields:
+        lft:
+           type: integer
+           gedmo:
+             - treeLeft
+        rgt:
+           type: integer
+           gedmo:
+             - treeRight
+        root:
+           type: integer
+           nullable: true
+           gedmo:
+             - treeRoot
+        lvl:
+           type: integer
+           gedmo:
+             - treeLevel
         institution_type_id:
             type: integer
             nullable: true
@@ -45,9 +76,15 @@ Ojs\JournalBundle\Entity\Institution:
             type: string
             length: 255
             unique: true
+            gedmo:
+                - translatable
+                - versioned
         address:
             type: text
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         about:
             type: text
             nullable: TRUE
@@ -73,18 +110,30 @@ Ojs\JournalBundle\Entity\Institution:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         fax:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         email:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         url:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         wiki:
             type: string
             length: 255
@@ -94,10 +143,16 @@ Ojs\JournalBundle\Entity\Institution:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - translatable
+                - versioned
         header:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                - translatable
+                - versioned
         #IMAGES#
         created:
             type: datetime
@@ -135,4 +190,6 @@ Ojs\JournalBundle\Entity\Institution:
         translation:
             locale: locale
         loggable: true
+        tree:
+             type: nested
     lifecycleCallbacks: {  }
