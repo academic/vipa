@@ -2,6 +2,7 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Issue;
@@ -25,8 +26,8 @@ class IssueManagerController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Issue')->findByJournalId($journal->getId());
 
         return $this->render('OjsManagerBundle:Issue:index.html.twig', array(
-                    'entities' => $entities,
-                    'journal' => $journal
+            'entities' => $entities,
+            'journal' => $journal
         ));
     }
 
@@ -46,9 +47,9 @@ class IssueManagerController extends Controller
         }
         $articles = $em->getRepository('OjsJournalBundle:Article')->getOrderedArticlesByIssue($issue, true);
         return $this->render('OjsManagerBundle:Issue:view.html.twig', array(
-                    'articles' => $articles,
-                    'journal' => $journal,
-                    'issue' => $issue
+            'articles' => $articles,
+            'journal' => $journal,
+            'issue' => $issue
         ));
     }
 
@@ -75,9 +76,10 @@ class IssueManagerController extends Controller
             $orders = $request->get('order');
             $firstPages = $request->get('firstPage');
             $lastPages = $request->get('lastPage');
+
             foreach ($articleIds as $i => $articleId) {
                 $article = $doctrine->getRepository('OjsJournalBundle:Article')
-                        ->find($articleId);
+                    ->find($articleId);
                 $this->throw404IfNotFound($article);
                 $article->setOrderNum($orders[$i]);
                 $article->setFirstPage($firstPages[$i]);
@@ -88,16 +90,17 @@ class IssueManagerController extends Controller
         }
 
         $articles = $doctrine->getRepository('OjsJournalBundle:Article')
-                ->getOrderedArticlesByIssue($issue, true);
+            ->getOrderedArticlesByIssue($issue, true);
         $articlesUnissued = $doctrine->getRepository('OjsJournalBundle:Article')
-                ->getArticlesUnissued();
+            ->getArticlesUnissued();
+        $sections = $journal->getSections();
 
-        return $this->render('OjsManagerBundle:Issue:arrange.html.twig', array(
-                    'articles' => $articles,
-                    'journal' => $journal,
-                    'issue' => $issue,
-                    'articlesUnissued' => $articlesUnissued
-        ));
+        $data = ['articles' => $articles,
+            'journal' => $journal,
+            'issue' => $issue,
+            'sections' => $sections,
+            'articlesUnissued' => $articlesUnissued];
+        return $this->render('OjsManagerBundle:Issue:arrange.html.twig', $data);
     }
 
     /**
@@ -121,16 +124,16 @@ class IssueManagerController extends Controller
             $em->flush();
 
             return $this->redirect(
-                            $this->generateUrl(
-                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                                    )
-            ));
+                $this->generateUrl(
+                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                    )
+                ));
         }
 
 
         return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
-                    'journal' => $journal,
-                    'form' => $form->createView()
+            'journal' => $journal,
+            'form' => $form->createView()
         ));
     }
 
@@ -153,20 +156,20 @@ class IssueManagerController extends Controller
             $em->persist($issue);
             $em->flush();
             return $this->redirect(
-                            $this->generateUrl(
-                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                                    )
-            ));
+                $this->generateUrl(
+                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                    )
+                ));
         }
         return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
-                    'journal' => $journal,
-                    'entity' => $issue,
-                    'edit_form' => $form->createView()
+            'journal' => $journal,
+            'entity' => $issue,
+            'edit_form' => $form->createView()
         ));
     }
 
     /**
-     * Move an article's postion UP in an issue by updating "order" field of Article 
+     * Move an article's postion UP in an issue by updating "order" field of Article
      * @param integer $id issue id
      * @param integer $articleId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -179,7 +182,7 @@ class IssueManagerController extends Controller
     }
 
     /**
-     * Move an article's postion DOWN in an issue by updating "order" field of Article 
+     * Move an article's postion DOWN in an issue by updating "order" field of Article
      * @param integer $id issue id
      * @param integer $articleId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -192,7 +195,7 @@ class IssueManagerController extends Controller
     }
 
     /**
-     *  Move an article's postion in an issue by updating "order" field of Article 
+     *  Move an article's postion in an issue by updating "order" field of Article
      * @param integer $articleId
      * @param string $direction "1" or "-1" to specify the way of movement
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -210,7 +213,7 @@ class IssueManagerController extends Controller
         if ($direction > 0) {
             $nextPosition = $currentPosition + $direction;
         } else {
-            $nextPosition = ($currentPosition - $direction ) < 0 ? 0 : ($currentPosition - $direction);
+            $nextPosition = ($currentPosition - $direction) < 0 ? 0 : ($currentPosition - $direction);
         }
         $article->setPosition($nextPosition);
         $em->persist($article);
@@ -225,16 +228,31 @@ class IssueManagerController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
-    public function addArticleAction($id, $articleId)
+    public function addArticleAction(Request $r, $id, $articleId)
     {
+        $selectedSection = $r->get('section', null);
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
         $this->checkIssue($id);
+        /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        $section = $em->getRepository('OjsJournalBundle:JournalSection')->find($selectedSection);
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($article);
         $article->setIssueId($id);
+        if ($section) {
+            $sections = $issue->getSections();
+            if (!$sections->contains($section)) {
+                $issue->addSection($section);
+                $em->persist($issue);
+            }
+            $article->setSectionId($section->getId());
+            $article->setSection($section);
+        }
         $em->persist($article);
         $em->flush();
+
         return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
