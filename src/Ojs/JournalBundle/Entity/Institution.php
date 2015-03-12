@@ -13,10 +13,9 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Institution
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,country.name,phone,email")
+ * @GRID\Source(columns="id,name,address,email")
  */
-class Institution extends GenericExtendedEntity
-{
+class Institution extends GenericExtendedEntity {
 
     /**
      * @var integer
@@ -24,6 +23,18 @@ class Institution extends GenericExtendedEntity
      * @GRID\Column(title="id")
      */
     private $id;
+    private $lft;
+    private $lvl;
+    private $rgt;
+    private $root;
+
+    /*
+     * @var Subject
+     * @Expose
+     * @GRID\Column(title="parent")
+     */
+    private $parent;
+    private $children;
 
     /**
      * @var string
@@ -50,6 +61,7 @@ class Institution extends GenericExtendedEntity
      * @Expose
      */
     private $city;
+
     /**
      * @var integer
      * @Expose
@@ -58,8 +70,7 @@ class Institution extends GenericExtendedEntity
 
     /**
      * @var Country
-     * @Expose
-     * @GRID\Column(field="country.name" , title="country")
+     * @Expose 
      */
     private $country;
 
@@ -68,6 +79,7 @@ class Institution extends GenericExtendedEntity
      * @Expose
      */
     private $country_id;
+
     /**
      * @var string
      * @Expose
@@ -82,8 +94,7 @@ class Institution extends GenericExtendedEntity
 
     /**
      * @var string
-     * @Expose
-     * @GRID\Column(title="phone")
+     * @Expose 
      */
     private $phone;
 
@@ -95,8 +106,7 @@ class Institution extends GenericExtendedEntity
 
     /**
      * @var string
-     * @Expose
-     * @GRID\Column(title="email")
+     * @Expose 
      */
     private $email;
 
@@ -123,6 +133,30 @@ class Institution extends GenericExtendedEntity
      * @Expose
      */
     private $header;
+
+    public function setParent(Subject $parent = null)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * 
+     * @return Subject
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    public function getRoot()
+    {
+        return $this->root;
+    }
 
     /**
      * @return string

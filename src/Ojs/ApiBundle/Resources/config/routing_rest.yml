@@ -1,49 +1,61 @@
 
-contacts:
+api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
   name_prefix:  api_
-authors:
+
+api_authors:
   type: rest
   resource:     "OjsApiBundle:AuthorRest"
   name_prefix:  api_
 
-users:
+api_users:
   type: rest
   resource:     "OjsApiBundle:UserRest"
   name_prefix:  api_
 
-test :
+api_test :
   type: rest
   resource:     "OjsApiBundle:TestRest"
   name_prefix:  api_
 
-roles :
+api_roles :
   type: rest
   resource:     "OjsApiBundle:RoleRest"
   name_prefix:  api_
 
-journals :
+api_journals :
   type: rest
   resource:     "OjsApiBundle:JournalRest"
   name_prefix:  api_
 
-article :
+api_article :
   type: rest
   resource:     "OjsApiBundle:ArticleRest"
   name_prefix:  api_
 
-citation :
+api_citation :
   type: rest
   resource:     "OjsApiBundle:CitationRest"
   name_prefix:  api_
 
-analytics :
+api_analytics :
   type: rest
   resource:     "OjsApiBundle:AnalyticsRest"
   name_prefix:  api_
 
-mail_templates :
+api_mail_templates :
   type: rest
   resource:     "OjsApiBundle:MailTemplateRest"
   name_prefix:  api_
+
+api_institutions :
+  type: rest
+  resource:     "OjsApiBundle:InstitutionRest"
+  name_prefix:  api_
+
+api_public_search :
+  type: rest
+  resource:     "OjsApiBundle:PublicSearchRest"
+  name_prefix:  api_
+  

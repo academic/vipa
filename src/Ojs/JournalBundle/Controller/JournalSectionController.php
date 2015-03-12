@@ -2,6 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\JournalSection;
@@ -19,12 +23,26 @@ class JournalSectionController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:JournalSection')->findAll();
+        $source = new Entity('OjsJournalBundle:JournalSection');
+        $source->manipulateRow(function(Row $row){
+            if($row->getField("title") and strlen($row->getField('title'))>20){
+                $row->setField('title',substr($row->getField('title'),0,20)."...");
+            }
+            return $row;
+        });
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:JournalSection:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('admin_journal_section_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_journal_section_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_journal_section_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:JournalSection:index.html.twig', $data);
     }
 
     /**

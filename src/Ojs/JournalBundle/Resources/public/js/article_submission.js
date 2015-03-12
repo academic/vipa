@@ -39,6 +39,29 @@ var OjsArticleSubmission = {
     },
     addAuthorForm: function (params) {
         $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
+        OjsArticleSubmission.setupUi();
+         $(".select2-institution-search-element").select2({
+            multiple: true,
+            ajax: {
+                url:  '/api/search/institution/verified',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term,
+                        page: params.page
+                    };
+                },
+                processResults: function (data, page) { 
+                    return {
+                        results: data.institutions
+                    };
+                },
+                cache: true
+            }, 
+            minimumInputLength: 1
+            
+        });
     },
     addFileForm: function (params) {
         $("#step4").append(Mustache.render($("#step4_tpl").html(), params));
@@ -220,9 +243,10 @@ var OjsArticleSubmission = {
             OjsCommon.scrollTop();
             if ($("#step2").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(2);
-                OjsArticleSubmission.loadStepTemplate(2);
+                OjsArticleSubmission.addAuthorForm();
             }
             OjsArticleSubmission.showStep(2);
+             OjsArticleSubmission.setupUi();
         },
         step3: function () {
             OjsCommon.scrollTop();
@@ -277,7 +301,7 @@ var OjsArticleSubmission = {
                 "image": false,
                 "color": false,
                 "blockquote": true}
-        });
+        }); 
     },
     step1ScrollToLangPanel: function (lang) {
         $('html, body').animate({

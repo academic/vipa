@@ -91,6 +91,7 @@
 {% endblock grid_titles %}
 {# -------------------------------------------------- grid_filters -------------------------------------------------- #}
 {% block grid_filters %}
+    {% set r = random() %}
     <div class="row">
         <div class="col-md-12">
             <div data-collapsed="1" class="panel panel-primary">
@@ -98,12 +99,12 @@
                     <div class="panel-title">
                         {% trans %}Filters{% endtrans %}
                         <div class="btn-group pull-right">
-                            <a href="#filter" data-toggle="collapse" aria-expanded="false" aria-controls="filter" class="btn btn-primary btn-xs">{{ 'collapse'|trans }}</a>
+                            <a href="#filter_{{ r }}" data-toggle="collapse" aria-expanded="false" aria-controls="filter" class="btn btn-primary btn-xs">{{ 'collapse'|trans }}</a>
                         </div>
                     </div>
 
                 </div>
-                <div class="panel-body collapse" id="filter">
+                <div class="panel-body collapse" id="filter_{{ r }}">
                     <div class="row"  >
                     {% for column in grid.columns %}
                         {% if column.visible(grid.isReadyForExport) %}

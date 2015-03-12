@@ -19,9 +19,9 @@ class JournalLicenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
-            ->add('licence')
-            ->add('visible')
+            ->add('label','text',['label'=>'journal_licence.label'])
+            ->add('licence','textarea',['label'=>'journal_licence.licence'])
+            ->add('visible','checkbox',['label'=>'journal_licence.visible'])
         ;
     }
     

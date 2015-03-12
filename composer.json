@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.5.*",
-        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/orm": "~2.4.7",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "1.2.*",
         "symfony/assetic-bundle": "~2.3",
@@ -29,6 +29,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "symfony/console": "*",
+
         "friendsofsymfony/rest-bundle": "@dev",
         "jms/serializer-bundle": "@dev",
         "nelmio/api-doc-bundle": "@dev",
@@ -44,15 +45,16 @@
         "ircmaxell/password-compat": "~1.0",
         "jms/job-queue-bundle": "1.1.0",
         "pagerfanta/pagerfanta": "1.0.3",
-        "okulbilisim/citation-parser": "dev-master",
         "fzaninotto/faker": "1.5.*@dev",
         "nelmio/alice": "1.7.2",
         "h4cc/alice-fixtures-bundle": "~0.5",
-        "okulbilisim/feedback-bundle": "dev-master",
+        "apy/datagrid-bundle": "2.1.*",
         "tackk/cartographer": "1.0.*",
-        "okulbilisim/cms-bundle": "dev-master",
         "unifik/database-config-bundle": "dev-master",
-        "apy/datagrid-bundle": "dev-master",
+
+        "okulbilisim/feedback-bundle": "dev-master",
+        "okulbilisim/cms-bundle": "dev-master",
+        "okulbilisim/citation-parser": "dev-master",
         "okulbilisim/ojs-tools-bundle": "dev-master"
     },
     "require-dev": {
@@ -70,7 +72,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Ojs\\CliBundle\\Command\\InstallCommand::composer"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
