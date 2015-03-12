@@ -20,7 +20,7 @@ Ojs\JournalBundle\Entity\Institution:
             cascade: ["persist", "merge"]
             fetch: LAZY
         children:
-            targetEntity: Subject
+            targetEntity: Institution
             mappedBy: parent
             orderBy:
                   lft: ASC
@@ -42,7 +42,7 @@ Ojs\JournalBundle\Entity\Institution:
                   name: city_id
                   referencedColumnName: id
         parent:
-              targetEntity: Subject
+              targetEntity: Institution
               inversedBy: children
               joinColumn:
                     name: parent_id
