@@ -1,29 +1,51 @@
 {% extends "::ojsbase.html.twig" %}
 
-{% block body %} 
+{% block body %}
 
     <div class="row">
-        <h1>{{"issue.edit"|trans}} </h1>
+        <h1>{{ "issue.edit"|trans }} </h1>
         <ul>
-            <li><small>Journal : <strong>{{journal.title}}</strong> </small></li>
-            <li><small>Volume : <strong>{{issue.volume}}</strong> </small></li>
-            <li><small>Number : <strong>{{issue.number}}</strong> </small></li>
-            <li><small>Title : <strong>{{issue.title}}</strong> </small></li>
-            <li><small>Year : <strong>{{issue.year}}</strong> </small></li>
-            <li><small>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </small></li>
+            <li>
+                <small>Journal : <strong>{{ journal.title }}</strong></small>
+            </li>
+            <li>
+                <small>Volume : <strong>{{ issue.volume }}</strong></small>
+            </li>
+            <li>
+                <small>Number : <strong>{{ issue.number }}</strong></small>
+            </li>
+            <li>
+                <small>Title : <strong>{{ issue.title }}</strong></small>
+            </li>
+            <li>
+                <small>Year : <strong>{{ issue.year }}</strong></small>
+            </li>
+            <li>
+                <small>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </small>
+            </li>
         </ul>
         <div class="panel panel-info">
             <div class="panel-heading">Add article to this issue</div>
             <div class="panel-body">
                 <form>
-                    <input type="hidden" name="issue_id" value="{{issue.id}}">
+                    <input type="hidden" name="issue_id" value="{{ issue.id }}">
+
                     <div class="form-row">
                         <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
                             <option></option>
                             {% for article in articlesUnissued %}
-                                <option value="{{article.id}}" 
-                                        rel="{{path('issue_manager_issue_add_article',{'id':issue.id,'articleId':article.id})}}">
-                                    [#{{article.id}}] {{article.title|slice(0,200)}}
+                                <option value="{{ article.id }}"
+                                        rel="{{ path('issue_manager_issue_add_article',{'id':issue.id,'articleId':article.id}) }}">
+                                    [#{{ article.id }}] {{ article.title|slice(0,200) }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select name="section" id="section" class="select2  form-control">
+                            {% for section in sections %}
+                                <option value="{{ section.id }}">
+                                    {{ section.title }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -40,55 +62,64 @@
             </div>
         </div>
         <form method="post">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>{{"order"|trans}}</th>
-                        <th>{{"article.singular"|trans}}</th>
-                        <th>{{"page.first"|trans}}</th>
-                        <th>{{"page.last"|trans}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for article in articles %}
+            {% for s in issue.sections %}
+                <fieldset>
+                    <legend>{{ s.title }}</legend>
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td> 
-                                <input name="articleId[]" 
-                                       value="{{article.id}}" type="hidden" />
-
-                                <input name="order[]"
-                                       class="form-control input-sm" 
-                                       value="{{article.orderNum}}" 
-                                       type="number" style="width:50px" min="1" max="10000" >
-                            </td>
-                            <td>
-                                <a class="btn btn-danger btn-xs" 
-                                   href="{{path('issue_manager_issue_remove_article',{'id':issue.id,'articleId':article.id})}}">
-                                    <i class="fa fa-remove"></i>
-                                </a>
-                                <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
-                                    <small>{{article.title}}</small>
-                                </a>
-                            </td>
-                            <td>
-                                <input name="firstPage[]" 
-                                       value="{{article.firstPage}}" 
-                                       class="input-sm form-control" style="width:80px" type="number" min="1" max="10000" >
-                            </td>
-                            <td>
-                                <input name="lastPage[]"
-                                       value="{{article.lastPage}}" 
-                                       class="input-sm form-control" style="width:80px" type="number"  min="1" max="10000" >
-                            </td>
+                            <th>{{"order"|trans}}</th>
+                            <th>{{"article.singular"|trans}}</th>
+                            <th>{{"page.first"|trans}}</th>
+                            <th>{{"page.last"|trans}}</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                        {% for article in s.articles %}
+                            {% if article.issue.id==issue.id %}
+                            <tr>
+                                <td>
+                                    <input name="articleId[]"
+                                           value="{{article.id}}" type="hidden" />
+
+                                    <input name="order[]"
+                                           class="form-control input-sm"
+                                           value="{{article.orderNum}}"
+                                           type="number" style="width:50px" min="1" max="10000" >
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-xs"
+                                       href="{{path('issue_manager_issue_remove_article',{'id':issue.id,'articleId':article.id})}}">
+                                        <i class="fa fa-remove"></i>
+                                    </a>
+                                    <a href="{{path('ojs_article_page', {'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                                        <small>{{article.title}}</small>
+                                    </a>
+                                </td>
+                                <td>
+                                    <input name="firstPage[]"
+                                           value="{{article.firstPage}}"
+                                           class="input-sm form-control" style="width:80px" type="number" min="1" max="10000" >
+                                </td>
+                                <td>
+                                    <input name="lastPage[]"
+                                           value="{{article.lastPage}}"
+                                           class="input-sm form-control" style="width:80px" type="number"  min="1" max="10000" >
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </fieldset>
+            {% endfor %}
+
+
             <hr>
             <button type="submit" href="#" class="btn btn-primary">
                 <i class="fa fa-save"></i> {{"save"|trans}}
             </button>
-            <a href="#" class="btn btn-warning">{{"cancel"|trans}}</a> 
+            <a href="#" class="btn btn-warning">{{"cancel"|trans}}</a>
         </form>
     </div>
     <hr>
@@ -100,7 +131,7 @@
 
 
 {% block javascripts %}
-    {{parent()}} 
+    {{ parent() }}
 
     <script>
         $(function () {
@@ -111,8 +142,10 @@
             });
             $("#issueManagerAddArticle").click(function () {
                 redirectUrl = $("#unissuedArticles option:selected").attr("rel");
+                var selectedSection = $("#section option:selected").val()
+
                 if (redirectUrl.length > 0) {
-                    window.location.href = redirectUrl;
+                    window.location.href = redirectUrl + '?section=' + selectedSection ;
                 }
             });
         });

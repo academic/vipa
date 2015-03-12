@@ -402,7 +402,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function getSections()
     {
-        return $this->articles;
+        return $this->sections;
     }
 
     /**
