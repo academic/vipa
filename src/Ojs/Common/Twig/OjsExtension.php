@@ -5,8 +5,7 @@ namespace Ojs\Common\Twig;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class OjsExtension extends \Twig_Extension
-{
+class OjsExtension extends \Twig_Extension {
 
     private $container;
     private $em;
@@ -38,6 +37,7 @@ class OjsExtension extends \Twig_Extension
             'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
+            'hasIdInObjects' => new \Twig_Function_Method($this, 'hasIdInObjects', array('is_safe' => array('html'))),
             'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
             'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html'))),
             'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
@@ -114,7 +114,21 @@ class OjsExtension extends \Twig_Extension
                 return TRUE;
             }
         }
+        return FALSE;
+    }
 
+    /**
+     * 
+     * @param type $needle
+     * @param type $haystack
+     */
+    public function hasIdInObjects($needle, $haystack)
+    {
+        foreach ($haystack as $item) {
+            if ($item->getId() == $needle) {
+                return TRUE;
+            }
+        }
         return FALSE;
     }
 
@@ -234,6 +248,7 @@ class OjsExtension extends \Twig_Extension
 
         return $fileHelper->generatePath($file, false) . $file;
     }
+
     /**
      * return translated "yes" or "no" statement after checking $arg
      * @param bool $arg
