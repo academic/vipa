@@ -174,6 +174,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
                 $form && $step->addReviewForm($form);
             }
         }
+        $step->clearNextSteps();
         $step->setRoles($this->prepareRoles($request->get('roles')));
         foreach($request->get('nextSteps') as $nId){
             $nextStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($nId);
