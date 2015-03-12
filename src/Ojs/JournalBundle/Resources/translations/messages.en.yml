@@ -373,3 +373,9 @@ mailtemplate.languages: 'Language'
 mailtemplate.title: 'Title'
 mailtemplate.default.list: 'Default Templates'
 mailtemplate.show: 'Show'
+
+journal_licence.singular: "Licences"
+journal_licence.create: "New Licence"
+journal_licence.licence: "Licence"
+journal_licence.visible: "Is Visible?"
+journal_licence.label: "Label"
