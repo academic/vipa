@@ -1,15 +1,17 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-
+use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * MailTemplate
+ * @GRID\Source(columns="id,journal.title,type,languages.code, subject")
  */
 class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 {
 
     /**
      * @var integer
+     * @GRID\Column(title="ID")
      */
     private $id;
 
@@ -20,6 +22,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
+     * @GRID\Column(title="mailtemplate.type")
      */
     private $type;
 
@@ -41,6 +44,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      *
      * @var \Ojs\JournalBundle\Entity\Journal
+     * @GRID\Column(title="mailtemplate.journal", field="journal.title")
      */
     private $journal;
 
@@ -188,6 +192,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @GRID\Column(title="mailtemplate.languages",field="languages.code",type="array")
      */
     protected  $languages;
 
