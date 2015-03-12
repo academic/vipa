@@ -80,6 +80,7 @@ fos_elastica:
                     mappings:
                         tags: ~
                         name: ~
+                        verified: ~
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Institution
