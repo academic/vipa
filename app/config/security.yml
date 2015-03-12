@@ -33,6 +33,11 @@ security:
             stateless: true
             security: false
             anonymous: true
+        api_public:
+            pattern: ^/api/public/
+            stateless: true
+            security: false
+            anonymous: true
         api_mail_template:
             pattern: ^/api/mail_template*
             stateless: true

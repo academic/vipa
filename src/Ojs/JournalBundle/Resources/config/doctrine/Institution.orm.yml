@@ -77,8 +77,12 @@ Ojs\JournalBundle\Entity\Institution:
             length: 255
             unique: true
             gedmo:
-                - translatable
-                - versioned
+                translatable: ~
+                versioned: ~
+                slug:
+                  seperator: _
+                  fields:
+                    - name
         address:
             type: text
             nullable: TRUE

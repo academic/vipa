@@ -79,6 +79,7 @@ fos_elastica:
                 institution:
                     mappings:
                         tags: ~
+                        name: ~
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Institution
