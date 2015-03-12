@@ -29,12 +29,12 @@
                 <td>{{ entity.subject }}</td>
             </tr>
             <tr>
-                <th>{{ {{ 'mailtemplate.language'|trans }} }}</th>
+                <th> {{ 'mailtemplate.language'|trans }}</th>
                 <td>{{ entity.lang }}</td>
             </tr>
             <tr>
                 <th>{{ 'mailtemplate.template'|trans }}</th>
-                <td>{{ entity.template }}</td>
+                <td><div class="well">{{ entity.template|nl2br }}</div></td>
             </tr>
         </tbody>
     </table>

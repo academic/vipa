@@ -109,7 +109,7 @@ class MailTemplateController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPEr_ADMIN');
+            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
             return $this->redirect($this->generateUrl('mailtemplate' . ($isAdmin ? '' : '_manager') . '_show', array('id' => $entity->getId())));
         }
 
@@ -129,7 +129,7 @@ class MailTemplateController extends Controller
     private function createCreateForm(MailTemplate $entity)
     {
         $form = $this->createForm(new MailTemplateType(), $entity, array(
-            'action' => $this->generateUrl('mailtemplate_create'),
+            'action' => $this->generateUrl('mailtemplate_manager_create'),
             'method' => 'POST',
             'user' => $this->getUser()
         ));
