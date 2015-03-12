@@ -13,8 +13,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InstitutionType extends AbstractType
-{
+class InstitutionType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -24,34 +24,34 @@ class InstitutionType extends AbstractType
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $builder
-            ->add('name', 'text', ['required' => true])
-            ->add('slug', 'text', [
-                'required' => true,
-            ])
-            ->add('institution_type', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes'
-            ])
-            ->add('about')
-            ->add('address')
-            ->add('addressLat')
-            ->add('addressLong')
-            ->add('phone')
-            ->add('fax')
-            ->add('email')
-            ->add('url')
-            ->add('wiki')
-            ->add('logo', 'hidden')
-            ->add('header', 'hidden')
-            ->add('verified')
-            ->add('country', 'entity', [
-                'class' => 'Okulbilisim\LocationBundle\Entity\Country',
-                'attr' => [
-                    'class' => 'select2-element  bridged-dropdown',
-                    'data-to'=>'#'.$this->getName().'_city'
-                ]
-            ]);
-        $helper->addCityField($builder,'Ojs\JournalBundle\Entity\Institution');
-
+                ->add('name', 'text', ['required' => true])
+                ->add('slug', 'text', [
+                    'required' => true,
+                ])
+                ->add('institution_type', 'entity', [
+                    'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes'
+                ])
+                ->add('parent')
+                ->add('about')
+                ->add('address')
+                ->add('addressLat')
+                ->add('addressLong')
+                ->add('phone')
+                ->add('fax')
+                ->add('email')
+                ->add('url')
+                ->add('wiki')
+                ->add('logo', 'hidden')
+                ->add('header', 'hidden')
+                ->add('verified')
+                ->add('country', 'entity', [
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                    'attr' => [
+                        'class' => 'select2-element  bridged-dropdown',
+                        'data-to' => '#' . $this->getName() . '_city'
+                    ]
+        ]);
+        $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
     }
 
     /**
@@ -72,4 +72,5 @@ class InstitutionType extends AbstractType
     {
         return 'ojs_journalbundle_institution';
     }
+
 }
