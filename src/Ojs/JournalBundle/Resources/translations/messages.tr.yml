@@ -246,12 +246,8 @@ journalcontact.contact.id: 'Dergi İletişim ID'
 journalcontact.contact.type.id: 'Dergi İletişim Tür ID'
 journalcontact.creation: 'Dergi İletişim Oluştur'
 journalcontact.singular: 'Dergi İletişim'
-journalsection.edit: 'Dergi Bölümü Düzenle'
-journalsection.list: 'Dergi Bölümü Listesi'
 allow_index: __allow_index
 hide_title: 'Başlığı Gizle'
-journalsection.new: 'Yeni Dergi Bölümü'
-journalsection: 'Dergi Bölümü'
 allow_index.list: __allow_index.list
 journaltheme.edit: 'Dergi Teması Düzenle'
 journaltheme.list: 'Dergi Teması Listesi'
@@ -338,3 +334,34 @@ journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 dashboard.suggestion: "Öneriler"
 setup.step: 'number. Adım'
 save.finish: 'Kaydet ve Bitir'
+
+mailtemplate.journal: 'Dergi'
+mailtemplate.type: 'Tür'
+mailtemplate.subject: 'Konu'
+mailtemplate.language: 'Dil'
+mailtemplate.template: 'Şablon'
+mailtemplate.edit: 'Şablonu Düzenle'
+mailtemplate.list: 'Mail Şablonları'
+mailtemplate.new: 'Yeni Mail Şablonu'
+mailtemplate.languages: 'Dil'
+mailtemplate.title: 'Başlık'
+mailtemplate.default.list: 'Öntanımlı Şablonlar'
+mailtemplate.show: 'Görüntüle'
+
+journal_licence.singular: "Lisanlar"
+journal_licence.create: "Yeni Lisans"
+journal_licence.licence: "Lisans"
+journal_licence.visible: "Görünürlük"
+journal_licence.label: "Tanım"
+journal_licence.show: "Show"
+
+journalsection.edit: 'Dergi Bölümü Düzenle'
+journalsection.list: 'Dergi Bölümü Listesi'
+journalsection.new: 'Yeni Dergi Bölümü'
+journalsection: 'Dergi Bölümü'
+journalsection.show: 'Görüntüle'
+journalsection.label: 'Tanım'
+journalsection.title: 'Başlık'
+journalsection.allow_index: 'Allow Index'
+journalsection.hide_title: 'Başlığı Gizle'
+journalsection.journal: 'Dergi'

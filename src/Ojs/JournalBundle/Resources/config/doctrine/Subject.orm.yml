@@ -103,19 +103,19 @@ Ojs\JournalBundle\Entity\Subject:
     lifecycleCallbacks: {  }
     manyToOne:
         parent:
-          targetEntity: Subject
-          inversedBy: children
-          joinColumn:
-            name: parent_id
-            referencedColumnName: id
-            onDelete: CASCADE
-          gedmo:
-            - treeParent
+            targetEntity: Subject
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            gedmo:
+              - treeParent
             
     oneToMany:
         children:
-          targetEntity: Subject
-          mappedBy: parent
-          orderBy:
-            lft: ASC
+            targetEntity: Subject
+            mappedBy: parent
+            orderBy:
+                lft: ASC
      

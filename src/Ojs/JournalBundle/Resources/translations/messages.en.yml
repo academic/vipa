@@ -252,12 +252,8 @@ journalcontact.contact.id: 'Contact ID'
 journalcontact.contact.type.id: 'Contact Type ID'
 journalcontact.creation: 'Journal Contact Creation'
 journalcontact.singular: 'Journal Contact'
-journalsection.edit: 'Edit Journal Section'
-journalsection.list: 'Journal Section List'
 allow_index: 'Allow Index'
 hide_title: 'Hide Title'
-journalsection.new: 'New Journal Section'
-journalsection: 'Journal Section'
 allow_index.list: 'Allow Index List'
 journaltheme.edit: 'Edit Journal Theme'
 journaltheme.list: 'Journal Theme List'
@@ -360,3 +356,34 @@ journalsindex.journal: "Journal"
 journalsindex.link: "Link"
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
+
+mailtemplate.journal: 'Journal'
+mailtemplate.type: 'Type'
+mailtemplate.subject: 'Subject'
+mailtemplate.language: 'Language'
+mailtemplate.template: 'Template'
+mailtemplate.edit: 'Edit Mail Template'
+mailtemplate.list: 'Mail Templates'
+mailtemplate.new: 'Create Mail Template'
+mailtemplate.languages: 'Language'
+mailtemplate.title: 'Title'
+mailtemplate.default.list: 'Default Templates'
+mailtemplate.show: 'Show'
+
+journal_licence.singular: "Licences"
+journal_licence.create: "New Licence"
+journal_licence.licence: "Licence"
+journal_licence.visible: "Is Visible?"
+journal_licence.label: "Label"
+journal_licence.show: "Show"
+
+journalsection.edit: 'Edit Journal Section'
+journalsection.list: 'Journal Section List'
+journalsection.new: 'New Journal Section'
+journalsection.show: 'Show'
+journalsection.label: 'Label'
+journalsection.title: 'Title'
+journalsection.allow_index: 'Allow Index'
+journalsection.hide_title: 'Hide Title'
+journalsection.journal: 'Journal'
+journalsection: 'Journal Section'
