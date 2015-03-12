@@ -103,17 +103,14 @@ class MailTemplateController extends Controller
         $entity = new MailTemplate();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-            return $this->redirect($this->generateUrl('mailtemplate' . ($isAdmin ? '' : '_manager') . '_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('mailtemplate_manager_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'new.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -170,7 +167,7 @@ class MailTemplateController extends Controller
             throw $this->createNotFoundException('Unable to find MailTemplate entity.');
         }
 
-        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'show.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:show.html.twig', array(
             'entity' => $entity,
         ));
     }
@@ -191,7 +188,7 @@ class MailTemplateController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'edit.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
         ));
@@ -206,20 +203,11 @@ class MailTemplateController extends Controller
      */
     private function createEditForm(MailTemplate $entity)
     {
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-        if ($isAdmin) {
-            $form = $this->createForm(new MailTemplateType(), $entity, array(
-                'action' => $this->generateUrl('mailtemplate_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-            ));
-        } else {
-            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-            $form = $this->createForm(new MailTemplateAltType(), $entity, array(
-                'action' => $this->generateUrl('mailtemplate_manager_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
-                'journal_id' => $journal->getId()
-            ));
-        }
+        $form = $this->createForm(new MailTemplateType(), $entity, array(
+            'action' => $this->generateUrl('mailtemplate_manager_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+            'user' => $this->getUser()
+        ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -245,10 +233,10 @@ class MailTemplateController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl($isAdmin ? 'mailtemplate_edit' : 'mailtemplate_manager_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('mailtemplate_manager_edit', array('id' => $id)));
         }
 
-        return $this->render('OjsJournalBundle:MailTemplate:' . ($isAdmin ? 'admin/' : '') . 'edit.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
         ));

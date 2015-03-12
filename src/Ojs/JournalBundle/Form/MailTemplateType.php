@@ -22,31 +22,35 @@ class MailTemplateType extends AbstractType
         $user = $options['user'];
         $builder
             ->add('journal', 'entity', [
-                'attr' => ['class' => ' form-control select2-element'],
-                'class' => 'Ojs\JournalBundle\Entity\Journal',
-                'query_builder' => function (EntityRepository $er) use ($user) {
-                    /** @var User $user */
-                    $qb = $er->createQueryBuilder('j');
-                    foreach ($user->getRoles() as $role) {
-                        /** @var Role $role */
-                        if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                            return $qb;
-                            break;
+                    'attr' => ['class' => ' form-control select2-element'],
+                    'class' => 'Ojs\JournalBundle\Entity\Journal',
+                    'query_builder' => function (EntityRepository $er) use ($user) {
+                        /** @var User $user */
+                        $qb = $er->createQueryBuilder('j');
+                        foreach ($user->getRoles() as $role) {
+                            /** @var Role $role */
+                            if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
+                                return $qb;
+                                break;
+                            }
                         }
-                    }
 
-                    $qb
-                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                        ->setParameter('user', $user);
-                    return $qb;
-                }
-            ])
-            ->add('template')
-            ->add('type')
-            ->add('subject')
-            ->add('lang','entity',[
-                'class'=>'Ojs\JournalBundle\Entity\Lang',
-                'property'=>'name'
+                        $qb
+                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                            ->setParameter('user', $user);
+                        return $qb;
+                    }
+                    ,
+                    'label' => 'mailtemplate.journal'
+                ]
+            )
+            ->add('template', 'textarea', ['label' => 'mailtemplate.template','attr'=>['style'=>'height:200px']])
+            ->add('type', 'text', ['label' => 'mailtemplate.type'])
+            ->add('subject', 'text', ['label' => 'mailtemplate.subject'])
+            ->add('lang', 'entity', [
+                'class' => 'Ojs\JournalBundle\Entity\Lang',
+                'property' => 'name',
+                'label' => 'mailtemplate.language'
             ]);
     }
 

@@ -360,3 +360,16 @@ journalsindex.journal: "Journal"
 journalsindex.link: "Link"
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
+
+mailtemplate.journal: 'Journal'
+mailtemplate.type: 'Type'
+mailtemplate.subject: 'Subject'
+mailtemplate.language: 'Language'
+mailtemplate.template: 'Template'
+mailtemplate.edit: 'Edit Mail Template'
+mailtemplate.list: 'Mail Templates'
+mailtemplate.new: 'Create Mail Template'
+mailtemplate.languages: 'Language'
+mailtemplate.title: 'Title'
+mailtemplate.default.list: 'Default Templates'
+mailtemplate.show: 'Show'
