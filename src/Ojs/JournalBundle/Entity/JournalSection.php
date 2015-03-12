@@ -3,28 +3,35 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Ojs\Common\Entity\GenericExtendedEntity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * JournalSection
+ * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal.title")
  */
 class JournalSection extends GenericExtendedEntity
 {
     /**
      * @var integer
+     * @GRID\Column(title="ID")
      */
     private $id;
 
     /**
      * @var string
+     * @GRID\Column(title="journalsection.title")
      */
     private $title;
 
     /**
      * @var boolean
+     * @GRID\Column(title="journalsection.allow_index")
      */
     private $allowIndex = true;
 
     /**
      * @var boolean
+     * @GRID\Column(title="journalsection.hide_title")
      */
     private $hideTitle = false;
 
@@ -39,8 +46,8 @@ class JournalSection extends GenericExtendedEntity
     private $articles;
 
     /**
-     *
      * @var \Ojs\JournalBundle\Entity\Journal
+     * @GRID\Column(title="journalsection.journal", field="journal.title")
      */
     private $journal;
 
@@ -95,7 +102,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set title
      *
-     * @param  string         $title
+     * @param  string $title
      * @return JournalSection
      */
     public function setTitle($title)
@@ -118,7 +125,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set allowIndex
      *
-     * @param  boolean        $allowIndex
+     * @param  boolean $allowIndex
      * @return JournalSection
      */
     public function setAllowIndex($allowIndex)
@@ -141,7 +148,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set hideTitle
      *
-     * @param  boolean        $hideTitle
+     * @param  boolean $hideTitle
      * @return JournalSection
      */
     public function setHideTitle($hideTitle)
@@ -164,7 +171,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set journalId
      *
-     * @param  integer        $journalId
+     * @param  integer $journalId
      * @return JournalSection
      */
     public function setJournalId($journalId)
@@ -187,7 +194,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set journal
      *
-     * @param  Journal        $journal
+     * @param  Journal $journal
      * @return JournalSection
      */
     public function setJournal($journal)
