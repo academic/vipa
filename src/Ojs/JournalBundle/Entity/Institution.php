@@ -13,7 +13,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Institution
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,country.name,phone,email")
+ * @GRID\Source(columns="id,name,address,email")
  */
 class Institution extends GenericExtendedEntity {
 
@@ -70,8 +70,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var Country
-     * @Expose
-     * @GRID\Column(field="country.name" , title="country")
+     * @Expose 
      */
     private $country;
 
@@ -95,8 +94,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var string
-     * @Expose
-     * @GRID\Column(title="phone")
+     * @Expose 
      */
     private $phone;
 
@@ -108,8 +106,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var string
-     * @Expose
-     * @GRID\Column(title="email")
+     * @Expose 
      */
     private $email;
 
