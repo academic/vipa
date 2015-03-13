@@ -48,7 +48,7 @@ class JournalControllerTest extends BaseTestCase
 
         $crawler = $this->client->submit($form);
 
-        $this->assertTrue((boolean)preg_match('~(Redirecting to .*)~',$crawler->text()));
+        $this->assertEquals(1,$crawler->filter('html:contains("Redirect")')->count());
     }
 
 }

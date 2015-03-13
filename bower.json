@@ -43,6 +43,7 @@
     "bootstrap-tagsinput": "*",
     "bootstrap-treeview": "*",
     "jquery-pjax": "*",
-    "mermaid":"*"
+    "mermaid": "*",
+    "x-editable": "~1.5.1"
   }
 }
