@@ -11,8 +11,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
-class Author extends \Ojs\Common\Entity\GenericExtendedEntity
-{
+class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
 
     /**
      * @var integer
@@ -85,6 +84,11 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
      * @Expose()
      */
     private $institutionId;
+
+    /**
+     * @var Institution 
+     */
+    private $institution;
 
     /**
      * @var integer
@@ -545,5 +549,26 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
     }
 
+    /**
+     * Set institution
+     *
+     * @param \Ojs\JournalBundle\Entity\Institution $institution
+     * @return Author
+     */
+    public function setInstitution(\Ojs\JournalBundle\Entity\Institution $institution = null)
+    {
+        $this->institution = $institution;
+        return $this;
+    }
+
+    /**
+     * Get institution
+     *
+     * @return \Ojs\JournalBundle\Entity\Institution 
+     */
+    public function getInstitution()
+    {
+        return $this->institution;
+    }
 
 }

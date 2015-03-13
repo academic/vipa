@@ -2,7 +2,7 @@ var OjsArticleSubmission = {
     submissionId: null,
     step: null,
     languages: [],
-    activatedSteps: {"step0":true, "step1": false, "step2": false, "step3": false, "step4": false},
+    activatedSteps: {"step0": true, "step1": false, "step2": false, "step3": false, "step4": false},
     showResumeNote: function () {
 
         var html = '<a href="/author/article/submit/resume/' + this.submissionId + '#' + this.step + '">' + this.submissionId + '</a>';
@@ -40,27 +40,53 @@ var OjsArticleSubmission = {
     addAuthorForm: function (params) {
         $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
         OjsArticleSubmission.setupUi();
-         $(".select2-institution-search-element").select2({
-            multiple: true,
+        function formatResult(item) {
+            return item.name;
+        }
+        function formatSelection(item) {
+            return '<b>' + item.name + '</b>';
+        }
+        $(".select2-institution-search-element").select2({
+            multiple: false,
+            //Allow manually entered text in drop down.
+            createSearchChoice: function (term, data) {
+                if ($(data).filter(function () {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
+                    return {id: term, text: term};
+                }
+            },
             ajax: {
-                url:  '/api/search/institution/verified',
+                url: '/api/public/search/institution',
                 dataType: 'json',
-                delay: 250,
+                type: "GET",
+                delay: 300,
                 data: function (params) {
                     return {
-                        q: params.term,
-                        page: params.page
+                        q: params,
+                        verified: true
                     };
                 },
-                processResults: function (data, page) { 
+                results: function (data) {
                     return {
-                        results: data.institutions
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                slug: item.name,
+                                id: item.id
+                            };
+                        })
                     };
                 },
                 cache: true
-            }, 
+            },
+//            escapeMarkup: function (markup) {
+//                return markup;
+//            }, // let our custom formatter work
             minimumInputLength: 1
-            
+//            templateResult: formatResult, 
+//            templateSelection: formatSelection
+
         });
     },
     addFileForm: function (params) {
@@ -70,31 +96,31 @@ var OjsArticleSubmission = {
     removeAuthor: function ($el) {
         $el.parents(".author-item").first().remove();
     },
-    step0: function(actionUrl){
+    step0: function (actionUrl) {
         var form = $("#step0-container form").serialize();
         var status = OjsArticleSubmission.licenceCheck();
-        if(status===false){
+        if (status === false) {
             return;
         }
         OjsCommon.waitModal();
-        $.post(actionUrl,form,function(resp){
-                if (resp.submissionId) {
-                    OjsArticleSubmission.submissionId = resp.submissionId;
-                    $("input[name=submissionId]").attr('value', resp.submissionId);
-                    OjsArticleSubmission.hideAllSteps();
-                    OjsArticleSubmission.prepareStep.step1();
-                    OjsCommon.hideallModals();
-                } else {
-                    OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
-                }
+        $.post(actionUrl, form, function (resp) {
+            if (resp.submissionId) {
+                OjsArticleSubmission.submissionId = resp.submissionId;
+                $("input[name=submissionId]").attr('value', resp.submissionId);
+                OjsArticleSubmission.hideAllSteps();
+                OjsArticleSubmission.prepareStep.step1();
+                OjsCommon.hideallModals();
+            } else {
+                OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
+            }
         });
     },
-    licenceCheck: function(){
+    licenceCheck: function () {
         var checkboxes = $("#step0-container input[type=checkbox]");
         var status = true;
-        checkboxes.each(function(){
-            if($(this).is(':checked')===false){
-                status=false;
+        checkboxes.each(function () {
+            if ($(this).is(':checked') === false) {
+                status = false;
                 OjsCommon.errorModal("Please check all licence field!");
             }
         });
@@ -226,9 +252,9 @@ var OjsArticleSubmission = {
      * prepare and show steps
      */
     prepareStep: {
-        step0: function(){
+        step0: function () {
             OjsArticleSubmission.configureProgressBar(0);
-            OjsArticleSubmission.showStep(0);
+            OjsArticleSubmission.showStep(0, true);
         },
         step1: function () {
             OjsCommon.scrollTop();
@@ -243,10 +269,10 @@ var OjsArticleSubmission = {
             OjsCommon.scrollTop();
             if ($("#step2").html().length > 0) {
                 OjsArticleSubmission.configureProgressBar(2);
-                OjsArticleSubmission.addAuthorForm();
             }
+            OjsArticleSubmission.addAuthorForm();
             OjsArticleSubmission.showStep(2);
-             OjsArticleSubmission.setupUi();
+            OjsArticleSubmission.setupUi();
         },
         step3: function () {
             OjsCommon.scrollTop();
@@ -301,11 +327,11 @@ var OjsArticleSubmission = {
                 "image": false,
                 "color": false,
                 "blockquote": true}
-        }); 
+        });
     },
     step1ScrollToLangPanel: function (lang) {
         $('html, body').animate({
-            scrollTop: $("#lang_"+lang).offset().top
+            scrollTop: $("#lang_" + lang).offset().top
         }, 500);
     }
 };

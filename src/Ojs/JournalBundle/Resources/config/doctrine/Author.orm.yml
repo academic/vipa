@@ -12,7 +12,13 @@ Ojs\JournalBundle\Entity\Author:
         articleAuthors:
             targetEntity: ArticleAuthor
             mappedBy: author
-        
+    manyToOne:
+          institution:
+                targetEntity: Institution
+                joinColumn:
+                    name: institution_id
+                    referencedColumnName: id
+                inversedBy: articles
     id:
         id:
             type: integer
