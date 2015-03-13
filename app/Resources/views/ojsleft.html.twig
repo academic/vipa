@@ -15,7 +15,7 @@
                                     <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
                                          class="avatar"/>
                                 {% else %}
-                                    <img src="holder.js/96x96/#459:#fff/text:ojs" />
+                                    <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
                                 {% endif %}
                                 <span class="caret"></span>
                             </button>
