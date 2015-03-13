@@ -79,6 +79,3 @@ ojs_articleauthor:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/articleauthor.yml"
     prefix:   /admin/articleauthor
 
-admin_journal_section:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/journalsection.yml"
-    prefix:   /admin/journal/section

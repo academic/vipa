@@ -23,7 +23,8 @@ class JournalSectionType extends AbstractType
                     'property' => 'title',
                     'multiple' => false,
                     'expanded' => false,
-                    'required' => true
+                    'required' => true,
+                        'attr'=>['class'=>'select2-element']
                         )
                 )
         ;
