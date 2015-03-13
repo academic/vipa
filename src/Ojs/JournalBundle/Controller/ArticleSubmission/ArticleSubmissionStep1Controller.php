@@ -50,6 +50,7 @@ class ArticleSubmissionStep1Controller extends Controller
         $articleSubmission->setStartedDate(new \DateTime());
         $articleSubmission->setLastResumeDate(new \DateTime());
         $articleSubmission->setLanguages($languages);
+        $articleSubmission->setSection($articleData['section']);
         $dm->persist($articleSubmission);
         $dm->flush();
 

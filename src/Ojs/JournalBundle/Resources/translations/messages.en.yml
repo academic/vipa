@@ -74,6 +74,7 @@ article.subtitle: 'Article Subtitle'
 article.language.primary: 'Article Primary Language'
 article.language.other: 'Article Other Languages'
 article.add: 'Add Article'
+article.section: "Section"
 suppfiles.resins: 'Research Instrument'
 suppfiles.resmat: 'Research Materials'
 suppfiles.resres: 'Research Results'

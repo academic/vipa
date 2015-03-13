@@ -71,6 +71,7 @@ article.subtitle: 'Makale Altbaşlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
 article.add: 'Makale Ekle'
+article.section: "Bölüm"
 suppfiles.resins: 'Araştırma Araçları'
 suppfiles.resmat: 'Araştırma Materyalleri'
 suppfiles.resres: 'Araştırma Sonuçları'

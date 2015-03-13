@@ -158,6 +158,11 @@ var OjsArticleSubmission = {
             articleParams.data.translations = JSON.stringify(translationParams);
         }
         articleParams.data.submissionId = $("input[name=submissionId]").val();
+        if(!$("#section").val()){
+            OjsCommon.errorModal("Please select a section for article.");
+            return;
+        }
+        articleParams.data.section = $("#section").val();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjsCommon.hideallModals();
             if (response.submissionId) {
