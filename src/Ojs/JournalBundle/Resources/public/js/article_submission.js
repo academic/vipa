@@ -158,6 +158,8 @@ var OjsArticleSubmission = {
             articleParams.data.translations = JSON.stringify(translationParams);
         }
         articleParams.data.submissionId = $("input[name=submissionId]").val();
+        articleParams.data.section = $("select[name=section]").val();
+
         if(!$("#section").val()){
             OjsCommon.errorModal("Please select a section for article.");
             return;
@@ -173,6 +175,8 @@ var OjsArticleSubmission = {
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
+        }).fail(function(){
+            OjsCommon.errorModal("Something went wrong while sumitting. Please try again.");
         });
     },
     step2: function (actionUrl) {
