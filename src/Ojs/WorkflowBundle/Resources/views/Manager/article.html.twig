@@ -117,6 +117,12 @@
                         <textarea  name="abstract[{{lang}}]" class="form-control hide" >{{ articleRevised.abstract|raw }}</textarea>
                     </td>
                 </tr>
+                <tr>
+                    <td>Section</td>
+                    <td>
+                        <span class="editable">{{ article.section.title|raw }}</span>
+                    </td>
+                </tr>
             </table>  
 
         {% endfor %}

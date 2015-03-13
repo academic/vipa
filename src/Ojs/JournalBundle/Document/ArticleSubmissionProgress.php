@@ -397,4 +397,25 @@ class ArticleSubmissionProgress
         $this->licences = $licences;
     }
 
+    /**
+     * @MongoDB\Int
+     */
+    protected $section;
+
+    /**
+     * @return mixed
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * @param mixed $section
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
+    }
+
 }
