@@ -358,6 +358,19 @@ class ArticleSubmissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         foreach ($authors as $authorData) {
             $author = new Author();
+            // check institution
+            $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData['institution']);
+            if(!$institution){
+                $institution = $em->getRepository('OjsJournalBundle:Institution')->findByName(trim($authorData['institution']));
+            }
+             if(!$institution){
+                $institution =  new \Ojs\JournalBundle\Entity\Institution();
+                $institution->setName(trim($authorData['institution']));
+                $institution->setVerified(false);
+                $em->persist($institution);
+                $em->flush();
+            }
+            $author->setInstitution($institution);
             $author->setEmail($authorData['email']);
             $author->setTitle($authorData['title']);
             $author->setInitials($authorData['initials']);

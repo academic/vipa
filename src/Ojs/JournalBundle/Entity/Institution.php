@@ -13,7 +13,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Institution
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,name,address,email")
+ * @GRID\Source(columns="id,name,address,email,verified")
  */
 class Institution extends GenericExtendedEntity {
 
@@ -29,7 +29,7 @@ class Institution extends GenericExtendedEntity {
     private $root;
 
     /*
-     * @var Subject
+     * @var Institution
      * @Expose
      * @GRID\Column(title="parent")
      */
@@ -134,14 +134,14 @@ class Institution extends GenericExtendedEntity {
      */
     private $header;
 
-    public function setParent(Subject $parent = null)
+    public function setParent(Institution $parent = null)
     {
         $this->parent = $parent;
     }
 
     /**
      * 
-     * @return Subject
+     * @return Institution
      */
     public function getParent()
     {
@@ -180,6 +180,11 @@ class Institution extends GenericExtendedEntity {
      * @var \Doctrine\Common\Collections\Collection
      */
     private $journals;
+    
+       /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $authors;
 
     /**
      *
@@ -187,6 +192,7 @@ class Institution extends GenericExtendedEntity {
     public function __construct()
     {
         $this->journals = new ArrayCollection();
+        $this->authors = new ArrayCollection();
     }
 
     /**
@@ -626,6 +632,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var boolean
+     * @GRID\Column(title="verified")
      */
     private $verified;
 
@@ -643,6 +650,161 @@ class Institution extends GenericExtendedEntity {
     public function setVerified($verified)
     {
         $this->verified = $verified;
+    } 
+
+    
+
+
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     * @return Institution
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
+
+        return $this;
     }
 
+    /**
+     * Get lft
+     *
+     * @return integer 
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     * @return Institution
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
+
+        return $this;
+    }
+
+    /**
+     * Get rgt
+     *
+     * @return integer 
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
+
+    /**
+     * Set root
+     *
+     * @param integer $root
+     * @return Institution
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
+
+        return $this;
+    }
+
+    /**
+     * Set lvl
+     *
+     * @param integer $lvl
+     * @return Institution
+     */
+    public function setLvl($lvl)
+    {
+        $this->lvl = $lvl;
+
+        return $this;
+    }
+
+    /**
+     * Get lvl
+     *
+     * @return integer 
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+  
+    /**
+     * Get verified
+     *
+     * @return boolean 
+     */
+    public function getVerified()
+    {
+        return $this->verified;
+    }
+
+    /**
+     * Add authors
+     *
+     * @param \Ojs\JournalBundle\Entity\Author $authors
+     * @return Institution
+     */
+    public function addAuthor(\Ojs\JournalBundle\Entity\Author $authors)
+    {
+        $this->authors[] = $authors;
+
+        return $this;
+    }
+
+    /**
+     * Remove authors
+     *
+     * @param \Ojs\JournalBundle\Entity\Author $authors
+     */
+    public function removeAuthor(\Ojs\JournalBundle\Entity\Author $authors)
+    {
+        $this->authors->removeElement($authors);
+    }
+
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Ojs\JournalBundle\Entity\Institution $children
+     * @return Institution
+     */
+    public function addChild(\Ojs\JournalBundle\Entity\Institution $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Ojs\JournalBundle\Entity\Institution $children
+     */
+    public function removeChild(\Ojs\JournalBundle\Entity\Institution $children)
+    {
+        $this->children->removeElement($children);
+    }
+    
+    public function __toString()
+    {
+        return  $this->name;
+    }
 }

@@ -46,6 +46,22 @@
                 <th>{{"email"|trans}}</th>
                 <td>{{ entity.email }}</td>
             </tr>
+            {% if entity.parent %}
+                <tr>
+                    <th>{{"parent"|trans}}</th>
+                    <td><a href="{{ path('institution_show', {id: entity.parent.id})}}">{{ entity.parent}}</a></td>
+                </tr>
+            {% endif %}
+            {% if  entity.children|length >0 %}
+                <tr>
+                    <th>{{"children"|trans}}</th>
+                    <td>
+                        {% for c in entity.children %} 
+                            <a  class="badge" href="{{ path('institution_show', {id: c.id})}}">{{ c }}</a>
+                        {% endfor%}
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 
