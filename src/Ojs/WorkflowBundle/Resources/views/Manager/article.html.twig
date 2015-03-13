@@ -43,7 +43,9 @@
     </small>
 
     <h4 class="pull-right btn-group " id="workflow_days">
-        {%if step.canEdit %}<a href="#" class="  editSection btn btn-warning"><i class="fa fa-edit"></i> Edit</a>{%endif%}
+        {%if step.canEdit %}
+            <a href="#" class="editSection btn btn-warning"><i class="fa fa-edit"></i> Edit</a>
+        {%endif%}
         {% if daysOverDue %}
             <a class="btn btn-danger">{{ daysOverDue }} days overdue</a>
         {% endif %}
@@ -91,7 +93,9 @@
     {% for lang, articleRevised in articleStep.articleRevised.articleData  %}
         <h2>
             <span class="badge">{{lang}}</span> 
-            {{ articleRevised.title }}
+            <span class="editable" data-type="text" data-name="article[{{ lang }}][title]" >
+                {{ articleRevised.title }}
+            </span>
             <span class="btn-group">
                 <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                    href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
@@ -116,30 +120,27 @@
             <table class="table">
 
                 <tr>
-                    <td>Subjects</td>
+                    <td>{{ 'Subjects'|trans }}</td>
                     <td>
-                        <span class="editable">{{ article.subjects }}</span>
-                        <input  name="subjects[{{lang}}]" class="form-control hide" value="{{ articleRevised.subjects }}">
+                        <span class="editable" data-type="text" data-name="article[{{ lang }}][subjects]" >{{ article.subjects }}</span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Keywords</td>
+                    <td>{{ 'Keywords'|trans }}</td>
                     <td>
-                        <span class="editable">{{ article.keywords }}</span>
-                        <input name="keywords[{{lang}}]" class="form-control hide" value="{{ articleRevised.subjects }}">
+                        <span class="editable" data-type="text" data-name="article[{{ lang }}][keywords]" >{{ article.keywords }}</span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Abstract</td>
+                    <td>{{ 'Abstract'|trans }}</td>
                     <td>
-                        <span class="editable">{{ article.abstract|raw }}</span>
-                        <textarea  name="abstract[{{lang}}]" class="form-control hide" >{{ articleRevised.abstract|raw }}</textarea>
+                        <span class="editable" data-type="textarea"  data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Section</td>
+                    <td>{{ 'Section'|trans }}</td>
                     <td>
-                        <span class="editable">{{ article.section.title|raw }}</span>
+                        <span class="editable" data-type="text"  data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
                     </td>
                 </tr>
             </table>  
@@ -150,20 +151,19 @@
     <hr/>
 
     {% if  isJournalManager() == true or step.canSeeAuthor %}
-        <h2>Authors</h2>
+        <h2>{{ 'Authors'|trans }}</h2>
 
         <table class="table">
             {% for author in articleStep.articleRevised.authors %}
                 <tr>
                     <td>
-                        <span class="editable">{{ author.firstName }}</span>
-                        <input style="margin:4px" name="authorFirstname[]" class="hide form-control hide" value="{{ author.firstName }}">
-                        <span class="editable">{{ author.firstName }}</span>
-                        <input style="margin:4px" name="authorMiddlename[]" class="hide form-control hide" value="{{ author.middleName }}">
-                        <span class="editable">{{ author.firstName }}</span>
-                        <input style="margin:4px" name="authorLastname[]" class="hide form-control hide" value="{{ author.lastName }}">
-                        <span class="editable label label-default">{{ author.email }}</span>
-                        <input style="margin:4px" name="authorEmail[]"  class="hide form-control hide" value="{{ author.email }}">
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
+                        <span class="editable" data-type="text"  data-name="author[{{ loop.index }}][lastName]" >{{ author.lastName }}</span>
+                        <span class="editable label label-default" data-name="author[{{ loop.index }}][email]" data-type="email" >{{ author.email }}</span>
 
                         <span class="btn-group">
                             <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
@@ -187,24 +187,23 @@
         {% for citation in articleStep.articleRevised.citation %}
             <tr>
                 <td>
-                    <span class="editable">{{ citation.raw }}</span>
-                    <input style="margin:4px" name="citationRaw[]"  class="hide form-control hide" value="{{ citation.raw }}">
+                    <span class="editable" data-type="text" data-pk="10.{{ loop.index }}" data-name="citation[{{ loop.index }}]" >{{ citation.raw }}</span>
                 </td>
             </tr>
         {% endfor %}
     </table>
 
     <hr>
-    <h2>Files</h2>
+    <h2>{{ 'Files'|trans }}</h2>
     <table class="table">
         {% for articlefile in article.articlefiles %}
             <tr>
                 <td>
                     <span class="badge sm">#{{ articlefile.file.id }}</span>
                     <span class="label label-info">{{ fileType(articlefile.type) }}</span>
-                    {{ articlefile.title }} <a href="{{ articlefile.file.id }}"><i class="fa fa-download"></i></a>
+                    <span class="editable" data-type="text" data-pk="11.{{ loop.index }}">{{ articlefile.title }}</span> <a href="{{ articlefile.file.id }}"><i class="fa fa-download"></i></a>
                         {% if articlefile.description %}
-                        <p> {{ articlefile.description }} </p>
+                        <p class="editable" data-type="textarea" data-pk="12.{{ loop.index }}"> {{ articlefile.description }} </p>
                     {% endif %}
                 </td>
             </tr>
@@ -214,14 +213,14 @@
 
     {% if articleStep.note %}
         <div>
-            <h2>Notes</h2>
+            <h2>{{ 'Notes' }}</h2>
             {{articleStep.note }}
         </div>
     {% endif %}
 
     {% if articleStep.reviewNotes %}
         <div>
-            <h2>Review Notes</h2>
+            <h2>{{ 'Review Notes'|trans }}</h2>
             {{articleStep.reviewNotes }}
         </div>
     {% endif %}  
@@ -231,13 +230,14 @@
 
         <div class="jumbotron">
             {% if prevStep %}
-                <h3>Previous Review Report</h3>
+                <h3>{{ 'Previous Review Report'|trans }}</h3>
                 {{prevStep.reviewFormResults|raw}}
                 <hr>
             {% endif %}
             <form class=""
                   action="{{ path("article_step_next",{id: articleStep.id }) }}"
                   method="POST">
+                <input name="changes" type="hidden" id="changes"/>
                 <textarea name="notes" placeholder="notes" class="form-control" rows="4"></textarea>
                 <br> 
                 {% if step.reviewForms %}
@@ -282,7 +282,7 @@
                             <i class="fa fa-warning"></i> Reject Completely
                         </a>
                     {% endif %}
-                    <button type="submit" class="btn btn-warning  btn-lg" onclick="return confirm('{{"sure"|trans}}')">
+                    <button type="submit" class="btn btn-warning  btn-lg" id="endreview">
                         <i class="fa fa-arrow-right"></i> End Review
                     </button>
                     </div>
@@ -306,32 +306,30 @@
     {% if app.user.setting('tour.admin.workflow.article') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
         {% endjavascripts %}
         <script>
-            function toggleEditableAll(el) {
-                var section = el.parent().closest('.panel-body');
-                $(".editable", section).toggle();
-                $(".form-control", section).toggleClass('hide');
-            }
-
-            function toggleEditableDblOne(el) {
-                el.toggle();
-                el.next(".form-control").toggleClass('hide');
-            }
-
             $(document).ready(function () {
-                $(".editSection").click(function () {
-                    toggleEditableAll($(this));
-                    return false;
-                });
-                $(".editable").dblclick(function () {
-                    toggleEditableDblOne($(this));
-                    return false;
-                });
-                $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
                 $('#reviewFormSelector').on("change", function (e) {
                     $(".panel_reviewforms").hide();
                     $("#panel_" + $("#reviewFormSelector").val()).show();
                 });
-
+                $.fn.editable.defaults.mode = 'inline';
+                $(".editable").editable({'url':'/update_review/{{ id }}'});
+                $("#endreview").on('click',function(){
+                    var sure = confirm('{{"sure"|trans}}');
+                    if(sure){
+                        $(".editable").editable('submit',{
+                            url: '/update_review/{{ id }}',
+                            ajaxOptions:{
+                                dataType: 'text',
+                                async: false
+                            },
+                            success: function(data,config){
+                                $("#changes").val(data);
+                                return false;
+                            }
+                        });
+                    }
+                    return false;
+                })
             });
         </script>
         {% endblock %}

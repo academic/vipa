@@ -3,13 +3,16 @@
 namespace Ojs\WorkflowBundle\Controller;
 
 use MongoDBODMProxies\__CG__\Ojs\WorkflowBundle\Document\ArticleReviewStep;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller for journal's all users
  * actions will check roles in their logic
  */
-class ManagerController extends \Ojs\Common\Controller\OjsController {
+class ManagerController extends \Ojs\Common\Controller\OjsController
+{
 
     /**
      * Preview article's current data with given object id
@@ -24,9 +27,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($articleStep->getStep()->getId());
+            ->find($articleStep->getStep()->getId());
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
-                        $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
+            $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
         );
         $invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($articleStep->getId())));
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
@@ -52,22 +55,22 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $em = $this->get('doctrine.orm.entity_manager');
 
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($id);
+            ->find($id);
 
         $articlesStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")
-                ->findBy(
+            ->findBy(
                 array('step.$id' => new \MongoId($step->getId()), 'finishedDate' => null)
-        );
+            );
         $ids = [];
         foreach ($articlesStep as $stepNode) {
             $ids[] = $stepNode->getArticleId();
         }
 
         $query = $em->createQuery('SELECT a FROM OjsJournalBundle:Article a WHERE a.id IN (?1)')
-                ->setParameter(1, $ids);
+            ->setParameter(1, $ids);
         $articles = $query->getResult();
         return $this->render('OjsWorkflowBundle:Manager:articles.html.twig', array(
-                    'articles' => $articles, 'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id));
+            'articles' => $articles, 'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id));
     }
 
     /**
@@ -110,7 +113,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
             throw $this->createNotFoundException($this->get('translator')->trans('Selected next step not found'));
         }
 
+        $changes = $request->get('changes');
+
         $newStep = clone $articleStep;
+
         $newStep->setStep($nextStep);
         $newStep->setStatusText($nextStep->getStatus());
         $deadline = new \DateTime();
@@ -135,16 +141,16 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
         /* @var  $item      \Ojs\WorkflowBundle\Document\ReviewFormItem */
         foreach ($reviewFormItems as $item) {
-            $reviewFormResults.='<div class="reviewFormItemRow">';
-            $reviewFormResults.='<strong class="reviewFormItemLabel">' . $item->getTitle() . '</strong> ';
+            $reviewFormResults .= '<div class="reviewFormItemRow">';
+            $reviewFormResults .= '<strong class="reviewFormItemLabel">' . $item->getTitle() . '</strong> ';
             if ($item->getInputType() == 'checkboxes') {
                 foreach ($request->get($item->getId()) as $value) {
-                    $reviewFormResults.=' <span class="reviewFormItemValue">' . $value . '</span> ';
+                    $reviewFormResults .= ' <span class="reviewFormItemValue">' . $value . '</span> ';
                 }
             } else {
-                $reviewFormResults.=' <span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
+                $reviewFormResults .= ' <span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
             }
-            $reviewFormResults.='<br></div>';
+            $reviewFormResults .= '<br></div>';
         }
         $articleStep->setReviewFormResults($reviewFormResults);
         $articleStep->setReviewNotes($request->get('notes'));
@@ -203,4 +209,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $articleStepId)));
     }
 
+    public function reviewUpdateAction(Request $request, $id)
+    {
+        $data = $request->request->all();
+        return JsonResponse::create($data);
+    }
 }
