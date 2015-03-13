@@ -14,10 +14,31 @@
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-    <h3>Assign/Invite <small>{{articleStep.step.title}} -&gt; <strong>{{articleStep.to.step.title}}</strong></small></h3>
-    
-    <div class="alert alert-info">
-      You will assign users for this step :   <strong>{{articleStep.to.step.title}}</strong>
+    <h3>Assign/Invite
+        <small class="label label-info">
+            You will assign users for this step :   <strong>{{articleStep.to.step.title}}</strong>
+        </small> 
+    </h3>
+
+
+    <div class="alert alert-warning ">
+        You can not invite more then 200 user.
+    </div>
+    <div class="list-group">
+        {% for invite in invitations %}
+            <div class="list-group-item">
+                #{{invite.userId}} {{invite.userEmail}}    
+                {% if invite.accept %}
+                    <span class="label label-success">{{"accepted"|trans}}</span>
+                {% elseif invite.reject %}
+                    <span class="label label-danger">{{"rejected"|trans}}</span>
+                {% else %}
+                    <span class="label label-default">{{"waiting"|trans}}</span>
+                {%endif%}
+                
+                <a class="btn btn-info btn-xs  pull-right" href="{{path("user_send_mail",{"user":invite.userId})}}"><i class="fa fa-envelope-square"></i> {{"sendmail"|trans}}</a>
+            </div>
+        {%endfor%}
     </div>
 
     <form class="form" action="{{path("article_step_asssign_add_user",{'articleStepId':articleStep.id})}}" method="POST">
@@ -32,46 +53,45 @@
 {% block javascripts %}
     {{parent()}}
     <script>
-        $(document).ready(function(){ 
-        $(".select2-element-user").select2({
-            multiple: true,  
-            createSearchChoice: function (term, data) {
-                if ($(data).filter(function () {
-                    return this.text.localeCompare(term) === 0;
-                }).length === 0) {
-                    return {id: term, text: term};
-                }
-            },
-            ajax: {
-                url: '/api/search/user',
-                dataType: 'json',
-                type: "GET",
-                delay: 1000,
-                data: function (params) {
-                    return {
-                        q:  "(.*)"+params+"(.*)",
-                        apikey: OjsCommon.api.userApikey,
-                        verified: true
-                    };
+        $(document).ready(function () {
+            $(".select2-element-user").select2({
+                multiple: true,
+                createSearchChoice: function (term, data) {
+                    if ($(data).filter(function () {
+                        return this.text.localeCompare(term) === 0;
+                    }).length === 0) {
+                        return {id: term, text: term};
+                    }
                 },
-                results: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            return {
-                                text: item.username + " ("+item.email+")",
-                                slug: item.username,
-                                id: item.id
-                            };
-                        })
-                    };
+                ajax: {
+                    url: '/api/search/user',
+                    dataType: 'json',
+                    type: "GET",
+                    delay: 1000,
+                    data: function (params) {
+                        return {
+                            q: "(.*)" + params + "(.*)",
+                            apikey: OjsCommon.api.userApikey,
+                            verified: true
+                        };
+                    },
+                    results: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.username + " (" + item.email + ")",
+                                    slug: item.username,
+                                    id: item.id
+                                };
+                            })
+                        };
+                    },
+                    cache: true
                 },
-                cache: true
-            },
- 
-            minimumInputLength: 3 
+                minimumInputLength: 3
 
+            });
         });
-        });
-        </script>
+    </script>
 
 {% endblock %}

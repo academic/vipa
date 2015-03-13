@@ -168,6 +168,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data['articleStep'] = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        $data['invitations'] = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId())));
         return $this->render('OjsWorkflowBundle:Manager:assign.html.twig', $data);
     }
 
@@ -179,6 +180,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     public function assignAddUserAction(Request $request, $articleStepId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
+        //$invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId()))); 
         $em = $this->getDoctrine()->getManager();
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($articleStepId);
         $nextStep = $articleStep->getTo();
@@ -198,7 +200,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
             }
         }
         $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully."' . $nextStep->getStep()->getTitle() . '"</strong>');
-        return $this->redirect($this->generateUrl('ojs_user_index'));
+        return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $articleStepId)));
     }
 
 }

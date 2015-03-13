@@ -77,11 +77,11 @@
                     <a class="list-group-item">
                         #{{invite.userId}} {{invite.userEmail}}    
                         {% if invite.accept %}
-                            <span class="label label-success">Accepted</span>
+                            <span class="label label-success">{{"accepted"|trans}}</span>
                         {% elseif invite.reject %}
-                            <span class="label label-danger">Rejected</span>
+                            <span class="label label-danger">{{"rejected"|trans}}</span>
                         {% else %}
-                            <span class="label label-default">{{"wating"|trans}}</span>
+                            <span class="label label-default">{{"waiting"|trans}}</span>
                         {%endif%}
                     </a>
                 {%endfor%}
@@ -276,13 +276,13 @@
                             {% endfor %}
                         </select>
                     {%endif %}
-                    <div class="btn-group">
+                    <div class="btn-group pull-right">
                     {% if step.canRejectSubmission %}
-                        <a  href="#" class="btn btn-warning pull-right btn-lg" onclick="return confirm('{{"sure"|trans}}')">
-                            <i class="fa fa-arrow-right"></i> Reject
+                        <a  href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{"sure"|trans}}')">
+                            <i class="fa fa-warning"></i> Reject Completely
                         </a>
                     {% endif %}
-                    <button type="submit" class="btn btn-warning pull-right btn-lg" onclick="return confirm('{{"sure"|trans}}')">
+                    <button type="submit" class="btn btn-warning  btn-lg" onclick="return confirm('{{"sure"|trans}}')">
                         <i class="fa fa-arrow-right"></i> End Review
                     </button>
                     </div>
