@@ -12,10 +12,7 @@ use Elastica\Query;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * PublicSearchRest may contain similar actions with SearchRest
- */
-class PublicSearchRestController extends FOSRestController {
+class  SearchRestController extends FOSRestController {
 
     /**
      *
@@ -30,25 +27,18 @@ class PublicSearchRestController extends FOSRestController {
      *          "description"="search term"
      *      },
      *      {
-     *          "name"="verified",
-     *          "dataType"="boolean",
-     *          "required"="false",
-     *          "description"="list only verified or not"
-     *      },
-     *      {
-     *          "name"="page",
+     *          "name"="journal_id",
      *          "dataType"="integer",
-     *          "required"="false",
-     *          "description"="limit"
+     *          "required"="true",
+     *          "description"="list only verified or not"
      *      }
      *  }
      * )
-     * @Get("/public/search/institution")
+     * @Get("/search/journal/users")
      */
-    public function getInstitutionsAction(Request $request )
+    public function getJournalUsersAction(Request $request )
     {
-        $limit = $request->get('limit');
-        $verified = $request->get('verified');
+        $journalId = $request->get('journal_id');
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.institution');
         $query = new Query\Bool();
@@ -61,6 +51,38 @@ class PublicSearchRestController extends FOSRestController {
             $must2->setField('verified', $verified);
             $query->addMust($must2);
         }
+        $results = $search->search($query);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = array_merge(array('id' => $result->getId()), $result->getData());
+        }
+        return $data;
+    }
+    
+     /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search users (accepts regex inputs)",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      }
+     *  }
+     * )
+     * @Get("/search/user")
+     */
+    public function getUsersAction(Request $request )
+    {
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.user');
+        $regex = new Query\Regexp();
+        $regex->setValue('username', $q);
+        $query = new Query\Bool(); 
+        $query->addMust($regex); 
         $results = $search->search($query);
         $data = [];
         foreach ($results as $result) {
