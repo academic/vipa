@@ -31,6 +31,12 @@ class ArticleReviewStep {
      * @MongoDB\Hash
      */
     protected $ownerUser;
+    
+    /**
+     * @MongoDb\ReferenceMany(targetDocument="Invitation",nullable=true)
+     */
+    protected $invitations;
+
 
     /** @MongoDb\Int @MongoDb\Index() */
     protected $action;
@@ -465,4 +471,38 @@ class ArticleReviewStep {
         return $this->reviewFormResults;
     }
 
+    public function __construct()
+    {
+        $this->invitations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add invitation
+     *
+     * @param Ojs\WorkflowBundle\Document\Invitation $invitation
+     */
+    public function addInvitation(\Ojs\WorkflowBundle\Document\Invitation $invitation)
+    {
+        $this->invitations[] = $invitation; 
+    }
+
+    /**
+     * Remove invitation
+     *
+     * @param Ojs\WorkflowBundle\Document\Invitation $invitation
+     */
+    public function removeInvitation(\Ojs\WorkflowBundle\Document\Invitation $invitation)
+    {
+        $this->invitations->removeElement($invitation);
+    }
+
+    /**
+     * Get invitations
+     *
+     * @return Doctrine\Common\Collections\Collection $invitations
+     */
+    public function getInvitations()
+    {
+        return $this->invitations;
+    }
 }

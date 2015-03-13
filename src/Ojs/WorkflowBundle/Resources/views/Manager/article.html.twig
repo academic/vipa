@@ -13,8 +13,8 @@
 
 
 {% block body -%}
- {% include '::flashbag.html.twig' %}
- 
+    {% include '::flashbag.html.twig' %}
+
     {% if articleStep.ownerUser %}
         <div class="alert alert-warning " id="article_workflow_someone_working">
             <i class="fa fa-cog"></i>
@@ -68,11 +68,30 @@
                 </td>
             </tr>
         </table>
-    </div>  
+    </div> 
+    {% if invitations %} 
+        <div class="panel-body">
+            <h4>Invited Users</h4>
+            <div class="list-group">
+                {% for invite in invitations %}
+                    <a class="list-group-item">
+                        #{{invite.userId}} {{invite.userEmail}}    
+                        {% if invite.accept %}
+                            <span class="label label-success">Accepted</span>
+                        {% elseif invite.reject %}
+                            <span class="label label-danger">Rejected</span>
+                        {% else %}
+                            <span class="label label-default">{{"wating"|trans}}</span>
+                        {%endif%}
+                    </a>
+                {%endfor%}
+            </div>
+        </div>
+    {% endif %}
     {% for lang, articleRevised in articleStep.articleRevised.articleData  %}
         <h2>
             <span class="badge">{{lang}}</span> 
-            {{ articleRevised.title|url_encode }}
+            {{ articleRevised.title }}
             <span class="btn-group">
                 <a id="article_search_google" target="_blank" class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                    href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">

@@ -71,3 +71,8 @@ article_step_next:
 article_step_asssign:
   pattern: /manager/workflow/article/assign/{id}
   defaults: { _controller: OjsWorkflowBundle:Manager:assign }
+
+article_step_asssign_add_user:
+  pattern: /manager/workflow/article/assign/{articleStepId}/add/user
+  defaults: { _controller: OjsWorkflowBundle:Manager:assignAddUser }
+  requirements: { _method: post }
