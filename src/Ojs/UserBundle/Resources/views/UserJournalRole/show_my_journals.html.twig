@@ -30,7 +30,10 @@
                                 </td>
                                 <td>
                                     {%for role in entity.roles %}
-                                        <span class="label label-info">{{ role.name }}</span>
+                                        <span class="label label-info">{{ role.name }}
+                                            <a href="{{ url('user_leave_journal_action',{journal: entity.journal.id,role:role.id}) }}" onclick="return confirm('Are you sure?');">
+                                                <span class="fa fa-close"></span>
+                                            </a></span>
                                     {%endfor %}
                                 </td>
                             </tr>
