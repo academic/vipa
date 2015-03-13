@@ -292,7 +292,8 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step6 = new JournalWorkflowTemplateStep();
         $step6->setLaststep(true);
         $step6->setStatus('Ready to publish');
-        $step6->setTitle('Publish');
+        $step6->setTemplate($template);
+        $step6->setTitle('Ready to Publish');
         $step6->setRoles(array(
             json_decode($serializer->serialize($roleEditor, 'json')),
             json_decode($serializer->serialize($roleJournalManager, 'json'))
