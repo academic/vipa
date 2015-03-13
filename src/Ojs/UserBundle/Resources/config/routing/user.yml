@@ -16,7 +16,9 @@ user_profile:
 user_show_my_journals:
     pattern:  /myjournals
     defaults: { _controller: "OjsUserBundle:UserJournalRole:myJournals" }
-
+user_leave_journal_action:
+    pattern: /leave/journal/{journal}/{role}
+    defaults: { _controller: OjsUserBundle:UserJournalRole:leave }
 user_join_journal_action:
     pattern:  /join/journal/{journalId}
     defaults: { _controller: "OjsUserBundle:User:registerAsAuthor" }

@@ -9,10 +9,13 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * UserJournalRole controller.
@@ -30,7 +33,7 @@ class UserJournalRoleController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'],'ROLE_SUPER_ADMIN');
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'], 'ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
         $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('ujr_delete', 'id');
@@ -301,5 +304,18 @@ class UserJournalRoleController extends Controller
         $em->flush();
 
         return $this->redirect($this->generateUrl('ujr'));
+    }
+
+    public function leaveAction(Journal $journal, Role $role)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $ujr = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(['journal' => $journal, 'role' => $role, 'user' => $user]);
+        if(!$ujr)
+            throw new NotFoundHttpException;
+        $journal->removeUserRole($ujr);
+        $em->persist($journal);
+        $em->flush();
+        return $this->redirect($this->get('router')->generate('user_show_my_journals'));
     }
 }
