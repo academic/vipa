@@ -14,6 +14,7 @@ use Ojs\SiteBundle\Form\BlockType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlockController extends Controller
 {
@@ -24,12 +25,19 @@ class BlockController extends Controller
         $em = $this->getDoctrine()->getManager();
         $Block = $id ? $em->find('OjsSiteBundle:Block', $id) : new Block();
         $form = $this->createForm(new BlockType(), $Block, ['object_id' => $object, 'object_type' => $type]);
+        switch($type){
+            case 'journal':
+               $object = $em->find('OjsJournalBundle:Journal',$object);
+                break;
+            default:
+                throw new NotFoundHttpException;
+        }
         if ($request->isMethod('POST')) {
             $form->submit($request);
             if ($form->isValid()) {
                 $em->persist($Block);
                 $em->flush();
-                return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $object]));
+                return $this->redirect($this->get('router')->generate('ojs_journal_index', ['slug' => $object->getSlug(),'institution'=>$object->getInstitution()->getSlug()]));
             }
             //@todo return value only for journal.
             $this->get('session')->getFlashBag()->add('error', 'All field is required');
