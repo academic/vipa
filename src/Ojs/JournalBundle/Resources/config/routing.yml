@@ -33,3 +33,6 @@ ojs_journal_setup:
 journal_apply:
     pattern:  /journal/apply
     defaults: { _controller: "OjsJournalBundle:Journal:apply" }
+admin_journal_section:
+    resource: "@OjsJournalBundle/Resources/config/routing/admin/journalsection.yml"
+    prefix:   /manager/journal/section
