@@ -31,18 +31,19 @@ class LogoutListener implements LogoutSuccessHandlerInterface
      */
     public function onLogoutSuccess(Request $request)
     {
-        /* @var $user User */
-        $user = $this->security->getToken()->getUser();
+        if ($this->security->getToken()) {
+            /* @var $user User */
+            $user = $this->security->getToken()->getUser();
 
-        //log as eventlog
-        $event = new \Ojs\UserBundle\Entity\EventLog();
-        $event->setEventInfo(UserEventLogParams::$USER_LOGOUT);
-        $event->setIp($this->container->get('request')->getClientIp());
-        $event->setUserId($user->getId());
-        $this->em->persist($event);
+            //log as eventlog
+            $event = new \Ojs\UserBundle\Entity\EventLog();
+            $event->setEventInfo(UserEventLogParams::$USER_LOGOUT);
+            $event->setIp($this->container->get('request')->getClientIp());
+            $event->setUserId($user->getId());
+            $this->em->persist($event);
 
-        $this->em->flush();
-
+            $this->em->flush();
+        }
         $response =  new RedirectResponse($this->container->get('router')->generate('login'));
 
         return $response;
