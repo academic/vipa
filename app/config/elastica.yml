@@ -13,6 +13,7 @@ fos_elastica:
                         lastName: ~
                         email: ~
                         tags: ~
+                        subjects: ~
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
