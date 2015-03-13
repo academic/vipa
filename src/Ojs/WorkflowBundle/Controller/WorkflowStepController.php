@@ -176,9 +176,12 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         }
         $step->clearNextSteps();
         $step->setRoles($this->prepareRoles($request->get('roles')));
-        foreach($request->get('nextSteps') as $nId){
-            $nextStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($nId);
-            $step->addNextStep($nextStep);
+        $nextSteps = $request->get('nextSteps');
+        if (!empty($nextSteps)) {
+            foreach ($nextSteps as $nId) {
+                $nextStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($nId);
+                $step->addNextStep($nextStep);
+            }
         }
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
