@@ -13,8 +13,7 @@ use \Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 /**
  * Article submission step controller
  */
-class ArticleSubmissionStep1Controller extends Controller
-{
+class ArticleSubmissionStep1Controller extends Controller {
 
     /**
      * submit new article - step1 - get article base data without author info.
@@ -40,7 +39,7 @@ class ArticleSubmissionStep1Controller extends Controller
         // save submission data to mongodb for resume action
         if (!$articleData["submissionId"]) {
             $articleSubmission = new ArticleSubmissionProgress();
-        }else{
+        } else {
             $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($articleData["submissionId"]);
         }
         $articleSubmission->setArticleData($articleSubmissionData);
