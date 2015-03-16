@@ -45,23 +45,29 @@ class PublicSearchRestController extends FOSRestController {
      * )
      * @Get("/public/search/institution")
      */
-    public function getInstitutionsAction(Request $request )
+    public function getInstitutionsAction(Request $request)
     {
         $limit = $request->get('limit');
         $verified = $request->get('verified');
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.institution');
+
         $query = new Query\Bool();
-        $must1 = new Query\Match();
-        $must1->setField('name', $q);
-        $query->addMust($must1); 
- 
-        if ($verified !== null) {
+        $q1 = new Query\Regexp('name', $q);
+        $query->addShould($q1);
+        $q2 = new Query\Regexp('tags', $q);
+        $query->addShould($q2);
+
+
+        if ($verified) {
+            $query2 = new Query\Bool();
+            $query2->addMust($query);
             $must2 = new Query\Match();
             $must2->setField('verified', $verified);
-            $query->addMust($must2);
+            $query2->addMust($must2);
         }
-        $results = $search->search($query);
+
+        $results = $search->search($verified?$query2:$query);
         $data = [];
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());

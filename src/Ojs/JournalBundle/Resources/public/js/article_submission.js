@@ -63,8 +63,7 @@ var OjsArticleSubmission = {
                 delay: 300,
                 data: function (params) {
                     return {
-                        q: params,
-                        verified: true
+                        q: '(.*)'+params+'(.*)'
                     };
                 },
                 results: function (data) {

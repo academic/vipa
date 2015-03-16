@@ -2,7 +2,6 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
-use MongoDBODMProxies\__CG__\Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
