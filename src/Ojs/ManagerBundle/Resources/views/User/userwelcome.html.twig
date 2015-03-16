@@ -26,6 +26,15 @@
                             </h4>
                         </a>
                     {% endfor %}
+                    <hr>
+                    <h4>Invited Steps</h4>
+                    {% for key,step in invitedSteps %} 
+                        <a class="list-group-item " href="/manager/workflow/articles/{{step.id}}">
+                            <h4>
+                                {{step.id}}
+                            </h4>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

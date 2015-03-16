@@ -6,8 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
 use \Symfony\Component\HttpFoundation\Request;
 
-class ManagerController extends Controller
-{
+class ManagerController extends Controller {
 
     public function journalSettingsAction($journalId = null)
     {
@@ -26,16 +25,16 @@ class ManagerController extends Controller
                     'form' => $form->createView(),
         ));
     }
-    
-      public function journalSettingsLanguageAction(Request $req, $journalId = null)
-    { 
-          $settingName = 'mandotaryLanguages';
-          $em =  $this->getDoctrine()->getManager();
-          /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+
+    public function journalSettingsLanguageAction(Request $req, $journalId = null)
+    {
+        $settingName = 'mandotaryLanguages';
+        $em = $this->getDoctrine()->getManager();
+        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
         if (!$journalId) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         } else {
-            $journal =$em->
+            $journal = $em->
                             getRepository('OjsJournalBundle:Journal')->find($journalId);
         }
         $setting = $em->
@@ -50,7 +49,7 @@ class ManagerController extends Controller
             }
             $em->persist($setting);
             $em->flush();
-        } 
+        }
         $languages = [];
         if ($setting) {
             foreach (explode(',', $setting->getValue()) as $item) {
@@ -60,13 +59,13 @@ class ManagerController extends Controller
         return $this->render('OjsManagerBundle:Manager:journal_settings_language.html.twig', array(
                     'journal' => $journal,
                     'mandotaryLanguages' => $languages,
-                    'allLanguages' =>$journal->getLanguages()
+                    'allLanguages' => $journal->getLanguages()
         ));
     }
 
     public function userIndexAction()
     {
-
+        $user = $this->getUser();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $mySteps = [];
         if ($journal) {
@@ -90,11 +89,18 @@ class ManagerController extends Controller
             $countQuery->field('finishedDate')->equals(null);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
+        // invited steps 
+        $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
+                ->findBy(array('userId' => $user->getId()));
+
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
         }
-        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', array('mySteps' => $mySteps, 'waitingCount' => $waitingTasksCount));
+        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', array(
+                    'mySteps' => $mySteps,
+                    'waitingCount' => $waitingTasksCount,
+                    'invitedSteps' => $invitedWorkflowSteps));
     }
 
     private function checkStepAndUserRoles($step)
