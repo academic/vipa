@@ -160,7 +160,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $mustBeAssigned = $nextStep->getMustBeAssigned();
         if ($mustBeAssigned) {
             $this->get('session')->getFlashBag()->add('warning', 'Now you should assign a/some user to this step.');
-            return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $id)));
+            return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $newStep->getId())));
         }
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
@@ -174,7 +174,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data['articleStep'] = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
-        $data['invitations'] = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId())));
+        $data['invitations'] = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getId())));
         return $this->render('OjsWorkflowBundle:Manager:assign.html.twig', $data);
     }
 
@@ -188,24 +188,23 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         //$invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId()))); 
         $em = $this->getDoctrine()->getManager();
-        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($articleStepId);
-        $nextStep = $articleStep->getTo();
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($articleStepId); 
         $users = $request->get('users');
         if (!empty(trim($users))) {
             foreach (explode(',', $users) as $user) {
                 $userObject = $em->getRepository('OjsUserBundle:User')->find($user);
                 $invitation = new \Ojs\WorkflowBundle\Document\Invitation();
-                $invitation->setStep($nextStep);
+                $invitation->setStep($articleStep);
                 $invitation->setUserId($user);
                 $invitation->setUserEmail($userObject->getEmail());
                 $dm->persist($invitation);
                 $dm->flush();
-                $nextStep->addInvitation($invitation);
-                $dm->persist($nextStep);
+                $articleStep->addInvitation($invitation);
+                $dm->persist($articleStep);
                 $dm->flush();
             }
         }
-        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully."' . $nextStep->getStep()->getTitle() . '"</strong>');
+        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully."' . $articleStep->getStep()->getTitle() . '"</strong>');
         return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $articleStepId)));
     }
 
