@@ -361,7 +361,7 @@ class ArticleSubmissionController extends Controller
             // check institution
             $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData['institution']);
             if(!$institution){
-                $institution = $em->getRepository('OjsJournalBundle:Institution')->findByName(trim($authorData['institution']));
+                $institution = $em->getRepository('OjsJournalBundle:Institution')->findOneByName(trim($authorData['institution']));
             }
              if(!$institution){
                 $institution =  new \Ojs\JournalBundle\Entity\Institution();
