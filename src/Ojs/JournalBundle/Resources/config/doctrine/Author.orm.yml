@@ -81,6 +81,7 @@ Ojs\JournalBundle\Entity\Author:
             nullable: TRUE
         institutionId:
             type: integer
+            nullable: true
             column: institution_id
             nullable: TRUE
         country:
