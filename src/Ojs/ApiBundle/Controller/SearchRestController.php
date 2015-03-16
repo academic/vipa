@@ -12,7 +12,7 @@ use Elastica\Query;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 use Symfony\Component\HttpFoundation\Request;
 
-class  SearchRestController extends FOSRestController {
+class SearchRestController extends FOSRestController {
 
     /**
      *
@@ -36,7 +36,7 @@ class  SearchRestController extends FOSRestController {
      * )
      * @Get("/search/journal/users")
      */
-    public function getJournalUsersAction(Request $request )
+    public function getJournalUsersAction(Request $request)
     {
         $journalId = $request->get('journal_id');
         $q = $request->get('q');
@@ -44,8 +44,8 @@ class  SearchRestController extends FOSRestController {
         $query = new Query\Bool();
         $must1 = new Query\Match();
         $must1->setField('name', $q);
-        $query->addMust($must1); 
- 
+        $query->addMust($must1);
+
         if ($verified !== null) {
             $must2 = new Query\Match();
             $must2->setField('verified', $verified);
@@ -58,12 +58,12 @@ class  SearchRestController extends FOSRestController {
         }
         return $data;
     }
-    
-     /**
+
+    /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="search users (accepts regex inputs)",
+     *  description="search users in username-email-tags and subjects (accepts regex inputs)",
      *  parameters={
      * {
      *          "name"="q",
@@ -75,19 +75,31 @@ class  SearchRestController extends FOSRestController {
      * )
      * @Get("/search/user")
      */
-    public function getUsersAction(Request $request )
+    public function getUsersAction(Request $request)
     {
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.user');
-        $regex = new Query\Regexp();
-        $regex->setValue('username', $q);
-        $query = new Query\Bool(); 
-        $query->addMust($regex); 
+
+
+        $s1 = new Query\Regexp();
+        $s1->setValue('username', $q );
+
+        $s2 =new Query\Regexp();
+        $s2->setValue('subjects', $q );
+
+        $s3 =new Query\Regexp();
+        $s3->setValue('tags', $q);
+
+        $query = new Query\Bool();
+        $query->addShould($s1);
+        $query->addShould($s2);
+        $query->addShould($s3);
+
         $results = $search->search($query);
         $data = [];
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
-        }
+        } 
         return $data;
     }
 
