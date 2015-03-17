@@ -1,8 +1,11 @@
 <form action="">
-    <div class="jumbotron">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-warning">
+        Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.
+        </div>
         {% for licence in journal.licences %}
             {% if licence.visible %}
-                <div class="licence">
+                <div class="panel-body">
                     <fieldset>
                         <legend>
                                 <label for="licence_{{ licence.id }}">
@@ -10,10 +13,10 @@
                                     {{ licence.label }}
                                 </label>
                         </legend>
-                        {% if licence.licence %}
-                            <p style="height: 100px;overflow: scroll">
-                                {{ licence.licence }}
-                            </p>
+                        {% if licence.licence and licence.licence != null%}
+                            <div style="height: 100px;overflow: scroll">
+                                {{ licence.licence|raw }}
+                            </div>
                         {% endif %}
                     </fieldset>
 
