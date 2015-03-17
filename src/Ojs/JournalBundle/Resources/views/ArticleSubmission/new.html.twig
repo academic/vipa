@@ -18,7 +18,7 @@
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
-                <li id="submission-progress-step0" class="active"><a href="#0"><span class="badge">1</span> {{ "article.licensing"|trans }}</a></li>
+                <li id="submission-progress-step0" class="active"><a href="#0"><span class="badge">1</span> {{ "submission.starting"|trans }}</a></li>
                 <li id="submission-progress-step1"><a href="#1"><span class="badge">2</span> {{ "article.singular"|trans }}</a></li>
                 <li id="submission-progress-step2"><a href="#2"><span class="badge">3</span> {{ "author.plural"|trans }}</a></li>
                 <li id="submission-progress-step3"><a href="#3"><span class="badge">4</span> {{ "article.citations"|trans }}</a></li>
@@ -31,24 +31,9 @@
             <div id="step0-container" class="step">
                 {% include 'OjsJournalBundle:ArticleSubmission:licencewidget.html.twig' %}
             </div>
-            <div id="step1-container" class="step hide">
+            <div id="step1-container" class="step hide"> 
                 <div class="row">
-                    {% if session('selectedJournalId') %}
-                        <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> Select journal to submit</label></div>
-                        <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
-                            <select id="changeSelectedJournal" class="form-control select2-element">
-                                {% for journal in userjournals %}
-                                    <option value="{{ path('change_selected_journal',{'journal_id':journal.id}) }}"
-                                            {% if journal.id == selected_journal_id  %}selected="selected" {% endif %}>
-                                        {{ journal.title }} {% if journal.id == selected_journal_id  %} {{ "(selected)"|trans }} {% endif %}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.2</span> {{ "article.language.primary"|trans }}</label></div>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> {{ "article.language.primary"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12">
                         <select name="primaryLanguage" class="form-control select2-element">
                             {% for lang in journal.languages %}
@@ -59,7 +44,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-xs-12">
-                        <label for="section"><span class="badge">1.3</span> {{ "article.section"|trans }}</label>
+                        <label for="section"><span class="badge">1.2</span> {{ "article.section"|trans }}</label>
                     </div>
                     <div class="col-md-9 col-xs-12">
                         <select name="section" id="section" class="form-control select2-element">
@@ -70,7 +55,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.4</span> {{ "article.metadata"|trans }}</label></div>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.metadata"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12"> 
 
 

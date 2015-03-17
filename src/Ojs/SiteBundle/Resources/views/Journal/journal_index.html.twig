@@ -96,15 +96,19 @@
                             </div>
                         </form>
                     </div>
+
+                    <a href=""
+                       class="list-group-item "><h4><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h4>
+                    </a>
                     <a class="list-group-item" href="{{ url('ojs_issue_page',{id: last_issue.id, institution: journal.institution.slug}) }}">
-                        <h4><i class="fa fa-bolt"></i> {{ "read.lastissue"|trans }}</h4>
+                        <h4><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h4>
                     </a>
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                        class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4>
                     </a>
 
                     <a href=""
-                       class="list-group-item "><h4><i class="fa fa-at"></i> {{ "about"|trans }}</h4>
+                       class="list-group-item "><h4><i class="fa fa-file-o"></i> {{ "about"|trans }}</h4>
                     </a>
 
                     {% if enable_social is defined  %}
