@@ -60,6 +60,8 @@ citation.type: 'Referans Tipi'
 article.fulltext: 'Tam Metin'
 article.plural: Makaleler
 article.singular: Makale
+article.licensing: Licensing
+submission.starting: Starting
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
 article.authors: 'Makale Yazarları'

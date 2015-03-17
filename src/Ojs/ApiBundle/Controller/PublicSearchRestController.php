@@ -54,20 +54,16 @@ class PublicSearchRestController extends FOSRestController {
 
         $query = new Query\Bool();
         $q1 = new Query\Regexp('name', $q);
-        $query->addShould($q1);
-        $q2 = new Query\Regexp('tags', $q);
-        $query->addShould($q2);
+        $query->addMust($q1); 
 
 
-        if ($verified) {
-            $query2 = new Query\Bool();
-            $query2->addMust($query);
-            $must2 = new Query\Match();
-            $must2->setField('verified', $verified);
-            $query2->addMust($must2);
+        if ($verified) {  
+            $must = new Query\Match();
+            $must->setField('verified', $verified);
+            $query->addMust($must);
         }
 
-        $results = $search->search($verified?$query2:$query);
+        $results = $search->search($query);
         $data = [];
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
