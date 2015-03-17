@@ -1,0 +1,20 @@
+\Ojs\JournalBundle\Entity\JournalLicence:
+    checkItem1:
+        label: The title page should include
+        licence:   |
+                             <ul><li>The name(s) of the author(s)</li>
+                             <li>A concise and informative title</li>
+                             <li>The affiliation(s) of the author(s)</li>
+                             <li>The e-mail address, telephone number of the corresponding author </li></ul>
+        journal: @journal1
+        visible: true
+    checkItem2:
+        label: All authors have read and approved the most recent version of the manuscript 
+        journal: @journal1
+        visible: true
+    checkItem3:
+        label: Ensure your manuscript has been <i>spell checked</i>
+        journal: @journal1
+        visible: true
+
+    

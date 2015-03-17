@@ -41,5 +41,5 @@ $set->addFile(__DIR__ . '/file.yml', 'yaml');
 $set->addFile(__DIR__ . '/a_file.yml', 'yaml'); //Article File
 
 $set->addFile(__DIR__ . '/theme.yml', 'yaml'); //themes
-
+$set->addFile(__DIR__ . '/journal_licence.yml', 'yaml'); //themes
 return $set;
