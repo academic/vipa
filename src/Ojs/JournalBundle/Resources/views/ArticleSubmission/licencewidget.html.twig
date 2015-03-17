@@ -1,17 +1,34 @@
 <form action="">
+
     <div class="panel panel-default">
-        <div class="panel-heading panel-warning">
-        Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.
+        <div class="panel-body"> 
+            {% if session('selectedJournalId') %}
+                <div class="col-md-3 col-xs-12"><label>  Select journal to submit</label></div>
+                <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
+                    <select id="changeSelectedJournal" class="form-control select2-element">
+                        {% for journal in userjournals %}
+                            <option value="{{ path('change_selected_journal',{'journal_id':journal.id}) }}"
+                                    {% if journal.id == selected_journal_id  %}selected="selected" {% endif %}>
+                                {{ journal.title }} {% if journal.id == selected_journal_id  %} {{ "(selected)"|trans }} {% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %} 
         </div>
+        <div class="panel-heading panel-warning">
+            Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step.
+        </div>
+
         {% for licence in journal.licences %}
             {% if licence.visible %}
                 <div class="panel-body">
                     <fieldset>
                         <legend>
-                                <label for="licence_{{ licence.id }}">
-                                    <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}" {% if licence.id in licences|keys %} checked="checked" {% endif %}/>
-                                    {{ licence.label }}
-                                </label>
+                            <label for="licence_{{ licence.id }}">
+                                <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}" {% if licence.id in licences|keys %} checked="checked" {% endif %}/>
+                                {{ licence.label |raw }}
+                            </label>
                         </legend>
                         {% if licence.licence and licence.licence != null%}
                             <div style="height: 100px;overflow: scroll">

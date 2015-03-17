@@ -54,7 +54,7 @@ class PublicSearchRestController extends FOSRestController {
 
         $query = new Query\Bool();
         $q1 = new Query\Regexp('name', $q);
-        $query->addShould($q1); 
+        $query->addMust($q1); 
 
 
         if ($verified) {  
