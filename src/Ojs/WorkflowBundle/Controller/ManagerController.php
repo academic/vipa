@@ -114,6 +114,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
 
         $changes = $request->get('changes');
 
+        $all = $request->request->all();
+        $all['changes'] = json_decode($all['changes'],true);
+
         $newStep = clone $articleStep;
 
         $newStep->setStep($nextStep);
@@ -126,7 +129,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $newStep->setNote(null);
         $newStep->setReviewNotes($request->get('notes'));
         //$newStep
-
+        $this->get('ojs_article_hydrate')->mapChanges($all,$newStep);
         $dm->persist($newStep);
         $dm->flush();
 

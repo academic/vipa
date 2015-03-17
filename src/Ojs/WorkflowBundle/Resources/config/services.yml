@@ -1,7 +1,10 @@
 parameters:
 #    ojs_workflow.example.class: Ojs\WorkflowBundle\Example
-
+  ojs_article_hydrate.class: Ojs\WorkflowBundle\Hydrate\Article
 services:
 #    ojs_workflow.example:
 #        class: %ojs_workflow.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    ojs_article_hydrate:
+        class: %ojs_article_hydrate.class%
+        arguments: [@service_container]

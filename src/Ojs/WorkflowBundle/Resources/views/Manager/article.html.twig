@@ -92,7 +92,7 @@
             </div>
         </div>
     {% endif %}
-    <form class=""
+    <form class="" id="submission_form"
           action="{{ path("article_step_next",{id: articleStep.id }) }}"
           method="POST">
     <input name="changes" type="hidden" id="changes"/>
@@ -247,35 +247,35 @@
             {% endfor %}
             <tr class="new-author-row">
                 <td>
-                    <input name="author[][orcid]" id="orcidinput" class="form-control input-sm"
+                    <input name="author[orcid][]" id="orcidinput" class="form-control input-sm"
                            placeholder="{{ "author.orcid"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][order]" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm"
+                    <input name="author[order][]" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm"
                            placeholder="{{ "author.order"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][title]" id="titleinput" class="form-control input-sm"
+                    <input name="author[title][]" id="titleinput" class="form-control input-sm"
                            placeholder="{{ "author.title"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][initials]" id="initialsinput" class="form-control input-sm"
+                    <input name="author[initials][]" id="initialsinput" class="form-control input-sm"
                            placeholder="{{ "author.initials"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][firstName]" id="firstnameinput" class="form-control input-sm"
+                    <input name="author[firstName][]" id="firstnameinput" class="form-control input-sm"
                            placeholder="{{ "author.firstname"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][middleName]" id="middlenameinput" class="form-control input-sm"
+                    <input name="author[middleName][]" id="middlenameinput" class="form-control input-sm"
                            placeholder="{{ "author.middlename"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][lastName]" id="lastnameinput" class="form-control input-sm"
+                    <input name="author[lastName][]" id="lastnameinput" class="form-control input-sm"
                            placeholder="{{ "author.lastname"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[][email]" id="emailinput" class="form-control input-sm"
+                    <input name="author[email][]" id="emailinput" class="form-control input-sm"
                            placeholder="{{ "email"|trans }}"/>
                 </td>
                 <td>
@@ -291,7 +291,7 @@
         {% for citation in articleStep.articleRevised.citation %}
             <tr>
                 <td>
-                    <span class="editable" data-type="text" data-pk="10.{{ loop.index }}"
+                    <span class="editable" data-type="text"
                           data-name="citation[{{ loop.index }}]">{{ citation.raw }}</span>
                 </td>
             </tr>
@@ -319,11 +319,15 @@
                 <td>
                     <span class="badge sm">#{{ articlefile.file.id }}</span>
                     <span class="label label-info">{{ fileType(articlefile.type) }}</span>
-                    <span class="editable" data-type="text" data-pk="11.{{ loop.index }}">{{ articlefile.title }}</span>
+                    <span class="editable"  data-name="files[{{ loop.index }}][title]" data-type="text" >{{ articlefile.title }}</span>
                     <a href="{{ articlefile.file.id }}"><i class="fa fa-download"></i></a>
+                    <div class="clearfix"></div>
                     {% if articlefile.description %}
-                        <p class="editable" data-type="textarea"
-                           data-pk="12.{{ loop.index }}"> {{ articlefile.description }} </p>
+                        <p class="editable" data-type="textarea" data-name="files[{{ loop.index }}][desc]"> {{ articlefile.description }} </p>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                    {% if articlefile.keywords %}
+                        <p class="editable" data-type="textarea" data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
                     {% endif %}
                 </td>
             </tr>
@@ -435,6 +439,7 @@
             $("#endreview").on('click', function () {
                 var sure = confirm('{{"sure"|trans}}');
                 if (sure) {
+                    OjsCommon.waitModal();
                     $(".editable").editable('submit', {
                         url: '/update_review/{{ id }}',
                         ajaxOptions: {
@@ -443,6 +448,7 @@
                         },
                         success: function (data, config) {
                             $("#changes").val(data);
+                            $("#submission_form").submit();
                             return false;
                         }
                     });
