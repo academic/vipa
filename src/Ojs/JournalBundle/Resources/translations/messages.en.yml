@@ -330,9 +330,7 @@ suggestion.journal.detail: Detail
 journal.titleAbbr: Title Abbr
 journal.titleTransliterated: Title Transliterated
 journal.domain: Domain
-journal.path: Path
-journal.issn: ISSN
-journal.eissn: EISSN
+journal.path: Path 
 journal.firstPublishDate: First Publish Date
 journal.period: Period
 journal.url: URL

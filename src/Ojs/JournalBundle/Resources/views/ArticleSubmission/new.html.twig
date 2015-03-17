@@ -133,11 +133,8 @@
                     <div class="row">
                         <div class="col-sm-12 ">
                             <button class="btn btn-success" id="pasteArticleCitationInline">
-                                <i class="fa fa-edit"></i> {{ "citation.paste_extract"|trans }}
-                            </button>
-                            <button class="btn btn-info" id="addArticleCitationInline">
-                                <i class="fa fa-plus"></i> {{ "citation.add"|trans }}
-                            </button>
+                                <i class="fa fa-edit"></i> {{ "citation.add"|trans }}
+                            </button> 
                             <button class="btn btn-warning" id="clearAllCitations">
                                 <i class="fa fa-trash-o"></i> {{ "citation.clear"|trans }}
                             </button>
@@ -146,7 +143,7 @@
                             <div class="col-sm-12">
                                 <div id="citationPasteField" style="display: none!important">
                                     <div class="form-row well">
-                                        <textarea class="form-control citationPasteTextArea" rows="5"></textarea>
+                                        <textarea class="form-control citationPasteTextArea" rows="5" placeholder=" {{ "citation.paste_extract"|trans }}"></textarea>
                                     </div>
                                 </div>
                             </div>
