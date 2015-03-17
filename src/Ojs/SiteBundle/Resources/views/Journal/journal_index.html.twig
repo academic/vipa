@@ -98,17 +98,19 @@
                     </div>
 
                     <a href=""
-                       class="list-group-item "><h4><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h4>
+                       class="list-group-item list-group-item-success"><h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
-                    <a class="list-group-item" href="{{ url('ojs_issue_page',{id: last_issue.id, institution: journal.institution.slug}) }}">
-                        <h4><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h4>
-                    </a>
+                    {% if last_issue%}
+                        <a class="list-group-item" href="{{ url('ojs_issue_page',{id: last_issue.id, institution: journal.institution.slug}) }}">
+                            <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
+                        </a>
+                    {% endif %}
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
-                       class="list-group-item "><h4><i class="fa fa-archive"></i> {{ "archive"|trans }}</h4>
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 
                     <a href=""
-                       class="list-group-item "><h4><i class="fa fa-file-o"></i> {{ "about"|trans }}</h4>
+                       class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
 
                     {% if enable_social is defined  %}
@@ -116,8 +118,8 @@
                             <h3 class="pull-right">
                                 <i class="fa fa-facebook-square"></i>
                             </h3>
-                            <h4 class="list-group-item-heading count">
-                                {{random(10000)}}</h4>
+                            <h5 class="list-group-item-heading count">
+                                {{random(10000)}}</h5>
 
                             <p class="list-group-item-text">
                                 Facebook Likes</p>
@@ -126,8 +128,8 @@
                             <h3 class="pull-right">
                                 <i class="fa fa-google-plus-square"></i>
                             </h3>
-                            <h4 class="list-group-item-heading count">
-                                {{random(10000)}}</h4>
+                            <h5 class="list-group-item-heading count">
+                                {{random(10000)}}</h5>
 
                             <p class="list-group-item-text">
                                 Google+</p>
@@ -136,8 +138,8 @@
                             <h3 class="pull-right">
                                 <i class="fa fa-twitter-square"></i>
                             </h3>
-                            <h4 class="list-group-item-heading count">
-                                1000</h4>
+                            <h5 class="list-group-item-heading count">
+                                1000</h5>
 
                             <p class="list-group-item-text">
                                 Twitter Followers</p>
@@ -148,10 +150,10 @@
                     {% for index in journal.journalsIndexs %}
                         <div class="list-group-item">
                             <a href="{{ index.link }}" target="_blank">
-                                <h4>
+                                <h5>
                                     <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}" alt="{{ index.journalIndex }}"/>
                                     {{ index.journalIndex.name }}
-                                </h4>
+                                </h5>
                             </a>
                         </div>
                     {% endfor %}
@@ -164,7 +166,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h4 class="page-header"><span class="panel-title">{{ "issues"|trans }}</span></h4>
+                <h5 class="page-header"><span class="panel-title">{{ "issues"|trans }}</span></h5>
 
                 <div class="col-md-4">
 
@@ -189,19 +191,21 @@
                 </div>
                 <div class="col-md-8" id="issue-container">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                            - {{ last_issue.datePublished|date("M Y") }}</div>
-                        <div class="panel-body">
-                            <ul>
-                                {% for article in last_issue.articles %}
-                                    <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                    {% if last_issue %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
+                                - {{ last_issue.datePublished|date("M Y") }}</div>
+                            <div class="panel-body">
+                                <ul>
+                                    {% for article in last_issue.articles %}
+                                        <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
 
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
 
                 </div>
 
@@ -211,7 +215,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h4 class="page-header"><span class="panel-title">{{ "editorial"|trans }}</span></h4>
+                <h5 class="page-header"><span class="panel-title">{{ "editorial"|trans }}</span></h5>
 
                 <p>
                     {% for key,user in users %}
