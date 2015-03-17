@@ -32,17 +32,18 @@
                     <input  name="email"  id="emailinput" class="form-control input-sm"
                             value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
                 </div>
+                  <div class="control-row">
+                      <label class="control-label">{{"institution"|trans}}</label>
+                      <input name="institution" id="institutioninput"  value="{% if author is defined  %}{{ author.institution}}{%endif%}"
+                             class="form-control select2-institution-search-element" multiple="1" style="min-width:250px" />
+                  </div>
                 <div class="controls">
                     <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
                     <a class="btn btn-sm btn-default" onclick="$(this).parent().next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>
                 </div>
-                  
+
                 <div style="display:none">
-                    <div class="controls-row">
-                        <label class="control-label">{{"institution"|trans}}</label>
-                        <input name="institution" id="institutioninput"  value="{% if author is defined  %}{{ author.institution}}{%endif%}"
-                               class="form-control select2-institution-search-element" multiple="1" style="min-width:250px" />
-                    </div>
+                  
                     <div class="controls-row">
                         <label class="control-label">{{"phone"|trans}}</label>
                         <input name="phone" id="phoneinput" class="form-control" value="{% if author is defined  %}{{ author.phone}}{%endif%}" />
