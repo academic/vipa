@@ -118,23 +118,79 @@ class ArticleSubmissionController extends Controller {
     }
 
     /**
+     * 
+     * @param Journal $journal
+     * @return \Ojs\UserBundle\Entity\UserJournalRole
+     */
+    private function checkAndRegisterUserAuthorRole($journal)
+    {
+        /**
+         * Check if the user is an author of this journal.  
+         * If not, add author role for this journal  
+         */
+        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        if (!$checkRole) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $role = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
+            $userJournalRole = new \Ojs\UserBundle\Entity\UserJournalRole();
+            $userJournalRole->setUser($user);
+            $userJournalRole->setJournal($journal);
+            $userJournalRole->setRole($role);
+            $em->persist($userJournalRole);
+            $em->flush();
+        }
+        return $userJournalRole;
+    }
+
+    /**
+     * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
+     * @return Response|RedirectResponse
+     */
+    public function confirmRoleAction(Request $request, $journalId)
+    {
+        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        if (!$checkRole && $request->get('confirm')) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+            $checkRole = $this->checkAndRegisterUserAuthorRole($journal);
+        }
+        return $checkRole ?
+                $this->redirect($this->generateUrl('article_submission_new')) :
+                $this->render('OjsJournalBundle:ArticleSubmission:confirmRole.html.twig', array('roles' => $this->get('user.helper')->getJournalRoles()));
+    }
+
+    /**
+     * 
+     * @param integer $journalId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function newWithJournalAction($journalId)
+    {
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $this->throw404IfNotFound($journal);
+        $this->get('ojs.journal_service')->setSelectedJournal($journalId);
+        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        return !$checkRole ?
+                $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId', $journal->getId()))) :
+                $this->redirect($this->generateUrl('article_submission_new'));
+    }
+
+    /**
      * Displays a form to create a new Article entity.
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function newAction()
     {
-
         /**
          * Check if the user is an author of this journal.  
          * If not, add author role for this journal  
          */
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
-        if(!$checkRole){
-            // add user as author
+        if (!$checkRole) {
+            return $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId())));
         }
-        
         // Journal may have different settings
         $submitRoles = $journal->getSubmitRoles();
         if ($this->get('user.helper')->hasAnyRole($submitRoles)) {

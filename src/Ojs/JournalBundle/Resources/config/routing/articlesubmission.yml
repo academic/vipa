@@ -6,6 +6,14 @@ article_submissions_all:
     pattern:  /admin/article/submissions/all/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:index" , all: true}
 
+article_submission_new_with_journalId:
+    pattern:  /author/article/submit/journal/{journalId}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:newWithJournal" }
+    
+article_submission_confirm_author:
+    pattern:  /author/article/submit/confirmRole/{journalId}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:confirmRole" }
+    
 article_submission_new:
     pattern:  /author/article/submit/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:new" }

@@ -9,8 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\User;
 
-class UserListener
-{
+class UserListener {
 
     protected $container;
     protected $session;
@@ -46,26 +45,37 @@ class UserListener
      */
     public function loadJournalRoles()
     {
-        $user = $this->checkUser();
+        $userJournalRoles = $this->getJournalRoles();
+        $this->session->set('userJournalRoles', $userJournalRoles);
+    }
 
-        if (!$user || !$this->session->get('selectedJournalId')) {
+    /**
+     * 
+     * @return array
+     */
+    public function getJournalRoles()
+    {
+        $journalService = $this->container->get('ojs.journal_service');
+        $user = $this->checkUser();
+        if (!$user || !$journalService->getSelectedJournal(false)) {
             return;
         }
         //for API_KEY based connection
-        if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
-        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $this->session->get('selectedJournalId')));
+        $journal = $journalService->getSelectedJournal(false) ;
+        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' =>$journal->getId() ));
         $userJournalRoles = array();
         if ($entities) {
             foreach ($entities as $entity) {
                 $userJournalRoles[] = $entity->getRole();
             }
         }
-        $this->session->set('userJournalRoles', $userJournalRoles);
+        return $userJournalRoles;
     }
 
     /**
@@ -80,12 +90,12 @@ class UserListener
         }
 
         //for API_KEY based connection
-        if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
         $clients = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
-            array('proxyUserId' => $user->getId())
+                array('proxyUserId' => $user->getId())
         );
         $this->session->set('userClients', $clients);
     }
@@ -96,6 +106,7 @@ class UserListener
      */
     public function loadJournals()
     {
+        $journalService = $this->container->get('ojs.journal_service');
         /** @var User $user */
         $user = $this->checkUser();
         if (!$user) {
@@ -103,8 +114,8 @@ class UserListener
         }
 
         //for API_KEY based connection
-        if($user instanceof \Symfony\Component\Security\Core\User\User){
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username'=>$user->getUsername()]);
+        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
+            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
         $em = $this->container->get('doctrine')->getManager();
@@ -117,9 +128,9 @@ class UserListener
         foreach ($userJournals as $item) {
             $journals[$item->getJournalId()] = $item->getJournal();
         }
-        if (!$this->session->get('selectedJournalId')) {
+        if (!$journalService->getSelectedJournal(false)) {
             // set seledctedjournalid session key with first journal in list if no journal selected yet
-            $this->session->set('selectedJournalId', key($journals));
+            $journalService->setSelectedJournal(key($journals));
         }
         $this->session->set('userJournals', $journals);
     }
@@ -151,13 +162,14 @@ class UserListener
 
         return FALSE;
     }
-    
+
     /**
      * 
      * @param array $checkRoles
      * @return boolean
      */
-    public function hasAnyRole($checkRoles) {
+    public function hasAnyRole($checkRoles)
+    {
         $check = false;
         foreach ($checkRoles as $checkRole) {
             if ($this->container->get('security.context')->isGranted($checkRole)) {
@@ -166,10 +178,10 @@ class UserListener
         }
         return $check;
     }
-    
+
     public function hasJournalRole($roleCode)
     {
-        $userJournalRoles =  $this->session->get('userJournalRoles');
+        $userJournalRoles = $this->session->get('userJournalRoles');
         $user = $this->checkUser();
         if ($user && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $role) {
@@ -180,7 +192,5 @@ class UserListener
         }
         return FALSE;
     }
-    
-    
 
 }
