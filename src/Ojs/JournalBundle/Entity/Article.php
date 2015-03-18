@@ -1080,4 +1080,29 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
         $this->userRoles->removeElement($role);
         return $this;
     }
+
+    /**
+     * @var string
+     */
+    protected $header_options;
+
+    /**
+     * @return string
+     */
+    public function getHeaderOptions()
+    {
+        return $this->header_options;
+    }
+
+    /**
+     * @param string $header_options
+     * @return $this
+     */
+    public function setHeaderOptions($header_options)
+    {
+        $this->header_options = $header_options;
+        return $this;
+    }
+
+
 }

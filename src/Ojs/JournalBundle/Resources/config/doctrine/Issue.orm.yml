@@ -65,9 +65,15 @@ Ojs\JournalBundle\Entity\Issue:
             gedmo:
                 - translatable
                 - versioned
+        cover_options:
+            type: string
+            nullable: true
         header:
             type: string
             length: 255
+            nullable: true
+        header_options:
+            type: string
             nullable: true
         special:
             type: boolean

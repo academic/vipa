@@ -115,14 +115,12 @@ class ArticleController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $header = $request->request->get('header');
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
             $em->persist($entity);
             $em->flush();
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            $header = $request->request->get('header');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header, $entity, 'header');
-            $dm->persist($imageOptions);
-            $dm->flush();
             return $this->redirect($this->generateUrl('articlefile', array('article' => $entity->getId())));
         }
 
@@ -254,9 +252,9 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header, $entity, 'header');
-            $dm->persist($imageOptions);
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
 
             $files = $request->request->get('articlefiles', []);
             $fileHelper = new \Ojs\Common\Helper\FileHelper();
