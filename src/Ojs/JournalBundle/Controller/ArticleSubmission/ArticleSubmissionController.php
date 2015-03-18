@@ -289,7 +289,7 @@ class ArticleSubmissionController extends Controller {
     public function finishAction(Request $request)
     {
         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException();
         }
         $submissionId = $request->get('submissionId');
