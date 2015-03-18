@@ -75,28 +75,7 @@ class OjsExtension extends \Twig_Extension {
 
         return $html;
     }
-
-    /**
-     * Check osj user and return user data as array
-     * @return \Ojs\UserBundle\Entity\User
-     */
-    public function checkUser()
-    {
-        $securityContext = $this->container->get('security.context');
-        try {
-            if (!$securityContext->getToken()) {
-                return false;
-            }
-            if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-                $user = $securityContext->getToken()->getUser();
-                return $user;
-            }
-        } catch (\Exception $e) {
-            return false;
-        }
-
-        return false;
-    }
+            
 
     /**
      *
@@ -176,7 +155,7 @@ class OjsExtension extends \Twig_Extension {
      */
     public function isSystemAdmin()
     {
-        $user = $this->checkUser();
+        $user = $this->container->get('user.helper')->checkUser();
         if ($user) {
             foreach ($user->getRoles() as $role) {
                 if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
@@ -191,7 +170,7 @@ class OjsExtension extends \Twig_Extension {
     public function hasRole($roleCode)
     {
         $userJournalRoles = $this->getSession('userJournalRoles');
-        $user = $this->checkUser();
+        $user = $this->container->get('user.helper')->checkUser();
         if ($user && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $role) {
                 if ($roleCode == $role->getRole()) {
@@ -318,7 +297,7 @@ class OjsExtension extends \Twig_Extension {
      */
     public function apiKey()
     {
-        $user = $this->checkUser();
+        $user = $this->container->get('user.helper')->checkUser();
         return $user ? $user->getApiKey() : null;
     }
 

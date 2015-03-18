@@ -166,5 +166,21 @@ class UserListener
         }
         return $check;
     }
+    
+    public function hasJournalRole($roleCode)
+    {
+        $userJournalRoles =  $this->session->get('userJournalRoles');
+        $user = $this->checkUser();
+        if ($user && is_array($userJournalRoles)) {
+            foreach ($userJournalRoles as $role) {
+                if ($roleCode == $role->getRole()) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
+    
+    
 
 }
