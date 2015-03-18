@@ -167,10 +167,14 @@ class ArticleSubmissionController extends Controller {
     public function newWithJournalAction($journalId)
     {
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        $submitRoles = $journal->getSubmitRoles();
+        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+            return $this->redirect($this->generateUrl('article_submission_new'));
+        }
         $this->throw404IfNotFound($journal);
         $this->get('ojs.journal_service')->setSelectedJournal($journalId);
         $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
-        
+
         return !$checkRole ?
                 $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId()))) :
                 $this->redirect($this->generateUrl('article_submission_new'));
@@ -194,8 +198,8 @@ class ArticleSubmissionController extends Controller {
         }
         // Journal may have different settings
         $submitRoles = $journal->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException();
+        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
+            throw $this->createAccessDeniedException("You don't have submission privilege.");
         }
         $entity = new Article();
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', array

@@ -20,7 +20,7 @@
             <div class="panel-footer">
                 <h4>Current roles</h4>
                 {% for role in roles %}
-                    {{role.role}}
+                    {{role.name}} <span class="badge">{{role.role}}</span><br>
                 {% endfor %}
             </div>
         </div>
