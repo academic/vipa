@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>{{ 'journalindex.edit' }}</h1>
+    <h1>{{ 'journalsindex.edit'|trans }}</h1>
 
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% for label, flashes in app.session.flashbag.all %}
@@ -18,7 +18,7 @@
         <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
 
         <div id="preview_image_logo" style="width:200px">
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.logo)) | imagine_filter('wide_200') }}"
+            <img src="{{ ('/uploads/journalindexfiles/'~imagePath(entity.logo)) | imagine_filter('wide_200') }}"
                  data-src="holder.js/200x200/random/text:{{ entity.name }}" alt=""/>
             {% set imageoptions=getImageOptions(entity,'logo','journalindex_logo') %}
             <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>

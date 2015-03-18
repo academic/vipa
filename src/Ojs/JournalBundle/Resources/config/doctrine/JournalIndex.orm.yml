@@ -11,6 +11,9 @@ Ojs\JournalBundle\Entity\JournalIndex:
       type: string
       nullable: false
       length: 255
+    logo_options:
+      type: string
+      nullable: true
     status:
       type: boolean
   id:
