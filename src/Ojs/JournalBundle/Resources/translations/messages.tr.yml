@@ -5,6 +5,7 @@ mission: Amaç
 archive: Arşiv
 citations: Referanslar
 editorial: Editoryal
+sure_data_lost: 'a?\n\nYour changes may be lost.'
 messages: Mesajlar
 settings: Ayarları
 journals: Dergiler
