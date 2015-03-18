@@ -170,8 +170,9 @@ class ArticleSubmissionController extends Controller {
         $this->throw404IfNotFound($journal);
         $this->get('ojs.journal_service')->setSelectedJournal($journalId);
         $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        
         return !$checkRole ?
-                $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId', $journal->getId()))) :
+                $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId()))) :
                 $this->redirect($this->generateUrl('article_submission_new'));
     }
 
