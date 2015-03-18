@@ -169,14 +169,13 @@ class UserListener {
      * @return boolean
      */
     public function hasAnyRole($checkRoles)
-    {
-        $check = false;
+    { 
         foreach ($checkRoles as $checkRole) {
-            if ($this->container->get('security.context')->isGranted($checkRole)) {
-                $check = true;
+            if ($this->container->get('security.context')->isGranted($checkRole->getRole())) {
+                return true;
             }
         }
-        return $check;
+        return false;
     }
 
     public function hasJournalRole($roleCode)
