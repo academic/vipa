@@ -26,8 +26,7 @@
                                value="{% if author is defined %}{{author.lastName}}{% endif %}" placeholder="{{"author.lastname"|trans}}"/>
 
                     </div>
-                </div>
-                <div class="controls-row">
+                               <div class="controls-row">
                     <label class="control-label">{{"email"|trans}} <span class="mandotary"></span></label>
                     <input  name="email"  id="emailinput" class="form-control input-sm"
                             value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
@@ -37,6 +36,8 @@
                       <input name="institution" id="institutioninput"  value="{% if author is defined  %}{{ author.institution}}{%endif%}"
                              class="form-control select2-institution-search-element" multiple="1" style="min-width:250px" />
                   </div>
+                </div>
+               
                 <div class="controls">
                     <a class="btn btn-sm btn-danger" onclick="OjsArticleSubmission.removeAuthor($(this));"><i class="fa fa-trash"></i> {{"remove"|trans}}</a>
                     <a class="btn btn-sm btn-default" onclick="$(this).parent().next().slideToggle('fast');"><i class="caret"></i> {{"details"|trans}}</a>

@@ -97,7 +97,7 @@
                         </form>
                     </div>
 
-                    <a href=""
+                    <a href="{{path('article_submission_new_with_journalId',{"journalId":journal.id})}}"
                        class="list-group-item list-group-item-success"><h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
                     {% if last_issue%}
