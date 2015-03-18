@@ -197,7 +197,7 @@ class ArticleSubmissionController extends Controller {
             return $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId())));
         }
         // Journal may have different settings
-        $submitRoles = $journal->getSubmitRoles();
+        $submitRoles = $journal->getSubmitRoles();   
         if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException("You don't have submission privilege.");
         }
@@ -222,7 +222,7 @@ class ArticleSubmissionController extends Controller {
     public function resumeAction($submissionId)
     {
         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
@@ -257,7 +257,7 @@ class ArticleSubmissionController extends Controller {
     public function previewAction($submissionId)
     {
         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
