@@ -56,6 +56,9 @@ class Article
         }
         if(array_key_exists('files',$data['changes'])){
             foreach ($data['changes']['files'] as  $key=>$file) {
+                if($data['files'][$key]){
+                    $file = array_merge($data['files'][$key],$file);
+                }
                 $articleRevised['files'][$key - 1] = array_merge($articleRevised['files'][$key - 1], $file);
             }
         }
@@ -65,9 +68,12 @@ class Article
         }
         if(array_key_exists('citation',$data)){
             foreach ($data['citation'] as $key => $citation) {
-                $parsedCitations = $citationParser->parse($citation)[0];
-                $citation=$this->grepCitation($parsedCitations,$citation);
-                $articleRevised['citation'] = array_merge($articleRevised['citation'], [$citation]);
+                $parsed = $citationParser->parse($citation);
+                if($parsed){
+                    $parsedCitations = $parsed[0];
+                    $citation=$this->grepCitation($parsedCitations,$citation);
+                    $articleRevised['citation'] = array_merge($articleRevised['citation'], [$citation]);
+                }
             }
         }
         $step->setArticleRevised($articleRevised);
