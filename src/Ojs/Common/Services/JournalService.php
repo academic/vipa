@@ -43,14 +43,25 @@ class JournalService {
         }
         if ($redirect) {
             // this seems messy
-            try{
+            try {
                 header("Location: " . $this->container->get('router')->generate('user_join_journal'), TRUE, 302);
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 
             }
             exit;
         }
         return false;
+    }
+
+    /**
+     * 
+     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @return boolean
+     */
+    public function generateUrl($journal)
+    {
+        $institution = $journal->getInstitution();
+        return $institution->getSlug() . '/' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
     }
 
     public function setSelectedJournal($journalId)
