@@ -1033,3 +1033,9 @@ a.vimeo:hover * { color:#FFF; }
 .jvFloat .placeHolder.visible {
     color: #8e8e8e;
 }
+
+
+@media (max-width: 768px) {
+    .jvFloat{display: block;margin: 0 0 2em;}
+    .jvFloat .placeHolder{bottom: 12px;}
+}
