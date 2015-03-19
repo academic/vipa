@@ -334,6 +334,7 @@ journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 dashboard.suggestion: "Öneriler"
 journal.settings.language: Dergi Makale Gönderim Dilleri
+journal.settings.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz
 setup.step: 'number. Adım'
 save.finish: 'Kaydet ve Bitir'
 

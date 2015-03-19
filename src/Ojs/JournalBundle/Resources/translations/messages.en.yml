@@ -355,6 +355,7 @@ journalsindex.journalindex: "Journal Index"
 journalsindex.journal: "Journal"
 journalsindex.link: "Link"
 journal.settings.language: Journal's Submission Language
+journal.settings.language.text: Select mandotary languages for article submitting
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
 
