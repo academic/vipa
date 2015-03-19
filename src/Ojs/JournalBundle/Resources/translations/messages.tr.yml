@@ -5,54 +5,55 @@ mission: Amaç
 archive: Arşiv
 citations: Referanslar
 editorial: Editoryal
-sure_data_lost: 'a?\n\nYour changes may be lost.'
+sure_data_lost: 'Bu sayfadan ayrılmak istiyor musunuz?\n\nYaptığınız değişiklikler kaybolabilir.'
 messages: Mesajlar
-settings: Ayarları
+settings: Ayarlar
 journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
-workflow: Süreç
+workflow: 'İş Akışı
 admin: Yönetim
 dashboard: Panel
 title: Başlık
-titleTransliterated: 'Latin Başlık'
-subtitle: 'Alt başlık'
-keywords: 'Anahtar kelimeler'
+titleTransliterated: 'Paralel Başlık'
+subtitle: 'Alt Başlık'
+keywords: 'Anahtar Sözcükler'
 description: Açıklama
 subjects: Konular
-abstract: Özet
-date.publish: 'Yayınlanma Tarihi'
-trans: Transliterated
+abstract: Öz
+date.publish: 'Yayımlanma Tarihi'
+trans: 'Başka Alfabeyle Yazma'
 email: E-posta
 address: Adres
 country: Ülke
 summary: Özet
-haveNoJournals: 'Hiç derginiz bulunmuyor'
-createOne: 'Bir tane oluşturun'
+haveNoJourals: 'Hiç derginiz bulunmuyor.'
+createOne: 'Bir tane oluşturun.'
 read.lastissue: 'Son Sayıyı Oku'
 read.article: 'Makaleyi Oku'
 new.link: 'Yeni Link'
 new.block: 'Yeni Blok'
-for.readers: 'Okuyucular için'
-for.authors: 'Yazarlar için'
+for.readers: 'Okuyucular İçin'
+for.authors: 'Yazarlar İçin'
 for.author_editor: 'Yazarlar ve Editörler için'
 status.waiting: Bekliyor
 status.published: Yayında
 status.unpublished: 'Yayından Kaldırılmış'
-status.rejected: Reddildi
+status.rejected: Reddedildi
 status.inreview: İncelemede
 status.spam: Spam
 reports.title: Raporlar
 reports.journal: 'Dergi Raporları'
 reports.article: 'Makale Raporları'
 reports.author: 'Yazar Raporları'
-reports.user: 'Kullanıcı Raporarı'
+reports.user: 'Kullanıcı Raporları'
 reports.analytics: 'İstatistik Raporları'
 journal.singular: Dergi
 journal.plural: Dergiler
 journal.about: 'Dergi Hakkında'
 journal.all: 'Tüm Dergiler'
 journal.users: 'Dergi Kullanıcıları'
+journal.theme: 'Dergi Teması'
 citation.citation: Referans
 citation.add: 'Referans Ekle'
 citation.new: 'Yeni Referans'
@@ -61,16 +62,16 @@ citation.type: 'Referans Tipi'
 article.fulltext: 'Tam Metin'
 article.plural: Makaleler
 article.singular: Makale
-article.licensing: Licensing
-submission.starting: Starting
+article.licensing: Lisanslar
+submission.starting: Başlarken
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
-article.authors: 'Makale Yazarları'
+article.authors: 'Makalenin Yazarları'
 article.citations: 'Makale Referansları'
 article.metadata: 'Makale Üst Bilgisi'
-article.titleTransliterated: 'Makale Başlığı (transliterated)'
+article.titleTransliterated: 'Makale Paralel Başlığı'
 article.title: 'Makale Başlığı'
-article.subtitle: 'Makale Altbaşlığı'
+article.subtitle: 'Makale Alt başlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
 article.add: 'Makale Ekle'
@@ -88,12 +89,12 @@ author.middlename: 'İkinci Ad'
 author.lastname: Soyad
 author.initials: Başharfler
 author.title: Ünvan
-author.order: Order
+author.order: Sıra
 author.plural: Yazarlar
 author.singular: Yazar
 author.summary: 'Yazar Özeti'
 author.orcid: ORCID
-author.add: 'Yeni Yazar'
+author.add: 'Yazar Ekle'
 user.new: 'Yeni Kullanıcı'
 details: Detaylar
 article.manager: 'Makale Yöneticisi'
@@ -287,9 +288,9 @@ review.forms: 'İnceleme Formları'
 template: Şablon
 templates: Şablonlar
 reviewResultCodes.0: Ret
-reviewResultCodes.1: 'Tekrar Yazılmalı'
-reviewResultCodes.2: 'Major Revizyon'
-reviewResultCodes.3: 'Minor Revizyon'
+reviewResultCodes.1: Tekrar Yazılmalı
+reviewResultCodes.2: Major Revizyon
+reviewResultCodes.3: Minor Revizyon
 reviewResultCodes.4: Kabul
 page.plural: Sayfalar
 page.singular: Sayfa
@@ -334,6 +335,15 @@ journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
 journal.merge_as_new_journal: Yeni Dergi olarak kaydet
 dashboard.suggestion: "Öneriler"
+
+journalsindex.create: Yeni Dizin Ekle
+journalsindex.edit: Dizin Düzenle
+journalsindex.list: Dizinleri Listele
+journalsindex.singular: Dizin
+journalsindex.journalindex: Dizin
+journalsindex.journal: Dergi
+journalsindex.link: Link
+
 setup.step: 'number. Adım'
 save.finish: 'Kaydet ve Bitir'
 
