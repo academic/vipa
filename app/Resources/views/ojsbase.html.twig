@@ -13,14 +13,15 @@
             {{schemaMetaTag|raw }}
         {% endif %}
         {% if meta is defined %} 
-            <meta name="DC.Title" content="{{meta.meta('DC.Title')|raw}}" />
-            <meta name="DC.Description" content="{{meta.meta('DC.Description')|raw}}" />
+            {{meta.tag('DC.Title')|raw}}
+            {{meta.tag('DC.Description')|raw}} 
 
-            <meta name="DC.Source" content="{{meta.meta('DC.Source')|raw}}" />
-            <meta name="DC.Source.ISSN" content="{{meta.meta('DC.Source.ISSN')|raw}}" />
-            <meta name="DC.Source.Issue" content="{{meta.meta('DC.Source.Issue')|raw}}" />
-            <meta name="DC.Source.URI" content="{{meta.meta('DC.Source.URI')|raw}}" />
-            <meta name="DC.Source.Volume" content="{{meta.meta('DC.Source.Volume')|raw}}" />
+            {{meta.tag('DC.Source')|raw}}
+            {{meta.tag('DC.Source.ISSN')|raw}}
+            {{meta.tag('DC.Source.Issue')|raw}}
+            {{meta.tag('DC.Source.URI')|raw}}
+            {{meta.tag('DC.Source.Volume')|raw}}
+
         {% endif %}
         {% block stylesheets %}
             {% stylesheets '@admin_main_css' filter='uglifycss' filter='cssrewrite' output="c/appmain.css"   %}   

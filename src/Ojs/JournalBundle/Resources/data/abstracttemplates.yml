@@ -1,0 +1,25 @@
+#suggested mail templates
+#these templates will be shown at every journal's dashboard
+-
+    id: '1'
+    lang: en
+    type: Medical Sciences 
+    template:  >
+            Abstract template sample<br>
+            Abstract template sample<br>
+
+-
+    id: '2'
+    lang: en
+    type: Social Sciences
+    template:  >
+            Abstract template sample2<br>
+            Abstract template sample2<br>
+            
+-
+    id: '3'
+    lang: en
+    type: Common
+    template:  >
+            Abstract template sample3<br>
+            Abstract template sample3<br>

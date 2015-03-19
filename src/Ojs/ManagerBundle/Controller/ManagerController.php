@@ -71,12 +71,20 @@ class ManagerController extends Controller {
                 json_decode($journal->getSetting('submissionMandotaryLanguages')->getValue()) :
                 null;
         $abstractTemplate = $journal->getSetting('submissionAbstractTemplate') ?
-                $journal->getSetting('submissionAbstractTemplate')->getValue():
+                $journal->getSetting('submissionAbstractTemplate')->getValue() :
                 null;
+
+        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $abstractTemplates = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
+        ));
+
         return $this->render('OjsManagerBundle:Manager:journal_settings_submission.html.twig', array(
                     'journal' => $journal,
                     'submissionMandotaryLanguages' => $languages,
                     'submissionAbstractTemplate' => $abstractTemplate,
+                    'abstractTemplates' => $abstractTemplates,
                     'allLanguages' => $journal->getLanguages()
         ));
     }

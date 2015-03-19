@@ -39,9 +39,26 @@
                     <hr>
 
                     <legend>{{"journal.settings.submission.abstractTemplate"|trans}}</legend>
-                    
-                    <textarea class="editor form-control"  style="width:100%" 
-                              name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
+                    <div class="form-row">
+                        <div class="btn-group">
+                            {% for template in abstractTemplates %}
+                                <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
+                                   onclick="console.log($('#abstractTemplate{{template.id}}').html());
+                                           return false;">
+                                    Template-{{template.id}} {{template.type}}</a>
+                                {% endfor %}
+                        </div>
+                        <p class="help-block">You can load from predefined templates.</p>
+                    </div><hr>
+                    <div class="hide">
+                        {% for template in abstractTemplates %}
+                            <div id="abstractTemplate{{template.id}}">{{template.template|raw}}</div>
+                        {% endfor%}
+                    </div>
+                    <div class="form-row">
+                        <textarea class="editor form-control"  style="width:100%" 
+                                  name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
+                    </div>
                 </fieldset>
             </div>
             <div class="form-group">
