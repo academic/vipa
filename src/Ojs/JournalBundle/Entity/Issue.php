@@ -432,4 +432,44 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->getTitle() . "[#{$this->getId()}]";
     }
 
+    /**
+     * @var string
+     */
+    protected $header_options;
+    /** @var  string */
+    protected $cover_options;
+
+    /**
+     * @return string
+     */
+    public function getCoverOptions()
+    {
+        return $this->cover_options;
+    }
+
+    /**
+     * @param string $cover_options
+     */
+    public function setCoverOptions($cover_options)
+    {
+        $this->cover_options = $cover_options;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeaderOptions()
+    {
+        return $this->header_options;
+    }
+
+    /**
+     * @param string $header_options
+     */
+    public function setHeaderOptions($header_options)
+    {
+        $this->header_options = $header_options;
+    }
+
+
 }

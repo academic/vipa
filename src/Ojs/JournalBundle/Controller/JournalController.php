@@ -59,21 +59,20 @@ class JournalController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            /** @var DocumentManager $dm */
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($cover,$entity,'cover');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($logo,$entity,'logo');
-            $dm->persist($imageOptions);
-            $dm->flush();
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setImageOptions(json_encode($cover));
+            }
+            if($logo){
+                $entity->setLogoOptions(json_encode($logo));
+            }
+            $em->persist($entity);
+            $em->flush();
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
 
@@ -164,18 +163,19 @@ class JournalController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             /** @var DocumentManager $dm */
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($cover,$entity,'cover');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($logo,$entity,'logo');
-            $dm->persist($imageOptions);
-            $dm->flush();
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setImageOptions(json_encode($cover));
+            }
+            if($logo){
+                $entity->setLogoOptions(json_encode($logo));
+            }
+            $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('journal_edit', array('id' => $id)));
         }

@@ -134,6 +134,13 @@ $(document).ready(function () {
             CitationEditor.parseAndAppend(txt);
         }, 100);
     });
+    $("body").on("click", '.citationPasteActionBtn', function () {
+        var element = this;
+        setTimeout(function () {
+            var txt = $(element).val();
+            CitationEditor.parseAndAppend(txt);
+        }, 100);
+    });
     var citeDetails = [];
     $("#saveArticleCitation").on("click", function () {
         $(".cite-item").each(function () {

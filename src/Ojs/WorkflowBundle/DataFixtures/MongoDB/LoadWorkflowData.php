@@ -14,8 +14,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
  * @todo
  * Create sample workflow
  */
-class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
-{
+class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+
     /**
      * @var ContainerInterface
      */
@@ -37,12 +37,22 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         if (!isset($journal)) {
             return;
         }
+        $roleRepo = $em->getRepository('OjsUserBundle:Role');
+        $roleEditor = $roleRepo->findOneByRole('ROLE_EDITOR');
+        //$roleAuthor = $roleRepo->findOneByRole('ROLE_AUTHOR');
+        $roleJournalManager = $roleRepo->findOneByRole('ROLE_JOURNAL_MANAGER');
+        $serializer = $this->container->get('serializer');
+
         $step1 = new JournalWorkflowStep();
         $step1->setFirststep(true);
         $step1->setJournalid($journal[0]->getId());
         $step1->setMaxdays(15);
         $step1->setStatus('First Review');
         $step1->setTitle('First Review');
+        $step1->setRoles(array(
+            json_decode($serializer->serialize($roleEditor, 'json')),
+            json_decode($serializer->serialize($roleJournalManager, 'json'))
+        ));
         $dm->persist($step1);
         $dm->flush();
 
@@ -53,6 +63,10 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step2->setStatus('Publish');
         $step2->setTitle('Publish');
         $step2->addNextStep($step1);
+        $step2->setRoles(array(
+            json_decode($serializer->serialize($roleEditor, 'json')),
+            json_decode($serializer->serialize($roleJournalManager, 'json'))
+        ));
         $dm->persist($step2);
         $step1->addNextStep($step2);
         $dm->persist($step1);

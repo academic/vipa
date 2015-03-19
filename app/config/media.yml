@@ -89,8 +89,7 @@ liip_imagine:
         journal_logo:
             quality: 90
             filters:
-                relative_resize: {  widen: 200 }
-                crop: {start:[0,0], size: [96, 128]}
+                thumbnail: { size: [96, 128], mode: outbound }
         journalindex_logo:
             quality: 90
             filters:

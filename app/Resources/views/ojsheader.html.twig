@@ -12,11 +12,11 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li{% if page == 'index' %} class="active"{% endif %}><a
-                            href={{ path('ojs_public_index') }}>{{ "home"|trans }}</a></li>
+                        href={{ path('ojs_public_index') }}>{{ "home"|trans }}</a></li>
                 <li{% if page == 'institution' %} class="active"{% endif %}><a
-                            href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a></li>
+                        href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a></li>
                 <li{% if page == 'journals' %} class="active"{% endif %}><a
-                            href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a></li>
+                        href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a></li>
             </ul>
             {% if page != 'index' %}
                 <div class="col-sm-3 col-md-3">
@@ -40,13 +40,13 @@
                     {% if app.user %}
                         <!-- User avatar
                         <li>
-                            {% if(app.user.getAvatar()) %}
-                                {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
-                                <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
-                                     class="avatar img-circle img-responsive" />
-                            {% endif %}
-                            </li>
-                            -->
+                        {% if(app.user.getAvatar()) %}
+                            {% set imageoptions=getImageOptions(app.user,'avatar','avatar_thumb') %}
+                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(app.user.getAvatar())) | imagine_filter('avatar_thumb',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                                 class="avatar img-circle img-responsive" />
+                        {% endif %}
+                        </li>
+                        -->
                         <li>
                             <a title="User Page" href="{{ path('ojs_user_index') }}">
                                 <i class="fa fa-cog"></i>
@@ -100,10 +100,11 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                                <li><a>Logged in as : <b>{{app.user.username}}</b></a></li>
+                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
                                         <a href="/dashboard" title="{{ "dashboard"|trans }}"><i
-                                                    class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
+                                                class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
                                     </li>
                                 {% endif %}
 
@@ -124,7 +125,7 @@
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
                                         <a class="btn btn-link" href="/?_su=_exit" title=""><i
-                                                    class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
+                                                class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>
                                 {% endif %}
 
@@ -135,7 +136,7 @@
                                     </li>
                                     <li>
 
-                                    {% for client in userclients() %}
+                                        {% for client in userclients() %}
                                         <li><a href="/?_su={{ client.proxyUser.username }}">
                                                 {{ client.proxyUser.username }}</a>
                                         </li>

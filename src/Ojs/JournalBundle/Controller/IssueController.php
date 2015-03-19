@@ -49,22 +49,17 @@ class IssueController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $dm = $this->get('doctrine.odm.mongodb.document_manager');
+            $header = $request->request->get('header');
+            $cover = $request->request->get('cover');
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setCoverOptions(json_encode($cover));
+            }
+
             $em->persist($entity);
             $em->flush();
-
-            $header = $request->request->get('header');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
-            $dm->persist($imageOptions);
-
-            $cover = $request->request->get('cover');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($cover,$entity,'cover');
-            $dm->persist($imageOptions);
-
-            $dm->flush();
-
             return $this->redirect($this->generateUrl('issue_show', array('id' => $entity->getId())));
         }
 
@@ -163,8 +158,6 @@ class IssueController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        /** @var DocumentManager $dm */
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
@@ -172,18 +165,15 @@ class IssueController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header,$entity,'header');
-            $dm->persist($imageOptions);
-
             $cover = $request->request->get('cover');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($cover,$entity,'cover');
-            $dm->persist($imageOptions);
-
-            $dm->flush();
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setCoverOptions(json_encode($cover));
+            }
+            $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));
         }
 

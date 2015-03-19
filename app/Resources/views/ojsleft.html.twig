@@ -11,8 +11,8 @@
                             <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown">
 
-                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].logo) %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].logo))|imagine_filter('journal_logo') }}"
                                          class="avatar"/>
                                 {% else %}
                                     <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
@@ -32,8 +32,8 @@
                     </div>
                     <div class="panel-footer">
                         <small>{%trans%}Logged in as{%endtrans%} <span style="color:#003399">{{app.user.username}}</span></small>
-                        {% if userJournalRoles %}
-                            {% for role in userJournalRoles %}
+                            {% if userJournalRoles %}
+                                {% for role in userJournalRoles %}
                                 <span class="label label-default">{{ role.role|trans }}</span>
                             {% endfor %}
                         {% endif %}
@@ -157,6 +157,9 @@
                         </a>
                         <a class="list-group-item" href="{{ path('contact') }}">
                             <i class="fa fa-cogs"></i> Contact
+                        </a>
+                        <a class="list-group-item" href="{{ path('admin_journalindex') }}">
+                            <i class="fa fa-cogs"></i> Indexes
                         </a>
                         <a class="list-group-item" href="{{ path('subject') }}"><i class="fa fa-cogs"></i> Subjects</a>
                         <a class="list-group-item" href="{{ path('okulbilisim_feedback_homepage') }}"><i

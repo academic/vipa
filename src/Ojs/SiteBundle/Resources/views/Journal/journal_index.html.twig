@@ -7,8 +7,9 @@
         {% block journalheader %}
             <div id="header">
                 {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
-                <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
-                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef" alt="" class="img-responsive"/>
+                <div class="col-md-12"><img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                     data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef" class="width100 img-responsive" />
+                </div>
                 <div class="col-md-12">
                     <dl class="journal-meta">
                         {% if journal.issn %}
@@ -97,7 +98,7 @@
                         </form>
                     </div>
 
-                    <a href=""
+                    <a href="//{{base_host}}{{path('article_submission_new_with_journalId',{"journalId":journal.id})}}"
                        class="list-group-item list-group-item-success"><h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
                     {% if last_issue%}
@@ -151,7 +152,9 @@
                         <div class="list-group-item">
                             <a href="{{ index.link }}" target="_blank">
                                 <h5>
+                                    {% if index.journalIndex.logo %}
                                     <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}" alt="{{ index.journalIndex }}"/>
+                                    {% endif %}
                                     {{ index.journalIndex.name }}
                                 </h5>
                             </a>

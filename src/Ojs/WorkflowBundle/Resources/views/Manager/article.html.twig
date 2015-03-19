@@ -6,6 +6,9 @@
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
+    {% stylesheets '@upload_css' output="c/upload_article_file.css" filter="cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
+    {% endstylesheets %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -128,7 +131,7 @@
 
     <div class="panel-body">
         <table class="table">
- 
+
             <tr>
                 <td>{{ 'Subjects'|trans }}</td>
                 <td>
@@ -159,7 +162,7 @@
                     {% endif %}
                 </td>
             </tr>
-        </table> 
+        </table>
         {% endfor %}
         <hr>
     </div>
@@ -251,7 +254,8 @@
                            placeholder="{{ "author.orcid"|trans }}"/>
                 </td>
                 <td>
-                    <input name="author[order][]" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm"
+                    <input name="author[order][]" type="number" min="1" max="10000" id="orderinput"
+                           class="form-control input-sm"
                            placeholder="{{ "author.order"|trans }}"/>
                 </td>
                 <td>
@@ -314,20 +318,39 @@
     <hr>
     <h2>{{ 'Files'|trans }}</h2>
     <table class="table">
-        {% for articlefile in article.articlefiles %}
+        {% for articlefile in articleStep.articleRevised.files %}
             <tr>
                 <td>
-                    <span class="badge sm">#{{ articlefile.file.id }}</span>
-                    <span class="label label-info">{{ fileType(articlefile.type) }}</span>
-                    <span class="editable"  data-name="files[{{ loop.index }}][title]" data-type="text" >{{ articlefile.title }}</span>
-                    <a href="{{ articlefile.file.id }}"><i class="fa fa-download"></i></a>
+                    <span class="label label-info">{{ fileType(articlefile.article_file_mime_type) }}</span>
+                    <span class="editable" data-name="files[{{ loop.index }}][title]"
+                          data-type="text">{{ articlefile.title }}</span>
+                    <a href="#"><i class="fa fa-download"></i></a>
+                    <input type="hidden" class="fileinput" name="files[{{ loop.index }}][filename]"/>
+                    <span class="btn btn-xs fileinput-button" >
+                        <i class="fa fa-upload"></i>
+
+                        <span>{{ "update.article.file"|trans }}</span>
+                        <input class="article_file_upload" type="file"
+                               data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
+                        <br>
+                        <input name="files[{{ loop.index }}][article_file]" class="filename article_file_input"
+                               value="{% if articlefile is defined %}{{ articlefile.article_file }}{% endif %}" type="hidden"/>
+                        <input name="files[{{ loop.index }}][article_file_mime_type]" class="mimetype"
+                               value="{% if articlefile is defined %}{{ articlefile.article_file_mime_type }}{% endif %}" type="hidden"/>
+                        <input name="files[{{ loop.index }}][article_file_size]" class="filesize"
+                               value="{% if articlefile is defined %}{{ articlefile.article_file_size }}{% endif %}"
+                               type="hidden"/>
+                    </span>
+                    <div class="badge badge-success uploading" style="display: none;">Uploading...</div>
                     <div class="clearfix"></div>
-                    {% if articlefile.description %}
-                        <p class="editable" data-type="textarea" data-name="files[{{ loop.index }}][desc]"> {{ articlefile.description }} </p>
+                    {% if articlefile.desc %}
+                        <p class="editable" data-type="textarea"
+                           data-name="files[{{ loop.index }}][desc]"> {{ articlefile.desc }} </p>
                     {% endif %}
                     <div class="clearfix"></div>
                     {% if articlefile.keywords %}
-                        <p class="editable" data-type="textarea" data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
+                        <p class="editable" data-type="textarea"
+                           data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
                     {% endif %}
                 </td>
             </tr>
@@ -424,6 +447,9 @@
     {% javascripts '@apptour_js' output="c/apptour.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% javascripts '@upload_js' output="c/upload_article_file.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
     {% if app.user.setting('tour.admin.workflow.article') == FALSE %}
         <script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
@@ -473,8 +499,8 @@
                 $(this).parents('tr').remove();
                 return false;
             });
-            $(".new-author").on('click',function(){
-                var author_row=$(".new-author-row");
+            $(".new-author").on('click', function () {
+                var author_row = $(".new-author-row");
                 var cloneEl = author_row.clone();
                 cloneEl.removeClass('new-author-row');
                 var button = cloneEl.find('.new-author');
@@ -490,6 +516,16 @@
             $(document).on('click', '.remove-author', function () {
                 $(this).parents('tr').remove();
                 return false;
+            });
+            $('.article_file_upload').fileupload({});
+            $('.article_file_upload').bind('fileuploadsend', function (e, data) {
+                $($(this).parents('td')).find('.uploading').show();
+            }).bind('fileuploaddone', function (e, data) {
+                $obj = JSON.parse(data.result);
+                $('.filename', $(this).parent()).attr('value', $obj.files.name);
+                $('.mimetype', $(this).parent()).attr('value', $obj.files.size);
+                $('.filesize', $(this).parent()).attr('value', $obj.files.mimeType);
+                $($(this).parents('td')).find('.uploading').html('Done..');
             });
         });
     </script>

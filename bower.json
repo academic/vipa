@@ -34,7 +34,7 @@
     "flot": "*",
     "morrisjs": "*",
     "mustache": "*",
-    "cropper": "0.8.0",
+    "cropper": "0.7.9",
     "twig.js": "*",
     "bootstrap-tour": "*",
     "holderjs": "*",
@@ -44,6 +44,9 @@
     "bootstrap-treeview": "*",
     "jquery-pjax": "*",
     "mermaid": "*",
-    "x-editable": "~1.5.1"
+    "x-editable": "~1.5.1",
+    "JVFloat": "*",
+      "jqBootstrapValidation": "git@github.com:ReactiveRaven/jqBootstrapValidation.git#~1.3.7"
+
   }
 }

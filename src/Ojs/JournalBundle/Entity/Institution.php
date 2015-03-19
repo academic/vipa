@@ -807,4 +807,50 @@ class Institution extends GenericExtendedEntity {
     {
         return  $this->name;
     }
+
+    /**
+     * @var string
+     */
+    protected $logo_options;
+    /**
+     * @var string
+     */
+    protected $header_options;
+
+    /**
+     * @return string
+     */
+    public function getHeaderOptions()
+    {
+        return $this->header_options;
+    }
+
+    /**
+     * @param string $header_options
+     * @return $this
+     */
+    public function setHeaderOptions($header_options)
+    {
+        $this->header_options = $header_options;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogoOptions()
+    {
+        return $this->logo_options;
+    }
+
+    /**
+     * @param string $logo_options
+     * @return $this
+     */
+    public function setLogoOptions($logo_options)
+    {
+        $this->logo_options = $logo_options;
+        return $this;
+    }
+
 }

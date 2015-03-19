@@ -46,6 +46,9 @@ var OjsArticleSubmission = {
         function formatSelection(item) {
             return '<b>' + item.name + '</b>';
         }
+
+        $('.float-label').jvFloat();
+
         $(".select2-institution-search-element").select2({
             multiple: false,
             //Allow manually entered text in drop down.

@@ -51,6 +51,10 @@ class JournalIndexController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $logo = $request->get('logo');
+            if($logo){
+                $entity->setLogoOptions(json_encode($logo));
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -153,7 +157,7 @@ class JournalIndexController extends Controller
     {
         $form = $this->createForm(new JournalIndexType(), $entity, array(
             'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
 
@@ -178,6 +182,11 @@ class JournalIndexController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $logo = $request->get('logo');
+            if($logo){
+                $entity->setLogoOptions(json_encode($logo));
+            }
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $id)));

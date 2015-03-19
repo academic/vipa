@@ -209,13 +209,22 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             column: image
             nullable: true
+        image_options:
+            type: string
+            nullable: true
         header:
             type: string
             length: 255
             nullable: true
+        header_options:
+            type: string
+            nullable: true
         logo:
             type: string
             length: 255
+            nullable: true
+        logo_options:
+            type: string
             nullable: true
         scope:
             type: text

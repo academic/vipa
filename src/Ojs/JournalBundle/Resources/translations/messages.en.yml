@@ -348,6 +348,7 @@ journal.createdAt: Created at
 journal.user: User
 journal.merge_as_new_journal: Merge As New Journal
 dashboard.suggestion: "Suggestions"
+
 journalsindex.create: "JournalsIndex Create"
 journalsindex.edit: "JournalsIndex Edit"
 journalsindex.list: "JournalsIndex List"
@@ -355,6 +356,12 @@ journalsindex.singular: "Journals Index"
 journalsindex.journalindex: "Journal Index"
 journalsindex.journal: Journal
 journalsindex.link: Link
+
+journal.settings.submission.language: Submission Language
+journal.settings.submission.language.text: Select mandotary languages for article submitting
+journal.settings.submission: "Journal's Submission Settings"
+journal.settings.submission.abstractTemplate: Submission Abstract Template 
+
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
 
