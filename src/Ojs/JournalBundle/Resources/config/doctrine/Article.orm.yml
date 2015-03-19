@@ -215,12 +215,13 @@ Ojs\JournalBundle\Entity\Article:
         - translatable
     slug:
       type: string
-      length: 255
+      length: 40
       gedmo:
         slug:
           seperator: _
           fields:
             - title
+            - id
     uri:
       length: 255
       type: string

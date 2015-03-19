@@ -78,6 +78,9 @@ services:
     ojs.journal_service:
         class: Ojs\Common\Services\JournalService
         arguments: [ @service_container, @doctrine.orm.entity_manager ]
+    ojs.article_service:
+        class: Ojs\Common\Services\ArticleService
+        arguments: [ @service_container, @doctrine.orm.entity_manager ]
     ojs.orcid_service:
         class: Ojs\Common\Services\OrcidService
         arguments: [ @service_container ]
