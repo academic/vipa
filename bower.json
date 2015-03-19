@@ -40,7 +40,7 @@
     "holderjs": "*",
     "jquery-sortable": "*",
     "raphael": "*",
-    "bootstrap-tagsinput": "0.5.0",
+    "bootstrap-tagsinput": "*",
     "bootstrap-treeview": "*",
     "jquery-pjax": "*",
     "mermaid": "*",
