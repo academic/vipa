@@ -19,9 +19,10 @@
     <input type="hidden" name="journalId" id="journalIdInput" value="{% if journal.id %}{{ journal.id }}{% endif %}"/>
     <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
+    <h1>Journal Setup <small>{{journal.title}}</small></h1>
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
-            <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
+            <ul class="nav nav-wizard submission-progress" id="journal-setup-steps">
                 <li id="submission-progress-step1" class="active">
                     <a href="#1">
                         {{ "setup.step"|trans({number:1}) }}
@@ -265,7 +266,7 @@
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_setup_tour.js' output="c/journal_setup_tour.js" %}
-    {% if app.user.setting('tour.admin.article-submit') == FALSE %}
+    {% if app.user.setting('tour.admin.journal-setup') == FALSE %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
     {% endjavascripts %}
