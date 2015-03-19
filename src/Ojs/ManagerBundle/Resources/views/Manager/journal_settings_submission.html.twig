@@ -39,11 +39,7 @@
                     <hr>
 
                     <legend>{{"journal.settings.submission.abstractTemplate"|trans}}</legend>
-                    <div class="form-group">
-                        {% for lang in submissionMandotaryLanguages %}
-                            <span class="badge">{{ lang }}</span>
-                        {% endfor %}
-                    </div>
+                    
                     <textarea class="editor form-control"  style="width:100%" 
                               name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
                 </fieldset>
