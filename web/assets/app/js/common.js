@@ -33,6 +33,9 @@ $(document).ready(function () {
         $(this).next(".panel-body").slideToggle();
     });
 
+    /* float placeholders to labels */
+    $('.float-label').jvFloat();
+
     //Loads the correct sidebar on window load,
     //collapses the sidebar on window resize.
 
