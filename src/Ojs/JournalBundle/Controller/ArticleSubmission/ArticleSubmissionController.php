@@ -197,7 +197,7 @@ class ArticleSubmissionController extends Controller {
             return $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId())));
         }
         // Journal may have different settings
-        $submitRoles = $journal->getSubmitRoles();   
+        $submitRoles = $journal->getSubmitRoles();
         if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
             throw $this->createAccessDeniedException("You don't have submission privilege.");
         }
@@ -221,14 +221,13 @@ class ArticleSubmissionController extends Controller {
      */
     public function resumeAction($submissionId)
     {
-        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
-        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException();
-        }
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $entity = new Article();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('No submission found');
+        }
         if (!method_exists($articleSubmission, 'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw $this->createAccessDeniedException("Access denied!");
         }
