@@ -354,8 +354,10 @@ journalsindex.singular: "Journals Index"
 journalsindex.journalindex: "Journal Index"
 journalsindex.journal: "Journal"
 journalsindex.link: "Link"
-journal.settings.language: Journal's Submission Language
-journal.settings.language.text: Select mandotary languages for article submitting
+journal.settings.submission.language: Submission Language
+journal.settings.submission.language.text: Select mandotary languages for article submitting
+journal.settings.submission: Journal's Submission Settings 
+journal.settings.submission.abstractTemplate: Submission Abstract Template 
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
 

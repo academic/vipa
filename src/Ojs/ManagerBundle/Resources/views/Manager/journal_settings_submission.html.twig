@@ -1,0 +1,69 @@
+{% extends '::ojsbase.html.twig' %}
+{% block  stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+{%endblock%}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal'), 'title': 'journal.manager'|trans},
+    { 'title': 'journal.update'|trans},
+
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':3} only %}
+    <div class="col-md-12">
+        <form class="form" method="POST">
+
+
+            <div class="form-group">
+                <fieldset>
+                    <legend>{{"journal.settings.submission.language"|trans}}</legend>
+                    <div class="form-group">
+                        {% for lang in submissionMandotaryLanguages %}
+                            <span class="badge">{{ lang }}</span>
+                        {% endfor %}
+                    </div>
+                    <label>{{ "journal.settings.submision.language.text"|trans }}</label>
+                    <select name="submissionMandotaryLanguages[]" class="select2-element form-control" multiple>
+                        {% for lang in allLanguages %}
+                            <option value="{{ lang.code }}" {% if lang.code in submissionMandotaryLanguages %}selected{% endif %}>
+                                {{ lang.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <hr>
+
+                    <legend>{{"journal.settings.submission.abstractTemplate"|trans}}</legend>
+                    <div class="form-group">
+                        {% for lang in submissionMandotaryLanguages %}
+                            <span class="badge">{{ lang }}</span>
+                        {% endfor %}
+                    </div>
+                    <textarea class="editor form-control"  style="width:100%" 
+                              name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
+                </fieldset>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">{{ "save"|trans }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block  javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("textarea.editor").wysihtml5({
+                toolbar: {"font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+            });
+        });
+    </script>
+{%endblock%}
+
+
