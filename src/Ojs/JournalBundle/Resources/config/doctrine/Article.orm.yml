@@ -172,6 +172,9 @@ Ojs\JournalBundle\Entity\Article:
       type: string
       length: 255
       nullable: true
+    header_options:
+      type: string
+      nullable: true
     part:
       length: 255
       type: string

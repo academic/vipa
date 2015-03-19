@@ -158,4 +158,24 @@ class JournalIndex
     {
         return $this->getName();
     }
+
+    /** @var  string */
+    protected $logo_options;
+
+    /**
+     * @return string
+     */
+    public function getLogoOptions()
+    {
+        return $this->logo_options;
+    }
+
+    /**
+     * @param string $logo_options
+     */
+    public function setLogoOptions($logo_options)
+    {
+        $this->logo_options = $logo_options;
+    }
+
 }

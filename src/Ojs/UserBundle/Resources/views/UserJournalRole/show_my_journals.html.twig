@@ -15,9 +15,10 @@
             <a href="{{ path('user_join_journal') }}" class="btn btn-success"><i class="fa fa-plus"></i> {{ 'register.yourself.as.author'|trans }}</a>
             <hr>
             {% if entities %}
-                <table class="records_list  table">
+                <table class="records_list table table-hover table-striped">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>{{"journal.singular"|trans}}</th>
                             <th>{{"role.singular"|trans}}</th>
                         </tr>
@@ -25,8 +26,9 @@
                     <tbody>
                         {% for entity in entities %}
                             <tr>
-                                <td><a href="{{ path('journal_show', { 'id': entity.journal.id }) }}">
-                                        <span class="badge">#{{ entity.journal.id }}</span> {{ entity.journal.title }}</a>
+                                <td>{{loop.index}}</td>
+                                <td><i class="fa fa-link"></i> <a title="{{ entity.journal.titleAbbr }} &middot; {{ entity.journal.issn }}" href="{{ url('ojs_journal_index',{slug: entity.journal.slug, institution: entity.journal.institution.slug}) }}">
+                                         {{ entity.journal.title }}</a>
                                 </td>
                                 <td>
                                     {%for role in entity.roles %}

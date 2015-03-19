@@ -97,9 +97,7 @@
 
                             <div class="col-sm-2 col-md-2" style="margin-top:10px">
                                 <a href="{{ url('ojs_journal_index',{slug:journal.slug, institution: journal.institution.slug}) }}">
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.logo))|imagine_filter('journal_logo',
-                                    {"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}
-                                    ) }}" data-src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.logo))|imagine_filter('journal_logo') }}" data-src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
                                 </a>
                             </div>
                         {% endfor %}

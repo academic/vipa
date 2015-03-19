@@ -76,16 +76,13 @@
                 aspectRatio: 960 / 200,
                 maxWidth: 960,
                 maxHeight: 200,
-                {% if  entity.header %}
                 {% set imageoptions=getImageOptions(entity,'header','article_header') %}
-
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                {% endif %}
                 done: function (data) {
                     $("#header_height").val(data.height)
                     $("#header_width").val(data.width)

@@ -18,18 +18,18 @@
 
             <div class="mermaid">
                 sequenceDiagram
-                loop Review query
+
 
                 {% for nStep in firstStep.nextSteps %}
+                    loop {{ firstStep.title }} query
                     {{ firstStep.title }}->>{{ nStep.title }}: {% if firstStep.canReview %}Review Result {% else %}Accept {% endif %}
 
                     {% for n2Step in firstStep.nextSteps %}
                         {{ nStep.title }}->>{{ n2Step.title }}: {% if nStep.canReview %}Review Result {% else %}Accept {% endif %}
 
                     {% endfor  %}
+                    end
                 {% endfor  %}
-
-                end
             </div>
 
 

@@ -84,13 +84,12 @@ class CommonExtension extends \Twig_Extension
 
     public function getImageOptions($entity, $type, $filter = null)
     {
-        $document = $this->dm->getRepository('OjsSiteBundle:ImageOptions')
-            ->findOneBy([
-                'object' => get_class($entity),
-                'object_id' => call_user_func([$entity, 'getId']),
-                'image_type' => $type
-            ]);
-        if (!$document || $document->getHeight() < 1 || $document->getWidth() < 1) {
+        $options = $entity->{'get' . ucfirst($type) . 'Options'}();
+        $options = json_decode($options, true);
+        if (
+            !$options ||
+            ((array_key_exists('height', $options) && $options['height'] < 1) ||
+                (array_key_exists('width', $options) && $options['width'] < 1))) {
             $defaultConfig = [
                 'height' => 0,
                 'width' => 0,
@@ -112,12 +111,11 @@ class CommonExtension extends \Twig_Extension
                     $defaultConfig['y'] = $start[1];
                 }
             }
-            $null = $this->dm->getRepository('OjsSiteBundle:ImageOptions')
-                ->init($defaultConfig, $entity, $type);
-            return $null;
+
+            return $defaultConfig;
         }
 
-        return $document;
+        return $options;
     }
 
     public function orcidLoginUrl()
@@ -126,12 +124,12 @@ class CommonExtension extends \Twig_Extension
         return $orcid->loginUrl();
     }
 
-    public function getUserById($id,$object=false)
+    public function getUserById($id, $object = false)
     {
         $user = $this->container->get('doctrine')->getManager()->find('OjsUserBundle:User', $id);
         if (!$user)
             return null;
-        if($object)
+        if ($object)
             return $user;
         return "{$user->getUsername()} ~ {$user->getEmail()} - {$user->getFirstName()} {$user->getLastName()}";
     }

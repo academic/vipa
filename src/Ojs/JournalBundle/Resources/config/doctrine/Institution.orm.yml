@@ -155,6 +155,9 @@ Ojs\JournalBundle\Entity\Institution:
             gedmo:
                 - translatable
                 - versioned
+        logo_options:
+            type: string
+            nullable: true
         header:
             type: string
             length: 255
@@ -162,6 +165,9 @@ Ojs\JournalBundle\Entity\Institution:
             gedmo:
                 - translatable
                 - versioned
+        header_options:
+            type: string
+            nullable: true
         #IMAGES#
         created:
             type: datetime

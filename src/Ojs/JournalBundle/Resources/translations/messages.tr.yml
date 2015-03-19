@@ -344,7 +344,14 @@ journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
 journalsindex.link: Link
 
-setup.step: 'number. Adım'
+
+journal.settings.submission.language: Makale Gönderim Dilleri
+journal.settings.submission.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz
+journal.settings.submission: Dergi Makale Gönderim Ayarları
+journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
+
+
+setup.step: 'Adım'
 save.finish: 'Kaydet ve Bitir'
 
 mailtemplate.journal: 'Dergi'

@@ -1298,4 +1298,66 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->licences;
     }
+
+    protected $logo_options;
+    protected $header_options;
+    protected $image_options;
+
+    /**
+     * @return mixed
+     */
+    public function getImageOptions()
+    {
+        return $this->image_options;
+    }
+
+    /**
+     * @param mixed $image_options
+     */
+    public function setImageOptions($image_options)
+    {
+        $this->image_options = $image_options;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaderOptions()
+    {
+        return $this->header_options;
+    }
+
+    /**
+     * @param mixed $header_options
+     */
+    public function setHeaderOptions($header_options)
+    {
+        $this->header_options = $header_options;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogoOptions()
+    {
+        return $this->logo_options;
+    }
+
+    /**
+     * @param mixed $logo_options
+     */
+    public function setLogoOptions($logo_options)
+    {
+        $this->logo_options = $logo_options;
+    }
+
+    /**
+     * Alias for imageoptions
+     * @return mixed
+     */
+    public function getCoverOptions()
+    {
+        return $this->getImageOptions();
+    }
+
 }

@@ -9,10 +9,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 /**
  * Common methods for journal
  */
-class JournalService
-{
+class JournalService {
 
     private $em;
+    /* @var \Symfony\Component\DependencyInjection\Container  */
     private $container;
     private $session;
 
@@ -33,7 +33,7 @@ class JournalService
      * @return \Ojs\JournalBundle\Entity\Journal
      * @throws HttpException
      */
-    public function getSelectedJournal()
+    public function getSelectedJournal($redirect = true)
     {
         $em = $this->container->get('doctrine')->getManager();
         $selectedJournalId = $this->session->get("selectedJournalId");
@@ -41,8 +41,22 @@ class JournalService
         if ($selectedJournal) {
             return $selectedJournal;
         }
-        @header("Location: ".$this->container->get('router')->generate('user_join_journal'),TRUE,302);
-        exit;
+        if ($redirect) {
+            // this seems messy
+            try{
+                header("Location: " . $this->container->get('router')->generate('user_join_journal'), TRUE, 302);
+            }catch(Exception $e){
+                
+            }
+            exit;
+        }
+        return false;
+    }
+
+    public function setSelectedJournal($journalId)
+    {
+        $this->session->set('selectedJournalId', $journalId);
+        return $journalId;
     }
 
 }

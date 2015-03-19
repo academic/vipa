@@ -50,6 +50,14 @@ class InstitutionController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $header = $request->request->get('header');
+            $cover = $request->request->get('logo');
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setLogoOptions(json_encode($cover));
+            }
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('institution_show', array('id' => $entity->getId())));
@@ -150,22 +158,21 @@ class InstitutionController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        /** @var DocumentManager $dm */
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
             $cover = $request->request->get('logo');
-            $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
-            $imageOptions = $ir->init($header, $entity, 'header');
-            $dm->persist($imageOptions);
-            $imageOptions = $ir->init($cover, $entity, 'cover');
-            $dm->persist($imageOptions);
-            $dm->flush();
+            if($header){
+                $entity->setHeaderOptions(json_encode($header));
+            }
+            if($cover){
+                $entity->setLogoOptions(json_encode($cover));
+            }
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('institution_edit', array('id' => $id)));
