@@ -12,31 +12,28 @@
 
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':3} only %}
-    <div class="large-12 columns">
-        <div class="panel"> 
-            <form class="form" method="POST">
-                <div class="form-group">
-                    <span>Select mandotary languages for article submitting</span>
-                </div>
-                <div class="form-group">
-                    {% for lang in mandotaryLanguages %}
-                        <span class="badge">{{lang}}</span>
-                    {%endfor%} 
-                </div>
-                <div class="form-group">
-                    <select name="languages[]" class="select2-element" style="min-width: 200px" multiple>
-                        {% for lang in allLanguages %}
-                            <option value="{{lang.code}}" {% if lang.code in mandotaryLanguages  %}selected{%endif%}>
-                                {{lang.name}}
-                            </option>
-                        {%endfor%}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-default" type="submit">{{"submit"|trans}}</button>
-                </div>
-            </form>
-        </div>
+    <div class="col-md-12">
+        <form class="form" method="POST">
+
+            <div class="form-group">
+                {% for lang in mandotaryLanguages %}
+                    <span class="badge">{{ lang }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>{{ "journal.settings.language.text"|trans }}</label>
+                <select name="languages[]" class="select2-element form-control" multiple>
+                    {% for lang in allLanguages %}
+                        <option value="{{ lang.code }}" {% if lang.code in mandotaryLanguages %}selected{% endif %}>
+                            {{ lang.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" type="submit">{{ "save"|trans }}</button>
+            </div>
+        </form>
     </div>
 {% endblock %}
 
