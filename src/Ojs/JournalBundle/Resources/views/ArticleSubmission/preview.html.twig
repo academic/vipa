@@ -111,15 +111,15 @@
                             <td>{{"author.summary"|trans}}</td>
                             <td>{{author.summary}}</td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td>{{"author.institution"|trans}}</td>
                             <td>{{author.institution}}</td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td>{{"author.phone"|trans}}</td>
                             <td>{{author.phone}}</td>
                         </tr>
-                        
+
 
                     {%endfor%}
                 </table>
@@ -200,12 +200,25 @@
 
 
             <input type="hidden" name="submissionId" value="{{submissionId}}">
-            <div class="btn-group pull-right">
+            <div class="alert alert-danger" id="alertSubmission" style="display:none">
+                Attention: After submission your manuscript you can't change your data.
+                <div class="btn-group">
+                    <button class="btn btn-warning btn-lg"
+                            onclick="return OjsArticleSubmission.submit();" type="submit">Submit</button> 
+                    <button class="btn btn-default btn-lg"   
+                            onclick="$('#alertSubmission').slideUp('fast');
+                                $('#btnSubmissionGroup').slideDown('fast');
+                                return false;">Cancel</button> 
+                </div>
+            </div>
+            <div class="btn-group pull-right" id="btnSubmissionGroup">
                 <a class="btn btn-lg btn-default" href="{{path('article_submission_resume',{'submissionId':submissionId})}}">
                     <i class="fa fa-backward"></i> {{ 'Back & Continue Editing'|trans }}
                 </a>
-                <button class="btn btn-primary btn-lg"
-                        onclick="return OjsArticleSubmission.submit();">
+                <button class="btn btn-success btn-lg"
+                        onclick="$('#alertSubmission').slideDown('fast');
+                                $('#btnSubmissionGroup').slideUp('fast');
+                                return false;">
                     {{ "article.submit"|trans }}
                     <i class="fa fa-check"></i>
                 </button>
