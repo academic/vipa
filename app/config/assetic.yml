@@ -44,7 +44,7 @@ assetic:
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
-                    - %kernel.root_dir%/../web/vendor/JVFLoat/jvfloat.js
+                    - %kernel.root_dir%/../web/vendor/JVFloat/jvfloat.js
 
         admin_main_css:
                 inputs:
