@@ -23,7 +23,7 @@ subjects: Subjects
 abstract: Abstract
 date.publish: 'Publication Date'
 trans: Transliterated
-email: Email
+email: E-mail
 address: Address
 country: Country
 summary: Summary
@@ -57,7 +57,7 @@ journal.theme: 'Journals Theme'
 citation.citation: Citation
 citation.add: 'Add Citation'
 citation.new: 'New Citation'
-citation.paste_extract: 'Paste and Extract Cititaion'
+citation.paste_extract: 'Paste and Extract Citation'
 citation.type: 'Citation Type'
 article.fulltext: 'Full Text'
 article.plural: Articles
@@ -123,6 +123,7 @@ submit: Submit
 issue.plural: Issues
 issue: Issue
 issue.manager: 'Issue Manager'
+journal: Journal
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
 articles_in_journal: 'Articles In Journal'
 article.new: 'New Article'
@@ -334,7 +335,7 @@ journal.path: Path
 journal.firstPublishDate: First Publish Date
 journal.period: Period
 journal.url: URL
-journal.country: Country`
+journal.country: Country
 journal.scope: Scope
 journal.mission: Mission
 journal.languages: Languages
@@ -352,8 +353,8 @@ journalsindex.edit: "JournalsIndex Edit"
 journalsindex.list: "JournalsIndex List"
 journalsindex.singular: "Journals Index"
 journalsindex.journalindex: "Journal Index"
-journalsindex.journal: "Journal"
-journalsindex.link: "Link"
+journalsindex.journal: Journal
+journalsindex.link: Link
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
 
