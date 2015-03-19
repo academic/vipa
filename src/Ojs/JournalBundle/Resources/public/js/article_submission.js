@@ -329,7 +329,8 @@ var OjsArticleSubmission = {
             window.location.href = "" + e.val;
         });
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-        $("div.editor").wysihtml5({
+        
+        $("textarea.editor").wysihtml5({
             toolbar: {
                 "font-styles": false,
                 "emphasis": true,

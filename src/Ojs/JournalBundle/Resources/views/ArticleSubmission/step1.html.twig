@@ -31,7 +31,9 @@
             </div>
             <div class="form-group">
                 <label class="control-label">{{"abstract"|trans}} <span class="mandotary"></span></label>
-                <textarea name="abstract" class="editor form-control" rows="6">{%if article is defined %}{{article.abstract}}{%endif%}</textarea>
+                <textarea name="abstract" class="editor form-control" rows="6">{%if article is defined %}{{article.abstract}}{%else%}
+                   {% if journal.getSetting('submissionAbstractTemplate') %}{{journal.getSetting('submissionAbstractTemplate').value|raw}}{%endif%}
+                    {%endif%}</textarea>
             </div>
         </form>
     </div>
