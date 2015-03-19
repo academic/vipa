@@ -11,8 +11,8 @@
                             <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown">
 
-                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image)) }}"
+                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].logo) %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].logo)) }}"
                                          class="avatar"/>
                                 {% else %}
                                     <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
