@@ -152,7 +152,9 @@
                         <div class="list-group-item">
                             <a href="{{ index.link }}" target="_blank">
                                 <h5>
+                                    {% if index.journalIndex.logo %}
                                     <img src="{{ ('/uploads/journalindexfiles/'~imagePath(index.journalIndex.logo))|imagine_filter('journalindex_logo') }}" alt="{{ index.journalIndex }}"/>
+                                    {% endif %}
                                     {{ index.journalIndex.name }}
                                 </h5>
                             </a>

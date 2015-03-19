@@ -1,0 +1,67 @@
+\Ojs\JournalBundle\Entity\JournalIndex:
+  index1:
+      name: Open Access Library (oalib)
+      status: 1
+  index2:
+      name: DOAJ
+      status: 1
+  index3:
+      name: arXiv
+      status: 1
+  index4:
+      name: BioOne
+      status: 1
+  index5:
+      name: CiteSeerX
+      status: 1
+  index6:
+      name: Index Copernicus
+      status: 1
+  index7:
+      name: J-Gate
+      status: 1
+  index8:
+      name: DRJI
+      status: 1
+  index9:
+      name: SHERPA/RoMEO
+      status: 1
+  index10:
+      name: TUBITAK Turkish Medical Index
+      status: 1
+  index11:
+      name: CiteFactor 
+      status: 1
+  index12:
+      name: ProQuest
+      status: 1
+  index13:
+      name: EBSCO
+      status: 1
+  index14:
+      name: Thomson Reuters
+      status: 1
+  index15:
+      name: Elsevier
+      status: 1
+  index16:
+      name: Web of Science
+      status: 1
+  index17:
+      name: Plos One
+      status: 1
+  index18:
+      name: ScienceDirect
+      status: 1
+  index19:
+      name: Turkish Citation Index
+      status: 1
+  index20:
+      name: Turkish Medline
+      status: 1
+  index21:
+      name: Journal Index
+      status: 1
+  index22:
+      name: Journal TOCs
+      status: 1
