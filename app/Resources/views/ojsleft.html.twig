@@ -12,7 +12,7 @@
                                     data-toggle="dropdown">
 
                                 {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].logo) %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].logo)) }}"
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].logo))|imagine_filter('journal_logo',) }}"
                                          class="avatar"/>
                                 {% else %}
                                     <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
