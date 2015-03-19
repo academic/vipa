@@ -1,4 +1,4 @@
- body div.container { font-size: 0.9em;  } 
+body div.container { font-size: 0.9em;  }
 .margin-auto{margin-left:auto; margin-right: auto}
 span.mandotary{color: #d45!important; font-family: monospace!important;}
 span.mandotary:after{content:"*"}
@@ -7,7 +7,7 @@ span.mandotary:after{content:"*"}
 .citationDetails{ margin-top:10px; display: none;}
 textarea.citationPasteTextArea{}
 #citationPasteField{display: none;}
-
+.width100{width: 100%}
 /*form div {margin-top:10px;}
 form label {margin-right:10px;}
 */
