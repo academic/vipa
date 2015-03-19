@@ -26,39 +26,57 @@ class ManagerController extends Controller {
         ));
     }
 
-    public function journalSettingsLanguageAction(Request $req, $journalId = null)
+    /**
+     * 
+     * @param Request $req
+     * @param integer $journal
+     * @param string $settingName
+     * @param string $settingValue if null, funtion will return current value
+     * @param boolean $encoded set tru if setting stored as json_encoded
+     * @return type
+     */
+    private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
-        $settingName = 'mandotaryLanguages';
         $em = $this->getDoctrine()->getManager();
-        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
-        if (!$journalId) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        } else {
-            $journal = $em->
-                            getRepository('OjsJournalBundle:Journal')->find($journalId);
-        }
         $setting = $em->
                 getRepository('OjsJournalBundle:JournalSetting')->
                 findOneBy(array('journal' => $journal, 'setting' => $settingName));
-        if ($req->getMethod() == 'POST' && !empty($req->get('languages'))) {
-            $settingString = implode(',', $req->get('languages'));
-            if ($setting) {
-                $setting->setValue($settingString);
-            } else {
-                $setting = new \Ojs\JournalBundle\Entity\JournalSetting($settingName, $settingString, $journal);
-            }
-            $em->persist($setting);
-            $em->flush();
-        }
-        $languages = [];
+
+        $settingString = $encoded ? json_encode($settingValue) : $settingValue;
         if ($setting) {
-            foreach (explode(',', $setting->getValue()) as $item) {
-                $languages[] = $item;
-            }
+            $setting->setValue($settingString);
+        } else {
+            $setting = new \Ojs\JournalBundle\Entity\JournalSetting($settingName, $settingString, $journal);
         }
-        return $this->render('OjsManagerBundle:Manager:journal_settings_language.html.twig', array(
+        $em->persist($setting);
+        $em->flush();
+        return $setting ? ($encoded ? json_decode($setting->getValue()) : $setting->getValue()) : [];
+    }
+
+    public function journalSettingsSubmissionAction(Request $req, $journalId = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        $journal = !$journalId ?
+                $this->get("ojs.journal_service")->getSelectedJournal() :
+                $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        if ($req->getMethod() == 'POST' && !empty($req->get('submissionMandotaryLanguages'))) {
+            $this->updateJournalSetting($journal, 'submissionMandotaryLanguages', $req->get('submissionMandotaryLanguages'), true);
+        }
+        if ($req->getMethod() == 'POST' && !empty($req->get('submissionAbstractTemplate'))) {
+            $this->updateJournalSetting($journal, 'submissionAbstractTemplate', $req->get('submissionAbstractTemplate'), false);
+        }
+
+        $languages = $journal->getSetting('submissionMandotaryLanguages') ?
+                json_decode($journal->getSetting('submissionMandotaryLanguages')->getValue()) :
+                null;
+        $abstractTemplate = $journal->getSetting('submissionAbstractTemplate') ?
+                $journal->getSetting('submissionAbstractTemplate')->getValue():
+                null;
+        return $this->render('OjsManagerBundle:Manager:journal_settings_submission.html.twig', array(
                     'journal' => $journal,
-                    'mandotaryLanguages' => $languages,
+                    'submissionMandotaryLanguages' => $languages,
+                    'submissionAbstractTemplate' => $abstractTemplate,
                     'allLanguages' => $journal->getLanguages()
         ));
     }

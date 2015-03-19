@@ -7,9 +7,9 @@ manager_journal_language_settings:
     defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage } 
     
 
-manager_current_journal_language_settings:
-    pattern:  /journal/settings/language
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage } 
+manager_current_journal_submission_settings:
+    pattern:  /journal/settings/submission
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsSubmission } 
     
 manager_journal_settings:
     pattern:  /journal/{journalId}/settings
