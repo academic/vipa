@@ -6,23 +6,23 @@
             <input type="hidden" name="authorid" value="" />
             <div class="col-md-12">
                 <div class="controls form-inline"> 
-                    <input name="orcid" id="orcidinput" class="form-control input-xs"
+                    <input name="orcid" id="orcidinput" class="form-control input-xs float-label"
                            value="{% if author is defined %}{{author.orcid}}{% endif %}" placeholder="{{"author.orcid"|trans}}"/>
                 </div>
                 <div class="controls">
                     <span class="control-label"> </span>
                     <div class="controls-row form-inline">
-                        <input name="order" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm"
+                        <input name="order" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.order}}{% endif %}" placeholder="{{"author.order"|trans}}"/>
-                        <input name="title" id="titleinput" class="form-control input-sm" 
+                        <input name="title" id="titleinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.title}}{% endif %}" placeholder="{{"author.title"|trans}}"/>
-                        <input name="initials" id="initialsinput" class="form-control input-sm" 
+                        <input name="initials" id="initialsinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.initials}}{% endif %}" placeholder="{{"author.initials"|trans}}"/>
-                        <input name="firstName" id="firstnameinput" class="form-control input-sm" 
+                        <input name="firstName" id="firstnameinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.firstName}}{% endif %}" placeholder="{{"author.firstname"|trans}}"/>
-                        <input name="middleName" id="middlenameinput" class="form-control input-sm" 
+                        <input name="middleName" id="middlenameinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.middleName}}{% endif %}" placeholder="{{"author.middlename"|trans}}"/>
-                        <input name="lastName" id="lastnameinput" class="form-control input-sm" 
+                        <input name="lastName" id="lastnameinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.lastName}}{% endif %}" placeholder="{{"author.lastname"|trans}}"/>
 
                     </div>
