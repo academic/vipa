@@ -2,6 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
@@ -10,23 +14,50 @@ use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * JournalContact controller.
- *
+ * 
  */
-class JournalContactController extends Controller
-{
+class JournalContactController extends Controller {
+
     /**
      * Lists all JournalContact entities.
-     *
+     * @param \Ojs\JournalBundle\Entity\Journal $journal  if not set list all contacts. if set list only contacts for that journal
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction($journal = null)
     {
-        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('OjsJournalBundle:Article');
+        if ($journal) { 
+            $tableAlias = $source->getTableAlias();
+            $source->manipulateQuery(
+                    function ($query) use ($tableAlias, $journal) {
+                $query->andWhere($tableAlias . '.journalId = ' . $journal->getId());
+            }
+            );
+        }
 
-        $entities = $em->getRepository('OjsJournalBundle:JournalContact')->findAll();
+        $grid = $this->get('grid')->setSource($source);
+
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
+        $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
 
         return $this->render('OjsJournalBundle:JournalContact:index.html.twig', array(
-                    'entities' => $entities,
+                    'grid' => $grid,
         ));
+    }
+
+    /**
+     * List all contacts for current journal
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexManagerAction()
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        return $this->indexAction($journal);
     }
 
     /**
@@ -65,7 +96,7 @@ class JournalContactController extends Controller
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_create'),
             'method' => 'POST',
-            'user'=>$this->getUser()
+            'user' => $this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -145,7 +176,7 @@ class JournalContactController extends Controller
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'user'=>$this->getUser()
+            'user' => $this->getUser()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -219,7 +250,7 @@ class JournalContactController extends Controller
     {
         $formHelper = new CommonFormHelper();
 
-        return $formHelper->createDeleteForm($this, $id,'journalcontact_delete');
+        return $formHelper->createDeleteForm($this, $id, 'journalcontact_delete');
     }
 
 }

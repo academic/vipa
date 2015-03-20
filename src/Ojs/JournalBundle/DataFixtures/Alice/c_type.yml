@@ -1,4 +1,7 @@
 \Ojs\JournalBundle\Entity\ContactTypes:
-  c_type{1..20}:
-    name: <text(20)>
-    description: <paragraph(1)>
+  c_type1:
+    name: Technical Contact 
+  c_type2:
+    name: Primary Contact 
+  c_type3:
+    name: Author Support
