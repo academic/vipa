@@ -9,7 +9,7 @@
         {% if isSystemAdmin() %}
             {% set back_path = 'journalcontact' %} 
         {%else %} 
-            {% set delete_path = 'manager_journalcontact_delete' %}
+            {% set back_path = 'manager_journalcontact' %}
         {% endif %}
         {% include '::actionbtns.html.twig' %}
     </div>

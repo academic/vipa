@@ -1,5 +1,4 @@
 \Ojs\JournalBundle\Entity\JournalContact:
   j_contact{1..30}:
-    journal: @journal*
     contactType: @c_type*
     contact: @contact*

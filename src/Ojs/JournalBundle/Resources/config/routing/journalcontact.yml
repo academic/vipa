@@ -8,7 +8,7 @@ manager_journalcontact_show:
 
 manager_journalcontact_new:
     pattern:  /new
-    defaults: { _controller: "OjsJournalBundle:JournalContact:new" }
+    defaults: { _controller: "OjsJournalBundle:JournalContact:newManager" }
 
 manager_journalcontact_create:
     pattern:  /create

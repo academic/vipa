@@ -15,8 +15,9 @@ class JournalContactType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $journal = $options['journal_id'];
+        $journal = $options['journal'];
         $user = $options['user'];
+
         $builder
                 ->add('journal', 'entity', array(
                     'attr' => array('class' => ' form-control'),
@@ -31,16 +32,26 @@ class JournalContactType extends AbstractType {
                 }
                 if ($journal) {
                     $qb
-                    ->where($qb->expr()->eq('j.journalId', ':journal'))
-                    ->setParameter('journal', $journal);
+                    ->where($qb->expr()->eq('j.id', ':journal'))
+                    ->setParameter('journal', $journal->getId());
                 }
                 return $qb;
             }
                 ))
                 ->add('contact', 'entity', array(
                     'attr' => array('class' => ' form-control'),
-                    'class' => 'Ojs\JournalBundle\Entity\Contact')
-                )
+                    'class' => 'Ojs\JournalBundle\Entity\JournalContact',
+                    'property' => 'contact',
+                    'query_builder' => function(EntityRepository $er)use($user, $journal) {
+                $qb = $er->createQueryBuilder('c');
+                if ($user && !$user->hasRole('ROLE_SUPER_ADMIN') && $journal) {
+                    $qb
+                    ->where($qb->expr()->eq('c.journalId', ':journal'))
+                    ->setParameter('journal', $journal->getId());
+                }
+                return $qb;
+            }
+                ))
                 ->add('contactType')
         ;
     }
@@ -53,7 +64,7 @@ class JournalContactType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\JournalContact',
             'user' => null,
-            'journal_id' => null
+            'journal' => null
         ));
     }
 
