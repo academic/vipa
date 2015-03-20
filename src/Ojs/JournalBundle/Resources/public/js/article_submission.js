@@ -135,7 +135,11 @@ var OjsArticleSubmission = {
         // prepare post params
         articleParams = false;
         translationParams = [];
+        var hasError =false;
         forms.each(function () {
+            if(!$(this).validationEngine('validate')){
+                hasError = true;
+            }
             data = $(this).serializeObject();
             locale = $(this).attr('id');
             data.locale = locale;
@@ -151,6 +155,10 @@ var OjsArticleSubmission = {
             }
         });
 
+        if(hasError){
+            OjsCommon.errorModal("Please select and fill metadata for article's language!");
+            return;
+        }
         if (!articleParams) {
             OjsCommon.errorModal("Please select and fill metadata for article's language.");
             return;
