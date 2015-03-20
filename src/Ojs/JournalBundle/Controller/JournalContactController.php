@@ -98,10 +98,11 @@ class JournalContactController extends Controller {
      * @param array $optionsArray
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(JournalContact $entity, $optionsArray = null)
+    private function createCreateForm(JournalContact $entity, $optionsArray = array())
     {
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         $options = array_merge(array(
-            'action' => $this->generateUrl('journalcontact_create'),
+            'action' => $this->generateUrl( $isAdmin?'journalcontact_create':'manager_journalcontact_create'),
             'method' => 'POST',
             'user' => $this->getUser()
                 ), $optionsArray);
@@ -216,7 +217,7 @@ class JournalContactController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_edit' : 'managet_journalcontact_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_edit' : 'manager_journalcontact_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
