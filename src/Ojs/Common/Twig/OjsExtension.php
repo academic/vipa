@@ -51,8 +51,14 @@ class OjsExtension extends \Twig_Extension {
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
             'getRoute' => new \Twig_Function_Method($this, 'getRoute', []),
-            'getObject' => new \Twig_Function_Method($this, 'getObject', [])
+            'getObject' => new \Twig_Function_Method($this, 'getObject', []),
+            'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html')))
         );
+    }
+
+    public function generateJournalUrl($jorunal)
+    {
+        return $this->container->get('ojs.journal_service')->generateUrl($jorunal);
     }
 
     /**
@@ -75,7 +81,6 @@ class OjsExtension extends \Twig_Extension {
 
         return $html;
     }
-            
 
     /**
      *
