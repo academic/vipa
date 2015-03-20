@@ -2,7 +2,7 @@
 <div class="author-item panel panel-default">
 
     <div class="panel-body"> 
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal validate-form" role="form">
             <input type="hidden" name="authorid" value="" />
             <div class="col-md-12">
                 <div class="controls form-inline"> 
@@ -12,23 +12,23 @@
                 <div class="controls">
                     <span class="control-label"> </span>
                     <div class="controls-row form-inline">
-                        <input name="order" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm float-label"
+                        <input name="order" type="number" min="1" max="10000" id="orderinput" class="form-control input-sm float-label validate[required,custom[number],min[1],max[1000]]"
                                value="{% if author is defined %}{{author.order}}{% endif %}" placeholder="{{"author.order"|trans}}"/>
-                        <input name="title" id="titleinput" class="form-control input-sm float-label"
+                        <input name="title" id="titleinput" class="form-control input-sm float-label validate[required]"
                                value="{% if author is defined %}{{author.title}}{% endif %}" placeholder="{{"author.title"|trans}}"/>
-                        <input name="initials" id="initialsinput" class="form-control input-sm float-label"
+                        <input name="initials" id="initialsinput" class="form-control input-sm float-label validate[required]"
                                value="{% if author is defined %}{{author.initials}}{% endif %}" placeholder="{{"author.initials"|trans}}"/>
-                        <input name="firstName" id="firstnameinput" class="form-control input-sm float-label"
+                        <input name="firstName" id="firstnameinput" class="form-control input-sm float-label validate[required]"
                                value="{% if author is defined %}{{author.firstName}}{% endif %}" placeholder="{{"author.firstname"|trans}}"/>
                         <input name="middleName" id="middlenameinput" class="form-control input-sm float-label"
                                value="{% if author is defined %}{{author.middleName}}{% endif %}" placeholder="{{"author.middlename"|trans}}"/>
-                        <input name="lastName" id="lastnameinput" class="form-control input-sm float-label"
+                        <input name="lastName" id="lastnameinput" class="form-control input-sm float-label validate[required]"
                                value="{% if author is defined %}{{author.lastName}}{% endif %}" placeholder="{{"author.lastname"|trans}}"/>
 
                     </div>
                                <div class="controls-row">
                     <label class="control-label">{{"email"|trans}} <span class="mandotary"></span></label>
-                    <input  name="email"  id="emailinput" class="form-control input-sm"
+                    <input  name="email"  id="emailinput" class="form-control input-sm validate[required,custom[email]]"
                             value="{% if author is defined %}{{author.email}}{% endif %}" placeholder="{{"email"|trans}}"/>
                 </div>
                   <div class="control-row">
@@ -47,7 +47,7 @@
                   
                     <div class="controls-row">
                         <label class="control-label">{{"phone"|trans}}</label>
-                        <input name="phone" id="phoneinput" class="form-control" value="{% if author is defined  %}{{ author.phone}}{%endif%}" />
+                        <input name="phone" id="phoneinput" class="form-control validate[custom[phone]]" value="{% if author is defined  %}{{ author.phone}}{%endif%}" />
                     </div>
                     <div class="controls-row">
                         <label class="control-label">{{"summary"|trans}}</label>
