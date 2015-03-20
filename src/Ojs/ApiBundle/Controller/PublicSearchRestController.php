@@ -71,4 +71,38 @@ class PublicSearchRestController extends FOSRestController {
         return $data;
     }
 
+    /**
+     * @param Request $request
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search Institutions",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      },
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="false",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/public/search/tags")
+     * @return array
+     */
+    public function getTagsAction(Request $request)
+    {
+        return [
+            ['id'=>1,'name'=>'emre'],
+            ['id'=>2,'name'=>'emrah'],
+            ['id'=>3,'name'=>'emrullah'],
+            ['id'=>4,'name'=>'emir'],
+            ['id'=>5,'name'=>'emel'],
+        ];
+    }
+
 }
