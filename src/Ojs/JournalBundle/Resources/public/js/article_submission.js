@@ -136,6 +136,15 @@ var OjsArticleSubmission = {
         articleParams = false;
         translationParams = [];
         var hasError =false;
+        MathJax.Hub.Config({
+            extensions: ['tex2jax.js', "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
+            tex2jax: {inlineMath: [["$", "$"], ["\\(", "\\)"]]},
+            jax: ["input/TeX", "output/HTML-CSS"],
+            displayAlign: "center",
+            displayIndent: "0.1em",
+            showProcessingMessages: false
+        });
+
         forms.each(function () {
             if(!$(this).validationEngine('validate')){
                 hasError = true;
