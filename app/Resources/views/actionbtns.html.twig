@@ -1,4 +1,9 @@
 <div class="btn-group">
+    {% if(create_path is defined) %}
+        <a class="btn btn-default btn-sm" href="{{ path(create_path) }}" title="{{"c"|trans}}">
+            <i class="fa fa-plus-circle"></i> {{"c"|trans}}
+        </a>
+    {% endif %}
     {% if(back_path is defined) %}
         <a class="btn btn-default btn-sm" href="{{ path(back_path, { 'id': entity.id }) }}" title="{{"b"|trans}}">
             <i class="fa fa-arrow-left"></i>
