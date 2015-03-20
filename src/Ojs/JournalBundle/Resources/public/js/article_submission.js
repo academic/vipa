@@ -135,7 +135,11 @@ var OjsArticleSubmission = {
         // prepare post params
         articleParams = false;
         translationParams = [];
+        var hasError =false;
         forms.each(function () {
+            if(!$(this).validationEngine('validate')){
+                hasError = true;
+            }
             data = $(this).serializeObject();
             locale = $(this).attr('id');
             data.locale = locale;
@@ -151,6 +155,10 @@ var OjsArticleSubmission = {
             }
         });
 
+        if(hasError){
+            OjsCommon.errorModal("Please select and fill metadata for article's language!");
+            return;
+        }
         if (!articleParams) {
             OjsCommon.errorModal("Please select and fill metadata for article's language.");
             return;
@@ -192,9 +200,19 @@ var OjsArticleSubmission = {
         // prepare post params
         authorParams = false;
         var dataArray = [];
+        var hasError = false;
         forms.each(function () {
+            if(!$(this).validationEngine('validate')){
+                hasError = true;
+            }
             dataArray.push($("form", this).serializeObject());
         });
+
+        if (hasError) {
+            OjsCommon.errorModal("Please fill required fields.");
+            return;
+        }
+
         OjsCommon.waitModal();
         $.post(actionUrl, {"authorsData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
             OjsCommon.hideallModals();

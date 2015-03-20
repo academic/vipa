@@ -22,8 +22,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface
-{
+class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface {
 
     /**
      * @var integer
@@ -96,6 +95,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @var string
      */
     protected $apiKey;
+
     /**
      * @var integer
      * @GRID\Column(title="user.status",filter="select",selectFrom="values",values={0="Passive",1="Active"} )
@@ -104,16 +104,19 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     /** @var  ArrayCollection */
     protected $restrictedJournals;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
     protected $roles;
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @Expose
      */
     private $subjects;
+
     /**
      * Json encoded settings string
      * @var String
@@ -126,16 +129,19 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * @Expose
      */
     private $country_id;
+
     /**
      * @var Country
      * @Expose
      */
     private $country;
+
     /**
      * @var integer
      * @Expose
      */
     private $city_id;
+
     /**
      * @var City
      * @Expose
@@ -366,10 +372,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     public function unserialize($serialized)
     {
         list (
-            $this->id,
-            $this->username,
-            $this->password
-            ) = unserialize($serialized);
+                $this->id,
+                $this->username,
+                $this->password
+                ) = unserialize($serialized);
     }
 
     /**
@@ -501,7 +507,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         }
         $apikey = base64_encode(sha1(uniqid('ue' . rand(rand(), rand())) . $apikey));
         $this->apiKey = $apikey;
-
     }
 
     /**
@@ -858,4 +863,21 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->privacy = $privacy;
         return $this;
     }
+
+    /**
+     * 
+     * @param string $role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        $roles = $this->getRoles();
+        foreach ($roles as $roleObject) {
+            if ($roleObject->getRole() == $role) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

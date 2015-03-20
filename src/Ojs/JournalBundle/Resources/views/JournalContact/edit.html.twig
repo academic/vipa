@@ -5,12 +5,15 @@
 
     {{ form(edit_form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('journalcontact') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+
+    <div class="record_actions">
+        {% if isSystemAdmin() %}
+            {% set back_path = 'journalcontact' %} 
+            {% set delete_path = 'journalcontact_delete' %}
+        {%else %}
+            {% set back_path = 'manager_journalcontact' %} 
+            {% set delete_path = 'manager_journalcontact_delete' %}
+        {% endif %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
 {% endblock %}

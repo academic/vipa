@@ -3,11 +3,14 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Ojs\Common\Entity\GenericExtendedEntity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * JournalContact
+ * @GRID\Source(columns="id,journal.title,contact.email,contactType.name")
  */
-class JournalContact extends GenericExtendedEntity
-{
+class JournalContact extends GenericExtendedEntity {
+
     /**
      * @var integer
      */
@@ -30,18 +33,21 @@ class JournalContact extends GenericExtendedEntity
 
     /**
      * @var \Ojs\JournalBundle\Entity\Contact
+     * @GRID\Column(field="contact.email",title="Contact")
      */
     private $contact;
 
     /**
      *
      * @var \Ojs\JournalBundle\Entity\ContactTypes
+     * @GRID\Column(field="contactType.name",title="Contact Type")
      */
     private $contactType;
 
     /**
      *
      * @var \Ojs\JournalBundle\Entity\Journal
+     * @GRID\Column(field="journal.title",title="Journal")
      */
     private $journal;
 
@@ -187,4 +193,5 @@ class JournalContact extends GenericExtendedEntity
     {
         return $this->contactType;
     }
+
 }

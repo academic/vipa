@@ -46,7 +46,6 @@
     "mermaid": "*",
     "x-editable": "~1.5.1",
     "JVFloat": "*",
-      "jqBootstrapValidation": "git@github.com:ReactiveRaven/jqBootstrapValidation.git#~1.3.7"
-
+    "jQuery-Validation-Engine": "*"
   }
 }

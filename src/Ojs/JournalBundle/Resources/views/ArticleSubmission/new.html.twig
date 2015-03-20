@@ -37,7 +37,7 @@
                     <div class="col-md-9 col-xs-12">
                         <select name="primaryLanguage" class="form-control select2-element">
                             {% for lang in journal.languages %}
-                                <option value="{{ lang.code }}">{{ lang.name }} [{{ lang.code }}]</option>
+                                <option value="{{ lang.code }}" {% if loop.first %}selected="selected" {% endif %}>{{ lang.name }} [{{ lang.code }}]</option>
                             {% endfor %}
                         </select>
                     </div>
