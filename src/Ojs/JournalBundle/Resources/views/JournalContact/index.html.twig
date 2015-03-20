@@ -1,11 +1,18 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>{{ 'journalcontact.list'|trans }}</h1>
+    <h1>{{ 'journalcontact.list'|trans }}
+        {% if isSystemAdmin() %}
+            {% set create_path = 'journalcontact_new' %} 
+        {%else %}
+            {% set create_path = 'manager_journalcontact_new' %} 
+        {% endif %}
+        {% include '::actionbtns.html.twig' %}
+    </h1>
+
+
 
     {{grid(grid)}}
 
-    <a class="btn btn-default" href="{{ path('journalcontact_new') }}">
-        {{"c"|trans}}
-    </a> 
+
 {% endblock %}

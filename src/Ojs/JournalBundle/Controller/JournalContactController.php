@@ -95,16 +95,17 @@ class JournalContactController extends Controller {
      * Creates a form to create a JournalContact entity.
      *
      * @param JournalContact $entity The entity
-     *
+     * @param array $optionsArray
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(JournalContact $entity)
+    private function createCreateForm(JournalContact $entity, $optionsArray = null)
     {
-        $form = $this->createForm(new JournalContactType(), $entity, array(
+        $options = array_merge(array(
             'action' => $this->generateUrl('journalcontact_create'),
             'method' => 'POST',
             'user' => $this->getUser()
-        ));
+                ), $optionsArray);
+        $form = $this->createForm(new JournalContactType(), $entity, $options);
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -123,8 +124,10 @@ class JournalContactController extends Controller {
      */
     public function newAction($journal = null)
     {
-        $entity = new JournalContact($journal ? array('journalId' => $journal->getId()) : null);
-        $form = $this->createCreateForm($entity);
+        $options['user'] = $this->getUser();
+        $options['journal'] = $journal? : null;
+        $entity = new JournalContact();
+        $form = $this->createCreateForm($entity, $options);
 
         return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
                     'entity' => $entity,
