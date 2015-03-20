@@ -9,22 +9,42 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
 
     <h1>Workflow Templates</h1>
 
+    <h3>System Templates</h3>
     <div class="list-group">
         {% for entity in templates %}
-
-            <a class="list-group-item" href="{{ path('workflow_template_show', { 'id': entity.id } ) }}">
-                <strong class="list-group-item-heading">
-                    {{entity.title}}
-                </strong>
-
-                <br>
-                {{entity.description}}
-            </a> 
-        {% endfor %}  
+            {% if entity.isSystemTemplate is defined  %}
+                {% if entity.isSystemTemplate %}
+                    <a class="list-group-item" href="{{ path('workflow_template_show', { 'id': entity.id } ) }}">
+                        <strong class="list-group-item-heading">
+                            {{entity.title}}
+                        </strong>
+                        <br>
+                        {{entity.description}}
+                    </a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </div>
-    <a href="{{ path('workflow_template_create') }}" class="btn btn-primary pull-right">{{ 'workflow.template.create' | trans }}</a>
+
+    <h3>Created Templates</h3>
+    <div class="list-group">
+        {% for entity in templates %}
+            {% if entity.isSystemTemplate is defined  %}
+                {% if entity.isSystemTemplate == false %}
+                    <a class="list-group-item" href="{{ path('workflow_template_show', { 'id': entity.id } ) }}">
+                        <strong class="list-group-item-heading">
+                            {{entity.title}}
+                        </strong>
+                        <br>
+                        {{entity.description}}
+                    </a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    <a href="{{ path('workflow_template_new') }}" class="btn btn-primary pull-right">{{ 'workflow.template.create' | trans }}</a>
 {% endblock %} 

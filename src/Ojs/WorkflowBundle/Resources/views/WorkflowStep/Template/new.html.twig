@@ -6,60 +6,29 @@
     {'link': path('workflow_templates'), 'title': 'Workflow Templates'},
     {'title': 'New Create'}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{template.title}}<br>
-        <small>{{template.description}}</small>
-    </h1>
-
-    {% for entity in steps %}
-        <div class="list-group-item">
-
-            <span>
-
-                <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
-                    <strong>
-                        {%if entity.firstStep%}<span class="badge">First</span>{%endif%}
-                        {%if entity.lastStep%}<span class="badge">Last</span>{%endif%}
-                        {{entity.title}}
-                    </strong>
-                </a>
-                    <!-- color preview -->
-                <span style="width:20px;height:10px;display:inline-block;background-color: {{entity.color}}"></span>
-                {%for role in entity.roles%}
-                    <span class="label label-info">{{role.name}}</span>
-                {%endfor%}
-            </span>
-
-            <br>
-            <span>
-                <small>Next Steps :</small>
-                {% if entity.getOnlyReply() %}
-                    <span class="label label-primary">
-                        Only Reply
-                        <i class="fa fa-ok"></i>
-                    </span>
-                {% else %}
-                    {%for step in entity.nextSteps%}
-                        <a class="label label-success" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
-                    {%endfor%}
-                {% endif %}
-            </span>
-
-            <span class="pull-right btn-group">
-                <a class="btn btn-info btn-xs" href="{{path('workflowsteps_show',{ 'id': entity.id })}}">
-                    <i class="fa fa-info"></i>
-                </a>
-            </span>
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>Workflow Template Create</h1>
         </div>
-    {% endfor %}
-    <hr>
-    <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right"
-       onclick="return confirm('Your existing workflow design will be overwritten! Are you sure?');">
-        <i class="fa fa-check"></i> {{"useThisTemplate"|trans}}
-    </a>
-
-
+        <div>
+            {{ form_start(form) }}
+            {% for label, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">
+                {{ "workflow.template.create"|trans }}
+            </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}
