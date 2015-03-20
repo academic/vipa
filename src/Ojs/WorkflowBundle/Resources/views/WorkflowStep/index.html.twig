@@ -42,7 +42,9 @@
                             </span>
                         {% else %}
                             {%for step in entity.nextSteps%}
+                                {% if step is not null %}
                                 <a class="label label-success" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
+                                {% endif %}
                             {%endfor%}
                         {% endif %}
                     </span> 

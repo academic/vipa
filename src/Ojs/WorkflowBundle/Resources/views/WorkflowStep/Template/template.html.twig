@@ -9,7 +9,10 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
+
+    {% include '::flashbag.html.twig' %}
+
     <h1>{{template.title}}<br> 
         <small>{{template.description}}</small>
     </h1> 
@@ -19,7 +22,7 @@
 
             <span>
 
-                <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
+                <a href="{{path('workflow_template_step_show',{ 'stepId': entity.id })}}">
                     <strong>
                         {%if entity.firstStep%}<span class="badge">First</span>{%endif%}
                         {%if entity.lastStep%}<span class="badge">Last</span>{%endif%}
@@ -43,23 +46,30 @@
                     </span>
                 {% else %}
                     {%for step in entity.nextSteps%}
-                        <a class="label label-success" href="{{path("workflowsteps_show",{"id":step.id})}}">{{step.title}}</a>
+                        <a class="label label-success" href="{{path('workflow_template_step_show',{ 'stepId': step.id })}}">{{step.title}}</a>
                     {%endfor%}
                 {% endif %}
             </span> 
 
             <span class="pull-right btn-group">
-                <a class="btn btn-info btn-xs" href="{{path('workflowsteps_show',{ 'id': entity.id })}}">
+                <a class="btn btn-info btn-xs" href="{{path('workflow_template_step_show',{ 'stepId': entity.id })}}">
                     <i class="fa fa-info"></i>
                 </a> 
             </span> 
         </div>
     {% endfor %}
     <hr>
-    <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right" 
+    <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right"
        onclick="return confirm('Your existing workflow design will be overwritten! Are you sure?');">
         <i class="fa fa-check"></i> {{"useThisTemplate"|trans}}
-    </a> 
+    </a>
+    {% if template.isSystemTemplate is defined %}
+        {% if template.isSystemTemplate == false %}
+            <a href="{{path('workflow_template_new_step',{'templateId':template.id})}}" class="btn btn-warning">
+                <i class="fa fa-plus"></i> {{"workflow.template.addStep"|trans}}
+            </a>
+        {% endif %}
+    {% endif %}
 
 
 {% endblock %} 
