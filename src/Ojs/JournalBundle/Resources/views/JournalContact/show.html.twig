@@ -1,40 +1,42 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-    <h1>{{ 'journalcontact.singular'|trans }}</h1>
+    <h1>{{ 'journalcontact.singular'|trans }} <small>#{{ entity.id }}</small></h1>
 
-    <table class="record_properties  table">
-        <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalcontact.journal.id'|trans }}</th>
-                <td>{{ entity.journalId }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalcontact.contact.id'|trans }}</th>
-                <td>{{ entity.contactId }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalcontact.contact.type.id'|trans }}</th>
-                <td>{{ entity.contactTypeId }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <fieldset> 
+        <legend>{{ 'journal'|trans }}</legend>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-info">#{{ entity.journalId }}</div>
+            <div class="list-group-item list-group-item-info">{{ entity.journal.title }}</div>
+            <div class="list-group-item list-group-item-info">
+                <a href="//{{ generateJournalUrl(entity.journal) }}">{{ generateJournalUrl(entity.journal) }}</a>
+            </div>
+        </div>
+        <legend>{{ 'contact'|trans }}</legend>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-info">#{{ entity.contactId }}</div>
+            <div class="list-group-item list-group-item-info">{{ entity.contact.fullName}}</div>
+            <div class="list-group-item list-group-item-info">{{ entity.contact.email}}</div>
+        </div>
+        <legend>{{ 'contact.type'|trans }}</legend>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-info">{{ entity.contactType.name }}</div>
+            <div class="list-group-item list-group-item-info">{{ entity.contactType.description }}</div> 
+        </div>
+    </fieldset>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('journalcontact') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('journalcontact_edit', { 'id': entity.id }) }}">
-                {{"e"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+
+    <div class="record_actions">
+        {% if isSystemAdmin() %}
+            {% set back_path = 'journalcontact' %}
+            {% set edit_path = 'journalcontact_edit' %}
+            {% set delete_path = 'journalcontact_delete' %}
+        {%else %}
+            {% set back_path = 'manager_journalcontact' %}
+            {% set edit_path = 'manager_journalcontact_edit' %}
+            {% set delete_path = 'manager_journalcontact_delete' %}
+        {% endif %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
+
 {% endblock %}

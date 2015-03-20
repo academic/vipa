@@ -95,7 +95,7 @@
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}  
-        {% if currnetJournal is defined and journal.theme %}
+        {% if currentJournal is defined and journal.theme %}
             <script type="text/javascript" src="/assets/theme/{{ journal.theme.name }}/js/main.js"></script>
         {% endif %}
 

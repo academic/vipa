@@ -1,6 +1,6 @@
 ojs_journal_manager_journal_contact:
     resource: "@OjsJournalBundle/Resources/config/routing/journalcontact.yml"
-    prefix:   /manager/contact
+    prefix:   /manager/journalcontact
     
 ojs_journal_manager_journal_licence:
     resource: "@OjsJournalBundle/Resources/config/routing/journallicence.yml"
