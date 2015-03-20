@@ -1,4 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
+{% block  stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+{%endblock%}
 
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
@@ -7,11 +11,24 @@
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('manager_journal_licence') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('manager_journal_licence') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
 {% endblock %}
+
+
+{% block  javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("textarea").wysihtml5({
+                toolbar: {"font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+            });
+        });
+    </script>
+{%endblock%}
