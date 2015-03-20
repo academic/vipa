@@ -4,3 +4,8 @@ status:
     rejected: Reddedilmiş
     unpublished: Yayından Kaldırılmış
     waiting: Beklemede
+useThisTemplate: Bu temayı kullan
+workflow:
+    template:
+        create: Şablon Oluştur
+        addStep: Adım Ekle
