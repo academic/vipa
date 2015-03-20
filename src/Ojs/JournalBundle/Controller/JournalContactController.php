@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,8 +24,8 @@ class JournalContactController extends Controller {
      */
     public function indexAction($journal = null)
     {
-        $source = new Entity('OjsJournalBundle:Article');
-        if ($journal) { 
+        $source = new Entity('OjsJournalBundle:JournalContact');
+        if ($journal) {
             $tableAlias = $source->getTableAlias();
             $source->manipulateQuery(
                     function ($query) use ($tableAlias, $journal) {
@@ -35,17 +34,24 @@ class JournalContactController extends Controller {
             );
         }
 
-        $grid = $this->get('grid')->setSource($source);
+        $grid = $this->get('grid');
+        $grid->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
-        $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
-
+        $rowAction = [];
+        if ($this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
+            $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
+            $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
+            $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
+        } else if ($this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+            $rowAction[] = ActionHelper::showAction('manager_journalcontact_show', 'id');
+            $rowAction[] = ActionHelper::editAction('manager_journalcontact_edit', 'id');
+            $rowAction[] = ActionHelper::deleteAction('manager_journalcontact_delete', 'id');
+        }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        return $this->render('OjsJournalBundle:JournalContact:index.html.twig', array(
+        return $grid->getGridResponse('OjsJournalBundle:JournalContact:index.html.twig', array(
                     'grid' => $grid,
         ));
     }
@@ -104,13 +110,19 @@ class JournalContactController extends Controller {
         return $form;
     }
 
+    public function newManagerAction()
+    {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        return $this->newAction($journal);
+    }
+
     /**
      * Displays a form to create a new JournalContact entity.
-     *
+     * @param Journal $journal
      */
-    public function newAction()
+    public function newAction($journal = null)
     {
-        $entity = new JournalContact();
+        $entity = new JournalContact($journal ? array('journalId' => $journal->getId()) : null);
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
@@ -133,11 +145,8 @@ class JournalContactController extends Controller {
             throw $this->createNotFoundException('Unable to find JournalContact entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:JournalContact:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity));
     }
 
     /**
@@ -155,12 +164,10 @@ class JournalContactController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -198,7 +205,6 @@ class JournalContactController extends Controller {
             throw $this->createNotFoundException('Unable to find JournalContact entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -211,7 +217,6 @@ class JournalContactController extends Controller {
         return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -219,38 +224,17 @@ class JournalContactController extends Controller {
      * Deletes a JournalContact entity.
      *
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find JournalContact entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find JournalContact entity.');
         }
-
+        $em->remove($entity);
+        $em->flush();
         return $this->redirect($this->generateUrl('journalcontact'));
-    }
-
-    /**
-     * Creates a form to delete a JournalContact entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        $formHelper = new CommonFormHelper();
-
-        return $formHelper->createDeleteForm($this, $id, 'journalcontact_delete');
     }
 
 }
