@@ -1360,4 +1360,22 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this->getImageOptions();
     }
 
+    protected $description;
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
 }

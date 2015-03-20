@@ -291,6 +291,9 @@ Ojs\JournalBundle\Entity\Journal:
         tags:
             type: string
             nullable: true
+        description:
+            type: text
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt

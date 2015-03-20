@@ -21,6 +21,64 @@ $(document).ready(function () {
     if ($(".select2-element").length) {
         $(".select2-element").select2();
     }
+    function formatResult(item) {
+        return item.name;
+    }
+    function formatSelection(item) {
+        return '<b>' + item.name + '</b>';
+    }
+
+    $(".select2-tags").select2({
+        multiple: true,
+        //Allow manually entered text in drop down.
+        createSearchChoice: function (term, data) {
+            if ($(data).filter(function () {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
+                return {id: term, text: term};
+            }
+        },
+        ajax: {
+            url: '/api/public/search/tags',
+            dataType: 'json',
+            type: "GET",
+            delay: 300,
+            data: function (params) {
+                return {
+                    q: '(.*)'+params+'(.*)',
+                    verified: true
+                };
+            },
+            results: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            slug: item.name,
+                            id: item.id
+                        };
+                    })
+                };
+            },
+            cache: true
+        },
+//            escapeMarkup: function (markup) {
+//                return markup;
+//            }, // let our custom formatter work
+        minimumInputLength: 1
+//            templateResult: formatResult,
+//            templateSelection: formatSelection
+
+    });
+    $('.select2-tags').each(function() {
+        var value = $(this).val();
+        var data = value.split(',');
+        var _data = [];
+        for(var i=0;i<data.length;i++){
+            _data.push({id:data[i],text:data[i],slug: data[i]});
+        }
+        $(this).select2('data', _data);
+    });
     $(document).on('pjax:send', function () {
         $('#loading').show();
     });

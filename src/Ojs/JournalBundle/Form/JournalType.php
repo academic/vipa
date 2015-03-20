@@ -75,6 +75,8 @@ class JournalType extends AbstractType {
                 ->add('scope')
                 ->add('mission')
                 ->add('slug')
+                ->add('tags','text',['attr'=>['class'=>'select2-tags','data-role'=>'']])
+                ->add('description','textarea')
                 ->add('theme', 'entity', array(
                     'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
