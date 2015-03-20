@@ -16,7 +16,7 @@ ojs_journal_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/journal.yml"
     prefix:   /admin/journal
 
-ojs__issue:
+ojs_issue:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/issue.yml"
     prefix:   /admin/issue
 
@@ -39,7 +39,7 @@ ojs_contact_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/contact.yml"
     prefix:   /admin/contact
 
-ojs__contacttypes_crud:
+ojs_contacttypes_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/contacttypes.yml"
     prefix:   /admin/contacttypes
 

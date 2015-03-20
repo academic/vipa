@@ -3,43 +3,9 @@
 {% block body -%}
     <h1>{{ 'journalcontact.list'|trans }}</h1>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{ 'journalcontact.journal.id'|trans }}</th>
-                <th>{{ 'journalcontact.contact.id'|trans }}</th>
-                <th>{{ 'journalcontact.contact.type.id'|trans }}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('journalcontact_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.journalId }}</td>
-                    <td>{{ entity.contactId }}</td>
-                    <td>{{ entity.contactTypeId }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('journalcontact_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('journalcontact_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {{grid(grid)}}
 
-    <ul>
-        <li>
-            <a href="{{ path('journalcontact_new') }}">
-                {{"c"|trans}}
-            </a>
-        </li>
-    </ul>
+    <a class="btn btn-default" href="{{ path('journalcontact_new') }}">
+        {{"c"|trans}}
+    </a> 
 {% endblock %}

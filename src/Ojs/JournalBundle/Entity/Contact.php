@@ -1,13 +1,15 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Contact
  * @GRID\Source(columns="id,title,firstName,lastName,country,phone,email")
  */
-class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
-{
+class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
+
     /**
      * @var integer
      * @GRID\Column(title="id")
@@ -31,6 +33,12 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
      * @GRID\Column(title="lastname")
      */
     private $lastName;
+
+    /**
+     *
+     * @var string
+     */
+    private $fullName;
 
     /**
      * @var string
@@ -119,6 +127,16 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    /**
+     * Get firstName+lastName
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->firstName . " " . $this->lastName;
     }
 
     /**
@@ -280,6 +298,11 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    public function __toString()
+    {
+        return $this->getFullName();
     }
 
 }

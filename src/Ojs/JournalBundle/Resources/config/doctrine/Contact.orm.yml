@@ -12,17 +12,20 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             nullable: TRUE
-            gedmo:
-                - translatable
+            gedmo: 
                 - versioned
         firstName:
             type: string
             length: 255
             column: first_name
+            gedmo: 
+                - versioned
         lastName:
             type: string
             length: 255
             column: last_name
+            gedmo: 
+                - versioned
         address:
             type: text
             nullable: TRUE
@@ -37,6 +40,8 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             nullable: TRUE
+            gedmo: 
+                - versioned
         fax:
             type: string
             length: 255
@@ -44,6 +49,8 @@ Ojs\JournalBundle\Entity\Contact:
         email:
             type: string
             length: 255
+            gedmo: 
+                - versioned
         created:
             type: datetime
             gedmo:
