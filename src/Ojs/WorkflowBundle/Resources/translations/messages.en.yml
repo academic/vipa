@@ -4,4 +4,9 @@ status:
     rejected: Rejected
     unpublished: Unpublished
     waiting: Waiting
-useThisTemplate: Bu temayı kullan
+useThisTemplate: Use this template
+workflow:
+    template:
+        create: Template Create
+        addStep: Add Step
+

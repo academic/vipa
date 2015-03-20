@@ -29,9 +29,29 @@ workflow_templates:
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:index }
     
 workflow_template_show:
-    pattern:  /template/{id}
+    pattern:  /template/{id}/show
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:show }
 
 workflow_template_use:
     pattern:  /template/{id}/use
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:use }
+
+workflow_template_new:
+    pattern:  /template/new
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:new }
+
+workflow_template_create:
+    pattern:  /template/create
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:create }
+
+workflow_template_new_step:
+    pattern:  /template/{templateId}/new/step
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:newStep }
+
+workflow_template_create_step:
+    pattern:  /template/{templateId}/create/step
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:createStep }
+
+workflow_template_step_show:
+    pattern:  /template/step/{stepId}/show
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:showStep }
