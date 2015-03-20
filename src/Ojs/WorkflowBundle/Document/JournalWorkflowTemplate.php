@@ -22,6 +22,12 @@ class JournalWorkflowTemplate
     /** @MongoDb\String */
     protected $description;
 
+    /** @MongoDb\Boolean */
+    protected $isSystemTemplate;
+
+    /** @MongoDb\Int */
+    protected $journalId;
+
     /**
      * Get id
      *
@@ -74,6 +80,50 @@ class JournalWorkflowTemplate
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set isSystemTemplate
+     *
+     * @param boolean $isSystemTemplate
+     * @return self
+     */
+    public function setIsSystemTemplate($isSystemTemplate)
+    {
+        $this->isSystemTemplate = $isSystemTemplate;
+        return $this;
+    }
+
+    /**
+     * Get isSystemTemplate
+     *
+     * @return string $isSystemTemplate
+     */
+    public function getIsSystemTemplate()
+    {
+        return $this->isSystemTemplate;
+    }
+
+    /**
+     * Set journalId
+     *
+     * @param int $journalId
+     * @return self
+     */
+    public function setJournalId($journalId)
+    {
+        $this->journalId = $journalId;
+        return $this;
+    }
+
+    /**
+     * Get journalId
+     *
+     * @return int $journalId
+     */
+    public function getJournalId()
+    {
+        return $this->journalId;
     }
 
 }
