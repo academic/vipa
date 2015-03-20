@@ -72,6 +72,7 @@ class JournalContactController extends Controller {
      */
     public function createAction(Request $request)
     {
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -81,7 +82,7 @@ class JournalContactController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('journalcontact_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_show' : 'manager_journalcontact_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
@@ -197,6 +198,7 @@ class JournalContactController extends Controller {
      */
     public function updateAction(Request $request, $id)
     {
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
@@ -211,7 +213,7 @@ class JournalContactController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('journalcontact_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_edit' : 'managet_journalcontact_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
@@ -226,6 +228,7 @@ class JournalContactController extends Controller {
      */
     public function deleteAction($id)
     {
+        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
@@ -234,7 +237,7 @@ class JournalContactController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('journalcontact'));
+        return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact' : 'manager_journalcontact'));
     }
 
 }
