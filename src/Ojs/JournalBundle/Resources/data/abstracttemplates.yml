@@ -3,23 +3,29 @@
 -
     id: '1'
     lang: en
-    type: Medical Sciences 
+    type: Detailed
     template:  >
-            Abstract template sample<br>
-            Abstract template sample<br>
+                Background: </b> <br><br>
+                Material and Method: </b> <br><br>
+                Results: </b> <br><br>
+                Conclusion:  </b> <br><br>
 
 -
     id: '2'
     lang: en
-    type: Social Sciences
+    type: Detailed
     template:  >
-            Abstract template sample2<br>
-            Abstract template sample2<br>
+        <b>Background: </b> <br><br>
+        <b>Aims: </b> <br><br>
+        <b>Method: </b> <br><br>
+        <b>Results: </b> <br><br>
+        <b>Conclusions and comment: </b> <br><br>
             
 -
     id: '3'
     lang: en
     type: Common
     template:  >
-            Abstract template sample3<br>
-            Abstract template sample3<br>
+            <b>Background: </b> <br><br>
+            <b>Results: </b> <br><br>
+            <b>Conclusions: </b> <br><br>
