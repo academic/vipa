@@ -27,6 +27,7 @@ Ojs\JournalBundle\Entity\JournalLicence:
       joinColumn:
         referencedColumnName: id
         name: journal_id
+      inversedBy: licences
   gedmo:
     soft_deleteable:
       field_name: deletedAt
