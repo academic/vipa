@@ -46,6 +46,6 @@
     "mermaid": "*",
     "x-editable": "~1.5.1",
     "JVFloat": "*",
-
+    "jQuery-Validation-Engine": "*"
   }
 }

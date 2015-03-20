@@ -45,6 +45,8 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js
                     - %kernel.root_dir%/../web/vendor/JVFloat/jvfloat.js
+                    - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js
+                    - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js
 
         admin_main_css:
                 inputs:
@@ -58,6 +60,7 @@ assetic:
                     - %kernel.root_dir%/../web/assets/app/css/admin.css
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
+                    - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
         apptour_css:
                inputs:
                   - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour.min.css

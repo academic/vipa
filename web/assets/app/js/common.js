@@ -17,6 +17,7 @@ $.fn.serializeObject = function ()
 };
 
 $(document).ready(function () {
+    $(".validate-form").validationEngine({promptPosition: 'inline'});
 
     if ($(".select2-element").length) {
         $(".select2-element").select2();
