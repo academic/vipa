@@ -61,7 +61,8 @@ class JournalService {
     public function generateUrl($journal)
     {
         $institution = $journal->getInstitution();
-        return $institution->getSlug() . '/' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
+        return ($this->container->getParameter('https') ? 'https' : 'http') . '://' .
+                $institution->getSlug() . '/' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
     }
 
     public function setSelectedJournal($journalId)

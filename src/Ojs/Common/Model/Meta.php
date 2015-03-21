@@ -20,6 +20,7 @@ class Meta {
      * @var array
      */
     private $metas = [];
+    private $rawMetas = [];
 
     /**
      * @var string
@@ -67,11 +68,17 @@ class Meta {
      */
     public function meta($key, $value = null)
     {
-        if ($value === null) {
-            return $this->get($key);
-        }
-
         return $this->set($key, $value);
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function rawMeta($key, $value = null)
+    {
+        return $this->setRaw($key, $value);
     }
 
     /**
@@ -85,6 +92,16 @@ class Meta {
         }
 
         return $this->metas[$key];
+    }
+
+    /**
+     * @param  string $key
+     * @param  string $value
+     * @return string
+     */
+    public function setRaw($key, $value = null)
+    {
+        return $this->rawMetas[$key] = $value;
     }
 
     /**
@@ -139,6 +156,11 @@ class Meta {
         }
 
         return $this->metas['image'][] = $value;
+    }
+
+    public function tagRaw($key)
+    {
+        return isset($this->rawMetas[$key]) ? $this->rawMetas[$key] : null;
     }
 
     /**
