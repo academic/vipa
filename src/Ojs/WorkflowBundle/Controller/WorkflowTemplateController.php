@@ -6,6 +6,7 @@ use Ojs\WorkflowBundle\Form\TemplateType;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplate;
 use \Symfony\Component\HttpFoundation\Request;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
+use \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
 {
@@ -188,12 +189,104 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
     }
 
     /**
+     * Edit created template. If user try edit system template throws forbidden exception
+     * @param $templateId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction($templateId)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
+
+        //control if is not system template
+        if($template->getIsSystemTemplate() == 1)
+            throw new AccessDeniedHttpException();
+
+        $form = $this->createForm(new TemplateType(), $template, array(
+            'action' => $this->generateUrl('workflow_template_update', array('templateId' =>$templateId)),
+            'method' => 'POST',
+        ));
+
+        return $this->render('OjsWorkflowBundle:WorkflowStep:Template/edit.html.twig', array(
+            'form' => $form->createView(),
+            'template' => $template
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param $templateId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function updateAction(Request $request,$templateId)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
+        $session = $request->getSession();
+        $form = $this->createForm(new TemplateType(), $entity);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $dm->persist($entity);
+            $dm->flush();
+            //add success message
+            $session->getFlashBag()->add(
+                'success',
+                'Template updated successfully.'
+            );
+            return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $entity->getId())));
+        }
+
+        //add error message
+        $session->getFlashBag()->add(
+            'error',
+            'Please recheck your submission'
+        );
+        return $this->redirect($this->generateUrl('workflow_template_edit', array('templateId' => $entity->getId())));
+    }
+
+    /**
+     * Deletes created template. If user try edit system template throws forbidden exception.
+     * @param Request $request
+     * @param $templateId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request,$templateId)
+    {
+        $session = $request->getSession();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
+        $dm->remove($template);
+
+        //control if is not system template
+        if($template->getIsSystemTemplate() == 1)
+            throw new AccessDeniedHttpException();
+
+        $templateSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->createQueryBuilder()
+            ->field('template.$id')
+            ->equals(new \MongoId($template->getId()))
+            ->getQuery()
+            ->execute();
+        //remove all template's steps
+        foreach($templateSteps as $step){
+            $dm->remove($step);
+        }
+        $dm->flush();
+
+        //set success message
+        $session->getFlashBag()->add(
+            'success',
+            'Template successfully removed'
+        );
+        return $this->redirect($this->generateUrl('workflow_templates'));
+    }
+
+    /**
      * add new step to created workflow template
      * @param $templateId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newStepAction($templateId){
-
+    public function newStepAction($templateId)
+    {
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
@@ -223,7 +316,8 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
      * @param $templateId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createStepAction(Request $request, $templateId){
+    public function createStepAction(Request $request, $templateId)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
         $step = new JournalWorkflowTemplateStep();
@@ -261,7 +355,12 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $templateId)));
     }
 
-    public function showStepAction($stepId){
+    /**
+     * @param $stepId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showStepAction($stepId)
+    {
         $step = $this->get('doctrine_mongodb')->getManager()
             ->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
 
@@ -269,11 +368,126 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
     }
 
     /**
+     * @param $stepId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editStepAction($stepId)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $em = $this->getDoctrine()->getManager();
+        $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
+
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
+        $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
+        $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')
+            ->findByJournalid($selectedJournal->getId());
+
+        return $this->render('OjsWorkflowBundle:WorkflowStep/Template:edit_step.html.twig', array(
+                'roles' => $roles,
+                'nextSteps' => $nextSteps,
+                'journal' => $journal,
+                'step' => $step,
+                'forms' => $journalReviewForms
+            )
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param $stepId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function updateStepAction(Request $request, $stepId)
+    {
+        $session = $request->getSession();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
+        /**
+         * @var $step \Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep
+         */
+        $step->setTitle($request->get('title'));
+        $step->setFirststep($request->get('firstStep') ? true : false);
+        $step->setLaststep($request->get('lastStep') ? true : false);
+        $step->setMaxdays($request->get('maxdays'));
+        $step->setJournalid($request->get('journalId'));
+        $step->setColor($request->get('color'));
+        $step->setStatus($request->get('status'));
+        $step->removeAllReviewForms();
+        $reviewFormIds = $request->get('reviewforms');
+        if (!empty($reviewFormIds)) {
+            foreach ($reviewFormIds as $formId) {
+                $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
+                $form && $step->addReviewForm($form);
+            }
+        }
+        //empty nextSteps parameter
+        $step->setNextSteps(array());
+        $step->setRoles($this->prepareRoles($request->get('roles')));
+        $nextSteps = $request->get('nextSteps');
+        if (is_array($nextSteps) && !empty($nextSteps)) {
+            foreach ($nextSteps as $nId) {
+                $nextStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($nId);
+                $step->addNextStep($nextStep);
+            }
+        }
+        $step->setOnlyreply($request->get('onlyreply') ? true : false);
+        $step->setIsVisible($request->get('isVisible') ? true : false);
+        $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
+        $step->setCanEdit($request->get('canEdit') ? true : false);
+        $step->setCanRejectSubmission($request->get('canRejectSubmission') ? true : false);
+        $step->setCanReview($request->get('canReview') ? true : false);
+        $step->setCanSeeAuthor($request->get('canSeeAuthor'));
+        $dm->persist($step);
+        $dm->flush();
+
+        //set success message
+        $session->getFlashBag()->add(
+            'success',
+            'Template step updated successfully'
+        );
+        return $this->redirect($this->generateUrl('workflow_template_step_show', array('stepId' => $stepId)));
+    }
+
+    /**
+     * removes given template step. Alse removes element where added as nextStep
+     * @param Request $request
+     * @param $stepId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteStepAction(Request $request,$stepId)
+    {
+        $session = $request->getSession();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
+        $template = $entity->getTemplate();
+        // get where entity added as next step
+        $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->createQueryBuilder()
+                ->field('nextSteps.$id')
+                ->equals(new \MongoId($entity->getId()))
+                ->getQuery()
+                ->execute();
+        //remove where step is added as next step.
+        foreach($steps as $step)
+            $step->getNextSteps()->removeElement($entity);
+        //remove entity
+        $dm->remove($entity);
+        $dm->flush();
+        $session->getFlashBag()->add(
+            'success',
+            'Step removed successfully'
+        );
+        return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $template->getId())));
+    }
+
+    /**
      * prepare an array given form values for JournalWorkflowTemplate $roles atrribute
      * @param  array $roleIds
      * @return array
      */
-    public function prepareRoles($roleIds) {
+    public function prepareRoles($roleIds)
+    {
         $serializer = $this->get('serializer');
         $em = $this->get('doctrine')->getManager();
         $roles = array();
