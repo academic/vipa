@@ -52,9 +52,16 @@
             </span> 
 
             <span class="pull-right btn-group">
-                <a class="btn btn-info btn-xs" href="{{path('workflow_template_step_show',{ 'stepId': entity.id })}}">
-                    <i class="fa fa-info"></i>
-                </a> 
+                {% if isJournalManager() %}
+                    <a class="btn btn-warning btn-xs" href="{{path('workflow_template_step_edit',{ 'stepId': entity.id })}}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs"
+                       onclick="return confirm('{{"sure"|trans}}');"
+                       href="{{path('workflow_template_step_delete',{ 'stepId': entity.id })}}">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                {% endif %}
             </span> 
         </div>
     {% endfor %}

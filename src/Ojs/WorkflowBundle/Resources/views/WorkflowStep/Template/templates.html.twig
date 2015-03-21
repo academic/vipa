@@ -35,13 +35,24 @@
         {% for entity in templates %}
             {% if entity.isSystemTemplate is defined  %}
                 {% if entity.isSystemTemplate == false %}
-                    <a class="list-group-item" href="{{ path('workflow_template_show', { 'id': entity.id } ) }}">
+                    <div class="list-group-item">
                         <strong class="list-group-item-heading">
-                            {{entity.title}}
-                        </strong>
-                        <br>
+                            <a href="{{path('workflow_template_show',{ 'id': entity.id })}}">
+                                {{entity.title}}
+                            </a>
+                        </strong><br>
                         {{entity.description}}
-                    </a>
+                        <span class="pull-right btn-group">
+                            {% if isJournalManager() %}
+                                <a class="btn btn-warning btn-xs" href="{{path('workflow_template_edit',{ 'templateId': entity.id })}}">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a class="btn btn-danger btn-xs"  onclick="return confirm('{{"sure"|trans}}');" href="{{path('workflow_template_delete',{ 'templateId': entity.id })}}">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            {% endif %}
+                        </span>
+                    </div>
                 {% endif %}
             {% endif %}
         {% endfor %}

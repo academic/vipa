@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label>Roles</label>
-                    <select name="roles[]" class="select2-element" style="height:120px" multiple="multiple">
+                    <select name="roles[]" class="select2-element" style="min-width: 250px"  multiple="multiple">
                         {%for role in roles%}
                             <option
                                 {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
@@ -120,9 +120,11 @@
 
                     <select name="nextSteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
                         {%for nstep in nextSteps%}
-                            <option
-                                {%if hasIdInObjects(nstep.id,step.nextSteps)%}selected="selected"{%endif%}
-                                value="{{nstep.id}}">{{nstep.title}}</option>
+                            {% if step.id != nstep.id %}
+                                <option
+                                    {%if hasIdInObjects(nstep.id,step.nextSteps)%}selected="selected"{%endif%}
+                                    value="{{nstep.id}}">{{nstep.title}}</option>
+                            {% endif %}
                         {%endfor%}
                     </select>
                 </div>

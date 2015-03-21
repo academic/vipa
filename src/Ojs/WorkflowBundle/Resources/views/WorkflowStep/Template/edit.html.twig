@@ -1,0 +1,28 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'link': path('workflow_templates'), 'title': 'Workflow Templates'},
+    {'link': path('workflow_template_show', {id: template.id}), 'title': template.title},
+    {'title': 'Edit Template'}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <div class="panel">
+        <div class="panel-heading">
+            <h1>Template Edit</h1>
+        </div>
+        <div>
+            {{ form_start(form) }}
+            {% include '::flashbag.html.twig' %}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">
+                {{ "workflow.template.update"|trans }}
+            </button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

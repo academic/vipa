@@ -1,0 +1,192 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'link': path('ojs_workflow_homepage'), 'title': 'Workflows'},
+    {'link': path('workflow_template_show', {id: step.template.id}), 'title': step.template.title},
+    {'title': 'Step Edit'}
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%}
+    <div class="panel">
+        {% include '::flashbag.html.twig' %}
+        <div class="panel-heading">
+            <h1>New Template Step</h1>
+        </div>
+        <div class="panel-body">
+            <form method="post" class="form-row" action="{{path('workflow_template_step_update', {stepId: step.id})}}">
+                <div class="form-group">
+                    <label>Journal</label>
+                    <input type="hidden" name="journalId" value="{{journal.id}}" />
+                    <span>{{journal.title}}</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Template name</label>
+                    <input type="hidden" name="templateId" value="{{step.template.id}}" />
+                    <span>{{step.template.title}}</span>
+                </div>
+
+                <div class="form-group">
+                    <label>Title</label>
+                    <input class="form-control" name="title" value="{{step.title}}">
+                </div>
+
+                <div class="form-group">
+                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="{{step.color}}" />
+                    <a style="padding:2px;height:24px;display:block;background-color: {{step.color}} " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
+                </div>
+
+                <div class="form-group">
+                    <label>Status Text</label>
+                    <input class="form-control" name="status" value="{{step.status}}">
+                </div>
+
+                <div class="form-inline">
+                    <label class="label label-info" style="line-height: 20px;display: inline-block;">
+                        First Step?
+                        <input type="checkbox" name="firstStep" value="1"
+                               {%if step.firstStep %}checked="checked"{%endif%}> </label>
+                    <label class="label label-warning"
+                           style="line-height: 20px;display: inline-block;">
+                        Last Step?
+                        <input type="checkbox" name="lastStep" value="1"
+                               {%if step.lastStep %}checked="checked"{%endif%}></label>
+                </div>
+                <div class="form-group">
+                    <label>Allowed maximum days</label>
+                    <input class="form-control" name="maxdays" type="number" min="0" max="10000"  value="{{step.maxdays}}" />
+                </div>
+
+
+                <div class="form-group">
+                    <label>Roles</label>
+                    <select name="roles[]" class="select2-element" style="min-width: 250px" multiple="multiple">
+                        {%for role in roles%}
+                            <option
+                                    {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
+                                    value="{{role.id}}">{{role.role}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="label label-primary" style="line-height: 20px;display: inline-block;">
+                        Can only reply back?
+                        <input type="checkbox" name="onlyreply" value="1"
+                               {%if step.onlyreply %}checked="checked"{%endif%}>
+                    </label>
+                </div>
+
+                <div class="form-inline">
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Is visible to author?
+                        <input type="checkbox" name="isVisible" value="1"
+                               {%if step.isVisible%}checked="checked"{%endif%}>
+                    </label>
+                    <label class="label label-warning"
+                           style="line-height: 20px;display: inline-block;">
+                        Can user see author?
+                        <input type="checkbox" name="canSeeAuthor" value="1"
+                               {%if step.canSeeAuthor%}checked="checked"{%endif%}>
+                    </label>
+
+
+
+                </div>
+                <div class="form-inline">
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Can edit?
+                        <input type="checkbox" name="canEdit" value="1"
+                               {%if step.canEdit%}checked="checked"{%endif%}>
+                    </label>
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Can review?
+                        <input type="checkbox" name="canReview" value="1"
+                               {%if step.canReview%}checked="checked"{%endif%}>
+                    </label>
+
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Must be assigned to someone?
+                        <input type="checkbox" name="mustBeAssigned" value="1"
+                               {%if step.mustBeAssigned%}checked="checked"{%endif%}>
+                    </label>
+
+                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                        Can reject the submission completely?
+                        <input type="checkbox" name="canRejectSubmission" value="1"
+                               {%if step.canRejectSubmission%}checked="checked"{%endif%}>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Possible Next Steps</label>
+
+                    <select name="nextSteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
+                        {%for nstep in nextSteps%}
+                            {% if step.id != nstep.id %}
+                                <option
+                                        {%if hasIdInObjects(nstep.id,step.nextSteps)%}selected="selected"{%endif%}
+                                        value="{{nstep.id}}">{{nstep.title}}</option>
+                            {% endif %}
+                        {%endfor%}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Review Forms</label>
+
+                    <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
+                        <option>[No review form]</option>
+                        {%for form in forms%}
+                            <option
+                                    {%if step.hasForm(form)%}selected="selected"{%endif%}
+                                    value="{{form.id}}">{{form.title}}
+                            </option>
+                        {%endfor%}
+                    </select>
+                    <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+                </div>
+
+                <div>
+                    <input type="submit" class="btn btn-success" value="{{"workflow.template.updateStep"|trans}}" />
+                    <a href="{{path('workflow_template_show', {id: step.template.id})}}" class="btn btn-default">
+                        <i class="fa fa-arrow-left"></i>
+                        Back to Template
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts -%}
+    {{  parent()  }}
+    <script>
+        function randomColor() {
+            $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            $("#inputcolor").val($rndcolor);
+            $("#previewcolor").css("backgroundColor", $rndcolor);
+            console.log($rndcolor);
+        }
+        $(document).ready(function () {
+            $("#titleinput").blur(function () {
+                $("#statusinput").val($(this).val());
+                $("#statusauthorinput").val('Review');
+            });
+            $("#inputcolor").on('keyup', function () {
+                $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
+            });
+            randomColor();
+            $(".generateRandomColor").click(randomColor);
+        });
+
+    </script>
+
+
+{% endblock %}
