@@ -33,17 +33,23 @@ class ArticleService {
      */
     public function generateMetaTags($article)
     {
-        $meta = new \Laravel\Meta\Meta(array('title_limit' => 120, 'description_limit' => 200, 'image_limit' => 5));
+        $meta = new \Ojs\Common\Model\Meta(array('title_limit' => 120, 'description_limit' => 200, 'image_limit' => 5));
         if ($article) {
             $meta->meta('DC.Title', $article->getTitle());
             $meta->meta('DC.Description', $article->getAbstract());
 
-
             $meta->meta('DC.Source', $article->getJournal()->getTitle());
             $meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
-            $meta->meta('DC.Source.Issue',  $article->getIssue()->getNumber()."");
+            $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
             $meta->meta('DC.Source.URI', '//' . $this->container->get('ojs.journal_service')->generateUrl($article->getJournal()));
             $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
+
+            $articleAuthors = $article->getArticleAuthors();
+            $authors = [];
+            foreach ($articleAuthors as $articleAuthor) {
+                $authors[] = $articleAuthor->getAuthor()->getFullName();
+            } 
+            $meta->meta('DC.Creator.PersonalName', $authors);
         }
         return $meta;
     }
