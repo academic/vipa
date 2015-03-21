@@ -33,3 +33,4 @@ parameters:
         client_secret:
         redirect_uri:
         sandbox: true
+    https: false
