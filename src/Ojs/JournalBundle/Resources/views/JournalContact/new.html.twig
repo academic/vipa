@@ -5,10 +5,18 @@
 
     {{ form(form) }}
 
+
+    {% if isJournalManager() %}
+        <div class="alert alert-warning">
+            <h4>Not listed here?</h4>
+            <a class="btn btn-warning" href="">Add new contact details</a>
+        </div>
+    {% endif %}
+
     <div class="record_actions">
         {% if isSystemAdmin() %}
             {% set back_path = 'journalcontact' %} 
-        {%else %} 
+        {%elseif isJournalManager() %} 
             {% set back_path = 'manager_journalcontact' %}
         {% endif %}
         {% include '::actionbtns.html.twig' %}
