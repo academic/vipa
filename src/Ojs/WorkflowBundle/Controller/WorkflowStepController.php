@@ -65,10 +65,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setJournalid($request->get('journalId'));
         $step->setRoles($this->prepareRoles($request->get('roles')));
-        foreach($request->get('nextSteps') as $nId){
-            $nextStep = $dm->getRepository()->find($nId);
-            $step->addNextStep($nextStep);
-        }
+        if(is_array($request->get('nextSteps')))
+            foreach($request->get('nextSteps') as $nId){
+                $nextStep = $dm->getRepository()->find($nId);
+                $step->addNextStep($nextStep);
+            }
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setStatus($request->get('status'));
         $step->setTitle($request->get('title'));
@@ -138,10 +139,26 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         );
     }
 
-    public function deleteAction($id) {
+    /**
+     * Removes given step. Also removes elements where added as stepNext
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
-        $dm->remove($step);
+        $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
+        // get where entity added as next step
+        $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->createQueryBuilder()
+            ->field('nextSteps.$id')
+            ->equals(new \MongoId($entity->getId()))
+            ->getQuery()
+            ->execute();
+        //remove where step is added as next step.
+        foreach($steps as $step)
+            $step->getNextSteps()->removeElement($entity);
+        //remove entity
+        $dm->remove($entity);
         $dm->flush();
 
         return $this->redirect($this->generateUrl('manage_workflowsteps'));

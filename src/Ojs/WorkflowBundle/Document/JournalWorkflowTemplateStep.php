@@ -30,7 +30,7 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep {
     /**
      * Add nextStep
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
      */
     public function addNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep) {
         $this->nextSteps[] = $nextStep;
@@ -39,7 +39,7 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep {
     /**
      * Remove nextStep
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
      */
     public function removeNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep) {
         $this->nextSteps->removeElement($nextStep);
@@ -57,7 +57,7 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep {
     /**
      * Set template
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
+     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
      * @return self
      */
     public function setTemplate(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template) {
@@ -72,6 +72,16 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep {
      */
     public function getTemplate() {
         return $this->template;
+    }
+
+    /**
+     * Set nextSteps
+     *
+     * @return self
+     */
+    public function setNextSteps($nextSteps) {
+        $this->nextSteps = $nextSteps;
+        return $this;
     }
 
 }
