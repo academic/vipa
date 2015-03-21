@@ -9,4 +9,6 @@ workflow:
     template:
         create: Template Create
         addStep: Add Step
+        update: Template Update
+        updateStep: Update Step
 

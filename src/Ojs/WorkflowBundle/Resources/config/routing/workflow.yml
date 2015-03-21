@@ -10,7 +10,6 @@ workflowsteps_delete:
     pattern:  /step/{id}/delete
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:delete }
 
-
 workflowsteps_show:
     pattern:  /step/{id}/show
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:show }
@@ -44,14 +43,38 @@ workflow_template_create:
     pattern:  /template/create
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:create }
 
+workflow_template_edit:
+    pattern:  /template/{templateId}/edit
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:edit }
+
+workflow_template_update:
+    pattern:  /template/{templateId}/update
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:update }
+
+workflow_template_delete:
+    pattern:  /template/{templateId}/delete
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:delete }
+
 workflow_template_new_step:
-    pattern:  /template/{templateId}/new/step
+    pattern:  /template/step/{templateId}/new
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:newStep }
 
 workflow_template_create_step:
-    pattern:  /template/{templateId}/create/step
+    pattern:  /template/step/{templateId}/create
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:createStep }
 
 workflow_template_step_show:
     pattern:  /template/step/{stepId}/show
     defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:showStep }
+
+workflow_template_step_edit:
+    pattern:  /template/step/{stepId}/edit
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:editStep }
+
+workflow_template_step_update:
+    pattern:  /template/step/{stepId}/update
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:updateStep }
+
+workflow_template_step_delete:
+    pattern:  /template/step/{stepId}/delete
+    defaults: { _controller: OjsWorkflowBundle:WorkflowTemplate:deleteStep }

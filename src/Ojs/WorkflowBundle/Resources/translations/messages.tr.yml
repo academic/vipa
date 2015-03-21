@@ -9,3 +9,5 @@ workflow:
     template:
         create: Şablon Oluştur
         addStep: Adım Ekle
+        update: Şablonu Güncelle
+        updateStep: Adımı Güncelle
