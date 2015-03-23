@@ -89,6 +89,24 @@ class ManagerController extends Controller {
         ));
     }
 
+    public function journalSettingsMailAction(Request $req, $journalId = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        $journal = !$journalId ?
+                $this->get("ojs.journal_service")->getSelectedJournal() :
+                $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        if ($req->getMethod() == 'POST' && !empty($req->get('emailSignature'))) {
+            $this->updateJournalSetting($journal, 'emailSignature', $req->get('emailSignature'), false);
+        }
+        $emailSignature = $journal->getSetting('emailSignature')?$journal->getSetting('emailSignature')->getValue():null;
+
+        return $this->render('OjsManagerBundle:Manager:journal_settings_mail.html.twig', array(
+                    'journal' => $journal,
+                    'emailSignature' => $emailSignature 
+        ));
+    }
+
     public function userIndexAction()
     {
         $user = $this->getUser();

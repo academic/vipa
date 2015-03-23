@@ -11,7 +11,7 @@ settings: Ayarlar
 journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
-workflow: 'İş Akışı
+workflow: İş Akışı
 admin: Yönetim
 dashboard: Panel
 title: Başlık
@@ -349,7 +349,8 @@ journal.settings.submission.language: Makale Gönderim Dilleri
 journal.settings.submission.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz
 journal.settings.submission: Dergi Makale Gönderim Ayarları
 journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
-
+journal.settings.mail: "Email Ayarları"
+journal.settings.mail.signature: "Email imzası"
 
 setup.step: 'Adım'
 save.finish: 'Kaydet ve Bitir'
