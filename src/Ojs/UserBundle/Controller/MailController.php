@@ -38,7 +38,7 @@ class MailController extends Controller {
             $mail->from = $this->container->getParameter('system_email');
         }
         if ($journal) {
-            $mail->body.="<br><br><hr>" . $journal->getSetting('emailSignature');
+            $mail->body.=$journal->getSetting('emailSignature');
         }
         $em = $this->getDoctrine()->getManager();
         $mailLog = new MailLog();
