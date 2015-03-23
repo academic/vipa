@@ -123,17 +123,8 @@
             <h3 class="page-header">{{ "subject.plural"|trans }}</h3>
 
             <div class="row">
-                <div class="col-md-12 col-xs-12">
-                    <ul class="list-unstyled">
-                        {% if subjects is defined %}
-                            {% for subject in subjects %}
-                                <li class="col-md-4">
-                                    <a href="{{ path("ojs_journals_index") }}?{{ addFilters('subject',subject.slug) }}">{{ subject.subject }}</a>
-                                    <span class="label label-info pull-right">{{ subject.totalJournalCount }}</span>
-                                </li>
-                            {% endfor %}
-                        {% endif %}
-                    </ul>
+                <div class="col-md-12 col-xs-12 home-subject-tree">
+                    {{ subjects|raw }}
                 </div>
             </div>
         </section>

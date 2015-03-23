@@ -1034,6 +1034,9 @@ a.vimeo:hover * { color:#FFF; }
     color: #8e8e8e;
 }
 
+.home-subject-tree ul {margin-bottom: 1px}
+.home-subject-tree ul ul{padding: 1px 0 0 10px}
+.home-subject-tree > ul > li {width: 50%; float: left}
 
 @media (max-width: 768px) {
     .jvFloat{display: block;margin: 0 0 2em;}
