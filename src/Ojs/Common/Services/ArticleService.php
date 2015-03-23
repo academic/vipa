@@ -43,12 +43,18 @@ class ArticleService {
             $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
             $meta->meta('DC.Source.URI', $this->container->get('ojs.journal_service')->generateUrl($article->getJournal()));
             $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
-            /*
-             * <meta name="DC.Date.created" scheme="ISO8601" content="2014-02-25"/>
-              <meta name="DC.Date.dateSubmitted" scheme="ISO8601" content="2014-02-05"/>
-              <meta name="DC.Date.issued" scheme="ISO8601" content="2014-05-07"/>
-              <meta name="DC.Date.modified" scheme="ISO8601" content="2014-02-25"/>
-             */
+
+            $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+            $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+            $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
+            $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+
+            $meta->rawMeta('article:modified_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:modified_time"/>');
+            $meta->rawMeta('article:publish_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:publish_time"/>');
+            $meta->rawMeta('og:url', '<meta content="' . $this->generateUrl($article) . '" property="og:url"/>');
+            $meta->rawMeta('og:title', '<meta content="' . $article->getTitle() . '" property="og:title"/>');
+            $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
+
             $meta->meta('DC.Type', 'Text.Serial.Journal');
             $meta->meta('DC.Type.articleType', '');
 
@@ -59,7 +65,6 @@ class ArticleService {
             $meta->meta('DC.Identifier.URI', $this->generateUrl($article));
             $meta->meta('DC.Language', $article->getPrimaryLanguage(), ' scheme="ISO639-1"');
             $meta->meta('DC.Rights', '');
-
 
             $articleAuthors = $article->getArticleAuthors();
             $authors = [];

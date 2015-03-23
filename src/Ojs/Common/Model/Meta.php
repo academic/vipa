@@ -94,6 +94,15 @@ class Meta {
         return $this->metas[$key];
     }
 
+    public function getRaw($key)
+    {
+        if (empty($this->rawMetas[$key])) {
+            return null;
+        }
+
+        return $this->rawMetas[$key];
+    }
+
     /**
      * @param  string $key
      * @param  string $value
