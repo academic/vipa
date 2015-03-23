@@ -6,13 +6,19 @@
 {%endif%}
 <!DOCTYPE html>
 <html>
-    <head>
+    <head  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
         <meta charset="UTF-8" />
         <title>{% block title %}Ojs{% endblock %}</title>
         {% if schemaMetaTag is defined %}
             {{schemaMetaTag|raw }}
         {% endif %}
-        {% if meta is defined %} 
+        {% if meta is defined %}  
+            {{meta.getRaw('article:modified_time')|raw}}
+            {{meta.getRaw('article:published_time')|raw}}
+            {{meta.getRaw('og:type')|raw}}
+            {{meta.getRaw('og:title')|raw}}
+            {{meta.getRaw('og:url')|raw}}
+
             {{meta.tag('DC.Title')|raw}}
             {{meta.tag('DC.Description')|raw}} 
 
