@@ -56,7 +56,7 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = $value; 
 
         return $this;
     }

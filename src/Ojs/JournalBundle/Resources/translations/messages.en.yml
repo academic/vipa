@@ -361,6 +361,8 @@ journal.settings.submission.language: Submission Language
 journal.settings.submission.language.text: Select mandotary languages for article submitting
 journal.settings.submission: "Journal's Submission Settings"
 journal.settings.submission.abstractTemplate: Submission Abstract Template 
+journal.settings.mail: "Mail Settings"
+journal.settings.mail.signature: "Email signature"
 
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
