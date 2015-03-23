@@ -24,12 +24,18 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array(), array(), 12);
         $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
-        $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-        foreach ($subjects as $subject) {
-            if ($subject->getTotalJournalCount() > 0) {
-                $data["subjects"][] = $subject;
-            }
-        }
+        $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject');
+        $options =  array(
+            'decorate' => true,
+            'rootOpen' => '<ul>',
+            'rootClose' => '</ul>',
+            'childOpen' => '<li>',
+            'childClose' => '</li>',
+            'idField' => true,
+            'nodeDecorator' => function ($node) {
+                return '<a href="' . $this->generateUrl('subject_show', array('id' => $node['id'])) . '">' . $node['subject'] . '</a>';
+            });
+        $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
         // anything else is anonym main page
         return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
