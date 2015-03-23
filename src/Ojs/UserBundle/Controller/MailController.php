@@ -11,8 +11,8 @@ use Ojs\UserBundle\Entity\Model\Mail;
  * Mail controller.
  *
  */
-class MailController extends Controller
-{
+class MailController extends Controller {
+
     protected $container;
     protected $mailer;
 
@@ -25,9 +25,10 @@ class MailController extends Controller
     /**
      * Send a mail or add to spool, then log to db.
      * @param  Mail  $mail
+     * @param \Ojs\JournalBundle\Entity\Journal $journal
      * @return mixed
      */
-    public function send(Mail $mail)
+    public function send(Mail $mail, \Ojs\JournalBundle\Entity\Journal $journal)
     {
         if (isset($mail->template)) {
             $mail->templateData = isset($mail->templateData) ? $mail->templateData : array();
@@ -36,14 +37,17 @@ class MailController extends Controller
         if (!isset($mail->from)) {
             $mail->from = $this->container->getParameter('system_email');
         }
+        if ($journal) {
+            $mail->body.="<br><br><hr>" . $journal->getSetting('emailSignature');
+        }
         $em = $this->getDoctrine()->getManager();
         $mailLog = new MailLog();
         $message = \Swift_Message::newInstance()
-            ->setSubject($mail->subject)
-            ->setFrom($mail->from)
-            ->setTo($mail->to)
-            ->setBody($mail->body)
-            ->setContentType('text/html');
+                ->setSubject($mail->subject)
+                ->setFrom($mail->from)
+                ->setTo($mail->to)
+                ->setBody($mail->body)
+                ->setContentType('text/html');
 
         $mailLog->setMailObject($message->toString());
         $mailLog->setRecipientEmail($mail->to);
@@ -52,4 +56,5 @@ class MailController extends Controller
 
         return $this->mailer->send($message);
     }
+
 }
