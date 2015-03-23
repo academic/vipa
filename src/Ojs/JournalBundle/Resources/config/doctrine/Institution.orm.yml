@@ -18,7 +18,7 @@ Ojs\JournalBundle\Entity\Institution:
             targetEntity: Author
             mappedBy: institution
             cascade: ["persist", "merge"]
-            fetch: LAZY
+            fetch: EXTRA_LAZY
         children:
             targetEntity: Institution
             mappedBy: parent
