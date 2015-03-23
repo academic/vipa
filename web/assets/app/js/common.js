@@ -17,8 +17,8 @@ $.fn.serializeObject = function ()
 };
 
 $(document).ready(function () {
-    $(".validate-form").validationEngine({promptPosition: 'inline',validateNonVisibleFields: true,
-        updatePromptsPosition:true});
+    $(".validate-form").validationEngine({promptPosition: 'inline', validateNonVisibleFields: true,
+        updatePromptsPosition: true});
 
     if ($(".select2-element").length) {
         $(".select2-element").select2();
@@ -29,14 +29,16 @@ $(document).ready(function () {
     function formatSelection(item) {
         return '<b>' + item.name + '</b>';
     }
-
+    $('input.tags').tagsinput({
+        tagClass: 'label label-info'
+    });
     $(".select2-tags").select2({
         multiple: true,
         //Allow manually entered text in drop down.
         createSearchChoice: function (term, data) {
             if ($(data).filter(function () {
-                    return this.text.localeCompare(term) === 0;
-                }).length === 0) {
+                return this.text.localeCompare(term) === 0;
+            }).length === 0) {
                 return {id: term, text: term};
             }
         },
@@ -47,7 +49,7 @@ $(document).ready(function () {
             delay: 300,
             data: function (params) {
                 return {
-                    q: '(.*)'+params+'(.*)',
+                    q: '(.*)' + params + '(.*)',
                     verified: true
                 };
             },
@@ -72,12 +74,12 @@ $(document).ready(function () {
 //            templateSelection: formatSelection
 
     });
-    $('.select2-tags').each(function() {
+    $('.select2-tags').each(function () {
         var value = $(this).val();
         var data = value.split(',');
         var _data = [];
-        for(var i=0;i<data.length;i++){
-            _data.push({id:data[i],text:data[i],slug: data[i]});
+        for (var i = 0; i < data.length; i++) {
+            _data.push({id: data[i], text: data[i], slug: data[i]});
         }
         $(this).select2('data', _data);
     });
@@ -88,7 +90,7 @@ $(document).ready(function () {
         $('#loading').hide();
     });
 
-    $('a[title]').tooltip(); 
+    $('a[title]').tooltip();
     $(".panel-heading.toggle-body").click(function () {
         $(this).next(".panel-body").slideToggle();
     });
