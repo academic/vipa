@@ -33,13 +33,16 @@ class ArticleSubmissionController extends Controller {
     {
 
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $ta = $source1->getTableAlias();
-        $source1->manipulateRow(function (Row $row) {
+        $source1->manipulateRow(function (Row $row) use ($dm) {
             if (null !== ($row->getField('status'))) {
-                $status = $row->getField('status');
-                $colors = \Ojs\Common\Params\CommonParams::getStatusColors();
-                $text = \Ojs\Common\Params\CommonParams::getStatusTexts();
-                $row->setField('status', "<span style='background: {$colors[$status]};display: block'>{$text[$status]}</span>");
+                $articleId = $row->getField('id');
+                $currentStep = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
+                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));
+                $row->setColor($currentStep->getStep()->getColor() );
+                $row->setField('status', "<span style='display:block;background: " .
+                        ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
             }
             return $row;
         });
