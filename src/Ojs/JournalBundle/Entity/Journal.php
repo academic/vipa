@@ -14,8 +14,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,issn,eissn,country.name,institution")
  */
-class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Translatable
-{
+class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Translatable {
 
     /**
      * @var integer
@@ -100,6 +99,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @Expose
      */
     private $country_id;
+
     /**
      * @var integer
      * @Expose
@@ -226,8 +226,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var \Doctrine\Common\Collections\Collection
      */
     private $bannedUsers;
-
     private $userRoles;
+
+    /**
+     * @var String
+     */
+    protected $description;
 
     /**
      * Constructor
@@ -275,14 +279,14 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this;
     }
 
-    
     /**
      * @param  string $settingName 
      * @return bool
      */
-    public function hasSetting($settingName) {
+    public function hasSetting($settingName)
+    {
         foreach ($this->settings as $setting) {
-            if($setting->getSetting() === $settingName ){
+            if ($setting->getSetting() === $settingName) {
                 return true;
             }
         }
@@ -294,7 +298,8 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param  string $settingName
      * @return JournalSetting|boolean
      */
-    public function getSetting($settingName) {
+    public function getSetting($settingName)
+    {
         return isset($this->settings[$settingName]) ? $this->settings[$settingName] : false;
     }
 
@@ -303,7 +308,8 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param  string $settingName
      * @return JournalSetting|boolean
      */
-    public function getAttribute($settingName) {
+    public function getAttribute($settingName)
+    {
         return $this->getSetting($settingName);
     }
 
@@ -1197,15 +1203,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this;
     }
 
-
-
-
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $journals_indexs;
-
-
 
     /**
      * Add journalThemes
@@ -1219,6 +1220,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
         return $this;
     }
+
     /**
      * Remove journalThemes
      *
@@ -1261,6 +1263,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->journals_indexs;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -1359,8 +1362,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         return $this->getImageOptions();
     }
-
-    protected $description;
 
     /**
      * @return mixed
