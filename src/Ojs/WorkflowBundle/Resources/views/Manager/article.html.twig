@@ -361,14 +361,14 @@
     {% if articleStep.note %}
         <div>
             <h2>{{ 'Notes' }}</h2>
-            {{ articleStep.note }}
+            {{ articleStep.note|raw }}
         </div>
     {% endif %}
 
     {% if articleStep.reviewNotes %}
         <div>
             <h2>{{ 'Review Notes'|trans }}</h2>
-            {{ articleStep.reviewNotes }}
+            {{ articleStep.reviewNotes|raw }}
         </div>
     {% endif %}
 

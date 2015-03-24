@@ -200,8 +200,8 @@ var OjsArticleSubmission = {
         });
     },
     step2: function (actionUrl) {
-        forms = $(".author-item");
-        if (forms.length === 0) {
+        formPanels = $(".author-item");
+        if (formPanels.length === 0) {
             OjsCommon.errorModal("Add at least one author.");
             return false;
         }
@@ -210,11 +210,12 @@ var OjsArticleSubmission = {
         authorParams = false;
         var dataArray = [];
         var hasError = false;
-        forms.each(function () {
-            if(!$(this).validationEngine('validate')){
+        formPanels.each(function () {
+            form = $("form",$(this));
+            if(!form.validationEngine('validate')){
                 hasError = true;
             }
-            dataArray.push($("form", this).serializeObject());
+            dataArray.push(form.serializeObject());
         });
 
         if (hasError) {
