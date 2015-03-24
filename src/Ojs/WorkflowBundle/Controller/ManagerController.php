@@ -161,7 +161,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
         $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"' . $nextStep->getTitle() . '"</strong>');
         $mustBeAssigned = $nextStep->getMustBeAssigned();
         if ($mustBeAssigned) {
-            $this->get('session')->getFlashBag()->add('warning', 'Now you should assign a/some user to this step.');
+            $this->get('session')->getFlashBag()->add('warning', 'Now you should assign user to this step.');
             return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $newStep->getId())));
         }
         return $this->redirect($this->generateUrl('ojs_user_index'));
@@ -206,7 +206,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController
                 $dm->flush();
             }
         }
-        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully."' . $articleStep->getStep()->getTitle() . '"</strong>');
+        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully for "' . $articleStep->getStep()->getTitle() . '"</strong>');
         return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $articleStepId)));
     }
 
