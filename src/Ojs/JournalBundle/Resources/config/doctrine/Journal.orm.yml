@@ -226,17 +226,6 @@ Ojs\JournalBundle\Entity\Journal:
         logo_options:
             type: string
             nullable: true
-        scope:
-            type: text
-            nullable: true
-            gedmo:
-                - translatable
-                - versioned
-        mission:
-            type: text
-            nullable: true
-            gedmo:
-                - translatable
         slug:
             type: string
             nullable: true
