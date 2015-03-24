@@ -15,9 +15,7 @@ class Step4 extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('scope')
-            ->add('mission');
+        $builder;
     }
 
     /**

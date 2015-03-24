@@ -41,8 +41,6 @@ class JournalControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journal[published]'] = 1;
         $form['ojs_journalbundle_journal[status]'] = 1;
         $form['ojs_journalbundle_journal[image]'] = 'Content';
-        $form['ojs_journalbundle_journal[scope]'] = 'Content';
-        $form['ojs_journalbundle_journal[mission]'] = 'Content';
         $form['ojs_journalbundle_journal[slug]'] = 'Content';
         $form['ojs_journalbundle_journal[theme]'] = 3;
 
