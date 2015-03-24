@@ -33,7 +33,7 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl('subject_show', array('id' => $node['id'])) . '">' . $node['subject'] . '</a>';
+                return '<a href="' . $this->generateUrl('subject_show', array('id' => $node['id'])) . '">' . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
             });
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
