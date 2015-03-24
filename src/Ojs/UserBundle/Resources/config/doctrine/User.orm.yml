@@ -88,7 +88,13 @@ Ojs\UserBundle\Entity\User:
         avatar:
             type: string
             nullable: true
+        avatar_options:
+            type: string
+            nullable: true
         header:
+            type: string
+            nullable: true
+        header_options:
             type: string
             nullable: true
         created:

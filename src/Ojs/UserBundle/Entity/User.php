@@ -735,6 +735,42 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->oauthAccounts->removeElement($oauthAccounts);
     }
 
+    protected $avatar_options;
+
+    /**
+     * @return mixed
+     */
+    public function getAvatarOptions()
+    {
+        return $this->avatar_options;
+    }
+
+    /**
+     * @param mixed $avatar_options
+     */
+    public function setAvatarOptions($avatar_options)
+    {
+        $this->avatar_options = $avatar_options;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaderOptions()
+    {
+        return $this->header_options;
+    }
+
+    /**
+     * @param mixed $header_options
+     */
+    public function setHeaderOptions($header_options)
+    {
+        $this->header_options = $header_options;
+    }
+    protected $header_options;
+
+
     /**
      * Get oauthAccounts
      *
