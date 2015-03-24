@@ -11,7 +11,8 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $formId
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($formId) {
+    public function indexAction($formId)
+    {
         $formItems = $this->get('doctrine_mongodb')
                 ->getRepository('OjsWorkflowBundle:ReviewFormItem')
                 ->findBy(array('formId' => new \MongoId($formId)));
@@ -31,7 +32,8 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $formId 
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function newAction($formId) {
+    public function newAction($formId)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
         return $this->render('OjsWorkflowBundle:ReviewFormItem:new.html.twig', array('form' => $form
@@ -44,12 +46,14 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $formId 
      * @return Response
      */
-    public function createAction(Request $request, $formId) {
+    public function createAction(Request $request, $formId)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
 
         $formItem = new \Ojs\WorkflowBundle\Document\ReviewFormItem();
         $formItem->setTitle($request->get('title'));
+        $formItem->setFieldset($request->get('fieldset'));
         $formItem->setMandotary($request->get('mandotary'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setFormId($formId);
@@ -73,7 +77,8 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $id
      * @return Response
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId());
@@ -88,13 +93,13 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $id
      * @return ResponseRedirect
      */
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $dm->remove($formItem);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_form_items', array('formId' => $formItem->getFormId()))
-        );
+        return $this->redirect($this->generateUrl('ojs_review_form_items', array('formId' => $formItem->getFormId())));
     }
 
     /**
@@ -102,7 +107,8 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $id 
      * @return Response
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId());
@@ -120,12 +126,14 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
      * @param string $id
      * @return ResponseRedirect 
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $repo = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem');
         $formItem = $repo->find($id);
 
         $formItem->setTitle($request->get('title'));
+        $formItem->setFieldset($request->get('fieldset'));
         $formItem->setMandotary($request->get('mandotary'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setInputType($request->get('inputtype'));

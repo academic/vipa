@@ -33,10 +33,10 @@
             is working on this step
         </div>
     {% else %}
-        <a class="btn btn-warning"
+        <a class="btn btn-danger"
            onclick="return confirm('{{ "sure"|trans }}');"
            href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
-            <i class="fa fa-clock-o"></i> Start Review
+            <i class="fa fa-bolt"></i> Start Review
         </a>
     {% endif %}
     <small>
