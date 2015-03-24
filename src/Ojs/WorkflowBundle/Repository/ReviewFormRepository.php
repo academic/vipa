@@ -14,24 +14,37 @@ class ReviewFormRepository extends DocumentRepository {
      * @param integer $journalId
      * @return \Ojs\WorkflowBundle\Document\ReviewForm
      */
-    public function getJournalForms($journalId) {
+    public function getJournalForms($journalId)
+    {
         return $this->createQueryBuilder()
                         ->field('journalId')->equals($journalId)
                         ->getQuery()
                         ->execute();
     }
 
-    public function getAllByIds($ids) {
+    public function getAllByIds($ids)
+    {
         return $this->createQueryBuilder()
                         ->field('id')->in($ids)
                         ->getQuery()
                         ->execute();
     }
 
-    public function getItems($id) {
+    public function getItems($id)
+    {
         return $this->getDocumentManager()
                         ->getRepository('OjsWorkflowBundle:ReviewFormItem')
                         ->findBy(array('formId' => new \MongoId($id)));
+    }
+
+    public function getItemsGroupedByFieldset($id)
+    {
+        $data = [];
+        $items = $this->getItems($id);
+        foreach ($items as $item) {
+            $data[($item->getFieldset() ? $item->getFieldset() : " ")][] = $item;
+        }
+        return $data;
     }
 
 }

@@ -50,17 +50,38 @@
                 <div id="fieldspart"   style="{% if formItem.inputType  in [ 'radiobutton','radiobutton','checkboxes'] %}display:block{%else%}display:none{%endif%}">
                     <label>Fields</label>
                     <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="Add each field text as one line" >{%for field in formItem.fields%}{{field}}
-{%endfor%}</textarea>
-                </div>
+                        {%endfor%}</textarea>
+                    </div>
+                    <div>
+                        <label>Fieldset</label>
+                        <input value="{{formItem.fieldset}}"  id="fieldsetinput"  class="form-control" name="fieldset" >
+                        <span class="help-block">Questions will be grouped under fieldset names.</span>
+                    </div>
 
-                <div>
-                    <input type="submit" class="btn btn-success" value="Save" />
-                    <a href="{{path('ojs_review_form_items',{'formId':form.id})}}" class="btn btn-default">
-                        <i class="fa fa-arrow-left"></i>
-                       {{"b"|trans}}
-                    </a>
-                </div>
-            </form>
+                    <div>
+                        <input type="submit" class="btn btn-success" value="Save" />
+                        <a href="{{path('ojs_review_form_items',{'formId':form.id})}}" class="btn btn-default">
+                            <i class="fa fa-arrow-left"></i>
+                            {{"b"|trans}}
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-{% endblock %}
+        {% endblock %}
+
+
+            {% block javascripts -%}
+                {{  parent()  }}
+                <script>
+                    $(document).ready(function () {
+                        $("#inputtypeinput").change(function () {
+                            if ($("#inputtypeinput option:selected").attr("rel") === "hasfields") {
+                                $("#fieldspart").slideDown("fast");
+                            } else {
+                                $("#fieldspart").slideUp("fast");
+                            }
+                        });
+                    });
+                </script>
+            {% endblock %}

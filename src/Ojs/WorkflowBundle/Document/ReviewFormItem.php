@@ -8,8 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *
  * @MongoDb\Document(collection="review_form_items",repositoryClass="Ojs\WorkflowBundle\Repository\ReviewFormItemRepository")
  */
-class ReviewFormItem
-{
+class ReviewFormItem {
 
     /**
      * @MongoDb\Id
@@ -29,6 +28,12 @@ class ReviewFormItem
 
     /** @MongoDb\Boolean */
     protected $confidential;
+
+    /**
+     * @MongoDb\String 
+     * Questions will be grouped with this under fieldset names
+     */
+    protected $fieldset;
 
     /**
      * @MongoDb\String 
@@ -187,7 +192,6 @@ class ReviewFormItem
         return $this;
     }
 
-
     /**
      * Set confidential
      *
@@ -208,5 +212,28 @@ class ReviewFormItem
     public function getConfidential()
     {
         return $this->confidential;
+    }
+
+
+    /**
+     * Set fieldset
+     *
+     * @param string $fieldset
+     * @return self
+     */
+    public function setFieldset($fieldset)
+    {
+        $this->fieldset = $fieldset;
+        return $this;
+    }
+
+    /**
+     * Get fieldset
+     *
+     * @return string $fieldset
+     */
+    public function getFieldset()
+    {
+        return $this->fieldset;
     }
 }

@@ -15,7 +15,7 @@
     <div class='list-group'>
         {% for entity in formItems %}
             <div class="list-group-item list-group-item-info"> 
-                <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}">{{entity.title}}</a>
+                <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}">{{entity.title}} <span class="badge">{{entity.fieldset}}</span></a>
                 <span class='pull-right'>
                     <span class="btn-group">
                         <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}" 

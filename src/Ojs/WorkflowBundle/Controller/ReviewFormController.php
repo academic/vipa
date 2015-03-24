@@ -115,7 +115,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController {
         $form = $this->safeGet($id);
         $formItems = $this->get('doctrine_mongodb')
                 ->getRepository('OjsWorkflowBundle:ReviewForm')
-                ->getItems($form->getId());
+                ->getItemsGroupedByFieldset($form->getId());
         return $this->render('OjsWorkflowBundle:ReviewForm:preview.html.twig', array('formitems' => $formItems, 'form' => $form));
     }
 
