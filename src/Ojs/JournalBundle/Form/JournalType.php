@@ -72,8 +72,6 @@ class JournalType extends AbstractType {
                 ->add('image', 'hidden')
                 ->add('header', 'hidden')
                 ->add('logo', 'hidden')
-                ->add('scope')
-                ->add('mission')
                 ->add('slug')
                 ->add('tags','text',['attr'=>['class'=>'select2-tags','data-role'=>'']])
                 ->add('description','textarea')
