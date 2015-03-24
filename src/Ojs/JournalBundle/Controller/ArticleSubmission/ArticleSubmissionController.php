@@ -19,6 +19,8 @@ use \Ojs\JournalBundle\Entity\Citation;
 use \Ojs\JournalBundle\Entity\CitationSetting;
 use \Ojs\JournalBundle\Entity\ArticleAuthor;
 use \Ojs\WorkflowBundle\Document\ArticleReviewStep;
+use \Symfony\Component\HttpFoundation\JsonResponse;
+use \Ojs\Common\Services\OrcidService;
 
 /**
  * Article Submission controller.
@@ -532,6 +534,24 @@ class ArticleSubmissionController extends Controller {
             $em->persist($articleFile);
             $em->flush();
         }
+    }
+
+    /**
+     * Returns requested orcid user profile details
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function getOrcidAuthorAction(Request $request)
+    {
+        if($request->get('orcidAuthorId')){
+            $orcidAuthorId = $request->get('orcidAuthorId');
+            $orcidService = new OrcidService($this->container);
+            $getAuthor = $orcidService->getBio($orcidAuthorId, '');
+        }
+        $response = new JsonResponse();
+        $response->setData($getAuthor);
+        return $response;
     }
 
 }

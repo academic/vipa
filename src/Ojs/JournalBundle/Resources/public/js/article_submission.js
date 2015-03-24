@@ -374,6 +374,59 @@ var OjsArticleSubmission = {
         $('html, body').animate({
             scrollTop: $("#lang_" + lang).offset().top
         }, 500);
+    },
+    /**
+     * gets orcid author
+     * @param $orcid
+     */
+    getOrcidAuthor: function (event,$orcidInput) {
+        var $orcid = $orcidInput.val();
+        var $actionUrl = $orcidInput.attr('data-url');
+        var $parent = $orcidInput.parent().parent().parent();
+        var $togglePanel = $parent.find('.togglePanel');
+        if (event.keyCode == 13) {
+            OjsCommon.waitModal();
+            $.post($actionUrl, {'orcidAuthorId': $orcid}, function (response) {
+                OjsCommon.hideallModals();
+                if(typeof response['error-desc'] == 'object'){
+                    OjsCommon.errorModal(response['error-desc'].value);
+                    return;
+                }
+                /*reset div fields*/
+                $togglePanel.hide();
+                $parent.find('input[name=firstName]').val('');
+                $parent.find('input[name=lastName]').val('');
+                $parent.find('input[name=email]').val('');
+                $parent.find('textarea[name=summary]').val('');
+                var $bio = response['orcid-profile']['orcid-bio'];
+                var $personalDetail = $bio['personal-details'];
+                var $contactDetail = $bio['contact-details'];
+                var $biography = $bio['biography'];
+
+                if(typeof $personalDetail !== 'undefined'){
+                    if(typeof $personalDetail['given-names'] !== 'undefined'){
+                        $parent.find('input[name=firstName]').val($personalDetail['given-names'].value);
+                    }
+                    if(typeof $personalDetail['family-name'] !== 'undefined'){
+                        $parent.find('input[name=lastName]').val($personalDetail['family-name'].value);
+                    }
+                }
+                if(typeof $contactDetail !== 'undefined'){
+                    if(typeof $contactDetail['email'] !== 'undefined'
+                        && $contactDetail['email'].length>0){
+                        $parent.find('input[name=email]').val($contactDetail['email'][0].value);
+                    }
+                }
+                if(typeof $biography !== 'undefined'){
+                    if($biography.value !== ''){
+                        $parent.find('textarea[name=summary]').val($biography.value);
+                        $togglePanel.slideToggle('fast');
+                    }
+                }
+            }).error(function () {
+                OjsCommon.errorModal("Something is wrong. Check your data and try again.");
+            });
+        }
     }
 };
 
