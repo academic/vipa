@@ -13,18 +13,24 @@
         <div class="panel-heading toggle-body">
             <i class="fa fa-bar-chart-o fa-fw"></i> Articles That Need Action <i class="pull-right fa fa-angle-double-up"></i>
         </div>
-        <div class="panel-body">
-
+        <div class="panel-body"> 
 
             {% if invitedSteps %}
                 <h4>Invited Steps</h4>
                 {% for key,invitation in invitedSteps %} 
-                    <a class="list-group-item contrastColor "
-                       style="background-color: {{ invitation.step.step.color}}" href="/manager/workflow/articles/{{invitation.step.id}}">
-                        <strong>
-                            {{ invitation.step.step.title }}
-                        </strong>
-                    </a>
+                    <div class="list-group-item " >
+                        <a href="{{path('article_workflow_invitation_preview',{id:invitation.step.id})}}" >
+                            <strong>
+                                {{ invitation.step.step.title }}
+                            </strong>
+                            <span>{{invitation.step.articleRevised.articleData[invitation.step.primaryLanguage].title}}</span>
+                        </a>
+                        <span class="btn-group pull-right">
+                            <a href="#" class="btn btn-xs btn-default"  >Details</a>
+                            <a href="#" class="btn btn-xs btn-success"  >Accept</a>
+                            <a href="#" class="btn btn-xs btn-warning" onclick="return confirm('{{"sure"|trans}}');" >Decline</a>
+                        </span>
+                    </div>
                 {% endfor %}
             {% endif %}
 
@@ -126,11 +132,11 @@
     <script src="/vendor/morrisjs/morris.min.js"></script>
 
     <script>
-                $(function () {
+                                        $(function () {
 
-                Morris.Donut({
-                element: 'articles-action-chart',
-                        data: [
+                                        Morris.Donut({
+                                        element: 'articles-action-chart',
+                                                data: [
         {% for key,step in mySteps %}
                             {
                             objectid:  "{{step.id}}",
