@@ -17,6 +17,9 @@ $.fn.serializeObject = function ()
 };
 
 $(document).ready(function () {
+    $(".contrastColor").each(function () {
+        $(".contrastColor").css("color", (parseInt($(this).css("backgroundColor"), 16) > 0xffffff / 2) ? 'black' : 'white');
+    });
     $(".validate-form").validationEngine({promptPosition: 'inline', validateNonVisibleFields: true,
         updatePromptsPosition: true});
 
