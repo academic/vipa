@@ -102,16 +102,6 @@ class JournalSuggestion
      */
     protected $header_image;
     /**
-     * @MongoDB\String
-     * @var string
-     */
-    protected $scope;
-    /**
-     * @MongoDB\String
-     * @var string
-     */
-    protected $mission;
-    /**
      * @MongoDB\Date
      * @var \DateTime
      */
@@ -326,21 +316,6 @@ class JournalSuggestion
         $this->languages = $languages;
     }
 
-    /**
-     * @return string
-     */
-    public function getMission()
-    {
-        return $this->mission;
-    }
-
-    /**
-     * @param string $mission
-     */
-    public function setMission($mission)
-    {
-        $this->mission = $mission;
-    }
 
     /**
      * @return string
@@ -356,22 +331,6 @@ class JournalSuggestion
     public function setPeriod($period)
     {
         $this->period = $period;
-    }
-
-    /**
-     * @return string
-     */
-    public function getScope()
-    {
-        return $this->scope;
-    }
-
-    /**
-     * @param string $scope
-     */
-    public function setScope($scope)
-    {
-        $this->scope = $scope;
     }
 
     /**

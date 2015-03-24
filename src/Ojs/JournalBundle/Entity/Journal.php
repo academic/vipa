@@ -124,17 +124,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     private $header;
 
-    /**
-     * @var string
-     * @Expose
-     */
-    private $scope;
-
-    /**
-     * @var string
-     * @Expose
-     */
-    private $mission;
 
     /**
      * @var string
@@ -848,51 +837,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         return $this;
     }
 
-    /**
-     * Get scope
-     *
-     * @return string
-     */
-    public function getScope()
-    {
-        return $this->scope;
-    }
-
-    /**
-     * Set scope
-     *
-     * @param  string $scope
-     * @return Journal
-     */
-    public function setScope($scope)
-    {
-        $this->scope = $scope;
-
-        return $this;
-    }
-
-    /**
-     * Get mission
-     *
-     * @return string
-     */
-    public function getMission()
-    {
-        return $this->mission;
-    }
-
-    /**
-     * Set mission
-     *
-     * @param  string $mission
-     * @return Journal
-     */
-    public function setMission($mission)
-    {
-        $this->mission = $mission;
-
-        return $this;
-    }
 
     /**
      * Set slug
