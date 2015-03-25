@@ -117,8 +117,7 @@
         {% block footer %}
             {%include '::ojsfooter.html.twig'%}
         {% endblock %}
-
-        {% include 'OkulbilisimFeedbackBundle:Feedback:index.html.twig' %}
+        {{ render(controller('OkulbilisimFeedbackBundle:Widget:fixed')) }}
     </div><!-- .container -->
 
     {% block javascripts %}
