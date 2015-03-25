@@ -19,7 +19,7 @@ class ArticleReviewStep {
      * @MongoDb\String
      * article primary language
      */
-    protected $primarLanguage;
+    protected $primaryLanguage;
 
     /**
      * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowStep",nullable=true)
@@ -550,24 +550,24 @@ class ArticleReviewStep {
 
 
     /**
-     * Set primarLanguage
+     * Set primaryLanguage
      *
-     * @param string $primarLanguage
+     * @param string $primaryLanguage
      * @return self
      */
-    public function setPrimarLanguage($primarLanguage)
+    public function setPrimaryLanguage($primaryLanguage)
     {
-        $this->primarLanguage = $primarLanguage;
+        $this->primaryLanguage = $primaryLanguage;
         return $this;
     }
 
     /**
-     * Get primarLanguage
+     * Get primaryLanguage
      *
-     * @return string $primarLanguage
+     * @return string $primaryLanguage
      */
-    public function getPrimarLanguage()
+    public function getPrimaryLanguage()
     {
-        return $this->primarLanguage;
+        return $this->primaryLanguage;
     }
 }

@@ -324,7 +324,7 @@ class ArticleSubmissionController extends Controller {
             $reviewStep->setSubmitterId($this->getUser()->getId());
             $reviewStep->setStartedDate(new \DateTime());
             $reviewStep->setStatusText($firstStep->getStatus());
-            $reviewStep->setPrimarLanguage($request->get('primaryLanguage'));
+            $reviewStep->setPrimaryLanguage($articleSubmission->getPrimaryLanguage());
             $reviewStep->setArticleRevised(array(
                 'articleData' => $articleSubmission->getArticleData(),
                 'authors' => $articleSubmission->getAuthors(),
