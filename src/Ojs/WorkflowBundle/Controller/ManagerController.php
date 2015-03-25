@@ -69,34 +69,21 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     /**
      * 
      * @param string $id invitation document id
-     * @return type
+     * @return RedirectResponse
      */
     public function invitationAcceptAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $em = $this->get('doctrine')->getManager();
+        /* @var   \Ojs\WorkflowBundle\Document\Invitation  $invitation */
         $invitation = $dm->getRepository('OjsWorkflowBundle:Invitation')->find($id);
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($invitation->getStep()->getId());
-        
         $copyStep = clone $articleStep;
         $dm->persist($copyStep);
+        $invitation->setAccept(new \DateTime());
+        $dm->persist($invitation);
         $dm->flush();
-        
-        echo "<pre>";
-        print_r($copyStep);
-        die();
 
-
-        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
-        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->find($articleStep->getStep()->getId());
-        return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
-                    'articleStep' => $articleStep,
-                    'article' => $article,
-                    'id' => $id,
-                    'step' => $step,
-                    'prevStep' => $articleStep->getFrom(),
-        ));
+        return $this->redirect($this->generateUrl('article_step_preview', array('id' => $articleStep->getId())));
     }
 
     public function invitationDeclineAction($id)
