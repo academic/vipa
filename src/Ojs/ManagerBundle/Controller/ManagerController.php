@@ -2,6 +2,10 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
 use \Symfony\Component\HttpFoundation\Request;
@@ -107,6 +111,42 @@ class ManagerController extends Controller {
         ));
     }
 
+    public function journalSettingsPageAction(Request $r)
+    {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $object = $twig->encode($journal);
+        $source = new Entity("Okulbilisim\\CmsBundle\\Entity\\Post");
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function(QueryBuilder $qb)use($ta,$journal,$object){
+            return $qb->andWhere(
+                $qb->expr()->andX(
+                    $qb->expr()->eq("$ta.object",":object"),
+                    $qb->expr()->eq("$ta.objectId",":journalId")
+                )
+            )
+                ->setParameters([
+                    'object'=>$object,
+                    'journalId'=>$journal->getId()
+                ])
+                ;
+        });
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+        $grid->setHiddenColumns(['post_type','content','object','createdAt','updatedAt','deletedAt','objectId']);
+        $rowAction = ActionHelper::editAction('post_edit','id');
+        $grid->addRowAction($rowAction);
+
+        $rowAction = ActionHelper::deleteAction('post_delete','id');
+        $grid->addRowAction($rowAction);
+
+        $data = [];
+        $data['grid'] = $grid;
+        $data['journal'] = $journal;
+
+        return $grid->getGridResponse('OjsManagerBundle:Manager:journal_settings_pages/list.html.twig',$data);
+
+    }
     public function userIndexAction()
     {
         $user = $this->getUser();

@@ -1,0 +1,27 @@
+{% extends '::ojsbase.html.twig' %}
+{% block  stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
+{%endblock%}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal'), 'title': 'journal.manager'|trans},
+    { 'title': 'journal.update'|trans},
+
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':6} only %}
+    <div class="col-md-12">
+        {{ grid(grid) }}
+    </div>
+    <a class="btn btn-primary navbar-btn pull-right"
+       href="{{ path('post_new',{'post_type':'default','object':journal|cmsobject,'objectId':journal.id}) }}">{{ "c"|trans }}</a>
+
+{% endblock %}
+
+

@@ -350,6 +350,7 @@ journal.settings.submission.language.text: Lütfen derginizin makale gönderirke
 journal.settings.submission: Dergi Makale Gönderim Ayarları
 journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
 journal.settings.mail: "Email Ayarları"
+journal.settings.page: "Page Settings"
 journal.settings.mail.signature: "Email imzası"
 
 setup.step: 'Adım'
