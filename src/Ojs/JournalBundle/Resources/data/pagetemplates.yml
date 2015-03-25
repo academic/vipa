@@ -1,0 +1,28 @@
+#suggested mail templates
+#these templates will be shown at every journal's dashboard
+-
+    id: '1'
+    title: 'Mission'
+    content:  >
+            Mission page content will be there
+-
+    id: '2'
+    title: 'Mission'
+    content:  >
+            Mission page content will be there
+-
+    id: '3'
+    title: 'Mission'
+    content:  >
+            Mission page content will be there
+-
+    id: '4'
+    title: 'Mission'
+    content:  >
+            Mission page content will be there
+-
+    id: '5'
+    title: 'Mission'
+    content:  >
+            Mission page content will be there
+
