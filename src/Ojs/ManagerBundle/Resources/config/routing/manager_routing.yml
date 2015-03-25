@@ -14,7 +14,12 @@ manager_current_journal_submission_settings:
 manager_current_journal_mail_settings:
     pattern:  /journal/settings/mail
     defaults: { _controller: OjsManagerBundle:Manager:journalSettingsMail } 
-    
+
+
+manager_current_journal_page_settings:
+    pattern:  /journal/settings/page
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsPage }
+
 manager_journal_settings:
     pattern:  /journal/{journalId}/settings
     defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
@@ -22,7 +27,7 @@ manager_journal_settings:
 manager_current_journal_settings:
     pattern:  /journal/settings
     defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
-    
+
 manager_journal_user_add:
     pattern:  /user/add
     defaults: { _controller: OjsManagerBundle:Admin:addUser }
