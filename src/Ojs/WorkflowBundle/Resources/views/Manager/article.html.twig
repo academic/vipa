@@ -426,6 +426,11 @@
                                                 {% endfor %}
                                             </select>
                                         {% endif %}
+                                        <div class="jumbotron">
+                                            <p>
+                                                {{ step.introduction }}
+                                            </p>
+                                        </div>
                                         <div class="btn-group pull-right">
                                             {% if step.canRejectSubmission %}
                                                 <a href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }}')">
