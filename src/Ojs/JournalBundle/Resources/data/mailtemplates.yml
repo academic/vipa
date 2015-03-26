@@ -1,78 +1,74 @@
 #suggested mail templates
 #these templates will be shown at every journal's dashboard
--
-    id: '1'
-    lang: en
-    type: Revision
-    subject: 'Revision Request for Your Article - #{{articleId}}'
-    template:  >
-            Ref. Code: #{{articleId}}<br>
-            Title: {{articleTitle}} <br>
-            Dear. {{fullName}}<br>
-            The article that you have submitted to the {{journalName}} ...<br><br>
-            We expect the revised article. <br>
-            Regards,<br><br>
-            Editorial Board<br>
-            {{journalUrl}}<br>
 
--
-    id: '2'
-    lang: en
-    type: Minor Revision
-    subject: 'Minor Revision Request for Your Manuscript - #{{articleId}}'
-    template:  >
-            Ref. Code: #{{articleId}}<br>
-            Title: {{articleTitle}} <br>
-            Dear. {{fullName}}<br>
-            The article that you have submitted to the {{journalName}}...  <br>
-            We expect the revised article. <br>
-            Regards,<br><br>
-            Editorial Board<br>
-            {{journalUrl}}<br>
-            
--
-    id: '3'
-    lang: en
-    type: Rewrite
-    subject: 'Your Article should be rewritten - #{{articleId}}'
-    template:  >
-            Ref. Code: #{{articleId}}<br>
-            Title: {{articleTitle}} <br>
-            Dear. {{fullName}}<br>
-            The article that you have submitted to the {{journalName}}...  <br>
-            We expect the rewritten article. <br>
-            Regards,<br><br>
-            Editorial Board<br>
-            {{journalUrl}}<br>
-
--
-    id: '4'
-    lang: en
-    type: Accepted
-    subject: 'About your manuscript - #{{articleId}}'
-    template:  >
-            Ref. Code: #{{articleId}}<br>
-            Title: {{articleTitle}} <br>
-            Dear. {{fullName}}<br>
-            We are pleased to inform you that ... 
-            Regards,<br><br>
-            Editorial Board<br>
-            {{journalUrl}}<br>
-
--
-    id: '5'
-    lang: en
-    type: Rejection
-    subject: 'Your article format is not acceptable'
-    template:  >
-            Ref. Code: #{{articleId}}<br>
-            Title: {{articleTitle}} <br>
-            Dear. {{fullName}}<br>
-            Regards,<br><br>
-            Editorial Board<br>
-            {{journalUrl}}<br>
-
--
+'revision1':
+      id: '1'
+      lang: en
+      type: Revision
+      subject: 'Revision Request for Your Article - #{{articleId}}'
+      template:  >
+              Ref. Code: #{{articleId}}<br>
+              Title: {{articleTitle}} <br>
+              Dear. {{fullName}}<br>
+              The article that you have submitted to the {{journalName}} ...<br><br>
+              We expect the revised article. <br>
+              Regards,<br><br>
+              Editorial Board<br>
+              {{journalUrl}}<br>
+'minorrevision':
+      id: '2'
+      lang: en
+      type: Minor Revision
+      subject: 'Minor Revision Request for Your Manuscript - #{{articleId}}'
+      template:  >
+              Ref. Code: #{{articleId}}<br>
+              Title: {{articleTitle}} <br>
+              Dear. {{fullName}}<br>
+              The article that you have submitted to the {{journalName}}...  <br>
+              We expect the revised article. <br>
+              Regards,<br><br>
+              Editorial Board<br>
+              {{journalUrl}}<br>
+'rewrite':
+      id: '3'
+      lang: en
+      type: Rewrite
+      subject: 'Your Article should be rewritten - #{{articleId}}'
+      template:  >
+              Ref. Code: #{{articleId}}<br>
+              Title: {{articleTitle}} <br>
+              Dear. {{fullName}}<br>
+              The article that you have submitted to the {{journalName}}...  <br>
+              We expect the rewritten article. <br>
+              Regards,<br><br>
+              Editorial Board<br>
+              {{journalUrl}}<br>
+'accepted':
+      id: '4'
+      lang: en
+      type: Accepted
+      subject: 'About your manuscript - #{{articleId}}'
+      template:  >
+              Ref. Code: #{{articleId}}<br>
+              Title: {{articleTitle}} <br>
+              Dear. {{fullName}}<br>
+              We are pleased to inform you that ... 
+              Regards,<br><br>
+              Editorial Board<br>
+              {{journalUrl}}<br>
+'rejection': 
+  id: '5'
+  lang: en
+  type: Rejection
+  subject: 'Your article format is not acceptable'
+  template:  >
+          Ref. Code: #{{articleId}}<br>
+          Title: {{articleTitle}} <br>
+          Dear. {{fullName}}<br>
+          Regards,<br><br>
+          Editorial Board<br>
+          {{journalUrl}}<br>
+'rejetion2':
     id: '6'
     lang: en
     type: Rejection
@@ -85,14 +81,16 @@
             Editorial Board<br>
             {{journalUrl}}<br>
 
--
-    id: '7'
-    lang: en
-    type: Reviewer Invitaion
-    subject: '...'
-    template:  >
-            Dear. {{fullName}}<br>
-            
-            With kind regards,<br><br>
-            Editorial Board<br>
-            [JournalUrl]<br>
+'invitation':
+      id: 'invitation'
+      lang: en
+      type: Reviewer Invitaion
+      subject: '...'
+      template:  >
+              Dear. {{user.name}}<br>
+              {{acceptLink}}
+
+              {{declineLink}}
+              With kind regards,<br><br>
+              Editorial Board<br>
+              [JournalUrl]<br>
