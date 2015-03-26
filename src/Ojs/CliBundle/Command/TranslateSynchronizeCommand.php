@@ -138,7 +138,8 @@ EOF
             if ($execute === true) {
                 $dumper->dump($catSlaveFile, array('path' => $translationPath));
                 /*unlink created trash file*/
-                unlink($slaveFile . '~');
+                if(file_exists($slaveFile . '~'))
+                    unlink($slaveFile . '~');
                 $output->writeln($slaveFile.' --> <info>Slave file updated</info>');
             }else{
                 $output->writeln($slaveFile.' --> <info>If you execute file will be updated</info>');
