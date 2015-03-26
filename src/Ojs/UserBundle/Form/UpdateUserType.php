@@ -16,9 +16,18 @@ class UpdateUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('title','text',[
+            ])
+            ->add('firstName','text',[
+                'attr'=>[
+                    'class'=>'validate[required,minSize[2]]'
+                ]
+            ])
+            ->add('lastName','text',[
+                'attr'=>[
+                    'class'=>'validate[required,minSize[2]]'
+                ]
+            ])
 
             ->add('subjects', 'entity', array(
                 'class' => 'Ojs\JournalBundle\Entity\Subject',
@@ -49,7 +58,10 @@ class UpdateUserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\User'
+            'data_class' => 'Ojs\UserBundle\Entity\User',
+            'attr'=>[
+                'class'=>'validate-form'
+            ]
         ));
     }
 

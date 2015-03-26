@@ -34,3 +34,13 @@ parameters:
         redirect_uri:
         sandbox: true
     https: false
+    feedback_categories:
+        -
+            id: 1
+            name: "General"
+        -
+            id: 2
+            name: "Bug Report"
+        -
+            id: 3
+            name: "Idea"

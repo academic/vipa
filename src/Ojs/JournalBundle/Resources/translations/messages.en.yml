@@ -352,16 +352,18 @@ dashboard.suggestion: "Suggestions"
 journalsindex.create: "JournalsIndex Create"
 journalsindex.edit: "JournalsIndex Edit"
 journalsindex.list: "JournalsIndex List"
-journalsindex.singular: "Journals Index"
+journalsindex.singular: Index
+journalsindex.plural: Indexes
 journalsindex.journalindex: "Journal Index"
 journalsindex.journal: Journal
 journalsindex.link: Link
 
 journal.settings.submission.language: Submission Language
 journal.settings.submission.language.text: Select mandotary languages for article submitting
-journal.settings.submission: "Journal's Submission Settings"
+journal.settings.submission: "Submission Settings"
 journal.settings.submission.abstractTemplate: Submission Abstract Template 
 journal.settings.mail: "Mail Settings"
+journal.settings.page: "Page Settings"
 journal.settings.mail.signature: "Email signature"
 
 setup.step: 'Step number'

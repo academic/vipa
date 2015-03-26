@@ -56,6 +56,18 @@ article_step_preview:
     pattern:  /manager/workflow/article/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:article }
 
+article_workflow_invitation_preview:
+    pattern: /manager/workflow/article/invitation/preview/{id}
+    defaults: {_controller: OjsWorkflowBundle:Manager:invitationPreview}
+    
+article_workflow_invitation_accept:
+    pattern: /manager/workflow/article/invitation/accept/{id}
+    defaults: {_controller: OjsWorkflowBundle:Manager:invitationAccept}
+
+article_workflow_invitation_decline:
+    pattern: /manager/workflow/article/invitation/decline/{id}
+    defaults: {_controller: OjsWorkflowBundle:Manager:invitationDecline}
+    
 articles_step_list:
     pattern:  /manager/workflow/articles/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:articles }

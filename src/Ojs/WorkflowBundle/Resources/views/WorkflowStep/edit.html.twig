@@ -1,5 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block  stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+{%endblock%}
+
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
@@ -144,6 +149,11 @@
                     <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
                 </div>
 
+                <div class="form-group">
+                    <label>Introduction</label>
+                    <textarea name="introduction" class="form-control editor" rows="10">{{step.introduction|raw}}</textarea>
+                </div>
+
                 <div>
                     <input type="submit" class="btn btn-success" value="Save" />
                     <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
@@ -159,6 +169,8 @@
 
 {% block javascripts -%}
     {{  parent()  }}
+    <script type="text/javascript" src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
+
     <script>
         function randomColor() {
             $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -167,7 +179,9 @@
             console.log($rndcolor);
         }
         $(document).ready(function () {
-
+            $("textarea.editor").wysihtml5({
+                toolbar: {"font-styles": true, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": true, "blockquote": true}
+            });
             $("#inputcolor").on('keyup', function () {
                 $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
             });
