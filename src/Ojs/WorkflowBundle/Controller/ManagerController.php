@@ -29,7 +29,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
                         $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
         );
-        $invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($articleStep->getId())));
+        $invitations = $articleStep->getInvitations();
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -221,6 +221,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"' . $nextStep->getTitle() . '"</strong>');
         $mustBeAssigned = $nextStep->getMustBeAssigned();
         if ($mustBeAssigned) {
+            $newStep->setOwnerUser($this->getUser());
+            $dm->persist($newStep);
+            $dm->flush();
             $this->get('session')->getFlashBag()->add('warning', 'Now you should assign user to this step.');
             return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $newStep->getId())));
         }
@@ -237,7 +240,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $data['articleStep'] = $articleStep;
-        $data['invitations'] = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getId())));
+        $data['invitations'] = $articleStep->getInvitations();
         return $this->render('OjsWorkflowBundle:Manager:assign.html.twig', $data);
     }
 
