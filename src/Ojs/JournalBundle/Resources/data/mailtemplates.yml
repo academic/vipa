@@ -85,12 +85,10 @@
       id: 'invitation'
       lang: en
       type: Reviewer Invitaion
-      subject: '...'
+      subject: 'Review Invitation'
       template:  >
               Dear. {{user.name}}<br>
-              {{acceptLink}}
-
-              {{declineLink}}
+              <a href="{{acceptLink}}">Accept</a>   <a href="{{declineLink}}">Decline</a><br>
               With kind regards,<br><br>
               Editorial Board<br>
               [JournalUrl]<br>

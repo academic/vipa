@@ -291,8 +291,8 @@ class OjsExtension extends \Twig_Extension {
         $translator = $this->container->get('translator');
         $daysFormatted = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($date1, $date2);
         return (strpos($daysFormatted, '+') !== FALSE ?
-                        '<span class="label label-info">' :
-                        '<span class="label label-danger">')
+                        '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
+                        '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
                 . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
     }
 
