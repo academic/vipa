@@ -33,7 +33,7 @@
                 {%endif%}
 
                 <a class="btn btn-info btn-xs  pull-right" 
-                   href="{{path("user_send_mail",{"user":invite.userId,'acceptLink':( "http://"~base_host~path("article_workflow_invitation_accept",{'id':invite.id})|url_encode), 'declineLink':( "http://"~base_host~path("article_workflow_invitation_decline",{'id':invite.id})|url_encode)})}}">
+                   href="{{path("user_send_mail",{"user":invite.userId,'template':'invitation', 'acceptLink':( "http://"~base_host~path("article_workflow_invitation_accept",{'id':invite.id})|url_encode), 'declineLink':( "http://"~base_host~path("article_workflow_invitation_decline",{'id':invite.id})|url_encode)})}}">
                     <i class="fa fa-envelope-square"></i> {{"sendmail"|trans}}
                 </a>
             </div>
