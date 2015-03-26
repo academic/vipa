@@ -24,7 +24,7 @@
             <i class="fa fa-cog"></i>
             {% if isJournalManager() == true or step.isVisible %}
                 <a
-                        href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
+                    href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
                     {{ articleStep.ownerUser.username }}
                 </a>
             {% else %}
@@ -75,7 +75,7 @@
             </tr>
         </table>
     </div>
-    {% if invitations %}
+    {% if invitations|length > 0 %}
         <div class="panel-body">
             <h4>Invited Users</h4>
 
@@ -91,450 +91,450 @@
                             <span class="label label-default">{{ "waiting"|trans }}</span>
                         {% endif %}
                     </a>
-                {% endfor %}
-                <div class="list-group-item">
-                    <a href="{{path('article_step_asssign',{'id':articleStep.id})}}" class="btn btn-info">
-                        <i class="fa fa-plus-circle"></i> Assign more</a>
+                {% endfor %} 
             </div>
-            </div>
-            
+           
         </div>
     {% endif %}
+    {% if (isJournalManager() or isEditor()) and articleStep.step.mustBeAssigned and articleStep.parentStep == false%}
+                <a href="{{path('article_step_asssign',{'id':articleStep.id})}}" class="btn btn-info">
+                    <i class="fa fa-plus-circle"></i> Assign more</a>
+     {%endif%}
     <form class="" id="submission_form"
           action="{{ path("article_step_next",{id: articleStep.id }) }}"
           method="POST">
-    <input name="changes" type="hidden" id="changes"/>
-    {% for lang, articleRevised in articleStep.articleRevised.articleData %}
-        <h2>
-            <span class="badge">{{ lang }}</span>
-            <span class="editable" data-type="text" data-name="article[{{ lang }}][title]">
-                {{ articleRevised.title }}
-            </span>
-            <span class="btn-group">
-                <a id="article_search_google" target="_blank" class="btn btn-xs btn-default"
-                   title="{{ "searchon.google"|trans }}"
-                   href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
-                    <i class="fa fa-google"></i>
-                </a>
-                <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default"
-                   title="{{ "searchon.wikipedia"|trans }}"
-                   href="http://en.wikipedia.org/w/index.php?search={{ articleRevised.title|url_encode }}">
-                    W
-                </a>
-                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
-                   title="{{ "searchon.pubmed"|trans }}"
-                   href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
-                    PubMed
-                </a> 
-                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
-                   title="{{ "searchon.doaj"|trans }}"
-                   href="http://doaj.org/search?source={% raw %}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{% endraw %}{{ articleRevised.title|url_encode }}{% raw %}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{% endraw %}">
-                    Doaj
-                </a> 
-            </span>
-        </h2>
+        <input name="changes" type="hidden" id="changes"/>
+        {% for lang, articleRevised in articleStep.articleRevised.articleData %}
+            <h2>
+                <span class="badge">{{ lang }}</span>
+                <span class="editable" data-type="text" data-name="article[{{ lang }}][title]">
+                    {{ articleRevised.title }}
+                </span>
+                <span class="btn-group">
+                    <a id="article_search_google" target="_blank" class="btn btn-xs btn-default"
+                       title="{{ "searchon.google"|trans }}"
+                       href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
+                        <i class="fa fa-google"></i>
+                    </a>
+                    <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default"
+                       title="{{ "searchon.wikipedia"|trans }}"
+                       href="http://en.wikipedia.org/w/index.php?search={{ articleRevised.title|url_encode }}">
+                        W
+                    </a>
+                    <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
+                       title="{{ "searchon.pubmed"|trans }}"
+                       href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
+                        PubMed
+                    </a> 
+                    <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
+                       title="{{ "searchon.doaj"|trans }}"
+                       href="http://doaj.org/search?source={% raw %}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{% endraw %}{{ articleRevised.title|url_encode }}{% raw %}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{% endraw %}">
+                        Doaj
+                    </a> 
+                </span>
+            </h2>
 
-    <div class="panel-body">
+            <div class="panel-body">
+                <table class="table">
+
+                    <tr>
+                        <td>{{ 'Subjects'|trans }}</td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="article[{{ lang }}][subjects]">{{ article.subjects }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Keywords'|trans }}</td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="article[{{ lang }}][keywords]">{{ article.keywords }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Abstract'|trans }}</td>
+                        <td>
+                            <span class="editable" data-type="textarea"
+                                  data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Section'|trans }}</td>
+                        <td>
+                            {% if article.section is defined and article.section %}
+                                <span class="editable" data-type="text"
+                                      data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            {% endfor %}
+            <hr>
+        </div>
+        <hr/>
+
+        {% if  isJournalManager() == true or step.canSeeAuthor %}
+            <h2>{{ 'Authors'|trans }}</h2>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        {{ "author.orcid"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.order"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.title"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.initials"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.firstname"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.middlename"|trans }}
+                    </th>
+                    <th>
+                        {{ "author.lastname"|trans }}
+                    </th>
+                    <th>
+                        {{ "email"|trans }}
+                    </th>
+                    <th></th>
+                </tr>
+                {% for author in articleStep.articleRevised.authors %}
+                    <tr>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
+                        </td>
+                        <td>
+                            <span class="editable" data-type="text"
+                                  data-name="author[{{ loop.index }}][lastName]">{{ author.lastName }}</span>
+                        </td>
+                        <td>
+                            <span class="editable label label-default" data-name="author[{{ loop.index }}][email]"
+                                  data-type="email">{{ author.email }}</span>
+
+                        </td>
+                        <td>
+                            <span class="btn-group">
+                                <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                                   href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                                <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                                   href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                    W
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr class="new-author-row">
+                    <td>
+                        <input name="author[orcid][]" id="orcidinput" class="form-control input-sm"
+                               placeholder="{{ "author.orcid"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[order][]" type="number" min="1" max="10000" id="orderinput"
+                               class="form-control input-sm"
+                               placeholder="{{ "author.order"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[title][]" id="titleinput" class="form-control input-sm"
+                               placeholder="{{ "author.title"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[initials][]" id="initialsinput" class="form-control input-sm"
+                               placeholder="{{ "author.initials"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[firstName][]" id="firstnameinput" class="form-control input-sm"
+                               placeholder="{{ "author.firstname"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[middleName][]" id="middlenameinput" class="form-control input-sm"
+                               placeholder="{{ "author.middlename"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[lastName][]" id="lastnameinput" class="form-control input-sm"
+                               placeholder="{{ "author.lastname"|trans }}"/>
+                    </td>
+                    <td>
+                        <input name="author[email][]" id="emailinput" class="form-control input-sm"
+                               placeholder="{{ "email"|trans }}"/>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-success new-author" href="#"><i class="fa fa-plus"></i></a>
+                    </td>
+                </tr>
+            </table>
+            <hr/>
+        {% endif %}
+
+        <h2>Citations</h2>
         <table class="table">
-
-            <tr>
-                <td>{{ 'Subjects'|trans }}</td>
-                <td>
-                    <span class="editable" data-type="text"
-                          data-name="article[{{ lang }}][subjects]">{{ article.subjects }}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ 'Keywords'|trans }}</td>
-                <td>
-                    <span class="editable" data-type="text"
-                          data-name="article[{{ lang }}][keywords]">{{ article.keywords }}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ 'Abstract'|trans }}</td>
-                <td>
-                    <span class="editable" data-type="textarea"
-                          data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ 'Section'|trans }}</td>
-                <td>
-                    {% if article.section is defined and article.section %}
-                        <span class="editable" data-type="text"
-                              data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
-                    {% endif %}
-                </td>
-            </tr>
-        </table>
-        {% endfor %}
-        <hr>
-    </div>
-    <hr/>
-
-    {% if  isJournalManager() == true or step.canSeeAuthor %}
-        <h2>{{ 'Authors'|trans }}</h2>
-
-        <table class="table">
-            <tr>
-                <th>
-                    {{ "author.orcid"|trans }}
-                </th>
-                <th>
-                    {{ "author.order"|trans }}
-                </th>
-                <th>
-                    {{ "author.title"|trans }}
-                </th>
-                <th>
-                    {{ "author.initials"|trans }}
-                </th>
-                <th>
-                    {{ "author.firstname"|trans }}
-                </th>
-                <th>
-                    {{ "author.middlename"|trans }}
-                </th>
-                <th>
-                    {{ "author.lastname"|trans }}
-                </th>
-                <th>
-                    {{ "email"|trans }}
-                </th>
-                <th></th>
-            </tr>
-            {% for author in articleStep.articleRevised.authors %}
+            {% for citation in articleStep.articleRevised.citation %}
                 <tr>
                     <td>
                         <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
-                    </td>
-                    <td>
-                        <span class="editable" data-type="text"
-                              data-name="author[{{ loop.index }}][lastName]">{{ author.lastName }}</span>
-                    </td>
-                    <td>
-                        <span class="editable label label-default" data-name="author[{{ loop.index }}][email]"
-                              data-type="email">{{ author.email }}</span>
-
-                    </td>
-                    <td>
-                        <span class="btn-group">
-                            <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                               href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
-                                <i class="fa fa-google"></i>
-                            </a>
-                            <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                               href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
-                                W
-                            </a>
-                        </span>
+                              data-name="citation[{{ loop.index }}]">{{ citation.raw }}</span>
                     </td>
                 </tr>
             {% endfor %}
-            <tr class="new-author-row">
+            <tr class="new-citation-row">
                 <td>
-                    <input name="author[orcid][]" id="orcidinput" class="form-control input-sm"
-                           placeholder="{{ "author.orcid"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[order][]" type="number" min="1" max="10000" id="orderinput"
-                           class="form-control input-sm"
-                           placeholder="{{ "author.order"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[title][]" id="titleinput" class="form-control input-sm"
-                           placeholder="{{ "author.title"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[initials][]" id="initialsinput" class="form-control input-sm"
-                           placeholder="{{ "author.initials"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[firstName][]" id="firstnameinput" class="form-control input-sm"
-                           placeholder="{{ "author.firstname"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[middleName][]" id="middlenameinput" class="form-control input-sm"
-                           placeholder="{{ "author.middlename"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[lastName][]" id="lastnameinput" class="form-control input-sm"
-                           placeholder="{{ "author.lastname"|trans }}"/>
-                </td>
-                <td>
-                    <input name="author[email][]" id="emailinput" class="form-control input-sm"
-                           placeholder="{{ "email"|trans }}"/>
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-success new-author" href="#"><i class="fa fa-plus"></i></a>
+                    <div class="input-group">
+                        <input type="text" name="citation[]" class="form-control"/>
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-success new-citation">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </table>
-        <hr/>
-    {% endif %}
 
-    <h2>Citations</h2>
-    <table class="table">
-        {% for citation in articleStep.articleRevised.citation %}
-            <tr>
-                <td>
-                    <span class="editable" data-type="text"
-                          data-name="citation[{{ loop.index }}]">{{ citation.raw }}</span>
-                </td>
-            </tr>
-        {% endfor %}
-        <tr class="new-citation-row">
-            <td>
-                <div class="input-group">
-                    <input type="text" name="citation[]" class="form-control"/>
+        <hr>
+            <h2>{{ 'Files'|trans }}</h2>
+            <table class="table">
+                {% for articlefile in articleStep.articleRevised.files %}
+                    <tr>
+                        <td>
+                            <span class="label label-info">{{ fileType(articlefile.article_file_mime_type) }}</span>
+                            <span class="editable" data-name="files[{{ loop.index }}][title]"
+                                  data-type="text">{{ articlefile.title }}</span>
+                            <a href="#"><i class="fa fa-download"></i></a>
+                            <input type="hidden" class="fileinput" name="files[{{ loop.index }}][filename]"/>
+                            <span class="btn btn-xs fileinput-button" >
+                                <i class="fa fa-upload"></i>
 
-                    <div class="input-group-btn">
-                        <button class="btn btn-success new-citation">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <hr>
-    <h2>{{ 'Files'|trans }}</h2>
-    <table class="table">
-        {% for articlefile in articleStep.articleRevised.files %}
-            <tr>
-                <td>
-                    <span class="label label-info">{{ fileType(articlefile.article_file_mime_type) }}</span>
-                    <span class="editable" data-name="files[{{ loop.index }}][title]"
-                          data-type="text">{{ articlefile.title }}</span>
-                    <a href="#"><i class="fa fa-download"></i></a>
-                    <input type="hidden" class="fileinput" name="files[{{ loop.index }}][filename]"/>
-                    <span class="btn btn-xs fileinput-button" >
-                        <i class="fa fa-upload"></i>
-
-                        <span>{{ "update.article.file"|trans }}</span>
-                        <input class="article_file_upload" type="file"
-                               data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
-                        <br>
-                        <input name="files[{{ loop.index }}][article_file]" class="filename article_file_input"
-                               value="{% if articlefile is defined %}{{ articlefile.article_file }}{% endif %}" type="hidden"/>
-                        <input name="files[{{ loop.index }}][article_file_mime_type]" class="mimetype"
-                               value="{% if articlefile is defined %}{{ articlefile.article_file_mime_type }}{% endif %}" type="hidden"/>
-                        <input name="files[{{ loop.index }}][article_file_size]" class="filesize"
-                               value="{% if articlefile is defined %}{{ articlefile.article_file_size }}{% endif %}"
-                               type="hidden"/>
-                    </span>
-                    <div class="badge badge-success uploading" style="display: none;">Uploading...</div>
-                    <div class="clearfix"></div>
-                    {% if articlefile.desc %}
-                        <p class="editable" data-type="textarea"
-                           data-name="files[{{ loop.index }}][desc]"> {{ articlefile.desc }} </p>
-                    {% endif %}
-                    <div class="clearfix"></div>
-                    {% if articlefile.keywords %}
-                        <p class="editable" data-type="textarea"
-                           data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
-    <hr>
-
-    {% if articleStep.note %}
-        <div>
-            <h2>{{ 'Notes' }}</h2>
-            {{ articleStep.note|raw }}
-        </div>
-    {% endif %}
-
-    {% if articleStep.reviewNotes %}
-        <div>
-            <h2>{{ 'Review Notes'|trans }}</h2>
-            {{ articleStep.reviewNotes|raw }}
-        </div>
-    {% endif %}
-
-    <hr>
-    {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
-        <div class="jumbotron">
-            {% if prevStep %}
-                <h3>{{ 'Previous Review Report'|trans }}</h3>
-                {{ prevStep.reviewFormResults|raw }}
-                <hr>
-            {% endif %}
-
-            <textarea name="notes" placeholder="notes" class="form-control" rows="4"></textarea>
-            <br>
-            {% if step.reviewForms %}
-                <div class="form-group">
-                    <label>Review Form : </label>
-                    <select name="reviewFormId" style="min-width:120px;margin-left:10px" id="reviewFormSelector"
-                            class="select2-element">
-                        {% for reviewForm in step.reviewForms %}
-                            <option value="{{ reviewForm.id }}">{{ reviewForm.title }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                {% for reviewForm in step.reviewForms %}
-                    <div class="panel panel_reviewforms" id="panel_{{ reviewForm.id }}"
-                         style="{% if loop.first == false%}display:none{% endif %}">
-                        <div class="panel-body"> {{ render(controller( 'OjsWorkflowBundle:ReviewForm:itemsBlock',{ 'id': reviewForm.id })) }}      </div>
-                    </div>
+                                <span>{{ "update.article.file"|trans }}</span>
+                                <input class="article_file_upload" type="file"
+                                       data-url="{{ oneup_uploader_endpoint('journalfiles') }}"/>
+                                <br>
+                                    <input name="files[{{ loop.index }}][article_file]" class="filename article_file_input"
+                                           value="{% if articlefile is defined %}{{ articlefile.article_file }}{% endif %}" type="hidden"/>
+                                    <input name="files[{{ loop.index }}][article_file_mime_type]" class="mimetype"
+                                           value="{% if articlefile is defined %}{{ articlefile.article_file_mime_type }}{% endif %}" type="hidden"/>
+                                    <input name="files[{{ loop.index }}][article_file_size]" class="filesize"
+                                           value="{% if articlefile is defined %}{{ articlefile.article_file_size }}{% endif %}"
+                                           type="hidden"/>
+                            </span>
+                            <div class="badge badge-success uploading" style="display: none;">Uploading...</div>
+                            <div class="clearfix"></div>
+                            {% if articlefile.desc %}
+                                <p class="editable" data-type="textarea"
+                                   data-name="files[{{ loop.index }}][desc]"> {{ articlefile.desc }} </p>
+                            {% endif %}
+                            <div class="clearfix"></div>
+                            {% if articlefile.keywords %}
+                                <p class="editable" data-type="textarea"
+                                   data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
+            </table>
+            <hr>
 
-            {% endif %}
-
-            <div class="form-inline">
-                {% if step.canReview %}
-                    <select name="reviewResultCode" class="select2-element  form-control">
-                        {% for i in range(0,4) %}
-                            <option value="{{ i }}">
-                                {{ ("reviewResultCodes."~i~"")|trans }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                {% if articleStep.note %}
+                    <div>
+                        <h2>{{ 'Notes' }}</h2>
+                        {{ articleStep.note|raw }}
+                    </div>
                 {% endif %}
-                {% if step.onlyReply %}
-                    <input type="hidden" name="nextStepId" value="{{ articleStep.from.step.id }}"/>
-                {% else %}
-                    <select name="nextStepId" class="select2-element form-control" style="width:200px">
-                        {% for nextStep in step.nextSteps %}
-                            <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
-                        {% endfor %}
-                    </select>
+
+                {% if articleStep.reviewNotes %}
+                    <div>
+                        <h2>{{ 'Review Notes'|trans }}</h2>
+                        {{ articleStep.reviewNotes|raw }}
+                    </div>
                 {% endif %}
-                <div class="btn-group pull-right">
-                    {% if step.canRejectSubmission %}
-                        <a href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }}')">
-                            <i class="fa fa-warning"></i> Reject Completely
-                        </a>
-                    {% endif %}
-                    <button type="submit" class="btn btn-warning  btn-lg" id="endreview">
-                        <i class="fa fa-arrow-right"></i> End Review
-                    </button>
-                </div>
-            </div>
+
+                <hr>
+                    {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
+                        <div class="jumbotron">
+                            {% if prevStep %}
+                                <h3>{{ 'Previous Review Report'|trans }}</h3>
+                                {{ prevStep.reviewFormResults|raw }}
+                                <hr>
+                                {% endif %}
+
+                                <textarea name="notes" placeholder="notes" class="form-control" rows="4"></textarea>
+                                <br>
+                                    {% if step.reviewForms %}
+                                        <div class="form-group">
+                                            <label>Review Form : </label>
+                                            <select name="reviewFormId" style="min-width:120px;margin-left:10px" id="reviewFormSelector"
+                                                    class="select2-element">
+                                                {% for reviewForm in step.reviewForms %}
+                                                    <option value="{{ reviewForm.id }}">{{ reviewForm.title }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        {% for reviewForm in step.reviewForms %}
+                                            <div class="panel panel_reviewforms" id="panel_{{ reviewForm.id }}"
+                                                 style="{% if loop.first == false%}display:none{% endif %}">
+                                                <div class="panel-body"> {{ render(controller( 'OjsWorkflowBundle:ReviewForm:itemsBlock',{ 'id': reviewForm.id })) }}      </div>
+                                            </div>
+                                        {% endfor %}
+
+                                    {% endif %}
+
+                                    <div class="form-inline">
+                                        {% if step.canReview %}
+                                            <select name="reviewResultCode" class="select2-element  form-control">
+                                                {% for i in range(0,4) %}
+                                                    <option value="{{ i }}">
+                                                        {{ ("reviewResultCodes."~i~"")|trans }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endif %}
+                                        {% if step.onlyReply %}
+                                            <input type="hidden" name="nextStepId" value="{{ articleStep.from.step.id }}"/>
+                                        {% else %}
+                                            <select name="nextStepId" class="select2-element form-control" style="width:200px">
+                                                {% for nextStep in step.nextSteps %}
+                                                    <option value="{{ nextStep.id }}">{{ nextStep.title }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        {% endif %}
+                                        <div class="btn-group pull-right">
+                                            {% if step.canRejectSubmission %}
+                                                <a href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }}')">
+                                                    <i class="fa fa-warning"></i> Reject Completely
+                                                </a>
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-warning  btn-lg" id="endreview">
+                                                <i class="fa fa-arrow-right"></i> End Review
+                                            </button>
+                                        </div>
+                                    </div>
 
 
-        </div>
-    {% endif %}
-    </form>
+                                    </div>
+                                {% endif %}
+                                </form>
 
-    </div>
-{% endblock %}
+                                </div>
+                            {% endblock %}
 
 
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    {% javascripts '@upload_js' output="c/upload_article_file.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
-    {% if app.user.setting('tour.admin.workflow.article') == FALSE %}
-        <script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-    {% endjavascripts %}
-    <script>
-        $(document).ready(function () {
-            $('#reviewFormSelector').on("change", function (e) {
-                $(".panel_reviewforms").hide();
-                $("#panel_" + $("#reviewFormSelector").val()).show();
-            });
-            $.fn.editable.defaults.mode = 'inline';
-            $(".editable").editable({'url': '/update_review/{{ id }}'});
-            $("#endreview").on('click', function () {
-                var sure = confirm('{{"sure"|trans}}');
-                if (sure) {
-                    OjsCommon.waitModal();
-                    $(".editable").editable('submit', {
-                        url: '/update_review/{{ id }}',
-                        ajaxOptions: {
-                            dataType: 'text',
-                            async: false
-                        },
-                        success: function (data, config) {
-                            $("#changes").val(data);
-                            $("#submission_form").submit();
-                            return false;
-                        }
-                    });
-                }
-                return false;
-            })
-            $(".new-citation").on('click', function () {
-                var citation_row = $(".new-citation-row");
-                var cloneEl = citation_row.clone();
-                cloneEl.removeClass('new-citation-row');
-                var button = cloneEl.find('.input-group-btn').find('.new-citation');
-                button.addClass('remove-citation');
-                button.removeClass('new-citation');
-                button.addClass('btn-danger');
-                button.removeClass('btn-success');
-                cloneEl.find('.fa-plus').addClass('fa-trash').removeClass('fa-plus');
-                citation_row.after().parent().append(cloneEl);
-                citation_row.find('input').val('');
-                return false;
-            });
-            $(document).on('click', '.remove-citation', function () {
-                $(this).parents('tr').remove();
-                return false;
-            });
-            $(".new-author").on('click', function () {
-                var author_row = $(".new-author-row");
-                var cloneEl = author_row.clone();
-                cloneEl.removeClass('new-author-row');
-                var button = cloneEl.find('.new-author');
-                button.addClass('remove-author');
-                button.removeClass('new-author');
-                button.addClass('btn-danger');
-                button.removeClass('btn-success');
-                cloneEl.find('.fa-plus').addClass('fa-trash').removeClass('fa-plus');
-                author_row.after().parent().append(cloneEl);
-                author_row.find('input').val('');
-                return false;
-            });
-            $(document).on('click', '.remove-author', function () {
-                $(this).parents('tr').remove();
-                return false;
-            });
-            $('.article_file_upload').fileupload({});
-            $('.article_file_upload').bind('fileuploadsend', function (e, data) {
-                $($(this).parents('td')).find('.uploading').show();
-            }).bind('fileuploaddone', function (e, data) {
-                $obj = JSON.parse(data.result);
-                $('.filename', $(this).parent()).attr('value', $obj.files.name);
-                $('.mimetype', $(this).parent()).attr('value', $obj.files.size);
-                $('.filesize', $(this).parent()).attr('value', $obj.files.mimeType);
-                $($(this).parents('td')).find('.uploading').html('Done..');
-            });
-        });
-    </script>
-{% endblock %}
+                            {% block javascripts %}
+                                {{ parent() }}
+                                {% javascripts '@apptour_js' output="c/apptour.js" %}
+                                <script type="text/javascript" src="{{ asset_url }}"></script>
+                                {% endjavascripts %}
+                                {% javascripts '@upload_js' output="c/upload_article_file.js" %}
+                                <script type="text/javascript" src="{{ asset_url }}"></script>
+                                {% endjavascripts %}
+                                {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
+                                {% if app.user.setting('tour.admin.workflow.article') == FALSE %}
+                                <script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+                                {% endjavascripts %}
+                                <script>
+                                    $(document).ready(function () {
+                                        $('#reviewFormSelector').on("change", function (e) {
+                                            $(".panel_reviewforms").hide();
+                                            $("#panel_" + $("#reviewFormSelector").val()).show();
+                                        });
+                                        $.fn.editable.defaults.mode = 'inline';
+                                        $(".editable").editable({'url': '/update_review/{{ id }}'});
+                                        $("#endreview").on('click', function () {
+                                            var sure = confirm('{{"sure"|trans}}');
+                                            if (sure) {
+                                                OjsCommon.waitModal();
+                                                $(".editable").editable('submit', {
+                                                    url: '/update_review/{{ id }}',
+                                                    ajaxOptions: {
+                                                        dataType: 'text',
+                                                        async: false
+                                                    },
+                                                    success: function (data, config) {
+                                                        $("#changes").val(data);
+                                                        $("#submission_form").submit();
+                                                        return false;
+                                                    }
+                                                });
+                                            }
+                                            return false;
+                                        })
+                                        $(".new-citation").on('click', function () {
+                                            var citation_row = $(".new-citation-row");
+                                            var cloneEl = citation_row.clone();
+                                            cloneEl.removeClass('new-citation-row');
+                                            var button = cloneEl.find('.input-group-btn').find('.new-citation');
+                                            button.addClass('remove-citation');
+                                            button.removeClass('new-citation');
+                                            button.addClass('btn-danger');
+                                            button.removeClass('btn-success');
+                                            cloneEl.find('.fa-plus').addClass('fa-trash').removeClass('fa-plus');
+                                            citation_row.after().parent().append(cloneEl);
+                                            citation_row.find('input').val('');
+                                            return false;
+                                        });
+                                        $(document).on('click', '.remove-citation', function () {
+                                            $(this).parents('tr').remove();
+                                            return false;
+                                        });
+                                        $(".new-author").on('click', function () {
+                                            var author_row = $(".new-author-row");
+                                            var cloneEl = author_row.clone();
+                                            cloneEl.removeClass('new-author-row');
+                                            var button = cloneEl.find('.new-author');
+                                            button.addClass('remove-author');
+                                            button.removeClass('new-author');
+                                            button.addClass('btn-danger');
+                                            button.removeClass('btn-success');
+                                            cloneEl.find('.fa-plus').addClass('fa-trash').removeClass('fa-plus');
+                                            author_row.after().parent().append(cloneEl);
+                                            author_row.find('input').val('');
+                                            return false;
+                                        });
+                                        $(document).on('click', '.remove-author', function () {
+                                            $(this).parents('tr').remove();
+                                            return false;
+                                        });
+                                        $('.article_file_upload').fileupload({});
+                                        $('.article_file_upload').bind('fileuploadsend', function (e, data) {
+                                            $($(this).parents('td')).find('.uploading').show();
+                                        }).bind('fileuploaddone', function (e, data) {
+                                            $obj = JSON.parse(data.result);
+                                            $('.filename', $(this).parent()).attr('value', $obj.files.name);
+                                            $('.mimetype', $(this).parent()).attr('value', $obj.files.size);
+                                            $('.filesize', $(this).parent()).attr('value', $obj.files.mimeType);
+                                            $($(this).parents('td')).find('.uploading').html('Done..');
+                                        });
+                                    });
+                                </script>
+                            {% endblock %}
 
 
 

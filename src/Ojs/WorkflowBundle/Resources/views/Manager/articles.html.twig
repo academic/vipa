@@ -34,8 +34,11 @@
                         <tr>
                             <td>
                                 <h4>
+                                    {% if articleStep.parentStep %}
+                                        <span class="label" style="background-color: #f69;font-size:10px"><i class="fa fa-angle-double-right"></i> Assigned Step</span>
+                                    {% endif %}
                                     <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
-                                    {{ articles[loop.index0].title }}
+                                        {{ articleStep.articleRevised.articleData[articleStep.primaryLanguage].title }}
                                     </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
