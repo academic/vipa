@@ -428,22 +428,26 @@
                                                 {% endfor %}
                                             </select>
                                         {% endif %}
-                                        <div class="jumbotron">
-                                            <p>
-                                                {{ step.introduction }}
-                                            </p>
-                                        </div>
-                                        <div class="btn-group pull-right">
-                                            {% if step.canRejectSubmission %}
-                                                <a href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }}')">
-                                                    <i class="fa fa-warning"></i> Reject Completely
-                                                </a>
-                                            {% endif %}
-                                            <button type="submit" class="btn btn-warning  btn-lg" id="endreview">
-                                                <i class="fa fa-arrow-right"></i> End Review
-                                            </button>
-                                        </div>
-                                    </div>
+                                        {% if step.introduction %}
+                                            <hr>
+                                                <div class="panel panel-warning">
+                                                    <div class="panel-heading"><h4>Introduction for this step</h4></div>
+                                                    <div class="panel-body">
+                                                        {{ step.introduction }}
+                                                        </p>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="btn-group pull-right">
+                                                    {% if step.canRejectSubmission %}
+                                                        <a href="#" class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }}')">
+                                                            <i class="fa fa-warning"></i> Reject Completely
+                                                        </a>
+                                                    {% endif %}
+                                                    <button type="submit" class="btn btn-warning  btn-lg" id="endreview">
+                                                        <i class="fa fa-arrow-right"></i> End Review
+                                                    </button>
+                                                </div>
+                                            </div>
 
 
                                     </div>
