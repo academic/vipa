@@ -111,7 +111,11 @@ class ManagerController extends Controller {
         ));
     }
 
-    public function journalSettingsPageAction(Request $r)
+    /**
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function journalSettingsPageAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
@@ -133,12 +137,9 @@ class ManagerController extends Controller {
         });
         $grid = $this->get('grid');
         $grid->setSource($source);
-        $grid->setHiddenColumns(['post_type','content','object','createdAt','updatedAt','deletedAt','objectId']);
-        $rowAction = ActionHelper::editAction('post_edit','id');
-        $grid->addRowAction($rowAction);
-
-        $rowAction = ActionHelper::deleteAction('post_delete','id');
-        $grid->addRowAction($rowAction);
+        $grid->setHiddenColumns(['post_type','content','object','createdAt','updatedAt','deletedAt','objectId']); 
+        $grid->addRowAction(ActionHelper::editAction('post_edit','id')); 
+        $grid->addRowAction( ActionHelper::deleteAction('post_delete','id'));
 
         $data = [];
         $data['grid'] = $grid;
@@ -173,9 +174,9 @@ class ManagerController extends Controller {
             $countQuery->field('finishedDate')->equals(null);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
-        // invited steps 
+        // waiting invited steps 
         $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
-                ->findBy(array('userId' => $user->getId()));
+                ->findBy(array('userId' => $user->getId(),'accept'=>null));
 
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {

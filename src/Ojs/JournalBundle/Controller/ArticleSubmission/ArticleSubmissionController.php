@@ -39,12 +39,15 @@ class ArticleSubmissionController extends Controller {
         $ta = $source1->getTableAlias();
         $source1->manipulateRow(function (Row $row) use ($dm) {
             if (null !== ($row->getField('status'))) {
-                $articleId = $row->getField('id');
+                $articleId = $row->getField('id'); 
                 $currentStep = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
-                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));
-                $row->setColor($currentStep->getStep()->getColor() );
-                $row->setField('status', "<span style='display:block;background: " .
-                        ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
+                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));  
+                if($currentStep){ 
+                            // in case of error if submission is not on mongodb
+                            $row->setColor($currentStep->getStep()->getColor() );
+                            $row->setField('status', "<span style='display:block;background: " .
+                                    ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
+                }
             }
             return $row;
         });
