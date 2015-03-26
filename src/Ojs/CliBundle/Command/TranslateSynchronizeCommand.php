@@ -135,7 +135,7 @@ EOF
         if ($modified) {
             $output->writeln('Slave file can modify');
             $dumper = new YamlFileDumper();
-            if ($execute !== null) {
+            if ($execute === true) {
                 $dumper->dump($catSlaveFile, array('path' => $translationPath));
                 /*unlink created trash file*/
                 unlink($slaveFile . '~');
