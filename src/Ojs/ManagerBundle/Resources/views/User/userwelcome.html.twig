@@ -32,13 +32,13 @@
                                     {{ invitation.step.step.title }} 
                                 </td>
                                 <td>
-                                    <a href="{{path('article_workflow_invitation_preview',{id:invitation.step.id})}}" >
+                                    <a href="{{path('article_workflow_invitation_preview',{id:invitation.id})}}" >
                                         <span>{{invitation.step.articleRevised.articleData[invitation.step.primaryLanguage].title}}</span>
                                     </a>
                                 </td>
                                 <td>
                                     <span class="btn-group pull-right">
-                                        <a href="{{path('article_workflow_invitation_preview',{'id':invitation.step.id})}}" 
+                                        <a href="{{path('article_workflow_invitation_preview',{'id':invitation.id})}}" 
                                            class="btn btn-xs btn-default"  >Details</a>
                                         <a href="{{path('article_workflow_invitation_accept',{'id':invitation.id})}}" 
                                            onclick="return confirm('{{"sure"|trans}}');" class="btn btn-xs btn-success">Accept</a>

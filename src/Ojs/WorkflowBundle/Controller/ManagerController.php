@@ -57,9 +57,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
-        return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
+        return $this->render('OjsWorkflowBundle:Manager:invitationPreview.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
+                    'invitation' => $invitation,
                     'id' => $id,
                     'step' => $step,
                     'prevStep' => $articleStep->getFrom(),
@@ -262,8 +263,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
             foreach (explode(',', $users) as $user) {
 
                 $userObject = $em->getRepository('OjsUserBundle:User')->find($user);
+                /* @var $copyStep \Ojs\WorkflowBundle\Document\ArticleReviewStep  */
                 $copyStep = clone $articleStep;
                 $copyStep->setOwnerUser($userObject);
+                $copyStep->setParentStep($articleStep);
                 $dm->persist($copyStep);
                 $dm->flush();
                 $invitation = new \Ojs\WorkflowBundle\Document\Invitation();
