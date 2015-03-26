@@ -340,6 +340,7 @@ journalsindex.create: Yeni Dizin Ekle
 journalsindex.edit: Dizin Düzenle
 journalsindex.list: Dizinleri Listele
 journalsindex.singular: Dizin
+journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
 journalsindex.link: Link
@@ -347,9 +348,10 @@ journalsindex.link: Link
 
 journal.settings.submission.language: Makale Gönderim Dilleri
 journal.settings.submission.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz
-journal.settings.submission: Dergi Makale Gönderim Ayarları
+journal.settings.submission: Makale Gönderim Ayarları
 journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
-journal.settings.mail: "Email Ayarları"
+journal.settings.mail: Email Ayarları
+journal.settings.page: Sayfa Ayarları
 journal.settings.mail.signature: "Email imzası"
 
 setup.step: 'Adım'

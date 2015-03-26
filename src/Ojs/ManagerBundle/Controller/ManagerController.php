@@ -2,6 +2,10 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
 use \Symfony\Component\HttpFoundation\Request;
@@ -107,6 +111,43 @@ class ManagerController extends Controller {
         ));
     }
 
+    /**
+     * 
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function journalSettingsPageAction()
+    {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $object = $twig->encode($journal);
+        $source = new Entity("Okulbilisim\\CmsBundle\\Entity\\Post");
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function(QueryBuilder $qb)use($ta,$journal,$object){
+            return $qb->andWhere(
+                $qb->expr()->andX(
+                    $qb->expr()->eq("$ta.object",":object"),
+                    $qb->expr()->eq("$ta.objectId",":journalId")
+                )
+            )
+                ->setParameters([
+                    'object'=>$object,
+                    'journalId'=>$journal->getId()
+                ])
+                ;
+        });
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+        $grid->setHiddenColumns(['post_type','content','object','createdAt','updatedAt','deletedAt','objectId']); 
+        $grid->addRowAction(ActionHelper::editAction('post_edit','id')); 
+        $grid->addRowAction( ActionHelper::deleteAction('post_delete','id'));
+
+        $data = [];
+        $data['grid'] = $grid;
+        $data['journal'] = $journal;
+
+        return $grid->getGridResponse('OjsManagerBundle:Manager:journal_settings_pages/list.html.twig',$data);
+
+    }
     public function userIndexAction()
     {
         $user = $this->getUser();
@@ -119,8 +160,9 @@ class ManagerController extends Controller {
             // @todo we should query in a more elegant way  
             // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
             // Don't know how to query $elemMatch 
+            $security = $this->get('user.helper'); 
             foreach ($allowedWorkflowSteps as $step) {
-                if ($this->checkStepAndUserRoles($step)) {
+                if (( $security->hasJournalRole('ROLE_EDITOR') || $security->hasJournalRole('ROLE_JOURNAL_MANAGER')) || $this->checkStepAndUserRoles($step)) {
                     $mySteps[] = $step;
                 }
             }
@@ -133,9 +175,9 @@ class ManagerController extends Controller {
             $countQuery->field('finishedDate')->equals(null);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
-        // invited steps 
+        // waiting invited steps 
         $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
-                ->findBy(array('userId' => $user->getId()));
+                ->findBy(array('userId' => $user->getId(),'accept'=>null));
 
         $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {

@@ -3,7 +3,7 @@
         <a href="{{ url('manager_current_journal_settings') }}">{{ "journal.edit"|trans }}</a>
     </li>
     <li role="presentation" class="{% if active == 2 %}active{% endif %}">
-        <a href="{{ url('manager_journals_indexes') }}">{{ "journalsindex.singular"|trans }}</a>
+        <a href="{{ url('manager_journals_indexes') }}">{{ "journalsindex.plural"|trans }}</a>
     </li>
       <li role="presentation" class="{% if active == 3 %}active{% endif %}">
         <a href="{{ url('manager_current_journal_submission_settings') }}">{{ "journal.settings.submission"|trans }}</a>
@@ -14,5 +14,8 @@
   
     <li role="presentation" class="{% if active == 5 %}active{% endif %}">
         <a href="{{ url('manager_current_journal_mail_settings') }}">{{ "journal.settings.mail"|trans }}</a>
+    </li>
+    <li role="presentation" class="{% if active == 6 %}active{% endif %}">
+        <a href="{{ url('manager_current_journal_page_settings') }}">{{ "journal.settings.page"|trans }}</a>
     </li>
 </ul>

@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Journal Setup Wizard controller.
@@ -25,9 +26,15 @@ class JournalSetupController extends Controller
         foreach (range(1, 6) as $stepValue) {
             $stepsForms['step' . $stepValue] = $this->createFormView($journal, $stepValue);
         }
+        $yamlParser = new Parser();
+        $default_pages = $yamlParser->parse(file_get_contents(
+            $this->container->getParameter('kernel.root_dir') .
+            '/../src/Ojs/JournalBundle/Resources/data/pagetemplates.yml'
+        ));
         return $this->render('OjsJournalBundle:JournalSetup:index.html.twig', array(
             'journal' => $journal,
             'steps' => $stepsForms,
+            'default_pages'=>$default_pages
         ));
     }
 

@@ -127,6 +127,19 @@
             <div id="step4-container" class="step hide">
 
                 <div id="step4">
+                    <form action="">
+                        {% for page in default_pages %}
+                        <div class="form-group">
+                            <label for="page_title_{{ loop.index }}">{{ 'title'|trans }}</label>
+                            <input class="form-control" name="page[{{ loop.index }}][title]" type="text" id="page_title_{{ loop.index }}" value="{{ page.title }}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="page_content_{{ loop.index }}">{{ 'content'|trans }}</label>
+                            <textarea class="form-control" name="page[{{ loop.index }}][content]" id="page_content_{{ loop.index }}">{{ page.content }}</textarea>
+                        </div>
+                            <hr/>
+                        {% endfor %}
+                    </form>
                     {{ form(steps.step4) }}
                 </div>
                 <div class="step4_actions record_actions">
@@ -277,6 +290,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+             $("textarea").wysihtml5({
+                toolbar: {  "font-styles": false,  "emphasis": true,  "lists": false, "html": false,   "link": true,  "image": false,  "color": false,  "blockquote": true}
+            });
             var uploadPath = '{{ app.request.uriForPath(asset('/uploads/journalfiles/')) }}'.replace("?v3", "").replace("/app_dev.php", "");
             $('#fileupload_cover').fileupload({});
             $('#fileupload_cover').bind('fileuploadsend', function (e, data) {
@@ -315,7 +331,7 @@
                 aspectRatio: 960 / 200,
                 maxWidth: 960,
                 maxHeight: 200,
-                {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
+        {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -334,7 +350,7 @@
                 aspectRatio: 200 / 300,
                 maxWidth: 200,
                 maxHeight: 300,
-                {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
+        {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -353,7 +369,7 @@
                 aspectRatio: 200 / 200,
                 maxWidth: 200,
                 maxHeight: 200,
-                {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
+        {% set imageoptions=getImageOptions(journal,'logo','journal_logo') %}
                 data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
@@ -378,7 +394,7 @@
         };
         function loadCurrentStep(currentStep) {
             OjsJournalSetup.hideAllSteps();
-            OjsJournalSetup.prepareStep["step" + currentStep]();
+            OjsJournalSetup.prepareStep["step" + currentStep](); 
         }
         $(window).on("hashchange", function (event) {
             var currentStep = parseInt(window.location.hash.replace("#", ""));

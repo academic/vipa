@@ -16,6 +16,12 @@ class ArticleReviewStep {
     protected $id;
 
     /**
+     * @MongoDb\String
+     * article primary language
+     */
+    protected $primaryLanguage;
+
+    /**
      * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowStep",nullable=true)
      */
     protected $step;
@@ -31,12 +37,11 @@ class ArticleReviewStep {
      * @MongoDB\Hash
      */
     protected $ownerUser;
-    
+
     /**
      * @MongoDb\ReferenceMany(targetDocument="Invitation",nullable=true)
      */
     protected $invitations;
-
 
     /** @MongoDb\Int @MongoDb\Index() */
     protected $action;
@@ -111,7 +116,8 @@ class ArticleReviewStep {
      * Document Id
      * @return id $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -121,7 +127,8 @@ class ArticleReviewStep {
      * @param  int  $action
      * @return self
      */
-    public function setAction($action) {
+    public function setAction($action)
+    {
         $this->action = $action;
 
         return $this;
@@ -132,7 +139,8 @@ class ArticleReviewStep {
      *
      * @return int $action
      */
-    public function getAction() {
+    public function getAction()
+    {
         return $this->action;
     }
 
@@ -142,7 +150,8 @@ class ArticleReviewStep {
      * @param  string $note
      * @return self
      */
-    public function setNote($note) {
+    public function setNote($note)
+    {
         $this->note = $note;
 
         return $this;
@@ -153,7 +162,8 @@ class ArticleReviewStep {
      *
      * @return string $note
      */
-    public function getNote() {
+    public function getNote()
+    {
         return $this->note;
     }
 
@@ -163,7 +173,8 @@ class ArticleReviewStep {
      * @param  int  $articleId
      * @return self
      */
-    public function setArticleId($articleId) {
+    public function setArticleId($articleId)
+    {
         $this->articleId = $articleId;
 
         return $this;
@@ -174,7 +185,8 @@ class ArticleReviewStep {
      *
      * @return int $articleId
      */
-    public function getArticleId() {
+    public function getArticleId()
+    {
         return $this->articleId;
     }
 
@@ -184,7 +196,8 @@ class ArticleReviewStep {
      * @param  hash $articleRevised
      * @return self
      */
-    public function setArticleRevised($articleRevised) {
+    public function setArticleRevised($articleRevised)
+    {
         $this->articleRevised = $articleRevised;
 
         return $this;
@@ -195,7 +208,8 @@ class ArticleReviewStep {
      *
      * @return hash $articleRevised
      */
-    public function getArticleRevised() {
+    public function getArticleRevised()
+    {
         return $this->articleRevised;
     }
 
@@ -205,7 +219,8 @@ class ArticleReviewStep {
      * @param  string $statusText
      * @return self
      */
-    public function setStatusText($statusText) {
+    public function setStatusText($statusText)
+    {
         $this->statusText = $statusText;
 
         return $this;
@@ -216,7 +231,8 @@ class ArticleReviewStep {
      *
      * @return string $statusText
      */
-    public function getStatusText() {
+    public function getStatusText()
+    {
         return $this->statusText;
     }
 
@@ -226,7 +242,8 @@ class ArticleReviewStep {
      * @param  date $startedDate
      * @return self
      */
-    public function setStartedDate($startedDate) {
+    public function setStartedDate($startedDate)
+    {
         $this->startedDate = $startedDate;
 
         return $this;
@@ -237,7 +254,8 @@ class ArticleReviewStep {
      *
      * @return date $startedDate
      */
-    public function getStartedDate() {
+    public function getStartedDate()
+    {
         return $this->startedDate;
     }
 
@@ -247,7 +265,8 @@ class ArticleReviewStep {
      * @param  date $finishedDate
      * @return self
      */
-    public function setFinishedDate($finishedDate) {
+    public function setFinishedDate($finishedDate)
+    {
         $this->finishedDate = $finishedDate;
 
         return $this;
@@ -258,7 +277,8 @@ class ArticleReviewStep {
      *
      * @return date $finishedDate
      */
-    public function getFinishedDate() {
+    public function getFinishedDate()
+    {
         return $this->finishedDate;
     }
 
@@ -268,7 +288,8 @@ class ArticleReviewStep {
      * @param  date $reviewDeadline
      * @return self
      */
-    public function setReviewDeadline($reviewDeadline) {
+    public function setReviewDeadline($reviewDeadline)
+    {
         $this->reviewDeadline = $reviewDeadline;
 
         return $this;
@@ -279,7 +300,8 @@ class ArticleReviewStep {
      *
      * @return date $reviewDeadline
      */
-    public function getReviewDeadline() {
+    public function getReviewDeadline()
+    {
         return $this->reviewDeadline;
     }
 
@@ -289,7 +311,8 @@ class ArticleReviewStep {
      * @param  boolean $rootNode
      * @return self
      */
-    public function setRootNode($rootNode) {
+    public function setRootNode($rootNode)
+    {
         $this->rootNode = $rootNode;
 
         return $this;
@@ -300,7 +323,8 @@ class ArticleReviewStep {
      *
      * @return boolean $rootNode
      */
-    public function getRootNode() {
+    public function getRootNode()
+    {
         return $this->rootNode;
     }
 
@@ -309,7 +333,8 @@ class ArticleReviewStep {
      * @param  Ojs\UserBundle\User $user
      * @return self
      */
-    public function setOwnerUser($user) {
+    public function setOwnerUser($user)
+    {
         $this->ownerUser = !$user ? null : array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
         return $this;
     }
@@ -319,7 +344,8 @@ class ArticleReviewStep {
      *
      * @return hash $ownerUser
      */
-    public function getOwnerUser() {
+    public function getOwnerUser()
+    {
         return $this->ownerUser;
     }
 
@@ -329,7 +355,8 @@ class ArticleReviewStep {
      * @param string $reviewResult
      * @return self
      */
-    public function setReviewResult($reviewResult) {
+    public function setReviewResult($reviewResult)
+    {
         $this->reviewResult = $reviewResult;
         return $this;
     }
@@ -339,7 +366,8 @@ class ArticleReviewStep {
      *
      * @return string $reviewResult
      */
-    public function getReviewResult() {
+    public function getReviewResult()
+    {
         return $this->reviewResult;
     }
 
@@ -349,7 +377,8 @@ class ArticleReviewStep {
      * @param string $reviewNotes
      * @return self
      */
-    public function setReviewNotes($reviewNotes) {
+    public function setReviewNotes($reviewNotes)
+    {
         $this->reviewNotes = $reviewNotes;
         return $this;
     }
@@ -359,7 +388,8 @@ class ArticleReviewStep {
      *
      * @return string $reviewNotes
      */
-    public function getReviewNotes() {
+    public function getReviewNotes()
+    {
         return $this->reviewNotes;
     }
 
@@ -369,7 +399,8 @@ class ArticleReviewStep {
      * @param int $submitterId
      * @return self
      */
-    public function setSubmitterId($submitterId) {
+    public function setSubmitterId($submitterId)
+    {
         $this->submitterId = $submitterId;
         return $this;
     }
@@ -379,15 +410,18 @@ class ArticleReviewStep {
      *
      * @return int $submitterId
      */
-    public function getSubmitterId() {
+    public function getSubmitterId()
+    {
         return $this->submitterId;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getStatusText() . "[#{$this->getId()}]";
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->id = null;
     }
 
@@ -397,7 +431,8 @@ class ArticleReviewStep {
      * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $from
      * @return self
      */
-    public function setFrom(\Ojs\WorkflowBundle\Document\ArticleReviewStep $from) {
+    public function setFrom(\Ojs\WorkflowBundle\Document\ArticleReviewStep $from)
+    {
         $this->from = $from;
         return $this;
     }
@@ -407,7 +442,8 @@ class ArticleReviewStep {
      *
      * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $from
      */
-    public function getFrom() {
+    public function getFrom()
+    {
         return $this->from;
     }
 
@@ -417,7 +453,8 @@ class ArticleReviewStep {
      * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $to
      * @return self
      */
-    public function setTo(\Ojs\WorkflowBundle\Document\ArticleReviewStep $to) {
+    public function setTo(\Ojs\WorkflowBundle\Document\ArticleReviewStep $to)
+    {
         $this->to = $to;
         return $this;
     }
@@ -427,7 +464,8 @@ class ArticleReviewStep {
      *
      * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $to
      */
-    public function getTo() {
+    public function getTo()
+    {
         return $this->to;
     }
 
@@ -437,7 +475,8 @@ class ArticleReviewStep {
      * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
      * @return self
      */
-    public function setStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $step) {
+    public function setStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $step)
+    {
         $this->step = $step;
         return $this;
     }
@@ -447,7 +486,8 @@ class ArticleReviewStep {
      *
      * @return Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
      */
-    public function getStep() {
+    public function getStep()
+    {
         return $this->step;
     }
 
@@ -457,7 +497,8 @@ class ArticleReviewStep {
      * @param string $reviewFormResults
      * @return self
      */
-    public function setReviewFormResults($reviewFormResults) {
+    public function setReviewFormResults($reviewFormResults)
+    {
         $this->reviewFormResults = $reviewFormResults;
         return $this;
     }
@@ -467,7 +508,8 @@ class ArticleReviewStep {
      *
      * @return string $reviewFormResults
      */
-    public function getReviewFormResults() {
+    public function getReviewFormResults()
+    {
         return $this->reviewFormResults;
     }
 
@@ -475,7 +517,7 @@ class ArticleReviewStep {
     {
         $this->invitations = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add invitation
      *
@@ -483,7 +525,7 @@ class ArticleReviewStep {
      */
     public function addInvitation(\Ojs\WorkflowBundle\Document\Invitation $invitation)
     {
-        $this->invitations[] = $invitation; 
+        $this->invitations[] = $invitation;
     }
 
     /**
@@ -504,5 +546,28 @@ class ArticleReviewStep {
     public function getInvitations()
     {
         return $this->invitations;
+    }
+
+
+    /**
+     * Set primaryLanguage
+     *
+     * @param string $primaryLanguage
+     * @return self
+     */
+    public function setPrimaryLanguage($primaryLanguage)
+    {
+        $this->primaryLanguage = $primaryLanguage;
+        return $this;
+    }
+
+    /**
+     * Get primaryLanguage
+     *
+     * @return string $primaryLanguage
+     */
+    public function getPrimaryLanguage()
+    {
+        return $this->primaryLanguage;
     }
 }

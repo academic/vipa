@@ -12,7 +12,7 @@
 
 
 {% block body -%}
-
+    {% include '::flashbag.html.twig' %} 
     <h2>{{ 'Submissions'|trans }}</h2>
         <a href="{{ path('article_submission_new') }}"
            class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>

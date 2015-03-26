@@ -16,8 +16,16 @@ class CustomFieldType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
-            ->add('value')
+            ->add('label','text',[
+                'attr'=>[
+                    'class'=>'validate[required,minSize[2]]'
+                ]
+            ])
+            ->add('value','text',[
+                'attr'=>[
+                    'class'=>'validate[required,minSize[2]]'
+                ]
+            ])
             ->add('is_url')
             ->add('user_id', 'hidden', ['attr' => ['value' => $options['user']]]);
     }
@@ -30,7 +38,11 @@ class CustomFieldType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\CustomField',
             'user' => 0,
-            'csrf_protection'=>false
+            'csrf_protection'=>false,
+            'attr'=>[
+                'class'=>'validate-form',
+                'novalidate'=>'novalidate'
+            ]
         ));
     }
 
