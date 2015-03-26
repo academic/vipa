@@ -133,7 +133,8 @@ class IssueManagerController extends Controller
 
         return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
             'journal' => $journal,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'entity'=>$issue
         ));
     }
 
