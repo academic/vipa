@@ -47,6 +47,9 @@ class JournalWorkflowStep {
 
     /** @MongoDb\Boolean */
     protected $mustBeAssigned;
+    
+    /** @MongoDb\String */
+    protected $introduction;
 
     /**
      *  @MongoDb\ReferenceMany(targetDocument="ReviewForm",nullable=true)
@@ -500,5 +503,27 @@ class JournalWorkflowStep {
     public function getNextSteps()
     {
         return $this->nextSteps;
+    }
+
+    /**
+     * Set introduction
+     *
+     * @param string $introduction
+     * @return self
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+        return $this;
+    }
+
+    /**
+     * Get introduction
+     *
+     * @return string $introduction
+     */
+    public function getIntroduction()
+    {
+        return $this->introduction;
     }
 }
