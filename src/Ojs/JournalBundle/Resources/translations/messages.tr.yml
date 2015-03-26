@@ -11,7 +11,7 @@ settings: Ayarlar
 journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
-workflow: İş Akışı
+workflow: 'İş Akışı'
 admin: Yönetim
 dashboard: Panel
 title: Başlık
@@ -75,7 +75,7 @@ article.subtitle: 'Makale Alt başlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
 article.add: 'Makale Ekle'
-article.section: "Bölüm"
+article.section: Bölüm
 suppfiles.resins: 'Araştırma Araçları'
 suppfiles.resmat: 'Araştırma Materyalleri'
 suppfiles.resres: 'Araştırma Sonuçları'
@@ -139,7 +139,6 @@ sure: 'Emin misiniz ?'
 res: Res
 select_article_file: 'Makale Dosyası Seç'
 Supplementary.File: 'İlave Dosya'
-sure_data_lost: 'Veri kaybını onaylıyor musunuz?'
 'Preview Article Before Submit': 'Göndermeden Önce Makaleyi İncele'
 'Back & Continue Editing': 'Geri Dön ve Devam Et'
 remove: Kaldır
@@ -288,9 +287,9 @@ review.forms: 'İnceleme Formları'
 template: Şablon
 templates: Şablonlar
 reviewResultCodes.0: Ret
-reviewResultCodes.1: Tekrar Yazılmalı
-reviewResultCodes.2: Major Revizyon
-reviewResultCodes.3: Minor Revizyon
+reviewResultCodes.1: 'Tekrar Yazılmalı'
+reviewResultCodes.2: 'Major Revizyon'
+reviewResultCodes.3: 'Minor Revizyon'
 reviewResultCodes.4: Kabul
 page.plural: Sayfalar
 page.singular: Sayfa
@@ -302,24 +301,24 @@ articlefile.type: Tür
 articlefile.version: Sürüm
 articlefile.langcode: Dil
 articlefile.actions: İşlemler
-suggestion.institute: Enstitü Önerisi
-suggestion.institute.list: Enstitü Önerileri
+suggestion.institute: 'Enstitü Önerisi'
+suggestion.institute.list: 'Enstitü Önerileri'
 institute.id: ID
 institute.name: İsim
 institute.country: Ülke
 suggestion.institute.detail: Detay
 institute.slug: Slug
-institute.merge_as_new_institute: Yeni Enstitü Olarak Kaydet
-suggestion.journal: Dergi Önerisi
-suggestion.journal.list: Dergi Önerileri
+institute.merge_as_new_institute: 'Yeni Enstitü Olarak Kaydet'
+suggestion.journal: 'Dergi Önerisi'
+suggestion.journal.list: 'Dergi Önerileri'
 journal.title: Başlık
-journal.subtitle: Alt Başlık
+journal.subtitle: 'Alt Başlık'
 suggestion.journal.detail: Detay
-journal.titleAbbr: Başlık Kısaltması
-journal.titleTransliterated: Çevrilmiş Başlık
+journal.titleAbbr: 'Başlık Kısaltması'
+journal.titleTransliterated: 'Çevrilmiş Başlık'
 journal.domain: Domain
-journal.path: Path 
-journal.firstPublishDate: İlk Yayın Tarihi
+journal.path: Path
+journal.firstPublishDate: 'İlk Yayın Tarihi'
 journal.period: Sıklık
 journal.url: URL
 journal.country: Ülke
@@ -328,62 +327,70 @@ journal.mission: Misyon
 journal.languages: Diller
 journal.institution: Enstitü
 journal.subjects: Konular
-journal.cover_image: Kapak Resmi
-journal.header_image: Üst Resim
+journal.cover_image: 'Kapak Resmi'
+journal.header_image: 'Üst Resim'
 journal.tags: Etiketler
 journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
-journal.merge_as_new_journal: Yeni Dergi olarak kaydet
-dashboard.suggestion: "Öneriler"
-
-journalsindex.create: Yeni Dizin Ekle
-journalsindex.edit: Dizin Düzenle
-journalsindex.list: Dizinleri Listele
+journal.merge_as_new_journal: 'Yeni Dergi olarak kaydet'
+dashboard.suggestion: Öneriler
+journalsindex.create: 'Yeni Dizin Ekle'
+journalsindex.edit: 'Dizin Düzenle'
+journalsindex.list: 'Dizinleri Listele'
 journalsindex.singular: Dizin
 journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
 journalsindex.link: Link
-
-
-journal.settings.submission.language: Makale Gönderim Dilleri
-journal.settings.submission.language.text: Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz
-journal.settings.submission: Makale Gönderim Ayarları
-journal.settings.submission.abstractTemplate: Makale Gönderimi Öz Şablonu
-journal.settings.mail: Email Ayarları
-journal.settings.page: Sayfa Ayarları
-journal.settings.mail.signature: "Email imzası"
-
-setup.step: 'Adım'
+journal.settings.submission.language: 'Makale Gönderim Dilleri'
+journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz'
+journal.settings.submission: 'Makale Gönderim Ayarları'
+journal.settings.submission.abstractTemplate: 'Makale Gönderimi Öz Şablonu'
+journal.settings.mail: 'Email Ayarları'
+journal.settings.page: 'Sayfa Ayarları'
+journal.settings.mail.signature: 'Email imzası'
+setup.step: Adım
 save.finish: 'Kaydet ve Bitir'
-
-mailtemplate.journal: 'Dergi'
-mailtemplate.type: 'Tür'
-mailtemplate.subject: 'Konu'
-mailtemplate.language: 'Dil'
-mailtemplate.template: 'Şablon'
+mailtemplate.journal: Dergi
+mailtemplate.type: Tür
+mailtemplate.subject: Konu
+mailtemplate.language: Dil
+mailtemplate.template: Şablon
 mailtemplate.edit: 'Şablonu Düzenle'
 mailtemplate.list: 'Mail Şablonları'
 mailtemplate.new: 'Yeni Mail Şablonu'
-mailtemplate.languages: 'Dil'
-mailtemplate.title: 'Başlık'
+mailtemplate.languages: Dil
+mailtemplate.title: Başlık
 mailtemplate.default.list: 'Öntanımlı Şablonlar'
-mailtemplate.show: 'Görüntüle'
-
-journal_licence.singular: "Lisanlar"
-journal_licence.create: "Yeni Lisans"
-journal_licence.licence: "Lisans"
-journal_licence.visible: "Görünürlük"
-journal_licence.label: "Tanım"
-journal_licence.show: "Show"
-
+mailtemplate.show: Görüntüle
+journal_licence.singular: Lisanlar
+journal_licence.create: 'Yeni Lisans'
+journal_licence.licence: Lisans
+journal_licence.visible: Görünürlük
+journal_licence.label: Tanım
+journal_licence.show: Show
 journalsection.edit: 'Dergi Bölümü Düzenle'
 journalsection.list: 'Dergi Bölümü Listesi'
 journalsection.new: 'Yeni Dergi Bölümü'
 journalsection: 'Dergi Bölümü'
-journalsection.show: 'Görüntüle'
-journalsection.label: 'Tanım'
-journalsection.title: 'Başlık'
+journalsection.show: Görüntüle
+journalsection.label: Tanım
+journalsection.title: Başlık
 journalsection.allow_index: 'Allow Index'
 journalsection.hide_title: 'Başlığı Gizle'
-journalsection.journal: 'Dergi'
+journalsection.journal: Dergi
+haveNoJournals: 'TODO: You have no journals'
+back: 'TODO: Back'
+contact.plural: 'TODO: Contacts'
+contacttype.plural: 'TODO: Contacts'
+institution.plural: 'TODO: Institutions'
+institutiontype.plural: 'TODO: Institution Types'
+theme.plural: 'TODO: Themes'
+lang.plural: 'TODO: Languages'
+subject.plural: 'TODO: Subjects'
+useThisTemplate: 'TODO: Use this template'
+save: 'TODO: Save'
+Info: 'TODO: Info'
+'Article Files': 'TODO: Article Files'
+'Header Image': 'TODO: Header Image'
+File: 'TODO: File'
