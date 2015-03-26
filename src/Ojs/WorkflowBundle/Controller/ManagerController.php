@@ -77,8 +77,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         /* @var   \Ojs\WorkflowBundle\Document\Invitation  $invitation */
         $invitation = $dm->getRepository('OjsWorkflowBundle:Invitation')->find($id);
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($invitation->getStep()->getId());
-        $copyStep = clone $articleStep;
-        $dm->persist($copyStep);
+
         $invitation->setAccept(new \DateTime());
         $dm->persist($invitation);
         $dm->flush();
@@ -236,7 +235,8 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     public function assignAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $data['articleStep'] = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        $data['articleStep'] = $articleStep;
         $data['invitations'] = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getId())));
         return $this->render('OjsWorkflowBundle:Manager:assign.html.twig', $data);
     }
@@ -252,12 +252,19 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         //$invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId()))); 
         $em = $this->getDoctrine()->getManager();
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($articleStepId);
+
+
         $users = $request->get('users');
         if (!empty(trim($users))) {
             foreach (explode(',', $users) as $user) {
+
                 $userObject = $em->getRepository('OjsUserBundle:User')->find($user);
+                $copyStep = clone $articleStep;
+                $copyStep->setOwnerUser($userObject);
+                $dm->persist($copyStep);
+                $dm->flush();
                 $invitation = new \Ojs\WorkflowBundle\Document\Invitation();
-                $invitation->setStep($articleStep);
+                $invitation->setStep($copyStep);
                 $invitation->setUserId($user);
                 $invitation->setUserEmail($userObject->getEmail());
                 $dm->persist($invitation);
