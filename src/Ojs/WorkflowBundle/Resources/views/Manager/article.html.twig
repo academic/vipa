@@ -93,13 +93,13 @@
                     </a>
                 {% endfor %} 
             </div>
-           
+
         </div>
     {% endif %}
     {% if (isJournalManager() or isEditor()) and articleStep.step.mustBeAssigned and articleStep.parentStep == false%}
-                <a href="{{path('article_step_asssign',{'id':articleStep.id})}}" class="btn btn-info">
-                    <i class="fa fa-plus-circle"></i> Assign more</a>
-     {%endif%}
+        <a href="{{path('article_step_asssign',{'id':articleStep.id})}}" class="btn btn-info">
+            <i class="fa fa-plus-circle"></i> Assign more</a>
+        {%endif%}
     <form class="" id="submission_form"
           action="{{ path("article_step_next",{id: articleStep.id }) }}"
           method="POST">
@@ -401,7 +401,9 @@
                                         {% for reviewForm in step.reviewForms %}
                                             <div class="panel panel_reviewforms" id="panel_{{ reviewForm.id }}"
                                                  style="{% if loop.first == false%}display:none{% endif %}">
-                                                <div class="panel-body"> {{ render(controller( 'OjsWorkflowBundle:ReviewForm:itemsBlock',{ 'id': reviewForm.id })) }}      </div>
+                                                <div class="panel-body"> 
+                                                    {{ render(controller( 'OjsWorkflowBundle:ReviewForm:itemsBlock',{ 'id': reviewForm.id })) }}    
+                                                </div>
                                             </div>
                                         {% endfor %}
 
