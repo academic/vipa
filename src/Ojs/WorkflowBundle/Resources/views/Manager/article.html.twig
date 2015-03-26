@@ -92,7 +92,12 @@
                         {% endif %}
                     </a>
                 {% endfor %}
+                <div class="list-group-item">
+                    <a href="{{path('article_step_asssign',{'id':articleStep.id})}}" class="btn btn-info">
+                        <i class="fa fa-plus-circle"></i> Assign more</a>
             </div>
+            </div>
+            
         </div>
     {% endif %}
     <form class="" id="submission_form"
