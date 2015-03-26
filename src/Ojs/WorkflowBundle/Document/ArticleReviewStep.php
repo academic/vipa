@@ -33,6 +33,12 @@ class ArticleReviewStep {
     protected $rootNode;
 
     /**
+     * @MongoDb\ReferenceOne(targetDocument="ArticleReviewStep",nullable=true)
+     *  If this is a child step (invited steps are "child steps") this relation must be set.
+     */
+    protected $parentStep;
+
+    /**
      * owner user     { "id" : ... , "username" : ... , "email" : ... }
      * @MongoDB\Hash
      */
@@ -548,7 +554,6 @@ class ArticleReviewStep {
         return $this->invitations;
     }
 
-
     /**
      * Set primaryLanguage
      *
@@ -569,5 +574,28 @@ class ArticleReviewStep {
     public function getPrimaryLanguage()
     {
         return $this->primaryLanguage;
+    }
+
+
+    /**
+     * Set parentStep
+     *
+     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep
+     * @return self
+     */
+    public function setParentStep(\Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep)
+    {
+        $this->parentStep = $parentStep;
+        return $this;
+    }
+
+    /**
+     * Get parentStep
+     *
+     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep
+     */
+    public function getParentStep()
+    {
+        return $this->parentStep;
     }
 }
