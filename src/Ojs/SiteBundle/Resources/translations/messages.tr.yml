@@ -1,5 +1,5 @@
-yes: Evet
-no: Hayır
+'yes': Evet
+'no': Hayır
 period: periyot
 back: 'Listeye geri dön'
 b: Geri
@@ -80,8 +80,8 @@ discovery: Keşif
 announcements: Duyurular
 tubitak: Tübitak
 tubitak_journals: 'Tübitak Dergileri'
-Yes: Evet
-No: Hayır
+'Yes': Evet
+'No': Hayır
 role.singular: Rol
 role.plural: Roller
 user.update_profile: 'Hesabımı Güncelle'
@@ -97,14 +97,14 @@ user.connected_accounts.provider: Sağlayıcı
 user.connected_accounts.provider_user_id: 'Sağlayıcı Kullanıcı Hesabı'
 user.connected_accounts.action: İşlemler
 user.custom_field.create: Oluştur
-user.forgot_password: Şifremi Unuttum
-user.private_account: Gizli Hesap
+user.forgot_password: 'Şifremi Unuttum'
+user.private_account: 'Gizli Hesap'
 'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
-username.or.email: Kullanıcı Adı / Eposta
-user.reset_password: Şifremi Sıfırla
-user.new_password: Yeni Şifre
-user.new_password_confirm: Yeni Şifre (doğrulama)
-'Password Change': Şifre Değiştirme
+username.or.email: 'Kullanıcı Adı / Eposta'
+user.reset_password: 'Şifremi Sıfırla'
+user.new_password: 'Yeni Şifre'
+user.new_password_confirm: 'Yeni Şifre (doğrulama)'
+'Password Change': 'Şifre Değiştirme'
 Information: Bilgilendirme
 'Your password has been changed': 'Şifreniz Değiştirildi'
 'Password Reset': 'Şifre Sıfırla'
@@ -113,7 +113,9 @@ Information: Bilgilendirme
 'Password Reset Process': 'Şifre Sıfırlama İşlemi'
 'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
 'Reset Now': 'Şimdi Sıfırla'
-forgot.password: Şifremi Unuttum
-
-institute.register: "Enstitü Kaydet"
-journal.register: "Dergi Oluştur"
+forgot.password: 'Şifremi Unuttum'
+institute.register: 'Enstitü Kaydet'
+journal.register: 'Dergi Oluştur'
+'Link Ekle': 'TODO: Add Link'
+Avatar: 'TODO: Avatar'
+User: 'TODO: User'

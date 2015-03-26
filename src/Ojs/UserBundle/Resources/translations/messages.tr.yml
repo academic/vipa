@@ -5,8 +5,8 @@ event.ip: IP
 event.user.id: 'Kullanıcı ID'
 event.affectedUser.id: 'Etkilenen Kullanıcı ID'
 actions: İşlemler
-eventlog: Olay Kayıtları
-eventlog.list: Olay Kayıt Listesi
+eventlog: 'Olay Kayıtları'
+eventlog.list: 'Olay Kayıt Listesi'
 maillog.edit: 'Mail Kaydı Düzenle'
 maillog.id: ID
 maillog.mailobject: 'Mail Nesnesi'
@@ -43,7 +43,7 @@ proxy.target.user.username: 'Hedef Kullanıcı Adı'
 proxy.target.user.email: 'Hedef Kullanıcı Eposta'
 proxy.lastlogin: 'Son Giriş'
 proxy.your.proxy.user.list: 'Sizin Vekil Kullanıcı Listeniz'
-proxy.username: Kullanıcı Adı
+proxy.username: 'Kullanıcı Adı'
 proxy.user.email: Eposta
 proxy.end.time: 'Sonlanma Zamanı'
 drop: Düşür
@@ -58,9 +58,9 @@ role.issystemrole: 'Sistem Rolü mü?'
 role.new: 'Yeni Rol'
 role.singular: Rol
 role.users: 'Role sahip kullanıcılar'
-sign.in: 'Giriş'
+sign.in: Giriş
 username.or.email: 'Kullanıcı Adı veya Şifre'
-username: Kullanıcı Adı
+username: 'Kullanıcı Adı'
 password: Şifre
 forgot.password: 'şifremi unuttum'
 user.new: 'Yeni Kullanıcı'
@@ -73,7 +73,7 @@ user.edit: 'Kullanıcı Düzenle'
 uploading: Yükleniyor...
 done: Tamamlandı.
 user.list: 'Kullanıcı Listesi'
-user.username: Kullanıcı Adı
+user.username: 'Kullanıcı Adı'
 user.email: Eposta
 user.status: Durum
 user.roles: Roller
@@ -97,36 +97,32 @@ user.journalrole.creation: 'Dergi Rolü Atama'
 user.journalrole.singular: 'Dergi Rolü'
 user.journalrole.journals.of.user: 'Derginin Kullanıcıları'
 user.journalrole.journal.id: ID
-user.journalrole.journal.name: Dergi Adı
-user.journalrole.myjournals: 'Dergilerim'
+user.journalrole.journal.name: 'Dergi Adı'
+user.journalrole.myjournals: Dergilerim
 user.journalrole.alljournals: 'Tüm Dergiler'
 journal.singular: Dergi
 user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
 user.journalrole.usersofjournal: 'Kullanıcıların Dergileri'
 user.journalrole.user.id: ID
-user.journalrole.user.username: Kullanıcı Adı
+user.journalrole.user.username: 'Kullanıcı Adı'
 user.journalrole.email: Eposta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
-user.anonym:
-  new: "Yeni ekle"
-  firstname: "Ad"
-  lastname: "Soyad"
-  email: "Eposta"
-  role: "Yetki"
-  has_logged: "Giriş"
-  has_register: "Kayıt"
-  user: "Kullanıcı"
-  object: "Nesne"
-  list: "Listele"
-
-orcid:
-  login: "ORCID ile bağlan"
-user.journalrole.send_email: "Eposta Gönder"
+user.journalrole.send_email: 'Eposta Gönder'
 user.journalrole.mail.template: Şablon
-user.journalrole.mail.to: "Alıcı"
-user.journalrole.mail.subject: "Konu"
-user.journalrole.mail.body: "Mesaj"
-user.journalrole.mail.send: "Gönder"
-
-flush:
-  all.log : "Logları Sil"
+user.journalrole.mail.to: Alıcı
+user.journalrole.mail.subject: Konu
+user.journalrole.mail.body: Mesaj
+user.journalrole.mail.send: Gönder
+user.anonym.new: 'Yeni ekle'
+user.anonym.firstname: Ad
+user.anonym.lastname: Soyad
+user.anonym.email: Eposta
+user.anonym.role: Yetki
+user.anonym.has_logged: Giriş
+user.anonym.has_register: Kayıt
+user.anonym.user: Kullanıcı
+user.anonym.object: Nesne
+user.anonym.list: Listele
+orcid.login: 'ORCID ile bağlan'
+flush.all.log: 'Logları Sil'
+user.plural: 'TODO: Users'
