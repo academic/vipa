@@ -56,6 +56,7 @@ twig:
         languages : "%languages%"
         base_host: %base_host%
         admin_base_view: %admin_base_view%
+        https: %https%
 
 fos_rest:
     param_fetcher_listener: true
