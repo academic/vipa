@@ -19,8 +19,7 @@ use Symfony\Component\Translation\Exception\NotFoundResourceException;
  * User controller.
  *
  */
-class UserController extends Controller
-{
+class UserController extends Controller {
 
     /**
      * Lists all User entities.
@@ -34,9 +33,9 @@ class UserController extends Controller
         $grid->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index',['username'],'ROLE_SUPER_ADMIN');
-        $rowAction[] = ActionHelper::showAction('user_show','id');
-        $rowAction[] = ActionHelper::editAction('user_edit','id');
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'], 'ROLE_SUPER_ADMIN');
+        $rowAction[] = ActionHelper::showAction('user_show', 'id');
+        $rowAction[] = ActionHelper::editAction('user_edit', 'id');
         $rowAction[] = ActionHelper::userBanAction();
         $rowAction[] = ActionHelper::deleteAction('user_delete', 'id');
 
@@ -68,8 +67,8 @@ class UserController extends Controller
         }
 
         return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -98,8 +97,8 @@ class UserController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -115,7 +114,7 @@ class UserController extends Controller
         }
 
         return $this->render('OjsUserBundle:User:admin/show.html.twig', array(
-            'entity' => $entity));
+                    'entity' => $entity));
     }
 
     public function profileAction($username = false)
@@ -124,8 +123,8 @@ class UserController extends Controller
         $sessionUser = $this->getUser();
         /** @var User $user */
         $user = $username ?
-            $userRepo->findOneByUsername($username) :
-            $sessionUser;
+                $userRepo->findOneByUsername($username) :
+                $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($user->getId());
         if (!$entity) {
@@ -133,14 +132,14 @@ class UserController extends Controller
         }
 
         $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-            array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
+                array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
         );
 
         return $this->render('OjsUserBundle:User:profile.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => array(),
-            'me' => ($sessionUser == $user),
-            'isProxy' => (bool)$check));
+                    'entity' => $entity,
+                    'delete_form' => array(),
+                    'me' => ($sessionUser == $user),
+                    'isProxy' => (bool) $check));
     }
 
     /**
@@ -156,8 +155,8 @@ class UserController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -208,8 +207,8 @@ class UserController extends Controller
         }
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -286,7 +285,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('user_join_journal'));
         }
         $myJournals = $doc->getRepository('OjsUserBundle:UserJournalRole')
-            ->userJournalsWithRoles($userId, true); // only ids
+                ->userJournalsWithRoles($userId, true); // only ids
         $entities = array();
         $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
         foreach ($journals as $journal) {
@@ -296,7 +295,7 @@ class UserController extends Controller
         }
 
         return $this->render('OjsUserBundle:User:registerAuthor.html.twig', array(
-            'entities' => $entities
+                    'entities' => $entities
         ));
     }
 
@@ -310,15 +309,15 @@ class UserController extends Controller
         $t = $this->get('translator');
 
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
-                'label' => $t->trans('Delete User Record'),
-                'attr' => array(
-                    'class' => 'button alert',
-                    'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
-            ))
-            ->getForm();
+                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array(
+                            'label' => $t->trans('Delete User Record'),
+                            'attr' => array(
+                                'class' => 'button alert',
+                                'onclick' => 'return confirm("' . $t->trans('Are you sure?') . '"); ')
+                        ))
+                        ->getForm();
     }
 
     public function sendMailAction(Request $request, User $user)
@@ -327,16 +326,17 @@ class UserController extends Controller
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $data = [];
+        $serializer = $this->get('serializer');
         $session = $this->get('session');
         if ($request->isMethod('POST')) {
             $mailData = $request->get('mail');
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
-                ->setFrom($this->container->getParameter('system_email'))
-                ->setTo($user->getEmail())
-                ->setSubject($mailData['subject'])
-                ->setBody($mailData['body'])
-                ->setContentType('text/html');
+                    ->setFrom($this->container->getParameter('system_email'))
+                    ->setTo($user->getEmail())
+                    ->setSubject($mailData['subject'])
+                    ->setBody($mailData['body'])
+                    ->setContentType('text/html');
             $mailer->send($message);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
             $session->save();
@@ -344,16 +344,35 @@ class UserController extends Controller
         }
         $qb = $em->createQueryBuilder();
         $qb->select('t')
-            ->from('OjsJournalBundle:MailTemplate', 't')
-            ->where(
-                $qb->expr()->orX(
-                    $qb->expr()->isNull('t.journalId'), $qb->expr()->eq('t.journalId', ':journal')
+                ->from('OjsJournalBundle:MailTemplate', 't')
+                ->where(
+                        $qb->expr()->orX(
+                                $qb->expr()->isNull('t.journalId'), $qb->expr()->eq('t.journalId', ':journal')
+                        )
                 )
-            )
-            ->setParameter('journal', $journal->getId());
+                ->setParameter('journal', $journal->getId());
         $templates = $qb->getQuery()->getResult();
         $data['templates'] = $templates;
         $data['user'] = $user;
+        $data['parameters'] = $request->query->all();
+        array_walk($data['parameters'], function(&$val, $key) {
+            $val = urldecode($val);
+        }); 
+
+        $data['templateVars'] = json_encode(
+                array_merge(array(
+            'journal' => json_decode($serializer->serialize($journal, 'json')),
+            'user' => json_decode($serializer->serialize($this->getUser(), 'json'))
+                        ), $data['parameters'])
+        );
+
+        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $defaultTemplates = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
+        ));
+        $tplKey = $request->get('template');
+        $data['selectedTemplate'] = $tplKey ? (isset($defaultTemplates[$tplKey]) ? json_encode($defaultTemplates[$tplKey]) : null) : null;
         return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
     }
 
