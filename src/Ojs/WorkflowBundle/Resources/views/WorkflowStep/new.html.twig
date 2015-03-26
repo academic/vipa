@@ -1,5 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block  stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+{%endblock%}
+
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'Dashboard'},
@@ -48,57 +53,6 @@
                         <input type="checkbox" name="lastStep" value="1">
                     </label>
                 </div>
-                <div class="form-group">
-                    <label>Allowed maximum days</label>
-                    <input class="form-control" name="maxdays" type="number" value="7"  min="1" max="10000" />
-                </div>
-
-
-                <div class="form-group">
-                    <label>Roles</label>
-                    <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
-                        {%for role in roles%}
-                            <option value="{{role.id}}">{{role.role}}</option>
-                        {%endfor%}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="label label-primary" style="line-height: 20px;display: inline-block;">
-                        Can only reply back
-                        <input type="checkbox" name="onlyreply" value="1"> 
-                    </label>
-                </div>
-
-
-                <div class="form-inline">
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Is visible to author?
-                        <input type="checkbox" name="isVisible" value="1" checked="checked"> 
-                    </label>
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can user see author?
-                        <input type="checkbox" name="canSeeAuthor" value="1" checked="checked">
-                    </label>
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can edit?
-                        <input type="checkbox" name="canEdit" value="1" checked="checked"> 
-                    </label>
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can review?
-                        <input type="checkbox" name="canReview" value="1" checked="checked"> 
-                    </label>
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Must be assigned to someone?
-                        <input type="checkbox" name="mustBeAssigned" value="1"> 
-                    </label>
-                    
-                    <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can reject the submission completely?
-                        <input type="checkbox" name="canRejectSubmission" value="1"> 
-                    </label>
-                </div>
-
 
                 <div class="form-group">
                     <label>Possible Next Steps</label>
@@ -108,18 +62,83 @@
                             <option value="{{step.id}}">{{step.title}}</option>
                         {%endfor%}
                     </select>
-                </div>
+                </div> 
 
                 <div class="form-group">
-                    <label>Review Forms</label>
-                    <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
-                        <option>[No review form]</option>
-                        {%for form in forms%}
-                            <option value="{{form.id}}">{{form.title}}</option>
-                        {%endfor%}
-                    </select>
-                    <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+                    <label>Introduction</label>
+                    <textarea name="introduction" class="form-control editor" rows="10"></textarea>
+                </div>
 
+
+                <div class="form-row">
+                    <a href="#"  class="btn btn-info"
+                       onclick="$('#advanced').slideToggle();
+                               return false;"><i class="fa fa-angle-double-down"></i>
+                        Advanced Settings</a>
+                    <hr>
+                </div>
+                <div id="advanced" style="display:none">
+                    <div class="form-group">
+                        <label>Allowed maximum days</label>
+                        <input class="form-control" name="maxdays" type="number" value="7"  min="1" max="10000" />
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Roles</label>
+                        <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
+                            {%for role in roles%}
+                                <option value="{{role.id}}">{{role.role}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label label-primary" style="line-height: 20px;display: inline-block;">
+                            Can only reply back
+                            <input type="checkbox" name="onlyreply" value="1"> 
+                        </label>
+                    </div>
+
+
+                    <div class="form-inline">
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Is visible to author?
+                            <input type="checkbox" name="isVisible" value="1" checked="checked"> 
+                        </label>
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Can user see author?
+                            <input type="checkbox" name="canSeeAuthor" value="1" checked="checked">
+                        </label>
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Can edit?
+                            <input type="checkbox" name="canEdit" value="1" checked="checked"> 
+                        </label>
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Can review?
+                            <input type="checkbox" name="canReview" value="1" checked="checked"> 
+                        </label>
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Must be assigned to someone?
+                            <input type="checkbox" name="mustBeAssigned" value="1"> 
+                        </label>
+
+                        <label class="label label-warning" style="line-height: 20px;display: inline-block;">
+                            Can reject the submission completely?
+                            <input type="checkbox" name="canRejectSubmission" value="1"> 
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Review Forms</label>
+                        <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
+                            <option>[No review form]</option>
+                            {%for form in forms%}
+                                <option value="{{form.id}}">{{form.title}}</option>
+                            {%endfor%}
+                        </select>
+                        <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+
+                    </div>
                 </div>
 
                 <div>
@@ -137,6 +156,8 @@
 
 {% block javascripts -%}
     {{  parent()  }}
+
+    <script type="text/javascript" src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
     <script>
         function randomColor() {
             $rndcolor = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -145,6 +166,9 @@
             console.log($rndcolor);
         }
         $(document).ready(function () {
+            $("textarea.editor").wysihtml5({
+                toolbar: {"font-styles": true, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": true, "blockquote": true}
+            });
             $("#titleinput").blur(function () {
                 $("#statusinput").val($(this).val());
                 $("#statusauthorinput").val('Review');
