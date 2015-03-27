@@ -49,6 +49,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js
                     - %kernel.root_dir%/../web/vendor/noty/js/noty/packaged/jquery.noty.packaged.js
                     - %kernel.root_dir%/../web/vendor/noty/js/noty/themes/bootstrap.js
+                    - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
 
         admin_main_css:
                 inputs:
@@ -63,6 +64,8 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
+                    - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
+
         apptour_css:
                inputs:
                   - %kernel.root_dir%/../web/vendor/bootstrap-tour/build/css/bootstrap-tour.min.css
@@ -82,7 +85,6 @@ assetic:
                 - %kernel.root_dir%/../web/vendor/mustache/mustache.js
                 - %kernel.root_dir%/../web/vendor/select2/select2.min.js
                 - %kernel.root_dir%/../web/vendor/jquery-sortable/source/js/jquery-sortable-min.js
-                - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
                 - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
                 - %kernel.root_dir%/../web/vendor/MathJax/MathJax.js
                 - @OjsJournalBundle/Resources/public/js/article_submission.js
@@ -91,7 +93,6 @@ assetic:
             inputs:
                 - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload.css
                 - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload-ui.css
-                - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
                 - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
  
 braincrafted_bootstrap:
