@@ -359,7 +359,7 @@ journalsindex.journal: Journal
 journalsindex.link: Link
 
 journal.settings.submission.language: Submission Language
-journal.settings.submission.language.text: Select mandotary languages for article submitting
+journal.settings.submission.language.text: Select mandatory languages for article submitting
 journal.settings.submission: "Submission Settings"
 journal.settings.submission.abstractTemplate: Submission Abstract Template 
 journal.settings.mail: "Mail Settings"

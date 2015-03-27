@@ -24,7 +24,7 @@ class ReviewFormItem {
     protected $title;
 
     /** @MongoDb\Boolean */
-    protected $mandotary;
+    protected $mandatory;
 
     /** @MongoDb\Boolean */
     protected $confidential;
@@ -105,25 +105,25 @@ class ReviewFormItem {
     }
 
     /**
-     * Set mandotary
+     * Set mandatory
      *
-     * @param boolean $mandotary
+     * @param boolean $mandatory
      * @return self
      */
-    public function setMandotary($mandotary)
+    public function setMandatory($mandatory)
     {
-        $this->mandotary = $mandotary;
+        $this->mandatory = $mandatory;
         return $this;
     }
 
     /**
-     * Get mandotary
+     * Get mandatory
      *
-     * @return boolean $mandotary
+     * @return boolean $mandatory
      */
-    public function getMandotary()
+    public function getMandatory()
     {
-        return $this->mandotary;
+        return $this->mandatory;
     }
 
     /**
