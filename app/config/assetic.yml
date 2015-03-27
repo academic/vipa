@@ -47,6 +47,8 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/JVFloat/jvfloat.js
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/languages/jquery.validationEngine-en.js
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/js/jquery.validationEngine.js
+                    - %kernel.root_dir%/../web/vendor/noty/js/noty/packaged/jquery.noty.packaged.js
+                    - %kernel.root_dir%/../web/vendor/noty/js/noty/themes/bootstrap.js
 
         admin_main_css:
                 inputs:
