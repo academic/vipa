@@ -44,6 +44,28 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * 
+     * @param string $id  article review step document id
+     * @return Response
+     */
+    public function previewWorkingStepAction($id)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $em = $this->get('doctrine')->getManager();
+ 
+        $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
+        $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->find($articleStep->getStep()->getId());
+        return $this->render('OjsWorkflowBundle:Manager:invitationPreview.html.twig', array(
+                    'articleStep' => $articleStep,
+                    'article' => $article, 
+                    'step' => $step,
+                    'prevStep' => $articleStep->getFrom(),
+        ));
+    }
+    
+    /**
+     * 
      * @param string $id invitation  document id
      * @return Response
      */
@@ -162,7 +184,11 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     {
         $nextStepId = $request->get('nextStepId');
         $dm = $this->get('doctrine_mongodb')->getManager();
+        /* @var $articleStep \Ojs\WorkflowBundle\Document\ArticleReviewStep */
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
+        // this review may be an invited review.
+        $isChild = (bool) $articleStep->getParentStep();
+
 
         if (!$articleStep) {
             throw $this->createNotFoundException($this->get('translator')->trans('Article review step not found'));
@@ -178,15 +204,18 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $all = $request->request->all();
         $all['changes'] = json_decode($all['changes'], true);
 
-        $newStep = clone $articleStep;
-
+        if (!$isChild) {
+            $newStep = clone $articleStep;
+        } else {
+            $newStep = $articleStep;
+        }
         $newStep->setStep($nextStep);
         $newStep->setStatusText($nextStep->getStatus());
         $deadline = new \DateTime();
         $deadline->modify("+" . $nextStep->getMaxdays() . " day");
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
-        $newStep->setFrom($articleStep);
+        $newStep->setFrom($isChild ? $articleStep->getParentStep() : $articleStep);
         $newStep->setNote(null);
         $newStep->setReviewNotes($request->get('notes'));
         //$newStep
@@ -194,7 +223,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $dm->persist($newStep);
         $dm->flush();
 
-        $articleStep->setTo($newStep);
+        $articleStep->setTo($isChild ? $articleStep->getParentStep() : $newStep);
         $articleStep->setFinishedDate(new \DateTime());
         $articleStep->setAction($request->get('reviewResultCode'));
         /* generate reviewform and append to reviewNotes */
@@ -221,7 +250,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $dm->flush();
         $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"' . $nextStep->getTitle() . '"</strong>');
         $mustBeAssigned = $nextStep->getMustBeAssigned();
-        if ($mustBeAssigned) {
+        if ($mustBeAssigned && !$isChild) {
             $newStep->setOwnerUser($this->getUser());
             $dm->persist($newStep);
             $dm->flush();

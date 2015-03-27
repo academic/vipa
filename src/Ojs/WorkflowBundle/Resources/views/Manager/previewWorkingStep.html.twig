@@ -1,0 +1,254 @@
+{% set hideleft=true %}
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'preview'|trans} ]) }}
+{% endblock %}
+
+
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
+
+
+
+
+    {% for lang, articleRevised in articleStep.articleRevised.articleData %}
+        <h2>
+            <span class="badge">{{ lang }}</span>
+            <span class="" data-type="text" data-name="article[{{ lang }}][title]">
+                {{ articleRevised.title }}
+            </span>
+            <span class="btn-group">
+                <a id="article_search_google" target="_blank" class="btn btn-xs btn-default"
+                   title="{{ "searchon.google"|trans }}"
+                   href="http://scholar.google.com.tr/scholar?q={{ articleRevised.title|url_encode }}">
+                    <i class="fa fa-google"></i>
+                </a>
+                <a id="article_search_wiki" target="_blank" class="btn btn-xs btn-default"
+                   title="{{ "searchon.wikipedia"|trans }}"
+                   href="http://en.wikipedia.org/w/index.php?search={{ articleRevised.title|url_encode }}">
+                    W
+                </a>
+                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
+                   title="{{ "searchon.pubmed"|trans }}"
+                   href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
+                    PubMed
+                </a> 
+                <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
+                   title="{{ "searchon.doaj"|trans }}"
+                   href="http://doaj.org/search?source={% raw %}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{% endraw %}{{ articleRevised.title|url_encode }}{% raw %}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{% endraw %}">
+                    Doaj
+                </a> 
+            </span>
+        </h2>
+
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <td> Review Result</td>
+                    <td>
+                        <small class="label label-info">{{ ("reviewResultCodes."~articleStep.action)|trans }}</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'Subjects'|trans }}</td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="article[{{ lang }}][subjects]">{{ article.subjects }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'Keywords'|trans }}</td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="article[{{ lang }}][keywords]">{{ article.keywords }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'Abstract'|trans }}</td>
+                    <td>
+                        <span class="" data-type="textarea"
+                              data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'Section'|trans }}</td>
+                    <td>
+                        {% if article.section is defined and article.section %}
+                            <span class="" data-type="text"
+                                  data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        {% endfor %}
+        <hr>
+    </div>
+    <hr/>
+
+    {% if  isJournalManager() == true or step.canSeeAuthor %}
+        <h2>{{ 'Authors'|trans }}</h2>
+
+        <table class="table">
+            <tr>
+                <th>
+                    {{ "author.orcid"|trans }}
+                </th>
+                <th>
+                    {{ "author.order"|trans }}
+                </th>
+                <th>
+                    {{ "author.title"|trans }}
+                </th>
+                <th>
+                    {{ "author.initials"|trans }}
+                </th>
+                <th>
+                    {{ "author.firstname"|trans }}
+                </th>
+                <th>
+                    {{ "author.middlename"|trans }}
+                </th>
+                <th>
+                    {{ "author.lastname"|trans }}
+                </th>
+                <th>
+                    {{ "email"|trans }}
+                </th>
+                <th></th>
+            </tr>
+            {% for author in articleStep.articleRevised.authors %}
+                <tr>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
+                    </td>
+                    <td>
+                        <span class="" data-type="text"
+                              data-name="author[{{ loop.index }}][lastName]">{{ author.lastName }}</span>
+                    </td>
+                    <td>
+                        <span class=" label label-default" data-name="author[{{ loop.index }}][email]"
+                              data-type="email">{{ author.email }}</span>
+
+                    </td>
+                    <td>
+                        <span class="btn-group">
+                            <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
+                               href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                <i class="fa fa-google"></i>
+                            </a>
+                            <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
+                               href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                W
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            {% endfor %} 
+        </table>
+        <hr/>
+    {% endif %}
+
+    <h2>Citations</h2>
+    <table class="table">
+        {% for citation in articleStep.articleRevised.citation %}
+            <tr>
+                <td>
+                    <span class="" data-type="text"
+                          data-name="citation[{{ loop.index }}]">{{ citation.raw }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+    <hr>
+    <h2>{{ 'Files'|trans }}</h2>
+    <table class="table">
+        {% for articlefile in articleStep.articleRevised.files %}
+            <tr>
+                <td>
+                    <span class="label label-info">{{ fileType(articlefile.article_file_mime_type) }}</span>
+                    <span class="" data-name="files[{{ loop.index }}][title]"
+                          data-type="text">{{ articlefile.title }}</span>
+                    <a href="#"><i class="fa fa-download"></i></a>
+
+                    <div class="clearfix"></div>
+                    {% if articlefile.desc %}
+                        <p class="" data-type="textarea"
+                           data-name="files[{{ loop.index }}][desc]"> {{ articlefile.desc }} </p>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                    {% if articlefile.keywords %}
+                        <p class="" data-type="textarea"
+                           data-name="files[{{ loop.index }}][keywords]">{{ articlefile.keywords }}</p>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <hr>
+
+    {% if articleStep.note %}
+        <div>
+            <h2>{{ 'Notes' }}</h2>
+            {{ articleStep.note|raw }}
+        </div>
+    {% endif %}
+
+    {% if articleStep.reviewNotes %}
+        <div>
+            <h2>{{ 'Review Notes'|trans }}</h2>
+            {{ articleStep.reviewNotes|raw }}
+        </div>
+    {% endif %}
+
+    <hr>
+
+    <div class="jumbotron"> 
+        <h3>{{ 'Review Report'|trans }}</h3>
+        {{ articleStep.reviewFormResults|raw }}
+        <hr> 
+        <br> 
+
+
+    </div> 
+
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
+{% endblock %}
+
+
+
+

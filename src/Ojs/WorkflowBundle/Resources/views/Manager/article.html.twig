@@ -81,7 +81,7 @@
 
             <div class="list-group">
                 {% for invite in invitations %}
-                    <a class="list-group-item">
+                    <a class="list-group-item" href="{{path("article_workflow_preview_working_step",{"id":invite.step.id})}}">
                         #{{ invite.userId }} {{ invite.userEmail }}
                         {% if invite.accept %}
                             <span class="label label-success">{{ "accepted"|trans }}</span>
@@ -433,7 +433,7 @@
                                                 <div class="panel panel-warning">
                                                     <div class="panel-heading"><h4>Introduction for this step</h4></div>
                                                     <div class="panel-body">
-                                                        {{ step.introduction }}
+                                                        {{ step.introduction|raw }}
                                                         </p>
                                                     </div>
                                                 {% endif %}
