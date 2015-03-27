@@ -1,6 +1,5 @@
 // to serialize form data as Json object
-$.fn.serializeObject = function ()
-{
+$.fn.serializeObject = function () {
     var o = {};
     var a = this.serializeArray();
     $.each(a, function () {
@@ -20,18 +19,33 @@ $(document).ready(function () {
     $(".contrastColor").each(function () {
         $(".contrastColor").css("color", (parseInt($(this).css("backgroundColor"), 16) > 0xffffff / 2) ? 'black' : 'white');
     });
-    $(".validate-form").validationEngine({promptPosition: 'inline', validateNonVisibleFields: true,
-        updatePromptsPosition: true});
-
+    $(".validate-form").validationEngine({
+        promptPosition: 'inline', validateNonVisibleFields: true,
+        updatePromptsPosition: true
+    });
+    $(".wysihtml5").wysihtml5({
+        toolbar: {
+            "font-styles": false,
+            "emphasis": true,
+            "lists": false,
+            "html": false,
+            "link": true,
+            "image": false,
+            "color": false,
+            "blockquote": true
+        }
+    });
     if ($(".select2-element").length) {
         $(".select2-element").select2();
     }
     function formatResult(item) {
         return item.name;
     }
+
     function formatSelection(item) {
         return '<b>' + item.name + '</b>';
     }
+
     $('input.tags').tagsinput({
         tagClass: 'label label-info'
     });
@@ -40,8 +54,8 @@ $(document).ready(function () {
         //Allow manually entered text in drop down.
         createSearchChoice: function (term, data) {
             if ($(data).filter(function () {
-                return this.text.localeCompare(term) === 0;
-            }).length === 0) {
+                    return this.text.localeCompare(term) === 0;
+                }).length === 0) {
                 return {id: term, text: term};
             }
         },
@@ -126,7 +140,7 @@ $(document).ready(function () {
     }
 
     var $btnSets = $('#responsive'),
-            $btnLinks = $btnSets.find('a');
+        $btnLinks = $btnSets.find('a');
 
     $btnLinks.click(function (e) {
         e.preventDefault();
@@ -140,35 +154,35 @@ $(document).ready(function () {
     $("[rel='tooltip']").tooltip();
 
     $('.view').hover(
-            function () {
-                $(this).find('.caption').slideDown(250); //.fadeIn(250)
-            },
-            function () {
-                $(this).find('.caption').slideUp(250); //.fadeOut(205)
-            }
+        function () {
+            $(this).find('.caption').slideDown(250); //.fadeIn(250)
+        },
+        function () {
+            $(this).find('.caption').slideUp(250); //.fadeOut(205)
+        }
     );
-    window.alert = function(message){
+    window.alert = function (message) {
         var n = noty({
-            text        : message,
-            type        : "alert",
+            text: message,
+            type: "alert",
             dismissQueue: true,
-            layout      : 'center',
-            theme       : "relax",
-            closeWith   : ['button', 'click'],
-            maxVisible  : 20,
-            modal       : true
+            layout: 'center',
+            theme: "relax",
+            closeWith: ['button', 'click'],
+            maxVisible: 20,
+            modal: true
         });
     };
-    window.notify = function(message,type){
+    window.notify = function (message, type) {
         var n = noty({
-            text        : message,
-            type        : type,
+            text: message,
+            type: type,
             dismissQueue: true,
-            layout      : 'topCenter',
-            theme       : "relax",
-            closeWith   : ['button', 'click'],
-            maxVisible  : 20,
-            modal       : false
+            layout: 'topCenter',
+            theme: "relax",
+            closeWith: ['button', 'click'],
+            maxVisible: 20,
+            modal: false
         });
     };
 });
