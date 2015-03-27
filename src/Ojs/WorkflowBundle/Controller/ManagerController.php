@@ -56,7 +56,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
-        return $this->render('OjsWorkflowBundle:Manager:invitationPreview.html.twig', array(
+        return $this->render('OjsWorkflowBundle:Manager:previewWorkingStep.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article, 
                     'step' => $step,
