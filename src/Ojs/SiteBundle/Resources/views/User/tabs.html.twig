@@ -1,0 +1,16 @@
+<section class="tab-panel">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {% if activo==1 %}class="active"{% endif %}>
+            <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
+        </li>
+        <li role="presentation" {% if activo==2 %}class="active"{% endif %}>
+            <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
+        </li>
+        <li role="presentation" {% if activo==3 %}class="active"{% endif %}>
+            <a href="{{ url('ojs_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
+        </li>
+        <li role="presentation" {% if activo==4 %}class="active"{% endif %}>
+            <a href="{{ url('ojs_user_change_password') }}">{{ "user.change_password"|trans }}</a>
+        </li>
+    </ul>
+</section>

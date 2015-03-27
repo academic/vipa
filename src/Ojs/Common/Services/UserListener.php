@@ -2,12 +2,12 @@
 
 namespace Ojs\Common\Services;
 
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\User;
 
 class UserListener {
 
@@ -192,4 +192,27 @@ class UserListener {
         return FALSE;
     }
 
+    /**
+     * @param User $user
+     * @param string $password
+     */
+    public function changePassword(User &$user, $password,$old_password=false)
+    {
+        if(empty($password))
+            return false;
+        $factory = $this->container->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+
+        if($old_password){
+            if (!$encoder->isPasswordValid($user->getPassword(), $old_password, $user->getSalt())) {
+                return false;
+            }
+        }
+
+        $user->setPassword($password);
+
+        $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+        $user->setPassword($password);
+        return true;
+    }
 }

@@ -15,19 +15,8 @@
 {% block body -%}
 
     <div class="large-12 columns">
-        <section class="tab-panel">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation">
-                    <a href="{{ url('ojs_user_edit_profile') }}">{{ "user.update_profile"|trans }}</a>
-                </li>
-                <li role="presentation" class="">
-                    <a href="{{ url('ojs_user_custom_field') }}">{{ "user.custom_fields"|trans }}</a>
-                </li>
-                <li role="presentation" class="active">
-                    <a href="{{ url('ojs_user_connected_account') }}">{{ "user.connected_accounts"|trans }}</a>
-                </li>
-            </ul>
-        </section>
+        {% include 'OjsSiteBundle:User:tabs.html.twig' with {activo:3} %}
+
         <div class="tab-content">
             <div class="panel">
                 <div class="record_actions">
