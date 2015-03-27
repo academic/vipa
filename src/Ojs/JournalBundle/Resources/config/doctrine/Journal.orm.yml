@@ -283,6 +283,9 @@ Ojs\JournalBundle\Entity\Journal:
         description:
             type: text
             nullable: true
+        setup_status:
+            type: boolean
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt

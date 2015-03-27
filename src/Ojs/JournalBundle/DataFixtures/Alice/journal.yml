@@ -14,7 +14,7 @@
     subject: 5x @subject*
     status: '3'
     languages: [@lang1, @lang2]
-    
+    setupStatus: true
   journal{2..50}:
     issn: <regexify('\d{4}-\d{4}')>
     period: <randomDigit(2)>
@@ -29,3 +29,4 @@
     status: '3'
     languages: 3x @lang*
     tags: <text(20)>, <text(10)>
+    setupStatus: true
