@@ -181,7 +181,9 @@ class UserController extends Controller {
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
+        $oldPassword = $entity->getPassword();
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
@@ -190,10 +192,16 @@ class UserController extends Controller {
         /** @var DocumentManager $dm */
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         if ($editForm->isValid()) {
-            $factory = $this->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($entity);
-            $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-            $entity->setPassword($password);
+            $passwod =$entity->getPassword();
+            if(empty($passwod)){
+                $entity->setPassword($oldPassword);
+            }else{
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $password = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+                $entity->setPassword($password);
+            }
+
 
             $avatar = $request->request->get('avatar');
             $ir = $dm->getRepository('OjsSiteBundle:ImageOptions');
