@@ -10,7 +10,7 @@
     {% include '::flashbag.html.twig' %}
 
 
-
+    <h4>Review Result :   {{articleStep.action }} </h4>
 
     {% for lang, articleRevised in articleStep.articleRevised.articleData %}
         <h2>
@@ -43,13 +43,7 @@
         </h2>
 
         <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td> Review Result</td>
-                    <td>
-                        <small class="label label-info">{{ ("reviewResultCodes."~articleStep.action)|trans }}</small>
-                    </td>
-                </tr>
+            <table class="table"> 
                 <tr>
                     <td>{{ 'Subjects'|trans }}</td>
                     <td>
