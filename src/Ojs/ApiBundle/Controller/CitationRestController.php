@@ -47,8 +47,7 @@ class CitationRestController extends FOSRestController
             throw new HttpException(400, 'Missing parameter : citations');
         }
         $citationParser = new CitationParser();
-        $parsedCitations = $citationParser->parse($citations);
-        error_log(print_r($parsedCitations, 1));
+        $parsedCitations = $citationParser->parse($citations); 
         return $parsedCitations;
     }
 
