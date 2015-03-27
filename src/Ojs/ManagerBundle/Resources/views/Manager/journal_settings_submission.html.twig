@@ -24,14 +24,14 @@
                 <fieldset>
                     <legend>{{"journal.settings.submission.language"|trans}}</legend>
                     <div class="form-group">
-                        {% for lang in submissionMandotaryLanguages %}
+                        {% for lang in submissionMandatoryLanguages %}
                             <span class="badge">{{ lang }}</span>
                         {% endfor %}
                     </div>
                     <label>{{ "journal.settings.submision.language.text"|trans }}</label>
-                    <select name="submissionMandotaryLanguages[]" class="select2-element form-control" multiple>
+                    <select name="submissionMandatoryLanguages[]" class="select2-element form-control" multiple>
                         {% for lang in allLanguages %}
-                            <option value="{{ lang.code }}" {% if lang.code in submissionMandotaryLanguages %}selected{% endif %}>
+                            <option value="{{ lang.code }}" {% if lang.code in submissionMandatoryLanguages %}selected{% endif %}>
                                 {{ lang.name }}
                             </option>
                         {% endfor %}

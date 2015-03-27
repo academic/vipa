@@ -3,8 +3,46 @@
 namespace Ojs\WorkflowBundle\Controller;
 
 use \Symfony\Component\HttpFoundation\Request;
+use \Ojs\WorkflowBundle\Document\ReviewFormItem;
 
 class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
+
+    /**
+     * 
+     * @param string  $formId
+     * @return RedirectResponse
+     */
+    public function loadDefaultItemsAction($formId)
+    {
+        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $formTemplates = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/WorkflowBundle/Resources/data/reviewformtemplates.yml'
+        ));
+        $standartTemplate = $formTemplates['standart_template'];
+        $dm = $this->get('doctrine_mongodb')->getManager();
+
+        // danger remove old questions
+        $qb = $dm->createQueryBuilder('OjsWorkflowBundle:ReviewFormItem');
+        $qb->remove()
+                ->field('formId')->equals(new \MongoId($formId))
+                ->getQuery()
+                ->execute();
+
+        foreach ($standartTemplate as $item) {
+            $formItem = new ReviewFormItem();
+            $formItem->setFields($item['fields']);
+            $formItem->setTitle($item['title']);
+            $formItem->setFieldset($item['fieldset']);
+            $formItem->setFormId($formId);
+            $formItem->setInputType($item['inputtype']);
+            $formItem->setMandatory($item['mandatory']);
+            $dm->persist($formItem);
+            $dm->flush();
+        }
+
+        return $this->redirect($this->generateUrl('ojs_review_form_items', array('formId' => $formId)));
+    }
 
     /**
      * list review forms items
@@ -54,7 +92,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $formItem = new \Ojs\WorkflowBundle\Document\ReviewFormItem();
         $formItem->setTitle($request->get('title'));
         $formItem->setFieldset($request->get('fieldset'));
-        $formItem->setMandotary($request->get('mandotary'));
+        $formItem->setMandatory($request->get('mandatory'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setFormId($formId);
         $formItem->setInputType($request->get('inputtype'));
@@ -134,7 +172,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
 
         $formItem->setTitle($request->get('title'));
         $formItem->setFieldset($request->get('fieldset'));
-        $formItem->setMandotary($request->get('mandotary'));
+        $formItem->setMandatory($request->get('mandatory'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setInputType($request->get('inputtype'));
         // explode fields by new line and filter null values 

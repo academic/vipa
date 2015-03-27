@@ -1,0 +1,84 @@
+#review form templates
+'standart_template':
+    - 
+        title: Title reflects paper content
+        fieldset: Content
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+ 
+    - 
+        title: Abstract reflects the papers content clearly
+        fieldset: Content
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+        
+    - 
+        title: Keyword reflects the papers content 
+        fieldset: Content
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+ 
+    - 
+        title: Introduction presents the problem clearly 
+        fieldset: Content
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+        
+    - 
+        title: Citations are credible
+        fieldset: Content
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+        
+    - 
+        title: Units and terminology are used correctly
+        fieldset: Presentation
+        mandatory: false
+        canfidential: false
+        inputtype: radiobutton
+        fields: 
+            - yes
+            - no
+    - 
+        title: Quality of figures and tables is adequate
+        fieldset: Presentation
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null
+        
+    -
+        title: The English language is acceptable
+        fieldset: Presentation
+        mandatory: false
+        canfidential: false
+        inputtype: radiobutton
+        fields: 
+            - yes
+            - no
+    -
+        title: Will you be willing to review a revision of this manuscript? You reply would be helpful
+        fieldset: Overall Scoring
+        mandatory: false
+        canfidential: false
+        inputtype: radiobutton
+        fields: 
+            - yes
+            - no
+    -
+        title: Review score
+        fieldset: Overall Scoring
+        mandatory: false
+        canfidential: false
+        inputtype: scale1_5
+        fields: null 

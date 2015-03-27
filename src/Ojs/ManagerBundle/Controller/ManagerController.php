@@ -64,15 +64,15 @@ class ManagerController extends Controller {
         $journal = !$journalId ?
                 $this->get("ojs.journal_service")->getSelectedJournal() :
                 $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        if ($req->getMethod() == 'POST' && !empty($req->get('submissionMandotaryLanguages'))) {
-            $this->updateJournalSetting($journal, 'submissionMandotaryLanguages', $req->get('submissionMandotaryLanguages'), true);
+        if ($req->getMethod() == 'POST' && !empty($req->get('submissionMandatoryLanguages'))) {
+            $this->updateJournalSetting($journal, 'submissionMandatoryLanguages', $req->get('submissionMandatoryLanguages'), true);
         }
         if ($req->getMethod() == 'POST' && !empty($req->get('submissionAbstractTemplate'))) {
             $this->updateJournalSetting($journal, 'submissionAbstractTemplate', $req->get('submissionAbstractTemplate'), false);
         }
 
-        $languages = $journal->getSetting('submissionMandotaryLanguages') ?
-                json_decode($journal->getSetting('submissionMandotaryLanguages')->getValue()) :
+        $languages = $journal->getSetting('submissionMandatoryLanguages') ?
+                json_decode($journal->getSetting('submissionMandatoryLanguages')->getValue()) :
                 null;
         $abstractTemplate = $journal->getSetting('submissionAbstractTemplate') ?
                 $journal->getSetting('submissionAbstractTemplate')->getValue() :
@@ -86,7 +86,7 @@ class ManagerController extends Controller {
 
         return $this->render('OjsManagerBundle:Manager:journal_settings_submission.html.twig', array(
                     'journal' => $journal,
-                    'submissionMandotaryLanguages' => $languages,
+                    'submissionMandatoryLanguages' => $languages,
                     'submissionAbstractTemplate' => $abstractTemplate,
                     'abstractTemplates' => $abstractTemplates,
                     'allLanguages' => $journal->getLanguages()
