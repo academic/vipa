@@ -34,6 +34,7 @@ class JournalSetupStep6Controller extends Controller
             'institution' => $journal->getInstitution()->getSlug()
         ));
         if ($step6Form->isValid()) {
+            $journal->setSetupStatus(true);
             $em->flush();
             return new JsonResponse(array(
                 'success' => '1',

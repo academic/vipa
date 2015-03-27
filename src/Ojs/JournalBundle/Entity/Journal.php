@@ -1323,4 +1323,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->description = $description;
     }
 
+    /** @var  boolean */
+    protected $setup_status;
+
+    /**
+     * @return boolean
+     */
+    public function isSetupStatus()
+    {
+        return $this->setup_status;
+    }
+
+    /**
+     * @param boolean $setup_status
+     */
+    public function setSetupStatus($setup_status)
+    {
+        $this->setup_status = $setup_status;
+    }
+
+
 }

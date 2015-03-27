@@ -24,11 +24,11 @@
 {% endblock %}
 
 {% block body -%}
-    
+{% if ((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus)!=true %}
     <div class="alert alert-warning">
         It seems that you have not finished <a href="{{path('manager_current_journal_setup')}}">"Journal Setup"</a>.
     </div>
-
+{% endif %}
 <div class="large-12 columns">
     <div class="panel">
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':1} only %}
@@ -220,4 +220,3 @@
         });
     </script>
 {% endblock %}
-
