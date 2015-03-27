@@ -41,5 +41,12 @@
             <li class="list-group-item"><a href="{{ path('institute_suggestion') }}">{{ "suggestion.institute"|trans }}</a></li>
         </ul>
     </div>
-
+    <div class="col-md-6">
+        <h2>{{ "dashboard.general.stats"|trans }}</h2>
+        <ul class="list-group">
+            <li class="list-group-item">{{ "total.user"|trans }} <span class="badge">{{ counts.userCount }}</span></li>
+            <li class="list-group-item">{{ "total.article"|trans }} <span class="badge">{{ counts.articleCount }}</span></li>
+            <li class="list-group-item">{{ "total.issue"|trans }} <span class="badge">{{ counts.issueCount }}</span></li>
+        </ul>
+    </div>
 {% endblock %}

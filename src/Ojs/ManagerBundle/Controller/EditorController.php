@@ -21,7 +21,9 @@ class EditorController extends Controller
      */
     public function dashboardAction()
     {
-        return $this->render('OjsManagerBundle:Editor:dashboard.html.twig');
+        return $this->render('OjsManagerBundle:Editor:dashboard.html.twig',[
+            'counts' => $this->counts()
+        ]);
     }
 
     public function myJournalsAction()
@@ -44,6 +46,25 @@ class EditorController extends Controller
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($id);
 
         return $this->render('OjsJournalBundle:Journal:role_based/show_editor.html.twig', array('entity' => $journal));
+    }
+
+    private function counts()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $counts['userCount'] = $em
+            ->createQuery('SELECT COUNT(a) FROM OjsUserBundle:UserJournalRole a WHERE a.journalId = :journal_id')
+            ->setParameter('journal_id', $journal->getId())
+            ->getSingleScalarResult();
+        $counts['articleCount'] = $em
+            ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:Article a WHERE a.journalId = :journal_id')
+            ->setParameter('journal_id', $journal->getId())
+            ->getSingleScalarResult();
+        $counts['issueCount'] = $em
+            ->createQuery('SELECT COUNT(a) FROM OjsJournalBundle:Issue a WHERE a.journalId = :journal_id')
+            ->setParameter('journal_id', $journal->getId())
+            ->getSingleScalarResult();
+        return $counts;
     }
 
 }
