@@ -15,6 +15,9 @@
 {% endblock %}
 
 {% block body -%}
+    <div class="alert alert-warning">
+        It seems that you have not finished <a href="{{path('manager_current_journal_setup')}}">"Journal Setup"</a>.
+    </div>
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':6} only %}
     <div class="col-md-12">
         {{ grid(grid) }}
