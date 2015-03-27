@@ -28,9 +28,7 @@ class ArticleController extends Controller
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $post = Request::createFromGlobals();
         if ($post->request->has('cites')) {
-            echo "<pre>";
-            print_r(json_decode($_POST['cites']));
-            exit();
+             
         } else {
 
         }
