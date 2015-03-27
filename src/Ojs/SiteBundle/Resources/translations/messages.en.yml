@@ -122,3 +122,5 @@ forgot.password: forgot.password
 
 institute.register: "Register Institute"
 journal.register: "Register Journal"
+user.change_password: "Change Password"
+user.old_password: "Old Password"

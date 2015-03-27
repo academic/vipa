@@ -22,24 +22,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
-    public function profileAction($slug) {
+    public function profileAction($slug)
+    {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
         /** @var User $user */
         $user = ($slug == "me") ?
-                $this->getUser() :
-                $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug]);
+            $this->getUser() :
+            $em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $slug]);
         if (!$user) {
             throw new NotFoundHttpException("User not found");
         }
         $data = [];
         $data['user'] = $user;
         $data['me'] = $this->getUser();
-        $data['isProxy'] = (bool) $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-                        array('proxyUserId' => $user->getId(), 'clientUserId' => $this->getUser()->getId())
+        $data['isProxy'] = (bool)$this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
+            array('proxyUserId' => $user->getId(), 'clientUserId' => $this->getUser()->getId())
         );
         if ($user->isPrivacy()) {
             return $this->render('OjsSiteBundle:User:private_account.html.twig', $data);
@@ -47,7 +49,8 @@ class UserController extends Controller {
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
     }
 
-    public function editProfileAction(Request $request) {
+    public function editProfileAction(Request $request)
+    {
         /** @var User $user */
         $user = $this->getUser();
         if (!$user)
@@ -79,7 +82,7 @@ class UserController extends Controller {
             }
             return new RedirectResponse($this->get('router')->generate('ojs_user_edit_profile'));
         } else {
-            
+
         }
         $data['edit_form'] = $form->createView();
         $data['entity'] = $user;
@@ -87,7 +90,8 @@ class UserController extends Controller {
         return $this->render('OjsSiteBundle:User:update_profile.html.twig', $data);
     }
 
-    public function customFieldAction(Request $request) {
+    public function customFieldAction(Request $request)
+    {
         /** @var User $user */
         $user = $this->getUser();
         if (!$user)
@@ -99,7 +103,8 @@ class UserController extends Controller {
         return $this->render('OjsSiteBundle:User:custom_field.html.twig', $data);
     }
 
-    public function createCustomFieldAction(Request $request, $id = null) {
+    public function createCustomFieldAction(Request $request, $id = null)
+    {
         /** @var User $user */
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -135,7 +140,8 @@ class UserController extends Controller {
         return $this->render("OjsSiteBundle:User:create_custom_field.html.twig", $data);
     }
 
-    public function deleteCustomFieldAction(Request $request, $id) {
+    public function deleteCustomFieldAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $customField = $em->find('OjsUserBundle:CustomField', $id);
         if (!$customField)
@@ -146,7 +152,8 @@ class UserController extends Controller {
         return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
     }
 
-    public function connectedAccountAction() {
+    public function connectedAccountAction()
+    {
         /** @var User $user */
         $user = $this->getUser();
         if (!$user)
@@ -156,19 +163,21 @@ class UserController extends Controller {
         return $this->render('OjsSiteBundle:User:connected_account.html.twig', $data);
     }
 
-    public function addConnectedAccountAction() {
+    public function addConnectedAccountAction()
+    {
         return $this->render('OjsSiteBundle:User:add_connected_account.html.twig');
     }
 
-    public function addOrcidAccountAction(Request $request) {
+    public function addOrcidAccountAction(Request $request)
+    {
         $user = $this->getUser();
         if (!$user)
             throw new AccessDeniedException;
         $orcid = $this->get('ojs.orcid_service');
         $code = $request->get('code');
         $orcid->setRedirectUri('http://'
-                . $this->container->getParameter('base_host')
-                . $this->get('router')->generate('ojs_user_add_orcid_account')
+            . $this->container->getParameter('base_host')
+            . $this->get('router')->generate('ojs_user_add_orcid_account')
         );
         if (!$code) {
             return new RedirectResponse($orcid->loginUrl());
@@ -178,10 +187,10 @@ class UserController extends Controller {
         if ($post) {
             $oauth = new UserOauthAccount();
             $oauth->setProvider('orcid')
-                    ->setProviderAccessToken($post->access_token)
-                    ->setProviderRefreshToken($post->refresh_token)
-                    ->setProviderUserId($post->orcid)
-                    ->setUser($user);
+                ->setProviderAccessToken($post->access_token)
+                ->setProviderRefreshToken($post->refresh_token)
+                ->setProviderUserId($post->orcid)
+                ->setUser($user);
             $em->persist($oauth);
             $user->addOauthAccount($oauth);
             $em->persist($user);
@@ -191,7 +200,8 @@ class UserController extends Controller {
         throw new \ErrorException("An error", serialize($post));
     }
 
-    public function deleteConnectedAccountAction(Request $request, $id) {
+    public function deleteConnectedAccountAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $account = $em->find('OjsUserBundle:UserOauthAccount', $id);
         if (!$account)
@@ -201,7 +211,8 @@ class UserController extends Controller {
         return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
     }
 
-    public function forgotPasswordAction(Request $request) {
+    public function forgotPasswordAction(Request $request)
+    {
         $data = [];
         $session = $this->get('session');
         if ($request->isMethod('POST')) {
@@ -215,23 +226,23 @@ class UserController extends Controller {
                 $em->flush();
                 $mailer = $this->get('mailer');
                 $message = $mailer->createMessage()
-                        ->setSubject('Password Reset')
-                        ->setFrom($this->container->getParameter('system_email'))
-                        ->setTo($user->getEmail())
-                        ->setBody($this->renderView('OjsUserBundle:Mails/User:reset_password.html.twig', [
-                                    'token' => $user->getToken()]))
-                        ->setContentType('text/html')
-                ;
+                    ->setSubject('Password Reset')
+                    ->setFrom($this->container->getParameter('system_email'))
+                    ->setTo($user->getEmail())
+                    ->setBody($this->renderView('OjsUserBundle:Mails/User:reset_password.html.twig', [
+                        'token' => $user->getToken()]))
+                    ->setContentType('text/html');
                 $mailer->send($message);
                 $session->getFlashBag()->add('success', $this->get('translator')
-                                ->trans('We will send reset token to your registered email address. Please check in a few minutes')
+                        ->trans('We will send reset token to your registered email address. Please check in a few minutes')
                 );
             }
         }
         return $this->render('OjsSiteBundle:User:forgot_password.html.twig');
     }
 
-    public function resetPasswordAction(Request $request, $token) {
+    public function resetPasswordAction(Request $request, $token)
+    {
         $data = [];
         $em = $this->getDoctrine()->getManager();
         /** @var UserRepository $userRepo */
@@ -249,14 +260,14 @@ class UserController extends Controller {
 
                 //something is wrong!
                 $session->getFlashBag()
-                        ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
+                    ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
                 $session->save();
                 return $this->redirect($this->get('router')->generate('ojs_user_reset_password', ['token' => $token]));
             }
 
             // Reset and save new password
             $encoder = $this->container->get('security.encoder_factory')
-                    ->getEncoder($user);
+                ->getEncoder($user);
             $password = $encoder->encodePassword($newPassword, $user->getSalt());
             $user->setPassword($password);
             $user->setToken('');
@@ -276,4 +287,27 @@ class UserController extends Controller {
         return $this->render('OjsSiteBundle:User:reset_password.html.twig', $data);
     }
 
+    public function changePasswordAction(Request $req)
+    {
+        $data = [];
+        if ($req->isMethod('POST')) {
+            $userManager = $this->get('user.helper');
+            $user = $this->getUser();
+            $password = $req->get('password');
+
+            $session = $this->get('session');
+            $flashBag = $session->getFlashBag();
+            $translator = $this->get('translator');
+
+            $update = $userManager->changePassword($user, $password['new']['second'], $password['old']);
+            if (!$update) {
+                $flashBag->set('danger', $translator->trans('Old password has wrong.'));
+            } else {
+                $flashBag->set('success', $translator->trans('Your password has been changed.'));
+            }
+            $session->save();
+
+        }
+        return $this->render('OjsSiteBundle:User:change_password.html.twig', $data);
+    }
 }

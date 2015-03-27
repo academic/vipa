@@ -27,6 +27,9 @@ ojs_user_custom_field_delete:
 ojs_user_connected_account:
     pattern: /user/connected_accounts
     defaults: { _controller: "OjsSiteBundle:User:connectedAccount" }
+ojs_user_change_password:
+    pattern: /user/change_password
+    defaults: { _controller: "OjsSiteBundle:User:changePassword" }
 ojs_user_connected_account_add:
     pattern: /user/connected_accounts/add
     defaults: { _controller: "OjsSiteBundle:User:addConnectedAccount"}
