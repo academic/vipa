@@ -147,6 +147,30 @@ $(document).ready(function () {
                 $(this).find('.caption').slideUp(250); //.fadeOut(205)
             }
     );
+    window.alert = function(message){
+        var n = noty({
+            text        : message,
+            type        : "alert",
+            dismissQueue: true,
+            layout      : 'center',
+            theme       : "relax",
+            closeWith   : ['button', 'click'],
+            maxVisible  : 20,
+            modal       : true
+        });
+    };
+    window.notify = function(message,type){
+        var n = noty({
+            text        : message,
+            type        : type,
+            dismissQueue: true,
+            layout      : 'topCenter',
+            theme       : "relax",
+            closeWith   : ['button', 'click'],
+            maxVisible  : 20,
+            modal       : false
+        });
+    };
 });
 
 
