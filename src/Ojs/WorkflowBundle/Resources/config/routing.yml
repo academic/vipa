@@ -55,7 +55,11 @@ articles_assigned_me:
 article_step_preview:
     pattern:  /manager/workflow/article/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:article }
-
+    
+article_workflow_preview_working_step:
+    pattern: /manager/workflow/article/working/preview/{id}
+    defaults: {_controller: OjsWorkflowBundle:Manager:previewWorkingStep}
+    
 article_workflow_invitation_preview:
     pattern: /manager/workflow/article/invitation/preview/{id}
     defaults: {_controller: OjsWorkflowBundle:Manager:invitationPreview}
