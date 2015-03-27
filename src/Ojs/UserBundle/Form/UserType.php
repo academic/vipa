@@ -13,21 +13,36 @@ class UserType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
-            ->add('email')
+            ->add('username','text',[
+                'attr'=>[
+                    'class'=>'validate[required]'
+                ]
+            ])
+            ->add('password', 'password', [])
+            ->add('email','email',[
+                'attr'=>[
+                    'class'=>'validate[required,custom[email]]'
+                ]
+            ])
             ->add('title')
-            ->add('firstName')
-            ->add('lastName')
+            ->add('firstName','text',[
+                'attr'=>[
+                    'class'=>'validate[required]'
+                ]
+            ])
+            ->add('lastName','text',[
+                'attr'=>[
+                    'class'=>'validate[required]'
+                ]
+            ])
             ->add('isActive')
-            //->add('avatar', 'file')
-            ->add('status','choice',[
-                'choices'=>CommonParams::$userStatusArray
+            ->add('status', 'choice', [
+                'choices' => CommonParams::$userStatusArray
             ])
             ->add('roles', 'entity', array(
                 'class' => 'Ojs\UserBundle\Entity\Role',
@@ -42,27 +57,20 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                'required'=>false
+                'required' => false
             ))
-            ->add('avatar','hidden')
-            ->add('header','hidden')
-//                ->add('journals', 'entity', array(
-//                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-//                    'property' => 'title',
-//                    'multiple' => true,
-//                    'expanded' => false,
-//                ))
+            ->add('avatar', 'hidden')
+            ->add('header', 'hidden')
             ->add('country', 'entity', [
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                 'attr' => [
                     'class' => 'select2-element  bridged-dropdown',
-                    'data-to'=>'#'.$this->getName().'_city'
+                    'data-to' => '#' . $this->getName() . '_city'
                 ]
             ]);
         /** @var FormHelper $helper */
         $helper = $options['helper'];
-        $helper->addCityField($builder,'Ojs\UserBundle\Entity\User');
-        ;
+        $helper->addCityField($builder, 'Ojs\UserBundle\Entity\User');;
     }
 
     /**
@@ -70,10 +78,14 @@ class UserType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'helper' => null
-        ));
+            'helper' => null,
+            'attr'=>[
+                'class'=>'validate-form',
+                'novalidate'=>'novalidate'
+            ]
+        ]);
     }
 
     /**
