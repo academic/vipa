@@ -135,7 +135,9 @@
                         </div>
                         <div class="form-group">
                             <label for="page_content_{{ loop.index }}">{{ 'content'|trans }}</label>
-                            <textarea class="form-control" name="page[{{ loop.index }}][content]" id="page_content_{{ loop.index }}">{{ page.content }}</textarea>
+                            <textarea class="form-control" name="page[{{ loop.index }}][content]" id="page_content_{{ loop.index }}">
+                                {{ page.content|raw }}
+                            </textarea>
                         </div>
                             <hr/>
                         {% endfor %}

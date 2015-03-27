@@ -7,22 +7,25 @@
             Mission page content will be there
 -
     id: '2'
-    title: 'Mission'
+    title: 'Scope'
     content:  >
-            Mission page content will be there
+            Scope page content will be there
 -
     id: '3'
-    title: 'Mission'
+    title: 'History'
     content:  >
-            Mission page content will be there
+            History page content will be there
 -
     id: '4'
-    title: 'Mission'
+    title: 'Sponsorship'
     content:  >
-            Mission page content will be there
+            Sponsorship  page content will be there
 -
     id: '5'
-    title: 'Mission'
+    title: 'Open Access Policy'
     content:  >
-            Mission page content will be there
+            This journal is free for both authors and readers. <br>
+            By making research freely available, This journal supports a greater global exchange of knowledge.
+
+
 
