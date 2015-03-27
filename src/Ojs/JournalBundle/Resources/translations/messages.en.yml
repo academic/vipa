@@ -62,7 +62,7 @@ citation.type: 'Citation Type'
 article.fulltext: 'Full Text'
 article.plural: Articles
 article.singular: Article
-article.licensing: Licensing
+article.licensing: Prerequisite
 submission.starting: Starting
 article.submit: 'Submit Article'
 article.files: 'Article Files'
@@ -76,7 +76,7 @@ article.language.primary: 'Article Primary Language'
 article.language.other: 'Article Other Languages'
 article.add: 'Add Article'
 article.section: "Section"
-suppfiles.resins: 'Research Instrument'
+suppfiles.resins: 'Research Instruments'
 suppfiles.resmat: 'Research Materials'
 suppfiles.resres: 'Research Results'
 suppfiles.data: 'Data Analysis'
@@ -113,13 +113,12 @@ journalid: 'Journal ID'
 isAnonymous: 'Is Anonymous'
 Pubdateseason: 'Pub Date Season'
 part: Part
-url: Url
+url: URL
 abstract.transliterated: 'Abstract Transliterated'
 citation.editor: 'Citation Editor'
-'Preview Article Before Submit': 'Preview Article Before Submit'
 preview: Preview
 submit: Submit
-'Back & Continue Editing': 'Back & Continue Editing'
+back.continue.editing: 'Back & Continue Editing'
 issue.plural: Issues
 issue: Issue
 issue.manager: 'Issue Manager'
@@ -262,16 +261,16 @@ journaltheme.edit: 'Edit Journal Theme'
 journaltheme.list: 'Journal Theme List'
 theme: Theme
 theme.plural: Themes
-journaltheme.new: 'New Journal theme'
+journaltheme.new: 'New Journal Theme'
 journaltheme: 'Journal Theme'
 lang.edit: Edit
 lang.list: List
 lang.code: Code
 lang.name: Name
 lang.rtl: RTL
-lang.new: 'New Langues'
+lang.new: 'New Language'
 lang.isTranslated: 'Is translated?'
-lang: Languages
+lang: Language
 lang.plural: Languages
 subject.edit: 'Edit Subject'
 subject.list: 'Subject List'
@@ -310,29 +309,24 @@ articlefile.type: Type
 articlefile.version: Version
 articlefile.langcode: Language
 articlefile.actions: Actions
-save: Save
-Info: Info
-'Article Files': 'Article Files'
-'Header Image': 'Header Image'
-File: File
-suggestion.institute: Institute Suggestion
-suggestion.institute.list: Institute Suggestions
+suggestion.institute: 'Institute Suggestion'
+suggestion.institute.list: 'Institute Suggestions'
 institute.id: ID
 institute.name: Name
 institute.country: Country
 suggestion.institute.detail: Detail
 institute.slug: Slug
-institute.merge_as_new_institute: Merge As New Institute
-suggestion.journal: Journal Suggestion
-suggestion.journal.list: Journal Suggestions
+institute.merge_as_new_institute: 'Merge As New Institute'
+suggestion.journal: 'Journal Suggestion'
+suggestion.journal.list: 'Journal Suggestions'
 journal.title: Title
 journal.subtitle: Subtitle
 suggestion.journal.detail: Detail
-journal.titleAbbr: Title Abbr
-journal.titleTransliterated: Title Transliterated
+journal.titleAbbr: 'Title Abbr'
+journal.titleTransliterated: 'Title Transliterated'
 journal.domain: Domain
 journal.path: Path 
-journal.firstPublishDate: First Publish Date
+journal.firstPublishDate: 'First Publish Date'
 journal.period: Period
 journal.url: URL
 journal.country: Country
@@ -341,34 +335,30 @@ journal.mission: Mission
 journal.languages: Languages
 journal.institution: Institution
 journal.subjects: Subjects
-journal.cover_image: Cover Image
-journal.header_image: Header Image
+journal.cover_image: 'Cover Image'
+journal.header_image: 'Header Image'
 journal.tags: Tags
-journal.createdAt: Created at
+journal.createdAt: 'Created at'
 journal.user: User
-journal.merge_as_new_journal: Merge As New Journal
-dashboard.suggestion: "Suggestions"
-
-journalsindex.create: "JournalsIndex Create"
-journalsindex.edit: "JournalsIndex Edit"
-journalsindex.list: "JournalsIndex List"
+journal.merge_as_new_journal: 'Merge As New Journal'
+dashboard.suggestion: Suggestions
+journalsindex.create: 'JournalsIndex Create'
+journalsindex.edit: 'JournalsIndex Edit'
+journalsindex.list: 'JournalsIndex List'
 journalsindex.singular: Index
 journalsindex.plural: Indexes
-journalsindex.journalindex: "Journal Index"
+journalsindex.journalindex: 'Journal Index'
 journalsindex.journal: Journal
 journalsindex.link: Link
-
 journal.settings.submission.language: Submission Language
 journal.settings.submission.language.text: Select mandatory languages for article submitting
-journal.settings.submission: "Submission Settings"
-journal.settings.submission.abstractTemplate: Submission Abstract Template 
+journal.settings.submission: Submission Settings
+journal.settings.submission.abstractTemplate: Submission Abstract Template
 journal.settings.mail: "Mail Settings"
 journal.settings.page: "Page Settings"
 journal.settings.mail.signature: "Email signature"
-
 setup.step: 'Step number'
 save.finish: 'Save & Finish'
-
 mailtemplate.journal: 'Journal'
 mailtemplate.type: 'Type'
 mailtemplate.subject: 'Subject'
@@ -381,21 +371,24 @@ mailtemplate.languages: 'Language'
 mailtemplate.title: 'Title'
 mailtemplate.default.list: 'Default Templates'
 mailtemplate.show: 'Show'
-
 journal_licence.singular: "Licences"
 journal_licence.create: "New Licence"
 journal_licence.licence: "Licence"
 journal_licence.visible: "Is Visible?"
 journal_licence.label: "Label"
 journal_licence.show: "Show"
-
 journalsection.edit: 'Edit Journal Section'
 journalsection.list: 'Journal Section List'
 journalsection.new: 'New Journal Section'
+journalsection: 'Journal Section'
 journalsection.show: 'Show'
 journalsection.label: 'Label'
 journalsection.title: 'Title'
 journalsection.allow_index: 'Allow Index'
 journalsection.hide_title: 'Hide Title'
 journalsection.journal: 'Journal'
-journalsection: 'Journal Section'
+save: Save
+Info: Info
+'Article Files': 'Article Files'
+'Header Image': 'Header Image'
+File: File
