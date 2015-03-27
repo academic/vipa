@@ -25,6 +25,7 @@ class Step2 extends AbstractType
                 'with_seconds' => true,
                 'data' => new \DateTime()
             ))
+            ->add('footer_text','textarea')
             ->add('period')
             ->add('country', 'entity', [
                 'class' => 'Okulbilisim\LocationBundle\Entity\Country',

@@ -72,6 +72,11 @@ class JournalType extends AbstractType
                     'class' => 'select2-element'
                 ]
             ])
+            ->add('footer_text','textarea',[
+                'attr'=>[
+                    'class'=>'wysihtml5'
+                ]
+            ])
             ->add('published')
             ->add('status', 'choice', [
                 'choices' => CommonParams::getStatusTexts()

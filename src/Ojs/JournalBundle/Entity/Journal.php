@@ -1342,5 +1342,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->setup_status = $setup_status;
     }
 
+    /** @var  string */
+    protected $footer_text;
+
+    /**
+     * @return string
+     */
+    public function getFooterText()
+    {
+        return $this->footer_text;
+    }
+
+    /**
+     * @param string $footer_text
+     */
+    public function setFooterText($footer_text)
+    {
+        $this->footer_text = $footer_text;
+    }
+
 
 }
