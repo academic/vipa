@@ -3,3 +3,8 @@ dashboard:
     editor: Editor Dashboard
     objects: Objects
     operations: Operations
+dashboard.general.stats: General Stats
+total:
+    user: Total user
+    article: Total article
+    issue: Total issue
