@@ -112,7 +112,11 @@
 
 
 
-
+        {% if journal is defined %}
+            <div class="journal-footer">
+                {{ journal.footerText|raw }}
+            </div>
+                {% endif %}
         </div>
         {% block footer %}
             {%include '::ojsfooter.html.twig'%}

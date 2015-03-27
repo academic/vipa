@@ -1042,3 +1042,10 @@ a.vimeo:hover * { color:#FFF; }
     .jvFloat{display: block;margin: 0 0 2em;}
     .jvFloat .placeHolder{bottom: 12px;}
 }
+.journal-footer{
+    text-align: center;
+    font-size: 12px;
+    border-top: 1px solid #111;
+    margin: 20px 0;
+    padding: 10px;
+}
