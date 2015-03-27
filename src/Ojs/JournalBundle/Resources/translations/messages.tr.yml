@@ -37,8 +37,8 @@ for.readers: 'Okuyucular İçin'
 for.authors: 'Yazarlar İçin'
 for.author_editor: 'Yazarlar ve Editörler için'
 status.waiting: Bekliyor
-status.published: Yayında
-status.unpublished: 'Yayından Kaldırılmış'
+status.published: Yayımlanmış
+status.unpublished: Yayımlanmamış
 status.rejected: Reddedildi
 status.inreview: İncelemede
 status.spam: Spam
@@ -62,7 +62,7 @@ citation.type: 'Referans Tipi'
 article.fulltext: 'Tam Metin'
 article.plural: Makaleler
 article.singular: Makale
-article.licensing: Lisanslar
+article.licensing: Önşart
 submission.starting: Başlarken
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
@@ -71,13 +71,13 @@ article.citations: 'Makale Referansları'
 article.metadata: 'Makale Üst Bilgisi'
 article.titleTransliterated: 'Makale Paralel Başlığı'
 article.title: 'Makale Başlığı'
-article.subtitle: 'Makale Alt başlığı'
+article.subtitle: 'Makale Alt Başlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
 article.add: 'Makale Ekle'
 article.section: Bölüm
 suppfiles.resins: 'Araştırma Araçları'
-suppfiles.resmat: 'Araştırma Materyalleri'
+suppfiles.resmat: 'Araştırma Malzemeleri'
 suppfiles.resres: 'Araştırma Sonuçları'
 suppfiles.data: 'Veri Analizi'
 suppfiles.trans: Kopyalar
@@ -98,53 +98,53 @@ author.add: 'Yazar Ekle'
 user.new: 'Yeni Kullanıcı'
 details: Detaylar
 article.manager: 'Makale Yöneticisi'
-issue.plural: Sayılar
-issue: Sayı
-issue.manager: 'Sayı Yöneticisi'
-journal: Dergi
-'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
-articles_in_journal: 'Dergideki Makaleler'
-primaly_language: 'Öncelikli Dil'
-article.new: 'Yeni Makale'
 article.detail: 'Makale Detayı'
 title.transliterated: 'Dönüştürülmüş Başlık'
 author: Yazar
+journal: Dergi
 section: Bölüm
 languages: Diller
+primaly_language: 'Öncelikli Dil'
 status: Durum
 doi: DOI
 check: Kontrol
 otherid: 'Diğer ID'
-journalid: JournalID
+journalid: 'Dergi ID'
 isAnonymous: 'Anonim mi?'
 Pubdateseason: 'Yayın Tarihi Sezonu'
 part: Parça
 url: URL
 abstract.transliterated: 'Dönüştürülmüş Özet'
 citation.editor: 'Alıntı Editörü'
-article_author_edit: 'Makale Yazarı Düzenle'
-article_author_list: 'Makale Yazarı Listesi'
+preview: Önizleme
+submit: Gönder
+back.continue.editing: 'Geri Git & Düzenlemeye Devam Et'
+issue.plural: Sayılar
+issue: Sayı
+issue.manager: 'Sayı Yöneticisi'
+journal: Dergi
+'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
+articles_in_journal: 'Dergideki Makaleler'
+article.new: 'Yeni Makale'
+article_author_edit: 'Yazarı Düzenle'
+article_author_list: 'Yazar Listele'
 articleauthor_new: 'Yeni Makale Yazarı'
 author_order: 'Yazar Sırası'
 author_id: 'Yazar ID'
 article_id: 'Makale ID'
 articleauthor_create: 'Makale Yazarı Oluştur'
+back: Geri
 articleauthor: 'Makale Yazarı'
-article.mysubmits: 'Makale Gönderilerim'
+article.mysubmits: Gönderilerim
 article.all: 'Tüm Makaleler'
-preview: İncele
-submit: Gönder
 add.language: 'Dil ekle'
-sure: 'Emin misiniz ?'
 res: Res
 select_article_file: 'Makale Dosyası Seç'
-Supplementary.File: 'İlave Dosya'
-'Preview Article Before Submit': 'Göndermeden Önce Makaleyi İncele'
-'Back & Continue Editing': 'Geri Dön ve Devam Et'
+Supplementary.File: 'Ek Dosya'
 remove: Kaldır
 order: Sıra
 citation: Alıntı
-select_supplementary_article_file: 'İlave Makale Dosyası Seç'
+select_supplementary_article_file: 'Ek Makale Dosyası Seç'
 author.manager: 'Yazar Yöneticisi'
 author.list: 'Yazar Listesi'
 author.new: 'Yeni Yazar'
@@ -155,10 +155,10 @@ author.details: 'Yazar Detayı'
 linked.user: 'Bağlı Kullanıcı'
 id: ID
 author.firstnametransliterated: 'Dönüştürülmüş İsim'
-author.middlenametransliterated: 'Dönüştürülmüş İkinciisim'
+author.middlenametransliterated: 'Dönüştürülmüş İkinci İsim'
 author.lastnametransliterated: 'Dönüştürülmüş Soyisim'
 adress: Adres
-institution.id: 'Alıntı ID'
+institution.id: 'Kurum ID'
 citation.edit: 'Alıntı Düzenle'
 citation.list: 'Alıntı Listesi'
 source: Kaynak
@@ -169,7 +169,7 @@ citation.setting.edit: 'Alıntı Ayarı Düzenle'
 citation.setting.list: 'Alıntı Ayarı Listesi'
 citation.setting.new: 'Yeni Alıntı Ayarı'
 citation.id: 'Alıntı ID'
-citation.setting: 'Alıntı Ayarları'
+citation.setting: 'Alıntı Ayarı'
 value: Değer
 contact.manager: 'İletişim Yöneticisi'
 contact.edit: 'İletişim Düzenle'
@@ -179,15 +179,17 @@ phone: Telefon
 contact.new: 'Yeni İletişim'
 contact.detail: 'İletişim Detayı'
 contact: İletişim
+contact.plural: 'İletişim Kişileri'
 city: Şehir
 fax: Faks
 contact.type: 'İletişim Türü'
-contact.type.list: 'İletişim Türü Listesi'
-name: Tanım
+contact.type.list: 'İletişim Türünü Listele'
+name: İsim
 contact.type.new: 'Yeni İletişim Türü'
+contacttype.plural: 'İletişim Türleri'
 file.edit: 'Dosya Düzenle'
 file.list: 'Dosya Listesi'
-mimetype: Tür
+mimetype: 'MIME Türü'
 size: Boyut
 file.new: 'Yeni Dosya'
 file.select: 'Dosya Seç'
@@ -198,11 +200,13 @@ institution.edit: 'Kurum Düzenle'
 logo: Logo
 institution.new: 'Yeni Kurum'
 institution.detail: 'Kurum Detay'
+institution.plural: Kurumlar
 address_lat: 'Adres Enlem'
 address_long: 'Adres Boylam'
 institutiontype.edit: 'Kurum Türü Düzenle'
 institutiontype.list: 'Kurum Türü Listesi'
 institutiontype.new: 'Yeni Kurum Türü'
+institutiontype.plural: 'Kurum Türleri'
 issue.edit: 'Sayı Düzenle'
 issue.list: 'Sayı Listesi'
 journal.id: ID
@@ -211,21 +215,21 @@ number: Numara
 cover: Kapak
 special: Özel
 year: Yıl
-publishdate: 'Yayın Tarihi'
+publishdate: 'Yayım Tarihi'
 issue.new: 'Yeni Sayı'
 desc: Açıklama
-created: oluşturulma
-updated: güncelleme
-deleted: silinme
+created: Oluşturulma
+updated: Güncelleme
+deleted: Silinme
 apply.for.new.journal: 'Yeni Dergi Başvurusu'
 journal.new: 'Yeni Dergi'
-journal.apply: 'Dergi Başvur'
+journal.apply: 'Dergiyi Uygulamaya Koy'
 journal.manager: 'Dergi Yöneticisi'
 journal.update: 'Dergi Güncelle'
 journal.edit: 'Dergi Düzenle'
 update: Güncelle
 cancel: İptal
-journal.list: 'Dergi Listesi'
+journal.list: 'Dergileri Listele'
 journal.my: Dergim
 ISSN: ISSN
 create: Oluştur
@@ -233,9 +237,9 @@ titleabbr: 'Başlık Kısaltması'
 titletransliterated: 'Dönüştürülmüş Başlık'
 journal.langs: 'Dergi Dilleri'
 E-ISSN: E-ISSN
-firstpublishdate: 'İlk Yayın tarihi'
-period: Periyod
-published: Yayında
+firstpublishdate: 'İlk Yayım Tarihi'
+period: Periyot
+published: Yayımda
 image: Resim
 theme.id: 'Tema ID'
 users: Kullanıcılar
@@ -248,51 +252,55 @@ journalcontact.list: 'Dergi İletişim Listesi'
 journalcontact.journal.id: 'Dergi ID'
 journalcontact.contact.id: 'Dergi İletişim ID'
 journalcontact.contact.type.id: 'Dergi İletişim Tür ID'
-journalcontact.creation: 'Dergi İletişim Oluştur'
+journalcontact.creation: 'Dergi İletişim Oluşturma'
 journalcontact.singular: 'Dergi İletişim'
-allow_index: __allow_index
+allow_index: 'Dizine İzin Ver'
 hide_title: 'Başlığı Gizle'
-allow_index.list: __allow_index.list
+allow_index.list: 'Dizin Listesine İzin Ver'
 journaltheme.edit: 'Dergi Teması Düzenle'
 journaltheme.list: 'Dergi Teması Listesi'
 theme: Tema
+theme.plural: Temalar
 journaltheme.new: 'Yeni Dergi Teması'
 journaltheme: 'Dergi Teması'
 lang.edit: 'Dil Düzenle'
 lang.list: 'Dil Listesi'
 lang.code: Kod
-lang.name: Tanım
+lang.name: İsim
 lang.rtl: 'Sağdan Sola'
 lang.new: 'Yeni Dil'
 lang.isTranslated: 'Çevrildi mi?'
 lang: Dil
+lang.plural: Diller
 subject.edit: 'Konu Düzenle'
 subject.list: 'Konu Listesi'
 subject: Konu
 subject.new: 'Yeni Konu'
+subject.plural: Konular
 theme.edit: 'Tema Düzenle'
 theme.list: 'Tema Listesi'
 content: İçerik
 basetheme: 'Orjinal Tema'
 theme.new: 'Yeni Tema'
-searchon.wikipedia: 'Wikipedia''da ara'
-searchon.google: 'Google''da ara'
+searchon.wikipedia: 'Wikipedia''da Ara'
+searchon.google: 'Google Akademik''de Ara'
 searchon.pubmed: 'Pubmed''de ara'
 special.issue: 'Özel Sayı'
 select.article.file: 'Dosya Seç'
 notes_to_editor: 'Editöre Notlar'
-review: Review
-review.form: 'İnceleme Formu'
-review.forms: 'İnceleme Formları'
+review: Değerlendirme
+review.form: 'Değerlendirme Formu'
+review.forms: 'Değerlendirme Formları'
 template: Şablon
 templates: Şablonlar
+useThisTemplate: 'Bu Şablonu Kullan'
 reviewResultCodes.0: Ret
 reviewResultCodes.1: 'Tekrar Yazılmalı'
 reviewResultCodes.2: 'Major Revizyon'
 reviewResultCodes.3: 'Minor Revizyon'
 reviewResultCodes.4: Kabul
-page.plural: Sayfalar
 page.singular: Sayfa
+page.plural: Sayfalar
 page.last: 'Son Sayfa'
 page.first: 'İlk Sayfa'
 articlefile.id: ID
@@ -301,31 +309,31 @@ articlefile.type: Tür
 articlefile.version: Sürüm
 articlefile.langcode: Dil
 articlefile.actions: İşlemler
-suggestion.institute: 'Enstitü Önerisi'
+suggestion.institute: 'Kurum Önerisi'
 suggestion.institute.list: 'Enstitü Önerileri'
 institute.id: ID
 institute.name: İsim
 institute.country: Ülke
 suggestion.institute.detail: Detay
-institute.slug: Slug
-institute.merge_as_new_institute: 'Yeni Enstitü Olarak Kaydet'
+institute.slug: Yol
+institute.merge_as_new_institute: 'Yeni Enstitü Olarak Birleştir'
 suggestion.journal: 'Dergi Önerisi'
 suggestion.journal.list: 'Dergi Önerileri'
 journal.title: Başlık
 journal.subtitle: 'Alt Başlık'
 suggestion.journal.detail: Detay
 journal.titleAbbr: 'Başlık Kısaltması'
-journal.titleTransliterated: 'Çevrilmiş Başlık'
-journal.domain: Domain
-journal.path: Path
-journal.firstPublishDate: 'İlk Yayın Tarihi'
+journal.titleTransliterated: 'Dönüştürülmüş Başlık'
+journal.domain: 'Alan Adı'
+journal.path: 'Dergi Yolu'
+journal.firstPublishDate: 'İlk Yayım Tarihi'
 journal.period: Sıklık
 journal.url: URL
 journal.country: Ülke
 journal.scope: Kapsam
-journal.mission: Misyon
+journal.mission: Amaç
 journal.languages: Diller
-journal.institution: Enstitü
+journal.institution: Kurum
 journal.subjects: Konular
 journal.cover_image: 'Kapak Resmi'
 journal.header_image: 'Üst Resim'
@@ -343,32 +351,32 @@ journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
 journalsindex.link: Link
 journal.settings.submission.language: 'Makale Gönderim Dilleri'
-journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz'
+journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
 journal.settings.submission: 'Makale Gönderim Ayarları'
 journal.settings.submission.abstractTemplate: 'Makale Gönderimi Öz Şablonu'
-journal.settings.mail: 'Email Ayarları'
+journal.settings.mail: 'E-posta Ayarları'
 journal.settings.page: 'Sayfa Ayarları'
 journal.settings.mail.signature: 'Email imzası'
-setup.step: Adım
+setup.step: 'Adım Numarası'
 save.finish: 'Kaydet ve Bitir'
 mailtemplate.journal: Dergi
 mailtemplate.type: Tür
 mailtemplate.subject: Konu
 mailtemplate.language: Dil
 mailtemplate.template: Şablon
-mailtemplate.edit: 'Şablonu Düzenle'
-mailtemplate.list: 'Mail Şablonları'
-mailtemplate.new: 'Yeni Mail Şablonu'
+mailtemplate.edit: 'E-posta Şablonu Düzenle'
+mailtemplate.list: 'E-posta Şablonları'
+mailtemplate.new: 'E-posta Şablonu Oluştur'
 mailtemplate.languages: Dil
 mailtemplate.title: Başlık
 mailtemplate.default.list: 'Öntanımlı Şablonlar'
 mailtemplate.show: Görüntüle
-journal_licence.singular: Lisanlar
+journal_licence.singular: Lisanslar
 journal_licence.create: 'Yeni Lisans'
 journal_licence.licence: Lisans
-journal_licence.visible: Görünürlük
+journal_licence.visible: 'Görünür mü?'
 journal_licence.label: Tanım
-journal_licence.show: Show
+journal_licence.show: Görüntüle
 journalsection.edit: 'Dergi Bölümü Düzenle'
 journalsection.list: 'Dergi Bölümü Listesi'
 journalsection.new: 'Yeni Dergi Bölümü'
@@ -376,9 +384,10 @@ journalsection: 'Dergi Bölümü'
 journalsection.show: Görüntüle
 journalsection.label: Tanım
 journalsection.title: Başlık
-journalsection.allow_index: 'Allow Index'
+journalsection.allow_index: 'Dizine İzin Ver'
 journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Dergi
+
 haveNoJournals: 'TODO: You have no journals'
 back: 'TODO: Back'
 contact.plural: 'TODO: Contacts'
