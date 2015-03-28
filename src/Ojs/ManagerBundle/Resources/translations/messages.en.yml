@@ -8,3 +8,5 @@ total:
     user: Total user
     article: Total article
     issue: Total issue
+stats.most.viewed.article: 'Most viewed article'
+stats.most.downloaded.article : 'Most downloaded article'

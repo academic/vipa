@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\ArticleEventLog;
 
 class ArticleController extends Controller {
 
@@ -14,6 +15,8 @@ class ArticleController extends Controller {
         if (!$data['article']) {
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
         }
+        //log article view event
+        $this->articleViewLog($data['article']);
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
@@ -23,4 +26,18 @@ class ArticleController extends Controller {
         return $this->render('OjsSiteBundle:Article:article_page.html.twig', $data);
     }
 
+    /**
+     * article view event log
+     * @param $article
+     */
+    public function articleViewLog($article)
+    {
+        $entity = new ArticleEventLog();
+        $em = $this->getDoctrine()->getManager();
+        $entity->setArticleId($article->getId());
+        $entity->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_VIEW);
+        $entity->setIp($this->container->get('request')->getClientIp());
+        $em->persist($entity);
+        $em->flush();
+    }
 }
