@@ -1,0 +1,26 @@
+Ojs\JournalBundle\Entity\ArticleEventLog:
+    type: entity
+    table: article_event_log
+    repositoryClass: Ojs\JournalBundle\Entity\ArticleEventLogRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        eventInfo:
+            type: text
+            column: event_info
+        eventDate:
+            type: datetime
+            column: event_date
+            nullable: true
+            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ip:
+            type: string
+            length: '50'
+        articleId:
+            type: integer
+            column: article_id
+    lifecycleCallbacks: {  }

@@ -44,9 +44,31 @@
     <div class="col-md-6">
         <h2>{{ "dashboard.general.stats"|trans }}</h2>
         <ul class="list-group">
-            <li class="list-group-item">{{ "total.user"|trans }} <span class="badge">{{ counts.userCount }}</span></li>
-            <li class="list-group-item">{{ "total.article"|trans }} <span class="badge">{{ counts.articleCount }}</span></li>
-            <li class="list-group-item">{{ "total.issue"|trans }} <span class="badge">{{ counts.issueCount }}</span></li>
+            <li class="list-group-item">{{ "total.user"|trans }} <span class="badge">{{ stats.userCount }}</span></li>
+            <li class="list-group-item">{{ "total.article"|trans }} <span class="badge">{{ stats.articleCount }}</span></li>
+            <li class="list-group-item">{{ "total.issue"|trans }} <span class="badge">{{ stats.issueCount }}</span></li>
         </ul>
+    </div>
+    <div class="col-md-12">
+        {% if stats.article.mostViewedArticle is defined %}
+            {% set article = stats.article.mostViewedArticle %}
+            <h2>{{ "stats.most.viewed.article"|trans }}<span class="badge">{{ stats.article.mostViewedArticleCount }}</span></h2>
+            <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
+                {{ article.title }}
+            </a>
+        {% else %}
+            <h3>{{ "Any article viewed yet"|trans }}</h3>
+        {% endif %}
+    </div>
+    <div class="col-md-12">
+        {% if stats.article.mostDownloadedArticle is defined %}
+            {% set article = stats.article.mostDownloadedArticle %}
+            <h2>{{ "stats.most.downloaded.article"|trans }}<span class="badge">{{ stats.article.mostDownloadedArticleCount }}</span></h2>
+            <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
+                {{ article.title }}
+            </a>
+        {% else %}
+            <h3>{{ "Any article downloaded yet"|trans }}</h3>
+        {% endif %}
     </div>
 {% endblock %}
