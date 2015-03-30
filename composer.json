@@ -54,7 +54,8 @@
         "okulbilisim/feedback-bundle": "dev-master",
         "okulbilisim/cms-bundle": "dev-master",
         "okulbilisim/citation-parser": "dev-master",
-        "okulbilisim/ojs-tools-bundle": "dev-master"
+        "okulbilisim/ojs-tools-bundle": "dev-master",
+        "jms/di-extra-bundle": "~1.5"
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master"
