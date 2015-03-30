@@ -2,9 +2,12 @@
 
 {% block body -%}
     <h1>{{ "journalsection.list"|trans }}</h1>
-    {{ grid(grid) }}
-
-    <a href="{{ path('admin_journal_section_new') }}" class="btn btn-success">
+    
+    <a href="{{ path('manager_journal_section_new') }}" class="btn btn-success">
         {{ "c"|trans }}
     </a>
+    <hr>
+    {{ grid(grid) }}
+
+
 {% endblock %}

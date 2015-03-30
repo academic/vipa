@@ -32,17 +32,9 @@
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('admin_journal_section') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('admin_journal_section_edit', { 'id': entity.id }) }}">
-                {{"e"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+
+    {% set back_path = 'manager_journal_section' %}
+    {% set edit_path = 'manager_journal_section_edit' %}
+    {% set delete_path = 'manager_journal_section_delete' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}

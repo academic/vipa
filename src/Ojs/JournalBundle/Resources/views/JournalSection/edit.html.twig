@@ -5,12 +5,9 @@
 
     {{ form(edit_form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('admin_journal_section') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+
+    {% set back_path = 'manager_journal_section' %} 
+    {% set delete_path = 'manager_journal_section_delete' %}
+    {% include '::actionbtns.html.twig' %}
+
 {% endblock %}
