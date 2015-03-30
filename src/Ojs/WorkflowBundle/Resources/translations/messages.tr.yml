@@ -1,8 +1,8 @@
 status:
     inreview: Görüşme
-    published: Yayında
+    published: Yayımda
     rejected: Reddedilmiş
-    unpublished: Yayından Kaldırılmış
+    unpublished: Yayımlanmammış
     waiting: Beklemede
 useThisTemplate: Bu temayı kullan
 workflow:
