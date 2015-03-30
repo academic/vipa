@@ -66,7 +66,7 @@ list_my_proxys: 'List my proxys'
 privacy: Privacy
 tos: 'Terms of Service'
 articles: Articles
-ujs: Ujs
+ujs: UJS
 about: About
 blog: Blog
 'contact & help': 'Contact & Help'
@@ -75,11 +75,11 @@ documents: Documents
 presentations: Presentations
 videos: Videos
 photos: Photos
-ulakbim: Ulakbim
+ulakbim: ULAKBİM
 discovery: Discovery
 announcements: Announcements
-tubitak: Tübitak
-tubitak_journals: 'Tübitak Journals'
+tubitak: TÜBİTAK
+tubitak_journals: 'TÜBİTAK Journals'
 Yes: Yes
 No: No
 role.singular: Role
@@ -90,7 +90,7 @@ user.custom_field.label: Label
 user.custom_field.value: Value
 user.custom_field.is_url: 'Is Url?'
 user.custom_field.action: Actions
-'Link Ekle': 'Add Link'
+'Add Link': 'Add Link'
 user.connected_accounts: 'Connected Accounts'
 user.connected_accounts.add_orcid_account: 'Connect ORCID'
 user.connected_accounts.add: 'Add Account'
@@ -105,21 +105,18 @@ username.or.email: Username or Email
 user.reset_password: Reset Password
 user.new_password: New Password
 user.new_password_confirm: New Password (confirmation)
-
 user.private_account: Private Account
 'This account is private.': 'This account is private.'
-
 'Password Change': Password Change
 Information: Information
 'Your password has been changed': 'Your password has been changed'
 'Password Reset': 'Password Reset'
 'Your password has been reset': 'Your password has been reset'
-'You are request password reset': 'You are request password reset'
+'You are requested password reset': 'You are request password reset'
 'Password Reset Process': 'Password Reset Process'
-'Click link below for reset to ojs account password': 'Click link below for reset to ojs account password'
+'Click link below for reset to OJS account password': 'Click link below for reset to ojs account password'
 'Reset Now': 'Reset Now'
 forgot.password: forgot.password
-
 institute.register: "Register Institute"
 journal.register: "Register Journal"
 user.change_password: "Change Password"
