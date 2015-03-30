@@ -1,6 +1,6 @@
-'yes': Evet
-'no': Hayır
-period: periyot
+yes: Evet
+no: Hayır
+period: Periyot
 back: 'Listeye geri dön'
 b: Geri
 d: Sil
@@ -14,11 +14,11 @@ added: Eklendi
 u: Güncelle
 404: Bulunamadı
 error: Hata
-error.oops: 'Ooops! Bir hata meydana geldi!'
+error.oops: 'Oops! Bir hata meydana geldi!'
 summart: Özet
 res: 'Yeniden Başlat'
-preview: Preview
-submit: Submit
+preview: Ön izleme
+submit: Makale Gönder
 onlineSubmission: 'Online Makale Gönder'
 journal_home: 'Dergi Ana Sayfa'
 topics: Konular
@@ -35,38 +35,38 @@ mastersthesis: 'Yüksek Lisans Tezi'
 phdthesis: 'Doktora Tezi'
 proceedings: Bildiri
 techreport: 'Teknik Rapor'
-unpublished: Yayınlanmamış
+unpublished: Yayımlanmamış
 inproceedings: In-proceedings
 incollection: In-collection
 inbook: In-book
 booklet: Kitapçık
-manual: Manual
+manual: Kılavuz
 misc: Çeşitli/Diğer
-primaly_language: 'Primaly Language'
-read.lastissue: 'Read Last Issue'
+primaly_language: 'Birincil Dil'
+read.lastissue: 'Son Sayıyı Oku'
 details: Ayrıntılar
 ojs: OJS
-toggle_navigation: 'Yönelendiriciyi Aç'
+toggle_navigation: 'Yönlendiriciyi Aç'
 home: 'Ana Sayfa'
-institutions: Enstitü
+institutions: Kurumlar
 journals: Dergiler
 register_journal: 'Dergi Kaydet'
 send_article: 'Makale Gönder'
 search: Ara
-search_query: 'aranacak kelimeler'
+search_query: 'Anahtar Sözcükleri Girin'
 login: Giriş
-dashboard: 'Ana Ekran'
+dashboard: 'Gösterge Paneli'
 log_out_from_user: 'Kullanıcı Oturumunu Kapat'
 user_page: 'Kullanıcı Sayfası'
 profile: Profil
 log_out: 'Oturumu Kapat'
 proxy_users: 'Vekil Kullanıcılar'
-login_as: 'Gibi oturum aç'
+login_as: 'Gibi Oturum Aç'
 list_my_proxys: 'Vekil Kullanıcılarım'
 privacy: Gizlilik
 tos: 'Kullanım Şartları'
 articles: Makaleler
-ujs: Ujs
+ujs: UJS
 about: Hakkında
 blog: Blog
 'contact & help': 'İletişim & Yardım'
@@ -75,47 +75,49 @@ documents: Dökümanlar
 presentations: Sunumlar
 videos: Videolar
 photos: Fotoğraflar
-ulakbim: Ulakbim
+ulakbim: ULAKBİM
 discovery: Keşif
 announcements: Duyurular
-tubitak: Tübitak
-tubitak_journals: 'Tübitak Dergileri'
-'Yes': Evet
-'No': Hayır
+tubitak: TÜBİTAK
+tubitak_journals: 'TÜBİTAK Dergileri'
+Yes: Evet
+No: Hayır
 role.singular: Rol
 role.plural: Roller
-user.update_profile: 'Hesabımı Güncelle'
+user.update_profile: 'Profilimi Güncelle'
 user.custom_fields: 'Özel Alanlar'
 user.custom_field.label: Tanım
 user.custom_field.value: Değer
 user.custom_field.is_url: 'Link mi?'
 user.custom_field.action: İşlemler
+'Add Link': 'Link Ekle'
 user.connected_accounts: 'Bağlı Hesaplar'
-user.connected_accounts.add_orcid_account: 'ORCID Hesabına Bağla'
+user.connected_accounts.add_orcid_account: 'ORCID Hesabına Bağlan'
 user.connected_accounts.add: 'Hesap Bağla'
 user.connected_accounts.provider: Sağlayıcı
 user.connected_accounts.provider_user_id: 'Sağlayıcı Kullanıcı Hesabı'
 user.connected_accounts.action: İşlemler
 user.custom_field.create: Oluştur
-user.forgot_password: 'Şifremi Unuttum'
-user.private_account: 'Gizli Hesap'
-'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
+Avatar: Avatar
+User: Kullanıcı
+user.forgot_password: 'Şifreyi Unuttum'
 username.or.email: 'Kullanıcı Adı / Eposta'
 user.reset_password: 'Şifremi Sıfırla'
 user.new_password: 'Yeni Şifre'
 user.new_password_confirm: 'Yeni Şifre (doğrulama)'
+user.private_account: 'Gizli Hesap'
+'This account is private.': 'Bu hesap kullanıcısı tarafından gizli olarak kaydedilmiştir.'
 'Password Change': 'Şifre Değiştirme'
 Information: Bilgilendirme
 'Your password has been changed': 'Şifreniz Değiştirildi'
 'Password Reset': 'Şifre Sıfırla'
 'Your password has been reset': 'Şifreniz Sıfırlandı'
-'You are request password reset': 'Şifre Sıfırlama Talebiniz Var'
+'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
 'Password Reset Process': 'Şifre Sıfırlama İşlemi'
-'Click link below for reset to ojs account password': 'OJS hesabınızın şifresini sıfırlama için aşağıdaki linke tıklayın'
+'Click link below for reset to OJS account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
 'Reset Now': 'Şimdi Sıfırla'
 forgot.password: 'Şifremi Unuttum'
-institute.register: 'Enstitü Kaydet'
+institute.register: 'Kurum Kaydet'
 journal.register: 'Dergi Oluştur'
-'Link Ekle': 'TODO: Add Link'
-Avatar: 'TODO: Avatar'
-User: 'TODO: User'
+user.change_password: "Şifreyi Değiştir"
+user.old_password: "Eski Şifre"
