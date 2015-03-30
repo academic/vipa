@@ -1,6 +1,7 @@
 Ojs\UserBundle\Entity\User:
     type: entity
-    table: User
+    #don't use table name as user for detail {@link http://stackoverflow.com/a/22256451/2438520}
+    table: users
     repositoryClass: Ojs\UserBundle\Entity\UserRepository
     id:
         id:
@@ -139,7 +140,7 @@ Ojs\UserBundle\Entity\User:
             mappedBy: null
             inversedBy: users
             joinTable:
-                name: User_Subjects
+                name: user_subjects
                 joinColumns:
                     -
                         name: user_id
@@ -157,7 +158,7 @@ Ojs\UserBundle\Entity\User:
             mappedBy: null
             inversedBy: users
             joinTable:
-                name: User_Role
+                name: user_role
                 joinColumns:
                     -
                         name: user_id

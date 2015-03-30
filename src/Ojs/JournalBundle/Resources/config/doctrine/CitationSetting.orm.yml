@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\CitationSetting:
     type: entity
-    table: null
+    table: citation_setting
     #repositoryClass: Ojs\JournalBundle\Entity\CitationSettingRepository
     manyToOne:
         citation:

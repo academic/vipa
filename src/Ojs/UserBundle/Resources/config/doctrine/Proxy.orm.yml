@@ -3,7 +3,7 @@ Ojs\UserBundle\Entity\Proxy:
         users_x:
           columns: proxy_user_id,client_user_id
     type: entity
-    table: null
+    table: proxy
     manyToOne:
         clientUser:
             targetEntity: User

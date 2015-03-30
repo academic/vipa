@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Issue:
     type: entity
-    table: null
+    table: issue
     repositoryClass: Ojs\JournalBundle\Entity\IssueRepository
     manyToMany:
         sections:
@@ -13,7 +13,7 @@ Ojs\JournalBundle\Entity\Issue:
               joinColumns:
                 issue_id:
                   referencedColumnName: id
-              name: Issue_JournalSection   
+              name: issue_journal_section
               cascade: ["persist", "merge"]
               fetch: LAZY
     oneToMany:

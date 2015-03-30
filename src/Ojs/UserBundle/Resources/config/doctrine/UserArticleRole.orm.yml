@@ -1,6 +1,6 @@
 Ojs\UserBundle\Entity\UserArticleRole:
     type: entity
-    table: null
+    table: user_article_role
     repositoryClass: Ojs\UserBundle\Entity\UserArticleRoleRepository
     id:
         id:

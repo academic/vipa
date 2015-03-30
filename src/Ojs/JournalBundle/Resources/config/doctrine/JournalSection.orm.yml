@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\JournalSection:
     type: entity
-    table: null
+    table: journal_section
     manyToOne:
        journal:
           targetEntity: Journal

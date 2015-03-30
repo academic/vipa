@@ -1,6 +1,6 @@
 Ojs\SiteBundle\Entity\Page:
     type: entity
-    table: null
+    table: page
     repositoryClass: Ojs\SiteBundle\Entity\PageRepository
     id:
         id:

@@ -1,6 +1,6 @@
 Ojs\CliBundle\Entity\CliLog:
     type: entity
-    table: null
+    table: cli_log
     id:
         id:
             type: integer

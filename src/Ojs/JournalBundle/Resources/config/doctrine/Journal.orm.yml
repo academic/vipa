@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Journal:
     type: entity
-    table: null
+    table: journal
     repositoryClass: Ojs\JournalBundle\Entity\JournalRepository
     manyToOne:
         institution:
@@ -70,7 +70,7 @@ Ojs\JournalBundle\Entity\Journal:
                 joinColumns:
                   journal_id:
                     referencedColumnName: id
-                name: Journal_Language
+                name: journal_language
               fetch: EXTRA_LAZY
         submitRoles:
               targetEntity: Ojs\UserBundle\Entity\Role
@@ -81,7 +81,7 @@ Ojs\JournalBundle\Entity\Journal:
                 joinColumns:
                   journal_id:
                     referencedColumnName: id
-                name: Journal_Submit_Role
+                name: journal_submit_role
               fetch: EXTRA_LAZY
         subjects:
             targetEntity: Subject
@@ -89,7 +89,7 @@ Ojs\JournalBundle\Entity\Journal:
             mappedBy: null
             inversedBy: journals
             joinTable:
-                name: Journal_Subject
+                name: journal_subject
                 joinColumns:
                     -
                         name: journal_id
@@ -106,7 +106,7 @@ Ojs\JournalBundle\Entity\Journal:
             cascase: ["all"]
             inversedBy: restrictedJournals
             joinTable:
-                name: JournalBannedUsers
+                name: journal_banned_users
                 joinColumns:
                     -
                         name: journal_id

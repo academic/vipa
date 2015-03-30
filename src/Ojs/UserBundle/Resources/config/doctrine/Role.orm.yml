@@ -1,6 +1,6 @@
 Ojs\UserBundle\Entity\Role:
     type: entity
-    table: Role
+    table: role
     repositoryClass: Ojs\UserBundle\Entity\RoleRepository
     id:
         id:

@@ -1,6 +1,6 @@
 Ojs\UserBundle\Entity\EventLog:
     type: entity
-    table: null
+    table: event_log
     repositoryClass: Ojs\UserBundle\Entity\EventLogRepository
     id:
         id:

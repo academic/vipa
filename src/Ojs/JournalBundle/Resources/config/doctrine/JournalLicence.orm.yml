@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\JournalLicence:
   type: entity
   repositoryClass: Ojs\JournalBundle\Entity\JournalLicenceRepository
+  table: journal_licence
   id:
     id:
       type: integer

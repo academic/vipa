@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Theme:
     type: entity
-    table: null
+    table: theme
     #repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
     oneToMany:
         journalThemes: 

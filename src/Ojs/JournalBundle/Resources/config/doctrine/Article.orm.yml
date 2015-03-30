@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Article:
   repositoryClass: Ojs\JournalBundle\Entity\ArticleRepository
-  table: ~
+  table: article
   type: entity
   id:
     id:
@@ -57,7 +57,7 @@ Ojs\JournalBundle\Entity\Article:
         joinColumns:
           article_id:
             referencedColumnName: id
-        name: Article_Language
+        name: article_language
       fetch: EXTRA_LAZY
     citations:
       targetEntity: Citation
@@ -69,7 +69,7 @@ Ojs\JournalBundle\Entity\Article:
         joinColumns:
           article_id:
             referencedColumnName: id
-        name: Article_Citation
+        name: article_citation
   fields:
     subjects:
         type: string
