@@ -15,8 +15,8 @@ use Ojs\JournalBundle\Form\JournalSectionType;
  * JournalSection controller.
  *
  */
-class JournalSectionController extends Controller
-{
+class JournalSectionController extends Controller {
+
     /**
      * Lists all JournalSection entities.
      *
@@ -24,18 +24,26 @@ class JournalSectionController extends Controller
     public function indexAction()
     {
         $source = new Entity('OjsJournalBundle:JournalSection');
-        $source->manipulateRow(function(Row $row){
-            if($row->getField("title") and strlen($row->getField('title'))>20){
-                $row->setField('title',substr($row->getField('title'),0,20)."...");
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+         $ta = $source->getTableAlias();
+        $source->manipulateQuery(function (\Doctrine\ORM\QueryBuilder $qb) use ($journal,$ta) {
+            $qb->where(
+                    $qb->expr()->eq($ta.'.journalId', $journal->getId())
+            );
+            return $qb;
+        });
+        $source->manipulateRow(function(Row $row) {
+            if ($row->getField("title") and strlen($row->getField('title')) > 20) {
+                $row->setField('title', substr($row->getField('title'), 0, 20) . "...");
             }
             return $row;
         });
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('admin_journal_section_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_journal_section_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_journal_section_delete', 'id');
+        $rowAction[] = ActionHelper::showAction('manager_journal_section_show', 'id');
+        $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('manager_journal_section_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -59,7 +67,7 @@ class JournalSectionController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_journal_section_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('manager_journal_section_show', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:JournalSection:new.html.twig', array(
@@ -76,8 +84,10 @@ class JournalSectionController extends Controller
     private function createCreateForm(JournalSection $entity)
     {
         $form = $this->createForm(new JournalSectionType(), $entity, array(
-            'action' => $this->generateUrl('admin_journal_section_create'),
+            'action' => $this->generateUrl('manager_journal_section_create'),
             'method' => 'POST',
+            'user' => $this->getUser(),
+            'journal' => $this->get('ojs.journal_service')->getSelectedJournal()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -113,11 +123,9 @@ class JournalSectionController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find JournalSection entity.');
         }
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:JournalSection:show.html.twig', array(
                     'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -136,12 +144,10 @@ class JournalSectionController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:JournalSection:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -155,8 +161,10 @@ class JournalSectionController extends Controller
     private function createEditForm(JournalSection $entity)
     {
         $form = $this->createForm(new JournalSectionType(), $entity, array(
-            'action' => $this->generateUrl('admin_journal_section_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('manager_journal_section_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'user' => $this->getUser(),
+            'journal' => $this->get('ojs.journal_service')->getSelectedJournal()
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -178,20 +186,18 @@ class JournalSectionController extends Controller
             throw $this->createNotFoundException('Unable to find JournalSection entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_journal_section_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('manager_journal_section_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:JournalSection:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -201,39 +207,14 @@ class JournalSectionController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find JournalSection entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find JournalSection entity.');
         }
-
-        return $this->redirect($this->generateUrl('admin_journal_section'));
-    }
-
-    /**
-     * Creates a form to delete a JournalSection entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('admin_journal_section_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
+        $em->remove($entity);
+        $em->flush();
+        return $this->redirect($this->generateUrl('manager_journal_section'));
     }
 
 }

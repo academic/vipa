@@ -5,11 +5,7 @@
 
     {{ form(form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('admin_journal_section') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-    </ul>
+    <a href="{{ path('manager_journal_section') }}">
+        {{"b"|trans}}
+    </a> 
 {% endblock %}
