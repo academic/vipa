@@ -1,0 +1,15 @@
+{% extends 'TwigBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="container" style="margin-top: 60px">
+        <div class="alert alert-warning"> 
+            <h3>{{"error.oops"|trans}} </h3> 
+            {%if exception.message == "mustselectjournal" %}
+                {% include '::mustselectjournal.html.twig' %}
+            {%else%}
+                {{ exception.message|nl2br|format_file_from_text }} 
+            {%endif%}
+        </div>
+
+    </div>
+{% endblock %}
