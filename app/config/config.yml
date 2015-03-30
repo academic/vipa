@@ -115,3 +115,15 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 apy_data_grid:
     theme: '::list.html.twig'
+
+jms_di_extra:
+    locations:
+        all_bundles: false
+        bundles: [OjsJournalBundle, OjsWorkFlowBundle]
+        directories: ["%kernel.root_dir%/../src"]
+    automatic_controller_injections:
+        properties:
+            request: "@request"
+            router: "@router"
+        method_calls:
+            setRouter: ["@router"]
