@@ -121,9 +121,9 @@ jms_di_extra:
         all_bundles: false
         bundles: [OjsJournalBundle, OjsWorkFlowBundle]
         directories: ["%kernel.root_dir%/../src"]
-    automatic_controller_injections:
-        properties:
-            request: "@request"
-            router: "@router"
-        method_calls:
-            setRouter: ["@router"]
+#    automatic_controller_injections:
+#        properties:
+#            request: "@request"
+#            router: "@router"
+#        method_calls:
+#            setRouter: ["@router"]
