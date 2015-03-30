@@ -1,9 +1,9 @@
 save: Kaydet
-installer.welcome.title: 'Ojs Kurulumuna Hoşgeldiniz'
+installer.welcome.title: 'OJS Kurulumuna Hoşgeldiniz'
 installer.welcome.message: 'Hoşgeldiniz Mesajı'
 installer.check_configuration: 'Ayarları Kontrol Et'
 installer.setup: Kurulum
-installer.congrat: Tebrikler
+installer.congrat: 'Tebrikler! Kurulum Tamamlandı'
 'OJS Setup': 'OJS Kurulumu'
 installer.menu.home: Başlangıç
 installer.menu.check: Kontrol
@@ -15,5 +15,5 @@ installer.update.welcome.title: Ojs Güncelleyici
 installer.update.welcome.message: Veritabanı farkları sisteminize uygulanacaktır.
 installer.update: Güncelle
 'OJS Updater': 'OJS Güncelleyici'
-installer.menu.update: Önbilgi
+installer.menu.update: Güncelleyici
 installer.menu.update_confirm: Tamamlandı
