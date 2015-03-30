@@ -34,8 +34,8 @@ notification.verb: Verb
 proxy.edit: 'Edit Proxy'
 proxy.list: 'Proxy List'
 proxy.id: ID
-proxy.proxy.user.id: 'Proxy User Id'
-proxy.client.user.id: 'Client User Id'
+proxy.proxy.user.id: 'Proxy User ID'
+proxy.client.user.id: 'Client User ID'
 proxy.creation: 'Proxy Creation'
 proxy.singular: Proxy
 proxy.clients.list: 'List Proxy Clients'
@@ -70,7 +70,7 @@ register: Register
 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 unconfirmed.user: 'Unconfirmed User'
 user.manager: 'User Manager'
-user.edit: 'User Edit'
+user.edit: 'Edit User'
 uploading: Uploading...
 done: Done.
 user.list: 'User List'
@@ -96,7 +96,7 @@ user.journalrole.journal: Journal
 user.journalrole.role: Role
 user.journalrole.creation: 'Journal Role Creation'
 user.journalrole.singular: 'Journal Role'
-user.journalrole.journals.of.user: 'Journals Of User'
+user.journalrole.journals.of.user: 'Journals of User'
 user.journalrole.journal.id: ID
 user.journalrole.journal.name: Name
 user.journalrole.myjournals: 'My Journals'
@@ -107,7 +107,7 @@ user.journalrole.usersofjournal: 'Users of journal'
 user.journalrole.user.id: ID
 user.journalrole.user.username: Username
 user.journalrole.email: Email
-user.journalrole.thisjournalhasnouser: 'This Journal Has No User!'
+user.journalrole.thisjournalhasnouser: 'This journal has no user!'
 user.anonym:
   new: "Create Anonym Login"
   firstname: "Firstname"
@@ -127,6 +127,5 @@ user.journalrole.mail.to: "Mail To"
 user.journalrole.mail.subject: "Subject"
 user.journalrole.mail.body: "Message Body"
 user.journalrole.mail.send: "Send"
-
 flush:
   all.log : "Flush Logs"
