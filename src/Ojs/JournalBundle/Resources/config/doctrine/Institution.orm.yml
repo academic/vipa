@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Institution:
     type: entity
-    table: null
+    table: institution
     #repositoryClass: Ojs\JournalBundle\Entity\InstitutionRepository
     id:
         id:

@@ -1,6 +1,6 @@
 Ojs\UserBundle\Entity\Notification:
     type: entity
-    table: null
+    table: notification
     id:
         id:
             type: integer

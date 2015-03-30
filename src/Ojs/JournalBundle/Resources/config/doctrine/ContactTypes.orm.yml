@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\ContactTypes:
     type: entity
-    table: null
+    table: contact_types
     id:
         id:
             type: integer

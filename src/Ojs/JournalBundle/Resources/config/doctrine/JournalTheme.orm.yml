@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\JournalTheme:
     type: entity
-    table: null
+    table: journal_theme
     id:
         id:
             type: integer

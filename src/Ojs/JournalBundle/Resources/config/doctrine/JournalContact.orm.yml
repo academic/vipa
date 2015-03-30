@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\JournalContact:
     type: entity
-    table: null
+    table: journal_contact
     #repositoryClass: Ojs\JournalBundle\Entity\JournalContactRepository
     manyToOne:
         journal:

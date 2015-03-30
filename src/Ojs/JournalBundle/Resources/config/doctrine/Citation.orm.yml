@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Citation:
     type: entity
-    table: null
+    table: citation
     #repositoryClass: Ojs\JournalBundle\Entity\CitationRepository
     oneToMany:
         settings:

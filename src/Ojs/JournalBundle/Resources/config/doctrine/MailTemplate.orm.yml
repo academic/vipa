@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\MailTemplate:
     type: entity
-    table: null
+    table: mail_template
     repositoryClass: Ojs\JournalBundle\Entity\MailTemplateRepository
     id:
         id:
@@ -24,7 +24,7 @@ Ojs\JournalBundle\Entity\MailTemplate:
             joinColumns:
               mailtemplate_id:
                 referencedColumnName: id
-            name: MailTemplate_Language
+            name: mail_template_language
           fetch: EXTRA_LAZY
     fields:
         journalId:

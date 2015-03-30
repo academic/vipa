@@ -1,6 +1,7 @@
 Ojs\JournalBundle\Entity\JournalSetting:
   lifecycleCallbacks: {}
   type: entity
+  table: journal_setting
   id:
     journal:
       associationKey: true

@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\Lang:
     type: entity
-    table: null
+    table: lang
     id:
         id:
             type: integer

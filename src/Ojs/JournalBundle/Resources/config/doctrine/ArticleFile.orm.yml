@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\ArticleFile:
     type: entity
-    table: null
+    table: article_file
     repositoryClass: Ojs\JournalBundle\Entity\ArticleFileRepository
     id:
         id:

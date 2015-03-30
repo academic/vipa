@@ -1,6 +1,6 @@
 Ojs\UserBundle\Entity\MailLog:
     type: entity
-    table: null
+    table: mail_log
     repositoryClass: Ojs\UserBundle\Entity\MailLogRepository
     id:
         id:

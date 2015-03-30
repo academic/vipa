@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\File:
     type: entity
-    table: null
+    table: file
     #repositoryClass: Ojs\JournalBundle\Entity\FileRepository
     id:
         id:

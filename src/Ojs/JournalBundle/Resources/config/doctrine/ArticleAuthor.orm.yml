@@ -1,6 +1,6 @@
 Ojs\JournalBundle\Entity\ArticleAuthor:
     type: entity
-    table: null
+    table: article_author
     id:
         id:
             type: integer
