@@ -1,9 +1,12 @@
-dashboard.admin: 'TODO: Admin Dashboard'
-dashboard.editor: 'TODO: Editor Dashboard'
-dashboard.objects: 'TODO: Objects'
-dashboard.operations: 'TODO: Operations'
-dashboard.general.stats: Genel İstatistik
+dashboard:
+    admin: 'Admin Paneli'
+    editor: 'Editör Paneli'
+    objects: Nesneler
+    operations: Operasyonlar 
+dashboard.general.stats: 'Genel İstatistik'
 total:
-    user: Toplam kullanıcı
-    article: Toplam makale
-    issue: Toplam sayı
+    user: Toplam Kullanıcı
+    article: Toplam Makale
+    issue: Toplam Sayı
+stats.most.viewed.article: 'En Çok Görüntülenen Makale'
+stats.most.downloaded.article : 'En Çok İndirilen Makale'
