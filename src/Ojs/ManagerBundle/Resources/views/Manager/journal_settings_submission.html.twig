@@ -43,10 +43,11 @@
                         <div class="btn-group">
                             {% for template in abstractTemplates %}
                                 <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
-                                   onclick="console.log($('#abstractTemplate{{template.id}}').html());
+                                   onclick="$('textarea.editor').data('wysihtml5').editor.setValue($('#abstractTemplate{{template.id}}').html());
                                            return false;">
-                                    Template-{{template.id}} {{template.type}}</a>
-                                {% endfor %}
+                                    Template-{{template.id}} {{template.type}}
+                                </a>
+                            {% endfor %}
                         </div>
                         <p class="help-block">You can load from predefined templates.</p>
                     </div><hr>
@@ -56,7 +57,7 @@
                         {% endfor%}
                     </div>
                     <div class="form-row">
-                        <textarea class="editor form-control"  style="width:100%" 
+                        <textarea id="absTemplate" class="editor form-control"  style="width:100%" 
                                   name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
                     </div>
                 </fieldset>
@@ -73,7 +74,7 @@
     <script>
         $(document).ready(function () {
             $("textarea.editor").wysihtml5({
-                toolbar: {"font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+                toolbar: {"fa": true, "font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
             });
         });
     </script>
