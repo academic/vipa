@@ -62,7 +62,7 @@ class EditorController extends Controller
      */
     private function getStats()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $stats['userCount'] = $em
             ->createQuery('SELECT COUNT(a) FROM OjsUserBundle:UserJournalRole a WHERE a.journalId = :journal_id')
