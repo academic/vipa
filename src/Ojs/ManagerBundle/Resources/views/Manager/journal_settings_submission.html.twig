@@ -60,6 +60,18 @@
                         <textarea id="absTemplate" class="editor form-control"  style="width:100%" 
                                   name="submissionAbstractTemplate">{{submissionAbstractTemplate}}</textarea>
                     </div>
+
+                    <legend>{{"journal.settings.submission.ciSettings"|trans}}</legend>
+                    <div class="form-row">
+                        <label> User should send competing of interest statement.
+                            <input name="submissionShouldFileCi" type="checkbox" value="1" />
+                        </label>
+                    </div> 
+                    <div class="form-row" style="display:none" id="ciHolder">
+                        Competing of interest guide : 
+                        <textarea id="ciTextinput" class="editor form-control"  style="width:100%" 
+                                  name="submissionCiText">{{submissionAbstractTemplate}}</textarea>
+                    </div>
                 </fieldset>
             </div>
             <div class="form-group">
@@ -75,6 +87,13 @@
         $(document).ready(function () {
             $("textarea.editor").wysihtml5({
                 toolbar: {"fa": true, "font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+            });
+            $("input[name=submissionShouldFileCi]").change(function () {
+                if ($(this).is(":checked")) {
+                    $("#ciHolder").show();
+                } else {
+                    $("#ciHolder").hide();
+                }
             });
         });
     </script>
