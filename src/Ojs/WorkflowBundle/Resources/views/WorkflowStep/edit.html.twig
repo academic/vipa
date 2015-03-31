@@ -80,6 +80,28 @@
                     </label>
                 </div>
 
+                <div class="form-group">
+                    <label  style="line-height: 20px;display: inline-block;">
+                        User must send a competing of interest statement.
+                        <input type="checkbox" name="shouldFileCi" value="1"
+                               {%if step.shouldFileCi %}checked="checked"{%endif%}> 
+                    </label>
+                    <br>
+                    <div id="ciTextHolder"  style="{%if step.shouldFileCi ==false %}display:none{%endif%}">
+                        Guidelines for filling a <i>competing of Interest</i> statement.
+                        <br>
+                        {% for template in ciTemplates %}
+                            <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
+                               onclick="$('textarea#ciTextInput').data('wysihtml5').editor.setValue($('#ciTemplate{{template.id}}').html());
+                                       return false;">
+                                Template-{{template.id}} {{template.type}}
+                            </a>
+                            <div class="hide" id="ciTemplate{{template.id}}">{{template.template|raw}}</div>
+                        {% endfor %}
+                        <textarea class="editor form-control" id="ciTextInput" name="ciText">{{step.ciText}}</textarea>
+                    </div>
+                </div>
+
                 <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         Is visible to author?
@@ -186,6 +208,14 @@
                 $("#previewcolor").css("backgroundColor", $("#inputcolor").val());
             });
             $(".generateRandomColor").click(randomColor);
+            $("input[name=shouldFileCi]").change(function () {
+                $ciText = $("#ciTextHolder");
+                if ($(this).is(':checked')) {
+                    $ciText.show();
+                } else {
+                    $ciText.hide();
+                }
+            });
         });
 
     </script>
