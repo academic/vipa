@@ -56,6 +56,32 @@ Ojs\UserBundle\Entity\User:
             length: 255
             unique: false
             nullable: true
+        gender:
+            column: gender
+            type: string
+            length: 2
+            nullable: true
+        initials:
+            type: string
+            nullable: true
+        url:
+            type: string
+            nullable: true
+        phone:
+            type: string
+            nullable: true
+        fax:
+            type: string
+            nullable: true
+        address:
+            type: text
+            nullable: true
+        billing_address:
+            type: text
+            nullable: true
+        locales:
+            type: string
+            nullable: true
         city_id:
             type: integer
             nullable: true
@@ -69,6 +95,9 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             options:
                 default: 0
+        disable_reason:
+            type: text
+            nullable: true
         status:
             type: integer
             length: 5
@@ -121,7 +150,9 @@ Ojs\UserBundle\Entity\User:
         oauthAccounts:
           targetEntity: Ojs\UserBundle\Entity\UserOauthAccount
           mappedBy: user
-
+        authorDetails:
+          targetEntity: Ojs\JournalBundle\Entity\Author
+          mappedBy: user
     manyToOne:
         country:
           targetEntity: Okulbilisim\LocationBundle\Entity\Country

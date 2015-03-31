@@ -5,13 +5,16 @@ namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Okulbilisim\LocationBundle\Entity\City;
+use Okulbilisim\LocationBundle\Entity\Country;
 
 /**
  * Author
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
-class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
+class Author extends \Ojs\Common\Entity\GenericExtendedEntity
+{
 
     /**
      * @var integer
@@ -86,15 +89,10 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
     private $institutionId;
 
     /**
-     * @var Institution 
+     * @var Institution
      */
     private $institution;
 
-    /**
-     * @var integer
-     * @Expose()
-     */
-    private $country;
 
     /**
      * @var string
@@ -448,29 +446,6 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * Set country
-     *
-     * @param  integer $country
-     * @return Author
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return integer
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
      * Set summary
      *
      * @param  string $summary
@@ -546,7 +521,8 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     public function getFullName()
     {
-        $this->fullName = /* $this->title . ' ' . */ $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
+        $this->fullName = /* $this->title . ' ' . */
+            $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
         // not sure if title should be added to fullname 
         return $this->fullName;
     }
@@ -566,11 +542,173 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Get institution
      *
-     * @return \Ojs\JournalBundle\Entity\Institution 
+     * @return \Ojs\JournalBundle\Entity\Institution
      */
     public function getInstitution()
     {
         return $this->institution;
     }
+
+    /** @var  Country */
+    protected $country;
+    /** @var  City */
+    protected $city;
+
+    /** @var  string */
+    protected $url;
+    /** @var  string */
+    protected $phone;
+    /** @var  string */
+    protected $fax;
+
+    /** @var  string */
+    protected $billing_address;
+    /** @var  string */
+    protected $locales;
+
+    /**
+     * @return string
+     */
+    public function getBillingAddress()
+    {
+        return $this->billing_address;
+    }
+
+    /**
+     * @param string $billing_address
+     * @return $this
+     */
+    public function setBillingAddress($billing_address)
+    {
+        $this->billing_address = $billing_address;
+        return $this;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param Country $country
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * @param string $fax
+     * @return $this
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocales()
+    {
+        return $this->locales;
+    }
+
+    /**
+     * @param string $locales
+     * @return $this
+     */
+    public function setLocales($locales)
+    {
+        $this->locales = $locales;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
+    }
+
 
 }

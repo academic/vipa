@@ -4,6 +4,7 @@ namespace Ojs\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\Common\Entity\GenericExtendedEntity;
+use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Subject;
 use Okulbilisim\LocationBundle\Entity\City;
 use Okulbilisim\LocationBundle\Entity\Country;
@@ -154,6 +155,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
+        $this->authorDetails = new ArrayCollection();
     }
 
     /**
@@ -914,6 +916,234 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
             }
         }
         return false;
+    }
+
+    /** @var  string */
+    protected $gender;
+    /** @var  string */
+    protected $initials;
+    /** @var  string */
+    protected $url;
+    /** @var  string */
+    protected $phone;
+    /** @var  string */
+    protected $fax;
+    /** @var  string */
+    protected $address;
+    /** @var  string */
+    protected $billing_address;
+    /** @var  string */
+    protected $locales;
+    /** @var  string */
+    protected $disable_reason;
+    /** @var  ArrayCollection */
+    protected $authorDetails;
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAuthorDetails()
+    {
+        return $this->authorDetails;
+    }
+
+    /**
+     * @param Author $author
+     * @return $this
+     */
+    public function addAuthorDetail(Author $author)
+    {
+        $this->authorDetails->add($author);
+        return $this;
+    }
+
+    /**
+     * @param Author $author
+     * @return $this
+     */
+    public function removeAuthorDetail(Author $author)
+    {
+        $this->authorDetails->remove($author);
+        return $this;
+    }
+    /**
+     * @return string
+     */
+    public function getBillingAddress()
+    {
+        return $this->billing_address;
+    }
+
+    /**
+     * @param string $billing_address
+     * @return $this
+     */
+    public function setBillingAddress($billing_address)
+    {
+        $this->billing_address = $billing_address;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisableReason()
+    {
+        return $this->disable_reason;
+    }
+
+    /**
+     * @param string $disable_reason
+     * @return $this
+     */
+    public function setDisableReason($disable_reason)
+    {
+        $this->disable_reason = $disable_reason;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * @param string $fax
+     * @return $this
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     * @return $this
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInitials()
+    {
+        return $this->initials;
+    }
+
+    /**
+     * @param string $initials
+     * @return $this
+     */
+    public function setInitials($initials)
+    {
+        $this->initials = $initials;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @param mixed $locale
+     * @return $this
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocales()
+    {
+        return $this->locales;
+    }
+
+    /**
+     * @param string $locales
+     * @return $this
+     */
+    public function setLocales($locales)
+    {
+        $this->locales = $locales;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        return $this;
     }
 
 }
