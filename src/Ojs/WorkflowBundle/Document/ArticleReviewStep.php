@@ -21,6 +21,9 @@ class ArticleReviewStep {
      */
     protected $primaryLanguage;
 
+    /** @MongoDb\String */
+    protected $competingOfInterest;
+
     /**
      * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowStep",nullable=true)
      */
@@ -576,7 +579,6 @@ class ArticleReviewStep {
         return $this->primaryLanguage;
     }
 
-
     /**
      * Set parentStep
      *
@@ -597,5 +599,28 @@ class ArticleReviewStep {
     public function getParentStep()
     {
         return $this->parentStep;
+    }
+
+
+    /**
+     * Set competingOfInterest
+     *
+     * @param string $competingOfInterest
+     * @return self
+     */
+    public function setCompetingOfInterest($competingOfInterest)
+    {
+        $this->competingOfInterest = $competingOfInterest;
+        return $this;
+    }
+
+    /**
+     * Get competingOfInterest
+     *
+     * @return string $competingOfInterest
+     */
+    public function getCompetingOfInterest()
+    {
+        return $this->competingOfInterest;
     }
 }

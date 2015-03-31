@@ -35,6 +35,9 @@ class ArticleSubmissionProgress
     /** @MongoDb\Int @MongoDb\Index() */
     protected $userId;
 
+    /** @MongoDb\String */
+    protected $competingOfInterest;
+    
     /**
      * @MongoDb\Int
      * @GRID\Column(title="journalid",type="text")
@@ -418,4 +421,26 @@ class ArticleSubmissionProgress
         $this->section = $section;
     }
 
+
+    /**
+     * Set competingOfInterest
+     *
+     * @param string $competingOfInterest
+     * @return self
+     */
+    public function setCompetingOfInterest($competingOfInterest)
+    {
+        $this->competingOfInterest = $competingOfInterest;
+        return $this;
+    }
+
+    /**
+     * Get competingOfInterest
+     *
+     * @return string $competingOfInterest
+     */
+    public function getCompetingOfInterest()
+    {
+        return $this->competingOfInterest;
+    }
 }

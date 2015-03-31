@@ -44,6 +44,7 @@ class ArticlePreSubmissionController extends Controller {
         $articleSubmission->setStartedDate(new \DateTime());
         $articleSubmission->setLastResumeDate(new \DateTime());
         $articleSubmission->setLicences(json_encode($r->get('licence')));
+        $articleSubmission->setCompetingOfInterest($r->get('competingOfInterest'));
         $dm->persist($articleSubmission);
         $dm->flush();
 
