@@ -218,7 +218,9 @@ class ArticleSubmissionController extends Controller {
                     'submissionData' => NULL,
                     'fileTypes' => ArticleFileParams::$FILE_TYPES,
                     'citationTypes' => $this->container->getParameter('citation_types'),
-                    'licences' => []
+                    'licences' => [],
+                    'firstStep' => $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                            ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true))
         ));
     }
 
@@ -253,6 +255,8 @@ class ArticleSubmissionController extends Controller {
         } else {
             $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         }
+        $data['firstStep'] = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+                ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 

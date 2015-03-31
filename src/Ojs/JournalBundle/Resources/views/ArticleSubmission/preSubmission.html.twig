@@ -40,6 +40,18 @@
                 </div>
             {% endif %}
         {% endfor %}
+
+        {% if firstStep.shouldFileCi %}
+            <div class="panel-body">
+                <fieldset>
+                    <legend>{{"Competing of Interest"|trans}} </legend>
+                    <h4>Guidelines</h4>
+                    <p>{{firstStep.ciText|raw}}</p>
+                    <hr>
+                    <textarea class="editor form-control" name="competingOfInterests" placeholder="You can write your competing of interest statement."></textarea>
+                </fieldset>
+            </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="step1_actions record_actions">
@@ -59,4 +71,6 @@
             </div>
         </div>
     </div>
+
+
 </form>

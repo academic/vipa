@@ -1,4 +1,5 @@
 <?php
+
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
@@ -7,11 +8,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ArticleSubmissionLicenceController
+ * Class ArticlePreSubmissionController
  * @package Ojs\JournalBundle\Controller\ArticleSubmission
  */
-class ArticleSubmissionLicenceController extends Controller
-{
+class ArticlePreSubmissionController extends Controller {
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -20,7 +21,7 @@ class ArticleSubmissionLicenceController extends Controller
         $data = [];
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $data['journal'] = $journal;
-        return $this->render('OjsJournalBundle:ArticleSubmission:licencewidget.html.twig', $data);
+        return $this->render('OjsJournalBundle:ArticleSubmission:preSubmission.html.twig', $data);
     }
 
     /**
@@ -50,6 +51,6 @@ class ArticleSubmissionLicenceController extends Controller
         return new JsonResponse([
             'submissionId' => $articleSubmission->getId(),
             'locale' => $locale]);
-
     }
+
 }
