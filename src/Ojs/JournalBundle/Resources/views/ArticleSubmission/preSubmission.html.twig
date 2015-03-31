@@ -48,7 +48,9 @@
                     <h4>Guidelines</h4>
                     <p>{{firstStep.ciText|raw}}</p>
                     <hr>
-                    <textarea class="editor form-control" name="competingOfInterests" placeholder="You can write your competing of interest statement."></textarea>
+                    <textarea class="editor form-control" name="competingOfInterests"
+                              placeholder="You can write your competing of interest statement. 
+                              You can also upload as file at step 5."></textarea>
                 </fieldset>
             </div>
         {% endif %}
@@ -63,7 +65,7 @@
                     {{ "restart"|trans }}
                 </a>
                 <a class="btn btn-success btn-lg pull-right"
-                   onclick="javascript: OjsArticleSubmission.step0('{{ path('article_submission_licence',{'locale':'locale'}) }}');">
+                   onclick="javascript: OjsArticleSubmission.step0('{{ path('article_pre_submission',{'locale':'locale'}) }}');">
                     <i class="fa fa-save"></i>
                     {{ "save.next"|trans }}
                     <i class="fa fa-chevron-right"></i>
