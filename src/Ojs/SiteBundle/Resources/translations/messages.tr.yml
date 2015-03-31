@@ -36,9 +36,9 @@ phdthesis: 'Doktora Tezi'
 proceedings: Bildiri
 techreport: 'Teknik Rapor'
 unpublished: Yayımlanmamış
-inproceedings: In-proceedings
-incollection: In-collection
-inbook: In-book
+inproceedings: 'Bildiri Olarak Yayımlanmış Makale'
+incollection: 'Koleksiyon Hakkında Makale'
+inbook: 'Kitap Bölümü'
 booklet: Kitapçık
 manual: Kılavuz
 misc: Çeşitli/Diğer
