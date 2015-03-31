@@ -2,12 +2,6 @@ Ojs\JournalBundle\Entity\Author:
     type: entity
     table: author
     repositoryClass: Ojs\JournalBundle\Entity\AuthorRepository
-    oneToOne:
-        user:
-          targetEntity: Ojs\UserBundle\Entity\User
-          joinColumn:
-            name: user_id
-            referencedColumnName: id
     oneToMany:
         articleAuthors:
             targetEntity: ArticleAuthor
@@ -19,6 +13,21 @@ Ojs\JournalBundle\Entity\Author:
                     name: institution_id
                     referencedColumnName: id
                 inversedBy: authors
+          user:
+                targetEntity: Ojs\UserBundle\Entity\User
+                joinColumn:
+                  name: user_id
+                  referencedColumnName: id
+          country:
+                targetEntity: Okulbilisim\LocationBundle\Entity\Country
+                joinColumn:
+                  name: country_id
+                  referencedColumnName: id
+          city:
+                targetEntity: Okulbilisim\LocationBundle\Entity\City
+                joinColumn:
+                  name: city_id
+                  referencedColumnName: id
     id:
         id:
             type: integer
@@ -75,17 +84,28 @@ Ojs\JournalBundle\Entity\Author:
             type: string
             length: 255
             nullable: TRUE
-        address:
+        url:
             type: string
-            length: 255
-            nullable: TRUE
+            nullable: true
+        phone:
+            type: string
+            nullable: true
+        fax:
+            type: string
+            nullable: true
+        address:
+            type: text
+            nullable: true
+        billing_address:
+            type: text
+            nullable: true
+        locales:
+            type: string
+            nullable: true
         institutionId:
             type: integer
             nullable: true
             column: institution_id
-            nullable: TRUE
-        country:
-            type: integer
             nullable: TRUE
         summary:
             type: text
