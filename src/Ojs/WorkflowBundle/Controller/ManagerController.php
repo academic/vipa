@@ -218,6 +218,9 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $newStep->setFrom($isChild ? $articleStep->getParentStep() : $articleStep);
         $newStep->setNote(null);
         $newStep->setReviewNotes($request->get('notes'));
+       if  ($request->get('competingOfInterest')) {
+            $newStep->setCompetingOfInterest($request->get('competingOfInterest'));
+        }
         //$newStep
         $this->get('ojs_article_hydrate')->mapChanges($all, $newStep);
         $dm->persist($newStep);
@@ -226,6 +229,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep->setTo($isChild ? $articleStep->getParentStep() : $newStep);
         $articleStep->setFinishedDate(new \DateTime());
         $articleStep->setAction($request->get('reviewResultCode'));
+        
         /* generate reviewform and append to reviewNotes */
         $reviewFormResults = '';
         $reviewForm = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->find($request->get('reviewFormId'));
