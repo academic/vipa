@@ -189,6 +189,16 @@
             <div class="panel-footer"></div>
         </div>    
 
+        {% if submissionData.competingOfInterest %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{"competingOfInterest"|trans}}</h4>
+                </div>
+                <div class="panel panel-body table-responsive">
+                    {{submissionData.competingOfInterest |raw}}
+                </div> 
+            </div>
+        {%endif%}
 
         <form action="{{ path('article_submission_finish') }}" method="POST">
             <div class="panel panel-warning">
@@ -208,8 +218,8 @@
                             onclick="return OjsArticleSubmission.submit();" type="submit">Submit</button> 
                     <button class="btn btn-default btn-lg"   
                             onclick="$('#alertSubmission').slideUp('fast');
-                                $('#btnSubmissionGroup').slideDown('fast');
-                                return false;">Cancel</button> 
+                                    $('#btnSubmissionGroup').slideDown('fast');
+                                    return false;">Cancel</button> 
                 </div>
             </div>
             <div class="btn-group pull-right" id="btnSubmissionGroup">
@@ -245,6 +255,6 @@
     <script type="text/javascript" src="{{ asset_url }}"></script> 
     {% endif %}
         {% endjavascripts %}
- 
+
 
         {% endblock %}
