@@ -14,7 +14,13 @@ class JournalWorkflowStep {
      * @MongoDb\Id
      */
     protected $id;
-
+    
+    /** @MongoDb\Boolean */
+    protected $shouldFileCi;
+    
+    /** @MongoDb\String */
+    protected $ciText;
+    
     /** @MongoDb\Int */
     protected $journalid;
 
@@ -525,5 +531,49 @@ class JournalWorkflowStep {
     public function getIntroduction()
     {
         return $this->introduction;
+    }
+
+    /**
+     * Set shouldFileCi
+     *
+     * @param boolean $shouldFileCi
+     * @return self
+     */
+    public function setShouldFileCi($shouldFileCi)
+    {
+        $this->shouldFileCi = $shouldFileCi;
+        return $this;
+    }
+
+    /**
+     * Get shouldFileCi
+     *
+     * @return boolean $shouldFileCi
+     */
+    public function getShouldFileCi()
+    {
+        return $this->shouldFileCi;
+    }
+
+    /**
+     * Set ciText
+     *
+     * @param string $ciText
+     * @return self
+     */
+    public function setCiText($ciText)
+    {
+        $this->ciText = $ciText;
+        return $this;
+    }
+
+    /**
+     * Get ciText
+     *
+     * @return string $ciText
+     */
+    public function getCiText()
+    {
+        return $this->ciText;
     }
 }

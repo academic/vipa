@@ -57,6 +57,12 @@
                         {% endif %}
                     </td>
                 </tr>
+                {% if step.shouldFileCi  %}
+                    <tr>
+                        <th>Competing of interest statement</th>
+                        <td>{{ step.ciText  }}</td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <th>Is visible to author?</th>
                     <td>{{ printYesNo(step.isVisible) }}</td>

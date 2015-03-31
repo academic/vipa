@@ -48,12 +48,20 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
         $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
-
+        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $ciTemplates = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
+        ));
+        /**
+         *  @todo merge edit and new templates into one tpl.
+         */
         return $this->render('OjsWorkflowBundle:WorkflowStep:new.html.twig', array(
                     'roles' => $roles,
                     'nextSteps' => $nextSteps,
                     'journal' => $selectedJournal,
-                    'forms' => $journalReviewForms
+                    'forms' => $journalReviewForms,
+                    'ciTemplates' => $ciTemplates
         ));
     }
 
@@ -82,6 +90,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setColor($request->get('color'));
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
+        $step->setShouldFileCi($request->get('shouldFileCi') ? true : false);
+        $step->setCiText($request->get('ciText'));
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanRejectSubmission($request->get('canRejectSubmission') ? true : false);
         $step->setCanReview($request->get('canReview') ? true : false);
@@ -136,13 +146,17 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
-
+        $yamlParser = new \Symfony\Component\Yaml\Parser();
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
                     'roles' => $roles,
                     'nextSteps' => $nextSteps,
                     'journal' => $journal,
                     'step' => $step,
-                    'forms' => $journalReviewForms
+                    'forms' => $journalReviewForms,
+                    'ciTemplates' => $yamlParser->parse(file_get_contents(
+                                    $this->container->getParameter('kernel.root_dir') .
+                                    '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
+                    ))
                         )
         );
     }
@@ -214,6 +228,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $step->setOnlyreply($request->get('onlyreply') ? true : false);
         $step->setIsVisible($request->get('isVisible') ? true : false);
         $step->setMustBeAssigned($request->get('mustBeAssigned') ? true : false);
+        $step->setShouldFileCi($request->get('shouldFileCi') ? true : false);
+        $step->setCiText($request->get('ciText'));
         $step->setCanEdit($request->get('canEdit') ? true : false);
         $step->setCanRejectSubmission($request->get('canRejectSubmission') ? true : false);
         $step->setCanReview($request->get('canReview') ? true : false);

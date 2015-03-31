@@ -1,0 +1,15 @@
+#suggested mail templates
+#these templates will be shown at every journal's dashboard
+
+-
+      id: '1'
+      type: Simple
+      template:  >
+             If any of the writers have a relationship based on self-interest, this should be explained.
+-
+      id: '2'
+      type: Detailed
+      template:  >
+             A competing interest—often called a conflict of interest—exists when professional judgment concerning a primary interest (such as patients' welfare or the validity of research) may be influenced by a secondary interest (such as financial gain or personal rivalry). It may arise for the authors of an article in The BMJ when they have a financial interest that may influence, probably without their knowing, their interpretation of their results or those of others.
+             <br><br>
+             A declaration of interests for all authors must be received before an article can be reviewed and accepted for publication. It should take one of two forms, depending on what type of article you are submitting.
