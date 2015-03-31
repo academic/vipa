@@ -2,8 +2,7 @@
 
 namespace Ojs\Common\Params;
 
-class ArticleFileParams
-{
+class ArticleFileParams {
 
     /**
      *
@@ -21,6 +20,7 @@ class ArticleFileParams
         8 => 'Pictures',
         9 => 'Tables',
         10 => 'Copyright Transfer Form',
+        11 => 'Competing of Interest File',
     );
 
     /**
