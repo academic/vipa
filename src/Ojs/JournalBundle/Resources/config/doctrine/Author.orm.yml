@@ -76,6 +76,7 @@ Ojs\JournalBundle\Entity\Author:
         initials:
             type: string
             length: 255
+            nullable: true
         orcid:
             type: string
             length: 255
