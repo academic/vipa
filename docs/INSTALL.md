@@ -6,7 +6,7 @@ following options.
 ### Requirements
 1. php +5.4 with mcrypt, mysql and mongodb extensions
 2. apache or nginx
-3. mysql 5.5 or equilent
+3. mysql 5.5 or PostgreSQL +9.4
 4. Enough storage
 5. [MongoDb](https://github.com/okulbilisim/ojs/tree/master/docs/developers/Mongodb.md)
 6. Mysql
