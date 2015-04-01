@@ -16,9 +16,21 @@ class Step1 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('titleAbbr')
-            ->add('subtitle')
+            ->add('title', null,[
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
+            ->add('titleAbbr', null,[
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
+            ->add('subtitle', null,[
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
             ->add('titleTransliterated');
     }
 

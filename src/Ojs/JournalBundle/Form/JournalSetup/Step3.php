@@ -19,8 +19,10 @@ class Step3 extends AbstractType {
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => false,
-                    'required' => false
-                        )
+                    'attr'=>[
+                        'class'=>'validate[required]'
+                        ]
+                    )
                 )
                 ->add('subjects','entity',[
                     'class'=>'Ojs\JournalBundle\Entity\Subject',
