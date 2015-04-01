@@ -16,26 +16,27 @@ class JournalSetupStep6Controller extends Controller
     /**
      * Journal Setup Wizard Step 6 - Saves Journal 's step 6 data
      * @param Request $request
-     * @param null $journalId
+     * @param $setupId
      * @return JsonResponse
      */
-    public function updateAction(Request $request, $journalId = null)
+    public function updateAction(Request $request, $setupId)
     {
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
-        if (!$journalId) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        } else {
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        }
+        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
         $step6Form = $this->createForm(new Step6(), $journal);
         $step6Form->handleRequest($request);
-        $journalLink = $this->generateUrl('ojs_journal_index', array(
-            'slug' => $journal->getSlug(),
-            'institution' => $journal->getInstitution()->getSlug()
-        ));
         if ($step6Form->isValid()) {
             $journal->setSetupStatus(true);
             $em->flush();
+            //remove journal setup progress data
+            $dm->remove($setup);
+            $dm->flush();
+            $journalLink = $this->generateUrl('ojs_journal_index', array(
+                'slug' => $journal->getSlug(),
+                'institution' => $journal->getInstitution()->getSlug()
+            ));
             return new JsonResponse(array(
                 'success' => '1',
                 'journalLink' => $journalLink

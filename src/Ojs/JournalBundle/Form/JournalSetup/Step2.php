@@ -33,6 +33,12 @@ class Step2 extends AbstractType
                     'class' => 'select2-element'
                 ]
             ])
+            ->add('Institution', 'entity', [
+                'class' => 'Ojs\JournalBundle\Entity\Institution',
+                'attr' => [
+                    'class' => 'select2-element'
+                ]
+            ])
         ;
     }
 
