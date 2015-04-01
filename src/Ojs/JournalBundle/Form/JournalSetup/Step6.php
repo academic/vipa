@@ -22,6 +22,9 @@ class Step6 extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
+                    'attr'=>[
+                        'class'=>'validate[required]'
+                    ],
                     'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');

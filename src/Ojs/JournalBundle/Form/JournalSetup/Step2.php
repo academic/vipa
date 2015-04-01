@@ -16,8 +16,16 @@ class Step2 extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('issn')
-            ->add('eissn')
+            ->add('issn', null,[
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
+            ->add('eissn', null,[
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
             ->add('firstPublishDate', 'datetime', array(
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
