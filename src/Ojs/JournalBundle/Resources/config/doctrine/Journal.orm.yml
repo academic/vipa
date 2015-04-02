@@ -134,6 +134,7 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             column: title_abbr
+            nullable: true
         titleTransliterated:
             type: string
             length: 255
