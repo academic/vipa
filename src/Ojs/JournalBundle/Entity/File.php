@@ -49,6 +49,7 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
 
     public function __construct()
     {
+        parent::__construct();
         $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

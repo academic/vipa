@@ -73,6 +73,11 @@ class ArticleFile extends GenericExtendedEntity
      */
     private $langCode;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Get id
      *

@@ -91,6 +91,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     public function __construct()
     {
+        parent::__construct();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
     }

@@ -37,7 +37,6 @@ class JournalSetupController extends Controller
             $newJournal->setTitle('');
             $newJournal->setTitleAbbr('');
             $newJournal->setSetupStatus(false);
-            $newJournal->setCreatedBy($user->getUsername());
             $em->persist($newJournal);
             $em->flush();
 

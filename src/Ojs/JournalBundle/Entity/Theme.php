@@ -47,6 +47,7 @@ class Theme extends GenericExtendedEntity
 
     public function __construct()
     {
+        parent::__construct();
         $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -61,6 +62,7 @@ class Theme extends GenericExtendedEntity
         $this->journals[] = $journal;
         return $this;
     }
+
 
     /**
      * Remove journal

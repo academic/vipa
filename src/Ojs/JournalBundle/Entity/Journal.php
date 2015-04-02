@@ -227,6 +227,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function __construct()
     {
+        parent::__construct();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();

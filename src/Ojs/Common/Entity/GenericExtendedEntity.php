@@ -42,7 +42,7 @@ class GenericExtendedEntity implements Translatable
      *
      * @var String
      */
-    protected $createdBy = "";
+    protected $createdBy;
 
     /**
      * @var String
@@ -50,6 +50,12 @@ class GenericExtendedEntity implements Translatable
     protected $updatedBy = "";
 
     protected $tags='';
+
+    public function __construct()
+    {
+        php_sapi_name()=='cli' && $this->createdBy = "";
+    }
+
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
@@ -93,7 +99,6 @@ class GenericExtendedEntity implements Translatable
     public function setCreatedBy($createdBy)
     {
         $this->createdBy = $createdBy;
-        return $this;
     }
 
     public function setUpdatedBy($updatedBy)

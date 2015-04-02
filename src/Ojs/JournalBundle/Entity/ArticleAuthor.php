@@ -36,6 +36,14 @@ class ArticleAuthor extends GenericExtendedEntity
      */
     private $article;
 
+    public function __construct($name = null, $value = null, $article = null)
+    {
+        parent::__construct();
+        $name != null && $this->attribute = $name;
+        $value != null && $this->value = $value;
+        $article != null && $this->article = $article;
+    }
+
     /**
      *
      * @return integer

@@ -53,6 +53,7 @@ class JournalSection extends GenericExtendedEntity
 
     public function __construct()
     {
+        parent::__construct();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
