@@ -8,7 +8,7 @@
                 <div class="controls form-inline"> 
                     <input name="orcid" id="orcidinput" class="form-control input-xs float-label"
                            value="{% if author is defined %}{{author.orcid}}{% endif %}" placeholder="{{"author.orcid"|trans}}"
-                           onkeypress="OjsArticleSubmission.getOrcidAuthor(event, $(this));" data-url="{{ path('article_submission_get_orcid_author') }}"/>
+                           onkeypress="OjsArticleSubmission.getOrcidAuthor(event, this);" data-url="{{ path('article_submission_get_orcid_author') }}"/>
                 </div>
                 <div class="controls">
                     <span class="control-label"> </span>
