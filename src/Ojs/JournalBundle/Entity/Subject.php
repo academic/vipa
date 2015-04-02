@@ -62,7 +62,9 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     private $journals;
 
-    public function __construct() {
+    public function __construct()
+    {
+        parent::__construct();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->journas = new \Doctrine\Common\Collections\ArrayCollection();
     }

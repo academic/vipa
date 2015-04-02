@@ -43,6 +43,11 @@ class JournalTheme extends GenericExtendedEntity
      */
     private $theme;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Get id
      *

@@ -252,6 +252,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct()
     {
+        parent::__construct();
         $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();

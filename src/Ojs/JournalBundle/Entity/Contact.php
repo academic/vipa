@@ -73,6 +73,11 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     private $email;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Get id
      *

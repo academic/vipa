@@ -12,6 +12,7 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     public function __construct()
     {
+        parent::__construct();
         $this->institutions = new ArrayCollection();
     }
 

@@ -272,6 +272,7 @@ Ojs\JournalBundle\Entity\Journal:
            gedmo:
              blameable:
                on: create
+           nullable: true
         updatedBy:
            type: string
            gedmo:

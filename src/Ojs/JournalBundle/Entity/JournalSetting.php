@@ -19,6 +19,7 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct($setting, $value, $journal)
     {
+        parent::__construct();
         $this->setting = $setting;
         $this->value = $value;
         $this->journal = $journal;

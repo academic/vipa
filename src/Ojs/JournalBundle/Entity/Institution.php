@@ -191,6 +191,7 @@ class Institution extends GenericExtendedEntity {
      */
     public function __construct()
     {
+        parent::__construct();
         $this->journals = new ArrayCollection();
         $this->authors = new ArrayCollection();
     }

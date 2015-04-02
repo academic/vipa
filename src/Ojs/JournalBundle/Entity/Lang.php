@@ -42,6 +42,10 @@ class Lang extends GenericExtendedEntity
      */
     private $rtl;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Get id

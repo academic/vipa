@@ -51,6 +51,11 @@ class JournalContact extends GenericExtendedEntity {
      */
     private $journal;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Get id
      *

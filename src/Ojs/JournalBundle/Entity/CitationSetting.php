@@ -33,6 +33,11 @@ class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     protected $citation;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      *
      * @param  \Ojs\JournalBundle\Entity\Citation        $citation

@@ -201,6 +201,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct()
     {
+        parent::__construct();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

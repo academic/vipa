@@ -61,6 +61,11 @@ class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this->name;
     }
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     /**
      * Set description
      *

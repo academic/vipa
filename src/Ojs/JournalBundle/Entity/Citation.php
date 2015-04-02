@@ -46,6 +46,7 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct()
     {
+        parent::__construct();
         $this->settings = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
