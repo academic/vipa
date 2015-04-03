@@ -15,6 +15,7 @@ Ojs\JournalBundle\Entity\File:
     fields:
         path:
             type: string
+            nullable: true
         name:
             type: string
             length: 255
