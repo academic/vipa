@@ -109,7 +109,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set journal
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @return \Ojs\JournalBundle\Entity\Issue
      */
     public function setJournal($journal)
     {

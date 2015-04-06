@@ -29,6 +29,7 @@ Ojs\JournalBundle\Entity\Issue:
             name: journal_id
             referencedColumnName: id
           inversedBy: issues
+          cascade: ["persist","merge"]
     id:
         id:
             type: integer
