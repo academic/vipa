@@ -29,6 +29,7 @@ Ojs\JournalBundle\Entity\Citation:
             length: 20
             gedmo:
                 - versioned
+            nullable: true
         orderNum:
             type: integer
             column: order_num
