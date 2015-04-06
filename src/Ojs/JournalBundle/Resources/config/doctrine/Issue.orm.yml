@@ -85,8 +85,7 @@ Ojs\JournalBundle\Entity\Issue:
             gedmo:
                 - versioned
         description:
-            type: string
-            length: 255
+            type: text
             nullable: TRUE
             gedmo:
                 - translatable
