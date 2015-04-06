@@ -187,11 +187,13 @@ Ojs\JournalBundle\Entity\Institution:
            gedmo:
              blameable:
                on: create
+           nullable: true
         updatedBy:
            type: string
            gedmo:
              blameable:
                on: update
+           nullable: true
         tags:
             type: string
             nullable: true
