@@ -25,6 +25,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
     fields:
         type:
             type: integer
+            nullable: TRUE
         fileId:
             type: integer
             column: file_id
@@ -54,6 +55,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
             column: lang_code
             type: string
             length: 50
+            nullable: TRUE
         updated:
             type: datetime
             gedmo:

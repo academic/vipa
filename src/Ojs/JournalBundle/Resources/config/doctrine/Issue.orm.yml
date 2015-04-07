@@ -47,17 +47,20 @@ Ojs\JournalBundle\Entity\Issue:
             length: 255
             gedmo:
                 - versioned
+            nullable: true
         number:
             type: string
             length: 255
             gedmo:
                 - versioned
+            nullable: true
         title:
             type: string
             length: 255
             gedmo:
                 - translatable
                 - versioned
+            nullable: true
         cover:
             type: string
             column: cover
@@ -80,7 +83,7 @@ Ojs\JournalBundle\Entity\Issue:
             type: boolean
             column: special
             nullable: TRUE
-            oprions:
+            options:
                 default: TRUE
             gedmo:
                 - versioned
@@ -94,9 +97,11 @@ Ojs\JournalBundle\Entity\Issue:
             length: 255
             gedmo:
                 - versioned
+            nullable: true
         datePublished:
             type: datetime
             column: date_published
+            nullable: true
         created:
             type: datetime
             gedmo:
