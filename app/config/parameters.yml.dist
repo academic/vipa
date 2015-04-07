@@ -44,3 +44,8 @@ parameters:
         -
             id: 3
             name: "Idea"
+    old_database:
+        user:
+        password:
+        host:
+        database:
