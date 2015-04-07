@@ -21,14 +21,17 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             gedmo:
                 - translatable
+            nullable: true
         mimeType:
             type: string
             length: 255
             column: mime_type
+            nullable: true
         size:
             type: string
             length: 255
             column: size
+            nullable: true
         created:
            type: datetime
            gedmo:
