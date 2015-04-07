@@ -250,13 +250,12 @@ class ArticleSubmissionController extends Controller {
             'citationTypes' => $this->container->getParameter('citation_types')];
         $data['licences'] = json_decode($articleSubmission->getLicences(), true);
         if ($articleSubmission->getJournalId()) {
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-            $data['journal'] = $journal;
+             $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         } else {
             $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         }
         $data['firstStep'] = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
+                ->findOneBy(array('journalid' => $data['journal']->getId(), 'firstStep' => true));
         return $this->render('OjsJournalBundle:ArticleSubmission:new.html.twig', $data);
     }
 
