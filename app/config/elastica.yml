@@ -19,8 +19,11 @@ fos_elastica:
                         model: Ojs\UserBundle\Entity\User
                         provider: ~
                         listener:
-                            immediate: ~
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
                 articles:
                     mappings:
                         subjects: { type: string, boost: 4}
@@ -74,8 +77,12 @@ fos_elastica:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Article
                         provider: ~
-                        listener: ~
+                        listener:
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
                 institution:
                     mappings:
                         tags: ~
@@ -86,8 +93,11 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Institution
                         provider: ~
                         listener:
-                            immediate: ~
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
                 issue:
                     mappings:
                         tags: ~
@@ -96,8 +106,11 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Issue
                         provider: ~
                         listener:
-                            immediate: ~
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
                 journal:
                     mappings:
                         tags: ~
@@ -122,8 +135,11 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Journal
                         provider: ~
                         listener:
-                            immediate: ~
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
                 subject:
                     mappings:
                         tags: ~
@@ -132,5 +148,8 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Subject
                         provider: ~
                         listener:
-                            immediate: ~
+                            immediate: false
+                            insert: false
                         finder: ~
+                        provider:
+                            debug_logging: false
