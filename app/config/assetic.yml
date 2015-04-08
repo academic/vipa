@@ -50,6 +50,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/noty/js/noty/packaged/jquery.noty.packaged.js
                     - %kernel.root_dir%/../web/vendor/noty/js/noty/themes/bootstrap.js
                     - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js
+                    - %kernel.root_dir%/../web/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.min.js
 
         admin_main_css:
                 inputs:
