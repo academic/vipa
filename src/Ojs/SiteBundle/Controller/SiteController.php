@@ -25,7 +25,7 @@ class SiteController extends Controller
         $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array(), array(), 12);
         $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
         $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject');
-        $options =  array(
+        $options =  [
             'decorate' => true,
             'rootOpen' => '<ul>',
             'rootClose' => '</ul>',
@@ -33,8 +33,9 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl('subject_show', array('id' => $node['id'])) . '">' . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
-            });
+                return '<a href="' . $this->generateUrl('ojs_journals_index', ['filter'=>['subject'=>$node['id']]]).'">'
+                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
+            }];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
         // anything else is anonym main page
