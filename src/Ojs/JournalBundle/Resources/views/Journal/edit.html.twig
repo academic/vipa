@@ -124,11 +124,11 @@
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
+{% block javascripts %} 
+    {{ parent() }} 
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {% endjavascripts %} 
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fileupload').fileupload({});
