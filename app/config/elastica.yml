@@ -21,6 +21,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
@@ -80,6 +82,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
@@ -95,6 +99,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
@@ -108,6 +114,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
@@ -137,6 +145,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
@@ -150,6 +160,8 @@ fos_elastica:
                         listener:
                             immediate: false
                             insert: false
+                            update: false
+                            delete: false
                         finder: ~
                         provider:
                             debug_logging: false
