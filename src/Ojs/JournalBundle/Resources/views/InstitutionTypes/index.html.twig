@@ -2,8 +2,9 @@
 
 {% block body -%}
     <h1>{{"institutiontype.list"|trans}}</h1>
-    {{ grid(grid) }}
     <a href="{{ path('institution_types_new') }}" class="btn btn-success">{{"c"|trans}}</a>
+    {{ grid(grid) }}
+
 
 
 {% endblock %}

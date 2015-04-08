@@ -1,3 +1,11 @@
+University: Üniversite
+Government: Kamu
+Association: Dernek
+Foundation: Vakıf
+Hospital: Hastane
+Chamber: Meslek Odasu
+Private: Özel
+Other: Diğer
 ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
 ROLE_EDITOR: Editör
 scope: Kapsam
