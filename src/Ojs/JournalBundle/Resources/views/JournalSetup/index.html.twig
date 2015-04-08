@@ -20,6 +20,7 @@
     <input type="hidden" name="submissionId" value="{% if submissionId is defined %}{{ submissionId }}{% endif %}"/>
 
     <h1>Journal Setup <small>{{journal.title}}</small></h1>
+    {% include '::flashbag.html.twig' %} 
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="journal-setup-steps">
