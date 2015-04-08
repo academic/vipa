@@ -16,6 +16,9 @@ $.fn.serializeObject = function () {
 };
 
 $(document).ready(function () {
+    if ($(".maskissn").length) {
+        $(".maskissn").inputmask({mask: "####-###M", definitions: {'#': {validator: "[0-9]", cardinality: 1}, 'M': {validator: "[0-9X]", cardinality: 1}}});
+    }
     $(".contrastColor").each(function () {
         $(".contrastColor").css("color", (parseInt($(this).css("backgroundColor"), 16) > 0xffffff / 2) ? 'black' : 'white');
     });
