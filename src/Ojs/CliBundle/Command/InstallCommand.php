@@ -82,6 +82,8 @@ class InstallCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $keep_going = $input->getArgument('continue-on-error');
+        $sb = '<fg=black;bg=green>';
+        $se = '</fg=black;bg=green>';
         $translator = $this->getContainer()->get('translator');
         $dialog = $this->getHelperSet()->get('dialog');
         $kernel = $this->getContainer()->get('kernel');
@@ -103,48 +105,30 @@ class InstallCommand extends ContainerAwareCommand {
 
         $command2 = 'doctrine:schema:update --force';
         $output->writeln('<info>Updating db schema!</info>');
-
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
+
+        $output->writeln($sb . 'Inserting roles to db' . $se);
+        $this->insertRoles($this->getContainer(), $output);
 
         $admin_username = $dialog->ask(
                 $output, '<info>Set system admin username (admin) : </info>', 'admin');
-        $sb = '<fg=black;bg=green>';
-        $se = '</fg=black;bg=green>';
         $admin_email = $dialog->ask(
                 $output, '<info>Set system admin email' .
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
         $admin_password = $dialog->ask(
                 $output, '<info>Set system admin password (admin) </info>', 'admin');
 
-        $output->writeln($sb . 'Inserting roles to db' . $se);
-        $this->insertRoles($this->getContainer(), $output);
-
-        $output->writeln($sb . 'Inserting default isntitution to db' . $se);
-        $this->insertDefaultInstitution($this->getContainer(), $output);
-
         $output->writeln($sb . 'Inserting system admin user to db' . $se);
-        $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
+        $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password); 
 
         $output->writeln($sb . 'Inserting default theme record' . $se);
         $this->insertTheme($this->getContainer());
 
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>php app/console ojs:install:sampledata </info> "
-                . "to add sample data\n");
-    }
-
-    public function insertDefaultInstitution($container)
-    {
-        $em = $container->get('doctrine')->getManager();
-        $institutionSlug = $container->getParameter('roles');
-        $institution = new \Ojs\JournalBundle\Entity\Institution();
-        $institution->setName('Ojs');
-        $institution->setSlug($institutionSlug);
-        $em->persist($institution);
-        $em->flush();
-        $output->writeln('<info>Added institution with slug : ' . $institutionSlug . '</info>');
-    }
+                . "<info>php app/console ojs:install:initial-data </info> "
+                . "to add initial data\n");
+    } 
 
     /**
      * add default roles
@@ -190,16 +174,12 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setUsername($username);
         $user->setIsActive(true);
         $user->generateApiKey();
-        $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
-        $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
-        $role_admin = $role_repo->findOneByRole('ROLE_USER');
-        $role_editor = $role_repo->findOneByRole('ROLE_EDITOR');
-        $role_reviewer = $role_repo->findOneByRole('ROLE_REVIEWER');
 
-        $user->addRole($role_sys_admin);
-        $user->addRole($role_admin);
-        $user->addRole($role_editor);
-        $user->addRole($role_reviewer);
+        $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
+        $user->addRole($role_repo->findOneByRole('ROLE_SUPER_ADMIN'));
+        $user->addRole($role_repo->findOneByRole('ROLE_USER'));
+        $user->addRole($role_repo->findOneByRole('ROLE_EDITOR'));
+        $user->addRole($role_repo->findOneByRole('ROLE_REVIEWER'));
 
         $em->persist($user);
         $em->flush();

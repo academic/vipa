@@ -1,3 +1,11 @@
+University: University
+Government: Government
+Association: Association
+Foundation: Foundation
+Hospital: Hospital
+Chamber: Chamber
+Private: Private
+Other: Other
 ROLE_JOURNAL_MANAGER: 'Journal Manager'
 ROLE_EDITOR: Editor
 scope: Scope

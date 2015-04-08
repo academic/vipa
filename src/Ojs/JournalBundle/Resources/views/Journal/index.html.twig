@@ -24,15 +24,14 @@
                     <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{"journal.all"|trans}}</a>
                 <a class="btn btn-default" id="link-admin-my-journals" href="{{path('user_show_my_journals')}}">
                     <i class="fa fa-user"></i> {{"journal.my"|trans}}</a>
+                <a href="{{ path('journal_new') }}" class="btn btn-success">
+                    {{"c"|trans}}
+                </a> 
             </div>
+
             {{ grid(grid) }}
 
 
-            <div>
-                <a href="{{ path('journal_new') }}" class="btn btn-success">
-                    {{"c"|trans}}
-                </a>
-            </div>
         </div> 
     </div>
 {% endblock %}
@@ -47,5 +46,5 @@
     {% if app.user.setting('tour.admin.journal') == FALSE %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-    {% endjavascripts %}
-{% endblock %}
+        {% endjavascripts %}
+        {% endblock %}
