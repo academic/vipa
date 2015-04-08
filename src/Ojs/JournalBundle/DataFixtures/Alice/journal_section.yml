@@ -1,7 +1,7 @@
 Ojs\JournalBundle\Entity\JournalSection:
   section{1..20}:
     journal: @journal*
-    title: <text(20)>
+    title: Articles
     hideTitle: false
     allowIndex: true
 

@@ -49,3 +49,4 @@ parameters:
         password:
         host:
         database:
+    defaultInstitutionSlug: www

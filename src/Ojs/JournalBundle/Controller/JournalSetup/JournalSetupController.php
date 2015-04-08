@@ -87,7 +87,7 @@ class JournalSetupController extends Controller
      * @return \Symfony\Component\Form\FormView
      */
     public function createFormView($setup, $stepCount)
-    {
+    { 
         $stepClassName  = 'Ojs\JournalBundle\Form\JournalSetup\Step'.$stepCount;
         return $this->createForm(new $stepClassName(), $setup, array(
             'method' => 'POST',

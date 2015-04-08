@@ -12,8 +12,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use Composer\Script\CommandEvent;
 
-class InstallCommand extends ContainerAwareCommand
-{
+class InstallCommand extends ContainerAwareCommand {
 
     protected function configure()
     {
@@ -31,27 +30,28 @@ class InstallCommand extends ContainerAwareCommand
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd().', can not install assets.'.PHP_EOL;
+            echo 'The symfony-web-dir (' . $webDir . ') specified in composer.json was not found in ' . getcwd() . ', can not install assets.' . PHP_EOL;
             return;
         }
 
         static::executeCommand($event, $appDir, 'ojs:install');
-
     }
+
     protected static function getOptions(CommandEvent $event)
-{
-    $options = array_merge(array(
-        'symfony-app-dir' => 'app',
-        'symfony-web-dir' => 'web',
-        'symfony-assets-install' => 'hard',
-    ), $event->getComposer()->getPackage()->getExtra());
+    {
+        $options = array_merge(array(
+            'symfony-app-dir' => 'app',
+            'symfony-web-dir' => 'web',
+            'symfony-assets-install' => 'hard',
+                ), $event->getComposer()->getPackage()->getExtra());
 
-    $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ?: $options['symfony-assets-install'];
+        $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ? : $options['symfony-assets-install'];
 
-    $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
+        $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
 
-    return $options;
-}
+        return $options;
+    }
+
     protected static function getPhp()
     {
         $phpFinder = new PhpExecutableFinder();
@@ -61,20 +61,24 @@ class InstallCommand extends ContainerAwareCommand
 
         return $phpPath;
     }
+
     protected static function executeCommand(CommandEvent $event, $appDir, $cmd, $timeout = 300)
     {
         $php = escapeshellarg(self::getPhp());
-        $console = escapeshellarg($appDir.'/console');
+        $console = escapeshellarg($appDir . '/console');
         if ($event->getIO()->isDecorated()) {
             $console .= ' --ansi';
         }
 
-        $process = new Process($php.' '.$console.' '.$cmd, null, null, null, $timeout);
-        $process->run(function ($type, $buffer) { echo $buffer; });
+        $process = new Process($php . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
+        $process->run(function ($type, $buffer) {
+            echo $buffer;
+        });
         if (!$process->isSuccessful()) {
             throw new \RuntimeException(sprintf('An error occurred when executing the "%s" command.', escapeshellarg($cmd)));
         }
     }
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $keep_going = $input->getArgument('continue-on-error');
@@ -115,6 +119,9 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln($sb . 'Inserting roles to db' . $se);
         $this->insertRoles($this->getContainer(), $output);
 
+        $output->writeln($sb . 'Inserting default isntitution to db' . $se);
+        $this->insertDefaultInstitution($this->getContainer(), $output);
+
         $output->writeln($sb . 'Inserting system admin user to db' . $se);
         $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
 
@@ -125,6 +132,18 @@ class InstallCommand extends ContainerAwareCommand
         $output->writeln("You can run "
                 . "<info>php app/console ojs:install:sampledata </info> "
                 . "to add sample data\n");
+    }
+
+    public function insertDefaultInstitution($container)
+    {
+        $em = $container->get('doctrine')->getManager();
+        $institutionSlug = $container->getParameter('roles');
+        $institution = new \Ojs\JournalBundle\Entity\Institution();
+        $institution->setName('Ojs');
+        $institution->setSlug($institutionSlug);
+        $em->persist($institution);
+        $em->flush();
+        $output->writeln('<info>Added institution with slug : ' . $institutionSlug . '</info>');
     }
 
     /**
