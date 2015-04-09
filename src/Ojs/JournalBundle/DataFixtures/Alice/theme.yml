@@ -1,29 +1,21 @@
 \Ojs\JournalBundle\Entity\Theme:
-  theme_notpublic1:
-    name: demo_theme1
-    title: Demo Theme 1
-    isPublic: false
-  theme_notpublic2:
-    name: demo_theme2
-    title: Demo Theme 2
-    isPublic: false
-  theme_public1:
+  theme1_notpublic:
     name: default1
-    title: Default Theme 1
-    isPublic: true
-  theme_public2:
+    title: Ojs Theme
+    isPublic: false
+  theme2:
     name: default2
-    title: Default Theme 2
+    title: Default Theme
     isPublic: true
-  theme_public3:
+  theme3:
       name: journal
       title: Journal
       isPublic: true
-  theme_public4:
+  theme4:
       name: lumen
       title: Lumen
       isPublic: true
-  theme_public5:
+  theme5:
       name: superhero
       title: SuperHero
       isPublic: true

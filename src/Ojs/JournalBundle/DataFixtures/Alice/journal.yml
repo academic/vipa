@@ -4,14 +4,14 @@
     eissn: 2148-2357
     period: 3
     published: '1'
-    subtitle: Acta Medica Anatolia
-    title: Acta Medica Anatolia
-    titleAbbr: Acta Med Anatol
+    subtitle: Ojs Help
+    title: Ojs Help Journal
+    titleAbbr: Ojs Help
     titleTransliterated: null
-    url: "http://www.anatoliamedica.com"
-    slug: acta-medica
+    url: "http://ojs.io"
+    slug: help
     institution: @default
-    subject: 5x @subject*
+    subject: [@subject1, @subject2]
     status: '3'
     languages: [@lang1, @lang2]
     setupStatus: true

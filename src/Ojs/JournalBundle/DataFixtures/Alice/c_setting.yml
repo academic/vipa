@@ -1,5 +1,0 @@
-\Ojs\JournalBundle\Entity\CitationSetting:
-  c_setting{1..50}:
-    citation: @citation*
-    setting: <text(10)>
-    value: <text(255)>
