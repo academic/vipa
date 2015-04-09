@@ -54,6 +54,19 @@ class JournalService {
     }
 
     /**
+     * get default institution record
+     * @return \Ojs\JournalBundle\Entity\Institution
+     */
+    public function getDefaultInstitution($redirect = true)
+    {
+        $em = $this->container->get('doctrine')->getManager(); 
+        $slug = $this->container->getParameter('defaultInstitutionSlug'); 
+        $intitution = $slug ? $em->getRepository('OjsJournalBundle:Institution')
+            ->findOneBy(array('slug'=>$slug)) : null; 
+            return $intitution; 
+    }
+    
+    /**
      * 
      * @param \Ojs\JournalBundle\Entity\Journal $journal
      * @return boolean
