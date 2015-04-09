@@ -19,10 +19,7 @@ fos_elastica:
                         model: Ojs\UserBundle\Entity\User
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -80,10 +77,7 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Article
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -97,10 +91,7 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Institution
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -112,10 +103,7 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Issue
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -143,10 +131,7 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Journal
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -158,10 +143,7 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Subject
                         provider: ~
                         listener:
-                            immediate: false
-                            insert: false
-                            update: false
-                            delete: false
+                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
