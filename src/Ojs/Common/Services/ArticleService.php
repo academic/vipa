@@ -28,7 +28,6 @@ class ArticleService {
 
     /**
      * @param \Ojs\JournalBundle\Entity\Article  $article
-     * @return  \Laravel\Meta\Meta
      * @throws HttpException
      */
     public function generateMetaTags($article)
@@ -39,18 +38,18 @@ class ArticleService {
             $meta->meta('DC.Description', $article->getAbstract());
 
             $meta->meta('DC.Source', $article->getJournal()->getTitle());
-            $meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
-            $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
+            !is_null($article->getJournal())&&$meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
+            !is_null( $article->getIssue()) && $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
             $meta->meta('DC.Source.URI', $this->container->get('ojs.journal_service')->generateUrl($article->getJournal()));
-            $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
+            !is_null( $article->getIssue()) &&  $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
 
-            $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
-            $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
+            !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
 
-            $meta->rawMeta('article:modified_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:modified_time"/>');
-            $meta->rawMeta('article:publish_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:publish_time"/>');
+            !is_null($article->getPubdate()) && $meta->rawMeta('article:modified_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:modified_time"/>');
+            !is_null($article->getPubdate()) && $meta->rawMeta('article:publish_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:publish_time"/>');
             $meta->rawMeta('og:url', '<meta content="' . $this->generateUrl($article) . '" property="og:url"/>');
             $meta->rawMeta('og:title', '<meta content="' . $article->getTitle() . '" property="og:title"/>');
             $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
@@ -76,8 +75,8 @@ class ArticleService {
             $meta->meta('citation_author_institution', '');
             $meta->meta('citation_title', '');
             $meta->meta('citation_date', '');
-            $meta->meta('citation_volume', $article->getIssue()->getVolume());
-            $meta->meta('citation_issue', $article->getIssue()->getNumber());
+            !is_null( $article->getIssue()) &&$meta->meta('citation_volume', $article->getIssue()->getVolume());
+            !is_null( $article->getIssue()) &&$meta->meta('citation_issue', $article->getIssue()->getNumber());
             $meta->meta('citation_firstpage', $article->getFirstPage());
             $meta->meta('citation_lastpage', $article->getLastPage());
             $meta->meta('citation_doi', $article->getDoi());
@@ -99,6 +98,10 @@ class ArticleService {
         return $journalUrl . '/' . $article->getSlug();
     }
 
+    /**
+     * @param $journalId
+     * @return mixed
+     */
     public function setSelectedJournal($journalId)
     {
         $this->session->set('selectedJournalId', $journalId);
