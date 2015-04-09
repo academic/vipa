@@ -8,10 +8,10 @@
     keywords: "help, ojs, open journal"
     pubdate: <dateTimeThisYear()>
     status: 3
-    subjects: [@subject1, @subject2]
+    subjects: "computer science, technology"
     title: Getting Started with Ojs
     submitterId: @user_author->id
     section: @section1
     issue: @issue1
     orderNum: <randomDigit()>
-    tags: <text(20)>, <text(10)>
+    tags: "ojs,help"

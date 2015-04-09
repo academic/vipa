@@ -4,7 +4,7 @@
     number: 1
     title: Hello World
     volume: 1
-    year: <dateTimeThisYear()>
+    year: 2015
     journal: @journal1
     special: 0
-    tags: fisrt issue, ojs
+    tags: "fisrt issue, ojs"

@@ -3,9 +3,9 @@
     subject: Computer Science
     createdBy: @user_author->username
     totalJournalCount: 1
-    tags: science, computer
+    tags: "science, computer"
   subject2:
     subject: Journalism
     createdBy: @user_author->username
     totalJournalCount: 1
-    tags: journals, journalism
+    tags: "journals, journalism"
