@@ -4,3 +4,8 @@
     orderNum: <randomDigit()>
     raw: <text(300)>
     type: 'article'
+  citation2:
+    articles: [@article1]
+    orderNum: <randomDigit()>
+    raw: <text(300)>
+    type: 'book'

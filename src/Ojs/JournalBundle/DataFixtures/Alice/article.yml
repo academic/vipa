@@ -1,15 +1,15 @@
 \Ojs\JournalBundle\Entity\Article:
   article1:
-    doi: <regexify('\d{9}')>
-    firstPage: <boolean(20)>
+    doi: 10.5281/zenodo.14791
+    firstPage: 1
+    lastPage: 5
     isAnonymous: false
     journal: @journal1
-    keywords: <text(10)>,<text(10)>,<text(10)>
-    lastPage: <randomNumber(3)>
+    keywords: "help, ojs, open journal"
     pubdate: <dateTimeThisYear()>
     status: 3
-    subjects: <text(85)>,<text(84)>,<text(83)>
-    title: <text(255)>
+    subjects: [@subject1, @subject2]
+    title: Getting Started with Ojs
     submitterId: @user_author->id
     section: @section1
     issue: @issue1
