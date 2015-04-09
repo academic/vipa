@@ -16,7 +16,6 @@ class ArticleController extends Controller {
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
         }
         //log article view event
-        $this->articleViewLog($data['article']);
         $data['schemaMetaTag'] = '<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />';
         $data['meta'] = $this->get('ojs.article_service')->generateMetaTags($data['article']);
         $data['journal'] = $data['article']->getJournal();
