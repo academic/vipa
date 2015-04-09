@@ -90,7 +90,7 @@
                        class="list-group-item list-group-item-success"><h5><i class="fa fa-plus-circle"></i> {{ "article.submit"|trans }}</h5>
                     </a>
                     {% if last_issue%}
-                        <a class="list-group-item" href="{{ url('ojs_issue_page',{id: last_issue.id, institution: journal.institution.slug}) }}">
+                        <a class="list-group-item" href="{{ url('ojs_issue_page',{journal_slug:journal.slug,id: last_issue.id, institution: journal.institution.slug}) }}">
                             <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
                         </a>
                     {% endif %}
@@ -157,35 +157,39 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h5 class="page-header"><span class="panel-title">{{ "issues"|trans }}</span></h5>
-
-                <div class="col-md-4">
+                <h5 class="page-header"><span class="panel-title">{{ "journal_index.issues"|trans }}</span></h5>
+                <div class="col-md-3">
 
                     <div id="issuetree">
                         <ul>
-                            {% for volume in volumes %}
+                            {% for volume in volumes[:10] %}
                                 <li>
-                                    {{ "Volume"|trans }} {{ volume.volume }}
-                                    - {{ volume.issues|length }} {{ "Issues " }}
+                                    {{ "journal_index.volume"|trans }} {{ volume.volume }}
+                                    - {{ volume.issues|length }} {{ "journal_index.issues"|trans }}
                                     <ul>
                                         {% for issue in volume.issues %}
                                             <li>
-                                                <a href="{{ url('ojs_issue_page',{institution: issue.journal.institution.slug,id: issue.id}) }}">{{ "Issue"|trans }} {{ issue.title }} {{ issue.datePublished|date("M Y") }}</a>
+                                                <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
+                                                    {{ issue.title }} {{ issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                                </a>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </li>
                             {% endfor %}
+
                         </ul>
+                        <a class="btn btn-primary " href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
+                            <i class="fa fa-arrow-right"></i>{{ "archive"|trans }}</a>
+
                     </div>
 
                 </div>
-                <div class="col-md-8" id="issue-container">
-
+                <div class="col-md-6" id="issue-container">
                     {% if last_issue %}
                         <div class="panel panel-default">
                             <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                                - {{ last_issue.datePublished|date("M Y") }}</div>
+                                - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
                             <div class="panel-body">
                                 <ul>
                                     {% for article in last_issue.articles %}
@@ -199,27 +203,14 @@
                     {% endif %}
 
                 </div>
+                <div class="col-md-3">
+                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
+                </div>
 
             </div>
 
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h5 class="page-header"><span class="panel-title">{{ "editorial"|trans }}</span></h5>
-
-                <p>
-                    {% for key,user in users %}
-                        <strong>{{ key|trans }}</strong> <br/>
-                        {% for u in user %}
-                            {{ u.title }} {{ u.fullName }}<br/>
-                        {% endfor %}
-                        <br/>
-                    {% endfor %}
-                </p>
-            </div>
-        </div>
-        {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
 
         {% if journal.url %}
             <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
