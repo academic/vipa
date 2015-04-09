@@ -118,6 +118,6 @@ ojs_issue_page:
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:issuePage}
 ojs_article_page:
-    pattern:  /{slug}/{article_slug}
+    pattern:  /{slug}/issue/{issue_id}/{article_slug}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Article:articlePage}

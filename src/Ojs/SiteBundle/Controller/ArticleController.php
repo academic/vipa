@@ -7,7 +7,7 @@ use Ojs\JournalBundle\Entity\ArticleEventLog;
 
 class ArticleController extends Controller {
 
-    public function articlePageAction($slug, $article_slug)
+    public function articlePageAction($slug, $issue_id, $article_slug)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article */
