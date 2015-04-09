@@ -1,6 +1,0 @@
-\Ojs\SiteBundle\Entity\Page:
-  page{1..20}:
-    title: <text(150)>
-    body: <paragraph(10)>
-    tags: <text(10)>, <text(20)>, <text(20)>
-    image: <imageUrl(640,480,'cats')>

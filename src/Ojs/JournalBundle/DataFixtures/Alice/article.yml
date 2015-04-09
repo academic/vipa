@@ -1,17 +1,17 @@
 \Ojs\JournalBundle\Entity\Article:
-  article{1..50}:
+  article1:
     doi: <regexify('\d{9}')>
     firstPage: <boolean(20)>
     isAnonymous: false
-    journal: @journal*
+    journal: @journal1
     keywords: <text(10)>,<text(10)>,<text(10)>
     lastPage: <randomNumber(3)>
     pubdate: <dateTimeThisYear()>
     status: 3
     subjects: <text(85)>,<text(84)>,<text(83)>
     title: <text(255)>
-    submitterId: @user*->id
-    section: @section*
-    issue: @issue*
+    submitterId: @user_author->id
+    section: @section1
+    issue: @issue1
     orderNum: <randomDigit()>
     tags: <text(20)>, <text(10)>

@@ -1,16 +1,4 @@
 \Ojs\UserBundle\Entity\User:
-  user{1..200}:
-    username (unique): <username()>
-    password: '$2y$13$9MeHwAKCITMHtMlFJa3U3.PFRAmbOuDbgwIuVIv07N9tSN.KhphHG'
-    firstName: <firstName()>
-    lastName: <lastName()>
-    email (unique): <email()>
-    isActive: true
-    apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
-    status: 1
-    title: <title()>
-    roles: <defaultUserRole()>
-    tags: <text(20)>, <text(10)>
   user_author:
     username (unique): demo_author
     password: '$2y$10$ToRGKh9IQHyzaQ2F6wc/N.qY2fw92soSr8Qwd5A/QWfRC.IlqFNT2'

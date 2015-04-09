@@ -1,8 +1,4 @@
 Ojs\UserBundle\Entity\UserJournalRole:
-  u_journal_role{1..20}:
-    user: @user*
-    role: @role*
-    journal: @journal*
   manager_journal_role:
       user: @user_journal_manager
       role: @role3
@@ -11,7 +7,3 @@ Ojs\UserBundle\Entity\UserJournalRole:
       user: @user_author
       role: @role11
       journal: @journal1
-  author_journal_role2:
-      user: @user_author
-      role: @role11
-      journal: @journal2

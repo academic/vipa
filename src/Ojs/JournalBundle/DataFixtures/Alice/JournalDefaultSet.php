@@ -24,17 +24,17 @@ $set->addFile(__DIR__ . '/journal_section.yml', 'yaml');
 $set->addFile(__DIR__ . '/issue.yml', 'yaml');
 
 $set->addFile(__DIR__ . '/article.yml', 'yaml');
-$set->addFile(__DIR__ . '/a_attribute.yml', 'yaml'); //Article Attribute
+//$set->addFile(__DIR__ . '/a_attribute.yml', 'yaml'); //Article Attribute
 
 $set->addFile(__DIR__ . '/author.yml', 'yaml');
 $set->addFile(__DIR__ . '/a_author.yml', 'yaml'); //Article Author
 
 $set->addFile(__DIR__ . '/citation.yml', 'yaml');
-$set->addFile(__DIR__ . '/c_setting.yml', 'yaml'); //Citation Settings
+//$set->addFile(__DIR__ . '/c_setting.yml', 'yaml'); //Citation Settings
 
-$set->addFile(__DIR__ . '/contact.yml', 'yaml');
-$set->addFile(__DIR__ . '/c_type.yml', 'yaml'); //Contact Type
-$set->addFile(__DIR__ . '/j_contact.yml', 'yaml'); //Journal Contact
+//$set->addFile(__DIR__ . '/contact.yml', 'yaml');
+//$set->addFile(__DIR__ . '/c_type.yml', 'yaml'); //Contact Type
+//$set->addFile(__DIR__ . '/j_contact.yml', 'yaml'); //Journal Contact
 
 $set->addFile(__DIR__ . '/file.yml', 'yaml');
 

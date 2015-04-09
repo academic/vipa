@@ -1,7 +1,7 @@
 \Ojs\JournalBundle\Entity\ArticleFile:
-  a_file{1..50}:
-    article: @article*
-    file: @file*
+  a_file1:
+    article: @article1
+    file: @file1
     type: <randomDigit()>
     version: 1
     keywords: <text(80)>, <text(80)>, <text(80)>
