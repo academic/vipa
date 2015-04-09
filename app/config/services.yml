@@ -88,8 +88,8 @@ services:
     ojs.orcid_service:
         class: Ojs\Common\Services\OrcidService
         arguments: [ @service_container ]
-    roles.faker.provider:
-        class: Ojs\Common\Services\RolesFakerProvider
+    ojs.alice.provider:
+        class: Ojs\Common\Services\AliceDataProvider
         arguments: [ @service_container ]
         tags:
             -  { name: h4cc_alice_fixtures.provider }
