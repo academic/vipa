@@ -121,3 +121,5 @@ institute.register: 'Kurum Kaydet'
 journal.register: 'Dergi Oluştur'
 user.change_password: "Şifreyi Değiştir"
 user.old_password: "Eski Şifre"
+journal_index.issues: "Sayılar"
+journal_index.volume: "Cilt"
