@@ -1,10 +1,10 @@
 \Ojs\JournalBundle\Entity\Issue:
-  issue{1..50}:
+  issue1:
     datePublished: <dateTimeThisYear()>
     number: <randomDigit()>
     title: <text(25)>
     volume: <randomDigit()>
     year: <randomDigit()>
-    journal: @journal*
+    journal: @journal1
     special: <numberBetween(0, 1)>
     tags: <text(20)>, <text(10)>

@@ -1,5 +1,5 @@
 Ojs\UserBundle\Entity\UserArticleRole:
-  u_article_role{1..20}:
-    user: @user*
-    role: @role*
-    article: @article*
+  u_article_role1:
+    user: @user_author
+    role: @role11
+    article: @article1

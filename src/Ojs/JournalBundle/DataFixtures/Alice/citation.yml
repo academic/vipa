@@ -1,6 +1,6 @@
 \Ojs\JournalBundle\Entity\Citation:
-  citation{1..50}:
-    articles: 2x @article*
+  citation1:
+    articles: [@article1]
     orderNum: <randomDigit()>
     raw: <text(300)>
     type: 'article'

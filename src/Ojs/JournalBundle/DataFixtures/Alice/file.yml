@@ -1,5 +1,5 @@
 \Ojs\JournalBundle\Entity\File:
-  file{1..50}:
+  file1:
     path: /logo.pdf
     name: <text(150)>
     mimeType: <mimeType()>
