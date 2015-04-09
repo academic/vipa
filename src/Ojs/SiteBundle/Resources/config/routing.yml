@@ -114,7 +114,7 @@ ojs_archive_index:
     defaults: { _controller: OjsSiteBundle:Site:archiveIndex }
 
 ojs_issue_page:
-    pattern: /issue/{id}
+    pattern: /{journal_slug}/issue/{id}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:issuePage}
 ojs_article_page:
