@@ -1,5 +1,0 @@
-Ojs\UserBundle\Entity\UserArticleRole:
-  u_article_role1:
-    user: @user_author
-    role: @role11
-    article: @article1

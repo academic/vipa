@@ -4,9 +4,8 @@
       slug: <defaultInstitutionSlug()>
       name: Ojs
       url: "" 
-      about:  null
+      about: null
       phone: null
       address: ""
       institution_type: @i_type0
       verified: 1
-  

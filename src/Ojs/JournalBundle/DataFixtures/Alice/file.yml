@@ -1,6 +1,6 @@
 \Ojs\JournalBundle\Entity\File:
   file1:
     path: /logo.pdf
-    name: <text(150)>
+    name: logo.pdf
     mimeType: <mimeType()>
     size: <randomNumber(5)>
