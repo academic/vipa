@@ -1,0 +1,25 @@
+\Ojs\JournalBundle\Entity\InstitutionTypes:
+  i_type0: 
+      name:  Other
+      description: ""
+  i_type1: 
+      name:  University
+      description: "" 
+  i_type2: 
+      name:  Government
+      description: "" 
+  i_type3: 
+      name:  Association
+      description: "" 
+  i_type4: 
+      name:  Foundation
+      description: "" 
+  i_type5: 
+      name:  Hospital
+      description: "" 
+  i_type6: 
+      name:  Chamber
+      description: "" 
+  i_type7: 
+      name:  Private
+      description: ""

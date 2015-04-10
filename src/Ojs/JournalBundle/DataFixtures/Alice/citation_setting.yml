@@ -1,0 +1,9 @@
+\Ojs\JournalBundle\Entity\CitationSetting:
+  c_setting1:
+    citation: @citation1
+    setting: title
+    value: <text(255)>
+  c_setting2:
+    citation: @citation1
+    setting: title
+    value: <text(255)>
