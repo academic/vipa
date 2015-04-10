@@ -1,0 +1,5 @@
+\Ojs\JournalBundle\Entity\ArticleAuthor:
+  a_author1:
+    author: @author1
+    article: @article1
+    authorOrder: 0

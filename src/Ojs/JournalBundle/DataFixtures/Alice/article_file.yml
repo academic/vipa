@@ -1,0 +1,10 @@
+\Ojs\JournalBundle\Entity\ArticleFile:
+  a_file1:
+    article: @article1
+    file: @file1
+    type: <randomDigit()>
+    version: 1
+    keywords: "help,ojs,getting started"
+    title: <text(100)>
+    description: Getting started to ojs. 
+    langCode: @lang1->code
