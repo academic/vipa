@@ -10,18 +10,33 @@
                     <li><a href="/">{{"home"|trans}}</a></li>
                     <li><a href="{{ path("ojs_journal_index",{"slug":article.journal.slug,institution: journal.institution.slug})}}">{{ article.journal.title }}</a></li>
                     <li class="active"><a href="{{ path("ojs_archive_index",{"slug" : article.journal.slug,institution: journal.institution.slug}) }}">{{"archive"|trans}}</a></li>
-                    
+
                 </ol>
 
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div id="articleTitle">
                             {% set imageoptions=getImageOptions(article,'header','article_header') %}
-                            <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))
+                            <a href="{{generateJournalUrl(article.journal)}}"><img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))
                             |imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                            </a>
+                            <div> 
+                                {% if article.pubdate %} <span class=" {{"date.publish"|trans}}">{{ article.pubdate|date('Y-m-d') }}</span> <br>{% endif %}
+                                {{"volume"|trans}} {{article.issue.volume}}</a>, <a href="#">{{"issue"|trans}} {{article.issue.number}}</a>, 
+                                {{"page.plural"|trans}} <span title="{{"first_page"|trans}}">{{article.firstPage}}</span>-<span title="{{"last_page"|trans}}">{{article.lastPage}}</span>
+                                {% if article.languages %}
+                                    <span title="{{"languages"|trans}}">
+                                        {% for language in article.languages %} 
+                                            <span class="badge badge-info">{{ language.name }} [{{ language.code}}]</span>
+                                        {% endfor %}
+                                    {%endif%}
+                                </span>
+                            </div>
 
+                            <hr>
                             <h2>{{ article.title }}
-                                <br>
+                                <br> {% if article.titleTransliterated %}<span class="muted">{{ article.titleTransliterated }}</span><br>{%endif%}
+                                {% if article.subtitle %}<small>{{ article.subtitle }}</small><br>{%endif%}
                                 {% if article.articleAuthors %}
                                     {% for authorsInfo in article.articleAuthors %}
                                         <span><small>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</small></span>
@@ -37,113 +52,6 @@
                             </h2>
                         </div>
                         <hr />
-                        <table class="record_properties table">
-                            <tbody>
-                                <tr>
-                                    <th>{{"title"|trans}}</th>
-                                    <td>{{ article.title }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Titletransliterated</th>
-                                    <td>{{ article.titleTransliterated }}</td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{"subtitle"|trans}}</th>
-                                    <td>{{ article.subtitle }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"author"|trans}}</th>
-                                    <td>
-                                        {% if article.articleAuthors %}
-                                            {% for authorsInfo in article.articleAuthors %}
-                                                <span>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</span>
-                                                {% if not loop.last %}, {% endif %}
-                                            {% endfor %}
-                                        {%endif%}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>{{"section"|trans}}</th>
-                                    <td>{% if article.section %}{{ article.section.title }}{% endif %}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"languages"|trans}}</th>
-                                    <td>
-                                        {% if article.languages %}
-                                            {% for language in article.languages %}
-                                                <a class="btn btn-info btn-sm">
-                                                    <span>{{ language.name }} [{{ language.code}}]</span>
-                                                </a>
-                                            {% endfor %}
-                                        {%endif%}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>{{"primaly_language"|trans}}</th>
-                                    <td>
-                                        <span class="label label-info">{{ article.primaryLanguage}}</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th>{{"subjects"|trans}}</th>
-                                    <td>
-                                        {{ article.subjects }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>{{"keywords"|trans}}</th>
-                                    <td> {{ article.keywords }} </td>
-                                </tr>
-                                <tr>
-                                    <th>Otherid</th>
-                                    <td>{{ article.otherId }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"date.publish"|trans}}</th>
-                                    <td>{{ article.pubdate|date('Y-m-d') }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Pubdateseason</th>
-                                    <td>{{ article.pubdateSeason }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"part"|trans}}</th>
-                                    <td>{{ article.part }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"first_page"|trans}}</th>
-                                    <td>{{ article.firstPage }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"last_page"|trans}}</th>
-                                    <td>{{ article.lastPage }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"url"|trans}}</th>
-                                    <td>{{ article.uri }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{"abstract"|trans}}</th>
-                                    <td>{{ article.abstract }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Abstracttransliterated</th>
-                                    <td>{{ article.abstractTransliterated }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr />
-                        <div id="files">
-                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
-                                <i class="fa fa-file-pdf-o"></i> PDF (English)
-                            </a>
-                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
-                                <i class="fa fa-file-pdf-o"></i> PDF (Russian)
-                            </a>
-                        </div>
-                        <br>
 
                         <div id="articleAbstract">
                             <h4 class="page-header">{{"abstract"|trans}}</h4>
@@ -158,6 +66,15 @@
                                 {{ article.keywords }}
                             </div>
                         </div>
+                        <hr>
+                        <div id="files">
+                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
+                                <i class="fa fa-file-pdf-o"></i> PDF (English)
+                            </a>
+                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
+                                <i class="fa fa-file-pdf-o"></i> PDF (Russian)
+                            </a>
+                        </div>
 
                         <div id="doiInfo">
                             <h4 class="page-header">DOI</h4>
@@ -166,23 +83,64 @@
                         </div>
 
                         <div>
-                            <h4 class="page-header">Araçlar</h4>
+                            <h4 class="page-header">{{"tools"|trans}}</h4>
                             <a class="btn btn-fresh" title="Save to Zotero" href="javascript:var d=document,s=d.createElement('script');s.src='https://www.zotero.org/bookmarklet/loader.js';(d.body?d.body:d.documentElement).appendChild(s);void(0);">
                                 <img src="//dergipark.ulakbim.gov.tr/assets/images/zotero.ico" width="16"> Zotero</a> |
                             <a class="btn btn-fresh" title="Save to Mendeley" onclick="ga('send', 'event', 'article_tools', 'mendeley');" href="javascript:document.getElementsByTagName('body')[0].appendChild(document.createElement('script')).setAttribute('src','https://www.mendeley.com/minified/bookmarklet.js');">
                                 <img src="//dergipark.ulakbim.gov.tr/assets/images/mendeley.ico" width="16"> Mendeley</a>
 
                         </div>
-                        <!--
+
                         <div id="articleCitations">
                             <h4 class="page-header">{{"citations"|trans}}</h4>
                             <div>
                                 <ul>
-                                    <li></li>
+                                    {% for citation in article.citations %}
+                                        <li>{{citation.raw}}</li>
+                                        {%endfor%}
                                 </ul>
                             </div>
-                        </div>
-                        -->
+                        </div> 
+
+                        <div id="articleCitations">
+                            <h4 class="page-header">{{"details"|trans}}</h4>
+                            <table class="record_properties table">
+                                <tr>
+                                    <th>{{"primaly_language"|trans}}</th>
+                                    <td>
+                                        <span class="label label-info">{{ article.primaryLanguage}}</span>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>{{"subjects"|trans}}</th>
+                                    <td>
+                                        {{ article.subjects }}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Otherid</th>
+                                    <td>{{ article.otherId }}</td>
+                                </tr> 
+                                <tr>
+                                    <th>Pubdateseason</th>
+                                    <td>{{ article.pubdateSeason }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"part"|trans}}</th>
+                                    <td>{{ article.part }}</td>
+                                </tr> 
+                                {% if article.section %}
+                                    <tr>
+                                        <th>{{"section"|trans}}</th> 
+                                        <td>{{ article.section.title }}</td>
+                                    </tr>
+                                {% endif %}
+                            </table>
+                        </div> 
+                        <br>
+
                     </div>
                 </div>
 
@@ -199,6 +157,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('article',{{ article.id }})
+        analytics.increase('article',{{ article.id }} )
     </script>
 {% endblock %}
