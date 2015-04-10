@@ -2,7 +2,7 @@
   issue1:
     datePublished: <dateTimeThisYear()>
     number: 1
-    title: Hello World
+    title: Issue 1
     volume: 1
     year: 2015
     journal: @journal1

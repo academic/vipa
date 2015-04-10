@@ -55,7 +55,7 @@ class ArticleService {
             $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
 
             $meta->meta('DC.Type', 'Text.Serial.Journal');
-            $meta->meta('DC.Type.articleType', '');
+            $meta->meta('DC.Type.articleType', $article->getSection()->getTitle());
 
             $meta->meta('DC.Contributor.Sponsor', '');
             $meta->meta('DC.Identifier', $article->getId());
@@ -73,10 +73,10 @@ class ArticleService {
             $meta->meta('DC.Creator.PersonalName', $authors);
             $meta->meta('citation_author', $authors);
             $meta->meta('citation_author_institution', '');
-            $meta->meta('citation_title', '');
-            $meta->meta('citation_date', '');
-            !is_null( $article->getIssue()) &&$meta->meta('citation_volume', $article->getIssue()->getVolume());
-            !is_null( $article->getIssue()) &&$meta->meta('citation_issue', $article->getIssue()->getNumber());
+            $meta->meta('citation_title', $article->getTitle());
+            !is_null($article->getPubdate()) && $meta->meta('citation_date', $article->getPubdate()->format('Y-m-d'));
+            !is_null($article->getIssue()) && $meta->meta('citation_volume', $article->getIssue()->getVolume());
+            !is_null($article->getIssue()) && $meta->meta('citation_issue', $article->getIssue()->getNumber());
             $meta->meta('citation_firstpage', $article->getFirstPage());
             $meta->meta('citation_lastpage', $article->getLastPage());
             $meta->meta('citation_doi', $article->getDoi());

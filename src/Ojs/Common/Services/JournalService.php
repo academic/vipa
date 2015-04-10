@@ -75,7 +75,7 @@ class JournalService {
     {
         $institution = $journal->getInstitution();
         return ($this->container->getParameter('https') ? 'https' : 'http') . '://' .
-                $institution->getSlug() . '/' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
+                $institution->getSlug() . '.' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
     }
 
     public function setSelectedJournal($journalId)
