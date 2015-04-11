@@ -98,6 +98,10 @@
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
 
+                    <a href="{{ url('ojs_journal_contacts',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "journalcontact.singular"|trans }}</h5>
+                    </a>
+
                     <a href=""
                        class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
