@@ -195,4 +195,15 @@ class SiteController extends Controller
 
         return $this->render('OjsSiteBundle:Issue:detail.html.twig', $data);
     }
+
+    public function journalContactsAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($data['journal']);
+        $data['contacts'] = $em->getRepository("OjsJournalBundle:JournalContact")->findBy(['journalId'=>$data['journal']->getId()]);
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+
+        return $this->render("OjsSiteBundle:JournalContact:index.html.twig",$data);
+    }
 }
