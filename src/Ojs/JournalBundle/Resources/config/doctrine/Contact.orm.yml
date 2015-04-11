@@ -14,18 +14,23 @@ Ojs\JournalBundle\Entity\Contact:
             nullable: TRUE
             gedmo: 
                 - versioned
+        affiliation:
+            type: text
+            nullable: true
         firstName:
             type: string
             length: 255
             column: first_name
             gedmo: 
                 - versioned
+            nullable: true
         lastName:
             type: string
             length: 255
             column: last_name
             gedmo: 
                 - versioned
+            nullable: true
         address:
             type: text
             nullable: TRUE
@@ -51,6 +56,7 @@ Ojs\JournalBundle\Entity\Contact:
             length: 255
             gedmo: 
                 - versioned
+            nullable: true
         created:
             type: datetime
             gedmo:

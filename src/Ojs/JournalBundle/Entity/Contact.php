@@ -310,4 +310,26 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this->getFullName();
     }
 
+    /** @var  string */
+    protected $affiliation;
+
+    /**
+     * @return string
+     */
+    public function getAffiliation()
+    {
+        return $this->affiliation;
+    }
+
+    /**
+     * @param string $affiliation
+     * @return $this
+     */
+    public function setAffiliation($affiliation)
+    {
+        $this->affiliation = $affiliation;
+        return $this;
+    }
+
+
 }
