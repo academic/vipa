@@ -121,3 +121,7 @@ ojs_article_page:
     pattern:  /{slug}/issue/{issue_id}/{article_slug}
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Article:articlePage}
+ojs_journal_contacts:
+    pattern: /{slug}/contacts
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalContacts }
