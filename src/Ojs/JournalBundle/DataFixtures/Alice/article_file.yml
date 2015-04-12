@@ -2,7 +2,7 @@
   a_file1:
     article: @article1
     file: @file1
-    type: <randomDigit()>
+    type: 0
     version: 1
     keywords: "help,ojs,getting started"
     title: <text(100)>
