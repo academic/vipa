@@ -38,16 +38,15 @@ class ArticleService {
             $meta->meta('DC.Description', $article->getAbstract());
 
             $meta->meta('DC.Source', $article->getJournal()->getTitle());
-            !is_null($article->getJournal())&&$meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
-            !is_null( $article->getIssue()) && $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
+            !is_null($article->getJournal()) && $meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
+            !is_null($article->getIssue()) && $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
             $meta->meta('DC.Source.URI', $this->container->get('ojs.journal_service')->generateUrl($article->getJournal()));
-            !is_null( $article->getIssue()) &&  $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
+            !is_null($article->getIssue()) && $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
 
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-
             !is_null($article->getPubdate()) && $meta->rawMeta('article:modified_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:modified_time"/>');
             !is_null($article->getPubdate()) && $meta->rawMeta('article:publish_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:publish_time"/>');
             $meta->rawMeta('og:url', '<meta content="' . $this->generateUrl($article) . '" property="og:url"/>');
@@ -83,7 +82,9 @@ class ArticleService {
             $meta->meta('citation_abstract_html_url', $this->generateUrl($article));
             $meta->meta('citation_language', $article->getPrimaryLanguage());
             $meta->meta('citation_keywords', $article->getKeywords());
-            $meta->meta('citation_pdf_url', '');
+            foreach ($this->getFullTextFiles($article) as $file) {
+                $meta->meta('citation_pdf_url', $file->getFile()->getPath());
+            }
         }
         return $meta;
     }
@@ -91,6 +92,20 @@ class ArticleService {
     /**
      * 
      * @param \Ojs\JournalBundle\Entity\Article $article
+     * @return string
+     */
+    public function getFullTextFiles($article)
+    {
+        $files = $this->container->get('doctrine.orm.entity_manager')
+                ->getRepository('OjsJournalBundle:ArticleFile')
+                ->getArticleFullTextFiles($article->getId());
+        return $files;
+    }
+
+    /**
+     * 
+     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @return string
      */
     public function generateUrl($article)
     {
