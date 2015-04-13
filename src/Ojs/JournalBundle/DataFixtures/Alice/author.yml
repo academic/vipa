@@ -1,11 +1,11 @@
 \Ojs\JournalBundle\Entity\Author:
   author1:
-    address: <address()>
-    email: <email()>
-    firstName: <firstName()>
-    initials: <text(5)>
-    lastName: <lastName()>
-    summary: <paragraph(3)>
-    title: <title()>
+    address: Ankara, Turkey
+    email: info@ojs.io
+    firstName: Ojs
+    initials: OA
+    lastName: Author
+    summary: This is a virtual author for Ojs Help Journal.
+    title: Dr.
     institutionId: @default->id
     user(unique): @user_author
