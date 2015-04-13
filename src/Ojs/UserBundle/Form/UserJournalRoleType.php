@@ -18,12 +18,12 @@ class UserJournalRoleType extends AbstractType
     {
         $user = $options['user'];
         $builder
-                ->add('userId','entity',[
+                ->add('user','entity',[
                     'class'=>'Ojs\UserBundle\Entity\User',
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
 
                 ])
-                ->add('journalId','entity',[
+                ->add('journal','entity',[
                     'class'=>'Ojs\JournalBundle\Entity\Journal',
                     'property'=>'title',
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
@@ -45,7 +45,7 @@ class UserJournalRoleType extends AbstractType
                         return $qb;
                     }
                 ])
-                ->add('roleId', 'entity', array(
+                ->add('role', 'entity', array(
                     'class' => 'Ojs\UserBundle\Entity\Role',
                     'property' => 'name',
                     'multiple' => false,

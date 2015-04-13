@@ -264,8 +264,10 @@ class UserJournalRoleController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
+        /** @var UserJournalRole $entity */
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
 
         if (!$entity) {
@@ -277,9 +279,16 @@ class UserJournalRoleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $newEntity=new UserJournalRole();
+            $newEntity->setJournal($entity->getJournal())
+                ->setRole($entity->getRole())
+                ->setUser($entity->getUser())
+            ;
+            $em->remove($entity);
+            $em->persist($newEntity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ujr_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('ujr_edit', array('id' => $newEntity->getId())));
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
