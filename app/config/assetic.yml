@@ -41,6 +41,7 @@ assetic:
                     - @OjsSiteBundle/Resources/public/js/block.js
                     - @OjsAnalyticsBundle/Resources/public/js/analytics.js
                     - %kernel.root_dir%/../web/vendor/select2/select2.js
+                    - @PUGXAutocompleterBundle/Resources/public/js/autocompleter-select2.js
                     - %kernel.root_dir%/../web/assets/app/js/common.js
                     - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js

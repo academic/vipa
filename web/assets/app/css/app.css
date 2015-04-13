@@ -982,7 +982,7 @@ a.vimeo:hover * { color:#FFF; }
 .grid-row-actions li{ float: left; list-style-type: none}
 
 .select2-container.select2-container-multi.form-control{height: auto!important;}
-
+.select2-container{width: 100%;}
 
 .jvFloat {
     position: relative;

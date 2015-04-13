@@ -2,8 +2,10 @@
 
 namespace Ojs\ApiBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -11,6 +13,7 @@ use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Elastica\Query;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * PublicSearchRest may contain similar actions with SearchRest
@@ -71,6 +74,7 @@ class PublicSearchRestController extends FOSRestController {
         return $data;
     }
 
+
     /**
      * @param Request $request
      * @ApiDoc(
@@ -105,4 +109,82 @@ class PublicSearchRestController extends FOSRestController {
         ];
     }
 
+    /**
+     * @param Request $request
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search users",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      },
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="false",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/public/search/user")
+     * @return array
+     */
+    public function getUsersAction(Request $request){
+
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @ApiDoc(
+     *  resource=true,
+     *  description="get user by id"
+     * )
+     * @Get("/public/user/get/{id}")
+     */
+    public function getUserAction(Request $request, $id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->find('OjsUserBundle:User',$id);
+        if($user){
+            return Response::create($user->getUsername()."-".$user->getEmail());
+        }
+        throw new NotFoundHttpException;
+    }
+    /**
+     * @param Request $request
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search journals",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      },
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="false",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/public/search/journal")
+     * @return array
+     */
+    public function getJournalsAction(Request $request){
+
+    }
+    
+    
 }

@@ -58,12 +58,17 @@
         "jms/di-extra-bundle": "~1.5"
     },
     "require-dev": {
-        "okulbilisim/ojs-message-bundle": "dev-master"
+        "okulbilisim/ojs-message-bundle": "dev-master",
+        "pugx/autocompleter-bundle": "dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/okulbilisim/OjsMessageBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/aybarscengaver/PUGXAutoCompleterBundle.git"
         }
     ],
     "scripts": {
