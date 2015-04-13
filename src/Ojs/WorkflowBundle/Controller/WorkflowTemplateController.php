@@ -378,7 +378,13 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
         $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
 
+        /**
+         * @var \Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep $step
+         */
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
+        //control if steps template system template
+        if($step->getTemplate()->getIsSystemTemplate())
+            throw new AccessDeniedHttpException();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')
@@ -461,6 +467,9 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         $session = $request->getSession();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
+        //control if steps template system template
+        if($entity->getTemplate()->getIsSystemTemplate())
+            throw new AccessDeniedHttpException();
         $template = $entity->getTemplate();
         // get where entity added as next step
         $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->createQueryBuilder()

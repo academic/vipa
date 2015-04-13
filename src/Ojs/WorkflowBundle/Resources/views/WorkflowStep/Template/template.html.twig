@@ -52,15 +52,17 @@
             </span> 
 
             <span class="pull-right btn-group">
-                {% if isJournalManager() %}
-                    <a class="btn btn-warning btn-xs" href="{{path('workflow_template_step_edit',{ 'stepId': entity.id })}}">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                    <a class="btn btn-danger btn-xs"
-                       onclick="return confirm('{{"sure"|trans}}');"
-                       href="{{path('workflow_template_step_delete',{ 'stepId': entity.id })}}">
-                        <i class="fa fa-trash"></i>
-                    </a>
+                {% if isJournalManager() and (template.isSystemTemplate is defined) %}
+                    {% if template.isSystemTemplate == false %}
+                        <a class="btn btn-warning btn-xs" href="{{path('workflow_template_step_edit',{ 'stepId': entity.id })}}">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-danger btn-xs"
+                           onclick="return confirm('{{"sure"|trans}}');"
+                           href="{{path('workflow_template_step_delete',{ 'stepId': entity.id })}}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    {% endif %}
                 {% endif %}
             </span> 
         </div>
