@@ -41,6 +41,13 @@ $(document).ready(function () {
     if ($(".select2-element").length) {
         $(".select2-element").select2();
     }
+    if ($(".autocomplete").length){
+        $(".autocomplete").each(function(){
+            var list_url=$(this).data("list");
+            var get_url =$(this).data("get");
+            $(this).autocompleter({url_list:list_url, url_get: get_url});
+        })
+    }
     function formatResult(item) {
         return item.name;
     }

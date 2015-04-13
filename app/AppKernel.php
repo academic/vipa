@@ -51,6 +51,7 @@ class AppKernel extends Kernel {
             new Okulbilisim\LocationBundle\OkulbilisimLocationBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
+            new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
