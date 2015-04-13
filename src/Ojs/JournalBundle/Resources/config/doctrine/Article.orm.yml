@@ -201,8 +201,7 @@ Ojs\JournalBundle\Entity\Article:
         - translatable
         - versioned
     title:
-      length: 255
-      type: string
+      type: text
       gedmo:
         - translatable
         - versioned
