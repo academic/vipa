@@ -18,6 +18,9 @@ Ojs\SiteBundle\Entity\BlockLink:
     link_order:
       type: integer
       nullable: true
+    post_id:
+      type: integer
+      nullable: true
   manyToOne:
     block:
       targetEntity: Ojs\SiteBundle\Entity\Block
@@ -25,3 +28,10 @@ Ojs\SiteBundle\Entity\BlockLink:
         name: block_id
         referencedColumnName: id
       inversedBy: links
+
+    post:
+      target: Okulbilisim\CmsBundle\Entity\Post
+      fetch: EXTRA_LAZY
+      joinColumn:
+        name: post_id
+        referencedColumnName: id

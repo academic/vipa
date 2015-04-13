@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Okulbilisim\CmsBundle\OkulbilisimCmsBundle;
 
 /**
  * BlockLink
@@ -34,7 +35,10 @@ class BlockLink
      */
     private $block;
 
-
+    /** @var  \Okulbilisim\CmsBundle\Entity\Post */
+    private $post;
+    /** @var  integer */
+    private $post_id;
     /**
      * Set id
      *
@@ -178,4 +182,41 @@ class BlockLink
     {
         return $this->link_order;
     }
+
+    /**
+     * @return \Okulbilisim\CmsBundle\Entity\Post
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param \Okulbilisim\CmsBundle\Entity\Post $post
+     * @return $this
+     */
+    public function setPost($post)
+    {
+        $this->post = $post;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPostId()
+    {
+        return $this->post_id;
+    }
+
+    /**
+     * @param int $post_id
+     * @return $this
+     */
+    public function setPostId($post_id)
+    {
+        $this->post_id = $post_id;
+        return $this;
+    }
+    
 }
