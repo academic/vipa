@@ -34,12 +34,14 @@
                             </div>
 
                             <hr>
-                            <h2>{{ article.title }}
+                            <h2 class="title">{{ article.title }}
                                 <br> {% if article.titleTransliterated %}<span class="muted">{{ article.titleTransliterated }}</span><br>{%endif%}
                                 {% if article.subtitle %}<small>{{ article.subtitle }}</small><br>{%endif%}
                                 {% if article.articleAuthors %}
                                     {% for authorsInfo in article.articleAuthors %}
-                                        <span><small>{{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}</small></span>
+                                        <small>
+                                            <span class="author">{{ authorsInfo.author.fullName }}</span><sup><a href="#author{{authorsInfo.author.id}}" class="btn btn-link">[{{loop.index}}]</a></sup>
+                                        </small>
                                         {% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 {%endif%}
@@ -63,7 +65,10 @@
                         <div id="articleKeywords">
                             <h4 class="page-header">{{"keywords"|trans}}</h4>
                             <div>
-                                {{ article.keywords }}
+                                {% set keywords = article.keywords|split(',') %}
+                                {% for keyword in keywords %}
+                                    <a href="{{path('ojs_search_index',{ 'q': keyword })}}">{{keyword}}</a>{% if not loop.last %}, {% endif %} 
+                                {% endfor %}
                             </div>
                         </div>
                         <hr>
@@ -137,6 +142,22 @@
                                         <td>{{ article.section.title }}</td>
                                     </tr>
                                 {% endif %}
+                                {% if article.articleAuthors %}
+                                    <tr>
+                                        <th>Authors</th> 
+                                        <td> 
+                                            {% for authorsInfo in article.articleAuthors %}
+
+                                                <p>
+                                                    <a name="author{{authorsInfo.author.id}}" id="author{{authorsInfo.author.id}}"></a>
+                                                    <strong class="author"> {{authorsInfo.author.fullName}}</strong> :
+                                                    {{authorsInfo.author.summary}}
+                                                </p>
+
+                                            {%endfor%}
+                                        </td>
+                                    </tr>
+                                {%endif%}
                             </table>
                         </div> 
                         <br>
