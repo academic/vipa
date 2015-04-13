@@ -102,6 +102,8 @@ class UserJournalRoleController extends Controller
     public function newAction()
     {
         $entity = new UserJournalRole();
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($entity);
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsUserBundle:UserJournalRole:new.html.twig', array(

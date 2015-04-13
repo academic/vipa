@@ -133,7 +133,29 @@ class PublicSearchRestController extends FOSRestController {
      * @return array
      */
     public function getUsersAction(Request $request){
+        $limit = 12;
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.user');
 
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('username',strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+
+        $results = $search->search($prefix);
+        $data = [
+            'items'=>[]
+        ];
+        foreach ($results as $result) {
+            $data['items'][] = [
+                'id'=>$result->getId(),
+                'label'=>$result->getData()['username'],
+                'value'=>$result->getData()['username']
+
+            ];
+        }
+        return $data;
     }
 
     /**
