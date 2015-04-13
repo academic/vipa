@@ -16,12 +16,16 @@ class JournalType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('title')
+                ->add('title','text',[
+                    'attr'=>[
+                        'class'=>'validate[required]'
+                    ]
+                ])
                 ->add('titleAbbr')
                 ->add('titleTransliterated')
                 ->add('institution', null, [
                     'attr' => [
-                        'class' => 'select2-element'
+                        'class' => 'select2-element validate[required]'
                     ]
                 ])
                 ->add('languages', 'entity', array(
@@ -31,7 +35,7 @@ class JournalType extends AbstractType {
                     'expanded' => false,
                     'required' => false,
                     'attr' => [
-                        'class' => 'select2-element'
+                        'class' => 'select2-element validate[required]',
                     ]
                         )
                 )
@@ -40,7 +44,7 @@ class JournalType extends AbstractType {
                     'property' => 'subject',
                     'multiple' => true,
                     'attr' => [
-                        'class' => 'select2-element'
+                        'class' => 'select2-element validate[required]'
                     ]
                 ])
                 ->add('submitRoles', 'entity', array(
@@ -50,7 +54,7 @@ class JournalType extends AbstractType {
                     'expanded' => false,
                     'required' => false,
                     'attr' => [
-                        'class' => 'select2-element'
+                        'class' => 'select2-element validate[required]'
                     ]
                         )
                 )
@@ -71,12 +75,12 @@ class JournalType extends AbstractType {
                 ->add('country', 'entity', [
                     'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
-                        'class' => 'select2-element'
+                        'class' => 'select2-element validate[required]'
                     ]
                 ])
                 ->add('footer_text', 'textarea', [
                     'attr' => [
-                        'class' => 'wysihtml5'
+                        'class' => 'wysihtml5 validate[required]'
                     ]
                 ])
                 ->add('published')
@@ -108,7 +112,11 @@ class JournalType extends AbstractType {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Journal'
+            'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+            'attr'=>[
+                'novalidate'=>'novalidate',
+                'class'=>'validate-form'
+            ]
         ));
     }
 
