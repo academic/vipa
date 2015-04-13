@@ -523,7 +523,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getFullName()
     {
         $this->fullName = /* $this->title . ' ' . */
-            $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
+                $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
         // not sure if title should be added to fullname 
         return $this->fullName;
     }
