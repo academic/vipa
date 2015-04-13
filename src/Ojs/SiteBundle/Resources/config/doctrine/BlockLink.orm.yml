@@ -30,7 +30,7 @@ Ojs\SiteBundle\Entity\BlockLink:
       inversedBy: links
 
     post:
-      target: Okulbilisim\CmsBundle\Entity\Post
+      targetEntity: Okulbilisim\CmsBundle\Entity\Post
       fetch: EXTRA_LAZY
       joinColumn:
         name: post_id
