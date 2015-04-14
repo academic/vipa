@@ -109,6 +109,9 @@ fos_elastica:
                             debug_logging: false
                 journal:
                     mappings:
+                        title: ~
+                        subtitle: ~
+                        description: ~
                         tags: ~
                         status: ~
                         subjects:
