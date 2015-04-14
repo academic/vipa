@@ -144,15 +144,11 @@ class PublicSearchRestController extends FOSRestController {
 
 
         $results = $search->search($prefix);
-        $data = [
-            'items'=>[]
-        ];
+        $data = [];
         foreach ($results as $result) {
-            $data['items'][] = [
+            $data[] = [
                 'id'=>$result->getId(),
-                'label'=>$result->getData()['username'],
-                'value'=>$result->getData()['username']
-
+                'text'=>$result->getData()['username']." - ".$result->getData()['email'],
             ];
         }
         return $data;
@@ -205,7 +201,24 @@ class PublicSearchRestController extends FOSRestController {
      * @return array
      */
     public function getJournalsAction(Request $request){
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.journal');
 
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('title',strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+
+        $results = $search->search($prefix);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id'=>$result->getId(),
+                'text'=>$result->getData()['title'],
+            ];
+        }
+        return $data;
     }
     
     
