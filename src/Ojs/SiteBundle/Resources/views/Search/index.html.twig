@@ -7,17 +7,14 @@
             <h1>{{ "search.results"|trans }}</h1>
 
             <h2 class="lead">
-                {% trans with {'%total%':total_count, '%term%':term} %}
-                <strong class="text-danger">%total%</strong> results were found for the search
-                for <strong class="text-danger">%term%</strong>
-                {% endtrans %}
+                {% trans with {'%total%':total_count, '%term%':term} %}search.result.headline{% endtrans %}
 
             </h2>
         </hgroup>
         {% if total_count > 0 %}
             <nav class="col-xs-12 col-sm-6 col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Journals</div>
+                    <div class="panel-heading">{{"journal.plural"|trans}}</div>
                     <ul class="list-group">
                         {% for journal in aggregations.journal %}
                             <li class="list-group-item">
@@ -32,7 +29,7 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="panel-heading">Authors</div>
+                    <div class="panel-heading">{{"author.plural"|trans}}</div>
 
                     <ul class="list-group">
                         {% for author in aggregations.author %}
