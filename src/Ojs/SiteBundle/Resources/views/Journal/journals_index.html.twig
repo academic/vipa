@@ -5,8 +5,8 @@
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="/">Ojs</a></li>
-            <li><a href="{{ url('ojs_journals_index') }}">{{ "Journals"|trans }}</a></li>
-            <li class="active">{{ "List"|trans }}</li>
+            <li><a href="{{ url('ojs_journals_index') }}">{{ "journal.plural"|trans }}</a></li>
+            <li class="active">{{ "list"|trans }}</li>
         </ol>
         <div class="row">
             <div class="col-sm-3 col-md-3">
@@ -23,7 +23,7 @@
                             {% for institution_type in aggregations.institution %}
                                 <li class="list-group-item">
                                     <a href="{{ url('ojs_journals_index',{filter:filter|merge({institution:institution_type.data.id})}) }}">
-                                        {{ institution_type.data.name }}
+                                        {{ institution_type.data.name|trans }}
                                     </a>
                                     <span class="badge">{{ institution_type.bucket.doc_count }}</span>
                                     {% if filter['institution'] is defined and filter['institution']==institution_type.data.id %}
