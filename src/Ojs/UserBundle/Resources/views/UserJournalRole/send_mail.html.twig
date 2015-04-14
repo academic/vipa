@@ -47,19 +47,6 @@
     <script src="{{ asset('/vendor/twig.js/twig.min.js') }}"></script>
     <script type="text/javascript">
         var user = '{{ user.toJson|raw }}';
-        (function($) {
-            if (!$.concat) {
-                $.extend({
-                    concat: function(a, b) {
-                        var r = [];
-                        for (x in arguments) {
-                            r = r.concat(arguments[x]);
-                        }
-                        return r;
-                    }
-                });
-            };
-        })(jQuery);
         function renderMailtemplate(tpl) {
             var tmpl = twig({data: tpl.template});
             console.dir(tmpl.render(tpl));
