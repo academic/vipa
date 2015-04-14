@@ -63,6 +63,7 @@ landingPage.text:   |
                                                             (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
                                                             geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
                                                         </p>
+                                                        <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 search: Search
 search.main: Search Article, Journal or Author
 search_query: 'type keyword(s) here'
