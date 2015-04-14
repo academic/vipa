@@ -63,6 +63,7 @@ landingPage.text:  |
                                                             (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
                                                             geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
                                                         </p>
+                                                        <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 search: Ara
 search.main: Makale, Dergi ve Yazar
 search_query: 'Anahtar Sözcükleri Girin'
