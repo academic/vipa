@@ -362,6 +362,7 @@ journal.settings.submission.language: 'Makale Gönderim Dilleri'
 journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
 journal.settings.submission: 'Makale Gönderim Ayarları'
 journal.settings.submission.abstractTemplate: 'Makale Gönderimi Öz Şablonu'
+journal.settings.abstractTemplate.desc: Önceden tanımlanmış temaları, üstteki butonları kullanarak yükleyebilirsiniz.
 journal.settings.mail: 'E-posta Ayarları'
 journal.settings.page: 'Sayfa Ayarları'
 journal.settings.mail.signature: 'Email imzası'
@@ -412,4 +413,7 @@ Info: 'TODO: Info'
 'Header Image': 'TODO: Header Image'
 File: 'TODO: File'
 
+empty: Empty
+common: Common
+detailed: Detailed
 tools: Araçlar

@@ -3,17 +3,21 @@
 -
     id: '1'
     lang: en
-    type: Detailed
+    type: empty
     template:  >
-                Background: </b> <br><br>
-                Material and Method: </b> <br><br>
-                Results: </b> <br><br>
-                Conclusion:  </b> <br><br>
-
 -
     id: '2'
     lang: en
-    type: Detailed
+    type: common
+    template:  >
+            <b>Background: </b> <br><br>
+            <b>Results: </b> <br><br>
+            <b>Conclusions: </b> <br><br>
+
+-
+    id: '3'
+    lang: en
+    type: detailed
     template:  >
         <b>Background: </b> <br><br>
         <b>Aims: </b> <br><br>
@@ -22,10 +26,11 @@
         <b>Conclusions and comment: </b> <br><br>
             
 -
-    id: '3'
+    id: '4'
     lang: en
-    type: Common
+    type: detailed
     template:  >
-            <b>Background: </b> <br><br>
-            <b>Results: </b> <br><br>
-            <b>Conclusions: </b> <br><br>
+                <b>Background: </b> <br><br>
+                <b>Material and Method: </b> <br><br>
+                <b>Results: </b> <br><br>
+                <b>Conclusion:  </b> <br><br>
