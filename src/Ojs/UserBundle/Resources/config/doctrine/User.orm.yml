@@ -17,7 +17,7 @@ Ojs\UserBundle\Entity\User:
         username:
             type: string
             length: 255
-            unique: false
+            unique: true
             nullable: false
         password:
             type: string
@@ -37,7 +37,7 @@ Ojs\UserBundle\Entity\User:
         email:
             type: string
             length: 255
-            unique: false
+            unique: true
             nullable: true
         title:
             type: string
