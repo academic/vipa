@@ -362,6 +362,7 @@ journal.settings.submission.language: Submission Language
 journal.settings.submission.language.text: Select mandatory languages for article submitting
 journal.settings.submission: Submission Settings
 journal.settings.submission.abstractTemplate: Submission Abstract Template
+journal.settings.abstractTemplate.desc: You can load  predefined templates by clicking buttons listed above.
 journal.settings.mail: "Mail Settings"
 journal.settings.page: "Page Settings"
 journal.settings.mail.signature: "Email signature"
@@ -401,4 +402,7 @@ Info: Info
 'Header Image': 'Header Image'
 File: File
 
+empty: Empty
+common: Common
+detailed: Detailed
 tools: Tools

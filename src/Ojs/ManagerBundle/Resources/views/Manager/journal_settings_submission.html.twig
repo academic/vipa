@@ -45,11 +45,11 @@
                                 <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
                                    onclick="$('textarea.editor').data('wysihtml5').editor.setValue($('#abstractTemplate{{template.id}}').html());
                                            return false;">
-                                    Template-{{template.id}} {{template.type}}
+                                    <span class="badge">{{template.id}}</span> {{template.type|trans}}
                                 </a>
                             {% endfor %}
                         </div>
-                        <p class="help-block">You can load from predefined templates.</p>
+                        <p class="help-block">{{"journal.settings.abstractTemplate.desc"|trans}}</p>
                     </div><hr>
                     <div class="hide">
                         {% for template in abstractTemplates %}
