@@ -1,4 +1,4 @@
 search.resutls: 'Search Results'
 search.results: 'Search Results'
-"<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>": "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
+search.result.headline: "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
 
