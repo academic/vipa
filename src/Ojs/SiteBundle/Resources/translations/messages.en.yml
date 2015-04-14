@@ -13,6 +13,7 @@ sure: 'Are you sure?'
 added: Added
 u: Update
 404: 'Not found'
+list: List
 error: Error
 error.oops: 'Oops! An Error Occurred'
 summart: Summary
@@ -46,24 +47,22 @@ primaly_language: 'Primaly Language'
 read.lastissue: 'Read Last Issue'
 details: Details
 ojs: OJS
+wiki: Wiki
+support: Support
 toggle_navigation: 'Toggle Navigation'
 home: Home
 institutions: Institutions
 journals: Journals
 register_journal: 'Register Journal'
 send_article: 'Send Article'
-featured: featured
+featured: Featured
 featured.desc: You can see selected and popular journals from the list below
 landingPage.text:   |
-                                            <p class="lead">
-                                                            DergiPark, dergi yayımlama sürecinin daha
-                                                            <mark>kolay</mark>  ve  <mark>hızlı</mark>
-                                                            gerçekleştirilebilmesine imkan sunan
-                                                            <ins>Açık Dergi Sistemleri</ins>
-                                                            (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
-                                                            geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
-                                                        </p>
-                                                        <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
+                                            <p class="lead"> 
+                                            ojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way. 
+                                            The whole process starting from the submission of an article to its publication is carried out in electronic environment.
+                                            </p>
+                                                        <p class="lead">JournalPark is <strong>free</strong> to use. </p>
 search: Search
 search.main: Search Article, Journal or Author
 search_query: 'type keyword(s) here'
