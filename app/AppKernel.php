@@ -52,6 +52,7 @@ class AppKernel extends Kernel {
             new APY\DataGridBundle\APYDataGridBundle(),
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
