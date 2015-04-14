@@ -11,8 +11,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{% if page == 'index' %} class="active"{% endif %}><a
-                        href={{ path('ojs_public_index') }}>{{ "home"|trans }}</a></li>
+                <li{% if page == 'index' %} class="active"{% endif %}>
+                    <a href="{{ path('ojs_public_index') }}"  title="{{ "home"|trans }}">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
                 <li{% if page == 'institution' %} class="active"{% endif %}><a
                         href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a></li>
                 <li{% if page == 'journals' %} class="active"{% endif %}><a
