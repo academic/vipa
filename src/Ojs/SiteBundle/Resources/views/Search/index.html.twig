@@ -1,0 +1,104 @@
+{% set hideleft = 1 %}
+{% extends "::ojsbase.html.twig" %}
+
+{% block body %}
+    <div class="container-fluid">
+        <hgroup class="page-header">
+            <h1>{{ "search.results"|trans }}</h1>
+
+            <h2 class="lead">
+                {% trans with {'%total%':total_count, '%term%':term} %}
+                <strong class="text-danger">%total%</strong> results were found for the search
+                for <strong class="text-danger">%term%</strong>
+                {% endtrans %}
+
+            </h2>
+        </hgroup>
+        {% if total_count > 0 %}
+            <nav class="col-xs-12 col-sm-6 col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Journals</div>
+                    <ul class="list-group">
+                        {% for journal in aggregations.journal %}
+                            <li class="list-group-item">
+                                <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({journal:journal.data.id})}) }}">
+                                    <i class="fa fa-book"></i> {{ journal.data.title }}
+                                </a>
+                                <span class="badge">{{ journal.bucket.doc_count }}</span>
+                                {% if filter['journal'] is defined and filter['journal']==journal.data.id %}
+                                    <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({journal:null})}) }}"><i
+                                                class="fa fa-close"></i></a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="panel-heading">Authors</div>
+
+                    <ul class="list-group">
+                        {% for author in aggregations.author %}
+                            <li class="list-group-item">
+
+                                <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({author:author.data.id})}) }}">
+                                    <i class="fa fa-user"></i> {{ author.data.fullName }}
+                                </a>
+                                <span class="badge">{{ author.bucket.doc_count }}</span>
+                                {% if filter['author'] is defined and filter['author']==author.data.id %}
+                                    <a href="{{ url('ojs_search_index',{q:term,filter:filter|merge({author:null})}) }}"><i
+                                                class="fa fa-close"></i></a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+            <section class="col-xs-12 col-sm-12 col-md-9">
+                <ol>
+                    {% for article in result %}
+
+                        <li>
+                            <article>
+
+                                <h4>
+                                    <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,issue_id: article.issue.id,institution: article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                </h4>
+
+                                <p>
+                                    {% for author in article.articleAuthors %}
+                                        <a href="">{{ author.author.lastName }}, {{ author.author.firstName }}</a>
+                                    {% endfor %}
+                                </p>
+
+                                <p class="text-muted">DOI: {{ article.doi }}</p>
+                            </article>
+                        </li>
+                    {% endfor %}
+                </ol>
+                <nav>
+
+                </nav>
+                <ul class="pagination ">
+                    {% if page_count>1 and page!=1 %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:page-1,q:term }) }}">
+                                <span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a>
+                        </li>
+                    {% endif %}
+
+                    {% for p in 1..page_count %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+                    {% if page_count>1 and page!=page_count %}
+                        <li>
+                            <a href="{{ url('ojs_search_index',{page:page+1,q:term }) }}">
+                                <span aria-hidden="true">&raquo;</span><span class="sr-only"></span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+            </section>
+        {% endif %}
+    </div>
+{% endblock %}
