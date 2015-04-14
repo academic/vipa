@@ -52,7 +52,19 @@ institutions: Institutions
 journals: Journals
 register_journal: 'Register Journal'
 send_article: 'Send Article'
+featured: featured
+featured.desc: You can see selected and popular journals from the list below
+landingPage.text:   |
+                                            <p class="lead">
+                                                            DergiPark, dergi yayımlama sürecinin daha
+                                                            <mark>kolay</mark>  ve  <mark>hızlı</mark>
+                                                            gerçekleştirilebilmesine imkan sunan
+                                                            <ins>Açık Dergi Sistemleri</ins>
+                                                            (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
+                                                            geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
+                                                        </p>
 search: Search
+search.main: Search Article, Journal or Author
 search_query: 'type keyword(s) here'
 login: Login
 dashboard: Dashboard
