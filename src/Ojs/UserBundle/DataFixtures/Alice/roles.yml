@@ -1,4 +1,12 @@
 \Ojs\UserBundle\Entity\Role:
+  role1:
+    role: ROLE_USER
+    name: Default registered user
+    isSystemRole: True
+  role2:
+    role: ROLE_SUPER_ADMIN
+    name: System Super Administrator
+    isSystemRole: True
   role3:
     role: ROLE_JOURNAL_MANAGER
     name: Journal Manager
