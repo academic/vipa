@@ -47,12 +47,25 @@
     <script src="{{ asset('/vendor/twig.js/twig.min.js') }}"></script>
     <script type="text/javascript">
         var user = '{{ user.toJson|raw }}';
+        (function($) {
+            if (!$.concat) {
+                $.extend({
+                    concat: function(a, b) {
+                        var r = [];
+                        for (x in arguments) {
+                            r = r.concat(arguments[x]);
+                        }
+                        return r;
+                    }
+                });
+            };
+        })(jQuery);
         function renderMailtemplate(tpl) {
             var tmpl = twig({data: tpl.template});
-            console.dir(tmpl.render({{templateVars|raw}}));
-            $(".wysihtml5-sandbox").contents().find('body').html(tmpl.render({{templateVars|raw}}));
+            console.dir(tmpl.render(tpl));
+            $(".wysihtml5-sandbox").contents().find('body').html(tmpl.render(tpl));
             var sbjt = twig({data: tpl.subject});
-            $("#mail_subject").val(sbjt.render({{templateVars|raw}}));
+            $("#mail_subject").val(sbjt.render(tpl));
         }
         $(document).ready(function () {
             {% if selectedTemplate %}
@@ -66,13 +79,19 @@
                 $.ajax({
                     url: '/api/mail_template/' + template,
                     method: 'GET',
-                    dataType: 'json',
+                    dataType:'json',
                     success: function (d) {
-                        renderMailtemplate(d);
+                        var obj = {
+                            user: JSON.parse(user)
+                        }
+                        var object = $.extend({user:{},template:'',subject:''},obj,d);
+                        console.dir(object);
+                        renderMailtemplate(object);
                     }
                 });
             });
         });
+
     </script>
 {% endblock %}
 
