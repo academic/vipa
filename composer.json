@@ -55,7 +55,8 @@
         "okulbilisim/cms-bundle": "dev-master",
         "okulbilisim/citation-parser": "dev-master",
         "okulbilisim/ojs-tools-bundle": "dev-master",
-        "jms/di-extra-bundle": "~1.5"
+        "jms/di-extra-bundle": "~1.5",
+        "stephanecollot/datetimepicker-bundle": "~1.0"
     },
     "require-dev": {
         "okulbilisim/ojs-message-bundle": "dev-master",

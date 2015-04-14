@@ -78,6 +78,8 @@
             tagClass: 'label label-info'
         });
     </script>
+
+    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -85,5 +87,5 @@
     {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-
+    {{ form_stylesheet(form) }}
 {% endblock %}

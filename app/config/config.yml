@@ -127,3 +127,5 @@ jms_di_extra:
 #            router: "@router"
 #        method_calls:
 #            setRouter: ["@router"]
+sc_datetimepicker:
+    picker: ~
