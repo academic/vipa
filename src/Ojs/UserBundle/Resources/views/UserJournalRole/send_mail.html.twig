@@ -49,7 +49,8 @@
         var user = '{{ user.toJson|raw }}';
         function renderMailtemplate(tpl) {
             var tmpl = twig({data: tpl.template});
-            $("#mail_body").val(tmpl.render({{templateVars|raw}}));
+            console.dir(tmpl.render({{templateVars|raw}}));
+            $(".wysihtml5-sandbox").contents().find('body').html(tmpl.render({{templateVars|raw}}));
             var sbjt = twig({data: tpl.subject});
             $("#mail_subject").val(sbjt.render({{templateVars|raw}}));
         }
