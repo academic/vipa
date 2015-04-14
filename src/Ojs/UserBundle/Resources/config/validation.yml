@@ -1,6 +1,14 @@
 Ojs\UserBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [email]
+            message: "Email already registered!"
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [username]
+            message: "Username already registered!"
     properties:
         username:
             - NotBlank: ~
         email:
             - NotBlank: ~
+            - Email: ~
