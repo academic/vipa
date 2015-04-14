@@ -1,48 +1,59 @@
 {% extends "::ojsbase.html.twig" %}
-{% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+{% set hideleft = 1 %}
+{% block breadcrumb %}{% endblock %}
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{"institutions"|trans}}</h1>
+        <h1 class="page-header">{{ "institutions"|trans }}</h1>
         {% for entity in entities %}
             <div class="panel panel-default">
                 <div class="panel-heading"><a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}">
                         {% if entity.isVerified %}
                             <i class="fa fa-diamond"></i>
-                            {% endif %}
+                        {% endif %}
                         {{ entity.name }}</a></div>
                 <div class="panel-body">
-                    <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter('institution_logo') }}" data-src="holder.js/72x72/#f9A497:#ffffff/text:{{entity.name}}" alt="" class="pull-right"/>
+                    <a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}">
+                        <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter('institution_logo') }}"
+                             data-src="holder.js/72x72/#f9A497:#ffffff/text:{{ entity.name }}" alt=""
+                             class="pull-right"/>
+                    </a>
+
                     <div itemscope itemtype="http://schema.org/Organization">
-                        <span itemprop="name" class="text-primary hidden">{{entity.name}}</span>
-                        <h4>Contact Details:</h4>
+                        <span itemprop="name" class="text-primary hidden">{{ entity.name }}</span>
+                        <br/>
+
+                        <strong>Contact Details:</strong>
+                        <br/>
+
                         <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                             Main address:
-                            <span itemprop="address">{{entity.address}}</span>
-                            <span itemprop="addressLat">{{entity.addressLat}}</span>
-                            <span itemprop="addressLong">{{entity.addressLong}}</span>
-                            <span itemprop="addressLocality">{{entity.city}},{{entity.country}}</span>
+                            <span itemprop="address">{{ entity.address }}</span>
+                            <span itemprop="addressLat">{{ entity.addressLat }}</span>
+                            <span itemprop="addressLong">{{ entity.addressLong }}</span>
+                            <span itemprop="addressLocality">{{ entity.city }},{{ entity.country }}</span>
                         </div>
-                        Tel:<span itemprop="telephone">{{entity.phone}}</span>,
-                        Fax:<span itemprop="faxNumber">{{entity.fax}}</span>,
-                        E-mail: <span itemprop="email"><a href="mailto:{{entity.email}}">{{entity.email}}</a></span>
-                        Web: <span itemprop="url"><a href="{{entity.url}}">{{entity.url}}</a></span>
-                        Wiki: <span itemprop="url">{{entity.url}}</span>
+                        Tel:<span itemprop="telephone">{{ entity.phone }}</span>,
+                        Fax:<span itemprop="faxNumber">{{ entity.fax }}</span>,
+                        E-mail: <span itemprop="email"><a href="mailto:{{ entity.email }}">{{ entity.email }}</a></span>
+                        Web: <span itemprop="url"><a href="{{ entity.url }}">{{ entity.url }}</a></span>
+                        Wiki: <span itemprop="url">{{ entity.url }}</span>
                     </div>
                 </div>
 
 
                 <div class="panel-footer">
                     &middot;
-                    <a href="/institution/{{ entity.slug }}" class="btn btn-default btn-xs pull-right">{{"more"|trans}} <i class="fa fa-arrow-right"></i></a>
-                    {% if entity.tags%}
-                    <i class="fa fa-tags"></i> {{"tags"|trans}} 
-                    {% set tags = entity.tags|split(',') %}
-                    {% for tag in tags %}
-                        <a href="#"><span class="badge">{{tag}}</span></a>
-                        {%endfor%}
-                    {% endif%}
+                    <a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}"
+                       class="btn btn-default btn-xs pull-right">{{ "more"|trans }} <i
+                                class="fa fa-arrow-right"></i></a>
+                    {% if entity.tags %}
+                        <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                        {% set tags = entity.tags|split(',') %}
+                        {% for tag in tags %}
+                            <a href="#"><span class="badge">{{ tag }}</span></a>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
