@@ -54,7 +54,7 @@ class ArticleService {
             $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
 
             $meta->meta('DC.Type', 'Text.Serial.Journal');
-            $meta->meta('DC.Type.articleType', $article->getSection()->getTitle());
+            !is_null($article->getSection())&&$meta->meta('DC.Type.articleType', $article->getSection()->getTitle());
 
             $meta->meta('DC.Contributor.Sponsor', '');
             $meta->meta('DC.Identifier', $article->getId());
