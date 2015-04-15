@@ -141,7 +141,7 @@
             {% endif%}
             {% if app.user and isJournalManager() and ((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus)!=true %}
                 $(document).ready(function(){
-                   notify("It seems that you have not finished <a href='{{path('manager_current_journal_setup')}}'>Journal Setup</a>","information");
+                   notify("It seems that you have not finished <a href='{{path('manager_journal_setup')}}'>Journal Setup</a>","information");
                 });
             {% endif %}
         </script>
