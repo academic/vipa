@@ -22,6 +22,18 @@ journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
 workflow: 'İş Akışı'
+workflow.steps: İş Akışı Adımları
+workflow.step.detail: İş Akışı Adımı Detayı
+firstStep: İlk Adım
+lastStep: Son Adım
+nextSteps: Sonraki Adımlar
+'Is visible to author?': Yazar görebilir mi?
+'Must be assigned to someone?': Birisine atanması gerekir mi?
+can.edit?: Düzenleyebilir mi?
+can.review?: Değerlendirebilir mi?
+can.seeAuthor?: Yazarı görebilir mi?
+can.rejectSubmission?: Gönderiyi reddebilir mi?
+suggestedMaxDays: Tavsiye edilen en fazla gün sayısı
 admin: Yönetim
 dashboard: Panel
 title: Başlık
@@ -74,6 +86,7 @@ article.fulltext: 'Tam Metin'
 article.plural: Makaleler
 article.singular: Makale
 article.licensing: Önşart
+articles.needAction: İşlem Bekleyen Makaleler
 submission.starting: Başlarken
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
@@ -302,6 +315,7 @@ notes_to_editor: 'Editöre Notlar'
 review: Değerlendirme
 review.form: 'Değerlendirme Formu'
 review.forms: 'Değerlendirme Formları'
+reviewForms.manage: Değerlendirme formlarını yönet
 template: Şablon
 templates: Şablonlar
 useThisTemplate: 'Bu Şablonu Kullan'
@@ -424,3 +438,9 @@ tools: Araçlar
 suggestion.journal.suggest: "Yeni Dergi Gönder"
 loggedAs: 'Giriş yapılan kullanıcı'
 you: Siz
+controlPanel: Kontrol Paneli 
+visualize: Görüntüle
+color: Renk
+color.generate: Renk oluştur
+statusText: Durum Başlığı
+introduction: Tanıtım
