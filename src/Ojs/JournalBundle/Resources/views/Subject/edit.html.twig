@@ -2,9 +2,6 @@
 
 {% block body -%}
     <h1>{{"subject.edit"|trans}}</h1>
-    <!-- 
-    {{ grid(grid) }}
-    -->
     {{ form(edit_form) }}
     <div class="record_actions">
         {% set back_path = 'subject' %}
