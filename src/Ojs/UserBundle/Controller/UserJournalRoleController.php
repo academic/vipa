@@ -51,11 +51,13 @@ class UserJournalRoleController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $entity = new UserJournalRole();
+        $em->persist($entity);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $data = $form->getData();
             $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($data->getJournalId());
             $user = $em->getRepository('OjsUserBundle:User')->findOneById($data->getUserId());
