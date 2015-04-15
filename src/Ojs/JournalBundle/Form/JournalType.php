@@ -83,7 +83,7 @@ class JournalType extends AbstractType {
                         'class' => 'wysihtml5 validate[required]'
                     ]
                 ])
-                ->add('published')
+                ->add('published','checkbox')
                 ->add('status', 'choice', [
                     'choices' => CommonParams::getStatusTexts()
                 ])

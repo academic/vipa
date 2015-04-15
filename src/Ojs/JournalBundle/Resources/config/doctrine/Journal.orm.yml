@@ -191,7 +191,7 @@ Ojs\JournalBundle\Entity\Journal:
             type: integer
             nullable: true
         published:
-            type: integer
+            type: boolean
             column: published
             gedmo:
                 - versioned
