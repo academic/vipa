@@ -60,7 +60,10 @@ class UpdateUserType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
             'attr'=>[
-                'class'=>'validate-form'
+                'class'=>'validate-form',
+                'attr'=>[
+                    'novalidate'=>'novalidate'
+                ]
             ]
         ));
     }

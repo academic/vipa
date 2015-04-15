@@ -29,6 +29,10 @@ class BlockLinkType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\SiteBundle\Entity\BlockLink',
             'block_id'=>null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

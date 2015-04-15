@@ -37,7 +37,11 @@ class JournalThemeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme'
+            'data_class' => 'Ojs\JournalBundle\Entity\JournalTheme',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

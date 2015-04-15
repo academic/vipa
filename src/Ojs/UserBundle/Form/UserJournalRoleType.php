@@ -60,7 +60,11 @@ class UserJournalRoleType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\UserJournalRole',
-            'user' => null
+            'user' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

@@ -28,7 +28,11 @@ class EventLogType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\EventLog'
+            'data_class' => 'Ojs\UserBundle\Entity\EventLog',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

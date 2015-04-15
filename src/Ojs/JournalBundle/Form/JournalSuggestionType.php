@@ -76,7 +76,11 @@ class JournalSuggestionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Document\JournalSuggestion',
-            'em' => null
+            'em' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

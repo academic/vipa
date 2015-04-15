@@ -64,7 +64,11 @@ class JournalContactType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\JournalContact',
             'user' => null,
-            'journal' => null
+            'journal' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

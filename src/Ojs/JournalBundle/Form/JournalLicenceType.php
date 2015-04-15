@@ -31,7 +31,11 @@ class JournalLicenceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalLicence'
+            'data_class' => 'Ojs\JournalBundle\Entity\JournalLicence',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

@@ -61,7 +61,11 @@ class InstitutionType extends AbstractType {
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Institution',
-            'helper' => null
+            'helper' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 
