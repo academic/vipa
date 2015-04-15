@@ -1,0 +1,49 @@
+{% extends "::ojsbase.html.twig" %}
+{% set hideleft = 1%}
+{%block breadcrumb %}{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <!-- The carousel -->
+            <div class="page-header">
+                <h1>{{journal.title}}</h1>
+                <h6>{{journal.subtitle}}</h6>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <ol class="breadcrumb">
+                        <li><a href="/">Ojs</a></li>
+                        <li><a href="/journal/{{journal.slug}}">{{"journal_home"|trans}}</a></li>
+                        <li class="active">{{"announcements"|trans}}</li>
+                    </ol>
+                    {% for announcement in announcements %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading toggle-list">
+                                <h3 class="panel-title btn-link">{{ announcement.title|raw }}</h3>
+                            </div>
+                            <div class="panel-body">
+                                {{ announcement.content|raw }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            {{ 'No Content'|trans }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('journal',{{ journal.id }} )
+    </script>
+{% endblock %}
+
