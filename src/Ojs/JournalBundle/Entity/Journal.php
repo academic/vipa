@@ -101,7 +101,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $country_id;
 
     /**
-     * @var integer
+     * @var boolean
      * @Expose
      */
     private $published;
@@ -790,6 +790,14 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->published = $published;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published?true:false;
     }
 
     /**
