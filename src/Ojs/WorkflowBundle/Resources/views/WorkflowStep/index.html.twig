@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
-                {'title': 'Workflow Steps'}
+                {'link': path('dashboard'), 'title': 'dashboard'},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
+                {'title': 'workflow.steps'}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>Workflow Steps</h1>
+            <h1>{{"workflow.steps"|trans}}</h1>
         </div>
         <div class="panel-body">
             {% for entity in steps %}
@@ -21,8 +21,8 @@
                     <span>
                         <a href="{{ path('workflowsteps_show', { 'id': entity.id } ) }}">
                             <strong>
-                                {%if entity.firstStep%}<span class="badge">First</span>{%endif%}
-                                {%if entity.lastStep%}<span class="badge">Last</span>{%endif%}
+                                {%if entity.firstStep%}<span class="badge">{{"firstStep"|trans}}</span>{%endif%}
+                                {%if entity.lastStep%}<span class="badge">{{"lastStep"|trans}}</span>{%endif%}
                                 {{entity.title}}
                             </strong>
                         </a>
@@ -34,7 +34,7 @@
 
                     <br>
                     <span>
-                        <small>Next Steps :</small>
+                        <small>{{"nextSteps"|trans}} :</small>
                         {% if entity.getOnlyReply() %}
                             <span class="label label-primary">
                                 Only Reply

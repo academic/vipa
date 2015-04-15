@@ -7,7 +7,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'Dashboard'},
+                {'link': path('dashboard'), 'title': 'dashboard'},
                 {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
                 {'title': 'New Workflow Step'}
 ] %}
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <label>{{"color"|trans}} <a class="btn btn-default btn-xs generateRandomColor">{{"color.generate"|trans}}</a></label>
                     <input type="text" name="color"  class="form-control" id="inputcolor" value="" /> 
                     <a style="padding:2px;height:24px;display:block; " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
                 </div>
@@ -65,7 +65,7 @@
                 </div> 
 
                 <div class="form-group">
-                    <label>Introduction</label>
+                    <label>{{"introduction"|trans}}</label>
                     <textarea name="introduction" class="form-control editor" rows="10"></textarea>
                 </div>
 
@@ -79,13 +79,13 @@
                 </div>
                 <div id="advanced" style="display:none">
                     <div class="form-group">
-                        <label>Allowed maximum days</label>
+                        <label>{{"suggestedMaxDays"|trans}}</label>
                         <input class="form-control" name="maxdays" type="number" value="7"  min="1" max="10000" />
                     </div>
 
 
                     <div class="form-group">
-                        <label>Roles</label>
+                        <label>{{"role.plural"|trans}}</label>
                         <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
                             {%for role in roles%}
                                 <option value="{{role.id}}">{{role.role}}</option>
@@ -127,19 +127,19 @@
                             <input type="checkbox" name="isVisible" value="1" checked="checked"> 
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                            Can user see author?
+                            {{"can.seeAuthor?"|trans}}
                             <input type="checkbox" name="canSeeAuthor" value="1" checked="checked">
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                            Can edit?
+                            {{"can.edit?"|trans}}
                             <input type="checkbox" name="canEdit" value="1" checked="checked"> 
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                            Can review?
+                            {{"can.review?"|trans}}
                             <input type="checkbox" name="canReview" value="1" checked="checked"> 
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                            Must be assigned to someone?
+                            {%trans%}Must be assigned to someone?{%endtrans%}
                             <input type="checkbox" name="mustBeAssigned" value="1"> 
                         </label>
 
@@ -149,14 +149,14 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label>Review Forms</label>
+                        <label>{{"review.forms"|trans}}</label>
                         <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
                             <option>[No review form]</option>
                             {%for form in forms%}
                                 <option value="{{form.id}}">{{form.title}}</option>
                             {%endfor%}
                         </select>
-                        <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+                        <small><a href="{{path("ojs_review_forms")}}">{{"reviewForms.manage"|trans}}</a></small>
 
                     </div>
                 </div>
@@ -164,9 +164,7 @@
                 <div>
                     <input type="submit" class="btn btn-success" value="Save" />
                     <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
-                        <i class="fa fa-arrow-left"></i>
-                        Back to List
-                    </a>
+                        <i class="fa fa-arrow-left"></i> {{"b"|trans}} </a>
                 </div>
             </form>
 

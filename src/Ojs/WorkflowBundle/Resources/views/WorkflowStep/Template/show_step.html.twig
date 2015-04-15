@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'link': path('dashboard'), 'title': 'dashboard'},
     {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
     {'link': path('workflow_templates'), 'title': 'Templates'},
     {'link': path('workflow_template_show', {id: step.template.id}), 'title': step.template.title},
@@ -20,11 +20,11 @@
         <div class="panel-body">
             <table class="table">
                 <tr>
-                    <th>Title</th>
+                    <th>{{"title"|trans}}</th>
                     <td>{{step.title}}</td>
                 </tr>
                 <tr>
-                    <th>Color</th>
+                    <th>{{"color"|trans}}</th>
                     <td style="background-color:{{step.color}}">{{step.color}}</td>
                 </tr>
                 <tr>
@@ -33,20 +33,20 @@
                 </tr>
                 {% if step.firstStep %}
                     <tr>
-                        <th>First Step?</th>
+                        <th>{{"firstStep"|trans}}?</th>
                         <td>{{ printYesNo(step.firstStep ) }}</td>
                     </tr>
                 {% endif %}
                 {% if step.getLaststep %}
 
                     <tr>
-                        <th>Last Step?</th>
+                        <th>{{"lastStep"|trans}}?</th>
                         <td>{{  printYesNo(step.getLaststep()) }}</td>
                     </tr>
                 {% endif %}
 
                 <tr>
-                    <th>Next Steps</th>
+                    <th>{{"nextSteps"|trans}}</th>
                     <td>
                         {% if step.getOnlyReply() %}
                             <span class="label label-primary">
@@ -65,27 +65,27 @@
                     <td>{{ printYesNo(step.isVisible) }}</td>
                 </tr>
                 <tr>
-                    <th>Must be assigned to someone?</th>
+                    <th>{%trans%}Must be assigned to someone?{%endtrans%}</th>
                     <td>{{ printYesNo(step.mustBeAssigned) }}</td>
                 </tr>
                 <tr>
-                    <th>Can edit?</th>
+                    <th>{{"can.edit?"|trans}}</th>
                     <td>{{ printYesNo(step.canEdit) }}</td>
                 </tr>
                 <tr>
-                    <th>Can review?</th>
+                    <th>{{"can.review?"|trans}}</th>
                     <td>{{ printYesNo(step.canReview) }}</td>
                 </tr>
                 <tr>
-                    <th>Can user see author?</th>
+                    <th>{{"can.seeAuthor?"|trans}}</th>
                     <td>{{printYesNo(step.canSeeAuthor)}}</td>
                 </tr>
                 <tr>
-                    <th>Can reject submission</th>
+                    <th>{{"can.rejectSubmission?"|trans}}</th>
                     <td>{{printYesNo(step.canRejectSubmission)}}</td>
                 </tr>
                 <tr>
-                    <th>Roles</th>
+                    <th>{{"role.plural"|trans}}</th>
                     <td>
                         {%for role in step.roles%}
                             <span class="label label-default">{{role.name}}</span>
@@ -93,13 +93,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Allowed max days</th>
+                    <th>{{"suggestedMaxDays"|trans}}</th>
                     <td>
                         <span class="badge">{{step.maxdays}}</span>
                     </td>
                 </tr>
                 <tr>
-                    <th>Review Forms</th>
+                    <th>{{"review.forms"|trans}}</th>
                     <td>
                         {%if step.reviewForms %}
                             {% for form in step.reviewForms%}

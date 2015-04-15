@@ -2,7 +2,7 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'Dashboard'},
+    {'link': path('dashboard'), 'title': 'dashboard'},
     {'link': path('ojs_workflow_homepage'), 'title': 'Workflows'},
     {'link': path('workflow_template_show', {id: step.template.id}), 'title': step.template.title},
     {'title': 'Step Edit'}
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Color <a class="btn btn-default btn-xs generateRandomColor">Generate random</a></label>
+                    <label>{{"color"|trans}} <a class="btn btn-default btn-xs generateRandomColor">{{"color.generate"|trans}}</a></label>
                     <input type="text" name="color"  class="form-control" id="inputcolor" value="{{step.color}}" />
                     <a style="padding:2px;height:24px;display:block;background-color: {{step.color}} " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
                 </div>
@@ -58,13 +58,13 @@
                                {%if step.lastStep %}checked="checked"{%endif%}></label>
                 </div>
                 <div class="form-group">
-                    <label>Allowed maximum days</label>
+                    <label>{{"suggestedMaxDays"|trans}}</label>
                     <input class="form-control" name="maxdays" type="number" min="0" max="10000"  value="{{step.maxdays}}" />
                 </div>
 
 
                 <div class="form-group">
-                    <label>Roles</label>
+                    <label>{{"role.plural"|trans}}</label>
                     <select name="roles[]" class="select2-element" style="min-width: 250px" multiple="multiple">
                         {%for role in roles%}
                             <option
@@ -91,7 +91,7 @@
                     </label>
                     <label class="label label-warning"
                            style="line-height: 20px;display: inline-block;">
-                        Can user see author?
+                        {{"can.seeAuthor?"|trans}}
                         <input type="checkbox" name="canSeeAuthor" value="1"
                                {%if step.canSeeAuthor%}checked="checked"{%endif%}>
                     </label>
@@ -101,24 +101,24 @@
                 </div>
                 <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can edit?
+                        {{"can.edit?"|trans}}
                         <input type="checkbox" name="canEdit" value="1"
                                {%if step.canEdit%}checked="checked"{%endif%}>
                     </label>
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can review?
+                        {{"can.review?"|trans}}
                         <input type="checkbox" name="canReview" value="1"
                                {%if step.canReview%}checked="checked"{%endif%}>
                     </label>
 
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Must be assigned to someone?
+                        {%trans%}Must be assigned to someone?{%endtrans%}
                         <input type="checkbox" name="mustBeAssigned" value="1"
                                {%if step.mustBeAssigned%}checked="checked"{%endif%}>
                     </label>
 
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Can reject the submission completely?
+                        {{"can.rejectSubmission?"|trans}}
                         <input type="checkbox" name="canRejectSubmission" value="1"
                                {%if step.canRejectSubmission%}checked="checked"{%endif%}>
                     </label>
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Review Forms</label>
+                    <label>{{"review.forms"|trans}}</label>
 
                     <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
                         <option>[No review form]</option>
@@ -149,7 +149,7 @@
                             </option>
                         {%endfor%}
                     </select>
-                    <small><a href="{{path("ojs_review_forms")}}">Manage review forms</a></small>
+                    <small><a href="{{path("ojs_review_forms")}}">{{"reviewForms.manage"|trans}}</a></small>
                 </div>
 
                 <div>

@@ -19,9 +19,21 @@ settings: Settings
 mail: Mail
 mail.templates: Mail Templates
 journals: Journals
-first_page: 'First Page'
-last_page: 'Last Page'
+first_page: First Page
+last_page: Last Page
 workflow: Workflow
+workflow.steps: Workflow Steps
+workflow.step.detail: Workflow Step Detail
+firstStep: Firt Step
+lastStep: Last Step
+nextSteps: Next Steps
+'Is visible to author?': Is visible to author?
+'Must be assigned to someone?': Must be assigned to someone?
+can.edit?: Can edit?
+can.review?: Can review?
+can.seeAuthor?: Can user see author?
+can.rejectSubmission?: Can reject submission?
+suggestedMaxDays: Suggested maximum days count
 admin: Admin
 dashboard: Dashboard
 title: Title
@@ -74,6 +86,7 @@ article.fulltext: 'Full Text'
 article.plural: Articles
 article.singular: Article
 article.licensing: Prerequisite
+articles.needAction: Articles That Need Action
 submission.starting: Starting
 article.submit: 'Submit Article'
 article.files: 'Article Files'
@@ -302,6 +315,7 @@ notes_to_editor: 'Notes to Editor'
 review: Review
 review.form: 'Review Form'
 review.forms: 'Review Forms'
+reviewForms.manage: Manage review forms
 template: Template
 templates: Templates
 useThisTemplate: 'Use this template'
@@ -412,3 +426,9 @@ tools: Tools
 suggestion.journal.suggest: "Suggest New Journal"
 loggedAs: 'Logged in as'
 you: You
+controlPanel: Control Panel 
+visualize: Visualize
+color: Color
+color.generate: Generate color
+statusText: Status Text
+introduction: Introduction
