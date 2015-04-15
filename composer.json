@@ -47,7 +47,7 @@
         "fzaninotto/faker": "1.5.*@dev",
         "nelmio/alice": "1.7.2",
         "h4cc/alice-fixtures-bundle": "~0.5",
-        "apy/datagrid-bundle": "2.2.*",
+        "apy/datagrid-bundle": "2.2",
         "tackk/cartographer": "1.0.*",
         "unifik/database-config-bundle": "dev-master",
 
