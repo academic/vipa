@@ -21,8 +21,11 @@
                             <dd>{{ journal.eissn }}</dd>
                         {% endif %}
                         <dt>{{ "journal_langs"|trans }}</dt>
-                        <dd>{% for language in journal.languages %}<span
-                                class="badge badge-success">{{ language.name }}</span> {% endfor %}</dd>
+                        <dd>{% for language in journal.languages %}
+                                <span class="badge badge-success">{{ language.name }}</span>
+                                {% else %}
+                                <span class="badge badge-info">{{ "-"|trans}}</span>
+                            {% endfor %}</dd>
 
                         <dt>{{ "period"|trans }}</dt>
                         <dd>{{ journal.period }}</dd>
@@ -94,6 +97,10 @@
                             <h5><i class="fa fa-file-text-o"></i> {{ "read.lastissue"|trans }}</h5>
                         </a>
                     {% endif %}
+
+                    <a href="{{ url('ojs_announcement_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                       class="list-group-item "><h5><i class="fa fa-newspaper-o"></i> {{ "announcements"|trans }}</h5>
+                    </a>
                     <a href="{{ url('ojs_archive_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
                        class="list-group-item "><h5><i class="fa fa-archive"></i> {{ "archive"|trans }}</h5>
                     </a>
@@ -102,8 +109,7 @@
                        class="list-group-item "><h5><i class="fa fa-phone"></i> {{ "journalcontact.singular"|trans }}</h5>
                     </a>
 
-                    <a href=""
-                       class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
+                    <a href="" class="list-group-item "><h5><i class="fa fa-file-o"></i> {{ "about"|trans }}</h5>
                     </a>
 
                     {% if enable_social is defined  %}

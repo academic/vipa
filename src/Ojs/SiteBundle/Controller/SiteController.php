@@ -182,6 +182,21 @@ class SiteController extends Controller
         return $this->render('OjsSiteBundle::Journal/archive_index.html.twig', $data);
     }
 
+    public function announcementIndexAction($slug)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $slug]);
+        $this->throw404IfNotFound($data['journal']);
+        $service = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $data['announcements'] = $em->getRepository('OkulbilisimCmsBundle:Post')
+            ->getByType('announcement',$service->cmsobject($data['journal']),$data['journal']->getId());
+
+        $data['page'] = 'announcement';
+        $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
+
+        return $this->render('OjsSiteBundle::Journal/announcement_index.html.twig', $data);
+    }
     public function issuePageAction($id)
     {
         $data = [];
