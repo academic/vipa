@@ -1,3 +1,7 @@
+user.profile: Kullanıcı Profili
+user.profile.edit: Kullanıcı Profili Düzenle
+user.lastlogin: Son Giriş
+user.activitylog: Kullanıcı Hareket Kayıtları
 event.id: ID
 event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'

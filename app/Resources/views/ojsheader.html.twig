@@ -103,7 +103,7 @@
                                 <span> <i class="caret"></i></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a>Logged in as : <b>{{app.user.username}}</b></a></li>
+                                <li><a href="{{path('myprofile')}}" title="{{"you"|trans}}"><b>{{app.user.username}}</b></a></li>
                                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
                                         <a href="/dashboard" title="{{ "dashboard"|trans }}"><i
@@ -117,7 +117,7 @@
                                 </li>
                                 <li>
                                     <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
-                                        <i class="fa fa-edit"> {{ "Edit Profile"|trans }}</i>
+                                        <i class="fa fa-edit"> {{ "user.profile.edit"|trans }}</i>
                                     </a>
                                 </li>
 
@@ -152,7 +152,7 @@
                                 <li class="divider"></li>
                                 <li>
                                     <a>
-                                        <small>Last login : {{ app.user.getLastlogin()|date('Y-m-d H:i:s') }}</small>
+                                        <small>{{"user.lastlogin"|trans}} : {{ app.user.getLastlogin()|date('Y-m-d H:i:s') }}</small>
                                     </a>
                                 </li>
                                 <li>
@@ -161,9 +161,9 @@
                                     {% else %}
                                         {% set activity_log_path = "user_eventlog" %}
                                     {% endif %}
-                                    <a href="{{ path(activity_log_path) }}" title="{{ "activity.log"|trans }}">
+                                    <a href="{{ path(activity_log_path) }}" title="{{ "user.activitylog"|trans }}">
                                         <i class="fa fa-cogs"></i>
-                                        {{ "activity.log"|trans }}
+                                        {{ "user.activitylog"|trans }}
                                     </a>
                                 </li>
 

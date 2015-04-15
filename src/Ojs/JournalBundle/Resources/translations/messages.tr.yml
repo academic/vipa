@@ -16,6 +16,8 @@ editorial: Editoryal
 sure_data_lost: 'Bu sayfadan ayrılmak istiyor musunuz?\n\nYaptığınız değişiklikler kaybolabilir.'
 messages: Mesajlar
 settings: Ayarlar
+mail: Mail
+mail.templates: Mail Şablonları
 journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
@@ -62,6 +64,7 @@ journal.about: 'Dergi Hakkında'
 journal.all: 'Tüm Dergiler'
 journal.users: 'Dergi Kullanıcıları'
 journal.theme: 'Dergi Teması'
+journal.manager: Dergi Yöneticisi
 citation.citation: Referans
 citation.add: 'Referans Ekle'
 citation.new: 'Yeni Referans'
@@ -413,9 +416,11 @@ Info: 'TODO: Info'
 'Header Image': 'TODO: Header Image'
 File: 'TODO: File'
 
-empty: Empty
-common: Common
-detailed: Detailed
+empty: Boş
+common: Genel
+detailed: Detay
 tools: Araçlar
 
 suggestion.journal.suggest: "Yeni Dergi Gönder"
+loggedAs: 'Giriş yapılan kullanıcı'
+you: Siz
