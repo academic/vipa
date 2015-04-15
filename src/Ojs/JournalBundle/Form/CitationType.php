@@ -27,7 +27,11 @@ class CitationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Citation'
+            'data_class' => 'Ojs\JournalBundle\Entity\Citation',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

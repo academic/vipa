@@ -38,7 +38,11 @@ class AuthorType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Author'
+            'data_class' => 'Ojs\JournalBundle\Entity\Author',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

@@ -44,7 +44,9 @@ class UserRestType extends AbstractType
         ));
 
         $options['validation_constraint'] = $collectionConstraint;
-
+        $options['attr'] = [
+                'novalidate'=>'novalidate'
+        ];
         return $options;
     }
 

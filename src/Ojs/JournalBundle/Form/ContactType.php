@@ -33,7 +33,11 @@ class ContactType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Contact'
+            'data_class' => 'Ojs\JournalBundle\Entity\Contact',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

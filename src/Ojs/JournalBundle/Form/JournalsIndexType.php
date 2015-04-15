@@ -66,7 +66,11 @@ class JournalsIndexType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'Ojs\JournalBundle\Entity\JournalsIndex',
             'user' => null,
-            'journal' => null
+            'journal' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ]);
     }
 

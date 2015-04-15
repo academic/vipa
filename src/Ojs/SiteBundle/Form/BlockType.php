@@ -49,7 +49,11 @@ class BlockType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\SiteBundle\Entity\Block',
             'object_id'=>null,
-            'object_type'=>null
+            'object_type'=>null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

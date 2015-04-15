@@ -61,7 +61,11 @@ class MailTemplateType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
-            'user' => null
+            'user' => null,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

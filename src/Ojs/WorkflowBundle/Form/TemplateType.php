@@ -25,7 +25,11 @@ class TemplateType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\WorkflowBundle\Document\JournalWorkflowTemplate'
+            'data_class' => 'Ojs\WorkflowBundle\Document\JournalWorkflowTemplate',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

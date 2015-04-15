@@ -61,7 +61,11 @@ class ArticleFileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
-            'user'=> null 
+            'user'=> null ,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

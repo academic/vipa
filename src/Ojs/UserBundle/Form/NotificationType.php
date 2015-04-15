@@ -32,7 +32,11 @@ class NotificationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\Notification'
+            'data_class' => 'Ojs\UserBundle\Entity\Notification',
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 

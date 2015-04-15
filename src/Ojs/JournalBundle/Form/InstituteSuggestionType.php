@@ -79,7 +79,11 @@ class InstituteSuggestionType extends AbstractType
             'data_class' => 'Ojs\JournalBundle\Document\InstituteSuggestion',
             'em'=>null,
             'helper' => null
-
+        ,
+            'attr'=>[
+                'novalidate'=>'novalidate'
+,'class'=>'form-validate'
+            ]
         ));
     }
 
