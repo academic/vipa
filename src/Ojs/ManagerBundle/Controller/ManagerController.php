@@ -142,6 +142,8 @@ class ManagerController extends Controller {
         $grid = $this->get('grid');
         $grid->setSource($source);
         $grid->setHiddenColumns(['post_type', 'content', 'object', 'createdAt', 'updatedAt', 'deletedAt', 'objectId']);
+        $grid->getColumn('title')->setSafe(false);
+
         $grid->addRowAction(ActionHelper::editAction('post_edit', 'id'));
         $grid->addRowAction(ActionHelper::deleteAction('post_delete', 'id'));
 
