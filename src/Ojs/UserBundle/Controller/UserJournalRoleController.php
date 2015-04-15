@@ -56,18 +56,16 @@ class UserJournalRoleController extends Controller
         $entity = new UserJournalRole();
         $em->persist($entity);
         $form = $this->createCreateForm($entity);
+        $em->clear();
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $data = $form->getData();
-            $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($data->getJournalId());
-            $user = $em->getRepository('OjsUserBundle:User')->findOneById($data->getUserId());
-            $role = $em->getRepository('OjsUserBundle:Role')->findOneById($data->getRoleId());
-            $entity->setUser($user);
-            $entity->setJournal($journal);
-            $entity->setRole($role);
+            $entity->setUser($data->getUser());
+            $entity->setJournal($data->getJournal());
+            $entity->setRole($data->getRole());
             $em->persist($entity);
             $em->flush();
-
             return $this->redirect($this->generateUrl('ujr_show', array('id' => $entity->getId())));
         }
 

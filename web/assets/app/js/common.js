@@ -195,15 +195,7 @@ $(document).ready(function () {
             modal: false
         });
     };
-    //solved by http://wangweiqiang.net/how-to-make-jquery-validation-engine-works-well-for-select2/
-    $.each($(".select2-container"), function (i, n) {
-        $(n).next().show().fadeTo(0, 0).height("0px").css("left", "auto"); // make the original select visible for validation engine and hidden for us
-        $(n).prepend($(n).next());
-        $(n).delay(500).queue(function () {
-            $(this).removeClass("validate[required]"); //remove the class name from select2 container(div), so that validation engine dose not validate it
-            $(this).dequeue();
-        });
-    });
+
 });
 
 
