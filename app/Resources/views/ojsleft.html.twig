@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <small>{%trans%}Logged in as{%endtrans%} <span style="color:#003399">{{app.user.username}}</span></small>
+                        <small>{{'loggedAs'|trans}} : <span style="color:#003399">{{app.user.username}}</span></small>
                             {% if userJournalRoles %}
                                 {% for role in userJournalRoles %}
                                 <span class="label label-default">{{ role.role|trans }}</span>
@@ -78,7 +78,7 @@
             {% if isJournalManager() or isEditor() %}
 
                 <div class="panel panel-default left-menu-bgcolor">
-                    <div class="panel-heading">{{ "Journal Manager"|trans }}</div>
+                    <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                     <div>
                         {# Links for journal manager  #}
                         <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
@@ -100,7 +100,7 @@
                             </a>
                             <a class="list-group-item" href="{{ path('mailtemplate_manager') }}">
                                 <i class="fa fa-envelope-o"></i>
-                                Mail templates
+                                {{"mail.templates"|trans}}
                             </a>
                             <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
                                 <i class="fa fa-cog"></i>

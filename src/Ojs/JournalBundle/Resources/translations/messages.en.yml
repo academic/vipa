@@ -16,6 +16,8 @@ editorial: Editorial
 sure_data_lost: 'Are you sure you want to navigate away from this page?\n\nYour changes may be lost.'
 messages: Messages
 settings: Settings
+mail: Mail
+mail.templates: Mail Templates
 journals: Journals
 first_page: 'First Page'
 last_page: 'Last Page'
@@ -62,6 +64,7 @@ journal.about: 'About Journal'
 journal.all: 'All Journals'
 journal.users: 'Journal Users'
 journal.theme: 'Journals Theme'
+journal.manager: Journal Manager
 citation.citation: Citation
 citation.add: 'Add Citation'
 citation.new: 'New Citation'
@@ -407,3 +410,5 @@ common: Common
 detailed: Detailed
 tools: Tools
 suggestion.journal.suggest: "Suggest New Journal"
+loggedAs: 'Logged in as'
+you: You

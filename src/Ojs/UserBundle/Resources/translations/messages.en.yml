@@ -1,3 +1,7 @@
+user.profile: User Profile
+user.profile.edit: Edit User Profile
+user.lastlogin: Last Login
+user.activitylog: User Activity Log
 event.id: ID
 event.info: 'Event Info'
 event.date: 'Event Date'
