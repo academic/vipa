@@ -1,12 +1,74 @@
-dashboard:
-    admin: Admin Dashboard
-    editor: Editor Dashboard
-    objects: Objects
-    operations: Operations
-dashboard.general.stats: General Stats
-total:
-    user: Total user
-    article: Total article
-    issue: Total issue
+dashboard.general.stats: 'General Stats'
 stats.most.viewed.article: 'Most viewed article'
-stats.most.downloaded.article : 'Most downloaded article'
+stats.most.downloaded.article: 'Most downloaded article'
+dashboard.admin: 'Admin Dashboard'
+dashboard.editor: 'Editor Dashboard'
+dashboard.objects: Objects
+dashboard.operations: Operations
+total.user: 'Total user'
+total.article: 'Total article'
+total.issue: 'Total issue'
+article.plural: __article.plural
+author.plural: __author.plural
+contact.plural: __contact.plural
+contacttype.plural: __contacttype.plural
+institution.plural: __institution.plural
+institutiontype.plural: __institutiontype.plural
+issue.plural: __issue.plural
+journal.plural: __journal.plural
+subject.plural: __subject.plural
+lang.plural: __lang.plural
+theme.plural: __theme.plural
+journal.theme: __journal.theme
+user.plural: __user.plural
+role.plural: __role.plural
+user.anonym.new: __user.anonym.new
+dashboard.suggestion: __dashboard.suggestion
+suggestion.journal: __suggestion.journal
+suggestion.institute: __suggestion.institute
+'Any article viewed yet': '__Any article viewed yet'
+'Any article downloaded yet': '__Any article downloaded yet'
+journal.my: __journal.my
+journal: __journal
+role.singular: __role.singular
+journal.nothave: __journal.nothave
+issue.edit: __issue.edit
+volume: __volume
+number: __number
+title: __title
+year: __year
+date.publish: __date.publish
+issue.add.articles: __issue.add.articles
+article: __article
+section: __section
+article.add: __article.add
+article.preview: __article.preview
+order: __order
+article.singular: __article.singular
+page.first: __page.first
+page.last: __page.last
+save: __save
+cancel: __cancel
+dashboard: __dashboard
+issue.manager: __issue.manager
+special.issue: __special.issue
+special: __special
+create: __create
+issue: __issue
+c: __c
+journal.manager: __journal.manager
+journal.update: __journal.update
+journal.settings.mail: __journal.settings.mail
+journal.settings.mail.signature: __journal.settings.mail.signature
+journal.settings.submission.language: __journal.settings.submission.language
+journal.settings.submission.language.text: __journal.settings.submission.language.text
+journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
+journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
+role.forusers: __role.forusers
+username: __username
+email: __email
+status: __status
+roles: __roles
+actions: __actions
+articles.needAction: __articles.needAction
+sure: __sure

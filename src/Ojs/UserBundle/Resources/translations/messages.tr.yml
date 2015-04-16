@@ -1,7 +1,7 @@
-user.profile: Kullanıcı Profili
-user.profile.edit: Kullanıcı Profili Düzenle
-user.lastlogin: Son Giriş
-user.activitylog: Kullanıcı Hareket Kayıtları
+user.profile: 'Kullanıcı Profili'
+user.profile.edit: 'Kullanıcı Profili Düzenle'
+user.lastlogin: 'Son Giriş'
+user.activitylog: 'Kullanıcı Hareket Kayıtları'
 event.id: ID
 event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'
@@ -79,7 +79,7 @@ uploading: Yükleniyor...
 done: Tamamlandı.
 user.list: 'Kullanıcı Listesi'
 user.username: 'Kullanıcı Adı'
-user.email: 'E-posta'
+user.email: E-posta
 user.status: Durum
 user.roles: Roller
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
@@ -110,26 +110,47 @@ user.journalrole.youhavenojournal: 'Hiç Derginiz Yok'
 user.journalrole.usersofjournal: 'Derginin Kullanıcıları'
 user.journalrole.user.id: ID
 user.journalrole.user.username: 'Kullanıcı Adı'
-user.journalrole.email: 'E-posta'
+user.journalrole.email: E-posta
 user.journalrole.thisjournalhasnouser: 'Bu derginin hiç kullanıcısı yok!'
-user.anonym:
-  new: "Anonim Giriş Oluştur"
-  firstname: "Ad"
-  lastname: "Soyad"
-  email: "E-posta"
-  role: "Yetki"
-  has_logged: "Giriş Yapıldı."
-  has_register: "Kayıt Edildi"
-  user: "Kullanıcı ID"
-  object: "Nesne"
-  list: "Anonim Girişleri Listele"
-orcid:
-  login: "ORCID Hesabı İle Giriş Yap"  
 user.journalrole.send_email: 'Kullanıcıya Eposta Gönder'
 user.journalrole.mail.template: Şablon
 user.journalrole.mail.to: Alıcı
 user.journalrole.mail.subject: Konu
 user.journalrole.mail.body: Mesaj
 user.journalrole.mail.send: Gönder
-flush:
-  all.log : "Logları Sil"
+user.anonym.new: 'Anonim Giriş Oluştur'
+user.anonym.firstname: Ad
+user.anonym.lastname: Soyad
+user.anonym.email: E-posta
+user.anonym.role: Yetki
+user.anonym.has_logged: 'Giriş Yapıldı.'
+user.anonym.has_register: 'Kayıt Edildi'
+user.anonym.user: 'Kullanıcı ID'
+user.anonym.object: Nesne
+user.anonym.list: 'Anonim Girişleri Listele'
+orcid.login: 'ORCID Hesabı İle Giriş Yap'
+flush.all.log: 'Logları Sil'
+dashboard: __dashboard
+user.anonym: __user.anonym
+c: __c
+user.anonym.used: __user.anonym.used
+b: __b
+'You''ve invited to OJS': '__You''ve invited to OJS'
+'Review invitation from': '__Review invitation from'
+'Click link below for login to ojs if you are accept invitation': '__Click link below for login to ojs if you are accept invitation'
+Accept: __Accept
+Decline: __Decline
+'Password Change': '__Password Change'
+Information: __Information
+'Your password has been changed': '__Your password has been changed'
+'Password Reset': '__Password Reset'
+'Your password has been reset': '__Your password has been reset'
+'You are request password reset': '__You are request password reset'
+'Password Reset Process': '__Password Reset Process'
+'Click link below for reset to ojs account password': '__Click link below for reset to ojs account password'
+'Reset Now': '__Reset Now'
+s: __s
+e: __e
+save: __save
+user.anonym.create_password: __user.anonym.create_password
+Avatar: __Avatar
