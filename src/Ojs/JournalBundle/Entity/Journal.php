@@ -772,7 +772,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get published
      *
-     * @return integer
+     * @return boolean
      */
     public function getPublished()
     {
@@ -782,10 +782,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set published
      *
-     * @param  integer $published
+     * @param  boolean $published
      * @return Journal
      */
-    public function setPublished($published)
+    public function setPublished($published=false)
     {
         $this->published = $published;
 
@@ -793,7 +793,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @return bool
+     * @return boolean
      */
     public function isPublished()
     {
