@@ -69,7 +69,7 @@ class IssueManagerController extends Controller
             throw $this->createNotFoundException('Issue not found!');
         }
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && $request->get('articleId')) {
             $em = $doctrine->getManager();
             // update with with new values
             $articleIds = $request->get('articleId');
@@ -79,7 +79,7 @@ class IssueManagerController extends Controller
 
             foreach ($articleIds as $i => $articleId) {
                 $article = $doctrine->getRepository('OjsJournalBundle:Article')
-                    ->find($articleId);
+                        ->find($articleId);
                 $this->throw404IfNotFound($article);
                 $article->setOrderNum($orders[$i]);
                 $article->setFirstPage($firstPages[$i]);
