@@ -104,8 +104,8 @@ article.title: 'Article Title'
 article.subtitle: 'Article Subtitle'
 article.language.primary: 'Article Primary Language'
 article.language.other: 'Article Other Languages'
-article.add: 'Add Article'
-article.section: "Section"
+article.add: 'Add Article' 
+article.preview: Article Preview
 suppfiles.resins: 'Research Instruments'
 suppfiles.resmat: 'Research Materials'
 suppfiles.resres: 'Research Results'
@@ -239,6 +239,8 @@ institutiontype.new: 'New Institution Type'
 institutiontype.plural: 'Institution Types'
 issue.edit: 'Edit Issue'
 issue.list: 'Issue List'
+issue.new: 'New Issue'
+issue.add.articles: Add article to this issue
 journal.id: ID
 volume: Volume
 number: Number
@@ -247,7 +249,6 @@ special: Special
 year: Year
 datePublished: Published date
 publishdate: 'Publish Date'
-issue.new: 'New Issue'
 desc: Description
 created: Created
 updated: Updated

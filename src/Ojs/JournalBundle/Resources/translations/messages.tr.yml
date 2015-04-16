@@ -104,8 +104,8 @@ article.title: 'Makale Başlığı'
 article.subtitle: 'Makale Alt Başlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
-article.add: 'Makale Ekle'
-article.section: Bölüm
+article.add: 'Makale Ekle' 
+article.preview: Makale Önizleme
 suppfiles.resins: 'Araştırma Araçları'
 suppfiles.resmat: 'Araştırma Malzemeleri'
 suppfiles.resres: 'Araştırma Sonuçları'
@@ -238,6 +238,8 @@ institutiontype.list: 'Kurum Türü Listesi'
 institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.plural: 'Kurum Türleri'
 issue.edit: 'Sayı Düzenle'
+issue.new: 'Yeni Sayı'
+issue.add.articles: Bu sayıya makale ekle
 issue.list: 'Sayı Listesi'
 journal.id: ID
 volume: Cilt
@@ -247,7 +249,6 @@ special: Özel
 year: Yıl
 datePublished: Yayınlanma tarihi
 publishdate: 'Yayım Tarihi'
-issue.new: 'Yeni Sayı'
 desc: Açıklama
 created: Oluşturulma
 updated: Güncelleme
