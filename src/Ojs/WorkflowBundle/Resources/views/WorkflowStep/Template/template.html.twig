@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('workflow_templates'), 'title': 'Workflow Templates'},
+                {'link': path('workflow_templates'), 'title': 'workflow.templates'},
                 {'title': 'Workflow Template Details'}
 ] %}
     {{breadcrumb(list)}}
@@ -41,7 +41,7 @@
                 <small>{{"nextSteps"|trans}} :</small>
                 {% if entity.getOnlyReply() %}
                     <span class="label label-primary">
-                        Only Reply
+                        {{"canOnlyReply"|trans}}
                         <i class="fa fa-ok"></i>
                     </span>
                 {% else %}
