@@ -22,6 +22,7 @@ class IssueType extends AbstractType
         $builder
                 ->add('journal', 'entity', array(
                     'attr' => array('class' => ' form-control select2-element'),
+                    'label'=>'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' =>
                     function (EntityRepository $er) use ($user) {
@@ -41,15 +42,15 @@ class IssueType extends AbstractType
             }
                         )
                 )
-                ->add('volume')
-                ->add('number')
-                ->add('title')
-                ->add('special')
-                ->add('special')
-                ->add('description')
-                ->add('year')
+                ->add('volume','text',array('label'=>'volume'))
+                ->add('number','text',array('label'=>'number'))
+                ->add('title','text',array('label'=>'title'))
+                ->add('special','checkbox',array('label'=>'special')) 
+                ->add('description','text',array('label'=>'description'))
+                ->add('year','text',array('label'=>'year'))
                 ->add('datePublished','date', array('required' => false,
                     'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
+                    'label'=>'datePublished',
                     'attr' => array('class' => 'dateselector'))
                 )
                 ->add('cover', 'hidden')
