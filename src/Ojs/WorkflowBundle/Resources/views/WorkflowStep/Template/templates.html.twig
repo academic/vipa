@@ -2,18 +2,18 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
-                {'title': 'Workflow Templates'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+                {'title': 'workflow.templates'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%}
 
-    <h1>Workflow Templates</h1>
+    <h1>{{ 'workflow.templates'|trans }}</h1>
 
-    <h3>System Templates</h3>
+    <h3>{{ 'system.templates'|trans }}</h3>
     <div class="list-group">
         {% for entity in templates %}
             {% if entity.isSystemTemplate is defined  %}
@@ -30,7 +30,7 @@
         {% endfor %}
     </div>
 
-    <h3>Created Templates</h3>
+    <h3>{{ 'created.templates'|trans }}</h3>
     <div class="list-group">
         {% for entity in templates %}
             {% if entity.isSystemTemplate is defined  %}
@@ -57,5 +57,5 @@
             {% endif %}
         {% endfor %}
     </div>
-    <a href="{{ path('workflow_template_new') }}" class="btn btn-primary pull-right">{{ 'workflow.template.create' | trans }}</a>
+    <a href="{{ path('workflow_template_new') }}" class="btn btn-primary pull-right">{{ 'c' | trans }}</a>
 {% endblock %} 

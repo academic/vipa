@@ -7,9 +7,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
-                {'title': 'Update Workflow Step'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+                {'title': 'workflow.step.update'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -45,12 +45,12 @@
 
                 <div class="form-inline">
                     <label class="label label-info" style="line-height: 20px;display: inline-block;">
-                        First Step?
+                        {{ 'First Step'|trans }}
                         <input type="checkbox" name="firstStep" value="1"
                                {%if step.firstStep %}checked="checked"{%endif%}> </label>
                     <label class="label label-warning"
                            style="line-height: 20px;display: inline-block;">
-                        Last Step?
+                        {{ 'Last Step'|trans }}
                         <input type="checkbox" name="lastStep" value="1"
                                {%if step.lastStep %}checked="checked"{%endif%}></label>
                 </div>
@@ -82,19 +82,19 @@
 
                 <div class="form-group">
                     <label  style="line-height: 20px;display: inline-block;">
-                        User must send a competing of interest statement.
+                        {{ 'User must send a competing of interest statement.'|trans }}
                         <input type="checkbox" name="shouldFileCi" value="1"
                                {%if step.shouldFileCi %}checked="checked"{%endif%}> 
                     </label>
                     <br>
                     <div id="ciTextHolder"  style="{%if step.shouldFileCi ==false %}display:none{%endif%}">
-                        Guidelines for filling a <i>competing of Interest</i> statement.
+                        {{ 'Guidelines for filling a <i>competing of Interest</i> statement.'|trans }}
                         <br>
                         {% for template in ciTemplates %}
                             <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
                                onclick="$('textarea#ciTextInput').data('wysihtml5').editor.setValue($('#ciTemplate{{template.id}}').html());
                                        return false;">
-                                Template-{{template.id}} {{template.type}}
+                                {{ 'Template' }}-{{template.id}} {{template.type}}
                             </a>
                             <div class="hide" id="ciTemplate{{template.id}}">{{template.template|raw}}</div>
                         {% endfor %}
@@ -160,7 +160,7 @@
                     <label>{{"review.forms"|trans}}</label>
 
                     <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
-                        <option>[No review form]</option>
+                        <option>{{ '[No review form]'|trans }}</option>
                         {%for form in forms%}
                             <option 
                                 {%if step.hasForm(form)%}selected="selected"{%endif%}
@@ -177,7 +177,7 @@
                 </div>
 
                 <div>
-                    <input type="submit" class="btn btn-success" value="Save" />
+                    <input type="submit" class="btn btn-success" value="{{ 'save'|trans }}" />
                     <a href="{{path('manage_workflowsteps')}}" class="btn btn-default">
                         <i class="fa fa-arrow-left"></i> {{"b"|trans}}</a>
                 </div>

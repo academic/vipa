@@ -14,7 +14,7 @@
                 <div class="col-md-9">
                     <ol class="breadcrumb">
                         <li><a href="/">Ojs</a></li>
-                        <li><a href="/journal/{{journal.slug}}">{{"journal_home"|trans}}</a></li>
+                        <li><a href="{{url('ojs_journal_index',{slug:journal.slug,institution:journal.institution.slug})}}">{{"journal_home"|trans}}</a></li>
                         <li class="active">{{"archive"|trans}}</li>
                     </ol>
                     {% for year in issues_grouped|keys %}

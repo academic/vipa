@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
-                {'title': 'workflow.step.detail'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+                {'title': 'workflow.step.detail'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -59,7 +59,7 @@
                 </tr>
                 {% if step.shouldFileCi  %}
                     <tr>
-                        <th>Competing of interest statement</th>
+                        <th>{{ 'Competing of interest statement'|trans }}</th>
                         <td>{{ step.ciText|raw  }}</td>
                     </tr>
                 {% endif %}

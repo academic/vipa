@@ -2,11 +2,11 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'},
-    {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
-    {'link': path('workflow_templates'), 'title': 'Templates'},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+    {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
     {'link': path('workflow_template_show', {id: step.template.id}), 'title': step.template.title},
-    {'title': 'Step Detail'}
+    {'title': 'workflow.template.step.detail'|trans}
     ] %}
     {{breadcrumb(list)}}
 {% endblock %}
