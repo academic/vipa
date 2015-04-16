@@ -43,7 +43,6 @@ class OjsExtension extends \Twig_Extension {
             'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
             'imagePath' => new \Twig_Function_Method($this, 'generateImagePath'),
             'filePath' => new \Twig_Function_Method($this, 'generateFilePath'),
-            'currentJournal' => new \Twig_Function_Method($this, 'getCurrentJournal'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
             'statusText' => new \Twig_Function_Method($this, 'statusText', array('is_safe' => array('html'))),
             'statusColor' => new \Twig_Function_Method($this, 'statusColor', array('is_safe' => array('html'))),
