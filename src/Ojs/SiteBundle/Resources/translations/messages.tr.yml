@@ -57,16 +57,14 @@ register_journal: 'Dergi Kaydet'
 send_article: 'Makale Gönder'
 featured: Öne Çıkanlar
 featured.desc: Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz.
-landingPage.text:  |
-                                                       <p class="lead">
-                                                            DergiPark, dergi yayımlama sürecinin daha
-                                                            <mark>kolay</mark>  ve  <mark>hızlı</mark>
-                                                            gerçekleştirilebilmesine imkan sunan
-                                                            <ins>Açık Dergi Sistemleri</ins>
-                                                            (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
-                                                            geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
-                                                        </p>
-                                                        <p class="lead">DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
+landingPage.text: ""
+globalFooter.text :  |
+                                    <p>
+                                         DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark>  ve  <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan
+                                         <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
+                                         geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
+                                     </p>
+                                     <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 search: Ara
 search.main: Makale, Dergi ve Yazar
 search_query: 'Anahtar Sözcükleri Girin'

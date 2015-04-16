@@ -112,11 +112,11 @@
 
 
 
-        {% if journal is defined %}
-            <div class="journal-footer">
-                {{ journal.footerText|raw }}
-            </div>
-                {% endif %}
+            {% if journal is defined %}
+                <div class="journal-footer">
+                    {{ journal.footerText|raw }}
+                </div>
+            {% endif %}
         </div>
         {% block footer %}
             {%include '::ojsfooter.html.twig'%}
@@ -140,11 +140,11 @@
                 });
             {% endif%}
             {% if app.user and isSystemAdmin() and ((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus)!=true %}
-                $(document).ready(function(){
-                   notify("It seems that you have not finished <a href='{{path('admin_journal_setup')}}'>Journal Setup</a>","information");
+                $(document).ready(function () {
+                    notify("It seems that you have not finished <a href='{{path('admin_journal_setup')}}'>Journal Setup</a>", "information");
                 });
             {% endif %}
-        </script>
-    {% endblock %}
-</body>
-</html>
+            </script>
+            {% endblock %}
+            </body>
+        </html>
