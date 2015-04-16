@@ -323,10 +323,12 @@ notes_to_editor: 'Editöre Notlar'
 review: Değerlendirme
 review.form: 'Değerlendirme Formu'
 review.forms: 'Değerlendirme Formları'
+review.form.preview: Değerlenirme Formu Önizleme
 reviewForms.manage: Değerlendirme formlarını yönet
 template: Şablon
 templates: Şablonlar
 template.name: Tema Adı
+template.loadDefault: Load default templates
 useThisTemplate: Bu Şablonu Kullan
 reviewResultCodes.0: Ret
 reviewResultCodes.1: 'Tekrar Yazılmalı'
