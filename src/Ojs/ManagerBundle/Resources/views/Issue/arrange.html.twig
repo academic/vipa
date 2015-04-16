@@ -6,31 +6,32 @@
         <h1>{{ "issue.edit"|trans }} </h1>
         <ul>
             <li>
-                <small>Journal : <strong>{{ journal.title }}</strong></small>
+                <small>{{"journal"|trans}} : <strong>{{ journal.title }}</strong></small>
             </li>
             <li>
-                <small>Volume : <strong>{{ issue.volume }}</strong></small>
+                <small>{{"volume"|trans}} : <strong>{{ issue.volume }}</strong></small>
             </li>
             <li>
-                <small>Number : <strong>{{ issue.number }}</strong></small>
+                <small>{{"number"|trans}} : <strong>{{ issue.number }}</strong></small>
             </li>
             <li>
-                <small>Title : <strong>{{ issue.title }}</strong></small>
+                <small>{{"title"|trans}}  : <strong>{{ issue.title }}</strong></small>
             </li>
             <li>
-                <small>Year : <strong>{{ issue.year }}</strong></small>
+                <small>{{"year"|trans}} : <strong>{{ issue.year }}</strong></small>
             </li>
             <li>
                 <small>{{ "date.publish"|trans }} : {{ issue.datePublished|date('Y-m-d') }} </small>
             </li>
         </ul>
         <div class="panel panel-info">
-            <div class="panel-heading">Add article to this issue</div>
+            <div class="panel-heading">{{"issue.add.articles"|trans}}</div>
             <div class="panel-body">
-                <form>
+                <form class="form">
                     <input type="hidden" name="issue_id" value="{{ issue.id }}">
 
-                    <div class="form-row">
+                    <div class="form-group">
+                        <label>{{"article"|trans}} </label>
                         <select name="unissued_article_id" id="unissuedArticles" class="select2  form-control">
                             <option></option>
                             {% for article in articlesUnissued %}
@@ -41,7 +42,8 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-row">
+                    <div class="form-group">
+                        <label>{{"section"|trans}} </label>
                         <select name="section" id="section" class="select2  form-control">
                             {% for section in sections %}
                                 <option value="{{ section.id }}">
@@ -52,10 +54,10 @@
                     </div>
                     <div class="form-row">
                         <a class="btn btn-primary" id="issueManagerAddArticle">
-                            <i class="fa fa-plus-circle"></i> Add article
+                            <i class="fa fa-plus-circle"></i> {{"article.add"|trans}}
                         </a>
                         <a class="btn btn-default" id="issueManagerPreviewArticle">
-                            <i class="fa fa-external-link"></i> Preview Article
+                            <i class="fa fa-external-link"></i> {{"article.preview"|trans}}
                         </a>
                     </div>
                 </form>
