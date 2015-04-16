@@ -245,6 +245,7 @@ number: Number
 cover: Cover
 special: Special
 year: Year
+datePublished: Published date
 publishdate: 'Publish Date'
 issue.new: 'New Issue'
 desc: Description
