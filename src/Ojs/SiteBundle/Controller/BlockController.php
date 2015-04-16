@@ -37,7 +37,7 @@ class BlockController extends Controller
             if ($form->isValid()) {
                 $em->persist($Block);
                 $em->flush();
-                return $this->redirect($this->get('router')->generate('ojs_journal_index', ['slug' => $object->getSlug(),'institution'=>$object->getInstitution()->getSlug()]));
+                return $this->redirect($this->get('ojs.journal_service')->generateUrl($object));
             }
             //@todo return value only for journal.
             $this->get('session')->getFlashBag()->add('error', 'All field is required');
@@ -62,7 +62,8 @@ class BlockController extends Controller
                 $block->addLink($BlockLink);
                 $em->persist($block);
                 $em->flush();
-                return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $block->getObjectId()]));
+                $journal = $em->getRepository('OjsJournalBundle:Journal')->find($block->getObjectId());
+                return $this->redirect($this->get('ojs.journal_service')->generateUrl($journal));
             }
             $this->get('session')->getFlashBag()->add('error', 'All fields are required');
         }
@@ -75,8 +76,8 @@ class BlockController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $em->remove($block);
-        $em->flush();
-        return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $object]));
+        $em->flush(); 
+        return $this->redirect($this->get('ojs.journal_service')->generateUrl($object));
     }
 
     public function deleteLinkAction(Request $request, $object, $type, BlockLink $block_link)
@@ -85,7 +86,7 @@ class BlockController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($block_link);
         $em->flush();
-        return $this->redirect($this->get('router')->generate('ojs_journal_index', ['journal_id' => $object]));
+        return $this->redirect($this->get('ojs.journal_service')->generateUrl($object));
     }
 
     public function orderAction(Request $request, Block $block, $order)

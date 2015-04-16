@@ -5,7 +5,7 @@ namespace Ojs\Common\Services;
 use \Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 /**
  * Common methods for journal
  */
@@ -59,13 +59,13 @@ class JournalService {
      */
     public function getDefaultInstitution($redirect = true)
     {
-        $em = $this->container->get('doctrine')->getManager(); 
-        $slug = $this->container->getParameter('defaultInstitutionSlug'); 
+        $em = $this->container->get('doctrine')->getManager();
+        $slug = $this->container->getParameter('defaultInstitutionSlug');
         $intitution = $slug ? $em->getRepository('OjsJournalBundle:Institution')
-            ->findOneBy(array('slug'=>$slug)) : null; 
-            return $intitution; 
+                        ->findOneBy(array('slug' => $slug)) : null;
+        return $intitution;
     }
-    
+
     /**
      * 
      * @param \Ojs\JournalBundle\Entity\Journal $journal
@@ -74,8 +74,9 @@ class JournalService {
     public function generateUrl($journal)
     {
         $institution = $journal->getInstitution();
-        return ($this->container->getParameter('https') ? 'https' : 'http') . '://' .
-                $institution->getSlug() . '.' . $this->container->getParameter('base_host') . '/' . $journal->getSlug();
+        $institutionSlug = $institution ? $institution->getSlug() : $this->container->getParameter('defaultInstitutionSlug');
+        return $this->container->get('router')
+                        ->generate('ojs_journal_index', array('slug' => $journal->getSlug(), 'institution' => $institutionSlug), Router::ABSOLUTE_URL);
     }
 
     public function setSelectedJournal($journalId)

@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <ol class="breadcrumb">
                         <li><a href="/">{{ "home"|trans }}</a></li>
-                        <li><a href="{{ url('ojs_journal_index',{slug:issue.journal.slug,institution: issue.journal.institution.slug}) }}">{{ issue.journal.title }}</a>
+                        <li><a href="{{ generateJournalUrl(journal) }}">{{ issue.journal.title }}</a>
                         </li>
                         <li>
                             <a href="#">{{ "Issue"|trans }}</a>

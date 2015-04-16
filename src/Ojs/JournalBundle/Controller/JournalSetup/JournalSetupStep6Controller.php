@@ -33,10 +33,7 @@ class JournalSetupStep6Controller extends Controller
             //remove journal setup progress data
             $dm->remove($setup);
             $dm->flush();
-            $journalLink = $this->generateUrl('ojs_journal_index', array(
-                'slug' => $journal->getSlug(),
-                'institution' => $journal->getInstitution()->getSlug()
-            ));
+            $journalLink = $this->get('ojs.journal_service')->generateUrl($journal);
             return new JsonResponse(array(
                 'success' => '1',
                 'journalLink' => $journalLink
@@ -61,10 +58,7 @@ class JournalSetupStep6Controller extends Controller
         if ($step6Form->isValid()) {
             $currentJournal->setSetupStatus(true);
             $em->flush();
-            $journalLink = $this->generateUrl('ojs_journal_index', array(
-                'slug' => $currentJournal->getSlug(),
-                'institution' => $currentJournal->getInstitution()->getSlug()
-            ));
+            $journalLink = $this->get('ojs.journal_service')->generateUrl($currentJournal);
             return new JsonResponse(array(
                 'success' => '1',
                 'journalLink' => $journalLink

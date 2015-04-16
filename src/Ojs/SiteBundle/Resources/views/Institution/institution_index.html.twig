@@ -51,7 +51,7 @@
             <ul class="list-group">
                 {% for journal in entity.journals %}
                     <li class="list-group-item"><a
-                                href="{{ url('ojs_journal_index',{slug:journal.slug, institution:journal.institution.slug }) }}">{{ journal.title }}</a>
+                                href="{{ generateJournalUrl(journal)}}">{{ journal.title }}</a>
                     </li>
                 {% endfor %}
             </ul>

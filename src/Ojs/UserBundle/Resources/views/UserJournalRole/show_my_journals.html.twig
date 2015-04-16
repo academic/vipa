@@ -27,7 +27,7 @@
                         {% for entity in entities %}
                             <tr>
                                 <td>{{loop.index}}</td>
-                                <td><i class="fa fa-link"></i> <a title="{{ entity.journal.titleAbbr }} &middot; {{ entity.journal.issn }}" href="{{ url('ojs_journal_index',{slug: entity.journal.slug, institution: entity.journal.institution.slug}) }}">
+                                <td><i class="fa fa-link"></i> <a title="{{ entity.journal.titleAbbr }} &middot; {{ entity.journal.issn }}" href="{{ generateJournalUrl(journal) }}">
                                          {{ entity.journal.title }}</a>
                                 </td>
                                 <td>
