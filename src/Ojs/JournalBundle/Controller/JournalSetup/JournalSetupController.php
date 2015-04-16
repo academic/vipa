@@ -59,11 +59,7 @@ class JournalSetupController extends Controller
 
     public function resumeAction($setupId)
     {
-        $user = $this->getUser();
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $em = $this->getDoctrine()->getManager();
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         //for 6 step create update forms
         foreach (range(1, 6) as $stepValue) {
