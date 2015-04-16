@@ -8,7 +8,7 @@
 {% block breadcrumb %}
     {% set list = [
                 {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'Workflow'},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
                 {'title': 'Update Workflow Step'}
 ] %}
     {{breadcrumb(list)}}
@@ -22,13 +22,13 @@
         <div class="panel-body">
             <form method="post" class="form-row" action="{{path('workflowsteps_update',{'id':step.id})}}">
                 <div class="form-group">
-                    <label>Journal</label>
+                    <label>{{"journal"|trans}}</label>
                     <input type="hidden" name="journalId" value="{{journal.id}}" />
                     <span>{{journal.title}}</span>
                 </div>
 
                 <div class="form-group">
-                    <label>Title</label>
+                    <label>{{"title"|trans}}</label>
                     <input class="form-control" name="title" value="{{step.title}}">
                 </div>
 
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Status Text</label>
+                    <label>{{"statusText"|trans}}</label>
                     <input class="form-control" name="status" value="{{step.status}}">
                 </div>
 
@@ -74,7 +74,7 @@
 
                 <div class="form-group">
                     <label class="label label-primary" style="line-height: 20px;display: inline-block;">
-                        Can only reply back?
+                       {{"canOnlyReply"|trans}}
                         <input type="checkbox" name="onlyreply" value="1"
                                {%if step.onlyreply %}checked="checked"{%endif%}>
                     </label>
@@ -104,7 +104,7 @@
 
                 <div class="form-inline">
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Is visible to author?
+                        {%trans%}Is visible to author?{%endtrans%}
                         <input type="checkbox" name="isVisible" value="1"
                                {%if step.isVisible%}checked="checked"{%endif%}> 
                     </label>
@@ -143,7 +143,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label>Possible Next Steps</label>
+                    <label>{{"nextSteps.possible"|trans}}</label>
 
                     <select name="nextSteps[]"  style="min-width: 200px" class="select2-element" style="height:120px" multiple="multiple">
                         {%for nstep in nextSteps%}
