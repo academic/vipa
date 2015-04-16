@@ -27,7 +27,7 @@
                 <div class="col-md-9">
                     <ol class="breadcrumb">
                         <li><a href="/">{{ "home"|trans }}</a></li>
-                        <li><a href="{{ url('ojs_journal_index',{slug: journal.slug,institution: journal.institution.slug}) }}">{{ journal.title }}</a>
+                        <li><a href="{{ generateJournalUrl(journal) }}">{{ journal.title }}</a>
                         </li>
                         <li><a href="{{ url('ojs_archive_index',{slug: journal.slug,institution: journal.institution.slug}) }}">{{ "archive"|trans }}</a>
                         </li>

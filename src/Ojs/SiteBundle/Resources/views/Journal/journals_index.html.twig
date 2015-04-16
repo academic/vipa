@@ -62,7 +62,7 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="post">
                                 <div class="post-img-content">
-                                    <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}">
+                                    <a href="{{generateJournalUrl(journal) }}">
                                         <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
                                              data-src="holder.js/200x300/random/text:{{ journal.title }}"
                                              class="img-responsive img-rounded float-left" alt=""/>
@@ -73,7 +73,7 @@
                                     <span class="post-title"><b>{{ journal.title }}</b></span>
                                     {% if journal_detail_box is defined %}
                                         <div>
-                                            <a href="{{ url('ojs_journal_index',{slug: journal.slug, institution: journal.institution.slug}) }}"
+                                            <a href="{{ generateJournalUrl(journal) }}"
                                                class="btn-link btn-sm">
                                                 <i class="fa fa-link"></i> Dergi</a>
                                             <a href="{{ url('ojs_last_articles_index',{slug: journal.slug,institution: journal.institution.slug}) }}"

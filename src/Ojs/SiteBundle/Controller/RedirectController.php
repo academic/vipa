@@ -57,10 +57,7 @@ class RedirectController extends Controller
     {
         $journal = $doctrine->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($journal);
-        return $this->redirect($this->generateUrl('ojs_journal_index', array(
-                            'slug' => $journal->getSlug(),
-                            'institution' => $journal->getInstitution()->getSlug())
-        ));
+        return $this->redirect($this->get('ojs.journal_service')->generateUrl($journal));
     }
 
 }
