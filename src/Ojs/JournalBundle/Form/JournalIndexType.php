@@ -15,7 +15,7 @@ class JournalIndexType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name','text',array('label'=>'name'))
             ->add('logo','hidden')
             ->add('status','checkbox',['label'=>'Is Active?'])
         ;

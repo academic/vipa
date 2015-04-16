@@ -6,8 +6,15 @@
 
     {{ form(form) }}
 
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
 
-    <a href="{{ path('manager_journals_indexes',{journal: entity.journalId}) }}">
+    <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+        {{ "create"|trans }}
+    </button>
+    <a class="btn btn-default" href="{{ path('manager_journals_indexes',{journal: entity.journalId}) }}">
         {{ 'b'|trans }}
     </a> 
+    {{ form_end(form) }}
 {% endblock %}
