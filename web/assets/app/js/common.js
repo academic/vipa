@@ -14,6 +14,12 @@ $.fn.serializeObject = function () {
     });
     return o;
 };
+$.fn.setTypeForHook = function () {
+    this.each(function () {
+        this.type = 'source';
+    });
+    return this;
+};
 
 $(document).ready(function () {
     if ($(".maskissn").length) {
@@ -40,6 +46,22 @@ $(document).ready(function () {
     });
     if ($(".select2-element").length) {
         $(".select2-element").select2();
+        $(".select2-element").select2('container').setTypeForHook();
+        $.valHooks['source'] = {
+            get: function (el) {
+                var el_id = el.id.replace('s2id_','');
+                el=$("#"+el_id);
+                console.dir(el);
+                return el.select2("val");
+            },
+            set: function (el, val) {
+                var el_id = el.id.replace('s2id_','');
+                el=$("#"+el_id);
+                console.dir(el);
+                console.log("setted");
+                $(el).select2("val", val);
+            }
+        };
     }
     if ($(".autocomplete").length){
         $(".autocomplete").each(function(){
@@ -110,6 +132,9 @@ $(document).ready(function () {
         }
         $(this).select2('data', _data);
     });
+    $(".select2-tags").select2('container').setTypeForHook();
+
+    $(".select2-container").removeClass('validate[required]');
     $(document).on('pjax:send', function () {
         $('#loading').show();
     });
