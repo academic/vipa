@@ -25,10 +25,7 @@
       status: 1
   index9:
       name: SHERPA/RoMEO
-      status: 1
-  index10:
-      name: TUBITAK Turkish Medical Index
-      status: 1
+      status: 1 
   index11:
       name: CiteFactor 
       status: 1
