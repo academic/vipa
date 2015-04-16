@@ -30,6 +30,8 @@
     <a href="{{ path('manager_journals_indexes_edit', { 'id': entity.id }) }}">
         {{ 'e'|trans }}
     </a> 
-    {{ form(delete_form) }}
+     <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
+        {{ 'd'|trans }}
+    </a>  
 
 {% endblock %}

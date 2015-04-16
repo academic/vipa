@@ -383,7 +383,7 @@ journalsindex.singular: Dizin
 journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
-journalsindex.link: Link
+journalsindex.link: Dergi Dizin Linki
 journal.settings.submission.language: 'Makale Gönderim Dilleri'
 journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
 journal.settings.submission: 'Makale Gönderim Ayarları'

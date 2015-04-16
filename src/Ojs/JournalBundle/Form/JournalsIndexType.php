@@ -12,8 +12,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalsIndexType extends AbstractType
-{
+class JournalsIndexType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -23,39 +23,40 @@ class JournalsIndexType extends AbstractType
         $user = $options['user'];
         $journal = $options['journal'];
         $builder
-            ->add('journal_index', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\JournalIndex',
-                'attr' => ['class' => ' form-control select2-element'],
-            ]);
-        $builder->addEventListener(FormEvents::PRE_SET_DATA,function(FormEvent $event) use($user){
+                ->add('journal_index', 'entity', [
+                    'class' => 'Ojs\JournalBundle\Entity\JournalIndex',
+                    'attr' => ['class' => ' form-control select2-element'],
+        ]);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use($user) {
             /** @var JournalsIndex $journalsindex */
             $journalsindex = $event->getData();
             $form = $event->getForm();
-            if(null===$journalsindex->getJournalId()){
+            if (null === $journalsindex->getJournalId()) {
                 $form->add('journal', 'entity', [
                     'attr' => ['class' => ' form-control select2-element'],
+                    'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($user) {
-                        /** @var User $user $qb */
-                        $qb = $er->createQueryBuilder('j');
-                        foreach ($user->getRoles() as $role) {
-                            /** @var Role $role */
-                            if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                                return $qb;
-                                break;
-                            }
-                        }
-                        $qb
-                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                            ->setParameter('user', $user);
+                /** @var User $user $qb */
+                $qb = $er->createQueryBuilder('j');
+                foreach ($user->getRoles() as $role) {
+                    /** @var Role $role */
+                    if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
                         return $qb;
+                        break;
                     }
+                }
+                $qb
+                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                        ->setParameter('user', $user);
+                return $qb;
+            }
                 ]);
-            }else{
-                $form->add('journal_id','hidden');
+            } else {
+                $form->add('journal_id', 'hidden');
             }
         });
-        $builder->add('link','text');
+        $builder->add('link', 'text', array('label' => 'journalsindex.link'));
     }
 
     /**
@@ -67,9 +68,9 @@ class JournalsIndexType extends AbstractType
             'data_class' => 'Ojs\JournalBundle\Entity\JournalsIndex',
             'user' => null,
             'journal' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'class' => 'form-validate'
             ]
         ]);
     }
@@ -81,4 +82,5 @@ class JournalsIndexType extends AbstractType
     {
         return 'ojs_journalbundle_journalsindex';
     }
+
 }

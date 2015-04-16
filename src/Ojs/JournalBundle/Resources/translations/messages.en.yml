@@ -383,7 +383,7 @@ journalsindex.singular: Index
 journalsindex.plural: Indexes
 journalsindex.journalindex: 'Journal Index'
 journalsindex.journal: Journal
-journalsindex.link: Link
+journalsindex.link: Link for Journal on Index
 journal.settings.submission.language: Submission Language
 journal.settings.submission.language.text: Select mandatory languages for article submitting
 journal.settings.submission: Submission Settings
