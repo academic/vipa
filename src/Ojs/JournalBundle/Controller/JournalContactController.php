@@ -53,7 +53,7 @@ class JournalContactController extends Controller {
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
-        } else if ($$this->userHelper->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+        } else if ($this->userHelper->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $rowAction[] = ActionHelper::showAction('manager_journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('manager_journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('manager_journalcontact_delete', 'id');
