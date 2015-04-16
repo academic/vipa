@@ -46,4 +46,32 @@ class JournalSetupStep6Controller extends Controller
                 'success' => '0'));
         }
     }
+
+    /**
+     * manager current journal setup step 6
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function managerUpdateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $step6Form = $this->createForm(new Step6(), $currentJournal);
+        $step6Form->handleRequest($request);
+        if ($step6Form->isValid()) {
+            $currentJournal->setSetupStatus(true);
+            $em->flush();
+            $journalLink = $this->generateUrl('ojs_journal_index', array(
+                'slug' => $currentJournal->getSlug(),
+                'institution' => $currentJournal->getInstitution()->getSlug()
+            ));
+            return new JsonResponse(array(
+                'success' => '1',
+                'journalLink' => $journalLink
+            ));
+        } else {
+            return new JsonResponse(array(
+                'success' => '0'));
+        }
+    }
 }
