@@ -3,7 +3,7 @@ Government: Kamu
 Association: Dernek
 Foundation: Vakıf
 Hospital: Hastane
-Chamber: Meslek Odasu
+Chamber: 'Meslek Odasu'
 Private: Özel
 Other: Diğer
 ROLE_JOURNAL_MANAGER: 'Dergi Yöneticisi'
@@ -17,29 +17,29 @@ sure_data_lost: 'Bu sayfadan ayrılmak istiyor musunuz?\n\nYaptığınız deği�
 messages: Mesajlar
 settings: Ayarlar
 mail: Mail
-mail.templates: Mail Şablonları
+mail.templates: 'Mail Şablonları'
 journals: Dergiler
 first_page: 'İlk Sayfa'
 last_page: 'Son Sayfa'
 workflow: 'İş Akışı'
-workflows: İş Akışları
-workflow.templates:  İş Akışı Şablonları
-workflow.steps: İş Akışı Adımları
-workflow.step.detail: İş Akışı Adımı Detayı
-firstStep: İlk Adım
-lastStep: Son Adım
-nextSteps: Sonraki Adımlar
-nextSteps.possible: Olası Sonraki Adımlar
-step.new: Yeni adım ekle
-step.edit: Adım düzenle
-canOnlyReply: Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.
-'Is visible to author?': Yazar görebilir mi?
-'Must be assigned to someone?': Birisine atanması gerekir mi?
-can.edit?: Düzenleyebilir mi?
-can.review?: Değerlendirebilir mi?
-can.seeAuthor?: Yazar bilgisini görebilir mi?
-can.rejectSubmission?: Gönderiyi reddebilir mi?
-suggestedMaxDays: Tavsiye edilen en fazla gün sayısı
+workflows: 'İş Akışları'
+workflow.templates: 'İş Akışı Şablonları'
+workflow.steps: 'İş Akışı Adımları'
+workflow.step.detail: 'İş Akışı Adımı Detayı'
+firstStep: 'İlk Adım'
+lastStep: 'Son Adım'
+nextSteps: 'Sonraki Adımlar'
+nextSteps.possible: 'Olası Sonraki Adımlar'
+step.new: 'Yeni adım ekle'
+step.edit: 'Adım düzenle'
+canOnlyReply: 'Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.'
+'Is visible to author?': 'Yazar görebilir mi?'
+'Must be assigned to someone?': 'Birisine atanması gerekir mi?'
+'can.edit?': 'Düzenleyebilir mi?'
+'can.review?': 'Değerlendirebilir mi?'
+'can.seeAuthor?': 'Yazar bilgisini görebilir mi?'
+'can.rejectSubmission?': 'Gönderiyi reddebilir mi?'
+suggestedMaxDays: 'Tavsiye edilen en fazla gün sayısı'
 admin: Yönetim
 dashboard: Panel
 title: Başlık
@@ -82,7 +82,7 @@ journal.about: 'Dergi Hakkında'
 journal.all: 'Tüm Dergiler'
 journal.users: 'Dergi Kullanıcıları'
 journal.theme: 'Dergi Teması'
-journal.manager: Dergi Yöneticisi
+journal.manager: 'Dergi Yöneticisi'
 citation.citation: Referans
 citation.add: 'Referans Ekle'
 citation.new: 'Yeni Referans'
@@ -92,7 +92,7 @@ article.fulltext: 'Tam Metin'
 article.plural: Makaleler
 article.singular: Makale
 article.licensing: Önşart
-articles.needAction: İşlem Bekleyen Makaleler
+articles.needAction: 'İşlem Bekleyen Makaleler'
 submission.starting: Başlarken
 article.submit: 'Makale Gönder'
 article.files: 'Makale Dosyaları'
@@ -104,8 +104,8 @@ article.title: 'Makale Başlığı'
 article.subtitle: 'Makale Alt Başlığı'
 article.language.primary: 'Makalenin Birincil Dili'
 article.language.other: 'Makalenin Diğer Dilleri'
-article.add: 'Makale Ekle' 
-article.preview: Makale Önizleme
+article.add: 'Makale Ekle'
+article.preview: 'Makale Önizleme'
 suppfiles.resins: 'Araştırma Araçları'
 suppfiles.resmat: 'Araştırma Malzemeleri'
 suppfiles.resres: 'Araştırma Sonuçları'
@@ -152,7 +152,6 @@ back.continue.editing: 'Geri Git & Düzenlemeye Devam Et'
 issue.plural: Sayılar
 issue: Sayı
 issue.manager: 'Sayı Yöneticisi'
-journal: Dergi
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
 articles_in_journal: 'Dergideki Makaleler'
 article.new: 'Yeni Makale'
@@ -239,7 +238,7 @@ institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.plural: 'Kurum Türleri'
 issue.edit: 'Sayı Düzenle'
 issue.new: 'Yeni Sayı'
-issue.add.articles: Bu sayıya makale ekle
+issue.add.articles: 'Bu sayıya makale ekle'
 issue.list: 'Sayı Listesi'
 journal.id: ID
 volume: Cilt
@@ -247,7 +246,7 @@ number: Numara
 cover: Kapak
 special: Özel
 year: Yıl
-datePublished: Yayınlanma tarihi
+datePublished: 'Yayınlanma tarihi'
 publishdate: 'Yayım Tarihi'
 desc: Açıklama
 created: Oluşturulma
@@ -256,7 +255,6 @@ deleted: Silinme
 apply.for.new.journal: 'Yeni Dergi Başvurusu'
 journal.new: 'Yeni Dergi'
 journal.apply: 'Dergiyi Uygulamaya Koy'
-journal.manager: 'Dergi Yöneticisi'
 journal.update: 'Dergi Güncelle'
 journal.edit: 'Dergi Düzenle'
 update: Güncelle
@@ -323,13 +321,13 @@ notes_to_editor: 'Editöre Notlar'
 review: Değerlendirme
 review.form: 'Değerlendirme Formu'
 review.forms: 'Değerlendirme Formları'
-review.form.preview: Değerlenirme Formu Önizleme
-reviewForms.manage: Değerlendirme formlarını yönet
+review.form.preview: 'Değerlenirme Formu Önizleme'
+reviewForms.manage: 'Değerlendirme formlarını yönet'
 template: Şablon
 templates: Şablonlar
-template.name: Tema Adı
-template.loadDefault: Load default templates
-useThisTemplate: Bu Şablonu Kullan
+template.name: 'Tema Adı'
+template.loadDefault: 'Load default templates'
+useThisTemplate: 'Bu Şablonu Kullan'
 reviewResultCodes.0: Ret
 reviewResultCodes.1: 'Tekrar Yazılmalı'
 reviewResultCodes.2: 'Major Revizyon'
@@ -385,12 +383,12 @@ journalsindex.singular: Dizin
 journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
-journalsindex.link: Dergi Dizin Linki
+journalsindex.link: 'Dergi Dizin Linki'
 journal.settings.submission.language: 'Makale Gönderim Dilleri'
 journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
 journal.settings.submission: 'Makale Gönderim Ayarları'
 journal.settings.submission.abstractTemplate: 'Makale Gönderimi Öz Şablonu'
-journal.settings.abstractTemplate.desc: Önceden tanımlanmış temaları, üstteki butonları kullanarak yükleyebilirsiniz.
+journal.settings.abstractTemplate.desc: 'Önceden tanımlanmış temaları, üstteki butonları kullanarak yükleyebilirsiniz.'
 journal.settings.mail: 'E-posta Ayarları'
 journal.settings.page: 'Sayfa Ayarları'
 journal.settings.mail.signature: 'Email imzası'
@@ -424,34 +422,63 @@ journalsection.title: Başlık
 journalsection.allow_index: 'Dizine İzin Ver'
 journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Dergi
-
 haveNoJournals: 'TODO: You have no journals'
-back: 'TODO: Back'
-contact.plural: 'TODO: Contacts'
-contacttype.plural: 'TODO: Contacts'
-institution.plural: 'TODO: Institutions'
-institutiontype.plural: 'TODO: Institution Types'
-theme.plural: 'TODO: Themes'
-lang.plural: 'TODO: Languages'
-subject.plural: 'TODO: Subjects'
-useThisTemplate: 'TODO: Use this template'
 save: 'TODO: Save'
 Info: 'TODO: Info'
 'Article Files': 'TODO: Article Files'
 'Header Image': 'TODO: Header Image'
 File: 'TODO: File'
-
 empty: Boş
 common: Genel
 detailed: Detay
 tools: Araçlar
-
-suggestion.journal.suggest: "Yeni Dergi Gönder"
+suggestion.journal.suggest: 'Yeni Dergi Gönder'
 loggedAs: 'Giriş yapılan kullanıcı'
 you: Siz
-controlPanel: Kontrol Paneli 
+controlPanel: 'Kontrol Paneli'
 visualize: Görüntüle
 color: Renk
-color.generate: Renk oluştur
-statusText: Durum Başlığı
+color.generate: 'Renk oluştur'
+statusText: 'Durum Başlığı'
 introduction: Tanıtım
+select.image.file: __select.image.file
+e: __e
+uploading: __uploading
+done: __done
+b: __b
+actions: __actions
+sure: __sure
+articlefile.new: __articlefile.new
+c: __c
+Submissions: __Submissions
+Drafts: __Drafts
+restart: __restart
+save.next: __save.next
+citation.clear: __citation.clear
+(selected): __(selected)
+competingOfInterest: __competingOfInterest
+Guidelines: __Guidelines
+'Preview Article Before Submit': '__Preview Article Before Submit'
+author.institution: __author.institution
+author.phone: __author.phone
+'Back & Continue Editing': '__Back & Continue Editing'
+'This field is required!': '__This field is required!'
+institution: __institution
+parse: __parse
+author.edit: __author.edit
+s: __s
+parent: __parent
+children: __children
+searchon.doaj: __searchon.doaj
+searchon.crossref: __searchon.crossref
+journalindex.list: __journalindex.list
+journal_licence.edit: __journal_licence.edit
+'yes': __yes
+'no': __no
+journal.setup: __journal.setup
+d: __d
+add: __add
+journal.issn: __journal.issn
+journal.eissn: __journal.eissn
+username: __username
+mailtemplate.default_template: __mailtemplate.default_template

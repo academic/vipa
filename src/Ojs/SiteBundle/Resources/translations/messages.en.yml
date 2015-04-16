@@ -1,7 +1,7 @@
-yes: Yes
-no: No
+'yes': 'Yes'
+'no': 'No'
 period: period
-journal_langs: Journal Langs
+journal_langs: 'Journal Langs'
 back: 'Back to list'
 b: Back
 d: Delete
@@ -66,7 +66,7 @@ globalFooter.text: |
                                     </p>
                                     <p>JournalPark is <strong>free</strong> to use. </p>
 search: Search
-search.main: Search Article, Journal or Author
+search.main: 'Search Article, Journal or Author'
 search_query: 'type keyword(s) here'
 login: Login
 dashboard: Dashboard
@@ -114,14 +114,14 @@ user.connected_accounts.action: Actions
 user.custom_field.create: Create
 Avatar: Avatar
 User: User
-user.forgot_password: Forgot Password
-username.or.email: Username or Email
-user.reset_password: Reset Password
-user.new_password: New Password
-user.new_password_confirm: New Password (confirmation)
-user.private_account: Private Account
+user.forgot_password: 'Forgot Password'
+username.or.email: 'Username or Email'
+user.reset_password: 'Reset Password'
+user.new_password: 'New Password'
+user.new_password_confirm: 'New Password (confirmation)'
+user.private_account: 'Private Account'
 'This account is private.': 'This account is private.'
-'Password Change': Password Change
+'Password Change': 'Password Change'
 Information: Information
 'Your password has been changed': 'Your password has been changed'
 'Password Reset': 'Password Reset'
@@ -131,9 +131,74 @@ Information: Information
 'Click link below for reset to OJS account password': 'Click link below for reset to ojs account password'
 'Reset Now': 'Reset Now'
 forgot.password: forgot.password
-institute.register: "Register Institute"
-journal.register: "Register Journal"
-user.change_password: "Change Password"
-user.old_password: "Old Password"
-journal_index.issues: "Issues"
-journal_index.volume: "Volume"
+institute.register: 'Register Institute'
+journal.register: 'Register Journal'
+user.change_password: 'Change Password'
+user.old_password: 'Old Password'
+journal_index.issues: Issues
+journal_index.volume: Volume
+archive: __archive
+date.publish: __date.publish
+volume: __volume
+issue: __issue
+page.plural: __page.plural
+first_page: __first_page
+last_page: __last_page
+languages: __languages
+abstract: __abstract
+keywords: __keywords
+tools: __tools
+citations: __citations
+subjects: __subjects
+section: __section
+tags: __tags
+journal.plural: __journal.plural
+more: __more
+Issue: __Issue
+'No Content': '__No Content'
+article.submit: __article.submit
+journalcontact.singular: __journalcontact.singular
+'-': __-
+country: __country
+new.block: __new.block
+'Link Ekle': '__Link Ekle'
+institutiontype.plural: __institutiontype.plural
+filter.remove: __filter.remove
+subject.plural: __subject.plural
+name: __name
+email: __email
+phone: __phone
+fax: __fax
+address: __address
+pages.management: __pages.management
+pages.edit: __pages.edit
+pages.all: __pages.all
+actions: __actions
+pages.new: __pages.new
+pages.detail: __pages.detail
+search.results: __search.results
+search.result.headline: __search.result.headline
+author.plural: __author.plural
+"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
+institution: __institution
+user: __user
+register: __register
+institution.plural: __institution.plural
+suggestion.institute.suggest: __suggestion.institute.suggest
+logo: __logo
+file.select: __file.select
+'Header Image': '__Header Image'
+suggest: __suggest
+uploading: __uploading
+done: __done
+suggestion.institute.success: __suggestion.institute.success
+'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
+suggestion.journal.suggest: __suggestion.journal.suggest
+'Cover Image': '__Cover Image'
+suggestion.journal.success: __suggestion.journal.success
+user.new: __user.new
+orcid.login: __orcid.login
+drop.proxy.user: __drop.proxy.user
+'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
+add.as.proxy: __add.as.proxy
+select.image.file: __select.image.file

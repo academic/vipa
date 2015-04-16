@@ -1,5 +1,5 @@
-yes: Evet
-no: Hayır
+'yes': Evet
+'no': Hayır
 period: Periyot
 back: 'Listeye geri dön'
 b: Geri
@@ -9,7 +9,7 @@ c: 'Yeni Oluştur'
 s: Göster
 e: Düzenle
 add: Ekle
-sure: Emin misiniz?
+sure: 'Emin misiniz?'
 added: Eklendi
 u: Güncelle
 404: Bulunamadı
@@ -18,8 +18,8 @@ list: Liste
 error.oops: 'Oops! Bir hata meydana geldi!'
 summart: Özet
 res: 'Yeniden Başlat'
-preview: Ön izleme
-submit: Makale Gönder
+preview: 'Ön izleme'
+submit: 'Makale Gönder'
 onlineSubmission: 'Online Makale Gönder'
 journal_home: 'Dergi Ana Sayfa'
 topics: Konular
@@ -66,7 +66,7 @@ globalFooter.text :  |
                                      </p>
                                      <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 search: Ara
-search.main: Makale, Dergi ve Yazar
+search.main: 'Makale, Dergi ve Yazar'
 search_query: 'Anahtar Sözcükleri Girin'
 login: Giriş
 dashboard: 'Gösterge Paneli'
@@ -94,8 +94,8 @@ discovery: Keşif
 announcements: Duyurular
 tubitak: TÜBİTAK
 tubitak_journals: 'TÜBİTAK Dergileri'
-Yes: Evet
-No: Hayır
+'Yes': Evet
+'No': Hayır
 role.singular: Rol
 role.plural: Roller
 user.update_profile: 'Profilimi Güncelle'
@@ -133,7 +133,73 @@ Information: Bilgilendirme
 forgot.password: 'Şifremi Unuttum'
 institute.register: 'Kurum Kaydet'
 journal.register: 'Dergi Oluştur'
-user.change_password: "Şifreyi Değiştir"
-user.old_password: "Eski Şifre"
-journal_index.issues: "Sayılar"
-journal_index.volume: "Cilt"
+user.change_password: 'Şifreyi Değiştir'
+user.old_password: 'Eski Şifre'
+journal_index.issues: Sayılar
+journal_index.volume: Cilt
+archive: __archive
+date.publish: __date.publish
+volume: __volume
+issue: __issue
+page.plural: __page.plural
+first_page: __first_page
+last_page: __last_page
+languages: __languages
+abstract: __abstract
+keywords: __keywords
+tools: __tools
+citations: __citations
+subjects: __subjects
+section: __section
+tags: __tags
+journal.plural: __journal.plural
+more: __more
+Issue: __Issue
+'No Content': '__No Content'
+article.submit: __article.submit
+journalcontact.singular: __journalcontact.singular
+journal_langs: __journal_langs
+'-': __-
+country: __country
+new.block: __new.block
+'Link Ekle': '__Link Ekle'
+institutiontype.plural: __institutiontype.plural
+filter.remove: __filter.remove
+subject.plural: __subject.plural
+name: __name
+email: __email
+phone: __phone
+fax: __fax
+address: __address
+pages.management: __pages.management
+pages.edit: __pages.edit
+pages.all: __pages.all
+actions: __actions
+pages.new: __pages.new
+pages.detail: __pages.detail
+search.results: __search.results
+search.result.headline: __search.result.headline
+author.plural: __author.plural
+"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
+institution: __institution
+user: __user
+register: __register
+institution.plural: __institution.plural
+suggestion.institute.suggest: __suggestion.institute.suggest
+logo: __logo
+file.select: __file.select
+'Header Image': '__Header Image'
+suggest: __suggest
+uploading: __uploading
+done: __done
+suggestion.institute.success: __suggestion.institute.success
+'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
+suggestion.journal.suggest: __suggestion.journal.suggest
+'Cover Image': '__Cover Image'
+suggestion.journal.success: __suggestion.journal.success
+user.new: __user.new
+orcid.login: __orcid.login
+drop.proxy.user: __drop.proxy.user
+'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
+add.as.proxy: __add.as.proxy
+select.image.file: __select.image.file

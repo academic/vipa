@@ -11,9 +11,10 @@ installer.menu.configure: Ayarlar
 installer.menu.setup: Kurulum
 installer.menu.summary: Özet
 installer.gohome: 'Siteye Git'
-installer.update.welcome.title: Ojs Güncelleyici
-installer.update.welcome.message: Veritabanı farkları sisteminize uygulanacaktır.
+installer.update.welcome.title: 'Ojs Güncelleyici'
+installer.update.welcome.message: 'Veritabanı farkları sisteminize uygulanacaktır.'
 installer.update: Güncelle
 'OJS Updater': 'OJS Güncelleyici'
 installer.menu.update: Güncelleyici
 installer.menu.update_confirm: Tamamlandı
+installer.update.congrat: __installer.update.congrat
