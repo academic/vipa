@@ -6,6 +6,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Yaml\Parser;
 use \Ojs\JournalBundle\Document\JournalSetupProgress;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Journal Setup Wizard controller.
@@ -13,10 +14,15 @@ use \Ojs\JournalBundle\Document\JournalSetupProgress;
 class JournalSetupController extends Controller
 {
     /**
+     * Admin can create new journal.
+     * admin can resume from where he/she left.
      * @return mixed
      */
     public function indexAction()
     {
+        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        if(!$superAdmin)
+            throw new AccessDeniedException();
         $user = $this->getUser();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $userSetup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUserId($user->getId());
@@ -25,7 +31,7 @@ class JournalSetupController extends Controller
         if($userSetup){
             return $this->redirect(
                 $this->generateUrl(
-                    'manager_journal_setup_resume', [
+                    'admin_journal_setup_resume', [
                         'setupId' => $userSetup->getId()
                     ]
                 ).'#'.
@@ -49,7 +55,7 @@ class JournalSetupController extends Controller
 
             return $this->redirect(
                 $this->generateUrl(
-                    'manager_journal_setup_resume', [
+                    'admin_journal_setup_resume', [
                         'setupId' => $newSetup->getId()
                     ]
                 ).'#1'
@@ -57,15 +63,17 @@ class JournalSetupController extends Controller
         }
     }
 
+    /**
+     * if admin have not finished journal setup resumes from there.
+     * @param $setupId
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function resumeAction($setupId)
     {
-        $user = $this->getUser();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
-        if(!$journal)
-            $journal = $this->get('ojs.journal_service')->getSelectedJournal();
 
         //for 6 step create update forms
         foreach (range(1, 6) as $stepValue) {

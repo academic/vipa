@@ -47,4 +47,37 @@ class JournalSetupStep4Controller extends Controller
         return new JsonResponse(array(
             'success' => '1'));
     }
+
+    /**
+     * manager current journal setup step 4
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function managerUpdateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $data = $request->request->all();
+        $pages = $data['page'];
+        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        foreach ($pages as $page) {
+            if (empty($page['title'])) {
+                return new JsonResponse([
+                    'success' => "0"
+                ]);
+            }
+            $page_ = new Post();
+            $page_
+                ->setStatus(1)
+                ->setContent($page['content'])
+                ->setObject($twig->encode($currentJournal))
+                ->setObjectId($currentJournal->getId())
+                ->setPostType('default')
+                ->setTitle($page['title']);
+            $em->persist($page_);
+            $em->flush();
+        }
+        return new JsonResponse(array(
+            'success' => '1'));
+    }
 }

@@ -34,4 +34,25 @@ class JournalSetupStep2Controller extends Controller
                 'success' => '0'));
         }
     }
+
+    /**
+     * manager current journal setup step 2
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function managerUpdateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $currentJournal = $this->get("ojs.journal_service")->getSelectedJournal();
+        $step2Form = $this->createForm(new Step2(), $currentJournal);
+        $step2Form->handleRequest($request);
+        if ($step2Form->isValid()) {
+            $em->flush();
+            return new JsonResponse(array(
+                'success' => '1'));
+        }else{
+            return new JsonResponse(array(
+                'success' => '0'));
+        }
+    }
 }
