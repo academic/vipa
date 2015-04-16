@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('workflow_templates'), 'title': 'workflow.templates'},
-                {'title': 'Workflow Template Details'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
+                {'title': 'workflow.template.details'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -69,7 +69,7 @@
     {% endfor %}
     <hr>
     <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right"
-       onclick="return confirm('Your existing workflow design will be overwritten! Are you sure?');">
+       onclick="return confirm('{{ 'Your existing workflow design will be overwritten! Are you sure?'|trans }}');">
         <i class="fa fa-check"></i> {{"useThisTemplate"|trans}}
     </a>
     {% if template.isSystemTemplate is defined %}

@@ -7,9 +7,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
-                {'title': 'New Workflow Step'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+                {'title': 'workflow.step.new'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -17,7 +17,7 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>New Workflow Step</h1>
+            <h1>{{ 'workflow.step.new'|trans }}</h1>
         </div>
         <div class="panel-body">
             <form method="post" class="form" action="{{path('workflowstep_create')}}">
@@ -46,11 +46,11 @@
                 </div>
                 <div class="form-inline">
                     <label class="label label-info" style="line-height: 20px;display: inline-block;">
-                        First Step?
+                        {{ 'First Step'|trans }}
                         <input type="checkbox" name="firstStep" value="1">
                     </label>
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                        Last Step?
+                        {{ 'Last Step'|trans }}
                         <input type="checkbox" name="lastStep" value="1">
                     </label>
                 </div>
@@ -75,7 +75,7 @@
                     <a href="#"  class="btn btn-info"
                        onclick="$('#advanced').slideToggle();
                                return false;"><i class="fa fa-angle-double-down"></i>
-                        Advanced Settings</a>
+                        {{ 'Advanced Settings'|trans }}</a>
                     <hr>
                 </div>
                 <div id="advanced" style="display:none">
@@ -103,18 +103,18 @@
 
                     <div class="form-group">
                         <label  style="line-height: 20px;display: inline-block;">
-                            User must send a competing of interest statement.
+                            {{ 'User must send a competing of interest statement.'|trans }}
                             <input type="checkbox" name="shouldFileCi" value="1"> 
                         </label>
                         <br>
                         <div id="ciTextHolder"  style="display:none">
-                            Guidelines for filling a <i>competing of Interest</i> statement.
+                            {{ 'Guidelines for filling a <i>competing of Interest</i> statement.'|trans }}
                             <br>
                             {% for template in ciTemplates %}
                                 <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
                                    onclick="$('textarea#ciTextInput').data('wysihtml5').editor.setValue($('#ciTemplate{{template.id}}').html());
                                            return false;">
-                                    Template-{{template.id}} {{template.type}}
+                                    {{ 'Template'|trans }}-{{template.id}} {{template.type}}
                                 </a>
                                 <div class="hide" id="ciTemplate{{template.id}}">{{template.template|raw}}</div>
                             {% endfor %}
@@ -145,14 +145,14 @@
                         </label>
 
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
-                            Can reject the submission completely?
+                            {{ 'Can reject the submission completely?'|trans }}
                             <input type="checkbox" name="canRejectSubmission" value="1"> 
                         </label>
                     </div>
                     <div class="form-group">
                         <label>{{"review.forms"|trans}}</label>
                         <select name="reviewforms[]" style="min-width:200px" multiple="multiple" class="select2-element">
-                            <option>[No review form]</option>
+                            <option>{{ '[No review form]'|trans }}</option>
                             {%for form in forms%}
                                 <option value="{{form.id}}">{{form.title}}</option>
                             {%endfor%}

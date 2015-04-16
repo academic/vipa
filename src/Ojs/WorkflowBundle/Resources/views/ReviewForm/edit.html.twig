@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'review.forms'},
-                {'title': 'Update Review Form'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+                {'title': 'review.form.update'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -20,10 +20,10 @@
         </div>
 
         <div>
-            <input type="submit" class="btn btn-success" value="Save" />
+            <input type="submit" class="btn btn-success" value="{{ 'save'|trans }}" />
             <a href="{{path('ojs_review_forms')}}" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>
-                Back to List
+                {{ 'b'|trans }}
             </a>
         </div>
     </form>

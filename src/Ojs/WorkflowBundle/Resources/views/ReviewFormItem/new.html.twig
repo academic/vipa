@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'}, 
-                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'Form Items' },
-                {'title':'New Form Item'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
+                {'title':'form.item.new'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -12,55 +12,55 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>New Review Form Item <small>{{form.title}}</small></h1>
+            <h1>{{ "review.form.item.new"|trans }}<small>{{form.title}}</small></h1>
         </div>
         <div class="panel-body"> 
             <div class="panel-body">
                 <form method="post" class="form-row" action="{{path('ojs_review_form_items_create',{'formId':form.id})}}">
                     <div>
-                        <label>Title</label>
+                        <label>{{ 'title'|trans }}</label>
                         <input  id="titleinput" class="form-control" name="title" >
                     </div>
 
                     <div>
-                        <label>Mandatory?
+                        <label>{{ 'mandatory'|trans }}
                             <input type="checkbox" name="mandatory" id="mandatoryinput" value="1"> 
                         </label>
-                        <span class="help-block">Is this question mandatory?</span>
+                        <span class="help-block">{{ 'Is this question mandatory?'|trans }}</span>
                     </div>
                     <div>
-                        <label>Confidential?
+                        <label>{{ 'confidential'|trans }}
                             <input type="checkbox" name="confidential" id="confidentialinput" value="1"> 
                         </label>
-                        <span class="help-block">If this question's answer may contain confidential data please check.</span>
+                        <span class="help-block">{{ 'If this question`s answer may contain confidential data please check.'|trans }}</span>
                     </div>
 
                     <div class="form-inline">
-                        <label>Input Type</label>
+                        <label>{{ 'input_types'|trans }}</label>
                         <select class="form-control select2-element" name="inputtype" id="inputtypeinput">
-                            <option value="textbox">Textbox</option>
-                            <option value="textarea">Textarea</option>
-                            <option rel="hasfields" value="checkboxes">Checkbox</option>
-                            <option rel="hasfields" value="radiobutton">Radiobutton</option>
-                            <option rel="hasfields" value="dropdown">Dropdown</option>
-                            <option value="scale1_5">Scale 1-5</option>
+                            <option value="textbox"    >{{ 'input_types.textbox'|trans }}</option>
+                            <option value="textarea"    >{{ 'input_types.textarea'|trans }}</option>
+                            <option rel="hasfields" value="checkboxes"    >{{ 'input_types.checkboxes'|trans }}</option>
+                            <option rel="hasfields" value="radiobutton"    >{{ "input_types.radiobutton"|trans }}</option>
+                            <option rel="hasfields" value="dropdown"    >{{ 'input_types.dropdown'|trans }}</option>
+                            <option value="scale1_5" >{{ 'input_types.scale_1_5'|trans }}</option>
                         </select>
 
                     </div>
 
                     <div id="fieldspart"   style="display:none">
-                        <label>Fields</label>
-                        <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="Add each field text as one line" ></textarea>
+                        <label>{{ 'fields'|trans }}</label>
+                        <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="{{ 'Add each field text as one line'|trans }}" ></textarea>
                     </div>
                     
                      <div>
-                        <label>Fieldset</label>
+                        <label>{{ 'fieldset'|trans }}</label>
                         <input  id="fieldsetinput" class="form-control" name="fieldset" >
-                        <span class="help-block">Questions will be grouped under fieldset names.</span>
+                        <span class="help-block">{{ 'Questions will be grouped under fieldset names.'|trans }}</span>
                     </div>
 
                     <div>
-                        <input type="submit" class="btn btn-success" value="Save" />
+                        <input type="submit" class="btn btn-success" value="{{ 'save' }}" />
                         <a href="{{path('ojs_review_form_items',{'formId':form.id})}}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i>
                             {{"b"|trans}}

@@ -2,15 +2,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
                 {'link': path('ojs_review_form_items',{'formId':form.id}),'title': form.title }
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%} 
-    <h1>Form items <small>{{form.title}}</small> </h1>
+    <h1>{{ 'form.items'|trans }}<small>{{form.title}}</small> </h1>
     <hr> 
     <div class='list-group'>
         {% for entity in formItems %}
@@ -41,7 +41,7 @@
             <i class="fa fa-eye"></i> {{"preview"|trans}}
         </a> 
         <a class="btn btn-default"
-           onclick="return confirm('All your form items for this form will be deleted and default items will be inserted. Are you sure?');"
+           onclick="return confirm('{{ 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'|trans }}');"
            href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"templates.loadDefault"|trans}}</a>
     {% endif %}  
 

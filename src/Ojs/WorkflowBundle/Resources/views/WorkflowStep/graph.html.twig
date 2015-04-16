@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'},
-                {'title': 'Workflow Steps Graph'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_workflow_homepage'), 'title': 'workflow'|trans},
+                {'title': 'workflow.step.graph'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
@@ -12,20 +12,20 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>Workflow Steps Graph</h1>
+            <h1>{{ 'workflow.step.graph'|trans }}</h1>
         </div>
         <div class="panel-body">
 
             <div class="mermaid">
-                sequenceDiagram
+                {{ 'sequenceDiagram'|trans }}
 
 
                 {% for nStep in firstStep.nextSteps %}
                     loop {{ firstStep.title }} query
-                    {{ firstStep.title }}->>{{ nStep.title }}: {% if firstStep.canReview %}Review Result {% else %}Accept {% endif %}
+                    {{ firstStep.title }}->>{{ nStep.title }}: {% if firstStep.canReview %}{{ 'review.result'|trans }}{% else %}{{ 'accept'|trans }}{% endif %}
 
                     {% for n2Step in firstStep.nextSteps %}
-                        {{ nStep.title }}->>{{ n2Step.title }}: {% if nStep.canReview %}Review Result {% else %}Accept {% endif %}
+                        {{ nStep.title }}->>{{ n2Step.title }}: {% if nStep.canReview %}{{ 'review.result'|trans }} {% else %}{{ 'accept'|trans }}{% endif %}
 
                     {% endfor  %}
                     end

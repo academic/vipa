@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'},
-    {'link': path('workflow_templates'), 'title': 'workflow.templates'},
-    {'title': 'New Create'}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
+    {'title': 'workflow.step.template.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block body -%}
     <div class="panel">
         <div class="panel-heading">
-            <h1>Workflow Template Create</h1>
+            <h1>{{ "workflow.templates.create"|trans }}</h1>
         </div>
         <div>
             {{ form_start(form) }}

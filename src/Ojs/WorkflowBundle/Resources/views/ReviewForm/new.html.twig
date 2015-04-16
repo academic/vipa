@@ -2,33 +2,33 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'review.forms'},
-                {'title': 'New Review Form'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+                {'title': 'review.form.new'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%} 
-    <h1>New Review Form Item</h1>
+    <h1>{{ 'review.form.item.new'|trans }}</h1>
     <hr>
 
     <form method="post" class="form-row" action="{{path('ojs_review_forms_create')}}">
         <div class="form-group">
-            <label>Journal</label> 
+            <label>{{ 'journal'|trans }}</label>
             <span>{{journal.title}}</span>
         </div>
 
         <div class="form-group">
-            <label>Title</label>
+            <label>{{ 'title'|trans }}</label>
             <input  id="titleinput" class="form-control" name="title" >
         </div>
 
         <div>
-            <input type="submit" class="btn btn-success" value="Save" />
+            <input type="submit" class="btn btn-success" value="{{ 'save'|trans }}" />
             <a href="{{path('ojs_review_forms')}}" class="btn btn-default">
                 <i class="fa fa-arrow-left"></i>
-                Back to List
+                {{ 'b'|trans }}
             </a>
         </div>
     </form> 

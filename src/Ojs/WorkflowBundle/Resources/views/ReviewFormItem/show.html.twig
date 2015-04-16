@@ -2,36 +2,36 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                {'link': path('ojs_review_forms'), 'title': 'Review Forms'},
-                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'Form Items' },
-                {'title': 'Review Form Item Details'}
+                {'link': path('dashboard'), 'title': 'dashboard'|trans},
+                {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
+                {'title': 'review.form.item.detail'|trans}
 ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
 {% block body -%} 
 
-    <h2><small>Title: </small> {{formItem.title}}</h2>
+    <h2><small>{{ 'title'|trans }}: </small> {{formItem.title}}</h2>
 
     <table class="table table-responsive">
         <tr>
-            <td>Input type</td>
+            <td>{{ 'input_type'|trans }}</td>
             <td>{{formItem.inputtype}}</td>
         </tr>
         <tr>
             <td>
-                Mandatory?
+                {{ 'mandatory'|trans }}
             </td>
             <td>
                 {% if formItem.mandatory %}  
                     <span class="label label-warning">
-                        Yes    
+                        {{ 'Yes'|trans }}
                         <i class="fa fa-warning"></i>
                     </span>
                 {%else%}
                     <span class="label label-info">
-                        Optional
+                        {{ 'optional'|trans }}
                         <i class="fa fa-check"></i>
                     </span>
                 {% endif %}
@@ -40,7 +40,7 @@
 
         <tr>
             <td>
-                Confidentail?
+                {{ 'confidentail'|trans }}
             </td>
             <td>
                 {% if formItem.confidential %}  
@@ -51,7 +51,7 @@
             </td>
         </tr>
         <tr>
-            <td>Fields</td>
+            <td>{{ 'fields'|trans }}</td>
             <td>
                 {%if formItem.fields %}
                     <ul>
@@ -63,7 +63,7 @@
             </td>
         </tr>
         <tr>
-            <td>Fieldset</td>
+            <td>{{ 'fieldset'|trans }}</td>
             <td>{{formItem.fieldset}}</td>
         </tr>
     </table>
