@@ -1,37 +1,37 @@
-manager_journal_setup:
-    pattern:  /manager/journal/setup/
+admin_journal_setup:
+    pattern:  /
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:index" }
 
-manager_journal_setup_resume:
-    pattern:  /manager/journal/{setupId}/resume/
+admin_journal_setup_resume:
+    pattern:  /{setupId}/resume/
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetup:resume" }
 
-manager_journal_setup_resume_step1:
-    pattern:  /manager/journal/{setupId}/setup/step1
+admin_journal_setup_resume_step1:
+    pattern:  /{setupId}/step1
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep1:update" }
     requirements: { _method: post }
 
-manager_journal_setup_resume_step2:
-    pattern:  /manager/journal/{setupId}/setup/step2
+admin_journal_setup_resume_step2:
+    pattern:  /{setupId}/step2
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep2:update" }
     requirements: { _method: post }
 
-manager_journal_setup_resume_step3:
-    pattern:  /manager/journal/{setupId}/setup/step3
+admin_journal_setup_resume_step3:
+    pattern:  /{setupId}/step3
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep3:update" }
     requirements: { _method: post }
 
-manager_journal_setup_resume_step4:
-    pattern:  /manager/journal/{setupId}/setup/step4
+admin_journal_setup_resume_step4:
+    pattern:  /{setupId}/step4
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep4:update" }
     requirements: { _method: post }
 
-manager_journal_setup_resume_step5:
-    pattern:  /manager/journal/{setupId}/setup/step5
+admin_journal_setup_resume_step5:
+    pattern:  /{setupId}/step5
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep5:update" }
     requirements: { _method: post }
 
-manager_journal_setup_resume_step6:
-    pattern:  /manager/journal/{setupId}/setup/step6
+admin_journal_setup_resume_step6:
+    pattern:  /{setupId}/step6
     defaults: { _controller: "OjsJournalBundle:JournalSetup/JournalSetupStep6:update" }
     requirements: { _method: post }
