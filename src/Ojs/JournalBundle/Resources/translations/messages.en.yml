@@ -323,10 +323,12 @@ notes_to_editor: 'Notes to Editor'
 review: Review
 review.form: 'Review Form'
 review.forms: 'Review Forms'
+review.form.preview: Review Form Preview
 reviewForms.manage: Manage review forms
 template: Template
 templates: Templates
 template.name: Template Name
+template.loadDefault: Load default templates
 useThisTemplate: 'Use this template'
 reviewResultCodes.0: Reject
 reviewResultCodes.1: 'Must Rewrite'

@@ -28,7 +28,7 @@
                             <span class="badge">{{ lang }}</span>
                         {% endfor %}
                     </div>
-                    <label>{{ "journal.settings.submision.language.text"|trans }}</label>
+                    <label>{{ "journal.settings.submission.language.text"|trans }}</label>
                     <select name="submissionMandatoryLanguages[]" class="select2-element form-control" multiple>
                         {% for lang in allLanguages %}
                             <option value="{{ lang.code }}" {% if lang.code in settings.submissionMandatoryLanguages %}selected{% endif %}>

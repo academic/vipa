@@ -38,11 +38,11 @@
             <i class="fa fa-plus"></i> {{"create"|trans}}
         </a>
         <a href="{{path('ojs_review_forms_preview',{'id':form.id})}}" class="btn btn-info">
-            <i class="fa fa-eye"></i> Preview
+            <i class="fa fa-eye"></i> {{"preview"|trans}}
         </a> 
         <a class="btn btn-default"
            onclick="return confirm('All your form items for this form will be deleted and default items will be inserted. Are you sure?');"
-           href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}">Load default templates</a>
+           href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"templates.loadDefault"|trans}}</a>
     {% endif %}  
 
 {% endblock %}
