@@ -31,8 +31,13 @@ article_preview:
 ojs_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/articlesubmission.yml"
 
-ojs_journal_setup:
-    resource: "@OjsJournalBundle/Resources/config/routing/journalsetup.yml"
+ojs_admin_journal_setup:
+    prefix:   /admin/journal/setup/
+    resource: "@OjsJournalBundle/Resources/config/routing/admin/journalsetup.yml"
+
+ojs_manager_journal_setup:
+    prefix:   /manager/journal/setup
+    resource: "@OjsJournalBundle/Resources/config/routing/manager/journalsetup.yml"
 
 journal_apply:
     pattern:  /journal/apply
