@@ -29,6 +29,7 @@
     "bootstrap-dialog": "*",
     "bootstrap3-wysihtml5-bower": "*",
     "select2-bootstrap-css": "*",
+      "select2":"3.5.1",
     "jquery-file-upload": "*",
     "jquery.inputmask": "*",
     "flot": "*",

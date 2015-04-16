@@ -44,7 +44,7 @@ class JournalType extends AbstractType {
                     'property' => 'subject',
                     'multiple' => true,
                     'attr' => [
-                        'class' => 'select2-element validate[required]'
+                        'class' => 'select2-element'
                     ]
                 ])
                 ->add('submitRoles', 'entity', array(
@@ -54,7 +54,7 @@ class JournalType extends AbstractType {
                     'expanded' => false,
                     'required' => false,
                     'attr' => [
-                        'class' => 'select2-element validate[required]'
+                        'class' => 'select2-element'
                     ]
                         )
                 )
@@ -75,12 +75,12 @@ class JournalType extends AbstractType {
                 ->add('country', 'entity', [
                     'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
-                        'class' => 'select2-element validate[required]'
+                        'class' => 'select2-element '
                     ]
                 ])
                 ->add('footer_text', 'textarea', [
                     'attr' => [
-                        'class' => 'wysihtml5 validate[required]'
+                        'class' => 'wysihtml5 '
                     ]
                 ])
                 ->add('published','checkbox')
@@ -92,7 +92,7 @@ class JournalType extends AbstractType {
                 ->add('logo', 'hidden')
                 ->add('slug')
                 ->add('tags', 'text', ['attr' => ['class' => 'select2-tags', 'data-role' => '']])
-                ->add('description', 'textarea')
+                ->add('description', 'textarea',['attr'=>['class'=>'validate[required]']])
                 ->add('theme', 'entity', array(
                     'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
