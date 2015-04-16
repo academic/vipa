@@ -58,12 +58,13 @@ register_journal: 'Register Journal'
 send_article: 'Send Article'
 featured: Featured
 featured.desc: You can see selected and popular journals from the list below
-landingPage.text:   |
-                                            <p class="lead"> 
-                                            ojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way. 
-                                            The whole process starting from the submission of an article to its publication is carried out in electronic environment.
-                                            </p>
-                                                        <p class="lead">JournalPark is <strong>free</strong> to use. </p>
+landingPage.text:  ""
+globalFooter.text: |
+                                    <p> 
+                                    ojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way. 
+                                    The whole process starting from the submission of an article to its publication is carried out in electronic environment.
+                                    </p>
+                                    <p>JournalPark is <strong>free</strong> to use. </p>
 search: Search
 search.main: Search Article, Journal or Author
 search_query: 'type keyword(s) here'

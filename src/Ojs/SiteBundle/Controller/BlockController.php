@@ -73,11 +73,15 @@ class BlockController extends Controller
 
     public function deleteAction(Request $request, $object, $type, Block $block)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
+        /** @var \Doctrine\ORM\EntityManager $em */  
         $em = $this->getDoctrine()->getManager();
         $em->remove($block);
-        $em->flush(); 
-        return $this->redirect($this->get('ojs.journal_service')->generateUrl($object));
+        $em->flush();
+        /**
+         * only journals has blocks for now
+         */
+        $journal = $em->find('OjsJournalBundle:Journal',$object);
+        return $this->redirect($this->get('ojs.journal_service')->generateUrl($journal));
     }
 
     public function deleteLinkAction(Request $request, $object, $type, BlockLink $block_link)
