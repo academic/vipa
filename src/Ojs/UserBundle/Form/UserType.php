@@ -40,7 +40,6 @@ class UserType extends AbstractType
                     'class'=>'validate[required]'
                 ]
             ])
-            ->add('isActive')
             ->add('status', 'choice', [
                 'choices' => CommonParams::$userStatusArray
             ])

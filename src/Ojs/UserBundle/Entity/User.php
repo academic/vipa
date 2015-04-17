@@ -15,7 +15,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation\Expose;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 /**
  * User
  * @ExclusionPolicy("all")
@@ -70,11 +69,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     protected $lastName;
 
-    /**
-     * @var boolean
-     * @Expose
-     */
-    protected $isActive;
 
     /**
      * @var string
@@ -99,7 +93,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     /**
      * @var integer
-     * @GRID\Column(title="user.status",filter="select",selectFrom="values",values={0="Passive",1="Active"} )
+     * @GRID\Column(title="user.status",filter="select",selectFrom="values",values={0="Passive",1="Active",2="Banned"} )
      */
     protected $status = 1;
 
@@ -151,7 +145,6 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->isActive = true;
         $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
@@ -556,27 +549,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function isAccountNonExpired()
     {
-        return $this->getIsActive();
+        return $this->getStatus()==1?false:true;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
 
-    /**
-     * @param  boolean $isActive
-     * @return User
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
 
     /**
      * Checks whether the user is locked.
@@ -590,7 +566,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function isAccountNonLocked()
     {
-        return $this->getIsActive();
+        return $this->getStatus()==1?true:false;
     }
 
     /**
@@ -605,7 +581,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function isCredentialsNonExpired()
     {
-        return $this->getIsActive();
+        return $this->getStatus()==1?true:false;
     }
 
     /**
@@ -620,7 +596,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     public function isEnabled()
     {
-        return $this->getIsActive();
+        return $this->getStatus()==1?false:true;
     }
 
     public function getFullName()

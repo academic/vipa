@@ -19,7 +19,7 @@
     <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
 {% endif %}
 {{entity.username}}
-    <small style="color:green">{% if(entity.isActive != 0)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
+    <small style="color:green">{% if(entity.status == 1)%}<i class="fa fa-check-circle"></i>{%endif%}</small>
 
 </h1>
 <table class="record_properties  table">

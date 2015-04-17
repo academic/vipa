@@ -23,7 +23,6 @@ class UserTypeTest extends BaseTypeTestcase
                   'title'=>$this->faker->word,
                   'firstName'=>$this->faker->firstName,
                   'lastName'=>$this->faker->lastName,
-                  'isActive'=>$this->faker->boolean(),
                   'status'=>$this->faker->randomDigit,
                   //'roles'=>[1],
                   //'subjects'=>[1],
