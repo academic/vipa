@@ -5,6 +5,7 @@
     firstName: Author
     lastName: Demo
     email (unique): demo.author@ojs.io
+    isActive: true
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
     status: 1
     title: Dr.
@@ -16,6 +17,7 @@
     firstName: Journal Manager
     lastName: Demo
     email (unique): demo.manager@ojs.io
+    isActive: true
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
     status: 1
     title: Prof. Dr.
@@ -27,6 +29,7 @@
     firstName: Journal Tester
     lastName: Demo
     email (unique): demo.tester@ojs.io
+    isActive: true
     apikey (unique): 'NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw=='
     status: 1
     title: Prof. Dr.
