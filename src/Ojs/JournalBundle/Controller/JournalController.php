@@ -89,9 +89,12 @@ class JournalController extends Controller
      */
     private function createCreateForm(Journal $entity)
     {
+        $em = $this->getDoctrine()->getManager();
+        $roles = $em->getRepository('OjsUserBundle:Role')->findInIds([1,11,12]);
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
             'method' => 'POST',
+            'default_roles'=>$roles
         ));
         return $form;
     }

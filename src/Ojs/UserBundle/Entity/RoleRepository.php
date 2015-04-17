@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class RoleRepository extends EntityRepository
 {
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function findInIds($ids = [])
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb->where(
+            $qb->expr()->in('r.id', ':ids')
+        )
+            ->setParameter('ids', $ids);
+        return $qb->getQuery()->getResult();
+    }
+
 }
