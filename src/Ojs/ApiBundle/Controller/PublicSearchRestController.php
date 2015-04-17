@@ -4,7 +4,9 @@ namespace Ojs\ApiBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -173,7 +175,7 @@ class PublicSearchRestController extends FOSRestController {
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User',$id);
         if($user){
-            return Response::create($user->getUsername()."-".$user->getEmail());
+            return JsonResponse::create(['id'=>$id,'text'=>$user->getUsername()." <".$user->getEmail().'>']);
         }
         throw new NotFoundHttpException;
     }
@@ -220,6 +222,28 @@ class PublicSearchRestController extends FOSRestController {
         }
         return $data;
     }
-    
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @ApiDoc(
+     *  resource=true,
+     *  description="get journal by id"
+     * )
+     * @Get("/public/journal/get/{id}")
+     */
+    public function getJournalAction($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal  $journal */
+        $journal = $em->find('OjsJournalBundle:Journal',$id);
+        if($journal){
+            return JsonResponse::create(['id'=>$id,'text'=>$journal->getTitle() ]);
+        }
+        throw new NotFoundHttpException;
+    }
     
 }
