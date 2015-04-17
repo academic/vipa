@@ -42,7 +42,7 @@
         </a> 
         <a class="btn btn-default"
            onclick="return confirm('{{ 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'|trans }}');"
-           href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"templates.loadDefault"|trans}}</a>
+           href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"template.loadDefault"|trans}}</a>
     {% endif %}  
 
 {% endblock %}
