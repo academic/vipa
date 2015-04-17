@@ -125,12 +125,18 @@ $(document).ready(function () {
     });
     $('.select2-tags').each(function () {
         var value = $(this).val();
-        var data = value.split(',');
-        var _data = [];
-        for (var i = 0; i < data.length; i++) {
-            _data.push({id: data[i], text: data[i], slug: data[i]});
+        if(value)
+        {
+            var $that = $(this);
+            $.ajax({
+                url:'/api/public/search/tagsByIds',
+                data: 'ids='+value,
+                dataType: 'json',
+                success: function(data){
+                    $that.select2('data', data).change();
+                }
+            })
         }
-        $(this).select2('data', _data);
     });
     $(".select2-tags").select2('container').setTypeForHook();
 
