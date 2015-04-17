@@ -223,7 +223,7 @@ setting: Setting
 citation.setting.edit: 'Edit Citation Setting'
 citation.setting.list: 'Citation Setting List'
 citation.setting.new: 'New Citation Setting'
-citation.id: ID
+citation.id: 'Citation ID'
 citation.setting: 'Citation Setting'
 value: Value
 contact.manager: 'Contact Manager'
@@ -252,10 +252,10 @@ file.details: 'File Details'
 file.path: 'File Path'
 institution.manager: 'Institution Manager'
 institution.edit: 'Edit Institution'
-logo: Logo
 institution.new: 'New Institution'
 institution.detail: 'Institution Detail'
 institution.plural: Institutions
+logo: Logo
 address_lat: Latitude
 address_long: Longitude
 institutiontype.edit: 'Edit Institution Type'
@@ -338,9 +338,6 @@ theme.list: 'Theme List'
 content: Content
 basetheme: 'Base Theme'
 theme.new: 'New Theme'
-searchon.wikipedia: 'Search on Wikipedia'
-searchon.google: 'Search on Google Scholar'
-searchon.pubmed: 'Search on PubMed'
 special.issue: 'Special Issue'
 select.article.file: 'Select File'
 notes_to_editor: 'Notes to Editor'
@@ -469,76 +466,61 @@ statusText: 'Status Text'
 introduction: Introduction
 helptext.authors.wont.see: 'Authors <strong>won''t</strong> see this field.'
 helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
-articles.waiting: __articles.waiting
-'These articlese submitted but waiting to be assigned.': '__These articlese submitted but waiting to be assigned.'
+'These articlese submitted but waiting to be assigned.': 'These articlese submitted but waiting to be assigned.'
 sure: __sure
 accepted: __accepted
 rejected: __rejected
 waiting: __waiting
-searchon.doaj: __searchon.doaj
-Subjects: __Subjects
-Keywords: __Keywords
-Abstract: __Abstract
-Section: __Section
-Authors: __Authors
-Files: __Files
+Subjects: Subjects
+Keywords: Keywords
+Abstract: Abstract
+Section: Section
+Authors: Authors
+Files: Files
 update.article.file: __update.article.file
-'Review Notes': '__Review Notes'
+'Review Notes': 'Review Notes'
 competingOfInterest: __competingOfInterest
-'Previous Review Report': '__Previous Review Report'
+'Previous Review Report': 'Previous Review Report'
 sendmail: __sendmail
-'Review Report': '__Review Report'
+'Review Report': 'Review Report'
 review.form.update: __review.form.update
-b: __b
-review.form.new: __review.form.new
-review.form.item.new: __review.form.item.new
-review.form.detail: __review.form.detail
-review.form.item.update: __review.form.item.update
-form.item.update: __form.item.update
-mandatory: __mandatory
-'Is this question mandatory?': '__Is this question mandatory?'
-confidential: __confidential
-'If this question`s answer may contain confidential data please check.': '__If this question`s answer may contain confidential data please check.'
-input_type: __input_type
-input_types.textbox: __input_types.textbox
-input_types.textarea: __input_types.textarea
-input_types.checkboxes: __input_types.checkboxes
-input_types.radiobutton: __input_types.radiobutton
-input_types.dropdown: __input_types.dropdown
-input_types.scale_1_5: __input_types.scale_1_5
-fields: __fields
-'Add each field text as one line': '__Add each field text as one line'
-Fieldset: __Fieldset
-'Questions will be grouped under fieldset names.': '__Questions will be grouped under fieldset names.'
-form.items: __form.items
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': '__All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-templates.loadDefault: __templates.loadDefault
+b: Back
+review.form.new: New Review Form
+review.form.item.new: Review Form New Item
+review.form.detail: Review Form Detail
+review.form.item.update: Review Form Iten Upate
+form.item.update: Form Item Update
+mandatory: Mandatory
+'Is this question mandatory?': 'Is this question mandatory?'
+confidential: Confidential
+'If this question`s answer may contain confidential data please check.': 'If this question`s answer may contain confidential data please check.'
+fields: Fields
+'Add each field text as one line': 'Add each field text as one line'
+Fieldset: Fieldset
+'Questions will be grouped under fieldset names.': 'Questions will be grouped under fieldset names.'
+form.items: Form Items
+'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
 form.item.new: __form.item.new
 input_types: __input_types
 fieldset: __fieldset
 review.form.item.detail: __review.form.item.detail
-'Yes': __Yes
-optional: __optional
-confidentail: __confidentail
+optional: Optional 
 workflow.step.update: __workflow.step.update
 'First Step': '__First Step'
 'Last Step': '__Last Step'
 role.plural: __role.plural
-'User must send a competing of interest statement.': '__User must send a competing of interest statement.'
-'Guidelines for filling a <i>competing of Interest</i> statement.': '__Guidelines for filling a <i>competing of Interest</i> statement.'
+'User must send a competing of interest statement.': 'User must send a competing of interest statement.'
+'Guidelines for filling a <i>competing of Interest</i> statement.': 'Guidelines for filling a <i>competing of Interest</i> statement.'
 '[No review form]': '__[No review form]'
 workflow.step.graph: __workflow.step.graph
 sequenceDiagram: __sequenceDiagram
 review.result: __review.result
 accept: __accept
 workflow.step.new: __workflow.step.new
-'Advanced Settings': '__Advanced Settings'
-Template: __Template
-'Can reject the submission completely?': '__Can reject the submission completely?'
-'Competing of interest statement': '__Competing of interest statement'
-c: __c
-e: __e
-d: __d
+'Advanced Settings': 'Advanced Settings'
+Template: Template
+'Can reject the submission completely?': 'Can reject the submission completely?'
+'Competing of interest statement': 'Competing of interest statement'
 workflow.template.edit: __workflow.template.edit
 workflow.template.update: __workflow.template.update
 workflow.step.template.edit: __workflow.step.template.edit
@@ -553,10 +535,10 @@ last_step: __last_step
 workflow.template.addStep: __workflow.template.addStep
 workflow.template.step.detail: __workflow.template.step.detail
 workflow.template.details: __workflow.template.details
-'Your existing workflow design will be overwritten! Are you sure?': '__Your existing workflow design will be overwritten! Are you sure?'
+'Your existing workflow design will be overwritten! Are you sure?': 'Your existing workflow design will be overwritten! Are you sure?'
 system.templates: __system.templates
 created.templates: __created.templates
-user.manager: __user.manager
+user.manager: User Manager
 user.anonym: __user.anonym
 user.anonym.new: __user.anonym.new
 user.anonym.list: __user.anonym.list
@@ -579,26 +561,26 @@ maillog.edit: __maillog.edit
 maillog.id: __maillog.id
 maillog.mailobject: __maillog.mailobject
 maillog.recipientemail: __maillog.recipientemail
-'You''ve joined to OJS': '__You''ve joined to OJS'
-'One More Step': '__One More Step'
-'To protect your privacy, please confirm your email address by clicking the activation link': '__To protect your privacy, please confirm your email address by clicking the activation link'
-'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': '__If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.'
-'Activate Now': '__Activate Now'
-'view this in your browser': '__view this in your browser'
-'You''ve invited to OJS': '__You''ve invited to OJS'
-'Review invitation from': '__Review invitation from'
-'Click link below for login to ojs if you are accept invitation': '__Click link below for login to ojs if you are accept invitation'
-Accept: __Accept
-Decline: __Decline
-'Password Change': '__Password Change'
-Information: __Information
-'Your password has been changed': '__Your password has been changed'
-'Password Reset': '__Password Reset'
-'Your password has been reset': '__Your password has been reset'
-'You are request password reset': '__You are request password reset'
-'Password Reset Process': '__Password Reset Process'
-'Click link below for reset to ojs account password': '__Click link below for reset to ojs account password'
-'Reset Now': '__Reset Now'
+'You''ve joined to OJS': 'You''ve joined to OJS'
+'One More Step': 'One More Step'
+'To protect your privacy, please confirm your email address by clicking the activation link': 'To protect your privacy, please confirm your email address by clicking the activation link'
+'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.'
+'Activate Now': 'Activate Now'
+'view this in your browser': 'view this in your browser'
+'You''ve invited to OJS': 'You''ve invited to OJS'
+'Review invitation from': 'Review invitation from'
+'Click link below for login to ojs if you are accept invitation': 'Click link below for login to ojs if you are accept invitation'
+Accept: Accept
+Decline: Decline
+'Password Change': 'Password Change'
+Information: Information
+'Your password has been changed': 'Your password has been changed'
+'Password Reset': 'Password Reset'
+'Your password has been reset': 'Your password has been reset'
+'You are request password reset': 'You are request password reset'
+'Password Reset Process': 'Password Reset Process'
+'Click link below for reset to ojs account password': 'Click link below for reset to ojs account password'
+'Reset Now': 'Reset Now'
 notification.edit: __notification.edit
 notification.list: __notification.list
 notification.id: __notification.id
@@ -642,29 +624,28 @@ role.users: __role.users
 user.anonym.create_password: __user.anonym.create_password
 sign.in: __sign.in
 username.or.email: __username.or.email
-username: __username
-password: __password
+username: Username
+password: Password
 forgot.password: __forgot.password
 orcid.login: __orcid.login
-register: __register
-'This will be your unique short name in application': '__This will be your unique short name in application'
-'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': '__By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
+register: Register
+'This will be your unique short name in application': 'This will be your unique short name in application'
+'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 unconfirmed.user: __unconfirmed.user
-user.edit: __user.edit
+user.edit: Edit User
 Avatar: __Avatar
-select.image.file: __select.image.file
 uploading: __uploading
 done: __done
-user.list: __user.list
-user.show: __user.show
-user.id: __user.id
-user.username: __user.username
-user.email: __user.email
-user.roles: __user.roles
-user.subjects: __user.subjects
+user.list: User List
+user.show:  User Show
+user.id: User id
+user.username: Username
+user.email: Email
+user.roles: User Roles
+user.subjects: User Subjects
 drop.proxy.user: __drop.proxy.user
 add.as.proxy: __add.as.proxy
-user.apikey: __user.apikey
+user.apikey: Api Key
 regenerate.apikey: __regenerate.apikey
 register.yourself.as.author: __register.yourself.as.author
 user.journalrole.edit: __user.journalrole.edit
@@ -688,74 +669,71 @@ user.journalrole.myjournals: __user.journalrole.myjournals
 user.journalrole.alljournals: __user.journalrole.alljournals
 user.journalrole.youhavenojournal: __user.journalrole.youhavenojournal
 user.journalrole.usersofjournal: __user.journalrole.usersofjournal
-articlefile.new: __articlefile.new
-Submissions: __Submissions
-Drafts: __Drafts
-restart: __restart
+articlefile.new: New Article File
+Submissions: Submissions
+Drafts: Drafts
+restart: Restart
 save.next: __save.next
 citation.clear: __citation.clear
 (selected): __(selected)
 Guidelines: __Guidelines
-'Preview Article Before Submit': '__Preview Article Before Submit'
+'Preview Article Before Submit': 'Preview Article Before Submit'
 author.institution: __author.institution
 author.phone: __author.phone
-'Back & Continue Editing': '__Back & Continue Editing'
-'This field is required!': '__This field is required!'
-institution: __institution
+'Back & Continue Editing': 'Back & Continue Editing'
+'This field is required!': 'This field is required!'
+institution: Institution
+institutions: Institutions
 parse: __parse
 author.edit: __author.edit
 parent: __parent
 children: __children
-searchon.crossref: __searchon.crossref
+
 journalindex.list: __journalindex.list
 journal_licence.edit: __journal_licence.edit
-'yes': __yes
-'no': __no
 journal.setup: __journal.setup
-add: __add
+add: Add
 journal.issn: __journal.issn
 journal.eissn: __journal.eissn
-home: __home
-tags: __tags
-institutions: __institutions
-more: __more
-Issue: __Issue
-journal_home: __journal_home
-announcements: __announcements
+home: Home
+tags: Tags
+more: More
+Issue: Issue
+journal_home: Journal Home Page
+announcements: Announcements
 'No Content': '__No Content'
-articles: __articles
-search: __search
-about: __about
+articles: Articles
+search: Search
+about: About
 journal_index.issues: __journal_index.issues
 journal_index.volume: __journal_index.volume
 journal_langs: __journal_langs
 '-': __-
 'Link Ekle': '__Link Ekle'
-list: __list
+list: List
 filter.remove: __filter.remove
 pages.management: __pages.management
 pages.edit: __pages.edit
 pages.all: __pages.all
 pages.new: __pages.new
 pages.detail: __pages.detail
-search.results: __search.results
+search.results: Search Results 
 search.result.headline: __search.result.headline
 "<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
-article: __article
-user: __user
-landingPage.text: __landingPage.text
-search.main: __search.main
-institute.register: __institute.register
-journal.register: __journal.register
-featured: __featured
-featured.desc: __featured.desc
+article: Article 
+landingPage.text: ""
+search.main: 'Search Journal, Article and Author'
+institute.register:  Register Institution
+journal.register: Journal Register
+featured: Featured
+featured.desc: ""
 suggestion.institute.suggest: __suggestion.institute.suggest
 suggest: __suggest
 suggestion.institute.success: __suggestion.institute.success
-'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
-'Cover Image': '__Cover Image'
+'Your suggestion saved successfuly.': 'Your suggestion saved successfuly.'
+'Cover Image': 'Cover Image'
 suggestion.journal.success: __suggestion.journal.success
-User: __User
+User: User
 user.update_profile: __user.update_profile
 user.connected_accounts: __user.connected_accounts
 user.custom_fields: __user.custom_fields
@@ -773,12 +751,11 @@ user.custom_field.label: __user.custom_field.label
 user.custom_field.value: __user.custom_field.value
 user.custom_field.is_url: __user.custom_field.is_url
 user.custom_field.action: __user.custom_field.action
-'No': __No
 user.forgot_password: __user.forgot_password
 user.reset_password: __user.reset_password
 user.private_account: __user.private_account
-'This account is private.': '__This account is private.'
-'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
+'This account is private.': 'This account is private.'
+'You can allow this user to login as you, by clicking this button': 'You can allow this user to login as you, by clicking this button'
 u: __u
 api: __api
 api_motto: __api_motto
@@ -788,51 +765,49 @@ delete: __delete
 'Order by': '__Order by'
 Filters: __Filters
 collapse: __collapse
-Search: __Search
+Search: Search
 Reset: __Reset
 '%count% Results,': '__%count% Results,'
 Page: __Page
 'of %count%': '__of %count%'
 ', Display': '__, Display'
-'Items per page': '__Items per page'
-'Select visible': '__Select visible'
-'Deselect visible': '__Deselect visible'
-'Select all': '__Select all'
-'Deselect all': '__Deselect all'
-Action: __Action
-'Submit Action': '__Submit Action'
-Export: __Export
-Tweaks: __Tweaks
-Tweak: __Tweak
-Go: __Go
-'You''ve a message from Ojs': '__You''ve a message from Ojs'
-privacy: __privacy
-tos: __tos
-wiki: __wiki
-support: __support
-faq: __faq
-blog: __blog
-documents: __documents
-presentations: __presentations
-videos: __videos
-photos: __photos
-ulakbim: __ulakbim
-discovery: __discovery
-toggle_navigation: __toggle_navigation
-ojs: __ojs
-user_page: __user_page
-user.profile.edit: __user.profile.edit
-proxy_users: __proxy_users
-log_out_from_user: __log_out_from_user
-login_as: __login_as
-list_my_proxys: __list_my_proxys
-user.lastlogin: __user.lastlogin
-user.activitylog: __user.activitylog
-log_out: __log_out
-login: __login
-journal.join: __journal.join
-Articles: __Articles
-Admin: __Admin
+'Items per page': 'Items per page'
+'Select visible': 'Select visible'
+'Deselect visible': 'Deselect visible'
+'Select all': 'Select all'
+'Deselect all': 'Deselect all'
+Action: Action
+'Submit Action': 'Submit Action'
+Export: Export
+Tweaks: Tweaks
+Tweak: Tweak
+Go: Go
+'You''ve a message from Ojs': 'You''ve a message from Ojs'
+privacy:  Privacy
+tos: Tos
+wiki: Wiki
+support: Support
+faq: Faq
+blog: Blog
+documents: Documents
+presentations: Presentations
+videos: Videos
+photos: Photos
+ulakbim: Ulakbim
+discovery: Discovery
+toggle_navigation: Toggle Navigation
+ojs:  Ojs
+user_page: User Page
+user.profile.edit: Edit User Profile
+proxy_users: Proxy Users
+log_out_from_user: Logout from user
+login_as: Login as
+list_my_proxys: List my proxies
+log_out: Logout
+login: Login
+journal.join: Join Journal
+Articles: Articles
+Admin: Admin
 dashboard.general.stats: 'General Stats'
 stats.most.viewed.article: 'Most viewed article'
 stats.most.downloaded.article: 'Most downloaded article'
@@ -843,11 +818,10 @@ dashboard.operations: Operations
 total.user: 'Total user'
 total.article: 'Total article'
 total.issue: 'Total issue'
-article.plural: __article.plural
-author.plural: __author.plural
-contact.plural: __contact.plural
+article.plural: Articles
+author.plural: Authors
+contact.plural: Contacts
 contacttype.plural: __contacttype.plural
-institution.plural: __institution.plural
 institutiontype.plural: __institutiontype.plural
 issue.plural: __issue.plural
 journal.plural: __journal.plural
@@ -855,42 +829,39 @@ subject.plural: __subject.plural
 lang.plural: __lang.plural
 theme.plural: __theme.plural
 journal.theme: __journal.theme
-user.plural: __user.plural
+user.plural: User
 role.plural: __role.plural
 user.anonym.new: __user.anonym.new
 dashboard.suggestion: __dashboard.suggestion
 suggestion.journal: __suggestion.journal
 suggestion.institute: __suggestion.institute
-'Any article viewed yet': '__Any article viewed yet'
-'Any article downloaded yet': '__Any article downloaded yet'
+'Any article viewed yet': 'Any article viewed yet'
+'Any article downloaded yet': 'Any article downloaded yet'
 journal.my: __journal.my
 journal: __journal
 role.singular: __role.singular
 journal.nothave: __journal.nothave
-issue.edit: __issue.edit
-volume: __volume
-number: __number
-title: __title
-year: __year
+volume: Volume
+number: Number
+title: Title
+year: Year
 date.publish: __date.publish
-issue.add.articles: __issue.add.articles
-article: __article
-section: __section
-article.add: __article.add
-article.preview: __article.preview
-order: __order
-article.singular: __article.singular
+issue.add.articles: __issue.add.articles 
+section: Section
+article.add: Add Article
+article.preview: Preview Article
+order: Order
+article.singular: Article
 page.first: __page.first
 page.last: __page.last
-save: __save
-cancel: __cancel
-dashboard: __dashboard
+save: Save
+cancel: Cancel
+dashboard: Dashboard
 issue.manager: __issue.manager
 special.issue: __special.issue
 special: __special
 create: __create
 issue: __issue
-c: __c
 journal.manager: __journal.manager
 journal.update: __journal.update
 journal.settings.mail: __journal.settings.mail
@@ -900,30 +871,25 @@ journal.settings.submission.language.text: __journal.settings.submission.languag
 journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
 journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
 role.forusers: __role.forusers
-username: __username
+username: Username
 email: __email
 status: __status
 roles: __roles
 actions: __actions
-articles.needAction: __articles.needAction
+articles.needAction: Articles that need action
 sure: __sure
 search.resutls: 'Search Results'
 search.results: 'Search Results'
 search.result.headline: "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
-
-'yes': 'Yes'
-'no': 'No'
 period: period
 journal_langs: 'Journal Langs'
 back: 'Back to list'
-b: Back
 d: Delete
 remove: Remove
 c: 'Create New'
 s: Show
 e: Edit
-add: Add
-sure: 'Are you sure?'
+add: Add 
 added: Added
 u: Update
 404: 'Not found'
@@ -1055,8 +1021,6 @@ date.publish: __date.publish
 volume: __volume
 issue: __issue
 page.plural: __page.plural
-first_page: __first_page
-last_page: __last_page
 languages: __languages
 abstract: __abstract
 keywords: __keywords
@@ -1069,13 +1033,13 @@ journal.plural: __journal.plural
 more: __more
 Issue: __Issue
 'No Content': '__No Content'
-article.submit: __article.submit
+article.submit: Submit Article
 journalcontact.singular: __journalcontact.singular
 '-': __-
 country: __country
 new.block: __new.block
 'Link Ekle': '__Link Ekle'
-institutiontype.plural: __institutiontype.plural
+institutiontype.plural: Institution Types
 filter.remove: __filter.remove
 subject.plural: __subject.plural
 name: __name
@@ -1088,15 +1052,12 @@ pages.edit: __pages.edit
 pages.all: __pages.all
 actions: __actions
 pages.new: __pages.new
-pages.detail: __pages.detail
-search.results: __search.results
+pages.detail: __pages.detail 
 search.result.headline: __search.result.headline
 author.plural: __author.plural
 "<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
-institution: __institution
-user: __user
-register: __register
-institution.plural: __institution.plural
+user: User
+register: Register
 suggestion.institute.suggest: __suggestion.institute.suggest
 logo: __logo
 file.select: __file.select
@@ -1109,12 +1070,11 @@ suggestion.institute.success: __suggestion.institute.success
 suggestion.journal.suggest: __suggestion.journal.suggest
 'Cover Image': '__Cover Image'
 suggestion.journal.success: __suggestion.journal.success
-user.new: __user.new
+user.new: New User
 orcid.login: __orcid.login
 drop.proxy.user: __drop.proxy.user
 'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
-add.as.proxy: __add.as.proxy
-select.image.file: __select.image.file
+add.as.proxy: __add.as.proxy 
 user.profile: User Profile
 user.profile.edit: Edit User Profile
 user.lastlogin: Last Login
@@ -1186,7 +1146,6 @@ password: Password
 forgot.password: 'forgot password'
 user.new: 'New User'
 user.plural: Users
-register: Register
 'This will be your unique short name in application': 'This will be your unique short name in application'
 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
 unconfirmed.user: 'Unconfirmed User'
@@ -1199,7 +1158,7 @@ user.username: Username
 user.email: Email
 user.status: Status
 user.roles: Roles
-sure.ban: 'Are you sure for ban user ?'
+sure.ban: 'You will ban this user. Are you sure?'
 select.image.file: 'Select Image File...'
 user.show: 'Show User'
 user.id: ID
@@ -1261,23 +1220,24 @@ workflow.template.addStep: 'Add Step'
 workflow.template.update: 'Template Update'
 workflow.template.updateStep: 'Update Step'
 workflow: __workflow
-article.plural: __article.plural
-articles.waiting: __articles.waiting
+article.plural: Article
+articles.waiting: Waiting Articles
 'These articlese submitted but waiting to be assigned.': '__These articlese submitted but waiting to be assigned.'
-dashboard: __dashboard
-sure: __sure
-accepted: __accepted
-rejected: __rejected
-waiting: __waiting
-searchon.google: __searchon.google
-searchon.wikipedia: __searchon.wikipedia
-searchon.pubmed: __searchon.pubmed
-searchon.doaj: __searchon.doaj
-Subjects: __Subjects
-Keywords: __Keywords
-Abstract: __Abstract
-Section: __Section
-Authors: __Authors
+dashboard: Dashboard
+accepted: Accepted
+rejected: Rejected
+waiting: Waiting
+searchon:
+  google: Search on Google
+  wikipedia: Search on Wikipedia
+  pubmed: Search on Pubmed
+  doaj: Search on Doaj
+  crossref: Search on Crossref 
+Subjects: Subjects
+Keywords: Keywords
+Abstract: Abstract
+Section: Section
+Authors: Authors
 author.orcid: __author.orcid
 author.order: __author.order
 author.title: __author.title
@@ -1296,50 +1256,37 @@ preview: __preview
 'Review Report': '__Review Report'
 review.forms: __review.forms
 review.form.update: __review.form.update
-save: __save
-b: __b
-review.form: __review.form
-create: __create
-review.form.new: __review.form.new
-review.form.item.new: __review.form.item.new
-journal: __journal
-title: __title
-review.form.preview: __review.form.preview
-review.form.detail: __review.form.detail
-review.form.item.update: __review.form.item.update
+save: Save 
+review.form: Review Form
+create: Create 
+journal: Journal
+title: Title 
 form.item.update: __form.item.update
-mandatory: __mandatory
-'Is this question mandatory?': '__Is this question mandatory?'
-confidential: __confidential
-'If this question`s answer may contain confidential data please check.': '__If this question`s answer may contain confidential data please check.'
-input_type: __input_type
-input_types.textbox: __input_types.textbox
-input_types.textarea: __input_types.textarea
-input_types.checkboxes: __input_types.checkboxes
-input_types.radiobutton: __input_types.radiobutton
-input_types.dropdown: __input_types.dropdown
-input_types.scale_1_5: __input_types.scale_1_5
-fields: __fields
-'Add each field text as one line': '__Add each field text as one line'
-Fieldset: __Fieldset
-'Questions will be grouped under fieldset names.': '__Questions will be grouped under fieldset names.'
-form.items: __form.items
-details: __details
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': '__All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-templates.loadDefault: __templates.loadDefault
-form.item.new: __form.item.new
-input_types: __input_types
-fieldset: __fieldset
+'Is this question mandatory?': 'Is this question mandatory?'
+'If this question`s answer may contain confidential data please check.': 'If this question`s answer may contain confidential data please check.'
+input_type: Input type
+input_types:
+  textbox: textbox
+  textarea: textarea
+  checkboxes: checkboxes
+  radiobutton: radiobutton
+  dropdown: dropdown
+  scale_1_5: scale_1_5
+fields: Fields
+'Add each field text as one line': 'Add each field text as one line'
+Fieldset: Fieldset
+'Questions will be grouped under fieldset names.': 'Questions will be grouped under fieldset names.'
+details: Details
+'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
+form.item.new: New Form Item
+input_types: Input types
+fieldset: Fieldset
 review.form.item.detail: __review.form.item.detail
-'Yes': __Yes
-optional: __optional
-confidentail: __confidentail
+confidentail: Confidentail
 workflow.step.update: __workflow.step.update
-color: __color
-color.generate: __color.generate
-statusText: __statusText
-'First Step': '__First Step'
-'Last Step': '__Last Step'
+color: Color
+color.generate: Color generate
+statusText: Status Text 
 suggestedMaxDays: __suggestedMaxDays
 role.plural: __role.plural
 canOnlyReply: __canOnlyReply
@@ -1351,8 +1298,7 @@ canOnlyReply: __canOnlyReply
 'can.review?': '__can.review?'
 'Must be assigned to someone?': '__Must be assigned to someone?'
 'can.rejectSubmission?': '__can.rejectSubmission?'
-nextSteps.possible: __nextSteps.possible
-'[No review form]': '__[No review form]'
+nextSteps.possible: __nextSteps.possible 
 reviewForms.manage: __reviewForms.manage
 introduction: __introduction
 workflow.step.graph: __workflow.step.graph

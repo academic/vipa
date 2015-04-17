@@ -50,7 +50,7 @@
                 <div id="fieldspart"   style="{% if formItem.inputType  in [ 'radiobutton','radiobutton','checkboxes'] %}display:block{%else%}display:none{%endif%}">
                     <label>{{ 'fields'|trans }}</label>
                     <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="{{ 'Add each field text as one line'|trans }}" >{%for field in formItem.fields%}{{field}}
-                        {%endfor%}</textarea>
+{%endfor%}</textarea>
                     </div>
                     <div>
                         <label>{{ 'Fieldset'|trans }}</label>

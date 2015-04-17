@@ -114,8 +114,7 @@ citation.add: 'Referans Ekle'
 citation.new: 'Yeni Referans'
 citation.paste_extract: 'Yapıştır ve Referansları Ayrıştır'
 citation.type: 'Referans Tipi'
-article.fulltext: 'Tam Metin'
-article.plural: Makaleler
+article.fulltext: 'Tam Metin' 
 article.singular: Makale
 article.licensing: Önşart
 articles.needAction: 'İşlem Bekleyen Makaleler'
@@ -352,7 +351,7 @@ reviewForms.manage: 'Değerlendirme formlarını yönet'
 template: Şablon
 templates: Şablonlar
 template.name: 'Tema Adı'
-template.loadDefault: 'Load default templates'
+template.loadDefault: 'Varsayılan şablonu yükle'
 useThisTemplate: 'Bu Şablonu Kullan'
 reviewResultCodes.0: Ret
 reviewResultCodes.1: 'Tekrar Yazılmalı'
@@ -449,7 +448,6 @@ journalsection.allow_index: 'Dizine İzin Ver'
 journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Dergi
 haveNoJournals: 'TODO: You have no journals'
-save: 'TODO: Save'
 Info: 'TODO: Info'
 'Article Files': 'TODO: Article Files'
 'Header Image': 'TODO: Header Image'
@@ -471,10 +469,9 @@ select.image.file: __select.image.file
 e: __e
 uploading: __uploading
 done: __done
-b: __b
 actions: __actions
 sure: __sure
-articlefile.new: __articlefile.new
+articlefile.new: Yeni makale dosyası
 c: __c
 Submissions: __Submissions
 Drafts: __Drafts
@@ -487,26 +484,24 @@ Guidelines: __Guidelines
 'Preview Article Before Submit': '__Preview Article Before Submit'
 author.institution: __author.institution
 author.phone: __author.phone
-'Back & Continue Editing': '__Back & Continue Editing'
-'This field is required!': '__This field is required!'
-institution: __institution
-parse: __parse
+'Back & Continue Editing': 'Geri Dön ve Düzenlemeye Devam Et'
+'This field is required!': 'Bu alan gereklidir!'
+institution: Kurum
+parse: Ayrıştır
 author.edit: __author.edit
-s: __s
+s: Sakla
 parent: __parent
 children: __children
 searchon.doaj: __searchon.doaj
 searchon.crossref: __searchon.crossref
 journalindex.list: __journalindex.list
 journal_licence.edit: __journal_licence.edit
-'yes': __yes
-'no': __no
 journal.setup: __journal.setup
-d: __d
-add: __add
-journal.issn: __journal.issn
-journal.eissn: __journal.eissn
-username: __username
+d: Sil
+add: Ekle
+journal.issn: Journal ISSN
+journal.eissn: Journal eISSN
+username: Kullanıcı adı
 mailtemplate.default_template: __mailtemplate.default_template
 dashboard.general.stats: 'Genel İstatistik'
 stats.most.viewed.article: 'En Çok Görüntülenen Makale'
@@ -518,19 +513,18 @@ dashboard.operations: Operasyonlar
 total.user: 'Toplam Kullanıcı'
 total.article: 'Toplam Makale'
 total.issue: 'Toplam Sayı'
-article.plural: __article.plural
-author.plural: __author.plural
-contact.plural: __contact.plural
+article.plural: Makaleler
+author.plural: Makale
+contact.plural: İletişim Kaydı
 contacttype.plural: __contacttype.plural
-institution.plural: __institution.plural
 institutiontype.plural: __institutiontype.plural
 issue.plural: __issue.plural
 journal.plural: __journal.plural
-subject.plural: __subject.plural
-lang.plural: __lang.plural
+subject.plural: Konu
+lang.plural: Dil
 theme.plural: __theme.plural
 journal.theme: __journal.theme
-user.plural: __user.plural
+user.plural: Kullanıcı
 role.plural: __role.plural
 user.anonym.new: __user.anonym.new
 dashboard.suggestion: __dashboard.suggestion
@@ -549,16 +543,15 @@ title: __title
 year: __year
 date.publish: __date.publish
 issue.add.articles: __issue.add.articles
-article: __article
-section: __section
-article.add: __article.add
-article.preview: __article.preview
+article: Makale
+section: Bölüm
+article.add: Makale Ekle
+article.preview: Makale Önizleme
 order: __order
-article.singular: __article.singular
+article.singular: Makale
 page.first: __page.first
 page.last: __page.last
-save: __save
-cancel: __cancel
+cancel: İptal Et
 dashboard: __dashboard
 issue.manager: __issue.manager
 special.issue: __special.issue
@@ -575,18 +568,16 @@ journal.settings.submission.language.text: __journal.settings.submission.languag
 journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
 journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
 role.forusers: __role.forusers
-username: __username
-email: __email
+username: Kullanıcı adı
+email: E-posta
 status: __status
-roles: __roles
-actions: __actions
+roles: Roller
+actions: Aksiyonlar
 articles.needAction: __articles.needAction
 sure: __sure
 search.resutls: 'Arama Sonuçları'
 search.results: 'Arama Sonuçları'
 search.result.headline:  "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
-'yes': Evet
-'no': Hayır
 period: Periyot
 back: 'Listeye geri dön'
 b: Geri
@@ -610,7 +601,6 @@ submit: 'Makale Gönder'
 onlineSubmission: 'Online Makale Gönder'
 journal_home: 'Dergi Ana Sayfa'
 topics: Konular
-save: Kaydet
 save.next: 'Kaydet ve Devam Et'
 part: Parça
 url: Bağlantı
@@ -632,7 +622,6 @@ manual: Kılavuz
 misc: Çeşitli/Diğer
 primaly_language: 'Birincil Dil'
 read.lastissue: 'Son Sayıyı Oku'
-details: Ayrıntılar
 ojs: OJS
 wiki: Wiki
 support: Destek
@@ -653,7 +642,7 @@ globalFooter.text :  |
                                      </p>
                                      <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
 search: Ara
-search.main: 'Makale, Dergi ve Yazar'
+search.main: 'Makale, Dergi ve Yazar Ara'
 search_query: 'Anahtar Sözcükleri Girin'
 login: Giriş
 dashboard: 'Gösterge Paneli'
@@ -681,8 +670,8 @@ discovery: Keşif
 announcements: Duyurular
 tubitak: TÜBİTAK
 tubitak_journals: 'TÜBİTAK Dergileri'
-'Yes': Evet
-'No': Hayır
+Yes: Evet
+No: Hayır
 role.singular: Rol
 role.plural: Roller
 user.update_profile: 'Profilimi Güncelle'
@@ -743,7 +732,7 @@ journal.plural: __journal.plural
 more: __more
 Issue: __Issue
 'No Content': '__No Content'
-article.submit: __article.submit
+article.submit: Makale gönder
 journalcontact.singular: __journalcontact.singular
 journal_langs: __journal_langs
 '-': __-
@@ -768,10 +757,8 @@ search.results: __search.results
 search.result.headline: __search.result.headline
 author.plural: __author.plural
 "<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
-institution: __institution
-user: __user
-register: __register
-institution.plural: __institution.plural
+user: Kullanıcı
+register: Kayıt Ol
 suggestion.institute.suggest: __suggestion.institute.suggest
 logo: __logo
 file.select: __file.select
@@ -784,7 +771,7 @@ suggestion.institute.success: __suggestion.institute.success
 suggestion.journal.suggest: __suggestion.journal.suggest
 'Cover Image': '__Cover Image'
 suggestion.journal.success: __suggestion.journal.success
-user.new: __user.new
+user.new: Yeni Kullanıcı
 orcid.login: __orcid.login
 drop.proxy.user: __drop.proxy.user
 'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
@@ -924,16 +911,15 @@ orcid.login: 'ORCID Hesabı İle Giriş Yap'
 flush.all.log: 'Logları Sil'
 dashboard: __dashboard
 user.anonym: __user.anonym
-c: __c
+ 
 user.anonym.used: __user.anonym.used
-b: __b
 'You''ve invited to OJS': '__You''ve invited to OJS'
 'Review invitation from': '__Review invitation from'
 'Click link below for login to ojs if you are accept invitation': '__Click link below for login to ojs if you are accept invitation'
 Accept: __Accept
 Decline: __Decline
 'Password Change': '__Password Change'
-Information: __Information
+Information: __Information	
 'Your password has been changed': '__Your password has been changed'
 'Password Reset': '__Password Reset'
 'Your password has been reset': '__Your password has been reset'
@@ -941,9 +927,6 @@ Information: __Information
 'Password Reset Process': '__Password Reset Process'
 'Click link below for reset to ojs account password': '__Click link below for reset to ojs account password'
 'Reset Now': '__Reset Now'
-s: __s
-e: __e
-save: __save
 user.anonym.create_password: __user.anonym.create_password
 Avatar: __Avatar
 useThisTemplate: 'Bu temayı kullan'
@@ -956,9 +939,8 @@ workflow.template.create: 'Şablon Oluştur'
 workflow.template.addStep: 'Adım Ekle'
 workflow.template.update: 'Şablonu Güncelle'
 workflow.template.updateStep: 'Adımı Güncelle'
-workflow: __workflow
-article.plural: __article.plural
-articles.waiting: __articles.waiting
+workflow: İş Akışı 
+articles.waiting: Bekleyen Makaleler
 'These articlese submitted but waiting to be assigned.': '__These articlese submitted but waiting to be assigned.'
 dashboard: __dashboard
 sure: __sure
@@ -992,8 +974,7 @@ preview: __preview
 'Review Report': '__Review Report'
 review.forms: __review.forms
 review.form.update: __review.form.update
-save: __save
-b: __b
+b: Geri Gön
 review.form: __review.form
 create: __create
 review.form.new: __review.form.new
@@ -1003,36 +984,33 @@ title: __title
 review.form.preview: __review.form.preview
 review.form.detail: __review.form.detail
 review.form.item.update: __review.form.item.update
-form.item.update: __form.item.update
-mandatory: __mandatory
-'Is this question mandatory?': '__Is this question mandatory?'
-confidential: __confidential
-'If this question`s answer may contain confidential data please check.': '__If this question`s answer may contain confidential data please check.'
-input_type: __input_type
-input_types.textbox: __input_types.textbox
-input_types.textarea: __input_types.textarea
-input_types.checkboxes: __input_types.checkboxes
-input_types.radiobutton: __input_types.radiobutton
-input_types.dropdown: __input_types.dropdown
-input_types.scale_1_5: __input_types.scale_1_5
-fields: __fields
+form.item.update: Form Elemanı Güncelle
+mandatory: Zorunlu
+'Is this question mandatory?': 'Bu soru zorunlu mu?'
+confidential: Gizli bilgi
+'If this question`s answer may contain confidential data please check.': 'Bu sorunun cevabı gizli bir bilgi içeriyorsa lütfen işaretleyin.'
+input_type: Giriş türü
+input_types:
+  textbox: Çok satır metin alanı
+  textarea: Tek satı metin alanı
+  checkboxes: Checkboxes
+  radiobutton: Radio Butonu
+  dropdown: Dropdown
+  scale_1_5: scale_1_5
+fields: Alanlar
 'Add each field text as one line': '__Add each field text as one line'
-Fieldset: __Fieldset
-'Questions will be grouped under fieldset names.': '__Questions will be grouped under fieldset names.'
-form.items: __form.items
-details: __details
+Fieldset: Grup
+'Questions will be grouped under fieldset names.': 'Sorular grup adları altında gruplanacaklardır.'
+form.items: Form Elemanları
+details: Detaylar
 'All your form items for this form will be deleted and default items will be inserted. Are you sure?': '__All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-templates.loadDefault: __templates.loadDefault
 form.item.new: __form.item.new
 input_types: __input_types
 fieldset: __fieldset
 review.form.item.detail: __review.form.item.detail
-'Yes': __Yes
 optional: __optional
 confidentail: __confidentail
 workflow.step.update: __workflow.step.update
-color: __color
-color.generate: __color.generate
 statusText: __statusText
 'First Step': '__First Step'
 'Last Step': '__Last Step'
