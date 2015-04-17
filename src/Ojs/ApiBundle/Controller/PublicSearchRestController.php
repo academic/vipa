@@ -103,14 +103,43 @@ class PublicSearchRestController extends FOSRestController {
     public function getTagsAction(Request $request)
     {
         return [
-            ['id'=>1,'name'=>'emre'],
-            ['id'=>2,'name'=>'emrah'],
-            ['id'=>3,'name'=>'emrullah'],
-            ['id'=>4,'name'=>'emir'],
-            ['id'=>5,'name'=>'emel'],
+
         ];
     }
-
+    /**
+     * @param Request $request
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search Institutions",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      },
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="false",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/public/search/tagsByIds")
+     * @return array
+     */
+    public function getTagsByIdsAction(Request $request)
+    {
+        $ids = $request->get('ids');
+        return [
+            ['id'=>1,'text'=>'tıp', 'slug'=>'tip'],
+            ['id'=>2,'text'=>'tahrib', 'slug'=>'tahrib'],
+            ['id'=>3,'text'=>'takip', 'slug'=>'takip'],
+            ['id'=>4,'text'=>'tahrif', 'slug'=>'tahrif'],
+            ['id'=>5,'text'=>'tahkim', 'slug'=>'tahkim'],
+        ];
+    }
     /**
      * @param Request $request
      * @ApiDoc(
