@@ -1,3 +1,29 @@
+api: 'Application Development Interface'
+api_motto: 'OJS provides a complete restful api for developers.'
+ojs:
+    install:
+        title: Ojs Installation
+        confirm: Confirm Installation
+save: Save
+installer.welcome.title: 'Welcome to OJS Web Installer'
+installer.welcome.message: 'Welcome message'
+installer.check_configuration: 'Check Configuration'
+installer.setup: Setup
+installer.congrat: 'Congrat! Installation has completed.'
+'OJS Setup': 'OJS Setup'
+installer.menu.home: Home
+installer.menu.check: Check
+installer.menu.configure: Configure
+installer.menu.setup: Setup
+installer.menu.summary: Summary
+installer.gohome: 'Go Home Yanky!'
+installer.update.welcome.title: 'OJS Updater'
+installer.update.welcome.message: 'Database differences will be apply to production database.'
+installer.update: Upgrade
+'OJS Updater': 'OJS Updater'
+installer.menu.update: Updater
+installer.menu.update_confirm: Complete
+installer.update.congrat: __installer.update.congrat
 University: University
 Government: Government
 Association: Association
@@ -807,3 +833,563 @@ login: __login
 journal.join: __journal.join
 Articles: __Articles
 Admin: __Admin
+dashboard.general.stats: 'General Stats'
+stats.most.viewed.article: 'Most viewed article'
+stats.most.downloaded.article: 'Most downloaded article'
+dashboard.admin: 'Admin Dashboard'
+dashboard.editor: 'Editor Dashboard'
+dashboard.objects: Objects
+dashboard.operations: Operations
+total.user: 'Total user'
+total.article: 'Total article'
+total.issue: 'Total issue'
+article.plural: __article.plural
+author.plural: __author.plural
+contact.plural: __contact.plural
+contacttype.plural: __contacttype.plural
+institution.plural: __institution.plural
+institutiontype.plural: __institutiontype.plural
+issue.plural: __issue.plural
+journal.plural: __journal.plural
+subject.plural: __subject.plural
+lang.plural: __lang.plural
+theme.plural: __theme.plural
+journal.theme: __journal.theme
+user.plural: __user.plural
+role.plural: __role.plural
+user.anonym.new: __user.anonym.new
+dashboard.suggestion: __dashboard.suggestion
+suggestion.journal: __suggestion.journal
+suggestion.institute: __suggestion.institute
+'Any article viewed yet': '__Any article viewed yet'
+'Any article downloaded yet': '__Any article downloaded yet'
+journal.my: __journal.my
+journal: __journal
+role.singular: __role.singular
+journal.nothave: __journal.nothave
+issue.edit: __issue.edit
+volume: __volume
+number: __number
+title: __title
+year: __year
+date.publish: __date.publish
+issue.add.articles: __issue.add.articles
+article: __article
+section: __section
+article.add: __article.add
+article.preview: __article.preview
+order: __order
+article.singular: __article.singular
+page.first: __page.first
+page.last: __page.last
+save: __save
+cancel: __cancel
+dashboard: __dashboard
+issue.manager: __issue.manager
+special.issue: __special.issue
+special: __special
+create: __create
+issue: __issue
+c: __c
+journal.manager: __journal.manager
+journal.update: __journal.update
+journal.settings.mail: __journal.settings.mail
+journal.settings.mail.signature: __journal.settings.mail.signature
+journal.settings.submission.language: __journal.settings.submission.language
+journal.settings.submission.language.text: __journal.settings.submission.language.text
+journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
+journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
+role.forusers: __role.forusers
+username: __username
+email: __email
+status: __status
+roles: __roles
+actions: __actions
+articles.needAction: __articles.needAction
+sure: __sure
+search.resutls: 'Search Results'
+search.results: 'Search Results'
+search.result.headline: "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
+
+'yes': 'Yes'
+'no': 'No'
+period: period
+journal_langs: 'Journal Langs'
+back: 'Back to list'
+b: Back
+d: Delete
+remove: Remove
+c: 'Create New'
+s: Show
+e: Edit
+add: Add
+sure: 'Are you sure?'
+added: Added
+u: Update
+404: 'Not found'
+list: List
+error: Error
+error.oops: 'Oops! An Error Occurred'
+summart: Summary
+res: Restart
+preview: Preview
+submit: Submit
+onlineSubmission: 'Online Submission'
+journal_home: 'Journal Home Page'
+topics: Topics
+save: Save
+save.next: 'Save and Continue'
+part: Part
+url: URL
+username: 'User name'
+book: Book
+journal: Journal
+conference: Conference
+article: Article
+mastersthesis: 'Master Thesis'
+phdthesis: 'Phd Thesis'
+proceedings: Proceedings
+techreport: 'Technical Report'
+unpublished: Unpublished
+inproceedings: In-proceedings
+incollection: In-collection
+inbook: In-book
+booklet: Booklet
+manual: Manual
+misc: Miscellaneous
+primaly_language: 'Primaly Language'
+read.lastissue: 'Read Last Issue'
+details: Details
+ojs: OJS
+wiki: Wiki
+support: Support
+toggle_navigation: 'Toggle Navigation'
+home: Home
+institutions: Institutions
+journals: Journals
+register_journal: 'Register Journal'
+send_article: 'Send Article'
+featured: Featured
+featured.desc: You can see selected and popular journals from the list below
+landingPage.text:  ""
+globalFooter.text: |
+                                    <p>
+                                    ojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.
+                                    The whole process starting from the submission of an article to its publication is carried out in electronic environment.
+                                    </p>
+                                    <p>JournalPark is <strong>free</strong> to use. </p>
+search: Search
+search.main: 'Search Article, Journal or Author'
+search_query: 'type keyword(s) here'
+login: Login
+dashboard: Dashboard
+log_out_from_user: 'Log out from user'
+user_page: 'User Page'
+profile: Profile
+log_out: 'Log out'
+proxy_users: 'Proxy Users'
+login_as: 'Login As'
+list_my_proxys: 'List my proxys'
+privacy: Privacy
+tos: 'Terms of Service'
+articles: Articles
+ujs: UJS
+about: About
+blog: Blog
+'contact & help': 'Contact & Help'
+faq: 'Frequently Asked Questions'
+documents: Documents
+presentations: Presentations
+videos: Videos
+photos: Photos
+ulakbim: ULAKBİM
+discovery: Discovery
+announcements: Announcements
+tubitak: TÜBİTAK
+tubitak_journals: 'TÜBİTAK Journals'
+Yes: Yes
+No: No
+role.singular: Role
+role.plural: Rolles
+user.update_profile: 'Update Profile'
+user.custom_fields: 'Custom Fields'
+user.custom_field.label: Label
+user.custom_field.value: Value
+user.custom_field.is_url: 'Is Url?'
+user.custom_field.action: Actions
+'Add Link': 'Add Link'
+user.connected_accounts: 'Connected Accounts'
+user.connected_accounts.add_orcid_account: 'Connect ORCID'
+user.connected_accounts.add: 'Add Account'
+user.connected_accounts.provider: Provider
+user.connected_accounts.provider_user_id: 'Provider User ID'
+user.connected_accounts.action: Actions
+user.custom_field.create: Create
+Avatar: Avatar
+User: User
+user.forgot_password: 'Forgot Password'
+username.or.email: 'Username or Email'
+user.reset_password: 'Reset Password'
+user.new_password: 'New Password'
+user.new_password_confirm: 'New Password (confirmation)'
+user.private_account: 'Private Account'
+'This account is private.': 'This account is private.'
+'Password Change': 'Password Change'
+Information: Information
+'Your password has been changed': 'Your password has been changed'
+'Password Reset': 'Password Reset'
+'Your password has been reset': 'Your password has been reset'
+'You are requested password reset': 'You are request password reset'
+'Password Reset Process': 'Password Reset Process'
+'Click link below for reset to OJS account password': 'Click link below for reset to ojs account password'
+'Reset Now': 'Reset Now'
+forgot.password: forgot.password
+institute.register: 'Register Institute'
+journal.register: 'Register Journal'
+user.change_password: 'Change Password'
+user.old_password: 'Old Password'
+journal_index.issues: Issues
+journal_index.volume: Volume
+archive: __archive
+date.publish: __date.publish
+volume: __volume
+issue: __issue
+page.plural: __page.plural
+first_page: __first_page
+last_page: __last_page
+languages: __languages
+abstract: __abstract
+keywords: __keywords
+tools: __tools
+citations: __citations
+subjects: __subjects
+section: __section
+tags: __tags
+journal.plural: __journal.plural
+more: __more
+Issue: __Issue
+'No Content': '__No Content'
+article.submit: __article.submit
+journalcontact.singular: __journalcontact.singular
+'-': __-
+country: __country
+new.block: __new.block
+'Link Ekle': '__Link Ekle'
+institutiontype.plural: __institutiontype.plural
+filter.remove: __filter.remove
+subject.plural: __subject.plural
+name: __name
+email: __email
+phone: __phone
+fax: __fax
+address: __address
+pages.management: __pages.management
+pages.edit: __pages.edit
+pages.all: __pages.all
+actions: __actions
+pages.new: __pages.new
+pages.detail: __pages.detail
+search.results: __search.results
+search.result.headline: __search.result.headline
+author.plural: __author.plural
+"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
+institution: __institution
+user: __user
+register: __register
+institution.plural: __institution.plural
+suggestion.institute.suggest: __suggestion.institute.suggest
+logo: __logo
+file.select: __file.select
+'Header Image': '__Header Image'
+suggest: __suggest
+uploading: __uploading
+done: __done
+suggestion.institute.success: __suggestion.institute.success
+'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
+suggestion.journal.suggest: __suggestion.journal.suggest
+'Cover Image': '__Cover Image'
+suggestion.journal.success: __suggestion.journal.success
+user.new: __user.new
+orcid.login: __orcid.login
+drop.proxy.user: __drop.proxy.user
+'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
+add.as.proxy: __add.as.proxy
+select.image.file: __select.image.file
+user.profile: User Profile
+user.profile.edit: Edit User Profile
+user.lastlogin: Last Login
+user.activitylog: User Activity Log
+event.id: ID
+event.info: 'Event Info'
+event.date: 'Event Date'
+event.ip: IP
+event.user.id: 'User ID'
+event.affectedUser.id: 'Affected User ID'
+actions: Actions
+eventlog: Eventlog
+eventlog.list: Event Log List
+maillog.edit: 'Maillog Edit'
+maillog.id: ID
+maillog.mailobject: 'Mail Object'
+maillog.recipientemail: 'Recipient Email'
+'You''ve joined to OJS': 'You`ve joined to OJS'
+'One More Step': 'One More Step'
+'To protect your privacy, please confirm your email address by clicking the activation link': 'To protect your privacy, please confirm your email address by clicking the activation link'
+'If the clicking the button below doesn''t work try copying and pasting this URL to your browser window.': 'If the clicking the button below doesn`t work try copying and pasting this URL to your browser window.'
+'Activate Now': 'Activate Now'
+'view this in your browser': 'view this in your browser'
+notification.edit: 'Edit Notification'
+notification.list: 'List Notifications'
+notification.id: ID
+notification.sender.id: 'Sender ID'
+notification.recipient.id: 'Recipient ID'
+notification.test: 'Notification Test'
+notification.isread: 'Is Read?'
+notification.level: Level
+notification.creation: 'Notification Creation'
+notification.singular: Notification
+notification.entity.id: 'Entity ID'
+notification.entity.name: 'Entity Name'
+notification.subject: Subject
+notification.verb: Verb
+proxy.edit: 'Edit Proxy'
+proxy.list: 'Proxy List'
+proxy.id: ID
+proxy.proxy.user.id: 'Proxy User ID'
+proxy.client.user.id: 'Client User ID'
+proxy.creation: 'Proxy Creation'
+proxy.singular: Proxy
+proxy.clients.list: 'List Proxy Clients'
+proxy.target.user.username: 'Target Username'
+proxy.target.user.email: 'Target User Email'
+proxy.lastlogin: 'Last Login'
+proxy.your.proxy.user.list: 'Your Proxy User List'
+proxy.username: Username
+proxy.user.email: Email
+proxy.end.time: 'End Time'
+drop: Drop
+update.ttl: 'Update TTL'
+cancel: Cancel
+role.edit: 'Edit Role'
+role.list: 'Role List'
+role.id: ID
+role.name: Name
+role.role: Role
+role.issystemrole: 'Is System Role?'
+role.new: 'New Role'
+role.singular: Role
+role.users: 'Role Users'
+sign.in: 'Sign In'
+username.or.email: 'Username Or Email'
+username: Username
+password: Password
+forgot.password: 'forgot password'
+user.new: 'New User'
+user.plural: Users
+register: Register
+'This will be your unique short name in application': 'This will be your unique short name in application'
+'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.': 'By registering you accept <a target="_blank" href="%tos%">terms of use</a>.'
+unconfirmed.user: 'Unconfirmed User'
+user.manager: 'User Manager'
+user.edit: 'Edit User'
+uploading: Uploading...
+done: Done.
+user.list: 'User List'
+user.username: Username
+user.email: Email
+user.status: Status
+user.roles: Roles
+sure.ban: 'Are you sure for ban user ?'
+select.image.file: 'Select Image File...'
+user.show: 'Show User'
+user.id: ID
+user.subjects: Subjects
+drop.proxy.user: 'Drop Proxy User'
+add.as.proxy: 'Add As Proxy'
+user.apikey: 'API Key'
+regenerate.apikey: 'Regenerate APIKEY'
+register.yourself.as.author: 'Register Yourself As Author'
+user.journalrole.edit: 'Edit Journal Role'
+user.journalrole.list: 'Journal Role List'
+user.journalrole.id: ID
+user.journalrole.user: User
+user.journalrole.journal: Journal
+user.journalrole.role: Role
+user.journalrole.creation: 'Journal Role Creation'
+user.journalrole.singular: 'Journal Role'
+user.journalrole.journals.of.user: 'Journals of User'
+user.journalrole.journal.id: ID
+user.journalrole.journal.name: Name
+user.journalrole.myjournals: 'My Journals'
+user.journalrole.alljournals: 'All Journals'
+journal.singular: Journal
+user.journalrole.youhavenojournal: 'You have no journal'
+user.journalrole.usersofjournal: 'Users of journal'
+user.journalrole.user.id: ID
+user.journalrole.user.username: Username
+user.journalrole.email: Email
+user.journalrole.thisjournalhasnouser: 'This journal has no user!'
+user.anonym:
+  new: "Create Anonym Login"
+  firstname: "Firstname"
+  lastname: "Lastname"
+  email: "Email"
+  role: "Role"
+  has_logged: "Logged"
+  has_register: "Registered"
+  user: "UserID"
+  object: "Object"
+  list: "List Anonym Login"
+orcid:
+  login: "Login With ORCID"
+user.journalrole.send_email: "Send Email To User"
+user.journalrole.mail.template: Template
+user.journalrole.mail.to: "Mail To"
+user.journalrole.mail.subject: "Subject"
+user.journalrole.mail.body: "Message Body"
+user.journalrole.mail.send: "Send"
+flush:
+  all.log : "Flush Logs"
+useThisTemplate: 'Use this template'
+status.inreview: Interview
+status.published: Published
+status.rejected: Rejected
+status.unpublished: Unpublished
+status.waiting: Waiting
+workflow.template.create: 'Template Create'
+workflow.template.addStep: 'Add Step'
+workflow.template.update: 'Template Update'
+workflow.template.updateStep: 'Update Step'
+workflow: __workflow
+article.plural: __article.plural
+articles.waiting: __articles.waiting
+'These articlese submitted but waiting to be assigned.': '__These articlese submitted but waiting to be assigned.'
+dashboard: __dashboard
+sure: __sure
+accepted: __accepted
+rejected: __rejected
+waiting: __waiting
+searchon.google: __searchon.google
+searchon.wikipedia: __searchon.wikipedia
+searchon.pubmed: __searchon.pubmed
+searchon.doaj: __searchon.doaj
+Subjects: __Subjects
+Keywords: __Keywords
+Abstract: __Abstract
+Section: __Section
+Authors: __Authors
+author.orcid: __author.orcid
+author.order: __author.order
+author.title: __author.title
+author.initials: __author.initials
+author.firstname: __author.firstname
+author.middlename: __author.middlename
+author.lastname: __author.lastname
+email: __email
+Files: __Files
+update.article.file: __update.article.file
+'Review Notes': '__Review Notes'
+competingOfInterest: __competingOfInterest
+'Previous Review Report': '__Previous Review Report'
+sendmail: __sendmail
+preview: __preview
+'Review Report': '__Review Report'
+review.forms: __review.forms
+review.form.update: __review.form.update
+save: __save
+b: __b
+review.form: __review.form
+create: __create
+review.form.new: __review.form.new
+review.form.item.new: __review.form.item.new
+journal: __journal
+title: __title
+review.form.preview: __review.form.preview
+review.form.detail: __review.form.detail
+review.form.item.update: __review.form.item.update
+form.item.update: __form.item.update
+mandatory: __mandatory
+'Is this question mandatory?': '__Is this question mandatory?'
+confidential: __confidential
+'If this question`s answer may contain confidential data please check.': '__If this question`s answer may contain confidential data please check.'
+input_type: __input_type
+input_types.textbox: __input_types.textbox
+input_types.textarea: __input_types.textarea
+input_types.checkboxes: __input_types.checkboxes
+input_types.radiobutton: __input_types.radiobutton
+input_types.dropdown: __input_types.dropdown
+input_types.scale_1_5: __input_types.scale_1_5
+fields: __fields
+'Add each field text as one line': '__Add each field text as one line'
+Fieldset: __Fieldset
+'Questions will be grouped under fieldset names.': '__Questions will be grouped under fieldset names.'
+form.items: __form.items
+details: __details
+'All your form items for this form will be deleted and default items will be inserted. Are you sure?': '__All your form items for this form will be deleted and default items will be inserted. Are you sure?'
+templates.loadDefault: __templates.loadDefault
+form.item.new: __form.item.new
+input_types: __input_types
+fieldset: __fieldset
+review.form.item.detail: __review.form.item.detail
+'Yes': __Yes
+optional: __optional
+confidentail: __confidentail
+workflow.step.update: __workflow.step.update
+color: __color
+color.generate: __color.generate
+statusText: __statusText
+'First Step': '__First Step'
+'Last Step': '__Last Step'
+suggestedMaxDays: __suggestedMaxDays
+role.plural: __role.plural
+canOnlyReply: __canOnlyReply
+'User must send a competing of interest statement.': '__User must send a competing of interest statement.'
+'Guidelines for filling a <i>competing of Interest</i> statement.': '__Guidelines for filling a <i>competing of Interest</i> statement.'
+'Is visible to author?': '__Is visible to author?'
+'can.seeAuthor?': '__can.seeAuthor?'
+'can.edit?': '__can.edit?'
+'can.review?': '__can.review?'
+'Must be assigned to someone?': '__Must be assigned to someone?'
+'can.rejectSubmission?': '__can.rejectSubmission?'
+nextSteps.possible: __nextSteps.possible
+'[No review form]': '__[No review form]'
+reviewForms.manage: __reviewForms.manage
+introduction: __introduction
+workflow.step.graph: __workflow.step.graph
+sequenceDiagram: __sequenceDiagram
+review.result: __review.result
+accept: __accept
+workflow.steps: __workflow.steps
+firstStep: __firstStep
+lastStep: __lastStep
+nextSteps: __nextSteps
+templates: __templates
+visualize: __visualize
+workflow.step.new: __workflow.step.new
+helptext.authors.wont.see: __helptext.authors.wont.see
+helptext.authors.will.see: __helptext.authors.will.see
+'Advanced Settings': '__Advanced Settings'
+Template: __Template
+'Can reject the submission completely?': '__Can reject the submission completely?'
+workflow.step.detail: __workflow.step.detail
+'Competing of interest statement': '__Competing of interest statement'
+c: __c
+e: __e
+d: __d
+workflow.templates: __workflow.templates
+workflow.template.edit: __workflow.template.edit
+workflows: __workflows
+workflow.step.template.edit: __workflow.step.template.edit
+step.new: __step.new
+temaplate.name: __temaplate.name
+workflow.step.template.new: __workflow.step.template.new
+workflow.templates.create: __workflow.templates.create
+workflow.template.new: __workflow.template.new
+template.name: __template.name
+first_step: __first_step
+last_step: __last_step
+workflow.template.step.detail: __workflow.template.step.detail
+workflow.template.details: __workflow.template.details
+'Your existing workflow design will be overwritten! Are you sure?': '__Your existing workflow design will be overwritten! Are you sure?'
+system.templates: __system.templates
+created.templates: __created.templates
