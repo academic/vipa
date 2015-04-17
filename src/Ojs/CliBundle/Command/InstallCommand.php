@@ -172,7 +172,7 @@ class InstallCommand extends ContainerAwareCommand {
         $user->setEmail($email);
         $user->setPassword($pass_encoded);
         $user->setUsername($username);
-        $user->setIsActive(true);
+        $user->setStatus(1);
         $user->generateApiKey();
 
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
