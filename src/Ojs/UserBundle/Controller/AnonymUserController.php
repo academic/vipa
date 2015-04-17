@@ -43,8 +43,7 @@ class AnonymUserController extends Controller
         $entity = $user ? $user : new \Ojs\UserBundle\Entity\User();
 
         $entity
-            ->setStatus(1)
-            ->setIsActive(true);
+            ->setStatus(1);
         if(!$entity->getPassword()){
             $entity
                 ->setPassword(time());

@@ -14,7 +14,6 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
-
 /**
  * User controller.
  *
@@ -245,7 +244,7 @@ class UserController extends Controller {
         $user = $em->find('OjsUserBundle:User', $id);
         if (!$user)
             throw new NotFoundResourceException("User not found.");
-        $user->setIsActive(false);
+        $user->setStatus(2);
         $em->persist($user);
         $em->flush();
 
@@ -261,7 +260,7 @@ class UserController extends Controller {
         $user = $em->find('OjsUserBundle:User', $id);
         if (!$user)
             throw new NotFoundResourceException("User not found.");
-        $user->setIsActive(true);
+        $user->setStatus(1);
         $em->persist($user);
         $em->flush();
         return $this->redirect($this->generateUrl('user'));
