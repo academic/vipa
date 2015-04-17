@@ -36,7 +36,7 @@
                         <ul class="list-group">
                             {% for article in articles %}
                                 <li class="list-group-item list-group-item-default">
-                                    <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: journal.slug,institution: journal.institution.slug}) }}">
+                                    <a href="{{ url('ojs_article_page',{article_id: article.id,slug: journal.slug,institution: journal.institution.slug}) }}">
                                         <i class="fa fa-file-text"></i> {{ article.title }}
                                     </a>
                                     <br/>

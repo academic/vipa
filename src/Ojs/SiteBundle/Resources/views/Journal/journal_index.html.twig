@@ -203,7 +203,7 @@
                             <div class="panel-body">
                                 <ul>
                                     {% for article in last_issue.articles %}
-                                        <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,issue_id:article.issue.id, article_slug:article.slug,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                        <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,issue_id:article.issue.id, article_id:article.id,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
