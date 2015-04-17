@@ -11,6 +11,7 @@
             margin: 0 !important;
         }
     </style>
+    {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -219,4 +220,6 @@
             $('[name=_method]').remove() // fuck you chrome
         });
     </script>
+
+    {{ form_javascript(form) }}
 {% endblock %}

@@ -58,7 +58,9 @@ class JournalSuggestionType extends AbstractType
             ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2-element']])
             ->add('issn')
             ->add('eissn')
-            ->add('firstPublishDate','collot_datetime')
+            ->add('firstPublishDate', 'collot_datetime', array(
+                'date_format' => 'yyyy-MM-dd',
+            ))
             ->add('period')
             ->add('tags',null,['attr'=>['class'=>'tags form-control']])
             ->add('url')

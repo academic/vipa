@@ -12,6 +12,8 @@
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
+    {{ form_stylesheet(steps.step2) }}
+
 {% endblock %}
 
 {% block body -%}
@@ -414,4 +416,6 @@
             OjsJournalSetup.activatedSteps["step1"] = true;
         });
     </script>
+    {{ form_javascript(steps.step2) }}
+
 {% endblock %}

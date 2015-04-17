@@ -48,10 +48,9 @@ class IssueType extends AbstractType
                 ->add('special','checkbox',array('label'=>'special')) 
                 ->add('description','text',array('label'=>'description'))
                 ->add('year','text',array('label'=>'year'))
-                ->add('datePublished','date', array('required' => false,
-                    'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
-                    'label'=>'datePublished',
-                    'attr' => array('class' => 'dateselector'))
+                ->add('datePublished','collot_datetime', array(
+                        'date_format' => 'yyyy-MM-dd',
+                    )
                 )
                 ->add('cover', 'hidden')
                 ->add('header', 'hidden')
