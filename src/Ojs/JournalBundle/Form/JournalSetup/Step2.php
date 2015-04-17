@@ -26,12 +26,8 @@ class Step2 extends AbstractType
                     'class' => 'validate[required]'
                 ]
             ])
-            ->add('firstPublishDate', 'datetime', array(
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
+            ->add('firstPublishDate', 'collot_datetime', array(
                 'date_format' => 'yyyy-MM-dd',
-                'with_seconds' => true,
-                'data' => new \DateTime()
             ))
             ->add('footer_text','textarea')
             ->add('period')

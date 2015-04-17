@@ -72,15 +72,11 @@ class ArticleType extends AbstractType {
                 ->add('subtitle', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('isAnonymous', 'radio', array('required' => false))
                 ->add('orderNum', 'integer', array('required' => false))
-                ->add('pubdate', 'date', array(
-                    'required' => false,
-                    'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
-                    'attr' => array('class' => 'dateselector')
+                ->add('pubdate', 'collot_datetime', array(
+                    'date_format' => 'yyyy-MM-dd',
                 ))
-                ->add('submissionDate', 'date', array(
-                    'required' => false,
-                    'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day'),
-                    'attr' => array('class' => 'dateselector')
+                ->add('submissionDate', 'collot_datetime', array(
+                    'date_format' => 'yyyy-MM-dd',
                 ))
                 ->add('pubdateSeason', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('part', 'text', array('required' => false, 'attr' => array('class' => ' form-control')))

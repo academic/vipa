@@ -119,6 +119,7 @@
             })
         });
     </script>
+    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -131,4 +132,6 @@
             margin: 0 !important;
         }
     </style>
+    {{ form_stylesheet(form) }}
+
 {% endblock %}
