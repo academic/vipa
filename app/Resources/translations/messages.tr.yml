@@ -169,7 +169,7 @@ isAnonymous: 'Anonim mi?'
 Pubdateseason: 'Yayın Tarihi Sezonu'
 part: Parça
 url: URL
-abstract.transliterated: 'Dönüştürülmüş Özet'
+abstract.transliterated: 'Dönüştürülmüş Öz'
 citation.editor: 'Alıntı Editörü'
 preview: Önizleme
 submit: Gönder
@@ -336,9 +336,6 @@ theme.list: 'Tema Listesi'
 content: İçerik
 basetheme: 'Orjinal Tema'
 theme.new: 'Yeni Tema'
-searchon.wikipedia: 'Wikipedia''da Ara'
-searchon.google: 'Google Akademik''de Ara'
-searchon.pubmed: 'Pubmed''de ara'
 special.issue: 'Özel Sayı'
 select.article.file: 'Dosya Seç'
 notes_to_editor: 'Editöre Notlar'
@@ -449,7 +446,6 @@ journalsection.journal: Dergi
 haveNoJournals: 'TODO: You have no journals'
 Info: 'TODO: Info'
 'Article Files': 'TODO: Article Files'
-'Header Image': 'TODO: Header Image'
 File: 'TODO: File'
 empty: Boş
 common: Genel
@@ -464,44 +460,42 @@ color: Renk
 color.generate: 'Renk oluştur'
 statusText: 'Durum Başlığı'
 introduction: Tanıtım
-select.image.file: __select.image.file
-e: __e
-uploading: __uploading
-done: __done
-actions: __actions
-sure: __sure
+done: Tamamlandı
+actions: Eylemler
+sure: Emin misiniz?
 articlefile.new: Yeni makale dosyası
-c: __c
-Submissions: __Submissions
-Drafts: __Drafts
-restart: __restart
-save.next: __save.next
-citation.clear: __citation.clear
-(selected): __(selected)
-competingOfInterest: __competingOfInterest
-Guidelines: __Guidelines
-'Preview Article Before Submit': '__Preview Article Before Submit'
-author.institution: __author.institution
-author.phone: __author.phone
+Submissions: Gönderiler
+Drafts: Taslaklar
+restart: Yeniden Başlat 
+citation.clear: Referansları Temizle
+(selected): (seçili)
+Guidelines: Rehberler
+'Preview Article Before Submit': 'Gönderi Öncesi Makale Önizleme'
+author.institution: Yazar kurumu
+author.phone: Yazar telefonu
 'Back & Continue Editing': 'Geri Dön ve Düzenlemeye Devam Et'
 'This field is required!': 'Bu alan gereklidir!'
 institution: Kurum
 parse: Ayrıştır
-author.edit: __author.edit
+author.edit: Yazar Düzenle
 s: Sakla
-parent: __parent
-children: __children
-searchon.doaj: __searchon.doaj
-searchon.crossref: __searchon.crossref
-journalindex.list: __journalindex.list
+parent: Üst
+children: Alt
+searchon:
+  doaj: "Doaj'da ara"
+  crossref: Crossref'de ara
+  wikipedia: "Wikipedia'da Ara"
+  google: "Google Akademik'de Ara"
+  pubmed: "Pubmed'de ara"
+journalindex.list: Dergi Dizin Listesi
 journal_licence.edit: __journal_licence.edit
-journal.setup: __journal.setup
+journal.setup: Dergi Kurulumu
 d: Sil
 add: Ekle
-journal.issn: Journal ISSN
-journal.eissn: Journal eISSN
+journal.issn: Dergi ISSN
+journal.eissn: Dergi eISSN
 username: Kullanıcı adı
-mailtemplate.default_template: __mailtemplate.default_template
+mailtemplate.default_template: Varsayılan mail şablonu
 dashboard.general.stats: 'Genel İstatistik'
 stats.most.viewed.article: 'En Çok Görüntülenen Makale'
 stats.most.downloaded.article: 'En Çok İndirilen Makale'
@@ -513,68 +507,30 @@ total.user: 'Toplam Kullanıcı'
 total.article: 'Toplam Makale'
 total.issue: 'Toplam Sayı'
 article.plural: Makaleler
-author.plural: Makale
-contact.plural: İletişim Kaydı
-contacttype.plural: __contacttype.plural
-institutiontype.plural: __institutiontype.plural
-issue.plural: __issue.plural
-journal.plural: __journal.plural
-subject.plural: Konu
+contact.plural: İletişim Kaydı 
 lang.plural: Dil
-theme.plural: __theme.plural
-journal.theme: __journal.theme
 user.plural: Kullanıcı
 role.plural: __role.plural
-user.anonym.new: __user.anonym.new
-dashboard.suggestion: __dashboard.suggestion
-suggestion.journal: __suggestion.journal
-suggestion.institute: __suggestion.institute
-'Any article viewed yet': '__Any article viewed yet'
-'Any article downloaded yet': '__Any article downloaded yet'
-journal.my: __journal.my
-journal: __journal
-role.singular: __role.singular
+'Any article viewed yet': '_Henüz hiçbir makale gösterilmedi'
+'Any article downloaded yet': 'Henüz hiçbir makale indirilmedi'
 journal.nothave: __journal.nothave
 issue.edit: __issue.edit
-volume: __volume
 number: __number
 title: __title
 year: __year
-date.publish: __date.publish
-issue.add.articles: __issue.add.articles
 article: Makale
 section: Bölüm
 article.add: Makale Ekle
 article.preview: Makale Önizleme
 order: __order
 article.singular: Makale
-page.first: __page.first
-page.last: __page.last
 cancel: İptal Et
-dashboard: __dashboard
-issue.manager: __issue.manager
-special.issue: __special.issue
-special: __special
-create: __create
-issue: __issue
-c: __c
-journal.manager: __journal.manager
-journal.update: __journal.update
-journal.settings.mail: __journal.settings.mail
-journal.settings.mail.signature: __journal.settings.mail.signature
-journal.settings.submission.language: __journal.settings.submission.language
-journal.settings.submission.language.text: __journal.settings.submission.language.text
-journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
 journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
 role.forusers: __role.forusers
 username: Kullanıcı adı
 email: E-posta
-status: __status
 roles: Roller
 actions: Aksiyonlar
-articles.needAction: __articles.needAction
-sure: __sure
-search.resutls: 'Arama Sonuçları'
 search.results: 'Arama Sonuçları'
 search.result.headline:  "Toplam <strong class=\"text-danger\">%total%</strong> adet sonuç mevcut.\n Arama Kelimesi <strong class=\"text-danger\">%term%</strong>"
 period: Periyot
@@ -593,7 +549,7 @@ u: Güncelle
 error: Hata
 list: Liste
 error.oops: 'Oops! Bir hata meydana geldi!'
-summart: Özet
+summary: Özet
 res: 'Yeniden Başlat'
 preview: 'Ön izleme'
 submit: 'Makale Gönder'
@@ -604,8 +560,7 @@ save.next: 'Kaydet ve Devam Et'
 part: Parça
 url: Bağlantı
 username: 'Kullanıcı Adı'
-book: Kitap
-journal: Dergi
+book: Kitap 
 conference: Konferans
 article: Makale
 mastersthesis: 'Yüksek Lisans Tezi'
@@ -631,20 +586,19 @@ journals: Dergiler
 register_journal: 'Dergi Kaydet'
 send_article: 'Makale Gönder'
 featured: Öne Çıkanlar
-featured.desc: Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz.
+featured.desc: "Aktif ve okurlar tarafından rağbet gören dergilerimizi DergiPark'ın vitrininden sizlere ulaştırıyoruz."
 landingPage.text: ""
 globalFooter.text :  |
-                                    <p>
-                                         DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark>  ve  <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan
-                                         <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
-                                         geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
-                                     </p>
-                                     <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>
+                       '<p>
+                             DergiPark, dergi yayımlama sürecinin daha <mark>kolay</mark>  ve  <mark>hızlı</mark> gerçekleştirilebilmesine imkan sunan
+                             <ins>Açık Dergi Sistemleri</ins> (<a href="http://ojs.io">ADS</a>) üzerinden, bir makalenin başvurusundan yayımlanmasına kadar
+                             geçen süreci elektronik ortamda gerçekleştirme imkanı sunmaktadır.
+                         </p>
+                         <p>DergiPark hizmetleri tamamen <strong>ücretsizdir</strong>. </p>'
 search: Ara
 search.main: 'Makale, Dergi ve Yazar Ara'
 search_query: 'Anahtar Sözcükleri Girin'
 login: Giriş
-dashboard: 'Gösterge Paneli'
 log_out_from_user: 'Kullanıcı Oturumunu Kapat'
 user_page: 'Kullanıcı Sayfası'
 profile: Profil
@@ -671,7 +625,6 @@ tubitak: TÜBİTAK
 tubitak_journals: 'TÜBİTAK Dergileri'
 Yes: Evet
 No: Hayır
-role.singular: Rol
 role.plural: Roller
 user.update_profile: 'Profilimi Güncelle'
 user.custom_fields: 'Özel Alanlar'
@@ -701,6 +654,7 @@ Information: Bilgilendirme
 'Your password has been changed': 'Şifreniz Değiştirildi'
 'Password Reset': 'Şifre Sıfırla'
 'Your password has been reset': 'Şifreniz Sıfırlandı'
+'You are request password reset': 'Şifre sıfırlama isteği gönderdiniz'
 'You are requested password reset': 'Şifre Sıfırlama Talebiniz Var'
 'Password Reset Process': 'Şifre Sıfırlama İşlemi'
 'Click link below for reset to OJS account password': 'OJS hesabınızın şifresini sıfırlamak için aşağıdaki linke tıklayın'
@@ -712,10 +666,7 @@ user.change_password: 'Şifreyi Değiştir'
 user.old_password: 'Eski Şifre'
 journal_index.issues: Sayılar
 journal_index.volume: Cilt
-archive: __archive
 date.publish: __date.publish
-volume: __volume
-issue: __issue
 page.plural: __page.plural
 first_page: __first_page
 last_page: __last_page
@@ -727,44 +678,33 @@ citations: __citations
 subjects: __subjects
 section: __section
 tags: __tags
-journal.plural: __journal.plural
 more: __more
-Issue: __Issue
+Issue: Sayı
 'No Content': '__No Content'
 article.submit: Makale gönder
-journalcontact.singular: __journalcontact.singular
 journal_langs: __journal_langs
-'-': __-
-country: __country
 new.block: __new.block
-'Link Ekle': '__Link Ekle'
-institutiontype.plural: __institutiontype.plural
-filter.remove: __filter.remove
-subject.plural: __subject.plural
-name: __name
-email: __email
-phone: __phone
-fax: __fax
-address: __address
-pages.management: __pages.management
-pages.edit: __pages.edit
-pages.all: __pages.all
-actions: __actions
-pages.new: __pages.new
-pages.detail: __pages.detail
-search.results: __search.results
-search.result.headline: __search.result.headline
-author.plural: __author.plural
-"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
+'Add Link': 'Add Link'
+filter.remove: "Filtreyi Kaldır"
+name: "İsim"
+email: E-posta
+phone: Telefon
+fax: Fax
+address: Ares
+pages.management: "Sayfa Yönetimi"
+pages.edit: "Sayfa Düzenle"
+pages.all: "Tüm sayfalar"
+actions: "Eylemler"
+pages.new: "Yeni sayfa"
+pages.detail: "Sayfa detayı"
+search.results: "Arama sonuçları"
+"<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": ""
 user: Kullanıcı
 register: Kayıt Ol
-suggestion.institute.suggest: __suggestion.institute.suggest
-logo: __logo
-file.select: __file.select
-'Header Image': '__Header Image'
-suggest: __suggest
-uploading: __uploading
-done: __done
+suggestion.institute.suggest: "Kurum Öner"
+logo: Logo
+'Header Image': 'Üst Görsel'
+suggest: Öner
 suggestion.institute.success: __suggestion.institute.success
 'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
 suggestion.journal.suggest: __suggestion.journal.suggest
@@ -775,7 +715,6 @@ orcid.login: __orcid.login
 drop.proxy.user: __drop.proxy.user
 'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
 add.as.proxy: __add.as.proxy
-select.image.file: __select.image.file
 user.profile: 'Kullanıcı Profili'
 user.profile.edit: 'Kullanıcı Profili Düzenle'
 user.lastlogin: 'Son Giriş'
@@ -854,10 +793,9 @@ unconfirmed.user: 'Etkinleştirilmemiş Kullanıcı'
 user.manager: 'Kullanıcı Yöneticisi'
 user.edit: 'Kullanıcı Düzenle'
 uploading: Yükleniyor...
-done: Tamamlandı.
 user.list: 'Kullanıcı Listesi'
 user.username: 'Kullanıcı Adı'
-user.email: E-posta
+user.email: "E-posta"
 user.status: Durum
 user.roles: Roller
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
@@ -908,26 +846,15 @@ user.anonym.object: Nesne
 user.anonym.list: 'Anonim Girişleri Listele'
 orcid.login: 'ORCID Hesabı İle Giriş Yap'
 flush.all.log: 'Logları Sil'
-dashboard: __dashboard
 user.anonym: __user.anonym
- 
 user.anonym.used: __user.anonym.used
-'You''ve invited to OJS': '__You''ve invited to OJS'
-'Review invitation from': '__Review invitation from'
-'Click link below for login to ojs if you are accept invitation': '__Click link below for login to ojs if you are accept invitation'
-Accept: __Accept
-Decline: __Decline
-'Password Change': '__Password Change'
-Information: __Information	
-'Your password has been changed': '__Your password has been changed'
-'Password Reset': '__Password Reset'
-'Your password has been reset': '__Your password has been reset'
-'You are request password reset': '__You are request password reset'
-'Password Reset Process': '__Password Reset Process'
-'Click link below for reset to ojs account password': '__Click link below for reset to ojs account password'
-'Reset Now': '__Reset Now'
+'You''ve invited to OJS': "Ojs'ye davet edildiniz"
+'Review invitation from': 'Değerlendirme davet formu"
+'Click link below for login to ojs if you are accept invitation': 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız' 
+Accept: Kabul et
+Decline: Reddet
 user.anonym.create_password: __user.anonym.create_password
-Avatar: __Avatar
+Avatar: Avatar
 useThisTemplate: 'Bu temayı kullan'
 status.inreview: Görüşme
 status.published: Yayımda
@@ -940,16 +867,11 @@ workflow.template.update: 'Şablonu Güncelle'
 workflow.template.updateStep: 'Adımı Güncelle'
 workflow: İş Akışı 
 articles.waiting: Bekleyen Makaleler
-'These articlese submitted but waiting to be assigned.': '__These articlese submitted but waiting to be assigned.'
-dashboard: __dashboard
+'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş ancak atanmayı bekliyor'
 sure: __sure
 accepted: __accepted
 rejected: __rejected
 waiting: __waiting
-searchon.google: __searchon.google
-searchon.wikipedia: __searchon.wikipedia
-searchon.pubmed: __searchon.pubmed
-searchon.doaj: __searchon.doaj
 Subjects: __Subjects
 Keywords: __Keywords
 Abstract: __Abstract
@@ -966,7 +888,7 @@ email: __email
 Files: __Files
 update.article.file: __update.article.file
 'Review Notes': '__Review Notes'
-competingOfInterest: __competingOfInterest
+competingOfInterest: Çıkar çatışması
 'Previous Review Report': '__Previous Review Report'
 sendmail: __sendmail
 preview: __preview
@@ -978,7 +900,6 @@ review.form: __review.form
 create: __create
 review.form.new: __review.form.new
 review.form.item.new: __review.form.item.new
-journal: __journal
 title: __title
 review.form.preview: __review.form.preview
 review.form.detail: __review.form.detail
@@ -1030,39 +951,31 @@ reviewForms.manage: __reviewForms.manage
 introduction: __introduction
 workflow.step.graph: __workflow.step.graph
 sequenceDiagram: __sequenceDiagram
-review.result: __review.result
-accept: __accept
-workflow.steps: __workflow.steps
-firstStep: __firstStep
-lastStep: __lastStep
-nextSteps: __nextSteps
-templates: __templates
-visualize: __visualize
-workflow.step.new: __workflow.step.new
-helptext.authors.wont.see: __helptext.authors.wont.see
-helptext.authors.will.see: __helptext.authors.will.see
-'Advanced Settings': '__Advanced Settings'
-Template: __Template
-'Can reject the submission completely?': '__Can reject the submission completely?'
+review.result: Değerlendirme Sonucu
+accept: Kabul Et
+nextSteps: Sonraki Adımları
+templates: Şablonlar
+visualize: Görselleştir
+workflow.step.new: İş Akışı Yeni Adım
+helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremeyeceklertir</strong>."
+helptext.authors.will.see: "Yazarlar bu alanı <strong>görebileceklerdir</strong>."
+'Advanced Settings': 'Gelişmiş Ayarlar'
+Template: Şablon
+'Can reject the submission completely?': 'Gönderiyi tamamen reddedebilir mi?'
 workflow.step.detail: __workflow.step.detail
-'Competing of interest statement': '__Competing of interest statement'
-c: __c
-e: __e
-d: __d
-workflow.templates: __workflow.templates
-workflow.template.edit: __workflow.template.edit
-workflows: __workflows
-workflow.step.template.edit: __workflow.step.template.edit
-step.new: __step.new
-temaplate.name: __temaplate.name
-workflow.step.template.new: __workflow.step.template.new
-workflow.templates.create: __workflow.templates.create
-workflow.template.new: __workflow.template.new
-template.name: __template.name
-first_step: __first_step
-last_step: __last_step
-workflow.template.step.detail: __workflow.template.step.detail
-workflow.template.details: __workflow.template.details
-'Your existing workflow design will be overwritten! Are you sure?': '__Your existing workflow design will be overwritten! Are you sure?'
-system.templates: __system.templates
-created.templates: __created.templates
+'Competing of interest statement': 'Çıkar çatışması ifadesi'
+workflow.template.edit: 'İş Akışı Şablonu Düzenle'
+workflow.step.template.edit: İş Akışı Şablon Düzenle
+step.new: Yeni Adım
+temaplate.name: Şablon Adı
+workflow.step.template.new: İş Akışı Şablonu Yeni Adım
+workflow.templates.create: İş Akışı Şablonu Oluştur
+workflow.template.new: Yeni İş Akışı Şablonu Oluştur
+template.name: Şablon Adı
+first_step: İlk Adım
+last_step: Son Adım
+workflow.template.step.detail: İş Akışı Şablon Adımı Detayı
+workflow.template.details: İş Akışı Şablonu Detayları 
+'Your existing workflow design will be overwritten! Are you sure?': 'Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?'
+system.templates: Sistem Şablonları
+created.templates: Oluşturulmuş Şablonlar
