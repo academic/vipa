@@ -173,7 +173,6 @@ preview: Preview
 submit: Submit
 back.continue.editing: 'Back & Continue Editing'
 issue.plural: Issues
-issue: Issue
 issue.manager: 'Issue Manager'
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
 articles_in_journal: 'Articles In Journal'
@@ -285,7 +284,6 @@ cancel: Cancel
 journal.list: 'List Journals'
 journal.my: 'My Journal'
 ISSN: ISSN
-create: Create
 titleabbr: 'Title Abbr'
 titletransliterated: 'Title Transliterated'
 journal.langs: Languages
@@ -460,8 +458,8 @@ color: Color
 color.generate: 'Generate color'
 statusText: 'Status Text'
 introduction: Introduction
-helptext.authors.wont.see: 'Authors <strong>won''t</strong> see this field.'
-helptext.authors.will.see: 'Authors <strong>will</strong> see this field.'
+helptext.authors.wont.see: "Authors <strong>won't</strong> see this field."
+helptext.authors.will.see: "Authors <strong>will</strong> see this field."
 'These articlese submitted but waiting to be assigned.': 'These articlese submitted but waiting to be assigned.'
 accepted: __accepted
 rejected: __rejected
@@ -605,7 +603,6 @@ journal.eissn: Journal eISSN
 home: Home
 tags: Tags
 more: More
-Issue: Issue
 journal_home: Journal Home Page
 announcements: Announcements
 'No Content': 'No Content'
@@ -708,25 +705,9 @@ section: Section
 article.add: Add Article
 article.preview: Preview Article
 order: Order
-article.singular: Article
-page.first: __page.first
-page.last: __page.last
+article.singular: Article 
 save: Save
-cancel: Cancel
-dashboard: Dashboard
-issue.manager: __issue.manager
-special.issue: __special.issue
-special: __special
-create: __create
-issue: __issue
-journal.manager: __journal.manager
-journal.update: __journal.update
-journal.settings.mail: __journal.settings.mail
-journal.settings.mail.signature: __journal.settings.mail.signature
-journal.settings.submission.language: __journal.settings.submission.language
-journal.settings.submission.language.text: __journal.settings.submission.language.text
-journal.settings.submission.abstractTemplate: __journal.settings.submission.abstractTemplate
-journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
+cancel: Cancel 
 role.forusers: __role.forusers
 username: Username
 status: Status
@@ -752,7 +733,7 @@ u: Update
 list: List
 error: Error
 error.oops: 'Oops! An Error Occurred'
-summart: Summary
+summary: Summary
 res: Restart
 submit: Submit
 onlineSubmission: 'Online Submission'
@@ -873,7 +854,6 @@ journal_index.volume: Volume
 archive: __archive
 date.publish: __date.publish
 volume: __volume
-issue: __issue
 page.plural: __page.plural
 languages: __languages
 abstract: __abstract
@@ -905,7 +885,7 @@ pages.new: New page
 pages.detail: Page detail
 actions: Actions
 author.plural: Author
-"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
+"<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": "<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>"
 user: User
 register: Register
 logo: Logo
