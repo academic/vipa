@@ -57,6 +57,10 @@ class ArticleFileController extends Controller
 
             $entity->setArticle($article);
             $entity->setFile($file_entity);
+            $v = $form->getData()->getVersion();
+            if (empty($v)) {
+                $entity->setVersion(1);
+            }
             $em->persist($entity);
             $article->addArticleFile($entity);
             $em->persist($article);
