@@ -62,7 +62,7 @@ class JournalType extends AbstractType {
                 ->add('path')
                 ->add('domain')
                 ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn')))
-                ->add('eissn', 'text', array('label' => 'e-ISSN', 'attr' => array('class' => 'maskissn')))
+                ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
                 ->add('firstPublishDate', 'datetime', array(
                     'date_widget' => 'single_text',
                     'time_widget' => 'single_text',

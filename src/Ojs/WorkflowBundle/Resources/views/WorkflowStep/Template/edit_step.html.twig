@@ -141,7 +141,7 @@
                     <label>{{"review.forms"|trans}}</label>
 
                     <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
-                        <option>[No review form]</option>
+                        <option>{{ '[No review form]'|trans }}</option>
                         {%for form in forms%}
                             <option
                                 {%if step.hasForm(form)%}selected="selected"{%endif%}
