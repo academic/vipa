@@ -291,7 +291,6 @@ create: Oluştur
 titleabbr: 'Başlık Kısaltması'
 titletransliterated: 'Dönüştürülmüş Başlık'
 journal.langs: 'Dergi Dilleri'
-E-ISSN: E-ISSN
 firstpublishdate: 'İlk Yayım Tarihi'
 period: Periyot
 published: Yayımda
@@ -300,7 +299,7 @@ theme.id: 'Tema ID'
 users: Kullanıcılar
 editor.dashboard: 'Editör Yönetim Ekranı'
 journal.detail: 'Dergi Detayı'
-e-ISSN: e-ISSN
+eISSN: eISSN
 URL: URL
 journalContact.edit: 'Dergi İletişim Düzenle'
 journalcontact.list: 'Dergi İletişim Listesi'
