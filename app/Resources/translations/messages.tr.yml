@@ -174,8 +174,8 @@ citation.editor: 'Alıntı Editörü'
 preview: Önizleme
 submit: Gönder
 back.continue.editing: 'Geri Git & Düzenlemeye Devam Et'
-issue.plural: Sayılar
 issue: Sayı
+issue.plural: Sayılar
 issue.manager: 'Sayı Yöneticisi'
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Seçilen sayı için tüm makaleleri burada bulabilirsiniz <strong>%title%</strong>'
 articles_in_journal: 'Dergideki Makaleler'
@@ -243,28 +243,28 @@ contact.type.new: 'Yeni İletişim Türü'
 contacttype.plural: 'İletişim Türleri'
 file.edit: 'Dosya Düzenle'
 file.list: 'Dosya Listesi'
-mimetype: 'MIME Türü'
-size: Boyut
 file.new: 'Yeni Dosya'
 file.select: 'Dosya Seç'
 file.details: 'Dosya Detayları'
 file.path: 'Dosya Yolu'
+mimetype: 'MIME Türü'
+size: Boyut
+logo: Logo
+address_lat: 'Adres Enlem'
+address_long: 'Adres Boylam'
 institution.manager: 'Kurum Yöneticisi'
 institution.edit: 'Kurum Düzenle'
-logo: Logo
 institution.new: 'Yeni Kurum'
 institution.detail: 'Kurum Detay'
 institution.plural: Kurumlar
-address_lat: 'Adres Enlem'
-address_long: 'Adres Boylam'
+institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.edit: 'Kurum Türü Düzenle'
 institutiontype.list: 'Kurum Türü Listesi'
-institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.plural: 'Kurum Türleri'
-issue.edit: 'Sayı Düzenle'
 issue.new: 'Yeni Sayı'
-issue.add.articles: 'Bu sayıya makale ekle'
+issue.edit: 'Sayı Düzenle'
 issue.list: 'Sayı Listesi'
+issue.add.articles: 'Bu sayıya makale ekle'
 journal.id: ID
 volume: Cilt
 number: Numara
@@ -287,7 +287,7 @@ cancel: İptal
 journal.list: 'Dergileri Listele'
 journal.my: Dergim
 ISSN: ISSN
-create: Oluştur
+eISSN: eISSN
 titleabbr: 'Başlık Kısaltması'
 titletransliterated: 'Dönüştürülmüş Başlık'
 journal.langs: 'Dergi Dilleri'
@@ -299,15 +299,15 @@ theme.id: 'Tema ID'
 users: Kullanıcılar
 editor.dashboard: 'Editör Yönetim Ekranı'
 journal.detail: 'Dergi Detayı'
-eISSN: eISSN
 URL: URL
-journalContact.edit: 'Dergi İletişim Düzenle'
-journalcontact.list: 'Dergi İletişim Listesi'
-journalcontact.journal.id: 'Dergi ID'
-journalcontact.contact.id: 'Dergi İletişim ID'
-journalcontact.contact.type.id: 'Dergi İletişim Tür ID'
-journalcontact.creation: 'Dergi İletişim Oluşturma'
-journalcontact.singular: 'Dergi İletişim'
+journalContact:
+  edit: 'Dergi İletişim Düzenle'
+  list: 'Dergi İletişim Listesi'
+  journal.id: 'Dergi ID'
+  contact.id: 'Dergi İletişim ID'
+  contact.type.id: 'Dergi İletişim Tür ID'
+  creation: 'Dergi İletişim Oluşturma'
+  singular: 'Dergi İletişim'
 allow_index: 'Dizine İzin Ver'
 hide_title: 'Başlığı Gizle'
 allow_index.list: 'Dizin Listesine İzin Ver'
@@ -330,6 +330,7 @@ subject.edit: 'Konu Düzenle'
 subject.list: 'Konu Listesi'
 subject: Konu
 subject.new: 'Yeni Konu'
+theme.edit: 'Konu Düzenle'
 subject.plural: Konular
 theme.edit: 'Tema Düzenle'
 theme.list: 'Tema Listesi'
@@ -427,6 +428,7 @@ mailtemplate.languages: Dil
 mailtemplate.title: Başlık
 mailtemplate.default.list: 'Öntanımlı Şablonlar'
 mailtemplate.show: Görüntüle
+mailtemplate.default_template: 'Default Templates'
 journal_licence.singular: Lisanslar
 journal_licence.create: 'Yeni Lisans'
 journal_licence.licence: Lisans
@@ -443,10 +445,12 @@ journalsection.title: Başlık
 journalsection.allow_index: 'Dizine İzin Ver'
 journalsection.hide_title: 'Başlığı Gizle'
 journalsection.journal: Dergi
-haveNoJournals: 'TODO: You have no journals'
-Info: 'TODO: Info'
-'Article Files': 'TODO: Article Files'
-File: 'TODO: File'
+haveNoJournals: 'Hiç derginiz yok'
+save: Kaydet
+Info: Bilgi
+'Article Files': 'Makale Dosyaları'
+'Header Image': 'Üst Resim'
+File: 'Dosya'
 empty: Boş
 common: Genel
 detailed: Detay
@@ -460,7 +464,46 @@ color: Renk
 color.generate: 'Renk oluştur'
 statusText: 'Durum Başlığı'
 introduction: Tanıtım
+helptext.authors.wont.see: "Yazarlar bu alanı <strong>göremezler</strong>"
+helptext.authors.will.see: "Yazarlar bu alanı <strong>görürler</strong>"
+'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş fakat ilgili kişiye atanmayı bekliyor'
+accepted: Kabul Edildi
+rejected: Reddedildi
+waiting: Bekliyor
+Subjects: Konular
+Keywords: Anahtar Kelimeler
+Abstract: Özet
+Section: Bölüm
+Authors: Yazarlar
+Files: Dosyalar
+update.article.file: Makale dosyasını güncelle
+'Review Notes': 'Hakem notları'
+competingOfInterest: TODO Competing of Interest
+'Previous Review Report': 'Önceki Hakem Raporu'
+sendmail: e-Posta gönder
+'Review Report': 'Hakem Raporu'
+review.form.update: Hakem Raporunu Güncelle
+b: Geri
 done: Tamamlandı
+review.form.new: Yeni Hakem Formu
+review.form.item.new: Yeni Hakem Formu Elemanı
+review.form.detail: Hakem Formu Detayı
+review.form.item.update: Hakem Formu Elemanını Güncelle
+review.form.item.detail: Hakem Formu Elemanı Detayı
+form.item.update: Hakem Formunu Güncelle
+mandatory: Zorunlu
+'Is this question mandatory?': 'Bu soru zorunlu mu?'
+confidential: Gizli
+'If this question`s answer may contain confidential data please check.': 'Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz'
+fields: Alanlar
+'Add each field text as one line': 'Her alan için bir satır ekleyiniz'
+Fieldset: Kutucuk
+'Questions will be grouped under fieldset names.': 'Sorular Kutucuk isimlerine göre gruplanacaktır.'
+form.items: Form Elemanları
+'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?'
+form.item.new: Yeni Form Elemanı
+input_types: Giriş Tipi
+fieldset: Alan
 actions: Eylemler
 sure: Emin misiniz?
 articlefile.new: Yeni makale dosyası
