@@ -62,7 +62,7 @@ class SetupController extends Controller
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
             $user->setPassword($password);
-            $user->setIsActive(true);
+            $user->setStatus(1);
             $user->generateApiKey();
             $role_repo = $em->getRepository('OjsUserBundle:Role');
             $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');

@@ -298,7 +298,7 @@ class UserRestController extends FOSRestController
         /* @var  $user \Ojs\UserBundle\Entity\User */
         switch ($field) {
             case 'active':
-                $user->setIsActive($request->get('isActive'));
+                $user->setStatus($request->get('isActive'));
                 break;
             case
                 'status':

@@ -20,7 +20,7 @@
                         <tr>
                             <td>{{ entity.user.username }}</td>
                             <td>{{ entity.user.email }}</td>
-                            <td>{{ entity.user.isActive }}</td>
+                            <td>{{ entity.user.status }}</td>
                             <td style="width: 180px">
                                 <a class="label label-info" href="{{ path("manager_journal_role_users" , { "roleId": entity.role.id } )}}">{{entity.role.role}}</a>
                             </td>

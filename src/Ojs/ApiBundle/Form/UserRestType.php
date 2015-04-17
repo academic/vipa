@@ -20,7 +20,6 @@ class UserRestType extends AbstractType
                 ->add('username')
                 ->add('password')
                 ->add('email')
-                ->add('isActive')
                 ->add('status');
     }
 
