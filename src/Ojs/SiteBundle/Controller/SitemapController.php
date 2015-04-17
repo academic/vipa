@@ -182,7 +182,7 @@ class SitemapController extends Controller
                 $request->getSchemeAndHttpHost() .
                 $router->generate('ojs_article_page', [
                     'slug' => $article->getJournal()->getSlug(),
-                    'article_slug' => $article->getSlug(),
+                    'article_id' => $article->getId(),
                     'institution' => $journal->getInstitution()->getSlug()
                 ]),
                 $article->getUpdated()->format('Y-m-d')
@@ -317,7 +317,7 @@ class SitemapController extends Controller
             $siteMap
                 ->add($request->getSchemeAndHttpHost() . $router->generate('ojs_article_page', [
                         'slug' => $journal->getSlug(),
-                        'article_slug' => $article->getSlug(),
+                        'article_id' => $article->getId(),
                         'institution'=>$journal->getInstitution()->getSlug()
                     ]), $article->getUpdated()->format('Y-m-d'));
         }

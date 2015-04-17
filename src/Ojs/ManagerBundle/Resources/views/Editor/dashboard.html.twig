@@ -23,7 +23,7 @@
     {% if stats.article.mostViewedArticle is defined %}
         {% set article = stats.article.mostViewedArticle %}
         <h2>{{ "stats.most.viewed.article"|trans }}<span class="badge">{{ stats.article.mostViewedArticleCount }}</span></h2>
-        <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
+        <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
             {{ article.title }}
         </a>
     {% else %}
@@ -34,7 +34,7 @@
     {% if stats.article.mostDownloadedArticle is defined %}
         {% set article = stats.article.mostDownloadedArticle %}
         <h2>{{ "stats.most.downloaded.article"|trans }}<span class="badge">{{ stats.article.mostDownloadedArticleCount }}</span></h2>
-        <a href="{{ url('ojs_article_page',{article_slug: article.slug,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
+        <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,institution: article.journal.institution.slug}) }}">
             {{ article.title }}
         </a>
     {% else %}

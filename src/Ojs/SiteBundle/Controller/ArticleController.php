@@ -7,11 +7,11 @@ use Ojs\JournalBundle\Entity\ArticleEventLog;
 
 class ArticleController extends Controller {
 
-    public function articlePageAction($slug, $issue_id, $article_slug)
+    public function articlePageAction($slug, $issue_id, $article_id)
     {
         $em = $this->getDoctrine()->getManager();
         /* @var $entity \Ojs\JournalBundle\Entity\Article */
-        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->findOneBy(['slug' => $article_slug]);
+        $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
         if (!$data['article']) {
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
         }

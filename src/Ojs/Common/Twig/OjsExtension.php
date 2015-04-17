@@ -329,7 +329,7 @@ class OjsExtension extends \Twig_Extension {
         $routes = [
             'ojs_institution_page' => ['slug'],
             'ojs_journal_index' => ['journal', 'institution'],
-            'ojs_article_page' => ['slug', 'article_slug', 'institution'],
+            'ojs_article_page' => ['slug', 'article_id', 'institution'],
         ];
         $router = $this->container->get('router');
 
@@ -344,7 +344,7 @@ class OjsExtension extends \Twig_Extension {
             case 'Ojs\JournalBundle\Entity\Article':
                 return $router->generate('ojs_article_page', [
                             'slug' => $object->getJournal()->getSlug(),
-                            'article_slug' => $object->getSlug(),
+                            'article_id' => $object->getId(),
                             'institution' => $object->getJournal()->getInstitution()->getSlug()
                 ]);
             case 'Ojs\JournalBundle\Entity\Subject':

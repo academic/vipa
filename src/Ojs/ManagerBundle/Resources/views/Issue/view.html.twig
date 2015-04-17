@@ -41,7 +41,7 @@
                     <div class="list-group-item">
                         <span class="label label-default">{{article.firstPage}} - {{article.lastPage}}</span>
                         <a target="_blank"
-                           href="{{path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_slug' : article.slug , 'institution' : article.journal.institution.slug  } )}}">
+                           href="{{path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } )}}">
                             {{article.title}}
                         </a> 
                     </div>
