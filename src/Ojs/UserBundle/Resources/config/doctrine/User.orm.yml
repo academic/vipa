@@ -88,6 +88,13 @@ Ojs\UserBundle\Entity\User:
         country_id:
             type: integer
             nullable: true
+        isActive:
+            type: boolean
+            length: null
+            unique: false
+            nullable: true
+            options:
+                default: 0
         disable_reason:
             type: text
             nullable: true

@@ -58,7 +58,7 @@ class SecurityController extends Controller
         if ($user->getToken() == $code) {
             // add ROLE_USER and ROLE_AUTHOR to new activated user
             $user->setToken(null);
-            $user->setStatus(1);
+            $user->setIsActive(true);
             $em->persist($user);
             $em->flush();
             $flashBag->add('success', 'You\'ve confirmed your email successfully!');
@@ -195,6 +195,7 @@ class SecurityController extends Controller
             $user->addRole($em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
             $user->generateApiKey();
             $user->setStatus(1);
+            $user->setIsActive(0);
             $em->persist($user);
 
             if ($oauth_login) {
@@ -244,7 +245,7 @@ class SecurityController extends Controller
             if (!$user)
                 throw new AccessDeniedException("Access denied!", 403);
             $user->generateApiKey();
-            $user->setStatus(1);
+            $user->setIsActive(true);
             /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

@@ -33,7 +33,7 @@ class UserControllerTest extends BaseTestCase
         $form['ojs_userbundle_user[title]']='Doc';
         $form['ojs_userbundle_user[firstName]']='Aybars';
         $form['ojs_userbundle_user[lastName]']='Cengaver';
-        $form['ojs_userbundle_user[status]']->select(1);
+        $form['ojs_userbundle_user[isActive]']->tick();
         $form['ojs_userbundle_user[roles]']=[1,2,3];
         $form['ojs_userbundle_user[subjects]']=[1,2,3];
         $form['ojs_userbundle_user[country]']->select(1);
