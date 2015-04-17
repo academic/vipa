@@ -55,7 +55,8 @@ class JournalType extends AbstractType {
                     'required' => false,
                     'attr' => [
                         'class' => 'select2-element'
-                    ]
+                    ],
+                        'data'=>$options['default_roles']
                         )
                 )
                 ->add('subtitle')
@@ -116,7 +117,8 @@ class JournalType extends AbstractType {
             'attr'=>[
                 'novalidate'=>'novalidate',
                 'class'=>'validate-form'
-            ]
+            ],
+            'default_roles'=>null
         ));
     }
 
