@@ -56,6 +56,7 @@ firstStep: 'Firt Step'
 lastStep: 'Last Step'
 nextSteps: 'Next Steps'
 nextSteps.possible: 'Possible Next Steps'
+step.new: 'New Step'
 step.edit: 'Edit step'
 canOnlyReply: 'User can not decide next step, can only reply back.'
 'Is visible to author?': 'Is visible to author?'
@@ -159,6 +160,7 @@ journal: Journal
 section: Section
 languages: Languages
 primaly_language: 'Primaly Language'
+status: Status
 doi: DOI
 check: Check
 otherid: 'Other ID'
@@ -172,6 +174,7 @@ citation.editor: 'Citation Editor'
 preview: Preview
 submit: Submit
 back.continue.editing: 'Back & Continue Editing'
+issue: Issue
 issue.plural: Issues
 issue.manager: 'Issue Manager'
 'Here you can find all articles for selected issue <strong>%title%</strong>': 'Here you can find all articles for selected issue <strong>%title%</strong>'
@@ -246,21 +249,21 @@ file.details: 'File Details'
 file.path: 'File Path'
 mimetype: 'Mime Type'
 size: Size
+logo: Logo
+address_lat: Latitude
+address_long: Longitude
 institution.manager: 'Institution Manager'
 institution.edit: 'Edit Institution'
 institution.new: 'New Institution'
 institution.detail: 'Institution Detail'
 institution.plural: Institutions
-logo: Logo
-address_lat: Latitude
-address_long: Longitude
+institutiontype.new: 'New Institution Type'
 institutiontype.edit: 'Edit Institution Type'
 institutiontype.list: 'Institution Type List'
-institutiontype.new: 'New Institution Type'
 institutiontype.plural: 'Institution Types'
+issue.new: 'New Issue'
 issue.edit: 'Edit Issue'
 issue.list: 'Issue List'
-issue.new: 'New Issue'
 issue.add.articles: 'Add article to this issue'
 journal.id: ID
 volume: Volume
@@ -284,10 +287,10 @@ cancel: Cancel
 journal.list: 'List Journals'
 journal.my: 'My Journal'
 ISSN: ISSN
+eISSN: eISSN
 titleabbr: 'Title Abbr'
 titletransliterated: 'Title Transliterated'
 journal.langs: Languages
-eISSN: eISSN
 firstpublishdate: 'First Publish Date'
 period: Period
 published: Published
@@ -314,10 +317,10 @@ theme: Theme
 theme.plural: Themes
 journaltheme.new: 'New Journal Theme'
 journaltheme: 'Journal Theme'
-lang.edit: Edit
-lang.list: List
-lang.code: Code
-lang.name: Name
+lang.edit: Language Edit
+lang.list: Language List
+lang.code: Language Code
+lang.name: Language Name
 lang.rtl: RTL
 lang.new: 'New Language'
 lang.isTranslated: 'Is translated?'
@@ -326,7 +329,9 @@ lang.plural: Languages
 subject.edit: 'Edit Subject'
 subject.list: 'Subject List'
 subject: Subject
-subject.new: 'New Subject' 
+subject.new: 'New Subject'
+subject.edit: 'Edit Subject'
+subject.plural: Subjects
 theme.edit: 'Edit Theme'
 theme.list: 'Theme List'
 content: Content
@@ -422,8 +427,8 @@ mailtemplate.new: 'Create Mail Template'
 mailtemplate.languages: Language
 mailtemplate.title: Title
 mailtemplate.default.list: 'Default Templates'
-mailtemplate.default_template: 'Default Templates'
 mailtemplate.show: Show
+mailtemplate.default_template: 'Default Templates'
 journal_licence.singular: Licences
 journal_licence.create: 'New Licence'
 journal_licence.licence: Licence
@@ -440,6 +445,7 @@ journalsection.title: Title
 journalsection.allow_index: 'Allow Index'
 journalsection.hide_title: 'Hide Title'
 journalsection.journal: Journal
+haveNoJournals: 'Hiç derginiz yok'
 save: Save
 Info: Info
 'Article Files': 'Article Files'
@@ -461,9 +467,9 @@ introduction: Introduction
 helptext.authors.wont.see: "Authors <strong>won't</strong> see this field."
 helptext.authors.will.see: "Authors <strong>will</strong> see this field."
 'These articlese submitted but waiting to be assigned.': 'These articlese submitted but waiting to be assigned.'
-accepted: __accepted
-rejected: __rejected
-waiting: __waiting
+accepted: Accepted
+rejected: Rejected
+waiting: Waiting
 Subjects: Subjects
 Keywords: Keywords
 Abstract: Abstract
@@ -478,15 +484,17 @@ sendmail: Send email
 'Review Report': 'Review Report'
 review.form.update: Update Review Form
 b: Back
+done: Tamamlandı
 review.form.new: New Review Form
 review.form.item.new: Review Form New Item
 review.form.detail: Review Form Detail
-review.form.item.update: Review Form Iten Upate
+review.form.item.update: Review Form Item Upate
+review.form.item.detail: Review Form Item Detail
 form.item.update: Form Item Update
 mandatory: Mandatory
 'Is this question mandatory?': 'Is this question mandatory?'
 confidential: Confidential
-'If this question`s answer may contain confidential data please check.': 'If this question`s answer may contain confidential data please check.'
+"If this question's answer may contain confidential data please check.": "If this question's answer may contain confidential data please check."
 fields: Fields
 'Add each field text as one line': 'Add each field text as one line'
 Fieldset: Fieldset
@@ -494,9 +502,7 @@ Fieldset: Fieldset
 form.items: Form Items
 'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'
 form.item.new: New Form Item
-input_types: Input Types
 fieldset: Fieldset
-review.form.item.detail: Review Form Item Detail
 optional: Optional 
 workflow.step.update: Update Workflow Update 
 role.plural: Roles
@@ -593,9 +599,8 @@ parse: Parse
 author.edit: Edit author
 parent: Parent
 children: Children
-
-journalindex.list: __journalindex.list
-journal_licence.edit: __journal_licence.edit
+journalindex.list: Journal Index List
+journal_licence.edit: Edit Journal Licence
 journal.setup: Journal Setup
 add: Add
 journal.issn: Journal ISSN
@@ -612,7 +617,6 @@ about: About
 'Link Ekle': 'Link Ekle'
 list: List 
 search.results: Search Results
-"<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>": "__<strong class=\"text-danger\">%total%</strong> results were found for the tag\n                for <strong class=\"text-danger\">%term%</strong>"
 article: Article 
 landingPage.text: ""
 search.main: 'Search Journal, Article and Author'
@@ -620,8 +624,6 @@ institute.register:  Register Institution
 journal.register: Journal Register
 featured: Featured
 featured.desc: ""
-suggestion.institute.suggest: __suggestion.institute.suggest
-suggestion.institute.success: __suggestion.institute.success
 suggest: Suggest
 'Your suggestion saved successfuly.': 'Your suggestion saved successfuly.'
 'Cover Image': 'Cover Image'
@@ -635,11 +637,11 @@ edit: Edit
 cms: CMS
 delete: Delete
 'Order by': 'Order by'
-Filters: __Filters
-collapse: __collapse
+Filters: Filters
+collapse: Collapse
 Search: Search
-Reset: __Reset
-'%count% Results,': '__%count% Results,'
+Reset: Reset
+'%count% Results,': '%count% Results,'
 Page: Page
 'of %count%': 'of %count%' 
 'Items per page': 'Items per page'
@@ -694,13 +696,11 @@ author.plural: Authors
 contact.plural: Contacts 
 'Any article viewed yet': 'Any article viewed yet'
 'Any article downloaded yet': 'Any article downloaded yet'
-journal.nothave: __journal.nothave
+You don't have any journals!: You don't have any journals!
 volume: Volume
-number: Number
+issue.number: Number
 title: Title
 year: Year
-date.publish: __date.publish
-issue.add.articles: __issue.add.articles 
 section: Section
 article.add: Add Article
 article.preview: Preview Article
@@ -717,7 +717,6 @@ articles.needAction: Articles that need action
 sure: "Are you sure?"
 search.resutls: 'Search Results'
 search.results: 'Search Results'
-search.result.headline: "<strong class=\"text-danger\">%total%</strong> results were found for the search\n                for <strong class=\"text-danger\">%term%</strong>"
 period: period
 journal_langs: 'Journal Languages'
 back: 'Back to list'
@@ -772,7 +771,6 @@ register_journal: 'Register Journal'
 send_article: 'Send Article'
 featured: Featured
 featured.desc: You can see selected and popular journals from the list below
-landingPage.text:  ""
 globalFooter.text: |
                                     <p>
                                     ojs.io  enables the management and publication of journals in a <mark>practical</mark> and <mark>rapid</mark> way.
@@ -851,17 +849,16 @@ user.change_password: 'Change Password'
 user.old_password: 'Old Password'
 journal_index.issues: Issues
 journal_index.volume: Volume
-archive: __archive
-date.publish: __date.publish
-volume: __volume
-page.plural: __page.plural
-languages: __languages
-abstract: __abstract
-keywords: __keywords
-tools: __tools
-citations: __citations
-subjects: __subjects
-section: __section
+archive: Archive
+volume: Volume
+page.plural: Pages
+languages: Languages
+abstract: Abstract
+keywords: Keywords
+tools: Tools
+citations: Citations
+subjects: Subjects
+section: Section
 tags: Tags
 more: more
 Issue: Issue
@@ -890,13 +887,11 @@ user: User
 register: Register
 logo: Logo
 file.select: Select File 
-'Header Image': '__Header Image'
-suggest: __suggest
-suggestion.institute.success: Your suggestion saved successfuly
+'Header Image': Header Image'
+suggest: Suggest
 'Your suggestion saved successfuly.': 'Your suggestion saved successfuly.' 
 suggestion.institute.suggest: Suggest Institution
 'Cover Image': 'Cover Image'
-suggestion.journal.success: __suggestion.journal.success
 user.new: New User 
 'You can allow this user to login as you, by clicking this button': 'You can allow this user to login as you, by clicking this button'
 user.profile: User Profile
@@ -1060,17 +1055,16 @@ save: Save
 create: Create 
 journal: Journal
 title: Title 
-form.item.update: __form.item.update
+form.item.update: Update form item
 'Is this question mandatory?': 'Is this question mandatory?'
-'If this question`s answer may contain confidential data please check.': 'If this question`s answer may contain confidential data please check.'
 input_type: Input type
-input_types:
-  textbox: textbox
-  textarea: textarea
-  checkboxes: checkboxes
-  radiobutton: radiobutton
-  dropdown: dropdown
-  scale_1_5: scale_1_5
+input_types: Input Types
+input_types.textbox: textbox
+input_types.textarea: textarea
+input_types.checkboxes: checkboxes
+input_types.radiobutton: radiobutton
+input_types.dropdown: dropdown
+input_types.scale_1_5: scale_1_5
 fields: Fields
 'Add each field text as one line': 'Add each field text as one line'
 Fieldset: Fieldset
@@ -1098,3 +1092,4 @@ workflow.template.details: Workflow Templat Details
 'Your existing workflow design will be overwritten! Are you sure?': 'Your existing workflow design will be overwritten! Are you sure?'
 system.templates: System templates
 created.templates: Created Templates
+success: Success
