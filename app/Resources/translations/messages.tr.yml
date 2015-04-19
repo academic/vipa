@@ -59,7 +59,7 @@ nextSteps.possible: 'Olası Sonraki Adımlar'
 step.new: 'Yeni adım ekle'
 step.edit: 'Adım düzenle'
 canOnlyReply: 'Kullanıcı sonraki adıma karar veremez. Sadece cevap verebilir.'
-'Is visible to author?': 'Yazar görebilir mi?'
+'Is visible to author?': 'Yazar tarafından görülebilir mi?'
 'Must be assigned to someone?': 'Birisine atanması gerekir mi?'
 'can.edit?': 'Düzenleyebilir mi?'
 'can.review?': 'Değerlendirebilir mi?'
@@ -472,7 +472,6 @@ rejected: Reddedildi
 waiting: Bekliyor
 Subjects: Konular
 Keywords: Anahtar Kelimeler
-Abstract: Özet
 Section: Bölüm
 Authors: Yazarlar
 Files: Dosyalar
@@ -494,16 +493,11 @@ form.item.update: Hakem Formunu Güncelle
 mandatory: Zorunlu
 'Is this question mandatory?': 'Bu soru zorunlu mu?'
 confidential: Gizli
-'If this question`s answer may contain confidential data please check.': 'Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz'
+"If this question's answer may contain confidential data please check.": "Bu sorunun cevabı gizli kalması gereken bir cevap içeriyorsa işaretleyiniz"
 fields: Alanlar
 'Add each field text as one line': 'Her alan için bir satır ekleyiniz'
-Fieldset: Kutucuk
-'Questions will be grouped under fieldset names.': 'Sorular Kutucuk isimlerine göre gruplanacaktır.'
-form.items: Form Elemanları
 'All your form items for this form will be deleted and default items will be inserted. Are you sure?': 'Bu formdaki bütün elemanlar silinip varsayılan elemanlar eklenecektir. Emin misiniz?'
 form.item.new: Yeni Form Elemanı
-input_types: Giriş Tipi
-fieldset: Alan
 actions: Eylemler
 sure: Emin misiniz?
 articlefile.new: Yeni makale dosyası
@@ -531,7 +525,7 @@ searchon:
   google: "Google Akademik'de Ara"
   pubmed: "Pubmed'de ara"
 journalindex.list: Dergi Dizin Listesi
-journal_licence.edit: __journal_licence.edit
+journal_licence.edit: Dergi Lisans Düzenle
 journal.setup: Dergi Kurulumu
 d: Sil
 add: Ekle
@@ -553,22 +547,18 @@ article.plural: Makaleler
 contact.plural: İletişim Kaydı 
 lang.plural: Dil
 user.plural: Kullanıcı
-role.plural: __role.plural
 'Any article viewed yet': '_Henüz hiçbir makale gösterilmedi'
 'Any article downloaded yet': 'Henüz hiçbir makale indirilmedi'
-journal.nothave: __journal.nothave
-issue.edit: __issue.edit
-number: __number
-title: __title
-year: __year
+"You don't have any journals!":  Hiç derginiz yok!
+issue.number: Sayı
+year: Yıl
 article: Makale
 section: Bölüm
 article.add: Makale Ekle
 article.preview: Makale Önizleme
-order: __order
+order: Sıra
 article.singular: Makale
 cancel: İptal Et
-journal.settings.abstractTemplate.desc: __journal.settings.abstractTemplate.desc
 role.forusers: __role.forusers
 username: Kullanıcı adı
 email: E-posta
@@ -585,7 +575,6 @@ c: 'Yeni Oluştur'
 s: Göster
 e: Düzenle
 add: Ekle
-sure: 'Emin misiniz?'
 added: Eklendi
 u: Güncelle
 404: Bulunamadı
@@ -709,25 +698,12 @@ user.change_password: 'Şifreyi Değiştir'
 user.old_password: 'Eski Şifre'
 journal_index.issues: Sayılar
 journal_index.volume: Cilt
-date.publish: __date.publish
-page.plural: __page.plural
-first_page: __first_page
-last_page: __last_page
-languages: __languages
-abstract: __abstract
-keywords: __keywords
-tools: __tools
-citations: __citations
-subjects: __subjects
-section: __section
-tags: __tags
-more: __more
+more: Daha fazlası
 Issue: Sayı
-'No Content': '__No Content'
+'No Content': 'Hiç içerik yok'
 article.submit: Makale gönder
-journal_langs: __journal_langs
-new.block: __new.block
-'Add Link': 'Add Link'
+journal_langs: Derig dilleri
+'Add Link': 'Link Ekle'
 filter.remove: "Filtreyi Kaldır"
 name: "İsim"
 email: E-posta
@@ -748,16 +724,13 @@ suggestion.institute.suggest: "Kurum Öner"
 logo: Logo
 'Header Image': 'Üst Görsel'
 suggest: Öner
-suggestion.institute.success: __suggestion.institute.success
-'Your suggestion saved successfuly.': '__Your suggestion saved successfuly.'
-suggestion.journal.suggest: __suggestion.journal.suggest
-'Cover Image': '__Cover Image'
-suggestion.journal.success: __suggestion.journal.success
+'Your suggestion saved successfuly.': 'Öneriniz başarıyla kaydedildi.'
+'Cover Image': 'Kapak görseli'
 user.new: Yeni Kullanıcı
-orcid.login: __orcid.login
-drop.proxy.user: __drop.proxy.user
-'You can allow this user to login as you, by clicking this button': '__You can allow this user to login as you, by clicking this button'
-add.as.proxy: __add.as.proxy
+orcid.login: Orcid ile giriş
+drop.proxy.user: Vekil kullanıcıyı sil.
+'You can allow this user to login as you, by clicking this button': 'Bu butonu tıklayarak bu kullanıcının sizin yerinize giriş yapabilmesine izin verebilirsiniz.'
+add.as.proxy: Vekil kullanıcı ata
 user.profile: 'Kullanıcı Profili'
 user.profile.edit: 'Kullanıcı Profili Düzenle'
 user.lastlogin: 'Son Giriş'
@@ -892,11 +865,11 @@ flush.all.log: 'Logları Sil'
 user.anonym: __user.anonym
 user.anonym.used: __user.anonym.used
 'You''ve invited to OJS': "Ojs'ye davet edildiniz"
-'Review invitation from': 'Değerlendirme davet formu"
+'Review invitation from': 'Değerlendirme davet formu'
 'Click link below for login to ojs if you are accept invitation': 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız' 
 Accept: Kabul et
 Decline: Reddet
-user.anonym.create_password: __user.anonym.create_password
+user.anonym.create_password: 'Şifre oluştur'
 Avatar: Avatar
 useThisTemplate: 'Bu temayı kullan'
 status.inreview: Görüşme
@@ -911,88 +884,67 @@ workflow.template.updateStep: 'Adımı Güncelle'
 workflow: İş Akışı 
 articles.waiting: Bekleyen Makaleler
 'These articlese submitted but waiting to be assigned.': 'Bu makaleler gönderilmiş ancak atanmayı bekliyor'
-sure: __sure
-accepted: __accepted
-rejected: __rejected
-waiting: __waiting
-Subjects: __Subjects
-Keywords: __Keywords
-Abstract: __Abstract
-Section: __Section
-Authors: __Authors
-author.orcid: __author.orcid
-author.order: __author.order
-author.title: __author.title
-author.initials: __author.initials
-author.firstname: __author.firstname
-author.middlename: __author.middlename
-author.lastname: __author.lastname
-email: __email
-Files: __Files
-update.article.file: __update.article.file
-'Review Notes': '__Review Notes'
+accepted: Kabul edildi
+rejected: Reddedildi
+waiting: Bekliyor
+Subjects: Konular
+Abstract: Öz
+Section: Bölüm
+Authors: Yazarlar
+author.orcid: Orcid Id
+author.order: Yazar sırası
+author.title: Ünvan
+author.initials: Baş harfler
+author.firstname: İlk adı
+author.middlename: İkinci adı
+author.lastname: Soyadı
+email: E-posta
+Files: Dosyalar
+'Review Notes': 'Değerlendirme notlarıs'
 competingOfInterest: Çıkar çatışması
-'Previous Review Report': '__Previous Review Report'
+'Previous Review Report': 'Önceki değerlendirme raporu'
 sendmail: __sendmail
-preview: __preview
-'Review Report': '__Review Report'
-review.forms: __review.forms
-review.form.update: __review.form.update
+preview: Önzileme
+'Review Report': 'Değerlendirme Raporu'
+review.forms: Değerlendirme Formları
+review.form.update: Değerlendirme Formu Güncelle
 b: Geri Gön
-review.form: __review.form
-create: __create
-review.form.new: __review.form.new
-review.form.item.new: __review.form.item.new
-title: __title
-review.form.preview: __review.form.preview
-review.form.detail: __review.form.detail
-review.form.item.update: __review.form.item.update
+review.form: Değerlendirme Formu
+create: Oluştur
+review.form.new:  Yeni değerlendirme formu
+review.form.item.new: Yeni form elemanı
+review.form.preview: Formu Önizle
+review.form.detail: Form detayı
+review.form.item.update: Form elemanı güncelle
 form.item.update: Form Elemanı Güncelle
 mandatory: Zorunlu
 'Is this question mandatory?': 'Bu soru zorunlu mu?'
 confidential: Gizli bilgi
-'If this question`s answer may contain confidential data please check.': 'Bu sorunun cevabı gizli bir bilgi içeriyorsa lütfen işaretleyin.'
 input_type: Giriş türü
-input_types:
-  textbox: Çok satır metin alanı
-  textarea: Tek satı metin alanı
-  checkboxes: Checkboxes
-  radiobutton: Radio Butonu
-  dropdown: Dropdown
-  scale_1_5: scale_1_5
+input_types: Giriş türleri
+input_types.textbox: Çok satır metin alanı
+input_types.textarea: Tek satı metin alanı
+input_types.checkboxes: Checkboxes
+input_types.radiobutton: Radio Butonu
+input_types.dropdown: Dropdown
+input_types.scale_1_5: scale_1_5
 fields: Alanlar
-'Add each field text as one line': '__Add each field text as one line'
-Fieldset: Grup
-'Questions will be grouped under fieldset names.': 'Sorular grup adları altında gruplanacaklardır.'
+'Add each field text as one line': 'Yeni satırlar halinde giriş yapınız.'
+Fieldset: Set
+'Questions will be grouped under fieldset names.': 'Sorular set  adları altında gruplanacaklardır.'
 form.items: Form Elemanları
 details: Detaylar
-'All your form items for this form will be deleted and default items will be inserted. Are you sure?': '__All your form items for this form will be deleted and default items will be inserted. Are you sure?'
-form.item.new: __form.item.new
-input_types: __input_types
-fieldset: __fieldset
-review.form.item.detail: __review.form.item.detail
-optional: __optional
-confidentail: __confidentail
-workflow.step.update: __workflow.step.update
-statusText: __statusText
-'First Step': '__First Step'
-'Last Step': '__Last Step'
-suggestedMaxDays: __suggestedMaxDays
-role.plural: __role.plural
-canOnlyReply: __canOnlyReply
-'User must send a competing of interest statement.': '__User must send a competing of interest statement.'
-'Guidelines for filling a <i>competing of Interest</i> statement.': '__Guidelines for filling a <i>competing of Interest</i> statement.'
-'Is visible to author?': '__Is visible to author?'
-'can.seeAuthor?': '__can.seeAuthor?'
-'can.edit?': '__can.edit?'
-'can.review?': '__can.review?'
-'Must be assigned to someone?': '__Must be assigned to someone?'
-'can.rejectSubmission?': '__can.rejectSubmission?'
-nextSteps.possible: __nextSteps.possible
-'[No review form]': '__[No review form]'
-reviewForms.manage: __reviewForms.manage
-introduction: __introduction
-workflow.step.graph: __workflow.step.graph
+form.item.new: Yeni form elemanı
+fieldset: Set
+optional: İsteğe bağlı
+confidentail: Gizli
+workflow.step.update: İş Akışı Adımı Güncelle
+'First Step': 'İlk Adım'
+'Last Step': 'Son Adım'
+'User must send a competing of interest statement.': 'Kullanıcı çıkar çatışması ifadesi göndermelidir..'
+'Guidelines for filling a <i>competing of Interest</i> statement.': '<i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.'
+'[No review form]': '[Değerlendirme formu yok]'
+workflow.step.graph: İş akışı grafiği
 sequenceDiagram: __sequenceDiagram
 review.result: Değerlendirme Sonucu
 accept: Kabul Et
@@ -1005,7 +957,6 @@ helptext.authors.will.see: "Yazarlar bu alanı <strong>görebileceklerdir</stron
 'Advanced Settings': 'Gelişmiş Ayarlar'
 Template: Şablon
 'Can reject the submission completely?': 'Gönderiyi tamamen reddedebilir mi?'
-workflow.step.detail: __workflow.step.detail
 'Competing of interest statement': 'Çıkar çatışması ifadesi'
 workflow.template.edit: 'İş Akışı Şablonu Düzenle'
 workflow.step.template.edit: İş Akışı Şablon Düzenle
@@ -1022,3 +973,4 @@ workflow.template.details: İş Akışı Şablonu Detayları
 'Your existing workflow design will be overwritten! Are you sure?': 'Eski iş akışı tasarımınız silinicektir! Bunu yapmak istediğinize emin misiniz?'
 system.templates: Sistem Şablonları
 created.templates: Oluşturulmuş Şablonlar
+success: Başarılı
