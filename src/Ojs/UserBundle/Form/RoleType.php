@@ -6,8 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RoleType extends AbstractType
-{
+class RoleType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -15,9 +15,9 @@ class RoleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('name')
-                ->add('role')
-                ->add('isSystemRole', 'checkbox')
+                ->add('name', 'text', ['label' => 'name'])
+                ->add('role', 'text', ['label' => 'role.singular'])
+                ->add('isSystemRole', 'checkbox', ['label' => 'role.issystemrole'])
         ;
     }
 
@@ -28,9 +28,9 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\Role',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }

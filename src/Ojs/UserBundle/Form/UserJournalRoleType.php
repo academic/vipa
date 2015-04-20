@@ -8,8 +8,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserJournalRoleType extends AbstractType
-{
+class UserJournalRoleType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -19,38 +19,40 @@ class UserJournalRoleType extends AbstractType
         $user = $options['user'];
 
         $builder->add('user', 'autocomplete', [
-            'class' => 'Ojs\UserBundle\Entity\User',
-            'attr' => [
-                'class' => 'autocomplete',
-                'style' => 'width:100%',
-                'data-list' => "/api/public/search/user",
-                'data-get' => "/api/public/user/get/",
-                "placeholder" => "type a username"
-            ]
-        ])
-            ->add('journal', 'autocomplete', [
-                'class' => 'Ojs\JournalBundle\Entity\Journal',
-                'attr' => [
-                    'class' => 'autocomplete',
-                    'style' => 'width:100%',
-                    'data-list' => "/api/public/search/journal",
-                    'data-get' => "/api/public/journal/get/",
-                    "placeholder" => "type a journal name"
-                ],
-
-            ])
-            ->add('role', 'entity', [
-                'class' => 'Ojs\UserBundle\Entity\Role',
-                'property' => 'name',
-                'multiple' => false,
-                'expanded' => false,
-                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
-                    return $er->createQueryBuilder('ujr')
-                        ->where('ujr.isSystemRole = 0');
-                },
-                'attr' => array("class" => "form-control")
-                ]
-            );
+                    'class' => 'Ojs\UserBundle\Entity\User',
+                    'label' => 'user',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'style' => 'width:100%',
+                        'data-list' => "/api/public/search/user",
+                        'data-get' => "/api/public/user/get/",
+                        "placeholder" => "type a username"
+                    ]
+                ])
+                ->add('journal', 'autocomplete', [
+                    'class' => 'Ojs\JournalBundle\Entity\Journal',
+                    'label' => 'journal.singular',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'style' => 'width:100%',
+                        'data-list' => "/api/public/search/journal",
+                        'data-get' => "/api/public/journal/get/",
+                        "placeholder" => "type a journal name"
+                    ],
+                ])
+                ->add('role', 'entity', [
+                    'label' => 'role.singular',
+                    'class' => 'Ojs\UserBundle\Entity\Role',
+                    'property' => 'name',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                        return $er->createQueryBuilder('ujr')
+                                ->where('ujr.isSystemRole = 0');
+                    },
+                    'attr' => array("class" => "select2-element")
+                        ]
+        );
     }
 
     /**
@@ -61,9 +63,9 @@ class UserJournalRoleType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\UserJournalRole',
             'user' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }
