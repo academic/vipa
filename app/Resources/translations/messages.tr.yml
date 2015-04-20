@@ -515,6 +515,7 @@ author.phone: Yazar telefonu
 institution: Kurum
 parse: Ayrıştır
 author.edit: Yazar Düzenle
+authors.count: Yazar sayısı
 s: Sakla
 parent: Üst
 children: Alt
@@ -974,3 +975,5 @@ workflow.template.details: İş Akışı Şablonu Detayları
 system.templates: Sistem Şablonları
 created.templates: Oluşturulmuş Şablonlar
 success: Başarılı
+"You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız."
+"Remove all author forms!": Tüm yazar bilgi formlarını kaldır

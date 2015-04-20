@@ -597,6 +597,7 @@ institution: Institution
 institutions: Institutions
 parse: Parse
 author.edit: Edit author
+authors.count: Count of Authors
 parent: Parent
 children: Children
 journalindex.list: Journal Index List
@@ -1093,3 +1094,5 @@ workflow.template.details: Workflow Templat Details
 system.templates: System templates
 created.templates: Created Templates
 success: Success
+"You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "You should remove author forms by clicking 'Remove' button on left bottom corner of every form."
+"Remove all author forms!": Remove all author forms!
