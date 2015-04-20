@@ -247,6 +247,8 @@ file.new: 'Yeni Dosya'
 file.select: 'Dosya Seç'
 file.details: 'Dosya Detayları'
 file.path: 'Dosya Yolu'
+file.type: Dosya türü
+file.language: Dosya dili
 mimetype: 'MIME Türü'
 size: Boyut
 logo: Logo
@@ -360,10 +362,10 @@ page.plural: Sayfalar
 page.last: 'Son Sayfa'
 page.first: 'İlk Sayfa'
 articlefile.id: ID
-articlefile.title: Başlık
-articlefile.type: Tür
-articlefile.version: Sürüm
-articlefile.langcode: Dil
+articlefile.title: Dosya başlıı
+articlefile.type: Makale dosya türü
+articlefile.version: Dosya sürümü
+articlefile.langcode: Dosya dili
 articlefile.actions: İşlemler
 suggestion.institute: 'Kurum Önerisi'
 suggestion.institute.list: 'Enstitü Önerileri'
@@ -377,6 +379,7 @@ suggestion.journal: 'Dergi Önerisi'
 suggestion.journal.list: 'Dergi Önerileri'
 journal.title: Başlık
 journal.subtitle: 'Alt Başlık'
+journal.slug: "Dergi web erişim yolu ( ojs-adresi/<i>dergi_yolu</i> )"
 suggestion.journal.detail: Detay
 journal.titleAbbr: 'Başlık Kısaltması'
 journal.titleTransliterated: 'Dönüştürülmüş Başlık'
@@ -394,6 +397,7 @@ journal.subjects: Konular
 journal.cover_image: 'Kapak Resmi'
 journal.header_image: 'Üst Resim'
 journal.tags: Etiketler
+tags: Etiketler
 journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
 journal.merge_as_new_journal: 'Yeni Dergi olarak kaydet'
@@ -980,3 +984,29 @@ success: Başarılı
 "User Journal Roles": Kullanıcı Dergi Rolleri
 submitRoles : Gönderi yapabilecek roller
 footer_text: Alt metin
+"Select journal to submit": Makale göndereceğiniz dergiyi seçiniz
+
+help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
+
+Turkish: Türkçe
+English: İngilizce
+German: Almanca
+Polish: Lehçe
+Russian: Rusça
+French: Fransızca
+Arabic: Arapça
+Italian: İtalyanca
+
+
+Full Text: Tam Metin
+Supplementary File: Ek Dosya
+Research Materials: Araştıra Materyalleri
+Research Results: Araştırma Sonuçları
+Transcripts: Suretler 
+Data Analysis: Veri Analizleri
+Data Set: Veri Seti
+Source Text: Kaynak Metin
+Pictures: Görseller
+Tables: Tablolar
+Copyright Transfer Form: Telif Hakkı Devir Formu
+Competing of Interest File: Çıkar Çatışması Dosyası
