@@ -88,7 +88,7 @@ var OjsArticleSubmission = {
 //                return markup;
 //            }, // let our custom formatter work
             minimumInputLength: 1
-//            templateResult: formatResult, 
+//            templateResult: formatResult,
 //            templateSelection: formatSelection
 
         });
@@ -237,7 +237,7 @@ var OjsArticleSubmission = {
         forms = $("form", $(".cite-item"));
         if (forms.length > 0) {
             $primaryLang = $("select[name=primaryLanguage] option:selected").val();
-            // prepare post params 
+            // prepare post params
             var dataArray = [];
             forms.each(function () {
                 dataArray.push($(this).serializeObject());
@@ -260,7 +260,7 @@ var OjsArticleSubmission = {
         forms = $("form.file-item");
         if (forms.length > 0) {
             $primaryLang = $("select[name=primaryLanguage] option:selected").val();
-            // prepare post params 
+            // prepare post params
             var dataArray = [];
             forms.each(function () {
                 dataArray.push($(this).serializeObject());
@@ -360,18 +360,20 @@ var OjsArticleSubmission = {
             window.location.href = "" + e.val;
         });
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-
-        $("textarea.editor").wysihtml5({
-            toolbar: {
-                "font-styles": false,
-                "emphasis": true,
-                "lists": false,
-                "html": false,
-                "link": true,
-                "image": false,
-                "color": false,
-                "blockquote": true}
-        });
+        if(window.editorsReady!==true){
+          $("textarea.editor").wysihtml5({
+              toolbar: {
+                  "font-styles": false,
+                  "emphasis": true,
+                  "lists": false,
+                  "html": false,
+                  "link": true,
+                  "image": false,
+                  "color": false,
+                  "blockquote": true}
+          });
+        }
+        window.editorsReady=true;
     },
     step1ScrollToLangPanel: function (lang) {
         $('html, body').animate({
@@ -432,4 +434,5 @@ var OjsArticleSubmission = {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
     }
-}; 
+};
+window.editorsReady=false;
