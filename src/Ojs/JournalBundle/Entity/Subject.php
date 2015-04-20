@@ -201,7 +201,7 @@ class Subject extends \Ojs\Common\Entity\GenericExtendedEntity {
      * @param  \Ojs\JournalBundle\Entity\Journal $journal
      * @return Subject
      */
-    public function addJournal(\Ojs\UserBundle\Entity\User $journal) {
+    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal) {
         $this->journals[] = $journal;
         return $this;
     }
