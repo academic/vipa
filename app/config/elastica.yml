@@ -18,11 +18,10 @@ fos_elastica:
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
                         finder: ~
                         provider:
-                            debug_logging: false
+                            debug_logging: true
                 articles:
                     mappings:
                         subjects: { type: string, boost: 4}
@@ -77,7 +76,6 @@ fos_elastica:
                         model: Ojs\JournalBundle\Entity\Article
                         provider: ~
                         listener:
-                            immediate: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -90,8 +88,7 @@ fos_elastica:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Institution
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -102,8 +99,7 @@ fos_elastica:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Issue
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
                         finder: ~
                         provider:
                             debug_logging: false
@@ -133,8 +129,8 @@ fos_elastica:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Journal
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
+
                         finder: ~
                         provider:
                             debug_logging: false
@@ -145,8 +141,7 @@ fos_elastica:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Subject
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
                         finder: ~
                         provider:
                             debug_logging: false
