@@ -229,7 +229,9 @@ var OjsJournalSetup = {
         this.bindFileUploader();
         $primaryLang = $("select[name=primaryLanguage] option:selected").val();
         $('input[name=keywords], input[name=subjects]').tagsinput({
-            tagClass: 'label label-info'
+            tagClass: 'label label-info',
+            trimValue: true,
+            confirmKeys: [13, 44, 188, 59]
         });
         $('#changeSelectedJournal').on("select2-selecting", function (e) {
             window.location.href = "" + e.val;
