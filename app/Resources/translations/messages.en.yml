@@ -247,6 +247,8 @@ file.new: 'New File'
 file.select: 'Select File'
 file.details: 'File Details'
 file.path: 'File Path'
+file.type: File Type
+file.language: File Language
 mimetype: 'Mime Type'
 size: Size
 logo: Logo
@@ -360,10 +362,10 @@ page.plural: Pages
 page.last: 'Last Page'
 page.first: 'First Page'
 articlefile.id: ID
-articlefile.title: Title
-articlefile.type: Type
-articlefile.version: Version
-articlefile.langcode: Language
+articlefile.title: File title
+articlefile.type: Article file type
+articlefile.version: File version
+articlefile.langcode: File language
 articlefile.actions: Actions
 suggestion.institute: 'Institute Suggestion'
 suggestion.institute.list: 'Institute Suggestions'
@@ -378,6 +380,7 @@ suggestion.journal.list: 'Journal Suggestions'
 journal.title: Title
 journal.subtitle: Subtitle
 suggestion.journal.detail: Detail
+journal.slug: "Short path for web access  ( base_host/<i>journal_path</i> )"
 journal.titleAbbr: 'Title Abbr'
 journal.titleTransliterated: 'Title Transliterated'
 journal.domain: Domain
@@ -860,8 +863,6 @@ tools: Tools
 citations: Citations
 subjects: Subjects
 section: Section
-tags: Tags
-more: more
 Issue: Issue
 'No Content': 'No Content'
 article.submit: Submit Article
@@ -1099,3 +1100,6 @@ success: Success
 "User Journal Roles": User Journal Roles
 submitRoles: Roles that can submit articles
 footer_text: Footer text
+"Select journal to submit": Select journal to submit
+
+help.preSubmission.header: " Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step."
