@@ -37,8 +37,19 @@ var OjsArticleSubmission = {
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
     },
+    removeAllAuthorForms : function(){
+        $(".author-item").remove();
+        OjsArticleSubmission.recalculateAuthorFormCount();
+    },
+    authorFormCount: function () {
+        return $(".author-item").length;
+    },
+    recalculateAuthorFormCount: function () {
+        $("#submissionAuthorCount").val(OjsArticleSubmission.authorFormCount());
+    },
     addAuthorForm: function (params) {
         $("#step2").append(Mustache.render($("#step2_tpl").html(), params));
+        OjsArticleSubmission.recalculateAuthorFormCount();
         OjsArticleSubmission.setupUi();
         function formatResult(item) {
             return item.name;
@@ -60,24 +71,14 @@ var OjsArticleSubmission = {
                 }
             },
             ajax: {
-                url: '/api/public/search/institution',
-                dataType: 'json',
-                type: "GET",
-                delay: 300,
+                url: '/api/public/search/institution', dataType: 'json', type: "GET", delay: 300,
                 data: function (params) {
-                    return {
-                        q: '(.*)'+params+'(.*)',
-                        verified: true
-                    };
+                    return {q: '(.*)' + params + '(.*)', verified: true};
                 },
                 results: function (data) {
                     return {
                         results: $.map(data, function (item) {
-                            return {
-                                text: item.name,
-                                slug: item.name,
-                                id: item.id
-                            };
+                            return {text: item.name, slug: item.name, id: item.id};
                         })
                     };
                 },
@@ -135,7 +136,7 @@ var OjsArticleSubmission = {
         // prepare post params
         articleParams = false;
         translationParams = [];
-        var hasError =false;
+        var hasError = false;
         MathJax.Hub.Config({
             extensions: ['tex2jax.js', "TeX/AMSmath.js", "TeX/AMSsymbols.js"],
             tex2jax: {inlineMath: [["$", "$"], ["\\(", "\\)"]]},
@@ -146,7 +147,7 @@ var OjsArticleSubmission = {
         });
 
         forms.each(function () {
-            if(!$(this).validationEngine('validate')){
+            if (!$(this).validationEngine('validate')) {
                 hasError = true;
             }
             data = $(this).serializeObject();
@@ -164,7 +165,7 @@ var OjsArticleSubmission = {
             }
         });
 
-        if(hasError){
+        if (hasError) {
             OjsCommon.errorModal("Please select and fill metadata for article's language!");
             return;
         }
@@ -180,7 +181,7 @@ var OjsArticleSubmission = {
         articleParams.data.submissionId = $("input[name=submissionId]").val();
         articleParams.data.section = $("select[name=section]").val();
 
-        if(!$("#section").val()){
+        if (!$("#section").val()) {
             OjsCommon.errorModal("Please select a section for article.");
             return;
         }
@@ -195,7 +196,7 @@ var OjsArticleSubmission = {
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
-        }).fail(function(){
+        }).fail(function () {
             OjsCommon.errorModal("Something went wrong while sumitting. Please try again.");
         });
     },
@@ -211,8 +212,8 @@ var OjsArticleSubmission = {
         var dataArray = [];
         var hasError = false;
         formPanels.each(function () {
-            form = $("form",$(this));
-            if(!form.validationEngine('validate')){
+            form = $("form", $(this));
+            if (!form.validationEngine('validate')) {
                 hasError = true;
             }
             dataArray.push(form.serializeObject());
@@ -359,7 +360,7 @@ var OjsArticleSubmission = {
             window.location.href = "" + e.val;
         });
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-        
+
         $("textarea.editor").wysihtml5({
             toolbar: {
                 "font-styles": false,
@@ -393,7 +394,7 @@ var OjsArticleSubmission = {
         OjsCommon.waitModal();
         $.post($actionUrl, {'orcidAuthorId': $orcid}, function (response) {
             OjsCommon.hideallModals();
-            if(typeof response['error-desc'] == 'object'){
+            if (typeof response['error-desc'] == 'object') {
                 OjsCommon.errorModal(response['error-desc'].value);
                 return;
             }
@@ -407,22 +408,22 @@ var OjsArticleSubmission = {
             $personalDetail = $bio['personal-details'];
             $contactDetail = $bio['contact-details'];
             $biography = $bio['biography'];
-            if(typeof $personalDetail !== 'undefined'){
-                if(typeof $personalDetail['given-names'] !== 'undefined'){
+            if (typeof $personalDetail !== 'undefined') {
+                if (typeof $personalDetail['given-names'] !== 'undefined') {
                     $parent.find('input[name=firstName]').val($personalDetail['given-names'].value);
                 }
-                if(typeof $personalDetail['family-name'] !== 'undefined'){
+                if (typeof $personalDetail['family-name'] !== 'undefined') {
                     $parent.find('input[name=lastName]').val($personalDetail['family-name'].value);
                 }
             }
-            if(typeof $contactDetail !== 'undefined'){
-                if(typeof $contactDetail['email'] !== 'undefined'
-                    && $contactDetail['email'].length>0){
+            if (typeof $contactDetail !== 'undefined') {
+                if (typeof $contactDetail['email'] !== 'undefined'
+                        && $contactDetail['email'].length > 0) {
                     $parent.find('input[name=email]').val($contactDetail['email'][0].value);
                 }
             }
-            if(typeof $biography !== 'undefined'){
-                if($biography.value !== ''){
+            if (typeof $biography !== 'undefined') {
+                if ($biography.value !== '') {
                     $parent.find('textarea[name=summary]').val($biography.value);
                     $togglePanel.slideToggle('fast');
                 }
@@ -431,9 +432,4 @@ var OjsArticleSubmission = {
             OjsCommon.errorModal("Something is wrong. Check your data and try again.");
         });
     }
-};
-
-$(document).ready(function () {
-    OjsArticleSubmission.setupUi();
-
-});
+}; 

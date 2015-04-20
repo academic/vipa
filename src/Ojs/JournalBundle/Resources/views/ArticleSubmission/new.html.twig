@@ -97,7 +97,26 @@
             </div>
             <div id="step2-container" class="step hide">
                 <h2>{{ "article.authors"|trans }}</h2>
-
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{"authors.count"|trans}} :</label> 
+                                <div class="col-md-10 ">
+                                    <input class="form-control input-sm" id="submissionAuthorCount" type="number" min="0" max="400">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <button class="pull-right btn btn-danger btn-xs" id="removeAllAuthorForms">
+                                        <i class="fa fa-trash-o"></i> 
+                                        {%trans%}Remove all author forms!{%endtrans%}
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="step2" class="authorlist">
                     {% if submissionData is defined and submissionData.authors is defined %}
                         {% for author in submissionData.authors %}
@@ -266,6 +285,23 @@
                 }
             });
             $(document).ready(function () {
+                OjsArticleSubmission.setupUi();
+                $("div#step2-container").on("click", "#removeAllAuthorForms", function () {
+                    confirm("{{"sure"|trans}}") && OjsArticleSubmission.removeAllAuthorForms();
+                });
+                $("#submissionAuthorCount").change(
+                        function () {
+                            $count = $(this).val();
+                            $current = OjsArticleSubmission.authorFormCount();
+                            if ($count > $current) {
+                                for (i = 0; i < ($count - $current); i++) {
+                                    OjsArticleSubmission.addAuthorForm();
+                                }
+                            } else if ($count < $current) {
+                                $(this).val($current);
+                                window.notify("{%trans%}You should remove author forms by clicking 'Remove' button on left bottom corner of every form.{%endtrans%}", "warning");
+                            }
+                        });
                 var currentStep = parseInt(window.location.hash.replace("#", ""));
                 if (currentStep) {
                     loadCurrentStep(currentStep);

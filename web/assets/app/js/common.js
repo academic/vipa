@@ -79,7 +79,9 @@ $(document).ready(function () {
     }
 
     $('input.tags').tagsinput({
-        tagClass: 'label label-info'
+        tagClass: 'label label-info',
+        trimValue: true,
+        confirmKeys: [13, 44, 188, 59]
     });
     $(".select2-tags").select2({
         multiple: true,
