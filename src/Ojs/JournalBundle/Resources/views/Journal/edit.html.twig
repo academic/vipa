@@ -27,7 +27,7 @@
 {% block body -%}
 {% if ((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus)!=true %}
     <div class="alert alert-warning">
-        It seems that you have not finished <a href="{{path('manager_journal_setup')}}">"Journal Setup"</a>.
+        {{"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"|trans({"%setup_url%":path('manager_journal_setup')})|raw}}
     </div>
 {% endif %}
 <div class="large-12 columns">

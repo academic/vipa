@@ -69,10 +69,13 @@ suggestedMaxDays: 'Tavsiye edilen en fazla gün sayısı'
 admin: Yönetim
 dashboard: Panel
 title: Başlık
+Title: Başlık
 titleTransliterated: 'Paralel Başlık'
 subtitle: 'Alt Başlık'
 keywords: 'Anahtar Sözcükler'
+Keywords: Anahtar Kelimeler
 description: Açıklama
+Description: Açıklama
 subjects: Konular
 abstract: Öz
 date.publish: 'Yayımlanma Tarihi'
@@ -167,6 +170,7 @@ otherid: 'Diğer ID'
 journalid: 'Dergi ID'
 isAnonymous: 'Anonim mi?'
 Pubdateseason: 'Yayın Tarihi Sezonu'
+pubdate: Yayın tarihi
 part: Parça
 url: URL
 abstract.transliterated: 'Dönüştürülmüş Öz'
@@ -259,6 +263,7 @@ institution.edit: 'Kurum Düzenle'
 institution.new: 'Yeni Kurum'
 institution.detail: 'Kurum Detay'
 institution.plural: Kurumlar
+institutiontype: Kurum Türü
 institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.edit: 'Kurum Türü Düzenle'
 institutiontype.list: 'Kurum Türü Listesi'
@@ -331,6 +336,7 @@ lang.plural: Diller
 subject.edit: 'Konu Düzenle'
 subject.list: 'Konu Listesi'
 subject: Konu
+Subject: Konu
 subject.new: 'Yeni Konu'
 theme.edit: 'Konu Düzenle'
 subject.plural: Konular
@@ -373,7 +379,7 @@ institute.id: ID
 institute.name: İsim
 institute.country: Ülke
 suggestion.institute.detail: Detay
-institute.slug: Yol
+institution.slug: Yol
 institute.merge_as_new_institute: 'Yeni Enstitü Olarak Birleştir'
 suggestion.journal: 'Dergi Önerisi'
 suggestion.journal.list: 'Dergi Önerileri'
@@ -455,6 +461,7 @@ Info: Bilgi
 'Article Files': 'Makale Dosyaları'
 'Header Image': 'Üst Resim'
 File: 'Dosya'
+file: Dosya
 empty: Boş
 common: Genel
 detailed: Detay
@@ -475,7 +482,6 @@ accepted: Kabul Edildi
 rejected: Reddedildi
 waiting: Bekliyor
 Subjects: Konular
-Keywords: Anahtar Kelimeler
 Section: Bölüm
 Authors: Yazarlar
 Files: Dosyalar
@@ -522,7 +528,9 @@ author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
 s: Sakla
 parent: Üst
+Parent: Üst
 children: Alt
+Children: Alt
 searchon:
   doaj: "Doaj'da ara"
   crossref: Crossref'de ara
@@ -804,6 +812,8 @@ sign.in: Giriş
 username.or.email: 'Kullanıcı Adı veya E-posta'
 username: 'Kullanıcı Adı'
 password: Şifre
+Password: Şifre
+Repeat Password: Şifre Tekrar
 forgot.password: 'Şifremi Unuttum'
 user.new: 'Yeni Kullanıcı'
 user.plural: Kullanıcılar
@@ -819,6 +829,8 @@ user.username: 'Kullanıcı Adı'
 user.email: "E-posta"
 user.status: Durum
 user.roles: Roller
+user.isActive: Kullanıcı aktif mi?
+Is Active?: Aktif mi?
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
 user.show: 'Kullanıcıyı Göster'
@@ -983,10 +995,16 @@ success: Başarılı
 "Remove all author forms!": Tüm yazar bilgi formlarını kaldır
 "User Journal Roles": Kullanıcı Dergi Rolleri
 submitRoles : Gönderi yapabilecek roller
+Create: Oluştur
 footer_text: Alt metin
+verified: Onaylı
+submissionDate: Gönderi tarihi
+addressLat: Adres Enlem
+addressLong: Adres Boylam
 "Select journal to submit": Makale göndereceğiniz dergiyi seçiniz
 
 help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
+"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamladığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
 
 Turkish: Türkçe
 English: İngilizce

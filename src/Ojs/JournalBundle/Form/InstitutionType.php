@@ -24,27 +24,30 @@ class InstitutionType extends AbstractType {
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $builder
-                ->add('name', 'text', ['required' => true])
+                ->add('name', 'text', ['label' => 'name', 'required' => true])
                 ->add('slug', 'text', [
+                    'label' => 'institution.slug',
                     'required' => true,
                 ])
                 ->add('institution_type', 'entity', [
+                    'label' => 'institutiontype',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes'
                 ])
                 ->add('parent')
-                ->add('about')
-                ->add('address')
-                ->add('addressLat')
-                ->add('addressLong')
-                ->add('phone')
-                ->add('fax')
-                ->add('email')
-                ->add('url')
+                ->add('about', 'textarea', ['label' => 'about'])
+                ->add('address', 'textarea', ['label' => 'address'])
+                ->add('addressLat', 'text', ['label' => 'addressLat'])
+                ->add('addressLong', 'text', ['label' => 'addressLong'])
+                ->add('phone', 'text', ['label' => 'phone'])
+                ->add('fax', 'text', ['label' => 'fax'])
+                ->add('email', 'email', ['label' => 'email'])
+                ->add('url', 'url', ['label' => 'url'])
                 ->add('wiki')
                 ->add('logo', 'hidden')
                 ->add('header', 'hidden')
-                ->add('verified')
+                ->add('verified', 'checkbox', ['label' => 'verified'])
                 ->add('country', 'entity', [
+                    'label' => 'country',
                     'class' => 'Okulbilisim\LocationBundle\Entity\Country',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
@@ -62,9 +65,9 @@ class InstitutionType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Institution',
             'helper' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }

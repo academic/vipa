@@ -167,6 +167,7 @@ otherid: 'Other ID'
 journalid: 'Journal ID'
 isAnonymous: 'Is Anonymous'
 Pubdateseason: 'Pub Date Season'
+pubdate: Published Date
 part: Part
 url: URL
 abstract.transliterated: 'Abstract Transliterated'
@@ -259,6 +260,7 @@ institution.edit: 'Edit Institution'
 institution.new: 'New Institution'
 institution.detail: 'Institution Detail'
 institution.plural: Institutions
+institutiontype: Institution Type
 institutiontype.new: 'New Institution Type'
 institutiontype.edit: 'Edit Institution Type'
 institutiontype.list: 'Institution Type List'
@@ -373,7 +375,7 @@ institute.id: ID
 institute.name: Name
 institute.country: Country
 suggestion.institute.detail: Detail
-institute.slug: Slug
+institution.slug: Slug
 institute.merge_as_new_institute: 'Merge As New Institute'
 suggestion.journal: 'Journal Suggestion'
 suggestion.journal.list: 'Journal Suggestions'
@@ -454,6 +456,7 @@ Info: Info
 'Article Files': 'Article Files'
 'Header Image': 'Header Image'
 File: File
+file: File
 empty: Empty
 common: Common
 detailed: Detailed
@@ -582,6 +585,7 @@ user.id: User id
 user.username: Username
 user.email: Email
 user.roles: User Roles 
+user.isActive: Is user active?
 user.apikey: Api Key
 articlefile.new: New Article File
 Submissions: Submissions
@@ -963,6 +967,8 @@ sign.in: 'Sign In'
 username.or.email: 'Username Or Email'
 username: Username
 password: Password
+Password: Password
+Repeat Password: Repeat Password
 forgot.password: 'forgot password'
 user.new: 'New User'
 user.plural: Users
@@ -1100,6 +1106,11 @@ success: Success
 "User Journal Roles": User Journal Roles
 submitRoles: Roles that can submit articles
 footer_text: Footer text
+verified: Verified
+submissionDate: Submission Date
+addressLat: Address Latitude
+addressLong: Address Longitude
 "Select journal to submit": Select journal to submit
 
 help.preSubmission.header: " Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step."
+"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"
