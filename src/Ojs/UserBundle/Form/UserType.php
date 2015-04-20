@@ -30,15 +30,15 @@ class UserType extends AbstractType {
                         'class' => 'validate[required,custom[email]]'
                     ]
                 ])
-                ->add('title', 'text', ['label' => 'username'])
-                ->add('firstName', 'text', [
-                    'label' => 'firstName',
+                ->add('title', 'text', ['label' => 'user.title'])
+                ->add('firstNname', 'text', [
+                    'label' => 'firstname',
                     'attr' => [
                         'class' => 'validate[required]'
                     ]
                 ])
                 ->add('lastName', 'text', [
-                    'label' => 'lastName',
+                    'label' => 'lastname',
                     'attr' => [
                         'class' => 'validate[required]'
                     ]

@@ -145,6 +145,7 @@ author.middlename: 'Middle Name'
 author.lastname: 'Last Name'
 author.initials: Initials
 author.title: Title
+user.title: Title
 author.plural: Authors
 author.singular: Author
 author.summary: 'Author Summary'
