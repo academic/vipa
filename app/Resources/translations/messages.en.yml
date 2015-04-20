@@ -1097,3 +1097,5 @@ success: Success
 "You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "You should remove author forms by clicking 'Remove' button on left bottom corner of every form."
 "Remove all author forms!": Remove all author forms!
 "User Journal Roles": User Journal Roles
+submitRoles: Roles that can submit articles
+footer_text: Footer text
