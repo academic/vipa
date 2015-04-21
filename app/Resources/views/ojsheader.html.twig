@@ -1,4 +1,4 @@
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-default navbar-alt" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -11,15 +11,17 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li{% if page == 'index' %} class="active"{% endif %}>
+                <li class="{% if page == 'index' %}active{% endif %} navbar-btn">
                     <a href="{{ path('ojs_public_index') }}"  title="{{ "home"|trans }}">
-                        <i class="fa fa-home"></i>
+                        {{ "home"|trans }}
                     </a>
                 </li>
-                <li{% if page == 'institution' %} class="active"{% endif %}><a
-                        href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a></li>
-                <li{% if page == 'journals' %} class="active"{% endif %}><a
-                        href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a></li>
+                <li class="{% if page == 'institution' %}active{% endif %} navbar-btn">
+                    <a  href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a>
+                </li>
+                <li class="{% if page == 'journals' %}active{% endif %} navbar-btn">
+                    <a href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a>
+                </li>
             </ul>
             {% if page != 'index' %}
                 <div class="col-sm-3 col-md-3">
@@ -50,18 +52,18 @@
                         {% endif %}
                         </li>
                         -->
-                        <li>
+                        <li class="navbar-btn">
                             <a title="User Page" href="{{ path('ojs_user_index') }}">
-                                <i class="fa fa-cog"></i>
+                                <i class="fa fa-cog"></i> {{"dashboard"|trans}}
                             </a>
                         </li>
-                        <li>
+                        <li class="navbar-btn">
                             <a href="{{ path('okulbilisim_message_user_index') }}" title="{{ "messages"|trans }}">
                                 <i class="fa fa-envelope"></i>
                             </a>
                         </li>
                         {% if has_notification is defined %}
-                            <li class="dropdown user user-menu">
+                            <li class="dropdown user user-menu navbar-btn">
                                 {# notification dropdown #}
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-bell-o"></i> <span class="label label-warning">5</span>
@@ -96,7 +98,7 @@
                                 </ul>
                             </li>
                         {% endif %}
-                        <li class="dropdown user user-menu">
+                        <li class="dropdown user user-menu  navbar-btn">
 
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-user"></i>
@@ -104,7 +106,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{path('myprofile')}}" title="{{"you"|trans}}"><b>{{app.user.username}}</b></a></li>
-                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
+                                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
                                         <a href="/dashboard" title="{{ "dashboard"|trans }}"><i
                                                 class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
@@ -176,7 +178,7 @@
                     {% endif %}
 
                     {% if app.user == false %}
-                        <li>
+                        <li class="navbar-btn">
                             <a class="btn btn-link" href="{{ path('login') }}">
                                 <i class="fa fa-sign-in"></i> {{ "login"|trans }}</a>
                         </li>

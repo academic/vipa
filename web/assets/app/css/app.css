@@ -693,10 +693,10 @@ div.user-menu div.user-menu-content:not(.active){
     right: 0;
     left: 0;
     z-index: 20;
-}
-
-
-
+} 
+.navbar-alt { min-height:44px; border-radius:0} 
+.navbar-alt .navbar-brand{ padding: 2px 8px;font-size: 14px;line-height: 28px; } 
+.navbar-alt .navbar-nav > li > a { border-right:1px solid #ddd; padding-top: 2px; padding-bottom: 2px; line-height: 30px }
 
 .bigSearchBar {
     height: 200px;
@@ -1049,4 +1049,12 @@ a.vimeo:hover * { color:#FFF; }
     border-top: 1px solid #111;
     margin: 20px 0;
     padding: 10px;
+}
+
+.input-xs {
+    height: 22px;
+    padding: 5px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
 }
