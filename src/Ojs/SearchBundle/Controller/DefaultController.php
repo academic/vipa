@@ -18,6 +18,7 @@ class DefaultController extends Controller
         $searchManager->setPage($page);
         $searchManager->addFilters($filter);
         $result = $searchManager->search()->getResult();
+        $data['pager'] = $searchManager->getPager();
         $data['result'] = $result;
         $data['total_count'] = $searchManager->getCount();
         $data['page'] = $page;
@@ -25,6 +26,7 @@ class DefaultController extends Controller
         $data['term'] = $term;
         $data['aggregations'] = $searchManager->getAggregations();
         $data['filter'] = $filter;
+
         return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 
