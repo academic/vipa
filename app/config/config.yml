@@ -26,7 +26,7 @@ framework:
     templating:
          {engines: ['twig'],assets_version: v3 }
         #assets_version: SomeVersionScheme
-    default_locale:  "%locale%"
+    default_locale:  "tr"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
