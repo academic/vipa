@@ -19,7 +19,10 @@ use Elastica\Query;
 use Elastica\Query\Bool;
 use Elastica\Query\MultiMatch;
 use Elastica\Result;
+use Elastica\ResultSet;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
+use Pagerfanta\Adapter\ElasticaAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Debug\Exception\UndefinedMethodException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,6 +50,9 @@ class SearchManager
 
     /** @var  Array */
     private $filter;
+
+    /** @var  Pagerfanta */
+    private $pager;
 
     public function __construct(ContainerInterface $container)
     {
@@ -182,6 +188,11 @@ class SearchManager
                 $bool->addMust($filterObj);
             }
         }
+        $missing = new \Elastica\Filter\Missing("issue");
+        $not = new \Elastica\Filter\BoolNot($missing);
+        $notQ = new \Elastica\Query\Filtered();
+        $notQ->setFilter($not);
+        $bool->addMust($notQ);
 
         $query = new Query();
         $query->setQuery($bool);
@@ -208,16 +219,23 @@ class SearchManager
 
         $query->addAggregation($aggregation);
 
+        $elasticaAdapter = new ElasticaAdapter($search, $query);
 
-        $search = $search->search($query);
-        $result = $search->getResults();
+        $pagerFanta = new Pagerfanta($elasticaAdapter);
+        $pagerFanta->setMaxPerPage($this->getLimit());
+
+        $pagerFanta->setCurrentPage($this->getPage());
+        /** @var ResultSet $search */
+        $search = $pagerFanta->getCurrentPageResults();
+        $result = $search->getResults();//$search->getResults();
+        $this->pager = $pagerFanta;
         $connection = $em->getConnection();
         $manager = new Registry($this->container, ['default' => $connection], ['default' => 'doctrine.orm.entity_manager'], 'default', 'default');
         $transformer = new ElasticaToModelTransformer($manager, 'OjsJournalBundle:Article');
         $transformer->setPropertyAccessor($this->container->get('property_accessor'));
         $this->result = $transformer->transform($result);
 
-        $this->setCount($search->getTotalHits());
+        $this->setCount($pagerFanta->getNbResults());
         $this->addAggregation('journal', $this->transform($search->getAggregation('journals')['buckets'], 'OjsJournalBundle:Journal'));
         $this->addAggregation('author', $this->transform($search->getAggregation('authors')['buckets'], 'OjsJournalBundle:Author'));
         return $this;
@@ -275,7 +293,7 @@ class SearchManager
      */
     public function getPage()
     {
-        return $this->page - 1;
+        return $this->page ;
     }
 
     /**
@@ -432,6 +450,24 @@ class SearchManager
             default:
                 throw new \ErrorException("Filter not exist. allowed filters: journal, author, institution, subject");
         }
+    }
+
+    /**
+     * @return Pagerfanta
+     */
+    public function getPager()
+    {
+        return $this->pager;
+    }
+
+    /**
+     * @param Pagerfanta $pager
+     * @return $this
+     */
+    public function setPager($pager)
+    {
+        $this->pager = $pager;
+        return $this;
     }
 
 }

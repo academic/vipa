@@ -53,7 +53,7 @@ ojs_public_index:
 ojs_browse_index:
     pattern:  /browse
     defaults: { _controller: OjsSiteBundle:Site:browseIndex }
-    
+
 
 ojs_institutions_index:
     pattern:  /institutions
@@ -125,7 +125,7 @@ ojs_issue_page:
 ojs_article_page:
     pattern:  /{slug}/issue/{issue_id}/{article_id}
     host: "{institution}.%base_host%"
-    defaults: { _controller: OjsSiteBundle:Article:articlePage}
+    defaults: { _controller: OjsSiteBundle:Article:articlePage, issue_id: null}
 ojs_journal_contacts:
     pattern: /{slug}/contacts
     host: "{institution}.%base_host%"

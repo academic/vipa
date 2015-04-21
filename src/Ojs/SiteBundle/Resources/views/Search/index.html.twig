@@ -14,7 +14,7 @@
         {% if total_count > 0 %}
             <nav class="col-xs-12 col-sm-6 col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{"journal.plural"|trans}}</div>
+                    <div class="panel-heading">{{ "journal.plural"|trans }}</div>
                     <ul class="list-group">
                         {% for journal in aggregations.journal %}
                             <li class="list-group-item">
@@ -29,7 +29,7 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <div class="panel-heading">{{"author.plural"|trans}}</div>
+                    <div class="panel-heading">{{ "author.plural"|trans }}</div>
 
                     <ul class="list-group">
                         {% for author in aggregations.author %}
@@ -49,14 +49,15 @@
                 </div>
             </nav>
             <section class="col-xs-12 col-sm-12 col-md-9">
-                <ol>
+                <ul>
                     {% for article in result %}
-
                         <li>
                             <article>
-
                                 <h4>
-                                    <a href="{{ url('ojs_article_page',{article_id: article.id,slug: article.journal.slug,issue_id: article.issue.id,institution: article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                    {% if article.issue!=null %}
+                                        <a href="{{ url('ojs_article_page',{article_id: article.id,issue_id: article.issue.id, slug: article.journal.slug,institution: article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                    {% else %}
+                                    {% endif %}
                                 </h4>
 
                                 <p>
@@ -69,30 +70,12 @@
                             </article>
                         </li>
                     {% endfor %}
-                </ol>
+                </ul>
                 <nav>
 
                 </nav>
                 <ul class="pagination ">
-                    {% if page_count>1 and page!=1 %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:page-1,q:term }) }}">
-                                <span aria-hidden="true">&laquo;</span><span class="sr-only"></span></a>
-                        </li>
-                    {% endif %}
-
-                    {% for p in 1..page_count %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:p,q:term }) }}">{{ p }}</a>
-                        </li>
-                    {% endfor %}
-                    {% if page_count>1 and page!=page_count %}
-                        <li>
-                            <a href="{{ url('ojs_search_index',{page:page+1,q:term }) }}">
-                                <span aria-hidden="true">&raquo;</span><span class="sr-only"></span>
-                            </a>
-                        </li>
-                    {% endif %}
+                    {{ pagerfanta(pager,'twitter_bootstrap3') }}
                 </ul>
 
             </section>

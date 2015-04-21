@@ -53,6 +53,8 @@ class AppKernel extends Kernel {
             new Okulbilisim\OjsToolsBundle\OkulbilisimOjsToolsBundle(),
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
