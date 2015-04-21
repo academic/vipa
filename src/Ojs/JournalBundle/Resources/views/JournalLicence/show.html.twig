@@ -11,12 +11,12 @@
             </tr>
             <tr>
                 <th>{{ 'journal_licence.label'|trans }}</th>
-                <td>{{ entity.label }}</td>
+                <td>{{ entity.label|raw }}</td>
             </tr>
             <tr>
                 <th>{{ 'journal_licence.licence'|trans }}</th>
                 <td><div class="well">
-                        {{ entity.licence }}
+                        {{ entity.licence|raw}}
                 </div></td>
             </tr>
             <tr>
