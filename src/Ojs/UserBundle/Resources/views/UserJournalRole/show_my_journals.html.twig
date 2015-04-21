@@ -27,16 +27,18 @@
                         {% for entity in entities %}
                             <tr>
                                 <td>{{loop.index}}</td>
-                                <td><i class="fa fa-link"></i> <a title="{{ entity.journal.titleAbbr }} &middot; {{ entity.journal.issn }}" href="{{ generateJournalUrl(journal) }}">
+                                <td><i class="fa fa-link"></i>
+                                    <a title="{{ entity.journal.titleAbbr }} &middot; {{ entity.journal.issn }}" href="{{ generateJournalUrl(entity.journal) }}">
                                          {{ entity.journal.title }}</a>
                                 </td>
                                 <td>
-                                    {%for role in entity.roles %}
-                                        <span class="label label-info">{{ role.name }}
-                                            <a href="{{ url('user_leave_journal_action',{journal: entity.journal.id,role:role.id}) }}" onclick="return confirm('Are you sure?');">
-                                                <span class="fa fa-close"></span>
-                                            </a></span>
-                                    {%endfor %}
+                                        {% for role in entity.roles %}
+                                            <span class="label label-info">{{ role.name }}
+                                                <a href="{{ url('user_leave_journal_action',{journal: entity.journal.id,role:role.id}) }}" onclick="return confirm('Are you sure?');">
+                                                    <span class="fa fa-close"></span>
+                                                </a>
+                                        </span> &nbsp;
+                                        {% endfor %}
                                 </td>
                             </tr>
                         {% endfor %}
