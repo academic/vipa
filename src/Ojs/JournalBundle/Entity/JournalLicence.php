@@ -18,7 +18,7 @@ class JournalLicence
 
     /**
      * @var string
-     * @GRID\Column(title="journal_licence.label")
+     * @GRID\Column(title="journal_licence.label",safe = false)
      */
     private $label;
 
