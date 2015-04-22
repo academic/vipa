@@ -4,11 +4,12 @@
     <h1>{{"institutiontype.edit"|trans}}</h1>
 
     {{ form(edit_form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('institution_types') }}">{{"b"|trans}}</a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    <div class="btn-group">
+        <a class="btn btn-default" href="{{ path('institution_types') }}">
+            <i class="fa fa-arrow-left"></i> {{"b"|trans}}
+        </a>
+    </div>
+    <div class="pull-right">
+        {{ form(delete_form) }}
+    </div>
 {% endblock %}

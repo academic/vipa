@@ -19,14 +19,15 @@
             </tr>
         </tbody>
     </table>
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('institution_types') }}">{{"b"|trans}}</a>
-        </li>
-        <li>
-            <a href="{{ path('institution_types_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    <div class="btn-group">
+        <a class="btn btn-default" href="{{ path('institution_types') }}">
+            <i class="fa fa-arrow-left"></i> {{"b"|trans}}
+        </a>
+        <a class="btn btn-warning" href="{{ path('institution_types_edit', { 'id': entity.id }) }}">
+            <i class="fa fa-edit"></i> {{"e"|trans}}
+        </a>
+    </div>
+    <div class="pull-right">
+        {{ form(delete_form) }}
+    </div>
 {% endblock %}
