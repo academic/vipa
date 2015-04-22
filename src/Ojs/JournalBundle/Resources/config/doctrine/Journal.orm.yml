@@ -36,7 +36,12 @@ Ojs\JournalBundle\Entity\Journal:
           targetEntity: Issue
           mappedBy: journal
           cascade: ["persist", "merge"]
-          fetch: LAZY
+          fetch: EXTRA_LAZY
+        issues:
+          targetEntity: Board
+          mappedBy: journal
+          cascade: ["persist", "merge"]
+          fetch: EXTRA_LAZY
         sections:
           targetEntity: JournalSection
           mappedBy: journal

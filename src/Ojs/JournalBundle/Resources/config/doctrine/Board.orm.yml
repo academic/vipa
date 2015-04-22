@@ -1,0 +1,27 @@
+Ojs\JournalBundle\Entity\Board:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        journal:
+            targetEntity: Journal
+            joinColumn:
+              name: journal_id
+              referencedColumnName: id
+            inversedBy: boards
+            cascade: ["persist","merge"]
+    fields:
+        journalId:
+            type: integer
+            column: journal_id
+        name:
+            type: string
+            length: 255
+        description:
+            type: text
+    lifecycleCallbacks: {  }

@@ -1,0 +1,29 @@
+admin_board:
+    path:     /
+    defaults: { _controller: "OjsJournalBundle:Board:index" }
+
+admin_board_show:
+    path:     /{id}/show
+    defaults: { _controller: "OjsJournalBundle:Board:show" }
+
+admin_board_new:
+    path:     /new
+    defaults: { _controller: "OjsJournalBundle:Board:new" }
+
+admin_board_create:
+    path:     /create
+    defaults: { _controller: "OjsJournalBundle:Board:create" }
+    methods:  POST
+
+admin_board_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "OjsJournalBundle:Board:edit" }
+
+admin_board_update:
+    path:     /{id}/update
+    defaults: { _controller: "OjsJournalBundle:Board:update" }
+    methods:  [POST, PUT]
+
+admin_board_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:Board:delete" }

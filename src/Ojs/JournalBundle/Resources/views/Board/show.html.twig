@@ -1,0 +1,38 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"board.detail"|trans}}</h1>
+
+    <table class="record_properties table">
+        <tbody>
+            <tr>
+                <th>{{"id"|trans}}</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{{"journal"|trans}}</th>
+                <td>{{ entity.journal.title }} ({{entity.journal.id}})</td>
+            </tr>
+            <tr>
+                <th>{{"name"|trans}}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>{{"description"|trans}}</th>
+                <td>{{ entity.description|raw }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('admin_board') }}">
+        {{"b"|trans}}
+    </a> 
+    <a href="{{ path('admin_board_edit', { 'id': entity.id }) }}">
+        {{"e"|trans}}
+    </a>
+    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
+        {{"d"|trans}}
+    </a>
+
+{% endblock %}

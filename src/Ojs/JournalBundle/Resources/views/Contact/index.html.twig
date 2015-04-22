@@ -6,8 +6,7 @@
 {% endblock %} 
 
 {% block body -%} 
-
-    {{ grid(grid) }}
     <a href="{{ path('contact_new') }}" class="btn btn-success">{{"c"|trans}}</a>
-
+    <hr>
+    {{ grid(grid) }}
 {% endblock %}

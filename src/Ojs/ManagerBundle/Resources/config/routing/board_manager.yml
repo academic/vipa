@@ -1,0 +1,45 @@
+issue_manager_issue_arrange:
+    pattern:  /issue/{issueId}/arrange
+    defaults: { _controller: OjsManagerBundle:IssueManager:arrange }
+
+issue_manager_issue_add_article:
+    pattern:  /issue/{id}/addArticle/{articleId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
+    
+issue_manager_issue_remove_article:
+    pattern:  /issue/{id}/removeArticle/{articleId}
+    defaults: { _controller: OjsManagerBundle:IssueManager:removeArticle }
+
+board_manager:
+   path:     /
+   defaults: { _controller: "OjsJournalBundle:Board:index" }
+
+board_manager_show:
+   path:     /{id}/show
+   defaults: { _controller: "OjsManagerBundle:BoardManager:show" }
+
+board_manager_new:
+   path:     /new
+   defaults: { _controller: "OjsJournalBundle:BoardManager:new" }
+
+board_manager_create:
+   path:     /create
+   defaults: { _controller: "OjsJournalBundle:BoardManager:create" }
+   methods:  POST
+
+board_manager_edit:
+   path:     /{id}/edit
+   defaults: { _controller: "OjsJournalBundle:BoardManager:edit" }
+
+board_manager_update:
+   path:     /{id}/update
+   defaults: { _controller: "OjsJournalBundle:BoardManager:update" }
+   methods:  [POST, PUT]
+
+board_manager_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "OjsJournalBundle:BoardManager:delete" }
+
+
+
+ 
