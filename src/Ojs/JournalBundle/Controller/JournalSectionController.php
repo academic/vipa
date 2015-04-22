@@ -62,7 +62,9 @@ class JournalSectionController extends Controller {
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if ($form->isValid()) {
+            $entity->setJournal($journal);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
