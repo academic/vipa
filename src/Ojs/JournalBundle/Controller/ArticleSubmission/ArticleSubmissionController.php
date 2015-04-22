@@ -41,6 +41,7 @@ class ArticleSubmissionController extends Controller {
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $dm = $this->get('doctrine_mongodb')->getManager();
         $ta = $source1->getTableAlias();
+        $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
         $source1->manipulateRow(function (Row $row) use ($dm) {
             if (null !== ($row->getField('status'))) {
                 $articleId = $row->getField('id');
@@ -77,26 +78,29 @@ class ArticleSubmissionController extends Controller {
         $user = $this->getUser();
 
         if ($all) {
-            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta) {
+            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $currentJournal) {
                 $qb->where($ta . '.status = 0');
-                $qb->andWhere($ta . '.journalId = ' . $this->get('ojs.journal_service')->getSelectedJournal()->getId());
+                $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
                 return $qb;
             });
-            $source2->manipulateQuery(function (Builder $query) {
-                $query->where("typeof(this.submitted)=='undefined' || this.submitted===false");
+            $source2->manipulateQuery(function (Builder $query) use($ta, $currentJournal) {
+                $query->where("typeof(this.submitted)=='undefined' || this.submitted===false " .
+                        "&& this.journal_id == {$currentJournal->getId()}");
                 return $query;
             });
         } else {
-            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $user) {
+            $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $user, $currentJournal) {
                 $qb->where(
                         $qb->expr()->andX(
                                 $qb->expr()->eq($ta . '.status', '0'), $qb->expr()->eq($ta . '.submitterId', $user->getId())
                         )
                 );
+                $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
                 return $qb;
             });
-            $source2->manipulateQuery(function (Builder $query) use ($user) {
-                $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) && this.userId=={$user->getId()}");
+            $source2->manipulateQuery(function (Builder $query) use ($user, $currentJournal) {
+                $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) " .
+                        "&& this.userId=={$user->getId()} && this.journal_id == {$currentJournal->getId()}");
                 return $query;
             });
         }
