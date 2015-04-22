@@ -243,7 +243,7 @@ class SecurityController extends Controller
             /** @var User $user */
             $user = $this->getUser();
             if (!$user)
-                throw new AccessDeniedException("Access denied!", 403);
+                throw new AccessDeniedException("Access Denied", 403);
             $user->generateApiKey();
             $user->setIsActive(true);
             /** @var \Doctrine\ORM\EntityManager $em */

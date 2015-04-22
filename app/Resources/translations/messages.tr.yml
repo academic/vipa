@@ -1019,7 +1019,8 @@ addressLong: Adres Boylam
 
 help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
 "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamladığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
-
+Access Denied: Bu sayfayı görebilmek için gerekli izniniz bulunmuyor.
+You don't have submission privilege. : Makale gönderme yetkisine sahip değilsiniz.
 Turkish: Türkçe
 English: İngilizce
 German: Almanca

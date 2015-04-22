@@ -7,8 +7,15 @@
             {%if exception.message == "mustselectjournal" %}
                 {% include '::mustselectjournal.html.twig' %}
             {%else%}
-                {{ exception.message|nl2br|format_file_from_text }} 
+                {{ exception.message|trans|nl2br|format_file_from_text }} 
             {%endif%}
+            <br><br>
+            <p>
+                <a href="{{path("ojs_public_index")}}" class="btn btn-default btn-sm">
+                    <i class="fa fa-arrow-left"></i>
+                    {{"Back to homepage"|trans}}
+                </a>
+            </p>
         </div>
 
     </div>

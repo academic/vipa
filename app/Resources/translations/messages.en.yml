@@ -1127,3 +1127,5 @@ addressLong: Address Longitude
 
 help.preSubmission.header: " Indicate that this submission is ready to be considered by this journal <b>by checking off the following</b>. Comments to the editor can be added at last step."
 "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"
+Access Denied: You don't have permission to view this page.
+You don't have submission privilege.: You don't have submission privilege.
