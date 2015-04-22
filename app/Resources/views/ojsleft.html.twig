@@ -167,9 +167,15 @@
                         <a class="list-group-item" href="{{ path('admin_journalindex') }}">
                             <i class="fa fa-cogs"></i>  {{"journalsindex.plural"|trans}}
                         </a>
-                        <a class="list-group-item" href="{{ path('subject') }}"><i class="fa fa-cogs"></i> {{"subject.plural"|trans}}</a>
+                        <a class="list-group-item" href="{{ path('subject') }}"><i class="fa fa-cogs"></i> 
+                            {{"subject.plural"|trans}}
+                        </a>
+                        <a class="list-group-item" href="{{ path('admin_board') }}">
+                            <i class="fa fa-cogs"></i>  {{"boards"|trans}}
+                        </a>
                         <a class="list-group-item" href="{{ path('okulbilisim_feedback_homepage') }}"><i
-                                class="fa fa-envelope"></i>  {{"feedback"|trans}}</a>
+                                class="fa fa-envelope"></i>  {{"feedback"|trans}}
+                        </a>
                     </div>
                 </div>
             {% endif %}
