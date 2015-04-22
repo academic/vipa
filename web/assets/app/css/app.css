@@ -353,6 +353,9 @@ div.user-menu div.user-menu-content:not(.active){
     font-weight: 300;
     text-align: right;
 }
+#stats .panel-body{padding:4px; font-weight: bold}
+#stats .panel-footer{padding:4px; font-size:11px}
+#stats .number{ font-family: Georgia, "Times New Roman", Times, serif;}
 
 .info p, .stats p {
     margin-bottom: 0;
@@ -923,9 +926,6 @@ div.user-menu div.user-menu-content:not(.active){
 .btn-lg .btn-label{padding: 11px 10px 11px 16px;left: -16px;margin:-11px 0px;border-radius: 6px 0 0 6px;}
 
 
-#stats .panel-body{padding:4px; font-weight: bold}
-#stats .panel-footer{padding:4px; font-size:11px}
-
 .select2-choice{
     margin: -7px -13px;
     padding: 3px;
@@ -978,7 +978,7 @@ a.vimeo:hover * { color:#FFF; }
 #search-box-1{position:relative;width:100%;margin:20px 0}#search-form-1{height:40px;border:1px solid #999;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;background-color:#fff;overflow:hidden}#search-text-1{font-size:14px;color:#ddd;border-width:0;background:0 0}#search-box-1 input[type="text"]{width:90%;padding:11px 0 12px 1em;color:#333;outline:none}#search-button-1{position:absolute;top:0;right:0;height:40px;width:80px;font-size:14px;color:#fff;text-align:center;line-height:40px;border-width:0;background-color:#999;-webkit-border-radius:0 5px 5px 0;-moz-border-radius:0 5px 5px 0;border-radius:0 5px 5px 0;cursor:pointer}
 
 .grid-row-actions{ margin: 0; width: auto;
-    padding: 0;}
+                   padding: 0;}
 .grid-row-actions li{ float: left; list-style-type: none}
 
 .select2-container.select2-container-multi.form-control{height: auto!important;}

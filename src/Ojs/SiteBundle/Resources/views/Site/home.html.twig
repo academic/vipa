@@ -11,25 +11,25 @@
                     <div id="stats">
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body">10</div>
+                                <div class="panel-body number">{{stats.institution}}</div>
                                 <div class="panel-footer">{{ "institution"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body">443</div>
+                                <div class="panel-body number">{{stats.journal}}</div>
                                 <div class="panel-footer">{{ "journal"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body">106.576</div>
+                                <div class="panel-body number">{{stats.article}}</div>
                                 <div class="panel-footer">{{ "article"|trans }}</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="panel panel-default">
-                                <div class="panel-body">84.693</div>
+                                <div class="panel-body number">{{stats.user}}</div>
                                 <div class="panel-footer">{{ "user"|trans }}</div>
                             </div>
                         </div>
@@ -41,12 +41,12 @@
                 </div>
                 <div class="col-md-8 col-xs-12">
                     {{'landingPage.text'|trans|raw}} 
-                    
+
                     <div class="col-md-12"> 
 
                         <div id="search-box-1">
                             <form action="/search" id="search-form-1"  method="get">
-                                  <input id="search-text-1" name="q" placeholder="{{'search.main'|trans}}" class=" pull-left" type="text">
+                                <input id="search-text-1" name="q" placeholder="{{'search.main'|trans}}" class=" pull-left" type="text">
                                 <button class=" pull-right" id="search-button-1" type="submit">{{"search"|trans}}</button>
                             </form>
                         </div> 

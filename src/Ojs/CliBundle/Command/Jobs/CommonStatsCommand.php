@@ -28,6 +28,7 @@ class CommonStatsCommand extends ContainerAwareCommand {
         $this->countSaveEntity($em, 'OjsJournalBundle:Article', $output);
         $this->countSaveEntity($em, 'OjsJournalBundle:Subject', $output);
         $this->countSaveEntity($em, 'OjsJournalBundle:Institution', $output);
+        $this->countSaveEntity($em, 'OjsUserBundle:User', $output);
     }
 
     /**
