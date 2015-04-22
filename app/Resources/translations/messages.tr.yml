@@ -684,6 +684,16 @@ tubitak_journals: 'TÜBİTAK Dergileri'
 Yes: Evet
 No: Hayır
 role.plural: Roller
+ROLE_USER : Kayıtlı kullanıcı
+ROLE_SUPER_ADMIN : Sistem Yöneticisi
+ROLE_JOURNAL_MANAGER : Dergi Yöneticisi
+ROLE_SUBSCRIPTION_MANAGER : Abonelik Yöneticisi
+ROLE_SECTION_EDITOR : Bölüm Editörü
+ROLE_LAYOUT_EDITOR : Mizanpaj Editörü
+ROLE_COPYEDITOR : Baskı Editörü
+ROLE_PROOFREADER : Proofreader
+ROLE_AUTHOR : Yazar
+ROLE_READER : Okuyucu
 user.update_profile: 'Profilimi Güncelle'
 user.custom_fields: 'Özel Alanlar'
 user.custom_field.label: Tanım

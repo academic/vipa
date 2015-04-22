@@ -525,6 +525,16 @@ fieldset: Fieldset
 optional: Optional 
 workflow.step.update: Update Workflow Update 
 role.plural: Roles
+ROLE_USER : Default registered user
+ROLE_SUPER_ADMIN : System Super Administrator
+ROLE_JOURNAL_MANAGER : Journal Manager
+ROLE_SUBSCRIPTION_MANAGER : Subscription Manager
+ROLE_SECTION_EDITOR : Section Editor
+ROLE_LAYOUT_EDITOR : Layout Editor
+ROLE_COPYEDITOR : Copyeditor
+ROLE_PROOFREADER : Proofreader
+ROLE_AUTHOR : Author
+ROLE_READER : Reader
 'User must send a competing of interest statement.': 'User must send a competing of interest statement.'
 'Guidelines for filling a <i>competing of Interest</i> statement.': 'Guidelines for filling a <i>competing of Interest</i> statement.'
 '[No review form]': '[No review form]'
