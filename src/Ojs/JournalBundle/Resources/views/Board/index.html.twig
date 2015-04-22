@@ -1,0 +1,12 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1> {{"boards"|trans}}</h1>
+
+    <a href="{{ path('admin_board_new') }}">
+        {{"c"| trans}}
+    </a>
+    <hr>
+    {{ grid(grid) }}
+
+{% endblock %}

@@ -539,7 +539,6 @@ institution: Kurum
 parse: Ayrıştır
 author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
-s: Sakla
 parent: Üst
 Parent: Üst
 children: Alt
@@ -1028,7 +1027,7 @@ addressLong: Adres Boylam
 "Select journal to submit": Makale göndereceğiniz dergiyi seçiniz
 
 help.preSubmission.header: "Aşağıdaki alanları işaretleyerek bu gönderinini <b>dergi için hazır olduğunu</b> belirtmiş olacaksınız. Editöre notlarınızı son adımda ekleyebiliriniz."
-"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamladığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
+"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>":  "Dergi kurulumunuzu tamamlamadığınızı fark ettik. Şimdi <a href='%setup_url%'>Dergi Kurulum</a> sayfasına gidin."
 Access Denied: Bu sayfayı görebilmek için gerekli izniniz bulunmuyor.
 You don't have submission privilege. : Makale gönderme yetkisine sahip değilsiniz.
 Turkish: Türkçe
@@ -1053,3 +1052,10 @@ Pictures: Görseller
 Tables: Tablolar
 Copyright Transfer Form: Telif Hakkı Devir Formu
 Competing of Interest File: Çıkar Çatışması Dosyası
+
+boards: Kurullar
+board: Kurul
+board.create: Kurul Ekle
+board.edit: Kurul Düzenle
+board.delete: Kurul Sil
+board.detail: Kurul Detay Bilgisi
