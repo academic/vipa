@@ -9,7 +9,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
-use Symfony\Component\Yaml\Parser;
 
 class PublicUserRestController extends FOSRestController {
 
@@ -26,13 +25,7 @@ class PublicUserRestController extends FOSRestController {
      */
     public function getUsernameCheckAction($username)
     {
-        $yamlParser = new Parser();
-        $reservedUserNames = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir') .
-                        '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
-        )); 
-        $user = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneByUsername($username);
-        return (!$user && !in_array($username, $reservedUserNames));
+        return $this->get("user.helper")->checkUsernameAvailability($username);
     }
 
     /**

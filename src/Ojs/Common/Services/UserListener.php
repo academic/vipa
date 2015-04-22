@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Yaml\Parser;
 
 class UserListener {
 
@@ -40,6 +41,22 @@ class UserListener {
     }
 
     /**
+     * 
+     * @param string $username
+     * @return boolean
+     */
+    public function checkUsernameAvailability($username)
+    {
+        $yamlParser = new Parser();
+        $reservedUserNames = $yamlParser->parse(file_get_contents(
+                        $this->container->getParameter('kernel.root_dir') .
+                        '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
+        ));
+        $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneByUsername($username);
+        return (!$user && !in_array($username, $reservedUserNames));
+    }
+
+    /**
      * get user's roles for selected journal and save to userJournalRoles session key
      * @return void
      */
@@ -67,8 +84,8 @@ class UserListener {
 
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
-        $journal = $journalService->getSelectedJournal(false) ;
-        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' =>$journal->getId() ));
+        $journal = $journalService->getSelectedJournal(false);
+        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $journal->getId()));
         $userJournalRoles = array();
         if ($entities) {
             foreach ($entities as $entity) {
@@ -169,7 +186,7 @@ class UserListener {
      * @return boolean
      */
     public function hasAnyRole($checkRoles)
-    { 
+    {
         foreach ($checkRoles as $checkRole) {
             if ($this->container->get('security.context')->isGranted($checkRole->getRole())) {
                 return true;
@@ -196,14 +213,14 @@ class UserListener {
      * @param User $user
      * @param string $password
      */
-    public function changePassword(User &$user, $password,$old_password=false)
+    public function changePassword(User &$user, $password, $old_password = false)
     {
-        if(empty($password))
+        if (empty($password))
             return false;
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user);
 
-        if($old_password){
+        if ($old_password) {
             if (!$encoder->isPasswordValid($user->getPassword(), $old_password, $user->getSalt())) {
                 return false;
             }
@@ -215,4 +232,5 @@ class UserListener {
         $user->setPassword($password);
         return true;
     }
+
 }
