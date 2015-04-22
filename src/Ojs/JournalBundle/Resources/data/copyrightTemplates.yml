@@ -1,0 +1,33 @@
+#suggested mail templates
+#these templates will be shown at every journal's dashboard
+-
+    id: '1'
+    lang: en
+    type: template
+    template:  >
+                Authors retain copyright and grant the journal right of first publication with the work simultaneously 
+                licensed under a <a target="_new" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution License</a>
+                that allows others to share the work with an acknowledgement of the work's authorship and initial publication in this journal.
+-
+    id: '2'
+    lang: en
+    type: template
+    template:  >
+                Authors are able to enter into separate, additional contractual arrangements for the non-exclusive 
+                distribution of the journal's published version of the work (e.g., post it to an institutional repository or publish it in a book), 
+                with an acknowledgement of its initial publication in this journal.
+-   
+    id: '3'
+    lang: tr
+    type: template
+    template:  >
+            Yazar eserin telif hakkını elinde tutar ve ilk yayımlama hakkını dergiye verir.
+            Eser, yazarının belirtilmesi ve ilk yayımının bu dergide yapılması koşuluyla diğerleri tarafından paylaşılmasıına olanak veren 
+            <a target="_new" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Atrribution lisansı</a> altında lisanslanır.
+-
+    id: '4'
+    lang: tr
+    type: template
+    template:  >
+            Yazar, eserin dergide yayımlanmış versiyonunun tam yetki vermeden dağıtımı 
+            (örneğin,  kurumsal bir veri bankasına gönderilmesi ya da bir kitapta yayımlanması) için ayrı sözleşme düzenlemeleri yapabilir.

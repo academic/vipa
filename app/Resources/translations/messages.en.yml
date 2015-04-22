@@ -412,6 +412,12 @@ journalsindex.plural: Indexes
 journalsindex.journalindex: 'Journal Index'
 journalsindex.journal: Journal
 journalsindex.link: 'Link for Journal on Index'
+journal.settings.submission.copyrightnotice: "Copyright Notice"
+journal.settings.submission.copyrightnotice.desc: |
+                                                            "The Copyright Notice" will appear in submission form and each published item's metadata. 
+                                                            While it is up to the journal manager to determine the copyright agreement with authors, 
+                                                            we recommend to use of the <a href="http://creativecommons.org/">CREATIVE COMMONS</a> license.<br>
+                                                            You can use one of the default templates by clicking the buttons above.
 journal.settings.submission.language: 'Submission Language'
 journal.settings.submission.language.text: 'Select mandatory languages for article submitting'
 journal.settings.submission: 'Submission Settings'
