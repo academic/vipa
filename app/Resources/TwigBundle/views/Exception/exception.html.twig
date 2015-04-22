@@ -3,13 +3,20 @@
 
 
     <div class="alert alert-warning"> 
-        <h3>{{"error.oops"|trans}} </h3> 
+        <h4>{{"error.oops"|trans}} </h4> 
 
         {%if exception.message == "mustselectjournal" %}
             {% include '::mustselectjournal.html.twig' %}
         {%else%}
-            {{ exception.message|nl2br|format_file_from_text }} 
+            {{ exception.message|trans|nl2br|format_file_from_text }} 
         {%endif%}
+        <br><br>
+        <p>
+        <a href="{{path("ojs_public_index")}}" class="btn btn-default btn-sm">
+            <i class="fa fa-arrow-left"></i>
+            {{"Back to homepage"|trans}}
+        </a>
+        </p>
     </div>
 
     {% if app.environment =='dev' %}<strong><code>Error : {{ status_code }} - {{ status_text }}</code></strong>{% endif %}
@@ -44,8 +51,8 @@
                 <h2>
                     Logs&nbsp;
                     <a href="#" onclick="toggle('logs');
-                        switchIcons('icon-logs-open', 'icon-logs-close');
-                        return false;">
+                            switchIcons('icon-logs-open', 'icon-logs-close');
+                            return false;">
                         <img class="toggle" id="icon-logs-open" alt="+" src="data:image/gif;base64,R0lGODlhEgASAMQTANft99/v+Ga44bHb8ITG52S44dXs9+z1+uPx+YvK6WC24G+944/M6W28443L6dnu+Ge54v/+/l614P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABMALAAAAAASABIAQAVS4DQBTiOd6LkwgJgeUSzHSDoNaZ4PU6FLgYBA5/vFID/DbylRGiNIZu74I0h1hNsVxbNuUV4d9SsZM2EzWe1qThVzwWFOAFCQFa1RQq6DJB4iIQA7" style="display: none" />
                         <img class="toggle" id="icon-logs-close" alt="-" src="data:image/gif;base64,R0lGODlhEgASAMQSANft94TG57Hb8GS44ez1+mC24IvK6ePx+Wa44dXs92+942e54o3L6W2844/M6dnu+P/+/l614P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABIALAAAAAASABIAQAVCoCQBTBOd6Kk4gJhGBCTPxysJb44K0qD/ER/wlxjmisZkMqBEBW5NHrMZmVKvv9hMVsO+hE0EoNAstEYGxG9heIhCADs=" style="display: inline" />
                     </a>
@@ -73,8 +80,8 @@
             <h2>
                 Content of the Output&nbsp;
                 <a href="#" onclick="toggle('output-content');
-                    switchIcons('icon-content-open', 'icon-content-close');
-                    return false;">
+                        switchIcons('icon-content-open', 'icon-content-close');
+                        return false;">
                     <img class="toggle" id="icon-content-close" alt="-" src="data:image/gif;base64,R0lGODlhEgASAMQSANft94TG57Hb8GS44ez1+mC24IvK6ePx+Wa44dXs92+942e54o3L6W2844/M6dnu+P/+/l614P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABIALAAAAAASABIAQAVCoCQBTBOd6Kk4gJhGBCTPxysJb44K0qD/ER/wlxjmisZkMqBEBW5NHrMZmVKvv9hMVsO+hE0EoNAstEYGxG9heIhCADs=" style="display: none" />
                     <img class="toggle" id="icon-content-open" alt="+" src="data:image/gif;base64,R0lGODlhEgASAMQTANft99/v+Ga44bHb8ITG52S44dXs9+z1+uPx+YvK6WC24G+944/M6W28443L6dnu+Ge54v/+/l614P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABMALAAAAAASABIAQAVS4DQBTiOd6LkwgJgeUSzHSDoNaZ4PU6FLgYBA5/vFID/DbylRGiNIZu74I0h1hNsVxbNuUV4d9SsZM2EzWe1qThVzwWFOAFCQFa1RQq6DJB4iIQA7" style="display: inline" />
                 </a>

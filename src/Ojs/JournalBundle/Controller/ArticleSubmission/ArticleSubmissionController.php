@@ -36,7 +36,7 @@ class ArticleSubmissionController extends Controller {
         if ($all &&
                 (!$this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER') ||
                 $this->get('user.helper')->hasJournalRole('ROLE_EDITOR') )) {
-            throw new Exception('accessDenied', 403);
+            return $this->redirect($this->generateUrl('ojs_user_index'));
         }
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -242,7 +242,7 @@ class ArticleSubmissionController extends Controller {
             throw $this->createNotFoundException('No submission found');
         }
         if (!method_exists($articleSubmission, 'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
-            throw $this->createAccessDeniedException("Access denied!");
+            throw $this->createAccessDeniedException("Access Denied");
         }
         $data = [
             'submissionId' => $articleSubmission->getId(),
@@ -279,10 +279,10 @@ class ArticleSubmissionController extends Controller {
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
             throw
 
-            $this->createAccessDeniedException("Access denied!");
+            $this->createAccessDeniedException("Access Denied");
         }
         if ($articleSubmission->getSubmitted()) {
-            throw $this->createAccessDeniedException("Access denied! This submission has already been submitted.");
+            throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         return $this->render('OjsJournalBundle:ArticleSubmission:preview.html.twig', array(
@@ -303,7 +303,7 @@ class ArticleSubmissionController extends Controller {
     {
         $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
         if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException();
+            throw $this->createAccessDeniedException("Access Denied");
         }
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
@@ -366,7 +366,7 @@ class ArticleSubmissionController extends Controller {
     {
 // security check for submission owner and current user
         if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
-            throw $this->createAccessDeniedException("Access denied!");
+            throw $this->createAccessDeniedException("Access Denied");
         }
         /* article submission data will be moved from mongdb to mysql */
         $articleData = $articleSubmission->getArticleData();
