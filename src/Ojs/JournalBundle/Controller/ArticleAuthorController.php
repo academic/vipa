@@ -94,7 +94,7 @@ class ArticleAuthorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:ArticleAuthor:show.html.twig', array(
@@ -111,7 +111,7 @@ class ArticleAuthorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
 
@@ -152,7 +152,7 @@ class ArticleAuthorController extends Controller
         /* @var $entity ArticleAuthor */
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
         //$editForm->handleRequest($request);
@@ -189,7 +189,7 @@ class ArticleAuthorController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleAuthor entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

@@ -122,7 +122,7 @@ class ArticleFileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -144,7 +144,7 @@ class ArticleFileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -187,7 +187,7 @@ class ArticleFileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
         $file_entity = $entity->getFile();
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -226,7 +226,7 @@ class ArticleFileController extends Controller
         /** @var ArticleFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFile entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $articleid = $entity->getArticleId();
 

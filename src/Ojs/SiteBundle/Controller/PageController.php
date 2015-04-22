@@ -98,7 +98,7 @@ class PageController extends Controller
         $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -120,7 +120,7 @@ class PageController extends Controller
         $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -162,7 +162,7 @@ class PageController extends Controller
         $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -195,7 +195,7 @@ class PageController extends Controller
             $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
+                throw $this->createNotFoundException('notFound');
             }
 
             $em->remove($entity);

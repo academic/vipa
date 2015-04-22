@@ -107,7 +107,7 @@ class LangController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Lang entity.');
+            throw $this->createNotFoundException('notFound');
         }
         return $this->render('OjsJournalBundle:Lang:show.html.twig', array(
                     'entity' => $entity
@@ -125,7 +125,7 @@ class LangController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Lang entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -166,7 +166,7 @@ class LangController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Lang entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -194,7 +194,7 @@ class LangController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Lang')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Lang entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

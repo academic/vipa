@@ -98,7 +98,7 @@ class MailTypeController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailType entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:MailType:show.html.twig', array(
@@ -117,7 +117,7 @@ class MailTypeController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailType entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -158,7 +158,7 @@ class MailTypeController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailType entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -186,7 +186,7 @@ class MailTypeController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailType entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $em->remove($entity);

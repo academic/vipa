@@ -103,7 +103,7 @@ class BoardController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:Board:show.html.twig', array(
@@ -122,7 +122,7 @@ class BoardController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -161,7 +161,7 @@ class BoardController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -187,7 +187,7 @@ class BoardController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

@@ -103,7 +103,7 @@ class FileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find File entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:File:show.html.twig', array(
@@ -121,7 +121,7 @@ class FileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find File entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -162,7 +162,7 @@ class FileController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find File entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -188,7 +188,7 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find File entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

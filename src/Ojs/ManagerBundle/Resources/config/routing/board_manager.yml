@@ -1,14 +1,14 @@
-issue_manager_issue_arrange:
-    pattern:  /issue/{issueId}/arrange
-    defaults: { _controller: OjsManagerBundle:IssueManager:arrange }
+board_manager_arrange:
+    pattern:  /{id}/arrange
+    defaults: { _controller: OjsManagerBundle:BoardManager:arrange }
 
-issue_manager_issue_add_article:
-    pattern:  /issue/{id}/addArticle/{articleId}
-    defaults: { _controller: OjsManagerBundle:IssueManager:addArticle }
+board_manager_add_member:
+    pattern:  /{id}/member/{contactId}/add
+    defaults: { _controller: OjsManagerBundle:BoardManager:addMember }
     
-issue_manager_issue_remove_article:
-    pattern:  /issue/{id}/removeArticle/{articleId}
-    defaults: { _controller: OjsManagerBundle:IssueManager:removeArticle }
+board_manager_remove_member:
+    pattern:  /issue/{id}/member/{contactId}/remove
+    defaults: { _controller: OjsManagerBundle:BoardManager:removeMember }
 
 board_manager:
    path:     /

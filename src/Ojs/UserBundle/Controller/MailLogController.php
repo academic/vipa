@@ -90,7 +90,7 @@ class MailLogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailLog entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsUserBundle:MailLog:show.html.twig', array(
@@ -107,7 +107,7 @@ class MailLogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailLog entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
 
@@ -143,7 +143,7 @@ class MailLogController extends Controller
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailLog entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -170,7 +170,7 @@ class MailLogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailLog entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

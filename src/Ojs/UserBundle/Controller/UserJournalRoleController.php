@@ -123,7 +123,7 @@ class UserJournalRoleController extends Controller
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -227,7 +227,7 @@ class UserJournalRoleController extends Controller
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -273,7 +273,7 @@ class UserJournalRoleController extends Controller
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -309,7 +309,7 @@ class UserJournalRoleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find UserJournalRole entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();
