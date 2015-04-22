@@ -605,7 +605,7 @@ u: Güncelle
 404: Bulunamadı
 error: Hata
 list: Liste
-error.oops: 'Oops! Bir hata meydana geldi!'
+error.oops: 'Olamaz! Bir hata meydana geldi!'
 summary: Özet
 res: 'Yeniden Başlat'
 preview: 'Ön izleme'
@@ -1059,3 +1059,5 @@ board.create: Kurul Ekle
 board.edit: Kurul Düzenle
 board.delete: Kurul Sil
 board.detail: Kurul Detay Bilgisi
+
+notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.

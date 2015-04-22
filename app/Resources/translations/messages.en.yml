@@ -1146,3 +1146,5 @@ board.create: Create Board
 board.edit: Edit Board
 board.delete: Delete Board
 board.detail: Board Detail
+
+notFound: The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.

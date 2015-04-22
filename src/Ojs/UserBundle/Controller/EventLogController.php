@@ -70,7 +70,7 @@ class EventLogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:EventLog')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find EventLog entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $user = $this->getUser();
         $userId = $user->getId();

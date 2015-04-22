@@ -211,7 +211,7 @@ class ProxyController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Proxy entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsUserBundle:Proxy:admin/show.html.twig', array(
@@ -230,7 +230,7 @@ class ProxyController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Proxy entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -271,7 +271,7 @@ class ProxyController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Proxy entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -298,7 +298,7 @@ class ProxyController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Proxy entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

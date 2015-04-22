@@ -126,7 +126,7 @@ class SubmissionChecklistController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -148,7 +148,7 @@ class SubmissionChecklistController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -191,7 +191,7 @@ class SubmissionChecklistController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -225,7 +225,7 @@ class SubmissionChecklistController extends Controller
             $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
+                throw $this->createNotFoundException('notFound');
             }
 
             $em->remove($entity);

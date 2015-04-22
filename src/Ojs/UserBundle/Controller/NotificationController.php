@@ -96,7 +96,7 @@ class NotificationController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Notification entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsUserBundle:Notification:show.html.twig', array(
@@ -115,7 +115,7 @@ class NotificationController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Notification entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -156,7 +156,7 @@ class NotificationController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Notification entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -184,7 +184,7 @@ class NotificationController extends Controller
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Notification entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $em->remove($entity);

@@ -121,7 +121,7 @@ class JournalSectionController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalSection entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:JournalSection:show.html.twig', array(
@@ -140,7 +140,7 @@ class JournalSectionController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalSection entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -183,7 +183,7 @@ class JournalSectionController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalSection entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -210,7 +210,7 @@ class JournalSectionController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalSection entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();

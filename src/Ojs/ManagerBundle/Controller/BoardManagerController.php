@@ -28,13 +28,27 @@ class BoardManagerController extends Controller {
         ));
     }
 
+    public function removeMemberAction()
+    {
+        
+    }
+
+    public function addMemberAction()
+    {
+        
+    }
+
+    public function arrangeAction()
+    {
+        
+    }
+
     /**
      * Creates a new Board entity.
      *
      */
     public function createAction(Request $request)
     {
-
         $entity = new Board();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -44,10 +58,10 @@ class BoardManagerController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_board_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('board_manager_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsJournalBundle:Board:new.html.twig', array(
+        return $this->render('OjsManagerBundle:Board:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
         ));
@@ -62,9 +76,11 @@ class BoardManagerController extends Controller {
      */
     private function createCreateForm(Board $entity)
     {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $form = $this->createForm(new BoardType(), $entity, array(
-            'action' => $this->generateUrl('admin_board_create'),
+            'action' => $this->generateUrl('board_manager_create'),
             'method' => 'POST',
+            'journal' => $journal
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -97,7 +113,7 @@ class BoardManagerController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
         return $this->render('OjsJournalBundle:Board:show.html.twig', array(
                     'entity' => $entity,
@@ -116,7 +132,7 @@ class BoardManagerController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -135,9 +151,11 @@ class BoardManagerController extends Controller {
      */
     private function createEditForm(Board $entity)
     {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $form = $this->createForm(new BoardType(), $entity, array(
-            'action' => $this->generateUrl('admin_board_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('board_manager_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'journal' => $journal
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -156,7 +174,7 @@ class BoardManagerController extends Controller {
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -165,7 +183,7 @@ class BoardManagerController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_board_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('board_manager_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
@@ -183,11 +201,11 @@ class BoardManagerController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Board entity.');
+            throw $this->createNotFoundException('notFound');
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_board'));
+        return $this->redirect($this->generateUrl('board_manager'));
     }
 
 }

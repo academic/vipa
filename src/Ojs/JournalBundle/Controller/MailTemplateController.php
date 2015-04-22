@@ -164,7 +164,7 @@ class MailTemplateController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailTemplate entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:show.html.twig', array(
@@ -184,7 +184,7 @@ class MailTemplateController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailTemplate entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -224,7 +224,7 @@ class MailTemplateController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailTemplate entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -253,7 +253,7 @@ class MailTemplateController extends Controller
         $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find MailTemplate entity.');
+            throw $this->createNotFoundException('notFound');
         }
 
         $em->remove($entity);
