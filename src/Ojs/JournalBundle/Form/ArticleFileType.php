@@ -48,7 +48,6 @@ class ArticleFileType extends AbstractType
                 }
             )
             )
-            ->add('langCode')
             ->add('version')
             ->add('article')
         ;

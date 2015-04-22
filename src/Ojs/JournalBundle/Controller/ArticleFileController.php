@@ -102,6 +102,7 @@ class ArticleFileController extends Controller
     public function newAction(Article $article)
     {
         $entity = new ArticleFile();
+        $entity->setArticle($article);
         $form   = $this->createCreateForm($entity,$article->getId());
 
         return $this->render('OjsJournalBundle:ArticleFile:new.html.twig', array(
