@@ -83,7 +83,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/article, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
-        - { path: ^/admin/journal, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR,ROLE_JOURNAL_MANAGER] }
         - { path: ^/admin/userjournalrole, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR,ROLE_JOURNAL_MANAGER] }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
         - { path: /manager, roles: ROLE_USER }
