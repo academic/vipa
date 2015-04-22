@@ -417,6 +417,12 @@ journalsindex.plural: Dizinler
 journalsindex.journalindex: Dizin
 journalsindex.journal: Dergi
 journalsindex.link: 'Dergi Dizin Linki'
+journal.settings.submission.copyrightnotice: "Telif Hakkı Bildirimi"
+journal.settings.submission.copyrightnotice.desc: |
+                                                            Aşağıdaki "Telif Hakkı Bildirimi" makale gönderme formunda ve yayımlanmış her çalışmanın üst verisinde görüntülenecektir. 
+                                                            "Telif Hakkı Bildirimi" metnine dergiler karar verir. 
+                                                            Yeni bir metin oluşturmaktansa <a href="http://creativecommons.org/">CREATIVE COMMONS</a> lisansı kullanmanızı öneririz.<br>
+                                                            Önceden tanımlanmış şablonları yukardaki butonlara tıklayarak kullanabilirsiniz.
 journal.settings.submission.language: 'Makale Gönderim Dilleri'
 journal.settings.submission.language.text: 'Lütfen derginizin makale gönderirken kabul ettiği dilleri seçiniz.'
 journal.settings.submission: 'Makale Gönderim Ayarları'

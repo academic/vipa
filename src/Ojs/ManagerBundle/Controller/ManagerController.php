@@ -76,22 +76,30 @@ class ManagerController extends Controller {
             }
             if (!empty($req->get('submissionAbstractTemplate'))) {
                 $this->updateJournalSetting($journal, 'submissionAbstractTemplate', $req->get('submissionAbstractTemplate'), false);
-            } 
+            }
+            if (!empty($req->get('copyrightStatement'))) {
+                $this->updateJournalSetting($journal, 'copyrightStatement', $req->get('copyrightStatement'), false);
+            }
         }
         $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $root = $this->container->getParameter('kernel.root_dir');
         $data = array(
-            'settings' => array( 
+            'settings' => array(
                 'submissionMandatoryLanguages' => $journal->getSetting('submissionMandatoryLanguages') ?
                         json_decode($journal->getSetting('submissionMandatoryLanguages')->getValue()) :
                         null,
                 'submissionAbstractTemplate' => $journal->getSetting('submissionAbstractTemplate') ?
                         $journal->getSetting('submissionAbstractTemplate')->getValue() :
                         null,
-            ), 
-            'abstractTemplates' => $yamlParser->parse(file_get_contents(
-                            $this->container->getParameter('kernel.root_dir') .
+                'copyrightStatement' => $journal->getSetting('copyrightStatement') ?
+                        $journal->getSetting('copyrightStatement')->getValue() :
+                        null,
+            ),
+            'abstractTemplates' => $yamlParser->parse(file_get_contents($root .
                             '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
             )),
+            'copyrightTemplates' => $yamlParser->parse(file_get_contents($root .
+                            '/../src/Ojs/JournalBundle/Resources/data/copyrightTemplates.yml')),
             'journal' => $journal,
             'allLanguages' => $journal->getLanguages()
         );
