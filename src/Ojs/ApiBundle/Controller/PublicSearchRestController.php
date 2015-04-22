@@ -185,29 +185,7 @@ class PublicSearchRestController extends FOSRestController {
         return $data;
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     * @ApiDoc(
-     *  resource=true,
-     *  description="get user by id"
-     * )
-     * @Get("/public/user/get/{id}")
-     */
-    public function getUserAction(Request $request, $id)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->find('OjsUserBundle:User',$id);
-        if($user){
-            return JsonResponse::create(['id'=>$id,'text'=>$user->getUsername()." <".$user->getEmail().'>']);
-        }
-        throw new NotFoundHttpException;
-    }
+    
     /**
      * @param Request $request
      * @ApiDoc(

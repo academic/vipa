@@ -63,3 +63,8 @@ api_search:
     type: rest
     resource: "OjsApiBundle:SearchRest"
     name_preffix: api_
+
+api_public_user:
+    type: rest
+    resource: "OjsApiBundle:PublicUserRest"
+    name_preffix: api_
