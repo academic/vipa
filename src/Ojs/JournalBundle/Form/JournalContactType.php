@@ -40,17 +40,8 @@ class JournalContactType extends AbstractType {
                 ))
                 ->add('contact', 'entity', array(
                     'attr' => array('class' => ' form-control'),
-                    'class' => 'Ojs\JournalBundle\Entity\JournalContact',
-                    'property' => 'contact',
-                    'query_builder' => function(EntityRepository $er)use($user, $journal) {
-                $qb = $er->createQueryBuilder('c');
-                if ($user && !$user->hasRole('ROLE_SUPER_ADMIN') && $journal) {
-                    $qb
-                    ->where($qb->expr()->eq('c.journalId', ':journal'))
-                    ->setParameter('journal', $journal->getId());
-                }
-                return $qb;
-            }
+                    'class' => 'Ojs\JournalBundle\Entity\Contact',
+                    'property' => 'fullName'
                 ))
                 ->add('contactType')
         ;
