@@ -20,25 +20,6 @@ class JournalSectionType extends AbstractType {
                 ->add('title')
                 ->add('allowIndex')
                 ->add('hideTitle')
-                ->add('journal', 'entity', array(
-                    'attr' => array('class' => 'select2-element'),
-                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er)use($user, $journal) {
-                $qb = $er->createQueryBuilder('j');
-                if ($user && !$user->hasRole('ROLE_SUPER_ADMIN')) {
-                    // if user is super admin get all journals
-                    $qb
-                    ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                    ->setParameter('user', $user);
-                }
-                if ($journal) {
-                    $qb
-                    ->where($qb->expr()->eq('j.id', ':journal'))
-                    ->setParameter('journal', $journal->getId());
-                }
-                return $qb;
-            }
-                ))
         ;
     }
 
