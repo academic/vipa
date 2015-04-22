@@ -12,8 +12,7 @@ use Ojs\JournalBundle\Form\IssueType;
  * Issue manager controller.
  *
  */
-class IssueManagerController extends Controller
-{
+class IssueManagerController extends Controller {
 
     /**
      * Lists all Issue entities for selected journal.
@@ -26,8 +25,8 @@ class IssueManagerController extends Controller
         $entities = $em->getRepository('OjsJournalBundle:Issue')->findByJournalId($journal->getId());
 
         return $this->render('OjsManagerBundle:Issue:index.html.twig', array(
-            'entities' => $entities,
-            'journal' => $journal
+                    'entities' => $entities,
+                    'journal' => $journal
         ));
     }
 
@@ -47,9 +46,9 @@ class IssueManagerController extends Controller
         }
         $articles = $em->getRepository('OjsJournalBundle:Article')->getOrderedArticlesByIssue($issue, true);
         return $this->render('OjsManagerBundle:Issue:view.html.twig', array(
-            'articles' => $articles,
-            'journal' => $journal,
-            'issue' => $issue
+                    'articles' => $articles,
+                    'journal' => $journal,
+                    'issue' => $issue
         ));
     }
 
@@ -90,9 +89,9 @@ class IssueManagerController extends Controller
         }
 
         $articles = $doctrine->getRepository('OjsJournalBundle:Article')
-            ->getOrderedArticlesByIssue($issue, true);
+                ->getOrderedArticlesByIssue($issue, true);
         $articlesUnissued = $doctrine->getRepository('OjsJournalBundle:Article')
-            ->getArticlesUnissued();
+                ->getArticlesUnissued();
         $sections = $journal->getSections();
 
         $data = ['articles' => $articles,
@@ -115,7 +114,8 @@ class IssueManagerController extends Controller
         $form = $this->createForm(new IssueType(), $issue, array(
             'action' => $this->generateUrl('issue_manager_issue_new'),
             'method' => 'POST',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'journal' => $journal
         ));
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -124,17 +124,17 @@ class IssueManagerController extends Controller
             $em->flush();
 
             return $this->redirect(
-                $this->generateUrl(
-                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                    )
-                ));
+                            $this->generateUrl(
+                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                                    )
+            ));
         }
 
 
         return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
-            'journal' => $journal,
-            'form' => $form->createView(),
-            'entity'=>$issue
+                    'journal' => $journal,
+                    'form' => $form->createView(),
+                    'entity' => $issue
         ));
     }
 
@@ -149,7 +149,8 @@ class IssueManagerController extends Controller
         $form = $this->createForm(new IssueType(), $issue, array(
             'action' => $this->generateUrl('issue_manager_issue_edit', array('issueId' => $issueId)),
             'method' => 'PUT',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'journal' => $journal
         ));
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -157,15 +158,15 @@ class IssueManagerController extends Controller
             $em->persist($issue);
             $em->flush();
             return $this->redirect(
-                $this->generateUrl(
-                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                    )
-                ));
+                            $this->generateUrl(
+                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
+                                    )
+            ));
         }
         return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
-            'journal' => $journal,
-            'entity' => $issue,
-            'edit_form' => $form->createView()
+                    'journal' => $journal,
+                    'entity' => $issue,
+                    'edit_form' => $form->createView()
         ));
     }
 
