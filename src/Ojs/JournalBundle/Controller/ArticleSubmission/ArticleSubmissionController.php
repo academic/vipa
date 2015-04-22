@@ -33,20 +33,24 @@ class ArticleSubmissionController extends Controller {
      */
     public function indexAction($all = false)
     {
-
+        if ($all &&
+                (!$this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER') ||
+                $this->get('user.helper')->hasJournalRole('ROLE_EDITOR') )) {
+            throw new Exception('accessDenied', 403);
+        }
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $dm = $this->get('doctrine_mongodb')->getManager();
         $ta = $source1->getTableAlias();
         $source1->manipulateRow(function (Row $row) use ($dm) {
             if (null !== ($row->getField('status'))) {
-                $articleId = $row->getField('id'); 
+                $articleId = $row->getField('id');
                 $currentStep = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
-                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));  
-                if($currentStep){ 
-                            // in case of error if submission is not on mongodb
-                            $row->setColor($currentStep->getStep()->getColor() );
-                            $row->setField('status', "<span style='display:block;background: " .
-                                    ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
+                        ->findOneBy(array('articleId' => $articleId, 'finishedDate' => null));
+                if ($currentStep) {
+                    // in case of error if submission is not on mongodb
+                    $row->setColor($currentStep->getStep()->getColor());
+                    $row->setField('status', "<span style='display:block;background: " .
+                            ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
                 }
             }
             return $row;
@@ -74,9 +78,8 @@ class ArticleSubmissionController extends Controller {
 
         if ($all) {
             $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta) {
-                $qb->where(
-                        $qb->expr()->eq($ta . '.status', '0')
-                );
+                $qb->where($ta . '.status = 0');
+                $qb->andWhere($ta . '.journalId = ' . $this->get('ojs.journal_service')->getSelectedJournal()->getId());
                 return $qb;
             });
             $source2->manipulateQuery(function (Builder $query) {
@@ -250,7 +253,7 @@ class ArticleSubmissionController extends Controller {
             'citationTypes' => $this->container->getParameter('citation_types')];
         $data['checklist'] = json_decode($articleSubmission->getChecklist(), true);
         if ($articleSubmission->getJournalId()) {
-             $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
+            $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         } else {
             $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         }
@@ -552,7 +555,7 @@ class ArticleSubmissionController extends Controller {
      */
     public function getOrcidAuthorAction(Request $request)
     {
-        if($request->get('orcidAuthorId')){
+        if ($request->get('orcidAuthorId')) {
             $orcidAuthorId = $request->get('orcidAuthorId');
             $orcidService = new OrcidService($this->container);
             $getAuthor = $orcidService->getBio($orcidAuthorId, '');
