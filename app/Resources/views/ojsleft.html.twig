@@ -11,7 +11,9 @@
                             <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown">
                                 {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath( userjournals[session('selectedJournalId')].image))|imagine_filter('journal_cover') }}"
+                                    {% set imageoptions=getImageOptions(userjournals[session('selectedJournalId')],'cover','journal_cover') %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(userjournals[session('selectedJournalId')].image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                         width="96" height="96"
                                          class="avatar"/>
                                 {% else %}
                                     <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
