@@ -382,22 +382,22 @@ class ArticleSubmissionProgress
     /**
      * @MongoDB\String
      */
-    protected  $licences;
+    protected  $checklist;
 
     /**
      * @return mixed
      */
-    public function getLicences()
+    public function getchecklist()
     {
-        return $this->licences;
+        return $this->checklist;
     }
 
     /**
-     * @param mixed $licences
+     * @param mixed $checklist
      */
-    public function setLicences($licences)
+    public function setChecklist($checklist)
     {
-        $this->licences = $licences;
+        $this->checklist = $checklist;
     }
 
     /**

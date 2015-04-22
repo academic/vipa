@@ -20,19 +20,19 @@
             {{"help.preSubmission.header"|trans|raw}}
         </div>
 
-        {% for licence in journal.licences %}
-            {% if licence.visible %}
+        {% for item in journal.submissionChecklist %}
+            {% if item.visible %}
                 <div class="panel-body">
                     <fieldset>
                         <legend>
-                            <label for="licence_{{ licence.id }}">
-                                <input type="checkbox" name="licence[{{ licence.id }}]" id="licence_{{ licence.id }}" {% if licence.id in licences|keys %} checked="checked" {% endif %}/>
-                                {{ licence.label |raw }}
+                            <label for="item_{{ item.id }}">
+                                <input type="checkbox" name="checklistItems[{{ item.id }}]" id="item_{{ item.id }}" {% if item.id in checklist|keys %} checked="checked" {% endif %}/>
+                                {{ item.label |raw }}
                             </label>
                         </legend>
-                        {% if licence.licence and licence.licence != null%}
+                        {% if item.detail and item.detail != null%}
                             <div style="height: 100px;overflow: scroll">
-                                {{ licence.licence|raw }}
+                                {{ item.detail|raw }}
                             </div>
                         {% endif %}
                     </fieldset>

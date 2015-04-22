@@ -3,7 +3,7 @@
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
     {{ grid(grid) }}
-    <a href="{{ path('manager_journal_licence_new') }}" class="btn btn-success">
+    <a href="{{ path('manager_submission_checklist_new') }}" class="btn btn-success">
         {{ 'c'|trans }}
     </a>
 {% endblock %}

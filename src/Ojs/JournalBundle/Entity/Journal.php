@@ -1220,39 +1220,39 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $licences;
+    private $submissionChecklist;
 
     /**
-     * Add licences
+     * Add submission checklist item
      *
-     * @param \Ojs\JournalBundle\Entity\JournalLicence $licences
+     * @param \Ojs\JournalBundle\Entity\SubmissionChecklist $checklistItem
      * @return Journal
      */
-    public function addLicence(\Ojs\JournalBundle\Entity\JournalLicence $licences)
+    public function addSubmissionChecklist(\Ojs\JournalBundle\Entity\SubmissionChecklist $checklistItem)
     {
-        $this->licences[] = $licences;
+        $this->submissionChecklist[] = $checklistItem;
 
         return $this;
     }
 
     /**
-     * Remove licences
+     * Remove submission checklist item
      *
-     * @param \Ojs\JournalBundle\Entity\JournalLicence $licences
+     * @param \Ojs\JournalBundle\Entity\SubmissionChecklist $item
      */
-    public function removeLicence(\Ojs\JournalBundle\Entity\JournalLicence $licences)
+    public function removeSubmissionChecklist(\Ojs\JournalBundle\Entity\SubmissionChecklist $item)
     {
-        $this->licences->removeElement($licences);
+        $this->submissionChecklist->removeElement($item);
     }
 
     /**
-     * Get licences
+     * Get submission checklist
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getLicences()
+    public function getSubmissionChecklist()
     {
-        return $this->licences;
+        return $this->submissionChecklist;
     }
 
     protected $logo_options;

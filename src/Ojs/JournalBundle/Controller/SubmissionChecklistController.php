@@ -9,25 +9,25 @@ use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Ojs\JournalBundle\Entity\JournalLicence;
-use Ojs\JournalBundle\Form\JournalLicenceType;
+use Ojs\JournalBundle\Entity\SubmissionChecklist;
+use Ojs\JournalBundle\Form\SubmissionChecklistType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * JournalLicence controller.
+ * SubmissionChecklist controller.
  *
  */
-class JournalLicenceController extends Controller
+class SubmissionChecklistController extends Controller
 {
 
     /**
-     * Lists all JournalLicence entities.
+     * Lists all SubmissionChecklist entities.
      *
      */
     public function indexAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
-        $source = new Entity('OjsJournalBundle:JournalLicence');
+        $source = new Entity('OjsJournalBundle:SubmissionChecklist');
         if ($journal) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $ta) {
@@ -42,25 +42,25 @@ class JournalLicenceController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('manager_journal_licence_show', 'id');
-        $rowAction[] = ActionHelper::editAction('manager_journal_licence_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('manager_journal_licence_delete', 'id');
+        $rowAction[] = ActionHelper::showAction('manager_submission_checklist_show', 'id');
+        $rowAction[] = ActionHelper::editAction('manager_submission_checklist_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('manager_submission_checklist_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
         $data['journal_id'] = $journal;
-        return $grid->getGridResponse('OjsJournalBundle:JournalLicence:index.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:SubmissionChecklist:index.html.twig', $data);
     }
 
     /**
-     * Creates a new JournalLicence entity.
+     * Creates a new SubmissionChecklist entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new JournalLicence();
+        $entity = new SubmissionChecklist();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -72,26 +72,26 @@ class JournalLicenceController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('manager_journal_licence_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('manager_submission_checklist_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsJournalBundle:JournalLicence:new.html.twig', array(
+        return $this->render('OjsJournalBundle:SubmissionChecklist:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a JournalLicence entity.
+     * Creates a form to create a SubmissionChecklist entity.
      *
-     * @param JournalLicence $entity The entity
+     * @param SubmissionChecklist $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(JournalLicence $entity)
+    private function createCreateForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new JournalLicenceType(), $entity, array(
-            'action' => $this->generateUrl('manager_journal_licence_create'),
+        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
+            'action' => $this->generateUrl('manager_submission_checklist_create'),
             'method' => 'POST',
         ));
 
@@ -101,60 +101,60 @@ class JournalLicenceController extends Controller
     }
 
     /**
-     * Displays a form to create a new JournalLicence entity.
+     * Displays a form to create a new SubmissionChecklist entity.
      *
      */
     public function newAction()
     {
-        $entity = new JournalLicence();
+        $entity = new SubmissionChecklist();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:JournalLicence:new.html.twig', array(
+        return $this->render('OjsJournalBundle:SubmissionChecklist:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a JournalLicence entity.
+     * Finds and displays a SubmissionChecklist entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalLicence')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalLicence entity.');
+            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('OjsJournalBundle:JournalLicence:show.html.twig', array(
+        return $this->render('OjsJournalBundle:SubmissionChecklist:show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing JournalLicence entity.
+     * Displays a form to edit an existing SubmissionChecklist entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalLicence')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalLicence entity.');
+            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('OjsJournalBundle:JournalLicence:edit.html.twig', array(
+        return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -162,16 +162,16 @@ class JournalLicenceController extends Controller
     }
 
     /**
-     * Creates a form to edit a JournalLicence entity.
+     * Creates a form to edit a SubmissionChecklist entity.
      *
-     * @param JournalLicence $entity The entity
+     * @param SubmissionChecklist $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(JournalLicence $entity)
+    private function createEditForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new JournalLicenceType(), $entity, array(
-            'action' => $this->generateUrl('manager_journal_licence_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
+            'action' => $this->generateUrl('manager_submission_checklist_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -181,17 +181,17 @@ class JournalLicenceController extends Controller
     }
 
     /**
-     * Edits an existing JournalLicence entity.
+     * Edits an existing SubmissionChecklist entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OjsJournalBundle:JournalLicence')->find($id);
+        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find JournalLicence entity.');
+            throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -201,10 +201,10 @@ class JournalLicenceController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('manager_journal_licence_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('manager_submission_checklist_edit', array('id' => $id)));
         }
 
-        return $this->render('OjsJournalBundle:JournalLicence:edit.html.twig', array(
+        return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -212,7 +212,7 @@ class JournalLicenceController extends Controller
     }
 
     /**
-     * Deletes a JournalLicence entity.
+     * Deletes a SubmissionChecklist entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -222,21 +222,21 @@ class JournalLicenceController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:JournalLicence')->find($id);
+            $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find JournalLicence entity.');
+                throw $this->createNotFoundException('Unable to find SubmissionChecklist entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('manager_journal_licence'));
+        return $this->redirect($this->generateUrl('manager_submission_checklist'));
     }
 
     /**
-     * Creates a form to delete a JournalLicence entity by id.
+     * Creates a form to delete a SubmissionChecklist entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -245,7 +245,7 @@ class JournalLicenceController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('manager_journal_licence_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('manager_submission_checklist_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();

@@ -5,10 +5,10 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
- * JournalLicence
+ * SubmissionChecklist
  * @GRID\Source(columns="id,label,visible")
  */
-class JournalLicence
+class SubmissionChecklist
 {
     /**
      * @var integer
@@ -18,14 +18,14 @@ class JournalLicence
 
     /**
      * @var string
-     * @GRID\Column(title="journal_licence.label",safe = false)
+     * @GRID\Column(title="submission_checklist.label",safe = false)
      */
     private $label;
 
     /**
      * @var string
      */
-    private $licence;
+    private $detail;
 
     /**
      * @var integer
@@ -34,7 +34,7 @@ class JournalLicence
 
     /**
      * @var boolean
-     * @GRID\Column(title="journal_licence.visible")
+     * @GRID\Column(title="submission_checklist.visible")
      */
     private $visible;
 
@@ -58,7 +58,7 @@ class JournalLicence
      * Set label
      *
      * @param string $label
-     * @return JournalLicence
+     * @return SubmissionChecklist
      */
     public function setLabel($label)
     {
@@ -78,33 +78,33 @@ class JournalLicence
     }
 
     /**
-     * Set licence
+     * Set detail
      *
-     * @param string $licence
-     * @return JournalLicence
+     * @param string $detail
+     * @return SubmissionChecklist
      */
-    public function setLicence($licence)
+    public function setDetail($detail)
     {
-        $this->licence = $licence;
+        $this->detail = $detail;
 
         return $this;
     }
 
     /**
-     * Get licence
+     * Get detail
      *
      * @return string 
      */
-    public function getLicence()
+    public function getDetail()
     {
-        return $this->licence;
+        return $this->detail;
     }
 
     /**
      * Set journal_id
      *
      * @param integer $journalId
-     * @return JournalLicence
+     * @return SubmissionChecklist
      */
     public function setJournalId($journalId)
     {
@@ -127,7 +127,7 @@ class JournalLicence
      * Set visible
      *
      * @param boolean $visible
-     * @return JournalLicence
+     * @return SubmissionChecklist
      */
     public function setVisible($visible)
     {
@@ -150,7 +150,7 @@ class JournalLicence
      * Set deletedAt
      *
      * @param \DateTime $deletedAt
-     * @return JournalLicence
+     * @return SubmissionChecklist
      */
     public function setDeletedAt($deletedAt)
     {
@@ -178,7 +178,7 @@ class JournalLicence
      * Set journal
      *
      * @param \Ojs\JournalBundle\Entity\Journal $journal
-     * @return JournalLicence
+     * @return SubmissionChecklist
      */
     public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
     {

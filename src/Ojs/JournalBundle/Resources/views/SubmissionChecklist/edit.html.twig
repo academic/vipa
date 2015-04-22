@@ -1,25 +1,24 @@
 {% extends '::ojsbase.html.twig' %}
+
 {% block  stylesheets %}
     {{parent()}}
     <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
 {%endblock%}
 
 {% block body -%}
-    {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
+    <h1>{{ 'submission_checklist.edit'|trans }}</h1>
 
-    <h1>{{ 'journal_licence.create'|trans }}</h1>
+    {{ form(edit_form) }}
 
-    {{ form(form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('manager_journal_licence') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_submission_checklist') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
 {% endblock %}
-
 
 {% block  javascripts %}
     {{parent()}}

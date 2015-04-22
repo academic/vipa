@@ -218,7 +218,7 @@ class ArticleSubmissionController extends Controller {
                     'submissionData' => NULL,
                     'fileTypes' => ArticleFileParams::$FILE_TYPES,
                     'citationTypes' => $this->container->getParameter('citation_types'),
-                    'licences' => [],
+                    'checklist' => [],
                     'firstStep' => $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                             ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true))
         ));
@@ -248,7 +248,7 @@ class ArticleSubmissionController extends Controller {
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $articleSubmission->getCitations(),
             'citationTypes' => $this->container->getParameter('citation_types')];
-        $data['licences'] = json_decode($articleSubmission->getLicences(), true);
+        $data['checklist'] = json_decode($articleSubmission->getChecklist(), true);
         if ($articleSubmission->getJournalId()) {
              $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         } else {
