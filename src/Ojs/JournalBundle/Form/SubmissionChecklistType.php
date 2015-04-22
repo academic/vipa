@@ -7,11 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class JournalLicenceType
+ * Class SubmissionChecklistType
  * @package Ojs\JournalBundle\Form
  */
-class JournalLicenceType extends AbstractType
-{
+class SubmissionChecklistType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -19,22 +19,22 @@ class JournalLicenceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label','text',['label'=>'journal_licence.label'])
-            ->add('licence','textarea',['label'=>'journal_licence.licence'])
-            ->add('visible','checkbox',['label'=>'journal_licence.visible'])
+                ->add('label', 'text', ['label' => 'submission_checklist.label'])
+                ->add('detail', 'textarea', ['label' => 'submission_checklist.detail'])
+                ->add('visible', 'checkbox', ['label' => 'submission_checklist.visible'])
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalLicence',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }
@@ -44,6 +44,7 @@ class JournalLicenceType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journallicence';
+        return 'ojs_journalbundle_submissionchecklist';
     }
+
 }

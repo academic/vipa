@@ -55,8 +55,8 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY
-        licences:
-          targetEntity: Ojs\JournalBundle\Entity\JournalLicence
+        submissionChecklist:
+          targetEntity: Ojs\JournalBundle\Entity\SubmissionChecklist
           mappedBy: journal
           cascade: ["all"]
           fetch: EXTRA_LAZY

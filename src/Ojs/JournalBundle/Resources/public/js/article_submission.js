@@ -102,7 +102,7 @@ var OjsArticleSubmission = {
     },
     step0: function (actionUrl) {
         var form = $("#step0-container form").serialize();
-        var status = OjsArticleSubmission.licenceCheck();
+        var status = OjsArticleSubmission.submissionChecklist();
         if (status === false) {
             return;
         }
@@ -119,13 +119,13 @@ var OjsArticleSubmission = {
             }
         });
     },
-    licenceCheck: function () {
+    submissionChecklist: function () {
         var checkboxes = $("#step0-container input[type=checkbox]");
         var status = true;
         checkboxes.each(function () {
             if ($(this).is(':checked') === false) {
                 status = false;
-                OjsCommon.errorModal("Please check all licence field!");
+                OjsCommon.errorModal("Please check all fields!");
             }
         });
         return status;
@@ -280,9 +280,9 @@ var OjsArticleSubmission = {
         }
     },
     submit: function () {
-        var licenceCheck = OjsArticleSubmission.licenceCheck();
+        var submissionChecklist = OjsArticleSubmission.submissionChecklist();
         var check = confirm("Are you sure to submit your article?");
-        if (check === true && licenceCheck === true) {
+        if (check === true && submissionChecklist === true) {
             OjsCommon.waitModal();
             window.location.href = "/";
         } else {

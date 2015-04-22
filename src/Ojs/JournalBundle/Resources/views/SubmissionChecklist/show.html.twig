@@ -1,0 +1,39 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{ 'submission_checklist.show'|trans }}</h1>
+
+    <table class="record_properties table">
+        <tbody>
+            <tr>
+                <th>{{ 'id'|trans }}</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'submission_checklist.label'|trans }}</th>
+                <td>{{ entity.label|raw }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'submission_checklist.detail'|trans }}</th>
+                <td><div class="well">
+                        {{ entity.detail|raw}}
+                    </div></td>
+            </tr>
+            <tr>
+                <th>Visible</th>
+                <td>{% if entity.visible %}{{ 'yes'|trans }}{% else %}{{ 'no'|trans }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('manager_submission_checklist') }}">
+        Back to the list
+    </a>
+
+    <a href="{{ path('manager_submission_checklist_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
+    {{ form(delete_form) }}
+
+{% endblock %}

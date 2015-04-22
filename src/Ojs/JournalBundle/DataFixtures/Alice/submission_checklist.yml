@@ -1,7 +1,7 @@
-\Ojs\JournalBundle\Entity\JournalLicence:
+\Ojs\JournalBundle\Entity\SubmissionChecklist:
     checkItem1:
         label: The title page should include
-        licence:   |
+        detail:   |
                              <ul><li>The name(s) of the author(s)</li>
                              <li>A concise and informative title</li>
                              <li>The affiliation(s) of the author(s)</li>

@@ -441,6 +441,12 @@ mailtemplate.title: Title
 mailtemplate.default.list: 'Default Templates'
 mailtemplate.show: Show
 mailtemplate.default_template: 'Default Templates'
+submission_checklist: Submission Checklist
+submission_checklist.create: New item
+submission_checklist.detail: Detail
+submission_checklist.visible: Is visible?
+submission_checklist.label: Label
+submission_checklist.show: Show
 journal_licence.singular: Licences
 journal_licence.create: 'New Licence'
 journal_licence.licence: Licence

@@ -1,7 +1,7 @@
-Ojs\JournalBundle\Entity\JournalLicence:
+Ojs\JournalBundle\Entity\SubmissionChecklist:
   type: entity
-  repositoryClass: Ojs\JournalBundle\Entity\JournalLicenceRepository
-  table: journal_licence
+  repositoryClass: Ojs\JournalBundle\Entity\SubmissionChecklistRepository
+  table: submission_checklist
   id:
     id:
       type: integer
@@ -11,7 +11,7 @@ Ojs\JournalBundle\Entity\JournalLicence:
   fields:
     label:
       type: string
-    licence:
+    detail:
       type: text
       nullable: true
     journal_id:
@@ -28,7 +28,7 @@ Ojs\JournalBundle\Entity\JournalLicence:
       joinColumn:
         referencedColumnName: id
         name: journal_id
-      inversedBy: licences
+      inversedBy: submissionChecklist
   gedmo:
     soft_deleteable:
       field_name: deletedAt

@@ -446,6 +446,12 @@ mailtemplate.title: Başlık
 mailtemplate.default.list: 'Öntanımlı Şablonlar'
 mailtemplate.show: Görüntüle
 mailtemplate.default_template: 'Default Templates'
+submission_checklist: Gönderi Kontrol Listesi
+submission_checklist.create: Yeni liste elemanı
+submission_checklist.detail: Detay
+submission_checklist.visible: 'Görünür mü?'
+submission_checklist.label: Tanım
+submission_checklist.show: Görüntüle
 journal_licence.singular: Lisanslar
 journal_licence.create: 'Yeni Lisans'
 journal_licence.licence: Lisans
