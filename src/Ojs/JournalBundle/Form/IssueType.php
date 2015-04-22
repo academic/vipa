@@ -9,8 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ojs\UserBundle\Entity\User;
 
-class IssueType extends AbstractType
-{
+class IssueType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -18,14 +17,15 @@ class IssueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $journal = $options['journal'];
         $user = $options['user'];
         $builder
                 ->add('journal', 'entity', array(
                     'attr' => array('class' => ' form-control select2-element'),
-                    'label'=>'journal',
+                    'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' =>
-                    function (EntityRepository $er) use ($user) {
+                    function (EntityRepository $er) use ($user, $journal) {
                 /** @var User $user $qb */
                 $qb = $er->createQueryBuilder('j');
                 foreach ($user->getRoles() as $role) {
@@ -35,6 +35,11 @@ class IssueType extends AbstractType
                         break;
                     }
                 }
+                if ($journal) {
+                    $qb->where(
+                            $qb->expr()->eq('j.id', ':journal')
+                    )->setParameter('journal', $journal);
+                }
                 $qb
                 ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
                 ->setParameter('user', $user);
@@ -42,15 +47,15 @@ class IssueType extends AbstractType
             }
                         )
                 )
-                ->add('volume','text',array('label'=>'volume'))
-                ->add('number','text',array('label'=>'number'))
-                ->add('title','text',array('label'=>'title'))
-                ->add('special','checkbox',array('label'=>'special')) 
-                ->add('description','text',array('label'=>'description'))
-                ->add('year','text',array('label'=>'year'))
-                ->add('datePublished','collot_datetime', array(
-                        'date_format' => 'yyyy-MM-dd',
-                    )
+                ->add('volume', 'text', array('label' => 'volume'))
+                ->add('number', 'text', array('label' => 'number'))
+                ->add('title', 'text', array('label' => 'title'))
+                ->add('special', 'checkbox', array('label' => 'special'))
+                ->add('description', 'text', array('label' => 'description'))
+                ->add('year', 'text', array('label' => 'year'))
+                ->add('datePublished', 'collot_datetime', array(
+                    'date_format' => 'yyyy-MM-dd',
+                        )
                 )
                 ->add('cover', 'hidden')
                 ->add('header', 'hidden')
@@ -65,9 +70,10 @@ class IssueType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Issue',
             'user' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'journal' => null,
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }
