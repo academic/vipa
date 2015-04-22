@@ -1,0 +1,17 @@
+Ojs\JournalBundle\Entity\Sums:
+    type: entity
+    table: sums
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        entity:
+            type: string
+            length: 255
+            unique: true
+        sum:
+            type: integer
+    lifecycleCallbacks: {  }
