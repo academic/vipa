@@ -20,15 +20,18 @@
                             <dt>eISSN</dt>
                             <dd>{{ journal.eissn }}</dd>
                         {% endif %}
+                        {% if journal.languages %}
                         <dt>{{ "journal_langs"|trans }}</dt>
                         <dd>{% for language in journal.languages %}
                                 <span class="badge badge-success">{{ language.name }}</span>
                                 {% else %}
                                 <span class="badge badge-info">{{ "-"|trans}}</span>
                             {% endfor %}</dd>
-
-                        <dt>{{ "period"|trans }}</dt>
-                        <dd>{{ journal.period }}</dd>
+                        {% endif %}
+                        {% if journal.period %}
+                            <dt>{{ "period"|trans }}</dt>
+                            <dd>{{ journal.period }}</dd>
+                        {% endif %}
                         <!--
                         {% if journal.country %}
                         <dt>{{ "country"|trans }}</dt>
@@ -72,6 +75,9 @@
                 </a>
             </div>
             <div class="col-md-7">
+                {% if journal.url %}
+                    <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
+                {% endif %}
                 {{ journal.description|raw }}
             </div>
             <div class="col-md-3">
@@ -220,11 +226,6 @@
             </div>
 
         </div>
-
-
-        {% if journal.url %}
-            <a href="{{ journal.url }}" target="_blank"><small>{{ journal.url }}</small></a>
-                {% endif %}
     </div>
 
 {% endblock %}
