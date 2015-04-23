@@ -615,6 +615,7 @@ Search: Ara
 Reset: Sıfırla
 '%count% Results,': '%count% sonuç,'
 Page: Sayfa
+'No data': Veri Yok
 'of %count%': '/ %count%'
 'Items per page': 'Sayfada adet'
 'Select visible': 'Görünenleri seç'
