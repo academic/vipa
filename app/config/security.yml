@@ -85,7 +85,7 @@ security:
         - { path: ^/admin/article, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
         - { path: ^/admin/userjournalrole, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR,ROLE_JOURNAL_MANAGER] }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
-        - { path: /manager, roles: ROLE_USER }
+        - { path: /manager, roles: [ROLE_USER,ROLE_JOURNAL_MANAGER,ROLE_SUPER_ADMIN] }
         - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /user, roles: ROLE_USER }
         - { path: ^/author, roles: ROLE_AUTHOR }
