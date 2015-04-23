@@ -31,7 +31,7 @@ class UserType extends AbstractType {
                     ]
                 ])
                 ->add('title', 'text', ['label' => 'user.title'])
-                ->add('firstNname', 'text', [
+                ->add('firstName', 'text', [
                     'label' => 'firstname',
                     'attr' => [
                         'class' => 'validate[required]'
