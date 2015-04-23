@@ -6,8 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegisterFormType extends AbstractType
-{
+class RegisterFormType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -16,23 +15,28 @@ class RegisterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', array(
-                'required' => TRUE
-            ))
-            ->add('email', 'email', array(
-                'required' => TRUE
-            ))
-            ->add('password', 'repeated', array(
-                'type' => 'password',
-                'required' => TRUE
-            ))
-            ->add('firstName', 'text', array(
-                'required' => TRUE
-            ))
-            ->add('lastName', 'text', array(
+                ->add('username', 'text', array(
+                    'label' => 'username',
                     'required' => TRUE
-                )
-            );
+                ))
+                ->add('email', 'email', array(
+                    'label' => 'email',
+                    'required' => TRUE
+                ))
+                ->add('password', 'repeated', array(
+                    'label' => 'email',
+                    'type' => 'password',
+                    'required' => TRUE
+                ))
+                ->add('firstName', 'text', array(
+                    'label' => 'firstname',
+                    'required' => TRUE
+                ))
+                ->add('lastName', 'text', array(
+                    'label' => 'lastname',
+                    'required' => TRUE
+                        )
+        );
     }
 
     /**
@@ -42,9 +46,9 @@ class RegisterFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }

@@ -6,8 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserFirstType extends AbstractType
-{
+class UserFirstType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -16,12 +15,12 @@ class UserFirstType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('username')
-            ->add('password', 'password', array('attr' => array('style' => 'color:#898989;font-size:80%')))
-            ->add('email')
+                ->add('title', 'text', ['label' => 'title'])
+                ->add('firstName', 'text', ['label' => 'firstname'])
+                ->add('lastName', 'text', ['label' => 'lastname'])
+                ->add('username', 'text', ['label' => 'username'])
+                ->add('password', 'password', array('label' => 'password', 'attr' => array('style' => 'color:#898989;font-size:80%')))
+                ->add('email', 'text', ['label' => 'email'])
         ;
     }
 
@@ -32,9 +31,9 @@ class UserFirstType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }

@@ -796,7 +796,7 @@ user.activitylog: 'Kullanıcı Hareket Kayıtları'
 event.id: ID
 event.info: 'Olay Bilgisi'
 event.date: 'Olay Tarihi'
-event.ip: IP
+event.ip: Olay IP
 event.user.id: 'Kullanıcı ID'
 event.affectedUser.id: 'Etkilenen Kullanıcı ID'
 actions: İşlemler
@@ -1084,3 +1084,4 @@ board.delete: Kurul Sil
 board.detail: Kurul Detay Bilgisi
 
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
+Hide my account: Hesabımı gizli tut

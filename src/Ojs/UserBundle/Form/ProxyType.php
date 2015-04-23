@@ -6,8 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ProxyType extends AbstractType
-{
+class ProxyType extends AbstractType {
+
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -27,9 +27,9 @@ class ProxyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\Proxy',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }
