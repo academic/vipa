@@ -124,6 +124,7 @@ articles.needAction: 'İşlem Bekleyen Makaleler'
 submission.starting: Başlarken
 article.submit: 'Makale Gönder'
 journalcontact.singular: Dergi İletişim Kaydı
+journalcontact.list: Dergi İletişim Bilgileri
 article.files: 'Makale Dosyaları'
 article.authors: 'Makalenin Yazarları'
 article.citations: 'Makale Referansları'
@@ -602,6 +603,27 @@ e: Düzenle
 add: Ekle
 added: Eklendi
 u: Güncelle
+api: Uygulama Geliştirme Arayüzü
+api_motto: __api_motto
+edit: Düzenle
+cms: İçerik Yönetim Sistemi
+delete: Sil
+'Order by': 'Sırala'
+Filters: Filtrele
+collapse: +/-
+Search: Ara
+Reset: Sıfırla
+'%count% Results,': '%count% sonuç,'
+Page: Sayfa
+'of %count%': '/ %count%'
+'Items per page': 'Sayfada adet'
+'Select visible': 'Görünenleri seç'
+'Deselect visible': 'Görünenleri seçme'
+'Select all': 'Hepsini seç'
+'Deselect all': 'Hiçbirini seç'
+Action: Aksiyon
+'Submit Action': 'Gönderme Aksiyonu'
+Export: Dışarı Aktar
 404: Bulunamadı
 error: Hata
 list: Liste
