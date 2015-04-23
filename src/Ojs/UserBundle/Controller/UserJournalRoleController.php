@@ -84,7 +84,7 @@ class UserJournalRoleController extends Controller
      */
     private function createCreateForm(UserJournalRole $entity)
     {
-        $form = $this->createForm(new UserJournalRoleType(), $entity, array(
+        $form = $this->createForm(new UserJournalRoleType($this->container), $entity, array(
             'action' => $this->generateUrl('ujr_create'),
             'method' => 'POST',
             'user' => $this->getUser()
@@ -101,7 +101,9 @@ class UserJournalRoleController extends Controller
      */
     public function newAction()
     {
+        $journal = $this->container->get("ojs.journal_service")->getSelectedJournal();
         $entity = new UserJournalRole();
+        $entity->setJournal($journal);
         $em = $this->getDoctrine()->getManager();
         $em->persist($entity);
         $form = $this->createCreateForm($entity);
@@ -249,7 +251,7 @@ class UserJournalRoleController extends Controller
      */
     private function createEditForm(UserJournalRole $entity)
     {
-        $form = $this->createForm(new UserJournalRoleType(), $entity, array(
+        $form = $this->createForm(new UserJournalRoleType($this->container), $entity, array(
             'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'user' => $this->getUser()

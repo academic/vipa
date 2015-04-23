@@ -8,7 +8,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserJournalRoleType extends AbstractType {
+class UserJournalRoleType extends AbstractType
+{
+
+    private $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -17,30 +25,21 @@ class UserJournalRoleType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $options['user'];
+        $isAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $journal = $this->container->get("ojs.journal_service")->getSelectedJournal();
 
         $builder->add('user', 'autocomplete', [
-                    'class' => 'Ojs\UserBundle\Entity\User',
-                    'label' => 'user',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'style' => 'width:100%',
-                        'data-list' => "/api/public/search/user",
-                        'data-get' => "/api/public/user/get/",
-                        "placeholder" => "type a username"
-                    ]
-                ])
-                ->add('journal', 'autocomplete', [
-                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'label' => 'journal.singular',
-                    'attr' => [
-                        'class' => 'autocomplete',
-                        'style' => 'width:100%',
-                        'data-list' => "/api/public/search/journal",
-                        'data-get' => "/api/public/journal/get/",
-                        "placeholder" => "type a journal name"
-                    ],
-                ])
-                ->add('role', 'entity', [
+            'class' => 'Ojs\UserBundle\Entity\User',
+            'label' => 'user',
+            'attr' => [
+                'class' => 'autocomplete',
+                'style' => 'width:100%',
+                'data-list' => $this->container->get('router')->generate('api_get_users'),
+                'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . 'public/user/get/',
+                "placeholder" => "type a username"
+            ]
+        ])
+            ->add('role', 'entity', [
                     'label' => 'role.singular',
                     'class' => 'Ojs\UserBundle\Entity\Role',
                     'property' => 'name',
@@ -48,11 +47,35 @@ class UserJournalRoleType extends AbstractType {
                     'expanded' => false,
                     'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                         return $er->createQueryBuilder('ujr')
-                                ->where('ujr.isSystemRole = 0');
+                            ->where('ujr.isSystemRole = 0');
                     },
                     'attr' => array("class" => "select2-element")
-                        ]
-        );
+                ]
+            );
+        if ($isAdmin) {
+            $builder->add('journal', 'autocomplete', [
+                'class' => 'Ojs\JournalBundle\Entity\Journal',
+                'label' => 'journal.singular',
+                'attr' => [
+                    'class' => 'autocomplete',
+                    'style' => 'width:100%',
+                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/journal",
+                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/journal/get/",
+                    "placeholder" => "type a journal name"
+                ],
+            ]);
+        }else{
+
+            $builder->add('journal', 'entity', [
+                    'class' => 'Ojs\JournalBundle\Entity\Journal',
+                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er)use($journal) {
+                        return $er->createQueryBuilder('ujr')
+                            ->where('ujr.id = :journalId')
+                            ->setParameter('journalId', $journal->getId());
+                    }
+                ]
+            );
+        }
     }
 
     /**
