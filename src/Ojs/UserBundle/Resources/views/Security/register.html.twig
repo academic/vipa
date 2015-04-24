@@ -20,6 +20,7 @@
                                 <div class="form-group">
                                     {{ form_label(form.username) }}
                                     {{ form_widget(form.username,{ 'attr': { 'class': 'form-control validate[required,minSize[4]]' } }) }}
+                                    <strong class="" id="checkUsernameResult"></strong>
                                     <span class="help-block">{{ "This will be your unique short name in application"|trans }}</span>
                                     {{ form_errors(form.username) }}
                                 </div>
@@ -54,14 +55,14 @@
                                 </div>
                                 <div class="form-group">
                                     {% trans with {'%tos%': path('tos')}%}
-                                    By registering you accept <a target="_blank" href="%tos%">terms of use</a>.
+                                        By registering you accept <a target="_blank" href="%tos%">terms of use</a>.
                                     {% endtrans %}
                                 </div>
 
 
                                 {{ form_widget(form._token) }}
 
-                                <button type="submit" class="btn btn-lg btn-primary pull-right">
+                                <button type="submit"id="userRegisterButton" class="btn btn-lg btn-primary pull-right">
                                     <i class="fa fa-sign-in"></i> {{ "register"|trans }}
                                 </button>
 
@@ -77,4 +78,23 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $("input#ojs_user_register_username").blur(function () {
+                $action = "{{path('get_username_check')}}" + "?username=" + $(this).val();
+                $status = $("#checkUsernameResult");
+                $btn = $("#userRegisterButton");
+                $status.html("<span style='color:#561212'>{{"Looking for username availability."|trans}}</span>");
+                $.getJSON($action, function (res) {
+                    if (res) {
+                        $status.html('<span class="color:#125612">{{"This name is available"|trans}}</span>');
+                        $btn.show();
+                    } else {
+                        $status.html('<span class="color:#561212">{{"This name is not avilable"|trans}}</span>');
+                        $btn.hide();
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}

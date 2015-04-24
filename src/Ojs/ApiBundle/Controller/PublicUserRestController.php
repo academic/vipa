@@ -17,15 +17,20 @@ class PublicUserRestController extends FOSRestController {
      * @ApiDoc(
      *  resource=true,
      *  description="check user name availability. Return true if username is available.",
-     *  filters={
-     *      {"name"="username", "dataType"="string"}
-     *  }
+     *  parameters={
+     *  {
+     *          "name"="username",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="user name to check"
+     *      }
+     * }
      * )
-     * @Get("/public/user/checkusername/{username}")
+     * @Get("/public/user/checkusername/")
      */
-    public function getUsernameCheckAction($username)
+    public function getUsernameCheckAction(Request $req)
     {
-        return $this->get("user.helper")->checkUsernameAvailability($username);
+        return $this->get("user.helper")->checkUsernameAvailability($req->get('username'));
     }
 
     /**
