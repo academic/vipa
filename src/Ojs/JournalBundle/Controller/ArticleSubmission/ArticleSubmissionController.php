@@ -388,7 +388,7 @@ class ArticleSubmissionController extends Controller {
 // file data
         $this->saveArticleFileData($articleSubmission->getFiles(), $article, $articleSubmission->getPrimaryLanguage());
 
-        $this->get('session')->getFlashBag()->add('info', 'Your submission is successfully sent.');
+        $this->get('session')->getFlashBag()->add('info', $this->get('translator')->trans('submission.success'));
 // @todo give ref. link or code or directives to author 
         return $article;
     }

@@ -1008,7 +1008,6 @@ workflow.step.update: İş Akışı Adımı Güncelle
 'Guidelines for filling a <i>competing of Interest</i> statement.': '<i>Çıkar çatışması</i> ifadesi oluşturmak için rehber.'
 '[No review form]': '[Değerlendirme formu yok]'
 workflow.step.graph: İş akışı grafiği
-sequenceDiagram: __sequenceDiagram
 review.result: Değerlendirme Sonucu
 accept: Kabul Et
 nextSteps: Sonraki Adımları
@@ -1089,3 +1088,4 @@ This username  is already taken: Bu kullanıcı adı daha önce alınmış
 This username  is not available.: Bu kullanıcı adı uygun <strong>değildir</strong>. Lütfen başka bir kullanıcı giriniz.
 This username is available: Bu kullanıcı adı uygun.
 Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
+submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolyacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.

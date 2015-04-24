@@ -539,7 +539,6 @@ ROLE_READER : Reader
 'Guidelines for filling a <i>competing of Interest</i> statement.': 'Guidelines for filling a <i>competing of Interest</i> statement.'
 '[No review form]': '[No review form]'
 workflow.step.graph: Workflow Step Graph
-sequenceDiagram: Sequence Diagram
 review.result: Review Result
 workflow.step.new: New Workflow Step 
 'Advanced Settings': 'Advanced Settings'
@@ -1154,3 +1153,4 @@ This username  is already taken: This username  is already taken
 This username  is not available.: This username  is <strong>not</strong> available. Please enter a different username.
 This username is available: This username  is available
 Looking for username availability: Looking for username availability...
+submission.attention: After submission your manuscript you can't change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.

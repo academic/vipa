@@ -84,13 +84,13 @@
                 $action = "{{path('get_username_check')}}" + "?username=" + $(this).val();
                 $status = $("#checkUsernameResult");
                 $btn = $("#userRegisterButton");
-                $status.html("<span style='color:#561212'>{{"Looking for username availability."|trans}}</span>");
+                $status.html("<span style='color:#561212'>{{"Looking for username availability"|trans|raw}}</span>");
                 $.getJSON($action, function (res) {
                     if (res) {
-                        $status.html('<span class="color:#125612">{{"This name is available"|trans}}</span>');
+                        $status.html('<span class="color:#125612">{{"This username is available"|trans|raw}}</span>');
                         $btn.show();
                     } else {
-                        $status.html('<span class="color:#561212">{{"This name is not avilable"|trans}}</span>');
+                        $status.html('<span class="color:#561212">{{"This username  is not available."|trans|raw}}</span>');
                         $btn.hide();
                     }
                 });
