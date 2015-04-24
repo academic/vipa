@@ -211,7 +211,8 @@
 
             <input type="hidden" name="submissionId" value="{{submissionId}}">
             <div class="alert alert-danger" id="alertSubmission" style="display:none">
-                {{"Attention: After submission your manuscript you can't change your data. <br>If you are not sure to submit, you can  resume your submission any time even you close this window."|trans}}
+                {{"submission.attention"|trans|raw}}
+                <hr>
                 <div class="btn-group">
                     <button class="btn btn-warning btn-lg"
                             onclick="return OjsArticleSubmission.submit();" type="submit">{{ "submit"|trans }}</button>
