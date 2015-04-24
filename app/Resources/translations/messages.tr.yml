@@ -1085,3 +1085,7 @@ board.detail: Kurul Detay Bilgisi
 
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
 Hide my account: Hesabımı gizli tut
+This username  is already taken: Bu kullanıcı adı daha önce alınmış
+This username  is not available.: Bu kullanıcı adı uygun <strong>değildir</strong>. Lütfen başka bir kullanıcı giriniz.
+This username is available: Bu kullanıcı adı uygun.
+Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...

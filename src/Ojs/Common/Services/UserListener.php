@@ -47,13 +47,17 @@ class UserListener {
      */
     public function checkUsernameAvailability($username)
     {
+        $usernameLower = trim(strtolower($username));
+        if (strlen($usernameLower) < 4) {
+            return false;
+        }
         $yamlParser = new Parser();
         $reservedUserNames = $yamlParser->parse(file_get_contents(
                         $this->container->getParameter('kernel.root_dir') .
                         '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
         ));
-        $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneByUsername($username);
-        return (!$user && !in_array($username, $reservedUserNames));
+        $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneByUsername($usernameLower);
+        return (!$user && !in_array($usernameLower, $reservedUserNames));
     }
 
     /**
