@@ -6,24 +6,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ContactType extends AbstractType
-{
-        /**
+class ContactType extends AbstractType {
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('address')
-            ->add('country')
-            ->add('city')
-            ->add('phone')
-            ->add('fax')
-            ->add('email')
+                ->add('title', 'text', ['label' => 'title'])
+                ->add('firstName', 'text', ['label' => 'firstname'])
+                ->add('lastName', 'text', ['label' => 'lastname'])
+                ->add('address', 'text', ['label' => 'address'])
+                ->add('country', 'integer', ['label' => 'country'])
+                ->add('city', 'text', ['label' => 'city'])
+                ->add('phone', 'text', ['label' => 'phone'])
+                ->add('fax', 'text', ['label' => 'fax'])
+                ->add('email', 'email', ['label' => 'email'])
         ;
     }
 
@@ -34,9 +34,8 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Contact',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate'
             ]
         ));
     }
@@ -48,4 +47,5 @@ class ContactType extends AbstractType
     {
         return 'ojs_journalbundle_contact';
     }
+
 }

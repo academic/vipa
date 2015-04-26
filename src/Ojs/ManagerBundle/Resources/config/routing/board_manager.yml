@@ -1,44 +1,41 @@
-board_manager_arrange:
-    pattern:  /{id}/arrange
-    defaults: { _controller: OjsManagerBundle:BoardManager:arrange }
-
 board_manager_add_member:
-    pattern:  /{id}/member/{contactId}/add
+    pattern:  /board/{boardId}/member/add
     defaults: { _controller: OjsManagerBundle:BoardManager:addMember }
+    methods:  [POST, PUT]
     
 board_manager_remove_member:
-    pattern:  /issue/{id}/member/{contactId}/remove
+    pattern:  /board/issue/{boardId}/member/{userId}/remove
     defaults: { _controller: OjsManagerBundle:BoardManager:removeMember }
 
 board_manager:
-   path:     /
-   defaults: { _controller: "OjsJournalBundle:Board:index" }
+   path:     /board/
+   defaults: { _controller: "OjsManagerBundle:BoardManager:index" }
 
 board_manager_show:
-   path:     /{id}/show
+   path:     /board/{id}/show
    defaults: { _controller: "OjsManagerBundle:BoardManager:show" }
 
 board_manager_new:
-   path:     /new
-   defaults: { _controller: "OjsJournalBundle:BoardManager:new" }
+   path:     /board/new
+   defaults: { _controller: "OjsManagerBundle:BoardManager:new" }
 
 board_manager_create:
-   path:     /create
-   defaults: { _controller: "OjsJournalBundle:BoardManager:create" }
+   path:     /board/create
+   defaults: { _controller: "OjsManagerBundle:BoardManager:create" }
    methods:  POST
 
 board_manager_edit:
-   path:     /{id}/edit
-   defaults: { _controller: "OjsJournalBundle:BoardManager:edit" }
+   path:     /board/{id}/edit
+   defaults: { _controller: "OjsManagerBundle:BoardManager:edit" }
 
 board_manager_update:
-   path:     /{id}/update
-   defaults: { _controller: "OjsJournalBundle:BoardManager:update" }
+   path:     /board/{id}/update
+   defaults: { _controller: "OjsManagerBundle:BoardManager:update" }
    methods:  [POST, PUT]
 
 board_manager_delete:
-    path:     /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:BoardManager:delete" }
+    path:     /board/{id}/delete
+    defaults: { _controller: "OjsManagerBundle:BoardManager:delete" }
 
 
 

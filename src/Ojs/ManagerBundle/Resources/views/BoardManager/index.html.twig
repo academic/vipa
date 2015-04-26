@@ -1,0 +1,54 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1> {{"journal.boards"|trans}}</h1>
+
+    <a href="{{ path('board_manager_new') }}" class="btn btn-success">
+        {{"c"| trans}}
+    </a>
+    <hr>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>{{"id"|trans}}</th> 
+                <th>{{"name"|trans}}</th>
+                <th>{{"description"|trans}}</th>
+                <th>{{"actions"|trans}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>
+                        <a class="label label-info" href="{{ path('board_manager_show', { 'id': entity.id }) }}">
+                            {{ entity.id }}
+                        </a>
+                    </td> 
+                    <td>{{ entity.name }} 
+
+                        {% if entity.boardMembers|length > 0 %} 
+                            <a class="label label-info" href="{{ path('board_manager_show', { 'id': entity.id }) }}">
+                                {{entity.boardMembers|length}} members
+                            </a>
+                        {% else %}
+                            <a class="label label-default" href="{{ path('board_manager_show', { 'id': entity.id }) }}">
+                                {{"board.hasNoMember"|trans}}
+                            </a>
+                        {% endif %}
+                        </a>
+                    </td>
+                    <td>{{ entity.description }}</td>
+                    <td> 
+                        <div class="btn-group">
+                            <a href="{{ path('board_manager_show', { 'id': entity.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-info"></i></a>
+                            <a href="{{ path('board_manager_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

@@ -6,18 +6,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CitationType extends AbstractType
-{
-        /**
+class CitationType extends AbstractType {
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('raw')
-            ->add('type')
-            ->add('orderNum')
+                ->add('raw')
+                ->add('type')
+                ->add('orderNum')
         ;
     }
 
@@ -28,9 +28,9 @@ class CitationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Citation',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+            'attr' => [
+                'novalidate' => 'novalidate'
+                , 'class' => 'form-validate'
             ]
         ));
     }
@@ -42,4 +42,5 @@ class CitationType extends AbstractType
     {
         return 'ojs_journalbundle_citation';
     }
+
 }

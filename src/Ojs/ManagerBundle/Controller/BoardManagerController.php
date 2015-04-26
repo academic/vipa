@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\JournalBundle\Controller;
+namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -28,19 +28,65 @@ class BoardManagerController extends Controller {
         ));
     }
 
-    public function removeMemberAction()
+    /**
+     * 
+     * @param int $boardId
+     * @param  int $userId
+     * @return RedirectResponse
+     */
+    public function removeMemberAction($boardId, $userId)
     {
-        
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository('OjsUserBundle:User')->find($userId);
+        $this->throw404IfNotFound($user);
+        $board = $this->getBoard($boardId);
+        $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(array(
+            'user' => $user,
+            'board' => $board
+        ));
+        $this->throw404IfNotFound($boardMember);
+        $em->remove($boardMember);
+        $em->flush();
+        return $this->redirect($this->generateUrl('board_manager_show', array('id' => $boardId)));
     }
 
-    public function addMemberAction()
+    /**
+     *  add posted userid  as boardmember with given boardid
+     * @param Request $req
+     * @param int $boardId
+     * @return RedirectResponse
+     */
+    public function addMemberAction(Request $req, $boardId)
     {
-        
+        $userId = $req->get('userid');
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = $em->getRepository('OjsUserBundle:User')->find($userId);
+        $this->throw404IfNotFound($user);
+        $board = $this->getBoard($boardId);
+        $seq = (int) $req->get('seq');
+        $boardMember = new \Ojs\JournalBundle\Entity\BoardMember();
+        $boardMember->setBoard($board);
+        $boardMember->setUser($user);
+        $boardMember->setSeq($seq);
+        $em->persist($boardMember);
+        $em->flush();
+        return $this->redirect($this->generateUrl('board_manager_show', array('id' => $boardId)));
     }
 
-    public function arrangeAction()
+    /**
+     * 
+     * @param int $id
+     * @return Board
+     *  @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
+    private function getBoard($id)
     {
-        
+        $em = $this->getDoctrine()->getManager();
+        $board = $em->getRepository('OjsJournalBundle:Board')->find($id);
+        if (!$board) {
+            throw $this->createNotFoundException('notFound');
+        }
+        return $board;
     }
 
     /**
@@ -104,49 +150,43 @@ class BoardManagerController extends Controller {
     }
 
     /**
-     * Finds and displays a Board entity.
-     *
+     * Finds and displays a board and it's details. 
+     *  This page is also an arrangement page for a board. 
+     * In this page journal manager can : 
+     *              - list members
+     *              - add members to a board
+     *              - change orders of the members
      */
     public function showAction($id)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
-        return $this->render('OjsJournalBundle:Board:show.html.twig', array(
-                    'entity' => $entity,
-                    'journal' => $journal
+        $board = $this->getBoard($id);
+        $members = $this->getDoctrine()->getManager()
+                        ->getRepository('OjsJournalBundle:BoardMember')->findByBoard($board);
+
+        return $this->render('OjsManagerBundle:BoardManager:show.html.twig', array(
+                    'members' => $members,
+                    'entity' => $board,
         ));
     }
 
     /**
      * Displays a form to edit an existing Board entity.
-     *
+     * @param int $id
+     *  @return Response
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
-
-        $editForm = $this->createEditForm($entity);
+        $board = $this->getBoard($id);
+        $editForm = $this->createEditForm($board);
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
-                    'entity' => $entity,
+                    'entity' => $board,
                     'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Creates a form to edit a Board entity.
-     *
      * @param Board $entity The entity
-     *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Board $entity)
@@ -157,9 +197,7 @@ class BoardManagerController extends Controller {
             'method' => 'PUT',
             'journal' => $journal
         ));
-
         $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -170,40 +208,29 @@ class BoardManagerController extends Controller {
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
-
-        $editForm = $this->createEditForm($entity);
+        $board = $this->getBoard($id);
+        $editForm = $this->createEditForm($board);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
-
             return $this->redirect($this->generateUrl('board_manager_edit', array('id' => $id)));
         }
-
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
-                    'entity' => $entity,
+                    'entity' => $board,
                     'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Board entity.
-     *
+     * @param int $id
+     * @return ResponseRedirect
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
-        $em->remove($entity);
+        $board = $this->getBoard($id);
+        $em->remove($board);
         $em->flush();
         return $this->redirect($this->generateUrl('board_manager'));
     }

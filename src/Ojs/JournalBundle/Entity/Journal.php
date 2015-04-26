@@ -124,7 +124,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     private $header;
 
-
     /**
      * @var string
      * @Expose
@@ -163,6 +162,11 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var \Doctrine\Common\Collections\Collection
      */
     private $issues;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $boards;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -231,6 +235,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
@@ -785,7 +790,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @param  boolean $published
      * @return Journal
      */
-    public function setPublished($published=false)
+    public function setPublished($published = false)
     {
         $this->published = $published;
 
@@ -797,7 +802,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function isPublished()
     {
-        return $this->published?true:false;
+        return $this->published ? true : false;
     }
 
     /**
@@ -845,7 +850,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
         return $this;
     }
-
 
     /**
      * Set slug
@@ -966,6 +970,39 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * Add board
+     *
+     * @param  \Ojs\JournalBundle\Entity\Board $boards
+     * @return Journal
+     */
+    public function addBoard(\Ojs\JournalBundle\Entity\Board $board)
+    {
+        $this->boards[] = $board;
+
+        return $this;
+    }
+
+    /**
+     * Remove board
+     *
+     * @param \Ojs\JournalBundle\Entity\Board $board
+     */
+    public function removeBoard(\Ojs\JournalBundle\Entity\Board $board)
+    {
+        $this->boards->removeElement($board);
+    }
+
+    /**
+     * Get boards
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBoards()
+    {
+        return $this->boards;
     }
 
     /**
@@ -1369,6 +1406,5 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->footer_text = $footer_text;
     }
-
 
 }

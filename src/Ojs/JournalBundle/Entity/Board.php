@@ -11,6 +11,10 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class Board extends GenericExtendedEntity {
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
     /**
      * @var integer
      * @GRID\Column(title="id")
@@ -33,8 +37,8 @@ class Board extends GenericExtendedEntity {
      * @GRID\Column(title="description")
      */
     private $description;
-    
-        /**
+
+    /**
      * @var \Ojs\JournalBundle\Entity\Journal
      * @GRID\Column(field="journal.title", title="journal")
      */
@@ -117,7 +121,7 @@ class Board extends GenericExtendedEntity {
     public function getDescription()
     {
         return $this->description;
-    } 
+    }
 
     /**
      * Set journal
@@ -140,6 +144,52 @@ class Board extends GenericExtendedEntity {
     public function getJournal()
     {
         return $this->journal;
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $boardMembers;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->boardMembers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add boardMembers
+     *
+     * @param \Ojs\JournalBundle\Entity\BoardMember $boardMembers
+     * @return Board
+     */
+    public function addBoardMember(\Ojs\JournalBundle\Entity\BoardMember $boardMembers)
+    {
+        $this->boardMembers[] = $boardMembers;
+
+        return $this;
+    }
+
+    /**
+     * Remove boardMembers
+     *
+     * @param \Ojs\JournalBundle\Entity\BoardMember $boardMembers
+     */
+    public function removeBoardMember(\Ojs\JournalBundle\Entity\BoardMember $boardMembers)
+    {
+        $this->boardMembers->removeElement($boardMembers);
+    }
+
+    /**
+     * Get boardMembers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBoardMembers()
+    {
+        return $this->boardMembers;
     }
 
 }
