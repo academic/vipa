@@ -118,7 +118,7 @@ class ArticleType extends AbstractType {
                     'label' => 'url', 'required' => false, 'attr' => array('class' => ' form-control'))
                 )
                 ->add('abstract', 'textarea', array(
-                    'label' => 'abstract', 'required' => false, 'attr' => array('class' => ' form-control'))
+                    'label' => 'abstract', 'required' => false, 'attr' => array('class' => ' form-control wysihtml5'))
                 )
                 ->add('abstractTransliterated', 'textarea', array('label' => 'abstractTransliterated', 'required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('header', 'hidden')
