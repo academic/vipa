@@ -4,7 +4,7 @@ board_manager_add_member:
     methods:  [POST, PUT]
     
 board_manager_remove_member:
-    pattern:  /board/issue/{boardId}/member/{userId}/remove
+    pattern:  /board/{boardId}/member/{userId}/remove
     defaults: { _controller: OjsManagerBundle:BoardManager:removeMember }
 
 board_manager:
