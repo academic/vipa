@@ -38,7 +38,6 @@ class BoardManagerController extends Controller {
     {
         $em = $this->getDoctrine()->getEntityManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
-        $this->throw404IfNotFound($user);
         $board = $this->getBoard($boardId);
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(array(
             'user' => $user,

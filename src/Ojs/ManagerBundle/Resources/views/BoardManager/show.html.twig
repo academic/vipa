@@ -27,13 +27,17 @@
         {% for member in members%}
             <tr>
                 <td>{{member.user.fullName}} ({{member.user.username}})</td>
-                <td><a href="{{path('board_manager_remove_member',{boardId:entity.id, userId: member.id})}}">{{"remove"|trans}}</a></td>
+                <td><a href="{{path('board_manager_remove_member',{boardId:entity.id, userId: member.user.id})}}">{{"remove"|trans}}</a></td>
             </tr>
         {% endfor %}
     </table>
 
     <hr>
     <div class="btn-group"> 
+
+        <a class="btn btn-default btn-sm" href="{{ path('board_manager') }}">
+            {{"b"|trans}}
+        </a>
         <a class="btn btn-warning btn-sm" href="{{ path('board_manager_edit', { 'id': entity.id }) }}">
             {{"e"|trans}}
         </a>
