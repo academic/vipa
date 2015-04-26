@@ -6,6 +6,10 @@ issue_manager_actions:
     resource: "@OjsManagerBundle/Resources/config/routing/issue_manager.yml"
     prefix:   /manager
     
+board_manager_actions:
+    resource: "@OjsManagerBundle/Resources/config/routing/board_manager.yml"
+    prefix:   /manager
+    
     
 dashboard:
     pattern:  /dashboard

@@ -1075,12 +1075,17 @@ Tables: Tablolar
 Copyright Transfer Form: Telif Hakkı Devir Formu
 Competing of Interest File: Çıkar Çatışması Dosyası
 
+journal.boards: Dergi Kurulları
 boards: Kurullar
 board: Kurul
 board.create: Kurul Ekle
 board.edit: Kurul Düzenle
 board.delete: Kurul Sil
 board.detail: Kurul Detay Bilgisi
+board.name: Kurul Adı
+board.manager: Kurul Yönetimi
+board.addUser: Kurula Kullanıcı Ekle
+board.hasNoMember: Kurula kayıtlı kullanıcı yok
 
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
 Hide my account: Hesabımı gizli tut

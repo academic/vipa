@@ -1140,12 +1140,17 @@ help.preSubmission.header: " Indicate that this submission is ready to be consid
 Access Denied: You don't have permission to view this page.
 You don't have submission privilege.: You don't have submission privilege.
 
+journal.boards: Journal Boards
 boards: Boards
 board: Board
 board.create: Create Board
 board.edit: Edit Board
 board.delete: Delete Board
 board.detail: Board Detail
+board.name: Board Name
+board.manager: Board Manager
+board.addUser: Add User to Board
+board.hasNoMember: Board has no members
 
 notFound: The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.
 Hide my account: Hide my account

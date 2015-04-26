@@ -15,6 +15,12 @@ Ojs\JournalBundle\Entity\Board:
               referencedColumnName: id
             inversedBy: boards
             cascade: ["persist","merge"]
+    oneToMany:
+            boardMembers:
+                targetEntity: BoardMember
+                mappedBy: board
+                cascade: ["persist", "merge"]
+                fetch: EXTRA_LAZY
     fields:
         journalId:
             type: integer

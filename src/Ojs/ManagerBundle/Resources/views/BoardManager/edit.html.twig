@@ -1,0 +1,19 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"board.edit"|trans}}</h1>
+
+    {{ form_start(edit_form) }}
+    {{ form_widget(edit_form) }}
+    <button class="btn-primary btn" type="submit">{{"u"|trans}}</button>
+    {{ form_end(edit_form) }}
+
+
+    <a href="{{ path('admin_board') }}">
+        {{"b"|trans}}
+    </a> 
+    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
+        {{"d"|trans}}
+    </a> 
+
+{% endblock %}

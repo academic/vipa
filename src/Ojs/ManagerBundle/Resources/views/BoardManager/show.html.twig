@@ -1,0 +1,45 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+                { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+                { 'link': path('board_manager'), 'title': 'board.manager'|trans },
+                { 'title': 'board.detail'|trans }
+] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
+{% block body -%} 
+    <h1 title="{{"board.name"|trans}}">{{ entity.name }}</h1>
+    <p class="{{"description"|trans}}">{{ entity.description|raw }}</p>
+    <br>
+    <form action="{{path('board_manager_add_member',{boardId: entity.id})}}" method="POST"
+          name="addMemberForm" class="form-inline">
+        <div class="form-group">
+            <!-- <label for="userInput">{{"user"|trans}}</label> -->
+            <input type="text" class="form-control" name="userid" id="userInput" placeholder="{{"user"|trans}}">
+        </div>
+        <button type="submit" class="btn btn-default">{{"add"|trans}}</button>
+    </form>
+    <hr>
+    <h4>Members</h4>
+    <table class="table">
+        {% for member in members%}
+            <tr>
+                <td>{{member.user.fullName}} ({{member.user.username}})</td>
+                <td><a href="{{path('board_manager_remove_member',{boardId:entity.id, userId: member.id})}}">{{"remove"|trans}}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+    <div class="btn-group"> 
+        <a class="btn btn-warning btn-sm" href="{{ path('board_manager_edit', { 'id': entity.id }) }}">
+            {{"e"|trans}}
+        </a>
+        <a class="btn btn-danger btn-sm" href="{{ path('board_manager_delete',{id: entity.id}) }}">
+            {{"d"|trans}}
+        </a>
+    </div>
+
+{% endblock %}

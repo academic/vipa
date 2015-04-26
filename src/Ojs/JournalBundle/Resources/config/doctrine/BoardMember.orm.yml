@@ -1,0 +1,29 @@
+Ojs\JournalBundle\Entity\BoardMember:
+    type: entity
+    table: board_member
+    repositoryClass: Ojs\JournalBundle\Entity\BoardMemberRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        board:
+            targetEntity: Board
+            joinColumn:
+              name: board_id
+              referencedColumnName: id
+            inversedBy: boardMembers
+            cascade: ["persist","merge"]
+        user:
+            targetEntity: Ojs\UserBundle\Entity\User
+            joinColumn:
+              name: user_id
+              referencedColumnName: id
+#            inversedBy: boardMembers
+            cascade: ["persist","merge"]
+    fields: 
+        seq:
+            type: integer
+    lifecycleCallbacks: {  }
