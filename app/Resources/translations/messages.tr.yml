@@ -1086,6 +1086,8 @@ board.name: Kurul Adı
 board.manager: Kurul Yönetimi
 board.addUser: Kurula Kullanıcı Ekle
 board.hasNoMember: Kurula kayıtlı kullanıcı yok
+"You can add member from your journal's users only.": Sadece derginizin kullanıcılarından üye ekleyebilirsiniz. 
+"You can <a href='%path%'>manage</a> journal's users." : "Dergi kullanıcılarınız <a href='%path%'>yönetebilirsiniz</a>."
 
 notFound: Aradığınız kayıt sunucularımızda bulunamadı. Kayıt silinmiş olabilir veya hatalı bir bağlantıya tıklamış olabilirsiniz.
 Hide my account: Hesabımı gizli tut
