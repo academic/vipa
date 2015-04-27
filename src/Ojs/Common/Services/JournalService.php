@@ -6,6 +6,7 @@ use \Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+
 /**
  * Common methods for journal
  */
@@ -83,6 +84,27 @@ class JournalService {
     {
         $this->session->set('selectedJournalId', $journalId);
         return $journalId;
+    }
+
+    /**
+     * 
+     * @param integer $journalId
+     *  @param integer $page
+     * @param integer $limit
+     * @return mixed user list
+     */
+    public function getUsers($journalId, $page, $limit)
+    {
+         $users = $this->em->getRepository('OjsUserBundle:UserJournalRole')
+                ->createQueryBuilder('j')
+                ->where('j.journalId = :id')
+                ->setParameter('id', $journalId)
+                //->orderBy('id', 'ASC')
+                ->setMaxResults($limit)
+                ->setFirstResult($page)
+                ->getQuery()
+                ->getResult();
+        return $users;
     }
 
 }
