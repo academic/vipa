@@ -1151,6 +1151,8 @@ board.name: Board Name
 board.manager: Board Manager
 board.addUser: Add User to Board
 board.hasNoMember: Board has no members
+"You can add member from your journal's users only.": You can add member from your journal's users only. 
+"You can <a href='%path%'>manage</a> journal's users." : "You can <a href='%path%'>manage</a> journal's users."
 
 notFound: The record you are looking for is not found in our server. This record may be deleted or you clicked on a wrong link.
 Hide my account: Hide my account
