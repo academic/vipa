@@ -38,12 +38,17 @@ class SiteController extends Controller {
                 $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
                 $data['page'] = 'index';
                 $sumRepo = $em->getRepository('OjsJournalBundle:Sums');
+                $journalSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Journal']);
+                $articleSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Article']);
+                $subjectSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Subject']);
+                $institutionSum = $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Institution']);
+                $userSum = $sumRepo->findOneBy(['entity' => 'OjsUserBundle:User']);
                 $data['stats'] = [
-                    'journal' => $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Journal'])->getSum(),
-                    'article' => $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Article'])->getSum(),
-                    'subject' => $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Subject'])->getSum(),
-                    'institution' => $sumRepo->findOneBy(['entity' => 'OjsJournalBundle:Institution'])->getSum(),
-                    'user' => $sumRepo->findOneBy(['entity' => 'OjsUserBundle:User'])->getSum(),
+                    'journal' => $journalSum?$journalSum->getSum():0,
+                    'article' => $articleSum?$articleSum->getSum():0,
+                    'subject' => $subjectSum?$subjectSum->getSum():0,
+                    'institution' => $institutionSum?$institutionSum->getSum():0,
+                    'user' => $userSum?$userSum->getSum():0,
                 ];
                 // anything else is anonym main page
                 return $this->render('OjsSiteBundle::Site/home.html.twig', $data);
