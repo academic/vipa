@@ -111,15 +111,15 @@ class SearchManager
         return $translator->trans($type);
     }
 
-    public function searchJournal()
+    public function searchJournal($status = 3)
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
-        $search = $this->container->get('fos_elastica.index.search.journal');
+        $searchObj = $this->container->get('fos_elastica.index.search.journal');
         $bool = new Bool();
         $match = new Query\Match();
-        $match->setField('status', '3');
+        $match->setField('status', $status);
         $bool->addMust($match);
-        if ($this->filter) {
+        if (!empty($this->filter)) {
             foreach ($this->filter as $key => $filter) {
                 $filterObj = new \Elastica\Query\Match();
                 $this->applyFilter($filterObj, $key, $filter);
@@ -129,7 +129,7 @@ class SearchManager
 
         $query = new Query();
         $query->setQuery($bool);
-        $query->setFrom($this->getPage() * $this->getLimit());
+        $query->setFrom( ($this->getPage()-1) * $this->getLimit());
         $query->setSize($this->getLimit());
 
         $aggregation = new Terms('institution');
@@ -152,7 +152,7 @@ class SearchManager
 
         $query->addAggregation($aggregation);
 
-        $search = $search->search($query);
+        $search = $searchObj->search($query);
 
         $result = $search->getResults();
         $connection = $em->getConnection();
