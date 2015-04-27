@@ -139,7 +139,7 @@
                     OjsCommon.api.userApikey = "{{apiKey()}}";
                 });
             {% endif%}
-            {% if app.user and isSystemAdmin() and ((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus)!=true %}
+            {% if app.user and isSystemAdmin() and (userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus !=true %}
                 $(document).ready(function () {
                     notify("{{"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"|trans({"%setup_url%":path('admin_journal_setup')})|raw}}", "information");
                 });
