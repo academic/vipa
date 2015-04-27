@@ -99,14 +99,15 @@ class SiteController extends Controller {
             {
                 $searchManager = $this->get('ojs_search_manager');
                 $searchManager->setPage($page);
-                $filter = $request->get('filter', []);
+                $filter = $request->get('filter', []); 
                 if ($institution) {
                     $institutionObj = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $institution]);
                     $filter['institution'] = $institutionObj->getId();
                     $data['institutionObject'] = $institutionObj;
                 }
-                $searchManager->addFilters($filter);
-
+                if (!empty($filter)) {
+                    $searchManager->addFilters($filter);
+                }
                 $result = $searchManager->searchJournal()->getResult();
                 $data['result'] = $result;
                 $data['total_count'] = $searchManager->getCount();
