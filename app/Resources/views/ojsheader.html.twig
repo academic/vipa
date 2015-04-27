@@ -12,15 +12,15 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="{% if page == 'index' %}active{% endif %} navbar-btn">
-                    <a href="{{ path('ojs_public_index') }}"  title="{{ "home"|trans }}">
+                    <a href="{{ path('ojs_public_index') }}"  title="{{ "home"|trans }}" data-placement="bottom">
                         {{ "home"|trans }}
                     </a>
                 </li>
                 <li class="{% if page == 'institution' %}active{% endif %} navbar-btn">
-                    <a  href={{ path('ojs_institutions_index') }}>{{ "institutions"|trans }}</a>
+                    <a  href="{{ path('ojs_institutions_index') }}"  data-placement="bottom">{{ "institutions"|trans }}</a>
                 </li>
                 <li class="{% if page == 'journals' %}active{% endif %} navbar-btn">
-                    <a href={{ path('ojs_journals_index') }}>{{ "journals"|trans }}</a>
+                    <a href="{{ path('ojs_journals_index') }}"  data-placement="bottom">{{ "journals"|trans }}</a>
                 </li>
             </ul>
             {% if page != 'index' %}
@@ -53,12 +53,12 @@
                         </li>
                         -->
                         <li class="navbar-btn">
-                            <a title="User Page" href="{{ path('ojs_user_index') }}">
+                            <a title="{{ "dashboard"|trans }}"  data-placement="bottom" href="{{ path('ojs_user_index') }}">
                                 <i class="fa fa-cog"></i> {{"dashboard"|trans}}
                             </a>
                         </li>
                         <li class="navbar-btn">
-                            <a href="{{ path('okulbilisim_message_user_index') }}" title="{{ "messages"|trans }}">
+                            <a href="{{ path('okulbilisim_message_user_index') }}"  data-placement="bottom" title="{{ "messages"|trans }}">
                                 <i class="fa fa-envelope"></i>
                             </a>
                         </li>
@@ -108,7 +108,7 @@
                                 <li><a href="{{path('myprofile')}}" title="{{"you"|trans}}"><b>{{app.user.username}}</b></a></li>
                                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
-                                        <a href="/dashboard" title="{{ "dashboard"|trans }}"><i
+                                        <a href="/dashboard" title="{{ "dashboard"|trans }}"  data-placement="left"><i
                                                 class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
                                     </li>
                                 {% endif %}
@@ -118,7 +118,7 @@
                                         <i class="fa fa-cog"></i> {{ "user_page"|trans }}</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('ojs_user_edit_profile') }}" title="Edit Profile">
+                                    <a href="{{ url('ojs_user_edit_profile') }}" title="{{ "user.profile.edit"|trans }}"  data-placement="left">
                                         <i class="fa fa-edit"> {{ "user.profile.edit"|trans }}</i>
                                     </a>
                                 </li>
@@ -129,7 +129,7 @@
                                 </li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="/?_su=_exit" title=""><i
+                                        <a class="btn btn-link" href="/?_su=_exit" title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                 class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>
                                 {% endif %}
@@ -163,7 +163,7 @@
                                     {% else %}
                                         {% set activity_log_path = "user_eventlog" %}
                                     {% endif %}
-                                    <a href="{{ path(activity_log_path) }}" title="{{ "user.activitylog"|trans }}">
+                                    <a href="{{ path(activity_log_path) }}" title="{{ "user.activitylog"|trans }}" data-placement="left">
                                         <i class="fa fa-cogs"></i>
                                         {{ "user.activitylog"|trans }}
                                     </a>
