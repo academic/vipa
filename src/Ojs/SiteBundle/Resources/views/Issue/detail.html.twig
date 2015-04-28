@@ -4,56 +4,53 @@
 {% block body %}
 
     <div class="container">
-        <br>
+        <div class=" row">
+            <ol class="breadcrumb">
+                <li><a href="/">{{ "home"|trans }}</a></li>
+                <li><a href="{{ generateJournalUrl(issue.journal) }}">{{ issue.journal.title }}</a>
+                </li>
+                <li>
+                    <a href="#">{{ "Issue"|trans }}</a>
+                </li>
+            </ol>
+
+            <h1>{{ issue.title }}</h1>
+            <h4>{{"issue.number"|trans}}: {{issue.number}} - {{"volume"|trans}} : {{issue.volume}}</h4>
+        </div>
+
 
         <div class="row">
-            <!-- The carousel -->
-            <div class="page-header row">
-                <div class="col-md-11">
-                    <h1>{{ issue.title }}</h1>
+
+            <div class="col-md-12">
+
+
+                <div class="panel panel-default">
+
+                    <ul class="list-group">
+                        {% for article in issue.articles %}
+                            <li class="list-group-item list-group-item-default">
+                                <a href="{{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,institution: issue.journal.institution.slug}) }}">
+                                    <i class="fa fa-file-text"></i> {{ article.title }}
+                                </a>
+                                <br/>
+                                <i class="fa fa-users"></i>
+                                <span class="text-muted">
+                                    (
+                                    {% if article.created.date %}
+                                        {{ article.created.date|date('Y-m-d') }}
+                                    {% endif %}
+                                    )
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-
-
-            <div class="row">
-
-                <div class="col-md-12">
-                    <ol class="breadcrumb">
-                        <li><a href="/">{{ "home"|trans }}</a></li>
-                        <li><a href="{{ generateJournalUrl(issue.journal) }}">{{ issue.journal.title }}</a>
-                        </li>
-                        <li>
-                            <a href="#">{{ "Issue"|trans }}</a>
-                        </li>
-                    </ol>
-
-                    <div class="panel panel-default">
-
-                        <ul class="list-group">
-                            {% for article in issue.articles %}
-                                <li class="list-group-item list-group-item-default">
-                                    <a href="{{ url('ojs_article_page',{article_id: article.id,slug: issue.journal.slug,issue_id: issue.id,institution: issue.journal.institution.slug}) }}">
-                                        <i class="fa fa-file-text"></i> {{ article.title }}
-                                    </a>
-                                    <br/>
-                                    <i class="fa fa-users"></i>
-                                    <span class="text-muted">
-                                        (
-                                        {% if article.created.date %}
-                                            {{ article.created.date|date('Y-m-d') }}
-                                        {% endif %}
-                                        )
-                                    </span>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-                </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
             </div>
         </div>
+
     </div>
 
 {% endblock %}

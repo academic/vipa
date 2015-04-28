@@ -178,15 +178,18 @@
 
                     <div id="issuetree">
                         <ul>
-                            {% for volume in volumes[:10] %}
+                            {% for key, issues in years %} 
                                 <li>
-                                    {{ "journal_index.volume"|trans }} {{ volume.volume }}
-                                    - {{ volume.issues|length }} {{ "journal_index.issues"|trans }}
+                                    <h4 title=" {{ "year"|trans }}"> {{ key }} <a title="{{ "journal_index.issues"|trans }}" class="badge">{{ issues|length }} </a></h4>
+                         
                                     <ul>
-                                        {% for issue in volume.issues %}
+                                        {% for issue in issues %}
                                             <li>
                                                 <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
-                                                    {{ issue.title }} {{ issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                                    {{"volume"|trans}}  {{ issue.volume }} - {{"issue.number"|trans}} {{ issue.number }} 
+                                                    <span class="issue-date label label-info">
+                                                        {{ issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
+                                                    </span>
                                                 </a>
                                             </li>
                                         {% endfor %}
