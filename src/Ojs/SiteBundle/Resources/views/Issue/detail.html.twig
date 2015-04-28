@@ -4,7 +4,7 @@
 {% block body %}
 
     <div class="container">
-        <div class=" row">
+        <div class=" col-md-12">
             <ol class="breadcrumb">
                 <li><a href="/">{{ "home"|trans }}</a></li>
                 <li><a href="{{ generateJournalUrl(issue.journal) }}">{{ issue.journal.title }}</a>
@@ -14,15 +14,18 @@
                 </li>
             </ol>
 
-            <h1>{{ issue.title }}</h1>
-            <h4>{{"issue.number"|trans}}: {{issue.number}} - {{"volume"|trans}} : {{issue.volume}}</h4>
-        </div>
+            <h1>{{ issue.title }}   {% if issue.special%} 
+                {% endif %}&nbsp; </h1>
+                <h4>
+                    <span class="label label-success">
+                        <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                        {{"special.issue"|trans}}
+                    </span> &nbsp;
+                    {{"issue.number"|trans}}: {{issue.number}} - {{"volume"|trans}} : {{issue.volume}}</h4>
+            </div>
 
-
-        <div class="row">
 
             <div class="col-md-12">
-
 
                 <div class="panel panel-default">
 
@@ -48,9 +51,8 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-            </div>
+            </div> 
+
         </div>
 
-    </div>
-
-{% endblock %}
+        {% endblock %}
