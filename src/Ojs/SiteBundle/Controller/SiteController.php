@@ -135,8 +135,7 @@ class SiteController extends Controller {
                 $journal = $journalRepo->findOneBy(['slug' => $slug]);
                 $this->throw404IfNotFound($journal);
                 $data['last_issue'] = $journalRepo->getLastIssueId($journal);
-                $volumes = $journalRepo->getVolumes($journal);
-                $data['volumes'] = $volumes;
+                $data['years'] = $journalRepo->getIssuesByYear($journal);
                 $data['journal'] = $journal;
                 $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal->getId(), true);
                 $data['page'] = 'journal';
