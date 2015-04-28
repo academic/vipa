@@ -7,7 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalType extends AbstractType {
+class JournalType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -16,21 +17,21 @@ class JournalType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('title', 'text', [
-                    'label' => 'title',
-                    'attr' => [
-                        'class' => 'validate[required]'
-                    ]
-                ])
-                ->add('titleAbbr', 'text',['label' => 'titleabbr'])
-                ->add('titleTransliterated','text', ['label' => 'titleTransliterated'])
-                ->add('institution', null, [
-                    'label' => 'institution',
-                    'attr' => [
-                        'class' => 'select2-element validate[required]'
-                    ]
-                ])
-                ->add('languages', 'entity', array(
+            ->add('title', 'text', [
+                'label' => 'title',
+                'attr' => [
+                    'class' => 'validate[required]'
+                ]
+            ])
+            ->add('titleAbbr', 'text', ['label' => 'titleabbr'])
+            ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated'])
+            ->add('institution', null, [
+                'label' => 'institution',
+                'attr' => [
+                    'class' => 'select2-element validate[required]'
+                ]
+            ])
+            ->add('languages', 'entity', array(
                     'label' => 'languages',
                     'class' => 'Ojs\JournalBundle\Entity\Lang',
                     'property' => 'name',
@@ -40,67 +41,72 @@ class JournalType extends AbstractType {
                     'attr' => [
                         'class' => 'select2-element validate[required]',
                     ]
-                        )
                 )
-                ->add('subjects', 'entity', [
-                    'label' => 'subjects',
-                    'class' => 'Ojs\JournalBundle\Entity\Subject',
-                    'property' => 'subject',
-                    'multiple' => true,
-                    'attr' => [
-                        'class' => 'select2-element'
-                    ]
-                ])
-                ->add('submitRoles', 'entity', array(
-                    'label' => 'submitRoles',
-                    'class' => 'Ojs\UserBundle\Entity\Role',
-                    'property' => 'name',
-                    'multiple' => true,
-                    'expanded' => false,
-                    'required' => false,
-                    'attr' => [
-                        'class' => 'select2-element'
-                    ],
-                    'data' => $options['default_roles']
-                        )
-                )
-                ->add('subtitle', 'text', [ 'label' => 'subtitle'])
-                ->add('path', 'text', [ 'label' => 'journal.path'])
-                ->add('domain', 'text', [ 'label' => 'journal.domain'])
-                ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn')))
-                ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
-                ->add('firstPublishDate', 'collot_datetime', array(
-                    'label' => 'journal.firstPublishDate',
-                    'date_format' => 'yyyy-MM-dd',
-                ))
-                ->add('period', 'text', ['label' => 'journal.period'])
-                ->add('url', 'text', ['label' => 'url'])
-                ->add('country', 'entity', [
-                    'label'=>'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
-                    'attr' => [
-                        'class' => 'select2-element '
-                    ]
-                ])
-                ->add('footer_text', 'textarea', [
-                    'label' => 'footer_text',
-                    'attr' => [
-                        'class' => 'wysihtml5 '
-                    ]
-                ])
-                ->add('published', 'checkbox', ['label' => 'published'])
-                ->add('status', 'choice', [
-                    'label' => 'status',
-                    'choices' => CommonParams::getStatusTexts()
-                ])
-                ->add('image', 'hidden')
-                ->add('header', 'hidden')
-                ->add('logo', 'hidden')
-                ->add('slug','text',['label'=>'journal.slug'])
-                ->add('tags', 'text', [ 'label'=>'tags' ,'attr' => ['class' => 'select2-tags', 'data-role' => '']])
-                ->add('description', 'textarea', ['label'=> 'description', 'attr' => ['class' => 'validate[required]']])
-                ->add('theme', 'entity', array(
-                    'label'=> 'theme',
+            )
+            ->add('subjects', 'entity', [
+                'label' => 'subjects',
+                'class' => 'Ojs\JournalBundle\Entity\Subject',
+                'property' => 'subject',
+                'multiple' => true,
+                'attr' => [
+                    'class' => 'select2-element'
+                ]
+            ]);
+        $role_options = [
+            'label' => 'submitRoles',
+            'class' => 'Ojs\UserBundle\Entity\Role',
+            'property' => 'name',
+            'multiple' => true,
+            'expanded' => false,
+            'required' => false,
+            'attr' => [
+                'class' => 'select2-element'
+            ]
+        ];
+        if ($options['default_roles'] !== null) {
+            $role_options['data'] = $options['default_roles'];
+        }
+
+        $builder->add('submitRoles', 'entity', $role_options
+        );
+
+        $builder->add('subtitle', 'text', ['label' => 'subtitle'])
+            ->add('path', 'text', ['label' => 'journal.path'])
+            ->add('domain', 'text', ['label' => 'journal.domain'])
+            ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn')))
+            ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
+            ->add('firstPublishDate', 'collot_datetime', array(
+                'label' => 'journal.firstPublishDate',
+                'date_format' => 'yyyy-MM-dd',
+            ))
+            ->add('period', 'text', ['label' => 'journal.period'])
+            ->add('url', 'text', ['label' => 'url'])
+            ->add('country', 'entity', [
+                'label' => 'country',
+                'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                'attr' => [
+                    'class' => 'select2-element '
+                ]
+            ])
+            ->add('footer_text', 'textarea', [
+                'label' => 'footer_text',
+                'attr' => [
+                    'class' => 'wysihtml5 '
+                ]
+            ])
+            ->add('published', 'checkbox', ['label' => 'published'])
+            ->add('status', 'choice', [
+                'label' => 'status',
+                'choices' => CommonParams::getStatusTexts()
+            ])
+            ->add('image', 'hidden')
+            ->add('header', 'hidden')
+            ->add('logo', 'hidden')
+            ->add('slug', 'text', ['label' => 'journal.slug'])
+            ->add('tags', 'text', ['label' => 'tags', 'attr' => ['class' => 'select2-tags', 'data-role' => '']])
+            ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'validate[required]']])
+            ->add('theme', 'entity', array(
+                    'label' => 'theme',
                     'class' => 'Ojs\JournalBundle\Entity\Theme',
                     'property' => 'title',
                     'multiple' => false,
@@ -108,9 +114,9 @@ class JournalType extends AbstractType {
                     'required' => false,
                     'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                         return $er->createQueryBuilder('t')
-                                ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
+                            ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
                     })
-        );
+            );
     }
 
     /**
