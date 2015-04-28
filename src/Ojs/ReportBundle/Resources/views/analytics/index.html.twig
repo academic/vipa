@@ -15,7 +15,7 @@
     <div class="col-md-12">
         {% for stat in stats %}
            {% for object in stat %}
-               <div id="stat_{{ object.info.id }}"></div>
+               <div id="stat_{{ object.id }}"></div>
            {% endfor %}
         {% endfor %}
         {# @todo a summary analytics chart should be added here #}
@@ -30,7 +30,7 @@
                 {% for object in stat %}
                     {
                         title: '{{ object.info.title[:100] }} Stats',
-                        element: 'stat_{{ object.info.id }}',
+                        element: 'stat_{{ object.id }}',
                         data: [
                             {% for s in object.stats %}
                             {% if loop.first %}

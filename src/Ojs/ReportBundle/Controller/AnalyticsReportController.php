@@ -13,33 +13,29 @@ class AnalyticsReportController extends Controller
     {
         $data = [];
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $object_view = $dm->getRepository('OjsAnalyticsBundle:ObjectView');
-        /** @var User $user */
-        $user = $this->getUser();
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $urj = $em->getRepository('OjsUserBundle:UserJournalRole');
-        $journals = $urj->findBy(['user' => $user]);
+
+        $object_view = $dm->getRepository('OjsAnalyticsBundle:ObjectViews');
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         $journal_stats = [];
-        $articles = [];
-        foreach ($journals as $j) {
-            $journal = $j->getJournal();
-            $_j['info'] = $journal;
-            $_j['stats'] = $object_view->findBy(['entity' => 'journal', 'objectId' => $j->getJournalId()]);
-            $journal_stats[] = $_j;
-            $_a = $journal->getArticles()->toArray();
-            $articles = array_merge($articles,$_a);
-        }
+        $journal_stats['info'] = $journal;
+        $journal_stats['stats'] = $object_view->findBy(['entity' => 'journal', 'objectId' => $journal->getId()]);
+        $articles = $journal->getArticles()->toArray();
 
         $data['stats'] = [];
         $data['stats']['journal'] = $journal_stats;
 
         $article_stats = [];
-        foreach($articles as $article){
+        foreach ($articles as $article) {
             /** @var Article $_a */
             $_a = [
-                'info'=>$article,
-                'stats'=>$object_view->findBy(['entity'=>'article','objectId'=>$article->getId()]),
+                'info' => $article,
+                'stats' => $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]),
             ];
             $article_stats[] = $_a;
         }
