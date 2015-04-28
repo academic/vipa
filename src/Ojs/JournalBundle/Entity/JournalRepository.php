@@ -310,7 +310,8 @@ class JournalRepository extends EntityRepository {
             $year = $issue->getYear();
             $years[$year][] = $issue;
         }
-        return $years;
+        arsort($years);
+        return  $years;
     }
 
     /**
