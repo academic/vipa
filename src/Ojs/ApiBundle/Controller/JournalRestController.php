@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class JournalRestController extends FOSRestController
-{
+class JournalRestController extends FOSRestController {
+
     /**
      *
      * @ApiDoc(
@@ -23,6 +23,7 @@ class JournalRestController extends FOSRestController
     {
         return $id;
     }
+
     /**
      *
      * @ApiDoc(
@@ -63,30 +64,14 @@ class JournalRestController extends FOSRestController
      * )
      * @Get("/journal/{id}/users")
      */
-    public function getJournalUsersAction(Request $request,$id)
+    public function getJournalUsersAction(Request $request, $id)
     {
         $limit = $request->get('limit');
-        $page = $request->get('page');
+        $page = (int) $request->get('page'); // page is not a mandotary parameter
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
         }
-        if (empty($page)) {
-            throw new HttpException(400, 'Missing parameter : page');
-        }
-        return true; //@todo fix it
-        $users = $this
-            ->getDoctrine()
-            ->getRepository('OjsUserBundle:UserJournalRole')
-                ->createQueryBuilder('j')
-                ->where('j.journal_id > :id')
-                ->setParameter('id', $id)
-                //->orderBy('id', 'ASC')
-                ->setMaxResults($limit)
-                ->setFirstResult($page)
-                ->getQuery()
-                ->getResults();
-
-        return $users;
+        return $this->get('ojs.journal_service')->getUsers($id, $page, $limit);
     }
 
 }
