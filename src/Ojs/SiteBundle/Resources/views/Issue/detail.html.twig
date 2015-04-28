@@ -17,10 +17,12 @@
             <h1>{{ issue.title }}   {% if issue.special%} 
                 {% endif %}&nbsp; </h1>
                 <h4>
-                    <span class="label label-success">
-                        <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
-                        {{"special.issue"|trans}}
-                    </span> &nbsp;
+                    {% if issue.special %}
+                        <span class="label label-success">
+                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                            {{"special.issue"|trans}}
+                        </span> &nbsp;
+                    {% endif %}
                     {{"issue.number"|trans}}: {{issue.number}} - {{"volume"|trans}} : {{issue.volume}}</h4>
             </div>
 
