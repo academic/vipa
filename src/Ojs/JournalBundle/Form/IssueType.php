@@ -49,8 +49,8 @@ class IssueType extends AbstractType {
                 )
                 ->add('volume', 'text', array('label' => 'volume'))
                 ->add('number', 'text', array('label' => 'number'))
-                ->add('title', 'text', array('label' => 'title'))
                 ->add('special', 'checkbox', array('label' => 'special'))
+                ->add('title', 'text', array('label' => 'title'))
                 ->add('description', 'text', array('label' => 'description'))
                 ->add('year', 'text', array('label' => 'year'))
                 ->add('datePublished', 'collot_datetime', array(

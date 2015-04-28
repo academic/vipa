@@ -180,16 +180,21 @@
                         <ul>
                             {% for key, issues in years %} 
                                 <li>
-                                    <h4 title=" {{ "year"|trans }}"> {{ key }} <a title="{{ "journal_index.issues"|trans }}" class="badge">{{ issues|length }} </a></h4>
+                                    <h4 title=" {{ "year"|trans }}"> {{ key }}
+                                        <a title="{{ "journal_index.issues"|trans }}" class="badge">{{ issues|length }} </a>
+                                    </h4>
                          
                                     <ul>
                                         {% for issue in issues %}
                                             <li>
                                                 <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
                                                     {{"volume"|trans}}  {{ issue.volume }} - {{"issue.number"|trans}} {{ issue.number }} 
-                                                    <span class="issue-date label label-info">
-                                                        {{ issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}
-                                                    </span>
+                                                    {% if issue.special%}
+                                                        <span class="label label-success">
+                                                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                                                            {{"special.issue"|trans}}
+                                                        </span>
+                                                    {% endif %}&nbsp;
                                                 </a>
                                             </li>
                                         {% endfor %}
