@@ -213,7 +213,7 @@
                     {% if last_issue %}
                         <div class="panel panel-default">
                             <div class="panel-heading"><strong>{{ last_issue.title }}</strong>
-                                - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
+                              {{"issue.number"|trans}} {{last_issue.number}} {{"volume"|trans}} {{last_issue.volume}} - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
                             <div class="panel-body">
                                 <ul>
                                     {% for article in last_issue.articles %}
