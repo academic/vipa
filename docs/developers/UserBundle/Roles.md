@@ -1,3 +1,10 @@
+
+##Differences between System Roles and Journal Roles
+User journal roles can be seen from left panel. System roles are listed in user profile page. 
+
+
+##Service Shortcut Methods 
+
 Check if user has a role on a journal
 
 ```
