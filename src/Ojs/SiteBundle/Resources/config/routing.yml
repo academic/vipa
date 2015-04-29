@@ -102,7 +102,10 @@ ojs_journal_index_articles:
     pattern: /{slug}/articles
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalArticles }
-
+ojs_journal_index_page_detail:
+    pattern: /{journal_slug}/pages/{slug}
+    host: "{institution}.%base_host%"
+    defaults: { _controller: OjsSiteBundle:Site:journalPageDetail }
 ojs_last_articles_index:
     pattern:  /{slug}/last
     host: "{institution}.%base_host%"
