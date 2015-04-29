@@ -6,6 +6,10 @@ article_submissions_all:
     pattern:  /manager/article/submissions/all/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:index" , all: true}
 
+article_submission_cancel:
+    pattern: /manager/article/submission/cancel/{id}
+    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:cancel"}
+
 article_submission_new_with_journalId:
     pattern:  /author/article/submit/journal/{journalId}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:newWithJournal" }
@@ -25,7 +29,6 @@ article_submission_new:
 article_submission_resume:
     pattern:  /author/article/submit/resume/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:resume" }
- 
 article_submission_finish:
     pattern:  /author/article/submit/finish/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:finish" }
