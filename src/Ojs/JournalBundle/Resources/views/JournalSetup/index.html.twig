@@ -271,7 +271,9 @@
 {% endblock %}
 
 {% block javascripts %}
-
+    <script>
+        window.onSetup=true;
+    </script>
     {{ parent() }}
     {% javascripts  '@submission_js'
     '@OjsJournalBundle/Resources/public/js/journal_setup.js'
