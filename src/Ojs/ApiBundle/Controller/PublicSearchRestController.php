@@ -57,18 +57,12 @@ class PublicSearchRestController extends FOSRestController {
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.institution');
 
-        $query = new Query\Bool();
-        $q1 = new Query\Regexp('name', $q);
-        $query->addMust($q1); 
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('name',strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
 
-
-        if ($verified) {  
-            $must = new Query\Match();
-            $must->setField('verified', $verified);
-            $query->addMust($must);
-        }
-
-        $results = $search->search($query);
+        $results = $search->search($prefix);
         $data = [];
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
