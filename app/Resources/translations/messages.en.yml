@@ -426,7 +426,7 @@ journal.settings.abstractTemplate.desc: 'You can load  predefined templates by c
 journal.settings.mail: 'Mail Settings'
 journal.settings.page: 'Page Settings'
 journal.settings.mail.signature: 'Email signature'
-setup.step: 'Step number'
+setup.step: 'Step #number'
 save.finish: 'Save & Finish'
 mailtemplate.journal: Journal
 mailtemplate.type: Type

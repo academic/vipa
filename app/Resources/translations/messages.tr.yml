@@ -432,7 +432,7 @@ journal.settings.abstractTemplate.desc: 'Önceden tanımlanmış temaları, üst
 journal.settings.mail: 'E-posta Ayarları'
 journal.settings.page: 'Sayfa Ayarları'
 journal.settings.mail.signature: 'Email imzası'
-setup.step: 'Adım Numarası'
+setup.step: 'Adım #number'
 save.finish: 'Kaydet ve Bitir'
 mailtemplate.journal: Dergi
 mailtemplate.type: Tür
