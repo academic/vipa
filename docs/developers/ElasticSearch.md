@@ -9,4 +9,6 @@ More on http://www.elasticsearch.org/
 
 ###ElasticSearch in Ojs
 
-We use ElasticSearch for searching article full-texts and suggestions. 
+We use ElasticSearch with [FriendsOfSymfony/FOSElasticaBundle](https://github.com/FriendsOfSymfony/FOSElasticaBundle) for searching articles,journals and users full-texts and suggestions. 
+
+You can find FosElastica configurtation under `app/config/elastica.yml`
