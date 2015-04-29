@@ -164,6 +164,7 @@ class BoardManagerController extends Controller {
 
         return $this->render('OjsManagerBundle:BoardManager:show.html.twig', array(
                     'members' => $members,
+                    'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
                     'entity' => $board,
         ));
     }

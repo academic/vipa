@@ -21,8 +21,10 @@
         </span>
 
         <div class="form-group">
-            <!-- <label for="userInput">{{"user"|trans}}</label> -->
-            <input type="text" class="form-control" name="userid" id="userInput" placeholder="{{"user"|trans}}">
+            <!-- <label for="userInput">{{"user"|trans}}</label> --> 
+            <input type="text" class="form-control select2-element-user" 
+                   style="min-width: 250px"
+                   name="userid" id="userInput" placeholder="{{"user"|trans}}">
         </div>
         <button type="submit" class="btn btn-default">{{"add"|trans}}</button>
     </form>
@@ -52,3 +54,41 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $(document).ready(function () {
+            $(".select2-element-user").select2({
+                multiple: false,
+                createSearchChoice: function (term, data) {
+                    if ($(data).filter(function () {
+                        return this.text.localeCompare(term) === 0;
+                    }).length === 0) {
+                        return {id: term, text: term};
+                    }
+                },
+                ajax: {
+                    url: "{{path("search_journal_users",{journalId: journal.id})}}", dataType: 'json', type: "GET", delay: 1000,
+                    data: function (params) {
+                        return {q:  params, apikey: OjsCommon.api.userApikey};
+                    },
+                    results: function (data) {
+                        return {
+                            results: $.map(data, function (item) {
+                                return {
+                                    text: item.username + " (" + item.email + ")",
+                                    slug: item.username,
+                                    id: item.id
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 3
+
+            });
+        });
+    </script>
+{% endblock%}

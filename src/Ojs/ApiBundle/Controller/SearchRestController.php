@@ -27,36 +27,26 @@ class SearchRestController extends FOSRestController {
      *          "description"="search term"
      *      },
      *      {
-     *          "name"="journal_id",
-     *          "dataType"="integer",
+     *          "name"="apikey",
+     *          "dataType"="string",
      *          "required"="true",
-     *          "description"="list only verified or not"
+     *          "description"="Apikey"
      *      }
      *  }
-     * )
-     * @Get("/search/journal/users")
-     */
-    public function getJournalUsersAction(Request $request)
-    {
-        $journalId = $request->get('journal_id');
-        $q = $request->get('q');
-        $search = $this->container->get('fos_elastica.index.search.institution');
-        $query = new Query\Bool();
-        $must1 = new Query\Match();
-        $must1->setField('name', $q);
-        $query->addMust($must1);
 
-        if ($verified !== null) {
-            $must2 = new Query\Match();
-            $must2->setField('verified', $verified);
-            $query->addMust($must2);
-        }
-        $results = $search->search($query);
-        $data = [];
-        foreach ($results as $result) {
-            $data[] = array_merge(array('id' => $result->getId()), $result->getData());
-        }
-        return $data;
+     * )
+     * @Get("/search/journal/{journalId}/users")
+     * @TODO elasticsearch will be better for performance. "like" query should be removed
+     */
+    public function searchJournalUsersAction(Request $request, $journalId)
+    {
+        $q = $request->get('q');
+        $repo = $this->getDoctrine()->getEntityManager()->getRepository('OjsUserBundle:User');
+        $query = $repo->createQueryBuilder('u')
+                ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
+                ->setParameter('search', '%' . $q . '%')
+                ->getQuery();
+        return $query->getResult();
     }
 
     /**
@@ -82,12 +72,12 @@ class SearchRestController extends FOSRestController {
 
 
         $s1 = new Query\Regexp();
-        $s1->setValue('username', $q );
+        $s1->setValue('username', $q);
 
-        $s2 =new Query\Regexp();
-        $s2->setValue('subjects', $q );
+        $s2 = new Query\Regexp();
+        $s2->setValue('subjects', $q);
 
-        $s3 =new Query\Regexp();
+        $s3 = new Query\Regexp();
         $s3->setValue('tags', $q);
 
         $query = new Query\Bool();
@@ -99,7 +89,7 @@ class SearchRestController extends FOSRestController {
         $data = [];
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
-        } 
+        }
         return $data;
     }
 
