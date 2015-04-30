@@ -2,10 +2,12 @@
 
 namespace Ojs\Common\Twig;
 
+use Ojs\JournalBundle\Entity\File;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
-class OjsExtension extends \Twig_Extension {
+class OjsExtension extends \Twig_Extension
+{
 
     private $container;
     private $em;
@@ -51,7 +53,8 @@ class OjsExtension extends \Twig_Extension {
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
             'getRoute' => new \Twig_Function_Method($this, 'getRoute', []),
             'getObject' => new \Twig_Function_Method($this, 'getObject', []),
-            'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html')))
+            'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
+            'download' => new \Twig_Function_Method($this, 'downloadArticleFile')
         );
     }
 
@@ -72,9 +75,9 @@ class OjsExtension extends \Twig_Extension {
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
-            $html .=!isset($item['link']) ?
-                    '<li class="active">' . $translator->trans($item['title']) . '</li>' :
-                    '<li><a  href = "' . $item['link'] . '">' . $translator->trans($item['title']) . '</a></li>';
+            $html .= !isset($item['link']) ?
+                '<li class="active">' . $translator->trans($item['title']) . '</li>' :
+                '<li><a  href = "' . $item['link'] . '">' . $translator->trans($item['title']) . '</a></li>';
         }
         $html .= '</ol> ';
 
@@ -83,8 +86,8 @@ class OjsExtension extends \Twig_Extension {
 
     /**
      *
-     * @param  mixed   $needle
-     * @param  array   $haystack
+     * @param  mixed $needle
+     * @param  array $haystack
      * @return boolean
      */
     public function hasId($needle, $haystack)
@@ -101,7 +104,7 @@ class OjsExtension extends \Twig_Extension {
     }
 
     /**
-     * 
+     *
      * @param type $needle
      * @param type $haystack
      */
@@ -240,8 +243,8 @@ class OjsExtension extends \Twig_Extension {
     {
         $translator = $this->container->get('translator');
         return '' .
-                ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
-                        '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
+        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
+            '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
     }
 
     /**
@@ -258,7 +261,7 @@ class OjsExtension extends \Twig_Extension {
     /**
      * Returns status text string from given status integer value
      * @param integer $arg
-     * @return string 
+     * @return string
      */
     public function statusText($arg)
     {
@@ -280,19 +283,19 @@ class OjsExtension extends \Twig_Extension {
     }
 
     /**
-     * 
+     *
      * @param \DateTime $date1
      * @param \DateTime $date2
-     * @return string formatted string like +12 or -20 
+     * @return string formatted string like +12 or -20
      */
     public function daysDiff($date1, $date2)
     {
         $translator = $this->container->get('translator');
         $daysFormatted = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($date1, $date2);
         return (strpos($daysFormatted, '+') !== FALSE ?
-                        '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
-                        '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
-                . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
+            '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
+            '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
+        . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
     }
 
     /**
@@ -338,14 +341,14 @@ class OjsExtension extends \Twig_Extension {
                 return '#';
             case 'Ojs\JournalBundle\Entity\Journal':
                 return $router->generate('ojs_journal_index', [
-                            'slug' => $object->getSlug(),
-                            'institution' => $object->getInstitution()->getSlug()
+                    'slug' => $object->getSlug(),
+                    'institution' => $object->getInstitution()->getSlug()
                 ]);
             case 'Ojs\JournalBundle\Entity\Article':
                 return $router->generate('ojs_article_page', [
-                            'slug' => $object->getJournal()->getSlug(),
-                            'article_id' => $object->getId(),
-                            'institution' => $object->getJournal()->getInstitution()->getSlug()
+                    'slug' => $object->getJournal()->getSlug(),
+                    'article_id' => $object->getId(),
+                    'institution' => $object->getJournal()->getInstitution()->getSlug()
                 ]);
             case 'Ojs\JournalBundle\Entity\Subject':
                 return $router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
@@ -395,6 +398,11 @@ class OjsExtension extends \Twig_Extension {
         $string = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
         $decoded = base64_decode($string);
         return $decoded;
+    }
+
+    public function downloadArticleFile(File $file)
+    {
+        return $this->container->get('router')->generate('ojs_file_download', ['id' => $file->getId()]);
     }
 
     public function getName()

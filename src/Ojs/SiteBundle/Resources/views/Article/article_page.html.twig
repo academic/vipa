@@ -73,12 +73,11 @@
                         </div>
                         <hr>
                         <div id="files">
-                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
-                                <i class="fa fa-file-pdf-o"></i> PDF (English)
-                            </a>
-                            <a href="http://www.tuhed.org/article/view/1004000001/5000033740" class="btn btn-sm btn-info" target="_parent">
-                                <i class="fa fa-file-pdf-o"></i> PDF (Russian)
-                            </a>
+                            {% for file in article.articleFiles %}
+                                <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
+                                    <i class="fa fa-file-pdf-o"></i> <abbr title="{{ file.file.mimetype }} - {{ (file.file.size/1024)) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ({{ file.langCode }}{% endif %}</abbr>
+                                </a>
+                            {% endfor %}
                         </div>
 
                         <div id="doiInfo">
@@ -147,13 +146,11 @@
                                         <th>Authors</th> 
                                         <td> 
                                             {% for authorsInfo in article.articleAuthors %}
-
                                                 <p>
                                                     <a name="author{{authorsInfo.author.id}}" id="author{{authorsInfo.author.id}}"></a>
                                                     <strong class="author"> {{authorsInfo.author.fullName}}</strong> :
                                                     {{authorsInfo.author.summary}}
                                                 </p>
-
                                             {%endfor%}
                                         </td>
                                     </tr>
