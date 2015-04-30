@@ -625,6 +625,7 @@ author.phone: Phone
 institution: Institution
 institutions: Institutions
 parse: Parse
+authors: "Authors"
 author.edit: Edit author
 authors.count: Count of Authors
 parent: Parent
