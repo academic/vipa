@@ -197,7 +197,6 @@ class BoardManagerController extends Controller {
             'method' => 'PUT',
             'journal' => $journal
         ));
-        $form->add('submit', 'submit', array('label' => 'Update'));
         return $form;
     }
 
