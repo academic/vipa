@@ -2,10 +2,10 @@
 {% block breadcrumb %}{%endblock%}
 
 {% block body -%}
-    
+
     <ul class="nav nav-tabs" role="tablist">
         <li><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.client.user.list"|trans  }}</a></li>
-        <li class="active"><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.proxy.user.list"|trans  }}</a></li> 
+        <li class="active"><a href="{{path("user_my_proxy_parents")}}">{{ "proxy.your.proxy.user.list"|trans  }}</a></li> 
     </ul>
     <table class="table records_list">
         <thead>
@@ -19,7 +19,11 @@
         <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td>{{ entity.proxyUser.username }}</td>
+                    <td>
+                        <a href="{{path('ojs_user_profile',{slug:entity.proxyUser.username})}}">
+                            {{ entity.proxyUser.username }}
+                        </a>
+                    </td>
                     <td>{{ entity.proxyUser.email }}</td>
                     <td>
                         {% if entity.ttl %}
@@ -34,7 +38,7 @@
                             <i class="fa fa-trash-o"></i> {{ "drop"|trans }}</a>
 
                         <a href="#" onclick="showUpdateTtlForm('{{path('user_proxy_ttl_update',{id: entity.id })}}');" class="btn btn-warning btn-sm">
-                            <i class="fa fa-pencil"></i> {{ "update.end.time" }}</a>
+                            <i class="fa fa-pencil"></i> {{ "update.end.time"|trans}}</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -46,7 +50,7 @@
     {{parent()}}
     <script>
         function showUpdateTtlForm($action) {
-            $html = '<input class="form-control" id="ttl" name="ttl" />';
+            $html = '<p>{{"Enter number as day count"|trans}}</p><br><input class="form-control" id="ttl" name="ttl" />';
             BootstrapDialog.show({
                 title: '{{ "update.end.time"|trans }}',
                 message: $html,

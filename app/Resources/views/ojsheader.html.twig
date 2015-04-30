@@ -142,8 +142,8 @@
                                     <li>
 
                                         {% for client in userclients() %}
-                                        <li><a href="/?_su={{ client.proxyUser.username }}">
-                                                {{ client.proxyUser.username }}</a>
+                                        <li><a href="/?_su={{ client.clientUser.username }}">
+                                                {{ client.clientUser.username }}</a>
                                         </li>
                                     {% endfor %}
                                     <li><a href="{{ path('user_my_proxy_clients') }}">
