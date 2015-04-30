@@ -140,16 +140,12 @@
                 });
             {% endif%}
             {% if app.user
-            and (isSystemAdmin() or isJournalManager())
+            and isJournalManager()
             and userjournals[session('selectedJournalId')] is defined
             and userjournals[session('selectedJournalId')].setupStatus != true %}
 
                 $(document).ready(function () {
-                    {% if isJournalManager() %}
                         {% set path='manager_journal_setup' %}
-                    {% else %}
-                        {% set path='admin_journal_setup' %}
-                    {% endif %}
                     if(!window.onSetup){
                         notify("{{"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"|trans({"%setup_url%":path(path)})|raw}}", "information");
 
