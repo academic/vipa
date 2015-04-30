@@ -42,7 +42,7 @@ class CitationRestController extends FOSRestController
      */
     public function postCitationParseAction(Request $request)
     {
-        $citations = $request->get('citations') ? $request->get('citations') : 12;
+        $citations = $request->get('citations') ? $request->get('citations') : "";
         if (empty($citations)) {
             throw new HttpException(400, 'Missing parameter : citations');
         }
