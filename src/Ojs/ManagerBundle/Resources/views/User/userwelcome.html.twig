@@ -70,7 +70,7 @@
         <!-- /.panel-body -->
     </div>
 
-    <!-- 
+    <!--
     <div class="panel panel-default">
         <div class="panel-heading toggle-body">
             <i class="fa fa-bar-chart-o fa-fw"></i> Last 30 days Analytics <i class="pull-right fa fa-angle-double-up"></i>
@@ -169,6 +169,7 @@
                             OjsCommon.waitModal();
                             window.location.href = "/manager/workflow/articles/" + row.objectid;
                     });
+                            /*
                             new Morris.Line({
                             element: 'analytics-chart',
                                     data: [
@@ -185,6 +186,7 @@
                                     ykeys: ['value'],
                                     labels: ['Value']
                             });
+                             */
                     });
     </script>
 {% endblock %}
