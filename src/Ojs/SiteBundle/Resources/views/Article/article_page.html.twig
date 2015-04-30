@@ -75,7 +75,7 @@
                         <div id="files">
                             {% for file in article.articleFiles %}
                                 <a href="{{ download(file.file) }}" class="btn btn-sm btn-info" target="_blank">
-                                    <i class="fa fa-file-pdf-o"></i> <abbr title="{{ file.file.mimetype }} - {{ (file.file.size/1024)) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ({{ file.langCode }}{% endif %}</abbr>
+                                    <i class="fa fa-file-pdf-o"></i> <abbr title="{{ file.file.mimetype }} - {{ (file.file.size/1024) }} kb">{{ file.title }} {% if file.langCode %}{{ file.title }} ({{ file.langCode }}{% endif %}</abbr>
                                 </a>
                             {% endfor %}
                         </div>
