@@ -1,8 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %}{{ "proxy.your.proxy.user.list"|trans  }}{%endblock%}
+{% block breadcrumb %}{%endblock%}
 
 {% block body -%}
     
+    <ul class="nav nav-tabs" role="tablist">
+        <li><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.client.user.list"|trans  }}</a></li>
+        <li class="active"><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.proxy.user.list"|trans  }}</a></li> 
+    </ul>
     <table class="table records_list">
         <thead>
             <tr>
