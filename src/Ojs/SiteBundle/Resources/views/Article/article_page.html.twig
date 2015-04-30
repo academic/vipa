@@ -81,7 +81,7 @@
                         </div>
 
                         <div id="doiInfo">
-                            <h4 class="page-header">DOI</h4>
+                            <h4 class="page-header">{{ 'doi'|trans }}</h4>
                             <p class="text-success"><a href="#" class="btn btn-success">{{ article.doi }}</a></p>
 
                         </div>
@@ -124,11 +124,11 @@
                                 </tr>
 
                                 <tr>
-                                    <th>Otherid</th>
+                                    <th>{{ 'otherid'|trans }}</th>
                                     <td>{{ article.otherId }}</td>
                                 </tr> 
                                 <tr>
-                                    <th>Pubdateseason</th>
+                                    <th>{{ 'pubdate'|trans }}</th>
                                     <td>{{ article.pubdateSeason }}</td>
                                 </tr>
                                 <tr>
@@ -143,7 +143,7 @@
                                 {% endif %}
                                 {% if article.articleAuthors %}
                                     <tr>
-                                        <th>Authors</th> 
+                                        <th>{{ 'authors'|trans }}</th>
                                         <td> 
                                             {% for authorsInfo in article.articleAuthors %}
                                                 <p>

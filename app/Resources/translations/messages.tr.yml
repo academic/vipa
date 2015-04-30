@@ -538,6 +538,7 @@ author.phone: Yazar telefonu
 'This field is required!': 'Bu alan gereklidir!'
 institution: Kurum
 parse: Ayrıştır
+authors: "Yazarlar"
 author.edit: Yazar Düzenle
 authors.count: Yazar sayısı
 parent: Üst
