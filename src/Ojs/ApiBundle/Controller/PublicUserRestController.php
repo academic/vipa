@@ -5,10 +5,12 @@ namespace Ojs\ApiBundle\Controller;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PublicUserRestController extends FOSRestController {
 
