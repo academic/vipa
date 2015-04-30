@@ -12,3 +12,9 @@ Ojs\UserBundle\Entity\User:
         email:
             - NotBlank: ~
             - Email: ~
+Ojs\UserBundle\Entity\UserJournalRole:
+    properties:
+        user:
+            - NotBlank: ~
+        journal:
+            - NotBlank: ~

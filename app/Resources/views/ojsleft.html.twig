@@ -22,11 +22,13 @@
                             </button>
                             <ul class="dropdown-menu list-group" role="menu" aria-labelledby="dropdownMenu1">
                                 {% for journal in userjournals %}
+                                    {% if journal.id %}
                                     <li class=list-group-item">
                                         <a href="{{ path('change_selected_journal',{'journal_id':journal.id}) }}">
                                             {{ journal.title }}
                                         </a>
                                     </li>
+                                        {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
