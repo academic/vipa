@@ -139,7 +139,10 @@
                     OjsCommon.api.userApikey = "{{apiKey()}}";
                 });
             {% endif%}
-            {% if app.user and (isSystemAdmin() or isJournalManager()) and (userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].setupStatus !=true %}
+            {% if app.user
+            and (isSystemAdmin() or isJournalManager())
+            and userjournals[session('selectedJournalId')] is defined
+            and userjournals[session('selectedJournalId')].setupStatus != true %}
 
                 $(document).ready(function () {
                     {% if isJournalManager() %}

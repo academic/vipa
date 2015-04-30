@@ -240,8 +240,8 @@ class SiteController extends Controller
     public function downloadFileAction(Request $request, $id)
     {
         /** @var File $file */
-        $file = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File',$id);
-        if(!$file){
+        $file = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File', $id);
+        if (!$file) {
             throw new NotFoundHttpException;
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -255,7 +255,29 @@ class SiteController extends Controller
         $objectDownload->setTransferSize($file->getSize());
         $dm->persist($objectDownload);
         $dm->flush();
-        return RedirectResponse::create($file->getPath().$file->getName());
+        return RedirectResponse::create($file->getPath() . $file->getName());
+    }
+
+    public function journalPageDetailAction($slug, $journal_slug, $institution)
+    {
+        $data = [];
+        $em = $this->getDoctrine()->getManager();
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
+        if(!$journal)
+            throw new NotFoundHttpException("Journal not found!");
+        $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
+        $journalKey = $twig->encode($journal);
+
+        $page = $em->getRepository('OkulbilisimCmsBundle:Post')->findOneBy([
+            'slug' => $slug,
+            'object' => $journalKey,
+            'objectId' => $journal->getId()
+        ]);
+        if(!$page)
+            throw new NotFoundHttpException("Page not found!");
+        $data['journal'] = $journal;
+        $data['content'] = $page;
+        return $this->render('OjsSiteBundle:Page:detail.html.twig', $data);
     }
 
 }
