@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * SubmissionChecklist
- * @GRID\Source(columns="id,label,visible")
+ * @GRID\Source(columns="id,label,locale,visible")
  */
 class SubmissionChecklist
 {
@@ -195,5 +195,34 @@ class SubmissionChecklist
     public function getJournal()
     {
         return $this->journal;
+    }
+    /**
+     * @var string
+     * @GRID\Column(title="Locale")
+     */
+    private $locale;
+
+
+    /**
+     * Set locale
+     *
+     * @param string $locale
+     * @return SubmissionChecklist
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    /**
+     * Get locale
+     *
+     * @return string 
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 }
