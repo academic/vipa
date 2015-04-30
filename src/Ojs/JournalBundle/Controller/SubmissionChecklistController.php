@@ -90,7 +90,7 @@ class SubmissionChecklistController extends Controller
      */
     private function createCreateForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
+        $form = $this->createForm(new SubmissionChecklistType($this->container), $entity, array(
             'action' => $this->generateUrl('manager_submission_checklist_create'),
             'method' => 'POST',
         ));
@@ -170,7 +170,7 @@ class SubmissionChecklistController extends Controller
      */
     private function createEditForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
+        $form = $this->createForm(new SubmissionChecklistType($this->container), $entity, array(
             'action' => $this->generateUrl('manager_submission_checklist_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
