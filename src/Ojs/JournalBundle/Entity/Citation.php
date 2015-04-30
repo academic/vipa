@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Citation
- * @GRID\Source(columns="id,raw,type")
+ * @GRID\Source(columns="id,raw,type,articles")
  */
 class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
 {
@@ -38,6 +38,7 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @GRID\Column(title="Articles", type="text",safe=false)
      */
     private $articles;
 

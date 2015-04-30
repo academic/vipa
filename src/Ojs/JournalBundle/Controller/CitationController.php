@@ -2,6 +2,8 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Row;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
@@ -23,8 +25,23 @@ class CitationController extends Controller
     public function indexAction()
     {
          $source = new Entity('OjsJournalBundle:Citation');
+        $router = $this->get('router');
+        $source->manipulateRow(function(Row $row)use($router){
+           if($row->getField('id')){
+               /** @var Citation $entity */
+               $entity = $row->getEntity();
+               $articles = $entity->getArticles();
+               $a = [];
+               foreach ( $articles as $article) {
+                   /** @var Article $article */
+                   $route = $router->generate('article_edit',['id'=>$article->getId()]);
+                   $a[] ="<a href='{$route}' class='badge' title='{$article->getTitle()}'>{$article->getId()}</a>";
+               }
+               $row->setField('articles',join(' ',$a));
+           }
+            return $row;
+        });
         $grid = $this->get('grid')->setSource($source);
-
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::showAction('citation_show', 'id');
         $rowAction[] = ActionHelper::editAction('citation_edit', 'id');
