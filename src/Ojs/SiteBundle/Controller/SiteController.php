@@ -3,6 +3,7 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
@@ -236,13 +237,24 @@ class SiteController extends Controller
         return $this->render("OjsSiteBundle:JournalContact:index.html.twig", $data);
     }
 
-    public function downloadFileAction($id)
+    public function downloadFileAction(Request $request, $id)
     {
         /** @var File $file */
         $file = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File',$id);
         if(!$file){
             throw new NotFoundHttpException;
         }
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $objectDownload = new ObjectDownloads();
+
+        $objectDownload->setEntity('Ojs\JournalBundle\Entity\File');
+        $objectDownload->setFilePath($file->getPath());
+        $objectDownload->setIpAddress($request->getClientIp());
+        $objectDownload->setLogDate(new \DateTime("now"));
+        $objectDownload->setObjectId($id);
+        $objectDownload->setTransferSize($file->getSize());
+        $dm->persist($objectDownload);
+        $dm->flush();
         return RedirectResponse::create($file->getPath().$file->getName());
     }
 
