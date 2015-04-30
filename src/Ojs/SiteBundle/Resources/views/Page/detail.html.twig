@@ -1,12 +1,21 @@
+{% set hideleft=true %}
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %}
+
+{% block body -%}
+
+<div class="container">
     {% set list = [
     {'link': path('ojs_journal_index',{'slug':journal.slug,'institution':journal.institution.slug}), 'title': journal.title},
     {'title': content.title }
     ] %}
     {{ breadcrumb(list) }}
-{% endblock %}
-
-{% block body -%}
-    {{ content.title }}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>{{ content.title }}</h1>
+        </div>
+        <div class="panel-body">
+            {{ content.content|raw }}
+        </div>
+    </div>
+    </div>
 {% endblock %}
