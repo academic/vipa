@@ -41,7 +41,7 @@
             {% endif %}
         {% endfor %}
 
-        {% if firstStep.shouldFileCi %}
+        {% if firstStep and firstStep.shouldFileCi %}
             <div class="panel-body">
                 <fieldset>
                     <legend>{{"competingOfInterest"|trans}} </legend>
