@@ -1166,6 +1166,10 @@ This username is available: This username  is available
 Looking for username availability: Looking for username availability...
 submission.attention: After submission your manuscript you can't change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.
 "Successfully deleted.": "Successfully deleted."
+Confirm to register yourself as author.: You are not an author of this journal. Confirm to register yourself as author.
+Current roles : Current roles
+Register yourself as author: Register yourself as author
+Confirm : Confirm
 
 #evetn log translations
 USER_LOGOUT_EVENT: User logout event
