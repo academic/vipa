@@ -839,11 +839,14 @@ proxy.target.user.username: 'Hedef Kullanıcı Adı'
 proxy.target.user.email: 'Hedef Kullanıcı E-postası'
 proxy.lastlogin: 'Son Giriş'
 proxy.your.proxy.user.list: 'Sizin Vekil Kullanıcı Listeniz'
+proxy.your.client.user.list : 'Giriş yapabileceğiniz kullanıcılar'
 proxy.username: 'Kullanıcı Adı'
 proxy.user.email: E-posta
 proxy.end.time: 'Sonlanma Zamanı'
 drop: Düşür
 update.ttl: 'TTL`i güncelle'
+update.end.time: 'Bitiş tarihini güncelle'
+Enter number as day count: Gün sayısı olarak bir rakam giriniz
 cancel: İptal
 role.edit: 'Rol Düzenle'
 role.list: 'Rol Listesi'
@@ -1098,3 +1101,7 @@ This username is available: Bu kullanıcı adı uygun.
 Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
 submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolyacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
 "Successfully deleted.": "Başarıyla silindi."
+
+#evetn log translations
+USER_LOGOUT_EVENT: Kullanıcı çıkış olayı
+USER_LOGIN_EVENT: Kullanıcı giriş olayı
