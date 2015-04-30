@@ -190,7 +190,7 @@ class ArticleSubmissionController extends Controller
     {
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         $submitRoles = $journal->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles)) {
+        if ($this->get('user.helper')->hasAnyRole($submitRoles, $journal)) {
             return $this->redirect($this->generateUrl('article_submission_new'));
         }
         $this->throw404IfNotFound($journal);

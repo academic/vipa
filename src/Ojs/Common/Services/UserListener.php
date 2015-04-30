@@ -71,26 +71,28 @@ class UserListener {
     }
 
     /**
-     * 
+     * Get user's journal roles
+     * @param Journal $journal
      * @return array
      */
-    public function getJournalRoles()
+    public function getJournalRoles($journal = false)
     {
         $journalService = $this->container->get('ojs.journal_service');
+        $journalObject = $journal ? $journal : $journalService->getSelectedJournal(false);
         $user = $this->checkUser();
-        if (!$user || !$journalService->getSelectedJournal(false)) {
-            return;
+        $userJournalRoles = [];
+        if (!$user || !$journalObject) {
+            return [];
         }
         //for API_KEY based connection
         if ($user instanceof \Symfony\Component\Security\Core\User\User) {
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
+            $user = $this->container->get('doctrine')->getManager()
+                    ->getRepository('OjsUserBundle:User')
+                    ->findOneBy(['username' => $user->getUsername()]);
         }
-
         $em = $this->container->get('doctrine')->getManager();
         $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
-        $journal = $journalService->getSelectedJournal(false);
-        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $journal->getId()));
-        $userJournalRoles = array();
+        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $journalObject->getId()));
         if ($entities) {
             foreach ($entities as $entity) {
                 $userJournalRoles[] = $entity->getRole();
@@ -187,21 +189,28 @@ class UserListener {
     /**
      * 
      * @param array $checkRoles
+     * @param Journal $journal
      * @return boolean
      */
-    public function hasAnyRole($checkRoles)
+    public function hasAnyRole($checkRoles, $journal=false)
     {
         foreach ($checkRoles as $checkRole) {
-            if ($this->container->get('security.context')->isGranted($checkRole->getRole())) {
+            if ($this->hasJournalRole($checkRole->getRole(), $journal)) {
                 return true;
             }
         }
         return false;
     }
 
-    public function hasJournalRole($roleCode)
+    /**
+     * 
+     * @param string $roleCode
+     * @param Journal $journal
+     * @return boolean
+     */
+    public function hasJournalRole($roleCode, $journal=false)
     {
-        $userJournalRoles = $this->session->get('userJournalRoles');
+        $userJournalRoles = $this->getJournalRoles($journal);
         $user = $this->checkUser();
         if ($user && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $role) {

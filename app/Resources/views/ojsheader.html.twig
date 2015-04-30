@@ -132,26 +132,7 @@
                                         <a class="btn btn-link" href="/?_su=_exit" title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                 class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>
-                                {% endif %}
-
-                                {% if userclients() %}
-
-                                    <li>
-                                        <a> <i class="fa fa-key"></i> {{ "login_as"|trans }}</a>
-                                    </li>
-                                    <li>
-
-                                        {% for client in userclients() %}
-                                        <li><a href="/?_su={{ client.clientUser.username }}">
-                                                {{ client.clientUser.username }}</a>
-                                        </li>
-                                    {% endfor %}
-                                    <li><a href="{{ path('user_my_proxy_clients') }}">
-                                            {{ "list_my_proxys"|trans }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                                <li class="divider"></li>
+                                {% endif %} 
                                 <li>
                                     <a>
                                         <small>{{"user.lastlogin"|trans}} : {{ app.user.getLastlogin()|date('Y-m-d H:i:s') }}</small>

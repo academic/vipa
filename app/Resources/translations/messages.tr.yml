@@ -1101,6 +1101,10 @@ This username is available: Bu kullanıcı adı uygun.
 Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
 submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolyacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
 "Successfully deleted.": "Başarıyla silindi."
+Confirm to register yourself as author.: Bu derginin bir yazarı değilsiniz. Kendiniz yazar olarak kaydetmek için onay veriniz.
+Current roles : Mevcut roller
+Register yourself as author: Kendinizi yazar olarka kaydedin
+Confirm : Onayla
 
 #evetn log translations
 USER_LOGOUT_EVENT: Kullanıcı çıkış olayı
