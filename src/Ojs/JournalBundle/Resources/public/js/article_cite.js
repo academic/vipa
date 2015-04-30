@@ -104,7 +104,8 @@ $(document).ready(function () {
     
     $("#clearAllCitations").click(function (e) {
         e.preventDefault();
-        $(".cite-item").slideUp("fast");
+        $(".cite-item").slideUp();
+        $(".cite-item").remove();
         CitationEditor.refreshCitationOrders();
     });
     $("body").on("click", "a.removeArticleCitationInline", function (e) {
@@ -135,7 +136,7 @@ $(document).ready(function () {
         }, 100);
     });
     $("body").on("click", '.citationPasteActionBtn', function () {
-        var element = this;
+        var element = $('.citationPasteTextArea');
         setTimeout(function () {
             var txt = $(element).val();
             CitationEditor.parseAndAppend(txt);

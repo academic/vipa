@@ -37,7 +37,7 @@ var OjsArticleSubmission = {
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
     },
-    removeAllAuthorForms : function(){
+    removeAllAuthorForms: function () {
         $(".author-item").remove();
         OjsArticleSubmission.recalculateAuthorFormCount();
     },
@@ -73,7 +73,7 @@ var OjsArticleSubmission = {
             ajax: {
                 url: '/api/public/search/institution', dataType: 'json', type: "GET", delay: 300,
                 data: function (params) {
-                    return {q:  params , verified: true};
+                    return {q: params, verified: true};
                 },
                 results: function (data) {
                     return {
@@ -235,26 +235,25 @@ var OjsArticleSubmission = {
     },
     step3: function (actionUrl) {
         forms = $("form", $(".cite-item"));
+
+        $primaryLang = $("select[name=primaryLanguage] option:selected").val();
+        // prepare post params
+        var dataArray = [];
         if (forms.length > 0) {
-            $primaryLang = $("select[name=primaryLanguage] option:selected").val();
-            // prepare post params
-            var dataArray = [];
             forms.each(function () {
                 dataArray.push($(this).serializeObject());
             });
-            OjsCommon.waitModal();
-            $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
-                OjsCommon.hideallModals();
-                OjsArticleSubmission.hideAllSteps();
-                OjsArticleSubmission.prepareStep.step4();
-            }).error(function () {
-                OjsCommon.errorModal("Something is wrong. Check your data and try again.");
-            });
-        } else {
+        }else{
+             dataArray.push([{"orderNum":"","raw":"","type":""}]);
+        }
+        OjsCommon.waitModal();
+        $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step4();
-        }
+        }).error(function () {
+            OjsCommon.errorModal("Something is wrong. Check your data and try again.");
+        });
     },
     step4: function (actionUrl) {
         forms = $("form.file-item");
@@ -360,20 +359,20 @@ var OjsArticleSubmission = {
             window.location.href = "" + e.val;
         });
         $('.select2-element').select2({placeholder: '', allowClear: true, closeOnSelect: false});
-        if(window.editorsReady!==true){
-          $("textarea.editor").wysihtml5({
-              toolbar: {
-                  "font-styles": false,
-                  "emphasis": true,
-                  "lists": false,
-                  "html": false,
-                  "link": true,
-                  "image": false,
-                  "color": false,
-                  "blockquote": true}
-          });
+        if (window.editorsReady !== true) {
+            $("textarea.editor").wysihtml5({
+                toolbar: {
+                    "font-styles": false,
+                    "emphasis": true,
+                    "lists": false,
+                    "html": false,
+                    "link": true,
+                    "image": false,
+                    "color": false,
+                    "blockquote": true}
+            });
         }
-        window.editorsReady=true;
+        window.editorsReady = true;
     },
     step1ScrollToLangPanel: function (lang) {
         $('html, body').animate({
@@ -435,4 +434,4 @@ var OjsArticleSubmission = {
         });
     }
 };
-window.editorsReady=false;
+window.editorsReady = false;
