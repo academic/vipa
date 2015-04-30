@@ -5,7 +5,7 @@
 
     <ul class="nav nav-tabs" role="tablist">
         <li class="active"><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.client.user.list"|trans  }}</a></li>
-        <li><a href="{{path("user_my_proxy_clients")}}">{{ "proxy.your.proxy.user.list"|trans  }}</a></li> 
+        <li><a href="{{path("user_my_proxy_parents")}}">{{ "proxy.your.proxy.user.list"|trans  }}</a></li> 
     </ul>
     <table class="table records_list">
         <thead>
@@ -18,7 +18,14 @@
         <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td>{{ entity.clientUser.username }}</td>
+                    <td>
+                        <a href="{{path('ojs_user_profile',{slug:entity.clientUser.username})}}">
+                            {{ entity.clientUser.username }}
+                        </a>
+                        <a href="/?_su={{ entity.clientUser.username }}" class="btn btn-xs btn-info">
+                            <i class="fa fa-sign-in"></i>
+                        </a>
+                    </td>
                     <td>{{ entity.clientUser.email }}</td>
                     <td>{{ entity.clientUser.lastlogin|date('Y-m-d H:i:s') }}</td>
                 </tr>
