@@ -973,11 +973,14 @@ proxy.target.user.username: 'Target Username'
 proxy.target.user.email: 'Target User Email'
 proxy.lastlogin: 'Last Login'
 proxy.your.proxy.user.list: 'Your Proxy User List'
+proxy.your.client.user.list : 'Users that you can login as'
 proxy.username: Username
 proxy.user.email: Email
 proxy.end.time: 'End Time'
 drop: Drop
 update.ttl: 'Update TTL'
+update.end.time: 'Update end time'
+Enter number as day count: Enter number as day count 
 cancel: Cancel
 role.edit: 'Edit Role'
 role.list: 'Role List'
@@ -1163,3 +1166,7 @@ This username is available: This username  is available
 Looking for username availability: Looking for username availability...
 submission.attention: After submission your manuscript you can't change your data. <br>If you are not sure to submit, you can resume your submission any time even you close this window.
 "Successfully deleted.": "Successfully deleted."
+
+#evetn log translations
+USER_LOGOUT_EVENT: User logout event
+USER_LOGIN_EVENT: User login event
