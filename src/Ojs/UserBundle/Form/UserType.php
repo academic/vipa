@@ -23,7 +23,13 @@ class UserType extends AbstractType {
                         'class' => 'validate[required]'
                     ]
                 ])
-                ->add('password', 'password', ['label' => 'password',])
+                ->add('password', 'password', [
+                    'label' => 'password',
+                    'attr'=>[
+
+                        'class'=>'validate[minSize[6]]'
+                    ]
+                ])
                 ->add('email', 'email', [
                     'label' => 'email',
                     'attr' => [
