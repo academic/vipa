@@ -133,3 +133,6 @@ ojs_journal_contacts:
     pattern: /{slug}/contacts
     host: "{institution}.%base_host%"
     defaults: { _controller: OjsSiteBundle:Site:journalContacts }
+ojs_file_download:
+    pattern: /download/{id}
+    defaults: { _controller: OjsSiteBundle:Site:downloadFile }
