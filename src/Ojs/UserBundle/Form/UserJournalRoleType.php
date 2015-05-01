@@ -31,8 +31,10 @@ class UserJournalRoleType extends AbstractType
         $builder->add('user', 'autocomplete', [
             'class' => 'Ojs\UserBundle\Entity\User',
             'label' => 'user',
+            'multiple' => false,
+            'expanded' => false,
             'attr' => [
-                'class' => 'form-control autocomplete validate[required]',
+                'class' => 'select2-element autocomplete validate[required]',
                 'data-list' => $this->container->get('router')->generate('api_get_users'),
                 'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . 'public/user/get/',
                 "placeholder" => "type a username"
@@ -56,7 +58,7 @@ class UserJournalRoleType extends AbstractType
                 'class' => 'Ojs\JournalBundle\Entity\Journal',
                 'label' => 'journal.singular',
                 'attr' => [
-                    'class' => 'form-control autocomplete',
+                    'class' => 'autocomplete',
                     'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/journal",
                     'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/journal/get/",
                     "placeholder" => "type a journal name"
