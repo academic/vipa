@@ -85,7 +85,7 @@ class ArticleFileController extends Controller
      */
     private function createCreateForm(ArticleFile $entity,$article)
     {
-        $form = $this->createForm(new ArticleFileType(), $entity, array(
+        $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
             'action' => $this->generateUrl('articlefile_create',['article'=> $article]),
             'method' => 'POST',
             'user'=>$this->getUser()
@@ -150,7 +150,6 @@ class ArticleFileController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:ArticleFile:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -167,7 +166,7 @@ class ArticleFileController extends Controller
     */
     private function createEditForm(ArticleFile $entity)
     {
-        $form = $this->createForm(new ArticleFileType(), $entity, array(
+        $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
             'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
             'method' => 'POST',
             'user'=>$this->getUser()

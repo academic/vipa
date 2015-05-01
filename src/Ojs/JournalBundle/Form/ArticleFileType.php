@@ -12,13 +12,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleFileType extends AbstractType
 {
+    private $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
         $builder
             ->add('title')
             ->add('keywords')
@@ -26,30 +32,17 @@ class ArticleFileType extends AbstractType
             ->add('type','choice',[
                 'choices'=>ArticleFileParams::$FILE_TYPES
             ])
-            ->add('article', 'entity', array(
-                'attr' => array('class' => ' form-control select2-element'),
+            ->add('article','autocomplete',[
                 'class' => 'Ojs\JournalBundle\Entity\Article',
-                'query_builder' => function(EntityRepository $er)use($user) {
-                    /** @var User $user $qb */
-                    $qb = $er->createQueryBuilder('a');
-                    foreach ($user->getRoles() as $role) {
-                        /** @var Role $role */
-                        if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                            return $qb;
-                            break;
-                        }
-                    }
-
-                    $qb
-                        ->join('a.journal.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                        ->setParameter('user', $user)
-                    ;
-                    return $qb;
-                }
-            )
-            )
+                'attr' => [
+                    'class' => 'autocomplete',
+                    'style' => 'width:100%',
+                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/article",
+                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/article/get/",
+                    "placeholder" => "type a journal name"
+                ],
+            ])
             ->add('version')
-            ->add('article')
         ;
     }
     
