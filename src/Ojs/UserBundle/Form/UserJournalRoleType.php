@@ -31,8 +31,6 @@ class UserJournalRoleType extends AbstractType
         $builder->add('user', 'autocomplete', [
             'class' => 'Ojs\UserBundle\Entity\User',
             'label' => 'user',
-            'multiple' => false,
-            'expanded' => false,
             'attr' => [
                 'class' => 'select2-element autocomplete validate[required]',
                 'data-list' => $this->container->get('router')->generate('api_get_users'),
