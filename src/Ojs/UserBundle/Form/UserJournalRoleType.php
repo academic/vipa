@@ -32,7 +32,7 @@ class UserJournalRoleType extends AbstractType
             'class' => 'Ojs\UserBundle\Entity\User',
             'label' => 'user',
             'attr' => [
-                'class' => 'select2-element autocomplete validate[required]',
+                'class' => 'autocomplete',
                 'data-list' => $this->container->get('router')->generate('api_get_users'),
                 'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . 'public/user/get/',
                 "placeholder" => "type a username"
@@ -86,7 +86,7 @@ class UserJournalRoleType extends AbstractType
             'user' => null,
             'attr' => [
                 'novalidate' => 'novalidate'
-                , 'class' => 'validate-form'
+                , 'class' => 'form-validate'
             ]
         ));
     }
