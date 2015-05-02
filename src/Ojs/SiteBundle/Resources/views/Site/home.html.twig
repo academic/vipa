@@ -82,7 +82,7 @@
                         {% for journal in journals %}
                             {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
 
-                            <div class="col-sm-2 col-md-2" style="margin-top:10px">
+                            <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{generateJournalUrl(journal)}}">
                                     <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                                          width="96" height="128"
