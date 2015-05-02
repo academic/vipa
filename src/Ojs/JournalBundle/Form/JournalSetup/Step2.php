@@ -21,11 +21,7 @@ class Step2 extends AbstractType
                     'class' => 'validate[required]'
                 ]
             ])
-            ->add('eissn', null,[
-                'attr' => [
-                    'class' => 'validate[required]'
-                ]
-            ])
+            ->add('eissn', null)
             ->add('firstPublishDate', 'collot_datetime', array(
                 'date_format' => 'yyyy-MM-dd',
             ))
