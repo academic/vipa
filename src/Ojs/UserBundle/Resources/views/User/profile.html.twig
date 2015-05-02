@@ -50,7 +50,7 @@
                     <th>{{"user.roles"|trans}}</th>
                     <td>
                         {% for role in entity.roles %}
-                            <span class="label label-info" title="{{role.role}}">{{role.name}}</span>  <br/>
+                            <span class="label label-info" title="{{role.role|trans}}">{{role.name|trans}}</span>  <br/>
                         {% endfor %}
                     </td>
 

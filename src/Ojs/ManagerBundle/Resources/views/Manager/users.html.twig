@@ -22,7 +22,7 @@
                             <td>{{ entity.user.email }}</td>
                             <td>{{ entity.user.isActive }}</td>
                             <td style="width: 180px">
-                                <a class="label label-info" href="{{ path("manager_journal_role_users" , { "roleId": entity.role.id } )}}">{{entity.role.role}}</a>
+                                <a class="label label-info" href="{{ path("manager_journal_role_users" , { "roleId": entity.role.id } )}}">{{entity.role.role|trans}}</a>
                             </td>
                             <td>
                                 {% if isSystemAdmin() %}

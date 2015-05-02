@@ -67,7 +67,7 @@
                     <label>{{"role.plural"|trans}}</label>
                     <select id="rolesinput" name="roles[]"  style="min-width:200px" multiple="multiple" class="select2-element">>
                         {%for role in roles%}
-                            <option value="{{role.id}}">{{role.role}}</option>
+                            <option value="{{role.id}}">{{role.role|trans}}</option>
                         {%endfor%}
                     </select>
                 </div>

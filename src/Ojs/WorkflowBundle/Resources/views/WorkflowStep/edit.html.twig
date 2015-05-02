@@ -66,7 +66,7 @@
                         {%for role in roles%}
                             <option
                                 {%if hasid(role.id,step.roles)%}selected="selected"{%endif%}
-                                value="{{role.id}}">{{role.role}}</option>
+                                value="{{role.id}}">{{role.role|trans}}</option>
                         {%endfor%}
                     </select>
                 </div>
