@@ -6,10 +6,12 @@
     <div class="container">
         {% block journalheader %}
             <div id="header">
+                {% if journal.header %}
                 {% set imageoptions=getImageOptions(journal,'header','journal_header') %}
                 <div class="col-md-12"><img src="{{ ('/uploads/journalfiles/'~imagePath(journal.header))|imagine_filter('journal_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                      data-src="holder.js/1400x100/random/text:{{ journal.title }}/size:11/font:Arial/#34465D:#ffffef" class="width100 img-responsive" />
                 </div>
+                {% endif %}
                 <div class="col-md-12">
                     <dl class="journal-meta">
                         {% if journal.issn %}
