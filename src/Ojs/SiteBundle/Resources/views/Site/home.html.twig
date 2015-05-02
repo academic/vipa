@@ -87,7 +87,11 @@
                                     <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                                          width="96" height="128"
                                          data-src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
-                                    <small>{{ journal.title }} / {{ journal.issn }}</small>
+                                    <small>{{ journal.title }}</small>
+                                    <br />
+                                    {% if journal.issn %}
+                                    <small>{{ journal.issn }}</small>
+                                    {% endif %}
                                 </a>
                             </div>
                         {% endfor %}
