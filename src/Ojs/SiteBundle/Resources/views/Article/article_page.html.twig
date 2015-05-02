@@ -16,10 +16,12 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div id="articleTitle">
+                            {% if article.header %}
                             {% set imageoptions=getImageOptions(article,'header','article_header') %}
                             <a href="{{generateJournalUrl(article.journal)}}"><img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))
                             |imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
                             </a>
+                            {% endif %}
                             <div> 
                                 {% if article.pubdate %} <span class=" {{"date.publish"|trans}}">{{ article.pubdate|date('Y-m-d') }}</span> <br>{% endif %}
                                 {{"volume"|trans}} {{article.issue.volume}}</a>, <a href="#">{{"issue"|trans}} {{article.issue.number}}</a>, 
