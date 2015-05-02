@@ -81,7 +81,7 @@ services:
         arguments: [@service_container]
     ojs.journal_service:
         class: Ojs\Common\Services\JournalService
-        arguments: [ @service_container, @doctrine.orm.entity_manager ]
+        arguments: [ @service_container, @doctrine.orm.entity_manager, @doctrine.odm.mongodb.document_manager ]
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
         arguments: [ @service_container, @doctrine.orm.entity_manager ]
