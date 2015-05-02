@@ -3,21 +3,18 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'},
-                { 'title': 'reports'|trans, 'link': path('reports_index')},
-                { 'title': 'analytics_reports'|trans}
-] %}
-    {{breadcrumb(list)}}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    { 'title': 'reports'|trans, 'link': path('reports_index')},
+    { 'title': 'analytics_reports'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
 {% block body -%}
     <div class="col-md-12">
-        {% for stat in stats %}
-           {% for object in stat %}
-               <div id="stat_{{ object.id }}"></div>
-           {% endfor %}
-        {% endfor %}
+        <div id="journal_stat"></div>
+        <div id="article_stat"></div>
         {# @todo a summary analytics chart should be added here #}
     </div>
 {% endblock %}
@@ -25,40 +22,65 @@
     {{ parent() }}
     <script src="https://www.google.com/jsapi" type="text/javascript"></script>
     <script>
-        var datas = [
-            {% for stat in stats %}
-                {% for object in stat %}
-                    {
-                        title: '{{ object.info.title[:100] }} Stats',
-                        element: 'stat_{{ object.id }}',
-                        data: [
-                            {% for s in object.stats %}
-                            {% if loop.first %}
-                                ['{{ s.entity }}', 'Total'],
-                            {% endif %}
-                                ['{{ s.pageUrl }}',{{ s.total }}]
-                            {% if not loop.last %},{% endif %}
-                            {% endfor %}
-                        ]
-                    }
-                {% if not loop.last %},{% endif %}
-                {% endfor %}
-            {% if not loop.last %},{% endif %}
-            {% endfor %}
+        var journal_datas = [
+            {
+                title: 'Journal Stats',
+                element: 'journal_stat',
+                data: [
+                    ['Date', 'Hit'],
 
+                    {% for key,stat in journal_stats %}
+                    ['{{key}}', {{ stat }}]
+                {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                ]
+            }
         ];
-        google.load('visualization', '1.0', {'packages': ['corechart']});
+        google.load('visualization', '1.0', {'packages': ['corechart','line']});
 
         var drawcharts = function () {
-            for (var i = 0; i < datas.length; i++) {
-                var data = new google.visualization.arrayToDataTable(datas[i].data);
+            for (var i = 0; i < journal_datas.length; i++) {
+                var data = new google.visualization.arrayToDataTable(journal_datas[i].data);
                 var options = {
-                    title: datas[i].title
+                    title: journal_datas[i].title,
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
                 };
-                var chart = new google.visualization.PieChart(document.getElementById(datas[i].element));
+                var chart = new google.visualization.LineChart(document.getElementById(journal_datas[i].element));
                 chart.draw(data, options);
             }
         };
+
         google.setOnLoadCallback(drawcharts);
+
+        var article_data =
+            {
+                title: "Article Stats",
+                element: "article_stat",
+                data: {% spaceless %}[
+                        ['Date',
+                                {% for article in article_stats.articles %}
+                                    '{{ article.title }}',
+                                {% endfor %}
+                        ],
+                            {% for date,articles in article_stats.stats %}
+                                       [
+                                           '{{ date }}',
+                                           {% for article in articles %}
+                                           {{ article.hit }},
+                                           {% endfor %}
+                                       ],
+                            {% endfor %}
+                ]{% endspaceless %}
+            };
+        var drawArticleChart = function(){
+            var data = new google.visualization.arrayToDataTable(article_data.data);
+            var options = {
+                title: article_data.title
+            };
+            var chart = new google.visualization.LineChart(document.getElementById(article_data.element));
+            chart.draw(data, options);
+        }
+        google.setOnLoadCallback(drawArticleChart);
     </script>
 {% endblock %}
