@@ -85,10 +85,23 @@
                     <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                     <div>
                         {# Links for journal manager  #}
-                        <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
-                            <i class="fa fa-recycle"></i>
-                            {{ "workflow"|trans }} </a>
-                            {% if session('selectedJournalId') %}
+                        {% if session('selectedJournalId') %}
+                            <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
+                                <i class="fa fa-cog"></i>
+                                {{ "settings"|trans }}
+                            </a>
+                            <a class="list-group-item" href="{{ path('board_manager') }}">
+                                <i class="fa fa-cog"></i>
+                                {{ "boards"|trans }}
+                            </a>
+                            <a class="list-group-item" href="{{ path('manager_journal_section') }}">
+                                <i class="fa fa-apple"></i>
+                                {{ "journalsection"|trans }}
+                            </a>
+                            <a class="list-group-item" href="{{ path('reports_index') }}">
+                                <i class="fa fa-th"></i>
+                                {{ "reports.title"|trans }}
+                            </a>
                             <a class="list-group-item" href="{{ path('issue_manager_index') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "issue.manager"|trans }}
@@ -98,33 +111,21 @@
                                 <i class="fa fa-users"></i>
                                 {{"journal.users"|trans}}
                             </a>
-                            <a class="list-group-item" href="{{ path('board_manager') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "boards"|trans }}
-                            </a>
                             <a class="list-group-item" href="{{ path('manager_journalcontact') }}">
                                 <i class="fa fa-users"></i>
                                 {{ "contact.plural"|trans }}
+                            </a>
+                            <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
+                                <i class="fa fa-recycle"></i>
+                                {{ "workflow"|trans }}
                             </a>
                             <a class="list-group-item" href="{{ path('mailtemplate_manager') }}">
                                 <i class="fa fa-envelope-o"></i>
                                 {{"mail.templates"|trans}}
                             </a>
-                            <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "settings"|trans }}
-                            </a> 
                             <a class="list-group-item" href="{{ path('ojs_review_forms') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "review.forms"|trans }}
-                            </a>
-                            <a class="list-group-item" href="{{ path('reports_index') }}">
-                                <i class="fa fa-th"></i>
-                                {{ "reports.title"|trans }}
-                            </a>
-                            <a class="list-group-item" href="{{ path('manager_journal_section') }}">
-                                <i class="fa fa-apple"></i>
-                                {{ "journalsection"|trans }}
                             </a>
                         {% else %}
                             <a class="list-group-item list-group-item-warning" href="#">
