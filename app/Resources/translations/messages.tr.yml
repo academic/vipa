@@ -752,7 +752,7 @@ Information: Bilgilendirme
 'Reset Now': 'Şimdi Sıfırla'
 forgot.password: 'Şifremi Unuttum'
 institute.register: 'Kurum Kaydet'
-journal.register: 'Dergi Oluştur'
+journal.register: 'Dergi Başvuru'
 user.change_password: 'Şifreyi Değiştir'
 user.old_password: 'Eski Şifre'
 journal_index.issues: Sayılar
