@@ -574,7 +574,7 @@ article.plural: Makaleler
 contact.plural: İletişim Kaydı 
 lang.plural: Dil
 user.plural: Kullanıcı
-'Any article viewed yet': '_Henüz hiçbir makale gösterilmedi'
+'Any article viewed yet': 'Henüz hiçbir makale gösterilmedi'
 'Any article downloaded yet': 'Henüz hiçbir makale indirilmedi'
 "You don't have any journals!":  Hiç derginiz yok!
 issue.number: Sayı
