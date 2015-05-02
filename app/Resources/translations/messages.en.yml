@@ -607,7 +607,7 @@ user.id: User id
 user.username: Username
 user.email: Email
 user.roles: User Roles 
-user.isActive: Is user active?
+user.isActive: Have the user completed the activation progress?
 user.apikey: Api Key
 articlefile.new: New Article File
 Submissions: Submissions

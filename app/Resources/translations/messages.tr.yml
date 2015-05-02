@@ -878,7 +878,7 @@ user.username: 'Kullanıcı Adı'
 user.email: "E-posta"
 user.status: Durum
 user.roles: Roller
-user.isActive: Kullanıcı aktif mi?
+user.isActive: Kullanıcı aktivasyonunu tamamladı mı?
 Is Active?: Aktif mi?
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
