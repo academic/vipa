@@ -142,7 +142,6 @@ class SiteController extends Controller
         $data['last_issue'] = $journalRepo->getLastIssueId($journal);
         $data['years'] = $journalRepo->getIssuesByYear($journal);
         $data['journal'] = $journal;
-        $data['users'] = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsers($journal->getId(), true);
         $data['page'] = 'journal';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal);
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);

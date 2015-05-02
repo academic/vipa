@@ -178,20 +178,20 @@
 
                     <div id="issuetree">
                         <ul>
-                            {% for key, issues in years %} 
+                            {% for key, issues in years %}
                                 <li>
                                     <h4 title=" {{ "year"|trans }}"> {{ key }}
                                         <a title="{{ "journal_index.issues"|trans }}" class="badge">{{ issues|length }} </a>
                                     </h4>
-                         
+
                                     <ul>
                                         {% for issue in issues %}
                                             <li>
                                                 <a href="{{ url('ojs_issue_page',{journal_slug: journal.slug, institution: issue.journal.institution.slug,id: issue.id}) }}">
-                                                    {{"volume"|trans}}  {{ issue.volume }} - {{"issue.number"|trans}} {{ issue.number }} 
+                                                    {{"volume"|trans}}  {{ issue.volume }} - {{"issue.number"|trans}} {{ issue.number }}
                                                     {% if issue.special%}
                                                         <span class="label label-success">
-                                                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                                                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i>
                                                             {{"special.issue"|trans}}
                                                         </span>
                                                     {% endif %}&nbsp;
@@ -216,8 +216,8 @@
                               {{"issue.number"|trans}} {{last_issue.number}} {{"volume"|trans}} {{last_issue.volume}} - {{ last_issue.datePublished|localizeddate("medium",'none',null,null,'MMM Y') }}</div>
                             <div class="panel-body">
                                 <ul>
-                                    {% for article in last_issue.articles %}
-                                        <li><a href="{{ url('ojs_article_page',{slug:article.journal.slug,issue_id:article.issue.id, article_id:article.id,institution:article.journal.institution.slug}) }}">{{ article.title }}</a>
+                                    {% for article in last_issue.articles[:10] %}
+                                        <li><a href="{{ url('ojs_article_page',{slug:journal.slug,issue_id:article.issueId  , article_id:article.id,institution:journal.institution.slug}) }}">{{ article.title }}</a>
                                         </li>
                                     {% endfor %}
                                 </ul>
