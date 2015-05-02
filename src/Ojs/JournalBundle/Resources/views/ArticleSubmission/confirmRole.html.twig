@@ -5,7 +5,7 @@
     <div class="well">
     <h4>{{"Current roles"|trans}}</h4>
     {% for role in roles %}
-        {{role.name}} <span class="badge">{{role.role}}</span><br>
+        {{role.name|trans}} <span class="badge">{{role.role|trans}}</span><br>
     {% endfor %}
     </div>
     <form class="form" role="form" method="POST">
