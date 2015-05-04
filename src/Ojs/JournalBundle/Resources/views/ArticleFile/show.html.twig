@@ -1,76 +1,52 @@
-{% extends '::base.html.twig' %}
+{% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
     <h1>ArticleFile</h1>
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ entity.type }}</td>
-            </tr>
-            <tr>
-                <th>Fileid</th>
-                <td>{{ entity.fileId }}</td>
-            </tr>
-            <tr>
-                <th>Articleid</th>
-                <td>{{ entity.articleId }}</td>
-            </tr>
-            <tr>
-                <th>Version</th>
-                <td>{{ entity.version }}</td>
-            </tr>
-            <tr>
-                <th>Keywords</th>
-                <td>{{ entity.keywords }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>Langcode</th>
-                <td>{{ entity.langCode }}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{{ entity.updated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Deletedat</th>
-                <td>{{ entity.deletedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Createdby</th>
-                <td>{{ entity.createdBy }}</td>
-            </tr>
-            <tr>
-                <th>Updatedby</th>
-                <td>{{ entity.updatedBy }}</td>
-            </tr>
+
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ type }}</td>
+        </tr>
+        <tr>
+            <th>Article</th>
+            <td><a target="_blank"
+                   href="{{ url('article_edit',{id: entity.articleId}) }}">{{ entity.article.title }}</a></td>
+        </tr>
+        <tr>
+            <th>Version</th>
+            <td>{{ entity.version }}</td>
+        </tr>
+        <tr>
+            <th>Keywords</th>
+            <td>{{ entity.keywords }}</td>
+        </tr>
+        <tr>
+            <th>File</th>
+            <td><a href="{{ asset(entity.file.path~entity.file.name) }}" target="_blank"> {{ entity.file.name }} </a></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        <tr>
+            <th>Langcode</th>
+            <td>{{ entity.langCode }}</td>
+        </tr>
         </tbody>
     </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('articlefile',{article: entity.id}) }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <br/><br/>
+    <a href="{{ path('articlefile',{article: entity.id}) }}" class="btn btn-warning">
+        {{ "b"|trans }}
+    </a>
+    <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}" class="btn btn-success">
+        {{ "e"|trans }}
+    </a>
+    </ul>
 {% endblock %}
