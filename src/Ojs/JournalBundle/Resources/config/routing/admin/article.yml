@@ -19,9 +19,9 @@ article_new:
     defaults: { _controller: "OjsJournalBundle:Article:new" }
 
 
-article_citation:
+article_citations:
     pattern:  /{id}/citation
-    defaults: { _controller: "OjsJournalBundle:Article:citation" }
+    defaults: { _controller: "OjsJournalBundle:Article:articleCitations" }
 
 
 article_create:
@@ -42,3 +42,7 @@ article_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Article:delete" }
     requirements: { _method: get|post|delete }
+
+article_citation:
+    pattern: /citations/{id}
+    defaults: {_controller: "OjsJournalBundle:Article:citation" }
