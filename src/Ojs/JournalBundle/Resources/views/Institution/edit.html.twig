@@ -24,10 +24,10 @@
     <div class="form-group">
         <label class="control-label" for="fileupload">{{"logo"|trans}}</label>
         <div id="preview_image_cover"  style="width:200px">
-            {% if entity.header %}
+            {% if entity.logo %}
                 <img src="{{ ('/uploads/institutionfiles/'~imagePath(entity.logo))|imagine_filter("height_200")}}"
                      data-src="holder.js/960x200/random/text:{{entity.name}}" alt="" />
-                {% set imageoptions=getImageOptions(entity,'cover',"height_200") %}
+                {% set imageoptions=getImageOptions(entity,'logo',"height_200") %}
                 <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
                 <input id="logo_width"  name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
                 <input id="logo_x"  name="logo[x]" type="hidden" value="{{ imageoptions.x }}"/>
@@ -134,7 +134,7 @@
                 width:200,
 
                 {% if  entity.logo %}
-                {% set imageoptions=getImageOptions(entity,'cover','institution_logo') %}
+                {% set imageoptions=getImageOptions(entity,'logo','institution_logo') %}
                 data:{
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
