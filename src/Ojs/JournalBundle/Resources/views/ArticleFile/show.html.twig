@@ -7,36 +7,36 @@
         <tbody>
 
         <tr>
-            <th>Title</th>
+            <th>{{ "articlefile.title"|trans }}</th>
             <td>{{ entity.title }}</td>
         </tr>
         <tr>
-            <th>Type</th>
-            <td>{{ type }}</td>
+            <th>{{ "articlefile.type"|trans }}</th>
+            <td>{{ type|trans }}</td>
         </tr>
         <tr>
-            <th>Article</th>
+            <th>{{ "article"|trans }}</th>
             <td><a target="_blank"
                    href="{{ url('article_edit',{id: entity.articleId}) }}">{{ entity.article.title }}</a></td>
         </tr>
         <tr>
-            <th>Version</th>
+            <th>{{ "articlefile.version"|trans }}</th>
             <td>{{ entity.version }}</td>
         </tr>
         <tr>
-            <th>Keywords</th>
+            <th>{{ "keywords"|trans }}</th>
             <td>{{ entity.keywords }}</td>
         </tr>
         <tr>
-            <th>File</th>
+            <th>{{ "file"|trans }}</th>
             <td><a href="{{ asset(entity.file.path~entity.file.name) }}" target="_blank"> {{ entity.file.name }} </a></td>
         </tr>
         <tr>
-            <th>Description</th>
+            <th>{{ "description"|trans }}</th>
             <td>{{ entity.description }}</td>
         </tr>
         <tr>
-            <th>Langcode</th>
+            <th>{{ "lang"|trans }}</th>
             <td>{{ entity.langCode }}</td>
         </tr>
         </tbody>
