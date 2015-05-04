@@ -1,6 +1,6 @@
 \Ojs\JournalBundle\Entity\File:
   file1:
-    path: /logo.pdf
-    name: logo.pdf
+    path: /
+    name: apple-touch-icon.png
     mimeType: <mimeType()>
     size: <randomNumber(5)>
