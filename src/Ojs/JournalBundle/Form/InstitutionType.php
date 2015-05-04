@@ -24,14 +24,25 @@ class InstitutionType extends AbstractType {
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $builder
-                ->add('name', 'text', ['label' => 'name', 'required' => true])
+                ->add('name', 'text', [
+                    'label' => 'name',
+                    'required' => true,
+                    'attr'=>[
+                        'class'=>"validate[required]"
+                    ]
+                ])
                 ->add('slug', 'text', [
                     'label' => 'institution.slug',
-                    'required' => true,
+                    'attr'=>[
+                        'class'=>"validate[required]"
+                    ]
                 ])
                 ->add('institution_type', 'entity', [
                     'label' => 'institutiontype',
-                    'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes'
+                    'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes',
+                    'attr'=>[
+                        'class'=>"validate[required]"
+                    ]
                 ])
                 ->add('parent')
                 ->add('about', 'textarea', ['label' => 'about'])
@@ -45,7 +56,12 @@ class InstitutionType extends AbstractType {
                 ->add('wiki')
                 ->add('logo', 'hidden')
                 ->add('header', 'hidden')
-                ->add('verified', 'checkbox', ['label' => 'verified'])
+                ->add('verified', 'checkbox', [
+                    'label' => 'verified',
+                    'attr'=>[
+                        'class'=>"checkbox"
+                    ]
+                ])
                 ->add('country', 'entity', [
                     'label' => 'country',
                     'class' => 'Okulbilisim\LocationBundle\Entity\Country',
@@ -66,9 +82,9 @@ class InstitutionType extends AbstractType {
             'data_class' => 'Ojs\JournalBundle\Entity\Institution',
             'helper' => null,
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate',
+                'class' => 'validate-form'
+            ],
         ));
     }
 
