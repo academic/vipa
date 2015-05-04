@@ -303,4 +303,8 @@ class ArticleController extends Controller
         return $this->redirect($this->generateUrl('article'));
     }
 
+    public function articleCitationsAction($article_id)
+    {
+        return $this->render('');
+    }
 }
