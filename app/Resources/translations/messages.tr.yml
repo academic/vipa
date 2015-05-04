@@ -369,6 +369,7 @@ page.singular: Sayfa
 page.plural: Sayfalar
 page.last: 'Son Sayfa'
 page.first: 'İlk Sayfa'
+articlefile: "Makale dosyası"
 articlefile.id: ID
 articlefile.title: Dosya başlığı
 articlefile.type: Makale dosya türü

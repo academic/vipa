@@ -364,6 +364,7 @@ page.singular: Page
 page.plural: Pages
 page.last: 'Last Page'
 page.first: 'First Page'
+articlefile: "Article File"
 articlefile.id: ID
 articlefile.title: File title
 articlefile.type: Article file type
