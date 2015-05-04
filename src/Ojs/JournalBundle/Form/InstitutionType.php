@@ -7,6 +7,7 @@ use Ojs\JournalBundle\Entity\Institution;
 use Okulbilisim\LocationBundle\Entity\City;
 use Okulbilisim\LocationBundle\Entity\Country;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -15,6 +16,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class InstitutionType extends AbstractType {
 
+    /** @var ContainerInterface  */
+    private $container ;
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -44,7 +51,16 @@ class InstitutionType extends AbstractType {
                         'class'=>"validate[required]"
                     ]
                 ])
-                ->add('parent')
+                ->add('parent','autocomplete',[
+                    'class' => 'Ojs\JournalBundle\Entity\Institution',
+                    'attr' => [
+                            'class' => 'autocomplete',
+                            'style' => 'width:100%',
+                            'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/institute",
+                            'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/institution/get/",
+                            "placeholder" => "type a institution name"
+                     ]
+                ])
                 ->add('about', 'textarea', ['label' => 'about'])
                 ->add('address', 'textarea', ['label' => 'address'])
                 ->add('addressLat', 'text', ['label' => 'addressLat'])

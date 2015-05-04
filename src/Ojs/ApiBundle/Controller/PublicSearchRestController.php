@@ -8,6 +8,7 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Proxies\__CG__\Ojs\JournalBundle\Entity\Institution;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,6 +72,77 @@ class PublicSearchRestController extends FOSRestController {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
         }
         return $data;
+    }/**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="search Institutions for autocomplete",
+     *  parameters={
+     * {
+     *          "name"="q",
+     *          "dataType"="string",
+     *          "required"="true",
+     *          "description"="search term"
+     *      },
+     *      {
+     *          "name"="verified",
+     *          "dataType"="boolean",
+     *          "required"="false",
+     *          "description"="list only verified or not"
+     *      },
+     *      {
+     *          "name"="page",
+     *          "dataType"="integer",
+     *          "required"="false",
+     *          "description"="limit"
+     *      }
+     *  }
+     * )
+     * @Get("/public/search/institute")
+     */
+    public function getInstitutesAction(Request $request)
+    {
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.institution');
+
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('name',strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id'=>$result->getId(),
+                'text'=>$result->getData()['name'],
+            ];
+        }
+        return $data;
+    }
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @ApiDoc(
+     *  resource=true,
+     *  description="get institution by id"
+     * )
+     * @Get("/public/institution/get/{id}")
+     */
+    public function getInstitutionAction($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Institution  $institution */
+        $institution = $em->find('OjsJournalBundle:Institution',$id);
+        if($institution){
+            return JsonResponse::create(['id'=>$id,'text'=>$institution->getName()]);
+        }
+        throw new NotFoundHttpException;
     }
 
 
