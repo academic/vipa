@@ -1174,3 +1174,13 @@ Confirm : Confirm
 #evetn log translations
 USER_LOGOUT_EVENT: User logout event
 USER_LOGIN_EVENT: User login event
+
+#institution types
+Other: Other
+University: University
+Government: Government
+Association: Association
+Foundation: Foundation
+Hospital: Hospital
+Chamber: Chamber
+Private: Private

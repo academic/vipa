@@ -134,6 +134,6 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __toString()
     {
-        return $this->getName().'['.$this->getSlug().']';
+        return $this->getName();
     }
 }
