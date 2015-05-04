@@ -370,7 +370,7 @@ page.plural: Sayfalar
 page.last: 'Son Sayfa'
 page.first: 'İlk Sayfa'
 articlefile.id: ID
-articlefile.title: Dosya başlıı
+articlefile.title: Dosya başlığı
 articlefile.type: Makale dosya türü
 articlefile.version: Dosya sürümü
 articlefile.langcode: Dosya dili
