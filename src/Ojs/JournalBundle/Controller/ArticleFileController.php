@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,6 +121,7 @@ class ArticleFileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var ArticleFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
 
         if (!$entity) {
@@ -127,10 +129,11 @@ class ArticleFileController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
+        $type = ArticleFileParams::fileType($entity->getType());
         return $this->render('OjsJournalBundle:ArticleFile:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'type' => $type
         ));
     }
 
