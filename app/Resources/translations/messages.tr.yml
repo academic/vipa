@@ -1109,3 +1109,14 @@ Confirm : Onayla
 #evetn log translations
 USER_LOGOUT_EVENT: Kullanıcı çıkış olayı
 USER_LOGIN_EVENT: Kullanıcı giriş olayı
+
+
+#institution types
+Other: Diğer
+University: Üniversite
+Government: Kamu Kurumu
+Association: Dernek
+Foundation: Vakıf
+Hospital: Hastane
+Chamber: Komisyon
+Private: Özel
