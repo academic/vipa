@@ -7,6 +7,8 @@ use APY\DataGridBundle\Grid\Mapping\Column;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\UserBundle\Entity\UserJournalRole;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -46,7 +48,7 @@ class JournalController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Journal:index.html.twig',$data);
+        return $grid->getGridResponse('OjsJournalBundle:Journal:index.html.twig', $data);
     }
 
     /**
@@ -62,13 +64,13 @@ class JournalController extends Controller
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setImageOptions(json_encode($cover));
             }
-            if($logo){
+            if ($logo) {
                 $entity->setLogoOptions(json_encode($logo));
             }
             $em->persist($entity);
@@ -77,8 +79,8 @@ class JournalController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Journal:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -90,11 +92,11 @@ class JournalController extends Controller
     private function createCreateForm(Journal $entity)
     {
         $em = $this->getDoctrine()->getManager();
-        $roles = $em->getRepository('OjsUserBundle:Role')->findInIds([1,11,12]);
+        $roles = $em->getRepository('OjsUserBundle:Role')->findInIds([1, 11, 12]);
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
             'method' => 'POST',
-            'default_roles'=>$roles
+            'default_roles' => $roles
         ));
         return $form;
     }
@@ -107,8 +109,8 @@ class JournalController extends Controller
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
         return $this->render('OjsJournalBundle:Journal:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -121,7 +123,7 @@ class JournalController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
         return $this->render('OjsJournalBundle:Journal:show.html.twig', array(
-                    'entity' => $entity));
+            'entity' => $entity));
     }
 
     /**
@@ -130,13 +132,25 @@ class JournalController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Journal $entity */
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
+        $user = $this->getUser();
+        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
+            $roles = $entity->getUserRoles();
+            foreach ($roles as $role) {
+                /** @var  UserJournalRole $role */
+                if ($role->getUser()->getId() != $user->getId() or $role->getRole()->getRole() != 'ROLE_JOURNAL_MANAGER') {
+                    throw new AccessDeniedException("You not authorized for edit this journal!");
+                }
+            }
+        }
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Journal:edit.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $editForm->createView(),
+            'entity' => $entity,
+            'form' => $editForm->createView(),
         ));
     }
 
@@ -161,6 +175,16 @@ class JournalController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
+        $user = $this->getUser();
+        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
+            $roles = $entity->getUserRoles();
+            foreach ($roles as $role) {
+                /** @var  UserJournalRole $role */
+                if ($role->getUser()->getId() != $user->getId() or $role->getRole()->getRole() != 'ROLE_JOURNAL_MANAGER') {
+                    throw new AccessDeniedException("You not authorized for edit this journal!");
+                }
+            }
+        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -169,13 +193,13 @@ class JournalController extends Controller
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setImageOptions(json_encode($cover));
             }
-            if($logo){
+            if ($logo) {
                 $entity->setLogoOptions(json_encode($logo));
             }
             $em->persist($entity);
@@ -184,8 +208,8 @@ class JournalController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Journal:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -196,6 +220,10 @@ class JournalController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
+        $user = $this->getUser();
+        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
+            throw new AccessDeniedException("You not authorized for edit this journal!");
+        }
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();

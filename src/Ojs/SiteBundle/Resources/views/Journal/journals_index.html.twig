@@ -62,10 +62,11 @@
                         <div class="col-sm-3 col-md-3">
                             <div class="post">
                                 <div class="post-img-content">
-                                    <a href="{{generateJournalUrl(journal) }}">
-                                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover') }}"
-                                             data-src="holder.js/200x300/random/text:{{ journal.title }}"
-                                             class="img-responsive img-rounded float-left" alt=""/>
+                                    <a href="{{generateJournalUrl(journal) }}" >
+                                        {% set imageoptions=getImageOptions(journal,'cover','journal_cover') %}
+                                        <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop": {"start":[imageoptions.x, imageoptions.y], "size":[imageoptions.width,imageoptions.height]}}) }}"
+                                             data-src="holder.js/190x300/random/text:{{ journal.title }}"
+                                             class="img-responsive img-rounded float-left" alt="" style="width: 100% "/>
                                     </a>
                                 </div>
 

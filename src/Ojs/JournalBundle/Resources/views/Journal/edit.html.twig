@@ -48,8 +48,8 @@
         <label class="control-label" for="fileupload">{{ "logo"|trans }}</label>
 
         <div id="preview_image_logo" style="width:200px">
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.logo)) | imagine_filter('wide_200') }}"
-                 data-src="holder.js/200x200/random/text:{{ entity.title }}" alt=""/>
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.logo)) }}"
+                 data-src="holder.js/200x200/random/text:{{ entity.title }}" alt="" class="img-responsive"/>
             {% set imageoptions=getImageOptions(entity,'logo','journal_logo') %}
             <input id="logo_height" name="logo[height]" type="hidden" value="{{ imageoptions.height }}"/>
             <input id="logo_width" name="logo[width]" type="hidden" value="{{ imageoptions.width }}"/>
@@ -68,8 +68,8 @@
         <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
 
         <div id="preview_image_cover" style="width:200px">
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.image)) | imagine_filter('wide_200') }}"
-                 data-src="holder.js/200x300/random/text:{{ entity.title }}" alt=""/>
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.image))  }}"
+                 data-src="holder.js/200x300/random/text:{{ entity.title }}" class="img-responsive" alt=""/>
             {% set imageoptions=getImageOptions(entity,'cover','wide_200') %}
             <input id="cover_height" name="cover[height]" type="hidden" value="{{ imageoptions.height }}"/>
             <input id="cover_width" name="cover[width]" type="hidden" value="{{ imageoptions.width }}"/>
@@ -92,8 +92,8 @@
         <label class="control-label" for="fileupload_header">{{ "Header Image"|trans }}</label>
 
         <div id="preview_image">
-            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) | imagine_filter('wide_960') }}"
-                 data-src="holder.js/960x200/random/text:{{ entity.title }}" alt=""/>
+            <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.header)) }}"
+                 data-src="holder.js/960x200/random/text:{{ entity.title }}" class="img-responsive" alt=""/>
             {% set imageoptions=getImageOptions(entity,'header','wide_960') %}
             <input id="header_height" name="header[height]" type="hidden" value="{{ imageoptions.height }}"/>
             <input id="header_width" name="header[width]" type="hidden" value="{{ imageoptions.width }}"/>
