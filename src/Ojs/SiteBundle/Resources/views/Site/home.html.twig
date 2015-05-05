@@ -84,7 +84,7 @@
 
                             <div class="col-sm-2 col-md-2 col-xs-4" style="margin-top:10px">
                                 <a href="{{generateJournalUrl(journal)}}">
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[132,199]}}) }}"
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(journal.image))|imagine_filter('journal_cover',{"crop": {"start":[imageoptions.x, imageoptions.y], "size":[imageoptions.width,imageoptions.height]}}) }}"
                                          width="96" height="128"
                                          data-src="holder.js/96x128/random/text:{{ journal.title }}" class="img-rounded"/>
                                     <small>{{ journal.title }}</small>

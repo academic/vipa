@@ -26,7 +26,11 @@ class SiteController extends Controller
     {
         $data['page'] = 'index';
         $em = $this->getDoctrine()->getManager();
-        $data["journals"] = $em->getRepository('OjsJournalBundle:Journal')->findBy(array('status' => 3), array(), 12);
+        $searchManager = $this->get('ojs_search_manager');
+        $searchManager->setLimit(12);
+        $searchManager->setPage(1);
+        $journals = $searchManager->searchJournal()->getResult();
+        $data["journals"] = $journals;
         $data['institutions'] = $em->getRepository('OjsJournalBundle:Institution')->findBy(array(), array(), 6);
         $repo = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject');
         $options = [

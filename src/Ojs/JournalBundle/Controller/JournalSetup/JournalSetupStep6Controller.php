@@ -66,30 +66,40 @@ class JournalSetupStep6Controller extends Controller
             $journalKey = $twig->encode($currentJournal);
             $pages = $em->getRepository("OkulbilisimCmsBundle:Post")->findBy(['object'=>$journalKey,'objectId'=>$currentJournal->getId()]);
             if($pages){
-                $block = new Block();
-                $block->setType('link')
-                    ->setObjectType('journal')
-                    ->setObjectId($currentJournal->getId())
-                    ->setColor('primary')
-                    ->setTitle("Pages")
-                ;
-                $em->persist($block);
-                $i = 1;
-                foreach ($pages as $page) {
-                    $blockLink = new BlockLink();
-                    $blockLink
-                        ->setBlock($block)
-                        ->setPost($page)
-                        ->setText($page->getTitle())
-                        ->setUrl($router->generate('ojs_journal_index_page_detail',[
-                            'journal_slug'=>$currentJournal->getSlug(),
-                            'slug'=>$page->getSlug(),
-                            'institution'=>$currentJournal->getInstitution()->getSlug()
-                        ]))
-                        ->setLinkOrder($i)
+                $blockRepo = $em->getRepository("OjsSiteBundle:Block");
+                $checkPagesBlock = $blockRepo->findOneBy([
+                    'type'=>'link',
+                    'object_type'=>'journal',
+                    'object_id'=>$currentJournal->getId(),
+                    'title'=>'Pages'
+                ]);
+                if(!$checkPagesBlock)
+                {
+                    $block = new Block();
+                    $block->setType('link')
+                        ->setObjectType('journal')
+                        ->setObjectId($currentJournal->getId())
+                        ->setColor('primary')
+                        ->setTitle("Pages")
                     ;
-                    $i++;
-                    $em->persist($blockLink);
+                    $em->persist($block);
+                    $i = 1;
+                    foreach ($pages as $page) {
+                        $blockLink = new BlockLink();
+                        $blockLink
+                            ->setBlock($block)
+                            ->setPost($page)
+                            ->setText($page->getTitle())
+                            ->setUrl($router->generate('ojs_journal_index_page_detail',[
+                                'journal_slug'=>$currentJournal->getSlug(),
+                                'slug'=>$page->getSlug(),
+                                'institution'=>$currentJournal->getInstitution()->getSlug()
+                            ]))
+                            ->setLinkOrder($i)
+                        ;
+                        $i++;
+                        $em->persist($blockLink);
+                    }
                 }
             }
             $currentJournal->setSetupStatus(true);
