@@ -105,10 +105,11 @@ class JournalSetupStep6Controller extends Controller
             $currentJournal->setSetupStatus(true);
             $em->flush();
             $journalLink = $this->get('ojs.journal_service')->generateUrl($currentJournal);
-            return new JsonResponse(array(
+            return new JsonResponse([
                 'success' => '1',
                 'journalLink' => $journalLink
-            ));
+            ]
+            );
         } else {
             return new JsonResponse(array(
                 'success' => '0'));

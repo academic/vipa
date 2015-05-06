@@ -157,9 +157,9 @@ var OjsJournalSetup = {
         OjsCommon.waitModal();
         $.post(journalParams.postUrl, journalParams.data, function (response) {
             OjsCommon.hideallModals();
-            if (response.success) {
+            if (response.success == 1) {
                 //setup finished redirect to
-                window.location = 'http:'+response.journalLink;
+                window.location = response.journalLink;
             } else {
                 OjsCommon.errorModal("Error occured. Check your data and please <b>try again</b>.");
             }
