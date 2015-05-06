@@ -70,13 +70,13 @@
                     }
                 },
                 ajax: {
-                    url: '/api/search/user',
+                    url: '/api/public/search/user',
                     dataType: 'json',
                     type: "GET",
                     delay: 1000,
                     data: function (params) {
                         return {
-                            q: "(.*)" + params + "(.*)",
+                            q: params,
                             apikey: OjsCommon.api.userApikey,
                             verified: true
                         };
@@ -85,8 +85,8 @@
                         return {
                             results: $.map(data, function (item) {
                                 return {
-                                    text: item.username + " (" + item.email + ")",
-                                    slug: item.username,
+                                    text: item.text,
+                                    slug: item.text,
                                     id: item.id
                                 };
                             })
