@@ -396,8 +396,10 @@ var OjsArticleSubmission = {
         $.post($actionUrl, {'orcidAuthorId': $orcid}, function (response) {
             OjsCommon.hideallModals();
             if (typeof response['error-desc'] == 'object') {
-                OjsCommon.errorModal(response['error-desc'].value);
-                return;
+                if(response['error-desc'] !== null){
+                    OjsCommon.errorModal(response['error-desc'].value);
+                    return;
+                }
             }
             /*reset div fields*/
             $togglePanel.hide();
