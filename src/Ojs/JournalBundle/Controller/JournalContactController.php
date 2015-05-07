@@ -92,7 +92,11 @@ class JournalContactController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_show' : 'manager_journalcontact_show', array('id' => $entity->getId())));
+            $this->successFlashBag('Successfully created');
+            return $this->redirectToRoute($isAdmin ? 'journalcontact_show' : 'manager_journalcontact_show', [
+                'id' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
@@ -226,8 +230,11 @@ class JournalContactController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact_edit' : 'manager_journalcontact_edit', array('id' => $id)));
+            $this->successFlashBag('Successfully updated');
+            return $this->redirectToRoute($isAdmin ? 'journalcontact_edit' : 'manager_journalcontact_edit', [
+                'id' => $id
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:JournalContact:edit.html.twig', array(
@@ -251,7 +258,8 @@ class JournalContactController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl($isAdmin ? 'journalcontact' : 'manager_journalcontact'));
+        $this->successFlashBag('Successfully removed');
+        return $this->redirectToRoute($isAdmin ? 'journalcontact' : 'manager_journalcontact');
     }
 
 }

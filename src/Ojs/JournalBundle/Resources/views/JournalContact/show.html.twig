@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{ 'journalcontact.singular'|trans }} <small>#{{ entity.id }}</small></h1>
-
+    {% include '::flashbag.html.twig' %}
     <fieldset> 
         <legend>{{ 'journal'|trans }}</legend>
         <div class="list-group">
