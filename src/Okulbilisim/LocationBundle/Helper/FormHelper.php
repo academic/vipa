@@ -10,8 +10,7 @@ namespace Okulbilisim\LocationBundle\Helper;
 
 
 use Doctrine\ORM\EntityManager;
-use Okulbilisim\LocationBundle\Entity\City;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -52,17 +51,18 @@ class FormHelper
         $factory = $builder->getFormFactory();
 
         $refreshTown = function ($form, $country) use ($factory, $em, $isMongo) {
-            $cities = [];
+            $childs = [];
             if (!empty($country)) {
-                $country = $em->find('OkulbilisimLocationBundle:Country', $country);
-                foreach ($country->getCities() as $city) {
-                    /** @var City $city */
-                    $cities[$city->getId()] = $isMongo===false ? $city : $city->getName();
+                $country = $em->find('OkulbilisimLocationBundle:Location', $country);
+                foreach ($country->getChildrens() as $child) {
+                    /** @var Location $child */
+                    if($child->getType()==1)
+                        $childs[$child->getId()] = $isMongo===false ? $child : $child->getName();
                 }
             }
             $options = [
                 'empty_value' => 'Seçin',
-                'choices' => $cities,
+                'choices' => $childs,
                 'auto_initialize' => false,
                 'label' => "Şehir",
                 'attr' => [
@@ -70,7 +70,7 @@ class FormHelper
                 ]
             ];
             if ($isMongo===false)
-                $options['class'] = 'Okulbilisim\LocationBundle\Entity\City';
+                $options['class'] = 'Okulbilisim\LocationBundle\Entity\Location';
 
             if (empty($cities)) {
                 $options['attr']['disabled'] = 'disabled';
@@ -88,7 +88,7 @@ class FormHelper
                 return;
             }
             if (is_a($data, $dataClass)) {
-                if ($data->getCountry() instanceof Country) {
+                if ($data->getCountry() instanceof Location) {
                     $refreshTown($form, $data->getCountry());
                 } else {
                     $refreshTown($form, null);

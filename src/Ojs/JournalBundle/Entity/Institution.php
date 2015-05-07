@@ -6,8 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericExtendedEntity;
-use Okulbilisim\LocationBundle\Entity\City;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
@@ -57,7 +56,7 @@ class Institution extends GenericExtendedEntity {
     private $about;
 
     /**
-     * @var City
+     * @var Location
      * @Expose
      */
     private $city;
@@ -69,7 +68,7 @@ class Institution extends GenericExtendedEntity {
     private $city_id;
 
     /**
-     * @var Country
+     * @var Location
      * @Expose 
      */
     private $country;
@@ -238,10 +237,10 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set city
      *
-     * @param  City $city
+     * @param  Location $city
      * @return Institution
      */
-    public function setCity(City $city)
+    public function setCity(Location $city)
     {
         $this->city = $city;
         $this->city_id = $city->getId();
@@ -251,7 +250,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get city
      *
-     * @return City
+     * @return Location
      */
     public function getCity()
     {
@@ -330,10 +329,10 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set country
      *
-     * @param  Country $country
+     * @param  Location $country
      * @return Institution
      */
-    public function setCountry(Country $country)
+    public function setCountry(Location $country)
     {
         $this->country = $country;
         $this->country_id = $country->getId();
@@ -343,7 +342,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get country
      *
-     * @return Country
+     * @return Location
      */
     public function getCountry()
     {

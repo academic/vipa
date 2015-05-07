@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\JournalSetup;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,10 +29,14 @@ class Step2 extends AbstractType
             ->add('footer_text','textarea')
             ->add('period')
             ->add('country', 'entity', [
-                'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                 'attr' => [
                     'class' => 'select2-element'
-                ]
+                ],
+                'query_builder'=>function(EntityRepository $em){
+                    return $em->createQueryBuilder('c')
+                        ->where("c.type","0");
+                }
             ])
             ->add('Institution', 'entity', [
                 'class' => 'Ojs\JournalBundle\Entity\Institution',

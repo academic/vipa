@@ -6,8 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\Common\Entity\GenericExtendedEntity;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Subject;
-use Okulbilisim\LocationBundle\Entity\City;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -132,7 +131,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     private $country_id;
 
     /**
-     * @var Country
+     * @var Location
      * @Expose
      */
     private $country;
@@ -144,7 +143,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     private $city_id;
 
     /**
-     * @var City
+     * @var Location
      * @Expose
      */
     private $city;
@@ -800,17 +799,17 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
             'header' => $this->getHeader(),
             'title' => $this->getTitle(),
         ];
-        if ($this->getCountry() instanceof Country) {
+        if ($this->getCountry() instanceof Location) {
             $data['country'] = $this->getCountry()->getName();
         }
-        if ($this->getCity() instanceof City) {
+        if ($this->getCity() instanceof Location) {
             $data['city'] = $this->getCity()->getName();
         }
         return json_encode($data);
     }
 
     /**
-     * @return City
+     * @return Location
      */
     public function getCity()
     {
@@ -818,10 +817,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param City $city
+     * @param Location $city
      * @return User
      */
-    public function setCity(City $city)
+    public function setCity(Location $city)
     {
         $this->city = $city;
         return $this;
@@ -846,7 +845,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @return Country
+     * @return Location
      */
     public function getCountry()
     {
@@ -854,10 +853,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param Country $country
+     * @param Location $country
      * @return User
      */
-    public function setCountry(Country $country)
+    public function setCountry(Location $country)
     {
         $this->country = $country;
         return $this;

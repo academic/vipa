@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\CommonParams;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -86,10 +87,14 @@ class JournalType extends AbstractType
             ->add('url', 'text', ['label' => 'url'])
             ->add('country', 'entity', [
                 'label' => 'country',
-                'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                 'attr' => [
                     'class' => 'select2-element '
-                ]
+                ],
+                'query_builder'=>function(EntityRepository $em){
+                    return $em->createQueryBuilder('c')
+                        ->where("c.type","0");
+                }
             ])
             ->add('footer_text', 'textarea', [
                 'label' => 'footer_text',

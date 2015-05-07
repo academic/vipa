@@ -3,7 +3,7 @@
 namespace Ojs\JournalBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use Ojs\UserBundle\Entity\UserJournalRole;
 
 /**

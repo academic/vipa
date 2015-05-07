@@ -5,8 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use Okulbilisim\LocationBundle\Entity\City;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 
 /**
  * Author
@@ -550,9 +549,9 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->institution;
     }
 
-    /** @var  Country */
+    /** @var  Location */
     protected $country;
-    /** @var  City */
+    /** @var  Location */
     protected $city;
 
     /** @var  string */
@@ -586,7 +585,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return City
+     * @return Location
      */
     public function getCity()
     {
@@ -594,7 +593,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param City $city
+     * @param Location $city
      * @return $this
      */
     public function setCity($city)
@@ -604,7 +603,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return Country
+     * @return Location
      */
     public function getCountry()
     {
@@ -612,7 +611,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param Country $country
+     * @param Location $country
      * @return $this
      */
     public function setCountry($country)

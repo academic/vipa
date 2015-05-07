@@ -1,0 +1,29 @@
+Okulbilisim\LocationBundle\Entity\Location:
+  type: entity
+  table: locations
+  repositoryClass: Okulbilisim\LocationBundle\Entity\LocationRepository
+  id:
+    id:
+      type: integer
+      nullable: false
+      id: true
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      type: string
+      length: 255
+    type:
+      type: smallint
+      nullable: false
+  oneToMany:
+    childrens:
+      targetEntity: Okulbilisim\LocationBundle\Entity\Location
+      mappedBy: parent
+  manyToOne:
+    parent:
+      targetEntity: Okulbilisim\LocationBundle\Entity\Location
+      inversedBy: childrens
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
