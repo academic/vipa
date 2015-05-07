@@ -3,6 +3,7 @@
 {% block body -%}
 <div class="large-12 columns">
     <div class="panel">
+        {% include '::flashbag.html.twig' %}
         <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
 
     {{ form(edit_form) }}

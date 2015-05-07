@@ -4,6 +4,7 @@
 <div class="col-md-12">
     <div class="panel">
         <h1>{{ "role.list"|trans }}</h1>
+        {% include '::flashbag.html.twig' %}
         {{ grid(grid) }}
 
         <a class="btn btn-success" href="{{ path('role_new') }}">
