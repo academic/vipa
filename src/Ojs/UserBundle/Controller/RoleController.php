@@ -8,9 +8,9 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Form\RoleType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 class RoleController extends Controller
 {
@@ -53,7 +53,8 @@ class RoleController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('role_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('role_show', ['id' => $entity->getId()]);
         }
 
         return array(
@@ -164,7 +165,8 @@ class RoleController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('role_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('role_edit', ['id' => $id]);
         }
 
         return array(
@@ -190,8 +192,8 @@ class RoleController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
-        return $this->redirect($this->generateUrl('role'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('role');
     }
 
     /**
