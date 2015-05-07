@@ -3,8 +3,13 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Column\NumberColumn;
+use APY\DataGridBundle\Grid\Column\TextColumn;
+use APY\DataGridBundle\Grid\Columns;
+use APY\DataGridBundle\Grid\Mapping\Column;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Source\Vector;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -303,8 +308,39 @@ class ArticleController extends Controller
         return $this->redirect($this->generateUrl('article'));
     }
 
-    public function articleCitationsAction($article_id)
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function articleCitationsAction($id)
     {
-        return $this->render('');
+        $em = $this->getDoctrine()->getManager();
+        /** @var Article $article */
+        $article = $em->find('OjsJournalBundle:Article',$id);
+        $data =[];
+
+        $data['entity'] = $article;
+        $citations = [];
+        foreach ($article->getCitations() as $citation) {
+            $citations[]=[
+                'id'=>$citation->getId(),
+                'raw' => $citation->getRaw()
+            ];
+        }
+        $columns = [
+            new NumberColumn(["id"=>"id","field"=>"id","primary"=>true,"title"=>"ID"]),
+            new TextColumn(["id"=>"raw","field"=>"raw","title"=>"Citation"]),
+        ];
+        $source = new Vector($citations);
+        $grid = $this->get('grid')->setSource($source);
+        $grid->getColumn("raw")->setTitle("Citation");
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('citation_show', 'id');
+        $rowAction[] = ActionHelper::editAction('citation_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('citation_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('@OjsJournal/Article/citations.html.twig',$data);
     }
 }
