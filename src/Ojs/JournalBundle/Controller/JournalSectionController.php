@@ -7,9 +7,9 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\JournalSectionType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * JournalSection controller.
@@ -69,7 +69,11 @@ class JournalSectionController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('manager_journal_section_show', array('id' => $entity->getId())));
+            $this->successFlashBag('Successfully created.');
+            return $this->redirectToRoute('manager_journal_section_show', [
+                'id' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:JournalSection:new.html.twig', array(
@@ -194,7 +198,11 @@ class JournalSectionController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('manager_journal_section_edit', array('id' => $id)));
+            $this->successFlashBag('Successfully updated.');
+            return $this->redirectToRoute('manager_journal_section_edit', [
+                'id' => $id
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:JournalSection:edit.html.twig', array(
@@ -216,7 +224,8 @@ class JournalSectionController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('manager_journal_section'));
+        $this->successFlashBag('Successfully removed.');
+        return $this->redirectToRoute('manager_journal_section');
     }
 
 }

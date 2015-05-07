@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{ "journalsection.list"|trans }}</h1>
-    
+    {% include '::flashbag.html.twig' %}
     <a href="{{ path('manager_journal_section_new') }}" class="btn btn-success">
         {{ "c"|trans }}
     </a>
