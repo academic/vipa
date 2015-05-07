@@ -12,8 +12,7 @@
         <li role="presentation" class="active"><a href="#">{{ "Info"|trans }}</a></li>
         <li role="presentation" class=""><a
                     href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
-        <li role="presentation" class=""><a href="{{ url('article_citation',{id: entity.id}) }}">{{ "citation"|trans }}</a></li>
-
+        <li role="presentation" class=""><a href="{{ url('article_citations',{id: entity.id}) }}">{{ "citation"|trans }}</a></li>
     </ul>
 
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}

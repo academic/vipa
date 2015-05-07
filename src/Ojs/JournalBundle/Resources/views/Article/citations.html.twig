@@ -1,0 +1,18 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'},
+    { 'link': path('article'), 'title': 'Article Manager'},
+    { 'title' : 'Edit Article'} ]) }}
+{% endblock %}
+
+{% block body -%}
+
+<ul class="nav nav-tabs">
+    <li role="presentation" class=""><a href="#">{{ "Info"|trans }}</a></li>
+    <li role="presentation" class=""><a
+                href="{{ url('articlefile',{article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
+    <li role="presentation" class="active"><a href="{{ url('article_citations',{id: entity.id}) }}">{{ "citation"|trans }}</a></li>
+</ul>
+    {{ grid(grid) }}
+{% endblock %}
