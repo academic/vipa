@@ -13,9 +13,9 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * UserJournalRole controller.
@@ -66,7 +66,12 @@ class UserJournalRoleController extends Controller
             $entity->setRole($data->getRole());
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('ujr_show', array('id' => $entity->getId())));
+
+            $this->successFlashBag('Successfully created');
+            return $this->redirectToRoute('ujr_show', [
+                'id' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:new.html.twig', array(
@@ -292,7 +297,11 @@ class UserJournalRoleController extends Controller
             $em->persist($newEntity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('ujr_edit', array('id' => $newEntity->getId())));
+            $this->successFlashBag('Successfully updated');
+            return $this->redirectToRoute('ujr_edit', [
+                'id' => $newEntity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
@@ -316,7 +325,8 @@ class UserJournalRoleController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('ujr'));
+        $this->successFlashBag('Successfully removed');
+        return $this->redirectToRoute('ujr');
     }
 
     public function leaveAction(Journal $journal, Role $role)
