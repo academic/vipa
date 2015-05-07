@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"board.edit"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
     <button class="btn-primary btn" type="submit">{{"u"|trans}}</button>
