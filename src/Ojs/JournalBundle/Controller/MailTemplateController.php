@@ -12,11 +12,11 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\MailTemplateType;
 use Symfony\Component\Yaml\Parser;
 use Ojs\JournalBundle\Form\MailTemplateAltType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * MailTemplate controller.
@@ -107,7 +107,11 @@ class MailTemplateController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('mailtemplate_manager_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('mailtemplate_manager_show', [
+                'id' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:new.html.twig', array(
@@ -232,8 +236,11 @@ class MailTemplateController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('mailtemplate_manager_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('mailtemplate_manager_edit', [
+                'id' => $id
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:MailTemplate:edit.html.twig', array(
@@ -259,6 +266,7 @@ class MailTemplateController extends Controller
         $em->remove($entity);
         $em->flush();
 
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl($isAdmin ? 'mailtemplate' : 'mailtemplate_manager'));
     }
 

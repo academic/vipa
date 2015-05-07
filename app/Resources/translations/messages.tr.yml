@@ -1042,6 +1042,9 @@ workflow.template.details: İş Akışı Şablonu Detayları
 system.templates: Sistem Şablonları
 created.templates: Oluşturulmuş Şablonlar
 success: Başarılı
+successful.create: 'Başarıyla oluşturuldu.'
+successful.update: 'Başarıyla güncellendi.'
+successful.remove: 'Başarıyla silindi.'
 "You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "Her yazar bilgi formalarının sol alt köşesinde bulunan 'Kaldır' butonuna basarak yazar formlarını kaldırmalısınız."
 "Remove all author forms!": Tüm yazar bilgi formlarını kaldır
 "User Journal Roles": Kullanıcı Dergi Rolleri
