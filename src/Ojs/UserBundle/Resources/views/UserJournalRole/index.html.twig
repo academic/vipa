@@ -4,6 +4,7 @@
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "user.journalrole.list"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
             {{ grid(grid) }}
 
             <a class="btn btn-success" href="{{ path('ujr_new') }}">
