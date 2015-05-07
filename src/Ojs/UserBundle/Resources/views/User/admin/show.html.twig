@@ -14,7 +14,7 @@
 
 
 {% block body %}
-
+    {% include '::flashbag.html.twig' %}
 <h1>{% if entity.avatar %}
     <img class="thumbnail pull-left" style="margin-right:5px;" src="/uploads/avatars/thumbnail/{{entity.avatar}}" />
 {% endif %}
