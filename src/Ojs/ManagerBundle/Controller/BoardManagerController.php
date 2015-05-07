@@ -103,7 +103,11 @@ class BoardManagerController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('board_manager_show', array('id' => $entity->getId())));
+            $this->successFlashBag('Successfully created.');
+            return $this->redirectToRoute('board_manager_show', [
+                'id' => $entity->getId()
+            ]
+            );
         }
 
         return $this->render('OjsManagerBundle:Board:new.html.twig', array(
@@ -212,7 +216,11 @@ class BoardManagerController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-            return $this->redirect($this->generateUrl('board_manager_edit', array('id' => $id)));
+            $this->successFlashBag('Successfully updated.');
+            return $this->redirectToRoute('board_manager_edit', [
+                'id' => $id
+                ]
+            );
         }
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
                     'entity' => $board,
@@ -231,7 +239,9 @@ class BoardManagerController extends Controller {
         $board = $this->getBoard($id);
         $em->remove($board);
         $em->flush();
-        return $this->redirect($this->generateUrl('board_manager'));
+
+        $this->successFlashBag('Successfully removed.');
+        return $this->redirectToRoute('board_manager');
     }
 
 }

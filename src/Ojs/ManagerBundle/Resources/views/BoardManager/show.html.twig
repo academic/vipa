@@ -9,7 +9,8 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <h1 title="{{"board.name"|trans}}">{{ entity.name }}</h1>
     <p class="{{"description"|trans}}">{{ entity.description|raw }}</p>
     <br>
