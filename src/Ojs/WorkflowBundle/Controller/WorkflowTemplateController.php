@@ -172,12 +172,11 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
             $dm->persist($entity);
             $dm->flush();
 
-            //add success message
-            $session->getFlashBag()->add(
-                'success',
-                'Template created successfully. Now you can add steps'
+            $this->successFlashBag('Template created successfully. Now you can add steps');
+            return $this->redirectToRoute('workflow_template_new_step', [
+                'templateId' => $entity->getId()
+                ]
             );
-            return $this->redirect($this->generateUrl('workflow_template_new_step', array('templateId' => $entity->getId())));
         }
 
         //add error message
@@ -228,20 +227,18 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         if ($form->isValid()) {
             $dm->persist($entity);
             $dm->flush();
-            //add success message
-            $session->getFlashBag()->add(
-                'success',
-                'Template updated successfully.'
-            );
-            return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $entity->getId())));
-        }
 
-        //add error message
-        $session->getFlashBag()->add(
-            'error',
-            'Please recheck your submission'
+            $this->successFlashBag('Template updated successfully.');
+            return $this->redirectToRoute('workflow_template_show', [
+                'id' => $entity->getId()
+                ]
+            );
+        }
+        $this->errorFlashBag('Please recheck your submission');
+        return $this->redirectToRoute('workflow_template_edit', [
+            'templateId' => $entity->getId()
+            ]
         );
-        return $this->redirect($this->generateUrl('workflow_template_edit', array('templateId' => $entity->getId())));
     }
 
     /**
@@ -272,12 +269,8 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         }
         $dm->flush();
 
-        //set success message
-        $session->getFlashBag()->add(
-            'success',
-            'Template successfully removed'
-        );
-        return $this->redirect($this->generateUrl('workflow_templates'));
+        $this->successFlashBag('Template successfully removed');
+        return $this->redirectToRoute('workflow_templates');
     }
 
     /**
@@ -352,7 +345,11 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         $dm->persist($step);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $templateId)));
+        $this->successFlashBag('Successfully created');
+        return $this->redirectToRoute('workflow_template_show', [
+            'id' => $templateId
+            ]
+        );
     }
 
     /**
@@ -448,12 +445,11 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         $dm->persist($step);
         $dm->flush();
 
-        //set success message
-        $session->getFlashBag()->add(
-            'success',
-            'Template step updated successfully'
+        $this->successFlashBag('Template step updated successfully');
+        return $this->redirectToRoute('workflow_template_step_show', [
+            'stepId' => $stepId
+            ]
         );
-        return $this->redirect($this->generateUrl('workflow_template_step_show', array('stepId' => $stepId)));
     }
 
     /**
@@ -483,11 +479,12 @@ class WorkflowTemplateController extends \Ojs\Common\Controller\OjsController
         //remove entity
         $dm->remove($entity);
         $dm->flush();
-        $session->getFlashBag()->add(
-            'success',
-            'Step removed successfully'
+
+        $this->successFlashBag('Step removed successfully');
+        return $this->redirectToRoute('workflow_template_show', [
+            'id' => $template->getId()
+            ]
         );
-        return $this->redirect($this->generateUrl('workflow_template_show', array('id' => $template->getId())));
     }
 
     /**
