@@ -15,6 +15,7 @@
             <h1>{{"workflow.steps"|trans}}</h1>
         </div>
         <div class="panel-body">
+            {% include '::flashbag.html.twig' %}
             {% for entity in steps %}
                 <div class="list-group-item">
 

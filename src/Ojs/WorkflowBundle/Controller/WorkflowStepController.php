@@ -106,7 +106,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm->persist($step);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('workflowsteps_show', array('id' => $step->getId())));
+        $this->successFlashBag('Successfully created');
+        return $this->redirectToRoute('workflowsteps_show', [
+            'id' => $step->getId()
+            ]
+        );
     }
 
     /**
@@ -183,7 +187,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm->remove($entity);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('manage_workflowsteps'));
+        $this->successFlashBag('Successfully removed');
+        return $this->redirectToRoute('manage_workflowsteps');
     }
 
     public function showAction($id)
@@ -237,8 +242,11 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm->persist($step);
         $dm->flush();
 
-
-        return $this->redirect($this->generateUrl('workflowsteps_show', array('id' => $id)));
+        $this->successFlashBag('Successfully updated');
+        return $this->redirectToRoute('workflowsteps_show', [
+            'id' => $id
+            ]
+        );
     }
 
 }

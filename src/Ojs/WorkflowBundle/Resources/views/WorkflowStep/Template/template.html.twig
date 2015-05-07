@@ -15,7 +15,8 @@
 
     <h1>{{template.title}}<br> 
         <small>{{template.description}}</small>
-    </h1> 
+    </h1>
+    {% include '::flashbag.html.twig' %}
 
     {% for entity in steps %}
         <div class="list-group-item">
