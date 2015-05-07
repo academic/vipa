@@ -9,6 +9,7 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}  
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <h2> {{form.title}}</h2>
 {% endblock %}

@@ -8,7 +8,8 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <div class="list-group">
         {% for entity in forms %}
             <div class="list-group-item list-group-item-default"> 

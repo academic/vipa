@@ -43,7 +43,10 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController {
         $dm->persist($form);
         $dm->flush();
 
-        return $this->redirect($this->generateUrl('ojs_review_forms', array('id' => $form->getId()))
+        $this->successFlashBag('successful.create');
+        return $this->redirectToRoute('ojs_review_forms', [
+            'id' => $form->getId()
+            ]
         );
     }
 
@@ -73,7 +76,7 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController {
         $form->setTitle($request->get('title'));
         $dm->persist($form);
         $dm->flush();
-
+        $this->successFlashBag('successful.update');
         return $this->redirect($this->generateUrl('ojs_review_forms_show', array('id' => $id)));
     }
 
@@ -89,8 +92,8 @@ class ReviewFormController extends \Ojs\Common\Controller\OjsController {
         $this->throw404IfNotFound($form);
         $dm->remove($form);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_forms')
-        );
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('ojs_review_forms');
     }
 
     /**
