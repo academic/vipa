@@ -1,0 +1,41 @@
+\Okulbilisim\LocationBundle\Entity\Location:
+  location1:
+    name: Aruba
+    type: 0
+    parent_id: 0
+  location2:
+    name: Turkey
+    type: 0
+    parent_id: 0
+  location3:
+    name: Japan
+    type: 0
+    parent_id: 0
+  location4:
+    name: Tunisia
+    type: 0
+    parent_id: 0
+  location5:
+    name: England
+    type: 0
+    parent_id: 0
+  location6:
+    name: Ankara
+    type: 1
+    parent: @location2
+  location7:
+    name: Istanbul
+    type: 1
+    parent: @location2
+  location8:
+    name: Izmir
+    type: 1
+    parent: @location2
+  location9:
+    name: Bursa
+    type: 1
+    parent: @location2
+  location10:
+    name: Tokio
+    type: 1
+    parent: @location3

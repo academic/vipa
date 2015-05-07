@@ -6,7 +6,7 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
@@ -89,7 +89,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $url;
 
     /**
-     * @var Country
+     * @var Location
      * @Expose
      */
     private $country;
@@ -743,7 +743,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get country
      *
-     * @return Country
+     * @return Location
      */
     public function getCountry()
     {
@@ -752,10 +752,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set country
-     * @param  Country $country
+     * @param  Location $country
      * @return Journal
      */
-    public function setCountry(Country $country)
+    public function setCountry(Location $country)
     {
         $this->country = $country;
         $this->country_id = $country->getId();

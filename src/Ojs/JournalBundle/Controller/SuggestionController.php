@@ -14,7 +14,7 @@ use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
-use Okulbilisim\LocationBundle\Entity\Country;
+use Okulbilisim\LocationBundle\Entity\Location;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -96,8 +96,8 @@ class SuggestionController extends Controller
         /** @var Institution $institution */
         $institution = $em->find('OjsJournalBundle:Institution', $entity->getInstitution());
 
-        /** @var Country $country */
-        $country = $em->find('OkulbilisimLocationBundle:Country',$entity->getCountry());
+        /** @var Location $country */
+        $country = $em->find('OkulbilisimLocationBundle:Location',$entity->getCountry());
 
         $data['entity'] = $entity;
         $data['languages'] = join(',', $languages);

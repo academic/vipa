@@ -32,12 +32,12 @@ Ojs\JournalBundle\Entity\Institution:
                 referencedColumnName: id
             inversedBy: institutions
         country:
-            targetEntity: Okulbilisim\LocationBundle\Entity\Country
+            targetEntity: Okulbilisim\LocationBundle\Entity\Location
             joinColumn:
                   name: country_id
                   referencedColumnName: id
         city:
-            targetEntity: Okulbilisim\LocationBundle\Entity\City
+            targetEntity: Okulbilisim\LocationBundle\Entity\Location
             joinColumn:
                   name: city_id
                   referencedColumnName: id

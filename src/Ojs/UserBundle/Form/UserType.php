@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\CommonParams;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
@@ -75,11 +76,15 @@ class UserType extends AbstractType {
                 ->add('header', 'hidden')
                 ->add('country', 'entity', [
                     'label' => 'country',
-                    'class' => 'Okulbilisim\LocationBundle\Entity\Country',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
                         'data-to' => '#' . $this->getName() . '_city'
-                    ]
+                    ],
+                    'query_builder'=>function(EntityRepository $em){
+                        return $em->createQueryBuilder('c')
+                            ->where("c.type","0");
+                    }
         ]);
         /** @var FormHelper $helper */
         $helper = $options['helper'];
