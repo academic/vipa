@@ -8,7 +8,7 @@
 
 {% block body -%}
     <h1>{{ 'article.detail'|trans }}<small title="ojs unique id">#{{ entity.id }}</small></h1>
-
+    {% include '::flashbag.html.twig' %}
     <table class="record_properties table">
         <tbody>
             <tr>

@@ -3,9 +3,9 @@
 namespace Ojs\JournalBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Form\ArticleAuthorType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * ArticleAuthor controller.
@@ -46,7 +46,7 @@ class ArticleAuthorController extends Controller
         $entity->setAuthorOrder($data['authorOrder']);
         $em->persist($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.create');
         return $this->redirect($this->generateUrl('articleauthor_show', array('id' => $entity->getId())));
     }
 
@@ -171,6 +171,7 @@ class ArticleAuthorController extends Controller
             $em->persist($entity);
             $em->flush();
 
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('articleauthor_edit', array('id' => $id)));
         }
 
@@ -193,7 +194,7 @@ class ArticleAuthorController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('articleauthor'));
     }
 

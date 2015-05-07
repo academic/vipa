@@ -124,7 +124,11 @@ class ArticleController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('articlefile', array('article' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('articlefile', [
+                'article' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsJournalBundle:Article:new.html.twig', array(
@@ -284,6 +288,7 @@ class ArticleController extends Controller
             $dm->flush();
             $em->flush();
 
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('article_edit', array('id' => $id)));
         }
 
@@ -304,7 +309,7 @@ class ArticleController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('article'));
     }
 
