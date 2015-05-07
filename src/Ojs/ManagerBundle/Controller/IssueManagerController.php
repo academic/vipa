@@ -123,11 +123,11 @@ class IssueManagerController extends Controller {
             $em->persist($issue);
             $em->flush();
 
-            return $this->redirect(
-                            $this->generateUrl(
-                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                                    )
-            ));
+            $this->successFlashBag('Successfully created.');
+            return $this->redirectToRoute('issue_manager_issue_view', [
+                    'issueId' => $issue->getId()
+                ]
+            );
         }
 
 
@@ -157,11 +157,12 @@ class IssueManagerController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($issue);
             $em->flush();
-            return $this->redirect(
-                            $this->generateUrl(
-                                    'issue_manager_issue_view', array('issueId' => $issue->getId()
-                                    )
-            ));
+
+            $this->successFlashBag('Successfully updated.');
+            return $this->redirectToRoute('issue_manager_issue_view', [
+                    'issueId' => $issue->getId()
+                ]
+            );
         }
         return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
                     'journal' => $journal,
@@ -265,8 +266,9 @@ class IssueManagerController extends Controller {
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
      */
-    public function removeArticleAction($id, $articleId)
+    public function removeArticleAction(Request $request,$id, $articleId)
     {
+        $referer = $request->headers->get('referer');
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
         $this->checkIssue($id);
@@ -275,7 +277,8 @@ class IssueManagerController extends Controller {
         $article->setIssueId(null);
         $em->persist($article);
         $em->flush();
-        return $this->redirect($this->getRequest()->headers->get('referer'));
+        $this->successFlashBag('Successfully removed.');
+        return $this->redirect($referer);
     }
 
     /**

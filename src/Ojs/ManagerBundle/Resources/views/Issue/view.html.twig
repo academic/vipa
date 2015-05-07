@@ -28,7 +28,7 @@
                     </small>
                 {%endif%}
             </h1>
-
+            {% include '::flashbag.html.twig' %}
             <ul>
                 <li>{{"volume"|trans}} : <strong>{{issue.volume}}</strong> </li>
                 <li>{{"issue.number"|trans}} : <strong>{{issue.number}}</strong></li>
