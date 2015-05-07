@@ -406,6 +406,7 @@ journal.subjects: Konular
 journal.cover_image: 'Kapak Resmi'
 journal.header_image: 'Üst Resim'
 journal.tags: Etiketler
+journal.google.analytics.id: 'Google Analytics Id'
 tags: Etiketler
 journal.createdAt: Oluşturulma
 journal.user: Kullanıcı

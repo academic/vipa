@@ -128,6 +128,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @var string
      * @Expose
      */
+    private $googleAnalyticsId;
+
+    /**
+     * @var string
+     * @Expose
+     */
     private $slug;
 
     /**
@@ -915,6 +921,28 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setTheme($theme)
     {
         $this->theme = $theme;
+        return $this;
+    }
+
+    /**
+     * Get googleAnalyticsId
+     *
+     * @return Theme
+     */
+    public function getGoogleAnalyticsId()
+    {
+        return $this->googleAnalyticsId;
+    }
+
+    /**
+     * Set googleAnalyticsId
+     *
+     * @param  string $googleAnalyticsId
+     * @return Journal
+     */
+    public function setGoogleAnalyticsId($googleAnalyticsId)
+    {
+        $this->googleAnalyticsId = $googleAnalyticsId;
         return $this;
     }
 

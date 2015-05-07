@@ -80,6 +80,9 @@ class JournalType extends AbstractType
                 'date_format' => 'yyyy-MM-dd',
             ))
             ->add('period', 'text', ['label' => 'journal.period'])
+            ->add('googleAnalyticsId', 'text', [
+                'label' => 'journal.google.analytics.id'
+            ])
             ->add('url', 'text', ['label' => 'url'])
             ->add('country', 'entity', [
                 'label' => 'country',

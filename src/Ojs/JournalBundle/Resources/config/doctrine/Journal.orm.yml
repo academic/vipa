@@ -232,6 +232,11 @@ Ojs\JournalBundle\Entity\Journal:
         logo_options:
             type: string
             nullable: true
+        googleAnalyticsId:
+            type: string
+            length: 50
+            nullable: true
+            column: google_analytics_id
         slug:
             type: string
             nullable: true

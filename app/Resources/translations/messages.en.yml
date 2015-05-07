@@ -401,6 +401,7 @@ journal.subjects: Subjects
 journal.cover_image: 'Cover Image'
 journal.header_image: 'Header Image'
 journal.tags: Tags
+journal.google.analytics.id: 'Google Analytics Id'
 journal.createdAt: 'Created at'
 journal.user: User
 journal.merge_as_new_journal: 'Merge As New Journal'
