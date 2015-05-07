@@ -9,17 +9,18 @@ use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Form\UpdateUserType;
 use Ojs\UserBundle\Form\UserType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * User controller.
  *
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     /**
      * Lists all User entities.
@@ -63,7 +64,11 @@ class UserController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('user_show', [
+                'id' => $entity->getId()
+                ]
+            );
         }
 
         return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
@@ -211,7 +216,8 @@ class UserController extends Controller {
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('user_edit', ['id' => $id]);
         }
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
@@ -234,7 +240,8 @@ class UserController extends Controller {
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('user'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('user');
     }
 
     public function blockAction(Request $request, $id)
@@ -383,5 +390,4 @@ class UserController extends Controller {
         $data['selectedTemplate'] = $tplKey ? (isset($defaultTemplates[$tplKey]) ? json_encode($defaultTemplates[$tplKey]) : null) : null;
         return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
     }
-
 }

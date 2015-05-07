@@ -16,6 +16,7 @@
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{ "user.edit"|trans }}</h1>
+            {% include '::flashbag.html.twig' %}
 
             <div class="record_actions">
                 {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
