@@ -1130,6 +1130,9 @@ workflow.template.details: Workflow Templat Details
 system.templates: System templates
 created.templates: Created Templates
 success: Success
+successful.create: 'Successfully created.'
+successful.update: 'Successfully updated.'
+successful.remove: 'Successfully removed.'
 "You should remove author forms by clicking 'Remove' button on left bottom corner of every form.": "You should remove author forms by clicking 'Remove' button on left bottom corner of every form."
 "Remove all author forms!": Remove all author forms!
 "User Journal Roles": User Journal Roles

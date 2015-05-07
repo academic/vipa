@@ -1,6 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
+    {% include '::flashbag.html.twig' %}
     <h1>{{ 'mailtemplate.list'|trans }}</h1>
     {{ grid(db_templates) }}
 
