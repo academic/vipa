@@ -50,7 +50,7 @@ class AuthorController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
         }
 
@@ -155,7 +155,7 @@ class AuthorController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
         }
 
@@ -176,7 +176,7 @@ class AuthorController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('author'));
     }
 

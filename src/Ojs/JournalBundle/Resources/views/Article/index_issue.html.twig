@@ -1,7 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-
+    {% include '::flashbag.html.twig' %}
     {{"article.plural"|trans}} {{ 'issue.plural'|trans }} <strong>{{issue.title }}</strong> {{"journal"|trans}} <em>{{issue.journal.title }}</em>
     
         <p>{% trans with {'%title%':issue.title}%}Here you can find all articles for selected issue <strong>%title%</strong>{% endtrans %}</p>

@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"e"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
     <div class="record_actions">
