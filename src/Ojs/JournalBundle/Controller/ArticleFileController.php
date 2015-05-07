@@ -6,7 +6,7 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Form\ArticleFileType;
@@ -68,6 +68,7 @@ class ArticleFileController extends Controller
 
             $em->flush();
 
+            $this->successFlashBag('Successfully created.');
             return $this->redirect($this->generateUrl('articlefile', array('article' => $article->getId())));
         }
 
@@ -210,6 +211,7 @@ class ArticleFileController extends Controller
 
             $em->flush();
 
+            $this->successFlashBag('Successfully updated.');
             return $this->redirect($this->generateUrl('articlefile_edit', array('id' => $id)));
         }
 
@@ -236,6 +238,7 @@ class ArticleFileController extends Controller
         $em->remove($entity);
         $em->flush();
 
+        $this->successFlashBag('Successfully removed.');
         return $this->redirect($this->generateUrl('articlefile',['article'=>$articleid]));
     }
 
