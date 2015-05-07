@@ -9,10 +9,9 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}  
-
-
+{% block body -%}
     <div class="panel panel-info">
+        {% include '::flashbag.html.twig' %}
         <div class="panel-heading"> <h3> {{form.title}}</h3></div>
         <div class="panel-body">
             {% include 'OjsWorkflowBundle:ReviewForm:form_items_rendered.html.twig' with  {'formitems': formitems } only %}

@@ -9,7 +9,8 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%}  
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <h1>Update Form <small>{{form.title}}</small></h1>
     <hr>
     <form method="post" class="form-row" action="{{path('ojs_review_forms_update',{'id':form.id})}}">
