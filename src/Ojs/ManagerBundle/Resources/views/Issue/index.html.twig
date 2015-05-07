@@ -13,6 +13,7 @@
     <div class="row">
         <div class="panel">
             <h1>{{"issue.plural"|trans}} <small>{{journal.title}}</small></h1>
+            {% include '::flashbag.html.twig' %}
             <table class="records_list table table-striped table-responsive">
                 <tbody>
                     {% for entity in entities %}
