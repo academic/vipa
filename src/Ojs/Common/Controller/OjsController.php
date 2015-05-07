@@ -26,4 +26,29 @@ class OjsController extends Controller
         return TRUE;
     }
 
+    /**
+     * @param $text
+     * @return bool
+     */
+    public function successFlashBag($text)
+    {
+        $session = $this->get('session');
+        $flashBag = $session->getFlashBag();
+        $translator = $this->get('translator');
+        $flashBag->add('success',$translator->trans($text));
+        return true;
+    }
+
+    /**
+     * @param $text
+     * @return bool
+     */
+    public function errorFlashBag($text)
+    {
+        $session = $this->get('session');
+        $flashBag = $session->getFlashBag();
+        $translator = $this->get('translator');
+        $flashBag->add('error',$translator->trans($text));
+        return true;
+    }
 }

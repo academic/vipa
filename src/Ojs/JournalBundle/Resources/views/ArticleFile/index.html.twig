@@ -2,6 +2,8 @@
 
 {% block body -%}
 
+    {% include '::flashbag.html.twig' %}
+
     <ul class="nav nav-tabs">
         <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
         <li role="presentation" class="active"><a href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
