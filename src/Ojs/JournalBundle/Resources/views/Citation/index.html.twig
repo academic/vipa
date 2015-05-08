@@ -2,6 +2,7 @@
 
 {% block body -%}
     <h1>{{"citation.list"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
     <a href="{{ path('citation_new') }}">{{"citation.new"|trans}}</a>
     {{grid(grid)}}
 {% endblock %}
