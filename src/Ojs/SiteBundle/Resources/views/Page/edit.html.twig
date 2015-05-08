@@ -11,7 +11,7 @@
 
 {% block body -%}
     <h1>Edit Page</h1>
-
+    {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
     <div class="record_actions">
