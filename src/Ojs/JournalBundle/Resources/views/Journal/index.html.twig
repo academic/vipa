@@ -15,10 +15,11 @@
     {% endstylesheets %} 
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
     <div class="large-12 columns">
         <div class="panel">
             <h1>{{"journal.list"|trans}}</h1>
+            {% include '::flashbag.html.twig' %}
             <div class="panel">
                 <a class="btn btn-info" href="{{path('journal')}}">
                     <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{"journal.all"|trans}}</a>

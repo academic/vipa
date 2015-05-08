@@ -34,13 +34,7 @@
     <div class="panel">
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':1} only %}
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {% include '::flashbag.html.twig' %}
     {{ form_errors(form) }}
 
     {{ form_widget(form) }}
