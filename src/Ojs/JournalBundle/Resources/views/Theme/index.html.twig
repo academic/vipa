@@ -2,7 +2,8 @@
 
 {% block body -%}
     <h1>{{"theme.list"|trans}}</h1>
-{{ grid(grid) }}
+    {% include '::flashbag.html.twig' %}
+    {{ grid(grid) }}
     <a href="{{ path('theme_new') }}" class="btn btn-success">
         {{"c"|trans}}
     </a>

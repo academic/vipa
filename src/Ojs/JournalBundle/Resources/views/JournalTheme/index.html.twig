@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"journaltheme.list"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <hr>
     <a href="{{ path('admin_journaltheme_new') }}" class="btn btn-success">
