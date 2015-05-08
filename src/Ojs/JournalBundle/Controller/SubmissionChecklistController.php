@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Form\SubmissionChecklistType;
@@ -71,7 +71,7 @@ class SubmissionChecklistController extends Controller
             $entity->setJournalId($journal->getId());
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('manager_submission_checklist_show', array('id' => $entity->getId())));
         }
 
@@ -200,7 +200,7 @@ class SubmissionChecklistController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('manager_submission_checklist_edit', array('id' => $id)));
         }
 
@@ -231,7 +231,7 @@ class SubmissionChecklistController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('manager_submission_checklist'));
     }
 
