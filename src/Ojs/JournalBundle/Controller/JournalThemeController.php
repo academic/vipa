@@ -6,8 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalTheme;
 use Ojs\JournalBundle\Form\JournalThemeType;
 
@@ -52,8 +51,8 @@ class JournalThemeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_journaltheme_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('admin_journaltheme_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:JournalTheme:new.html.twig', array(
@@ -180,8 +179,8 @@ class JournalThemeController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_journaltheme_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('admin_journaltheme_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:JournalTheme:edit.html.twig', array(
@@ -202,16 +201,13 @@ class JournalThemeController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('notFound');
-            }
-
+            $this->throw404IfNotFound($entity);
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_journaltheme'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('admin_journaltheme');
     }
 
     /**

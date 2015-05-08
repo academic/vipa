@@ -69,7 +69,7 @@ class JournalSectionController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            $this->successFlashBag('Successfully created.');
+            $this->successFlashBag('successful.create');
             return $this->redirectToRoute('manager_journal_section_show', [
                 'id' => $entity->getId()
                 ]

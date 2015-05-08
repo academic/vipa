@@ -51,8 +51,8 @@ class ThemeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('theme_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('theme_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Theme:new.html.twig', array(
@@ -161,8 +161,8 @@ class ThemeController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('theme_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('theme_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Theme:edit.html.twig', array(
@@ -187,7 +187,7 @@ class ThemeController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('theme'));
     }
 
