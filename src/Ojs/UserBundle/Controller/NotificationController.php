@@ -3,7 +3,7 @@
 namespace Ojs\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Notification;
 use Ojs\UserBundle\Form\NotificationType;
 
@@ -41,7 +41,7 @@ class NotificationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('admin_notification_show', array('id' => $entity->getId())));
         }
 
@@ -164,7 +164,7 @@ class NotificationController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('admin_notification_edit', array('id' => $id)));
         }
 
@@ -189,8 +189,8 @@ class NotificationController extends Controller
 
         $em->remove($entity);
         $em->flush();
-
-        return $this->redirect($this->generateUrl('admin_notification'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('admin_notification');
     }
 
 }
