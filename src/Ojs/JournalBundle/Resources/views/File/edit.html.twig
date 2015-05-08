@@ -2,6 +2,7 @@
 
 {% block body -%}
     <h1>{{"file.edit"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     {% set back_path = 'admin_file' %}
     {% set delete_path = 'admin_file_delete' %}

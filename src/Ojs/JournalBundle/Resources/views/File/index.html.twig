@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"file.list"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     <a href="{{path('admin_file_new')}}">{{"c"|trans}}</a>
     <table class="records_list table">
         <thead>
