@@ -50,8 +50,8 @@ class ContactController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('contact_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('contact_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Contact:new.html.twig', array(
@@ -155,8 +155,8 @@ class ContactController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('contact_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('contact_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
@@ -180,8 +180,8 @@ class ContactController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
-        return $this->redirect($this->generateUrl('contact'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('contact');
     }
 
 }
