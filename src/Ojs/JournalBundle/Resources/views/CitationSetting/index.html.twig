@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"citation.setting.list"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     <a href="{{ path('citationsetting_new') }}">{{"citation.setting.new"|trans}}</a>
 
     <table class="records_list  table">

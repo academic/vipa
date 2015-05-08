@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"citation.setting.edit"|trans}}</h1>
-
+    {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
     <ul class="record_actions">
