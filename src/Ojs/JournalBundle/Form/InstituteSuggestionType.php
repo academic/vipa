@@ -35,7 +35,7 @@ class InstituteSuggestionType extends AbstractType
             /** @var InstitutionTypes $choice*/
             $choices['types'][$choice->getId()]=$choice->getName();
         }
-        $countries = $em->getRepository('OkulbilisimLocationBundle:Country')->findAll();
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type'=>0]);
         foreach ($countries as $country) {
             $choices['countries'][$country->getId()]=$country->getName();
         }

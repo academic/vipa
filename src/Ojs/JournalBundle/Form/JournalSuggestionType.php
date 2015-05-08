@@ -24,7 +24,7 @@ class JournalSuggestionType extends AbstractType
         $institution = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $languages = $em->getRepository('OjsJournalBundle:Lang')->findAll();
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-        $countries = $em->getRepository('OkulbilisimLocationBundle:Country')->findAll();
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type'=>0]);
         $choices = [
             'subjects' => [],
             'institutions' => [],
