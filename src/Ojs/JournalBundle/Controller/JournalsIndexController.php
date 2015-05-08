@@ -9,7 +9,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalsIndex;
 use Ojs\JournalBundle\Form\JournalsIndexType;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * JournalsIndex controller.
  *
  */
-class JournalsIndexController extends Controller {
+class JournalsIndexController extends Controller
+{
 
     /**
      * Lists all JournalsIndex entities.
@@ -78,10 +79,10 @@ class JournalsIndexController extends Controller {
             $entity->setJournalIndexId($entity->getJournalIndex()->getId());
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('manager_journals_indexes_show', array('id' => $entity->getId())));
         }
-
+        $this->successFlashBag('successful.create');
         return $this->render('OjsJournalBundle:JournalsIndex:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -209,7 +210,7 @@ class JournalsIndexController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('manager_journals_indexes_edit', array('id' => $id)));
         }
 
@@ -233,7 +234,8 @@ class JournalsIndexController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('manager_journals_indexes'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('manager_journals_indexes');
     }
  
 
