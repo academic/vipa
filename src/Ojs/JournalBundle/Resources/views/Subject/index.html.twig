@@ -2,6 +2,7 @@
 
 {% block body -%}
     <h1>{{"subject.list"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
     <a href="#" onclick="$('.grid').toggle();
             $('.tree').toggle();
             return false;" class="btn btn-info btn-sm">Toggle Tree</a>

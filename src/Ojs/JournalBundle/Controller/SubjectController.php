@@ -63,8 +63,8 @@ class SubjectController extends Controller {
             $entity->setTranslatableLocale($request->getLocale());
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('subject_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('subject_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Subject:new.html.twig', array(
@@ -160,8 +160,8 @@ class SubjectController extends Controller {
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('subject_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('subject_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Subject:edit.html.twig', array(
@@ -181,8 +181,8 @@ class SubjectController extends Controller {
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-
-        return $this->redirect($this->generateUrl('subject'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('subject');
     }
 
 }
