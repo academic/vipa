@@ -69,8 +69,8 @@ class CitationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('citation_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('citation_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Citation:new.html.twig', array(
@@ -203,8 +203,8 @@ class CitationController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('citation_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('citation_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
@@ -226,8 +226,8 @@ class CitationController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-
-        return $this->redirect($this->generateUrl('citation'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('citation');
     }
 
 }
