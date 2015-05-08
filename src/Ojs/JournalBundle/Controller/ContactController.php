@@ -34,7 +34,7 @@ class ContactController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Contact:index.html.twig',$data);
+        return $grid->getGridResponse('OjsJournalBundle:Contact:index.html.twig', $data);
     }
 
     /**
@@ -55,8 +55,8 @@ class ContactController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Contact:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -88,8 +88,8 @@ class ContactController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:Contact:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -104,7 +104,7 @@ class ContactController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Contact:show.html.twig', array(
-                    'entity' => $entity, ));
+            'entity' => $entity,));
     }
 
     /**
@@ -119,8 +119,8 @@ class ContactController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -160,8 +160,8 @@ class ContactController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -171,15 +171,11 @@ class ContactController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
+        $this->throw404IfNotFound($entity);
+        $em->remove($entity);
+        $em->flush();
         $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('contact');
     }
