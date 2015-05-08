@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block body -%}
-<h1>{{ "notification.singular"|trans }}</h1>
-
-<table class="record_properties table">
-    <tbody>
+    <h1>{{ "notification.singular"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <table class="record_properties table">
+        <tbody>
         <tr>
             <th>{{ "notification.id"|trans }}</th>
             <td>{{ entity.id }}</td>
@@ -42,8 +42,8 @@
             <th>{{ "notification.level"|trans }}</th>
             <td>{{ entity.level }}</td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
     {% set back_path = 'admin_notification' %}
     {% set edit_path = 'admin_notification_edit' %}
