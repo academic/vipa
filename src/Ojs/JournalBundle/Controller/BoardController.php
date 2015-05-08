@@ -48,8 +48,8 @@ class BoardController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_board_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('admin_board_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Board:new.html.twig', array(
@@ -168,8 +168,8 @@ class BoardController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_board_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('admin_board_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
@@ -191,7 +191,8 @@ class BoardController extends Controller {
         }
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('admin_board'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('admin_board');
     }
 
 }
