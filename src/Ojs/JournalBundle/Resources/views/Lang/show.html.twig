@@ -2,7 +2,7 @@
 
 {% block body -%}
     <h1>{{"lang"|trans}} <small>{{ entity.id }}</small></h1>
-
+    {% include '::flashbag.html.twig' %}
     <table class="record_properties">
         <tbody>
             <tr>

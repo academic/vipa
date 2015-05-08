@@ -2,6 +2,7 @@
 
 {% block body -%}
     <h1>{{"lang.list"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <a href="{{ path('lang_new') }}" class="btn btn-success">
         {{"c"|trans}}
