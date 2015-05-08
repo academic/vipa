@@ -75,6 +75,7 @@ class JournalController extends Controller
             }
             $em->persist($entity);
             $em->flush();
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
 
@@ -204,6 +205,7 @@ class JournalController extends Controller
             }
             $em->persist($entity);
             $em->flush();
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('journal_edit', array('id' => $id)));
         }
 
@@ -227,7 +229,8 @@ class JournalController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-        return $this->redirect($this->generateUrl('journal'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('journal');
     }
 
     public function applyAction()
