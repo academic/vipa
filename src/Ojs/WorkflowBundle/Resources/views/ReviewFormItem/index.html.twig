@@ -11,6 +11,7 @@
 
 {% block body -%} 
     <h1>{{ 'form.items'|trans }}<small>{{form.title}}</small> </h1>
+    {% include '::flashbag.html.twig' %}
     <hr> 
     <div class='list-group'>
         {% for entity in formItems %}
