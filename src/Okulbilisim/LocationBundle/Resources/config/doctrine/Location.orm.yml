@@ -16,6 +16,9 @@ Okulbilisim\LocationBundle\Entity\Location:
     type:
       type: smallint
       nullable: false
+    parent_id:
+      type: integer
+      nullable: true
   oneToMany:
     childrens:
       targetEntity: Okulbilisim\LocationBundle\Entity\Location
