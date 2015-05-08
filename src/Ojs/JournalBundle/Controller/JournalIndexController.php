@@ -113,11 +113,8 @@ class JournalIndexController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:JournalIndex:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -203,22 +200,13 @@ class JournalIndexController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:JournalIndex')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('notFound');
-            }
-            $this->successFlashBag('successful.remove');
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('admin_journalindex'));
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:JournalIndex')->find($id);
+        $this->throw404IfNotFound($entity);
+        $em->remove($entity);
+        $em->flush();
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('admin_journalindex');
     }
 
     /**
