@@ -5,6 +5,7 @@
 {% endblock %} 
 
 {% block body -%}
+    {% include '::flashbag.html.twig' %}
     <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a>
     {{ grid(grid) }}
 

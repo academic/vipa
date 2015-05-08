@@ -60,7 +60,8 @@ class InstitutionController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('institution_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('institution_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Institution:new.html.twig', array(
@@ -174,8 +175,8 @@ class InstitutionController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('institution_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('institution_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
@@ -195,7 +196,7 @@ class InstitutionController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('institution'));
     }
 

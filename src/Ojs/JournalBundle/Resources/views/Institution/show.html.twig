@@ -6,8 +6,8 @@
     { 'title': 'institution.detail'|trans}])}}
 {% endblock %} 
 
-{% block body -%} 
-
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
             <tr>
