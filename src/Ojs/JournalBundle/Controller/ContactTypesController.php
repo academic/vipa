@@ -50,7 +50,7 @@ class ContactTypesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('contacttypes_show', array('id' => $entity->getId())));
         }
 
@@ -155,7 +155,7 @@ class ContactTypesController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('contacttypes_edit', array('id' => $id)));
         }
 
@@ -180,7 +180,7 @@ class ContactTypesController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('contacttypes'));
     }
 
