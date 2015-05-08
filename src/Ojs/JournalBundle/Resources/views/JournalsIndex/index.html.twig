@@ -3,6 +3,7 @@
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'journalsindex.list'|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     <a class="btn btn-success" href="{{ path('manager_journals_indexes_new',{journal: journal_id}) }}">
         {{ 'add'|trans }}
