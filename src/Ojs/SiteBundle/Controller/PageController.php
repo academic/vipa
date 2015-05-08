@@ -3,10 +3,10 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Ojs\SiteBundle\Entity\Page;
 use Ojs\SiteBundle\Form\PageType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * Page controller.
@@ -43,7 +43,7 @@ class PageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('admin_page_show', array('id' => $entity->getId())));
         }
 
@@ -171,7 +171,7 @@ class PageController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('admin_page_edit', array('id' => $id)));
         }
 
@@ -201,7 +201,7 @@ class PageController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('admin_page'));
     }
 

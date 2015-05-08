@@ -12,6 +12,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h1>{{ content.title }}</h1>
+            {% include '::flashbag.html.twig' %}
         </div>
         <div class="panel-body">
             {{ content.content|raw }}
