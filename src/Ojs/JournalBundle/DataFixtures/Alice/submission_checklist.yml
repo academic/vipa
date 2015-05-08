@@ -8,13 +8,36 @@
                              <li>The e-mail address, telephone number of the corresponding author </li></ul>
         journal: @journal1
         visible: true
+        locale: en
     checkItem2:
         label: All authors have read and approved the most recent version of the manuscript 
         journal: @journal1
         visible: true
+        locale: en
     checkItem3:
         label: Ensure your manuscript has been <i>spell checked</i>
         journal: @journal1
         visible: true
+        locale: en
+    checkItem4:
+        label: Sayfa başlığı eklenmeli
+        detail:   |
+                             <ul><li>Yazarların adları</li>
+                             <li>Başlık kısa bilgi niteliğinde olmalı</li>
+                             <li>Yazarlar bağlantılı olmalı</li>
+                             <li>Telefon ve eposta için yazarın izni olmalı.</li></ul>
+        journal: @journal1
+        visible: true
+        locale: tr
+    checkItem5:
+        label: Tüm yazarlar taslağı okumuş ve onaylamış olmalılar.
+        journal: @journal1
+        visible: true
+        locale: tr
+    checkItem6:
+        label: Taslağın gramer ve dil kontrolü yapılmış olmalı
+        journal: @journal1
+        visible: true
+        locale: tr
 
     
