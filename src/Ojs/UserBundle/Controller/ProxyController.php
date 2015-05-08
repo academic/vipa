@@ -3,9 +3,9 @@
 namespace Ojs\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\UserBundle\Entity\Proxy;
 use Ojs\UserBundle\Form\ProxyType;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * Proxy controller.
@@ -28,7 +28,7 @@ class ProxyController extends Controller
                 array('proxyUserId' => $proxyUserId, 'clientUserId' => $currentUser->getId())
         );
         if ($check) {
-            $this->get('session')->getFlashBag()->add('error', 'Already assigned');
+            $this->errorFlashBag('Already assigned');
 
             return new \Symfony\Component\HttpFoundation\RedirectResponse($url);
         }
@@ -37,7 +37,7 @@ class ProxyController extends Controller
         $proxy->setClientUser($currentUser);
         $em->persist($proxy);
         $em->flush();
-        $this->get('session')->getFlashBag()->add('success', 'Successfully added as proxy user. This user now can login as you. ');
+        $this->successFlashBag('Successfully added as proxy user. This user now can login as you.');
         $this->get('session')->getFlashBag()->add('warning', 'You can add "end date" for this proxy user. '
                 . '<a href="' . $this->generateUrl('user_my_proxy_parents') . '" class="bt btn-sm btn-default">Click</a> to update your proxy users.');
 
@@ -156,7 +156,7 @@ class ProxyController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.create');
             return $this->redirect($this->generateUrl('admin_proxy_show', array('id' => $entity->getId())));
         }
 
@@ -278,7 +278,7 @@ class ProxyController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $id)));
         }
 
@@ -302,7 +302,7 @@ class ProxyController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('admin_proxy'));
     }
 
