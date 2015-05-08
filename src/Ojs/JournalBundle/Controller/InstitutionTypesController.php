@@ -50,8 +50,8 @@ class InstitutionTypesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('institution_types_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('institution_types_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:InstitutionTypes:new.html.twig', array(
@@ -160,8 +160,8 @@ class InstitutionTypesController extends Controller
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('institution_types_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('institution_types_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:InstitutionTypes:edit.html.twig', array(
@@ -186,8 +186,8 @@ class InstitutionTypesController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
-        return $this->redirect($this->generateUrl('institution_types'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('institution_types');
     }
 
     /**
