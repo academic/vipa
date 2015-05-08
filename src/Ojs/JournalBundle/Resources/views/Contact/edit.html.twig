@@ -4,8 +4,8 @@
     { 'link': path('contact'), 'title': 'contact.manager'|trans},
     { 'title' : 'contact.edit'|trans} ])}}
 {% endblock %}
-{% block body -%} 
-
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
     {% set back_path = 'contact' %}

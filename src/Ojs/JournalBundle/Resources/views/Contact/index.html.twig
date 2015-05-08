@@ -5,7 +5,8 @@
     { 'title': 'contact.manager'|trans}])}}
 {% endblock %} 
 
-{% block body -%} 
+{% block body -%}
+    {% include '::flashbag.html.twig' %}
     <a href="{{ path('contact_new') }}" class="btn btn-success">{{"c"|trans}}</a>
     <hr>
     {{ grid(grid) }}
