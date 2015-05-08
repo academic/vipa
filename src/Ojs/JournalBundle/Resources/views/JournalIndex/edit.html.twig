@@ -4,13 +4,7 @@
     <h1>{{ 'journalsindex.edit'|trans }}</h1>
 
     {{ form_start(edit_form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {% include '::flashbag.html.twig' %}
 
     {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}

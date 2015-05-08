@@ -6,8 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalIndex;
 use Ojs\JournalBundle\Form\JournalIndexType;
 
@@ -57,8 +56,8 @@ class JournalIndexController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_journalindex_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('admin_journalindex_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:JournalIndex:new.html.twig', array(
@@ -188,7 +187,7 @@ class JournalIndexController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-
+            $this->successFlashBag('successful.update');
             return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $id)));
         }
 
@@ -214,7 +213,7 @@ class JournalIndexController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('notFound');
             }
-
+            $this->successFlashBag('successful.remove');
             $em->remove($entity);
             $em->flush();
         }
