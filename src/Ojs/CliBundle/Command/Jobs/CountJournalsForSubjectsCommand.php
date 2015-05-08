@@ -2,6 +2,7 @@
 
 namespace Ojs\CliBundle\Command\Jobs;
 
+use Ojs\JournalBundle\Entity\Subject;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,9 +33,11 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
 
         foreach ($subjects as $subject) {
+            /** @var Subject $subject */
             if($subject->getJournals()) {
 	    	$count = $subject->getJournals()->count();
             	$subject->setTotalJournalCount($count);
+                $subject->setUpdatedBy("System");
             	$em->persist($subject);
             	$em->flush();
 	    }
