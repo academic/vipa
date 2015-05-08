@@ -57,7 +57,8 @@ class FileController extends Controller
 //
 //            return $this->redirect($this->generateUrl('admin_file_show', array('id' => $entity->getId())));
 //        }
-        return $this->redirect($this->generateUrl('admin_file_show', array('id' => $file->getId())));
+        $this->successFlashBag('successful.create');
+        return $this->redirectToRoute('admin_file_show', ['id' => $file->getId()]);
     }
 
     /**
@@ -142,7 +143,7 @@ class FileController extends Controller
     private function createEditForm(File $entity)
     {
         $form = $this->createForm(new FileType(), $entity, array(
-            'action' => $this->generateUrl('admin_efile_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -169,8 +170,8 @@ class FileController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_file_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('admin_file_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:File:edit.html.twig', array(
@@ -192,7 +193,7 @@ class FileController extends Controller
         }
         $em->remove($entity);
         $em->flush();
-
+        $this->successFlashBag('successful.remove');
         return $this->redirect($this->generateUrl('admin_file'));
     }
 
