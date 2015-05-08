@@ -1,6 +1,7 @@
 {% extends '::ojsbase.html.twig' %}
 {% block body -%}
     <h1>{{"issue"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
     <table class="table record_properties">
         <tbody>
             <tr>
