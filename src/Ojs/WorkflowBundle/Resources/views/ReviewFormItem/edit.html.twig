@@ -13,6 +13,7 @@
     <div class="panel">
         <div class="panel-heading">
             <h1>{{ 'form.item.update'|trans }}<small>{{form.title}}</small></h1>
+            {% include '::flashbag.html.twig' %}
         </div>
         <div class="panel-body"> 
             <form method="post" class="form-row" action="{{path('ojs_review_form_items_update',{'id':formItem.id})}}">

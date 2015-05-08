@@ -101,12 +101,11 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $formItem->setFields($fields);
         $dm->persist($formItem);
         $dm->flush();
-
-        return $this->redirect(
-                        $this->generateUrl('ojs_review_form_items_show', array(
-                            'id' => $formItem->getId(),
-                            'form' => $form
-                        ))
+        $this->successFlashBag('successful.create');
+        return $this->redirectToRoute('ojs_review_form_items_show', [
+            'id' => $formItem->getId(),
+            'form' => $form
+            ]
         );
     }
 
@@ -137,7 +136,8 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $dm->remove($formItem);
         $dm->flush();
-        return $this->redirect($this->generateUrl('ojs_review_form_items', array('formId' => $formItem->getFormId())));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('ojs_review_form_items', array('formId' => $formItem->getFormId()));
     }
 
     /**
@@ -183,6 +183,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
 
         $dm->persist($formItem);
         $dm->flush();
+        $this->successFlashBag('successful.update');
         return $this->redirect($this->generateUrl('ojs_review_form_items_show', array('id' => $id)));
     }
 
