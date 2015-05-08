@@ -60,7 +60,8 @@ class IssueController extends Controller
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('issue_show', array('id' => $entity->getId())));
+            $this->successFlashBag('successful.create');
+            return $this->redirectToRoute('issue_show', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
@@ -174,7 +175,8 @@ class IssueController extends Controller
             }
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('issue_edit', array('id' => $id)));
+            $this->successFlashBag('successful.update');
+            return $this->redirectToRoute('issue_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
@@ -195,8 +197,8 @@ class IssueController extends Controller
         $this->throw404IfNotFound($entity);
         $em->remove($entity);
         $em->flush();
-
-        return $this->redirect($this->generateUrl('issue'));
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('issue');
     }
 
 }
