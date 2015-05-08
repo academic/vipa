@@ -153,4 +153,32 @@ class Location
     {
         return $this->parent;
     }
+    /**
+     * @var integer
+     */
+    private $parent_id;
+
+
+    /**
+     * Set parent_id
+     *
+     * @param integer $parentId
+     * @return Location
+     */
+    public function setParentId($parentId)
+    {
+        $this->parent_id = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parent_id
+     *
+     * @return integer 
+     */
+    public function getParentId()
+    {
+        return $this->parent_id;
+    }
 }
