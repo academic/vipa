@@ -229,10 +229,16 @@
                             <span class="editable" data-type="text"
                                   data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
                         </td>
+                        {% if author.middleName is defined %}
                         <td>
                             <span class="editable" data-type="text"
                                   data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
                         </td>
+                            {% set fullname=author.firstName ~ " "~author.middleName ~" "~ author.lastName %}
+                            {% else %}
+                                {% set fullname=author.firstName ~ " "~ author.lastName %}
+
+                        {% endif %}
                         <td>
                             <span class="editable" data-type="text"
                                   data-name="author[{{ loop.index }}][lastName]">{{ author.lastName }}</span>
@@ -242,14 +248,15 @@
                                   data-type="email">{{ author.email }}</span>
 
                         </td>
+
                         <td>
                             <span class="btn-group">
                                 <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                                   href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                   href="http://scholar.google.com.tr/scholar?q={{ (fullname)|url_encode }}">
                                     <i class="fa fa-google"></i>
                                 </a>
                                 <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                                   href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                                   href="http://en.wikipedia.org/w/index.php?search={{ (fullname)|url_encode }}">
                                     W
                                 </a>
                             </span>
