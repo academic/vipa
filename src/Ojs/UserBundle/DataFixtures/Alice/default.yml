@@ -42,7 +42,7 @@
     lastName: Demo
     email (unique): demo.editor@ojs.io
     isActive: true
-    apikey (unique): 'NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw=='
+    apikey (unique): 'NTg3HjluYmSzZDE0MDZyMWY4ITlnOTMwEWQyRmNtMTYwMzU0NjY0Yw=='
     status: 1
     title: Prof. Dr.
     roles: [@role13]
