@@ -87,7 +87,7 @@ class InstitutionType extends AbstractType {
                     ],
                     'query_builder'=>function(EntityRepository $em){
                         return $em->createQueryBuilder('c')
-                            ->where("c.type","0");
+                            ->where("c.type=0");
                     }
         ]);
         $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
