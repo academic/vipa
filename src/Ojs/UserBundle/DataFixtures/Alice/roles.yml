@@ -39,3 +39,11 @@
     role: ROLE_READER
     name: Reader
     isSystemRole: False
+  role13:
+    role: ROLE_REVIEWER
+    name: Reviewer
+    isSystemRole: False
+  role14:
+    role: ROLE_EDITOR
+    name: Editör
+    isSystemRole: False
