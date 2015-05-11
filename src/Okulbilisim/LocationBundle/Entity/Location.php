@@ -181,4 +181,9 @@ class Location
     {
         return $this->parent_id;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
