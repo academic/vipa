@@ -292,10 +292,14 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
 
         $users = $request->get('users');
-        if (!empty(trim($users))) {
-            foreach (explode(',', $users) as $user) {
 
+        if (!empty($users)) {
+            foreach (explode(',', $users) as $user) {
+                $user = (int)$user;
                 $userObject = $em->getRepository('OjsUserBundle:User')->find($user);
+                if(!$userObject)
+                    continue;
+
                 /* @var $copyStep \Ojs\WorkflowBundle\Document\ArticleReviewStep  */
                 $copyStep = clone $articleStep;
                 $copyStep->setOwnerUser($userObject);
