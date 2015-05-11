@@ -7,3 +7,7 @@ Ojs\UserBundle\Entity\UserJournalRole:
       user: @user_author
       role: @role11
       journal: @journal1
+  editor_journal_role:
+      user: @user_demo_editor
+      role: @role14
+      journal: @journal1
