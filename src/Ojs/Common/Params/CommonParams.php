@@ -58,7 +58,11 @@ class CommonParams
 
     public static function statusText($statusNum = null)
     {
-        return $statusNum ? (isset(self::$statusArray[$statusNum]) ? self::$statusArray[$statusNum] : null) : self::$statusArray;
+        if(array_key_exists($statusNum, self::$statusArray)) {
+            return self::$statusArray[$statusNum];
+        } else {
+            return self::$statusArray;
+        }
     }
 
     /**
