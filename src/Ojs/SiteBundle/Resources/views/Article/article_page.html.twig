@@ -18,13 +18,14 @@
                         <div id="articleTitle">
                             {% if article.header %}
                             {% set imageoptions=getImageOptions(article,'header','article_header') %}
-                            <a href="{{generateJournalUrl(article.journal)}}"><img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))
-                            |imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}" data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="" />
+                            <a href="{{generateJournalUrl(article.journal)}}">
+                                <img src="{{ ('/uploads/articlefiles/'~imagePath(article.header))|imagine_filter('article_header',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height]}}) }}"
+                                     data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="{{ article.title }}" />
                             </a>
                             {% endif %}
                             <div> 
                                 {% if article.pubdate %} <span class=" {{"date.publish"|trans}}">{{ article.pubdate|date('Y-m-d') }}</span> <br>{% endif %}
-                                {{"volume"|trans}} {{article.issue.volume}}</a>, <a href="#">{{"issue"|trans}} {{article.issue.number}}</a>, 
+                                {{"volume"|trans}} {{article.issue.volume}}, <a href="#">{{"issue"|trans}} {{article.issue.number}}</a>,
                                 {{"page.plural"|trans}} <span title="{{"first_page"|trans}}">{{article.firstPage}}</span>-<span title="{{"last_page"|trans}}">{{article.lastPage}}</span>
                                 {% if article.languages %}
                                     <span title="{{"languages"|trans}}">
@@ -47,12 +48,10 @@
                                         {% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                 {%endif%}
-                                <!--
                                 <small id="articleStats" class="pull-right text-muted">
-                                    <span><i class="fa fa-eye"></i> 143</span>
-                                    <span><i class="fa fa-download"></i> 44 </span>
+                                    <span><i class="fa fa-eye"></i> {{ stat(article.id,'article','view') }}</span>
+                                    <span><i class="fa fa-download"></i> {{ stat(article.id,'article','download') }} </span>
                                 </small>
-                                -->
                             </h2>
                         </div>
                         <hr />
