@@ -32,6 +32,11 @@ services:
         arguments: [@service_container,  @doctrine.orm.entity_manager]
         tags:
             - { name: twig.extension }
+    ojs.twig.analytics_extension:
+        class: Ojs\AnalyticsBundle\Twig\AnalyticsExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
     ojs.loginlistener:
         class: Ojs\UserBundle\Listeners\LoginListener
         arguments: [@doctrine.orm.entity_manager,@service_container]
