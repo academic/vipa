@@ -38,6 +38,7 @@ class UpdateCommand extends ContainerAwareCommand
         'article' => 'OjsJournalBundle:Article',
         'journal' => 'OjsJournalBundle:Journal',
         'institution' => 'OjsJournalBundle:Institution',
+        'file'=>'OjsJournalBundle:File'
     ];
 
     /** @var  EntityManager $em */
@@ -100,6 +101,7 @@ class UpdateCommand extends ContainerAwareCommand
             }
             $progress->start($output, count($counts));
             foreach ($counts as $key => $object) {
+                echo $key.'=>'.$object->total."\n";
                 //check
                 $totalView = $this->dm->getRepository("OjsAnalyticsBundle:ObjectView")
                     ->findOneBy(['pageUrl' => $key, 'objectId' => $object->id, 'entity' => $object->entity]);
@@ -134,6 +136,8 @@ class UpdateCommand extends ContainerAwareCommand
             $allDownloads = $this->dm->getRepository("OjsAnalyticsBundle:ObjectDownloads")->findAll();
             $counts = [];
             foreach ($allDownloads as $download) {
+                $realObject = $this->getObject($download);
+
                 if (isset($count[$download->getFilePath()])) {
                     $counts[$download->getFilePath()]->total++;
                 } else {
@@ -141,7 +145,7 @@ class UpdateCommand extends ContainerAwareCommand
                     $counts[$download->getFilePath()]->total = 1;
                     $counts[$download->getFilePath()]->id = $download->getObjectId();
                     $counts[$download->getFilePath()]->entity = $download->getEntity();
-                    $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($this->getObject($download), 'json');
+                    $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($realObject, 'json');
 
                 }
             }
@@ -168,7 +172,7 @@ class UpdateCommand extends ContainerAwareCommand
             $output->writeln("Successfully");
 
         } catch (\Exception $e) {
-            $output->writeln("An error has occured");
+            $output->writeln("An error has occured on file ".$e->getFile()." on line ".$e->getLine());
             $output->writeln($e->getMessage());
         }
     }

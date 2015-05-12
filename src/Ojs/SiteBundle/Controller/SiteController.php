@@ -252,7 +252,7 @@ class SiteController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $objectDownload = new ObjectDownloads();
 
-        $objectDownload->setEntity('Ojs\JournalBundle\Entity\File');
+        $objectDownload->setEntity('file');
         $objectDownload->setFilePath($file->getPath());
         $objectDownload->setIpAddress($request->getClientIp());
         $objectDownload->setLogDate(new \DateTime("now"));
