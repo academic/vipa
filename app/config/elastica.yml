@@ -109,7 +109,8 @@ fos_elastica:
                         subtitle: ~
                         description: ~
                         tags: ~
-                        status: ~
+                        status: { "index": "not_analyzed" }
+                        published: { "index": "not_analyzed" }
                         subjects:
                           type: object
                           properties:
