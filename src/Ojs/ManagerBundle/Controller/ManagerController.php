@@ -8,12 +8,16 @@ use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use \Symfony\Component\HttpFoundation\Request;
 
 class ManagerController extends Controller {
 
     public function journalSettingsAction($journalId = null)
     {
+        $user = $this->getUser();
+        if(!$user->hasRole("ROLE_JOURNAL_MANAGER"))
+            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         if (!$journalId) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         } else {
@@ -41,6 +45,8 @@ class ManagerController extends Controller {
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
+        if(!$user->hasRole("ROLE_JOURNAL_MANAGER"))
+            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         $em = $this->getDoctrine()->getManager();
         $setting = $em->
                 getRepository('OjsJournalBundle:JournalSetting')->
