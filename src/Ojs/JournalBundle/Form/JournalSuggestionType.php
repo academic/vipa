@@ -59,7 +59,16 @@ class JournalSuggestionType extends AbstractType
             ->add('issn')
             ->add('eissn')
             ->add('firstPublishDate', 'collot_datetime', array(
-                'date_format' => 'yyyy-MM-dd',
+
+                'date_format' => 'dd-MM-yyyy',
+                'pickerOptions'=>[
+                    'format'=>'dd-mm-yyyy',
+                    'startView'=>'month',
+                    'minView'=>'month',
+                    'todayBtn'=>'true',
+                    'todayHighlight'=>'true',
+                    'autoclose'=>'true'
+                ]
             ))
             ->add('period')
             ->add('tags',null,['attr'=>['class'=>'tags form-control']])

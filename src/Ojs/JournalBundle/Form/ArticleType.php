@@ -98,10 +98,29 @@ class ArticleType extends AbstractType {
                 ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
                 ->add('pubdate', 'collot_datetime', array(
                     'label' => 'pubdate',
-                    'date_format' => 'yyyy-MM-dd',
+                    'date_format' => 'dd-MM-yyyy',
+                    'pickerOptions'=>[
+                        'format'=>'dd-mm-yyyy',
+                        'startView'=>'month',
+                        'minView'=>'month',
+                        'todayBtn'=>'true',
+                        'todayHighlight'=>'true',
+                        'autoclose'=>'true'
+                    ]
                 ))
                 ->add('submissionDate', 'collot_datetime', array(
-                    'label' => 'submissionDate', 'date_format' => 'yyyy-MM-dd',)
+                    'label' => 'submissionDate',
+
+                        'date_format' => 'dd-MM-yyyy',
+                        'pickerOptions'=>[
+                            'format'=>'dd-mm-yyyy',
+                            'startView'=>'month',
+                            'minView'=>'month',
+                            'todayBtn'=>'true',
+                            'todayHighlight'=>'true',
+                            'autoclose'=>'true'
+                        ]
+                    )
                 )
                 ->add('pubdateSeason', 'text', array(
                     'label' => 'Pubdateseason', 'required' => false, 'attr' => array('class' => ' form-control'))

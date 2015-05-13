@@ -24,7 +24,16 @@ class Step2 extends AbstractType
             ])
             ->add('eissn', null)
             ->add('firstPublishDate', 'collot_datetime', array(
-                'date_format' => 'yyyy-MM-dd',
+
+                'date_format' => 'dd-MM-yyyy',
+                'pickerOptions'=>[
+                    'format'=>'dd-mm-yyyy',
+                    'startView'=>'month',
+                    'minView'=>'month',
+                    'todayBtn'=>'true',
+                    'todayHighlight'=>'true',
+                    'autoclose'=>'true'
+                ]
             ))
             ->add('footer_text','textarea')
             ->add('period')
