@@ -15,4 +15,4 @@
     languages: [@lang1, @lang2]
     status: '3' 
     setupStatus: true
-    submitRoles: [ @role11, @role2 ]
+    submitRoles: [ @role11, @role14 ]
