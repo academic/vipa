@@ -115,46 +115,64 @@
             {% for author in articleStep.articleRevised.authors %}
                 <tr>
                     <td>
+                        {% if author.orcid is defined %}
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
+                        {% endif %}
                     </td>
                     <td>
+                        {% if author.order is defined %}
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
+                        {% endif %}
+
                     </td>
                     <td>
+                        {% if author.title is defined %}
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
+                        {% endif %}
                     </td>
                     <td>
+                        {% if author.initials is defined %}
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
+                        {% endif %}
+
                     </td>
                     <td>
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][firstName]">{{ author.firstName }}</span>
                     </td>
                     <td>
+                        {% if author.middleName is defined %}
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
+                        {% endif %}
                     </td>
                     <td>
                         <span class="" data-type="text"
                               data-name="author[{{ loop.index }}][lastName]">{{ author.lastName }}</span>
                     </td>
                     <td>
+                        {% if author.email is defined %}
                         <span class=" label label-default" data-name="author[{{ loop.index }}][email]"
                               data-type="email">{{ author.email }}</span>
-
+                        {% endif %}
                     </td>
                     <td>
+                        {% if author.middleName is defined %}
+                        {% set fullname=author.firstName ~ " "~author.middleName ~" "~ author.lastName %}
+                    {% else %}
+                        {% set fullname=author.firstName ~ " "~ author.lastName %}
+                    {% endif %}
                         <span class="btn-group">
                             <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
-                               href="http://scholar.google.com.tr/scholar?q={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                               href="http://scholar.google.com.tr/scholar?q={{ (fullname)|url_encode }}">
                                 <i class="fa fa-google"></i>
                             </a>
                             <a class="btn btn-xs btn-default" title="{{ "searchon.wikipedia"|trans }}"
-                               href="http://en.wikipedia.org/w/index.php?search={{ (author.firstName ~ " "~author.middleName ~" "~ author.lastName)|url_encode }}">
+                               href="http://en.wikipedia.org/w/index.php?search={{ (fullname)|url_encode }}">
                                 W
                             </a>
                         </span>
