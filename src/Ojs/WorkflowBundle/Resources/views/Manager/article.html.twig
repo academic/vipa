@@ -510,8 +510,10 @@
                 $(".panel_reviewforms").hide();
                 $("#panel_" + $("#reviewFormSelector").val()).show();
             });
+            {% if articleStep.ownerUser and articleStep.ownerUser.username == app.user.username %}
             $.fn.editable.defaults.mode = 'inline';
             $(".editable").editable({'url': '/update_review/{{ id }}'});
+            {% endif %}
             $("#endreview").on('click', function () {
                 var sure = confirm('{{"sure"|trans}}');
                 if (sure) {
