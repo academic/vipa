@@ -111,7 +111,7 @@ class SearchManager
         return $translator->trans($type);
     }
 
-    public function searchJournal($status = 3)
+    public function searchJournal($status = 3,$published=true)
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $searchObj = $this->container->get('fos_elastica.index.search.journal');
@@ -119,6 +119,10 @@ class SearchManager
         $match = new Query\Match();
         $match->setField('status', $status);
         $bool->addMust($match);
+        $match = new Query\Match();
+        $match->setField('published', $published);
+        $bool->addMust($match);
+
         if (!empty($this->filter)) {
             foreach ($this->filter as $key => $filter) {
                 $filterObj = new \Elastica\Query\Match();
