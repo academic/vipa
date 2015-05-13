@@ -78,7 +78,15 @@ class JournalType extends AbstractType
             ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
             ->add('firstPublishDate', 'collot_datetime', array(
                 'label' => 'journal.firstPublishDate',
-                'date_format' => 'yyyy-MM-dd',
+                'date_format' => 'dd-MM-yyyy',
+                'pickerOptions'=>[
+                    'format'=>'dd-mm-yyyy',
+                    'startView'=>'month',
+                    'minView'=>'month',
+                    'todayBtn'=>'true',
+                    'todayHighlight'=>'true',
+                    'autoclose'=>'true'
+                ]
             ))
             ->add('period', 'text', ['label' => 'journal.period'])
             ->add('googleAnalyticsId', 'text', [

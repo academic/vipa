@@ -54,7 +54,16 @@ class IssueType extends AbstractType {
                 ->add('description', 'text', array('label' => 'description'))
                 ->add('year', 'text', array('label' => 'year'))
                 ->add('datePublished', 'collot_datetime', array(
-                    'date_format' => 'yyyy-MM-dd',
+
+                        'date_format' => 'dd-MM-yyyy',
+                        'pickerOptions'=>[
+                            'format'=>'dd-mm-yyyy',
+                            'startView'=>'month',
+                            'minView'=>'month',
+                            'todayBtn'=>'true',
+                            'todayHighlight'=>'true',
+                            'autoclose'=>'true'
+                        ]
                         )
                 )
                 ->add('cover', 'hidden')
