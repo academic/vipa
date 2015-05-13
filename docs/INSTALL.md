@@ -1,110 +1,48 @@
-##Install
+Installing OJS
+==============
 
-When it comes to installing the Symfony Standard Edition, you have the
-following options.
+This guide will explain how you can install OJS on an Ubuntu server.
 
-### Requirements
-1. php +5.4 with mcrypt, mysql and mongodb extensions
-2. apache or nginx
-3. mysql 5.5 or PostgreSQL +9.4
-4. Enough storage
-5. [MongoDb](https://github.com/okulbilisim/ojs/tree/master/docs/developers/Mongodb.md)
-6. Mysql
-7. [ElasticSearch](https://github.com/okulbilisim/ojs/tree/master/docs/developers/ElasticSearch.md)
+Required Software
+-----------------
+Install and run these services and extensions before attempting to install OJS.
 
+* Apache (`# apt-get install apache2`)
+* MySQL (`# apt-get install mysql-server`)
+* MongoDB (`# apt-get install mongodb`)
+* Memcached (`# apt-get install memcached`)
+* PHP (`# apt-get install php5 php5-mysql php5-mongo php5-mcrypt php5-memcached php5-curl`)
+* Elasticsearch (download it from [here](https://www.elastic.co/downloads/elasticsearch))
 
-extreme update command:
+You can also use nginx as your HTTP server and PostgreSQL as your RDBMS server.
 
-```bash
-git pull origin master && composer update -vvv && bower update && php app/console assets:install web --symlink && php app/console assetic:dump && mysql -u root -p -e "DROP DATABASE IF EXISTS ojs;create database ojs;" && php app/console ojs:install:travis && php app/console ojs:install:initial-data && app/console fos:elastica:populate
-```
+Installing Dependencies
+-----------------------
+Right before installing dependencies, create a database for OJS because OJS's installation wizard will ask for a database name after dependencies are installed.
 
-## Checking System Configuration
+To install dependencies you will need Composer and bower. If you don't have those installed, refer to [Composer's own installation guide](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) and [Bower's own installatiion guide](http://bower.io/#install-bower).
 
-Before starting coding, make sure that your local system is properly
-configured for Symfony.
+You might want to move Composer to a directory in PATH, so you can access Composer from anywhere. Run `# mv composer.phar /usr/local/bin/composer` to do that.
 
-Execute the `check.php` script from the command line:
+Bower needs `npm` for installation. To install it on Ubuntu, use`# apt-get install npm`. Since Bower will use `node` command, you will need to create a symlink to nodejs using `# ln -s /usr/bin/nodejs /usr/bin/node`.
 
-```bash
-php app/check.php
-```
+After installing both Composer and Bower, run `$ composer install`. It will download and install any dependency that OJS requires. While installing some depenencies, Composer will ask for a GitHub access token. You don't have to proivde one, as it will try to download from the source but you will need to press `ENTER` each time it tries. If you want to provide, see [GitHub's help article](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 
-The script returns a status code of `0` if all mandatory requirements are met,
-`1` otherwise.
+When installation is complete, you will need to provide some parameters to OJS. Some of those are:
 
-Access the `config.php` script from a browser:
-```bash
-http://localhost/path/to/symfony/app/web/config.php
-```
+* *Database parameters*: Use the one you have created before installing dependencies. Type them carefully as you might have to re-run this wizard if anything goes wrong.
+ * `database_driver` (`pdo_mysql` by default)
+ * `database_host` (`127.0.0.1` by default)
+ * `database_port` (`3306` by default)
+ * `database_name` (`ojs` by default)
+ * `database_user` (`root` by default)
+ * `database_password` (`null` by default)
+* `base_host`: Treat this as your domain name. If you want to use a virtualhost, make sure you pass its name here.
 
-If you get any warnings or recommendations, fix them before moving on.
+After the wizard is done, install tne initial data if you would like: `$ php app/console ojs:install:initial-data`
 
+You need to run `$ bower install` to get external JavaScript and CSS libraries. After Bower is done  run `$ php app/console assets:install web --symlink` to install assets using symlinks and run `$ php app/console assetic:dump`to dump them.
 
-#### Using Composer ( _recommended_ )
-
-As Symfony uses [Composer][2] to manage its dependencies, the recommended way
-to create a new project is to use it.
-
-If you don't have Composer yet, download it following the instructions on
-http://getcomposer.org/ or just run the following command:
-
-```bash
-curl -s http://getcomposer.org/installer | php
-
-# get composer packages more verbosely
-$ php composer.phar -vv update
-```
-
-install [node.js](http://nodejs.org/download/) and [bower](http://bower.io)
-
-```bash
-$ curl https://www.npmjs.org/install.sh | sudo sh
-$ npm install -g bower
-
-# get bower packages
-$ bower install 
-
-# generate assets
-$ php app/console assets:install web --symlink
-$ php app/console assetic:dump
-$ php app/console cache:clear --env=dev --no-debug
-```
-
-### Installer
-
-```bash
-# Ojs first run configuration  
-$ php app/console doctrine:database:create #create ojs database with given name from parameters.yml 
-$ php app/console ojs:install
-```
-
-Ojs sample data :
- 
-```bash
-$ php app/console h4cc_alice_fixtures:load:sets 
-$ php app/console doctrine:mongodb:fixtures:load --append -v
-```  
-
-### Update
-
-You need to update the database on each pull
-
-```bash
-$ php app/console doctrine:schema:update --force
-```
-
-### Additional Packages
-
-Citation parser service is runnig with Ruby using Sinatra.
-
-```
-$ [sudo] gem install sinatra
-$ [sudo] gem install anystyle-parser
-```
-
-### Run on local environment 
-
-```bash
-php app/console server:run
-``` 
+Troubleshooting
+----------------
+If anything goes wrong (ie. you get a blank page instead of OJS home) check logs under app/log directory and Apache's own log file.
