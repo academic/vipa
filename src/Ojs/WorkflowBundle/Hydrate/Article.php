@@ -43,6 +43,8 @@ class Article
         }
         if (array_key_exists('author', $data['changes'])) {
             foreach ($data['changes']['author'] as $key => $author) {
+                if(empty($author['firstName']) || empty($author['lastName']))
+                    continue;
                 $articleRevised['authors'][$key - 1] = array_merge($articleRevised['authors'][$key - 1], $author);
             }
         }
@@ -51,6 +53,8 @@ class Article
             foreach ($data['changes']['citation'] as $key => $citation) {
                 $parsedCitations = $citationParser->parse($citation)[0];
                 $citation = $this->grepCitation($parsedCitations, $citation);
+                if(empty($citation['title']))
+                    continue;
                 $articleRevised['citation'][$key - 1] = array_merge($articleRevised['citation'][$key - 1], $citation);
             }
         }
@@ -108,14 +112,19 @@ class Article
     {
         $author = [];
         foreach ($authors['orcid'] as $key => $value) {
-            $author[$key] = [];
-            isset($authors['orcid']) && isset($authors['orcid'][$key]) && $author[$key]['orcid'] = $authors['orcid'][$key];
-            isset($authors['order']) && isset($authors['order'][$key]) && $author[$key]['order'] = $authors['order'][$key];
-            isset($authors['title']) && isset($authors['title'][$key]) && $author[$key]['title'] = $authors['title'][$key];
-            isset($authors['initials']) && isset($authors['initials'][$key]) && $author[$key]['initials'] = $authors['initials'][$key];
-            isset($authors['firstName']) && isset($authors['firstName'][$key]) && $author[$key]['firstName'] = $authors['firstName'][$key];
-            isset($authors['lastName']) && isset($authors['lastName'][$key]) && $author[$key]['lastName'] = $authors['lastName'][$key];
-            isset($authors['email']) && isset($authors['email'][$key]) && $author[$key]['email'] = $authors['email'][$key];
+            $_author = [];
+            isset($authors['orcid']) && isset($authors['orcid'][$key]) && $_author['orcid'] = $authors['orcid'][$key];
+            isset($authors['order']) && isset($authors['order'][$key]) && $_author['order'] = $authors['order'][$key];
+            isset($authors['title']) && isset($authors['title'][$key]) && $_author['title'] = $authors['title'][$key];
+            isset($authors['initials']) && isset($authors['initials'][$key]) && $_author['initials'] = $authors['initials'][$key];
+            isset($authors['firstName']) && isset($authors['firstName'][$key]) && $_author['firstName'] = $authors['firstName'][$key];
+            isset($authors['middleName']) && isset($authors['middleName'][$key]) && $_author['middleName'] = $authors['middleName'][$key];
+            isset($authors['lastName']) && isset($authors['lastName'][$key]) && $_author['lastName'] = $authors['lastName'][$key];
+            isset($authors['email']) && isset($authors['email'][$key]) && $_author['email'] = $authors['email'][$key];
+            if(!isset($_author['firstName']) || !isset($_author['lastName']) || empty($_author['firstName']) || empty($_author['lastName']))
+                continue;
+
+            $author[$key]=$_author;
         }
         return $author;
     }
