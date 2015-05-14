@@ -891,7 +891,7 @@ drop.proxy.user: 'Vekil Kullanıcıyı Düşür'
 add.as.proxy: 'Vekil Olarak Ata'
 user.apikey: 'API Anahtarı'
 regenerate.apikey: 'API Anahtarını Güncelle'
-register.yourself.as.author: 'Yazar Olarak Kayıtol'
+register.yourself.as.author: 'Yazar Olarak Kaydol'
 user.journalrole.edit: 'Dergi Rolü Düzenle'
 user.journalrole.list: 'Dergi Rolleri Listesi'
 user.journalrole.id: ID
@@ -1104,7 +1104,7 @@ This username  is already taken: Bu kullanıcı adı daha önce alınmış
 This username  is not available.: Bu kullanıcı adı uygun <strong>değildir</strong>. Lütfen başka bir kullanıcı giriniz.
 This username is available: Bu kullanıcı adı uygun.
 Looking for username availability: Kullanıcı adının geçerliliği sorgulanıyor...
-submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolyacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
+submission.attention: Makalenizi gönderdikten sonra bilgilerinizi değiştiremezsiniz. <br>Eğer emin değilseniz daha sonra gönderebilirsiniz. Girmiş olduğunuz bilgiler bu pencereyi kapatsanız dahi kaybolmayacaktır.<br>Dilediğiniz zaman tekrar kaldığınız yerden devam edebilirsiniz.
 "Successfully deleted.": "Başarıyla silindi."
 Confirm to register yourself as author.: Bu derginin bir yazarı değilsiniz. Kendiniz yazar olarak kaydetmek için onay veriniz.
 Current roles : Mevcut roller
