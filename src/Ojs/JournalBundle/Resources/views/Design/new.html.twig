@@ -1,0 +1,11 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"design.new"|trans}}</h1>
+
+    {{ form(form) }}
+
+    <a class="btn btn-default" href="{{ path('design') }}">
+        {{"b"|trans}}
+    </a>
+{% endblock %}

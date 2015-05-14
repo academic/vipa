@@ -1,0 +1,16 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"design.edit"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ form(edit_form) }}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('design') }}">
+                {{"b"|trans}}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

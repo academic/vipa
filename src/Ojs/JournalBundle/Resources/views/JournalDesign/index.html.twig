@@ -1,0 +1,11 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"journal.design.list"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
+    {{ grid(grid) }}
+    <hr>
+    <a href="{{ path('admin_journaldesign_new') }}" class="btn btn-success">
+        {{"c"|trans}}
+    </a>
+{% endblock %}

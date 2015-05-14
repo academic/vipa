@@ -143,6 +143,12 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $themeId;
 
     /**
+     * @var integer
+     * @Expose
+     */
+    private $designId;
+
+    /**
      * @var Theme
      * @Expose
      */
@@ -897,6 +903,28 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      * @return Journal
      */
     public function setThemeId($themeId)
+    {
+        $this->themeId = $themeId;
+        return $this;
+    }
+
+    /**
+     * Get designId
+     *
+     * @return integer
+     */
+    public function getDesignId()
+    {
+        return $this->themeId;
+    }
+
+    /**
+     * Set designId
+     *
+     * @param  integer $designId
+     * @return Journal
+     */
+    public function setDesignId($themeId)
     {
         $this->themeId = $themeId;
         return $this;
