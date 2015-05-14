@@ -1,0 +1,40 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"design"|trans}}</h1>
+    {% include '::flashbag.html.twig' %}
+    <table class="record_properties  table">
+        <tbody>
+            <tr>
+                <th>{{ 'id'|trans }}</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{{"name"|trans}}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>{{"content"|trans}}</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>{{"basedesign"|trans}}</th>
+                <td>{{ entity.isPublic }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('design') }}">
+                {{"b"|trans}}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('design_edit', { 'id': entity.id }) }}">
+                {{"e"|trans}}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

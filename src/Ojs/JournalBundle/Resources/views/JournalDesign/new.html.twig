@@ -1,0 +1,15 @@
+{% extends '::ojsbase.html.twig' %}
+
+{% block body -%}
+    <h1>{{"journal.design.new"|trans}}</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journaldesign') }}">
+            {{"b"|trans}}
+        </a>
+    </li>
+</ul>
+{% endblock %}
