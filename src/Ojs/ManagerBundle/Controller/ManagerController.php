@@ -45,6 +45,7 @@ class ManagerController extends Controller {
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
+        $user = $this->getUser();
         if(!$user->hasRole("ROLE_JOURNAL_MANAGER"))
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         $em = $this->getDoctrine()->getManager();
