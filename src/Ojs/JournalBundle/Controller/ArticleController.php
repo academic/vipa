@@ -321,30 +321,36 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         /** @var Article $article */
-        $article = $em->find('OjsJournalBundle:Article',$id);
-        $data =[];
-
+        $article = $em->find('OjsJournalBundle:Article', $id);
         $data['entity'] = $article;
+
         $citations = [];
         foreach ($article->getCitations() as $citation) {
-            $citations[]=[
-                'id'=>$citation->getId(),
+            $citations[] = [
+                'id' => $citation->getId(),
                 'raw' => $citation->getRaw()
             ];
         }
-        $columns = [
-            new NumberColumn(["id"=>"id","field"=>"id","primary"=>true,"title"=>"ID"]),
-            new TextColumn(["id"=>"raw","field"=>"raw","title"=>"Citation"]),
-        ];
+
         $source = new Vector($citations);
         $grid = $this->get('grid')->setSource($source);
-        $grid->getColumn("raw")->setTitle("Citation");
-        $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('citation_show', 'id');
-        $rowAction[] = ActionHelper::editAction('citation_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('citation_delete', 'id');
-        $actionColumn->setRowActions($rowAction);
-        $grid->addColumn($actionColumn);
+
+        $columns = [
+            new NumberColumn(["id" => "id", "field" => "id", "primary" => true, "title" => "ID"]),
+            new TextColumn(["id" => "raw", "field" => "raw", "title" => "Citation"]),
+        ];
+
+        foreach($columns as $column) {
+            $grid->addColumn($column);
+        }
+
+        $actionsColumn = new ActionsColumn("actions", 'actions');
+        $actions[] = ActionHelper::showAction('citation_show', 'id');
+        $actions[] = ActionHelper::editAction('citation_edit', 'id');
+        $actions[] = ActionHelper::deleteAction('citation_delete', 'id');
+        $actionsColumn->setRowActions($actions);
+        $grid->addColumn($actionsColumn);
+
         $data['grid'] = $grid;
         return $grid->getGridResponse('@OjsJournal/Article/citations.html.twig',$data);
     }
