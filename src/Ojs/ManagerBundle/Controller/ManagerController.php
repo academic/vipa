@@ -15,8 +15,8 @@ class ManagerController extends Controller {
 
     public function journalSettingsAction($journalId = null)
     {
-        $user = $this->getUser();
-        if(!$user->hasRole("ROLE_JOURNAL_MANAGER"))
+        $ext =$this->get('ojs.twig.ojs_extension');
+        if(!$ext->isJournalManager())
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         if (!$journalId) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
@@ -45,8 +45,8 @@ class ManagerController extends Controller {
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
-        $user = $this->getUser();
-        if(!$user->hasRole("ROLE_JOURNAL_MANAGER"))
+        $ext =$this->get('ojs.twig.ojs_extension');
+        if(!$ext->isJournalManager())
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         $em = $this->getDoctrine()->getManager();
         $setting = $em->

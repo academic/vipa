@@ -25,8 +25,8 @@ class JournalController extends Controller
     {
         $referer = $request->headers->get('referer');
         $request->getSession()->set('selectedJournalId', $journal_id);
-
-        return $this->redirect($referer);
+        $route = $this->get('router')->generate('dashboard');
+        return $this->redirect($route);
     }
 
     /**
@@ -136,16 +136,10 @@ class JournalController extends Controller
         /** @var Journal $entity */
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
-        $user = $this->getUser();
-        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
-            $roles = $entity->getUserRoles();
-            foreach ($roles as $role) {
-                /** @var  UserJournalRole $role */
-                if ($role->getUser()->getId() != $user->getId() or $role->getRole()->getRole() != 'ROLE_JOURNAL_MANAGER') {
-                    throw new AccessDeniedException("You not authorized for edit this journal!");
-                }
-            }
-        }
+
+        $ext =$this->get('ojs.twig.ojs_extension');
+        if(!$ext->isJournalManager())
+            throw new AccessDeniedException("You not authorized for edit this journal!");
 
         $editForm = $this->createEditForm($entity);
 
@@ -177,15 +171,9 @@ class JournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $user = $this->getUser();
-        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
-            $roles = $entity->getUserRoles();
-            foreach ($roles as $role) {
-                /** @var  UserJournalRole $role */
-                if ($role->getUser()->getId() != $user->getId() or $role->getRole()->getRole() != 'ROLE_JOURNAL_MANAGER') {
-                    throw new AccessDeniedException("You not authorized for edit this journal!");
-                }
-            }
-        }
+        $ext =$this->get('ojs.twig.ojs_extension');
+        if(!$ext->isJournalManager())
+            throw new AccessDeniedException("You not authorized for edit this journal!");
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
