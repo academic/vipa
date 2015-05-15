@@ -67,14 +67,15 @@ class ActionHelper
      * @param $route
      * @param $key
      * @param null $role
+     * @param $mapping_key
      * @return RowAction
      */
-    public static function switchUserAction($route, $key,$role=null)
+    public static function switchUserAction($route, $key, $role = null, $mapping_key = 'username')
     {
         $rowAction = new RowAction('<i class="fa fa-sign-in"></i>', $route);
         $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip','title'=>"Switch User"]);
         $rowAction->setRouteParameters($key);
-        $rowAction->setRouteParametersMapping(['username' => '_su']);
+        $rowAction->setRouteParametersMapping([$mapping_key => '_su']);
         if($role){
             $rowAction->setRole($role);
         }
