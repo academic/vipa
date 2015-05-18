@@ -2,10 +2,10 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Ojs\JournalBundle\Document\JournalSuggestion;
-use Ojs\JournalBundle\Document\InstituteSuggestion;
-use Ojs\JournalBundle\Form\JournalSuggestionType;
-use Ojs\JournalBundle\Form\InstituteSuggestionType;
+use Ojs\JournalBundle\Document\JournalApplication;
+use Ojs\JournalBundle\Document\InstitutionApplication;
+use Ojs\JournalBundle\Form\JournalApplicationType;
+use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -13,25 +13,25 @@ use Ojs\SiteBundle\Entity\Page;
 use Ojs\SiteBundle\Form\PageType;
 
 /**
- * Suggestion controller.
+ * Application controller.
  *
  */
-class SuggestionController extends Controller
+class ApplicationController extends Controller
 {
     public function journalAction(Request $request)
     {
         $data = [];
-        $suggestion = new JournalSuggestion();
-        $form = $this->createForm(new JournalSuggestionType(), $suggestion, ['em' => $this->getDoctrine()->getManager()]);
+        $application = new JournalApplication();
+        $form = $this->createForm(new JournalApplicationType(), $application, ['em' => $this->getDoctrine()->getManager()]);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
-                $suggestion->setUser($this->getUser()->getId());
-                $suggestion->setCreatedAt(new \DateTime());
-                $dm->persist($suggestion);
+                $application->setUser($this->getUser()->getId());
+                $application->setCreatedAt(new \DateTime());
+                $dm->persist($application);
                 $dm->flush();
-                return $this->redirect($this->get('router')->generate('ojs_suggest_journal_success'));
+                return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
 
             }
             $session = $this->get('session');
@@ -40,14 +40,14 @@ class SuggestionController extends Controller
             $session->save();
         }
         $data['form'] = $form->createView();
-        return $this->render('OjsSiteBundle:Suggestion:journal.html.twig', $data);
+        return $this->render('OjsSiteBundle:Application:journal.html.twig', $data);
     }
 
-    public function instituteAction(Request $request)
+    public function institutionAction(Request $request)
     {
         $data = [];
-        $suggestion = new InstituteSuggestion();
-        $form = $this->createForm(new InstituteSuggestionType(), $suggestion, [
+        $application = new InstitutionApplication();
+        $form = $this->createForm(new InstitutionApplicationType(), $application, [
             'em' => $this->getDoctrine()->getManager(),
             'helper'=>$this->get('okulbilisim_location.form.helper')
         ]);
@@ -55,11 +55,11 @@ class SuggestionController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
-                $suggestion->setUser($this->getUser()->getId());
-                $suggestion->setCreatedAt(new \DateTime());
-                $dm->persist($suggestion);
+                $application->setUser($this->getUser()->getId());
+                $application->setCreatedAt(new \DateTime());
+                $dm->persist($application);
                 $dm->flush();
-                return $this->redirect($this->get('router')->generate('ojs_suggest_institute_success'));
+                return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
 
             }
             $session = $this->get('session');
@@ -68,15 +68,15 @@ class SuggestionController extends Controller
             $session->save();
         }
         $data['form'] = $form->createView();
-        return $this->render('OjsSiteBundle:Suggestion:institute.html.twig', $data);
+        return $this->render('OjsSiteBundle:Application:institute.html.twig', $data);
     }
 
     public function instituteSuccessAction()
     {
-        return $this->render('OjsSiteBundle:Suggestion:institute_success.html.twig');
+        return $this->render('OjsSiteBundle:Application:institute_success.html.twig');
     }
     public function journalSuccessAction()
     {
-        return $this->render('OjsSiteBundle:Suggestion:journal_success.html.twig');
+        return $this->render('OjsSiteBundle:Application:journal_success.html.twig');
     }
 }

@@ -378,20 +378,20 @@ articlefile.type: Makale dosya türü
 articlefile.version: Dosya sürümü
 articlefile.langcode: Dosya dili
 articlefile.actions: İşlemler
-suggestion.institute: 'Kurum Önerisi'
-suggestion.institute.list: 'Enstitü Önerileri'
+application.institute: 'Kurum Başvurusu'
+application.institute.list: 'Kurum Başvuruları'
 institute.id: ID
 institute.name: İsim
 institute.country: Ülke
-suggestion.institute.detail: Detay
+application.institute.detail: Detay
 institution.slug: Yol
-institute.merge_as_new_institute: 'Yeni Enstitü Olarak Birleştir'
-suggestion.journal: 'Dergi Önerisi'
-suggestion.journal.list: 'Dergi Önerileri'
+institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
+application.journal: 'Dergi Başvurusu'
+application.journal.list: 'Dergi Başvuruları'
 journal.title: Başlık
 journal.subtitle: 'Alt Başlık'
 journal.slug: "Dergi web erişim yolu ( ojs-adresi/<i>dergi_yolu</i> )"
-suggestion.journal.detail: Detay
+application.journal.detail: Detay
 journal.titleAbbr: 'Başlık Kısaltması'
 journal.titleTransliterated: 'Dönüştürülmüş Başlık'
 journal.domain: 'Alan Adı'
@@ -412,8 +412,8 @@ journal.google.analytics.id: 'Google Analytics Id'
 tags: Etiketler
 journal.createdAt: Oluşturulma
 journal.user: Kullanıcı
-journal.merge_as_new_journal: 'Yeni Dergi olarak kaydet'
-dashboard.suggestion: Öneriler
+journal.merge_as_new_journal: 'Yeni Dergi Olarak Kaydet'
+dashboard.application: Başvurular
 journalsindex.create: 'Yeni Dizin Ekle'
 journalsindex.edit: 'Dizin Düzenle'
 journalsindex.list: 'Dizinleri Listele'
@@ -484,7 +484,7 @@ empty: Boş
 common: Genel
 detailed: Detay
 tools: Araçlar
-suggestion.journal.suggest: 'Yeni Dergi Gönder'
+application.journal.apply: 'Yeni Dergi Gönder'
 loggedAs: 'Giriş yapılan kullanıcı'
 you: Siz
 controlPanel: 'Kontrol Paneli'
@@ -783,11 +783,11 @@ search.results: "Arama sonuçları"
 "<strong class=\"text-danger\">%total%</strong> results were found for <strong class=\"text-danger\">%term%</strong>": ""
 user: Kullanıcı
 register: Kayıt Ol
-suggestion.institute.suggest: "Kurum Öner"
+application.institution.apply: "Kurum Başvurusu Yap"
 logo: Logo
 'Header Image': 'Üst Görsel'
-suggest: Öner
-'Your suggestion saved successfuly.': 'Öneriniz başarıyla kaydedildi.'
+apply: Başvur
+'Your application saved successfully.': 'Başvurunuz başarıyla kaydedildi.'
 'Cover Image': 'Kapak görseli'
 user.new: Yeni Kullanıcı
 orcid.login: Orcid ile giriş

@@ -1,9 +1,9 @@
 ojs_site_admin_page:
     resource: "@OjsSiteBundle/Resources/config/routing/page.yml"
     prefix:   /admin/page
-ojs_suggestion:
-    resource: "@OjsSiteBundle/Resources/config/routing/suggestion.yml"
-    prefix: /suggest
+ojs_application:
+    resource: "@OjsSiteBundle/Resources/config/routing/application.yml"
+    prefix: /apply
 redirect:
     pattern: /redirect/{type}/{id}
     defaults: { _controller: OjsSiteBundle:Redirect:redirect }

@@ -373,19 +373,19 @@ articlefile.type: Article file type
 articlefile.version: File version
 articlefile.langcode: File language
 articlefile.actions: Actions
-suggestion.institute: 'Institute Suggestion'
-suggestion.institute.list: 'Institute Suggestions'
+application.institute: 'Institute Suggestion'
+application.institute.list: 'Institute Suggestions'
 institute.id: ID
 institute.name: Name
 institute.country: Country
-suggestion.institute.detail: Detail
+application.institute.detail: Detail
 institution.slug: Slug
 institute.merge_as_new_institute: 'Merge As New Institute'
-suggestion.journal: 'Journal Suggestion'
-suggestion.journal.list: 'Journal Suggestions'
+application.journal: 'Journal Suggestion'
+application.journal.list: 'Journal Suggestions'
 journal.title: Title
 journal.subtitle: Subtitle
-suggestion.journal.detail: Detail
+application.journal.detail: Detail
 journal.slug: "Short path for web access  ( base_host/<i>journal_path</i> )"
 journal.titleAbbr: 'Title Abbr'
 journal.titleTransliterated: 'Title Transliterated'
@@ -407,7 +407,7 @@ journal.google.analytics.id: 'Google Analytics Id'
 journal.createdAt: 'Created at'
 journal.user: User
 journal.merge_as_new_journal: 'Merge As New Journal'
-dashboard.suggestion: Suggestions
+dashboard.application: Suggestions
 journalsindex.create: 'JournalsIndex Create'
 journalsindex.edit: 'JournalsIndex Edit'
 journalsindex.list: 'JournalsIndex List'
@@ -478,7 +478,7 @@ empty: Empty
 common: Common
 detailed: Detailed
 tools: Tools
-suggestion.journal.suggest: 'Suggest New Journal'
+application.journal.apply: 'Apply as a new Journal'
 loggedAs: 'Logged in as'
 you: You
 controlPanel: 'Control Panel'
@@ -659,8 +659,8 @@ institute.register:  Register Institution
 journal.register: Journal Register
 featured: Featured
 featured.desc: ""
-suggest: Suggest
-'Your suggestion saved successfuly.': 'Your suggestion saved successfuly.'
+apply: Apply
+'Your application saved successfully.': 'Your application saved successfully.'
 'Cover Image': 'Cover Image'
 User: User
 'This account is private.': 'This account is private.'
@@ -923,8 +923,8 @@ logo: Logo
 file.select: Select File 
 'Header Image': Header Image'
 suggest: Suggest
-'Your suggestion saved successfuly.': 'Your suggestion saved successfuly.' 
-suggestion.institute.suggest: Suggest Institution
+'Your application saved successfully.': 'Your application saved successfully.'
+application.institution.apply: Apply as Institution
 'Cover Image': 'Cover Image'
 user.new: New User 
 'You can allow this user to login as you, by clicking this button': 'You can allow this user to login as you, by clicking this button'

@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'title': 'suggestion.institute'|trans}
+    { 'title': 'application.journal'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -18,8 +18,9 @@
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "suggestion.institute.list"|trans }}</h1>
+            <h1>{{ "application.journal.list"|trans }}</h1>
             {{ grid(grid) }}
+
         </div>
     </div>
 {% endblock %}
