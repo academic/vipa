@@ -54,6 +54,8 @@ class AppKernel extends Kernel {
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Problematic\AclManagerBundle\ProblematicAclManagerBundle(),
+            new GoDisco\AclTreeBundle\AclTreeBundle(),
 
         );
 

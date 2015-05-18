@@ -14,6 +14,7 @@ parameters:
     avatar_upload_dir: "%kernel.root_dir%/../web/uploads/avatarfiles/"
     avatar_upload_base_url: %base_host%/uploads/avatarfiles/
     admin_base_view: '::ojsbase.html.twig'
+    problematic.acl_manager.class: Ojs\SiteBundle\Acl\AclChainManager
 framework:
     #esi:             ~
     translator:      { fallback: en }
