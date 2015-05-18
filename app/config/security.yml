@@ -2,7 +2,8 @@ security:
     encoders:
         Ojs\UserBundle\Entity\User:
             algorithm: bcrypt
-
+    acl:
+        connection: default
     role_hierarchy:
         ROLE_AUTHOR: [ROLE_USER]
         ROLE_EDITOR: [ROLE_AUTHOR, ROLE_ALLOWED_TO_SWITCH]
