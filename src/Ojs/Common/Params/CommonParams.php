@@ -11,13 +11,13 @@ class CommonParams
         2 => "Banned"
     ];
     protected static $statusArray = array(
-        -3 => "Rejected",
-        -2 => "Unpublished",
-        -1 => "Not Submitted",
-        0 => "Waiting",
-        1 => "Reviewing",
-        2 => "Editing",
-        3 => "Published"
+        -3 => "status.rejected",
+        -2 => "status.unpublished",
+        -1 => "status.not_submitted",
+        0 => "status.waiting",
+        1 => "status.inreview",
+        2 => "status.editing",
+        3 => "status.published"
     );
     protected static $statusColorArray = array(
         -3 => '#FF2924',
