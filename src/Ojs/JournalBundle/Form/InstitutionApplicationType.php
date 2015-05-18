@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ojs\UserBundle\Entity\User;
 
-class InstituteSuggestionType extends AbstractType
+class InstitutionApplicationType extends AbstractType
 {
 
     /**
@@ -67,7 +67,7 @@ class InstituteSuggestionType extends AbstractType
                     'data-to'=>'#'.$this->getName().'_city'
                 ]
             ]);
-        $helper->addCityField($builder,'Ojs\JournalBundle\Document\InstituteSuggestion',true);
+        $helper->addCityField($builder,'Ojs\JournalBundle\Document\InstitutionApplication',true);
     }
 
     /**
@@ -76,7 +76,7 @@ class InstituteSuggestionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Document\InstituteSuggestion',
+            'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
             'em'=>null,
             'helper' => null
         ,
@@ -92,7 +92,7 @@ class InstituteSuggestionType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_institutesuggestion';
+        return 'ojs_journalbundle_institutionapplication';
     }
 
 }

@@ -34,9 +34,10 @@ ojs_institution_crud:
 ojs_institution_types_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/institutiontypes.yml"
     prefix:   /admin/institution_types
-ojs_suggestion_crud:
-    resource: "@OjsJournalBundle/Resources/config/routing/admin/suggestion.yml"
-    prefix: /admin/suggestion
+
+ojs_application_crud:
+    resource: "@OjsJournalBundle/Resources/config/routing/admin/application.yml"
+    prefix: /admin/application
 
 ojs_contact_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/contact.yml"

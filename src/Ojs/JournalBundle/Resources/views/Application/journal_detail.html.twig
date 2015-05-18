@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'title': 'suggestion.journal'|trans}
+    { 'title': 'application.journal'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -19,7 +19,7 @@
 
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{ "suggestion.journal.detail"|trans }}</h1>
+            <h1>{{ "application.journal.detail"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
 
             <table class="records_list  table" style="width:100%">
@@ -108,7 +108,7 @@
                     <td>{{ entity.user|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-primary" href="{{ url('suggestion_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
+            <a class="btn btn-primary" href="{{ url('application_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
         </div>
     </div>
 {% endblock %}

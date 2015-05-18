@@ -10,7 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalSuggestionType extends AbstractType
+class JournalApplicationType extends AbstractType
 {
 
     /**
@@ -86,7 +86,7 @@ class JournalSuggestionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Document\JournalSuggestion',
+            'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
             'em' => null,
             'attr'=>[
                 'novalidate'=>'novalidate'
@@ -100,7 +100,7 @@ class JournalSuggestionType extends AbstractType
      */
     public function getName()
     {
-        return 'ojs_journalbundle_journalsuggestion';
+        return 'ojs_journalbundle_journalapplication';
     }
 
 }

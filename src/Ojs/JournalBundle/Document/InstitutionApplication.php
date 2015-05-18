@@ -13,11 +13,11 @@ use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\UserBundle\Entity\User;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
- * This collection holds resumable institute suggestion data
- * @MongoDB\Document(collection="institute_suggestion")
+ * This collection holds resumable institute application data
+ * @MongoDB\Document(collection="institution_application")
  * @GRID\Source(columns="id,name,country")
  */
-class InstituteSuggestion
+class InstitutionApplication
 {
     /**
      * @MongoDB\Id

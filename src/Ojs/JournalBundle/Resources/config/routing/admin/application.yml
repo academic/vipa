@@ -1,0 +1,26 @@
+journal_application:
+  pattern: /journal
+  defaults: { _controller: 'OjsJournalBundle:Application:journal' }
+institution_application:
+  pattern: /institution
+  defaults: { _controller: 'OjsJournalBundle:Application:institution' }
+application_institution_show:
+  pattern: /institution/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionDetail'}
+application_institution_delete:
+  pattern: /institution/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionDelete'}
+
+application_journal_show:
+  pattern: /journal/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalDetail'}
+application_journal_delete:
+  pattern: /journal/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalDelete'}
+
+application_institution_saveasnew:
+  pattern: /institution/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionSave' }
+application_journal_saveasnew:
+  pattern: /journal/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Application:journalSave' }

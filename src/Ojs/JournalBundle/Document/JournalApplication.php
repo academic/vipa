@@ -16,11 +16,11 @@ use Ojs\UserBundle\Entity\User;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
- * This collection holds journal suggestion data
- * @MongoDB\Document(collection="journal_suggestion")
+ * This collection holds journal application data
+ * @MongoDB\Document(collection="journal_application")
  * @GRID\Source(columns="id,title,subtitle")
  */
-class JournalSuggestion
+class JournalApplication
 {
     /**
      * @MongoDB\Id

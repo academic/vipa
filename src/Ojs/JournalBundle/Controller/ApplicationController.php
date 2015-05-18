@@ -7,8 +7,8 @@ use APY\DataGridBundle\Grid\Source\Document;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Helper\ActionHelper;
-use Ojs\JournalBundle\Document\JournalSuggestion;
-use Ojs\JournalBundle\Document\InstituteSuggestion;
+use Ojs\JournalBundle\Document\JournalApplication;
+use Ojs\JournalBundle\Document\InstitutionApplication;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
@@ -21,15 +21,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Institution controller.
  *
  */
-class SuggestionController extends Controller
+class ApplicationController extends Controller
 {
     /**
      * Lists all Institution entities.
      *
      */
-    public function instituteAction()
+    public function institutionAction()
     {
-        $source = new Document('OjsJournalBundle:InstituteSuggestion');
+        $source = new Document('OjsJournalBundle:InstitutionApplication');
         $source->manipulateQuery(function(Builder $query){
             $query->where("typeof(this.merged)=='undefined'");
             return $query;
@@ -37,20 +37,20 @@ class SuggestionController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('suggestion_institute_show', 'id');
-        $rowAction[] = ActionHelper::deleteAction('suggestion_institute_delete', 'id');
+        $rowAction[] = ActionHelper::showAction('application_institution_show', 'id');
+        $rowAction[] = ActionHelper::deleteAction('application_institution_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Suggestion:institute.html.twig',$data);
+        return $grid->getGridResponse('OjsJournalBundle:Application:institution.html.twig',$data);
     }
 
     public function journalAction()
     {
 
-        $source = new Document('OjsJournalBundle:JournalSuggestion');
+        $source = new Document('OjsJournalBundle:JournalApplication');
         $source->manipulateQuery(function(Builder $query){
             $query->where("typeof(this.merged)=='undefined'");
             return $query;
@@ -58,21 +58,21 @@ class SuggestionController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::showAction('suggestion_journal_show', 'id');
-        $rowAction[] = ActionHelper::deleteAction('suggestion_journal_delete', 'id');
+        $rowAction[] = ActionHelper::showAction('application_journal_show', 'id');
+        $rowAction[] = ActionHelper::deleteAction('application_journal_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Suggestion:journal.html.twig',$data);
+        return $grid->getGridResponse('OjsJournalBundle:Application:journal.html.twig',$data);
     }
 
     public function journalDetailAction($id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        /** @var JournalSuggestion $entity */
-        $entity = $dm->find('OjsJournalBundle:JournalSuggestion', $id);
+        /** @var JournalApplication $entity */
+        $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException;
         }
@@ -104,13 +104,13 @@ class SuggestionController extends Controller
         $data['institution'] = $institution->getName() . "[" . $institution->getSlug() . "]";
         $data['country'] = $country->getName();
         $data['subjects'] = join(',', $subjects);
-        return $this->render('OjsJournalBundle:Suggestion:journal_detail.html.twig', $data);
+        return $this->render('OjsJournalBundle:Application:journal_detail.html.twig', $data);
     }
 
-    public function instituteDetailAction($id)
+    public function institutionDetailAction($id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entity = $dm->find('OjsJournalBundle:InstituteSuggestion', $id);
+        $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException;
         }
@@ -118,7 +118,7 @@ class SuggestionController extends Controller
         $data = [];
         $data['entity'] = $entity;
 
-        return $this->render('OjsJournalBundle:Suggestion:institute_detail.html.twig', $data);
+        return $this->render('OjsJournalBundle:Application:institution_detail.html.twig', $data);
 
     }
 
@@ -126,25 +126,25 @@ class SuggestionController extends Controller
     {
 
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entity = $dm->find('OjsJournalBundle:JournalSuggestion', $id);
+        $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException;
         }
         $dm->remove($entity);
         $dm->flush();
-        return $this->redirect($this->get('router')->generate('journal_suggestion'));
+        return $this->redirect($this->get('router')->generate('journal_application'));
     }
 
-    public function instituteDeleteAction($id)
+    public function institutionDeleteAction($id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $entity = $dm->find('OjsJournalBundle:InstituteSuggestion', $id);
+        $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException;
         }
         $dm->remove($entity);
         $dm->flush();
-        return $this->redirect($this->get('router')->generate('institute_suggestion'));
+        return $this->redirect($this->get('router')->generate('institution_application'));
 
     }
 
@@ -153,8 +153,8 @@ class SuggestionController extends Controller
     {
         try {
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            /** @var JournalSuggestion $entity */
-            $entity = $dm->find('OjsJournalBundle:JournalSuggestion', $id);
+            /** @var JournalApplication $entity */
+            $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
             if (!$entity) {
                 throw new NotFoundHttpException;
             }
@@ -200,17 +200,17 @@ class SuggestionController extends Controller
             $session = $this->get('session');
             $session->getFlashBag()->add('error', $e->getMessage());
             $session->save();
-            return $this->redirect($this->get('router')->generate('suggestion_journal_show', ['id' => $id]));
+            return $this->redirect($this->get('router')->generate('application_journal_show', ['id' => $id]));
 
         }
     }
 
-    public function instituteSaveAction($id)
+    public function institutionSaveAction($id)
     {
         try {
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            /** @var InstituteSuggestion $entity */
-            $entity = $dm->find('OjsJournalBundle:InstituteSuggestion', $id);
+            /** @var InstitutionApplication $entity */
+            $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
             if (!$entity) {
                 throw new NotFoundHttpException;
             }
@@ -249,7 +249,7 @@ class SuggestionController extends Controller
             $session = $this->get('session');
             $session->getFlashBag()->add('error', $e->getMessage());
             $session->save();
-            return $this->redirect($this->get('router')->generate('suggestion_institute_show', ['id' => $id]));
+            return $this->redirect($this->get('router')->generate('application_institution_show', ['id' => $id]));
 
         }
     }
