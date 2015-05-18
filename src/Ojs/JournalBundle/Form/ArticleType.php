@@ -4,21 +4,22 @@ namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\CommonParams;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ArticleType extends AbstractType {
+class ArticleType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $journal = $options['journal'];
+        /** @var User $user */
         $user = $options['user'];
         $builder
                 ->add('issue', 'entity', array(
@@ -27,117 +28,110 @@ class ArticleType extends AbstractType {
                     'required' => false,
                     'attr' => array('class' => ' form-control select2-element'),
                     'query_builder' => function (EntityRepository $er) use ($journal, $user) {
-                $qb = $er->createQueryBuilder('i');
-                foreach ($user->getRoles() as $role) {
-                    /** @var Role $role */
-                    if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
+                        $qb = $er->createQueryBuilder('i');
+                        if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                            return $qb;
+                        }
+                        $qb->where(
+                                $qb->expr()->eq('i.journalId', ':journal')
+                        )->setParameter('journal', $journal);
+
                         return $qb;
-                        break;
-                    }
-                }
-                $qb->where(
-                        $qb->expr()->eq('i.journalId', ':journal')
-                )->setParameter('journal', $journal);
-                return $qb;
-            }
+                    },
                 ))
                 ->add('status', 'choice', array(
                     'label' => 'status',
                     'attr' => array('class' => ' form-control'),
-                    'choices' => CommonParams::statusText()
+                    'choices' => CommonParams::statusText(),
                 ))
                 ->add('doi', 'text', array(
                     'label' => 'doi',
-                    'required' => false, 'attr' => array('class' => ' form-control'))
+                    'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('otherId', 'text', array(
                     'label' => 'otherid',
-                    'required' => false, 'attr' => array('class' => ' form-control'))
+                    'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('keywords', 'text', array(
                     'label' => 'keywords',
-                    'attr' => array('class' => ' form-control'))
+                    'attr' => array('class' => ' form-control'), )
                 )
                 ->add('journal', 'entity', array(
                     'label' => 'journal',
                     'attr' => array('class' => ' form-control select2-element'),
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' => function(EntityRepository $er)use($journal, $user) {
-                /** @var User $user $qb */
-                $qb = $er->createQueryBuilder('j');
-                foreach ($user->getRoles() as $role) {
-                    /** @var Role $role */
-                    if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                        return $qb;
-                        break;
-                    }
-                }
+                    'query_builder' => function (EntityRepository $er) use ($journal, $user) {
+                        $qb = $er->createQueryBuilder('j');
 
-                $qb
-                ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                ->setParameter('user', $user)
-                ;
-                return $qb;
-            }
+                        if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                            return $qb;
+                        }
+
+                        $qb
+                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                        ->setParameter('user', $user)
+                        ;
+
+                        return $qb;
+                    },
                 ))
                 ->add('title', 'text', array(
                     'label' => 'title',
-                    'attr' => array('class' => ' form-control'))
+                    'attr' => array('class' => ' form-control'), )
                 )
                 ->add('titleTransliterated', 'text', array(
                     'label' => 'titleTransliterated',
-                    'required' => false, 'attr' => array('class' => ' form-control'))
+                    'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('subtitle', 'text', array(
                     'label' => 'subtitle',
-                    'required' => false, 'attr' => array('class' => ' form-control'))
+                    'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('isAnonymous', 'radio', array(
-                    'label' => 'isAnonymous', 'required' => false)
+                    'label' => 'isAnonymous', 'required' => false, )
                 )
                 ->add('orderNum', 'integer', array('label' => 'order', 'required' => false))
                 ->add('pubdate', 'collot_datetime', array(
                     'label' => 'pubdate',
                     'date_format' => 'dd-MM-yyyy',
-                    'pickerOptions'=>[
-                        'format'=>'dd-mm-yyyy',
-                        'startView'=>'month',
-                        'minView'=>'month',
-                        'todayBtn'=>'true',
-                        'todayHighlight'=>'true',
-                        'autoclose'=>'true'
-                    ]
+                    'pickerOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'startView' => 'month',
+                        'minView' => 'month',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
                 ))
                 ->add('submissionDate', 'collot_datetime', array(
-                    'label' => 'submissionDate',
-
+                        'label' => 'submissionDate',
                         'date_format' => 'dd-MM-yyyy',
-                        'pickerOptions'=>[
-                            'format'=>'dd-mm-yyyy',
-                            'startView'=>'month',
-                            'minView'=>'month',
-                            'todayBtn'=>'true',
-                            'todayHighlight'=>'true',
-                            'autoclose'=>'true'
-                        ]
+                        'pickerOptions' => [
+                            'format' => 'dd-mm-yyyy',
+                            'startView' => 'month',
+                            'minView' => 'month',
+                            'todayBtn' => 'true',
+                            'todayHighlight' => 'true',
+                            'autoclose' => 'true',
+                        ],
                     )
                 )
                 ->add('pubdateSeason', 'text', array(
-                    'label' => 'Pubdateseason', 'required' => false, 'attr' => array('class' => ' form-control'))
+                    'label' => 'Pubdateseason', 'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('part', 'text', array(
-                    'label' => 'part', 'required' => false, 'attr' => array('class' => ' form-control'))
+                    'label' => 'part', 'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('firstPage', 'integer', array('label' => 'first_page', 'required' => false, 'attr' => array('class' => ' form-control'))
                 )
                 ->add('lastPage', 'integer', array(
-                    'label' => 'last_page', 'required' => false, 'attr' => array('class' => ' form-control'))
+                    'label' => 'last_page', 'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('uri', 'text', array(
-                    'label' => 'url', 'required' => false, 'attr' => array('class' => ' form-control'))
+                    'label' => 'url', 'required' => false, 'attr' => array('class' => ' form-control'), )
                 )
                 ->add('abstract', 'textarea', array(
-                    'label' => 'abstract', 'required' => false, 'attr' => array('class' => ' form-control wysihtml5'))
+                    'label' => 'abstract', 'required' => false, 'attr' => array('class' => ' form-control wysihtml5'), )
                 )
                 ->add('abstractTransliterated', 'textarea', array('label' => 'abstractTransliterated', 'required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('header', 'hidden')
@@ -154,9 +148,8 @@ class ArticleType extends AbstractType {
             'journal' => 0,
             'user' => null,
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -167,5 +160,4 @@ class ArticleType extends AbstractType {
     {
         return 'ojs_journalbundle_article';
     }
-
 }
