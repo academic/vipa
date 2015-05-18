@@ -89,8 +89,8 @@ class JournalApplicationType extends AbstractType
             'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
             'em' => null,
             'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
+                'novalidate'=>'novalidate',
+                'class'=>'form-validate',
             ]
         ));
     }
