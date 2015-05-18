@@ -13,40 +13,38 @@
                 </div>
             {% endfor %}
         {% endfor %}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        <div class="form-group">
-            <label class="control-label" for="fileupload">{{"Cover Image"|trans}}</label>
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
+                <div class="panel-body">
+                    {{ form_errors(form) }}
+                    {{ form_widget(form) }}
 
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
+                    <div class="form-group">
+                        <label class="control-label" for="fileupload">{{"Cover Image"|trans}}</label>
+                        <span class="btn btn-success fileinput-button form-control">
+                            <i class="fa fa-plus"></i>
+                            <span>{{"file.select"|trans}}</span>
+                            <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                        </span>
+                        <div id="institution_logo_upload_progress" style="display: none" class="label label-info"></div>
+                    </div>
 
-            <div id="institution_logo_upload_progress" style="display: none" class="label label-info">
-
+                    <div class="form-group">
+                        <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+                        <span class="btn btn-success fileinput-button form-control">
+                            <i class="fa fa-plus"></i>
+                            <span>{{"file.select"|trans}}</span>
+                            <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                        </span>
+                        <div id="institution_header_upload_progress" style="display: none" class="label label-info"></div>
+                    </div>
+                    <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
+                        {{ "apply"|trans }}
+                    </button>
+                    {{ form_end(form) }}
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <label class="control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
-
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{"file.select"|trans}}</span>
-                <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
-            </span>
-
-            <div id="institution_header_upload_progress" style="display: none" class="label label-info">
-
-            </div>
-        </div>
-        <button type="submit" id="ojs_journalbundle_issue_submit" class="btn btn-primary">
-            {{ "apply"|trans }}
-        </button>
-        {{ form_end(form) }}
-    </div>
     <!-- /.container -->
 
 {% endblock %}
