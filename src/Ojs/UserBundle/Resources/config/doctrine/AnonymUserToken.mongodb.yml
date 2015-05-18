@@ -11,3 +11,5 @@ Ojs\UserBundle\Document\AnonymUserToken:
       type: string
     used:
       type: boolean
+    journal_id:
+      type: integer

@@ -105,4 +105,31 @@ class AnonymUserToken {
     {
         return $this->used;
     }
+    /**
+     * @var integer $journal_id
+     */
+    protected $journal_id;
+
+
+    /**
+     * Set journalId
+     *
+     * @param integer $journalId
+     * @return self
+     */
+    public function setJournalId($journalId)
+    {
+        $this->journal_id = $journalId;
+        return $this;
+    }
+
+    /**
+     * Get journalId
+     *
+     * @return integer $journalId
+     */
+    public function getJournalId()
+    {
+        return $this->journal_id;
+    }
 }

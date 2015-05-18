@@ -35,6 +35,17 @@ class AnonymUserType extends AbstractType
                 'expanded' => false,
                 'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
             ))
+            ->add('journal_id','autocomplete',[
+                'class'=>'Ojs\JournalBundle\Entity\Journal',
+                'mapped'=>false,
+                'attr' => [
+                    'class' => 'autocomplete',
+                    'style' => 'width:100%',
+                    'data-list' =>  "/api/public/search/journal",
+                    'data-get' => "/api/public/journal/get/",
+                    "placeholder" => "type a journal name"
+                ],
+            ])
         ;
     }
 
