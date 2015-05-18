@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,6 +102,16 @@ class JournalSetupStep6Controller extends Controller
                         $em->persist($blockLink);
                     }
                 }
+            }
+            $journalSections = $currentJournal->getSections();
+            if(count($journalSections)==0){
+                $journalSection = new JournalSection();
+                $journalSection->setTitle($this->get('translator')->trans("Articles"))
+                    ->setAllowIndex(true)
+                    ->setJournal($currentJournal)
+                    ->setJournalId($currentJournal->getId());
+                $em->persist($journalSection);
+                $currentJournal->addSection($journalSection);
             }
             $currentJournal->setSetupStatus(true);
             $em->flush();
