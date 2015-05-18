@@ -99,6 +99,8 @@ status.unpublished: Yayımlanmamış
 status.rejected: Reddedildi
 status.inreview: İncelemede
 status.spam: Spam
+status.not_submitted: Gönderilmemiş
+status.editing: Düzenleniyor
 reports.title: Raporlar
 reports.journal: 'Dergi Raporları'
 reports.article: 'Makale Raporları'
@@ -1126,3 +1128,15 @@ Hospital: Hastane
 Chamber: Komisyon
 Private: Özel
 submission.success: "Talebiniz gönderildi."
+Default registered user: 'Kullanıcı'
+System Super Administrator: 'Süper Yönetici'
+Editor: 'Editör'
+Reviewer: 'Hakem'
+Journal Manager: 'Dergi Yöneticisi'
+Subscription Manager: 'Abonelik Yöneticisi'
+Section Editor: 'Bölüm Editörü'
+Layout Editor: 'Şablon Editörü'
+Copyeditor: 'Copyeditor'
+Proofreader: 'Proofreader'
+Author: 'Yazar'
+Reader: 'Okur'

@@ -96,6 +96,8 @@ status.unpublished: Unpublished
 status.rejected: Rejected
 status.inreview: in-Review
 status.spam: Spam
+status.not_submitted: Not Submitted
+status.editing: Editing
 reports.title: Reports
 reports.journal: 'Journal Reports'
 reports.article: 'Article Reports'
@@ -1190,3 +1192,16 @@ Hospital: Hospital
 Chamber: Chamber
 Private: Private
 submission.success: "Submission sending complete."
+
+Default registered user: 'Default registered user'
+System Super Administrator: 'System Super Administrator'
+Editor: 'Editor'
+Reviewer: 'Reviewer'
+Journal Manager: 'Journal Manager'
+Subscription Manager: 'Subscription Manager'
+Section Editor: 'Section Editor'
+Layout Editor: 'Layout Editor'
+Copyeditor: 'Copyeditor'
+Proofreader: 'Proofreader'
+Author: 'Author'
+Reader: 'Reader'
