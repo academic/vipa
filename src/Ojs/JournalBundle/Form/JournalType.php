@@ -71,9 +71,9 @@ class JournalType extends AbstractType
         $builder->add('submitRoles', 'entity', $role_options
         );
 
-        $builder->add('subtitle', 'text', ['label' => 'subtitle'])
-            ->add('path', 'text', ['label' => 'journal.path'])
-            ->add('domain', 'text', ['label' => 'journal.domain'])
+        $builder->add('subtitle', 'hidden', ['label' => 'subtitle'])
+            ->add('path', 'hidden', ['label' => 'journal.path'])
+            ->add('domain', 'hidden', ['label' => 'journal.domain'])
             ->add('issn', 'text', array('label' => 'ISSN', 'attr' => array('class' => 'maskissn')))
             ->add('eissn', 'text', array('label' => 'eISSN', 'attr' => array('class' => 'maskissn')))
             ->add('firstPublishDate', 'collot_datetime', array(
