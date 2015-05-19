@@ -96,6 +96,12 @@ assetic:
                 - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload.css
                 - %kernel.root_dir%/../web/vendor/jquery-file-upload/css/jquery.fileupload-ui.css
                 - %kernel.root_dir%/../web/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css
+        jqueryui_js:
+            inputs:
+                - %kernel.root_dir%/../web/assets/app/js/plugins/jqueryui/jquery-ui.min.js
+        jqueryui_css:
+            input:
+                - %kernel.root_dir%/../web/assets/app/css/plugins/jqueryui/jquery-ui.min.css
  
 braincrafted_bootstrap:
     less_filter: none

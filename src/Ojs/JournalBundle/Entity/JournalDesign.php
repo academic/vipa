@@ -30,6 +30,11 @@ class JournalDesign extends GenericExtendedEntity
     private $designId;
 
     /**
+     * @var integer
+     */
+    private $isPublic;
+
+    /**
      *
      * @var Journal
      * @GRID\Column(title="journal",field="journal.title")
@@ -174,5 +179,27 @@ class JournalDesign extends GenericExtendedEntity
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set isPublic
+     *
+     * @param isPublic $isPublic
+     * @return JournalDesign
+     */
+    public function setIsPublic($isPublic)
+    {
+        $this->isPublic = $isPublic;
+        return $this;
+    }
+
+    /**
+     * Get isPublic
+     *
+     * @return isPublic
+     */
+    public function getIsPublic()
+    {
+        return $this->isPublic;
     }
 }
