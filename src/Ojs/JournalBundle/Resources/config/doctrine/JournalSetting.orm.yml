@@ -9,7 +9,7 @@ Ojs\JournalBundle\Entity\JournalSetting:
       type: string
   fields:
     value:
-      type: string
+      type: text
     createdBy:
        type: string
        gedmo:
