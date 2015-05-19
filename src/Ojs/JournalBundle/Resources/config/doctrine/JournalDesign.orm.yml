@@ -23,6 +23,8 @@ Ojs\JournalBundle\Entity\JournalDesign:
     fields:
         title:
            type: string
+        isPublic:
+           type: integer
         createdBy:
            type: string
            gedmo:
