@@ -21,7 +21,7 @@
         </div>
 
         {% for item in journal.submissionChecklist %}
-            {% if item.visible and item.locale==app.request.locale %}
+            {% if item.visible and (item.locale==app.request.locale or item.locale is null or item.locale=='') %}
                 <div class="panel-body">
                     <fieldset>
                         <legend>
