@@ -27,45 +27,47 @@ class ApplicationController extends Controller
      * Lists all Institution entities.
      *
      */
-    public function institutionAction()
+    public function institutionIndexAction()
     {
         $source = new Document('OjsJournalBundle:InstitutionApplication');
         $source->manipulateQuery(function(Builder $query){
-            $query->where("typeof(this.merged)=='undefined'");
+            $query->where("typeof(this.merged) == 'undefined'");
             return $query;
         });
+
         $grid = $this->get('grid')->setSource($source);
 
-        $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::showAction('application_institution_show', 'id');
         $rowAction[] = ActionHelper::deleteAction('application_institution_delete', 'id');
-
+        $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
+
         $grid->addColumn($actionColumn);
-        $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Application:institution.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Application:institution.html.twig', $data);
     }
 
-    public function journalAction()
+    public function journalIndexAction()
     {
 
         $source = new Document('OjsJournalBundle:JournalApplication');
         $source->manipulateQuery(function(Builder $query){
-            $query->where("typeof(this.merged)=='undefined'");
+            $query->where("typeof(this.merged) == 'undefined'");
             return $query;
         });
+
         $grid = $this->get('grid')->setSource($source);
 
-        $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::showAction('application_journal_show', 'id');
         $rowAction[] = ActionHelper::deleteAction('application_journal_delete', 'id');
-
+        $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
+
         $grid->addColumn($actionColumn);
-        $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Application:journal.html.twig',$data);
+        
+        return $grid->getGridResponse('OjsJournalBundle:Application:journal.html.twig', $data);
     }
 
     public function journalDetailAction($id)

@@ -295,8 +295,8 @@ journal.list: 'List Journals'
 journal.my: 'My Journal'
 ISSN: ISSN
 eISSN: eISSN
-titleabbr: 'Title Abbr'
-titletransliterated: 'Title Transliterated'
+titleabbr: 'Abbreviated Title'
+titletransliterated: 'Transliterated Title'
 journal.langs: Languages
 firstpublishdate: 'First Publish Date'
 period: Period
@@ -387,8 +387,8 @@ journal.title: Title
 journal.subtitle: Subtitle
 application.journal.detail: Detail
 journal.slug: "Short path for web access  ( base_host/<i>journal_path</i> )"
-journal.titleAbbr: 'Title Abbr'
-journal.titleTransliterated: 'Title Transliterated'
+journal.titleAbbr: 'Abbreviated Title'
+journal.titleTransliterated: 'Transliterated Title'
 journal.domain: Domain
 journal.path: Path
 journal.firstPublishDate: 'First Publish Date'
@@ -1205,3 +1205,10 @@ Copyeditor: 'Copyeditor'
 Proofreader: 'Proofreader'
 Author: 'Author'
 Reader: 'Reader'
+
+# Journal and institution application
+application.journal.basic: "Basic"
+application.journal.institution: "Institution"
+application.journal.new_institution: "Apply as an Institution"
+application.journal.new_institution_help: "If you can't find your institution above, please apply as an institution using the button below."
+application.journal.graphics: "Graphics"
