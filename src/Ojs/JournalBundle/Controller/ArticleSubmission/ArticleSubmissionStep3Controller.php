@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -17,6 +18,7 @@ class ArticleSubmissionStep3Controller extends Controller
             return new \Symfony\Component\HttpFoundation\Response('Missing argument', 400);
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
+        /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
         for ($i = 0; $i < count($citeData); $i++) {
