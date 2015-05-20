@@ -1,9 +1,9 @@
 journal_application:
   pattern: /journal
-  defaults: { _controller: 'OjsJournalBundle:Application:journal' }
+  defaults: { _controller: 'OjsJournalBundle:Application:journalIndex' }
 institution_application:
   pattern: /institution
-  defaults: { _controller: 'OjsJournalBundle:Application:institution' }
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionIndex' }
 application_institution_show:
   pattern: /institution/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionDetail'}
