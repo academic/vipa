@@ -28,7 +28,7 @@
             <div class="citationDetails col-md-12">
                 <div class="row">
                     <div class="col-md-4">
-                        <select class="select2-element form-control citation_type row" onchange="CitationEditor.citationTypeSelected($(this));" name="type">
+                        <select class="select2-element form-control citation_type row" onchange="CitationEditor.citationTypeSelected($(this));" name="citationtype">
                             <option value="">{{"citation.type"|trans}}</option>
                             {% for type in citationTypes %}
                                 <option value="{{type.name}}"
@@ -43,15 +43,11 @@
                     <div class="col-md-8">
                         <div class="citationDetailsFields form-horizontal row">
                             {% if citationItem is defined and citationItem.type%}
+                                {% set citationtype = citationItem.type %}
                                 {% if citationTypes[citationItem.type] is defined %}
                                     {% for field in citationTypes[citationItem.type].must %}
                                         {% if citationItem[field] is defined %}
-                                            <div class="form-group">
-                                                <label class="col-md-1 control-label">{{field|trans}} </label>
-                                                <div class="col-md-10">
-                                                    <input name="{{field}}" value="{{citationItem[field]}}" class="form-control input-sm" /><br>
-                                                </div>
-                                            </div>
+                                            {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field': field , 'value':citationItem[field] } only %}
                                         {% endif %}
                                     {% endfor %}
                                     {% for field in citationTypes[citationItem.type].should%}
