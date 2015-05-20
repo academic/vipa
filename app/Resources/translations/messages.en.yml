@@ -1207,8 +1207,10 @@ Author: 'Author'
 Reader: 'Reader'
 
 # Journal and institution application
-application.journal.basic: "Basic"
+application.basic: "Basic"
+application.graphics: "Graphics"
+application.contact: "Contact"
 application.journal.institution: "Institution"
 application.journal.new_institution: "Apply as an Institution"
 application.journal.new_institution_help: "If you can't find your institution above, please apply as an institution using the button below."
-application.journal.graphics: "Graphics"
+institution.about: "About Institution"

@@ -2,10 +2,10 @@ ojs_apply_journal:
   pattern: /journal
   defaults: { _controller: OjsSiteBundle:Application:journal }
 ojs_apply_institution:
-  pattern: /institute
+  pattern: /institution
   defaults: { _controller: OjsSiteBundle:Application:institution }
 ojs_apply_institute_success:
-  pattern: /institute/success
+  pattern: /institution/success
   defaults: { _controller: OjsSiteBundle:Application:instituteSuccess }
 ojs_apply_journal_success:
   pattern: /journal/success

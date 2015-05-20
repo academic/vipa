@@ -68,12 +68,12 @@ class ApplicationController extends Controller
             $session->save();
         }
         $data['form'] = $form->createView();
-        return $this->render('OjsSiteBundle:Application:institute.html.twig', $data);
+        return $this->render('institution.html.twig', $data);
     }
 
     public function instituteSuccessAction()
     {
-        return $this->render('OjsSiteBundle:Application:institute_success.html.twig');
+        return $this->render('institution_success.html.twig');
     }
     public function journalSuccessAction()
     {
