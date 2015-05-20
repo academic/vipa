@@ -1147,6 +1147,22 @@ journal.tags: "Etiketler"
 journal.issn: "Dergi ISSN"
 journal.eissn: "Dergi eISSN"
 
+# Journal contact strings
+journal.editor: "Editor"
+journal.editor_name: "Editör adı"
+journal.editor_phone: "Editör telefonu"
+journal.editor_email: "Editör e-postası"
+
+journal.assistant_editor: "Assistant Editor"
+journal.assistant_editor_name: "Assistan editör adı"
+journal.assistant_editor_phone: "Assistan editör telefonu"
+journal.assistant_editor_email: "Assistan editör e-postası"
+
+journal.tech_contact: "Tech Contact"
+journal.tech_contact_name: "Teknik sorumlu adı"
+journal.tech_contact_phone: "Teknik sorumlu telefonu"
+journal.tech_contact_email: "Teknik sorumlu e-postası"
+
 # Institution strings
 institution.plural: "Kurumlar"
 institution.id: "Kurum Nosu"

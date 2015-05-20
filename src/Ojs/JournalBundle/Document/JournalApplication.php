@@ -140,6 +140,61 @@ class JournalApplication
      * @var bool
      */
     protected $merged;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $editorName;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $editorPhone;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $editorEmail;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $assistantEditorName;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $assistantEditorPhone;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $assistantEditorEmail;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $techContactName;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $techContactPhone;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $techContactEmail;
+
     /**
      * @return int
      */
@@ -492,5 +547,150 @@ class JournalApplication
     {
         $this->merged = $merged;
     }
+
+    /**
+     * @return string
+     */
+    public function getEditorName()
+    {
+        return $this->editorName;
+    }
+
+    /**
+     * @param string $editorName
+     */
+    public function setEditorName($editorName)
+    {
+        $this->editorName = $editorName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEditorPhone()
+    {
+        return $this->editorPhone;
+    }
+
+    /**
+     * @param string $editorPhone
+     */
+    public function setEditorPhone($editorPhone)
+    {
+        $this->editorPhone = $editorPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEditorEmail()
+    {
+        return $this->editorEmail;
+    }
+
+    /**
+     * @param string $editorEmail
+     */
+    public function setEditorEmail($editorEmail)
+    {
+        $this->editorEmail = $editorEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssistantEditorName()
+    {
+        return $this->assistantEditorName;
+    }
+
+    /**
+     * @param string $assistantEditorName
+     */
+    public function setAssistantEditorName($assistantEditorName)
+    {
+        $this->assistantEditorName = $assistantEditorName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssistantEditorPhone()
+    {
+        return $this->assistantEditorPhone;
+    }
+
+    /**
+     * @param string $assistantEditorPhone
+     */
+    public function setAssistantEditorPhone($assistantEditorPhone)
+    {
+        $this->assistantEditorPhone = $assistantEditorPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssistantEditorEmail()
+    {
+        return $this->assistantEditorEmail;
+    }
+
+    /**
+     * @param string $assistantEditorEmail
+     */
+    public function setAssistantEditorEmail($assistantEditorEmail)
+    {
+        $this->assistantEditorEmail = $assistantEditorEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTechContactName()
+    {
+        return $this->techContactName;
+    }
+
+    /**
+     * @param string $techContactName
+     */
+    public function setTechContactName($techContactName)
+    {
+        $this->techContactName = $techContactName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTechContactPhone()
+    {
+        return $this->techContactPhone;
+    }
+
+    /**
+     * @param string $techContactPhone
+     */
+    public function setTechContactPhone($techContactPhone)
+    {
+        $this->techContactPhone = $techContactPhone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTechContactEmail()
+    {
+        return $this->techContactEmail;
+    }
+
+    /**
+     * @param string $techContactEmail
+     */
+    public function setTechContactEmail($techContactEmail)
+    {
+        $this->techContactEmail = $techContactEmail;
+    }
+
 
 }

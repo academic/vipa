@@ -5,7 +5,7 @@
     <div class="container">
         <!-- Page Content -->
         <h1 class="page-header">{{ "application.journal.apply"|trans }}</h1>
-        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
+
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
                 <div class="alert alert-{{ label }}">
@@ -13,6 +13,8 @@
                 </div>
             {% endfor %}
         {% endfor %}
+
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         <div class="panel panel-default">
             <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
             <div class="panel-body">
@@ -27,7 +29,6 @@
                     </div>
                 </div>
 
-
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
@@ -38,7 +39,37 @@
                         {% endfor %}
                     </div>
                 </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
+                    <div class="panel-body">
+                        <div class="panel panel-success">
+                            <div class="panel-heading"><h4>{{ "journal.editor"|trans }}</h4></div>
+                            <div class="panel-body">
+                                {% for field in [form.editorName, form.editorPhone, form.editorEmail] %}
+                                    {{ form_row(field) }}
+                                {% endfor %}
+                            </div>
+                        </div>
 
+                        <div class="panel panel-success">
+                            <div class="panel-heading"><h4>{{ "journal.assistant_editor"|trans }}</h4></div>
+                            <div class="panel-body">
+                                {% for field in [form.assistantEditorName, form.assistantEditorPhone, form.assistantEditorEmail] %}
+                                    {{ form_row(field) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="panel panel-success">
+                            <div class="panel-heading"><h4>{{ "journal.tech_contact"|trans }}</h4></div>
+                            <div class="panel-body">
+                                {% for field in [form.techContactName, form.techContactPhone, form.techContactEmail] %}
+                                    {{ form_row(field) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
@@ -76,7 +107,6 @@
         </div>
         {{ form_end(form) }}
     </div>
-    <!-- /.container -->
 
 {% endblock %}
 {% block javascripts %}
@@ -103,6 +133,7 @@
                 $('#ojs_journalbundle_journalapplication_headerimage').attr('value', JSON.parse(data.result).files.name);
             });
         });
+
         $('.tags').tagsinput({
             tagClass: 'label label-info',
             trimValue: true,
