@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{ "application.journal.apply"|trans }}</h1>
+        <h1 class="page-header">{{"application.institution.apply"|trans}}</h1>
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
@@ -14,45 +14,43 @@
             {% endfor %}
         {% endfor %}
         <div class="panel panel-default">
-            <div class="panel-heading"><h4>{{ "journal.about"|trans }}</h4></div>
+            <div class="panel-heading"><h4>{{ "institution.about"|trans }}</h4></div>
             <div class="panel-body">
                 {{ form_errors(form) }}
-                <div class="panel panel-info">
-                    <div class="panel-heading"><h4>{{ "application.journal.institution"|trans }}</h4></div>
-                    <div class="panel-body">
-                        {{ form_row(form.institution, {'help_text': "application.journal.new_institution_help"|trans}) }}
-                        <a href="{{ path('ojs_apply_institution') }}" class="btn btn-info pull-right">
-                            {{ icon('plus') }} {{ "application.journal.new_institution"|trans }}
-                        </a>
-                    </div>
-                </div>
-
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.basic"|trans }}</h4></div>
                     <div class="panel-body">
-                        {% for field in [form.title, form.titleAbbr, form.titleTransliterated,
-                        form.subtitle, form.domain, form.country, form.issn, form.eissn,
-                        form.firstPublishDate, form.period, form.tags, form.url, form.languages, form.subjects] %}
+                        {% for field in [form.name, form.slug, form.type, form.about, form.tags,] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
                 </div>
 
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
+                    <div class="panel-body">
+                        {% for field in [form.phone, form.fax, form.email, form.address, form.country, form.city,
+                                         form.lat, form.lon, form.url, form.wiki_url,] %}
+                            {{ form_row(field) }}
+                        {% endfor %}
+                    </div>
+                </div>
 
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="fileupload">{{"Cover Image"|trans}}</label>
+                            <label class="col-sm-2 control-label" for="fileupload">{{"logo"|trans}}</label>
                             <div class="col-sm-4">
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
                                     <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                                    <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
                                 </span>
                             </div>
-                            <span id="journal_logo_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+
+                            <span id="institution_logo_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
                         </div>
 
                         <div class="form-group">
@@ -61,10 +59,11 @@
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
                                     <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                                    <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
                                 </span>
                             </div>
-                            <span id="journal_header_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+
+                            <span id="institution_header_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
                         </div>
                     </div>
                 </div>
@@ -84,39 +83,35 @@
     {% javascripts '@upload_js' output="c/upload.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script src="{{ asset('/bundles/okulbilisimlocation/js/location.js') }}"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
-                $('#journal_logo_upload_progress').show();
-                $('#journal_logo_upload_progress').html("{{"uploading"|trans}}");
+                $('#institution_logo_upload_progress').show();
+                $('#institution_logo_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#journal_logo_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_journalapplication_coverimage').attr('value', JSON.parse(data.result).files.name);
+                $('#institution_logo_upload_progress').html("{{"done"|trans}}");
+                $('#ojs_journalbundle_institutionapplication_logo_image').attr('value', JSON.parse(data.result).files.name);
             });
             $('#fileupload_header').fileupload({});
             $('#fileupload_header').bind('fileuploadsend', function (e, data) {
-                $('#journal_header_upload_progress').show();
-                $('#journal_header_upload_progress').html("{{"uploading"|trans}}");
+                $('#institution_header_upload_progress').show();
+                $('#institution_header_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
-                $('#journal_header_upload_progress').html("{{"done"|trans}}");
-                $('#ojs_journalbundle_journalapplication_headerimage').attr('value', JSON.parse(data.result).files.name);
+                $('#institution_header_upload_progress').html("{{"done"|trans}}");
+                $('#ojs_journalbundle_institutionapplication_header_image').attr('value', JSON.parse(data.result).files.name);
             });
-        });
-        $('.tags').tagsinput({
-            tagClass: 'label label-info',
-            trimValue: true,
-            confirmKeys: [13, 44, 188, 59]
+            okulbilisimlocation.bridge('.bridged-dropdown');
         });
     </script>
-
-    {{ form_javascript(form) }}
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@upload_css' output="c/upload.css" filter="cssrewrite" %}
+    {% stylesheets '@upload_css'  output="c/upload.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
-    {{ form_stylesheet(form) }}
+
 {% endblock %}
