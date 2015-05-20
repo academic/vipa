@@ -21,10 +21,8 @@
                     <div class="panel-heading"><h4>{{ "application.journal.institution"|trans }}</h4></div>
                     <div class="panel-body">
                         {{ form_row(form.institution, {'help_text': "application.journal.new_institution_help"|trans}) }}
-                        <a href="{{ path('ojs_apply_institution') }}">
-                            <button class="btn btn-info pull-right">
-                                {{ icon('plus') }} {{ "application.journal.new_institution"|trans }}
-                            </button>
+                        <a href="{{ path('ojs_apply_institution') }}" class="btn btn-info pull-right">
+                            {{ icon('plus') }} {{ "application.journal.new_institution"|trans }}
                         </a>
                     </div>
                 </div>
