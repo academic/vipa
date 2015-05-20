@@ -376,29 +376,7 @@ application.institute.detail: Detail
 institute.merge_as_new_institute: 'Merge As New Institute'
 application.journal: 'Journal Suggestion'
 application.journal.list: 'Journal Suggestions'
-journal.title: Title
-journal.subtitle: Subtitle
 application.journal.detail: Detail
-journal.slug: "Short path for web access  ( base_host/<i>journal_path</i> )"
-journal.titleAbbr: 'Abbreviated Title'
-journal.titleTransliterated: 'Transliterated Title'
-journal.domain: Domain
-journal.path: Path
-journal.firstPublishDate: 'First Publish Date'
-journal.period: Period
-journal.url: URL
-journal.country: Country
-journal.scope: Scope
-journal.mission: Mission
-journal.languages: Languages
-journal.institution: Institution
-journal.subjects: Subjects
-journal.cover_image: 'Cover Image'
-journal.header_image: 'Header Image'
-journal.tags: Tags
-journal.google.analytics.id: 'Google Analytics Id'
-journal.createdAt: 'Created at'
-journal.user: User
 journal.merge_as_new_journal: 'Merge As New Journal'
 dashboard.application: Suggestions
 journalsindex.create: 'JournalsIndex Create'
@@ -597,7 +575,6 @@ register: Register
 unconfirmed.user: Unconfirmed user
 user.edit: Edit User
 Avatar: Avatar
-uploading: Uploading
 user.list: User List
 user.show:  User Show
 user.id: User id
@@ -1199,6 +1176,9 @@ Proofreader: 'Proofreader'
 Author: 'Author'
 Reader: 'Reader'
 
+# Common Words
+uploading: "Uploading"
+
 # Journal and institution application
 application.basic: "Basic"
 application.graphics: "Graphics"
@@ -1206,6 +1186,29 @@ application.contact: "Contact"
 application.journal.institution: "Institution"
 application.journal.new_institution: "Apply as an Institution"
 application.journal.new_institution_help: "If you can't find your institution above, please apply as an institution using the button below."
+
+# Journal strings
+journal.title: "Title"
+journal.subtitle: "Subtitle"
+journal.slug: "Short path for web access  ( base_host/<i>journal_path</i> )"
+journal.titleAbbr: "Abbreviated Title"
+journal.titleTransliterated: "Transliterated Title"
+journal.domain: "Domain"
+journal.path: "Path"
+journal.firstPublishDate: "First Publish Date"
+journal.period: "Period"
+journal.url: "URL"
+journal.country: "Country"
+journal.scope: "Scope"
+journal.mission: "Mission"
+journal.languages: "Languages"
+journal.institution: "Institution"
+journal.subjects: "Subjects"
+journal.cover_image: "Cover Image"
+journal.header_image: "Header Image"
+journal.google.analytics.id: "Google Analytics ID"
+journal.createdAt: "Created at"
+journal.user: "User"
 
 # Institution strings
 institution.plural: "Institutions"
