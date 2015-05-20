@@ -216,7 +216,6 @@ author.firstnametransliterated: 'Firstname Transliterated'
 author.middlenametransliterated: 'Middle Name Transliterated'
 author.lastnametransliterated: 'Lastname Transliterated'
 adress: Address
-institution.id: 'Institution ID'
 citation.edit: 'Edit Citation'
 citation.list: 'Citation List'
 source: Source
@@ -258,11 +257,6 @@ size: Size
 logo: Logo
 address_lat: Latitude
 address_long: Longitude
-institution.manager: 'Institution Manager'
-institution.edit: 'Edit Institution'
-institution.new: 'New Institution'
-institution.detail: 'Institution Detail'
-institution.plural: Institutions
 institutiontype: Institution Type
 institutiontype.new: 'New Institution Type'
 institutiontype.edit: 'Edit Institution Type'
@@ -379,7 +373,6 @@ institute.id: ID
 institute.name: Name
 institute.country: Country
 application.institute.detail: Detail
-institution.slug: Slug
 institute.merge_as_new_institute: 'Merge As New Institute'
 application.journal: 'Journal Suggestion'
 application.journal.list: 'Journal Suggestions'
@@ -1213,4 +1206,25 @@ application.contact: "Contact"
 application.journal.institution: "Institution"
 application.journal.new_institution: "Apply as an Institution"
 application.journal.new_institution_help: "If you can't find your institution above, please apply as an institution using the button below."
+
+# Institution strings
+institution.plural: "Institutions"
+institution.id: "Institution ID"
+institution.name: "Name"
+institution.slug: "Slug Name"
+institution.type: "Type"
+institution.address: "Address"
+institution.lat: "Latitude"
+institution.lon: "Longitude"
+institution.email: "Email"
+institution.phone: "Phone Number"
+institution.fax: "Fax Number"
+institution.url: "URL"
+institution.wiki_url: "Wiki URL"
+institution.tags: "Tags"
+institution.country: "Country"
 institution.about: "About Institution"
+institution.manager: 'Institution Manager'
+institution.new: 'New Institution'
+institution.edit: 'Edit Institution'
+institution.detail: 'Institution Detail'
