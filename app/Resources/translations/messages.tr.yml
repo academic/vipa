@@ -220,7 +220,6 @@ author.firstnametransliterated: 'Dönüştürülmüş İsim'
 author.middlenametransliterated: 'Dönüştürülmüş İkinci İsim'
 author.lastnametransliterated: 'Dönüştürülmüş Soyisim'
 adress: Adres
-institution.id: 'Kurum ID'
 citation.edit: 'Alıntı Düzenle'
 citation.list: 'Alıntı Listesi'
 source: Kaynak
@@ -262,11 +261,6 @@ size: Boyut
 logo: Logo
 address_lat: 'Adres Enlem'
 address_long: 'Adres Boylam'
-institution.manager: 'Kurum Yöneticisi'
-institution.edit: 'Kurum Düzenle'
-institution.new: 'Yeni Kurum'
-institution.detail: 'Kurum Detay'
-institution.plural: Kurumlar
 institutiontype: Kurum Türü
 institutiontype.new: 'Yeni Kurum Türü'
 institutiontype.edit: 'Kurum Türü Düzenle'
@@ -384,7 +378,6 @@ institute.id: ID
 institute.name: İsim
 institute.country: Ülke
 application.institute.detail: Detay
-institution.slug: Yol
 institute.merge_as_new_institute: 'Yeni Kurum Olarak Birleştir'
 application.journal: 'Dergi Başvurusu'
 application.journal.list: 'Dergi Başvuruları'
@@ -1140,3 +1133,33 @@ Copyeditor: 'Copyeditor'
 Proofreader: 'Proofreader'
 Author: 'Yazar'
 Reader: 'Okur'
+
+# Journal and institution application
+application.basic: "Temel"
+application.graphics: "Grafikler"
+application.contact: "İletişim"
+application.journal.institution: "Kurum"
+application.journal.new_institution: "Kurum Olarak Başvur"
+application.journal.new_institution_help: "Eğer üstte kurumunuzu bulamadıysanız lütfen aşağıdakı buton vasıtası ile kurum olarak başvurunuz."
+
+# Institution strings
+institution.plural: "Kurumlar"
+institution.id: "Kurum Nosu"
+institution.name: "İsim"
+institution.slug: "Yol İsmi"
+institution.type: "Tür"
+institution.address: "Adres"
+institution.lat: "Enlem"
+institution.lon: "Boylam"
+institution.email: "E-Posta"
+institution.phone: "Telefon Numarası"
+institution.fax: "Faks Numarası"
+institution.url: "URL"
+institution.wiki_url: "Viki URL'i"
+institution.tags: "Etiketler"
+institution.country: "Ülke"
+institution.about: "Kurum Hakkında"
+institution.manager: "Kurum Yöneticisi"
+institution.new: "Yeni Kurum"
+institution.edit: "Kurumu Düzenle"
+institution.detail: "Kurum Detayları"

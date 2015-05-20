@@ -50,16 +50,18 @@ class JournalApplicationType extends AbstractType
         }
 
         $builder
-            ->add('title')
-            ->add('titleAbbr')
-            ->add('titleTransliterated')
-            ->add('subtitle')
-            ->add('domain')
-            ->add('country','choice',['choices'=>$choices['countries'], 'attr' => ['class' => 'select2-element']])
-            ->add('issn')
-            ->add('eissn')
+            ->add('title', null, ['label' => 'journal.title'])
+            ->add('titleAbbr', null, ['label' => 'journal.titleAbbr'])
+            ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated'])
+            ->add('subtitle', null, ['label' => 'journal.subtitle'])
+            ->add('domain', null, ['label' => 'journal.domain'])
+            ->add('country', 'choice', ['choices' => $choices['countries'],
+                                        'attr' => ['class' => 'select2-element'],
+                                        'label' => 'journal.country'])
+            ->add('issn', null, ['label' => 'journal.issn'])
+            ->add('eissn', null, ['label' => 'journal.eissn'])
             ->add('firstPublishDate', 'collot_datetime', array(
-
+                'label' => 'journal.firstPublishDate',
                 'date_format' => 'dd-MM-yyyy',
                 'pickerOptions'=>[
                     'format'=>'dd-mm-yyyy',
@@ -70,12 +72,12 @@ class JournalApplicationType extends AbstractType
                     'autoclose'=>'true'
                 ]
             ))
-            ->add('period')
-            ->add('tags',null,['attr'=>['class'=>'tags form-control']])
-            ->add('url')
-            ->add('institution', 'choice', ['choices' => $choices['institutions'], 'attr' => ['class' => 'select2-element']])
-            ->add('languages', 'choice', ['choices' => $choices['languages'], 'multiple' => true, 'attr' => ['class' => 'select2-element']])
-            ->add('subjects', 'choice', ['choices' => $choices['subjects'], 'multiple' => true, 'attr' => ['class' => 'select2-element']])
+            ->add('period', null, ['label' => 'journal.period'])
+            ->add('tags', null, ['attr' => ['class' => 'tags form-control', 'label' => 'journal.tags']])
+            ->add('url', null, ['label' => 'journal.url'])
+            ->add('institution', 'choice', ['choices' => $choices['institutions'], 'attr' => ['class' => 'select2-element', 'label' => 'journal.institution']])
+            ->add('languages', 'choice', ['choices' => $choices['languages'], 'multiple' => true, 'attr' => ['class' => 'select2-element', 'label' => 'journal.languages']])
+            ->add('subjects', 'choice', ['choices' => $choices['subjects'], 'multiple' => true, 'attr' => ['class' => 'select2-element', 'label' => 'journal.subjects']])
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden');
     }
