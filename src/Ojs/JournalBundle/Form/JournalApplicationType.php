@@ -55,31 +55,50 @@ class JournalApplicationType extends AbstractType
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated'])
             ->add('subtitle', null, ['label' => 'journal.subtitle'])
             ->add('domain', null, ['label' => 'journal.domain'])
-            ->add('country', 'choice', ['choices' => $choices['countries'],
-                                        'attr' => ['class' => 'select2-element'],
-                                        'label' => 'journal.country'])
+            ->add('country', 'choice', [
+                'choices' => $choices['countries'],
+                'attr' => ['class' => 'select2-element'],
+                'label' => 'journal.country'])
             ->add('issn', null, ['label' => 'journal.issn'])
             ->add('eissn', null, ['label' => 'journal.eissn'])
-            ->add('firstPublishDate', 'collot_datetime', array(
+            ->add('firstPublishDate', 'collot_datetime', [
                 'label' => 'journal.firstPublishDate',
                 'date_format' => 'dd-MM-yyyy',
-                'pickerOptions'=>[
-                    'format'=>'dd-mm-yyyy',
-                    'startView'=>'month',
-                    'minView'=>'month',
-                    'todayBtn'=>'true',
-                    'todayHighlight'=>'true',
-                    'autoclose'=>'true'
-                ]
-            ))
+                'pickerOptions' => [
+                    'format' => 'dd-mm-yyyy',
+                    'startView' => 'month',
+                    'minView' => 'month',
+                    'todayBtn' => 'true',
+                    'todayHighlight' => 'true',
+                    'autoclose' => 'true']])
             ->add('period', null, ['label' => 'journal.period'])
             ->add('tags', null, ['attr' => ['class' => 'tags form-control', 'label' => 'journal.tags']])
             ->add('url', null, ['label' => 'journal.url'])
-            ->add('institution', 'choice', ['choices' => $choices['institutions'], 'attr' => ['class' => 'select2-element', 'label' => 'journal.institution']])
-            ->add('languages', 'choice', ['choices' => $choices['languages'], 'multiple' => true, 'attr' => ['class' => 'select2-element', 'label' => 'journal.languages']])
-            ->add('subjects', 'choice', ['choices' => $choices['subjects'], 'multiple' => true, 'attr' => ['class' => 'select2-element', 'label' => 'journal.subjects']])
+            ->add('institution', 'choice', [
+                'choices' => $choices['institutions'],
+                'attr' => ['class' => 'select2-element'],
+                'label' => 'journal.institution'])
+            ->add('languages', 'choice', [
+                'choices' => $choices['languages'],
+                'multiple' => true,
+                'attr' => ['class' => 'select2-element'],
+                'label' => 'journal.languages'])
+            ->add('subjects', 'choice', [
+                'choices' => $choices['subjects'],
+                'multiple' => true,
+                'attr' => ['class' => 'select2-element'],
+                'label' => 'journal.subjects'])
             ->add('coverimage', 'hidden')
-            ->add('headerimage', 'hidden');
+            ->add('headerimage', 'hidden')
+            ->add('editorName', null, ['label' => 'journal.editor_name'])
+            ->add('editorPhone', null, ['label' => 'journal.editor_phone'])
+            ->add('editorEmail', null, ['label' => 'journal.editor_email'])
+            ->add('assistantEditorName', null, ['label' => 'journal.assistant_editor_name'])
+            ->add('assistantEditorPhone', null, ['label' => 'journal.assistant_editor_phone'])
+            ->add('assistantEditorEmail', null, ['label' => 'journal.assistant_editor_email'])
+            ->add('techContactName', null, ['label' => 'journal.tech_contact_name'])
+            ->add('techContactPhone', null, ['label' => 'journal.tech_contact_phone'])
+            ->add('techContactEmail', null, ['label' => 'journal.tech_contact_email']);
     }
 
     /**

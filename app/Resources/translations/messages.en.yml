@@ -1210,6 +1210,23 @@ journal.google.analytics.id: "Google Analytics ID"
 journal.createdAt: "Created at"
 journal.user: "User"
 
+# Journal contact strings
+journal.editor: "Editor"
+journal.editor_name: "Editor name"
+journal.editor_name: "Editor name"
+journal.editor_phone: "Editor phone"
+journal.editor_email: "Editor e-mail"
+
+journal.assistant_editor: "Assistant Editor"
+journal.assistant_editor_name: "Assistant editor name"
+journal.assistant_editor_phone: "Assistant editor phone"
+journal.assistant_editor_email: "Assistant editor e-mail"
+
+journal.tech_contact: "Tech Contact"
+journal.tech_contact_name: "Tech contact name"
+journal.tech_contact_phone: "Tech contact phone"
+journal.tech_contact_email: "Tech contact e-mail"
+
 # Institution strings
 institution.plural: "Institutions"
 institution.id: "Institution ID"
