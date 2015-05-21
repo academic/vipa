@@ -21,13 +21,8 @@
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <a href="{{ path('admin_proxy') }}">
-            {{"b"|trans}}
-        </a>
-        <a href="{{ path('admin_proxy_edit', { 'id': entity.id }) }}">
-            {{ "e"|trans  }}
-        </a>
-        {{ form(delete_form) }}
-    </ul>
+    {% set back_path = 'admin_proxy' %}
+    {% set edit_path = 'admin_proxy_edit' %}
+    {% set delete_path = 'admin_proxy_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

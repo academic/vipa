@@ -25,19 +25,15 @@
             <td>{{ entity.isRead }}</td>
             <td>{{ entity.level }}</td>
             <td>
-
-                    {% set show_path = 'admin_notification_show' %}
-                    {% set edit_path = 'admin_notification_edit' %}
-                    {% set delete_path = 'admin_notification_delete' %}
-                    {% include '::actionbuttons.html.twig' %}
-
-
+                {% set show_path = 'admin_notification_show' %}
+                {% set edit_path = 'admin_notification_edit' %}
+                {% set delete_path = 'admin_notification_delete' %}
+                {% include '::actionbuttons.html.twig' %}
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a class="btn btn-default" href="{{ path('admin_notification_new') }}">
-    {{"c"|trans}}
-</a>
-    {% endblock %}
+{% set create_path = 'admin_notification_new' %}
+{% include '::actionbuttons.html.twig' %}
+{% endblock %}

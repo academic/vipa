@@ -27,7 +27,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_proxy_new') }}" class="btn btn-default">
-        {{"c"|trans}}
-    </a>
+    {% set create_path = 'admin_proxy_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

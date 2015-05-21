@@ -30,8 +30,6 @@
     </tbody>
 </table>
 
-
-<a class="btn btn-default" href="{{ path('user_eventlog') }}">
-    {{"b"|trans}}
-</a>
+{% set back_path = 'user_eventlog' %}
+{% include '::actionbuttons.html.twig' %}
 {% endblock %}

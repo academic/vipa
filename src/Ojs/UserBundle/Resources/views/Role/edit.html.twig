@@ -6,18 +6,11 @@
         {% include '::flashbag.html.twig' %}
         <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
 
-    {{ form(edit_form) }}
+        {{ form(edit_form) }}
 
-        <div class="record_actions">
-
-                <a class="button" href="{{ path('role') }}">
-                    {{"b"|trans}}
-                </a>
-                <a href="{{ path('role_delete', { 'id': entity.id }) }}">
-                    Delete
-                </a>
-
-        </div>
+        {% set back_path = 'role' %}
+        {% set delete_path = 'role_delete' %}
+        {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
 {% endblock %}
