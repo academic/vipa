@@ -133,27 +133,10 @@ class UserJournalRoleController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsUserBundle:UserJournalRole:show.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
-    }
-
-    /**
-     * Creates a form to delete a UserJournalRole entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ujr_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+            'entity' => $entity
+            )
+        );
     }
 
     /**
@@ -238,12 +221,10 @@ class UserJournalRoleController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form' => $editForm->createView()
         ));
     }
 
@@ -283,7 +264,6 @@ class UserJournalRoleController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -306,26 +286,22 @@ class UserJournalRoleController extends Controller
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form' => $editForm->createView()
         ));
     }
 
     /**
      * Deletes a UserJournalRole entity.
-     *
+     * @param UserJournalRole $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(UserJournalRole $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
+        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
         $em->remove($entity);
         $em->flush();
-
-        $this->successFlashBag('Successfully removed');
+        $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('ujr');
     }
 
