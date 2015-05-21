@@ -34,6 +34,8 @@
     <a href="{{ path('manager_submission_checklist_edit', { 'id': entity.id }) }}">
         Edit
     </a>
-    {{ form(delete_form) }}
+    <a href="{{ path('manager_submission_checklist_delete', { 'id': entity.id }) }}">
+        Delete
+    </a>
 
 {% endblock %}
