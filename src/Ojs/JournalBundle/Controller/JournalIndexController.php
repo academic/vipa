@@ -133,12 +133,10 @@ class JournalIndexController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -173,7 +171,6 @@ class JournalIndexController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -190,39 +187,22 @@ class JournalIndexController extends Controller
 
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
+
     /**
      * Deletes a JournalIndex entity.
-     *
+     * @param JournalIndex $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(JournalIndex $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:JournalIndex')->find($id);
         $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('admin_journalindex');
-    }
-
-    /**
-     * Creates a form to delete a JournalIndex entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_journalindex_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }
