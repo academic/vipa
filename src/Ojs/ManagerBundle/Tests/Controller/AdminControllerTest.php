@@ -11,5 +11,4 @@ class AdminControllerTest extends BaseTestCase
         $this->logIn();
         $this->assertTrue($this->isAccessible(['dashboard_admin']));
     }
-
 }

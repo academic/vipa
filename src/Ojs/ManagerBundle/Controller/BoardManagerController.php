@@ -2,36 +2,43 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
+use Ojs\JournalBundle\Entity\BoardMember;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Form\BoardType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Board manager controller.
  *
  */
-class BoardManagerController extends Controller {
+class BoardManagerController extends Controller
+{
 
     /**
      * Lists all Board entities.
-     *
+     * @return Response
      */
     public function indexAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsJournalBundle:Board')->findByJournalId($journal->getId());
+
         return $this->render('OjsManagerBundle:BoardManager:index.html.twig', array(
                     'entities' => $entities,
-                    'journal' => $journal
+                    'journal' => $journal,
         ));
     }
 
     /**
-     * 
-     * @param int $boardId
-     * @param  int $userId
+     *
+     * @param  int              $boardId
+     * @param  int              $userId
      * @return RedirectResponse
      */
     public function removeMemberAction($boardId, $userId)
@@ -41,18 +48,19 @@ class BoardManagerController extends Controller {
         $board = $this->getBoard($boardId);
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(array(
             'user' => $user,
-            'board' => $board
+            'board' => $board,
         ));
         $this->throw404IfNotFound($boardMember);
         $em->remove($boardMember);
         $em->flush();
+
         return $this->redirect($this->generateUrl('board_manager_show', array('id' => $boardId)));
     }
 
     /**
-     *  add posted userid  as boardmember with given boardid
-     * @param Request $req
-     * @param int $boardId
+     *  add posted user id  as board member with given boardid
+     * @param  Request          $req
+     * @param  int              $boardId
      * @return RedirectResponse
      */
     public function addMemberAction(Request $req, $boardId)
@@ -63,20 +71,21 @@ class BoardManagerController extends Controller {
         $this->throw404IfNotFound($user);
         $board = $this->getBoard($boardId);
         $seq = (int) $req->get('seq');
-        $boardMember = new \Ojs\JournalBundle\Entity\BoardMember();
+        $boardMember = new BoardMember();
         $boardMember->setBoard($board);
         $boardMember->setUser($user);
         $boardMember->setSeq($seq);
         $em->persist($boardMember);
         $em->flush();
+
         return $this->redirect($this->generateUrl('board_manager_show', array('id' => $boardId)));
     }
 
     /**
-     * 
-     * @param int $id
+     *
+     * @param  int                   $id
      * @return Board
-     *  @throws Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     private function getBoard($id)
     {
@@ -85,12 +94,14 @@ class BoardManagerController extends Controller {
         if (!$board) {
             throw $this->createNotFoundException('notFound');
         }
+
         return $board;
     }
 
     /**
      * Creates a new Board entity.
-     *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -104,8 +115,9 @@ class BoardManagerController extends Controller {
             $em->flush();
 
             $this->successFlashBag('Successfully created.');
+
             return $this->redirectToRoute('board_manager_show', [
-                'id' => $entity->getId()
+                'id' => $entity->getId(),
             ]
             );
         }
@@ -121,7 +133,7 @@ class BoardManagerController extends Controller {
      *
      * @param Board $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(Board $entity)
     {
@@ -129,7 +141,7 @@ class BoardManagerController extends Controller {
         $form = $this->createForm(new BoardType(), $entity, array(
             'action' => $this->generateUrl('board_manager_create'),
             'method' => 'POST',
-            'journal' => $journal
+            'journal' => $journal,
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -139,7 +151,7 @@ class BoardManagerController extends Controller {
 
     /**
      * Displays a form to create a new Board entity.
-     *
+     * @return Response
      */
     public function newAction()
     {
@@ -153,12 +165,14 @@ class BoardManagerController extends Controller {
     }
 
     /**
-     * Finds and displays a board and it's details. 
-     *  This page is also an arrangement page for a board. 
-     * In this page journal manager can : 
+     * Finds and displays a board and it's details.
+     *  This page is also an arrangement page for a board.
+     * In this page journal manager can :
      *              - list members
      *              - add members to a board
      *              - change orders of the members
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -175,13 +189,14 @@ class BoardManagerController extends Controller {
 
     /**
      * Displays a form to edit an existing Board entity.
-     * @param int $id
-     *  @return Response
+     * @param  int      $id
+     * @return Response
      */
     public function editAction($id)
     {
         $board = $this->getBoard($id);
         $editForm = $this->createEditForm($board);
+
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
                     'entity' => $board,
                     'edit_form' => $editForm->createView(),
@@ -190,8 +205,8 @@ class BoardManagerController extends Controller {
 
     /**
      * Creates a form to edit a Board entity.
-     * @param Board $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @param  Board $entity The entity
+     * @return Form  The form
      */
     private function createEditForm(Board $entity)
     {
@@ -199,14 +214,17 @@ class BoardManagerController extends Controller {
         $form = $this->createForm(new BoardType(), $entity, array(
             'action' => $this->generateUrl('board_manager_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'journal' => $journal
+            'journal' => $journal,
         ));
+
         return $form;
     }
 
     /**
      * Edits an existing Board entity.
-     *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -217,11 +235,13 @@ class BoardManagerController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('Successfully updated.');
+
             return $this->redirectToRoute('board_manager_edit', [
-                'id' => $id
+                'id' => $id,
                 ]
             );
         }
+
         return $this->render('OjsJournalBundle:Board:edit.html.twig', array(
                     'entity' => $board,
                     'edit_form' => $editForm->createView(),
@@ -230,8 +250,8 @@ class BoardManagerController extends Controller {
 
     /**
      * Deletes a Board entity.
-     * @param int $id
-     * @return ResponseRedirect
+     * @param  int              $id
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -241,7 +261,7 @@ class BoardManagerController extends Controller {
         $em->flush();
 
         $this->successFlashBag('Successfully removed.');
+
         return $this->redirectToRoute('board_manager');
     }
-
 }
