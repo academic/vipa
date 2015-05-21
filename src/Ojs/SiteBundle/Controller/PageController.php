@@ -101,11 +101,8 @@ class PageController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsSiteBundle:Page:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -124,12 +121,10 @@ class PageController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -165,7 +160,6 @@ class PageController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -177,48 +171,22 @@ class PageController extends Controller
 
         return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
+
     /**
      * Deletes a Page entity.
-     *
+     * @param Page $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Page $entity)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('notFound');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
+        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirect($this->generateUrl('admin_page'));
-    }
-
-    /**
-     * Creates a form to delete a Page entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_page_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        return $this->redirectToRoute('admin_page');
     }
 }
