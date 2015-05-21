@@ -26,8 +26,8 @@
         <a class="btn btn-warning" href="{{ path('institution_types_edit', { 'id': entity.id }) }}">
             <i class="fa fa-edit"></i> {{"e"|trans}}
         </a>
-    </div>
-    <div class="pull-right">
-        {{ form(delete_form) }}
+        <a class="btn btn-danger" href="{{ path('institution_types_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
     </div>
 {% endblock %}

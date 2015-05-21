@@ -8,8 +8,8 @@
         <a class="btn btn-default" href="{{ path('institution_types') }}">
             <i class="fa fa-arrow-left"></i> {{"b"|trans}}
         </a>
-    </div>
-    <div class="pull-right">
-        {{ form(delete_form) }}
+        <a class="btn btn-danger" href="{{ path('institution_types_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
     </div>
 {% endblock %}
