@@ -107,6 +107,12 @@ class InstallCommand extends ContainerAwareCommand {
         $output->writeln('<info>Updating db schema!</info>');
         $application->run(new \Symfony\Component\Console\Input\StringInput($command2));
 
+        $location = $this->getContainer()->get('kernel')->getRootDir().'/../src/Okulbilisim/LocationBundle/Resources/data/location.sql';
+        $locationSql = \file_get_contents($location);
+        $command3 = 'doctrine:query:sql "'.$locationSql.'"';
+        $application->run(new \Symfony\Component\Console\Input\StringInput($command3));
+        $output->writeln("Locations inserted.");
+
         $output->writeln($sb . 'Inserting roles to db' . $se);
         $this->insertRoles($this->getContainer(), $output);
 
