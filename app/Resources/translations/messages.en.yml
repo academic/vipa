@@ -1186,6 +1186,13 @@ application.contact: "Contact"
 application.journal.institution: "Institution"
 application.journal.new_institution: "Apply as an Institution"
 application.journal.new_institution_help: "If you can't find your institution above, please apply as an institution using the button below."
+application.journal.edit: "Edit Journal Application"
+application.institution.edit: "Edit Institution Application"
+application.status.waiting: "Waiting for Import"
+application.status.complete: "Import Complete"
+application.status.onhold: "On Hold"
+application.status.rejected: "Rejected"
+application.status.deleted: "Deleted"
 
 # Journal strings
 journal.title: "Title"
