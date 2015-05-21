@@ -8,8 +8,6 @@
     <h1>{{ 'mailtemplate.default.list'|trans }}</h1>
     {{ grid(default_templates) }}
 
-    <hr>
-    <a class="btn btn-default" href="{{ path('mailtemplate_manager_new') }}">
-      {{"c"|trans}}
-    </a>
+    {% set create_path = 'mailtemplate_manager_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
