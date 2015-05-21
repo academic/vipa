@@ -8,7 +8,7 @@
         .column {
             width: 170px;
             float: left;
-            padding-bottom: 100px;
+            padding-bottom: 5px;
         }
 
         .portlet {
@@ -48,41 +48,49 @@
     {{ form(form) }}
 
     {% block portlets -%}
-        <div class="column">
+        <div class="row">
+            <div class="column">
 
-            <div class="portlet">
-                <div class="portlet-header">Feeds</div>
-                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                <div class="portlet">
+                    <div class="portlet-header">Feeds</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                </div>
+
+                <div class="portlet">
+                    <div class="portlet-header">News</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                </div>
+
             </div>
 
-            <div class="portlet">
-                <div class="portlet-header">News</div>
-                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+            <div class="column">
+
+                <div class="portlet">
+                    <div class="portlet-header">Shopping</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                </div>
+
             </div>
 
+            <div class="column">
+
+                <div class="portlet">
+                    <div class="portlet-header">Links</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                </div>
+
+                <div class="portlet">
+                    <div class="portlet-header">Images</div>
+                    <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                </div>
+
+            </div>
         </div>
-
-        <div class="column">
-
-            <div class="portlet">
-                <div class="portlet-header">Shopping</div>
-                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-            </div>
-
-        </div>
-
-        <div class="column">
-
-            <div class="portlet">
-                <div class="portlet-header">Links</div>
-                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-            </div>
-
-            <div class="portlet">
-                <div class="portlet-header">Images</div>
-                <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-            </div>
-
+        <hr />
+        <div class="row">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
         </div>
     {% endblock %}
 
