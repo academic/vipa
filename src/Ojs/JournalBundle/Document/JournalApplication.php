@@ -147,6 +147,12 @@ class JournalApplication
      * @MongoDB\String
      * @var string
      */
+    protected $editorSurname;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
     protected $editorPhone;
 
     /**
@@ -165,6 +171,12 @@ class JournalApplication
      * @MongoDB\String
      * @var string
      */
+    protected $assistantEditorSurname;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
     protected $assistantEditorPhone;
 
     /**
@@ -178,6 +190,12 @@ class JournalApplication
      * @var string
      */
     protected $techContactName;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $techContactSurname;
 
     /**
      * @MongoDB\String
@@ -562,6 +580,22 @@ class JournalApplication
     /**
      * @return string
      */
+    public function getEditorSurname()
+    {
+        return $this->editorSurname;
+    }
+
+    /**
+     * @param string $editorSurname
+     */
+    public function setEditorSurname($editorSurname)
+    {
+        $this->editorSurname = $editorSurname;
+    }
+
+    /**
+     * @return string
+     */
     public function getEditorPhone()
     {
         return $this->editorPhone;
@@ -605,6 +639,22 @@ class JournalApplication
     public function setAssistantEditorName($assistantEditorName)
     {
         $this->assistantEditorName = $assistantEditorName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAssistantEditorSurname()
+    {
+        return $this->assistantEditorSurname;
+    }
+
+    /**
+     * @param string $assistantEditorSurname
+     */
+    public function setAssistantEditorSurname($assistantEditorSurname)
+    {
+        $this->assistantEditorSurname = $assistantEditorSurname;
     }
 
     /**
@@ -654,6 +704,23 @@ class JournalApplication
     {
         $this->techContactName = $techContactName;
     }
+
+    /**
+     * @return string
+     */
+    public function getTechContactSurname()
+    {
+        return $this->techContactSurname;
+    }
+
+    /**
+     * @param string $techContactSurname
+     */
+    public function setTechContactSurname($techContactSurname)
+    {
+        $this->techContactSurname = $techContactSurname;
+    }
+
 
     /**
      * @return string
