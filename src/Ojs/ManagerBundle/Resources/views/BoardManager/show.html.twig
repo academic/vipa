@@ -39,21 +39,10 @@
             </tr>
         {% endfor %}
     </table>
-
-    <hr>
-    <div class="btn-group">
-
-        <a class="btn btn-default btn-sm" href="{{ path('board_manager') }}">
-            {{"b"|trans}}
-        </a>
-        <a class="btn btn-warning btn-sm" href="{{ path('board_manager_edit', { 'id': entity.id }) }}">
-            {{"e"|trans}}
-        </a>
-        <a class="btn btn-danger btn-sm" href="{{ path('board_manager_delete',{id: entity.id}) }}">
-            {{"d"|trans}}
-        </a>
-    </div>
-
+    {% set back_path = 'board_manager' %}
+    {% set edit_path = 'board_manager_edit' %}
+    {% set delete_path = 'board_manager_delete' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
