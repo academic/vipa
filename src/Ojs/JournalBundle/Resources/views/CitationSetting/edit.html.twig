@@ -5,10 +5,7 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('citationsetting') }}">{{"back"|trans}}</a>
-        </li>
-        <li>{{ form(delete_form) }}</li>
-    </ul>
+    {% set back_path = 'citationsetting' %}
+    {% set delete_path = 'citationsetting_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
