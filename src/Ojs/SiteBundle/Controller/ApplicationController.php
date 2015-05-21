@@ -56,6 +56,7 @@ class ApplicationController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
+                $application->setStatus("0");
                 $application->setUser($this->getUser()->getId());
                 $application->setCreatedAt(new \DateTime());
                 $dm->persist($application);
@@ -74,7 +75,7 @@ class ApplicationController extends Controller
 
     public function instituteSuccessAction()
     {
-        return $this->render('institution_success.html.twig');
+        return $this->render('OjsSiteBundle:Application:institution_success.html.twig');
     }
     public function journalSuccessAction()
     {
