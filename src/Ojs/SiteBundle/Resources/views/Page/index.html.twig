@@ -42,8 +42,6 @@
             {% endfor %}
         </tbody>
     </table>
- 
-            <a href="{{ path('admin_page_new') }}" class="btn btn-primary">
-                {{"c"|trans}}
-            </a> 
+    {% set create_path = 'admin_page_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

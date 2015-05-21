@@ -12,9 +12,6 @@
     <h1>New Page</h1>
 
     {{ form(form) }}
-
-    <div class="record_actions"> 
-        {% set back_path = 'admin_page' %}
-        {% include '::actionbuttons.html.twig' %}
-    </div>
+    {% set back_path = 'admin_page' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
