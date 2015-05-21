@@ -91,12 +91,15 @@ class JournalApplicationType extends AbstractType
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden')
             ->add('editorName', null, ['label' => 'journal.editor_name'])
+            ->add('editorSurname', null, ['label' => 'journal.editor_surname'])
             ->add('editorPhone', null, ['label' => 'journal.editor_phone'])
             ->add('editorEmail', null, ['label' => 'journal.editor_email'])
             ->add('assistantEditorName', null, ['label' => 'journal.assistant_editor_name'])
+            ->add('assistantEditorSurname', null, ['label' => 'journal.assistant_editor_surname'])
             ->add('assistantEditorPhone', null, ['label' => 'journal.assistant_editor_phone'])
             ->add('assistantEditorEmail', null, ['label' => 'journal.assistant_editor_email'])
             ->add('techContactName', null, ['label' => 'journal.tech_contact_name'])
+            ->add('techContactSurname', null, ['label' => 'journal.tech_contact_surname'])
             ->add('techContactPhone', null, ['label' => 'journal.tech_contact_phone'])
             ->add('techContactEmail', null, ['label' => 'journal.tech_contact_email']);
     }
