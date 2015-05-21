@@ -27,6 +27,7 @@ class ApplicationController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $dm = $this->get('doctrine.odm.mongodb.document_manager');
+                $application->setStatus("0");
                 $application->setUser($this->getUser()->getId());
                 $application->setCreatedAt(new \DateTime());
                 $dm->persist($application);

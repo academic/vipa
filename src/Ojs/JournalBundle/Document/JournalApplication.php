@@ -18,7 +18,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds journal application data
  * @MongoDB\Document(collection="journal_application")
- * @GRID\Source(columns="id,title,subtitle")
+ * @GRID\Source(columns="id,title,subtitle,status")
  */
 class JournalApplication
 {
@@ -230,6 +230,12 @@ class JournalApplication
      * @var string
      */
     protected $techContactEmail;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $status;
 
     /**
      * @return int
@@ -825,5 +831,19 @@ class JournalApplication
         $this->techContactEmail = $techContactEmail;
     }
 
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 }

@@ -1123,6 +1123,13 @@ application.contact: "İletişim"
 application.journal.institution: "Kurum"
 application.journal.new_institution: "Kurum Olarak Başvur"
 application.journal.new_institution_help: "Eğer üstte kurumunuzu bulamadıysanız lütfen aşağıdakı buton vasıtası ile kurum olarak başvurunuz."
+application.journal.edit: "Dergi Başvurusunu Düzenle"
+application.institution.edit: "Kurum Başvurusunu Düzenle"
+application.status.waiting: "Aktarım Bekleniyor"
+application.status.complete: "Aktarım Tamamlandı"
+application.status.onhold: "Beklemede"
+application.status.rejected: "Reddedildi"
+application.status.deleted: "Silindi"
 
 # Journal strings
 journal.title: "Başlık"
