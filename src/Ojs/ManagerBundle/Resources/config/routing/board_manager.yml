@@ -2,7 +2,7 @@ board_manager_add_member:
     pattern:  /board/{boardId}/member/add
     defaults: { _controller: OjsManagerBundle:BoardManager:addMember }
     methods:  [POST, PUT]
-    
+
 board_manager_remove_member:
     pattern:  /board/{boardId}/member/{userId}/remove
     defaults: { _controller: OjsManagerBundle:BoardManager:removeMember }
@@ -36,7 +36,3 @@ board_manager_update:
 board_manager_delete:
     path:     /board/{id}/delete
     defaults: { _controller: "OjsManagerBundle:BoardManager:delete" }
-
-
-
- 

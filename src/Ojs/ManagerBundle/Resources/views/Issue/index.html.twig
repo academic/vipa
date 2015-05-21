@@ -8,7 +8,7 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body %} 
+{% block body %}
 
     <div class="row">
         <div class="panel">
@@ -19,16 +19,16 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
-                               
+
                                 <a href="{{path("issue_manager_issue_view", { "issueId": entity.id }) }}">
                                     <h4>
                                         {% if entity.special%}
                                             <span class="label label-success">
-                                                <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                                                <i class="fa fa-star" title="{{"special.issue"|trans}}"></i>
                                                 {{"special.issue"|trans}}
                                             </span>
                                         {% endif %}&nbsp;
-                                        {{entity.title}} 
+                                        {{entity.title}}
                                     </h4>
                                 </a>
                                 <span class="label label-info">{{"issue.numer"|trans}} : {{entity.number}}</span>
@@ -39,7 +39,7 @@
                                     <br>
                                     <span>{{entity.description}}</span>
                                 {% endif%}
-                            </td> 
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

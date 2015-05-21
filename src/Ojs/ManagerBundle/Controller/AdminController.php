@@ -2,15 +2,20 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
+use Ojs\Common\Params\ArticleEventLogParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \DateTime;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminController extends Controller
 {
+    /**
+     * @return RedirectResponse
+     */
     public function dashboardCheckAction()
     {
-        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-        $editor = $this->container->get('security.context')->isGranted('ROLE_EDITOR');
+        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+        $editor = $this->isGranted('ROLE_EDITOR');
 
         if ($superAdmin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
@@ -21,12 +26,15 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @return RedirectResponse|Response
+     */
     public function dashboardAction()
     {
-        $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
             return $this->render('OjsManagerBundle:Admin:dashboard.html.twig', [
-                'stats' => $this->getStats()
+                'stats' => $this->getStats(),
             ]);
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
@@ -65,16 +73,17 @@ class AdminController extends Controller
          * get most common value from article_event_log
          * for query {@link http://stackoverflow.com/a/7693627/2438520}
          * @todo query result can set session or memcache for more performance.
+         * @todo SQL code will be moved
          */
-        $now = new DateTime('-30 days');
+        $now = new \DateTime('-30 days');
         $last30Day = $now->format("Y-m-d H:i:s");
         $mostViewedArticleLog = $em
             ->createQuery('SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC')
-            ->setParameter('event_info', \Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_VIEW)
+            ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_VIEW)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
             ->getResult();
-        if(isset($mostViewedArticleLog[0])){
+        if (isset($mostViewedArticleLog[0])) {
             $stats['article']['mostViewedArticle'] = $em
                 ->getRepository('OjsJournalBundle:Article')
                 ->find($mostViewedArticleLog[0]['articleId']);
@@ -83,11 +92,11 @@ class AdminController extends Controller
 
         $mostDownloadedArticleLog = $em
             ->createQuery('SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC')
-            ->setParameter('event_info', \Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_DOWNLOAD)
+            ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_DOWNLOAD)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
             ->getResult();
-        if(isset($mostDownloadedArticleLog[0])){
+        if (isset($mostDownloadedArticleLog[0])) {
             $stats['article']['mostDownloadedArticle'] = $em
                 ->getRepository('OjsJournalBundle:Article')
                 ->find($mostDownloadedArticleLog[0]['articleId']);
@@ -96,5 +105,4 @@ class AdminController extends Controller
 
         return $stats;
     }
-
 }

@@ -6,18 +6,29 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ojs\JournalBundle\Form\JournalType;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
-use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Parser;
 
-class ManagerController extends Controller {
-
+class ManagerController extends Controller
+{
+    /**
+     * @param  null     $journalId
+     * @return Response
+     */
     public function journalSettingsAction($journalId = null)
     {
-        $ext =$this->get('ojs.twig.ojs_extension');
-        if(!$ext->isJournalManager())
+        $ext = $this->get('ojs.twig.ojs_extension');
+        if (!$ext->isJournalManager()) {
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
+        }
         if (!$journalId) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         } else {
@@ -28,6 +39,7 @@ class ManagerController extends Controller {
             'action' => $this->generateUrl('journal_update', array('id' => $journal->getId())),
             'method' => 'PUT',
         ));
+
         return $this->render('OjsManagerBundle:Manager:journal_settings.html.twig', array(
                     'journal' => $journal,
                     'form' => $form->createView(),
@@ -35,19 +47,18 @@ class ManagerController extends Controller {
     }
 
     /**
-     * 
-     * @param Request $req
-     * @param integer $journal
-     * @param string $settingName
-     * @param string $settingValue if null, funtion will return current value
-     * @param boolean $encoded set tru if setting stored as json_encoded
-     * @return type
+     * @param $journal
+     * @param $settingName
+     * @param  string             $settingValue if null, function will return current value
+     * @param  bool               $encoded      set true if setting stored as json_encoded
+     * @return array|mixed|string
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
-        $ext =$this->get('ojs.twig.ojs_extension');
-        if(!$ext->isJournalManager())
+        $ext = $this->get('ojs.twig.ojs_extension');
+        if (!$ext->isJournalManager()) {
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
+        }
         $em = $this->getDoctrine()->getManager();
         $setting = $em->
                 getRepository('OjsJournalBundle:JournalSetting')->
@@ -57,23 +68,24 @@ class ManagerController extends Controller {
         if ($setting) {
             $setting->setValue($settingString);
         } else {
-            $setting = new \Ojs\JournalBundle\Entity\JournalSetting($settingName, $settingString, $journal);
+            $setting = new JournalSetting($settingName, $settingString, $journal);
         }
         $em->persist($setting);
         $em->flush();
+
         return $setting ? ($encoded ? json_decode($setting->getValue()) : $setting->getValue()) : [];
     }
 
     /**
      * @todo setttings enumeration should be done, otherwise setting keys will be a garbage
-     * @param Request $req
-     * @param integer $journalId
+     * @param  Request  $req
+     * @param  integer  $journalId
      * @return Response
      */
     public function journalSettingsSubmissionAction(Request $req, $journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        /* @var $journal  Journal  */
         $journal = !$journalId ?
                 $this->get("ojs.journal_service")->getSelectedJournal() :
                 $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
@@ -88,7 +100,7 @@ class ManagerController extends Controller {
                 $this->updateJournalSetting($journal, 'copyrightStatement', $req->get('copyrightStatement'), false);
             }
         }
-        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $yamlParser = new Parser();
         $root = $this->container->getParameter('kernel.root_dir');
         $data = array(
             'settings' => array(
@@ -102,21 +114,27 @@ class ManagerController extends Controller {
                         $journal->getSetting('copyrightStatement')->getValue() :
                         null,
             ),
-            'abstractTemplates' => $yamlParser->parse(file_get_contents($root .
+            'abstractTemplates' => $yamlParser->parse(file_get_contents($root.
                             '/../src/Ojs/JournalBundle/Resources/data/abstracttemplates.yml'
             )),
-            'copyrightTemplates' => $yamlParser->parse(file_get_contents($root .
+            'copyrightTemplates' => $yamlParser->parse(file_get_contents($root.
                             '/../src/Ojs/JournalBundle/Resources/data/copyrightTemplates.yml')),
             'journal' => $journal,
-            'allLanguages' => $journal->getLanguages()
+            'allLanguages' => $journal->getLanguages(),
         );
+
         return $this->render('OjsManagerBundle:Manager:journal_settings_submission.html.twig', $data);
     }
 
+    /**
+     * @param  Request      $req
+     * @param  null|integer $journalId
+     * @return Response
+     */
     public function journalSettingsMailAction(Request $req, $journalId = null)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $journal  \Ojs\JournalBundle\Entity\Journal  */
+        /* @var $journal  Journal  */
         $journal = !$journalId ?
                 $this->get("ojs.journal_service")->getSelectedJournal() :
                 $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
@@ -127,13 +145,13 @@ class ManagerController extends Controller {
 
         return $this->render('OjsManagerBundle:Manager:journal_settings_mail.html.twig', array(
                     'journal' => $journal,
-                    'emailSignature' => $emailSignature
+                    'emailSignature' => $emailSignature,
         ));
     }
 
     /**
-     * 
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @return Response
      */
     public function journalSettingsPageAction()
     {
@@ -142,7 +160,7 @@ class ManagerController extends Controller {
         $object = $twig->encode($journal);
         $source = new Entity("Okulbilisim\\CmsBundle\\Entity\\Post");
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function(QueryBuilder $qb)use($ta, $journal, $object) {
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($ta, $journal, $object) {
             return $qb->andWhere(
                                     $qb->expr()->andX(
                                             $qb->expr()->eq("$ta.object", ":object"), $qb->expr()->eq("$ta.objectId", ":journalId")
@@ -150,7 +168,7 @@ class ManagerController extends Controller {
                             )
                             ->setParameters([
                                 'object' => $object,
-                                'journalId' => $journal->getId()
+                                'journalId' => $journal->getId(),
                             ])
             ;
         });
@@ -169,78 +187,97 @@ class ManagerController extends Controller {
         return $grid->getGridResponse('OjsManagerBundle:Manager:journal_settings_pages/list.html.twig', $data);
     }
 
+    /**
+     * @return RedirectResponse|Response
+     */
     public function userIndexAction()
     {
         $user = $this->getUser();
+        $dm = $this->get('doctrine_mongodb')->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $mySteps = [];
         if ($journal) {
-            $dm = $this->get('doctrine_mongodb')->getManager();
             $allowedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                     ->findBy(array('journalid' => $journal->getId()));
-            // @todo we should query in a more elegant way  
+            // @todo we should query in a more elegant way
             // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
-            // Don't know how to query $elemMatch 
+            // Don't know how to query $elemMatch
             $security = $this->get('user.helper');
             foreach ($allowedWorkflowSteps as $step) {
-                if (( $security->hasJournalRole('ROLE_EDITOR') || $security->hasJournalRole('ROLE_JOURNAL_MANAGER')) || $this->checkStepAndUserRoles($step)) {
+                if (($security->hasJournalRole('ROLE_EDITOR') || $security->hasJournalRole('ROLE_JOURNAL_MANAGER')) || $this->checkStepAndUserRoles($step)) {
                     $mySteps[] = $step;
                 }
             }
         }
         $waitingTasksCount = [];
         foreach ($mySteps as $step) {
+            // TODO : this should be in repository
             $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
                     ->createQueryBuilder('ars');
             $countQuery->field('step.$id')->equals(new \MongoId($step->getId()));
             $countQuery->field('finishedDate')->equals(null);
             $waitingTasksCount[$step->getId()] = $countQuery->count()->getQuery()->execute();
         }
-        // waiting invited steps 
+        // waiting invited steps
         $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
                 ->findBy(array('userId' => $user->getId(), 'accept' => null));
 
-        $super_admin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
         }
+
         return $this->render('OjsManagerBundle:User:userwelcome.html.twig', array(
                     'mySteps' => $mySteps,
                     'waitingCount' => $waitingTasksCount,
-                    'invitedSteps' => $invitedWorkflowSteps));
+                    'invitedSteps' => $invitedWorkflowSteps, ));
     }
 
-    private function checkStepAndUserRoles($step)
+    /**
+     * @param $step
+     * @return bool
+     */
+    private function checkStepAndUserRoles(JournalWorkflowStep $step)
     {
         $myRoles = $this->get('session')->get('userJournalRoles');
         $stepRoles = $step->getRoles();
         foreach ($myRoles as $myRole) {
             foreach ((array) $stepRoles as $stepRole) {
+                /**
+                 * @var UserJournalRole $stepRole
+                 * @var UserJournalRole $myRole
+                 */
                 if ($stepRole['role'] === $myRole->getRole()) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     /**
-     * list journal users 
+     * list journal users
+     * @return Response
      */
     public function usersAction()
     {
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
+
         return $this->render('OjsManagerBundle:Manager:users.html.twig', $data);
     }
 
+    /**
+     * @return Response
+     */
     public function roleUser()
     {
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
+
         return $this->render('OjsManagerBundle:Manager:role_users.html.twig', $data);
     }
-
 }

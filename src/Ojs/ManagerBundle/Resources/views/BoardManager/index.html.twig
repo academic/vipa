@@ -11,7 +11,7 @@
     <table class="records_list table">
         <thead>
             <tr>
-                <th>{{"id"|trans}}</th> 
+                <th>{{"id"|trans}}</th>
                 <th>{{"name"|trans}}</th>
                 <th>{{"description"|trans}}</th>
                 <th>{{"actions"|trans}}</th>
@@ -24,10 +24,10 @@
                         <a class="label label-info" href="{{ path('board_manager_show', { 'id': entity.id }) }}">
                             {{ entity.id }}
                         </a>
-                    </td> 
-                    <td>{{ entity.name }} 
+                    </td>
+                    <td>{{ entity.name }}
 
-                        {% if entity.boardMembers|length > 0 %} 
+                        {% if entity.boardMembers|length > 0 %}
                             <a class="label label-info" href="{{ path('board_manager_show', { 'id': entity.id }) }}">
                                 {{entity.boardMembers|length}} members
                             </a>
@@ -36,10 +36,9 @@
                                 {{"board.hasNoMember"|trans}}
                             </a>
                         {% endif %}
-                        </a>
                     </td>
                     <td>{{ entity.description }}</td>
-                    <td> 
+                    <td>
                         <div class="btn-group">
                             <a href="{{ path('board_manager_show', { 'id': entity.id }) }}" class="btn btn-info btn-xs"><i class="fa fa-info"></i></a>
                             <a href="{{ path('board_manager_edit', { 'id': entity.id }) }}" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></a>
@@ -49,6 +48,5 @@
             {% endfor %}
         </tbody>
     </table>
-
 
 {% endblock %}

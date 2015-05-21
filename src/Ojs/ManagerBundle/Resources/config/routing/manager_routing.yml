@@ -1,19 +1,19 @@
 manager_journal_users:
     pattern:  /users
     defaults: { _controller: OjsManagerBundle:Manager:users }
-    
+
 manager_journal_language_settings:
     pattern:  /journal/{journalId}/settings/language
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage } 
-    
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsLanguage }
+
 
 manager_current_journal_submission_settings:
     pattern:  /journal/settings/submission
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsSubmission } 
- 
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsSubmission }
+
 manager_current_journal_mail_settings:
     pattern:  /journal/settings/mail
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsMail } 
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettingsMail }
 
 
 manager_current_journal_page_settings:
@@ -22,19 +22,17 @@ manager_current_journal_page_settings:
 
 manager_journal_settings:
     pattern:  /journal/{journalId}/settings
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettings }
 
 manager_current_journal_settings:
     pattern:  /journal/settings
-    defaults: { _controller: OjsManagerBundle:Manager:journalSettings } 
+    defaults: { _controller: OjsManagerBundle:Manager:journalSettings }
 
 manager_journal_user_add:
     pattern:  /user/add
     defaults: { _controller: OjsManagerBundle:Admin:addUser }
     requirements: { _method: post }
-    
+
 manager_journal_role_users:
     pattern:  /role/{roleId}/users
     defaults: { _controller: OjsManagerBundle:Manager:roleUsers }
-    
-    

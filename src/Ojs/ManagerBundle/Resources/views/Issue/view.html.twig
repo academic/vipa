@@ -9,13 +9,13 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body %} 
+{% block body %}
 
     <div class="row">
         <div class="panel">
             <h1>
                 {% if issue.special %}<span class="label label-success"><i class="fa fa-star"></i></span>{% endif %}
-                {{"issue"|trans}} 
+                {{"issue"|trans}}
                 {% if isJournalManager() %}
                     <small class="pull-right">
                         <a href="{{path("issue_manager_issue_arrange", { "issueId": issue.id }) }}" class="">
@@ -35,7 +35,7 @@
                 <li>{{"title"|trans}} : <strong>{{issue.title}}</strong></li>
                 <li>{{"year"|trans}} : <strong>{{issue.year}}</strong> </li>
                 <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
-            </ul> 
+            </ul>
                 <h4>{{"articles"|trans}}</h4>
             {% for article in articles %}
                 <div class="list-group">
@@ -44,7 +44,7 @@
                         <a target="_blank"
                            href="{{path('ojs_article_page', {'issue_id':issue.id , 'slug': article.journal.slug, 'article_id' : article.id, 'institution' : article.journal.institution.slug  } )}}">
                             {{article.title}}
-                        </a> 
+                        </a>
                     </div>
                 </div>
             {% endfor %}

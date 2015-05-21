@@ -8,12 +8,12 @@
 
 {% block body %}
 
-    {% include '::flashbag.html.twig' %} 
+    {% include '::flashbag.html.twig' %}
     <div class="panel panel panel-success">
         <div class="panel-heading toggle-body">
             <i class="fa fa-bar-chart-o fa-fw"></i> {{"articles.needAction"|trans}} <i class="pull-right fa fa-angle-double-up"></i>
         </div>
-        <div class="panel-body"> 
+        <div class="panel-body">
 
             {% if invitedSteps %}
                 <h4>Invited Steps</h4>
@@ -26,10 +26,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for key,invitation in invitedSteps %} 
+                        {% for key,invitation in invitedSteps %}
                             <tr>
-                                <td>  
-                                    {{ invitation.step.step.title }} 
+                                <td>
+                                    {{ invitation.step.step.title }}
                                 </td>
                                 <td>
                                     <a href="{{path('article_workflow_invitation_preview',{id:invitation.id})}}" >
@@ -38,11 +38,11 @@
                                 </td>
                                 <td>
                                     <span class="btn-group pull-right">
-                                        <a href="{{path('article_workflow_invitation_preview',{'id':invitation.id})}}" 
+                                        <a href="{{path('article_workflow_invitation_preview',{'id':invitation.id})}}"
                                            class="btn btn-xs btn-default"  >Details</a>
-                                        <a href="{{path('article_workflow_invitation_accept',{'id':invitation.id})}}" 
+                                        <a href="{{path('article_workflow_invitation_accept',{'id':invitation.id})}}"
                                            onclick="return confirm('{{"sure"|trans}}');" class="btn btn-xs btn-success">Accept</a>
-                                        <a href="{{path('article_workflow_invitation_decline',{'id':invitation.id})}}" 
+                                        <a href="{{path('article_workflow_invitation_decline',{'id':invitation.id})}}"
                                            onclick="return confirm('{{"sure"|trans}}');" class="btn btn-xs btn-warning">Decline</a>
                                     </span>
                                 </td>
@@ -55,7 +55,7 @@
 
             <div class=" ">
                 <div>
-                    {% for key,step in mySteps %} 
+                    {% for key,step in mySteps %}
 
                         <a class="list-group-item {%if waitingCount[step.id]>0%}list-group-item-warning{%else%}list-group-item-default{%endif%}" href="/manager/workflow/articles/{{step.id}}">
                             <h4>{{step.title}}
@@ -79,15 +79,15 @@
             <div id="analytics-chart"></div>
         </div>
      </div>
-   
 
-     
+
+
 
     <div class="chat-panel panel panel-default hide">
         <div class="panel-heading toggle-body">
             <i class="fa fa-comments fa-fw"></i> Inbox <i class="pull-right fa fa-angle-double-up"></i>
 
-        </div> 
+        </div>
         <div class="panel-body">
             <ul class="chat">
                 <li class="left clearfix">
@@ -122,14 +122,14 @@
                     </div>
                 </li>
             </ul>
-        </div> 
+        </div>
         <div class="panel-footer">
             <button class="btn btn-success btn-sm" id="btn-chat">
                 <i class="fa fa-plus-circle"></i> New Message
             </button>
-        </div> 
-    </div> 
-    -->     
+        </div>
+    </div>
+    -->
     <style>
         #articles-action-chart path{ cursor:pointer}
     </style>

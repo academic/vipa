@@ -3,13 +3,14 @@
 namespace Ojs\ManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \DateTime;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class EditorController extends Controller
 {
     /**
      * Global index page
-     * @return type
+     * @return Response
      */
     public function indexAction()
     {
@@ -19,14 +20,19 @@ class EditorController extends Controller
     /**
      *
      * Dashboard for editors
+     * @return Response
      */
     public function dashboardAction()
     {
-        return $this->render('OjsManagerBundle:Editor:dashboard.html.twig',[
-            'stats' => $this->getStats()
+        return $this->render('OjsManagerBundle:Editor:dashboard.html.twig', [
+            'stats' => $this->getStats(),
         ]);
     }
 
+    /**
+     * @return Response
+     * @throws HttpException
+     */
     public function myJournalsAction()
     {
         $user_id = $this->getUser()->getId();
@@ -37,10 +43,14 @@ class EditorController extends Controller
                 ->userJournalsWithRoles($user_id);
 
         return $this->render('OjsManagerBundle:Editor:myjournals.html.twig', array(
-                    'entities' => $entities
+                    'entities' => $entities,
         ));
     }
 
+    /**
+     * @param $id
+     * @return Response
+     */
     public function showJournalAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -82,7 +92,7 @@ class EditorController extends Controller
          * for query {@link http://stackoverflow.com/a/7693627/2438520}
          * @todo query result can set session or memcache for more performance.
          */
-        $now = new DateTime('-30 days');
+        $now = new \DateTime('-30 days');
         $last30Day = $now->format("Y-m-d H:i:s");
         $mostViewedArticleLog = $em
             ->createQuery('SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC')
@@ -90,7 +100,7 @@ class EditorController extends Controller
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
             ->getResult();
-        if(isset($mostViewedArticleLog[0])){
+        if (isset($mostViewedArticleLog[0])) {
             $stats['article']['mostViewedArticle'] = $em
                 ->getRepository('OjsJournalBundle:Article')
                 ->find($mostViewedArticleLog[0]['articleId']);
@@ -103,7 +113,7 @@ class EditorController extends Controller
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
             ->getResult();
-        if(isset($mostDownloadedArticleLog[0])){
+        if (isset($mostDownloadedArticleLog[0])) {
             $stats['article']['mostDownloadedArticle'] = $em
                 ->getRepository('OjsJournalBundle:Article')
                 ->find($mostDownloadedArticleLog[0]['articleId']);
@@ -112,5 +122,4 @@ class EditorController extends Controller
 
         return $stats;
     }
-
 }
