@@ -89,6 +89,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $url;
 
     /**
+     * @var string
+     * @Expose
+     */
+    private $address;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $phone;
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $email;
+
+    /**
      * @var Location
      * @Expose
      */
@@ -744,6 +762,54 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->institution = $institution;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 
     /**

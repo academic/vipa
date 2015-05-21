@@ -1211,6 +1211,10 @@ journal.createdAt: "Created at"
 journal.user: "User"
 
 # Journal contact strings
+journal.address: "Journal's postal address"
+journal.phone: "Journal's contact phone"
+journal.email: "Journal's contact email"
+
 journal.editor: "Editor"
 journal.editor_name: "Editor name"
 journal.editor_surname: "Editor surname"
