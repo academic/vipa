@@ -31,12 +31,17 @@ class CommonParams
          3 => '#3FFF23'
     );
 
-    public static $applicationStatusArray = [
-        -2 => 'application.status.waiting',
-        -1 => 'application.status.complete',
+    public static $journalApplicationStatusArray = [
+         2 => 'application.status.waiting',
+         1 => 'application.status.complete',
          0 => 'application.status.onhold',
-         1 => 'application.status.rejected',
-         2 => 'application.status.deleted',
+        -1 => 'application.status.rejected',
+        -2 => 'application.status.deleted',
+    ];
+
+    public static $institutionApplicationStatusArray = [
+        0 => 'application.status.onhold',
+        1 => 'application.status.rejected',
     ];
 
     /**
@@ -89,12 +94,25 @@ class CommonParams
      * @param integer $statusNum
      * @return array
      */
-    public static function applicationStatus($statusNum)
+    public static function journalApplicationStatus($statusNum)
     {
-        if(array_key_exists($statusNum, self::$applicationStatusArray)) {
-            return self::$applicationStatusArray[$statusNum];
+        if(array_key_exists($statusNum, self::$journalApplicationStatusArray)) {
+            return self::$journalApplicationStatusArray[$statusNum];
         } else {
-            return self::$applicationStatusArray;
+            return self::$journalApplicationStatusArray;
+        }
+    }
+
+    /**
+     * @param integer $statusNum
+     * @return array
+     */
+    public static function institutionApplicationStatus($statusNum)
+    {
+        if(array_key_exists($statusNum, self::$institutionApplicationStatusArray)) {
+            return self::$institutionApplicationStatusArray[$statusNum];
+        } else {
+            return self::$institutionApplicationStatusArray;
         }
     }
 }

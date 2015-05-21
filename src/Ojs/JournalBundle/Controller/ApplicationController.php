@@ -43,6 +43,14 @@ class ApplicationController extends Controller
             return $query;
         });
 
+        $source->manipulateRow(
+            function (Row $row) {
+                $status = $row->getField('status');
+                $text = $this->get('translator')->trans(CommonParams::institutionApplicationStatus($status));
+                $row->setField('status', $text);
+                return $row;
+            });
+
         $grid = $this->get('grid')->setSource($source);
 
         $rowAction[] = ActionHelper::editAction('application_institution_edit', 'id');
@@ -69,7 +77,7 @@ class ApplicationController extends Controller
         $source->manipulateRow(
             function (Row $row) {
                 $status = $row->getField('status');
-                $text = $this->get('translator')->trans(CommonParams::applicationStatus($status));
+                $text = $this->get('translator')->trans(CommonParams::journalApplicationStatus($status));
                 $row->setField('status', $text);
                 return $row;
         });
