@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManager;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Document\JournalApplication;
 use Ojs\JournalBundle\Document\InstitutionApplication;
+use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -155,15 +157,20 @@ class ApplicationController extends Controller
     {
         try {
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
+
             /** @var JournalApplication $entity */
             $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
+
             if (!$entity) {
                 throw new NotFoundHttpException;
             }
+
             /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
+
             /** @var \Ojs\UserBundle\Entity\User $user */
             $user = $em->find('OjsUserBundle:User', $entity->getUser());
+
             $journal = new Journal();
             $journal->setUrl($entity->getUrl())
                 ->setTags($entity->getTags())
@@ -183,19 +190,74 @@ class ApplicationController extends Controller
                 ->setTitle($entity->getTitle())
                 ->setTitleAbbr($entity->getTitleAbbr())
                 ->setTitleTransliterated($entity->getTitleTransliterated());
+
             foreach ($entity->getSubjects() as $s) {
                 /** @var Subject $subject */
                 $subject = $em->find('OjsJournalBundle:Subject', $s);
                 $journal->addSubject($subject);
             }
-            foreach ($entity->getLanguages() as $lang) {
-                $journal->addLanguage($em->find('OjsJournalBundle:Lang', $lang));
+
+            foreach ($entity->getLanguages() as $l) {
+                $lang = $em->find('OjsJournalBundle:Lang', $l);
+                $journal->addLanguage($lang);
             }
+
             $em->persist($journal);
             $em->flush();
+
+            $editorContact = new Contact();
+            $editorContact->setFirstName($entity->getEditorName());
+            $editorContact->setLastName($entity->getEditorName());
+            $editorContact->setEmail($entity->getEditorEmail());
+            $em->persist($editorContact);
+
+            $assistantContact = new Contact();
+            $assistantContact->setFirstName($entity->getEditorName());
+            $assistantContact->setLastName($entity->getEditorName());
+            $assistantContact->setEmail($entity->getEditorEmail());
+            $em->persist($assistantContact);
+
+            $techContact = new Contact();
+            $techContact->setFirstName($entity->getEditorName());
+            $techContact->setLastName($entity->getEditorName());
+            $techContact->setEmail($entity->getEditorEmail());
+            $em->persist($techContact);
+
+            $em->flush();
+
+            // TODO: Don't use hardcoded types.
+            /** @var \Ojs\JournalBundle\Entity\ContactTypes $editorType */
+            $editorType = $em->find('OjsJournalBundle:ContactTypes', 1);
+            /** @var \Ojs\JournalBundle\Entity\ContactTypes $assistantType */
+            $assistantType = $em->find('OjsJournalBundle:ContactTypes', 1);
+            /** @var \Ojs\JournalBundle\Entity\ContactTypes $techContactType */
+            $techContactType = $em->find('OjsJournalBundle:ContactTypes', 1);
+
+
+            $editorRelation = new JournalContact();
+            $editorRelation->setJournal($journal);
+            $editorRelation->setContact($editorContact);
+            $editorRelation->setContactType($editorType);
+            $em->persist($editorRelation);
+
+            $assistantRelation = new JournalContact();
+            $assistantRelation->setJournal($journal);
+            $assistantRelation->setContact($assistantContact);
+            $assistantRelation->setContactType($assistantType);
+            $em->persist($assistantRelation);
+
+            $techContactRelation = new JournalContact();
+            $techContactRelation->setJournal($journal);
+            $techContactRelation->setContact($techContact);
+            $techContactRelation->setContactType($techContactType);
+            $em->persist($techContactRelation);
+
+            $em->flush();
+
             $entity->setMerged(true);
             $dm->persist($entity);
             $dm->flush();
+
             return $this->redirect($this->get('router')->generate('journal_edit',['id'=>$journal->getId()]));
 
         } catch (\Exception $e) {
