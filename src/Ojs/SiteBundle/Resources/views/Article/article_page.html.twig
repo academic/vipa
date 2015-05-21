@@ -159,6 +159,12 @@
                             </table>
                         </div> 
                         <br>
+                        <div id="articlePreview">
+                            {% for file in article.articleFiles %}
+
+                                <iframe src="http://docs.google.com/gview?url={{ file.file }}&amp;embedded=true" style="width:100%; height:500px;" frameborder="0"></iframe>
+                            {% endfor %}
+                        </div>
 
                     </div>
                 </div>
