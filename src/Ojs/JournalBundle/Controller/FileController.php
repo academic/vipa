@@ -2,6 +2,9 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
@@ -20,13 +23,19 @@ class FileController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('OjsJournalBundle:File');
+        $grid = $this->get('grid')->setSource($source);
 
-        $entities = $em->getRepository('OjsJournalBundle:File')->findAll();
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        $rowAction[] = ActionHelper::showAction('admin_file_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_file_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_file_delete', 'id');
 
-        return $this->render('OjsJournalBundle:File:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsJournalBundle:File:index.html.twig',$data);
     }
 
     /**

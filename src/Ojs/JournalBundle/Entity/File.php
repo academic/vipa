@@ -1,14 +1,17 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * File
+ * @GRID\Source(columns="id,name,mimeType,size")
  */
 class File extends \Ojs\Common\Entity\GenericExtendedEntity
 {
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -19,16 +22,19 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="file.type")
      */
     private $mimeType;
 
     /**
      * @var string
+     * @GRID\Column(title="size")
      */
     private $size;
 
