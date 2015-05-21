@@ -42,6 +42,9 @@
                 <div class="panel panel-info">
                     <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
                     <div class="panel-body">
+                        {% for field in [form.address, form.phone, form.email] %}
+                            {{ form_row(field) }}
+                        {% endfor %}
                         <div class="panel panel-success">
                             <div class="panel-heading"><h4>{{ "journal.editor"|trans }}</h4></div>
                             <div class="panel-body">

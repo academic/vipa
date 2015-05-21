@@ -1148,6 +1148,10 @@ journal.issn: "Dergi ISSN"
 journal.eissn: "Dergi eISSN"
 
 # Journal contact strings
+journal.address: "Derginin posta adresi"
+journal.phone: "Derginin iletişim telefonu"
+journal.email: "Derginin e-posta adresi"
+
 journal.editor: "Editör"
 journal.editor_name: "Editör adı"
 journal.editor_surname: "Editör soyadı"
