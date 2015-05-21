@@ -109,11 +109,8 @@ class JournalThemeController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('OjsJournalBundle:JournalTheme:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $entity
         ));
     }
 
@@ -132,12 +129,10 @@ class JournalThemeController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:JournalTheme:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -173,7 +168,6 @@ class JournalThemeController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -185,45 +179,22 @@ class JournalThemeController extends Controller
 
         return $this->render('OjsJournalBundle:JournalTheme:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
+
     /**
      * Deletes a JournalTheme entity.
-     *
+     * @param JournalTheme $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(JournalTheme $entity)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:JournalTheme')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
-
+        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
         $this->successFlashBag('successful.remove');
         return $this->redirectToRoute('admin_journaltheme');
-    }
-
-    /**
-     * Creates a form to delete a JournalTheme entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_journaltheme_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }

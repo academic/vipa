@@ -11,6 +11,10 @@
             {{"b"|trans}}
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
+    <li>
+        <a href="{{ path('admin_journaltheme_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </li>
 </ul>
 {% endblock %}
