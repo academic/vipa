@@ -5,15 +5,9 @@
     <div class="panel">
         <h1>{{ "role.new"|trans }}</h1>
 
-    {{ form(form) }}
-
-        <div class="record_actions">
-
-            <a href="{{ path('role') }}" class="button">
-                {{"b"|trans}}
-            </a>
-
-        </div>
+        {{ form(form) }}
+        {% set back_path = 'role' %}
+        {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
 {% endblock %}

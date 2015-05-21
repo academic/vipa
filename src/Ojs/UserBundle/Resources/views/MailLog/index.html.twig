@@ -23,14 +23,12 @@
                     {% set edit_path = 'admin_maillog_edit' %}
                     {% set delete_path = 'admin_maillog_delete' %}
                     {% include '::actionbuttons.html.twig' %}
-
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-default" href="{{ path('admin_maillog_new') }}">
-        {{"c"|trans}}
-    </a>
+    {% set create_path = 'admin_maillog_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

@@ -38,17 +38,10 @@
             </tbody>
         </table>
 
-        <div  class="button-group">
-            <a href="{{ path('role') }}" class="button">
-                {{"b"|trans}}
-            </a>
-            <a  class="button" href="{{ path('role_edit', { 'id': entity.id }) }}">
-                {{ "e"|trans }}
-            </a>
-            <a href="{{ path('role_delete', { 'id': entity.id }) }}">
-                Delete
-            </a>
-        </div>
+        {% set back_path = 'role' %}
+        {% set edit_path = 'role_edit' %}
+        {% set delete_path = 'role_delete' %}
+        {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
 {% endblock %}

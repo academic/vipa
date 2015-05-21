@@ -7,9 +7,8 @@
         {% include '::flashbag.html.twig' %}
         {{ grid(grid) }}
 
-        <a class="btn btn-success" href="{{ path('role_new') }}">
-            {{"c"|trans}}
-        </a>
+        {% set create_path = 'role_new' %}
+        {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
     {% endblock %}
