@@ -153,6 +153,9 @@ Ojs\UserBundle\Entity\User:
         authorDetails:
           targetEntity: Ojs\JournalBundle\Entity\Author
           mappedBy: user
+        userJournalRoles:
+          targetEntity: Ojs\UserBundle\Entity\UserJournalRole
+          mappedBy: user
     manyToOne:
         country:
           targetEntity: Okulbilisim\LocationBundle\Entity\Location

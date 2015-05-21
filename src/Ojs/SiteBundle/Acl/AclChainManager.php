@@ -2,7 +2,14 @@
 
 namespace Ojs\SiteBundle\Acl;
 
+use Ojs\UserBundle\Entity\UserJournalRole;
 use Problematic\AclManagerBundle\Domain\AclManager;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Role\RoleInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AclChainManager extends AclManager
 {
@@ -105,5 +112,35 @@ class AclChainManager extends AclManager
         $this->_to = $this->_on = $this->_onClass = $this->_field = $this->_mask = null;
 
         return $this;
+    }
+
+    protected function doCreateSecurityIdentity($identity)
+    {
+        if (
+            !$identity instanceof UserInterface &&
+            !$identity instanceof TokenInterface &&
+            !$identity instanceof UserJournalRole &&
+            !$identity instanceof RoleInterface &&
+            !is_string($identity)) {
+            throw new \InvalidArgumentException(sprintf('$identity must implement one of: UserInterface, '.
+                'TokenInterface, RoleInterface, UserJournalRole (%s given)', get_class($identity)));
+        }
+
+        $securityIdentity = null;
+        if ($identity instanceof UserInterface) {
+            $securityIdentity = UserSecurityIdentity::fromAccount($identity);
+        } elseif ($identity instanceof TokenInterface) {
+            $securityIdentity = UserSecurityIdentity::fromToken($identity);
+        } elseif ($identity instanceof UserJournalRole) {
+            $securityIdentity = JournalRoleSecurityIdentity::fromUserJournalRole($identity);
+        } elseif ($identity instanceof RoleInterface || is_string($identity)) {
+            $securityIdentity = new RoleSecurityIdentity($identity);
+        }
+
+        if (!$securityIdentity instanceof SecurityIdentityInterface) {
+            throw new \InvalidArgumentException('Couldn\'t create a valid SecurityIdentity with the provided identity information');
+        }
+
+        return $securityIdentity;
     }
 }

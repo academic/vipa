@@ -1,0 +1,91 @@
+<?php
+
+namespace Ojs\SiteBundle\Acl;
+
+use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy as BaseSecurityIdentityRetrievalStrategy;
+use Ojs\Common\Services\JournalService;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\User;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
+use Symfony\Component\Security\Core\Authentication\Token;
+use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
+use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+
+/**
+ * Extending MutableAclProvider for JournalRoleSecurityIdentity support
+ * Class SecurityIdentityRetrievalStrategy
+ * @package Ojs\SiteBundle\Acl
+ */
+class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStrategy
+{
+
+    /**
+     * @var RoleHierarchyInterface
+     */
+    private $roleHierarchy;
+
+    /**
+     * @var AuthenticationTrustResolver
+     */
+    private $authenticationTrustResolver;
+
+    /** @var  Journal */
+    private $selectedJournal;
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct(
+        RoleHierarchyInterface $roleHierarchy,
+        AuthenticationTrustResolver $authenticationTrustResolver,
+        JournalService $journalService
+    ) {
+        $this->roleHierarchy = $roleHierarchy;
+        $this->authenticationTrustResolver = $authenticationTrustResolver;
+        $this->selectedJournal = $journalService->getSelectedJournal(false);
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public function getSecurityIdentities(Token\TokenInterface $token)
+    {
+        $sids = array();
+
+        // add user security identity
+        if (!$token instanceof Token\AnonymousToken) {
+            try {
+                $sids[] = UserSecurityIdentity::fromToken($token);
+            } catch (\InvalidArgumentException $invalid) {
+                // ignore, user has no user security identity
+            }
+        }
+
+        // add all reachable roles
+        foreach ($this->roleHierarchy->getReachableRoles($token->getRoles()) as $role) {
+            $sids[] = new RoleSecurityIdentity($role);
+        }
+        // add journal roles
+
+        $user = $token->getUser();
+        if ($user instanceof User) {
+            foreach ($user->getUserJournalRolesFromJournal($this->selectedJournal) as $journalRoles) {
+                $sids[] = JournalRoleSecurityIdentity::fromUserJournalRole($journalRoles);
+            }
+        }
+
+        // add built-in special roles
+        if ($this->authenticationTrustResolver->isFullFledged($token)) {
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_FULLY);
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED);
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
+        } elseif ($this->authenticationTrustResolver->isRememberMe($token)) {
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED);
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
+        } elseif ($this->authenticationTrustResolver->isAnonymous($token)) {
+            $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
+        }
+
+        return $sids;
+    }
+}

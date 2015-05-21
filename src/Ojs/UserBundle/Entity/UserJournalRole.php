@@ -1,6 +1,8 @@
 <?php
 
 namespace Ojs\UserBundle\Entity;
+
+use Ojs\JournalBundle\Entity\Journal;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * UserJournalRole
@@ -29,11 +31,30 @@ class UserJournalRole
      */
     private $roleId;
 
+    /**
+     * @var User
+     * @GRID\Column(title="user.journalrole.user.username",field="user.username")
+     * @GRID\Column(title="user.journalrole.email",field="user.email")
+     */
+    private $user;
+
+    /**
+     * @var Journal
+     * @GRID\Column(field="journal.title",title="Journal",type="text",visible="false")
+     */
+    private $journal;
+
+    /**
+     * @var Role
+     * @GRID\Column(field="role.name",title="user.journalrole.role")
+     */
+    private $role;
+
     public function __construct()
     {
-        $this->user = new \Ojs\UserBundle\Entity\User();
-        $this->role = new \Ojs\UserBundle\Entity\Role();
-        $this->journal = new \Ojs\JournalBundle\Entity\Journal();
+        $this->user = new User();
+        $this->role = new Role();
+        $this->journal = new Journal();
     }
 
     /**
@@ -116,31 +137,12 @@ class UserJournalRole
     }
 
     /**
-     * @var \Ojs\UserBundle\Entity\User
-     * @GRID\Column(title="user.journalrole.user.username",field="user.username")
-     * @GRID\Column(title="user.journalrole.email",field="user.email")
-     */
-    private $user;
-
-    /**
-     * @var \Ojs\JournalBundle\Entity\Journal
-     * @GRID\Column(field="journal.title",title="Journal",type="text",visible="false")
-     */
-    private $journal;
-
-    /**
-     * @var \Ojs\UserBundle\Entity\Role
-     * @GRID\Column(field="role.name",title="user.journalrole.role")
-     */
-    private $role;
-
-    /**
      * Set user
      *
-     * @param  \Ojs\UserBundle\Entity\User $user
+     * @param  User            $user
      * @return UserJournalRole
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -150,7 +152,7 @@ class UserJournalRole
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -160,10 +162,10 @@ class UserJournalRole
     /**
      * Set journal
      *
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal         $journal
      * @return UserJournalRole
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -173,7 +175,7 @@ class UserJournalRole
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @return Journal
      */
     public function getJournal()
     {
@@ -183,10 +185,10 @@ class UserJournalRole
     /**
      * Set role
      *
-     * @param  \Ojs\UserBundle\Entity\Role $role
+     * @param  Role            $role
      * @return UserJournalRole
      */
-    public function setRole(\Ojs\UserBundle\Entity\Role $role = null)
+    public function setRole(Role $role = null)
     {
         $this->role = $role;
 
@@ -196,11 +198,10 @@ class UserJournalRole
     /**
      * Get role
      *
-     * @return \Ojs\UserBundle\Entity\Role
+     * @return Role
      */
     public function getRole()
     {
         return $this->role;
     }
-
 }
