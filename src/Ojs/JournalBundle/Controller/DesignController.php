@@ -103,11 +103,11 @@ class DesignController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Design:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity
+            )
+        );
     }
 
     /**
@@ -120,12 +120,10 @@ class DesignController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView()
         ));
     }
 
@@ -156,7 +154,6 @@ class DesignController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -167,42 +164,22 @@ class DesignController extends Controller
 
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+                    'edit_form' => $editForm->createView()
         ));
     }
 
     /**
      * Deletes a Design entity.
-     *
+     * @param Design $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Design $entity)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
+        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirect($this->generateUrl('design'));
+        return $this->redirectToRoute('design');
     }
-
-    /**
-     * Creates a form to delete a Design entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        $formHelper = new CommonFormHelper();
-
-        return $formHelper->createDeleteForm($this, $id, 'design_delete');
-    }
-
 }
