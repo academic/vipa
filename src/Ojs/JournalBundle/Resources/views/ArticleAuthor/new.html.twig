@@ -4,10 +4,6 @@
     <h1>{{"articleauthor_create"|trans}}</h1>
 
     {{ form(form) }}
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('articleauthor') }}">{{"back"|trans}}</a>
-        </li>
-    </ul>
+    {% set back_path = 'articleauthor' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}
