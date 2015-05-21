@@ -45,7 +45,8 @@
                         <div class="panel panel-success">
                             <div class="panel-heading"><h4>{{ "journal.editor"|trans }}</h4></div>
                             <div class="panel-body">
-                                {% for field in [form.editorName, form.editorPhone, form.editorEmail] %}
+                                {% for field in [form.editorName, form.editorSurname,
+                                                 form.editorPhone, form.editorEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
@@ -54,7 +55,8 @@
                         <div class="panel panel-success">
                             <div class="panel-heading"><h4>{{ "journal.assistant_editor"|trans }}</h4></div>
                             <div class="panel-body">
-                                {% for field in [form.assistantEditorName, form.assistantEditorPhone, form.assistantEditorEmail] %}
+                                {% for field in [form.assistantEditorName, form.assistantEditorSurname,
+                                                 form.assistantEditorPhone, form.assistantEditorEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
@@ -63,7 +65,8 @@
                         <div class="panel panel-success">
                             <div class="panel-heading"><h4>{{ "journal.tech_contact"|trans }}</h4></div>
                             <div class="panel-body">
-                                {% for field in [form.techContactName, form.techContactPhone, form.techContactEmail] %}
+                                {% for field in [form.techContactName, form.techContactSurname,
+                                                 form.techContactPhone, form.techContactEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
