@@ -129,11 +129,9 @@ class ArticleFileController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $type = ArticleFileParams::fileType($entity->getType());
         return $this->render('OjsJournalBundle:ArticleFile:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
             'type' => $type
         ));
     }
@@ -153,11 +151,9 @@ class ArticleFileController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
         return $this->render('OjsJournalBundle:ArticleFile:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -194,7 +190,6 @@ class ArticleFileController extends Controller
             throw $this->createNotFoundException('notFound');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $fileHelper = new \Ojs\Common\Helper\FileHelper();
@@ -217,44 +212,22 @@ class ArticleFileController extends Controller
 
         return $this->render('OjsJournalBundle:ArticleFile:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
+
     /**
      * Deletes a ArticleFile entity.
-     *
+     * @param ArticleFile $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(ArticleFile $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var ArticleFile $entity */
-        $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
-        $articleid = $entity->getArticleId();
-
+        $this->throw404IfNotFound($entity);
+        $em = $this->getDoctrine()->getEntityManager();
         $em->remove($entity);
         $em->flush();
-
-        $this->successFlashBag('Successfully removed.');
-        return $this->redirect($this->generateUrl('articlefile',['article'=>$articleid]));
-    }
-
-    /**
-     * Creates a form to delete a ArticleFile entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('articlefile_delete', array('id' => $id)))
-            ->setMethod('GET')
-            ->getForm()
-        ;
+        $this->successFlashBag('successful.remove');
+        return $this->redirectToRoute('articlefile', ['article'=>$entity->getArticleId()]);
     }
 }
