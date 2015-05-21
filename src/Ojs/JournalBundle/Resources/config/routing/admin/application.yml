@@ -1,26 +1,38 @@
 journal_application:
   pattern: /journal
   defaults: { _controller: 'OjsJournalBundle:Application:journalIndex' }
+application_journal_show:
+  pattern: /journal/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalDetail'}
+application_journal_edit:
+  pattern: /journal/edit/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalEdit'}
+application_journal_update:
+  pattern: /journal/update/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalUpdate'}
+application_journal_delete:
+  pattern: /journal/delete/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:journalDelete'}
+application_journal_saveasnew:
+  pattern: /journal/{id}/save
+  defaults: { _controller: 'OjsJournalBundle:Application:journalSave' }
+
+
 institution_application:
   pattern: /institution
   defaults: { _controller: 'OjsJournalBundle:Application:institutionIndex' }
 application_institution_show:
   pattern: /institution/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionDetail'}
+application_institution_edit:
+  pattern: /institution/edit/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionEdit'}
+application_institution_update:
+  pattern: /institution/update/{id}
+  defaults: { _controller: 'OjsJournalBundle:Application:institutionUpdate'}
 application_institution_delete:
   pattern: /institution/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionDelete'}
-
-application_journal_show:
-  pattern: /journal/{id}
-  defaults: { _controller: 'OjsJournalBundle:Application:journalDetail'}
-application_journal_delete:
-  pattern: /journal/delete/{id}
-  defaults: { _controller: 'OjsJournalBundle:Application:journalDelete'}
-
 application_institution_saveasnew:
   pattern: /institution/{id}/save
   defaults: { _controller: 'OjsJournalBundle:Application:institutionSave' }
-application_journal_saveasnew:
-  pattern: /journal/{id}/save
-  defaults: { _controller: 'OjsJournalBundle:Application:journalSave' }
