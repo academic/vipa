@@ -13,6 +13,7 @@ Ojs\UserBundle\Entity\UserJournalRole:
         user:
           cascade: [persist]
           targetEntity: Ojs\UserBundle\Entity\User
+          inversedBy: userJournalRoles
           joinColumn:
             name: user_id
             referencedColumnName: id

@@ -3,8 +3,10 @@
 namespace Ojs\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Ojs\Common\Entity\GenericExtendedEntity;
 use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Okulbilisim\LocationBundle\Entity\Location;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
@@ -22,7 +24,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface {
+class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface
+{
 
     /**
      * @var integer
@@ -106,13 +109,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     protected $restrictedJournals;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @Expose
      */
     protected $roles;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @Expose
      */
     private $subjects;
@@ -148,6 +151,11 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
     private $city;
 
+    /**
+     * @var Collection
+     */
+    private $userJournalRoles;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -168,11 +176,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
+     * @param $key
      * @return mixed
      */
     public function getSetting($key)
     {
         $settings = $this->getSettings();
+
         return isset($settings[$key]) ? $settings[$key] : false;
     }
 
@@ -186,12 +196,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     /**
      *
-     * @param array $settings
-     * @return \Ojs\UserBundle\Entity\User
+     * @param  array $settings
+     * @return User
      */
     public function setSettings($settings)
     {
         $this->settings = json_encode($settings);
+
         return $this;
     }
 
@@ -223,7 +234,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $apiKey
+     * @param  string $apiKey
      * @return User
      */
     public function setApiKey($apiKey)
@@ -300,7 +311,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      */
 
     /**
-     * @param string $lastName
+     * @param  string $lastName
      * @return $this
      */
     public function setLastName($lastName)
@@ -347,7 +358,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function getSalt()
     {
-        return null;
+        return;
     }
 
     public function eraseCredentials()
@@ -363,16 +374,17 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         return serialize(array(
             $this->id,
             $this->username,
-            $this->password
+            $this->password,
         ));
     }
 
     /**
      * @see \Serializable::unserialize()
+     * @param string $serialized
      */
     public function unserialize($serialized)
     {
-        list (
+        list(
                 $this->id,
                 $this->username,
                 $this->password
@@ -381,7 +393,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     /**
      *
-     * @return array
+     * @return Role[]
      */
     public function getRoles()
     {
@@ -391,10 +403,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Add role
      *
-     * @param  \Ojs\UserBundle\Entity\Role $role
+     * @param  Role $role
      * @return User
      */
-    public function addRole(\Ojs\UserBundle\Entity\Role $role)
+    public function addRole(Role $role)
     {
         $this->roles[] = $role;
 
@@ -402,16 +414,16 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param \Ojs\UserBundle\Entity\Role $role
+     * @param Role $role
      */
-    public function removeRole(\Ojs\UserBundle\Entity\Role $role)
+    public function removeRole(Role $role)
     {
         $this->roles->removeElement($role);
     }
 
     /**
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSubjects()
     {
@@ -455,7 +467,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function generateToken()
     {
-        return md5($this->getEmail()) . md5(uniqid($this->getUsername(), true));
+        return md5($this->getEmail()).md5(uniqid($this->getUsername(), true));
     }
 
     /**
@@ -506,17 +518,17 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         for ($i = 0; $i < 64; $i++) {
             $apikey .= $characters[rand(0, strlen($characters) - 1)];
         }
-        $apikey = base64_encode(sha1(uniqid('ue' . rand(rand(), rand())) . $apikey));
+        $apikey = base64_encode(sha1(uniqid('ue'.rand(rand(), rand())).$apikey));
         $this->apiKey = $apikey;
     }
 
     /**
      * Add restrictedJournals
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $restrictedJournals
+     * @param  Journal $restrictedJournals
      * @return User
      */
-    public function addRestrictedJournal(\Ojs\JournalBundle\Entity\Journal $restrictedJournals)
+    public function addRestrictedJournal(Journal $restrictedJournals)
     {
         $this->restrictedJournals[] = $restrictedJournals;
 
@@ -526,9 +538,9 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Remove restrictedJournals
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $restrictedJournals
+     * @param Journal $restrictedJournals
      */
-    public function removeRestrictedJournal(\Ojs\JournalBundle\Entity\Journal $restrictedJournals)
+    public function removeRestrictedJournal(Journal $restrictedJournals)
     {
         $this->restrictedJournals->removeElement($restrictedJournals);
     }
@@ -536,7 +548,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Get restrictedJournals
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getRestrictedJournals()
     {
@@ -549,7 +561,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * Internally, if this method returns false, the authentication system
      * will throw an AccountExpiredException and prevent login.
      *
-     * @return bool    true if the user's account is non expired, false otherwise
+     * @return bool true if the user's account is non expired, false otherwise
      *
      * @see AccountExpiredException
      */
@@ -583,7 +595,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * Internally, if this method returns false, the authentication system
      * will throw a LockedException and prevent login.
      *
-     * @return bool    true if the user is not locked, false otherwise
+     * @return bool true if the user is not locked, false otherwise
      *
      * @see LockedException
      */
@@ -598,7 +610,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * Internally, if this method returns false, the authentication system
      * will throw a CredentialsExpiredException and prevent login.
      *
-     * @return bool    true if the user's credentials are non expired, false otherwise
+     * @return bool true if the user's credentials are non expired, false otherwise
      *
      * @see CredentialsExpiredException
      */
@@ -613,7 +625,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      * Internally, if this method returns false, the authentication system
      * will throw a DisabledException and prevent login.
      *
-     * @return bool    true if the user is enabled, false otherwise
+     * @return bool true if the user is enabled, false otherwise
      *
      * @see DisabledException
      */
@@ -624,7 +636,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function getFullName()
     {
-        return $this->getFirstName() . ' ' . $this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
 
     private $title;
@@ -638,12 +650,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param mixed $title
+     * @param  mixed $title
      * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -661,27 +674,28 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $header
+     * @param  string $header
      * @return $this
      */
     public function setHeader($header)
     {
         $this->header = $header;
+
         return $this;
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $customFields;
 
     /**
      * Add customFields
      *
-     * @param \Ojs\UserBundle\Entity\CustomField $customFields
+     * @param  CustomField $customFields
      * @return User
      */
-    public function addCustomField(\Ojs\UserBundle\Entity\CustomField $customFields)
+    public function addCustomField(CustomField $customFields)
     {
         $this->customFields[] = $customFields;
 
@@ -693,7 +707,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
      *
      * @param \Ojs\UserBundle\Entity\CustomField $customFields
      */
-    public function removeCustomField(\Ojs\UserBundle\Entity\CustomField $customFields)
+    public function removeCustomField(CustomField $customFields)
     {
         $this->customFields->removeElement($customFields);
     }
@@ -701,7 +715,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Get customFields
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCustomFields()
     {
@@ -709,17 +723,17 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $oauthAccounts;
 
     /**
      * Add oauthAccounts
      *
-     * @param \Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts
+     * @param  UserOauthAccount $oauthAccounts
      * @return User
      */
-    public function addOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
+    public function addOauthAccount(UserOauthAccount $oauthAccounts)
     {
         $this->oauthAccounts->add($oauthAccounts);
 
@@ -729,9 +743,9 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     /**
      * Remove oauthAccounts
      *
-     * @param \Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts
+     * @param UserOauthAccount $oauthAccounts
      */
-    public function removeOauthAccount(\Ojs\UserBundle\Entity\UserOauthAccount $oauthAccounts)
+    public function removeOauthAccount(UserOauthAccount $oauthAccounts)
     {
         $this->oauthAccounts->removeElement($oauthAccounts);
     }
@@ -771,11 +785,10 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
     protected $header_options;
 
-
     /**
      * Get oauthAccounts
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getOauthAccounts()
     {
@@ -784,7 +797,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
 
     public function __toString()
     {
-        return $this->getUsername() . '( ' . $this->getFullName() . ' ~ ' . $this->getEmail() . ' ) ';
+        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
     }
 
     public function toJson()
@@ -805,6 +818,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
         if ($this->getCity() instanceof Location) {
             $data['city'] = $this->getCity()->getName();
         }
+
         return json_encode($data);
     }
 
@@ -817,12 +831,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param Location $city
+     * @param  Location $city
      * @return User
      */
     public function setCity(Location $city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -835,12 +850,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param int $city_id
+     * @param  int  $city_id
      * @return User
      */
     public function setCityId($city_id)
     {
         $this->city_id = $city_id;
+
         return $this;
     }
 
@@ -853,12 +869,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param Location $country
+     * @param  Location $country
      * @return User
      */
     public function setCountry(Location $country)
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -871,12 +888,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param int $country_id
+     * @param  int  $country_id
      * @return User
      */
     public function setCountryId($country_id)
     {
         $this->country_id = $country_id;
+
         return $this;
     }
 
@@ -892,18 +910,19 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param boolean $privacy
+     * @param  boolean $privacy
      * @return $this
      */
     public function setPrivacy($privacy)
     {
         $this->privacy = $privacy;
+
         return $this;
     }
 
     /**
-     * 
-     * @param string $role
+     *
+     * @param  string  $role
      * @return boolean
      */
     public function hasRole($role)
@@ -914,6 +933,7 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
                 return true;
             }
         }
+
         return false;
     }
 
@@ -947,12 +967,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $address
+     * @param  string $address
      * @return $this
      */
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 
@@ -965,22 +986,24 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param Author $author
+     * @param  Author $author
      * @return $this
      */
     public function addAuthorDetail(Author $author)
     {
         $this->authorDetails->add($author);
+
         return $this;
     }
 
     /**
-     * @param Author $author
+     * @param  Author $author
      * @return $this
      */
     public function removeAuthorDetail(Author $author)
     {
         $this->authorDetails->remove($author);
+
         return $this;
     }
     /**
@@ -992,12 +1015,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $billing_address
+     * @param  string $billing_address
      * @return $this
      */
     public function setBillingAddress($billing_address)
     {
         $this->billing_address = $billing_address;
+
         return $this;
     }
 
@@ -1010,12 +1034,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $disable_reason
+     * @param  string $disable_reason
      * @return $this
      */
     public function setDisableReason($disable_reason)
     {
         $this->disable_reason = $disable_reason;
+
         return $this;
     }
 
@@ -1028,12 +1053,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $fax
+     * @param  string $fax
      * @return $this
      */
     public function setFax($fax)
     {
         $this->fax = $fax;
+
         return $this;
     }
 
@@ -1046,12 +1072,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $gender
+     * @param  string $gender
      * @return $this
      */
     public function setGender($gender)
     {
         $this->gender = $gender;
+
         return $this;
     }
 
@@ -1064,12 +1091,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $initials
+     * @param  string $initials
      * @return $this
      */
     public function setInitials($initials)
     {
         $this->initials = $initials;
+
         return $this;
     }
 
@@ -1082,12 +1110,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param mixed $locale
+     * @param  mixed $locale
      * @return $this
      */
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -1100,12 +1129,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $locales
+     * @param  string $locales
      * @return $this
      */
     public function setLocales($locales)
     {
         $this->locales = $locales;
+
         return $this;
     }
 
@@ -1118,12 +1148,13 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $phone
+     * @param  string $phone
      * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -1136,13 +1167,26 @@ class User extends GenericExtendedEntity implements UserInterface, \Serializable
     }
 
     /**
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
+    public function getUserJournalRolesFromJournal(Journal $journal)
+    {
+        $journalRoles = array();
+        foreach ($this->userJournalRoles as $journalRole) {
+            /** @var UserJournalRole $journalRole */
+            if ($journalRole->getJournal() === $journal) {
+                $journalRoles[] = $journalRole;
+            }
+        }
+
+        return $journalRoles;
+    }
 }
