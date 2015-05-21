@@ -1,4 +1,5 @@
 SET foreign_key_checks = 0;
+TRUNCATE TABLE `locations`;
 INSERT INTO `locations` (`id`, `name`, `type`, `parent_id`)
 VALUES
   (1, 'Aruba', 0, 0),
