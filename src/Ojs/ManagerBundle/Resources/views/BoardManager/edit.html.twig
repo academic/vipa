@@ -8,12 +8,7 @@
     <button class="btn-primary btn" type="submit">{{"u"|trans}}</button>
     {{ form_end(edit_form) }}
 
-
-    <a href="{{ path('admin_board') }}">
-        {{"b"|trans}}
-    </a>
-    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
-        {{"d"|trans}}
-    </a>
-
+    {% set back_path = 'admin_board' %}
+    {% set delete_path = 'admin_board_delete' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}
