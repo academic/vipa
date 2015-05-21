@@ -27,4 +27,3 @@ role_update:
 role_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsUserBundle:Role:delete" }
-    requirements: { _method: post|delete }

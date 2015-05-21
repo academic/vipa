@@ -13,9 +13,9 @@
                 <a class="button" href="{{ path('role') }}">
                     {{"b"|trans}}
                 </a>
-
-
-            {{ form(delete_form) }}
+                <a href="{{ path('role_delete', { 'id': entity.id }) }}">
+                    Delete
+                </a>
 
         </div>
     </div>
