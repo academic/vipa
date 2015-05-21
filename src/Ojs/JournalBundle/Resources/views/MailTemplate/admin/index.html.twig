@@ -36,8 +36,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <hr>
-    <a class="btn btn-default" href="{{ path('mailtemplate_new') }}">
-        Create a new entry
-    </a>
+
+    {% set create_path = 'mailtemplate_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

@@ -11,13 +11,8 @@
 
     {{ form(form) }}
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('manager_submission_checklist') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+    {% set back_path = 'manager_submission_checklist' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
 
 
