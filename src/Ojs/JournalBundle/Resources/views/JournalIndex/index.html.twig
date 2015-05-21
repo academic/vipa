@@ -5,8 +5,6 @@
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
 
-    <a href="{{ path('admin_journalindex_new') }}" class="btn btn-success">
-        {{ 'c'|trans }}
-    </a>
-</ul>
+    {% set create_path = 'admin_journalindex_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
