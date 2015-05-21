@@ -17,13 +17,18 @@ use JMS\Serializer\Serializer;
 use Ojs\AnalyticsBundle\Document\ObjectDownload;
 use Ojs\AnalyticsBundle\Document\ObjectView;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\AnalyticsBundle\Updater\UpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\DependencyInjection\Container;
-
+use Ojs\AnalyticsBundle\Updater;
+/**
+ * Class UpdateCommand
+ * @package Ojs\AnalyticsBundle\Command
+ */
 class UpdateCommand extends ContainerAwareCommand
 {
 
@@ -44,6 +49,10 @@ class UpdateCommand extends ContainerAwareCommand
     /** @var  EntityManager $em */
     private $em;
 
+    /** @var  OutputInterface $output*/
+    public  $output;
+
+
     protected function configure()
     {
         $this->setName("ojs:analytics:update")
@@ -53,12 +62,19 @@ class UpdateCommand extends ContainerAwareCommand
 
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->dm = $this->getContainer()->get('doctrine_mongodb')->getManager();
         $this->serializer = $this->getContainer()->get('jms_serializer');
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $type = $input->getArgument('type');
+        $this->output = $output;
+
         switch ($type) {
             case "view":
                 $this->updateViewData($output);
@@ -66,8 +82,11 @@ class UpdateCommand extends ContainerAwareCommand
             case "download":
                 $this->updateDownloadData($output);
                 break;
+            case "common":
+                $this->updateCommonData();
+                break;
             default:
-                $output->writeln("The value may have only 'view' or 'download'");
+                $output->writeln("The value may have only 'view', 'download', 'common'");
                 break;
         }
 
@@ -175,5 +194,39 @@ class UpdateCommand extends ContainerAwareCommand
             $output->writeln("An error has occured on file ".$e->getFile()." on line ".$e->getLine());
             $output->writeln($e->getMessage());
         }
+    }
+
+    const DailyReviewCount=1;
+    const AcceptedArticleCount=2;
+    const DeclinedArticleCount=3;
+    const RevisedArticleCount=4;
+    const UserCount=5;
+    const ReaderCount=6;
+    const MemberCount=7;
+    const PublishedIssueCount=8;
+
+    private function updateCommonData()
+    {
+        $updates = [
+            'DailyReviewCount',
+            'AcceptedArticleCount',
+            'DeclinedArticleCount',
+            'RevisedArticleCount',
+            'UserCount',
+            'ReaderCount',
+            'MemberCount',
+            'PublishedIssueCount'
+        ];
+
+        foreach ($updates as $update) {
+            $updater = 'Ojs\\AnalyticsBundle\\Updater\\'.$update.'Updater';
+            /** @var UpdaterInterface $statObject */
+            $statObject = new $updater($this->em,$this->dm);
+
+            var_dump($statObject->count());
+
+        }
+        exit;
+
     }
 }
