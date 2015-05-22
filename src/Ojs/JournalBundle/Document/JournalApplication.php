@@ -14,7 +14,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds journal application data
  * @MongoDB\Document(collection="journal_application")
- * @GRID\Source(columns="id,title,subtitle")
+ * @GRID\Source(columns="id,title,subtitle,status")
  */
 class JournalApplication
 {
@@ -141,7 +141,31 @@ class JournalApplication
      * @MongoDB\String
      * @var string
      */
+    protected $address;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $phone;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
     protected $editorName;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $editorSurname;
 
     /**
      * @MongoDB\String
@@ -165,6 +189,12 @@ class JournalApplication
      * @MongoDB\String
      * @var string
      */
+    protected $assistantEditorSurname;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
     protected $assistantEditorPhone;
 
     /**
@@ -183,6 +213,12 @@ class JournalApplication
      * @MongoDB\String
      * @var string
      */
+    protected $techContactSurname;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
     protected $techContactPhone;
 
     /**
@@ -190,6 +226,12 @@ class JournalApplication
      * @var string
      */
     protected $techContactEmail;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $status;
 
     /**
      * @return int
@@ -546,6 +588,54 @@ class JournalApplication
     /**
      * @return string
      */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
     public function getEditorName()
     {
         return $this->editorName;
@@ -557,6 +647,22 @@ class JournalApplication
     public function setEditorName($editorName)
     {
         $this->editorName = $editorName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEditorSurname()
+    {
+        return $this->editorSurname;
+    }
+
+    /**
+     * @param string $editorSurname
+     */
+    public function setEditorSurname($editorSurname)
+    {
+        $this->editorSurname = $editorSurname;
     }
 
     /**
@@ -610,6 +716,22 @@ class JournalApplication
     /**
      * @return string
      */
+    public function getAssistantEditorSurname()
+    {
+        return $this->assistantEditorSurname;
+    }
+
+    /**
+     * @param string $assistantEditorSurname
+     */
+    public function setAssistantEditorSurname($assistantEditorSurname)
+    {
+        $this->assistantEditorSurname = $assistantEditorSurname;
+    }
+
+    /**
+     * @return string
+     */
     public function getAssistantEditorPhone()
     {
         return $this->assistantEditorPhone;
@@ -658,6 +780,23 @@ class JournalApplication
     /**
      * @return string
      */
+    public function getTechContactSurname()
+    {
+        return $this->techContactSurname;
+    }
+
+    /**
+     * @param string $techContactSurname
+     */
+    public function setTechContactSurname($techContactSurname)
+    {
+        $this->techContactSurname = $techContactSurname;
+    }
+
+
+    /**
+     * @return string
+     */
     public function getTechContactPhone()
     {
         return $this->techContactPhone;
@@ -685,5 +824,21 @@ class JournalApplication
     public function setTechContactEmail($techContactEmail)
     {
         $this->techContactEmail = $techContactEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }

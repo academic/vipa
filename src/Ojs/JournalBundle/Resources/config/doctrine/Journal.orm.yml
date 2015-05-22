@@ -192,6 +192,18 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
+        phone:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
         country_id:
             type: integer
             nullable: true
