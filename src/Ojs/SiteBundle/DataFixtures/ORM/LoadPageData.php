@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\SiteBundle\DataFixtures;
-
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -34,4 +32,4 @@ class LoadPageData implements FixtureInterface
         $om->persist($page);
         $om->flush();
     }
-} 
+}

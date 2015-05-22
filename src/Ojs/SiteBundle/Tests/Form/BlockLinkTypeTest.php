@@ -17,7 +17,7 @@ class BlockLinkTypeTest extends BaseTypeTestcase
             [
               //  'block_id' => 1,
                 'text' => $this->faker->text(),
-                'url' => $this->faker->url
+                'url' => $this->faker->url,
             ],
             'Ojs\SiteBundle\Entity\BlockLink');
     }

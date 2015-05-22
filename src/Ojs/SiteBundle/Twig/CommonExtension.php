@@ -5,15 +5,13 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\SiteBundle\Twig;
 
-
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
-use Ojs\SiteBundle\Document\ImageOptions;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class CommonExtension extends \Twig_Extension
 {
@@ -28,7 +26,6 @@ class CommonExtension extends \Twig_Extension
     {
         $this->dm = $documentManager;
         $this->container = $container;
-
     }
 
     public function getFilters()
@@ -50,7 +47,7 @@ class CommonExtension extends \Twig_Extension
 
     public function addFilters($key = null, $value = null)
     {
-        $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
+        $request = Request::createFromGlobals();
         $filters = [];
         $filters['institution'] = $request->get('institution') ? $this->parseFilters($request->get('institution')) : [];
         $filters['subject'] = $request->get('subject') ? $this->parseFilters($request->get('subject')) : [];
@@ -58,6 +55,7 @@ class CommonExtension extends \Twig_Extension
             unset($filters[$key][0]);
         }
         $filters[$key][] = $value;
+
         return $this->convertToUrl($filters);
     }
 
@@ -70,11 +68,13 @@ class CommonExtension extends \Twig_Extension
     {
         $data = [];
         foreach ($filters as $key => $value) {
-            if (empty($value))
+            if (empty($value)) {
                 continue;
-            $data[] = "{$key}=" . join('|', $value);
+            }
+            $data[] = "{$key}=".implode('|', $value);
         }
-        return join('&', $data);
+
+        return implode('&', $data);
     }
 
     private function parseFilters($filter)
@@ -84,7 +84,7 @@ class CommonExtension extends \Twig_Extension
 
     public function getImageOptions($entity, $type, $filter = null)
     {
-        $options = $entity->{'get' . ucfirst($type) . 'Options'}();
+        $options = $entity->{'get'.ucfirst($type).'Options'}();
         $options = json_decode($options, true);
         if (
             !$options ||
@@ -94,7 +94,7 @@ class CommonExtension extends \Twig_Extension
                 'height' => 0,
                 'width' => 0,
                 'x' => 0,
-                'y' => 0
+                'y' => 0,
             ];
             /** @var FilterManager $filterManager */
             $filterManager = $this->container->get('liip_imagine.filter.manager');
@@ -121,16 +121,21 @@ class CommonExtension extends \Twig_Extension
     public function orcidLoginUrl()
     {
         $orcid = $this->container->get('ojs.orcid_service');
+
         return $orcid->loginUrl();
     }
 
     public function getUserById($id, $object = false)
     {
+        /** @var User $user */
         $user = $this->container->get('doctrine')->getManager()->find('OjsUserBundle:User', $id);
-        if (!$user)
-            return null;
-        if ($object)
+        if (!$user) {
+            return;
+        }
+        if ($object) {
             return $user;
+        }
+
         return "{$user->getUsername()} ~ {$user->getEmail()} - {$user->getFirstName()} {$user->getLastName()}";
     }
 }

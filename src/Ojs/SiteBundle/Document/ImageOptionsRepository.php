@@ -18,7 +18,7 @@ class ImageOptionsRepository extends DocumentRepository
             [
                 'image_type' => $type,
                 'object' => get_class($entity),
-                'object_id' => call_user_func([$entity, 'getId'])
+                'object_id' => call_user_func([$entity, 'getId']),
             ]
         );
         if (!$option) {
@@ -33,7 +33,7 @@ class ImageOptionsRepository extends DocumentRepository
             ->setWidth($data['width'])
             ->setX($data['x'])
             ->setY($data['y']);
-        return $option;
 
+        return $option;
     }
 }

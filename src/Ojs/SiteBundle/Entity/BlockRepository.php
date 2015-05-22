@@ -17,11 +17,11 @@ class BlockRepository extends EntityRepository
     {
         return $this->findBy(
             [
-                'object_type'=>'journal',
-                'object_id'=>$journal->getId()
+                'object_type' => 'journal',
+                'object_id' => $journal->getId(),
             ],
             [
-                'block_order'=>'asc'
+                'block_order' => 'asc',
             ]
         );
     }

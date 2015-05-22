@@ -2,11 +2,13 @@
 
 namespace Ojs\SiteBundle\Controller;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 use Ojs\SiteBundle\Entity\Page;
 use Ojs\SiteBundle\Form\PageType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Page controller.
@@ -32,6 +34,8 @@ class PageController extends Controller
     /**
      * Creates a new Page entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -44,6 +48,7 @@ class PageController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('admin_page_show', array('id' => $entity->getId())));
         }
 
@@ -58,7 +63,7 @@ class PageController extends Controller
      *
      * @param Page $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(Page $entity)
     {
@@ -90,6 +95,8 @@ class PageController extends Controller
     /**
      * Finds and displays a Page entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -102,18 +109,20 @@ class PageController extends Controller
         }
 
         return $this->render('OjsSiteBundle:Page:show.html.twig', array(
-            'entity'      => $entity
+            'entity'      => $entity,
         ));
     }
 
     /**
      * Displays a form to edit an existing Page entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var Page $entity */
         $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
@@ -124,17 +133,17 @@ class PageController extends Controller
 
         return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Page entity.
-    *
-    * @param Page $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Page entity.
+     *
+     * @param Page $entity The entity
+     *
+     * @return Form The form
+     */
     private function createEditForm(Page $entity)
     {
         $form = $this->createForm(new PageType(), $entity, array(
@@ -149,11 +158,15 @@ class PageController extends Controller
     /**
      * Edits an existing Page entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Page $entity */
         $entity = $em->getRepository('OjsSiteBundle:Page')->find($id);
 
         if (!$entity) {
@@ -166,27 +179,29 @@ class PageController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('admin_page_edit', array('id' => $id)));
         }
 
         return $this->render('OjsSiteBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Page entity.
-     * @param Page $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  Page             $entity
+     * @return RedirectResponse
      */
     public function deleteAction(Page $entity)
     {
         $this->throw404IfNotFound($entity);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_page');
     }
 }

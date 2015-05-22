@@ -12,5 +12,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class BlockLinkRepository extends EntityRepository
 {
-
 }

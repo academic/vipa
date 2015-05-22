@@ -14,12 +14,12 @@
                 </li>
             </ol>
 
-            <h1>{{ issue.title }}   {% if issue.special%} 
+            <h1>{{ issue.title }}   {% if issue.special%}
                 {% endif %}&nbsp; </h1>
                 <h4>
                     {% if issue.special %}
                         <span class="label label-success">
-                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i> 
+                            <i class="fa fa-star" title="{{"special.issue"|trans}}"></i>
                             {{"special.issue"|trans}}
                         </span> &nbsp;
                     {% endif %}
@@ -53,7 +53,7 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
-            </div> 
+            </div>
 
         </div>
 

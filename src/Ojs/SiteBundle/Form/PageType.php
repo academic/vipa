@@ -10,7 +10,7 @@ class PageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,7 +21,7 @@ class PageType extends AbstractType
             ->add('image')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -29,10 +29,9 @@ class PageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\SiteBundle\Entity\Page',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

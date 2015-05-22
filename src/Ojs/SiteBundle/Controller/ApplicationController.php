@@ -9,15 +9,16 @@ use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Ojs\SiteBundle\Entity\Page;
-use Ojs\SiteBundle\Form\PageType;
-
 /**
  * Application controller.
  *
  */
 class ApplicationController extends Controller
 {
+    /**
+     * @param  Request                                                                                       $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function journalAction(Request $request)
     {
         $data = [];
@@ -32,8 +33,8 @@ class ApplicationController extends Controller
                 $application->setCreatedAt(new \DateTime());
                 $dm->persist($application);
                 $dm->flush();
-                return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
 
+                return $this->redirect($this->get('router')->generate('ojs_apply_journal_success'));
             }
             $session = $this->get('session');
             $session->getFlashBag()
@@ -41,6 +42,7 @@ class ApplicationController extends Controller
             $session->save();
         }
         $data['form'] = $form->createView();
+
         return $this->render('OjsSiteBundle:Application:journal.html.twig', $data);
     }
 
@@ -50,7 +52,7 @@ class ApplicationController extends Controller
         $application = new InstitutionApplication();
         $form = $this->createForm(new InstitutionApplicationType(), $application, [
             'em' => $this->getDoctrine()->getManager(),
-            'helper'=>$this->get('okulbilisim_location.form.helper')
+            'helper' => $this->get('okulbilisim_location.form.helper'),
         ]);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -61,8 +63,8 @@ class ApplicationController extends Controller
                 $application->setCreatedAt(new \DateTime());
                 $dm->persist($application);
                 $dm->flush();
-                return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
 
+                return $this->redirect($this->get('router')->generate('ojs_apply_institute_success'));
             }
             $session = $this->get('session');
             $session->getFlashBag()
@@ -70,6 +72,7 @@ class ApplicationController extends Controller
             $session->save();
         }
         $data['form'] = $form->createView();
+
         return $this->render('OjsSiteBundle:Application:institution.html.twig', $data);
     }
 

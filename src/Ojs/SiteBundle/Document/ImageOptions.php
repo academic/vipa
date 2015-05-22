@@ -3,9 +3,7 @@
  * Date: 16.12.14
  * Time: 22:13
  */
-
 namespace Ojs\SiteBundle\Document;
-
 
 class ImageOptions
 {
@@ -50,11 +48,10 @@ class ImageOptions
      */
     protected $image_type;
 
-
     /**
      * Get id
      *
-     * @return id $id
+     * @return \MongoId $id
      */
     public function getId()
     {
@@ -64,12 +61,13 @@ class ImageOptions
     /**
      * Set height
      *
-     * @param integer $height
+     * @param  integer $height
      * @return self
      */
     public function setHeight($height)
     {
-        $this->height = (int)$height;
+        $this->height = (int) $height;
+
         return $this;
     }
 
@@ -86,12 +84,13 @@ class ImageOptions
     /**
      * Set width
      *
-     * @param integer $width
+     * @param  integer $width
      * @return self
      */
     public function setWidth($width)
     {
-        $this->width = (int)$width;
+        $this->width = (int) $width;
+
         return $this;
     }
 
@@ -108,12 +107,13 @@ class ImageOptions
     /**
      * Set x
      *
-     * @param integer $x
+     * @param  integer $x
      * @return self
      */
     public function setX($x)
     {
-        $this->x = (int)$x;
+        $this->x = (int) $x;
+
         return $this;
     }
 
@@ -130,12 +130,13 @@ class ImageOptions
     /**
      * Set y
      *
-     * @param integer $y
+     * @param  integer $y
      * @return self
      */
     public function setY($y)
     {
-        $this->y = (int)$y;
+        $this->y = (int) $y;
+
         return $this;
     }
 
@@ -152,12 +153,13 @@ class ImageOptions
     /**
      * Set object
      *
-     * @param string $object
+     * @param  string $object
      * @return self
      */
     public function setObject($object)
     {
         $this->object = $object;
+
         return $this;
     }
 
@@ -174,12 +176,13 @@ class ImageOptions
     /**
      * Set objectId
      *
-     * @param integer $objectId
+     * @param  integer $objectId
      * @return self
      */
     public function setObjectId($objectId)
     {
         $this->object_id = $objectId;
+
         return $this;
     }
 
@@ -196,12 +199,13 @@ class ImageOptions
     /**
      * Set imageType
      *
-     * @param string $imageType
+     * @param  string $imageType
      * @return self
      */
     public function setImageType($imageType)
     {
         $this->image_type = $imageType;
+
         return $this;
     }
 
@@ -224,6 +228,7 @@ class ImageOptions
         $this->setObject(get_class($entity));
         $this->setObjectId(call_user_func([$entity, 'getId']));
         $this->setImageType($type);
+
         return $this;
     }
 }

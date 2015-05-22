@@ -27,8 +27,8 @@
                                     {% for issue in issues_grouped[year] %}
                                         <li class="col-md-12">
                                             <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}">
-                                                {{"volume"|trans}} : {{issue.volume}}  
-                                                {{"issue"|trans}} : {{issue.number}} 
+                                                {{"volume"|trans}} : {{issue.volume}}
+                                                {{"issue"|trans}} : {{issue.number}}
                                                 {% if issue.title %}-  {{issue.title}} {%endif%}
                                                 <span class="badge pull-right">4</span>
                                             </a>
@@ -57,4 +57,3 @@
         analytics.increase('journal',{{ journal.id }} )
     </script>
 {% endblock %}
-
