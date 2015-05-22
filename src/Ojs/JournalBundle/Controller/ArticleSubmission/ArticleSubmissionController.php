@@ -526,7 +526,7 @@ class ArticleSubmissionController extends Controller
         foreach ($citations as $citationData) {
             $citation = new Citation();
             $citation->setRaw($citationData['raw']);
-            $citation->setType($citationData['type']);
+            $citation->setType($citationData['citationtype']);
             $citation->setOrderNum($citationData['orderNum']);
             $em->persist(
                 $citation);
@@ -536,7 +536,7 @@ class ArticleSubmissionController extends Controller
             $em->persist($article);
             $em->flush();
             unset($citationData['raw']);
-            unset($citationData['type']);
+            unset($citationData['citationtype']);
             unset($citationData['orderNum']);
 /// add other data as citation setting
             foreach ($citationData as $setting => $value) {
