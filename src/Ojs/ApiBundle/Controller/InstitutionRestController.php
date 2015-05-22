@@ -3,11 +3,12 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\HttpException; 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class InstitutionRestController extends FOSRestController {
+class InstitutionRestController extends FOSRestController
+{
 
     /**
      *
@@ -17,8 +18,8 @@ class InstitutionRestController extends FOSRestController {
      * )
      * @Get("/institution/bulk/{page}/{limit}")
      *
-     * @param int $page
-     * @param int $limit
+     * @param  int   $page
+     * @param  int   $limit
      * @return mixed
      */
     public function getInstitutionsAction($page = 0, $limit = 10)
@@ -52,7 +53,7 @@ class InstitutionRestController extends FOSRestController {
         if (!is_object($institution)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $institution;
     }
-
 }

@@ -58,7 +58,7 @@ api_public_search :
   type: rest
   resource:     "OjsApiBundle:PublicSearchRest"
   name_prefix:  api_
-  
+
 api_search:
     type: rest
     resource: "OjsApiBundle:SearchRest"

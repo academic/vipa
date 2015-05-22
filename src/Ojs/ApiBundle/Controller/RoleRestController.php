@@ -70,9 +70,10 @@ class RoleRestController extends FOSRestController
         if (!is_object($users)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $users;
     }
-    
+
     /**
      * @todo not implemented yet
      * @ApiDoc(
@@ -115,6 +116,7 @@ class RoleRestController extends FOSRestController
         if (!is_array($result)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
+
         return $result;
     }
 /*

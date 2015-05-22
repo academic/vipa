@@ -23,10 +23,10 @@ class ApiKeyUserProvider implements UserProviderInterface
         /** @var UserRepository $userRepo */
         $userRepo = $this->em->getRepository('OjsUserBundle:User');
         $user = $userRepo->findOneBy([
-            'apiKey'=>$apiKey
+            'apiKey' => $apiKey,
         ]);
 
-        if(!($user instanceof \Ojs\UserBundle\Entity\User)){
+        if (!($user instanceof \Ojs\UserBundle\Entity\User)) {
             return false;
         }
 

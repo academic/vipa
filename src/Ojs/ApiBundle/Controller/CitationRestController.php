@@ -38,7 +38,7 @@ class CitationRestController extends FOSRestController
      * )
      * @Post("/citation/parse")
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function postCitationParseAction(Request $request)
@@ -48,7 +48,8 @@ class CitationRestController extends FOSRestController
             throw new HttpException(400, 'Missing parameter : citations');
         }
         $citationParser = new CitationParser();
-        $parsedCitations = $citationParser->parse($citations); 
+        $parsedCitations = $citationParser->parse($citations);
+
         return $parsedCitations;
     }
 
@@ -106,5 +107,4 @@ class CitationRestController extends FOSRestController
         $em->remove($citation);
         $em->flush();
     }
-
 }

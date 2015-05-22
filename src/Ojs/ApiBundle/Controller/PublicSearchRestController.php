@@ -18,7 +18,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * PublicSearchRest may contain similar actions with SearchRest
  */
-class PublicSearchRestController extends FOSRestController {
+class PublicSearchRestController extends FOSRestController
+{
 
     /**
      *
@@ -48,7 +49,7 @@ class PublicSearchRestController extends FOSRestController {
      * )
      * @Get("/public/search/institution")
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getInstitutionsAction(Request $request)
@@ -59,7 +60,7 @@ class PublicSearchRestController extends FOSRestController {
         $search = $this->container->get('fos_elastica.index.search.institution');
 
         $prefix = new Query\Prefix();
-        $prefix->setPrefix('name',strtolower($q));
+        $prefix->setPrefix('name', strtolower($q));
         $qe = new Query();
         $qe->setQuery($prefix);
 
@@ -68,8 +69,9 @@ class PublicSearchRestController extends FOSRestController {
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
         }
+
         return $data;
-    }/**
+    }    /**
      *
      * @ApiDoc(
      *  resource=true,
@@ -96,8 +98,8 @@ class PublicSearchRestController extends FOSRestController {
      *  }
      * )
      * @Get("/public/search/institute")
- *
-     * @param Request $request
+     *
+     * @param  Request $request
      * @return array
      */
     public function getInstitutesAction(Request $request)
@@ -106,7 +108,7 @@ class PublicSearchRestController extends FOSRestController {
         $search = $this->container->get('fos_elastica.index.search.institution');
 
         $prefix = new Query\Prefix();
-        $prefix->setPrefix('name',strtolower($q));
+        $prefix->setPrefix('name', strtolower($q));
         $qe = new Query();
         $qe->setQuery($prefix);
 
@@ -115,10 +117,11 @@ class PublicSearchRestController extends FOSRestController {
         $data = [];
         foreach ($results as $result) {
             $data[] = [
-                'id'=>$result->getId(),
-                'text'=>$result->getData()['name'],
+                'id' => $result->getId(),
+                'text' => $result->getData()['name'],
             ];
         }
+
         return $data;
     }
     /**
@@ -126,9 +129,9 @@ class PublicSearchRestController extends FOSRestController {
      * @return Response
      * @throws \Doctrine\ORM\ORMException
      * @ApiDoc(
-     *  resource=true,
-     *  description="get institution by id"
-     * )
+     *                                    resource=true,
+     *                                    description="get institution by id"
+     *                                    )
      * @Get("/public/institution/get/{id}")
      */
     public function getInstitutionAction($id)
@@ -136,13 +139,12 @@ class PublicSearchRestController extends FOSRestController {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Institution  $institution */
-        $institution = $em->find('OjsJournalBundle:Institution',$id);
-        if($institution){
-            return JsonResponse::create(['id'=>$id,'text'=>$institution->getName()]);
+        $institution = $em->find('OjsJournalBundle:Institution', $id);
+        if ($institution) {
+            return JsonResponse::create(['id' => $id, 'text' => $institution->getName()]);
         }
-        throw new NotFoundHttpException;
+        throw new NotFoundHttpException();
     }
-
 
     /**
      * @ApiDoc(
@@ -199,100 +201,101 @@ class PublicSearchRestController extends FOSRestController {
     {
         #$ids = $request->get('ids');
         return [
-            ['id'=>1,'text'=>'tıp', 'slug'=>'tip'],
-            ['id'=>2,'text'=>'tahrib', 'slug'=>'tahrib'],
-            ['id'=>3,'text'=>'takip', 'slug'=>'takip'],
-            ['id'=>4,'text'=>'tahrif', 'slug'=>'tahrif'],
-            ['id'=>5,'text'=>'tahkim', 'slug'=>'tahkim'],
+            ['id' => 1,'text' => 'tıp', 'slug' => 'tip'],
+            ['id' => 2,'text' => 'tahrib', 'slug' => 'tahrib'],
+            ['id' => 3,'text' => 'takip', 'slug' => 'takip'],
+            ['id' => 4,'text' => 'tahrif', 'slug' => 'tahrif'],
+            ['id' => 5,'text' => 'tahkim', 'slug' => 'tahkim'],
         ];
     }
     /**
-     * @param Request $request
+     * @param  Request $request
      * @ApiDoc(
-     *  resource=true,
-     *  description="search users",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      },
-     *      {
-     *          "name"="page",
-     *          "dataType"="integer",
-     *          "required"="false",
-     *          "description"="limit"
-     *      }
-     *  }
-     * )
+     *                          resource=true,
+     *                          description="search users",
+     *                          parameters={
+     *                          {
+     *                          "name"="q",
+     *                          "dataType"="string",
+     *                          "required"="true",
+     *                          "description"="search term"
+     *                          },
+     *                          {
+     *                          "name"="page",
+     *                          "dataType"="integer",
+     *                          "required"="false",
+     *                          "description"="limit"
+     *                          }
+     *                          }
+     *                          )
      * @Get("/public/search/user")
      * @return array
      */
-    public function getUsersAction(Request $request){
+    public function getUsersAction(Request $request)
+    {
         #$limit = 12;
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.user');
 
         $prefix = new Query\Prefix();
-        $prefix->setPrefix('username',strtolower($q));
+        $prefix->setPrefix('username', strtolower($q));
         $qe = new Query();
         $qe->setQuery($prefix);
-
 
         $results = $search->search($prefix);
         $data = [];
         foreach ($results as $result) {
             $data[] = [
-                'id'=>$result->getId(),
-                'text'=>$result->getData()['username']." - ".$result->getData()['email'],
+                'id' => $result->getId(),
+                'text' => $result->getData()['username']." - ".$result->getData()['email'],
             ];
         }
+
         return $data;
     }
 
-    
     /**
-     * @param Request $request
+     * @param  Request $request
      * @ApiDoc(
-     *  resource=true,
-     *  description="search journals",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      },
-     *      {
-     *          "name"="page",
-     *          "dataType"="integer",
-     *          "required"="false",
-     *          "description"="limit"
-     *      }
-     *  }
-     * )
+     *                          resource=true,
+     *                          description="search journals",
+     *                          parameters={
+     *                          {
+     *                          "name"="q",
+     *                          "dataType"="string",
+     *                          "required"="true",
+     *                          "description"="search term"
+     *                          },
+     *                          {
+     *                          "name"="page",
+     *                          "dataType"="integer",
+     *                          "required"="false",
+     *                          "description"="limit"
+     *                          }
+     *                          }
+     *                          )
      * @Get("/public/search/journal")
      * @return array
      */
-    public function getJournalsAction(Request $request){
+    public function getJournalsAction(Request $request)
+    {
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.journal');
 
         $prefix = new Query\Prefix();
-        $prefix->setPrefix('title',strtolower($q));
+        $prefix->setPrefix('title', strtolower($q));
         $qe = new Query();
         $qe->setQuery($prefix);
-
 
         $results = $search->search($prefix);
         $data = [];
         foreach ($results as $result) {
             $data[] = [
-                'id'=>$result->getId(),
-                'text'=>$result->getData()['title'],
+                'id' => $result->getId(),
+                'text' => $result->getData()['title'],
             ];
         }
+
         return $data;
     }
     /**
@@ -302,9 +305,9 @@ class PublicSearchRestController extends FOSRestController {
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      * @ApiDoc(
-     *  resource=true,
-     *  description="get journal by id"
-     * )
+     *                                                    resource=true,
+     *                                                    description="get journal by id"
+     *                                                    )
      * @Get("/public/journal/get/{id}")
      */
     public function getJournalAction($id)
@@ -312,58 +315,58 @@ class PublicSearchRestController extends FOSRestController {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Journal  $journal */
-        $journal = $em->find('OjsJournalBundle:Journal',$id);
-        if($journal){
-            return JsonResponse::create(['id'=>$id,'text'=>$journal->getTitle() ]);
+        $journal = $em->find('OjsJournalBundle:Journal', $id);
+        if ($journal) {
+            return JsonResponse::create(['id' => $id, 'text' => $journal->getTitle() ]);
         }
-        throw new NotFoundHttpException;
+        throw new NotFoundHttpException();
     }
 
     /**
-     * @param Request $request
+     * @param  Request $request
      * @ApiDoc(
-     *  resource=true,
-     *  description="search articles",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      },
-     *      {
-     *          "name"="page",
-     *          "dataType"="integer",
-     *          "required"="false",
-     *          "description"="limit"
-     *      }
-     *  }
-     * )
+     *                          resource=true,
+     *                          description="search articles",
+     *                          parameters={
+     *                          {
+     *                          "name"="q",
+     *                          "dataType"="string",
+     *                          "required"="true",
+     *                          "description"="search term"
+     *                          },
+     *                          {
+     *                          "name"="page",
+     *                          "dataType"="integer",
+     *                          "required"="false",
+     *                          "description"="limit"
+     *                          }
+     *                          }
+     *                          )
      * @Get("/public/search/article")
      * @return array
      */
-    public function getArticlesAction(Request $request){
+    public function getArticlesAction(Request $request)
+    {
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.articles');
 
         $prefix = new Query\Prefix();
-        $prefix->setPrefix('title',strtolower($q));
+        $prefix->setPrefix('title', strtolower($q));
         $qe = new Query();
         $qe->setQuery($prefix);
 
-
         $results = $search->search($prefix);
         $data = [];
-        /** @var User $user */
+/** @var User $user */
        # $user = $this->getUser();
 
         #$articleRepo = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Article');
         foreach ($results as $result) {
-         /*   if($user->hasRole('ROLE_SUPER_ADMIN'))
+            /*   if($user->hasRole('ROLE_SUPER_ADMIN'))
             {*/
                 $data[] = [
-                    'id'=>$result->getId(),
-                    'text'=>$result->getData()['title'],
+                    'id' => $result->getId(),
+                    'text' => $result->getData()['title'],
                 ];
            /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
                 /** @var Article $article
@@ -381,6 +384,7 @@ class PublicSearchRestController extends FOSRestController {
                 }
             }*/
         }
+
         return $data;
     }
     /**
@@ -390,9 +394,9 @@ class PublicSearchRestController extends FOSRestController {
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      * @ApiDoc(
-     *  resource=true,
-     *  description="get article by id"
-     * )
+     *                                                    resource=true,
+     *                                                    description="get article by id"
+     *                                                    )
      * @Get("/public/article/get/{id}")
      */
     public function getArticleAction($id)
@@ -400,14 +404,14 @@ class PublicSearchRestController extends FOSRestController {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var Journal  $journal */
-        $article = $em->find('OjsJournalBundle:Article',$id);
+        $article = $em->find('OjsJournalBundle:Article', $id);
         //$user = $this->getUser();
         //$data = [];
         //if($user->hasRole('ROLE_SUPER_ADMIN'))
         //{
             $data = [
-                'id'=>$article->getId(),
-                'text'=>$article->getTitle(),
+                'id' => $article->getId(),
+                'text' => $article->getTitle(),
             ];
        /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
             $roles = $article->getJournal()->getUserRoles();
@@ -422,10 +426,9 @@ class PublicSearchRestController extends FOSRestController {
                 }
             }
         }*/
-        if($data){
+        if ($data) {
             return JsonResponse::create($data);
         }
-        throw new NotFoundHttpException;
+        throw new NotFoundHttpException();
     }
-    
 }

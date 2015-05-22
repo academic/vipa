@@ -4,7 +4,6 @@ namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\UserBundle\Entity\Article;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -24,8 +23,8 @@ class ArticleRestController extends FOSRestController
      * )
      * @Get("/articles/bulk/{page}/{limit}")
      *
-     * @param int $page
-     * @param int $limit
+     * @param  int   $page
+     * @param  int   $limit
      * @return mixed
      */
     public function getArticlesAction($page = 0, $limit = 10)
@@ -138,16 +137,18 @@ class ArticleRestController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        if(!$article)
-            return null;
+        if (!$article) {
+            return;
+        }
+
         return $article->getCitations();
     }
 
     /**
      *
-     * @param  integer                              $id
+     * @param  integer                            $id
      * @param  \Ojs\JournalBundle\Entity\Citation $citation
-     * @param  Request|array                        $request
+     * @param  Request|array                      $request
      * @return \Ojs\JournalBundle\Entity\Article
      */
     private function addCitation2Article($id, \Ojs\JournalBundle\Entity\Citation $citation, $request)
@@ -159,14 +160,14 @@ class ArticleRestController extends FOSRestController
         // check and insert citation
         /* @var $article \Ojs\JournalBundle\Entity\Article  */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
-        if(!$article){
-            return null;
+        if (!$article) {
+            return;
         }
         $article->addCitation($citation);
         $em->persist($citation);
         $em->flush();
         foreach ($citationSettingKeys as $key => $desc) {
-            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get('setting_' . $key);
+            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get('setting_'.$key);
             if (!empty($param)) {
                 $citationSetting = new \Ojs\JournalBundle\Entity\CitationSetting();
                 $citationSetting->setCitation($citation);
@@ -288,5 +289,4 @@ class ArticleRestController extends FOSRestController
 
         return $article;
     }
-
 }

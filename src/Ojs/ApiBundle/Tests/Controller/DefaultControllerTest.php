@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\ApiBundle\Tests\Controller;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 

@@ -8,7 +8,8 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use Elastica\Query;
 use Symfony\Component\HttpFoundation\Request;
 
-class SearchRestController extends FOSRestController {
+class SearchRestController extends FOSRestController
+{
 
     /**
      *
@@ -34,7 +35,7 @@ class SearchRestController extends FOSRestController {
      * @Get("/search/journal/{journalId}/users")
      * @TODO elasticsearch will be better for performance. "like" query should be removed
      *
-     * @param Request $request
+     * @param  Request $request
      * @return mixed
      */
     public function searchJournalUsersAction(Request $request)
@@ -43,8 +44,9 @@ class SearchRestController extends FOSRestController {
         $repo = $this->getDoctrine()->getManager()->getRepository('OjsUserBundle:User');
         $query = $repo->createQueryBuilder('u')
                 ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
-                ->setParameter('search', '%' . $q . '%')
+                ->setParameter('search', '%'.$q.'%')
                 ->getQuery();
+
         return $query->getResult();
     }
 
@@ -64,14 +66,13 @@ class SearchRestController extends FOSRestController {
      * )
      * @Get("/search/user")
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getUsersAction(Request $request)
     {
         $q = $request->get('q');
         $search = $this->container->get('fos_elastica.index.search.user');
-
 
         $s1 = new Query\Regexp();
         $s1->setValue('username', $q);
@@ -92,7 +93,7 @@ class SearchRestController extends FOSRestController {
         foreach ($results as $result) {
             $data[] = array_merge(array('id' => $result->getId()), $result->getData());
         }
+
         return $data;
     }
-
 }

@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\ApiBundle\Tests\Controller;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 
@@ -21,7 +19,7 @@ class JournalRestControllerTest extends BaseTestCase
 
     public function testJournalUsers()
     {
-        $response = $this->apiRequest('/api/journal/1/users','GET',['page'=>1,'limit'=>1]);
+        $response = $this->apiRequest('/api/journal/1/users', 'GET', ['page' => 1, 'limit' => 1]);
         $this->assertEquals(200, $response->getStatusCode());
     }
 }

@@ -63,14 +63,15 @@ class UserRestController extends FOSRestController
         $qb
             ->select("a")
             ->from("OjsJournalBundle:Article", "a")
-            ->join("OjsJournalBundle:ArticleAuthor",'aa','WITH','a=aa.article')
-            ->join("OjsJournalBundle:Author","au","WITH","aa.author=au")
-            ->join("OjsUserBundle:User","u","WITH","au.user=u")
+            ->join("OjsJournalBundle:ArticleAuthor", 'aa', 'WITH', 'a=aa.article')
+            ->join("OjsJournalBundle:Author", "au", "WITH", "aa.author=au")
+            ->join("OjsUserBundle:User", "u", "WITH", "au.user=u")
             ->where(
-                $qb->expr()->eq("u.username",":username")
+                $qb->expr()->eq("u.username", ":username")
             )
-            ->setParameter("username",$username)
+            ->setParameter("username", $username)
         ;
+
         return $qb->getQuery()->getResult();
     }
     /**
@@ -99,7 +100,6 @@ class UserRestController extends FOSRestController
      */
     public function getUserJournalsAction($username)
     {
-
     }
 
     /**
@@ -115,7 +115,6 @@ class UserRestController extends FOSRestController
      */
     public function getUserRolesAction($username)
     {
-
     }
 
     /**
@@ -140,13 +139,13 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getUsersAction(Request $request)
     {
-        $limit = $request->get('limit',12);
-        $page = $request->get('page',1);
+        $limit = $request->get('limit', 12);
+        $page = $request->get('page', 1);
 
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
@@ -173,7 +172,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView(statusCode=204)
      *
-     * @param Request $request
+     * @param  Request $request
      * @param $user_id
      * @return View
      */
@@ -214,7 +213,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      *
-     * @param Request $request
+     * @param  Request $request
      * @param $user_id
      * @return View
      */
@@ -242,7 +241,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      *
-     * @param Request $request
+     * @param  Request                                            $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function postUsersAction(Request $request)
@@ -262,7 +261,6 @@ class UserRestController extends FOSRestController
 
     public function patchUsersAction(Request $request)
     {
-
     }
 
     /**
@@ -284,7 +282,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      *
-     * @param Request $request
+     * @param  Request $request
      * @param $user_id
      * @return User
      */
@@ -312,7 +310,7 @@ class UserRestController extends FOSRestController
      * )
      * @RestView()
      *
-     * @param Request $request
+     * @param  Request $request
      * @param $user_id
      * @return User
      */
@@ -355,5 +353,4 @@ class UserRestController extends FOSRestController
 
         return $entity;
     }
-
 }

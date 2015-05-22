@@ -12,15 +12,18 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface {
+class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
+{
 
     protected $userProvider;
 
-    public function __construct(ApiKeyUserProvider $userProvider) {
+    public function __construct(ApiKeyUserProvider $userProvider)
+    {
         $this->userProvider = $userProvider;
     }
 
-    public function createToken(Request $request, $providerKey) {
+    public function createToken(Request $request, $providerKey)
+    {
         // look for an apikey query parameter
         $apiKey = $request->get('apikey');
 
@@ -36,7 +39,8 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
-    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey) {
+    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
+    {
         $apiKey = $token->getCredentials();
         $username = $this->userProvider->getUsernameForApiKey($apiKey);
 
@@ -53,12 +57,13 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
-    public function supportsToken(TokenInterface $token, $providerKey) {
+    public function supportsToken(TokenInterface $token, $providerKey)
+    {
         return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception) {
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
+    {
         return new Response("Authentication Failed.", 403);
     }
-
 }

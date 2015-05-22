@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\ApiBundle\Tests\Controller;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 
@@ -17,7 +15,7 @@ class UserRestControllerTest extends BaseTestCase
 
     public function testGetUser()
     {
-        $response = $this->apiRequest('/api/user/' . $this->username);
+        $response = $this->apiRequest('/api/user/'.$this->username);
         $this->assertEquals(200, $response->getStatusCode());
         $user = json_decode($response->getContent());
         $this->assertContains('admin', $user->username);
@@ -25,17 +23,15 @@ class UserRestControllerTest extends BaseTestCase
 
     public function testGetUserJournal()
     {
-        $response = $this->apiRequest('/api/user/' . $this->username . '/journals');
+        $response = $this->apiRequest('/api/user/'.$this->username.'/journals');
         $this->assertEquals(204, $response->getStatusCode());
     }
-
 
     public function testGetUserRole()
     {
-        $response = $this->apiRequest('/api/user/' . $this->username . '/roles');
+        $response = $this->apiRequest('/api/user/'.$this->username.'/roles');
         $this->assertEquals(204, $response->getStatusCode());
     }
-
 
     public function testGetUsers()
     {
@@ -65,6 +61,4 @@ class UserRestControllerTest extends BaseTestCase
         $response = $this->apiRequest('/api/users/5/status', 'PATCH', ['status' => 1]);
         $this->assertEquals(200, $response->getStatusCode());
     }
-
 }
-

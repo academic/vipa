@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 
-class JournalRestController extends FOSRestController {
+class JournalRestController extends FOSRestController
+{
 
     /**
      *
@@ -69,7 +70,7 @@ class JournalRestController extends FOSRestController {
      * )
      * @Get("/journal/{id}/users")
      *
-     * @param Request $request
+     * @param  Request $request
      * @param $id
      * @return mixed
      */
@@ -80,7 +81,7 @@ class JournalRestController extends FOSRestController {
         if (empty($limit)) {
             throw new HttpException(400, 'Missing parameter : limit');
         }
+
         return $this->get('ojs.journal_service')->getUsers($id, $page, $limit);
     }
-
 }
