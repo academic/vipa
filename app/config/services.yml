@@ -46,7 +46,7 @@ services:
             - { name: kernel.event_listener, event: security.interactive_login }
     ojs.logout_listener:
        class:  Ojs\UserBundle\Listeners\LogoutListener
-       arguments:  [@doctrine.orm.entity_manager, @security.token_storage, @request, @router]
+       arguments:  [@doctrine.orm.entity_manager, @security.token_storage, @router]
        tags:
             - { name: kernel.event_listener ,event: security.logout}
     ojs.security_switch_user:
