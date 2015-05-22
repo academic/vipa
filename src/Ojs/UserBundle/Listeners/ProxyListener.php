@@ -2,28 +2,34 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\Proxy;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use \Ojs\Common\Params\ProxyEventLogParams;
+use Ojs\Common\Params\ProxyEventLogParams;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProxyListener
 {
-    protected $container;
+    /** @var Request  */
+    protected $request;
 
-    public function __construct(ContainerInterface $container = null)
+    /**
+     * @param Request $request
+     */
+    public function __construct(Request $request = null)
     {
-        $this->container = $container;
+        $this->request = $request;
     }
 
     /**
      * Every new proxy create event log to event log
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param  \Doctrine\ORM\Event\LifecycleEventArgs $args
      * @link http://docs.doctrine-project.org/en/latest/reference/events.html#postupdate-postremove-postpersist
-     * @return Response never null
+     * @return Response                               never null
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        if (php_sapi_name()!='cli') {
+        if (php_sapi_name() != 'cli') {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
 
@@ -34,11 +40,11 @@ class ProxyListener
             if ($entity instanceof Proxy) {
 
                 //log as eventlog
-                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event = new EventLog();
                 $event->setUserId($entity->getClientUser()->getId());
                 $event->setEventInfo(ProxyEventLogParams::$PROXY_CREATE);
                 $event->setAffectedUserId($entity->getProxyUser()->getId());
-                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setIp($this->request->getClientIp());
                 $entityManager->persist($event);
 
                 $entityManager->flush();
@@ -48,13 +54,12 @@ class ProxyListener
 
     /**
      * Proxy drop event event log function.
-     * @param LifecycleEventArgs $args
+     * @param  LifecycleEventArgs $args
      * @return null
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        if (php_sapi_name()!='cli') {
-
+        if (php_sapi_name() != 'cli') {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
 
@@ -65,9 +70,9 @@ class ProxyListener
             if ($entity instanceof Proxy) {
 
                 //log as eventlog
-                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event = new EventLog();
                 $event->setEventInfo(ProxyEventLogParams::$PROXY_DROP);
-                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setIp($this->request->getClientIp());
                 $event->setAffectedUserId($entity->getProxyUserId());
                 $event->setUserId($entity->getClientUserId());
                 $entityManager->persist($event);

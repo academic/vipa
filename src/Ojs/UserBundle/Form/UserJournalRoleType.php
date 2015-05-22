@@ -4,28 +4,28 @@ namespace Ojs\UserBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\UserBundle\Entity\Role;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserJournalRoleType extends AbstractType
 {
-
+    /** @var ContainerInterface  */
     private $container;
 
-    public function __construct($container)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
-        $isAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
         $journal = $this->container->get("ojs.journal_service")->getSelectedJournal();
 
         $builder->add('user', 'autocomplete', [
@@ -34,9 +34,9 @@ class UserJournalRoleType extends AbstractType
             'attr' => [
                 'class' => 'autocomplete',
                 'data-list' => $this->container->get('router')->generate('api_get_users'),
-                'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . 'public/user/get/',
-                "placeholder" => "type a username"
-            ]
+                'data-get' => $this->container->get('router')->generate('ojs_api_homepage').'public/user/get/',
+                "placeholder" => "type a username",
+            ],
         ])
             ->add('role', 'entity', [
                     'label' => 'role.singular',
@@ -44,11 +44,11 @@ class UserJournalRoleType extends AbstractType
                     'property' => 'name',
                     'multiple' => false,
                     'expanded' => false,
-                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('ujr')
                             ->where('ujr.isSystemRole = 0');
                     },
-                    'attr' => array("class" => "select2-element")
+                    'attr' => array("class" => "select2-element"),
                 ]
             );
         if ($isAdmin) {
@@ -57,20 +57,19 @@ class UserJournalRoleType extends AbstractType
                 'label' => 'journal.singular',
                 'attr' => [
                     'class' => 'autocomplete',
-                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/journal",
-                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/journal/get/",
-                    "placeholder" => "type a journal name"
+                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/journal",
+                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/journal/get/",
+                    "placeholder" => "type a journal name",
                 ],
             ]);
-        }else{
-
+        } else {
             $builder->add('journal', 'entity', [
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er)use($journal) {
+                    'query_builder' => function (EntityRepository $er) use ($journal) {
                         return $er->createQueryBuilder('ujr')
                             ->where('ujr.id = :journalId')
                             ->setParameter('journalId', $journal->getId());
-                    }
+                    },
                 ]
             );
         }
@@ -85,9 +84,8 @@ class UserJournalRoleType extends AbstractType
             'data_class' => 'Ojs\UserBundle\Entity\UserJournalRole',
             'user' => null,
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -98,5 +96,4 @@ class UserJournalRoleType extends AbstractType
     {
         return 'ojs_userbundle_userjournalrole';
     }
-
 }

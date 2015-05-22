@@ -13,5 +13,4 @@ class RoleControllerTest extends BaseTestCase
     {
         $this->assertTrue(true, true);
     }
-
 }

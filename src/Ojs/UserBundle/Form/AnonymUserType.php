@@ -3,9 +3,7 @@
  * Date: 17.01.15
  * Time: 23:26
  */
-
 namespace Ojs\UserBundle\Form;
-
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,22 +31,21 @@ class AnonymUserType extends AbstractType
                 'property' => 'name',
                 'multiple' => true,
                 'expanded' => false,
-                'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
+                'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
             ))
-            ->add('journal_id','autocomplete',[
-                'class'=>'Ojs\JournalBundle\Entity\Journal',
-                'mapped'=>false,
+            ->add('journal_id', 'autocomplete', [
+                'class' => 'Ojs\JournalBundle\Entity\Journal',
+                'mapped' => false,
                 'attr' => [
                     'class' => 'autocomplete',
                     'style' => 'width:100%',
                     'data-list' =>  "/api/public/search/journal",
                     'data-get' => "/api/public/journal/get/",
-                    "placeholder" => "type a journal name"
+                    "placeholder" => "type a journal name",
                 ],
             ])
         ;
     }
-
 
     /**
      * @param OptionsResolverInterface $resolver
@@ -57,10 +54,10 @@ class AnonymUserType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr'=>[
-                'novalidate'=>'novalidate',
-                'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'class' => 'form-validate',
+            ],
         ));
     }
 }

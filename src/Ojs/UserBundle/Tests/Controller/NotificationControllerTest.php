@@ -9,5 +9,4 @@ class NotificationControllerTest extends BaseTestCase
     public function testAddNotification()
     {
     }
-
 }

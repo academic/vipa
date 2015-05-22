@@ -26,10 +26,9 @@ class MailLogType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\MailLog',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

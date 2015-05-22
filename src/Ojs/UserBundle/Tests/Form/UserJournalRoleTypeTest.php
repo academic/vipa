@@ -3,12 +3,9 @@
  * Date: 13.01.15
  * Time: 18:49
  */
-
 namespace Ojs\UserBundle\Tests\Form;
 
-
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\UserBundle\Form\UserJournalRoleType;
 
 class UserJournalRoleTypeTest extends BaseTypeTestcase
 {

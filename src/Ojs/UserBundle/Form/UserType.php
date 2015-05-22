@@ -9,11 +9,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType {
+class UserType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,39 +22,39 @@ class UserType extends AbstractType {
                 ->add('username', 'text', [
                     'label' => 'username',
                     'attr' => [
-                        'class' => 'validate[required]'
-                    ]
+                        'class' => 'validate[required]',
+                    ],
                 ])
                 ->add('password', 'password', [
                     'label' => 'password',
-                    'attr'=>[
+                    'attr' => [
 
-                        'class'=>'validate[minSize[6]]'
-                    ]
+                        'class' => 'validate[minSize[6]]',
+                    ],
                 ])
                 ->add('email', 'email', [
                     'label' => 'email',
                     'attr' => [
-                        'class' => 'validate[required,custom[email]]'
-                    ]
+                        'class' => 'validate[required,custom[email]]',
+                    ],
                 ])
                 ->add('title', 'text', ['label' => 'user.title'])
                 ->add('firstName', 'text', [
                     'label' => 'firstname',
                     'attr' => [
-                        'class' => 'validate[required]'
-                    ]
+                        'class' => 'validate[required]',
+                    ],
                 ])
                 ->add('lastName', 'text', [
                     'label' => 'lastname',
                     'attr' => [
-                        'class' => 'validate[required]'
-                    ]
+                        'class' => 'validate[required]',
+                    ],
                 ])
-                ->add('isActive', 'checkbox', [ 'label' => 'user.isActive',])
+                ->add('isActive', 'checkbox', [ 'label' => 'user.isActive'])
                 ->add('status', 'choice', [
                     'label' => 'status',
-                    'choices' => CommonParams::$userStatusArray
+                    'choices' => CommonParams::$userStatusArray,
                 ])
                 ->add('roles', 'entity', array(
                     'label' => 'user.roles',
@@ -61,7 +62,7 @@ class UserType extends AbstractType {
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => false,
-                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%')
+                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                 ))
                 ->add('subjects', 'entity', array(
                     'label' => 'subjects',
@@ -70,7 +71,7 @@ class UserType extends AbstractType {
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('avatar', 'hidden')
                 ->add('header', 'hidden')
@@ -79,17 +80,16 @@ class UserType extends AbstractType {
                     'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
-                        'data-to' => '#' . $this->getName() . '_city'
+                        'data-to' => '#'.$this->getName().'_city',
                     ],
-                    'query_builder'=>function(EntityRepository $em){
+                    'query_builder' => function (EntityRepository $em) {
                         return $em->createQueryBuilder('c')
                             ->where("c.type=0");
-                    }
+                    },
         ]);
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $helper->addCityField($builder, 'Ojs\UserBundle\Entity\User');
-        ;
     }
 
     /**
@@ -102,8 +102,8 @@ class UserType extends AbstractType {
             'helper' => null,
             'attr' => [
                 'class' => 'validate-form',
-                'novalidate' => 'novalidate'
-            ]
+                'novalidate' => 'novalidate',
+            ],
         ]);
     }
 
@@ -114,5 +114,4 @@ class UserType extends AbstractType {
     {
         return 'ojs_userbundle_user';
     }
-
 }

@@ -13,5 +13,4 @@ class EventLogControllerTest extends BaseTestCase
     {
         $this->assertTrue(true, true);
     }
-
 }

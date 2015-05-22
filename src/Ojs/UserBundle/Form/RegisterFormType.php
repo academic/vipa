@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegisterFormType extends AbstractType {
+class RegisterFormType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -17,24 +18,24 @@ class RegisterFormType extends AbstractType {
         $builder
                 ->add('username', 'text', array(
                     'label' => 'username',
-                    'required' => TRUE
+                    'required' => true,
                 ))
                 ->add('email', 'email', array(
                     'label' => 'email',
-                    'required' => TRUE
+                    'required' => true,
                 ))
                 ->add('password', 'repeated', array(
                     'label' => 'email',
                     'type' => 'password',
-                    'required' => TRUE
+                    'required' => true,
                 ))
                 ->add('firstName', 'text', array(
                     'label' => 'firstname',
-                    'required' => TRUE
+                    'required' => true,
                 ))
                 ->add('lastName', 'text', array(
                     'label' => 'lastname',
-                    'required' => TRUE
+                    'required' => true,
                         )
         );
     }
@@ -47,9 +48,8 @@ class RegisterFormType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -60,5 +60,4 @@ class RegisterFormType extends AbstractType {
     {
         return 'ojs_user_register';
     }
-
 }

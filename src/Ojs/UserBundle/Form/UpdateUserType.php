@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UpdateUserType extends AbstractType {
+class UpdateUserType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -19,14 +20,14 @@ class UpdateUserType extends AbstractType {
                 ->add('firstName', 'text', [
                     'attr' => [
                         'label' => 'firstname',
-                        'class' => 'validate[required,minSize[2]]'
-                    ]
+                        'class' => 'validate[required,minSize[2]]',
+                    ],
                 ])
                 ->add('lastName', 'text', [
                     'attr' => [
                         'label' => 'lastname',
-                        'class' => 'validate[required,minSize[2]]'
-                    ]
+                        'class' => 'validate[required,minSize[2]]',
+                    ],
                 ])
                 ->add('subjects', 'entity', array(
                     'label' => 'subjects',
@@ -35,13 +36,13 @@ class UpdateUserType extends AbstractType {
                     'multiple' => true,
                     'expanded' => false,
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                    'required' => false
+                    'required' => false,
                 ))
                 ->add('avatar', 'hidden')
                 ->add('header', 'hidden')
                 ->add('privacy', 'checkbox', [
                     'label' => 'Hide my account',
-                    'required' => false
+                    'required' => false,
                 ])
 //                ->add('journals', 'entity', array(
 //                    'class' => 'Ojs\JournalBundle\Entity\Journal',
@@ -62,9 +63,9 @@ class UpdateUserType extends AbstractType {
             'attr' => [
                 'class' => 'validate-form',
                 'attr' => [
-                    'novalidate' => 'novalidate'
-                ]
-            ]
+                    'novalidate' => 'novalidate',
+                ],
+            ],
         ));
     }
 
@@ -75,5 +76,4 @@ class UpdateUserType extends AbstractType {
     {
         return 'ojs_userbundle_updateuser';
     }
-
 }
