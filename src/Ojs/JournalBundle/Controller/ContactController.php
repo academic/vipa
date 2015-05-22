@@ -72,7 +72,7 @@ class ContactController extends Controller
      */
     private function createCreateForm(Contact $entity)
     {
-        $form = $this->createForm(new ContactType(), $entity, array(
+        $form = $this->createForm(new ContactType($this->container), $entity, array(
             'action' => $this->generateUrl('contact_create'),
             'method' => 'POST',
         ));

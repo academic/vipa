@@ -3,12 +3,20 @@
 namespace Ojs\JournalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
 class ContactType extends AbstractType
 {
+    /** @var  ContainerInterface */
+    private $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -32,7 +40,16 @@ class ContactType extends AbstractType
                             ->where('t.parent_id = 0');
                     }
                 ])
-                ->add('city', 'text', ['label' => 'city'])
+                ->add('city', 'autocomplete', [
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'label' => 'city',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/location",
+                        'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/location/get/",
+                        "placeholder" => "type a journal name",
+                    ],
+                ])
                 ->add('phone', 'text', ['label' => 'phone'])
                 ->add('fax', 'text', ['label' => 'fax'])
                 ->add('email', 'email', ['label' => 'email'])

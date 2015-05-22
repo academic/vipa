@@ -13,6 +13,11 @@ Ojs\JournalBundle\Entity\Contact:
                 joinColumn:
                   name: country_id
                   referencedColumnName: id
+          city:
+                targetEntity: Okulbilisim\LocationBundle\Entity\Location
+                joinColumn:
+                  name: city_id
+                  referencedColumnName: id
     fields:
         title:
             type: string
@@ -39,10 +44,6 @@ Ojs\JournalBundle\Entity\Contact:
             nullable: true
         address:
             type: text
-            nullable: TRUE
-        city:
-            type: string
-            length: 255
             nullable: TRUE
         phone:
             type: string
