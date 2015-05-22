@@ -57,7 +57,7 @@
                 <div>
                     {% for key,step in mySteps %}
 
-                        <a class="list-group-item {%if waitingCount[step.id]>0%}list-group-item-warning{%else%}list-group-item-default{%endif%}" href="/manager/workflow/articles/{{step.id}}">
+                        <a class="list-group-item {%if waitingCount[step.id]>0%}list-group-item-warning{%else%}list-group-item-default{%endif%}" href="{{ path('articles_step_list', {'id': step.id}) }}">
                             <h4>{{step.title}}
                                 <span class="pull-right label {%if waitingCount[step.id]>0%}label-warning{%else%}label-default{%endif%}">{{waitingCount[step.id]}}</span>
                             </h4>

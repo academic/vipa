@@ -45,7 +45,7 @@
                     {%endif%}
 
                     {% if isSystemAdmin() %}
-                        <a class="btn-sm btn btn-info" href="/?_su={{ user.username }}">
+                        <a class="btn-sm btn btn-info" href="{{ path('ojs_public_index') }}/?_su={{ user.username }}">
                             <i class="fa fa-sign-in"></i>
                         </a>
                     {% endif %}

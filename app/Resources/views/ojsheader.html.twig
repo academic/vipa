@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="display:none">{{ "ojs"|trans }}</a>
+            <a class="navbar-brand" href="{{ path('ojs_public_index') }}" style="display:none">{{ "ojs"|trans }}</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -108,7 +108,7 @@
                                 <li><a href="{{path('myprofile')}}" title="{{"you"|trans}}"><b>{{app.user.username}}</b></a></li>
                                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
                                     <li>
-                                        <a href="/dashboard" title="{{ "dashboard"|trans }}"  data-placement="left"><i
+                                        <a href="{{ path('dashboard') }}" title="{{ "dashboard"|trans }}"  data-placement="left"><i
                                                 class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
                                     </li>
                                 {% endif %}
@@ -129,7 +129,7 @@
                                 </li>
                                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
                                     <li>
-                                        <a class="btn btn-link" href="/?_su=_exit" title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
+                                        <a class="btn btn-link" href="{{ path('ojs_public_index') }}?_su=_exit" title="{{ "log_out_from_user"|trans }}" data-placement="left"><i
                                                 class="fa fa-sign-out"></i> {{ "log_out_from_user"|trans }}</a>
                                     </li>
                                 {% endif %} 

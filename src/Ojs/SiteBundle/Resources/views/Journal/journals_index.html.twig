@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/">Ojs</a></li>
+            <li><a href="{{ path('ojs_public_index') }}">Ojs</a></li>
             <li><a href="{{ url('ojs_journals_index') }}">{{ "journal.plural"|trans }}</a></li>
             <li class="active">{{ "list"|trans }}</li>
         </ol>
