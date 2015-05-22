@@ -87,7 +87,7 @@ class Role implements RoleInterface
 
     /**
      *
-     * @param  boolean                       $isSystemRole
+     * @param  boolean                     $isSystemRole
      * @return \Ojs\UserBundle\Entity\Role
      */
     public function setIsSystemRole($isSystemRole)

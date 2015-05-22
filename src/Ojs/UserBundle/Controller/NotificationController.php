@@ -2,10 +2,13 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Notification;
 use Ojs\UserBundle\Form\NotificationType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Notification controller.
@@ -30,6 +33,8 @@ class NotificationController extends Controller
     /**
      * Creates a new Notification entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -42,6 +47,7 @@ class NotificationController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('admin_notification_show', array('id' => $entity->getId())));
         }
 
@@ -56,7 +62,7 @@ class NotificationController extends Controller
      *
      * @param Notification $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(Notification $entity)
     {
@@ -73,6 +79,7 @@ class NotificationController extends Controller
     /**
      * Displays a form to create a new Notification entity.
      *
+     * @return Response
      */
     public function newAction()
     {
@@ -88,6 +95,8 @@ class NotificationController extends Controller
     /**
      * Finds and displays a Notification entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -100,18 +109,21 @@ class NotificationController extends Controller
         }
 
         return $this->render('OjsUserBundle:Notification:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
         ));
     }
 
     /**
      * Displays a form to edit an existing Notification entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Notification $entity */
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
@@ -131,7 +143,7 @@ class NotificationController extends Controller
      *
      * @param Notification $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(Notification $entity)
     {
@@ -148,11 +160,14 @@ class NotificationController extends Controller
     /**
      * Edits an existing Notification entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var Notification $entity */
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
 
         if (!$entity) {
@@ -165,6 +180,7 @@ class NotificationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('admin_notification_edit', array('id' => $id)));
         }
 
@@ -177,8 +193,10 @@ class NotificationController extends Controller
     /**
      * Deletes a Notification entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
@@ -190,7 +208,7 @@ class NotificationController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_notification');
     }
-
 }

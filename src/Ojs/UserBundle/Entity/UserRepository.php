@@ -14,7 +14,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 {
     /**
      * Load by email or username
-     * @param  string $username
+     * @param  string                    $username
      * @return User
      * @throws UsernameNotFoundException
      */
@@ -41,13 +41,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     }
 
     /**
-     * @param  string $username
+     * @param  string                      $username
      * @return \Ojs\UserBundle\Entity\User
      */
     public function loadUserByUsername($username)
     {
         try {
-
             $q = $this
                 ->createQueryBuilder('u')
                 ->select('u, r')
@@ -55,10 +54,11 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                 ->where('u.username = :username OR u.email = :email')
                 ->setParameters([
                     'username' => $username,
-                    'email' => $username
+                    'email' => $username,
                 ])
                 ->getQuery();
             $user = $q->getSingleResult();
+
             return $user;
         } catch (\Exception $e) {
             $message = sprintf('Unable to find an active admin OjsUserBundle:User object identified by "%s".', $username);
@@ -85,8 +85,8 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 
     /**
      *
-     * @param \Ojs\UserBundle\Entity\Role $role
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  \Ojs\UserBundle\Entity\Role       $role
+     * @param  \Ojs\JournalBundle\Entity\Journal $journal
      * @return boolean
      */
     public function hasJournalRole(User $user, Role $role, Journal $journal)
@@ -101,6 +101,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             ->setParameter('role_id', $role->getId())
             ->setParameter('journal_id', $journal->getId())
             ->getResult();
+
         return $data ? true : false;
     }
 
@@ -113,7 +114,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     public function getByOauthId($id, $provider)
     {
         $qb = $this->createQueryBuilder('u');
-        $qb->join('OjsUserBundle:UserOauthAccount', 'oa', 'WITH','oa.user_id=u.id')
+        $qb->join('OjsUserBundle:UserOauthAccount', 'oa', 'WITH', 'oa.user_id=u.id')
             ->where(
                 $qb->expr()->andX(
                     $qb->expr()->eq('oa.provider', ':provider'),
@@ -122,9 +123,10 @@ class UserRepository extends EntityRepository implements UserProviderInterface
             )
             ->setParameters([
                 'provider' => $provider,
-                'user_id' => $id
+                'user_id' => $id,
             ]);
         $result = $qb->getQuery()->getOneOrNullResult();
+
         return $result;
     }
 }

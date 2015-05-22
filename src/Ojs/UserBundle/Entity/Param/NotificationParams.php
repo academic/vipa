@@ -16,5 +16,4 @@ class NotificationParams
     /*we will generate */
     const ACTION_ASSIGN_EDITOR = 'assign as editor';
     const ACTION_ASK_FOR_REVIEW = 'ask for review';
-
 }

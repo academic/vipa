@@ -2,8 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * UserOauthAccount
  */
@@ -44,11 +42,10 @@ class UserOauthAccount
      */
     private $user;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,7 +55,7 @@ class UserOauthAccount
     /**
      * Set user_id
      *
-     * @param integer $userId
+     * @param  integer          $userId
      * @return UserOauthAccount
      */
     public function setUserId($userId)
@@ -71,7 +68,7 @@ class UserOauthAccount
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -81,7 +78,7 @@ class UserOauthAccount
     /**
      * Set provider
      *
-     * @param string $provider
+     * @param  string           $provider
      * @return UserOauthAccount
      */
     public function setProvider($provider)
@@ -94,7 +91,7 @@ class UserOauthAccount
     /**
      * Get provider
      *
-     * @return string 
+     * @return string
      */
     public function getProvider()
     {
@@ -104,7 +101,7 @@ class UserOauthAccount
     /**
      * Set provider_user_id
      *
-     * @param string $providerUserId
+     * @param  string           $providerUserId
      * @return UserOauthAccount
      */
     public function setProviderUserId($providerUserId)
@@ -117,7 +114,7 @@ class UserOauthAccount
     /**
      * Get provider_user_id
      *
-     * @return string 
+     * @return string
      */
     public function getProviderUserId()
     {
@@ -127,7 +124,7 @@ class UserOauthAccount
     /**
      * Set provider_access_token
      *
-     * @param string $providerAccessToken
+     * @param  string           $providerAccessToken
      * @return UserOauthAccount
      */
     public function setProviderAccessToken($providerAccessToken)
@@ -140,7 +137,7 @@ class UserOauthAccount
     /**
      * Get provider_access_token
      *
-     * @return string 
+     * @return string
      */
     public function getProviderAccessToken()
     {
@@ -150,7 +147,7 @@ class UserOauthAccount
     /**
      * Set provider_refresh_token
      *
-     * @param string $providerRefreshToken
+     * @param  string           $providerRefreshToken
      * @return UserOauthAccount
      */
     public function setProviderRefreshToken($providerRefreshToken)
@@ -163,7 +160,7 @@ class UserOauthAccount
     /**
      * Get provider_refresh_token
      *
-     * @return string 
+     * @return string
      */
     public function getProviderRefreshToken()
     {
@@ -173,7 +170,7 @@ class UserOauthAccount
     /**
      * Set user
      *
-     * @param \Ojs\UserBundle\Entity\User $user
+     * @param  \Ojs\UserBundle\Entity\User $user
      * @return UserOauthAccount
      */
     public function setUser(\Ojs\UserBundle\Entity\User $user = null)
@@ -186,7 +183,7 @@ class UserOauthAccount
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User 
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function getUser()
     {

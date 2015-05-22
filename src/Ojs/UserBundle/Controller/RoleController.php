@@ -2,11 +2,11 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Form\RoleType;
@@ -19,7 +19,6 @@ class RoleController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
         $source = new Entity('OjsUserBundle:Role');
         $grid = $this->get('grid');
         $grid->setSource($source);
@@ -32,16 +31,22 @@ class RoleController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsUserBundle:Role:index.html.twig', $data);
+        /*
         $entities = $em->getRepository('OjsUserBundle:Role')->findAll();
 
         return $this->render('OjsUserBundle:Role:index.html.twig', array(
             'entities' => $entities,
         ));
+        */
     }
 
     /**
      * Creates a new Role entity.
+     *
+     * @param  Request                $request
+     * @return array|RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -54,6 +59,7 @@ class RoleController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('role_show', ['id' => $entity->getId()]);
         }
 
@@ -65,6 +71,9 @@ class RoleController extends Controller
 
     /**
      * Creates a form to create a Role entity.
+     *
+     * @param  Role $entity
+     * @return Form
      */
     private function createCreateForm(Role $entity)
     {
@@ -93,6 +102,9 @@ class RoleController extends Controller
 
     /**
      * Finds and displays a Role entity.
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($id)
     {
@@ -103,12 +115,15 @@ class RoleController extends Controller
         }
 
         return $this->render('OjsUserBundle:Role:show.html.twig', array(
-            'entity' => $entity
+            'entity' => $entity,
         ));
     }
 
     /**
      * Displays a form to edit an existing Role entity.
+     *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction($id)
     {
@@ -121,7 +136,7 @@ class RoleController extends Controller
 
         return $this->render('OjsUserBundle:Role:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -130,7 +145,7 @@ class RoleController extends Controller
      *
      * @param Role $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(Role $entity)
     {
@@ -138,8 +153,7 @@ class RoleController extends Controller
             'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('attr' => array('label ' =>
-            $this->get('translator')->trans('Update'))
+        $form->add('submit', 'submit', array('attr' => array('label ' => $this->get('translator')->trans('Update')),
         ));
 
         return $form;
@@ -147,10 +161,15 @@ class RoleController extends Controller
 
     /**
      * Edits an existing Role entity.
+     *
+     * @param  Request                $request
+     * @param $id
+     * @return array|RedirectResponse
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Role $entity */
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
@@ -161,27 +180,29 @@ class RoleController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('role_edit', ['id' => $id]);
         }
 
         return array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         );
     }
 
     /**
      * Deletes a Role entity.
-     * @param Role $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  Role             $entity
+     * @return RedirectResponse
      */
     public function deleteAction(Role $entity)
     {
         $this->throw404IfNotFound($entity);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('role');
     }
 }

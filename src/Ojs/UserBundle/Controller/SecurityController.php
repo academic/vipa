@@ -2,25 +2,29 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use \Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
+use Ojs\UserBundle\Form\RegisterFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends Controller
 {
 
     /**
      * Show unconfirmed user warning page
+     *
+     * @return RedirectResponse|Response
      */
     public function unconfirmedAction()
     {
@@ -28,7 +32,7 @@ class SecurityController extends Controller
         if (!$user) {
             return $this->redirect($this->generateUrl('login'));
         }
-        if ($this->get('security.context')->isGranted('ROLE_USER')) {
+        if ($this->isGranted('ROLE_USER')) {
             return $this->redirect($this->generateUrl('myprofile'));
         }
 
@@ -37,22 +41,24 @@ class SecurityController extends Controller
         );
     }
 
-    public function confirmEmailAction(Request $request, $code)
+    /**
+     * @param $code
+     * @return RedirectResponse
+     */
+    public function confirmEmailAction($code)
     {
-        /** @var Session $session */
-        $session = $request->getSession();
+        $session = $this->get('session');
         $em = $this->getDoctrine()->getManager();
 
         /**
          * @var User $user
          */
-        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['token'=>$code]);
+        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['token' => $code]);
         if (!$user) {
             $session->set('_security.main.target_path', $this->generateUrl('email_confirm', array('code' => $code)));
+
             return $this->redirect($this->generateUrl('login'), 302);
         }
-        $do = $this->getDoctrine();
-        /** @var FlashBag $flashBag */
         $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
@@ -62,10 +68,12 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
             $flashBag->add('success', 'You\'ve confirmed your email successfully!');
+
             return $this->redirect($this->generateUrl('myprofile'));
         }
-        $flashBag->add('error', 'There is an error while confirming your email address.' .
+        $flashBag->add('error', 'There is an error while confirming your email address.'.
             '<br>Your confirmation link may be expired.');
+
         return $this->redirect($this->generateUrl('confirm_email_warning'));
     }
 
@@ -76,19 +84,19 @@ class SecurityController extends Controller
         }
         $session = $request->getSession();
         // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(
-                SecurityContext::AUTHENTICATION_ERROR
+                Security::AUTHENTICATION_ERROR
             );
         } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
         }
 
         return $this->render(
             'OjsUserBundle:Security:login.html.twig', array(
                 // last username entered by the user
-                'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                'last_username' => $session->get(Security::LAST_USERNAME),
                 'error' => $error,
             )
         );
@@ -104,31 +112,33 @@ class SecurityController extends Controller
         }
         $session = $request->getSession();
         // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(
-                SecurityContext::AUTHENTICATION_ERROR
+                Security::AUTHENTICATION_ERROR
             );
         } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
         }
         //find user on document by hash
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $anonymUserRepo = $dm->getRepository('OjsUserBundle:AnonymUserToken');
         $token = $anonymUserRepo->findOneBy(['token' => $hash]);
         if (!$token || $token->getUsed()) {
-            $request->getSession()->getFlashBag()->add('error', $this->get('translator')->trans("Login hash is expired/incorrect!"));
+            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans("Login hash is expired/incorrect!"));
+
             return $this->render(
                 'OjsUserBundle:Security:login.html.twig', array(
                     // last username entered by the user
-                    'last_username' => $session->get(SecurityContext::LAST_USERNAME),
+                    'last_username' => $session->get(Security::LAST_USERNAME),
                     'error' => $error,
                 )
             );
         }
-        /** @var \Doctrine\ORM\EntityManager $em */
+
         $em = $this->getDoctrine()->getManager();
         $userRepo = $em->getRepository('OjsUserBundle:User');
+        /** @var User $user */
         $user = $userRepo->findOneBy(['id' => $token->getUserId()]);
 
         $newuser = true;
@@ -144,10 +154,11 @@ class SecurityController extends Controller
         $token->setUsed(true);
         $dm->persist($token);
         $dm->flush();
-        if ($newuser)
+        if ($newuser) {
             return new RedirectResponse($this->get('router')->generate('user_create_password'));
-        return new RedirectResponse($this->get('router')->generate('ojs_public_index'));
+        }
 
+        return new RedirectResponse($this->get('router')->generate('ojs_public_index'));
     }
 
     private function encodePassword(User $user, $plainPassword)
@@ -162,7 +173,7 @@ class SecurityController extends Controller
     {
         $providerKey = 'main'; //  firewall name
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-        $this->container->get('security.context')->setToken($token);
+        $this->get('security.token_storage')->setToken($token);
     }
 
     public function registerAction(Request $request)
@@ -177,22 +188,24 @@ class SecurityController extends Controller
             $name = explode(' ', $oauth_login['full_name']);
             $firstName = $name[0];
             unset($name[0]);
-            $lastName = join(' ', $name);
+            $lastName = implode(' ', $name);
             $user
                 ->setFirstName($firstName)
                 ->setLastName($lastName)
                 ->setUsername($this->slugify($oauth_login['full_name']))
             ;
         }
-        $form = $this->createForm(new \Ojs\UserBundle\Form\RegisterFormType(), $user);
+        $form = $this->createForm(new RegisterFormType(), $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             // check user name exists
             $em = $this->getDoctrine()->getManager();
+            /** @var Role $role */
+            $role = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
-            $user->addRole($em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER')));
+            $user->addRole($role);
             $user->generateApiKey();
             $user->setStatus(1);
             $user->setIsActive(0);
@@ -212,8 +225,7 @@ class SecurityController extends Controller
             $em->flush();
             //$this->authenticateUser($user); // auth. user
 
-            $request->getSession()
-                ->getFlashBag()
+            $session->getFlashBag()
                 ->add('success', 'Success. <br>You are registered. Check your email to activate your account.');
 
             $session->remove('oauth_login');
@@ -221,7 +233,7 @@ class SecurityController extends Controller
 
             $event = new UserEvent($user);
             $dispatcher = $this->get('event_dispatcher');
-            $dispatcher->dispatch('user.register.complete',$event);
+            $dispatcher->dispatch('user.register.complete', $event);
 
             return $this->redirect($this->generateUrl('login'));
         }
@@ -235,18 +247,18 @@ class SecurityController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
     public function regenerateAPIAction()
     {
         try {
             /** @var User $user */
             $user = $this->getUser();
-            if (!$user)
+            if (!$user) {
                 throw new AccessDeniedException("Access Denied", 403);
+            }
             $user->generateApiKey();
             $user->setIsActive(true);
-            /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -255,13 +267,13 @@ class SecurityController extends Controller
                 'status' => true,
                 'message' => 'API key regenerated.',
                 'apikey' => $user->getApiKey(),
-                'callback' => 'regenerateAPI'
+                'callback' => 'regenerateAPI',
             ]);
         } catch (\Exception $q) {
             return JsonResponse::create([
                 'status' => false,
                 'message' => $q->getMessage(),
-                'code' => $q->getCode()
+                'code' => $q->getCode(),
             ]);
         }
     }
@@ -277,13 +289,14 @@ class SecurityController extends Controller
         $form->handleRequest($request);
         if ($request->getMethod() == 'POST' && $form->isValid()) {
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
-            /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
             return $this->redirect($this->get('router')->generate('ojs_public_index'));
         }
         $data['form'] = $form->createView();
+
         return $this->render('OjsUserBundle:Security:create_password.html.twig', $data);
     }
     private function slugify($text)
@@ -303,8 +316,7 @@ class SecurityController extends Controller
         // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
 
-        if (empty($text))
-        {
+        if (empty($text)) {
             return 'n-a';
         }
 

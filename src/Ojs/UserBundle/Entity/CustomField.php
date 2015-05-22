@@ -2,8 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * CustomField
  */
@@ -39,11 +37,10 @@ class CustomField
      */
     private $user;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -53,7 +50,7 @@ class CustomField
     /**
      * Set label
      *
-     * @param string $label
+     * @param  string      $label
      * @return CustomField
      */
     public function setLabel($label)
@@ -66,7 +63,7 @@ class CustomField
     /**
      * Get label
      *
-     * @return string 
+     * @return string
      */
     public function getLabel()
     {
@@ -76,7 +73,7 @@ class CustomField
     /**
      * Set value
      *
-     * @param string $value
+     * @param  string      $value
      * @return CustomField
      */
     public function setValue($value)
@@ -89,7 +86,7 @@ class CustomField
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -99,7 +96,7 @@ class CustomField
     /**
      * Set is_url
      *
-     * @param boolean $isUrl
+     * @param  boolean     $isUrl
      * @return CustomField
      */
     public function setIsUrl($isUrl)
@@ -112,7 +109,7 @@ class CustomField
     /**
      * Get is_url
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsUrl()
     {
@@ -122,7 +119,7 @@ class CustomField
     /**
      * Set user_id
      *
-     * @param integer $userId
+     * @param  integer     $userId
      * @return CustomField
      */
     public function setUserId($userId)
@@ -135,7 +132,7 @@ class CustomField
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -145,7 +142,7 @@ class CustomField
     /**
      * Set user
      *
-     * @param \Ojs\UserBundle\Entity\User $user
+     * @param  \Ojs\UserBundle\Entity\User $user
      * @return CustomField
      */
     public function setUser(\Ojs\UserBundle\Entity\User $user = null)
@@ -158,7 +155,7 @@ class CustomField
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User 
+     * @return \Ojs\UserBundle\Entity\User
      */
     public function getUser()
     {
