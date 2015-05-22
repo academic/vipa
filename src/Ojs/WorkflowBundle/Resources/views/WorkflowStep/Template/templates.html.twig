@@ -58,5 +58,6 @@
             {% endif %}
         {% endfor %}
     </div>
-    <a href="{{ path('workflow_template_new') }}" class="btn btn-primary pull-right">{{ 'c' | trans }}</a>
+    {% set create_path = 'workflow_template_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %} 
