@@ -1,6 +1,7 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,12 +10,14 @@ use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * File
+ * @GRID\Source(columns="id,name,mimeType,size")
  */
 class File implements Translatable
 {
     use GenericEntityTrait;
     /**
      * @var integer
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -25,16 +28,19 @@ class File implements Translatable
 
     /**
      * @var string
+     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
+     * @GRID\Column(title="file.type")
      */
     private $mimeType;
 
     /**
      * @var string
+     * @GRID\Column(title="size")
      */
     private $size;
 
