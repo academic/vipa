@@ -8,10 +8,11 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  *
  * @MongoDb\Document(collection="review_forms")
  */
-class ReviewFormRepository extends DocumentRepository {
+class ReviewFormRepository extends DocumentRepository
+{
 
     /**
-     * @param integer $journalId
+     * @param  integer                                 $journalId
      * @return \Ojs\WorkflowBundle\Document\ReviewForm
      */
     public function getJournalForms($journalId)
@@ -44,7 +45,7 @@ class ReviewFormRepository extends DocumentRepository {
         foreach ($items as $item) {
             $data[($item->getFieldset() ? $item->getFieldset() : " ")][] = $item;
         }
+
         return $data;
     }
-
 }

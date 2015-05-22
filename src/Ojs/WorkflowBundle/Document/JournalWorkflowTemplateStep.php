@@ -2,15 +2,18 @@
 
 namespace Ojs\WorkflowBundle\Document;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  *
  * @MongoDb\Document(collection="journal_workflow_template_step")
  */
-class JournalWorkflowTemplateStep extends JournalWorkflowStep {
+class JournalWorkflowTemplateStep extends JournalWorkflowStep
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setCanEdit(true);
         $this->setIsVisible(true);
         $this->setMaxdays(15);
@@ -23,65 +26,75 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep {
     protected $template;
 
     /**
-     *  @MongoDb\ReferenceMany(targetDocument="JournalWorkflowTemplateStep",nullable=true)
+     * @MongoDb\ReferenceMany(targetDocument="JournalWorkflowTemplateStep",nullable=true)
+     *
+     * @var Collection
      */
     private $nextSteps;
 
     /**
      * Add nextStep
      *
-     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param JournalWorkflowStep $nextStep
      */
-    public function addNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep) {
+    public function addNextStep(JournalWorkflowStep $nextStep)
+    {
         $this->nextSteps[] = $nextStep;
     }
 
     /**
      * Remove nextStep
      *
-     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param JournalWorkflowStep $nextStep
      */
-    public function removeNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep) {
+    public function removeNextStep(JournalWorkflowStep $nextStep)
+    {
         $this->nextSteps->removeElement($nextStep);
     }
 
     /**
      * Get nextSteps
      *
-     * @return Doctrine\Common\Collections\Collection $nextSteps
+     * @return Collection $nextSteps
      */
-    public function getNextSteps() {
+    public function getNextSteps()
+    {
         return $this->nextSteps;
     }
 
     /**
      * Set template
      *
-     * @param \Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
+     * @param  JournalWorkflowTemplate $template
      * @return self
      */
-    public function setTemplate(\Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template) {
+    public function setTemplate(JournalWorkflowTemplate $template)
+    {
         $this->template = $template;
+
         return $this;
     }
 
     /**
      * Get template
      *
-     * @return Ojs\WorkflowBundle\Document\JournalWorkflowTemplate $template
+     * @return JournalWorkflowTemplate $template
      */
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template;
     }
 
     /**
      * Set nextSteps
      *
-     * @return self
+     * @param $nextSteps
+     * @return $this
      */
-    public function setNextSteps($nextSteps) {
+    public function setNextSteps($nextSteps)
+    {
         $this->nextSteps = $nextSteps;
+
         return $this;
     }
-
 }

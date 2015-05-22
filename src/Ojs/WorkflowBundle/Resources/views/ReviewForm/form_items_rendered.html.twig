@@ -26,17 +26,17 @@
                     </select>
                 </div>
             {% elseif item.inputType == 'textarea' %}
-                <div class="form-group"> 
+                <div class="form-group">
                     <label for="input{{item.id}}"> {{item.title}}</label>
                     <textarea name="{{item.id}}" id="input{{item.id}}" class="form-control"></textarea>
                 </div>
             {% elseif item.inputType == 'textbox' %}
-                <div class="form-group"> 
+                <div class="form-group">
                     <label for="input{{item.id}}"> {{item.title}}</label>
                     <input type="text" name="{{item.id}}" id="input{{item.id}}" class="form-control">
                 </div>
             {%  elseif item.inputType == 'scale1_5' %}
-                <div class="form-group"> 
+                <div class="form-group">
                     {{item.title}}
                     <label><input type="radio" value="1" name="{{item.id}}"> 1 </label>
                     <label><input type="radio" value="1" name="{{item.id}}"> 2 </label>

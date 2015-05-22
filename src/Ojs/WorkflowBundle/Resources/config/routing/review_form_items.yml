@@ -5,11 +5,11 @@ ojs_review_form_items:
 ojs_review_form_load_default_items:
         pattern:  /reviewform/loaddefault/{formId}
         defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:loadDefaultItems }
-    
+
 ojs_review_form_items_edit:
     pattern:  /reviewform/items/{id}/edit
     defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:edit }
-    
+
 ojs_review_form_items_update:
     pattern:  /reviewform/items/{id}/update
     defaults: { _controller: OjsWorkflowBundle:ReviewFormItem:update }

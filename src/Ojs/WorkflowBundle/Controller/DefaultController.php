@@ -10,5 +10,4 @@ class DefaultController extends Controller
     {
         return $this->render('OjsWorkflowBundle:Default:index.html.twig');
     }
-
 }

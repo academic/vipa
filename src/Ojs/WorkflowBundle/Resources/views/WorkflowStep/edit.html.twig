@@ -2,7 +2,7 @@
 
 {% block  stylesheets %}
     {{parent()}}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
 {% block breadcrumb %}
@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <label>{{"color"|trans}} <a class="btn btn-default btn-xs generateRandomColor">{{"color.generate"|trans}}</a></label>
-                    <input type="text" name="color"  class="form-control" id="inputcolor" value="{{step.color}}" /> 
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="{{step.color}}" />
                     <a style="padding:2px;height:24px;display:block;background-color: {{step.color}} " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
                 </div>
 
@@ -85,7 +85,7 @@
                     <label  style="line-height: 20px;display: inline-block;">
                         {{ 'User must send a competing of interest statement.'|trans }}
                         <input type="checkbox" name="shouldFileCi" value="1"
-                               {%if step.shouldFileCi %}checked="checked"{%endif%}> 
+                               {%if step.shouldFileCi %}checked="checked"{%endif%}>
                     </label>
                     <br>
                     <div id="ciTextHolder"  style="{%if step.shouldFileCi ==false %}display:none{%endif%}">
@@ -107,7 +107,7 @@
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         {%trans%}Is visible to author?{%endtrans%}
                         <input type="checkbox" name="isVisible" value="1"
-                               {%if step.isVisible%}checked="checked"{%endif%}> 
+                               {%if step.isVisible%}checked="checked"{%endif%}>
                     </label>
                     <label class="label label-warning"
                            style="line-height: 20px;display: inline-block;">
@@ -123,24 +123,24 @@
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         {{"can.edit?"|trans}}
                         <input type="checkbox" name="canEdit" value="1"
-                               {%if step.canEdit%}checked="checked"{%endif%}> 
+                               {%if step.canEdit%}checked="checked"{%endif%}>
                     </label>
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         {{"can.review?"|trans}}
                         <input type="checkbox" name="canReview" value="1"
-                               {%if step.canReview%}checked="checked"{%endif%}> 
+                               {%if step.canReview%}checked="checked"{%endif%}>
                     </label>
 
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         {%trans%}Must be assigned to someone?{%endtrans%}
                         <input type="checkbox" name="mustBeAssigned" value="1"
-                               {%if step.mustBeAssigned%}checked="checked"{%endif%}> 
+                               {%if step.mustBeAssigned%}checked="checked"{%endif%}>
                     </label>
 
                     <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                         {{"can.rejectSubmission?"|trans}}
                         <input type="checkbox" name="canRejectSubmission" value="1"
-                               {%if step.canRejectSubmission%}checked="checked"{%endif%}> 
+                               {%if step.canRejectSubmission%}checked="checked"{%endif%}>
                     </label>
                 </div>
                 <div class="form-group">
@@ -163,7 +163,7 @@
                     <select multiple="multiple" name="reviewforms[]" style="min-width: 200px" class="select2-element">
                         <option>{{ '[No review form]'|trans }}</option>
                         {%for form in forms%}
-                            <option 
+                            <option
                                 {%if step.hasForm(form)%}selected="selected"{%endif%}
                                 value="{{form.id}}">{{form.title}}
                             </option>

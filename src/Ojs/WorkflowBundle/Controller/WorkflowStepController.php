@@ -2,9 +2,14 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
-use \Symfony\Component\HttpFoundation\Request;
+use Ojs\Common\Controller\OjsController;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Yaml;
 
-class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
+class WorkflowStepController extends OjsController
+{
 
     public function indexAction()
     {
@@ -32,6 +37,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $data['lastStep'] = $this->get('doctrine_mongodb')
                 ->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findOneBy(array('journalid' => $selectedJournal->getId(), 'lastStep' => true));
+
         return $this->render('OjsWorkflowBundle:WorkflowStep:graph.html.twig', $data);
     }
 
@@ -48,9 +54,9 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
         $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
-        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $yamlParser = new Yaml\Parser();
         $ciTemplates = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir') .
+                        $this->container->getParameter('kernel.root_dir').
                         '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
         ));
         /**
@@ -61,17 +67,21 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
                     'nextSteps' => $nextSteps,
                     'journal' => $selectedJournal,
                     'forms' => $journalReviewForms,
-                    'ciTemplates' => $ciTemplates
+                    'ciTemplates' => $ciTemplates,
         ));
     }
 
     /**
      * insert new step with data from "new workflow" form data
+     *
+     * @param  Request                                            $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ODM\MongoDB\LockException
      */
     public function createAction(Request $request)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $step = new \Ojs\WorkflowBundle\Document\JournalWorkflowStep();
+        $step = new JournalWorkflowStep();
         $step->setMaxdays($request->get('maxdays'));
         $step->setFirststep($request->get('firstStep') ? true : false);
         $step->setLaststep($request->get('lastStep') ? true : false);
@@ -107,16 +117,17 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm->flush();
 
         $this->successFlashBag('Successfully created');
+
         return $this->redirectToRoute('workflowsteps_show', [
-            'id' => $step->getId()
+            'id' => $step->getId(),
             ]
         );
     }
 
     /**
      * prepare an array given form values for JournalWorkflow $roles atrribute
-     * @param  array $roleIds 
-     * @return array
+     * @param  array  $roleIds
+     * @return Role[]
      */
     public function prepareRoles($roleIds)
     {
@@ -135,6 +146,7 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
                         $serializer->serialize($role, 'json'));
             }
         }
+
         return $rolesArray;
     }
 
@@ -150,7 +162,8 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->findByJournalid($selectedJournal->getId());
-        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $yamlParser = new Yaml\Parser();
+
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
                     'roles' => $roles,
                     'nextSteps' => $nextSteps,
@@ -158,9 +171,9 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
                     'step' => $step,
                     'forms' => $journalReviewForms,
                     'ciTemplates' => $yamlParser->parse(file_get_contents(
-                                    $this->container->getParameter('kernel.root_dir') .
+                                    $this->container->getParameter('kernel.root_dir').
                                     '/../src/Ojs/JournalBundle/Resources/data/competingofinterest_templates.yml'
-                    ))
+                    )),
                         )
         );
     }
@@ -175,19 +188,22 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
         // get where entity added as next step
+        /** @var JournalWorkflowStep[] $steps */
         $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->createQueryBuilder()
                 ->field('nextSteps.$id')
                 ->equals(new \MongoId($entity->getId()))
                 ->getQuery()
                 ->execute();
         //remove where step is added as next step.
-        foreach ($steps as $step)
+        foreach ($steps as $step) {
             $step->getNextSteps()->removeElement($entity);
+        }
         //remove entity
         $dm->remove($entity);
         $dm->flush();
 
         $this->successFlashBag('Successfully removed');
+
         return $this->redirectToRoute('manage_workflowsteps');
     }
 
@@ -243,10 +259,10 @@ class WorkflowStepController extends \Ojs\Common\Controller\OjsController {
         $dm->flush();
 
         $this->successFlashBag('Successfully updated');
+
         return $this->redirectToRoute('workflowsteps_show', [
-            'id' => $id
+            'id' => $id,
             ]
         );
     }
-
 }

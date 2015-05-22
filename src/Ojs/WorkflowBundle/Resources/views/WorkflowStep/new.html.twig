@@ -2,7 +2,7 @@
 
 {% block  stylesheets %}
     {{parent()}}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
 {% block breadcrumb %}
@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <label>{{"color"|trans}} <a class="btn btn-default btn-xs generateRandomColor">{{"color.generate"|trans}}</a></label>
-                    <input type="text" name="color"  class="form-control" id="inputcolor" value="" /> 
+                    <input type="text" name="color"  class="form-control" id="inputcolor" value="" />
                     <a style="padding:2px;height:24px;display:block; " class="btn btn-link btn-block generateRandomColor" id="previewcolor" ></a>
                 </div>
 
@@ -63,7 +63,7 @@
                             <option value="{{step.id}}">{{step.title}}</option>
                         {%endfor%}
                     </select>
-                </div> 
+                </div>
 
                 <div class="form-group">
                     <label>{{"introduction"|trans}}</label>
@@ -97,14 +97,14 @@
                     <div class="form-group">
                         <label class="label label-primary" style="line-height: 20px;display: inline-block;">
                             {{"canOnlyReply"|trans}}
-                            <input type="checkbox" name="onlyreply" value="1"> 
+                            <input type="checkbox" name="onlyreply" value="1">
                         </label>
                     </div>
 
                     <div class="form-group">
                         <label  style="line-height: 20px;display: inline-block;">
                             {{ 'User must send a competing of interest statement.'|trans }}
-                            <input type="checkbox" name="shouldFileCi" value="1"> 
+                            <input type="checkbox" name="shouldFileCi" value="1">
                         </label>
                         <br>
                         <div id="ciTextHolder"  style="display:none">
@@ -125,7 +125,7 @@
                     <div class="form-inline">
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {%trans%}Is visible to author?{%endtrans%}
-                            <input type="checkbox" name="isVisible" value="1" checked="checked"> 
+                            <input type="checkbox" name="isVisible" value="1" checked="checked">
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {{"can.seeAuthor?"|trans}}
@@ -133,20 +133,20 @@
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {{"can.edit?"|trans}}
-                            <input type="checkbox" name="canEdit" value="1" checked="checked"> 
+                            <input type="checkbox" name="canEdit" value="1" checked="checked">
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {{"can.review?"|trans}}
-                            <input type="checkbox" name="canReview" value="1" checked="checked"> 
+                            <input type="checkbox" name="canReview" value="1" checked="checked">
                         </label>
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {%trans%}Must be assigned to someone?{%endtrans%}
-                            <input type="checkbox" name="mustBeAssigned" value="1"> 
+                            <input type="checkbox" name="mustBeAssigned" value="1">
                         </label>
 
                         <label class="label label-warning" style="line-height: 20px;display: inline-block;">
                             {{ 'Can reject the submission completely?'|trans }}
-                            <input type="checkbox" name="canRejectSubmission" value="1"> 
+                            <input type="checkbox" name="canRejectSubmission" value="1">
                         </label>
                     </div>
                     <div class="form-group">

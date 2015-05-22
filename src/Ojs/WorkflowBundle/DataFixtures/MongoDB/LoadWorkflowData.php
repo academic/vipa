@@ -7,14 +7,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Ojs\WorkflowBundle\Document\JournalWorkflowStep;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
  * @todo
  * Create sample workflow
  */
-class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+class LoadWorkflowData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+{
 
     /**
      * @var ContainerInterface
@@ -50,7 +51,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step1->setTitle('First Review');
         $step1->setRoles(array(
             json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json'))
+            json_decode($serializer->serialize($roleJournalManager, 'json')),
         ));
         $dm->persist($step1);
         $dm->flush();
@@ -64,7 +65,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step2->addNextStep($step1);
         $step2->setRoles(array(
             json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json'))
+            json_decode($serializer->serialize($roleJournalManager, 'json')),
         ));
         $dm->persist($step2);
         $step1->addNextStep($step2);
@@ -76,5 +77,4 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
     {
         return 22;
     }
-
 }

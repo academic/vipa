@@ -2,21 +2,25 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
-use \Symfony\Component\HttpFoundation\Request;
-use \Ojs\WorkflowBundle\Document\ReviewFormItem;
-
-class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
+use Ojs\Common\Controller\OjsController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Ojs\WorkflowBundle\Document\ReviewFormItem;
+use Symfony\Component\Yaml;
+class ReviewFormItemController extends OjsController
+{
 
     /**
-     * 
-     * @param string  $formId
+     *
+     * @param  string           $formId
      * @return RedirectResponse
      */
     public function loadDefaultItemsAction($formId)
     {
-        $yamlParser = new \Symfony\Component\Yaml\Parser();
+        $yamlParser = new Yaml\Parser();
         $formTemplates = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir') .
+                        $this->container->getParameter('kernel.root_dir').
                         '/../src/Ojs/WorkflowBundle/Resources/data/reviewformtemplates.yml'
         ));
         $standartTemplate = $formTemplates['standart_template'];
@@ -46,7 +50,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * list review forms items
-     * @param string $formId
+     * @param  string                                     $formId
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction($formId)
@@ -59,29 +63,31 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
                 ->getRepository('OjsWorkflowBundle:ReviewForm')
                 ->find($formId);
         $this->throw404IfNotFound($form);
+
         return $this->render('OjsWorkflowBundle:ReviewFormItem:index.html.twig', array(
                     'formItems' => $formItems,
-                    'form' => $form
+                    'form' => $form,
         ));
     }
 
     /**
      * render "new review form" form
-     * @param string $formId 
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  string   $formId
+     * @return Response
      */
     public function newAction($formId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
-        return $this->render('OjsWorkflowBundle:ReviewFormItem:new.html.twig', array('form' => $form
+
+        return $this->render('OjsWorkflowBundle:ReviewFormItem:new.html.twig', array('form' => $form,
         ));
     }
 
     /**
-     * insert new review form 
-     * @param Request $request
-     * @param string $formId 
+     * insert new review form
+     * @param  Request  $request
+     * @param  string   $formId
      * @return Response
      */
     public function createAction(Request $request, $formId)
@@ -89,46 +95,49 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formId);
 
-        $formItem = new \Ojs\WorkflowBundle\Document\ReviewFormItem();
+        $formItem = new ReviewFormItem();
         $formItem->setTitle($request->get('title'));
         $formItem->setFieldset($request->get('fieldset'));
         $formItem->setMandatory($request->get('mandatory'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setFormId($formId);
         $formItem->setInputType($request->get('inputtype'));
-        // explode fields by new line and filter null values 
+        // explode fields by new line and filter null values
         $fields = array_filter(explode("\n", $request->get('fields')));
         $formItem->setFields($fields);
         $dm->persist($formItem);
         $dm->flush();
         $this->successFlashBag('successful.create');
+
         return $this->redirectToRoute('ojs_review_form_items_show', [
             'id' => $formItem->getId(),
-            'form' => $form
+            'form' => $form,
             ]
         );
     }
 
     /**
-     * 
-     * @param string $id
+     *
+     * @param  string   $id
      * @return Response
      */
     public function editAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
+        /** @var ReviewFormItem $formItem */
         $formItem = $dm->getRepository('OjsWorkflowBundle:ReviewFormItem')->find($id);
         $form = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->find($formItem->getFormId());
+
         return $this->render('OjsWorkflowBundle:ReviewFormItem:edit.html.twig', array(
                     'formItem' => $formItem,
-                    'form' => $form)
+                    'form' => $form, )
         );
     }
 
     /**
-     * 
-     * @param string $id
-     * @return ResponseRedirect
+     *
+     * @param  string           $id
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -137,12 +146,13 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $dm->remove($formItem);
         $dm->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('ojs_review_form_items', array('formId' => $formItem->getFormId()));
     }
 
     /**
-     * 
-     * @param string $id 
+     *
+     * @param  string   $id
      * @return Response
      */
     public function showAction($id)
@@ -153,16 +163,16 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
 
         return $this->render('OjsWorkflowBundle:ReviewFormItem:show.html.twig', array(
                     'formItem' => $formItem,
-                    'form' => $form
+                    'form' => $form,
                         )
         );
     }
 
     /**
-     * 
-     * @param Request $request
-     * @param string $id
-     * @return ResponseRedirect 
+     *
+     * @param  Request          $request
+     * @param  string           $id
+     * @return RedirectResponse
      */
     public function updateAction(Request $request, $id)
     {
@@ -175,7 +185,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $formItem->setMandatory($request->get('mandatory'));
         $formItem->setConfidential($request->get('confidential'));
         $formItem->setInputType($request->get('inputtype'));
-        // explode fields by new line and filter null values 
+        // explode fields by new line and filter null values
         $fields = array_filter(explode("\n", $request->get('fields')));
         $formItem->setFields($fields);
         $dm->persist($formItem);
@@ -184,7 +194,7 @@ class ReviewFormItemController extends \Ojs\Common\Controller\OjsController {
         $dm->persist($formItem);
         $dm->flush();
         $this->successFlashBag('successful.update');
+
         return $this->redirect($this->generateUrl('ojs_review_form_items_show', array('id' => $id)));
     }
-
 }

@@ -6,10 +6,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
  * Step invitation
- * In any step if user assigned that step to a user(s) new Invitation document created 
+ * In any step if user assigned that step to a user(s) new Invitation document created
  * @MongoDb\Document(collection="invitation")
  */
-class Invitation {
+class Invitation
+{
 
     /**
      * @MongoDb\Id
@@ -44,19 +45,20 @@ class Invitation {
     /**
      * Set id
      *
-     * @param object_id $id
+     * @param  $id
      * @return self
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     /**
      * Get id
      *
-     * @return object_id $id
+     * @return $id
      */
     public function getId()
     {
@@ -66,36 +68,36 @@ class Invitation {
     /**
      * Set step
      *
-     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $step
+     * @param  ArticleReviewStep $step
      * @return self
      */
-    public function setStep(\Ojs\WorkflowBundle\Document\ArticleReviewStep $step)
+    public function setStep(ArticleReviewStep $step)
     {
         $this->step = $step;
+
         return $this;
     }
 
     /**
      * Get step
      *
-     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $step
+     * @return ArticleReviewStep $step
      */
     public function getStep()
     {
         return $this->step;
     }
- 
-
 
     /**
      * Set userId
      *
-     * @param int $userId
+     * @param  int  $userId
      * @return self
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
+
         return $this;
     }
 
@@ -112,12 +114,13 @@ class Invitation {
     /**
      * Set userEmail
      *
-     * @param string $userEmail
-     * @return self
+     * @param  string $userEmail
+     * @return $this
      */
     public function setUserEmail($userEmail)
     {
         $this->userEmail = $userEmail;
+
         return $this;
     }
 
@@ -134,19 +137,20 @@ class Invitation {
     /**
      * Set accept
      *
-     * @param date $accept
+     * @param  \DateTime $accept
      * @return self
      */
-    public function setAccept($accept)
+    public function setAccept(\DateTime $accept)
     {
         $this->accept = $accept;
+
         return $this;
     }
 
     /**
      * Get accept
      *
-     * @return date $accept
+     * @return \DateTime $accept
      */
     public function getAccept()
     {
@@ -156,19 +160,20 @@ class Invitation {
     /**
      * Set reject
      *
-     * @param date $reject
+     * @param  \DateTime $reject
      * @return self
      */
-    public function setReject($reject)
+    public function setReject(\DateTime $reject)
     {
         $this->reject = $reject;
+
         return $this;
     }
 
     /**
      * Get reject
      *
-     * @return date $reject
+     * @return \DateTime $reject
      */
     public function getReject()
     {

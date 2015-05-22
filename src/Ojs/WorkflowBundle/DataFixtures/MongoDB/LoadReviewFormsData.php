@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Ojs\WorkflowBundle\Document\ReviewForm;
+use Ojs\WorkflowBundle\Document\ReviewForm;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
@@ -32,7 +32,6 @@ class LoadReviewFormsData extends AbstractFixture implements FixtureInterface, C
 
     public function load(ObjectManager $dm)
     {
-
         $form1 = new ReviewForm();
         $form1->setJournalId(1);
         $form1->setTitle('Article Evaluation Form');
@@ -53,5 +52,4 @@ class LoadReviewFormsData extends AbstractFixture implements FixtureInterface, C
     {
         return 20;
     }
-
 }

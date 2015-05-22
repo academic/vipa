@@ -2,13 +2,17 @@
 
 namespace Ojs\WorkflowBundle\Document;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Ojs\UserBundle\Entity\User;
 
 /**
  *
  * @MongoDb\Document(collection="article_review_steps")
  */
-class ArticleReviewStep {
+class ArticleReviewStep
+{
 
     /**
      * @MongoDb\Id
@@ -123,7 +127,7 @@ class ArticleReviewStep {
 
     /**
      * Document Id
-     * @return id $id
+     * @return $id
      */
     public function getId()
     {
@@ -202,7 +206,7 @@ class ArticleReviewStep {
     /**
      * Set articleRevised
      *
-     * @param  hash $articleRevised
+     * @param  $articleRevised
      * @return self
      */
     public function setArticleRevised($articleRevised)
@@ -215,7 +219,7 @@ class ArticleReviewStep {
     /**
      * Get articleRevised
      *
-     * @return hash $articleRevised
+     * @return $articleRevised
      */
     public function getArticleRevised()
     {
@@ -248,7 +252,7 @@ class ArticleReviewStep {
     /**
      * Set startedDate
      *
-     * @param  date $startedDate
+     * @param  \DateTime $startedDate
      * @return self
      */
     public function setStartedDate($startedDate)
@@ -261,7 +265,7 @@ class ArticleReviewStep {
     /**
      * Get startedDate
      *
-     * @return date $startedDate
+     * @return \DateTime $startedDate
      */
     public function getStartedDate()
     {
@@ -271,7 +275,7 @@ class ArticleReviewStep {
     /**
      * Set finishedDate
      *
-     * @param  date $finishedDate
+     * @param  \DateTime $finishedDate
      * @return self
      */
     public function setFinishedDate($finishedDate)
@@ -284,7 +288,7 @@ class ArticleReviewStep {
     /**
      * Get finishedDate
      *
-     * @return date $finishedDate
+     * @return \DateTime $finishedDate
      */
     public function getFinishedDate()
     {
@@ -294,7 +298,7 @@ class ArticleReviewStep {
     /**
      * Set reviewDeadline
      *
-     * @param  date $reviewDeadline
+     * @param  \DateTime $reviewDeadline
      * @return self
      */
     public function setReviewDeadline($reviewDeadline)
@@ -307,7 +311,7 @@ class ArticleReviewStep {
     /**
      * Get reviewDeadline
      *
-     * @return date $reviewDeadline
+     * @return \DateTime $reviewDeadline
      */
     public function getReviewDeadline()
     {
@@ -339,19 +343,20 @@ class ArticleReviewStep {
 
     /**
      * Set ownerUser
-     * @param  Ojs\UserBundle\User $user
+     * @param  User|bool $user
      * @return self
      */
     public function setOwnerUser($user)
     {
         $this->ownerUser = !$user ? null : array('id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail());
+
         return $this;
     }
 
     /**
      * Get ownerUser
      *
-     * @return hash $ownerUser
+     * @return $ownerUser User
      */
     public function getOwnerUser()
     {
@@ -361,12 +366,13 @@ class ArticleReviewStep {
     /**
      * Set reviewResult
      *
-     * @param string $reviewResult
+     * @param  string $reviewResult
      * @return self
      */
     public function setReviewResult($reviewResult)
     {
         $this->reviewResult = $reviewResult;
+
         return $this;
     }
 
@@ -383,12 +389,13 @@ class ArticleReviewStep {
     /**
      * Set reviewNotes
      *
-     * @param string $reviewNotes
+     * @param  string $reviewNotes
      * @return self
      */
     public function setReviewNotes($reviewNotes)
     {
         $this->reviewNotes = $reviewNotes;
+
         return $this;
     }
 
@@ -405,12 +412,13 @@ class ArticleReviewStep {
     /**
      * Set submitterId
      *
-     * @param int $submitterId
+     * @param  int  $submitterId
      * @return self
      */
     public function setSubmitterId($submitterId)
     {
         $this->submitterId = $submitterId;
+
         return $this;
     }
 
@@ -426,7 +434,7 @@ class ArticleReviewStep {
 
     public function __toString()
     {
-        return $this->getStatusText() . "[#{$this->getId()}]";
+        return $this->getStatusText()."[#{$this->getId()}]";
     }
 
     public function __clone()
@@ -437,19 +445,20 @@ class ArticleReviewStep {
     /**
      * Set from
      *
-     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $from
+     * @param  ArticleReviewStep $from
      * @return self
      */
-    public function setFrom(\Ojs\WorkflowBundle\Document\ArticleReviewStep $from)
+    public function setFrom(ArticleReviewStep $from)
     {
         $this->from = $from;
+
         return $this;
     }
 
     /**
      * Get from
      *
-     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $from
+     * @return ArticleReviewStep $from
      */
     public function getFrom()
     {
@@ -459,19 +468,20 @@ class ArticleReviewStep {
     /**
      * Set to
      *
-     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $to
+     * @param  ArticleReviewStep $to
      * @return self
      */
-    public function setTo(\Ojs\WorkflowBundle\Document\ArticleReviewStep $to)
+    public function setTo(ArticleReviewStep $to)
     {
         $this->to = $to;
+
         return $this;
     }
 
     /**
      * Get to
      *
-     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $to
+     * @return ArticleReviewStep $to
      */
     public function getTo()
     {
@@ -481,19 +491,20 @@ class ArticleReviewStep {
     /**
      * Set step
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
+     * @param  JournalWorkflowStep $step
      * @return self
      */
-    public function setStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $step)
+    public function setStep(JournalWorkflowStep $step)
     {
         $this->step = $step;
+
         return $this;
     }
 
     /**
      * Get step
      *
-     * @return Ojs\WorkflowBundle\Document\JournalWorkflowStep $step
+     * @return JournalWorkflowStep $step
      */
     public function getStep()
     {
@@ -503,12 +514,13 @@ class ArticleReviewStep {
     /**
      * Set reviewFormResults
      *
-     * @param string $reviewFormResults
+     * @param  string $reviewFormResults
      * @return self
      */
     public function setReviewFormResults($reviewFormResults)
     {
         $this->reviewFormResults = $reviewFormResults;
+
         return $this;
     }
 
@@ -524,15 +536,15 @@ class ArticleReviewStep {
 
     public function __construct()
     {
-        $this->invitations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->invitations = new ArrayCollection();
     }
 
     /**
      * Add invitation
      *
-     * @param Ojs\WorkflowBundle\Document\Invitation $invitation
+     * @param Invitation $invitation
      */
-    public function addInvitation(\Ojs\WorkflowBundle\Document\Invitation $invitation)
+    public function addInvitation(Invitation $invitation)
     {
         $this->invitations[] = $invitation;
     }
@@ -540,9 +552,9 @@ class ArticleReviewStep {
     /**
      * Remove invitation
      *
-     * @param Ojs\WorkflowBundle\Document\Invitation $invitation
+     * @param Invitation $invitation
      */
-    public function removeInvitation(\Ojs\WorkflowBundle\Document\Invitation $invitation)
+    public function removeInvitation(Invitation $invitation)
     {
         $this->invitations->removeElement($invitation);
     }
@@ -550,7 +562,7 @@ class ArticleReviewStep {
     /**
      * Get invitations
      *
-     * @return Doctrine\Common\Collections\Collection $invitations
+     * @return Collection $invitations
      */
     public function getInvitations()
     {
@@ -560,12 +572,13 @@ class ArticleReviewStep {
     /**
      * Set primaryLanguage
      *
-     * @param string $primaryLanguage
+     * @param  string $primaryLanguage
      * @return self
      */
     public function setPrimaryLanguage($primaryLanguage)
     {
         $this->primaryLanguage = $primaryLanguage;
+
         return $this;
     }
 
@@ -582,35 +595,36 @@ class ArticleReviewStep {
     /**
      * Set parentStep
      *
-     * @param Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep
+     * @param  ArticleReviewStep $parentStep
      * @return self
      */
-    public function setParentStep(\Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep)
+    public function setParentStep(ArticleReviewStep $parentStep)
     {
         $this->parentStep = $parentStep;
+
         return $this;
     }
 
     /**
      * Get parentStep
      *
-     * @return Ojs\WorkflowBundle\Document\ArticleReviewStep $parentStep
+     * @return ArticleReviewStep $parentStep
      */
     public function getParentStep()
     {
         return $this->parentStep;
     }
 
-
     /**
      * Set competingOfInterest
      *
-     * @param string $competingOfInterest
+     * @param  string $competingOfInterest
      * @return self
      */
     public function setCompetingOfInterest($competingOfInterest)
     {
         $this->competingOfInterest = $competingOfInterest;
+
         return $this;
     }
 

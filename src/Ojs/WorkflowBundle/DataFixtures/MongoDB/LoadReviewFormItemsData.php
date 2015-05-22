@@ -7,14 +7,15 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Ojs\WorkflowBundle\Document\ReviewFormItem;
+use Ojs\WorkflowBundle\Document\ReviewFormItem;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
  * @todo
  * Create sample workflow
  */
-class LoadReviewFormItemsData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface {
+class LoadReviewFormItemsData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+{
 
     /**
      * @var ContainerInterface
@@ -145,5 +146,4 @@ class LoadReviewFormItemsData extends AbstractFixture implements FixtureInterfac
     {
         return 21;
     }
-
 }
