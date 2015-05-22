@@ -2,8 +2,6 @@
 
 namespace Ojs\SiteBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Page
  */
@@ -34,11 +32,10 @@ class Page
      */
     private $image;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -48,7 +45,7 @@ class Page
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Page
      */
     public function setTitle($title)
@@ -61,7 +58,7 @@ class Page
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -71,7 +68,7 @@ class Page
     /**
      * Set body
      *
-     * @param string $body
+     * @param  string $body
      * @return Page
      */
     public function setBody($body)
@@ -84,7 +81,7 @@ class Page
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
     public function getBody()
     {
@@ -94,7 +91,7 @@ class Page
     /**
      * Set tags
      *
-     * @param string $tags
+     * @param  string $tags
      * @return Page
      */
     public function setTags($tags)
@@ -107,7 +104,7 @@ class Page
     /**
      * Get tags
      *
-     * @return string 
+     * @return string
      */
     public function getTags()
     {
@@ -117,7 +114,7 @@ class Page
     /**
      * Set image
      *
-     * @param string $image
+     * @param  string $image
      * @return Page
      */
     public function setImage($image)
@@ -130,7 +127,7 @@ class Page
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -151,11 +148,10 @@ class Page
      */
     private $deletedAt;
 
-
     /**
      * Set created
      *
-     * @param \DateTime $created
+     * @param  \DateTime $created
      * @return Page
      */
     public function setCreated($created)
@@ -168,7 +164,7 @@ class Page
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -178,7 +174,7 @@ class Page
     /**
      * Set updated
      *
-     * @param \DateTime $updated
+     * @param  \DateTime $updated
      * @return Page
      */
     public function setUpdated($updated)
@@ -191,7 +187,7 @@ class Page
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -201,7 +197,7 @@ class Page
     /**
      * Set deletedAt
      *
-     * @param \DateTime $deletedAt
+     * @param  \DateTime $deletedAt
      * @return Page
      */
     public function setDeletedAt($deletedAt)
@@ -214,7 +210,7 @@ class Page
     /**
      * Get deletedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {

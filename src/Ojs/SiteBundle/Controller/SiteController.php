@@ -8,7 +8,6 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
-use Ojs\JournalBundle\Entity\SubjectRepository;
 use Ojs\JournalBundle\Entity\Issue;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,9 +40,9 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="' . $this->generateUrl('ojs_journals_index', ['filter' => ['subject' => $node['id']]]) . '">'
-                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
-            }];
+                return '<a href="'.$this->generateUrl('ojs_journals_index', ['filter' => ['subject' => $node['id']]]).'">'
+                .$node['subject'].' ('.$node['totalJournalCount'].')</a>';
+            }, ];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
         $sumRepo = $em->getRepository('OjsJournalBundle:Sums');
@@ -66,31 +65,36 @@ class SiteController extends Controller
     public function browseIndexAction()
     {
         $data['page'] = 'browse';
+
         return $this->render('OjsSiteBundle::Site/browse_index.html.twig', $data);
     }
 
     public function categoriesIndexAction()
     {
         $data['page'] = 'categories';
+
         return $this->render('OjsSiteBundle::Site/categories_index.html.twig', $data);
     }
 
     public function topicsIndexAction()
     {
         $data['page'] = 'topics';
+
         return $this->render('OjsSiteBundle::Site/topics_index.html.twig', $data);
     }
 
     public function profileIndexAction()
     {
         $data['page'] = 'profile';
+
         return $this->render('OjsSiteBundle::Site/profile_index.html.twig', $data);
     }
 
     public function staticPagesAction($page = 'static')
     {
         $data['page'] = $page;
-        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
+
+        return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
     }
 
     public function institutionsIndexAction()
@@ -98,6 +102,7 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $data['page'] = 'institution';
+
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);
     }
 
@@ -106,6 +111,7 @@ class SiteController extends Controller
         $em = $this->getDoctrine()->getManager();
         $data['entity'] = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(['slug' => $slug]);
         $data['page'] = 'organizations';
+
         return $this->render('OjsSiteBundle::Institution/institution_index.html.twig', $data);
     }
 
@@ -148,6 +154,7 @@ class SiteController extends Controller
         $data['journal'] = $journal;
         $data['page'] = 'journal';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal);
+
         return $this->render('OjsSiteBundle::Journal/journal_index.html.twig', $data);
     }
 
@@ -164,6 +171,7 @@ class SiteController extends Controller
             'page' => 'journal',
             'blocks' => $em->getRepository('OjsSiteBundle:Block')->journalBlocks($journal),
         ];
+
         return $this->render('OjsSiteBundle::Journal/journal_articles.html.twig', $data);
     }
 
@@ -195,7 +203,7 @@ class SiteController extends Controller
             $groupped_issues[$issue->getYear()][] = $issue;
         }
         krsort($groupped_issues);
-        $data['issues_grouped']=$groupped_issues;
+        $data['issues_grouped'] = $groupped_issues;
         $data['page'] = 'archive';
         $data['blocks'] = $em->getRepository('OjsSiteBundle:Block')->journalBlocks($data['journal']);
 
@@ -247,7 +255,7 @@ class SiteController extends Controller
         /** @var File $file */
         $file = $this->getDoctrine()->getManager()->find('OjsJournalBundle:File', $id);
         if (!$file) {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException();
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
         $objectDownload = new ObjectDownloads();
@@ -260,7 +268,8 @@ class SiteController extends Controller
         $objectDownload->setTransferSize($file->getSize());
         $dm->persist($objectDownload);
         $dm->flush();
-        return RedirectResponse::create($file->getPath() . $file->getName());
+
+        return RedirectResponse::create($file->getPath().$file->getName());
     }
 
     public function journalPageDetailAction($slug, $journal_slug, $institution)
@@ -268,22 +277,23 @@ class SiteController extends Controller
         $data = [];
         $em = $this->getDoctrine()->getManager();
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneBy(['slug' => $journal_slug]);
-        if(!$journal)
+        if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
+        }
         $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
         $journalKey = $twig->encode($journal);
 
         $page = $em->getRepository('OkulbilisimCmsBundle:Post')->findOneBy([
             'slug' => $slug,
             'object' => $journalKey,
-            'objectId' => $journal->getId()
+            'objectId' => $journal->getId(),
         ]);
-        if(!$page)
+        if (!$page) {
             throw new NotFoundHttpException("Page not found!");
+        }
         $data['journal'] = $journal;
         $data['content'] = $page;
+
         return $this->render('OjsSiteBundle:Page:detail.html.twig', $data);
     }
-
 }
-        

@@ -23,13 +23,13 @@
                                      data-src="holder.js/960x200/random/text:{{journal.title}}" class="img-responsive img-rounded float-left" alt="{{ article.title }}" />
                             </a>
                             {% endif %}
-                            <div> 
+                            <div>
                                 {% if article.pubdate %} <span class=" {{"date.publish"|trans}}">{{ article.pubdate|date('Y-m-d') }}</span> <br>{% endif %}
                                 {{"volume"|trans}} {{article.issue.volume}}, <a href="#">{{"issue"|trans}} {{article.issue.number}}</a>,
                                 {{"page.plural"|trans}} <span title="{{"first_page"|trans}}">{{article.firstPage}}</span>-<span title="{{"last_page"|trans}}">{{article.lastPage}}</span>
                                 {% if article.languages %}
                                     <span title="{{"languages"|trans}}">
-                                        {% for language in article.languages %} 
+                                        {% for language in article.languages %}
                                             <span class="badge badge-info">{{ language.name }} [{{ language.code}}]</span>
                                         {% endfor %}
                                     {%endif%}
@@ -68,7 +68,7 @@
                             <div>
                                 {% set keywords = article.keywords|split(',') %}
                                 {% for keyword in keywords %}
-                                    <a href="{{path('ojs_search_index',{ 'q': keyword })}}">{{keyword}}</a>{% if not loop.last %}, {% endif %} 
+                                    <a href="{{path('ojs_search_index',{ 'q': keyword })}}">{{keyword}}</a>{% if not loop.last %}, {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                         {%endfor%}
                                 </ul>
                             </div>
-                        </div> 
+                        </div>
 
                         <div id="articleCitations">
                             <h4 class="page-header">{{"details"|trans}}</h4>
@@ -127,7 +127,7 @@
                                 <tr>
                                     <th>{{ 'otherid'|trans }}</th>
                                     <td>{{ article.otherId }}</td>
-                                </tr> 
+                                </tr>
                                 <tr>
                                     <th>{{ 'pubdate'|trans }}</th>
                                     <td>{{ article.pubdateSeason }}</td>
@@ -135,17 +135,17 @@
                                 <tr>
                                     <th>{{"part"|trans}}</th>
                                     <td>{{ article.part }}</td>
-                                </tr> 
+                                </tr>
                                 {% if article.section %}
                                     <tr>
-                                        <th>{{"section"|trans}}</th> 
+                                        <th>{{"section"|trans}}</th>
                                         <td>{{ article.section.title }}</td>
                                     </tr>
                                 {% endif %}
                                 {% if article.articleAuthors %}
                                     <tr>
                                         <th>{{ 'authors'|trans }}</th>
-                                        <td> 
+                                        <td>
                                             {% for authorsInfo in article.articleAuthors %}
                                                 <p>
                                                     <a name="author{{authorsInfo.author.id}}" id="author{{authorsInfo.author.id}}"></a>
@@ -157,7 +157,7 @@
                                     </tr>
                                 {%endif%}
                             </table>
-                        </div> 
+                        </div>
                         <br>
                         <div id="articlePreview">
                             {% for file in article.articleFiles %}

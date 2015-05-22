@@ -4,7 +4,6 @@
  * Date: 12.12.14
  * Time: 10:25
  */
-
 namespace Ojs\SiteBundle\Controller;
 
 use Elastica\Exception\NotFoundException;
@@ -18,7 +17,6 @@ use Ojs\UserBundle\Form\UpdateUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -40,12 +38,13 @@ class UserController extends Controller
         $data = [];
         $data['user'] = $user;
         $data['me'] = $this->getUser();
-        $data['isProxy'] = (bool)$this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
+        $data['isProxy'] = (bool) $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
             array('proxyUserId' => $user->getId(), 'clientUserId' => $this->getUser()->getId())
         );
         if ($user->isPrivacy()) {
             return $this->render('OjsSiteBundle:User:private_account.html.twig', $data);
         }
+
         return $this->render('OjsSiteBundle:User:profile_index.html.twig', $data);
     }
 
@@ -53,8 +52,9 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        if (!$user)
-            throw new AccessDeniedException;
+        if (!$user) {
+            throw new AccessDeniedException();
+        }
         $form = $this->createForm(new UpdateUserType(), $user);
         $data = [];
 
@@ -80,9 +80,9 @@ class UserController extends Controller
                 $bag->add('error', $this->get('translator')->trans("An error has occured!"));
                 $session->save();
             }
+
             return new RedirectResponse($this->get('router')->generate('ojs_user_edit_profile'));
         } else {
-
         }
         $data['edit_form'] = $form->createView();
         $data['entity'] = $user;
@@ -94,12 +94,13 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        if (!$user)
-            throw new AccessDeniedException;
-
+        if (!$user) {
+            throw new AccessDeniedException();
+        }
 
         $data = [];
         $data['user'] = $user;
+
         return $this->render('OjsSiteBundle:User:custom_field.html.twig', $data);
     }
 
@@ -111,10 +112,12 @@ class UserController extends Controller
         if ($id) {
             /** @var CustomField $customField */
             $customField = $em->find('OjsUserBundle:CustomField', $id);
-            if (!$customField)
-                throw new NotFoundException;
-            if ($customField->getUserId() != $user->getId())
-                throw new AccessDeniedException;
+            if (!$customField) {
+                throw new NotFoundException();
+            }
+            if ($customField->getUserId() != $user->getId()) {
+                throw new AccessDeniedException();
+            }
         } else {
             $customField = new CustomField();
         }
@@ -127,6 +130,7 @@ class UserController extends Controller
                 $customField->setUser($user);
                 $em->persist($customField);
                 $em->flush();
+
                 return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
             } else {
                 $session = $this->get('session');
@@ -137,6 +141,7 @@ class UserController extends Controller
         }
         $data = [];
         $data['form'] = $customFieldForm->createView();
+
         return $this->render("OjsSiteBundle:User:create_custom_field.html.twig", $data);
     }
 
@@ -144,11 +149,13 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $customField = $em->find('OjsUserBundle:CustomField', $id);
-        if (!$customField)
-            throw new NotFoundException;
+        if (!$customField) {
+            throw new NotFoundException();
+        }
 
         $em->remove($customField);
         $em->flush();
+
         return $this->redirect($this->get('router')->generate('ojs_user_custom_field'));
     }
 
@@ -156,10 +163,12 @@ class UserController extends Controller
     {
         /** @var User $user */
         $user = $this->getUser();
-        if (!$user)
-            throw new AccessDeniedException;
+        if (!$user) {
+            throw new AccessDeniedException();
+        }
         $data = [];
         $data['user'] = $user;
+
         return $this->render('OjsSiteBundle:User:connected_account.html.twig', $data);
     }
 
@@ -171,13 +180,14 @@ class UserController extends Controller
     public function addOrcidAccountAction(Request $request)
     {
         $user = $this->getUser();
-        if (!$user)
-            throw new AccessDeniedException;
+        if (!$user) {
+            throw new AccessDeniedException();
+        }
         $orcid = $this->get('ojs.orcid_service');
         $code = $request->get('code');
         $orcid->setRedirectUri('http://'
-            . $this->container->getParameter('base_host')
-            . $this->get('router')->generate('ojs_user_add_orcid_account')
+            .$this->container->getParameter('base_host')
+            .$this->get('router')->generate('ojs_user_add_orcid_account')
         );
         if (!$code) {
             return new RedirectResponse($orcid->loginUrl());
@@ -195,6 +205,7 @@ class UserController extends Controller
             $user->addOauthAccount($oauth);
             $em->persist($user);
             $em->flush();
+
             return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
         }
         throw new \ErrorException("An error", serialize($post));
@@ -204,10 +215,12 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $account = $em->find('OjsUserBundle:UserOauthAccount', $id);
-        if (!$account)
-            throw new NotFoundException;
+        if (!$account) {
+            throw new NotFoundException();
+        }
         $em->remove($account);
         $em->flush();
+
         return $this->redirect($this->get('router')->generate('ojs_user_connected_account'));
     }
 
@@ -230,7 +243,7 @@ class UserController extends Controller
                     ->setFrom($this->container->getParameter('system_email'))
                     ->setTo($user->getEmail())
                     ->setBody($this->renderView('OjsUserBundle:Mails/User:reset_password.html.twig', [
-                        'token' => $user->getToken()]))
+                        'token' => $user->getToken(), ]))
                     ->setContentType('text/html');
                 $mailer->send($message);
                 $session->getFlashBag()->add('success', $this->get('translator')
@@ -238,6 +251,7 @@ class UserController extends Controller
                 );
             }
         }
+
         return $this->render('OjsSiteBundle:User:forgot_password.html.twig');
     }
 
@@ -251,7 +265,7 @@ class UserController extends Controller
         $user = $userRepo->findOneBy(['token' => $token]);
         $session = $this->get('session');
         if (!$user) {
-            throw new AccessDeniedException; //:(
+            throw new AccessDeniedException(); //:(
         }
         if ($request->isMethod('POST')) {
             $newPassword = $request->get('password');
@@ -262,6 +276,7 @@ class UserController extends Controller
                 $session->getFlashBag()
                     ->add('error', $this->get('translator')->trans('Both of passwords not matches!'));
                 $session->save();
+
                 return $this->redirect($this->get('router')->generate('ojs_user_reset_password', ['token' => $token]));
             }
 
@@ -284,6 +299,7 @@ class UserController extends Controller
             return $this->redirect($this->get('router')->generate('login'));
         }
         $data['token'] = $token;
+
         return $this->render('OjsSiteBundle:User:reset_password.html.twig', $data);
     }
 
@@ -306,8 +322,8 @@ class UserController extends Controller
                 $flashBag->set('success', $translator->trans('Your password has been changed.'));
             }
             $session->save();
-
         }
+
         return $this->render('OjsSiteBundle:User:change_password.html.twig', $data);
     }
 }

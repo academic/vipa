@@ -14,7 +14,7 @@
                 <small> <i class="fa fa-clock-o"></i> <time> {{ user.updated.date|date }}</time></small>
                 <br />
 
-                {% include '::flashbag.html.twig' %} 
+                {% include '::flashbag.html.twig' %}
                 {% for link in user.customFields %}
                     {{ link.label }}
                 {% endfor %}
@@ -32,7 +32,7 @@
                     <i class="fa fa-stack-overflow"></i> </a>
 
                 {% if app.user != user %}
-                    {%if isProxy %} 
+                    {%if isProxy %}
                         <a class="btn btn-danger pull-right"
                            href="{{path('user_drop_proxy',{'proxyUserId':user.id})}}">
                             {{ "drop.proxy.user"|trans }}
@@ -55,7 +55,7 @@
             <div class="bs-callout bs-callout-danger">
                 <h6 class="text-muted">Summary</h6>
                 <p class="lead">
-                    Lorem ipsum dolor sit amet, ea vel prima adhuc, scripta liberavisse ea quo, te vel vidit mollis complectitur. Quis verear mel ne. Munere vituperata vis cu, 
+                    Lorem ipsum dolor sit amet, ea vel prima adhuc, scripta liberavisse ea quo, te vel vidit mollis complectitur. Quis verear mel ne. Munere vituperata vis cu,
                     te pri duis timeam scaevola, nam postea diceret ne. Cum ex quod aliquip mediocritatem, mei habemus persecuti mediocritatem ei.
                 </p>
             </div>
@@ -87,7 +87,7 @@
                     Research Interests
                 </div>
                 <div class="panel-body">
-                    keadsd, asdasd, 
+                    keadsd, asdasd,
                 </div>
             </div>
         </div>

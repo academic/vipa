@@ -3,14 +3,18 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Params\ArticleEventLogParams;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\ArticleEventLog;
+use Symfony\Component\HttpFoundation\Request;
 
-class ArticleController extends Controller {
+class ArticleController extends Controller
+{
 
-    public function articlePageAction($slug, $article_id, $issue_id=null)
+    public function articlePageAction($slug, $article_id, $issue_id = null)
     {
         $em = $this->getDoctrine()->getManager();
-        /* @var $entity \Ojs\JournalBundle\Entity\Article */
+        /* @var $entity Article */
         $data['article'] = $em->getRepository('OjsJournalBundle:Article')->find($article_id);
         if (!$data['article']) {
             throw $this->createNotFoundException($this->get('translator')->trans('Article Not Found'));
@@ -29,13 +33,13 @@ class ArticleController extends Controller {
      * article view event log
      * @param $article
      */
-    public function articleViewLog($article)
+    public function articleViewLog(Request $request, Article $article)
     {
         $entity = new ArticleEventLog();
         $em = $this->getDoctrine()->getManager();
         $entity->setArticleId($article->getId());
-        $entity->setEventInfo(\Ojs\Common\Params\ArticleEventLogParams::$ARTICLE_VIEW);
-        $entity->setIp($this->container->get('request')->getClientIp());
+        $entity->setEventInfo(ArticleEventLogParams::$ARTICLE_VIEW);
+        $entity->setIp($request->getClientIp());
         $em->persist($entity);
         $em->flush();
     }

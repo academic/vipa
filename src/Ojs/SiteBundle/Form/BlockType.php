@@ -10,32 +10,32 @@ class BlockType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title')
-            ->add('type','choice',[
-                'label'=>'Type',
-                'choices'=>[
-                    'html'=>'HTML Content',
-                    'link'=>'Link List'
-                ]
+            ->add('type', 'choice', [
+                'label' => 'Type',
+                'choices' => [
+                    'html' => 'HTML Content',
+                    'link' => 'Link List',
+                ],
             ])
-            ->add('content','textarea',[
-                'label'=>'Content',
-                'required'=>false
+            ->add('content', 'textarea', [
+                'label' => 'Content',
+                'required' => false,
             ])
-            ->add('object_id','hidden',['data'=>$options['object_id']])
-            ->add('object_type','hidden',['data'=>$options['object_type']])
-            ->add('color','choice',['label'=>'Block Color','choices'=>[
-                'default'=>'Grey',
-                'primary'=>'Blue',
-                'success'=>'Green',
-                'info'=>'Light Blue',
-                'warning'=>'Yellow',
-                'danger'=>'Red',
+            ->add('object_id', 'hidden', ['data' => $options['object_id']])
+            ->add('object_type', 'hidden', ['data' => $options['object_type']])
+            ->add('color', 'choice', ['label' => 'Block Color', 'choices' => [
+                'default' => 'Grey',
+                'primary' => 'Blue',
+                'success' => 'Green',
+                'info' => 'Light Blue',
+                'warning' => 'Yellow',
+                'danger' => 'Red',
 
             ]])
         ;
@@ -48,12 +48,11 @@ class BlockType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\SiteBundle\Entity\Block',
-            'object_id'=>null,
-            'object_type'=>null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'object_id' => null,
+            'object_type' => null,
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

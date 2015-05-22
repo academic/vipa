@@ -2,7 +2,8 @@
 
 namespace Ojs\SiteBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Block
@@ -40,7 +41,7 @@ class Block
     private $content;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection|BlockLink[]
      */
     private $links;
 
@@ -49,7 +50,7 @@ class Block
      */
     public function __construct()
     {
-        $this->links = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->links = new ArrayCollection();
     }
 
     /**
@@ -65,7 +66,7 @@ class Block
     /**
      * Set object_type
      *
-     * @param string $objectType
+     * @param  string $objectType
      * @return Block
      */
     public function setObjectType($objectType)
@@ -88,7 +89,7 @@ class Block
     /**
      * Set object_id
      *
-     * @param integer $objectId
+     * @param  integer $objectId
      * @return Block
      */
     public function setObjectId($objectId)
@@ -111,7 +112,7 @@ class Block
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Block
      */
     public function setTitle($title)
@@ -134,7 +135,7 @@ class Block
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string $type
      * @return Block
      */
     public function setType($type)
@@ -157,7 +158,7 @@ class Block
     /**
      * Set content
      *
-     * @param string $content
+     * @param  string $content
      * @return Block
      */
     public function setContent($content)
@@ -180,10 +181,10 @@ class Block
     /**
      * Add links
      *
-     * @param \Ojs\SiteBundle\Entity\BlockLink $links
+     * @param  BlockLink $links
      * @return Block
      */
-    public function addLink(\Ojs\SiteBundle\Entity\BlockLink $links)
+    public function addLink(BlockLink $links)
     {
         $this->links[] = $links;
 
@@ -193,9 +194,9 @@ class Block
     /**
      * Remove links
      *
-     * @param \Ojs\SiteBundle\Entity\BlockLink $links
+     * @param BlockLink $links
      */
-    public function removeLink(\Ojs\SiteBundle\Entity\BlockLink $links)
+    public function removeLink(BlockLink $links)
     {
         $this->links->removeElement($links);
     }
@@ -214,11 +215,10 @@ class Block
      */
     private $color;
 
-
     /**
      * Set color
      *
-     * @param string $color
+     * @param  string $color
      * @return Block
      */
     public function setColor($color)
@@ -242,11 +242,10 @@ class Block
      */
     private $block_order;
 
-
     /**
      * Set block_order
      *
-     * @param integer $blockOrder
+     * @param  integer $blockOrder
      * @return Block
      */
     public function setBlockOrder($blockOrder)
