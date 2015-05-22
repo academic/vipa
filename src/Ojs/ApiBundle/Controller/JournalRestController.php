@@ -3,7 +3,6 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -18,6 +17,9 @@ class JournalRestController extends FOSRestController {
      *  description="Get Journal Issues"
      * )
      * @Get("/journal/{id}/issues")
+     *
+     * @param $id
+     * @return mixed
      */
     public function getJournalIssues($id)
     {
@@ -31,6 +33,9 @@ class JournalRestController extends FOSRestController {
      *  description="Get Specific Journal"
      * )
      * @Get("/journal/{id}")
+     *
+     * @param $id
+     * @return object
      */
     public function getJournalAction($id)
     {
@@ -63,6 +68,10 @@ class JournalRestController extends FOSRestController {
      *  }
      * )
      * @Get("/journal/{id}/users")
+     *
+     * @param Request $request
+     * @param $id
+     * @return mixed
      */
     public function getJournalUsersAction(Request $request, $id)
     {

@@ -23,6 +23,10 @@ class ArticleRestController extends FOSRestController
      *  description="Get Articles"
      * )
      * @Get("/articles/bulk/{page}/{limit}")
+     *
+     * @param int $page
+     * @param int $limit
+     * @return mixed
      */
     public function getArticlesAction($page = 0, $limit = 10)
     {

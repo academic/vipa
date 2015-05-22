@@ -7,9 +7,7 @@
  *
  *   ]
  */
-
 namespace Ojs\AnalyticsBundle\Command;
-
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
@@ -19,11 +17,9 @@ use Ojs\AnalyticsBundle\Document\ObjectView;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Ojs\AnalyticsBundle\Updater\UpdaterInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Ojs\AnalyticsBundle\Updater;
 /**
  * Class UpdateCommand
@@ -43,15 +39,14 @@ class UpdateCommand extends ContainerAwareCommand
         'article' => 'OjsJournalBundle:Article',
         'journal' => 'OjsJournalBundle:Journal',
         'institution' => 'OjsJournalBundle:Institution',
-        'file'=>'OjsJournalBundle:File'
+        'file' => 'OjsJournalBundle:File',
     ];
 
     /** @var  EntityManager $em */
     private $em;
 
     /** @var  OutputInterface $output*/
-    public  $output;
-
+    public $output;
 
     protected function configure()
     {
@@ -59,12 +54,11 @@ class UpdateCommand extends ContainerAwareCommand
             ->setDescription("Analytics total data updater")
             ->addArgument("type", InputArgument::REQUIRED, "What is the type you want to update? [view, download]")
             ->addOption('test', 't', null, "Test mode");
-
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface $output
      * @return int|null|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -89,13 +83,14 @@ class UpdateCommand extends ContainerAwareCommand
                 $output->writeln("The value may have only 'view', 'download', 'common'");
                 break;
         }
-
     }
 
     private function getObject($object)
     {
+        /** @var ObjectViews $object */
         $entity = $this->objects[$object->getEntity()];
         $object = $this->em->find($entity, $object->getObjectId());
+
         return $object;
     }
 
@@ -142,9 +137,7 @@ class UpdateCommand extends ContainerAwareCommand
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
             $output->writeln("An error has occured");
-
         }
-
     }
 
     private function updateDownloadData(OutputInterface $output)
@@ -165,7 +158,6 @@ class UpdateCommand extends ContainerAwareCommand
                     $counts[$download->getFilePath()]->id = $download->getObjectId();
                     $counts[$download->getFilePath()]->entity = $download->getEntity();
                     $counts[$download->getFilePath()]->rawData = $this->serializer->serialize($realObject, 'json');
-
                 }
             }
             $progress->start($output, count($counts));
@@ -189,21 +181,20 @@ class UpdateCommand extends ContainerAwareCommand
             }
             $progress->finish();
             $output->writeln("Successfully");
-
         } catch (\Exception $e) {
             $output->writeln("An error has occured on file ".$e->getFile()." on line ".$e->getLine());
             $output->writeln($e->getMessage());
         }
     }
 
-    const DailyReviewCount=1;
-    const AcceptedArticleCount=2;
-    const DeclinedArticleCount=3;
-    const RevisedArticleCount=4;
-    const UserCount=5;
-    const ReaderCount=6;
-    const MemberCount=7;
-    const PublishedIssueCount=8;
+    const DailyReviewCount = 1;
+    const AcceptedArticleCount = 2;
+    const DeclinedArticleCount = 3;
+    const RevisedArticleCount = 4;
+    const UserCount = 5;
+    const ReaderCount = 6;
+    const MemberCount = 7;
+    const PublishedIssueCount = 8;
 
     private function updateCommonData()
     {
@@ -215,18 +206,16 @@ class UpdateCommand extends ContainerAwareCommand
             'UserCount',
             'ReaderCount',
             'MemberCount',
-            'PublishedIssueCount'
+            'PublishedIssueCount',
         ];
 
         foreach ($updates as $update) {
             $updater = 'Ojs\\AnalyticsBundle\\Updater\\'.$update.'Updater';
             /** @var UpdaterInterface $statObject */
-            $statObject = new $updater($this->em,$this->dm);
+            $statObject = new $updater($this->em, $this->dm);
 
             var_dump($statObject->count());
-
         }
         exit;
-
     }
 }

@@ -3,10 +3,8 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -29,14 +27,16 @@ class PublicUserRestController extends FOSRestController {
      * }
      * )
      * @Get("/public/user/checkusername/")
+     *
+     * @param Request $request
+     * @return bool
      */
-    public function getUsernameCheckAction(Request $req)
+    public function getUsernameCheckAction(Request $request)
     {
-        return $this->get("user.helper")->checkUsernameAvailability($req->get('username'));
+        return $this->get("user.helper")->checkUsernameAvailability($request->get('username'));
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return Response
      * @throws \Doctrine\ORM\ORMException
@@ -48,9 +48,9 @@ class PublicUserRestController extends FOSRestController {
      * )
      * @Get("/public/user/get/{id}")
      */
-    public function getUserAction(Request $request, $id)
+
+    public function getUserAction($id)
     {
-        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
         if ($user) {

@@ -3,13 +3,9 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\View as RestView;
 use Elastica\Query;
-use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 use Symfony\Component\HttpFoundation\Request;
 
 class SearchRestController extends FOSRestController {
@@ -37,11 +33,14 @@ class SearchRestController extends FOSRestController {
      * )
      * @Get("/search/journal/{journalId}/users")
      * @TODO elasticsearch will be better for performance. "like" query should be removed
+     *
+     * @param Request $request
+     * @return mixed
      */
-    public function searchJournalUsersAction(Request $request, $journalId)
+    public function searchJournalUsersAction(Request $request)
     {
         $q = $request->get('q');
-        $repo = $this->getDoctrine()->getEntityManager()->getRepository('OjsUserBundle:User');
+        $repo = $this->getDoctrine()->getManager()->getRepository('OjsUserBundle:User');
         $query = $repo->createQueryBuilder('u')
                 ->where('u.username LIKE :search OR u.firstName LIKE :search OR u.lastName LIKE :search')
                 ->setParameter('search', '%' . $q . '%')
@@ -64,6 +63,9 @@ class SearchRestController extends FOSRestController {
      *  }
      * )
      * @Get("/search/user")
+     *
+     * @param Request $request
+     * @return array
      */
     public function getUsersAction(Request $request)
     {

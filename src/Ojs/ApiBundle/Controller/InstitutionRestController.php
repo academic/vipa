@@ -2,12 +2,10 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc; 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\HttpException; 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\Get;  
-use FOS\RestBundle\Controller\Annotations\View as RestView;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class InstitutionRestController extends FOSRestController {
 
@@ -18,6 +16,10 @@ class InstitutionRestController extends FOSRestController {
      *  description="Get Institutions"
      * )
      * @Get("/institution/bulk/{page}/{limit}")
+     *
+     * @param int $page
+     * @param int $limit
+     * @return mixed
      */
     public function getInstitutionsAction($page = 0, $limit = 10)
     {
@@ -40,6 +42,9 @@ class InstitutionRestController extends FOSRestController {
      *  description="Get Specific Institution"
      * )
      * @Get("/institution/{id}")
+     *
+     * @param $id
+     * @return object
      */
     public function getInstitutionAction($id)
     {

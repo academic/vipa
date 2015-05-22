@@ -19,6 +19,9 @@ class TestRestController extends FOSRestController {
      *  }
      * )
      * @Get("/test/{id}")
+     *
+     * @param $id
+     * @return array
      */
     public function getTestAction($id) {
         $res = array("status" => $id);

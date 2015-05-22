@@ -5,8 +5,7 @@ namespace Ojs\ApiBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\MinLength;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserRestType extends AbstractType
 {
@@ -37,10 +36,10 @@ class UserRestType extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        $collectionConstraint = new Collection(array(
-            'username' => new MinLength(5),
-            'password' => new MinLength(5),
-            'email' => new Email(array('message' => $this->get('translator')->trans('Invalid email address'))),
+        $collectionConstraint = new Assert\Collection(array(
+            'username' => new Assert\Length(array('min'  => 5)),
+            'password' => new Assert\Length(array('min'  => 5)),
+            'email' => new Assert\Email(array('message' => $this->get('translator')->trans('Invalid email address'))),
         ));
 
         $options['validation_constraint'] = $collectionConstraint;

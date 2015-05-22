@@ -25,6 +25,11 @@ class AnalyticsRestController extends FOSRestController
      *  }
      * )
      * @Put("/analytics/view/{entity}/{id}")
+     *
+     * @param Request $request
+     * @param $id
+     * @param $entity
+     * @return ObjectViews
      */
     public function putObjectViewAction(Request $request, $id, $entity)
     {
@@ -48,8 +53,12 @@ class AnalyticsRestController extends FOSRestController
      *  description="Get object total Views"
      * )
      * @Get("/analytics/view/{entity}/{id}/")
+     *
+     * @param $id
+     * @param $entity
+     * @return mixed
      */
-    public function getObjectViewAction(Request $request, $id, $entity)
+    public function getObjectViewAction($id, $entity)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectView')
@@ -63,6 +72,11 @@ class AnalyticsRestController extends FOSRestController
      *  description="Increment object download count"
      * )
      * @Put("/analytics/download/{entity}/{id}/")
+     *
+     * @param Request $request
+     * @param $id
+     * @param $entity
+     * @return ObjectDownloads
      */
     public function putObjectDownloadAction(Request $request, $id,$entity)
     {
@@ -90,6 +104,11 @@ class AnalyticsRestController extends FOSRestController
      *  description="Get object total download count"
      * )
      * @Get("/analytics/download/{entity}/{id}/")
+     *
+     * @param Request $request
+     * @param $id
+     * @param $entity
+     * @return array|\Ojs\AnalyticsBundle\Document\ObjectDownload[]
      */
     public function getObjectDownloadAction(Request $request, $id,$entity)
     {
