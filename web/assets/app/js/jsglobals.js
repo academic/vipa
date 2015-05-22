@@ -1,7 +1,7 @@
 var REST_API_BASEURL = "/api/";
 
-var OjstrApp;
-OjstrApp = OjstrApp || (function () {
+var OjsApp;
+OjsApp = OjsApp || (function () {
 
 })();
 
