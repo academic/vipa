@@ -5,7 +5,6 @@
  * Date: 20.05.15
  * Time: 13:43
  */
-
 namespace Ojs\AnalyticsBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -23,49 +22,49 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *   Abone sayısı / dergiye göre - MemberCount
  *   Yayınlanmış sayılar - PublishedIssueCount
  */
-class ObjectCommonStat {
+class ObjectCommonStat
+{
 
-    const DailyReviewCount=1;
-    const AcceptedArticleCount=2;
-    const DeclinedArticleCount=3;
-    const RevisedArticleCount=4;
-    const UserCount=5;
-    const ReaderCount=6;
-    const MemberCount=7;
-    const PublishedIssueCount=8;
-
+    const DailyReviewCount = 1;
+    const AcceptedArticleCount = 2;
+    const DeclinedArticleCount = 3;
+    const RevisedArticleCount = 4;
+    const UserCount = 5;
+    const ReaderCount = 6;
+    const MemberCount = 7;
+    const PublishedIssueCount = 8;
 
     /**
      * @var int
      * @MongoDb\Id
-     * MongoDB identifier id
+     *          MongoDB identifier id
      */
     public $id;
     /**
      * @var int
      * @MongoDB\Int
-     * Stat type as int. its configured as constant.
+     *          Stat type as int. its configured as constant.
      */
     public $statType;
 
     /**
      * @var int
      * @MongoDB\Int
-     * Total count
+     *          Total count
      */
     public $count;
 
     /**
      * @var string
      * @MongoDB\String
-     * Full entity name like `Ojs\JournalBundle\Entity\Journal`
+     *             Full entity name like `Ojs\JournalBundle\Entity\Journal`
      */
     public $entity;
 
     /**
      * @var Int
      * @MongoDB\Int
-     * Object id in entity
+     *          Object id in entity
      */
     public $object;
 
@@ -78,12 +77,13 @@ class ObjectCommonStat {
     }
 
     /**
-     * @param mixed $id
+     * @param  mixed            $id
      * @return ObjectCommonStat
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -96,12 +96,13 @@ class ObjectCommonStat {
     }
 
     /**
-     * @param int $statType
+     * @param  int              $statType
      * @return ObjectCommonStat
      */
     public function setStatType($statType)
     {
         $this->statType = $statType;
+
         return $this;
     }
 
@@ -114,12 +115,13 @@ class ObjectCommonStat {
     }
 
     /**
-     * @param int $count
+     * @param  int              $count
      * @return ObjectCommonStat
      */
     public function setCount($count)
     {
         $this->count = $count;
+
         return $this;
     }
 
@@ -132,12 +134,13 @@ class ObjectCommonStat {
     }
 
     /**
-     * @param string $entity
+     * @param  string           $entity
      * @return ObjectCommonStat
      */
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
 
@@ -150,12 +153,13 @@ class ObjectCommonStat {
     }
 
     /**
-     * @param Int $object
+     * @param  Int              $object
      * @return ObjectCommonStat
      */
     public function setObject($object)
     {
         $this->object = $object;
+
         return $this;
     }
 }

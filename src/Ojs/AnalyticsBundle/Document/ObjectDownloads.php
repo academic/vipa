@@ -78,5 +78,4 @@ class ObjectDownloads extends ObjectStatsBase
     {
         return $this->filePath;
     }
-
 }

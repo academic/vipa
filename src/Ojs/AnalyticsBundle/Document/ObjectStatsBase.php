@@ -111,12 +111,13 @@ class ObjectStatsBase
     }
 
     /**
-     * @param int $id
+     * @param  int             $id
      * @return ObjectStatsBase $this
      */
     public function setObjectId($id)
     {
         $this->objectId = $id;
+
         return $this;
     }
 
@@ -129,12 +130,13 @@ class ObjectStatsBase
     }
 
     /**
-     * @param string $entity
+     * @param  string          $entity
      * @return ObjectStatsBase $this
      */
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
 
@@ -145,5 +147,4 @@ class ObjectStatsBase
     {
         return $this->entity;
     }
-
 }

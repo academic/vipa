@@ -69,7 +69,6 @@ class ObjectView
         return $this->total;
     }
 
-
     /**
      * Page full url with domain
      * Set pageUrl
@@ -95,12 +94,13 @@ class ObjectView
     }
 
     /**
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setObjectId($id)
     {
         $this->objectId = $id;
+
         return $this;
     }
 
@@ -113,12 +113,13 @@ class ObjectView
     }
 
     /**
-     * @param string $entity
+     * @param  string $entity
      * @return $this
      */
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
 
@@ -130,7 +131,6 @@ class ObjectView
         return $this->entity;
     }
 
-
     public function getRawData()
     {
         return $this->rawData;
@@ -139,6 +139,7 @@ class ObjectView
     public function setRawData($data)
     {
         $this->rawData = $data;
+
         return $this;
     }
 }

@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\AnalyticsBundle\Tests\Controller;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\Response;

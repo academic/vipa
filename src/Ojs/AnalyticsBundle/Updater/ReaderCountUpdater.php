@@ -2,11 +2,10 @@
 /**
  * www
  */
-
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-class ReaderCountUpdater implements UpdaterInterface{
+class ReaderCountUpdater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -16,5 +15,4 @@ class ReaderCountUpdater implements UpdaterInterface{
     {
         // TODO: Implement count() method.
     }
-
 }

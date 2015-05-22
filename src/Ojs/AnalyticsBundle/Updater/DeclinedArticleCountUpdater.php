@@ -2,11 +2,10 @@
 /**
  * www
  */
-
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-class DeclinedArticleCountUpdater implements UpdaterInterface{
+class DeclinedArticleCountUpdater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -16,5 +15,4 @@ class DeclinedArticleCountUpdater implements UpdaterInterface{
     {
         // TODO: Implement count() method.
     }
-
 }

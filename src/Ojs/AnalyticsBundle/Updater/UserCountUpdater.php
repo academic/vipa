@@ -2,14 +2,13 @@
 /**
  * www
  */
-
 namespace Ojs\AnalyticsBundle\Updater;
-
 
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Entity\UserRepository;
 
-class UserCountUpdater extends Updater implements UpdaterInterface {
+class UserCountUpdater extends Updater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -23,14 +22,14 @@ class UserCountUpdater extends Updater implements UpdaterInterface {
         $journalUsers = [];
         foreach ($all as $r) {
             /** @var UserJournalRole $r */
-            if(isset($journalUsers[$r->getJournalId()])
-                and in_array($r->getUserId(),$journalUsers[$r->getJournalId()])
-            ){
+            if (isset($journalUsers[$r->getJournalId()])
+                and in_array($r->getUserId(), $journalUsers[$r->getJournalId()])
+            ) {
                 continue;
             }
-            $journalUsers[$r->getJournalId()][]=$r->getUserId();
+            $journalUsers[$r->getJournalId()][] = $r->getUserId();
         }
+
         return $journalUsers;
     }
-
 }

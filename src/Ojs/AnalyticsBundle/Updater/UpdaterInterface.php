@@ -2,8 +2,8 @@
 
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-interface UpdaterInterface {
+interface UpdaterInterface
+{
     public function update();
     public function count();
 }

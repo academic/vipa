@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\AnalyticsBundle\Tests\Command;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -35,7 +33,4 @@ class UpdateCommandTest extends BaseTestCase
         $commandTester->execute(['command' => $command->getName(), 'type' => 'download']);
         $this->assertContains('Successfully', $commandTester->getDisplay());
     }
-
-
 }
- 

@@ -5,9 +5,7 @@
  * Date: 12.05.15
  * Time: 15:15
  */
-
 namespace Ojs\AnalyticsBundle\Twig;
-
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\AnalyticsBundle\Document\ObjectView;
@@ -26,7 +24,6 @@ class AnalyticsExtension extends \Twig_Extension
     public function __construct(DocumentManager $dm)
     {
         $this->dm = $dm;
-
     }
 
     public function getFilters()
@@ -38,19 +35,20 @@ class AnalyticsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('stat', [$this, 'stat'])
+            new \Twig_SimpleFunction('stat', [$this, 'stat']),
         ];
     }
 
     /**
      * @param $id
      * @param $entity
-     * @param string $stat_type
+     * @param  string $stat_type
      * @return mixed
      */
     public function stat($id, $entity, $stat_type = 'view')
     {
-        $method = 'get' . ucfirst($stat_type) . 'Stat';
+        $method = 'get'.ucfirst($stat_type).'Stat';
+
         return $this->{$method}($id, $entity);
     }
 
@@ -64,8 +62,10 @@ class AnalyticsExtension extends \Twig_Extension
         /** @var ObjectView $data */
         $data = $this->dm->getRepository('OjsAnalyticsBundle:ObjectView')
             ->findOneBy(['objectId' => $id, 'entity' => $entity]);
-        if(!$data)
+        if (!$data) {
             return 0;
+        }
+
         return $data->getTotal();
     }
 
@@ -79,8 +79,10 @@ class AnalyticsExtension extends \Twig_Extension
         /** @var ObjectView $data */
         $data = $this->dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
             ->findOneBy(['objectId' => $id, 'entity' => $entity]);
-        if(!$data)
+        if (!$data) {
             return 0;
+        }
+
         return $data->getTotal();
     }
 
@@ -90,11 +92,9 @@ class AnalyticsExtension extends \Twig_Extension
         foreach ($files as $file) {
             //@todo github.com/okulbilisim/ojs/issues/572
         }
-
     }
     public function getName()
     {
         return "ojs_analytics_extension";
     }
-
-} 
+}

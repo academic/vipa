@@ -39,5 +39,4 @@ class ObjectViews extends ObjectStatsBase
     {
         return $this->pageUrl;
     }
-
 }

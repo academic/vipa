@@ -16,7 +16,7 @@ class DefaultController extends Controller
      * Get a journal analytics summary
      * If there is no $id given, list all journals and analytics summary data
      *
-     * @param null|int $id
+     * @param  null|int $id
      * @return Response
      */
     public function journalSummaryAction($id = null)
@@ -27,11 +27,10 @@ class DefaultController extends Controller
 
             return $this->render('OjsAnalyticsBundle:Journal:summary_one.html.twig', array(
                         'journal' => $journal,
-                        'stats' =>  $stats
+                        'stats' =>  $stats,
             ));
         }
         // else get all journals
         return $this->render('OjsAnalyticsBundle:Journal:summary_all.html.twig');
     }
-
 }
