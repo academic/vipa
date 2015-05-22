@@ -5,17 +5,15 @@
  */
 namespace Ojs\OAIBundle\Twig;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
 class OAIExtension extends \Twig_Extension
 {
-    private $container;
     private $em;
 
-    public function __construct(ContainerInterface $container = null, \Doctrine\ORM\EntityManager $em = null)
+    public function __construct(EntityManager $em = null)
     {
-        $this->container = $container;
         $this->em = $em;
     }
 
@@ -24,13 +22,13 @@ class OAIExtension extends \Twig_Extension
         return [
             'metadataPrefix' => new \Twig_Function_Method($this, 'metadataPrefix'),
         ];
-
     }
 
     public function metadataPrefix()
     {
         $request = Request::createFromGlobals();
         $metadataPrefix = $request->get('metadataPrefix', 'oai_dc');
+
         return $metadataPrefix;
     }
 
