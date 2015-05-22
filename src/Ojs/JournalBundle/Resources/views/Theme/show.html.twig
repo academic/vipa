@@ -24,21 +24,8 @@
         </tbody>
     </table>
 
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('theme') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('theme_edit', { 'id': entity.id }) }}">
-                {{"e"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('theme_delete', { 'id': entity.id }) }}">
-                Delete
-            </a>
-        </li>
-    </ul>
+    {% set back_path = 'theme' %}
+    {% set edit_path = 'theme_edit' %}
+    {% set delete_path = 'theme_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

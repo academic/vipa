@@ -4,6 +4,6 @@
     <h1>{{"citation.create"|trans}}</h1>
 
     {{ form(form) }}
-
-    <a class="btn btn-default" href="{{ path('citation') }}">{{"back"|trans}}</a>
+    {% set back_path = 'citation' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

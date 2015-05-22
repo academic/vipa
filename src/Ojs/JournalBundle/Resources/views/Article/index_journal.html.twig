@@ -2,13 +2,9 @@
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
-   {{"articles_in_journal"|trans}} <strong>{{journal.title }}</strong>
-        <a href="{{ path('article_new') }}" class="btn btn-success">
-            {{"article.new"|trans}}
-        </a>
-        <a href="{{ path('article') }}" class="btn btn-default">
-            {{"b"|trans}}
-        </a>
+    {{"articles_in_journal"|trans}} <strong>{{journal.title }}</strong>
+    {% set back_path = 'article' %}
+    {% set create_path = 'article_new' %}
+    {% include '::actionbuttons.html.twig' %}
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
-
 {% endblock %}

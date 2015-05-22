@@ -9,11 +9,7 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-
-
     {% set back_path = 'author' %}
     {% set delete_path = 'author_delete' %}
-    {% include '::actionbtns.html.twig' %}
-
-
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

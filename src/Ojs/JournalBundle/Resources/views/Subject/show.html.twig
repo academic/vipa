@@ -36,11 +36,8 @@
 
         </tbody>
     </table>
-
-    <div class="record_actions">
-        {% set back_path = 'subject' %}
-        {% set edit_path = 'subject_edit' %}
-        {% set delete_path = 'subject_delete' %}
-        {% include '::actionbtns.html.twig' %}
-    </div>
+    {% set back_path = 'subject' %}
+    {% set edit_path = 'subject_edit' %}
+    {% set delete_path = 'subject_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

@@ -7,10 +7,7 @@
         <p>{% trans with {'%title%':issue.title}%}Here you can find all articles for selected issue <strong>%title%</strong>{% endtrans %}</p>
 
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
-    <a href="{{ path('article_new') }}" class="btn btn-success">
-        {{"issue.new"|trans}}
-    </a>
-    <a href="{{ path('article') }}" class="btn btn-default">
-        {{"b"|trans}}
-    </a>
+    {% set back_path = 'article' %}
+    {% set create_path = 'article_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

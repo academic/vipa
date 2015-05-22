@@ -4,7 +4,6 @@
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-    <a href="{{ path('manager_submission_checklist_new') }}" class="btn btn-success">
-        {{ 'c'|trans }}
-    </a>
+    {% set create_path = 'manager_submission_checklist_new' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}

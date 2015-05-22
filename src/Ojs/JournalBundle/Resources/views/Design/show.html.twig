@@ -23,22 +23,8 @@
             </tr>
         </tbody>
     </table>
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('design') }}">
-                {{"b"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('design_edit', { 'id': entity.id }) }}">
-                {{"e"|trans}}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('design_delete', { 'id': entity.id }) }}">
-                Delete
-            </a>
-        </li>
-    </ul>
+    {% set back_path = 'design' %}
+    {% set edit_path = 'design_edit' %}
+    {% set delete_path = 'design_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
