@@ -2,14 +2,17 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalContact
  * @GRID\Source(columns="id,journal.title,contact.email,contactType.name")
  */
-class JournalContact extends GenericExtendedEntity {
+class JournalContact implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -32,29 +35,24 @@ class JournalContact extends GenericExtendedEntity {
     private $contactTypeId;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Contact
+     * @var Contact
      * @GRID\Column(field="contact.email",title="Contact")
      */
     private $contact;
 
     /**
      *
-     * @var \Ojs\JournalBundle\Entity\ContactTypes
+     * @var ContactTypes
      * @GRID\Column(field="contactType.name",title="Contact Type")
      */
     private $contactType;
 
     /**
      *
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      * @GRID\Column(field="journal.title",title="Journal")
      */
     private $journal;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Get id
@@ -69,8 +67,8 @@ class JournalContact extends GenericExtendedEntity {
     /**
      * Set journalId
      *
-     * @param  integer        $journalId
-     * @return JournalContact
+     * @param  integer $journalId
+     * @return $this
      */
     public function setJournalId($journalId)
     {
@@ -92,8 +90,8 @@ class JournalContact extends GenericExtendedEntity {
     /**
      * Set contactId
      *
-     * @param  integer        $contactId
-     * @return JournalContact
+     * @param  integer $contactId
+     * @return $this
      */
     public function setContactId($contactId)
     {
@@ -115,8 +113,8 @@ class JournalContact extends GenericExtendedEntity {
     /**
      * Set contactTypeId
      *
-     * @param  integer        $contactTypeId
-     * @return JournalContact
+     * @param  integer $contactTypeId
+     * @return $this
      */
     public function setContactTypeId($contactTypeId)
     {
@@ -137,10 +135,10 @@ class JournalContact extends GenericExtendedEntity {
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\ContactTypes   $contactType
-     * @return \Ojs\JournalBundle\Entity\JournalContact
+     * @param  ContactTypes $contactType
+     * @return $this
      */
-    public function setContactType(\Ojs\JournalBundle\Entity\ContactTypes $contactType)
+    public function setContactType(ContactTypes $contactType)
     {
         $this->contactType = $contactType;
 
@@ -149,10 +147,10 @@ class JournalContact extends GenericExtendedEntity {
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Contact        $contact
-     * @return \Ojs\JournalBundle\Entity\JournalContact
+     * @param  Contact $contact
+     * @return $this
      */
-    public function setContact(\Ojs\JournalBundle\Entity\Contact $contact)
+    public function setContact(Contact $contact)
     {
         $this->contact = $contact;
 
@@ -161,10 +159,10 @@ class JournalContact extends GenericExtendedEntity {
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Journal        $journal
-     * @return \Ojs\JournalBundle\Entity\JournalContact
+     * @param  Journal $journal
+     * @return $this
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 
@@ -173,7 +171,7 @@ class JournalContact extends GenericExtendedEntity {
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @return Journal
      */
     public function getJournal()
     {
@@ -182,7 +180,7 @@ class JournalContact extends GenericExtendedEntity {
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Contact
+     * @return Contact
      */
     public function getContact()
     {
@@ -192,11 +190,10 @@ class JournalContact extends GenericExtendedEntity {
     /**
      * Get contactType
      *
-     * @return \Ojs\JournalBundle\Entity\ContactTypes 
+     * @return ContactTypes
      */
     public function getContactType()
     {
         return $this->contactType;
     }
-
 }

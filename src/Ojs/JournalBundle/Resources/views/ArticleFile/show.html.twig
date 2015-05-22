@@ -41,7 +41,12 @@
         </tr>
         </tbody>
     </table>
-    {% set back_path = 'articlefile' %}
-    {% set edit_path = 'articlefile_edit' %}
-    {% include '::actionbuttons.html.twig' %}
+    <br/><br/>
+    <a href="{{ path('articlefile',{article: entity.id}) }}" class="btn btn-warning">
+        {{ "b"|trans }}
+    </a>
+    <a href="{{ path('articlefile_edit', { 'id': entity.id }) }}" class="btn btn-success">
+        {{ "e"|trans }}
+    </a>
+    </ul>
 {% endblock %}

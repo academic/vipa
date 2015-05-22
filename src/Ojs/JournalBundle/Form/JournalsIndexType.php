@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalsIndex;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -12,22 +13,24 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalsIndexType extends AbstractType {
+class JournalsIndexType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
         $user = $options['user'];
-        $journal = $options['journal'];
+        //$journal = $options['journal'];
         $builder
                 ->add('journal_index', 'entity', [
                     'class' => 'Ojs\JournalBundle\Entity\JournalIndex',
                     'attr' => ['class' => ' form-control select2-element'],
         ]);
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use($user) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($user) {
             /** @var JournalsIndex $journalsindex */
             $journalsindex = $event->getData();
             $form = $event->getForm();
@@ -49,8 +52,9 @@ class JournalsIndexType extends AbstractType {
                 $qb
                         ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
                         ->setParameter('user', $user);
+
                 return $qb;
-            }
+            },
                 ]);
             } else {
                 $form->add('journal_id', 'hidden');
@@ -70,8 +74,8 @@ class JournalsIndexType extends AbstractType {
             'journal' => null,
             'attr' => [
                 'novalidate' => 'novalidate',
-                'class' => 'form-validate'
-            ]
+                'class' => 'form-validate',
+            ],
         ]);
     }
 
@@ -82,5 +86,4 @@ class JournalsIndexType extends AbstractType {
     {
         return 'ojs_journalbundle_journalsindex';
     }
-
 }

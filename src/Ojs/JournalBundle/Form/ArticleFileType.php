@@ -2,16 +2,15 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Ojs\Common\Params\ArticleFileParams;
-use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleFileType extends AbstractType
 {
+    /** @var  ContainerInterface */
     private $container;
 
     public function __construct($container)
@@ -21,7 +20,7 @@ class ArticleFileType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,23 +28,23 @@ class ArticleFileType extends AbstractType
             ->add('title')
             ->add('keywords')
             ->add('description')
-            ->add('type','choice',[
-                'choices'=>ArticleFileParams::$FILE_TYPES
+            ->add('type', 'choice', [
+                'choices' => ArticleFileParams::$FILE_TYPES,
             ])
-            ->add('article','autocomplete',[
+            ->add('article', 'autocomplete', [
                 'class' => 'Ojs\JournalBundle\Entity\Article',
                 'attr' => [
                     'class' => 'autocomplete',
                     'style' => 'width:100%',
-                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/article",
-                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/article/get/",
-                    "placeholder" => "type a journal name"
+                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/article",
+                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/article/get/",
+                    "placeholder" => "type a journal name",
                 ],
             ])
             ->add('version')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -53,11 +52,10 @@ class ArticleFileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
-            'user'=> null ,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'user' => null,
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

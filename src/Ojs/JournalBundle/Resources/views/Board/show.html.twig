@@ -24,8 +24,15 @@
         </tbody>
     </table>
 
-    {% set back_path = 'admin_board' %}
-    {% set edit_path = 'admin_board_edit' %}
-    {% set delete_path = 'admin_board_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <a href="{{ path('admin_board') }}">
+        {{"b"|trans}}
+    </a>
+    <a href="{{ path('admin_board_edit', { 'id': entity.id }) }}">
+        {{"e"|trans}}
+    </a>
+    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
+        {{"d"|trans}}
+    </a>
+
 {% endblock %}

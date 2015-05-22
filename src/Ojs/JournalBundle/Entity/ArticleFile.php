@@ -2,15 +2,15 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use \Ojs\Common\Entity\GenericExtendedEntity;
-
-;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * ArticleFile
  */
-class ArticleFile extends GenericExtendedEntity
+class ArticleFile implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -38,7 +38,7 @@ class ArticleFile extends GenericExtendedEntity
     private $version;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Article
+     * @var Article
      *
      */
     private $article;
@@ -72,11 +72,6 @@ class ArticleFile extends GenericExtendedEntity
      * @var string
      */
     private $langCode;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Get id
@@ -253,7 +248,7 @@ class ArticleFile extends GenericExtendedEntity
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @return Article
      */
     public function getArticle()
     {
@@ -262,10 +257,10 @@ class ArticleFile extends GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Article     $article
-     * @return \Ojs\JournalBundle\Entity\ArticleFile
+     * @param  Article     $article
+     * @return ArticleFile
      */
-    public function setArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function setArticle(Article $article)
     {
         $this->article = $article;
 
@@ -274,7 +269,7 @@ class ArticleFile extends GenericExtendedEntity
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\File
+     * @return File
      */
     public function getFile()
     {
@@ -284,15 +279,13 @@ class ArticleFile extends GenericExtendedEntity
     /**
      * Set file
      *
-     * @param \Ojs\JournalBundle\Entity\File $file
+     * @param  File        $file
      * @return ArticleFile
      */
-    public function setFile(\Ojs\JournalBundle\Entity\File $file = null)
+    public function setFile(File $file = null)
     {
         $this->file = $file;
 
         return $this;
     }
-
-
 }

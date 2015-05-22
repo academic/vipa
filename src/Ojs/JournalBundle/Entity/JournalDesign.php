@@ -2,16 +2,17 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Ojs\Common\Entity\GenericExtendedEntity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * JournalDesign
  * @GRID\Source(columns="id,journal.title,design.title")
  */
-class JournalDesign extends GenericExtendedEntity
+class JournalDesign implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -50,20 +51,15 @@ class JournalDesign extends GenericExtendedEntity
 
     /**
      *
-     * @var Title
+     * @var string Title
      * @GRID\Column(title="design",field="design.title")
      */
     private $title;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,8 +69,8 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Set journalId
      *
-     * @param integer $journalId
-     * @return JournalDesign
+     * @param  integer $journalId
+     * @return $this
      */
     public function setJournalId($journalId)
     {
@@ -86,7 +82,7 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -96,8 +92,8 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Set designId
      *
-     * @param integer $designId
-     * @return JournalDesign
+     * @param  integer $designId
+     * @return $this
      */
     public function setDesignId($designId)
     {
@@ -109,29 +105,29 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Get designId
      *
-     * @return integer 
+     * @return integer
      */
     public function getDesignId()
     {
         return $this->designId;
     }
 
-    
     /**
      * Set journal
-     * @param Journal $journal
-     * @return JournalDesign
+     * @param  Journal $journal
+     * @return $this
      */
     public function setJournal($journal)
     {
         $this->journal = $journal;
+
         return $this;
     }
 
     /**
      * Get journal
      *
-     * @return Journal 
+     * @return Journal
      */
     public function getJournal()
     {
@@ -141,19 +137,20 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Set design
      *
-     * @param Design $design
-     * @return JournalDesign
+     * @param  Design $design
+     * @return $this
      */
     public function setDesign($design)
     {
         $this->design = $design;
+
         return $this;
     }
 
     /**
      * Get design
      *
-     * @return Design 
+     * @return Design
      */
     public function getDesign()
     {
@@ -162,19 +159,20 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Set title
      *
-     * @param Title $title
-     * @return JournalDesign
+     * @param  string $title
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
     /**
      * Get title
      *
-     * @return Title
+     * @return string Title
      */
     public function getTitle()
     {
@@ -184,19 +182,20 @@ class JournalDesign extends GenericExtendedEntity
     /**
      * Set isPublic
      *
-     * @param isPublic $isPublic
-     * @return JournalDesign
+     * @param  string $isPublic
+     * @return $this
      */
     public function setIsPublic($isPublic)
     {
         $this->isPublic = $isPublic;
+
         return $this;
     }
 
     /**
      * Get isPublic
      *
-     * @return isPublic
+     * @return string
      */
     public function getIsPublic()
     {

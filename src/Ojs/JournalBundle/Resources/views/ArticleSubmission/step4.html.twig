@@ -8,16 +8,16 @@
                         {% for key,type in fileTypes %}
                             <option value="{{key}}" {% if file is defined and file.type==key %} selected="selected" {% endif %}>{{ type|trans }}</option>
                         {% endfor %}
-                    </select>  
+                    </select>
                 </div>
                 <div class="col-md-6">
-                    <span class="hidden-sm hidden-xs"> {{"file.language"|trans}} :</span> 
+                    <span class="hidden-sm hidden-xs"> {{"file.language"|trans}} :</span>
                     <select  style="min-width:120px;margin:10px 20px"  name="lang" class="select2-element input-sm">
                         {% for lang in journal.languages %}
                             <option value="{{ lang.code }}" {% if file is defined and file.lang==lang.code %}selected="selected"{% endif %}>{{ lang.name|trans }} [{{ lang.code }}]</option>
                         {% endfor %}
                     </select>
-                </div> 
+                </div>
             </div>
         </div>
         <div class="panel-body">
@@ -64,12 +64,10 @@
             <span class="upload_progress label label-info" style="display: none"></span>
 
         </div>
-        <div  class="panel-footer" style="text-align: right"> 
-            <a  onclick="$(this).parents('form').remove();" 
+        <div  class="panel-footer" style="text-align: right">
+            <a  onclick="$(this).parents('form').remove();"
                 class="btn-sm btn btn-warning"><i class="fa fa-trash"></i>
             </a>
         </div>
     </div>
 </form>
-
-

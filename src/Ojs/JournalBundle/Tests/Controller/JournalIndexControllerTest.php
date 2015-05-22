@@ -19,9 +19,8 @@ class JournalIndexControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journalindex[status]'] = "1";
         $form['ojs_journalbundle_journalindex[logo]'] = "image.jpg";
         $crawler = $this->client->submit($form);
-        $this->assertTrue((boolean)preg_match('~(Redirecting to .*)~',$crawler->text()));
+        $this->assertTrue((boolean) preg_match('~(Redirecting to .*)~', $crawler->text()));
     }
-
 
     public function testStatus()
     {

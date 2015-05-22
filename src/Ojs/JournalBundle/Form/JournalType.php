@@ -13,7 +13,7 @@ class JournalType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,16 +21,16 @@ class JournalType extends AbstractType
             ->add('title', 'text', [
                 'label' => 'title',
                 'attr' => [
-                    'class' => 'validate[required]'
-                ]
+                    'class' => 'validate[required]',
+                ],
             ])
             ->add('titleAbbr', 'text', ['label' => 'titleabbr'])
             ->add('titleTransliterated', 'text', ['label' => 'titleTransliterated'])
             ->add('institution', null, [
                 'label' => 'institution',
                 'attr' => [
-                    'class' => 'select2-element validate[required]'
-                ]
+                    'class' => 'select2-element validate[required]',
+                ],
             ])
             ->add('languages', 'entity', array(
                     'label' => 'languages',
@@ -41,7 +41,7 @@ class JournalType extends AbstractType
                     'required' => false,
                     'attr' => [
                         'class' => 'select2-element validate[required]',
-                    ]
+                    ],
                 )
             )
             ->add('subjects', 'entity', [
@@ -50,8 +50,8 @@ class JournalType extends AbstractType
                 'property' => 'subject',
                 'multiple' => true,
                 'attr' => [
-                    'class' => 'select2-element'
-                ]
+                    'class' => 'select2-element',
+                ],
             ]);
         $role_options = [
             'label' => 'submitRoles',
@@ -61,15 +61,14 @@ class JournalType extends AbstractType
             'expanded' => false,
             'required' => false,
             'attr' => [
-                'class' => 'select2-element'
-            ]
+                'class' => 'select2-element',
+            ],
         ];
         if ($options['default_roles'] !== null) {
             $role_options['data'] = $options['default_roles'];
         }
 
-        $builder->add('submitRoles', 'entity', $role_options
-        );
+        $builder->add('submitRoles', 'entity', $role_options);
 
         $builder->add('subtitle', 'hidden', ['label' => 'subtitle'])
             ->add('path', 'hidden', ['label' => 'journal.path'])
@@ -79,41 +78,41 @@ class JournalType extends AbstractType
             ->add('firstPublishDate', 'collot_datetime', array(
                 'label' => 'journal.firstPublishDate',
                 'date_format' => 'dd-MM-yyyy',
-                'pickerOptions'=>[
-                    'format'=>'dd-mm-yyyy',
-                    'startView'=>'month',
-                    'minView'=>'month',
-                    'todayBtn'=>'true',
-                    'todayHighlight'=>'true',
-                    'autoclose'=>'true'
-                ]
+                'pickerOptions' => [
+                    'format' => 'dd-mm-yyyy',
+                    'startView' => 'month',
+                    'minView' => 'month',
+                    'todayBtn' => 'true',
+                    'todayHighlight' => 'true',
+                    'autoclose' => 'true',
+                ],
             ))
             ->add('period', 'text', ['label' => 'journal.period'])
             ->add('googleAnalyticsId', 'text', [
-                'label' => 'journal.google.analytics.id'
+                'label' => 'journal.google.analytics.id',
             ])
             ->add('url', 'text', ['label' => 'url'])
             ->add('country', 'entity', [
                 'label' => 'country',
                 'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                 'attr' => [
-                    'class' => 'select2-element '
+                    'class' => 'select2-element ',
                 ],
-                'query_builder'=>function(EntityRepository $em){
+                'query_builder' => function (EntityRepository $em) {
                     return $em->createQueryBuilder('c')
                         ->where("c.type=0");
-                }
+                },
             ])
             ->add('footer_text', 'textarea', [
                 'label' => 'footer_text',
                 'attr' => [
-                    'class' => 'wysihtml5 '
-                ]
+                    'class' => 'wysihtml5 ',
+                ],
             ])
             ->add('published', 'checkbox', ['label' => 'published'])
             ->add('status', 'choice', [
                 'label' => 'status',
-                'choices' => CommonParams::getStatusTexts()
+                'choices' => CommonParams::getStatusTexts(),
             ])
             ->add('image', 'hidden')
             ->add('header', 'hidden')
@@ -128,10 +127,10 @@ class JournalType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
-                    })
+                    }, )
             );
     }
 
@@ -144,10 +143,10 @@ class JournalType extends AbstractType
             'data_class' => 'Ojs\JournalBundle\Entity\Journal',
             'attr' => [
                 'novalidate' => 'novalidate',
-                'class' => 'validate-form'
+                'class' => 'validate-form',
             ],
             'default_roles' => null,
-            'translation_domain'=>'messages',
+            'translation_domain' => 'messages',
 
         ));
     }
@@ -159,5 +158,4 @@ class JournalType extends AbstractType
     {
         return 'ojs_journalbundle_journal';
     }
-
 }

@@ -12,7 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class AuthorRepository extends EntityRepository
 {
-
+    /**
+     * @param  array    $data
+     * @return Author[]
+     */
     public function getByIds(array $data)
     {
         $qb = $this->createQueryBuilder('a');
@@ -20,7 +23,7 @@ class AuthorRepository extends EntityRepository
             $qb->expr()->in('a.id', ':data')
         )
             ->setParameter('data', $data);
+
         return $qb->getQuery()->getResult();
     }
-
 }

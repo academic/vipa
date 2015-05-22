@@ -12,8 +12,8 @@ class InstitutionTypesRepository extends EntityRepository
 {
 
     /**
-     * @param array $data
-     * @return mixed
+     * @param  array         $data
+     * @return Institution[]
      */
     public function getByIds(array $data)
     {
@@ -22,7 +22,7 @@ class InstitutionTypesRepository extends EntityRepository
             $qb->expr()->in('j.id', ':data')
         )
             ->setParameter('data', $data);
+
         return $qb->getQuery()->getResult();
     }
-
 }

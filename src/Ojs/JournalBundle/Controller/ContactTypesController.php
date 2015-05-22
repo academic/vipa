@@ -5,10 +5,13 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Form\ContactTypesType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * ContactTypes controller.
@@ -19,6 +22,7 @@ class ContactTypesController extends Controller
     /**
      * Lists all ContactTypes entities.
      *
+     * @return Response
      */
     public function indexAction()
     {
@@ -34,12 +38,15 @@ class ContactTypesController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:ContactTypes:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:ContactTypes:index.html.twig', $data);
     }
 
     /**
      * Creates a new ContactTypes entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -51,6 +58,7 @@ class ContactTypesController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('contacttypes_show', array('id' => $entity->getId())));
         }
 
@@ -65,7 +73,7 @@ class ContactTypesController extends Controller
      *
      * @param ContactTypes $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(ContactTypes $entity)
     {
@@ -81,6 +89,7 @@ class ContactTypesController extends Controller
     /**
      * Displays a form to create a new ContactTypes entity.
      *
+     * @return Response
      */
     public function newAction()
     {
@@ -96,6 +105,8 @@ class ContactTypesController extends Controller
     /**
      * Finds and displays a ContactTypes entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -104,16 +115,19 @@ class ContactTypesController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:ContactTypes:show.html.twig', array(
-                    'entity' => $entity,));
+                    'entity' => $entity, ));
     }
 
     /**
      * Displays a form to edit an existing ContactTypes entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var ContactTypes $entity */
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -129,7 +143,7 @@ class ContactTypesController extends Controller
      *
      * @param ContactTypes $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(ContactTypes $entity)
     {
@@ -145,6 +159,9 @@ class ContactTypesController extends Controller
     /**
      * Edits an existing ContactTypes entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -156,6 +173,7 @@ class ContactTypesController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('contacttypes_edit', array('id' => $id)));
         }
 
@@ -168,6 +186,9 @@ class ContactTypesController extends Controller
     /**
      * Deletes a ContactTypes entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -181,7 +202,21 @@ class ContactTypesController extends Controller
             $em->flush();
         }
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('contacttypes'));
     }
 
+    /**
+     * @param $id
+     * @return Form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('contacttypes_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+            ;
+    }
 }

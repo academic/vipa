@@ -26,4 +26,4 @@ manager_journal_section_update:
 
 manager_journal_section_delete:
     path:     /{id}/delete
-    defaults: { _controller: "OjsJournalBundle:JournalSection:delete" } 
+    defaults: { _controller: "OjsJournalBundle:JournalSection:delete" }

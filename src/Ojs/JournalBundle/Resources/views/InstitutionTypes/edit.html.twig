@@ -4,7 +4,12 @@
     <h1>{{"institutiontype.edit"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'institution_types' %}
-    {% set delete_path = 'institution_types_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <div class="btn-group">
+        <a class="btn btn-default" href="{{ path('institution_types') }}">
+            <i class="fa fa-arrow-left"></i> {{"b"|trans}}
+        </a>
+        <a class="btn btn-danger" href="{{ path('institution_types_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </div>
 {% endblock %}

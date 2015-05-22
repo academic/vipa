@@ -8,7 +8,6 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
-
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Form\SubmissionChecklistType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -37,8 +36,9 @@ class SubmissionChecklistController extends Controller
                     ->setParameter('journal', $journal);
             });
         }
-        if (!$journal)
+        if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
+        }
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -51,6 +51,7 @@ class SubmissionChecklistController extends Controller
         $data = [];
         $data['grid'] = $grid;
         $data['journal_id'] = $journal;
+
         return $grid->getGridResponse('OjsJournalBundle:SubmissionChecklist:index.html.twig', $data);
     }
 
@@ -72,6 +73,7 @@ class SubmissionChecklistController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('manager_submission_checklist_show', array('id' => $entity->getId())));
         }
 
@@ -130,7 +132,7 @@ class SubmissionChecklistController extends Controller
         }
 
         return $this->render('OjsJournalBundle:SubmissionChecklist:show.html.twig', array(
-            'entity' => $entity
+            'entity' => $entity,
         ));
     }
 
@@ -152,7 +154,7 @@ class SubmissionChecklistController extends Controller
 
         return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -195,18 +197,19 @@ class SubmissionChecklistController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('manager_submission_checklist_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a SubmissionChecklist entity.
-     * @param SubmissionChecklist $entity
+     * @param  SubmissionChecklist                                $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(SubmissionChecklist $entity)
@@ -216,6 +219,7 @@ class SubmissionChecklistController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('manager_submission_checklist');
     }
 }

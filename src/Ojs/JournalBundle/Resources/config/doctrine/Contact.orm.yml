@@ -12,7 +12,7 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             nullable: TRUE
-            gedmo: 
+            gedmo:
                 - versioned
         affiliation:
             type: text
@@ -21,14 +21,14 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             column: first_name
-            gedmo: 
+            gedmo:
                 - versioned
             nullable: true
         lastName:
             type: string
             length: 255
             column: last_name
-            gedmo: 
+            gedmo:
                 - versioned
             nullable: true
         address:
@@ -45,7 +45,7 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             nullable: TRUE
-            gedmo: 
+            gedmo:
                 - versioned
         fax:
             type: string
@@ -54,7 +54,7 @@ Ojs\JournalBundle\Entity\Contact:
         email:
             type: string
             length: 255
-            gedmo: 
+            gedmo:
                 - versioned
             nullable: true
         created:

@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('author'), 'title': 'author.manager'|trans},
     { 'title' : 'author.edit'|trans} ])}}
@@ -9,7 +9,11 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
+
+
     {% set back_path = 'author' %}
     {% set delete_path = 'author_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
+
+
 {% endblock %}

@@ -9,11 +9,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Ojs\UserBundle\Entity\User;
 
-class IssueType extends AbstractType {
+class IssueType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,8 +25,7 @@ class IssueType extends AbstractType {
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' =>
-                    function (EntityRepository $er) use ($user, $journal) {
+                    'query_builder' => function (EntityRepository $er) use ($user, $journal) {
                 /** @var User $user $qb */
                 $qb = $er->createQueryBuilder('j');
                 foreach ($user->getRoles() as $role) {
@@ -43,8 +43,9 @@ class IssueType extends AbstractType {
                 $qb
                 ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
                 ->setParameter('user', $user);
+
                 return $qb;
-            }
+            },
                         )
                 )
                 ->add('volume', 'text', array('label' => 'volume'))
@@ -56,14 +57,14 @@ class IssueType extends AbstractType {
                 ->add('datePublished', 'collot_datetime', array(
 
                         'date_format' => 'dd-MM-yyyy',
-                        'pickerOptions'=>[
-                            'format'=>'dd-mm-yyyy',
-                            'startView'=>'month',
-                            'minView'=>'month',
-                            'todayBtn'=>'true',
-                            'todayHighlight'=>'true',
-                            'autoclose'=>'true'
-                        ]
+                        'pickerOptions' => [
+                            'format' => 'dd-mm-yyyy',
+                            'startView' => 'month',
+                            'minView' => 'month',
+                            'todayBtn' => 'true',
+                            'todayHighlight' => 'true',
+                            'autoclose' => 'true',
+                        ],
                         )
                 )
                 ->add('cover', 'hidden')
@@ -81,9 +82,8 @@ class IssueType extends AbstractType {
             'user' => null,
             'journal' => null,
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -94,5 +94,4 @@ class IssueType extends AbstractType {
     {
         return 'ojs_journalbundle_issue';
     }
-
 }

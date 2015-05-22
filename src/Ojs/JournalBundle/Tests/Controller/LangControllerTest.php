@@ -17,5 +17,4 @@ class LangControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/language/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

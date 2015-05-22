@@ -4,33 +4,28 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Form\JournalContactType;
-use JMS\DiExtraBundle\Annotation\Inject;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * JournalContact controller.
- * 
+ *
  */
-class JournalContactController extends Controller {
-
-    /**
-     * @Inject("security.context", required = false)
-     */
-    private $securityContext;
-    
-    /**
-     * @Inject("user.helper", required = false)
-     */
-    private $userHelper;
+class JournalContactController extends Controller
+{
 
     /**
      * Lists all JournalContact entities.
-     * @param \Ojs\JournalBundle\Entity\Journal $journal  if not set list all contacts. if set list only contacts for that journal
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  Journal         $journal if not set list all contacts. if set list only contacts for that journal
+     * @return Response
      */
     public function indexAction($journal = null)
     {
@@ -38,8 +33,8 @@ class JournalContactController extends Controller {
         if ($journal) {
             $tableAlias = $source->getTableAlias();
             $source->manipulateQuery(
-                    function ($query) use ($tableAlias, $journal) {
-                $query->andWhere($tableAlias . '.journalId = ' . $journal->getId());
+                    function (QueryBuilder $query) use ($tableAlias, $journal) {
+                $query->andWhere($tableAlias.'.journalId = '.$journal->getId());
             }
             );
         }
@@ -49,11 +44,11 @@ class JournalContactController extends Controller {
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        if ($this->securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
-        } else if ($this->userHelper->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+        } elseif ($this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $rowAction[] = ActionHelper::showAction('manager_journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('manager_journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('manager_journalcontact_delete', 'id');
@@ -68,21 +63,24 @@ class JournalContactController extends Controller {
 
     /**
      * List all contacts for current journal
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexManagerAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         return $this->indexAction($journal);
     }
 
     /**
      * Creates a new JournalContact entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        $isAdmin =$this->securityContext->isGranted('ROLE_SUPER_ADMIN'); 
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -93,8 +91,9 @@ class JournalContactController extends Controller {
             $em->flush();
 
             $this->successFlashBag('Successfully created');
+
             return $this->redirectToRoute($isAdmin ? 'journalcontact_show' : 'manager_journalcontact_show', [
-                'id' => $entity->getId()
+                'id' => $entity->getId(),
                 ]
             );
         }
@@ -108,17 +107,17 @@ class JournalContactController extends Controller {
     /**
      * Creates a form to create a JournalContact entity.
      *
-     * @param JournalContact $entity The entity
-     * @param array $optionsArray
-     * @return \Symfony\Component\Form\Form The form
+     * @param  JournalContact               $entity       The entity
+     * @param  array                        $optionsArray
+     * @return Form The form
      */
     private function createCreateForm(JournalContact $entity, $optionsArray = array())
     {
-        $isAdmin = $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $options = array_merge(array(
             'action' => $this->generateUrl($isAdmin ? 'journalcontact_create' : 'manager_journalcontact_create'),
             'method' => 'POST',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
                 ), $optionsArray);
         $form = $this->createForm(new JournalContactType(), $entity, $options);
 
@@ -130,17 +129,20 @@ class JournalContactController extends Controller {
     public function newManagerAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         return $this->newAction($journal);
     }
 
     /**
      * Displays a form to create a new JournalContact entity.
-     * @param Journal $journal
+     *
+     * @param null|Journal $journal
+     * @return Response
      */
     public function newAction($journal = null)
     {
         $options['user'] = $this->getUser();
-        $options['journal'] = $journal? : null;
+        $options['journal'] = $journal ?: null;
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity, $options);
 
@@ -165,17 +167,19 @@ class JournalContactController extends Controller {
         }
 
         return $this->render('OjsJournalBundle:JournalContact:show.html.twig', array(
-                    'entity' => $entity));
+                    'entity' => $entity, ));
     }
 
     /**
      * Displays a form to edit an existing JournalContact entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var JournalContact $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
         if (!$entity) {
@@ -195,14 +199,14 @@ class JournalContactController extends Controller {
      *
      * @param JournalContact $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(JournalContact $entity)
     {
         $form = $this->createForm(new JournalContactType(), $entity, array(
             'action' => $this->generateUrl('journalcontact_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -213,10 +217,13 @@ class JournalContactController extends Controller {
     /**
      * Edits an existing JournalContact entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
-        $isAdmin =  $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
@@ -231,8 +238,9 @@ class JournalContactController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('Successfully updated');
+
             return $this->redirectToRoute($isAdmin ? 'journalcontact_edit' : 'manager_journalcontact_edit', [
-                'id' => $id
+                'id' => $id,
                 ]
             );
         }
@@ -246,10 +254,12 @@ class JournalContactController extends Controller {
     /**
      * Deletes a JournalContact entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
-        $isAdmin =  $this->securityContext->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
@@ -259,7 +269,7 @@ class JournalContactController extends Controller {
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('Successfully removed');
+
         return $this->redirectToRoute($isAdmin ? 'journalcontact' : 'manager_journalcontact');
     }
-
 }

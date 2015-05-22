@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\JournalBundle\Tests\Entity;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 
@@ -26,7 +24,7 @@ class JournalRepositoryTest extends BaseTestCase
         $user = $this->em->find('OjsUserBundle:User', 1);
         $journal = $this->em->find('OjsJournalBundle:Journal', 1);
         $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
-        $this->assertFalse($journalRepo->checkUserPermit($user,$journal));
+        $this->assertFalse($journalRepo->checkUserPermit($user, $journal));
     }
     public function testRemoveBanUser()
     {
@@ -36,11 +34,11 @@ class JournalRepositoryTest extends BaseTestCase
         $this->assertTrue($journalRepo->removeBannedUser($user, $journal));
     }
 
-    public function testPermittedUser(){
+    public function testPermittedUser()
+    {
         $user = $this->em->find('OjsUserBundle:User', 1);
         $journal = $this->em->find('OjsJournalBundle:Journal', 1);
         $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
-        $this->assertTrue($journalRepo->checkUserPermit($user,$journal));
-
+        $this->assertTrue($journalRepo->checkUserPermit($user, $journal));
     }
 }

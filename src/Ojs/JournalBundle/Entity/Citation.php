@@ -2,14 +2,19 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Citation
  * @GRID\Source(columns="id,raw,type,articles")
  */
-class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
+class Citation implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      * @GRID\Column(title="ID")
@@ -37,7 +42,7 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     protected $settings;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @GRID\Column(title="Articles", type="text",safe=false)
      */
     private $articles;
@@ -47,18 +52,17 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->settings = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->settings = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     /**
      * Add article
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $article
+     * @param  Article $article
      * @return Subject
      */
-    public function addArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function addArticle(Article $article)
     {
         $this->articles[] = $article;
 
@@ -68,9 +72,9 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove articles
      *
-     * @param \Ojs\JournalBundle\Entity\Article $articles
+     * @param Article $articles
      */
-    public function removeArticle(\Ojs\JournalBundle\Entity\Article $articles)
+    public function removeArticle(Article $articles)
     {
         $this->articles->removeElement($articles);
     }
@@ -78,7 +82,7 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticles()
     {
@@ -88,9 +92,9 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove setting
      *
-     * @param \Ojs\JournalBundle\Entity\CitationSetting $setting
+     * @param CitationSetting $setting
      */
-    public function removeSetting(\Ojs\JournalBundle\Entity\CitationSetting $setting)
+    public function removeSetting(CitationSetting $setting)
     {
         $this->settings->removeElement($setting);
     }
@@ -98,7 +102,7 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get settings
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSettings()
     {
@@ -113,10 +117,10 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add setting
      *
-     * @param  \Ojs\JournalBundle\Entity\CitationSetting $setting
+     * @param  CitationSetting $setting
      * @return Citation
      */
-    public function addSetting(\Ojs\JournalBundle\Entity\CitationSetting $setting)
+    public function addSetting(CitationSetting $setting)
     {
         $this->settings[] = $setting;
 
@@ -201,5 +205,4 @@ class Citation extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         return $this->orderNum;
     }
-
 }

@@ -15,10 +15,10 @@
 
     <div class="record_actions">
         {% if isSystemAdmin() %}
-            {% set back_path = 'journalcontact' %} 
-        {%elseif isJournalManager() %} 
+            {% set back_path = 'journalcontact' %}
+        {%elseif isJournalManager() %}
             {% set back_path = 'manager_journalcontact' %}
         {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+        {% include '::actionbtns.html.twig' %}
     </div>
 {% endblock %}

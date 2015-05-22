@@ -26,8 +26,16 @@
         </tbody>
     </table>
 
-    {% set back_path = 'manager_submission_checklist' %}
-    {% set edit_path = 'manager_submission_checklist_edit' %}
-    {% set delete_path = 'manager_submission_checklist_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <a href="{{ path('manager_submission_checklist') }}">
+        Back to the list
+    </a>
+
+    <a href="{{ path('manager_submission_checklist_edit', { 'id': entity.id }) }}">
+        Edit
+    </a>
+    <a href="{{ path('manager_submission_checklist_delete', { 'id': entity.id }) }}">
+        Delete
+    </a>
+
 {% endblock %}

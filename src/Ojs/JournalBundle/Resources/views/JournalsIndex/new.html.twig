@@ -9,9 +9,9 @@
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_widget(form) }}
- 
+
     <a class="btn btn-default" href="{{ path('manager_journals_indexes',{journal: entity.journalId}) }}">
         {{ 'b'|trans }}
-    </a> 
+    </a>
     {{ form_end(form) }}
 {% endblock %}

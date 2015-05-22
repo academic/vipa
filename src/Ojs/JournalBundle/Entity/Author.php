@@ -2,88 +2,93 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 use Okulbilisim\LocationBundle\Entity\Location;
+use JMS\Serializer\Annotation as JMS;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Author
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
-class Author extends \Ojs\Common\Entity\GenericExtendedEntity
+class Author implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="firstname")
      */
     private $firstName;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="middlename")
      */
     private $middleName;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="lastname")
      */
     private $lastName;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="email")
      */
     private $email;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      */
     private $firstNameTransliterated;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      */
     private $middleNameTransliterated;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      */
     private $lastNameTransliterated;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      * @GRID\Column(title="initials")
      */
     private $initials;
 
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      */
     private $address;
 
     /**
      * @var integer
-     * @Expose()
+     * @JMS\Expose
      */
     private $institutionId;
 
@@ -92,22 +97,21 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     private $institution;
 
-
     /**
      * @var string
-     * @Expose()
+     * @JMS\Expose
      */
     private $summary;
 
     /**
      * @var integer
-     * @Expose()
+     * @JMS\Expose
      */
     private $userId;
 
     /**
-     * @var \Ojs\UserBundle\Entity\User
-     * @Expose()
+     * @var User
+     * @JMS\Expose
      */
     private $user;
 
@@ -132,29 +136,29 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $orcid
+     * @param  string $orcid
      * @return $this
      */
     public function setOrcid($orcid)
     {
         $this->orcid = $orcid;
+
         return $this;
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @Expose
+     * @var Collection
+     * @Jms\Expose
      */
     private $articleAuthors;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleAuthors = new ArrayCollection();
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticleAuthors()
     {
@@ -164,10 +168,10 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set user
      *
-     * @param  \Ojs\UserBundle\Entity\User $user
+     * @param  User   $user
      * @return Author
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -177,7 +181,7 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {
@@ -296,9 +300,8 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     *
-     * @param  integer $userId
-     * @return \Ojs\JournalBundle\Entity\Author
+     * @param  int   $userId
+     * @return $this
      */
     public function setUserId($userId)
     {
@@ -471,10 +474,10 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add articleAuthors
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @param  ArticleAuthor $articleAuthors
      * @return Author
      */
-    public function addArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    public function addArticleAuthor(ArticleAuthor $articleAuthors)
     {
         $this->articleAuthors[] = $articleAuthors;
 
@@ -484,9 +487,9 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove articleAuthors
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @param ArticleAuthor $articleAuthors
      */
-    public function removeArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    public function removeArticleAuthor(ArticleAuthor $articleAuthors)
     {
         $this->articleAuthors->removeElement($articleAuthors);
     }
@@ -507,12 +510,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param mixed $title
+     * @param  mixed $title
      * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $title;
     }
 
@@ -522,27 +526,28 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     public function getFullName()
     {
         $this->fullName = /* $this->title . ' ' . */
-                $this->title . ' ' . $this->firstName . ' ' . $this->middleName . ' ' . $this->lastName;
-        // not sure if title should be added to fullname 
+                $this->title.' '.$this->firstName.' '.$this->middleName.' '.$this->lastName;
+        // not sure if title should be added to fullname
         return $this->fullName;
     }
 
     /**
      * Set institution
      *
-     * @param \Ojs\JournalBundle\Entity\Institution $institution
+     * @param  Institution $institution
      * @return Author
      */
-    public function setInstitution(\Ojs\JournalBundle\Entity\Institution $institution = null)
+    public function setInstitution(Institution $institution = null)
     {
         $this->institution = $institution;
+
         return $this;
     }
 
     /**
      * Get institution
      *
-     * @return \Ojs\JournalBundle\Entity\Institution
+     * @return Institution
      */
     public function getInstitution()
     {
@@ -575,12 +580,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $billing_address
+     * @param  string $billing_address
      * @return $this
      */
     public function setBillingAddress($billing_address)
     {
         $this->billing_address = $billing_address;
+
         return $this;
     }
 
@@ -593,12 +599,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param Location $city
+     * @param  Location $city
      * @return $this
      */
     public function setCity($city)
     {
         $this->city = $city;
+
         return $this;
     }
 
@@ -611,12 +618,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param Location $country
+     * @param  Location $country
      * @return $this
      */
     public function setCountry($country)
     {
         $this->country = $country;
+
         return $this;
     }
 
@@ -629,12 +637,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $fax
+     * @param  string $fax
      * @return $this
      */
     public function setFax($fax)
     {
         $this->fax = $fax;
+
         return $this;
     }
 
@@ -647,12 +656,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param mixed $locale
+     * @param  mixed $locale
      * @return $this
      */
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
         return $this;
     }
 
@@ -665,12 +675,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $locales
+     * @param  string $locales
      * @return $this
      */
     public function setLocales($locales)
     {
         $this->locales = $locales;
+
         return $this;
     }
 
@@ -683,12 +694,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $phone
+     * @param  string $phone
      * @return $this
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -701,14 +713,13 @@ class Author extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $url
+     * @param  string $url
      * @return $this
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
-
-
 }

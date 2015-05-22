@@ -1,13 +1,20 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * MailTemplate
  * @GRID\Source(columns="id,journal.title,type,languages.code, subject")
  */
-class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
+class MailTemplate implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -43,15 +50,26 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      * @GRID\Column(title="mailtemplate.journal", field="journal.title")
      */
     private $journal;
 
     /**
+     * @var ArrayCollection|Lang[]
+     * @GRID\Column(title="mailtemplate.languages",field="languages.code",type="array")
+     */
+    protected $languages;
+
+    public function __construct()
+    {
+        $this->languages = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,7 +79,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer      $journalId
      * @return MailTemplate
      */
     public function setJournalId($journalId)
@@ -74,7 +92,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -84,12 +102,13 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string       $type
      * @return MailTemplate
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -106,12 +125,13 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set subject
      *
-     * @param string $subject
+     * @param  string       $subject
      * @return MailTemplate
      */
     public function setSubject($subject)
     {
         $this->subject = $subject;
+
         return $this;
     }
 
@@ -128,19 +148,20 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set lang
      *
-     * @param string $lang
+     * @param  string       $lang
      * @return MailTemplate
      */
     public function setLang($lang)
     {
         $this->lang = $lang;
+
         return $this;
     }
 
     /**
      * Get lang
      *
-     * @return strşng 
+     * @return string
      */
     public function getLang()
     {
@@ -150,7 +171,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set template
      *
-     * @param string $template
+     * @param  string       $template
      * @return MailTemplate
      */
     public function setTemplate($template)
@@ -163,7 +184,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get template
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
@@ -172,18 +193,19 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Journal        $journal
-     * @return \Ojs\JournalBundle\Entity\MailTemplate
+     * @param  Journal      $journal
+     * @return MailTemplate
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
+
         return $this;
     }
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @return Journal
      */
     public function getJournal()
     {
@@ -191,28 +213,12 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @GRID\Column(title="mailtemplate.languages",field="languages.code",type="array")
-     */
-    protected  $languages;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-
-    /**
      * Add languages
      *
-     * @param \Ojs\JournalBundle\Entity\Lang $languages
+     * @param  Lang         $languages
      * @return MailTemplate
      */
-    public function addLanguage(\Ojs\JournalBundle\Entity\Lang $languages)
+    public function addLanguage(Lang $languages)
     {
         $this->languages[] = $languages;
 
@@ -222,9 +228,9 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove languages
      *
-     * @param \Ojs\JournalBundle\Entity\Lang $languages
+     * @param Lang $languages
      */
-    public function removeLanguage(\Ojs\JournalBundle\Entity\Lang $languages)
+    public function removeLanguage(Lang $languages)
     {
         $this->languages->removeElement($languages);
     }
@@ -232,7 +238,7 @@ class MailTemplate extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get languages
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getLanguages()
     {

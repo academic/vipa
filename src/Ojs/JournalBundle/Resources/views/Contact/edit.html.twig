@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('contact'), 'title': 'contact.manager'|trans},
     { 'title' : 'contact.edit'|trans} ])}}
@@ -10,6 +10,6 @@
 
     {% set back_path = 'contact' %}
     {% set delete_path = 'contact_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
 
 {% endblock %}

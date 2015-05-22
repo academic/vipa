@@ -5,12 +5,7 @@
  */
 namespace Ojs\JournalBundle\Tests\Form;
 
-
 use Ojs\Common\Tests\BaseTypeTestcase;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Form\ArticleAuthorType;
-use Symfony\Component\Form\PreloadedExtension;
 
 class ArticleAuthorTypeTest extends BaseTypeTestcase
 {

@@ -14,7 +14,7 @@ class MailTemplateType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,19 +38,19 @@ class MailTemplateType extends AbstractType
                         $qb
                             ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
                             ->setParameter('user', $user);
+
                         return $qb;
-                    }
-                    ,
-                    'label' => 'mailtemplate.journal'
+                    },
+                    'label' => 'mailtemplate.journal',
                 ]
             )
-            ->add('template', 'textarea', ['label' => 'mailtemplate.template','attr'=>['style'=>'height:200px']])
+            ->add('template', 'textarea', ['label' => 'mailtemplate.template', 'attr' => ['style' => 'height:200px']])
             ->add('type', 'text', ['label' => 'mailtemplate.type'])
             ->add('subject', 'text', ['label' => 'mailtemplate.subject'])
             ->add('lang', 'entity', [
                 'class' => 'Ojs\JournalBundle\Entity\Lang',
                 'property' => 'name',
-                'label' => 'mailtemplate.language'
+                'label' => 'mailtemplate.language',
             ]);
     }
 
@@ -62,10 +62,9 @@ class MailTemplateType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
             'user' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -76,5 +75,4 @@ class MailTemplateType extends AbstractType
     {
         return 'ojs_journalbundle_mailtemplate';
     }
-
 }

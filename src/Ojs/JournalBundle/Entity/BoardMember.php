@@ -2,12 +2,16 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 
 /**
  * BoardMember
  */
-class BoardMember extends GenericExtendedEntity {
+class BoardMember implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -30,19 +34,19 @@ class BoardMember extends GenericExtendedEntity {
     private $seq;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Board
+     * @var Board
      */
     private $board;
 
     /**
-     * @var \Ojs\UserBundle\Entity\User
+     * @var User
      */
     private $user;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -52,7 +56,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param  integer     $userId
      * @return BoardMember
      */
     public function setUserId($userId)
@@ -65,7 +69,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -75,7 +79,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Set boardId
      *
-     * @param integer $boardId
+     * @param  integer     $boardId
      * @return BoardMember
      */
     public function setBoardId($boardId)
@@ -88,7 +92,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Get boardId
      *
-     * @return integer 
+     * @return integer
      */
     public function getBoardId()
     {
@@ -98,7 +102,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Set seq
      *
-     * @param integer $seq
+     * @param  integer     $seq
      * @return BoardMember
      */
     public function setSeq($seq)
@@ -111,7 +115,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Get seq
      *
-     * @return integer 
+     * @return integer
      */
     public function getSeq()
     {
@@ -121,10 +125,10 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Set board
      *
-     * @param \Ojs\JournalBundle\Entity\Board $board
+     * @param  Board       $board
      * @return BoardMember
      */
-    public function setBoard(\Ojs\JournalBundle\Entity\Board $board = null)
+    public function setBoard(Board $board = null)
     {
         $this->board = $board;
 
@@ -134,7 +138,7 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Get board
      *
-     * @return \Ojs\JournalBundle\Entity\Board 
+     * @return Board
      */
     public function getBoard()
     {
@@ -144,10 +148,10 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Set user
      *
-     * @param \Ojs\UserBundle\Entity\User $user
+     * @param  User        $user
      * @return BoardMember
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -157,11 +161,10 @@ class BoardMember extends GenericExtendedEntity {
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User 
+     * @return User
      */
     public function getUser()
     {
         return $this->user;
     }
-
 }

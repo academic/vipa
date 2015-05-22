@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SubjectType extends AbstractType {
+class SubjectType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -27,10 +28,9 @@ class SubjectType extends AbstractType {
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Subject',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -41,5 +41,4 @@ class SubjectType extends AbstractType {
     {
         return 'ojs_journalbundle_subject';
     }
-
 }

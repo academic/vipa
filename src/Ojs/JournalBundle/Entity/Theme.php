@@ -2,15 +2,18 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use \Ojs\Common\Entity\GenericExtendedEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Theme
  * @GRID\Source(columns="id,name,title,isPublic")
  */
-class Theme extends GenericExtendedEntity
+class Theme implements Translatable
 {
-
+    use GenericEntityTrait;
     /**
      * @var integer
      * @GRID\Column(title="id")
@@ -36,46 +39,45 @@ class Theme extends GenericExtendedEntity
     private $isPublic;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journalThemes;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journals;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journalThemes = new ArrayCollection();
+        $this->journals = new ArrayCollection();
     }
 
     /**
      * Add journal
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Language
+     * @param  Journal $journal
+     * @return $this
      */
-    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function addJournal(Journal $journal)
     {
         $this->journals[] = $journal;
+
         return $this;
     }
 
-
     /**
      * Remove journal
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param Journal $journal
      */
-    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function removeJournal(Journal $journal)
     {
         $this->journals->removeElement($journal);
     }
 
     /**
      * Get journals
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournals()
     {
@@ -83,7 +85,7 @@ class Theme extends GenericExtendedEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournalThemes()
     {
@@ -91,12 +93,13 @@ class Theme extends GenericExtendedEntity
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $journalThemes
+     * @param  Collection $journalThemes
      * @return Theme
      */
-    public function setJournalThemes(\Doctrine\Common\Collections\Collection $journalThemes)
+    public function setJournalThemes(Collection $journalThemes)
     {
         $this->journalThemes = $journalThemes;
+
         return $this;
     }
 
@@ -111,13 +114,14 @@ class Theme extends GenericExtendedEntity
     }
 
     /**
-     * Set name 
+     * Set name
      * @param  string $name
      * @return Theme
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -138,6 +142,7 @@ class Theme extends GenericExtendedEntity
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -151,13 +156,14 @@ class Theme extends GenericExtendedEntity
     }
 
     /**
-     * Set isPublic 
+     * Set isPublic
      * @param  boolean $isPublic
      * @return Theme
      */
     public function setIsPublic($isPublic)
     {
         $this->isPublic = $isPublic;
+
         return $this;
     }
 
@@ -169,5 +175,4 @@ class Theme extends GenericExtendedEntity
     {
         return $this->isPublic;
     }
-
 }

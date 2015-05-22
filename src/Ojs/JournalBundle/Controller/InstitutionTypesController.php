@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\JournalBundle\Form\InstitutionTypesType;
-use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * InstitutionTypes controller.
@@ -34,7 +33,8 @@ class InstitutionTypesController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:InstitutionTypes:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:InstitutionTypes:index.html.twig', $data);
     }
 
     /**
@@ -51,6 +51,7 @@ class InstitutionTypesController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('institution_types_show', ['id' => $entity->getId()]);
         }
 
@@ -104,7 +105,7 @@ class InstitutionTypesController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:InstitutionTypes:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
             )
         );
     }
@@ -122,7 +123,7 @@ class InstitutionTypesController extends Controller
 
         return $this->render('OjsJournalBundle:InstitutionTypes:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -158,18 +159,19 @@ class InstitutionTypesController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('institution_types_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:InstitutionTypes:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a InstitutionTypes entity.
-     * @param InstitutionTypes $entity
+     * @param  InstitutionTypes                                   $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(InstitutionTypes $entity)
@@ -179,6 +181,7 @@ class InstitutionTypesController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('institution_types');
     }
 }

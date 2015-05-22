@@ -19,8 +19,22 @@
             </tr>
         </tbody>
     </table>
-    {% set back_path = 'admin_journaldesign' %}
-    {% set edit_path = 'admin_journaldesign_edit' %}
-    {% set delete_path = 'admin_journaldesign_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journaldesign') }}">
+            {{"b"|trans}}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journaldesign_edit', { 'id': entity.id }) }}">
+            {{ 'e'|trans }}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journaldesign_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </li>
+</ul>
 {% endblock %}

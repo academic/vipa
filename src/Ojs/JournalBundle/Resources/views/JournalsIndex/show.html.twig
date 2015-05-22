@@ -27,8 +27,11 @@
     <a href="{{ path('manager_journals_indexes',{journal: entity.journal.id}) }}">
         {{ 'b'|trans }}
     </a>
-    {% set edit_path = 'manager_journals_indexes_edit' %}
-    {% set delete_path = 'manager_journals_indexes_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <a href="{{ path('manager_journals_indexes_edit', { 'id': entity.id }) }}">
+        {{ 'e'|trans }}
+    </a>
+     <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
+        {{ 'd'|trans }}
+    </a>
 
 {% endblock %}

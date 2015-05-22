@@ -1,13 +1,20 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * Issue
  * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
  */
-class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
+class Issue implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -47,7 +54,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
-     * cover image path
+     *             cover image path
      */
     private $cover;
 
@@ -75,7 +82,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     private $datePublished;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $articles;
 
@@ -85,15 +92,14 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     private $header;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $sections;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->sections = new ArrayCollection();
     }
 
     /**
@@ -108,8 +114,8 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * Set journal
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return \Ojs\JournalBundle\Entity\Issue
+     * @param  Journal $journal
+     * @return Issue
      */
     public function setJournal($journal)
     {
@@ -121,7 +127,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @return Journal
      */
     public function getJournal()
     {
@@ -343,10 +349,10 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add article
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $article
-     * @return Language
+     * @param  Article $article
+     * @return $this
      */
-    public function addArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function addArticle(Article $article)
     {
         $this->articles[] = $article;
 
@@ -356,9 +362,9 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove article
      *
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @param Article $article
      */
-    public function removeArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function removeArticle(Article $article)
     {
         $this->articles->removeElement($article);
     }
@@ -366,7 +372,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticles()
     {
@@ -375,11 +381,10 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * Add section to issue
-     *
-     * @param  \Ojs\JournalBundle\Entity\JournalSection $article
-     * @return Language
+     * @param  JournalSection $section
+     * @return $this
      */
-    public function addSection(\Ojs\JournalBundle\Entity\JournalSection $section)
+    public function addSection(JournalSection $section)
     {
         $this->sections[] = $section;
 
@@ -389,17 +394,17 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove section from issue
      *
-     * @param \Ojs\JournalBundle\Entity\JournalSection $section
+     * @param JournalSection $section
      */
-    public function removeSection(\Ojs\JournalBundle\Entity\JournalSection $section)
+    public function removeSection(JournalSection $section)
     {
         $this->articles->removeElement($section);
     }
 
     /**
-     * Get secitons
+     * Get sections
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSections()
     {
@@ -415,12 +420,13 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $header
+     * @param  string $header
      * @return $this
      */
     public function setHeader($header)
     {
         $this->header = $header;
+
         return $this;
     }
 
@@ -430,7 +436,7 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __toString()
     {
-        return $this->getTitle() . "[#{$this->getId()}]";
+        return $this->getTitle()."[#{$this->getId()}]";
     }
 
     /**
@@ -471,6 +477,4 @@ class Issue extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         $this->header_options = $header_options;
     }
-
-
 }

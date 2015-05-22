@@ -12,7 +12,7 @@
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %} 
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
@@ -27,13 +27,13 @@
                     <i class="fa fa-user"></i> {{"journal.my"|trans}}</a>
                 <a href="{{ path('journal_new') }}" class="btn btn-success">
                     {{"c"|trans}}
-                </a> 
+                </a>
             </div>
 
             {{ grid(grid) }}
 
 
-        </div> 
+        </div>
     </div>
 {% endblock %}
 
@@ -41,7 +41,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
     {% if app.user.setting('tour.admin.journal') == FALSE %}

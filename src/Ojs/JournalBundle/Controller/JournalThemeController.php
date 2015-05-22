@@ -35,7 +35,8 @@ class JournalThemeController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:JournalTheme:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:JournalTheme:index.html.twig', $data);
     }
     /**
      * Creates a new JournalTheme entity.
@@ -52,6 +53,7 @@ class JournalThemeController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('admin_journaltheme_show', ['id' => $entity->getId()]);
         }
 
@@ -110,7 +112,7 @@ class JournalThemeController extends Controller
         }
 
         return $this->render('OjsJournalBundle:JournalTheme:show.html.twig', array(
-            'entity'      => $entity
+            'entity'      => $entity,
         ));
     }
 
@@ -132,17 +134,17 @@ class JournalThemeController extends Controller
 
         return $this->render('OjsJournalBundle:JournalTheme:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a JournalTheme entity.
-    *
-    * @param JournalTheme $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a JournalTheme entity.
+     *
+     * @param JournalTheme $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(JournalTheme $entity)
     {
         $form = $this->createForm(new JournalThemeType(), $entity, array(
@@ -174,18 +176,19 @@ class JournalThemeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('admin_journaltheme_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:JournalTheme:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a JournalTheme entity.
-     * @param JournalTheme $entity
+     * @param  JournalTheme                                       $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(JournalTheme $entity)
@@ -195,6 +198,7 @@ class JournalThemeController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_journaltheme');
     }
 }

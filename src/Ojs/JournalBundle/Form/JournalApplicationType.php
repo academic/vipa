@@ -15,7 +15,7 @@ class JournalApplicationType extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,12 +24,12 @@ class JournalApplicationType extends AbstractType
         $institution = $em->getRepository('OjsJournalBundle:Institution')->findAll();
         $languages = $em->getRepository('OjsJournalBundle:Lang')->findAll();
         $subjects = $em->getRepository('OjsJournalBundle:Subject')->findAll();
-        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type'=>0]);
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type' => 0]);
         $choices = [
             'subjects' => [],
             'institutions' => [],
             'languages' => [],
-            'countries' => []
+            'countries' => [],
         ];
         foreach ($institution as $ins) {
             /** @var Institution $ins */
@@ -58,7 +58,7 @@ class JournalApplicationType extends AbstractType
             ->add('country', 'choice', [
                 'choices' => $choices['countries'],
                 'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.country'])
+                'label' => 'journal.country', ])
             ->add('issn', null, ['label' => 'journal.issn'])
             ->add('eissn', null, ['label' => 'journal.eissn'])
             ->add('firstPublishDate', 'collot_datetime', [
@@ -70,39 +70,33 @@ class JournalApplicationType extends AbstractType
                     'minView' => 'month',
                     'todayBtn' => 'true',
                     'todayHighlight' => 'true',
-                    'autoclose' => 'true']])
+                    'autoclose' => 'true', ], ])
             ->add('period', null, ['label' => 'journal.period'])
             ->add('tags', null, ['attr' => ['class' => 'tags form-control', 'label' => 'journal.tags']])
             ->add('url', null, ['label' => 'journal.url'])
             ->add('institution', 'choice', [
                 'choices' => $choices['institutions'],
                 'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.institution'])
+                'label' => 'journal.institution', ])
             ->add('languages', 'choice', [
                 'choices' => $choices['languages'],
                 'multiple' => true,
                 'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.languages'])
+                'label' => 'journal.languages', ])
             ->add('subjects', 'choice', [
                 'choices' => $choices['subjects'],
                 'multiple' => true,
                 'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.subjects'])
+                'label' => 'journal.subjects', ])
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden')
-            ->add('address', null, ['label' => 'journal.address'])
-            ->add('phone', null, ['label' => 'journal.phone'])
-            ->add('email', null, ['label' => 'journal.email'])
             ->add('editorName', null, ['label' => 'journal.editor_name'])
-            ->add('editorSurname', null, ['label' => 'journal.editor_surname'])
             ->add('editorPhone', null, ['label' => 'journal.editor_phone'])
             ->add('editorEmail', null, ['label' => 'journal.editor_email'])
             ->add('assistantEditorName', null, ['label' => 'journal.assistant_editor_name'])
-            ->add('assistantEditorSurname', null, ['label' => 'journal.assistant_editor_surname'])
             ->add('assistantEditorPhone', null, ['label' => 'journal.assistant_editor_phone'])
             ->add('assistantEditorEmail', null, ['label' => 'journal.assistant_editor_email'])
             ->add('techContactName', null, ['label' => 'journal.tech_contact_name'])
-            ->add('techContactSurname', null, ['label' => 'journal.tech_contact_surname'])
             ->add('techContactPhone', null, ['label' => 'journal.tech_contact_phone'])
             ->add('techContactEmail', null, ['label' => 'journal.tech_contact_email']);
     }
@@ -115,10 +109,10 @@ class JournalApplicationType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
             'em' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate',
-                'class'=>'form-validate',
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate',
+                'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -129,5 +123,4 @@ class JournalApplicationType extends AbstractType
     {
         return 'ojs_journalbundle_journalapplication';
     }
-
 }

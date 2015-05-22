@@ -19,5 +19,4 @@ class CommonController extends Controller
 
         return $this->redirect(empty($referer) ? "/" : $referer);
     }
-
 }

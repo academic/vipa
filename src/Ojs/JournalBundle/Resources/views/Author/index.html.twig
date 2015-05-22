@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'title': 'author.manager'|trans} ])}}
 {% endblock %}
@@ -9,6 +9,9 @@
     <h1>{{"author.list"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-    {% set create_path = 'author_new' %}
-    {% include '::actionbuttons.html.twig' %}
+    <div class="clearfix">
+
+    </div>
+    <a href="{{ path('author_new') }}" class="btn btn-success">{{"author.new"|trans}}</a>
+
 {% endblock %}

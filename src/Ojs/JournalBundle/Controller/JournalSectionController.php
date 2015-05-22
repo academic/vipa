@@ -15,7 +15,8 @@ use Ojs\Common\Controller\OjsController as Controller;
  * JournalSection controller.
  *
  */
-class JournalSectionController extends Controller {
+class JournalSectionController extends Controller
+{
 
     /**
      * Lists all JournalSection entities.
@@ -25,17 +26,19 @@ class JournalSectionController extends Controller {
     {
         $source = new Entity('OjsJournalBundle:JournalSection');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (\Doctrine\ORM\QueryBuilder $qb) use ($journal,$ta) {
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function (\Doctrine\ORM\QueryBuilder $qb) use ($journal, $ta) {
             $qb->where(
                     $qb->expr()->eq($ta.'.journalId', $journal->getId())
             );
+
             return $qb;
         });
-        $source->manipulateRow(function(Row $row) {
+        $source->manipulateRow(function (Row $row) {
             if ($row->getField("title") and strlen($row->getField('title')) > 20) {
-                $row->setField('title', substr($row->getField('title'), 0, 20) . "...");
+                $row->setField('title', substr($row->getField('title'), 0, 20)."...");
             }
+
             return $row;
         });
         $grid = $this->get('grid')->setSource($source);
@@ -50,6 +53,7 @@ class JournalSectionController extends Controller {
 
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsJournalBundle:JournalSection:index.html.twig', $data);
     }
 
@@ -70,8 +74,9 @@ class JournalSectionController extends Controller {
             $em->flush();
 
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('manager_journal_section_show', [
-                'id' => $entity->getId()
+                'id' => $entity->getId(),
                 ]
             );
         }
@@ -93,7 +98,7 @@ class JournalSectionController extends Controller {
             'action' => $this->generateUrl('manager_journal_section_create'),
             'method' => 'POST',
             'user' => $this->getUser(),
-            'journal' => $this->get('ojs.journal_service')->getSelectedJournal()
+            'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -170,7 +175,7 @@ class JournalSectionController extends Controller {
             'action' => $this->generateUrl('manager_journal_section_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'user' => $this->getUser(),
-            'journal' => $this->get('ojs.journal_service')->getSelectedJournal()
+            'journal' => $this->get('ojs.journal_service')->getSelectedJournal(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -199,8 +204,9 @@ class JournalSectionController extends Controller {
             $em->flush();
 
             $this->successFlashBag('Successfully updated.');
+
             return $this->redirectToRoute('manager_journal_section_edit', [
-                'id' => $id
+                'id' => $id,
                 ]
             );
         }
@@ -225,7 +231,7 @@ class JournalSectionController extends Controller {
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('Successfully removed.');
+
         return $this->redirectToRoute('manager_journal_section');
     }
-
 }

@@ -8,7 +8,7 @@
     {% endstylesheets %}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %} 
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
@@ -24,7 +24,7 @@
     </ul>
 
     <div class="col-md-12">
-        <h1>{{"preview"|trans}} 
+        <h1>{{"preview"|trans}}
             <small class="pull-right">
                 <a class="btn btn-link"><i class="fa fa-print"></i></a>
             </small>
@@ -134,7 +134,7 @@
                     {% for key,citation  in submissionData.citations %}
                         <tr>
                             <td><span class="badge">{{citation.orderNum}}</span> {{citation.raw}}</td>
-                        </tr> 
+                        </tr>
                     {%endfor%}
                 </table>
             </div>
@@ -169,7 +169,7 @@
                                         <b>{{ "desc"|trans }} : </b>
                                         {{ file.desc }}
                                     </small>
-                                {% endif %}  
+                                {% endif %}
 
                                 {% if file.keywords is defined %}
                                     <br>
@@ -177,7 +177,7 @@
                                         <b>{{ "keywords"|trans }} : </b>
                                         {{ file.keywords }}
                                     </small>
-                                {% endif %}  
+                                {% endif %}
 
                             </td>
                         </tr>
@@ -187,7 +187,7 @@
                 </table>
             </div>
             <div class="panel-footer"></div>
-        </div>    
+        </div>
 
         {% if submissionData.competingOfInterest %}
             <div class="panel panel-default">
@@ -196,7 +196,7 @@
                 </div>
                 <div class="panel panel-body table-responsive">
                     {{submissionData.competingOfInterest |raw}}
-                </div> 
+                </div>
             </div>
         {%endif%}
 
@@ -205,7 +205,7 @@
                 <div class="panel-heading"><h4 class="panel-title">{{"notes_to_editor"|trans}}</h4></div>
                 <div class="panel panel-body table-responsive">
                     <textarea class="editor form-control" name="notes"></textarea>
-                </div> 
+                </div>
             </div>
 
 
@@ -216,7 +216,7 @@
                 <div class="btn-group">
                     <button class="btn btn-warning btn-lg"
                             onclick="return OjsArticleSubmission.submit();" type="submit">{{ "submit"|trans }}</button>
-                    <button class="btn btn-default btn-lg"   
+                    <button class="btn btn-default btn-lg"
                             onclick="$('#alertSubmission').slideUp('fast');
                                     $('#btnSubmissionGroup').slideDown('fast');
                                     return false;">{{ "cancel"|trans }}</button>
@@ -244,15 +244,15 @@
     {{ parent() }}
     {% javascripts  '@submission_js' output="c/submission_js.js" %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %} 
+    {% endjavascripts %}
 
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
         {% endjavascripts %}
 

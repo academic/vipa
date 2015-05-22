@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'article.manager'|trans} ])}}
 {% endblock %}
 
@@ -8,7 +8,7 @@
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}  
+    {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
@@ -24,7 +24,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
     {% javascripts  '@OjsJournalBundle/Resources/public/js/tour/article_admin_tour.js' output="c/article_admin_tour.js" %}

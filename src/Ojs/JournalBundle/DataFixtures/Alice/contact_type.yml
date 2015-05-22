@@ -5,7 +5,7 @@
   c_type1:
     name: Primary Contact
   c_type2:
-    name:  Technical Contact 
+    name:  Technical Contact
     description: Website problems and any other technical issues
   c_type3:
     name: Author Support
@@ -13,7 +13,7 @@
      name: Subscription Support
   c_type5:
       name: Institutional Support
-      description: Gget support for your institution 
+      description: Gget support for your institution
   c_type6:
       name: Advertising
   c_type7:

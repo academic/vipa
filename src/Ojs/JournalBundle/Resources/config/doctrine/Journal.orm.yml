@@ -47,7 +47,7 @@ Ojs\JournalBundle\Entity\Journal:
           mappedBy: journal
           cascade: ["persist", "merge"]
           fetch: LAZY
-        journalThemes: 
+        journalThemes:
             targetEntity: JournalTheme
             mappedBy: journal
         userRoles:
@@ -189,18 +189,6 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             nullable: true
         url:
-            type: string
-            length: 255
-            nullable: true
-        address:
-            type: string
-            length: 255
-            nullable: true
-        phone:
-            type: string
-            length: 255
-            nullable: true
-        email:
             type: string
             length: 255
             nullable: true

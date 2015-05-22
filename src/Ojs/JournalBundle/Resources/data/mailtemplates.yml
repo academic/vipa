@@ -52,11 +52,11 @@
               Ref. Code: #{{articleId}}<br>
               Title: {{articleTitle}} <br>
               Dear. {{fullName}}<br>
-              We are pleased to inform you that ... 
+              We are pleased to inform you that ...
               Regards,<br><br>
               Editorial Board<br>
               {{journalUrl}}<br>
-'rejection': 
+'rejection':
   id: '5'
   lang: en
   type: Rejection

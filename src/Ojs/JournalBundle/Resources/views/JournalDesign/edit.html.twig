@@ -4,7 +4,17 @@
     <h1>{{"journal.design.edit"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'admin_journaldesign' %}
-    {% set delete_path = 'admin_journaldesign_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journaldesign') }}">
+            {{"b"|trans}}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_journaldesign_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </li>
+</ul>
 {% endblock %}

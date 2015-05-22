@@ -1,9 +1,9 @@
 \Ojs\JournalBundle\Entity\Institution:
-  default: 
+  default:
       email: <systemEmail()>
       slug: <defaultInstitutionSlug()>
       name: Ojs
-      url: "" 
+      url: ""
       about: null
       phone: null
       address: ""

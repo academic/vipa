@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'title': 'institution.manager'|trans, 'link' : path('institution')},
     { 'title': 'institution.edit'|trans}])}}
-{% endblock %}  
+{% endblock %}
 
 
 {% block body -%}
@@ -71,7 +71,7 @@
     {{ form_end(form) }}
     {% set back_path = 'institution' %}
     {% set delete_path = 'institution_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
 
 {% endblock %}
 {% block javascripts %}

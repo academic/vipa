@@ -10,7 +10,7 @@
         visible: true
         locale: en
     checkItem2:
-        label: All authors have read and approved the most recent version of the manuscript 
+        label: All authors have read and approved the most recent version of the manuscript
         journal: @journal1
         visible: true
         locale: en
@@ -39,5 +39,3 @@
         journal: @journal1
         visible: true
         locale: tr
-
-    

@@ -3,21 +3,18 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
-use Ojs\UserBundle\Entity\Role;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ojs\UserBundle\Entity\User;
 
 class InstitutionApplicationType extends AbstractType
 {
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -28,25 +25,24 @@ class InstitutionApplicationType extends AbstractType
         $em = $options['em'];
         $institutionTypes = $em->getRepository('OjsJournalBundle:InstitutionTypes')->findAll();
         $choices = [
-            'types'=>[],
-            'countries'=>[]
+            'types' => [],
+            'countries' => [],
         ];
         foreach ($institutionTypes as $choice) {
             /** @var InstitutionTypes $choice*/
-            $choices['types'][$choice->getId()]=$choice->getName();
+            $choices['types'][$choice->getId()] = $choice->getName();
         }
-        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type'=>0]);
+        $countries = $em->getRepository('OkulbilisimLocationBundle:Location')->findBy(['type' => 0]);
         foreach ($countries as $country) {
-            $choices['countries'][$country->getId()]=$country->getName();
+            $choices['countries'][$country->getId()] = $country->getName();
         }
-
 
         $builder
             ->add('name', null, ['label' => 'institution.name'])
             ->add('slug', null, ['label' => 'institution.slug'])
-            ->add('type','choice',[
+            ->add('type', 'choice', [
                 'label' => 'institution.type',
-                'choices'=>$choices['types']
+                'choices' => $choices['types'],
             ])
             ->add('about', null, ['label' => 'institution.about'])
             ->add('address', null, ['label' => 'institution.address'])
@@ -58,17 +54,17 @@ class InstitutionApplicationType extends AbstractType
             ->add('url', null, ['label' => 'institution.url'])
             ->add('wiki_url', null, ['label' => 'institution.wiki_url'])
             ->add('tags', null, ['label' => 'institution.tags'])
-            ->add('logo_image','hidden')
-            ->add('header_image','hidden')
+            ->add('logo_image', 'hidden')
+            ->add('header_image', 'hidden')
             ->add('country', 'choice', [
                 'choices' => $choices['countries'],
                 'attr' => [
                     'label' => 'institution.country',
                     'class' => 'select2-element  bridged-dropdown',
-                    'data-to'=>'#'.$this->getName().'_city'
-                ]
+                    'data-to' => '#'.$this->getName().'_city',
+                ],
             ]);
-        $helper->addCityField($builder,'Ojs\JournalBundle\Document\InstitutionApplication',true);
+        $helper->addCityField($builder, 'Ojs\JournalBundle\Document\InstitutionApplication', true);
     }
 
     /**
@@ -78,13 +74,11 @@ class InstitutionApplicationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Document\InstitutionApplication',
-            'em'=>null,
-            'helper' => null
-        ,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'em' => null,
+            'helper' => null,
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -95,5 +89,4 @@ class InstitutionApplicationType extends AbstractType
     {
         return 'ojs_journalbundle_institutionapplication';
     }
-
 }

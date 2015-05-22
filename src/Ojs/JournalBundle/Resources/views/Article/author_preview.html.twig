@@ -35,7 +35,7 @@
                                 {{ authorsInfo.author.firstname }} {{ authorsInfo.author.middlename }} {{ authorsInfo.author.lastname }}
                             </span>
                             {% if not loop.last %}
-                                , 
+                                ,
                             {% endif %}
                         {% endfor %}
                     {%endif%}
@@ -157,7 +157,7 @@
             </tr>
             <tr>
                 <th>{{"citations"|trans}}</th>
-                <td> 
+                <td>
                     {% for citation in entity.citations%}
                         <p>
                             <span class="badge">{{loop.index}}</span> {{ citation.raw }}<br>

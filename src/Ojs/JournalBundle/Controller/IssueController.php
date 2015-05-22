@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -35,7 +34,8 @@ class IssueController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Issue:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Issue:index.html.twig', $data);
     }
 
     /**
@@ -51,16 +51,17 @@ class IssueController extends Controller
             $em = $this->getDoctrine()->getManager();
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setCoverOptions(json_encode($cover));
             }
 
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('issue_show', ['id' => $entity->getId()]);
         }
 
@@ -83,7 +84,7 @@ class IssueController extends Controller
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_create'),
             'method' => 'POST',
-            'user' => $user
+            'user' => $user,
         ));
 
         return $form;
@@ -147,7 +148,7 @@ class IssueController extends Controller
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'user'=>$user
+            'user' => $user,
         ));
 
         return $form;
@@ -167,15 +168,16 @@ class IssueController extends Controller
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setCoverOptions(json_encode($cover));
             }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('issue_edit', ['id' => $id]);
         }
 
@@ -197,7 +199,7 @@ class IssueController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('issue');
     }
-
 }

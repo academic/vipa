@@ -7,7 +7,7 @@ Ojs\JournalBundle\Entity\Institution:
             type: integer
             id: true
             generator:
-                strategy: AUTO 
+                strategy: AUTO
     oneToMany:
         journals:
             targetEntity: Journal
@@ -49,7 +49,7 @@ Ojs\JournalBundle\Entity\Institution:
                     referencedColumnName: id
                     onDelete: CASCADE
               gedmo:
-                - treeParent 
+                - treeParent
     fields:
         lft:
            type: integer

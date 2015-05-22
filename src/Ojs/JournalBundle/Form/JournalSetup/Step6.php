@@ -11,7 +11,7 @@ class Step6 extends AbstractType
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,13 +22,13 @@ class Step6 extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'required' => false,
-                    'attr'=>[
-                        'class'=>'validate[required]'
+                    'attr' => [
+                        'class' => 'validate[required]',
                     ],
                     'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
-                    })
+                    }, )
             );
     }
 
@@ -39,10 +39,9 @@ class Step6 extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Journal',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -53,5 +52,4 @@ class Step6 extends AbstractType
     {
         return 'ojs_journalbundle_journal';
     }
-
 }

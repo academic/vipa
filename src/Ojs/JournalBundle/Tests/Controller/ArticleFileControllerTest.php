@@ -3,19 +3,19 @@
 namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ArticleFileControllerTest extends BaseTestCase
 {
     public function testList()
     {
         $this->logIn();
-        $this->isAccessible(['articlefile',['article'=>1]]);
+        $this->isAccessible(['articlefile', ['article' => 1]]);
     }
 
-    public function testNew(){
+    public function testNew()
+    {
         $this->logIn();
-        $this->isAccessible(['articlefile_new',['article'=>1]]);
+        $this->isAccessible(['articlefile_new', ['article' => 1]]);
     }
     /*
     public function testCompleteScenario()

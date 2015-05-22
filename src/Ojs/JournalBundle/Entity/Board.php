@@ -2,19 +2,20 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Board
- *  @GRID\Source(columns="id , journal.title, name, description") 
+ *  @GRID\Source(columns="id , journal.title, name, description")
  */
-class Board extends GenericExtendedEntity {
+class Board implements Translatable
+{
+    use GenericEntityTrait;
 
-    public function __toString()
-    {
-        return $this->getName();
-    }
     /**
      * @var integer
      * @GRID\Column(title="id")
@@ -39,15 +40,28 @@ class Board extends GenericExtendedEntity {
     private $description;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      * @GRID\Column(field="journal.title", title="journal")
      */
     private $journal;
 
     /**
+     * @var Collection|BoardMember[]
+     */
+    private $boardMembers;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->boardMembers = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -57,7 +71,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer $journalId
      * @return Board
      */
     public function setJournalId($journalId)
@@ -70,7 +84,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -80,7 +94,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Board
      */
     public function setName($name)
@@ -93,7 +107,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -103,7 +117,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Set description
      *
-     * @param string $description
+     * @param  string $description
      * @return Board
      */
     public function setDescription($description)
@@ -116,7 +130,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -126,10 +140,10 @@ class Board extends GenericExtendedEntity {
     /**
      * Set journal
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal $journal
      * @return Board
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -139,7 +153,7 @@ class Board extends GenericExtendedEntity {
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal 
+     * @return Journal
      */
     public function getJournal()
     {
@@ -147,25 +161,12 @@ class Board extends GenericExtendedEntity {
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $boardMembers;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->boardMembers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Add boardMembers
      *
-     * @param \Ojs\JournalBundle\Entity\BoardMember $boardMembers
+     * @param  BoardMember $boardMembers
      * @return Board
      */
-    public function addBoardMember(\Ojs\JournalBundle\Entity\BoardMember $boardMembers)
+    public function addBoardMember(BoardMember $boardMembers)
     {
         $this->boardMembers[] = $boardMembers;
 
@@ -175,9 +176,9 @@ class Board extends GenericExtendedEntity {
     /**
      * Remove boardMembers
      *
-     * @param \Ojs\JournalBundle\Entity\BoardMember $boardMembers
+     * @param BoardMember $boardMembers
      */
-    public function removeBoardMember(\Ojs\JournalBundle\Entity\BoardMember $boardMembers)
+    public function removeBoardMember(BoardMember $boardMembers)
     {
         $this->boardMembers->removeElement($boardMembers);
     }
@@ -185,11 +186,15 @@ class Board extends GenericExtendedEntity {
     /**
      * Get boardMembers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getBoardMembers()
     {
         return $this->boardMembers;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

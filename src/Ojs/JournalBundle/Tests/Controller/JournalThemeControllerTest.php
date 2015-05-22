@@ -14,5 +14,4 @@ class JournalThemeControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/journaltheme/');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

@@ -29,14 +29,15 @@
                         {% set show_path = 'mailtemplate_show' %}
                         {% set edit_path = 'mailtemplate_edit' %}
                         {% set delete_path = 'mailtemplate_delete' %}
-                        {% include '::actionbuttons.html.twig' %}
+                        {% include '::actionbtns.html.twig' %}
 
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
-    {% set create_path = 'mailtemplate_new' %}
-    {% include '::actionbuttons.html.twig' %}
+    <hr>
+    <a class="btn btn-default" href="{{ path('mailtemplate_new') }}">
+        Create a new entry
+    </a>
 {% endblock %}

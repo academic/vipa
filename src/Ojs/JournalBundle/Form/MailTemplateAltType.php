@@ -7,13 +7,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MailTemplateAltType extends AbstractType {
+class MailTemplateAltType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $journalId = $options['journal_id'];
         $builder
                 ->add('journal', 'entity', array(
@@ -28,8 +30,9 @@ class MailTemplateAltType extends AbstractType {
                                 $qb->expr()->eq('a.id', ':journalId')
                         );
                         $qb->setParameter('journalId', $journalId);
+
                         return $qb;
-                    }
+                    },
                         )
                 )
                 ->add('template')
@@ -42,22 +45,22 @@ class MailTemplateAltType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
             'journal_id' => 0,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'ojs_journalbundle_mailtemplate_alt';
     }
-
 }

@@ -14,7 +14,8 @@ use Ojs\Common\Helper\ActionHelper;
  * Board controller.
  *
  */
-class BoardController extends Controller {
+class BoardController extends Controller
+{
 
     /**
      * Lists all Board entities.
@@ -31,6 +32,7 @@ class BoardController extends Controller {
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = ['grid' => $grid];
+
         return $this->render('OjsJournalBundle:Board:index.html.twig', $data);
     }
 
@@ -49,6 +51,7 @@ class BoardController extends Controller {
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('admin_board_show', ['id' => $entity->getId()]);
         }
 
@@ -169,6 +172,7 @@ class BoardController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('admin_board_edit', ['id' => $id]);
         }
 
@@ -192,7 +196,7 @@ class BoardController extends Controller {
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_board');
     }
-
 }

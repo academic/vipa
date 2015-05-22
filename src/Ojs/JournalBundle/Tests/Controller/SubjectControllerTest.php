@@ -17,5 +17,4 @@ class SubjectControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/subject/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

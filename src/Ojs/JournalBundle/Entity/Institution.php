@@ -3,9 +3,11 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Ojs\Common\Entity\GenericEntityTrait;
 use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
@@ -14,7 +16,9 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,name,address,email,verified")
  */
-class Institution extends GenericExtendedEntity {
+class Institution implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -33,6 +37,10 @@ class Institution extends GenericExtendedEntity {
      * @GRID\Column(title="parent")
      */
     private $parent;
+
+    /**
+     * @var Collection
+     */
     private $children;
 
     /**
@@ -69,7 +77,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var Location
-     * @Expose 
+     * @Expose
      */
     private $country;
 
@@ -93,7 +101,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var string
-     * @Expose 
+     * @Expose
      */
     private $phone;
 
@@ -105,7 +113,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * @var string
-     * @Expose 
+     * @Expose
      */
     private $email;
 
@@ -139,7 +147,7 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * 
+     *
      * @return Institution
      */
     public function getParent()
@@ -166,49 +174,47 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param string $header
+     * @param  string $header
      * @return $this
      */
     public function setHeader($header)
     {
         $this->header = $header;
+
         return $this;
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journals;
-    
-       /**
-     * @var \Doctrine\Common\Collections\Collection
+
+    /**
+     * @var Collection
      */
     private $authors;
 
-    /**
-     *
-     */
     public function __construct()
     {
-        parent::__construct();
         $this->journals = new ArrayCollection();
         $this->authors = new ArrayCollection();
     }
 
     /**
      * Add journal
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal     $journal
      * @return Institution
      */
     public function addJournal(Journal $journal)
     {
         $this->journals[] = $journal;
+
         return $this;
     }
 
     /**
      * Remove journal
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param Journal $journal
      */
     public function removeJournal(Journal $journal)
     {
@@ -217,7 +223,7 @@ class Institution extends GenericExtendedEntity {
 
     /**
      * Get journals
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournals()
     {
@@ -237,13 +243,14 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set city
      *
-     * @param  Location $city
+     * @param  Location    $city
      * @return Institution
      */
     public function setCity(Location $city)
     {
         $this->city = $city;
         $this->city_id = $city->getId();
+
         return $this;
     }
 
@@ -260,7 +267,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string      $name
      * @return Institution
      */
     public function setName($name)
@@ -283,7 +290,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set address
      *
-     * @param  string $address
+     * @param  string      $address
      * @return Institution
      */
     public function setAddress($address)
@@ -306,7 +313,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set about
      *
-     * @param  string $about
+     * @param  string      $about
      * @return Institution
      */
     public function setAbout($about)
@@ -329,13 +336,14 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set country
      *
-     * @param  Location $country
+     * @param  Location    $country
      * @return Institution
      */
     public function setCountry(Location $country)
     {
         $this->country = $country;
         $this->country_id = $country->getId();
+
         return $this;
     }
 
@@ -352,7 +360,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set addressLat
      *
-     * @param  string $addressLat
+     * @param  string      $addressLat
      * @return Institution
      */
     public function setAddressLat($addressLat)
@@ -375,7 +383,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set addressLong
      *
-     * @param  string $addressLong
+     * @param  string      $addressLong
      * @return Institution
      */
     public function setAddressLong($addressLong)
@@ -398,7 +406,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set phone
      *
-     * @param  string $phone
+     * @param  string      $phone
      * @return Institution
      */
     public function setPhone($phone)
@@ -421,7 +429,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set fax
      *
-     * @param  string $fax
+     * @param  string      $fax
      * @return Institution
      */
     public function setFax($fax)
@@ -444,7 +452,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set email
      *
-     * @param  string $email
+     * @param  string      $email
      * @return Institution
      */
     public function setEmail($email)
@@ -467,7 +475,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set url
      *
-     * @param  string $url
+     * @param  string      $url
      * @return Institution
      */
     public function setUrl($url)
@@ -490,7 +498,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set wiki
      *
-     * @param  string $wiki
+     * @param  string      $wiki
      * @return Institution
      */
     public function setWiki($wiki)
@@ -513,7 +521,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set logo
      *
-     * @param  string $logo
+     * @param  string      $logo
      * @return Institution
      */
     public function setLogo($logo)
@@ -544,12 +552,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param mixed $slug
+     * @param  mixed $slug
      * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
         return $this;
     }
 
@@ -564,13 +573,14 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param mixed $institution_type
+     * @param  mixed $institution_type
      * @return $this
      */
     public function setInstitutionType(InstitutionTypes $institution_type)
     {
         $this->institution_type = $institution_type;
         $this->setInstitutionTypeId($institution_type->getId());
+
         return $this;
     }
 
@@ -585,12 +595,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param mixed $institution_type_id
+     * @param  mixed $institution_type_id
      * @return $this
      */
     public function setInstitutionTypeId($institution_type_id)
     {
         $this->institution_type_id = $institution_type_id;
+
         return $this;
     }
 
@@ -603,12 +614,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param int $city_id
+     * @param  int   $city_id
      * @return $this
      */
     public function setCityId($city_id)
     {
         $this->city_id = $city_id;
+
         return $this;
     }
 
@@ -621,12 +633,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param string $country_id
+     * @param  string $country_id
      * @return $this
      */
     public function setCountryId($country_id)
     {
         $this->country_id = $country_id;
+
         return $this;
     }
 
@@ -650,15 +663,12 @@ class Institution extends GenericExtendedEntity {
     public function setVerified($verified)
     {
         $this->verified = $verified;
-    } 
-
-    
-
+    }
 
     /**
      * Set lft
      *
-     * @param integer $lft
+     * @param  integer     $lft
      * @return Institution
      */
     public function setLft($lft)
@@ -671,7 +681,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get lft
      *
-     * @return integer 
+     * @return integer
      */
     public function getLft()
     {
@@ -681,7 +691,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set rgt
      *
-     * @param integer $rgt
+     * @param  integer     $rgt
      * @return Institution
      */
     public function setRgt($rgt)
@@ -694,7 +704,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get rgt
      *
-     * @return integer 
+     * @return integer
      */
     public function getRgt()
     {
@@ -704,7 +714,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set root
      *
-     * @param integer $root
+     * @param  integer     $root
      * @return Institution
      */
     public function setRoot($root)
@@ -717,7 +727,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Set lvl
      *
-     * @param integer $lvl
+     * @param  integer     $lvl
      * @return Institution
      */
     public function setLvl($lvl)
@@ -730,17 +740,17 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get lvl
      *
-     * @return integer 
+     * @return integer
      */
     public function getLvl()
     {
         return $this->lvl;
     }
-  
+
     /**
      * Get verified
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVerified()
     {
@@ -750,10 +760,10 @@ class Institution extends GenericExtendedEntity {
     /**
      * Add authors
      *
-     * @param \Ojs\JournalBundle\Entity\Author $authors
+     * @param  Author      $authors
      * @return Institution
      */
-    public function addAuthor(\Ojs\JournalBundle\Entity\Author $authors)
+    public function addAuthor(Author $authors)
     {
         $this->authors[] = $authors;
 
@@ -763,9 +773,9 @@ class Institution extends GenericExtendedEntity {
     /**
      * Remove authors
      *
-     * @param \Ojs\JournalBundle\Entity\Author $authors
+     * @param Author $authors
      */
-    public function removeAuthor(\Ojs\JournalBundle\Entity\Author $authors)
+    public function removeAuthor(Author $authors)
     {
         $this->authors->removeElement($authors);
     }
@@ -773,7 +783,7 @@ class Institution extends GenericExtendedEntity {
     /**
      * Get authors
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getAuthors()
     {
@@ -783,10 +793,10 @@ class Institution extends GenericExtendedEntity {
     /**
      * Add children
      *
-     * @param \Ojs\JournalBundle\Entity\Institution $children
+     * @param  Institution $children
      * @return Institution
      */
-    public function addChild(\Ojs\JournalBundle\Entity\Institution $children)
+    public function addChild(Institution $children)
     {
         $this->children[] = $children;
 
@@ -796,13 +806,13 @@ class Institution extends GenericExtendedEntity {
     /**
      * Remove children
      *
-     * @param \Ojs\JournalBundle\Entity\Institution $children
+     * @param Institution $children
      */
-    public function removeChild(\Ojs\JournalBundle\Entity\Institution $children)
+    public function removeChild(Institution $children)
     {
         $this->children->removeElement($children);
     }
-    
+
     public function __toString()
     {
         return  $this->name;
@@ -826,12 +836,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param string $header_options
+     * @param  string $header_options
      * @return $this
      */
     public function setHeaderOptions($header_options)
     {
         $this->header_options = $header_options;
+
         return $this;
     }
 
@@ -844,13 +855,13 @@ class Institution extends GenericExtendedEntity {
     }
 
     /**
-     * @param string $logo_options
+     * @param  string $logo_options
      * @return $this
      */
     public function setLogoOptions($logo_options)
     {
         $this->logo_options = $logo_options;
+
         return $this;
     }
-
 }

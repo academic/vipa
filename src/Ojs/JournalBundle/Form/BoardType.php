@@ -3,26 +3,29 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Ojs\UserBundle\Entity\User;
 
-class BoardType extends AbstractType {
+class BoardType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Journal $journal */
         $journal = $options['journal'];
         $builder
                 ->add('journal', 'entity', array(
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' =>
-                    function (EntityRepository $er) use ($journal) {
+                    'query_builder' => function (EntityRepository $er) use ($journal) {
                 /** @var User $user $qb */
                 $qb = $er->createQueryBuilder('j');
                 if ($journal) {
@@ -30,12 +33,13 @@ class BoardType extends AbstractType {
                             $qb->expr()->eq('j.id', ':journal')
                     )->setParameter('journal', $journal);
                 }
+
                 return $qb;
-            }
+            },
                         )
                 )
-                ->add('name','text',['label'=>'name'])
-                ->add('description','textarea',['label'=>'description','attr'=>['class'=>'editor','rows'=>5]])
+                ->add('name', 'text', ['label' => 'name'])
+                ->add('description', 'textarea', ['label' => 'description', 'attr' => ['class' => 'editor', 'rows' => 5]])
         ;
     }
 
@@ -47,7 +51,7 @@ class BoardType extends AbstractType {
         $resolver->setDefaults(array(
             'user' => null,
             'journal' => null,
-            'data_class' => 'Ojs\JournalBundle\Entity\Board'
+            'data_class' => 'Ojs\JournalBundle\Entity\Board',
         ));
     }
 
@@ -58,5 +62,4 @@ class BoardType extends AbstractType {
     {
         return 'ojs_journalbundle_board';
     }
-
 }

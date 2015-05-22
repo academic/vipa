@@ -14,5 +14,4 @@ class JournalSectionControllerTest extends BaseTestCase
         $this->client->request('GET', '/manager/journal/section/1/show');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

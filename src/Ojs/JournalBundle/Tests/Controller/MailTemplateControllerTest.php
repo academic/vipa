@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Tests\Controller;
 
-use \Ojs\Common\Tests\BaseTestCase;
+use Ojs\Common\Tests\BaseTestCase;
 
 class MailTemplateControllerTest extends BaseTestCase
 {
@@ -17,5 +17,4 @@ class MailTemplateControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/mailtemplate/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

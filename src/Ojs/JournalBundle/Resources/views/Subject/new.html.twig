@@ -4,7 +4,10 @@
     <h1>{{"subject.new"|trans}}</h1>
 
     {{ form(form) }}
-
-    {% set back_path = 'subject' %}
-    {% include '::actionbuttons.html.twig' %}
+    <hr>
+    <div class="record_actions">
+        <a href="{{ path('subject') }}" class="button">
+            {{"b"|trans}}
+        </a>
+    </div>
 {% endblock %}

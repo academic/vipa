@@ -3,7 +3,7 @@ Ojs\JournalBundle\Entity\Theme:
     table: theme
     #repositoryClass: Ojs\JournalBundle\Entity\ThemeRepository
     oneToMany:
-        journalThemes: 
+        journalThemes:
             targetEntity: JournalTheme
             mappedBy: theme
         journals:

@@ -17,5 +17,4 @@ class ContactControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/contact/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

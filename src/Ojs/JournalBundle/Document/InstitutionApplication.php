@@ -5,17 +5,14 @@
  * Date: 8.02.15
  * Time: 14:24
  */
-
 namespace Ojs\JournalBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Ojs\JournalBundle\Entity\InstitutionTypes;
-use Ojs\UserBundle\Entity\User;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds resumable institute application data
  * @MongoDB\Document(collection="institution_application")
- * @GRID\Source(columns="id,name,country,status")
+ * @GRID\Source(columns="id,name,country")
  */
 class InstitutionApplication
 {
@@ -129,13 +126,6 @@ class InstitutionApplication
      * @var bool
      */
     protected $merged;
-
-    /**
-     * @MongoDB\String
-     * @var string
-     */
-    protected $status;
-
     /**
      * @return mixed
      */
@@ -470,21 +460,5 @@ class InstitutionApplication
     public function setMerged($merged)
     {
         $this->merged = $merged;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
     }
 }

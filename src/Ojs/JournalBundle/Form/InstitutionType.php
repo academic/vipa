@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Institution;
 use Okulbilisim\LocationBundle\Entity\Location;
@@ -10,21 +9,21 @@ use Okulbilisim\LocationBundle\Helper\FormHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InstitutionType extends AbstractType {
+class InstitutionType extends AbstractType
+{
 
     /** @var ContainerInterface  */
-    private $container ;
+    private $container;
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,32 +33,32 @@ class InstitutionType extends AbstractType {
                 ->add('name', 'text', [
                     'label' => 'name',
                     'required' => true,
-                    'attr'=>[
-                        'class'=>"validate[required]"
-                    ]
+                    'attr' => [
+                        'class' => "validate[required]",
+                    ],
                 ])
                 ->add('slug', 'text', [
                     'label' => 'institution.slug',
-                    'attr'=>[
-                        'class'=>"validate[required]"
-                    ]
+                    'attr' => [
+                        'class' => "validate[required]",
+                    ],
                 ])
                 ->add('institution_type', 'entity', [
                     'label' => 'institutiontype',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes',
-                    'attr'=>[
-                        'class'=>"validate[required]"
-                    ]
+                    'attr' => [
+                        'class' => "validate[required]",
+                    ],
                 ])
-                ->add('parent','autocomplete',[
+                ->add('parent', 'autocomplete', [
                     'class' => 'Ojs\JournalBundle\Entity\Institution',
                     'attr' => [
                             'class' => 'autocomplete',
                             'style' => 'width:100%',
-                            'data-list' => $this->container->get('router')->generate('ojs_api_homepage') . "public/search/institute",
-                            'data-get' => $this->container->get('router')->generate('ojs_api_homepage') . "public/institution/get/",
-                            "placeholder" => "type a institution name"
-                     ]
+                            'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/institute",
+                            'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/institution/get/",
+                            "placeholder" => "type a institution name",
+                     ],
                 ])
                 ->add('about', 'textarea', ['label' => 'about'])
                 ->add('address', 'textarea', ['label' => 'address'])
@@ -74,21 +73,21 @@ class InstitutionType extends AbstractType {
                 ->add('header', 'hidden')
                 ->add('verified', 'checkbox', [
                     'label' => 'verified',
-                    'attr'=>[
-                        'class'=>"checkbox"
-                    ]
+                    'attr' => [
+                        'class' => "checkbox",
+                    ],
                 ])
                 ->add('country', 'entity', [
                     'label' => 'country',
                     'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                     'attr' => [
                         'class' => 'select2-element  bridged-dropdown',
-                        'data-to' => '#' . $this->getName() . '_city'
+                        'data-to' => '#'.$this->getName().'_city',
                     ],
-                    'query_builder'=>function(EntityRepository $em){
+                    'query_builder' => function (EntityRepository $em) {
                         return $em->createQueryBuilder('c')
                             ->where("c.type=0");
-                    }
+                    },
         ]);
         $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
     }
@@ -103,7 +102,7 @@ class InstitutionType extends AbstractType {
             'helper' => null,
             'attr' => [
                 'novalidate' => 'novalidate',
-                'class' => 'validate-form'
+                'class' => 'validate-form',
             ],
         ));
     }
@@ -115,5 +114,4 @@ class InstitutionType extends AbstractType {
     {
         return 'ojs_journalbundle_institution';
     }
-
 }

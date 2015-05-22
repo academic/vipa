@@ -4,6 +4,12 @@
     <h1>{{"journaltheme.new"|trans}}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'admin_journaltheme' %}
-    {% include '::actionbuttons.html.twig' %}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_journaltheme') }}">
+            {{"b"|trans}}
+        </a>
+    </li>
+</ul>
 {% endblock %}

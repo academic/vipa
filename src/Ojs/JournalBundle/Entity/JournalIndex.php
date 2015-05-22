@@ -2,7 +2,8 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * JournalIndex
@@ -29,11 +30,13 @@ class JournalIndex
      */
     private $status;
 
+    /** @var  string */
+    protected $logo_options;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -43,7 +46,7 @@ class JournalIndex
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string       $name
      * @return JournalIndex
      */
     public function setName($name)
@@ -56,7 +59,7 @@ class JournalIndex
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -66,7 +69,7 @@ class JournalIndex
     /**
      * Set logo
      *
-     * @param string $logo
+     * @param  string       $logo
      * @return JournalIndex
      */
     public function setLogo($logo)
@@ -79,7 +82,7 @@ class JournalIndex
     /**
      * Get logo
      *
-     * @return string 
+     * @return string
      */
     public function getLogo()
     {
@@ -89,7 +92,7 @@ class JournalIndex
     /**
      * Set status
      *
-     * @param boolean $status
+     * @param  boolean      $status
      * @return JournalIndex
      */
     public function setStatus($status)
@@ -102,14 +105,14 @@ class JournalIndex
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
         return $this->status;
     }
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journals_indexs;
 
@@ -118,16 +121,16 @@ class JournalIndex
      */
     public function __construct()
     {
-        $this->journals_indexs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journals_indexs = new ArrayCollection();
     }
 
     /**
      * Add journals_indexs
      *
-     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @param  JournalsIndex $journalsIndexs
      * @return JournalIndex
      */
-    public function addJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    public function addJournalsIndex(JournalsIndex $journalsIndexs)
     {
         $this->journals_indexs[] = $journalsIndexs;
 
@@ -137,9 +140,9 @@ class JournalIndex
     /**
      * Remove journals_indexs
      *
-     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @param JournalsIndex $journalsIndexs
      */
-    public function removeJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    public function removeJournalsIndex(JournalsIndex $journalsIndexs)
     {
         $this->journals_indexs->removeElement($journalsIndexs);
     }
@@ -147,20 +150,12 @@ class JournalIndex
     /**
      * Get journals_indexs
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getJournalsIndexs()
     {
         return $this->journals_indexs;
     }
-
-    public function __toString()
-    {
-        return $this->getName();
-    }
-
-    /** @var  string */
-    protected $logo_options;
 
     /**
      * @return string
@@ -171,11 +166,15 @@ class JournalIndex
     }
 
     /**
-     * @param string $logo_options
+     * @param string $logoOptions
      */
-    public function setLogoOptions($logo_options)
+    public function setLogoOptions($logoOptions)
     {
-        $this->logo_options = $logo_options;
+        $this->logo_options = $logoOptions;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

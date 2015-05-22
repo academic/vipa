@@ -1,8 +1,8 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'institution.manager'|trans} ])}}
-{% endblock %} 
+{% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
