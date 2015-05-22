@@ -2,8 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * UserArticleRole
  */
@@ -44,7 +42,6 @@ class UserArticleRole
      */
     private $role;
 
-
     /**
      * Get id
      *
@@ -58,7 +55,7 @@ class UserArticleRole
     /**
      * Set userId
      *
-     * @param integer $userId
+     * @param  integer         $userId
      * @return UserArticleRole
      */
     public function setUserId($userId)
@@ -81,7 +78,7 @@ class UserArticleRole
     /**
      * Set articleId
      *
-     * @param integer $articleId
+     * @param  integer         $articleId
      * @return UserArticleRole
      */
     public function setArticleId($articleId)
@@ -104,7 +101,7 @@ class UserArticleRole
     /**
      * Set roleId
      *
-     * @param integer $roleId
+     * @param  integer         $roleId
      * @return UserArticleRole
      */
     public function setRoleId($roleId)
@@ -127,7 +124,7 @@ class UserArticleRole
     /**
      * Set user
      *
-     * @param \Ojs\UserBundle\Entity\User $user
+     * @param  \Ojs\UserBundle\Entity\User $user
      * @return UserArticleRole
      */
     public function setUser(\Ojs\UserBundle\Entity\User $user = null)
@@ -150,7 +147,7 @@ class UserArticleRole
     /**
      * Set article
      *
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @param  \Ojs\JournalBundle\Entity\Article $article
      * @return UserArticleRole
      */
     public function setArticle(\Ojs\JournalBundle\Entity\Article $article = null)
@@ -173,7 +170,7 @@ class UserArticleRole
     /**
      * Set role
      *
-     * @param \Ojs\UserBundle\Entity\Role $role
+     * @param  \Ojs\UserBundle\Entity\Role $role
      * @return UserArticleRole
      */
     public function setRole(\Ojs\UserBundle\Entity\Role $role = null)

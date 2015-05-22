@@ -3,11 +3,10 @@
  * Date: 17.01.15
  * Time: 23:24
  */
-
 namespace Ojs\UserBundle\Controller;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\ORMException;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Document\AnonymUser;
 use Ojs\UserBundle\Document\AnonymUserToken;
@@ -15,7 +14,9 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\AnonymUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AnonymUserController extends Controller
@@ -26,6 +27,7 @@ class AnonymUserController extends Controller
         $user = new User();
         $form = $this->createCreateForm($user);
         $data['form'] = $form->createView();
+
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
     }
 
@@ -62,8 +64,9 @@ class AnonymUserController extends Controller
             $journal_id = $request->get('anonym_user')['journal_id'];
             /** @var Journal $journal */
             $journal = $em->find('OjsJournalBundle:Journal', $journal_id);
-            if (!$journal)
+            if (!$journal) {
                 throw new NotFoundHttpException("Journal Not Found!");
+            }
             //Add extra roles to user
             foreach ($roles as $role) {
                 if (!(new ArrayCollection($entity->getRoles()))->contains($role)) {
@@ -88,10 +91,7 @@ class AnonymUserController extends Controller
             //persist user
             $em->persist($entity);
 
-
-
             $em->flush();
-
 
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
             //Create anon token
@@ -109,7 +109,7 @@ class AnonymUserController extends Controller
                     'user' => $user,
                     'sender' => $this->getUser(),
                     'journal' => $journal,
-                    'hash' => md5($entity->getEmail())
+                    'hash' => md5($entity->getEmail()),
                 ]
             );
 
@@ -127,7 +127,6 @@ class AnonymUserController extends Controller
         $data['form'] = $form->createView();
 
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
-
     }
 
     public function createCreateForm(User $entity)
@@ -137,15 +136,14 @@ class AnonymUserController extends Controller
             $entity,
             [
                 'action' => $this->get('router')->generate('user_create_anonym_login_success'),
-                'method' => 'POST'
+                'method' => 'POST',
             ]);
+
         return $form;
     }
 
-
     public function createEditForm(User $entity)
     {
-
         $form = $this->createForm(
             new AnonymUserType(),
             $entity,
@@ -154,6 +152,7 @@ class AnonymUserController extends Controller
                 'method' => 'POST',
 
             ]);
+
         return $form;
     }
 
@@ -162,10 +161,12 @@ class AnonymUserController extends Controller
         $dm = $this->container->get('doctrine.odm.mongodb.document_manager')
             ->getRepository('OjsUserBundle:AnonymUserToken');
         $params = [];
-        if ($object)
+        if ($object) {
             $params['object'] = $object;
-        if ($id)
-            $params['object_id'] = (int)$id;
+        }
+        if ($id) {
+            $params['object_id'] = (int) $id;
+        }
         $users = $dm->findBy($params);
         $data = [];
         $data['entities'] = $users;
@@ -173,21 +174,34 @@ class AnonymUserController extends Controller
         return $this->render('OjsUserBundle:AnonymUser:index.html.twig', $data);
     }
 
-    public function editAction(Request $request, $id)
+    /**
+     * @param $id
+     * @return Response
+     * @throws ORMException
+     */
+    public function editAction($id)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
         $form = $this->createEditForm($user);
         $data = [];
         $data['form'] = $form->createView();
+
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
     }
 
+    /**
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
+     * @throws ORMException
+     */
     public function editSuccessAction(Request $request, $id)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        /** @var User $entity */
         $entity = $em->find('OjsUserBundle:User', $id);
 
         $form = $this->createCreateForm($entity);
@@ -203,12 +217,18 @@ class AnonymUserController extends Controller
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
     }
 
-    public function deleteAction(Request $request, $id)
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deleteAction($id)
     {
         $login = $this->container->get('doctrine.odm.mongodb.document_manager')
             ->find('OjsUserBundle:AnonymUserToken', $id);
-        if (!$login)
-            throw new NotFoundHttpException;
+        if (!$login) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->redirect($this->get('router')->generate('user_list_anonym_login'));
     }
 }

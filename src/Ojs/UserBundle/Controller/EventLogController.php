@@ -21,9 +21,9 @@ class EventLogController extends Controller
     {
         $user = $this->getUser();
         $userId = $user->getId();
-        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
-        $author = $this->container->get('security.context')->isGranted('ROLE_AUTHOR');
-        $editor = $this->container->get('security.context')->isGranted('ROLE_EDITOR');
+        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+        $author = $this->isGranted('ROLE_AUTHOR');
+        $editor = $this->isGranted('ROLE_EDITOR');
 
         //get eventLog parameters according to user role
         if ($superAdmin) {
@@ -66,7 +66,7 @@ class EventLogController extends Controller
      */
     public function showAction($id)
     {
-        $superAdmin = $this->container->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:EventLog')->find($id);
         if (!$entity) {
@@ -76,7 +76,7 @@ class EventLogController extends Controller
         $userId = $user->getId();
 
         //if event isn't consider user throw 403
-        if($entity->getUserId() !== $userId && $entity->getAffectedUserId() !== $userId && !$superAdmin){
+        if ($entity->getUserId() !== $userId && $entity->getAffectedUserId() !== $userId && !$superAdmin) {
             throw $this->createNotFoundException('You have not permission to see this activity.');
         }
 
@@ -87,7 +87,7 @@ class EventLogController extends Controller
         }
 
         return $this->render($tpl, array(
-            'entity' => $entity));
+            'entity' => $entity, ));
     }
 
     /**
@@ -110,7 +110,6 @@ class EventLogController extends Controller
         $entities = $em->getRepository('OjsUserBundle:EventLog')->findAll();
 
         foreach ($entities as $entity) {
-
             $em->remove($entity);
         }
         $em->flush();

@@ -360,7 +360,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     public function getSalt()
     {
-        return;
+        return "";
     }
 
     public function eraseCredentials()

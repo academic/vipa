@@ -3,14 +3,13 @@
  * Date: 21.01.15
  * Time: 15:34
  */
-
 namespace Ojs\UserBundle\Document;
 
-
-class AnonymUserToken {
+class AnonymUserToken
+{
 
     /**
-     * @var MongoId $id
+     * @var \MongoId $id
      */
     protected $id;
 
@@ -29,11 +28,8 @@ class AnonymUserToken {
      */
     protected $used;
 
-
     /**
-     * Get id
-     *
-     * @return id $id
+     * @return \MongoId
      */
     public function getId()
     {
@@ -43,12 +39,13 @@ class AnonymUserToken {
     /**
      * Set userId
      *
-     * @param int $userId
+     * @param  int  $userId
      * @return self
      */
     public function setUserId($userId)
     {
         $this->user_id = $userId;
+
         return $this;
     }
 
@@ -65,12 +62,13 @@ class AnonymUserToken {
     /**
      * Set token
      *
-     * @param string $token
+     * @param  string $token
      * @return self
      */
     public function setToken($token)
     {
         $this->token = $token;
+
         return $this;
     }
 
@@ -87,12 +85,13 @@ class AnonymUserToken {
     /**
      * Set used
      *
-     * @param boolean $used
+     * @param  boolean $used
      * @return self
      */
     public function setUsed($used)
     {
         $this->used = $used;
+
         return $this;
     }
 
@@ -110,16 +109,16 @@ class AnonymUserToken {
      */
     protected $journal_id;
 
-
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer $journalId
      * @return self
      */
     public function setJournalId($journalId)
     {
         $this->journal_id = $journalId;
+
         return $this;
     }
 

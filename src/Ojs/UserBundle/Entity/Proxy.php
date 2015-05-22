@@ -171,5 +171,4 @@ class Proxy implements Translatable
     {
         return $this->proxyUser;
     }
-
 }

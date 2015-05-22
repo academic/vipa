@@ -14,20 +14,22 @@ class UserJournalRoleRepository extends EntityRepository
 {
     /**
      * get user list of users a journal with journal_id
-     * @param integer $journal_id
+     * @param $journal_id
+     * @param  bool       $grouppedByRole
+     * @return array|bool
      */
     public function getUsers($journal_id, $grouppedByRole = false)
     {
         $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findByJournalId($journal_id);
         $entites = array();
         if (!is_array($user_journal_roles)) {
-            return FALSE;
+            return false;
         }
         foreach ($user_journal_roles as $item) {
             $entites[] = $item->getUser();
         }
 
-        if (!$grouppedByRole){
+        if (!$grouppedByRole) {
             return $entites;
         }
 
@@ -36,16 +38,21 @@ class UserJournalRoleRepository extends EntityRepository
             /** @var User $user */
             foreach ($user->getRoles() as $role) {
                 /** @var Role $role */
-                if ($role->getIsSystemRole()){
+                if ($role->getIsSystemRole()) {
                     continue;
                 }
                 $users[$role->getName()][] = $user;
             }
         }
-        return $users;
 
+        return $users;
     }
 
+    /**
+     * @param $user_id
+     * @param  bool  $onlyJournalIds
+     * @return array
+     */
     public function userJournalsWithRoles($user_id, $onlyJournalIds = false)
     {
         $data = $this->getEntityManager()->createQuery(
@@ -61,5 +68,4 @@ class UserJournalRoleRepository extends EntityRepository
 
         return $entities;
     }
-
 }

@@ -2,9 +2,11 @@
 
 namespace Ojs\UserBundle\Controller;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
-
 use Ojs\UserBundle\Entity\MailLog;
 use Ojs\UserBundle\Form\MailLogType;
 
@@ -14,7 +16,9 @@ use Ojs\UserBundle\Form\MailLogType;
  */
 class MailLogController extends Controller
 {
-
+    /**
+     * @return Response
+     */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
@@ -28,6 +32,8 @@ class MailLogController extends Controller
     /**
      * Creates a new MailLog entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -40,6 +46,7 @@ class MailLogController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('admin_maillog_show', array('id' => $entity->getId())));
         }
 
@@ -52,8 +59,8 @@ class MailLogController extends Controller
     /**
      * Creates a form to create a MailLog entity.
      *
-     * @param  MailLog                      $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @param  MailLog $entity The entity
+     * @return Form    The form
      */
     private function createCreateForm(MailLog $entity)
     {
@@ -69,6 +76,7 @@ class MailLogController extends Controller
     /**
      * Displays a form to create a new MailLog entity.
      *
+     * @return Response
      */
     public function newAction()
     {
@@ -84,6 +92,8 @@ class MailLogController extends Controller
     /**
      * Finds and displays a MailLog entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -94,17 +104,20 @@ class MailLogController extends Controller
         }
 
         return $this->render('OjsUserBundle:MailLog:show.html.twig', array(
-            'entity' => $entity
+            'entity' => $entity,
         ));
     }
 
     /**
      * Displays a form to edit an existing MailLog entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var MailLog $entity */
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
@@ -113,14 +126,14 @@ class MailLogController extends Controller
 
         return $this->render('OjsUserBundle:MailLog:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Creates a form to edit a MailLog entity.
-     * @param  MailLog                      $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @param  MailLog $entity The entity
+     * @return Form    The form
      */
     private function createEditForm(MailLog $entity)
     {
@@ -136,10 +149,14 @@ class MailLogController extends Controller
     /**
      * Edits an existing MailLog entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var MailLog $entity */
         $entity = $em->getRepository('OjsUserBundle:MailLog')->find($id);
 
         if (!$entity) {
@@ -152,6 +169,7 @@ class MailLogController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('admin_maillog_edit', array('id' => $id)));
         }
 
@@ -164,6 +182,8 @@ class MailLogController extends Controller
     /**
      * Deletes a MailLog entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -175,6 +195,7 @@ class MailLogController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('admin_maillog'));
     }
 }

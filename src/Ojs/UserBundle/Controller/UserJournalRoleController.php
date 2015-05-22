@@ -4,7 +4,6 @@ namespace Ojs\UserBundle\Controller;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Mapping\Column;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -13,6 +12,9 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -42,12 +44,15 @@ class UserJournalRoleController extends Controller
         $grid->showColumns(['journal.title']);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsUserBundle:UserJournalRole:index.html.twig', $data);
     }
 
     /**
      * Creates a new UserJournalRole entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -68,8 +73,9 @@ class UserJournalRoleController extends Controller
             $em->flush();
 
             $this->successFlashBag('Successfully created');
+
             return $this->redirectToRoute('ujr_show', [
-                'id' => $entity->getId()
+                'id' => $entity->getId(),
                 ]
             );
         }
@@ -92,7 +98,7 @@ class UserJournalRoleController extends Controller
         $form = $this->createForm(new UserJournalRoleType($this->container), $entity, array(
             'action' => $this->generateUrl('ujr_create'),
             'method' => 'POST',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'row btn btn-success')));
@@ -122,6 +128,8 @@ class UserJournalRoleController extends Controller
     /**
      * Finds and displays a UserJournalRole entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -134,14 +142,15 @@ class UserJournalRoleController extends Controller
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:show.html.twig', array(
-            'entity' => $entity
+            'entity' => $entity,
             )
         );
     }
 
     /**
      * Finds and displays a Users of a Journal with roles  (ungrouped).
-     * @param int $journal_id
+     * @param $journal_id
+     * @return Response
      */
     public function showUsersOfJournalAction($journal_id)
     {
@@ -150,7 +159,7 @@ class UserJournalRoleController extends Controller
         $source->manipulateQuery(function (QueryBuilder $qb) use ($journal_id, $ta) {
             $qb->andWhere(
                 $qb->expr()->andX(
-                    $qb->expr()->eq($ta . '.journalId', ':jid')
+                    $qb->expr()->eq($ta.'.journalId', ':jid')
                 )
             )->setParameter('jid', $journal_id);
         });
@@ -162,7 +171,7 @@ class UserJournalRoleController extends Controller
         $rowAction->setAttributes(['class' => 'btn-xs btn btn-primary']);
         $rowAction->setRouteParameters(['id']);
         $rowAction->setRouteParametersMapping([
-            'id' => 'user'
+            'id' => 'user',
         ]);
         $rowAction->setColumn('actions');
         $column = new ActionsColumn('actions', 'user.journalrole.send_email');
@@ -172,10 +181,13 @@ class UserJournalRoleController extends Controller
         $grid->addRowAction($rowAction);
 
         return $grid->getGridResponse('OjsUserBundle:UserJournalRole:show_users.html.twig', array(
-            'grid' => $grid
+            'grid' => $grid,
         ));
     }
 
+    /**
+     * @return Response
+     */
     public function myJournalsAction()
     {
         $user_id = $this->getUser()->getId();
@@ -185,35 +197,41 @@ class UserJournalRoleController extends Controller
 
     /**
      * Finds and displays a Journals of a user with roles.
-     * @param mixed $journal_id
+     *
+     * @param $user_id
+     * @param  string   $tpl
+     * @return Response
      */
     public function showJournalsOfUserAction($user_id, $tpl = 'show_journals.html.twig')
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository("OjsUserBundle:UserJournalRole")->findBy(['userId'=>$user_id]);
+        $entities = $em->getRepository("OjsUserBundle:UserJournalRole")->findBy(['userId' => $user_id]);
         $_data = [];
         foreach ($entities as $entity) {
             /** @var UserJournalRole $entity */
-            $_data[$entity->getJournalId()]['roles'][]=$entity->getRole();
-            $_data[$entity->getJournalId()]['user']=$entity->getUser();
-            $_data[$entity->getJournalId()]['journal']=$entity->getJournal();
-            $_data[$entity->getJournalId()]['id']=$entity->getId();
+            $_data[$entity->getJournalId()]['roles'][] = $entity->getRole();
+            $_data[$entity->getJournalId()]['user'] = $entity->getUser();
+            $_data[$entity->getJournalId()]['journal'] = $entity->getJournal();
+            $_data[$entity->getJournalId()]['id'] = $entity->getId();
         }
 
-        return $this->render('OjsUserBundle:UserJournalRole:' . $tpl, array(
-            'entities' => $_data
+        return $this->render('OjsUserBundle:UserJournalRole:'.$tpl, array(
+            'entities' => $_data,
         ));
     }
 
     /**
      * Displays a form to edit an existing UserJournalRole entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var UserJournalRole $entity */
         $entity = $em->getRepository('OjsUserBundle:UserJournalRole')->find($id);
 
         if (!$entity) {
@@ -224,7 +242,7 @@ class UserJournalRoleController extends Controller
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -233,14 +251,14 @@ class UserJournalRoleController extends Controller
      *
      * @param UserJournalRole $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(UserJournalRole $entity)
     {
         $form = $this->createForm(new UserJournalRoleType($this->container), $entity, array(
             'action' => $this->generateUrl('ujr_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -251,6 +269,9 @@ class UserJournalRoleController extends Controller
     /**
      * Edits an existing UserJournalRole entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -268,7 +289,7 @@ class UserJournalRoleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $newEntity=new UserJournalRole();
+            $newEntity = new UserJournalRole();
             $newEntity->setJournal($entity->getJournal())
                 ->setRole($entity->getRole())
                 ->setUser($entity->getUser())
@@ -278,43 +299,53 @@ class UserJournalRoleController extends Controller
             $em->flush();
 
             $this->successFlashBag('Successfully updated');
+
             return $this->redirectToRoute('ujr_edit', [
-                'id' => $newEntity->getId()
+                'id' => $newEntity->getId(),
                 ]
             );
         }
 
         return $this->render('OjsUserBundle:UserJournalRole:edit.html.twig', array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView()
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a UserJournalRole entity.
-     * @param UserJournalRole $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  UserJournalRole  $entity
+     * @return RedirectResponse
      */
     public function deleteAction(UserJournalRole $entity)
     {
         $this->throw404IfNotFound($entity);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('ujr');
     }
 
+    /**
+     * @param  Journal          $journal
+     * @param  Role             $role
+     * @return RedirectResponse
+     */
     public function leaveAction(Journal $journal, Role $role)
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
+        /** @var UserJournalRole $ujr */
         $ujr = $em->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(['journal' => $journal, 'role' => $role, 'user' => $user]);
-        if(!$ujr)
-            throw new NotFoundHttpException;
+        if (!$ujr) {
+            throw new NotFoundHttpException();
+        }
         $journal->removeUserRole($ujr);
         $em->persist($journal);
         $em->flush();
+
         return $this->redirect($this->get('router')->generate('user_show_my_journals'));
     }
 }

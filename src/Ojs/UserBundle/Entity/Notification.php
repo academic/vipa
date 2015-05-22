@@ -297,5 +297,4 @@ class Notification implements Translatable
     {
         return $this->action;
     }
-
 }
