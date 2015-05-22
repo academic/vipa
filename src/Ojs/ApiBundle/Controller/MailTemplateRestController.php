@@ -2,7 +2,6 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\View as RestView;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -36,6 +35,8 @@ class MailTemplateRestController extends FOSRestController
      *    }
      * )
      * @Get("/mail_templates/{journal}")
+     * @param $journal
+     * @return array
      */
     public function getJournalMailTemplatesAction($journal)
     {
@@ -55,6 +56,9 @@ class MailTemplateRestController extends FOSRestController
      *    }
      * )
      * @Get("/mail_template/{id}")
+     *
+     * @param $id
+     * @return object
      */
     public function getMailTemplateAction($id)
     {

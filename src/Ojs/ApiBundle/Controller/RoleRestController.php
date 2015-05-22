@@ -3,8 +3,6 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\UserBundle\Entity\Role;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -21,6 +19,9 @@ class RoleRestController extends FOSRestController
      *  }
      * )
      * @Get("/role/{id}")
+     *
+     * @param $id
+     * @return object
      */
     public function getRoleAction($id)
     {
@@ -58,6 +59,9 @@ class RoleRestController extends FOSRestController
      *  }
      * )
      * @Get("/role/{roleId}/users")
+     *
+     * @param $roleId
+     * @return mixed
      */
     public function getRoleUsersAction($roleId)
     {
@@ -100,6 +104,10 @@ class RoleRestController extends FOSRestController
      *  }
      * )
      * @Get("/role/{roleId}/journal/{journalId}/users")
+     *
+     * @param $roleId
+     * @param $journalId
+     * @return array
      */
     public function getJournalRoleUsersAction($roleId, $journalId)
     {
@@ -109,10 +117,10 @@ class RoleRestController extends FOSRestController
         }
         return $result;
     }
-
+/*
     private function notFound()
     {
         throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
     }
-
+*/
 }

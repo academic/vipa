@@ -3,12 +3,12 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller {
 
     /**
-     *
+     * @return Response
      */
     public function indexAction() {
         $data['page'] = 'browse';

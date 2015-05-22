@@ -103,7 +103,7 @@ class ObjectStatsBase
     /**
      * Get logDate
      *
-     * @return date $logDate
+     * @return \DateTime $logDate
      */
     public function getLogDate()
     {

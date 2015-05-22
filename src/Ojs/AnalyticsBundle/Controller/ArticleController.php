@@ -3,11 +3,13 @@
 namespace Ojs\AnalyticsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {
     /**
-     * @param int $id
+     * @param null|int $id
+     * @return Response
      */
     public function articleViewsAction($id = null)
     {
@@ -25,7 +27,8 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
+     * @return Response
      */
     public function articleDownloadsAction($id = null)
     {

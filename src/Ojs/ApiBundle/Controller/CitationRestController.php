@@ -3,8 +3,6 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\UserBundle\Entity\Citation;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -39,6 +37,9 @@ class CitationRestController extends FOSRestController
      *  }
      * )
      * @Post("/citation/parse")
+     *
+     * @param Request $request
+     * @return array
      */
     public function postCitationParseAction(Request $request)
     {
@@ -61,6 +62,9 @@ class CitationRestController extends FOSRestController
      *  }
      * )
      * @Get("/journal/{id}/citations")
+     *
+     * @param $id
+     * @return object
      */
     public function getCitationAction($id)
     {
@@ -82,8 +86,10 @@ class CitationRestController extends FOSRestController
      *         204="Returned when successful"
      *  }
      * )
+     *
+     * @param $id
      */
-    public function deleteCitationAction($id, Request $request)
+    public function deleteCitationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $citation = $this->getDoctrine()->getRepository('OjsJournalBundle:Citation')->find($id);

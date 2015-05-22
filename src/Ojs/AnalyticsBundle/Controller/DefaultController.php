@@ -3,6 +3,7 @@
 namespace Ojs\AnalyticsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -14,7 +15,9 @@ class DefaultController extends Controller
     /**
      * Get a journal analytics summary
      * If there is no $id given, list all journals and analytics summary data
-     * @param int $id
+     *
+     * @param null|int $id
+     * @return Response
      */
     public function journalSummaryAction($id = null)
     {

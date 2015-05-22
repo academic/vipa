@@ -36,7 +36,7 @@ services:
             - { name: twig.extension }
     ojs.twig.analytics_extension:
         class: Ojs\AnalyticsBundle\Twig\AnalyticsExtension
-        arguments: [@service_container]
+        arguments: [@doctrine.odm.mongodb.document_manager]
         tags:
             - { name: twig.extension }
     ojs.loginlistener:

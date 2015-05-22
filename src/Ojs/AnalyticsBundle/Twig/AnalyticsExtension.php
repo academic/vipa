@@ -9,9 +9,9 @@
 namespace Ojs\AnalyticsBundle\Twig;
 
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\AnalyticsBundle\Document\ObjectView;
 use Ojs\JournalBundle\Entity\Article;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class AnalyticsExtension
@@ -20,16 +20,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AnalyticsExtension extends \Twig_Extension
 {
 
-    /** @var  ContainerInterface */
-    private $container;
-
-    /** @var \Doctrine\ODM\MongoDB\DocumentManager */
+    /** @var DocumentManager */
     private $dm;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(DocumentManager $dm)
     {
-        $this->container = $container;
-        $this->dm = $this->container->get('doctrine.odm.mongodb.document_manager');
+        $this->dm = $dm;
 
     }
 
