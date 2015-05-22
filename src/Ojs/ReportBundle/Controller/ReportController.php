@@ -11,5 +11,4 @@ class ReportController extends Controller
     {
         return $this->render('OjsReportBundle::index.html.twig');
     }
-
 }

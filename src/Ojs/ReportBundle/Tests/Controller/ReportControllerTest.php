@@ -15,5 +15,4 @@ class ReportControllerTest extends BaseTestCase
         $client->request('GET', '/manager/reports/');
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
-
 }
