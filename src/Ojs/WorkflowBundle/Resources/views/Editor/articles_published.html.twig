@@ -7,16 +7,8 @@
         </div>
 
         <div class="panel-body">
-            {% for entity in entities %}
-                <div class="list-group-item">
-                    <h4>{{entity.title}} <small>{{entity.journal.title}}</small></h4>
-                    <span>
-                        <!-- /* TODO : author list */  -->
-                    </span>
-
-                {% endfor %}
-                <hr>
-
+            <div class="list-group-item">
+                {{ grid(grid) }}
             </div>
         </div>
     </div>
