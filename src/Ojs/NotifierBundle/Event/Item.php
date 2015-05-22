@@ -3,14 +3,13 @@
  * Date: 26.01.15
  * Time: 16:19
  */
-
 namespace Ojs\Common\Event;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ojs\UserBundle\Entity\User;
 
-class Item {
+class Item
+{
     /** @var  ArrayCollection */
     protected $object;
     /** @var  User */
@@ -27,12 +26,13 @@ class Item {
     }
 
     /**
-     * @param ArrayCollection $object
+     * @param  ArrayCollection $object
      * @return $this
      */
     public function setObject($object)
     {
         $this->object = $object;
+
         return $this;
     }
 
@@ -45,12 +45,13 @@ class Item {
     }
 
     /**
-     * @param User $actor
+     * @param  User  $actor
      * @return $this
      */
     public function setActor($actor)
     {
         $this->actor = $actor;
+
         return $this;
     }
 
@@ -63,14 +64,13 @@ class Item {
     }
 
     /**
-     * @param \DateTime $time
+     * @param  \DateTime $time
      * @return $this
      */
     public function setTime($time)
     {
         $this->time = $time;
+
         return $this;
     }
-
-
 }

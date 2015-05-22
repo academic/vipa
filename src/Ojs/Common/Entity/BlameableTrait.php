@@ -2,8 +2,8 @@
 
 namespace Ojs\Common\Entity;
 
-
-trait BlameableTrait {
+trait BlameableTrait
+{
 
     /** @var string  */
     protected $createdBy = "";

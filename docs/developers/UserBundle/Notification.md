@@ -3,7 +3,7 @@ Sample usage
 
 ```php
 $em = $this->getDoctrine()->getManager();
-$currentUser = $this->container->get('security.context')->getToken()->getUser();
+$currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
 $author = $this->getDoctrine()->getRepository('OjsUserBundle:User')->findOneBy(array('username' => 'demo_author'));
 $txt = 'You can login as ' . $currentUser->getUsername();
 // add notification

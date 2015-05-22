@@ -396,7 +396,7 @@ class ArticleSubmissionController extends Controller
      * Saves article submission data from mongodb to mysql
      * Article submission data will be kept on mongodb as archive data
      *
-     * @param ArticleSubmissionProgress $articleSubmission
+     * @param  ArticleSubmissionProgress $articleSubmission
      * @param $journal
      * @return Article
      */
@@ -458,8 +458,8 @@ class ArticleSubmissionController extends Controller
 
     /**
      *
-     * @param  array   $articleData
-     * @param  Article $article
+     * @param array   $articleData
+     * @param Article $article
      */
     private function saveArticleTranslations($articleData, $article)
     {

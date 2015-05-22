@@ -24,7 +24,7 @@ class JournalContactController extends Controller
 
     /**
      * Lists all JournalContact entities.
-     * @param  Journal         $journal if not set list all contacts. if set list only contacts for that journal
+     * @param  Journal  $journal if not set list all contacts. if set list only contacts for that journal
      * @return Response
      */
     public function indexAction($journal = null)
@@ -75,7 +75,7 @@ class JournalContactController extends Controller
     /**
      * Creates a new JournalContact entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -107,9 +107,9 @@ class JournalContactController extends Controller
     /**
      * Creates a form to create a JournalContact entity.
      *
-     * @param  JournalContact               $entity       The entity
-     * @param  array                        $optionsArray
-     * @return Form The form
+     * @param  JournalContact $entity       The entity
+     * @param  array          $optionsArray
+     * @return Form           The form
      */
     private function createCreateForm(JournalContact $entity, $optionsArray = array())
     {
@@ -136,7 +136,7 @@ class JournalContactController extends Controller
     /**
      * Displays a form to create a new JournalContact entity.
      *
-     * @param null|Journal $journal
+     * @param  null|Journal $journal
      * @return Response
      */
     public function newAction($journal = null)
@@ -217,7 +217,7 @@ class JournalContactController extends Controller
     /**
      * Edits an existing JournalContact entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */

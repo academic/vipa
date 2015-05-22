@@ -34,7 +34,7 @@ class CitationSettingController extends Controller
     /**
      * Creates a new CitationSetting entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -159,7 +159,7 @@ class CitationSettingController extends Controller
     /**
      * Edits an existing CitationSetting entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -190,7 +190,7 @@ class CitationSettingController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */

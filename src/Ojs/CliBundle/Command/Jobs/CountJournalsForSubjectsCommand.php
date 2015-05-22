@@ -4,7 +4,6 @@ namespace Ojs\CliBundle\Command\Jobs;
 
 use Ojs\JournalBundle\Entity\Subject;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -20,7 +19,7 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
 
     /**
      * @todo not implemented yet
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -34,15 +33,14 @@ class CountJournalsForSubjectsCommand extends ContainerAwareCommand
 
         foreach ($subjects as $subject) {
             /** @var Subject $subject */
-            if($subject->getJournals()) {
-	    	$count = $subject->getJournals()->count();
-            	$subject->setTotalJournalCount($count);
+            if ($subject->getJournals()) {
+                $count = $subject->getJournals()->count();
+                $subject->setTotalJournalCount($count);
                 $subject->setUpdatedBy("System");
-            	$em->persist($subject);
-            	$em->flush();
-	    }
+                $em->persist($subject);
+                $em->flush();
+            }
             echo ".";
         }
     }
-
 }

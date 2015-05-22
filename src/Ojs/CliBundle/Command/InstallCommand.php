@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use \Ojs\UserBundle\Entity\Role;
-use \Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 use Composer\Script\CommandEvent;
 
-class InstallCommand extends ContainerAwareCommand {
+class InstallCommand extends ContainerAwareCommand
+{
 
     protected function configure()
     {
@@ -30,7 +31,8 @@ class InstallCommand extends ContainerAwareCommand {
         $webDir = $options['symfony-web-dir'];
 
         if (!is_dir($webDir)) {
-            echo 'The symfony-web-dir (' . $webDir . ') specified in composer.json was not found in ' . getcwd() . ', can not install assets.' . PHP_EOL;
+            echo 'The symfony-web-dir ('.$webDir.') specified in composer.json was not found in '.getcwd().', can not install assets.'.PHP_EOL;
+
             return;
         }
 
@@ -45,7 +47,7 @@ class InstallCommand extends ContainerAwareCommand {
             'symfony-assets-install' => 'hard',
                 ), $event->getComposer()->getPackage()->getExtra());
 
-        $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ? : $options['symfony-assets-install'];
+        $options['symfony-assets-install'] = getenv('SYMFONY_ASSETS_INSTALL') ?: $options['symfony-assets-install'];
 
         $options['process-timeout'] = $event->getComposer()->getConfig()->get('process-timeout');
 
@@ -65,12 +67,12 @@ class InstallCommand extends ContainerAwareCommand {
     protected static function executeCommand(CommandEvent $event, $appDir, $cmd, $timeout = 300)
     {
         $php = escapeshellarg(self::getPhp());
-        $console = escapeshellarg($appDir . '/console');
+        $console = escapeshellarg($appDir.'/console');
         if ($event->getIO()->isDecorated()) {
             $console .= ' --ansi';
         }
 
-        $process = new Process($php . ' ' . $console . ' ' . $cmd, null, null, null, $timeout);
+        $process = new Process($php.' '.$console.' '.$cmd, null, null, null, $timeout);
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
@@ -91,13 +93,13 @@ class InstallCommand extends ContainerAwareCommand {
         $application->setAutoExit(false);
 //$translator->setLocale('tr_TR');
         $output->writeln($this->printWelcome());
-        $output->writeln('<info>' .
-                $translator->trans('ojs.install.title') .
+        $output->writeln('<info>'.
+                $translator->trans('ojs.install.title').
                 '</info>');
 
         if (!$dialog->askConfirmation(
-                        $output, '<question>' .
-                        $translator->trans("ojs.install.confirm") .
+                        $output, '<question>'.
+                        $translator->trans("ojs.install.confirm").
                         ' (y/n) : </question>', true
                 )) {
             return;
@@ -113,28 +115,28 @@ class InstallCommand extends ContainerAwareCommand {
         $application->run(new \Symfony\Component\Console\Input\StringInput($command3));
         $output->writeln("Locations inserted.");
 
-        $output->writeln($sb . 'Inserting roles to db' . $se);
+        $output->writeln($sb.'Inserting roles to db'.$se);
         $this->insertRoles($this->getContainer(), $output);
 
         $admin_username = $dialog->ask(
                 $output, '<info>Set system admin username (admin) : </info>', 'admin');
         $admin_email = $dialog->ask(
-                $output, '<info>Set system admin email' .
+                $output, '<info>Set system admin email'.
                 ' (root@localhost.com) : </info>', 'root@localhost.com');
         $admin_password = $dialog->ask(
                 $output, '<info>Set system admin password (admin) </info>', 'admin');
 
-        $output->writeln($sb . 'Inserting system admin user to db' . $se);
-        $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password); 
+        $output->writeln($sb.'Inserting system admin user to db'.$se);
+        $this->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
 
-        $output->writeln($sb . 'Inserting default theme record' . $se);
+        $output->writeln($sb.'Inserting default theme record'.$se);
         $this->insertTheme($this->getContainer());
 
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>php app/console ojs:install:initial-data </info> "
-                . "to add initial data\n");
-    } 
+                ."<info>php app/console ojs:install:initial-data </info> "
+                ."to add initial data\n");
+    }
 
     /**
      * add default roles
@@ -150,11 +152,11 @@ class InstallCommand extends ContainerAwareCommand {
             $new_role = new Role();
             $check = $role_repo->findOneByRole($role['role']);
             if (!empty($check)) {
-                $output->writeln('<error> This role record already exists on db </error> : <info>' .
-                        $role['role'] . '</info>');
+                $output->writeln('<error> This role record already exists on db </error> : <info>'.
+                        $role['role'].'</info>');
                 continue;
             }
-            $output->writeln('<info>Added : ' . $role['role'] . '</info>');
+            $output->writeln('<info>Added : '.$role['role'].'</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
             $new_role->setIsSystemRole($role['isSystemRole']);
@@ -206,5 +208,4 @@ class InstallCommand extends ContainerAwareCommand {
     {
         return '';
     }
-
 }

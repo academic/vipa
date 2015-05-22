@@ -5,11 +5,10 @@
  * Date: 22/05/15
  * Time: 04:15
  */
-
 namespace Ojs\Common\Entity;
 
-
-trait TimestampableTrait {
+trait TimestampableTrait
+{
 
     /**  @var \DateTime $created */
     protected $created;

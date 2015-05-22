@@ -2,7 +2,6 @@
 
 namespace Ojs\CliBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 
@@ -35,7 +34,7 @@ class CliLog implements Translatable
 
     /**
      * Get id
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,7 +43,7 @@ class CliLog implements Translatable
 
     /**
      * Set command
-     * @param string $command
+     * @param  string $command
      * @return CliLog
      */
     public function setCommand($command)
@@ -57,7 +56,7 @@ class CliLog implements Translatable
     /**
      * Get command
      *
-     * @return string 
+     * @return string
      */
     public function getCommand()
     {
@@ -66,7 +65,7 @@ class CliLog implements Translatable
 
     /**
      * Set output
-     * @param string $output
+     * @param  string $output
      * @return CliLog
      */
     public function setOutput($output)
@@ -78,7 +77,7 @@ class CliLog implements Translatable
 
     /**
      * Get output
-     * @return string 
+     * @return string
      */
     public function getOutput()
     {
@@ -87,7 +86,7 @@ class CliLog implements Translatable
 
     /**
      * Set isSuccess
-     * @param boolean $isSuccess
+     * @param  boolean $isSuccess
      * @return CliLog
      */
     public function setIsSuccess($isSuccess)
@@ -99,11 +98,10 @@ class CliLog implements Translatable
 
     /**
      * Get isSuccess
-     * @return boolean 
+     * @return boolean
      */
     public function getIsSuccess()
     {
         return $this->isSuccess;
     }
-
 }

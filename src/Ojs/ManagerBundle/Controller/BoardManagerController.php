@@ -43,7 +43,7 @@ class BoardManagerController extends Controller
      */
     public function removeMemberAction($boardId, $userId)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $board = $this->getBoard($boardId);
         $boardMember = $em->getRepository('OjsJournalBundle:BoardMember')->findOneBy(array(
@@ -58,7 +58,7 @@ class BoardManagerController extends Controller
     }
 
     /**
-     *  add posted user id  as board member with given boardid
+     *  add posted user id  as board member with given board id
      * @param  Request          $req
      * @param  int              $boardId
      * @return RedirectResponse
@@ -66,7 +66,7 @@ class BoardManagerController extends Controller
     public function addMemberAction(Request $req, $boardId)
     {
         $userId = $req->get('userid');
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('OjsUserBundle:User')->find($userId);
         $this->throw404IfNotFound($user);
         $board = $this->getBoard($boardId);

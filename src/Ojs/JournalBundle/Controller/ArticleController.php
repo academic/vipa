@@ -27,7 +27,7 @@ use Ojs\JournalBundle\Form\ArticleType;
 class ArticleController extends Controller
 {
     /**
-     * @param null|integer $id
+     * @param  null|integer $id
      * @return Response
      */
     public function citationAction($id = null)
@@ -80,7 +80,7 @@ class ArticleController extends Controller
     /**
      * Lists all Article entities for journal
      *
-     * @param integer $journalId
+     * @param  integer  $journalId
      * @return Response
      */
     public function indexJournalAction($journalId)
@@ -99,7 +99,7 @@ class ArticleController extends Controller
     /**
      * Lists all Article entities for issue
      *
-     * @param integer $issueId
+     * @param  integer  $issueId
      * @return Response
      */
     public function indexIssueAction($issueId)
@@ -254,7 +254,7 @@ class ArticleController extends Controller
     /**
      * Edits an existing Article entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */

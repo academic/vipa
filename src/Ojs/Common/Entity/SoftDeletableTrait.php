@@ -2,8 +2,8 @@
 
 namespace Ojs\Common\Entity;
 
-
-trait SoftDeletableTrait {
+trait SoftDeletableTrait
+{
 
     /** @var \DateTime */
     protected $deletedAt;

@@ -16,7 +16,6 @@ class InstallCommandTest extends BaseTestCase
     {
         parent::setUp();
         $this->app->add(new InstallCommand());
-
     }
 
     public function testInstall()
@@ -33,9 +32,8 @@ class InstallCommandTest extends BaseTestCase
             'command' => $command,
             'continue-on-error' => false,
         ]);*/
-        $this->assertContains('DONE','DONE'); // $cmdTester->getDisplay()
+        $this->assertContains('DONE', 'DONE'); // $cmdTester->getDisplay()
 
         //@todo command not testable. cause command run another command.
-
     }
 }
