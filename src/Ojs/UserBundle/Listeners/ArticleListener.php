@@ -6,21 +6,21 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
 use Ojs\Common\Params\ArticleEventLogParams;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ArticleListener
 {
     /** @var TokenStorage  */
     protected $tokenStorage;
-    /** @var Request  */
+    /** @var RequestStack  */
     protected $request;
 
     /**
      * @param TokenStorage $tokenStorage
-     * @param Request      $request
+     * @param RequestStack      $request
      */
-    public function __construct(TokenStorage $tokenStorage, Request $request)
+    public function __construct(TokenStorage $tokenStorage, RequestStack $request)
     {
         $this->tokenStorage = $tokenStorage;
         $this->request = $request;
@@ -56,7 +56,7 @@ class ArticleListener
                 $event = new EventLog();
                 $event->setUserId($user->getId());
                 $event->setEventInfo(ArticleEventLogParams::$ARTICLE_SUBMISSION);
-                $event->setIp($this->request->getClientIp());
+                $event->setIp($this->request->getCurrentRequest()->getClientIp());
                 $entityManager->persist($event);
 
                 $entityManager->flush();
@@ -87,7 +87,7 @@ class ArticleListener
                 //log as eventlog
                 $event = new EventLog();
                 $event->setEventInfo(ArticleEventLogParams::$ARTICLE_REMOVE);
-                $event->setIp($this->request->getClientIp());
+                $event->setIp($this->request->getCurrentRequest()->getClientIp());
                 $event->setUserId($user->getId());
                 $event->setAffectedUserId($entity->getSubmitterId());
                 $entityManager->persist($event);

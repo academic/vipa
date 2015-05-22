@@ -5,18 +5,18 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\Proxy;
 use Ojs\Common\Params\ProxyEventLogParams;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProxyListener
 {
-    /** @var Request  */
+    /** @var RequestStack  */
     protected $request;
 
     /**
-     * @param Request $request
+     * @param RequestStack $request
      */
-    public function __construct(Request $request = null)
+    public function __construct(RequestStack $request = null)
     {
         $this->request = $request;
     }
@@ -44,7 +44,7 @@ class ProxyListener
                 $event->setUserId($entity->getClientUser()->getId());
                 $event->setEventInfo(ProxyEventLogParams::$PROXY_CREATE);
                 $event->setAffectedUserId($entity->getProxyUser()->getId());
-                $event->setIp($this->request->getClientIp());
+                $event->setIp($this->request->getCurrentRequest()->getClientIp());
                 $entityManager->persist($event);
 
                 $entityManager->flush();
@@ -72,7 +72,7 @@ class ProxyListener
                 //log as eventlog
                 $event = new EventLog();
                 $event->setEventInfo(ProxyEventLogParams::$PROXY_DROP);
-                $event->setIp($this->request->getClientIp());
+                $event->setIp($this->request->getCurrentRequest()->getClientIp());
                 $event->setAffectedUserId($entity->getProxyUserId());
                 $event->setUserId($entity->getClientUserId());
                 $entityManager->persist($event);

@@ -107,12 +107,12 @@ services:
             -  { name: h4cc_alice_fixtures.provider }
     user.event_subscriber:
         class: Ojs\UserBundle\Listeners\UserSubscriber
-        arguments: [ @mailer, @twig, @doctrine.orm.entity_manager, @request, "%system_email%" ]
+        arguments: [ @mailer, @twig, @doctrine.orm.entity_manager, @request_stack, "%system_email%" ]
         tags:
             -  { name: kernel.event_subscriber }
     user.event_listener:
         class: Ojs\UserBundle\Listeners\UserListener
-        arguments: [@request]
+        arguments: [@request_stack]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
     user.helper:
@@ -129,13 +129,13 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     proxy.event_listener:
         class: Ojs\UserBundle\Listeners\ProxyListener
-        arguments: [@request]
+        arguments: [@request_stack]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: preRemove }
     article.event_listener:
         class: Ojs\UserBundle\Listeners\ArticleListener
-        arguments: [@security.token_storage, @request]
+        arguments: [@security.token_storage, @request_stack]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: preRemove }

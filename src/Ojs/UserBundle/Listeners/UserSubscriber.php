@@ -12,7 +12,7 @@ use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Ojs\Common\Params\UserEventLogParams;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserSubscriber implements EventSubscriberInterface
 {
@@ -22,7 +22,7 @@ class UserSubscriber implements EventSubscriberInterface
     protected $twig;
     /** @var EntityManager  */
     protected $em;
-    /** @var Request  */
+    /** @var RequestStack  */
     protected $request;
     /** @var  string */
     protected $systemEmail;
@@ -31,10 +31,10 @@ class UserSubscriber implements EventSubscriberInterface
      * @param \Swift_Mailer     $mailer
      * @param \Twig_Environment $twig
      * @param EntityManager     $em
-     * @param Request           $request
+     * @param RequestStack           $request
      * @param $systemEmail
      */
-    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, EntityManager $em, Request $request, $systemEmail)
+    public function __construct(\Swift_Mailer $mailer, \Twig_Environment $twig, EntityManager $em, RequestStack $request, $systemEmail)
     {
         $this->mailer = $mailer;
         $this->twig = $twig;
@@ -80,7 +80,7 @@ class UserSubscriber implements EventSubscriberInterface
             //log as eventlog
             $eventLog = new EventLog();
             $eventLog->setEventInfo(UserEventLogParams::$PASSWORD_CHANGE);
-            $eventLog->setIp($this->request->getClientIp());
+            $eventLog->setIp($this->request->getCurrentRequest()->getClientIp());
             $eventLog->setUserId($event->getUser()->getId());
             $this->em->persist($eventLog);
 

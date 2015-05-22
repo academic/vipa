@@ -5,25 +5,25 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
 use Ojs\Common\Params\UserEventLogParams;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserListener
 {
-    /** @var Request  */
+    /** @var RequestStack  */
     protected $request;
 
     /**
-     * @param Request $request
+     * @param RequestStack $request
      */
-    public function __construct(Request $request)
+    public function __construct(RequestStack $request)
     {
         $this->request = $request;
     }
 
     /**
      * Every new user log to event log
-     * @param  LifecycleEventArgs|Request $args
+     * @param  LifecycleEventArgs|RequestStack $args
      * @link http://docs.doctrine-project.org/en/latest/reference/events.html#postupdate-postremove-postpersist
      * @return Response                   never null
      */
@@ -39,7 +39,7 @@ class UserListener
                 //log as eventlog
                 $event = new EventLog();
                 $event->setEventInfo(UserEventLogParams::$USER_ADD);
-                $event->setIp($this->request->getClientIp());
+                $event->setIp($this->request->getCurrentRequest()->getClientIp());
                 $event->setUserId($entity->getId());
                 $entityManager->persist($event);
 
