@@ -4,7 +4,6 @@ namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\UserBundle\Entity\EventLog;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Ojs\UserBundle\Entity\User as User;
 use Ojs\Common\Params\UserEventLogParams;
@@ -13,17 +12,13 @@ class LoginListener
 {
     /** @var EntityManager  */
     protected $em;
-    /** @var Request  */
-    protected $request;
 
     /**
      * @param EntityManager $em
-     * @param Request       $request
      */
-    public function __construct(EntityManager $em, Request $request)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
-        $this->request = $request;
     }
 
     /**
@@ -33,6 +28,7 @@ class LoginListener
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
+        $request = $event->getRequest();
         $token = $event->getAuthenticationToken();
         if ($token && $token->getUser() instanceof User) {
             /* @var $user User */
@@ -44,7 +40,7 @@ class LoginListener
             //log as eventlog
             $event = new EventLog();
             $event->setEventInfo(UserEventLogParams::$USER_LOGIN);
-            $event->setIp($this->request->getClientIp());
+            $event->setIp($request->getClientIp());
             $event->setUserId($user->getId());
             $this->em->persist($event);
 

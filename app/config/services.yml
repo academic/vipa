@@ -41,7 +41,7 @@ services:
             - { name: twig.extension }
     ojs.loginlistener:
         class: Ojs\UserBundle\Listeners\LoginListener
-        arguments: [@doctrine.orm.entity_manager, @request]
+        arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_listener, event: security.interactive_login }
     ojs.logout_listener:
