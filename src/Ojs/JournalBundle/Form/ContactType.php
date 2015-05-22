@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ContactType extends AbstractType
 {
@@ -20,7 +21,17 @@ class ContactType extends AbstractType
                 ->add('firstName', 'text', ['label' => 'firstname'])
                 ->add('lastName', 'text', ['label' => 'lastname'])
                 ->add('address', 'text', ['label' => 'address'])
-                ->add('country', 'integer', ['label' => 'country'])
+                ->add('country', 'entity', [
+                    'label' => 'country',
+                    'class' => 'Okulbilisim\LocationBundle\Entity\Location',
+                    'attr' => [
+                        'class' => "select2-element validate[required]",
+                    ],
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('t')
+                            ->where('t.parent_id = 0');
+                    }
+                ])
                 ->add('city', 'text', ['label' => 'city'])
                 ->add('phone', 'text', ['label' => 'phone'])
                 ->add('fax', 'text', ['label' => 'fax'])

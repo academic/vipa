@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use Okulbilisim\LocationBundle\Entity\Location;
 
 /**
  * Contact
@@ -50,12 +51,6 @@ class Contact implements Translatable
     private $address;
 
     /**
-     * @var integer
-     * @GRID\Column(title="country")
-     */
-    private $country;
-
-    /**
      * @var string
      */
     private $city;
@@ -76,6 +71,9 @@ class Contact implements Translatable
      * @GRID\Column(title="email")
      */
     private $email;
+
+    /** @var  Location */
+    protected $country;
 
     /**
      * Get id
@@ -190,26 +188,22 @@ class Contact implements Translatable
     }
 
     /**
-     * Set country
-     *
-     * @param  integer $country
-     * @return Contact
+     * @return Location
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param  Location $country
+     * @return $this
      */
     public function setCountry($country)
     {
         $this->country = $country;
 
         return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return integer
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
