@@ -7,6 +7,12 @@ Ojs\JournalBundle\Entity\Contact:
             id: true
             generator:
                 strategy: AUTO
+    manyToOne:
+          country:
+                targetEntity: Okulbilisim\LocationBundle\Entity\Location
+                joinColumn:
+                  name: country_id
+                  referencedColumnName: id
     fields:
         title:
             type: string
@@ -33,9 +39,6 @@ Ojs\JournalBundle\Entity\Contact:
             nullable: true
         address:
             type: text
-            nullable: TRUE
-        country:
-            type: integer
             nullable: TRUE
         city:
             type: string
