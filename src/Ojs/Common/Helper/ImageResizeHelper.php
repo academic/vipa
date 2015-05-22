@@ -42,24 +42,24 @@ class ImageResizeHelper
                     // Automatically rotate images based on EXIF meta data:
                     'max_width' => 1024,
                     'max_height' => 768,
-                    'auto_orient' => true
+                    'auto_orient' => true,
                 ),
                 'medium' => array(
                     'crop' => true,
                     'max_width' => 600,
-                    'max_height' => 600
+                    'max_height' => 600,
                 ),
                 'thumbnail2' => array(
                     'crop' => true,
                     'max_width' => 240,
-                    'max_height' => 240
+                    'max_height' => 240,
                 ),
                 'thumbnail' => array(
                     'crop' => true,
                     'max_width' => 80,
-                    'max_height' => 80
-                )
-            )
+                    'max_height' => 80,
+                ),
+            ),
         );
         if ($options) {
             $this->options = array_merge($this->options, $options);
@@ -77,7 +77,7 @@ class ImageResizeHelper
         }
         if (count($failed_versions)) {
             $this->error_messages[] = $this->get_error_message('image_resize')
-                . ' (' . implode($failed_versions, ', ') . ')';
+                .' ('.implode($failed_versions, ', ').')';
         }
         $this->destroy_image_object($this->image_name);
     }
@@ -123,7 +123,7 @@ class ImageResizeHelper
         $index = isset($matches[1]) ? intval($matches[1]) + 1 : 1;
         $ext = isset($matches[2]) ? $matches[2] : '';
 
-        return ' (' . $index . ')' . $ext;
+        return ' ('.$index.')'.$ext;
     }
 
     protected function upcount_name($name)
@@ -141,12 +141,13 @@ class ImageResizeHelper
         } else {
             $version_dir = @$this->options['image_versions'][$version]['upload_dir'];
             if ($version_dir) {
-                return $version_dir . $this->get_user_path() . $file_name;
+                /** TODO : missing get_user_path method */
+                return $version_dir.$this->get_user_path().$file_name;
             }
-            $version_path = $version . '/';
+            $version_path = $version.'/';
         }
 
-        return $this->options['upload_dir'] . $version_path . $file_name;
+        return $this->options['upload_dir'].$version_path.$file_name;
     }
 
     protected function get_scaled_image_file_paths($file_name, $version)
@@ -157,7 +158,7 @@ class ImageResizeHelper
             if (!is_dir($version_dir)) {
                 mkdir($version_dir, $this->options['mkdir_mode'], true);
             }
-            $new_file_path = $version_dir . '/' . $file_name;
+            $new_file_path = $version_dir.'/'.$file_name;
         } else {
             $new_file_path = $file_path;
         }
@@ -363,7 +364,6 @@ class ImageResizeHelper
             case 'gif':
             case 'png':
                 imagecolortransparent($new_img, imagecolorallocate($new_img, 0, 0, 0));
-            case 'png':
                 imagealphablending($new_img, false);
                 imagesavealpha($new_img, true);
                 break;
@@ -401,12 +401,13 @@ class ImageResizeHelper
 
     protected function imagick_destroy_image_object($file_path)
     {
+        /** @var \Imagick $image */
         $image = @$this->image_objects[$file_path];
 
         return $image && $image->destroy();
     }
 
-    protected function imagick_orient_image($image)
+    protected function imagick_orient_image(\Imagick $image)
     {
         $orientation = $image->getImageOrientation();
         $background = new \ImagickPixel('none');
@@ -445,6 +446,7 @@ class ImageResizeHelper
     protected function imagick_create_scaled_image($file_name, $version, $options)
     {
         list($file_path, $new_file_path) = $this->get_scaled_image_file_paths($file_name, $version);
+        /** @var \Imagick $image */
         $image = $this->imagick_get_image_object(
             $file_path, !empty($options['no_cache'])
         );
@@ -516,7 +518,7 @@ class ImageResizeHelper
                     }
 
                     return false;
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     error_log($e->getMessage());
                 }
             }
@@ -544,6 +546,8 @@ class ImageResizeHelper
         if ($this->options['image_library'] && extension_loaded('imagick')) {
             return $this->imagick_destroy_image_object($file_path);
         }
+
+        return;
     }
 
     protected function is_valid_image_file($file_path)
@@ -558,5 +562,4 @@ class ImageResizeHelper
 
         return $image_info && $image_info[0] && $image_info[1];
     }
-
 }

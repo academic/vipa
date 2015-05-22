@@ -5,12 +5,9 @@
  * Date: 4.02.15
  * Time: 23:44
  */
-
 namespace Ojs\Common\Services;
 
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Monolog\Logger;
 
 class OrcidService
 {
@@ -20,14 +17,22 @@ class OrcidService
     const TOKEN_PATH = "oauth/token";
     const AUTHORIZATION_PATH = "oauth/authorize";
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * @param $orcid
+     * @param Logger $logger
+     */
+    public function __construct($orcid, Logger $logger)
     {
-        $this->setContainer($container);
-        $parameters = $this->getContainer()->getParameter('orcid');
-        $this->setClientId($parameters['client_id']);
-        $this->setClientSecret($parameters['client_secret']);
-        $this->setRedirectUri($parameters['redirect_uri']);
-        $this->setSandbox($parameters['sandbox']);
+        $this->setClientId($orcid['client_id']);
+        $this->setClientSecret($orcid['client_secret']);
+        $this->setRedirectUri($orcid['redirect_uri']);
+        $this->setSandbox($orcid['sandbox']);
+        $this->logger = $logger;
     }
 
     /**
@@ -47,26 +52,8 @@ class OrcidService
      */
     private $redirect_uri;
 
-    /** @var  ContainerInterface */
-    private $container;
-
     /** @var  string */
     private $access_token;
-    /**
-     * @return ContainerInterface
-     */
-    public function getContainer()
-    {
-        return $this->container;
-    }
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * @return string
@@ -157,39 +144,39 @@ class OrcidService
         $state = bin2hex(openssl_random_pseudo_bytes(16));
         if ($this->isSandbox()) {
             $url = self::SANDBOX_API
-                . DIRECTORY_SEPARATOR
-                . self::AUTHORIZATION_PATH
-                . DIRECTORY_SEPARATOR
-                . '?'
-                . http_build_query([
+                .DIRECTORY_SEPARATOR
+                .self::AUTHORIZATION_PATH
+                .DIRECTORY_SEPARATOR
+                .'?'
+                .http_build_query([
                     'response_type' => 'code',
                     'client_id' => $this->getClientId(),
                     'redirect_uri' => $this->getRedirectUri(),
                     'scope' => '/authenticate',
-                    'state' => $state
+                    'state' => $state,
                 ]);
         } else {
             $url = self::MEMBER_API
-                . DIRECTORY_SEPARATOR
-                . self::AUTHORIZATION_PATH
-                . DIRECTORY_SEPARATOR
-                . '?'
-                . http_build_query([
+                .DIRECTORY_SEPARATOR
+                .self::AUTHORIZATION_PATH
+                .DIRECTORY_SEPARATOR
+                .'?'
+                .http_build_query([
                     'response_type' => 'code',
                     'client_id' => $this->getClientId(),
                     'redirect_uri' => $this->getRedirectUri(),
                     'scope' => '/authenticate',
                 ]);
         }
+
         return $url;
     }
-
 
     private function post($path, $code, $grant_type, $fields = [])
     {
         $curl = curl_init();
         curl_setopt_array($curl, [
-            CURLOPT_URL =>  self::PUBLIC_API . DIRECTORY_SEPARATOR . $path,
+            CURLOPT_URL =>  self::PUBLIC_API.DIRECTORY_SEPARATOR.$path,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Accept: application/json'],
             CURLOPT_POST => true,
@@ -199,34 +186,37 @@ class OrcidService
                     'grant_type' => $grant_type,
                     'client_id' => $this->getClientId(),
                     'client_secret' => $this->getClientSecret(),
-                    'redirect_uri' => $this->getRedirectUri()
+                    'redirect_uri' => $this->getRedirectUri(),
                 ], $fields)
-            )
+            ),
         ]);
         $result = curl_exec($curl);
-        $this->container->get('logger')->addDebug('#Orcid Debug',[$result]);
+        $this->logger->addDebug('#Orcid Debug', [$result]);
+
         return json_decode($result);
     }
 
     private function get($path)
     {
         $curl = curl_init();
-        curl_setopt_array($curl,[
-            CURLOPT_URL => self::PUBLIC_API . DIRECTORY_SEPARATOR . $path,
-            CURLOPT_RETURNTRANSFER=>true,
-            CURLOPT_HTTPHEADER=>[
+        curl_setopt_array($curl, [
+            CURLOPT_URL => self::PUBLIC_API.DIRECTORY_SEPARATOR.$path,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
                 'Accept: application/json',
-                'Authorization: Bearer '.$this->getAccessToken()
+                'Authorization: Bearer '.$this->getAccessToken(),
             ],
         ]);
         //https://api.sandbox.orcid.org/v1.1/0000-0003-1495-7122/orcid-profile
         $result = curl_exec($curl);
+
         return json_decode($result);
     }
 
     public function authorize($code)
     {
         $auth = $this->post(self::TOKEN_PATH, $code, 'authorization_code');
+
         return $auth;
     }
 
@@ -234,10 +224,7 @@ class OrcidService
     {
         $this->setAccessToken($access_token);
         $data = $this->get($user_id.'/orcid-profile');
+
         return $data;
     }
-
-
-
-
 }

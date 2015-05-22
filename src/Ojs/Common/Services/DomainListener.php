@@ -2,20 +2,19 @@
 
 namespace Ojs\Common\Services;
 
-use \Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DomainListener
 {
- 
+
     private $em;
     private $baseHost;
     private $container;
 
     public function __construct(EntityManager $em, $baseHost, ContainerInterface $container)
-    { 
+    {
         $this->em = $em;
         $this->baseHost = $baseHost;
         $this->container = $container;
@@ -53,5 +52,4 @@ class DomainListener
           }
          */
     }
-
 }

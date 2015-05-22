@@ -2,42 +2,40 @@
 
 namespace Ojs\Common\Services;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 /*
-* Some custom providers for alice data fixtures 
+* Some custom providers for alice data fixtures
 */
 class AliceDataProvider
 {
 
-    protected $container;
+    protected $defaultInstitutionSlug;
+
+    protected $systemEmail;
 
     /**
-     * 
-     * @param ContainerInterface $container
+     * @param $defaultInstitutionSlug
+     * @param $systemEmail
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct($defaultInstitutionSlug, $systemEmail)
     {
-        $this->container = $container;
+        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
+        $this->systemEmail = $systemEmail;
     }
 
     /**
      * get default institution record
-     * @return \Ojs\JournalBundle\Entity\Institution
+     * @return string
      */
-    public function defaultInstitutionSlug($redirect = true)
-    { 
-        return $this->container->getParameter('defaultInstitutionSlug'); 
+    public function defaultInstitutionSlug()
+    {
+        return $this->$defaultInstitutionSlug;
     }
 
     /**
-     * get default institution record
-     * @return \Ojs\JournalBundle\Entity\Institution
+     * @return string
      */
-    public function systemEmail($redirect = true)
-    { 
-        return $this->container->getParameter('system_email'); 
+    public function systemEmail()
+    {
+        return $this->systemEmail;
     }
-
-
 }

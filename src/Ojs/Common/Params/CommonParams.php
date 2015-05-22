@@ -8,27 +8,27 @@ class CommonParams
     public static $userStatusArray = [
         0 => "Passive",
         1 => "Active",
-        2 => "Banned"
+        2 => "Banned",
     ];
 
     protected static $statusArray = array(
         -3 => "status.rejected",
         -2 => "status.unpublished",
         -1 => "status.not_submitted",
-         0 => "status.waiting",
-         1 => "status.inreview",
-         2 => "status.editing",
-         3 => "status.published"
+        0 => "status.waiting",
+        1 => "status.inreview",
+        2 => "status.editing",
+        3 => "status.published",
     );
 
     protected static $statusColorArray = array(
         -3 => '#FF2924',
         -2 => '#FF4724',
-        -1 => '#9A9',
-         0 => '#E8CC56',
-         1 => '#AD55E8',
-         2 => '#43FFCC',
-         3 => '#3FFF23'
+        -1 => '#9a9',
+        0 => '#E8CC56',
+        1 => '#AD55E8',
+        2 => '#43FFCC',
+        3 => '#3FFF23',
     );
 
     public static $journalApplicationStatusArray = [
@@ -61,19 +61,19 @@ class CommonParams
     }
 
     /**
-     *
-     * @param type $statusText
-     * @return type
+     * @param  string       $statusText
+     * @return null|integer
      */
     public static function getStatusCode($statusText)
     {
         $i = array_search($statusText, self::$statusArray);
+
         return $i ?: null;
     }
 
     public static function statusText($statusNum = null)
     {
-        if(array_key_exists($statusNum, self::$statusArray)) {
+        if (array_key_exists($statusNum, self::$statusArray)) {
             return self::$statusArray[$statusNum];
         } else {
             return self::$statusArray;
@@ -82,7 +82,7 @@ class CommonParams
 
     /**
      * Return color of this status via status code
-     * @param int $statusNum
+     * @param  int    $statusNum
      * @return string
      */
     public static function statusColor($statusNum)

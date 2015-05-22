@@ -16,5 +16,4 @@ class JournalDomain
     {
         $this->currentJournal = $currentJournal;
     }
-
 }

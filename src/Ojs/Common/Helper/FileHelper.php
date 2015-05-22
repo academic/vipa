@@ -20,11 +20,10 @@ class FileHelper
         $path = '';
         $arraySliced = array_slice($array, 0, $level);
         foreach ($arraySliced as $item) {
-            $path .= $item . '/';
-            $createDir && !file_exists($uploadRootPath . $path) && mkdir($uploadRootPath . $path);
+            $path .= $item.'/';
+            $createDir && !file_exists($uploadRootPath.$path) && mkdir($uploadRootPath.$path);
         }
 
         return $path;
     }
-
 }

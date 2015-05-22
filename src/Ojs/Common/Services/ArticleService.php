@@ -2,63 +2,78 @@
 
 namespace Ojs\Common\Services;
 
-use \Doctrine\ORM\EntityManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityManager;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleFile;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Ojs\Common\Model\Meta;
 
 /**
  * Common methods for article
  */
-class ArticleService {
-
+class ArticleService
+{
+    /**
+     * @var EntityManager
+     */
     private $em;
-    /* @var \Symfony\Component\DependencyInjection\Container  */
-    private $container;
+    /**
+     * @var JournalService
+     */
+    private $journalService;
 
     /**
-     * 
-     * @param ContainerInterface $container
-     * @param EntityManager $em
+     * @var Session
      */
-    public function __construct(ContainerInterface $container, EntityManager $em)
+    private $session;
+
+    /**
+     * @param EntityManager  $em
+     * @param JournalService $journalService
+     * @param Session        $session
+     */
+    public function __construct(EntityManager $em, JournalService $journalService, Session $session)
     {
-        $this->container = $container;
         $this->em = $em;
+        $this->journalService = $journalService;
+        $this->session = $session;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\Article  $article
+     * @param  Article       $article
      * @throws HttpException
+     * @return Meta
      */
-    public function generateMetaTags($article)
+    public function generateMetaTags(Article $article)
     {
-        $meta = new \Ojs\Common\Model\Meta(array('title_limit' => 120, 'description_limit' => 200, 'image_limit' => 5));
+        $meta = new Meta(array('title_limit' => 120, 'description_limit' => 200, 'image_limit' => 5));
         if ($article) {
             $meta->meta('DC.Title', $article->getTitle());
             $meta->meta('DC.Description', $article->getAbstract());
 
             $meta->meta('DC.Source', $article->getJournal()->getTitle());
             !is_null($article->getJournal()) && $meta->meta('DC.Source.ISSN', $article->getJournal()->getIssn());
-            !is_null($article->getIssue()) && $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber() . "");
-            $meta->meta('DC.Source.URI', $this->container->get('ojs.journal_service')->generateUrl($article->getJournal()));
+            !is_null($article->getIssue()) && $meta->meta('DC.Source.Issue', $article->getIssue()->getNumber()."");
+            $meta->meta('DC.Source.URI', $this->journalService->generateUrl($article->getJournal()));
             !is_null($article->getIssue()) && $meta->meta('DC.Source.Volume', $article->getIssue()->getVolume());
 
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.created', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.dateSubmitted', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.issued', $article->getPubdate()->format('Y-m-d')); //scheme="ISO8601"
             !is_null($article->getPubdate()) && $meta->rawMeta('DC.Date.modified', $article->getPubdate()->format('Y-m-d')); // scheme="ISO8601"
-            !is_null($article->getPubdate()) && $meta->rawMeta('article:modified_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:modified_time"/>');
-            !is_null($article->getPubdate()) && $meta->rawMeta('article:publish_time', '<meta content="' . $article->getPubdate()->format('Y-m-d') . '" property="article:publish_time"/>');
-            $meta->rawMeta('og:url', '<meta content="' . $this->generateUrl($article) . '" property="og:url"/>');
-            $meta->rawMeta('og:title', '<meta content="' . $article->getTitle() . '" property="og:title"/>');
+            !is_null($article->getPubdate()) && $meta->rawMeta('article:modified_time', '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:modified_time"/>');
+            !is_null($article->getPubdate()) && $meta->rawMeta('article:publish_time', '<meta content="'.$article->getPubdate()->format('Y-m-d').'" property="article:publish_time"/>');
+            $meta->rawMeta('og:url', '<meta content="'.$this->generateUrl($article).'" property="og:url"/>');
+            $meta->rawMeta('og:title', '<meta content="'.$article->getTitle().'" property="og:title"/>');
             $meta->rawMeta('og:type', '<meta content="article" property="og:type"/>');
 
             $meta->meta('DC.Type', 'Text.Serial.Journal');
-            !is_null($article->getSection())&&$meta->meta('DC.Type.articleType', $article->getSection()->getTitle());
+            !is_null($article->getSection()) && $meta->meta('DC.Type.articleType', $article->getSection()->getTitle());
 
             $meta->meta('DC.Contributor.Sponsor', '');
             $meta->meta('DC.Identifier', $article->getId());
-            $meta->meta('DC.Identifier.pageNumber', $article->getFirstPage() . '-' . $article->getLastPage());
+            $meta->meta('DC.Identifier.pageNumber', $article->getFirstPage().'-'.$article->getLastPage());
             $meta->meta('DC.Identifier.DOI', $article->getDoi());
             $meta->meta('DC.Identifier.URI', $this->generateUrl($article));
             $meta->meta('DC.Language', $article->getPrimaryLanguage(), ' scheme="ISO639-1"');
@@ -86,31 +101,33 @@ class ArticleService {
                 $meta->meta('citation_pdf_url', $file->getFile()->getPath());
             }
         }
+
         return $meta;
     }
 
     /**
-     * 
-     * @param \Ojs\JournalBundle\Entity\Article $article
-     * @return string
+     * @param  Article       $article
+     * @return ArticleFile[]
      */
-    public function getFullTextFiles($article)
+    public function getFullTextFiles(Article $article)
     {
-        $files = $this->container->get('doctrine.orm.entity_manager')
+        $files = $this->em
                 ->getRepository('OjsJournalBundle:ArticleFile')
                 ->getArticleFullTextFiles($article->getId());
+
         return $files;
     }
 
     /**
-     * 
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     *
+     * @param  \Ojs\JournalBundle\Entity\Article $article
      * @return string
      */
     public function generateUrl($article)
     {
-        $journalUrl = $this->container->get('ojs.journal_service')->generateUrl($article->getJournal());
-        return $journalUrl . '/' . $article->getSlug();
+        $journalUrl = $this->journalService->generateUrl($article->getJournal());
+
+        return $journalUrl.'/'.$article->getSlug();
     }
 
     /**
@@ -120,7 +137,7 @@ class ArticleService {
     public function setSelectedJournal($journalId)
     {
         $this->session->set('selectedJournalId', $journalId);
+
         return $journalId;
     }
-
 }

@@ -2,27 +2,64 @@
 
 namespace Ojs\Common\Twig;
 
+use Doctrine\ORM\EntityManager;
+use Ojs\Common\Helper\DateHelper;
+use Ojs\Common\Helper\FileHelper;
+use Ojs\Common\Params\ArticleFileParams;
+use Ojs\Common\Params\CommonParams;
+use Ojs\Common\Services\JournalService;
+use Ojs\Common\Services\UserListener;
+use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
+use Ojs\JournalBundle\Entity\Institution;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\Subject;
+use Ojs\UserBundle\Entity\User;
+use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class OjsExtension extends \Twig_Extension
 {
-
-    private $container;
+    /** @var EntityManager  */
     private $em;
+    /** @var Router  */
+    private $router;
+    /** @var JournalService  */
+    private $journalService;
+    /** @var UserListener  */
+    private $userListener;
+    /** @var TranslatorInterface  */
+    private $translator;
+    /** @var  string */
+    private $cmsShowRoutes;
+    /** @var  string */
+    private $avatarUploadBaseUrl;
 
-    public function __construct(Container $container = null, \Doctrine\ORM\EntityManager $em = null)
+    public function __construct(
+        EntityManager $em = null,
+        Router $router = null,
+        TranslatorInterface $translator = null,
+        JournalService $journalService = null,
+        UserListener $userListener = null,
+        $cmsShowRoutes = null,
+        $avatarUploadBaseUrl = null)
     {
-        $this->container = $container;
         $this->em = $em;
+        $this->router = $router;
+        $this->journalService = $journalService;
+        $this->userListener = $userListener;
+        $this->translator = $translator;
+        $this->cmsShowRoutes = $cmsShowRoutes;
+        $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
     }
 
     public function getFilters()
     {
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
-            new \Twig_SimpleFilter('getDefinition', [$this, 'getDefinition'])
+            new \Twig_SimpleFilter('getDefinition', [$this, 'getDefinition']),
         );
     }
 
@@ -54,30 +91,28 @@ class OjsExtension extends \Twig_Extension
             'getRoute' => new \Twig_Function_Method($this, 'getRoute', []),
             'getObject' => new \Twig_Function_Method($this, 'getObject', []),
             'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
-            'download' => new \Twig_Function_Method($this, 'downloadArticleFile')
+            'download' => new \Twig_Function_Method($this, 'downloadArticleFile'),
         );
     }
 
-    public function generateJournalUrl($jorunal)
+    public function generateJournalUrl($journal)
     {
-        return $this->container->get('ojs.journal_service')->generateUrl($jorunal);
+        return $this->journalService->generateUrl($journal);
     }
 
     /**
-     *
-     * @param array $list
-     *                    $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
+     * $list =  array( array('link'=>'...','title'=>'...'), array('link'=>'...','title'=>'...') )
+     * @param  null   $list
+     * @return string
      */
     public function generateBreadcrumb($list = null)
     {
-
-        $translator = $this->container->get('translator');
         $html = '<ol class="breadcrumb">';
         for ($i = 0; $i < count($list); ++$i) {
             $item = $list[$i];
             $html .= !isset($item['link']) ?
-                '<li class="active">' . $translator->trans($item['title']) . '</li>' :
-                '<li><a  href = "' . $item['link'] . '">' . $translator->trans($item['title']) . '</a></li>';
+                '<li class="active">'.$this->translator->trans($item['title']).'</li>' :
+                '<li><a  href = "'.$item['link'].'">'.$this->translator->trans($item['title']).'</a></li>';
         }
         $html .= '</ol> ';
 
@@ -86,41 +121,44 @@ class OjsExtension extends \Twig_Extension
 
     /**
      *
-     * @param  mixed $needle
-     * @param  array $haystack
+     * @param  mixed   $needle
+     * @param  array   $haystack
      * @return boolean
      */
     public function hasId($needle, $haystack)
     {
         if (!is_array($haystack)) {
-            return FALSE;
+            return false;
         }
         foreach ($haystack as $item) {
             if (isset($item['id']) && $item['id'] == $needle) {
-                return TRUE;
+                return true;
             }
         }
-        return FALSE;
+
+        return false;
     }
 
     /**
-     *
-     * @param type $needle
-     * @param type $haystack
+     * @param $needle
+     * @param $haystack
+     * @return bool
      */
     public function hasIdInObjects($needle, $haystack)
     {
         foreach ($haystack as $item) {
+            /** @var User $item */
             if ($item->getId() == $needle) {
-                return TRUE;
+                return true;
             }
         }
-        return FALSE;
+
+        return false;
     }
 
     public function getSession($session_key)
     {
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session = new Session();
 
         return $session->get($session_key);
     }
@@ -131,7 +169,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournals()
     {
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session = new Session();
 
         return $session->get('userJournals');
     }
@@ -142,7 +180,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserClients()
     {
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session = new Session();
 
         return $session->get('userClients');
     }
@@ -153,46 +191,59 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournalRoles()
     {
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session = new Session();
+
         return $session->get('userJournalRoles');
     }
 
     /**
-     * @return \Ojs\UserBundle\Entity\User
+     * @return bool
      */
     public function isSystemAdmin()
     {
-        $user = $this->container->get('user.helper')->checkUser();
+        $user = $this->userListener->checkUser();
         if ($user) {
             foreach ($user->getRoles() as $role) {
                 if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                    return TRUE;
+                    return true;
                 }
             }
         }
 
-        return FALSE;
+        return false;
     }
 
+    /**
+     * @param $roleCode
+     * @return bool
+     */
     public function hasRole($roleCode)
     {
         $userJournalRoles = $this->getSession('userJournalRoles');
-        $user = $this->container->get('user.helper')->checkUser();
+        $user = $this->userListener->checkUser();
         if ($user && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $role) {
+                /** @var UserJournalRole $role */
                 if ($roleCode == $role->getRole()) {
-                    return TRUE;
+                    return true;
                 }
             }
         }
-        return FALSE;
+
+        return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isJournalManager()
     {
         return $this->hasRole('ROLE_JOURNAL_MANAGER');
     }
 
+    /**
+     * @return bool
+     */
     public function isEditor()
     {
         return $this->hasRole('ROLE_EDITOR');
@@ -211,91 +262,93 @@ class OjsExtension extends \Twig_Extension
     public function selectedJournal()
     {
         $selectedJournalId = $this->getSession('selectedJournalId');
+
         return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
     }
 
     public function generateAvatarPath($fileName)
     {
-        $fileHelper = new \Ojs\Common\Helper\FileHelper();
-        $rootPath = $this->container->getParameter('avatar_upload_base_url');
-        return $rootPath . $fileHelper->generatePath($fileName, false) . 'thumbnail2/' . $fileName;
+        $fileHelper = new FileHelper();
+
+        return $this->avatarUploadBaseUrl.$fileHelper->generatePath($fileName, false).'thumbnail2/'.$fileName;
     }
 
     public function generateImagePath($file)
     {
-        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+        $fileHelper = new FileHelper();
 
-        return $fileHelper->generatePath($file, false) . $file;
+        return $fileHelper->generatePath($file, false).$file;
     }
 
     public function generateFilePath($file)
     {
-        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+        $fileHelper = new FileHelper();
 
-        return $fileHelper->generatePath($file, false) . $file;
+        return $fileHelper->generatePath($file, false).$file;
     }
 
     /**
      * return translated "yes" or "no" statement after checking $arg
-     * @param bool $arg
+     * @param $arg
+     * @return string
      */
     public function printYesNo($arg)
     {
-        $translator = $this->container->get('translator');
-        return '' .
-        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> ' . $translator->trans('yes') . '</i></span>' :
-            '<span class="label label-danger"><i class="fa fa-ban"> ' . $translator->trans('no') . '</i></span>');
+        return ''.
+        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> '.$this->translator->trans('yes').'</i></span>' :
+            '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
     }
 
     /**
      * Returns status color from given status integer value
-     * @param integer $arg
+     * @param  integer $arg
      * @return string
      */
     public function statusColor($arg)
     {
-        $colors = \Ojs\Common\Params\CommonParams::getStatusColors();
+        $colors = CommonParams::getStatusColors();
+
         return isset($colors[$arg]) ? $colors[$arg] : '#fff';
     }
 
     /**
      * Returns status text string from given status integer value
-     * @param integer $arg
+     * @param  integer $arg
      * @return string
      */
     public function statusText($arg)
     {
-        $translator = $this->container->get('translator');
-        $texts = \Ojs\Common\Params\CommonParams::getStatusTexts();
-        return isset($texts[$arg]) ? $translator->trans($texts[$arg]) : null;
+        $texts = CommonParams::getStatusTexts();
+
+        return isset($texts[$arg]) ? $this->translator->trans($texts[$arg]) : null;
     }
 
     /**
      * Return file type string from given filetype integer value
-     * @param integer $arg
+     * @param  integer $arg
      * @return string
      */
     public function fileType($arg)
     {
-        $translator = $this->container->get('translator');
-        $text = \Ojs\Common\Params\ArticleFileParams::fileType($arg);
-        return $text ? $translator->trans($text) : null;
+        $text = ArticleFileParams::fileType($arg);
+
+        return $text ? $this->translator->trans($text) : null;
     }
 
     /**
      *
-     * @param \DateTime $date1
-     * @param \DateTime $date2
-     * @return string formatted string like +12 or -20
+     * @param  \DateTime $date1
+     * @param  \DateTime $date2
+     * @return string    formatted string like +12 or -20
      */
     public function daysDiff($date1, $date2)
     {
-        $translator = $this->container->get('translator');
-        $daysFormatted = \Ojs\Common\Helper\DateHelper::calculateDaysDiff($date1, $date2);
-        return (strpos($daysFormatted, '+') !== FALSE ?
+        $daysFormatted = DateHelper::calculateDaysDiff($date1, $date2);
+
+        return (strpos($daysFormatted, '+') !== false ?
             '<span class="label label-info"  style="background-color: #69f;font-size:10px">' :
             '<span class="label label-danger"  style="background-color: #69f;font-size:10px">')
-        . $daysFormatted . ' ' . $translator->trans('days') . '</span>';
+        .$daysFormatted.' '.$this->translator->trans('days').'</span>';
     }
 
     /**
@@ -304,7 +357,8 @@ class OjsExtension extends \Twig_Extension
      */
     public function apiKey()
     {
-        $user = $this->container->get('user.helper')->checkUser();
+        $user = $this->userListener->checkUser();
+
         return $user ? $user->getApiKey() : null;
     }
 
@@ -319,43 +373,42 @@ class OjsExtension extends \Twig_Extension
             'title',
             'name',
             'subject',
-            'id'
+            'id',
         ];
         foreach ($fields as $field) {
-            if (property_exists($object, $field))
-                return $object->{'get' . strtoupper($field)}();
+            if (property_exists($object, $field)) {
+                return $object->{'get'.strtoupper($field)}();
+            }
         }
     }
 
     public function getRoute($object)
     {
-        $routes = [
-            'ojs_institution_page' => ['slug'],
-            'ojs_journal_index' => ['journal', 'institution'],
-            'ojs_article_page' => ['slug', 'article_id', 'institution'],
-        ];
-        $router = $this->container->get('router');
-
         switch (get_class($object)) {
             case 'Ojs\JournalBundle\Entity\Issue':
                 return '#';
             case 'Ojs\JournalBundle\Entity\Journal':
-                return $router->generate('ojs_journal_index', [
+                /** @var Journal $object */
+                return $this->router->generate('ojs_journal_index', [
                     'slug' => $object->getSlug(),
-                    'institution' => $object->getInstitution()->getSlug()
+                    'institution' => $object->getInstitution()->getSlug(),
                 ]);
             case 'Ojs\JournalBundle\Entity\Article':
-                return $router->generate('ojs_article_page', [
+                /** @var Article $object */
+                return $this->router->generate('ojs_article_page', [
                     'slug' => $object->getJournal()->getSlug(),
                     'article_id' => $object->getId(),
-                    'institution' => $object->getJournal()->getInstitution()->getSlug()
+                    'institution' => $object->getJournal()->getInstitution()->getSlug(),
                 ]);
             case 'Ojs\JournalBundle\Entity\Subject':
-                return $router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
+                /** @var Subject $object */
+                return $this->router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
             case 'Ojs\JournalBundle\Entity\Institution':
-                return $router->generate('ojs_institution_page', ['slug' => $object->getSlug()]);
+                /** @var Institution $object */
+                return $this->router->generate('ojs_institution_page', ['slug' => $object->getSlug()]);
             case 'Ojs\UserBundle\Entity\User':
-                return $router->generate('ojs_user_profile', ['slug' => $object->getUsername()]);
+                /** @var User $object */
+                return $this->router->generate('ojs_user_profile', ['slug' => $object->getUsername()]);
             default:
                 return '#';
         }
@@ -365,11 +418,9 @@ class OjsExtension extends \Twig_Extension
     {
         $objectClass = $this->decode($object);
         $object = $this->em->find($objectClass, $id);
-        $cms_routes = $this->container->getParameter('cms_show_routes');
-        /** @var Router $router */
-        $router = $this->container->get('router');
-        $route = $router->generate($cms_routes[$objectClass], ['id' => $id]);
-        return '<a href="' . $route . '" target="_blank" title="' . $object . '">' . substr($object, 0, 20) . '</a>';
+        $route = $this->router->generate($this->cmsShowRoutes[$objectClass], ['id' => $id]);
+
+        return '<a href="'.$route.'" target="_blank" title="'.$object.'">'.substr($object, 0, 20).'</a>';
     }
 
     /**
@@ -382,7 +433,8 @@ class OjsExtension extends \Twig_Extension
         $string = base64_encode($string);
         $len = strlen($string);
         $piece = $len / 2;
-        $encoded = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
+        $encoded = substr($string, $piece, $len - 1).substr($string, 0, $piece);
+
         return $encoded;
     }
 
@@ -395,19 +447,19 @@ class OjsExtension extends \Twig_Extension
     {
         $len = strlen($string);
         $piece = $len / 2;
-        $string = substr($string, $piece, $len - 1) . substr($string, 0, $piece);
+        $string = substr($string, $piece, $len - 1).substr($string, 0, $piece);
         $decoded = base64_decode($string);
+
         return $decoded;
     }
 
     public function downloadArticleFile(File $file)
     {
-        return $this->container->get('router')->generate('ojs_file_download', ['id' => $file->getId()]);
+        return $this->router->generate('ojs_file_download', ['id' => $file->getId()]);
     }
 
     public function getName()
     {
         return 'ojs_extension';
     }
-
 }

@@ -6,10 +6,11 @@ namespace Ojs\Common\Model;
  * @author Hasan Tayyar BESIK <tayyar.besik@okulbilisim.com>
  * @abstract
  *  a lightweight class to stack and manage meta tags
- *  extended from eusonlito/laravel-Meta 
+ *  extended from eusonlito/laravel-Meta
  *  added multiple tag  value assignment to same key
  */
-class Meta {
+class Meta
+{
 
     /**
      * @var array
@@ -28,8 +29,7 @@ class Meta {
     private $title;
 
     /**
-     * @param  array $config
-     * @return this
+     * @param array $config
      */
     public function __construct(array $config = [])
     {
@@ -88,7 +88,7 @@ class Meta {
     public function get($key)
     {
         if (empty($this->metas[$key])) {
-            return null;
+            return;
         }
 
         return $this->metas[$key];
@@ -97,7 +97,7 @@ class Meta {
     public function getRaw($key)
     {
         if (empty($this->rawMetas[$key])) {
-            return null;
+            return;
         }
 
         return $this->rawMetas[$key];
@@ -127,44 +127,13 @@ class Meta {
         } else {
             $value = $this->fix($value);
         }
-        $method = 'set' . $key;
+        $method = 'set'.$key;
 
         if (method_exists($this, $method)) {
             return $this->$method($value);
         }
 
         return $this->metas[$key] = self::cut($value, $key);
-    }
-
-    /**
-     * @param  string $value
-     * @return string
-     */
-    private function setTitle($value)
-    {
-        $title = $this->title;
-
-        if ($title && $this->config['title_limit']) {
-            $title = ' - ' . $title;
-            $limit = $this->config['title_limit'] - strlen($title);
-        } else {
-            $limit = 'title';
-        }
-
-        return $this->metas['title'] = self::cut($value, $limit) . $title;
-    }
-
-    /**
-     * @param  string $value
-     * @return string
-     */
-    private function setImage($value)
-    {
-        if (!isset($this->metas['image'])) {
-            $this->metas['image'] = [];
-        }
-
-        return $this->metas['image'][] = $value;
     }
 
     public function tagRaw($key)
@@ -183,7 +152,7 @@ class Meta {
             return '';
         }
 
-        $method = 'tag' . ucfirst($key);
+        $method = 'tag'.ucfirst($key);
 
         if (method_exists($this, $method)) {
             return $this->$method($value);
@@ -199,21 +168,20 @@ class Meta {
      */
     private function tagDefault($key, $value = null)
     {
-        return $this->tagMetaName($key, $value) . $this->tagString('property', $key, $value);
+        return $this->tagMetaName($key, $value).$this->tagString('property', $key, $value);
     }
 
     /**
-     * @param  string $key
-     * @param  mixed $images
+     * @param  mixed  $images
      * @return string
      */
     public function tagImage($images = null)
     {
         $html = '';
 
-        foreach ((array) ($images ? : $this->metas['image']) as $image) {
+        foreach ((array) ($images ?: $this->metas['image']) as $image) {
             $html .= $this->tagDefault('image', $image)
-                    . '<link rel="image_src" href="' . $image . '" />';
+                    .'<link rel="image_src" href="'.$image.'" />';
         }
 
         return $html;
@@ -229,11 +197,13 @@ class Meta {
         $metaString = '';
         if (is_array($value)) {
             foreach ($value as $item) {
-                $metaString.=$this->tagString('name', $key, $item);
+                $metaString .= $this->tagString('name', $key, $item);
             }
         } else {
             $metaString = $this->tagString('name', $key, $value);
         }
+
+        return $metaString;
     }
 
     /**
@@ -247,11 +217,12 @@ class Meta {
         $metaStr = '';
         if (isset($this->metas[$key]) && is_array($this->metas[$key])) {
             foreach ($this->metas[$key] as $item) {
-                $metaStr.= '<meta ' . $name . '="' . $key . '" content="' . $item . '" />';
+                $metaStr .= '<meta '.$name.'="'.$key.'" content="'.$item.'" />';
             }
         } else {
-            $metaStr = '<meta ' . $name . '="' . $key . '" content="' . ($value ? : $this->metas[$key]) . '" />';
+            $metaStr = '<meta '.$name.'="'.$key.'" content="'.($value ?: $this->metas[$key]).'" />';
         }
+
         return $metaStr;
     }
 
@@ -263,6 +234,7 @@ class Meta {
     {
         $text = preg_replace('/<[^>]+>/', ' ', $text);
         $text = preg_replace('/[\r\n\s]+/', ' ', $text);
+
         return trim(str_replace('"', '&quot;', $text));
     }
 
@@ -273,8 +245,8 @@ class Meta {
      */
     private function cut($text, $key)
     {
-        if (is_string($key) && isset($this->config[$key . '_limit'])) {
-            $limit = $this->config[$key . '_limit'];
+        if (is_string($key) && isset($this->config[$key.'_limit'])) {
+            $limit = $this->config[$key.'_limit'];
         } elseif (is_integer($key)) {
             $limit = $key;
         } else {
@@ -287,13 +259,12 @@ class Meta {
             return $text;
         }
 
-        $text = substr($text, 0, ($limit -= 3));
+        $text = substr($text, 0, ($limit - 3));
 
         if ($space = strrpos($text, ' ')) {
             $text = substr($text, 0, $space);
         }
 
-        return $text . '...';
+        return $text.'...';
     }
-
 }

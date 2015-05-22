@@ -1,12 +1,11 @@
 <?php
 
 /**
- *  
+ *
  * Author: Anis Ahmad <anisniit@gmail.com>
  * Date: 5/11/14
  * Time: 10:44 PM
  */
-
 namespace Ojs\Common\Traits;
 
 trait DocumentSerializer
@@ -19,9 +18,10 @@ trait DocumentSerializer
      *
      * @return array
      */
-    function toArray()
+    public function toArray()
     {
         $document = $this->toStdClass();
+
         return get_object_vars($document);
     }
 
@@ -30,9 +30,10 @@ trait DocumentSerializer
      *
      * @return string
      */
-    function toJSON()
+    public function toJSON()
     {
         $document = $this->toStdClass();
+
         return json_encode($document);
     }
 
@@ -43,7 +44,7 @@ trait DocumentSerializer
      *
      * @param array $fields
      */
-    function setIgnoredFields(array $fields)
+    public function setIgnoredFields(array $fields)
     {
         $this->_ignoreFields = $fields;
     }
@@ -53,7 +54,7 @@ trait DocumentSerializer
      *
      * @return \stdClass
      */
-    function toStdClass()
+    public function toStdClass()
     {
         $document = new \stdClass();
 
@@ -85,7 +86,7 @@ trait DocumentSerializer
 
     private function formatValue($value)
     {
-
+        /** @var \stdClass $value */
         if (is_scalar($value)) {
             return $value;
 
@@ -99,17 +100,17 @@ trait DocumentSerializer
             foreach ($value as $k => $v) {
                 $prop[] = $this->formatValue($v);
             }
+
             return $prop;
 
             // If it's a Date, convert to unix timestamp
-        } else if (is_a($value, 'DateTime')) {
+        } elseif (is_a($value, 'DateTime')) {
             return $value->getTimestamp();
 
             // Otherwise leave a note that this type is not formatted
             // So that I can add formatting for this missed class
         } else {
-            return 'Not formatted in DocumentSerializer: ' . get_class($value);
+            return 'Not formatted in DocumentSerializer: '.get_class($value);
         }
     }
-
 }

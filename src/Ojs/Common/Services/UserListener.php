@@ -2,37 +2,82 @@
 
 namespace Ojs\Common\Services;
 
+use Doctrine\ORM\EntityManager;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Ojs\UserBundle\Entity\UserJournalRole;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Security\Core\User\User as SecurityUser;
 
-class UserListener {
-
-    protected $container;
+class UserListener
+{
+    /** @var Session  */
     protected $session;
+    /** @var Router  */
     protected $router;
+    /** @var Request  */
+    protected $request;
+    /** @var EntityManager  */
+    protected $em;
+    /** @var  string */
+    protected $rootDir;
+    /** @var JournalService  */
+    protected $journalService;
+    /** @var EncoderFactory  */
+    protected $encoderFactory;
+    /** @var AuthorizationChecker  */
+    protected $authorizationChecker;
+    /** @var TokenStorage  */
+    protected $tokenStorage;
 
-    public function __construct(ContainerInterface $container, $router)
-    { // this is @service_container
-        $this->container = $container;
+    /**
+     * @param Router               $router
+     * @param Request              $request
+     * @param EntityManager        $em
+     * @param $rootDir
+     * @param JournalService       $journalService
+     * @param EncoderFactory       $encoderFactory
+     * @param AuthorizationChecker $authorizationChecker
+     * @param TokenStorage         $tokenStorage
+     */
+    public function __construct(
+        Router $router,
+        EntityManager $em, $rootDir,
+        JournalService $journalService,
+        EncoderFactory $encoderFactory,
+        AuthorizationChecker $authorizationChecker,
+        TokenStorage $tokenStorage)
+    {
         $this->router = $router;
+
+        $this->em = $em;
+        $this->rootDir = $rootDir;
+        $this->journalService = $journalService;
+        $this->encoderFactory = $encoderFactory;
+        $this->authorizationChecker = $authorizationChecker;
+        $this->tokenStorage = $tokenStorage;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        $this->session = $request->getSession();
+        $this->request = $event->getRequest();
+        $this->session = $event->getRequest()->getSession();
 
         if ($event->isMasterRequest()) {
             $this->loadJournals();
             $this->loadJournalRoles();
             $this->loadClientUsers();
             $check = $this->redirectUnconfirmed();
-            $routeName = $this->container->get('request')->get('_route');
+            $routeName = $this->request->get('_route');
             if ($check && !in_array($routeName, array('email_confirm', 'confirm_email_warning', 'logout'))) {
                 $event->setResponse(new RedirectResponse($check, 302));
             }
@@ -41,8 +86,8 @@ class UserListener {
     }
 
     /**
-     * 
-     * @param string $username
+     *
+     * @param  string  $username
      * @return boolean
      */
     public function checkUsernameAvailability($username)
@@ -53,10 +98,11 @@ class UserListener {
         }
         $yamlParser = new Parser();
         $reservedUserNames = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir') .
+                        $this->rootDir.
                         '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
         ));
-        $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneByUsername($usernameLower);
+        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($usernameLower);
+
         return (!$user && !in_array($usernameLower, $reservedUserNames));
     }
 
@@ -72,37 +118,36 @@ class UserListener {
 
     /**
      * Get user's journal roles
-     * @param Journal $journal
-     * @return array
+     * @param  Journal|bool      $journal
+     * @return UserJournalRole[]
      */
     public function getJournalRoles($journal = false)
     {
-        $journalService = $this->container->get('ojs.journal_service');
-        $journalObject = $journal ? $journal : $journalService->getSelectedJournal(false);
+        $journalObject = $journal ? $journal : $this->journalService->getSelectedJournal(false);
         $user = $this->checkUser();
         $userJournalRoles = [];
         if (!$user || !$journalObject) {
             return [];
         }
         //for API_KEY based connection
-        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
-            $user = $this->container->get('doctrine')->getManager()
-                    ->getRepository('OjsUserBundle:User')
+        if ($user instanceof SecurityUser) {
+            $user = $this->em->getRepository('OjsUserBundle:User')
                     ->findOneBy(['username' => $user->getUsername()]);
         }
-        $em = $this->container->get('doctrine')->getManager();
-        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
+        $repo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
+        /** @var UserJournalRole[] $entities */
         $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $journalObject->getId()));
         if ($entities) {
             foreach ($entities as $entity) {
                 $userJournalRoles[] = $entity->getRole();
             }
         }
+
         return $userJournalRoles;
     }
 
     /**
-     * load users to session that I can login asthem
+     * load users to session that I can login as them
      * @return void
      */
     public function loadClientUsers()
@@ -113,11 +158,11 @@ class UserListener {
         }
 
         //for API_KEY based connection
-        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
+        if ($user instanceof SecurityUser) {
+            $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
-        $clients = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:Proxy')->findBy(
+        $clients = $this->em->getRepository('OjsUserBundle:Proxy')->findBy(
                 array('proxyUserId' => $user->getId())
         );
         $this->session->set('userClients', $clients);
@@ -129,7 +174,6 @@ class UserListener {
      */
     public function loadJournals()
     {
-        $journalService = $this->container->get('ojs.journal_service');
         /** @var User $user */
         $user = $this->checkUser();
         if (!$user) {
@@ -137,12 +181,12 @@ class UserListener {
         }
 
         //for API_KEY based connection
-        if ($user instanceof \Symfony\Component\Security\Core\User\User) {
-            $user = $this->container->get('doctrine')->getManager()->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
+        if ($user instanceof SecurityUser) {
+            $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
-        $em = $this->container->get('doctrine')->getManager();
-        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
+        $repo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
+        /** @var UserJournalRole[] $userJournals */
         $userJournals = $repo->findByUserId($user->getId());
         if (!is_array($userJournals)) {
             return;
@@ -151,9 +195,9 @@ class UserListener {
         foreach ($userJournals as $item) {
             $journals[$item->getJournalId()] = $item->getJournal();
         }
-        if (!$journalService->getSelectedJournal(false)) {
-            // set seledctedjournalid session key with first journal in list if no journal selected yet
-            $journalService->setSelectedJournal(key($journals));
+        if (!$this->journalService->getSelectedJournal(false)) {
+            // set selected journal id session key with first journal in list if no journal selected yet
+            $this->journalService->setSelectedJournal(key($journals));
         }
         $this->session->set('userJournals', $journals);
     }
@@ -163,75 +207,81 @@ class UserListener {
      */
     public function redirectUnconfirmed()
     {
-        $securityContext = $this->container->get('security.context');
         $user = $this->checkUser();
-        if ($user && !$securityContext->isGranted('ROLE_USER')) {
+        if ($user && !$this->authorizationChecker->isGranted('ROLE_USER')) {
             return $this->router->generate('confirm_email_warning');
         }
 
-        return FALSE;
-    }
-
-    public function checkUser()
-    {
-        $securityContext = $this->container->get('security.context');
-        $token = $securityContext->getToken();
-        if (empty($token)) {
-            return FALSE;
-        }
-        if ($securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->container->get('security.context')->getToken()->getUser();
-        }
-
-        return FALSE;
+        return false;
     }
 
     /**
-     * 
-     * @param array $checkRoles
-     * @param Journal $journal
-     * @return boolean
+     * @return bool|User
      */
-    public function hasAnyRole($checkRoles, $journal=false)
+    public function checkUser()
     {
+        $token = $this->tokenStorage->getToken();
+        if (empty($token)) {
+            return false;
+        }
+        if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $token->getUser();
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $checkRoles
+     * @param  bool|Journal $journal
+     * @return bool
+     */
+    public function hasAnyRole($checkRoles, $journal = false)
+    {
+        /** @var Role[] $checkRoles */
         foreach ($checkRoles as $checkRole) {
             if ($this->hasJournalRole($checkRole->getRole(), $journal)) {
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * 
-     * @param string $roleCode
-     * @param Journal $journal
+     *
+     * @param  string       $roleCode
+     * @param  bool|Journal $journal
      * @return boolean
      */
-    public function hasJournalRole($roleCode, $journal=false)
+    public function hasJournalRole($roleCode, $journal = false)
     {
         $userJournalRoles = $this->getJournalRoles($journal);
         $user = $this->checkUser();
         if ($user && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $role) {
+                /** @var UserJournalRole $role */
                 if ($roleCode == $role->getRole()) {
-                    return TRUE;
+                    return true;
                 }
             }
         }
-        return FALSE;
+
+        return false;
     }
 
     /**
-     * @param User $user
-     * @param string $password
+     * @param  User $user
+     * @param $password
+     * @param  bool $old_password
+     * @return bool
      */
     public function changePassword(User &$user, $password, $old_password = false)
     {
-        if (empty($password))
+        if (empty($password)) {
             return false;
-        $factory = $this->container->get('security.encoder_factory');
-        $encoder = $factory->getEncoder($user);
+        }
+        $encoder = $this->encoderFactory->getEncoder($user);
 
         if ($old_password) {
             if (!$encoder->isPasswordValid($user->getPassword(), $old_password, $user->getSalt())) {
@@ -243,7 +293,7 @@ class UserListener {
 
         $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
         $user->setPassword($password);
+
         return true;
     }
-
 }

@@ -3,20 +3,15 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
-    kernel.listener.domain_listener:
-       class: Ojs\Common\Services\DomainListener
-       arguments: 
-            [@doctrine.orm.entity_manager, %base_host%, @service_container]
-       tags:
-            -
-                name: kernel.event_listener
-                method: onKernelRequest
-                event: kernel.request
-    listener.requestresponse:
-        class: Ojs\Common\Services\UserListener
-        arguments: [ @service_container, @router ]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    #kernel.listener.domain_listener:
+    #   class: Ojs\Common\Services\DomainListener
+    #   arguments:
+    #        [@doctrine.orm.entity_manager, %base_host%, @service_container]
+    #   tags:
+    #        -
+    #            name: kernel.event_listener
+    #            method: onKernelRequest
+    #            event: kernel.request
     ojs_locale.locale_listener:
         class: Ojs\Common\Services\LocaleListener
         arguments: ["%kernel.default_locale%"]
@@ -24,7 +19,14 @@ services:
             - { name: kernel.event_subscriber }
     ojs.twig.ojs_extension:
         class: Ojs\Common\Twig\OjsExtension
-        arguments: [@service_container,  @doctrine.orm.entity_manager]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @router
+            - @translator
+            - @ojs.journal_service
+            - @user.helper
+            - "%cms_show_routes%"
+            - "%avatar_upload_base_url%"
         tags:
             - { name: twig.extension }
     ojs.twig.oai_extension:
@@ -86,16 +88,21 @@ services:
         arguments: [@service_container]
     ojs.journal_service:
         class: Ojs\Common\Services\JournalService
-        arguments: [ @service_container, @doctrine.orm.entity_manager, @doctrine.odm.mongodb.document_manager ]
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @doctrine.odm.mongodb.document_manager
+            - @session
+            - @router
+            - "%defaultInstitutionSlug%"
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
-        arguments: [ @service_container, @doctrine.orm.entity_manager ]
+        arguments: [ @doctrine.orm.entity_manager, @ojs.journal_service, @session ]
     ojs.orcid_service:
         class: Ojs\Common\Services\OrcidService
-        arguments: [ @service_container ]
+        arguments: [ "%orcid%", @logger ]
     ojs.alice.provider:
         class: Ojs\Common\Services\AliceDataProvider
-        arguments: [ @service_container ]
+        arguments: [ "%defaultInstitutionSlug%", "%system_email%" ]
         tags:
             -  { name: h4cc_alice_fixtures.provider }
     user.event_subscriber:
@@ -110,7 +117,14 @@ services:
             - { name: doctrine.event_listener, event: postPersist }
     user.helper:
         class: Ojs\Common\Services\UserListener
-        arguments: [ @service_container, @router ]
+        arguments:
+            - @router
+            - @doctrine.orm.entity_manager
+            - "%kernel.root_dir%"
+            - @ojs.journal_service
+            - @security.encoder_factory
+            - @security.authorization_checker
+            - @security.token_storage
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     proxy.event_listener:

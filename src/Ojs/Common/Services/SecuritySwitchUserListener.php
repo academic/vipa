@@ -2,23 +2,28 @@
 
 namespace Ojs\Common\Services;
 
+use Ojs\UserBundle\Entity\Role;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
-use Symfony\Component\Security\Core\SecurityContext;
-use Ojs\Common\Twig;
 
-class SecuritySwitchUserListener {
+class SecuritySwitchUserListener
+{
 
-    private $context;
+    private $tokenStorage;
 
-    public function __construct(SecurityContext $context) {
-        $this->context = $context;
+    public function __construct(TokenStorage $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
     }
 
-    public function onSecuritySwitchUser(SwitchUserEvent $event) {
+    public function onSecuritySwitchUser(SwitchUserEvent $event)
+    {
         $newUser = $event->getTargetUser();
         // check that current user is admin
-        $session = new \Symfony\Component\HttpFoundation\Session\Session();
+        $session = new Session();
 
+        /** @var Role[] $userJournalRoles */
         $userJournalRoles = $session->get('userJournalRoles');
         if ($newUser && is_array($userJournalRoles)) {
             foreach ($userJournalRoles as $rolex) {
@@ -27,14 +32,14 @@ class SecuritySwitchUserListener {
                 }
             }
         }
-        
+
         //$check = $currentUser->hasClientUsers($newUser);
 
         return false;
     }
 
-    public function getCurrentUser() {
-        return $this->context->getToken()->getUser();
+    public function getCurrentUser()
+    {
+        return $this->tokenStorage->getToken()->getUser();
     }
-
 }

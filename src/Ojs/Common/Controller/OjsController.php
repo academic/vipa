@@ -2,6 +2,7 @@
 
 namespace Ojs\Common\Controller;
 
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
@@ -13,9 +14,9 @@ class OjsController extends Controller
 
     /**
      *
-     * @param  mixed   $entity
-     * @param string $message custom not found message
-     * @return boolean 
+     * @param  mixed             $entity
+     * @param  string            $message custom not found message
+     * @return boolean
      * @throws NoResultException
      */
     public function throw404IfNotFound($entity, $message = 'Not Found')
@@ -23,7 +24,8 @@ class OjsController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans($message));
         }
-        return TRUE;
+
+        return true;
     }
 
     /**
@@ -35,7 +37,8 @@ class OjsController extends Controller
         $session = $this->get('session');
         $flashBag = $session->getFlashBag();
         $translator = $this->get('translator');
-        $flashBag->add('success',$translator->trans($text));
+        $flashBag->add('success', $translator->trans($text));
+
         return true;
     }
 
@@ -48,7 +51,8 @@ class OjsController extends Controller
         $session = $this->get('session');
         $flashBag = $session->getFlashBag();
         $translator = $this->get('translator');
-        $flashBag->add('error',$translator->trans($text));
+        $flashBag->add('error', $translator->trans($text));
+
         return true;
     }
 }

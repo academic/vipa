@@ -5,6 +5,7 @@ namespace Ojs\Common\Services;
 use Ojs\Common\Helper\FileHelper;
 use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Ojs\Common\Helper\ImageResizeHelper;
+use Symfony\Component\HttpFoundation\File\File;
 
 class UploadListener
 {
@@ -18,8 +19,8 @@ class UploadListener
 
     public function onUpload(PostPersistEvent $event)
     {
-        $request = $event->getRequest();
         $response = $event->getResponse();
+        /** @var File $file */
         $file = $event->getFile();
         $uploadType = $event->getType();
         $filePath = $file->getPathName();
@@ -28,19 +29,19 @@ class UploadListener
         $fileMimeType = $file->getMimeType();
         // move to folder or create a nested folder structure
         $fileHelper = new FileHelper();
-        $uploadRootPath = $this->rootDir . '/../web/uploads/' . $uploadType . '/';
+        $uploadRootPath = $this->rootDir.'/../web/uploads/'.$uploadType.'/';
         /**
          * @var string $uploaNestedDirs generated nested folder structure under rootpath. c33b/f671/1712/
          */
         $nestedDirs = $fileHelper->generatePath($fileName, true, $uploadRootPath);
-        rename($filePath, $uploadRootPath . $nestedDirs . $fileName);
-        $fileDir = $uploadRootPath . $nestedDirs;
+        rename($filePath, $uploadRootPath.$nestedDirs.$fileName);
+        $fileDir = $uploadRootPath.$nestedDirs;
         $uploadUrl = str_replace($uploadRootPath, $uploadType, $fileDir);
         if ($uploadType === 'avatarfiles') {
             $helper = new ImageResizeHelper(array(
                 'image_name' => $fileName,
                 'upload_dir' => $fileDir,
-                'upload_url' => $uploadUrl
+                'upload_url' => $uploadUrl,
                     )
             );
             $helper->resize();
@@ -50,11 +51,10 @@ class UploadListener
             'path' => $fileHelper->generatePath($file->getFileName(), false),
             'size' => $fileSize,
             'url' => '',
-            'mimeType'=> $fileMimeType,
-            'fullpath'=>DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath($file->getFileName(), false)
+            'mimeType' => $fileMimeType,
+            'fullpath' => DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath($file->getFileName(), false),
         );
 
         return $response;
     }
-
 }
