@@ -4,10 +4,9 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
-use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalsIndex;
@@ -26,7 +25,7 @@ class JournalsIndexController extends Controller
      * Lists all JournalsIndex entities.
      *
      */
-    public function indexAction($journal = null)
+    public function indexAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         $source = new Entity('OjsJournalBundle:JournalsIndex');
@@ -39,8 +38,9 @@ class JournalsIndexController extends Controller
                         ->setParameter('journal', $journal);
             });
         }
-        if (!$journal)
+        if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
+        }
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -53,14 +53,17 @@ class JournalsIndexController extends Controller
         $data = [];
         $data['grid'] = $grid;
         $data['journal_id'] = $journal;
+
         return $grid->getGridResponse('OjsJournalBundle:JournalsIndex:index.html.twig', $data);
     }
 
     /**
      * Creates a new JournalsIndex entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
-    public function createAction(Request $request, $journal = null)
+    public function createAction(Request $request)
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         $em = $this->getDoctrine()->getManager();
@@ -70,8 +73,9 @@ class JournalsIndexController extends Controller
             $entity->setJournalId($journal);
             $entity->setJournal($journalObj);
         }
-        if (!$journal)
+        if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
+        }
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -80,9 +84,11 @@ class JournalsIndexController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('manager_journals_indexes_show', array('id' => $entity->getId())));
         }
         $this->successFlashBag('successful.create');
+
         return $this->render('OjsJournalBundle:JournalsIndex:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -101,7 +107,7 @@ class JournalsIndexController extends Controller
         $form = $this->createForm(new JournalsIndexType(), $entity, array(
             'action' => $this->generateUrl('manager_journals_indexes_create', ['journal' => $entity->getJournalId()]),
             'method' => 'POST',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -111,18 +117,18 @@ class JournalsIndexController extends Controller
 
     /**
      * Displays a form to create a new JournalsIndex entity.
-     * @param $journal integer
      * @return Response
      */
-    public function newAction($journal = null)
+    public function newAction()
     {
         $entity = new JournalsIndex();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
         if ($journal) {
             $entity->setJournalId($journal);
         }
-        if (!$journal)
+        if (!$journal) {
             throw new NotFoundHttpException('Journal not found!');
+        }
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:JournalsIndex:new.html.twig', array(
@@ -165,6 +171,7 @@ class JournalsIndexController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjsJournalBundle:JournalsIndex:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -183,7 +190,7 @@ class JournalsIndexController extends Controller
         $form = $this->createForm(new JournalsIndexType(), $entity, array(
             'action' => $this->generateUrl('manager_journals_indexes_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -211,6 +218,7 @@ class JournalsIndexController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('manager_journals_indexes_edit', array('id' => $id)));
         }
 
@@ -224,9 +232,8 @@ class JournalsIndexController extends Controller
      * Deletes a JournalsIndex entity.
      *
      */
-    public function deleteAction( $id)
+    public function deleteAction($id)
     {
-
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalsIndex')->find($id);
         if (!$entity) {
@@ -235,8 +242,7 @@ class JournalsIndexController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('manager_journals_indexes');
     }
- 
-
 }

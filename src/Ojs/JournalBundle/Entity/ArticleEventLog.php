@@ -45,7 +45,7 @@ class ArticleEventLog
     /**
      * Set eventInfo
      *
-     * @param  string   $eventInfo
+     * @param  string          $eventInfo
      * @return ArticleEventLog
      */
     public function setEventInfo($eventInfo)
@@ -68,7 +68,7 @@ class ArticleEventLog
     /**
      * Set eventDate
      *
-     * @param  \DateTime $eventDate
+     * @param  \DateTime       $eventDate
      * @return ArticleEventLog
      */
     public function setEventDate($eventDate)
@@ -91,7 +91,7 @@ class ArticleEventLog
     /**
      * Set ip
      *
-     * @param  string   $ip
+     * @param  string          $ip
      * @return ArticleEventLog
      */
     public function setIp($ip)
@@ -114,7 +114,7 @@ class ArticleEventLog
     /**
      * Set articleId
      *
-     * @param  integer  $articleId
+     * @param  integer         $articleId
      * @return ArticleEventLog
      */
     public function setArticleId($articleId)

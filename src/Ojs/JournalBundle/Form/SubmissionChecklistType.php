@@ -16,14 +16,14 @@ class SubmissionChecklistType extends AbstractType
 
     private $container;
 
-    public function __construct(ContainerInterface $servicecontainer)
+    public function __construct(ContainerInterface $serviceContainer)
     {
-        $this->container = $servicecontainer;
+        $this->container = $serviceContainer;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -36,7 +36,7 @@ class SubmissionChecklistType extends AbstractType
             ->add('label', 'text', ['label' => 'submission_checklist.label'])
             ->add('detail', 'textarea', ['label' => 'submission_checklist.detail'])
             ->add('locale', 'choice', [
-                'choices' => $langs
+                'choices' => $langs,
             ])
             ->add('visible', 'checkbox', ['label' => 'submission_checklist.visible']);
     }
@@ -49,9 +49,8 @@ class SubmissionChecklistType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -62,5 +61,4 @@ class SubmissionChecklistType extends AbstractType
     {
         return 'ojs_journalbundle_submissionchecklist';
     }
-
 }

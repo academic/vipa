@@ -47,6 +47,7 @@ class ArticleAuthorController extends Controller
         $em->persist($entity);
         $em->flush();
         $this->successFlashBag('successful.create');
+
         return $this->redirect($this->generateUrl('articleauthor_show', array('id' => $entity->getId())));
     }
 
@@ -63,7 +64,7 @@ class ArticleAuthorController extends Controller
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_create'),
             'method' => 'POST',
-            'journal_id'=>$journal
+            'journal_id' => $journal,
         ));
         $form->add('submit', 'submit', array('label' => 'Create New'));
 
@@ -98,7 +99,7 @@ class ArticleAuthorController extends Controller
         }
 
         return $this->render('OjsJournalBundle:ArticleAuthor:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
         ));
     }
 
@@ -117,7 +118,7 @@ class ArticleAuthorController extends Controller
 
         return $this->render('OjsJournalBundle:ArticleAuthor:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -135,7 +136,7 @@ class ArticleAuthorController extends Controller
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
             'method' => 'PUT',
-            'journal_id'=>$journal
+            'journal_id' => $journal,
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -172,12 +173,13 @@ class ArticleAuthorController extends Controller
             $em->flush();
 
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('articleauthor_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:ArticleAuthor:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -195,7 +197,7 @@ class ArticleAuthorController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('articleauthor'));
     }
-
 }

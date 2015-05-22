@@ -5,16 +5,24 @@ namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ArticleSubmissionStep2Controller
+ * @package Ojs\JournalBundle\Controller\ArticleSubmission
+ */
 class ArticleSubmissionStep2Controller extends Controller
 {
-
+    /**
+     * @param  Request               $request
+     * @return JsonResponse|Response
+     */
     public function addAuthorsAction(Request $request)
     {
         $authorsData = json_decode($request->request->get('authorsData'));
         $submissionId = $request->get("submissionId");
         if (empty($authorsData)) {
-            return new \Symfony\Component\HttpFoundation\Response('Missing argument', 400);
+            return new Response('Missing argument', 400);
         }
         for ($i = 0; $i < count($authorsData); $i++) {
             if (empty($authorsData[$i]->firstName)) {
@@ -27,7 +35,7 @@ class ArticleSubmissionStep2Controller extends Controller
         $articleSubmission->setAuthors($authorsData);
         $dm->persist($articleSubmission);
         $dm->flush();
+
         return new JsonResponse($articleSubmission->getId());
     }
-
 }

@@ -4,7 +4,7 @@
     {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'title': 'institution.manager'|trans, 'link' : path('institution')},
     { 'title': 'institution.new'|trans}]) }}
-{% endblock %} 
+{% endblock %}
 
 {% block body -%}
 
@@ -53,7 +53,7 @@
     </button>
     {{ form_end(form) }}
     {% set back_path = 'institution' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
 
 {% endblock %}
 

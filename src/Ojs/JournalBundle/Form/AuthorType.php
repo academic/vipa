@@ -39,10 +39,9 @@ class AuthorType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Author',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -53,5 +52,4 @@ class AuthorType extends AbstractType
     {
         return 'ojs_journalbundle_author';
     }
-
 }

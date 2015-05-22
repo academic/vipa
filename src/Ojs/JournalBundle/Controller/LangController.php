@@ -35,7 +35,8 @@ class LangController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Lang:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Lang:index.html.twig', $data);
     }
 
     /**
@@ -53,6 +54,7 @@ class LangController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('lang_show', ['id' => $entity->getId()]);
         }
 
@@ -109,8 +111,9 @@ class LangController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
         return $this->render('OjsJournalBundle:Lang:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
         ));
     }
 
@@ -132,7 +135,7 @@ class LangController extends Controller
 
         return $this->render('OjsJournalBundle:Lang:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -175,6 +178,7 @@ class LangController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('lang_edit', ['id' => $id]);
         }
 
@@ -196,7 +200,7 @@ class LangController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('lang');
     }
-
 }

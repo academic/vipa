@@ -5,13 +5,14 @@ namespace Ojs\JournalBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class JournalDesignType extends AbstractType
 {
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,10 +24,10 @@ class JournalDesignType extends AbstractType
                 ->add('design', 'entity', array(
                     'class' => 'OjsJournalBundle:JournalDesign',
                     'property' => 'title',
-                    'query_builder' => function(\Doctrine\ORM\EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                                 ->where('t.isPublic = FALSE');
-                    })
+                    }, )
                 )
         ;
     }
@@ -38,10 +39,9 @@ class JournalDesignType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\JournalDesign',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -52,5 +52,4 @@ class JournalDesignType extends AbstractType
     {
         return 'ojs_journalbundle_journaldesign';
     }
-
 }

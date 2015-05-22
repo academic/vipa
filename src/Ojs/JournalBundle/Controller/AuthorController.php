@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
@@ -34,7 +35,8 @@ class AuthorController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Author:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Author:index.html.twig', $data);
     }
 
     /**
@@ -51,6 +53,7 @@ class AuthorController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirect($this->generateUrl('author_show', array('id' => $entity->getId())));
         }
 
@@ -104,7 +107,7 @@ class AuthorController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Author:show.html.twig', array(
-                    'entity' => $entity));
+                    'entity' => $entity, ));
     }
 
     /**
@@ -120,7 +123,7 @@ class AuthorController extends Controller
 
         return $this->render('OjsJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -156,20 +159,23 @@ class AuthorController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('author_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:Author:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Author entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
@@ -177,7 +183,7 @@ class AuthorController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('author'));
     }
-
 }

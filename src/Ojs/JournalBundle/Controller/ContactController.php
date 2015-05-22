@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Contact;
@@ -34,6 +35,7 @@ class ContactController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsJournalBundle:Contact:index.html.twig', $data);
     }
 
@@ -51,6 +53,7 @@ class ContactController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('contact_show', ['id' => $entity->getId()]);
         }
 
@@ -104,7 +107,7 @@ class ContactController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Contact:show.html.twig', array(
-            'entity' => $entity,));
+            'entity' => $entity, ));
     }
 
     /**
@@ -156,6 +159,7 @@ class ContactController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('contact_edit', ['id' => $id]);
         }
 
@@ -168,8 +172,10 @@ class ContactController extends Controller
     /**
      * Deletes a Contact entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
@@ -177,7 +183,7 @@ class ContactController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('contact');
     }
-
 }

@@ -32,10 +32,9 @@
     {{ form_end(edit_form) }}
     <div class="record_actions">
         {% set delete_path = 'articlefile_delete' %}
-        {% include '::actionbuttons.html.twig' %}
+        {% include '::actionbtns.html.twig' %}
     </div>
 
-</ul>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

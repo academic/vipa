@@ -2,14 +2,19 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use \Ojs\Common\Entity\GenericExtendedEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Design
  * @GRID\Source(columns="id,name,title,isPublic")
  */
-class Design extends GenericExtendedEntity
+class Design implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -42,46 +47,45 @@ class Design extends GenericExtendedEntity
     private $isPublic;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journalDesigns;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection|Journal[]
      */
     private $journals;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->journalDesigns = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->journals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->journalDesigns = new ArrayCollection();
+        $this->journals = new ArrayCollection();
     }
 
     /**
      * Add journal
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return Language
+     * @param  Journal $journal
+     * @return $this
      */
-    public function addJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function addJournal(Journal $journal)
     {
         $this->journals[] = $journal;
+
         return $this;
     }
 
-
     /**
      * Remove journal
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param Journal $journal
      */
-    public function removeJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function removeJournal(Journal $journal)
     {
         $this->journals->removeElement($journal);
     }
 
     /**
      * Get journals
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournals()
     {
@@ -89,7 +93,7 @@ class Design extends GenericExtendedEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournalDesigns()
     {
@@ -97,12 +101,13 @@ class Design extends GenericExtendedEntity
     }
 
     /**
-     * @param \Doctrine\Common\Collections\Collection $journalDesigns
+     * @param  Collection $journalDesigns
      * @return Design
      */
-    public function setJournalDesigns(\Doctrine\Common\Collections\Collection $journalDesigns)
+    public function setJournalDesigns(Collection $journalDesigns)
     {
         $this->journalDesigns = $journalDesigns;
+
         return $this;
     }
 
@@ -117,13 +122,14 @@ class Design extends GenericExtendedEntity
     }
 
     /**
-     * Set name 
+     * Set name
      * @param  string $name
-     * @return Design
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -139,11 +145,12 @@ class Design extends GenericExtendedEntity
     /**
      * Set title
      * @param  string $title
-     * @return Design
+     * @return $this
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -159,11 +166,12 @@ class Design extends GenericExtendedEntity
     /**
      * Set content
      * @param  string $content
-     * @return Design
+     * @return $this
      */
     public function setContent($content)
     {
         $this->content = $content;
+
         return $this;
     }
 
@@ -177,13 +185,14 @@ class Design extends GenericExtendedEntity
     }
 
     /**
-     * Set isPublic 
+     * Set isPublic
      * @param  boolean $isPublic
      * @return Design
      */
     public function setIsPublic($isPublic)
     {
         $this->isPublic = $isPublic;
+
         return $this;
     }
 
@@ -195,5 +204,4 @@ class Design extends GenericExtendedEntity
     {
         return $this->isPublic;
     }
-
 }

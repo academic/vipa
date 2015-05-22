@@ -1,17 +1,20 @@
 <?php
 
 namespace Ojs\JournalBundle\Entity;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * File
- * @GRID\Source(columns="id,name,mimeType,size")
  */
-class File extends \Ojs\Common\Entity\GenericExtendedEntity
+class File implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
-     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -22,24 +25,21 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * @var string
-     * @GRID\Column(title="name")
      */
     private $name;
 
     /**
      * @var string
-     * @GRID\Column(title="file.type")
      */
     private $mimeType;
 
     /**
      * @var string
-     * @GRID\Column(title="size")
      */
     private $size;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $articleFiles;
 
@@ -55,8 +55,7 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
 
     public function __construct()
     {
-        parent::__construct();
-        $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleFiles = new ArrayCollection();
     }
 
     /**
@@ -154,23 +153,23 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get articleFiles
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getArticleFiles()
     {
         return $this->articleFiles;
     }
 
-
     /**
      * Set articleFiles
      *
-     * @param \Doctrine\Common\Collections\ArrayCollection $articleFiles
+     * @param  ArrayCollection $articleFiles
      * @return File
      */
-    public function setArticleFiles(\Doctrine\Common\Collections\ArrayCollection $articleFiles = null)
+    public function setArticleFiles(ArrayCollection $articleFiles = null)
     {
         $this->articleFiles = $articleFiles;
+
         return $this;
     }
 
@@ -178,6 +177,4 @@ class File extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         return $this->getName();
     }
-
-
 }

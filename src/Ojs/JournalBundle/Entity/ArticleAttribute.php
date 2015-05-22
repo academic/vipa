@@ -2,13 +2,15 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use \Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Article key-value attributes
  */
-class ArticleAttribute extends GenericExtendedEntity
+class ArticleAttribute implements Translatable
 {
+    use GenericEntityTrait;
 
     private $article;
     private $attribute;
@@ -41,28 +43,27 @@ class ArticleAttribute extends GenericExtendedEntity
     }
 
     /**
-     * @param mixed $article_id
+     * @param  mixed $article_id
      * @return $this
      */
     public function setArticleId($article_id)
     {
         $this->article_id = $article_id;
+
         return $this;
     }
 
     public function __construct($name = null, $value = null, $article = null)
     {
-        parent::__construct();
         $name != null && $this->attribute = $name;
         $value != null && $this->value = $value;
         $article != null && $this->article = $article;
     }
 
-
     /**
      * Set attribute
      *
-     * @param string $attribute
+     * @param  string           $attribute
      * @return ArticleAttribute
      */
     public function setAttribute($attribute)
@@ -85,7 +86,7 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Set value
      *
-     * @param string $value
+     * @param  string           $value
      * @return ArticleAttribute
      */
     public function setValue($value)
@@ -108,10 +109,10 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Set article
      *
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @param  Article          $article
      * @return ArticleAttribute
      */
-    public function setArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function setArticle(Article $article)
     {
         $this->article = $article;
 
@@ -121,7 +122,7 @@ class ArticleAttribute extends GenericExtendedEntity
     /**
      * Get article
      *
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @return Article
      */
     public function getArticle()
     {

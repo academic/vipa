@@ -3,12 +3,16 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * ContactTypes
  * @GRID\Source(columns="id,name,description")
  */
-class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity {
+class ContactTypes implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -41,8 +45,8 @@ class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity {
     /**
      * Set name
      *
-     * @param  string       $name
-     * @return ContactTypes
+     * @param  string $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -61,16 +65,11 @@ class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity {
         return $this->name;
     }
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Set description
      *
-     * @param  string       $description
-     * @return ContactTypes
+     * @param  string $description
+     * @return $this
      */
     public function setDescription($description)
     {
@@ -93,5 +92,4 @@ class ContactTypes extends \Ojs\Common\Entity\GenericExtendedEntity {
     {
         return $this->getName();
     }
-
 }

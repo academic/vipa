@@ -29,10 +29,9 @@ class ThemeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Theme',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -43,5 +42,4 @@ class ThemeType extends AbstractType
     {
         return 'ojs_journalbundle_theme';
     }
-
 }

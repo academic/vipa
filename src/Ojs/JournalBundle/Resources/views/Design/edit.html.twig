@@ -5,7 +5,16 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'design' %}
-    {% set delete_path = 'design_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('design') }}">
+                {{"b"|trans}}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('design_delete', { 'id': entity.id }) }}">
+                Delete
+            </a>
+        </li>
+    </ul>
 {% endblock %}

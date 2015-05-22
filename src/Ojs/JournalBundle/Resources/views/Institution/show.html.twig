@@ -1,10 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'title': 'institution.manager'|trans, 'link' : path('institution')},
     { 'title': 'institution.detail'|trans}])}}
-{% endblock %} 
+{% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
@@ -56,7 +56,7 @@
                 <tr>
                     <th>{{"children"|trans}}</th>
                     <td>
-                        {% for c in entity.children %} 
+                        {% for c in entity.children %}
                             <a  class="badge" href="{{ path('institution_show', {id: c.id})}}">{{ c }}</a>
                         {% endfor%}
                     </td>
@@ -64,8 +64,10 @@
             {% endif %}
         </tbody>
     </table>
+
+
     {% set edit_path = 'institution_edit' %}
     {% set show_path = 'institution_show' %}
     {% set delete_path = 'institution_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
 {% endblock %}

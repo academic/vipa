@@ -2,10 +2,15 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\UserBundle\Entity\Role;
 use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
@@ -14,7 +19,9 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,issn,eissn,country.name,institution")
  */
-class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Translatable {
+class Journal implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -89,24 +96,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $url;
 
     /**
-     * @var string
-     * @Expose
-     */
-    private $address;
-
-    /**
-     * @var string
-     * @Expose
-     */
-    private $phone;
-
-    /**
-     * @var string
-     * @Expose
-     */
-    private $email;
-
-    /**
      * @var Location
      * @Expose
      */
@@ -161,12 +150,6 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $themeId;
 
     /**
-     * @var integer
-     * @Expose
-     */
-    private $designId;
-
-    /**
      * @var Theme
      * @Expose
      */
@@ -179,62 +162,63 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $isConfigured;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $users;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $articles;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $issues;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $boards;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @Expose
      */
     private $languages;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @Expose
      */
     private $subjects;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection|Role[]
      * @Expose
      */
     private $submitRoles;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $sections;
 
     /**
      *
      * arbitrary settings
+     * @var Collection|JournalSetting[]
      */
     private $settings;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Institution
+     * @var Institution
      * @Expose
      */
     private $institution;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      * @Expose
      */
     private $journalThemes;
@@ -246,7 +230,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     private $institutionId;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $bannedUsers;
     private $userRoles;
@@ -261,18 +245,17 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->boards = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->sections = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->subjects = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->journalThemes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->submitRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->issues = new ArrayCollection();
+        $this->boards = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->sections = new ArrayCollection();
+        $this->pages = new ArrayCollection();
+        $this->subjects = new ArrayCollection();
+        $this->journalThemes = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
+        $this->submitRoles = new ArrayCollection();
     }
 
     /**
@@ -284,28 +267,30 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param string $header
+     * @param  string $header
      * @return $this
      */
     public function setHeader($header)
     {
         $this->header = $header;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $settingName
+     * @param  string  $value
+     * @return Journal
+     */
+    public function addSetting($settingName, $value)
+    {
+        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
+
         return $this;
     }
 
     /**
      * @param  string $settingName
-     * @param  string $value
-     * @return \Ojs\JournalBundle\Entity\Journal
-     */
-    public function addSetting($settingName, $value)
-    {
-        $this->settings[$settingName] = new JournalSetting($settingName, $value, $this);
-        return $this;
-    }
-
-    /**
-     * @param  string $settingName 
      * @return bool
      */
     public function hasSetting($settingName)
@@ -315,12 +300,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      *
-     * @param  string $settingName
+     * @param  string                 $settingName
      * @return JournalSetting|boolean
      */
     public function getSetting($settingName)
@@ -330,7 +316,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      *
-     * @param  string $settingName
+     * @param  string                 $settingName
      * @return JournalSetting|boolean
      */
     public function getAttribute($settingName)
@@ -339,25 +325,26 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\JournalSection $section
+     * @param  JournalSection $section
      * @return Journal
      */
-    public function addSection(\Ojs\JournalBundle\Entity\JournalSection $section)
+    public function addSection(JournalSection $section)
     {
         $this->sections[] = $section;
+
         return $this;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\JournalSection $section
+     * @param JournalSection $section
      */
-    public function removeSection(\Ojs\JournalBundle\Entity\JournalSection $section)
+    public function removeSection(JournalSection $section)
     {
         $this->sections->removeElement($section);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSections()
     {
@@ -365,25 +352,26 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
+     * @param  JournalTheme $journalTheme
      * @return Journal
      */
-    public function addJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    public function addJournalThemes(JournalTheme $journalTheme)
     {
         $this->journalThemes[] = $journalTheme;
+
         return $this;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalTheme
+     * @param JournalTheme $journalTheme
      */
-    public function removeJournalThemes(\Ojs\JournalBundle\Entity\JournalTheme $journalTheme)
+    public function removeJournalThemes(JournalTheme $journalTheme)
     {
         $this->journalThemes->removeElement($journalTheme);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getJournalThemes()
     {
@@ -391,25 +379,26 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\Lang $language
+     * @param  Lang    $language
      * @return Journal
      */
-    public function addLanguage(\Ojs\JournalBundle\Entity\Lang $language)
+    public function addLanguage(Lang $language)
     {
         $this->languages[] = $language;
+
         return $this;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\Lang $language
+     * @param Lang $language
      */
-    public function removeLanguage(\Ojs\JournalBundle\Entity\Lang $language)
+    public function removeLanguage(Lang $language)
     {
         $this->languages->removeElement($language);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getLanguages()
     {
@@ -417,25 +406,26 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\UserBundle\Entity\Role $submitRole
+     * @param  Role    $submitRole
      * @return Journal
      */
-    public function addSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
+    public function addSubmitRole(Role $submitRole)
     {
         $this->submitRoles[] = $submitRole;
+
         return $this;
     }
 
     /**
-     * @param \Ojs\UserBundle\Entity\Role $submitRole
+     * @param Role $submitRole
      */
-    public function removeSubmitRole(\Ojs\UserBundle\Entity\Role $submitRole)
+    public function removeSubmitRole(Role $submitRole)
     {
         $this->submitRoles->removeElement($submitRole);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSubmitRoles()
     {
@@ -443,25 +433,26 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\Subject $subject
+     * @param  Subject $subject
      * @return Journal
      */
-    public function addSubject(\Ojs\JournalBundle\Entity\Subject $subject)
+    public function addSubject(Subject $subject)
     {
         $this->subjects[] = $subject;
+
         return $this;
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\Subject $subject
+     * @param Subject $subject
      */
-    public function removeSubjects(\Ojs\JournalBundle\Entity\Subject $subject)
+    public function removeSubjects(Subject $subject)
     {
         $this->subjects->removeElement($subject);
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSubjects()
     {
@@ -491,12 +482,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set title
      *
-     * @param  string $title
+     * @param  string  $title
      * @return Journal
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -513,12 +505,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set path
      *
-     * @param  string $path
+     * @param  string  $path
      * @return Journal
      */
     public function setPath($path)
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -533,12 +526,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set domain
-     * @param  string $domain
+     * @param  string  $domain
      * @return Journal
      */
     public function setDomain($domain)
     {
         $this->domain = $domain;
+
         return $this;
     }
 
@@ -555,7 +549,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set titleAbbr
      *
-     * @param  string $titleAbbr
+     * @param  string  $titleAbbr
      * @return Journal
      */
     public function setTitleAbbr($titleAbbr)
@@ -578,12 +572,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set titleTransliterated
      *
-     * @param  string $titleTransliterated
+     * @param  string  $titleTransliterated
      * @return Journal
      */
     public function setTitleTransliterated($titleTransliterated)
     {
         $this->titleTransliterated = $titleTransliterated;
+
         return $this;
     }
 
@@ -600,7 +595,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set subtitle
      *
-     * @param  string $subtitle
+     * @param  string  $subtitle
      * @return Journal
      */
     public function setSubtitle($subtitle)
@@ -623,7 +618,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set issn
      *
-     * @param  string $issn
+     * @param  string  $issn
      * @return Journal
      */
     public function setIssn($issn)
@@ -646,7 +641,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set eissn
      *
-     * @param  string $eissn
+     * @param  string  $eissn
      * @return Journal
      */
     public function setEissn($eissn)
@@ -692,7 +687,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set period
      *
-     * @param  string $period
+     * @param  string  $period
      * @return Journal
      */
     public function setPeriod($period)
@@ -715,7 +710,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set url
      *
-     * @param  string $url
+     * @param  string  $url
      * @return Journal
      */
     public function setUrl($url)
@@ -736,17 +731,18 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set institutionId
-     * @param  int $institutionId
+     * @param  int     $institutionId
      * @return Journal
      */
     public function setInstitutionId($institutionId)
     {
         $this->institutionId = $institutionId;
+
         return $this;
     }
 
     /**
-     * @return \Ojs\JournalBundle\Entity\Institution
+     * @return Institution
      */
     public function getInstitution()
     {
@@ -755,61 +751,14 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set institution
-     * @param  \Ojs\JournalBundle\Entity\Institution $institution
+     * @param  Institution $institution
      * @return Journal
      */
     public function setInstitution($institution)
     {
         $this->institution = $institution;
+
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param string $address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
     }
 
     /**
@@ -831,6 +780,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->country = $country;
         $this->country_id = $country->getId();
+
         return $this;
     }
 
@@ -843,12 +793,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param int $country_id
+     * @param  int   $country_id
      * @return $this
      */
     public function setCountryId($country_id)
     {
         $this->country_id = $country_id;
+
         return $this;
     }
 
@@ -919,7 +870,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set image
      *
-     * @param  string $image
+     * @param  string  $image
      * @return Journal
      */
     public function setImage($image)
@@ -932,7 +883,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set slug
      *
-     * @param  string $slug
+     * @param  string  $slug
      * @return Journal
      */
     public function setSlug($slug)
@@ -971,6 +922,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setThemeId($themeId)
     {
         $this->themeId = $themeId;
+
         return $this;
     }
 
@@ -986,13 +938,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Set designId
-     *
-     * @param  integer $designId
-     * @return Journal
+     * @param $themeId
+     * @return $this
      */
     public function setDesignId($themeId)
     {
         $this->themeId = $themeId;
+
         return $this;
     }
 
@@ -1009,12 +961,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set theme
      *
-     * @param  Theme $theme
+     * @param  Theme   $theme
      * @return Journal
      */
     public function setTheme($theme)
     {
         $this->theme = $theme;
+
         return $this;
     }
 
@@ -1031,12 +984,13 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Set googleAnalyticsId
      *
-     * @param  string $googleAnalyticsId
+     * @param  string  $googleAnalyticsId
      * @return Journal
      */
     public function setGoogleAnalyticsId($googleAnalyticsId)
     {
         $this->googleAnalyticsId = $googleAnalyticsId;
+
         return $this;
     }
 
@@ -1058,16 +1012,17 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     public function setIsConfigured($isConfigured)
     {
         $this->isConfigured = $isConfigured;
+
         return $this;
     }
 
     /**
      * Add articles
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $article
+     * @param  Article $article
      * @return Journal
      */
-    public function addArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function addArticle(Article $article)
     {
         $this->articles[] = $article;
 
@@ -1077,9 +1032,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove articles
      *
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @param Article $article
      */
-    public function removeArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function removeArticle(Article $article)
     {
         $this->articles->removeElement($article);
     }
@@ -1087,7 +1042,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticles()
     {
@@ -1096,11 +1051,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
 
     /**
      * Add board
-     *
-     * @param  \Ojs\JournalBundle\Entity\Board $boards
-     * @return Journal
+     * @param  Board $board
+     * @return $this
      */
-    public function addBoard(\Ojs\JournalBundle\Entity\Board $board)
+    public function addBoard(Board $board)
     {
         $this->boards[] = $board;
 
@@ -1110,9 +1064,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove board
      *
-     * @param \Ojs\JournalBundle\Entity\Board $board
+     * @param Board $board
      */
-    public function removeBoard(\Ojs\JournalBundle\Entity\Board $board)
+    public function removeBoard(Board $board)
     {
         $this->boards->removeElement($board);
     }
@@ -1120,7 +1074,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get boards
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getBoards()
     {
@@ -1130,10 +1084,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add issue
      *
-     * @param  \Ojs\JournalBundle\Entity\Issue $issues
+     * @param  Issue   $issue
      * @return Journal
      */
-    public function addIssue(\Ojs\JournalBundle\Entity\Issue $issue)
+    public function addIssue(Issue $issue)
     {
         $this->issues[] = $issue;
 
@@ -1143,9 +1097,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove issue
      *
-     * @param \Ojs\JournalBundle\Entity\Issue $issue
+     * @param Issue $issue
      */
-    public function removeIssue(\Ojs\JournalBundle\Entity\Issue $issue)
+    public function removeIssue(Issue $issue)
     {
         $this->issues->removeElement($issue);
     }
@@ -1153,7 +1107,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get issues
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getIssues()
     {
@@ -1163,9 +1117,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove articles
      *
-     * @param \Ojs\UserBundle\Entity\User $users
+     * @param User $users
      */
-    public function removeUser(\Ojs\UserBundle\Entity\User $users)
+    public function removeUser(User $users)
     {
         $this->users->removeElement($users);
     }
@@ -1173,7 +1127,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getUsers()
     {
@@ -1183,10 +1137,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add articles
      *
-     * @param  \Ojs\UserBundle\Entity\User $users
+     * @param  User    $users
      * @return Journal
      */
-    public function addUser(\Ojs\UserBundle\Entity\User $users)
+    public function addUser(User $users)
     {
         $this->users[] = $users;
 
@@ -1196,9 +1150,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove settings
      *
-     * @param \Ojs\JournalBundle\Entity\JournalSetting $settings
+     * @param JournalSetting $settings
      */
-    public function removeSetting(\Ojs\JournalBundle\Entity\JournalSetting $settings)
+    public function removeSetting(JournalSetting $settings)
     {
         $this->settings->removeElement($settings);
     }
@@ -1206,7 +1160,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get settings
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSettings()
     {
@@ -1216,9 +1170,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove subjects
      *
-     * @param \Ojs\JournalBundle\Entity\Subject $subjects
+     * @param Subject $subjects
      */
-    public function removeSubject(\Ojs\JournalBundle\Entity\Subject $subjects)
+    public function removeSubject(Subject $subjects)
     {
         $this->subjects->removeElement($subjects);
     }
@@ -1226,10 +1180,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add bannedUsers
      *
-     * @param \Ojs\UserBundle\Entity\User $bannedUsers
+     * @param  User    $bannedUsers
      * @return Journal
      */
-    public function addBannedUser(\Ojs\UserBundle\Entity\User $bannedUsers)
+    public function addBannedUser(User $bannedUsers)
     {
         $this->bannedUsers[] = $bannedUsers;
 
@@ -1239,9 +1193,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove bannedUsers
      *
-     * @param \Ojs\UserBundle\Entity\User $bannedUsers
+     * @param User $bannedUsers
      */
-    public function removeBannedUser(\Ojs\UserBundle\Entity\User $bannedUsers)
+    public function removeBannedUser(User $bannedUsers)
     {
         $this->bannedUsers->removeElement($bannedUsers);
     }
@@ -1249,7 +1203,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get bannedUsers
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getBannedUsers()
     {
@@ -1261,7 +1215,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
      */
     public function __toString()
     {
-        return $this->getTitle() . "[{$this->getId()}]";
+        return $this->getTitle()."[{$this->getId()}]";
     }
 
     /**
@@ -1273,22 +1227,24 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param UserJournalRole $role
+     * @param  UserJournalRole $role
      * @return $this
      */
     public function addUserRole(UserJournalRole $role)
     {
         $this->userRoles->add($role);
+
         return $this;
     }
 
     /**
-     * @param UserJournalRole $role
+     * @param  UserJournalRole $role
      * @return $this
      */
     public function removeUserRole(UserJournalRole $role)
     {
         $this->userRoles->removeElement($role);
+
         return $this;
     }
 
@@ -1306,27 +1262,28 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @param string $logo
+     * @param  string $logo
      * @return $this
      */
     public function setLogo($logo)
     {
         $this->logo = $logo;
+
         return $this;
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $journals_indexs;
 
     /**
      * Add journalThemes
      *
-     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalThemes
+     * @param  JournalTheme $journalThemes
      * @return Journal
      */
-    public function addJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalThemes)
+    public function addJournalTheme(JournalTheme $journalThemes)
     {
         $this->journalThemes[] = $journalThemes;
 
@@ -1336,9 +1293,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove journalThemes
      *
-     * @param \Ojs\JournalBundle\Entity\JournalTheme $journalThemes
+     * @param JournalTheme $journalThemes
      */
-    public function removeJournalTheme(\Ojs\JournalBundle\Entity\JournalTheme $journalThemes)
+    public function removeJournalTheme(JournalTheme $journalThemes)
     {
         $this->journalThemes->removeElement($journalThemes);
     }
@@ -1346,10 +1303,10 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Add journals_indexs
      *
-     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @param  JournalsIndex $journalsIndexs
      * @return Journal
      */
-    public function addJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    public function addJournalsIndex(JournalsIndex $journalsIndexs)
     {
         $this->journals_indexs[] = $journalsIndexs;
 
@@ -1357,11 +1314,11 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * Remove journals_indexs
+     * Remove journals_index
      *
-     * @param \Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs
+     * @param JournalsIndex $journalsIndexs
      */
-    public function removeJournalsIndex(\Ojs\JournalBundle\Entity\JournalsIndex $journalsIndexs)
+    public function removeJournalsIndex(JournalsIndex $journalsIndexs)
     {
         $this->journals_indexs->removeElement($journalsIndexs);
     }
@@ -1369,7 +1326,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get journals_indexs
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getJournalsIndexs()
     {
@@ -1377,17 +1334,17 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $submissionChecklist;
 
     /**
      * Add submission checklist item
      *
-     * @param \Ojs\JournalBundle\Entity\SubmissionChecklist $checklistItem
+     * @param  SubmissionChecklist $checklistItem
      * @return Journal
      */
-    public function addSubmissionChecklist(\Ojs\JournalBundle\Entity\SubmissionChecklist $checklistItem)
+    public function addSubmissionChecklist(SubmissionChecklist $checklistItem)
     {
         $this->submissionChecklist[] = $checklistItem;
 
@@ -1397,9 +1354,9 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Remove submission checklist item
      *
-     * @param \Ojs\JournalBundle\Entity\SubmissionChecklist $item
+     * @param SubmissionChecklist $item
      */
-    public function removeSubmissionChecklist(\Ojs\JournalBundle\Entity\SubmissionChecklist $item)
+    public function removeSubmissionChecklist(SubmissionChecklist $item)
     {
         $this->submissionChecklist->removeElement($item);
     }
@@ -1407,7 +1364,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     /**
      * Get submission checklist
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getSubmissionChecklist()
     {
@@ -1467,7 +1424,7 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     }
 
     /**
-     * Alias for imageoptions
+     * Alias for image options
      * @return mixed
      */
     public function getCoverOptions()
@@ -1528,5 +1485,4 @@ class Journal extends \Ojs\Common\Entity\GenericExtendedEntity implements Transl
     {
         $this->footer_text = $footer_text;
     }
-
 }

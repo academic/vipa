@@ -11,7 +11,7 @@ class ArticleAuthorType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,7 @@ class ArticleAuthorType extends AbstractType
         $builder
             ->add('authorOrder')
             ->add('author', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\ArticleAuthor'
+                'class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
             ])
             ->add('article', 'entity', [
                 'class' => 'Ojs\JournalBundle\Entity\Article',
@@ -29,8 +29,9 @@ class ArticleAuthorType extends AbstractType
                         $qb->expr()->eq('a.journalId', ':journal')
                     );
                     $qb->setParameter('journal', $journal);
+
                     return $qb;
-                }
+                },
             ]);
     }
 
@@ -42,10 +43,9 @@ class ArticleAuthorType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
             'journal_id' => 0,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

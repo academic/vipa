@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Theme;
 use Ojs\JournalBundle\Form\ThemeType;
-use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Theme controller.
@@ -35,7 +34,8 @@ class ThemeController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Theme:index.html.twig', $data);
     }
 
     /**
@@ -52,6 +52,7 @@ class ThemeController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('theme_show', ['id' => $entity->getId()]);
         }
 
@@ -105,7 +106,7 @@ class ThemeController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Theme:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
             )
         );
     }
@@ -123,7 +124,7 @@ class ThemeController extends Controller
 
         return $this->render('OjsJournalBundle:Theme:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -159,18 +160,19 @@ class ThemeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('theme_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Theme:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Theme entity.
-     * @param Theme $entity
+     * @param  Theme                                              $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Theme $entity)
@@ -180,6 +182,7 @@ class ThemeController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('theme');
     }
 }

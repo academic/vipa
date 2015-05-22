@@ -30,10 +30,9 @@ class DesignType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Design',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -44,5 +43,4 @@ class DesignType extends AbstractType
     {
         return 'ojs_journalbundle_design';
     }
-
 }

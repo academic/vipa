@@ -3,8 +3,6 @@
 namespace Ojs\JournalBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Okulbilisim\LocationBundle\Entity\Location;
-use Ojs\UserBundle\Entity\UserJournalRole;
 
 /**
  * This collection holds resumable new journal setup data
@@ -51,12 +49,13 @@ class JournalSetupProgress
     /**
      * Set currentStep
      *
-     * @param int $currentStep
+     * @param  int  $currentStep
      * @return self
      */
     public function setCurrentStep($currentStep)
     {
         $this->current_step = $currentStep;
+
         return $this;
     }
 
@@ -73,12 +72,13 @@ class JournalSetupProgress
     /**
      * Set startedDate
      *
-     * @param \DateTime $startedDate
+     * @param  \DateTime $startedDate
      * @return self
      */
     public function setStartedDate($startedDate)
     {
         $this->started_date = $startedDate;
+
         return $this;
     }
 
@@ -95,19 +95,20 @@ class JournalSetupProgress
     /**
      * Set lastResumeDate
      *
-     * @param \DateTime $lastResumeDate
+     * @param  \DateTime $lastResumeDate
      * @return self
      */
     public function setLastResumeDate($lastResumeDate)
     {
         $this->last_resume_date = $lastResumeDate;
+
         return $this;
     }
 
     /**
      * Get lastResumeDate
      *
-     * @return date $lastResumeDate
+     * @return \DateTime $lastResumeDate
      */
     public function getLastResumeDate()
     {
@@ -117,12 +118,13 @@ class JournalSetupProgress
     /**
      * Set userId
      *
-     * @param int $userId
+     * @param  int  $userId
      * @return self
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
+
         return $this;
     }
 
@@ -139,12 +141,13 @@ class JournalSetupProgress
     /**
      * Set journalId
      *
-     * @param int $journalId
+     * @param  int  $journalId
      * @return self
      */
     public function setJournalId($journalId)
     {
         $this->journalId = $journalId;
+
         return $this;
     }
 

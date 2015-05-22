@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Row;
 use Ojs\JournalBundle\Entity\Article;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Citation;
@@ -24,21 +25,22 @@ class CitationController extends Controller
      */
     public function indexAction()
     {
-         $source = new Entity('OjsJournalBundle:Citation');
+        $source = new Entity('OjsJournalBundle:Citation');
         $router = $this->get('router');
-        $source->manipulateRow(function(Row $row)use($router){
-           if($row->getField('id')){
+        $source->manipulateRow(function (Row $row) use ($router) {
+           if ($row->getField('id')) {
                /** @var Citation $entity */
                $entity = $row->getEntity();
                $articles = $entity->getArticles();
                $a = [];
-               foreach ( $articles as $article) {
+               foreach ($articles as $article) {
                    /** @var Article $article */
-                   $route = $router->generate('article_edit',['id'=>$article->getId()]);
-                   $a[] ="<a href='{$route}' class='badge' title='{$article->getTitle()}'>{$article->getId()}</a>";
+                   $route = $router->generate('article_edit', ['id' => $article->getId()]);
+                   $a[] = "<a href='{$route}' class='badge' title='{$article->getTitle()}'>{$article->getId()}</a>";
                }
-               $row->setField('articles',join(' ',$a));
+               $row->setField('articles', implode(' ', $a));
            }
+
             return $row;
         });
         $grid = $this->get('grid')->setSource($source);
@@ -48,11 +50,11 @@ class CitationController extends Controller
         $rowAction[] = ActionHelper::deleteAction('citation_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
-        $grid->addColumn($actionColumn); 
-        return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig', array('grid'=>$grid));
+        $grid->addColumn($actionColumn);
+
+        return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig', array('grid' => $grid));
 
        // $entities = $em->getRepository('OjsJournalBundle:Citation')->findAll();
- 
     }
 
     /**
@@ -70,6 +72,7 @@ class CitationController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('citation_show', ['id' => $entity->getId()]);
         }
 
@@ -149,7 +152,7 @@ class CitationController extends Controller
         }
 
         return $this->render('OjsJournalBundle:Citation:show.html.twig', array(
-                    'entity' => $entity));
+                    'entity' => $entity, ));
     }
 
     /**
@@ -167,7 +170,7 @@ class CitationController extends Controller
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -204,20 +207,23 @@ class CitationController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('citation_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Citation entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
@@ -227,7 +233,7 @@ class CitationController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('citation');
     }
-
 }

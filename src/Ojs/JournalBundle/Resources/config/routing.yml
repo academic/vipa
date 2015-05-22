@@ -1,15 +1,15 @@
 ojs_journal_manager_journal_contact:
     resource: "@OjsJournalBundle/Resources/config/routing/journalcontact.yml"
     prefix:   /manager/journalcontact
-    
+
 ojs_journal_manager_submission_checklist:
     resource: "@OjsJournalBundle/Resources/config/routing/submissionchecklist.yml"
     prefix:   /manager/checklist
 
 ojs_journal_manager_journals_indexes:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsindex.yml"
-    prefix:   /manager/journal/settings/indexes 
-    
+    prefix:   /manager/journal/settings/indexes
+
 ojs_journal_articlefile:
     resource: "@OjsJournalBundle/Resources/config/routing/articlefile.yml"
     prefix:   /articlefile
@@ -17,7 +17,7 @@ ojs_journal_articlefile:
 ojs_journal_mailtemplate:
     resource: "@OjsJournalBundle/Resources/config/routing/mailtemplate.yml"
     prefix:   /manager/mailtemplate
-  
+
 change_selected_journal:
     pattern:  /manager/journal/selected/{journal_id}
     defaults: { _controller: "OjsJournalBundle:Journal:changeSelected" }
@@ -26,8 +26,8 @@ change_selected_journal:
 article_preview:
     pattern:  /manager/article/{id}/preview
     defaults: { _controller: "OjsJournalBundle:Article:preview" }
-    
-    
+
+
 ojs_article_submission:
     resource: "@OjsJournalBundle/Resources/config/routing/articlesubmission.yml"
 
@@ -50,8 +50,7 @@ ojs_manager_journal_setup:
 journal_apply:
     pattern:  /journal/apply
     defaults: { _controller: "OjsJournalBundle:Journal:apply" }
-    
+
 manager_journal_section:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsection.yml"
     prefix:   /manager/journal/section
-   

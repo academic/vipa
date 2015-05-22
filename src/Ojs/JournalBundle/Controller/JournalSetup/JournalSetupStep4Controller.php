@@ -6,20 +6,21 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Okulbilisim\CmsBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use \Ojs\JournalBundle\Document\JournalSetupProgress;
+use Ojs\JournalBundle\Document\JournalSetupProgress;
 
 class JournalSetupStep4Controller extends Controller
 {
     /**
      * Journal Setup Wizard Step 4 - Saves Journal 's step 4 data
-     * @param Request $request
-     * @param null $setupId
+     * @param  Request      $request
+     * @param  null         $setupId
      * @return JsonResponse
      */
     public function updateAction(Request $request, $setupId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
+        /** @var JournalSetupProgress $setup */
         $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
         $setup->setCurrentStep(2);
@@ -29,7 +30,7 @@ class JournalSetupStep4Controller extends Controller
         foreach ($pages as $page) {
             if (empty($page['title'])) {
                 return new JsonResponse([
-                    'success' => "0"
+                    'success' => "0",
                 ]);
             }
             $page_ = new Post();
@@ -44,13 +45,14 @@ class JournalSetupStep4Controller extends Controller
             $em->flush();
         }
         $dm->flush();
+
         return new JsonResponse(array(
-            'success' => '1'));
+            'success' => '1', ));
     }
 
     /**
      * manager current journal setup step 4
-     * @param Request $request
+     * @param  Request      $request
      * @return JsonResponse
      */
     public function managerUpdateAction(Request $request)
@@ -63,7 +65,7 @@ class JournalSetupStep4Controller extends Controller
         foreach ($pages as $page) {
             if (empty($page['title'])) {
                 return new JsonResponse([
-                    'success' => "0"
+                    'success' => "0",
                 ]);
             }
             $page_ = new Post();
@@ -77,7 +79,8 @@ class JournalSetupStep4Controller extends Controller
             $em->persist($page_);
             $em->flush();
         }
+
         return new JsonResponse(array(
-            'success' => '1'));
+            'success' => '1', ));
     }
 }

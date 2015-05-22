@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('author'), 'title': 'author.manager'|trans},
     { 'title' : 'author.new'|trans} ])}}
@@ -9,6 +9,12 @@
     <h1>{{ 'author.creation'|trans }}</h1>
 
     {{ form(form) }}
-    {% set back_path = 'author' %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('author') }}">
+                {{"b"|trans}}
+            </a>
+        </li>
+    </ul>
 {% endblock %}

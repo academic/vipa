@@ -3,11 +3,14 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {{"article.plural"|trans}} {{ 'issue.plural'|trans }} <strong>{{issue.title }}</strong> {{"journal"|trans}} <em>{{issue.journal.title }}</em>
-    
+
         <p>{% trans with {'%title%':issue.title}%}Here you can find all articles for selected issue <strong>%title%</strong>{% endtrans %}</p>
-    
+
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
-    {% set back_path = 'article' %}
-    {% set create_path = 'article_new' %}
-    {% include '::actionbuttons.html.twig' %}
+    <a href="{{ path('article_new') }}" class="btn btn-success">
+        {{"issue.new"|trans}}
+    </a>
+    <a href="{{ path('article') }}" class="btn btn-default">
+        {{"b"|trans}}
+    </a>
 {% endblock %}

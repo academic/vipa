@@ -6,16 +6,24 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ArticleSubmissionStep3Controller
+ * @package Ojs\JournalBundle\Controller\ArticleSubmission
+ */
 class ArticleSubmissionStep3Controller extends Controller
 {
-
+    /**
+     * @param  Request               $request
+     * @return JsonResponse|Response
+     */
     public function addCitationsAction(Request $request)
     {
         $citeData = json_decode($request->request->get('citeData'));
         $submissionId = $request->get("submissionId");
         if (empty($citeData)) {
-            return new \Symfony\Component\HttpFoundation\Response('Missing argument', 400);
+            return new Response('Missing argument', 400);
         }
         $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
@@ -29,7 +37,7 @@ class ArticleSubmissionStep3Controller extends Controller
         $articleSubmission->setCitations($citeData);
         $dm->persist($articleSubmission);
         $dm->flush();
+
         return new JsonResponse($articleSubmission->getId());
     }
-
 }

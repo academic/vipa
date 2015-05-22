@@ -2,24 +2,28 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation as JMS;
+use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\Common\Params\ArticleParams;
 use Ojs\UserBundle\Entity\UserArticleRole;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Article
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
  * @GRID\Source(columns="id ,status,title, journal.title",groups={"submission"})
  */
-class Article extends \Ojs\Common\Entity\GenericExtendedEntity
+class Article implements Translatable
 {
-
+    use GenericEntityTrait;
     /**
      * auto-incremented article unique id
      * @var integer
-     * @Expose
+     * @JMS\Expose
      * @GRID\Column(title="id")
      */
     private $id;
@@ -27,13 +31,13 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      *
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $issueId;
 
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
@@ -41,14 +45,14 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * user id of the owner of this article
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $submitterId;
 
     /**
      * (optional)
      * @var string
-     * @Expose
+     * @JMS\Expose
      * @GRID\Column(title="OAI")
      */
     private $doi;
@@ -56,20 +60,20 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Could contain any article ID used by the provider
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $otherId;
 
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $journalId;
 
     /**
      * Original article title
      * @var string
-     * @Expose
+     * @JMS\Expose
      * @GRID\Column(title="title")
      */
     private $title;
@@ -77,102 +81,102 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Roman transliterated title
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $titleTransliterated;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $subtitle;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $keywords;
 
     /**
      * Some articles carries no authorship
      * @var boolean
-     * @Expose
+     * @JMS\Expose
      */
     private $isAnonymous;
 
     /**
      * @var \DateTime
-     * @Expose
+     * @JMS\Expose
      */
     private $submissionDate;
 
     /**
      * @var \DateTime
-     * @Expose
+     * @JMS\Expose
      * @GRID\Column(title="pubdate")
      */
     private $pubdate;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $pubdateSeason;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $part;
 
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $firstPage;
 
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $lastPage;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $uri;
 
     /**
      *
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $primaryLanguage;
 
     /**
      *
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $orderNum;
 
     /**
      * Original abstract
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $abstract;
 
     /**
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     private $subjects;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @Expose
+     * @var Collection
+     * @JMS\Expose
      */
     private $languages;
 
@@ -183,21 +187,21 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     private $issue;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      *
      */
     private $citations;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Journal
-     * @Expose
+     * @var Journal
+     * @JMS\Expose
      * @GRID\Column(field="journal.title", title="journal")
      */
     private $journal;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\JournalSection
-     * @Expose
+     * @var JournalSection
+     * @JMS\Expose
      */
     private $section;
 
@@ -210,17 +214,18 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      *
      * arbitrary attributes
+     * @var Collection|ArticleAttribute[]
      */
     private $attributes;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
-     * @Expose
+     * @var Collection
+     * @JMS\Expose
      */
     private $articleAuthors;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection
      */
     private $articleFiles;
 
@@ -238,12 +243,13 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $header
+     * @param  string $header
      * @return $this
      */
     public function setHeader($header)
     {
         $this->header = $header;
+
         return $this;
     }
 
@@ -252,13 +258,11 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function __construct()
     {
-        parent::__construct();
-        $this->citations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articleAuthors = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
-
+        $this->citations = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->articleAuthors = new ArrayCollection();
+        $this->articleFiles = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
     public function addAttribute($name, $value)
@@ -284,7 +288,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set subjects
      *
-     * @param  string $subjects
+     * @param  string  $subjects
      * @return Article
      */
     public function setSubjects($subjects = null)
@@ -295,10 +299,10 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param  \Ojs\JournalBundle\Entity\Lang $language
+     * @param  Lang    $language
      * @return Article
      */
-    public function addLanguage(\Ojs\JournalBundle\Entity\Lang $language)
+    public function addLanguage(Lang $language)
     {
         $this->languages[] = $language;
 
@@ -306,15 +310,15 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param \Ojs\JournalBundle\Entity\Lang $language
+     * @param Lang $language
      */
-    public function removeLanguage(\Ojs\JournalBundle\Entity\Lang $language)
+    public function removeLanguage(Lang $language)
     {
         $this->languages->removeElement($language);
     }
 
     /**
-     * @return \Doctrine\Cojournalmmon\Collections\Collection
+     * @return Collection
      */
     public function getLanguages()
     {
@@ -323,10 +327,10 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Issue $issue
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @param  Issue   $issue
+     * @return Article
      */
-    public function setIssue(\Ojs\JournalBundle\Entity\Issue $issue)
+    public function setIssue(Issue $issue)
     {
         $this->issue = $issue;
 
@@ -334,7 +338,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return \Ojs\JournalBundle\Entity\Issue
+     * @return Issue
      */
     public function getIssue()
     {
@@ -342,7 +346,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticleAuthors()
     {
@@ -350,7 +354,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticlefiles()
     {
@@ -360,10 +364,10 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add citation
      *
-     * @param  \Ojs\JournalBundle\Entity\Citation $citation
+     * @param  Citation $citation
      * @return Article
      */
-    public function addCitation(\Ojs\JournalBundle\Entity\Citation $citation)
+    public function addCitation(Citation $citation)
     {
         $this->citations[] = $citation;
 
@@ -373,9 +377,9 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove citation
      *
-     * @param \Ojs\JournalBundle\Entity\Citation $citation
+     * @param Citation $citation
      */
-    public function removeCitation(\Ojs\JournalBundle\Entity\Citation $citation)
+    public function removeCitation(Citation $citation)
     {
         $this->citations->removeElement($citation);
     }
@@ -383,7 +387,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get citations
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getCitations()
     {
@@ -406,7 +410,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function getStatusText()
     {
-        return \Ojs\Common\Params\ArticleParams::statusText($this->status);
+        return ArticleParams::statusText($this->status);
     }
 
     /**
@@ -415,7 +419,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
      */
     public function getStatusColor()
     {
-        return \Ojs\Common\Params\ArticleParams::statusColor($this->status);
+        return ArticleParams::statusColor($this->status);
     }
 
     public function getStatus()
@@ -442,7 +446,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      *
      * @param  integer $orderNum
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @return Article
      */
     public function setOrderNum($orderNum)
     {
@@ -462,8 +466,8 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @param  string $primaryLanguage
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @param  string  $primaryLanguage
+     * @return Article
      */
     public function setPrimaryLanguage($primaryLanguage)
     {
@@ -487,7 +491,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * (optional) English transliterated abstract
      * @var string
-     * @Expose
+     * @JMS\Expose
      */
     protected $abstractTransliterated;
 
@@ -506,7 +510,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set doi
      *
-     * @param  string $doi
+     * @param  string  $doi
      * @return Article
      */
     public function setDoi($doi)
@@ -529,7 +533,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set otherId
      *
-     * @param  string $otherId
+     * @param  string  $otherId
      * @return Article
      */
     public function setOtherId($otherId)
@@ -596,8 +600,8 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * Set journal
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @param  Journal $journal
+     * @return Article
      */
     public function setJournal($journal)
     {
@@ -609,7 +613,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @return Journal
      */
     public function getJournal()
     {
@@ -641,8 +645,8 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      * Set section
-     * @param  \Ojs\JournalBundle\Entity\JournalSection $section
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @param  JournalSection $section
+     * @return Article
      */
     public function setSection($section)
     {
@@ -654,7 +658,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get section
      *
-     * @return \Ojs\JournalBundle\Entity\JournalSection
+     * @return JournalSection
      */
     public function getSection()
     {
@@ -664,7 +668,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set title
      *
-     * @param  string $title
+     * @param  string  $title
      * @return Article
      */
     public function setTitle($title)
@@ -687,7 +691,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set titleTransliterated
      *
-     * @param  string $titleTransliterated
+     * @param  string  $titleTransliterated
      * @return Article
      */
     public function setTitleTransliterated($titleTransliterated)
@@ -710,7 +714,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set subtitle
      *
-     * @param  string $subtitle
+     * @param  string  $subtitle
      * @return Article
      */
     public function setSubtitle($subtitle)
@@ -800,14 +804,14 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * Set pubdateSeason
+     * Set pubDateSeason
      *
-     * @param  string $pubdateSeason
+     * @param  string  $pubDateSeason
      * @return Article
      */
-    public function setPubdateSeason($pubdateSeason)
+    public function setPubdateSeason($pubDateSeason)
     {
-        $this->pubdateSeason = $pubdateSeason;
+        $this->pubdateSeason = $pubDateSeason;
 
         return $this;
     }
@@ -825,7 +829,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set part
      *
-     * @param  string $part
+     * @param  string  $part
      * @return Article
      */
     public function setPart($part)
@@ -894,7 +898,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set uri
      *
-     * @param  string $uri
+     * @param  string  $uri
      * @return Article
      */
     public function setUri($uri)
@@ -917,7 +921,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set abstract
      *
-     * @param  string $abstract
+     * @param  string  $abstract
      * @return Article
      */
     public function setAbstract($abstract)
@@ -940,7 +944,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set abstractTransliterated
      *
-     * @param  string $abstractTransliterated
+     * @param  string  $abstractTransliterated
      * @return Article
      */
     public function setAbstractTransliterated($abstractTransliterated)
@@ -963,9 +967,9 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove attributes
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleAttribute $attributes
+     * @param ArticleAttribute $attributes
      */
-    public function removeAttribute(\Ojs\JournalBundle\Entity\ArticleAttribute $attributes)
+    public function removeAttribute(ArticleAttribute $attributes)
     {
         $this->attributes->removeElement($attributes);
     }
@@ -973,7 +977,7 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get attributes
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getAttributes()
     {
@@ -983,10 +987,10 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add articleAuthors
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @param  ArticleAuthor $articleAuthors
      * @return Article
      */
-    public function addArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    public function addArticleAuthor(ArticleAuthor $articleAuthors)
     {
         $this->articleAuthors[] = $articleAuthors;
 
@@ -996,9 +1000,9 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove articleAuthors
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors
+     * @param ArticleAuthor $articleAuthors
      */
-    public function removeArticleAuthor(\Ojs\JournalBundle\Entity\ArticleAuthor $articleAuthors)
+    public function removeArticleAuthor(ArticleAuthor $articleAuthors)
     {
         $this->articleAuthors->removeElement($articleAuthors);
     }
@@ -1006,10 +1010,10 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Add articleFiles
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @param  ArticleFile $articleFiles
      * @return Article
      */
-    public function addArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    public function addArticleFile(ArticleFile $articleFiles)
     {
         $this->articleFiles[] = $articleFiles;
 
@@ -1019,9 +1023,9 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Remove articleFiles
      *
-     * @param \Ojs\JournalBundle\Entity\ArticleFile $articleFiles
+     * @param ArticleFile $articleFiles
      */
-    public function removeArticleFile(\Ojs\JournalBundle\Entity\ArticleFile $articleFiles)
+    public function removeArticleFile(ArticleFile $articleFiles)
     {
         $this->articleFiles->removeElement($articleFiles);
     }
@@ -1037,25 +1041,26 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param mixed $slug
+     * @param  mixed $slug
      * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
         return $this;
     }
 
     public function __toString()
     {
-        return $this->getTitle() . "[#{$this->getId()}]";
+        return $this->getTitle()."[#{$this->getId()}]";
     }
 
-    /** @var \Doctrine\Common\Collections\ArrayCollection */
+    /** @var ArrayCollection */
     private $userRoles;
 
     /**
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getUserRoles()
     {
@@ -1063,22 +1068,24 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param UserArticleRole $role
+     * @param  UserArticleRole $role
      * @return $this
      */
     public function addUserRole(UserArticleRole $role)
     {
         $this->userRoles->add($role);
+
         return $this;
     }
 
     /**
-     * @param UserArticleRole $role
+     * @param  UserArticleRole $role
      * @return $this
      */
     public function removeUserRole(UserArticleRole $role)
     {
         $this->userRoles->removeElement($role);
+
         return $this;
     }
 
@@ -1096,14 +1103,13 @@ class Article extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param string $header_options
+     * @param  string $header_options
      * @return $this
      */
     public function setHeaderOptions($header_options)
     {
         $this->header_options = $header_options;
+
         return $this;
     }
-
-
 }

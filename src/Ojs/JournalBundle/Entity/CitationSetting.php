@@ -2,11 +2,15 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * CitationSetting
  */
-class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
+class CitationSetting implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      */
@@ -29,19 +33,14 @@ class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @var \Ojs\JournalBundle\Entity\Citation
+     * @var Citation
      */
     protected $citation;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Citation        $citation
-     * @return \Ojs\JournalBundle\Entity\CitationSetting
+     * @param  Citation        $citation
+     * @return CitationSetting
      */
     public function setCitation($citation)
     {
@@ -52,7 +51,7 @@ class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Citation
+     * @return Citation
      */
     public function getCitation()
     {
@@ -137,5 +136,4 @@ class CitationSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     {
         return $this->value;
     }
-
 }

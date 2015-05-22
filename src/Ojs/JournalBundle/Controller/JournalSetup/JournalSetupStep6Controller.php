@@ -4,6 +4,7 @@ namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Document\JournalSetupProgress;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
@@ -19,7 +20,7 @@ class JournalSetupStep6Controller extends Controller
 {
     /**
      * Journal Setup Wizard Step 6 - Saves Journal 's step 6 data
-     * @param Request $request
+     * @param  Request      $request
      * @param $setupId
      * @return JsonResponse
      */
@@ -27,6 +28,7 @@ class JournalSetupStep6Controller extends Controller
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
+        /** @var JournalSetupProgress $setup */
         $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
         $step6Form = $this->createForm(new Step6(), $journal);
@@ -38,19 +40,20 @@ class JournalSetupStep6Controller extends Controller
             $dm->remove($setup);
             $dm->flush();
             $journalLink = $this->get('ojs.journal_service')->generateUrl($journal);
+
             return new JsonResponse(array(
                 'success' => '1',
-                'journalLink' => $journalLink
+                'journalLink' => $journalLink,
             ));
         } else {
             return new JsonResponse(array(
-                'success' => '0'));
+                'success' => '0', ));
         }
     }
 
     /**
      * manager current journal setup step 6
-     * @param Request $request
+     * @param  Request      $request
      * @return JsonResponse
      */
     public function managerUpdateAction(Request $request)
@@ -65,17 +68,16 @@ class JournalSetupStep6Controller extends Controller
             //add blocks
             $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
             $journalKey = $twig->encode($currentJournal);
-            $pages = $em->getRepository("OkulbilisimCmsBundle:Post")->findBy(['object'=>$journalKey,'objectId'=>$currentJournal->getId()]);
-            if($pages){
+            $pages = $em->getRepository("OkulbilisimCmsBundle:Post")->findBy(['object' => $journalKey, 'objectId' => $currentJournal->getId()]);
+            if ($pages) {
                 $blockRepo = $em->getRepository("OjsSiteBundle:Block");
                 $checkPagesBlock = $blockRepo->findOneBy([
-                    'type'=>'link',
-                    'object_type'=>'journal',
-                    'object_id'=>$currentJournal->getId(),
-                    'title'=>'Pages'
+                    'type' => 'link',
+                    'object_type' => 'journal',
+                    'object_id' => $currentJournal->getId(),
+                    'title' => 'Pages',
                 ]);
-                if(!$checkPagesBlock)
-                {
+                if (!$checkPagesBlock) {
                     $block = new Block();
                     $block->setType('link')
                         ->setObjectType('journal')
@@ -91,10 +93,10 @@ class JournalSetupStep6Controller extends Controller
                             ->setBlock($block)
                             ->setPost($page)
                             ->setText($page->getTitle())
-                            ->setUrl($router->generate('ojs_journal_index_page_detail',[
-                                'journal_slug'=>$currentJournal->getSlug(),
-                                'slug'=>$page->getSlug(),
-                                'institution'=>$currentJournal->getInstitution()->getSlug()
+                            ->setUrl($router->generate('ojs_journal_index_page_detail', [
+                                'journal_slug' => $currentJournal->getSlug(),
+                                'slug' => $page->getSlug(),
+                                'institution' => $currentJournal->getInstitution()->getSlug(),
                             ]))
                             ->setLinkOrder($i)
                         ;
@@ -104,7 +106,7 @@ class JournalSetupStep6Controller extends Controller
                 }
             }
             $journalSections = $currentJournal->getSections();
-            if(count($journalSections)==0){
+            if (count($journalSections) == 0) {
                 $journalSection = new JournalSection();
                 $journalSection->setTitle($this->get('translator')->trans("Articles"))
                     ->setAllowIndex(true)
@@ -116,14 +118,15 @@ class JournalSetupStep6Controller extends Controller
             $currentJournal->setSetupStatus(true);
             $em->flush();
             $journalLink = $this->get('ojs.journal_service')->generateUrl($currentJournal);
+
             return new JsonResponse([
                 'success' => '1',
-                'journalLink' => $journalLink
+                'journalLink' => $journalLink,
             ]
             );
         } else {
             return new JsonResponse(array(
-                'success' => '0'));
+                'success' => '0', ));
         }
     }
 }

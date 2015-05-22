@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * JournalsIndex
@@ -32,11 +31,10 @@ class JournalsIndex
      */
     private $link;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -46,7 +44,7 @@ class JournalsIndex
     /**
      * Set journal_index_id
      *
-     * @param integer $journalIndexId
+     * @param  integer       $journalIndexId
      * @return JournalsIndex
      */
     public function setJournalIndexId($journalIndexId)
@@ -59,7 +57,7 @@ class JournalsIndex
     /**
      * Get journal_index_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalIndexId()
     {
@@ -69,7 +67,7 @@ class JournalsIndex
     /**
      * Set journal_id
      *
-     * @param integer $journalId
+     * @param  integer       $journalId
      * @return JournalsIndex
      */
     public function setJournalId($journalId)
@@ -82,7 +80,7 @@ class JournalsIndex
     /**
      * Get journal_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -92,7 +90,7 @@ class JournalsIndex
     /**
      * Set link
      *
-     * @param string $link
+     * @param  string        $link
      * @return JournalsIndex
      */
     public function setLink($link)
@@ -105,32 +103,31 @@ class JournalsIndex
     /**
      * Get link
      *
-     * @return string 
+     * @return string
      */
     public function getLink()
     {
         return $this->link;
     }
     /**
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      * @GRID\Column(title="Journal",field="journal.title")
      */
     private $journal;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\JournalIndex
+     * @var JournalIndex
      * @GRID\Column(title="Journal Index", field="journal_index.name")
      */
     private $journal_index;
 
-
     /**
      * Set journal
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal       $journal
      * @return JournalsIndex
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -140,7 +137,7 @@ class JournalsIndex
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal 
+     * @return Journal
      */
     public function getJournal()
     {
@@ -150,10 +147,10 @@ class JournalsIndex
     /**
      * Set journal_index
      *
-     * @param \Ojs\JournalBundle\Entity\JournalIndex $journalIndex
+     * @param  JournalIndex  $journalIndex
      * @return JournalsIndex
      */
-    public function setJournalIndex(\Ojs\JournalBundle\Entity\JournalIndex $journalIndex = null)
+    public function setJournalIndex(JournalIndex $journalIndex = null)
     {
         $this->journal_index = $journalIndex;
 
@@ -163,11 +160,10 @@ class JournalsIndex
     /**
      * Get journal_index
      *
-     * @return \Ojs\JournalBundle\Entity\JournalIndex 
+     * @return JournalIndex
      */
     public function getJournalIndex()
     {
         return $this->journal_index;
     }
-
 }

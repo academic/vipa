@@ -27,7 +27,7 @@
                 <tr>
                     <th>{{"children"|trans}}</th>
                     <td>
-                        {% for c in entity.children %} 
+                        {% for c in entity.children %}
                             <a  class="badge" href="{{ path('subject_show', {id: c.id})}}">{{ c }}</a>
                         {% endfor%}
                     </td>
@@ -36,8 +36,11 @@
 
         </tbody>
     </table>
-    {% set back_path = 'subject' %}
-    {% set edit_path = 'subject_edit' %}
-    {% set delete_path = 'subject_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+
+    <div class="record_actions">
+        {% set back_path = 'subject' %}
+        {% set edit_path = 'subject_edit' %}
+        {% set delete_path = 'subject_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
 {% endblock %}

@@ -3,26 +3,29 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Board;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BoardMemberType extends AbstractType {
+class BoardMemberType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Board $board */
         $board = $options['board'];
         $builder
                 ->add('board', 'entity', array(
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'board',
                     'class' => 'Ojs\JournalBundle\Entity\Board',
-                    'query_builder' =>
-                    function (EntityRepository $er) use ($board) {
+                    'query_builder' => function (EntityRepository $er) use ($board) {
                 /** @var User $user $qb */
                 $qb = $er->createQueryBuilder('b');
                 if ($board) {
@@ -30,13 +33,14 @@ class BoardMemberType extends AbstractType {
                             $qb->expr()->eq('b.id', ':board')
                     )->setParameter('board', $board->getId());
                 }
+
                 return $qb;
-            }
+            },
                         )
                 )
                 ->add('user', 'entity', [
                     'label' => 'user',
-                    'class' => 'Ojs\UserBundle\Entity\User'
+                    'class' => 'Ojs\UserBundle\Entity\User',
                 ])
                 ->add('seq', 'number', ['label' => 'order'])
         ;
@@ -50,7 +54,7 @@ class BoardMemberType extends AbstractType {
         $resolver->setDefaults(array(
             'user' => null,
             'board' => null,
-            'data_class' => 'Ojs\JournalBundle\Entity\BoardMember'
+            'data_class' => 'Ojs\JournalBundle\Entity\BoardMember',
         ));
     }
 
@@ -61,5 +65,4 @@ class BoardMemberType extends AbstractType {
     {
         return 'ojs_journalbundle_board_member';
     }
-
 }

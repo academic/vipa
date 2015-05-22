@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class JournalSectionType extends AbstractType {
+class JournalSectionType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -14,8 +15,8 @@ class JournalSectionType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $journal = $options['journal'];
-        $user = $options['user'];
+        //$journal = $options['journal'];
+        //$user = $options['user'];
         $builder
                 ->add('title')
                 ->add('allowIndex')
@@ -32,10 +33,9 @@ class JournalSectionType extends AbstractType {
             'data_class' => 'Ojs\JournalBundle\Entity\JournalSection',
             'user' => null,
             'journal' => null,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -46,5 +46,4 @@ class JournalSectionType extends AbstractType {
     {
         return 'ojs_journalbundle_journalsection';
     }
-
 }

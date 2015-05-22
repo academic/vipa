@@ -7,7 +7,6 @@ use Ojs\Common\Tests\BaseTestCase;
 class InstitutionControllerTest extends BaseTestCase
 {
 
-
     public function testStatus()
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
@@ -18,5 +17,4 @@ class InstitutionControllerTest extends BaseTestCase
         $this->client->request('GET', '/admin/institution/new');
         $this->assertTrue($this->client->getResponse()->isSuccessful());
     }
-
 }

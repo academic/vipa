@@ -4,20 +4,22 @@ namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
-//use Ojs\JournalBundle\Form\ArticleType;
-//use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use \Ojs\JournalBundle\Document\ArticleSubmissionProgress;
+use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 
 /**
  * Article submission step controller
+ * Class ArticleSubmissionStep1Controller
+ * @package Ojs\JournalBundle\Controller\ArticleSubmission
  */
-class ArticleSubmissionStep1Controller extends Controller {
+class ArticleSubmissionStep1Controller extends Controller
+{
 
     /**
      * submit new article - step1 - get article base data without author info.
-     *
+     * @param  Request      $request
+     * @param $locale
+     * @return JsonResponse
      */
     public function addArticleAction(Request $request, $locale)
     {
@@ -53,12 +55,16 @@ class ArticleSubmissionStep1Controller extends Controller {
         $dm->persist($articleSubmission);
         $dm->flush();
 
-
         return new JsonResponse(array(
             'submissionId' => $articleSubmission->getId(),
-            'locale' => $locale));
+            'locale' => $locale, ));
     }
 
+    /**
+     * @param $data
+     * @param  null  $locale
+     * @return mixed
+     */
     private function generateArticleArray($data, $locale = null)
     {
         $article['title'] = $data['title'];
@@ -67,7 +73,7 @@ class ArticleSubmissionStep1Controller extends Controller {
         $article['subjects'] = $data['subjects'];
         $article['abstract'] = $data['abstract'];
         $article['locale'] = $locale;
+
         return $article;
     }
-
 }

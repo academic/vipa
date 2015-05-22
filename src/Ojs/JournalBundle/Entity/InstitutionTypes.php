@@ -4,17 +4,16 @@ namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * InstitutionTypes
  * @GRID\Source(columns="id,name,description")
  */
-class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
+class InstitutionTypes implements Translatable
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->institutions = new ArrayCollection();
-    }
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -35,6 +34,21 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     private $description;
 
     /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var ArrayCollection|Institution[]
+     */
+    private $institutions;
+
+    public function __construct()
+    {
+        $this->institutions = new ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -47,7 +61,7 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set name
      *
-     * @param  string $name
+     * @param  string           $name
      * @return InstitutionTypes
      */
     public function setName($name)
@@ -70,7 +84,7 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set description
      *
-     * @param  string $description
+     * @param  string           $description
      * @return InstitutionTypes
      */
     public function setDescription($description)
@@ -90,10 +104,8 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
         return $this->description;
     }
 
-    private $slug;
-
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -101,29 +113,41 @@ class InstitutionTypes extends \Ojs\Common\Entity\GenericExtendedEntity
     }
 
     /**
-     * @param mixed $slug
+     * @param  mixed $slug
      * @return $this
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
         return $this;
     }
 
-    private $institutions;
-
+    /**
+     * @param  Institution $institution
+     * @return $this
+     */
     public function addInstitution(Institution $institution)
     {
         $this->institutions[] = $institution;
+
         return $this;
     }
 
+    /**
+     * @param  Institution $institution
+     * @return $this
+     */
     public function removeInstitution(Institution $institution)
     {
         $this->institutions->remove($institution);
+
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getInstitutions()
     {
         return $this->institutions;

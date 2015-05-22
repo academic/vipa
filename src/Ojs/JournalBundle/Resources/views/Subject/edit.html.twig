@@ -4,7 +4,9 @@
     <h1>{{"subject.edit"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'subject' %}
-    {% set delete_path = 'subject_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <div class="record_actions">
+        {% set back_path = 'subject' %}
+        {% set delete_path = 'subject_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
 {% endblock %}

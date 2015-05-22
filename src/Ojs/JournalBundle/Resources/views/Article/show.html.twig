@@ -1,6 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
 
-{% block breadcrumb %} 
+{% block breadcrumb %}
     {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
     { 'link': path('article'), 'title': 'article.manager'|trans},
     { 'title' : 'article.detail'|trans} ])}}
@@ -147,7 +147,7 @@
             </tr>
             <tr>
                 <th>{{"citations"|trans}}</th>
-                <td> 
+                <td>
                     {% for citation in entity.citations%}
                         <p>
                             <span class="badge">{{loop.index}}</span> {{ citation.raw }}<br>
@@ -165,7 +165,7 @@
         {% set back_path = 'article' %}
         {% set edit_path = 'article_edit' %}
         {% set delete_path = 'article_delete' %}
-        {% include '::actionbuttons.html.twig' %}
+        {% include '::actionbtns.html.twig' %}
 
     </div>
 {% endblock %}

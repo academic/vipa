@@ -2,15 +2,19 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalSection
  * @GRID\Source(columns="id,title,allowIndex,hideTitle,journal.title")
  */
-class JournalSection extends GenericExtendedEntity
+class JournalSection implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      * @GRID\Column(title="ID")
@@ -41,20 +45,19 @@ class JournalSection extends GenericExtendedEntity
     private $journalId;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var Collection|Article[]
      */
     private $articles;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      * @GRID\Column(title="journalsection.journal", field="journal.title")
      */
     private $journal;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     /**
@@ -70,10 +73,10 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Add articles
      *
-     * @param  \Ojs\JournalBundle\Entity\Article $articles
-     * @return Journal
+     * @param  Article $article
+     * @return $this
      */
-    public function addArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function addArticle(Article $article)
     {
         $this->articles[] = $article;
 
@@ -83,9 +86,9 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Remove articles
      *
-     * @param \Ojs\JournalBundle\Entity\Article $article
+     * @param Article $article
      */
-    public function removeArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function removeArticle(Article $article)
     {
         $this->articles->removeElement($article);
     }
@@ -93,7 +96,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getArticles()
     {
@@ -103,7 +106,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set title
      *
-     * @param  string $title
+     * @param  string         $title
      * @return JournalSection
      */
     public function setTitle($title)
@@ -126,7 +129,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set allowIndex
      *
-     * @param  boolean $allowIndex
+     * @param  boolean        $allowIndex
      * @return JournalSection
      */
     public function setAllowIndex($allowIndex)
@@ -149,7 +152,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set hideTitle
      *
-     * @param  boolean $hideTitle
+     * @param  boolean        $hideTitle
      * @return JournalSection
      */
     public function setHideTitle($hideTitle)
@@ -172,7 +175,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set journalId
      *
-     * @param  integer $journalId
+     * @param  integer        $journalId
      * @return JournalSection
      */
     public function setJournalId($journalId)
@@ -195,7 +198,7 @@ class JournalSection extends GenericExtendedEntity
     /**
      * Set journal
      *
-     * @param  Journal $journal
+     * @param  Journal        $journal
      * @return JournalSection
      */
     public function setJournal($journal)
@@ -214,5 +217,4 @@ class JournalSection extends GenericExtendedEntity
     {
         return $this->journal;
     }
-
 }

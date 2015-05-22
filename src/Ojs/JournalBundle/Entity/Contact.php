@@ -3,12 +3,16 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Contact
  * @GRID\Source(columns="id,title,firstName,lastName,country,phone,email")
  */
-class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
+class Contact implements Translatable
+{
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -73,11 +77,6 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     private $email;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Get id
      *
@@ -141,7 +140,7 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
      */
     public function getFullName()
     {
-        return $this->firstName . " " . $this->lastName;
+        return $this->firstName." ".$this->lastName;
     }
 
     /**
@@ -304,7 +303,7 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
     {
         return $this->email;
     }
-    
+
     public function __toString()
     {
         return $this->getFullName();
@@ -322,14 +321,13 @@ class Contact extends \Ojs\Common\Entity\GenericExtendedEntity {
     }
 
     /**
-     * @param string $affiliation
+     * @param  string $affiliation
      * @return $this
      */
     public function setAffiliation($affiliation)
     {
         $this->affiliation = $affiliation;
+
         return $this;
     }
-
-
 }

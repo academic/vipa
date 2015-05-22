@@ -5,10 +5,18 @@ namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ArticleSubmissionStep4Controller
+ * @package Ojs\JournalBundle\Controller\ArticleSubmission
+ */
 class ArticleSubmissionStep4Controller extends Controller
 {
-
+    /**
+     * @param  Request               $request
+     * @return JsonResponse|Response
+     */
     public function addFilesAction(Request $request)
     {
         $filesData = json_decode($request->request->get('filesData'));
@@ -17,7 +25,7 @@ class ArticleSubmissionStep4Controller extends Controller
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
         if (empty($filesData) || !$submissionId || !$articleSubmission) {
-            return new \Symfony\Component\HttpFoundation\Response('Missing argument', 400);
+            return new Response('Missing argument', 400);
         }
 
         for ($i = 0; $i < count($filesData); $i++) {
@@ -28,7 +36,7 @@ class ArticleSubmissionStep4Controller extends Controller
         $articleSubmission->setFiles($filesData);
         $dm->persist($articleSubmission);
         $dm->flush();
+
         return new JsonResponse(array('redirect' => $this->generateUrl('article_submission_preview', array('submissionId' => $submissionId))));
     }
-
 }

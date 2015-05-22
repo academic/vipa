@@ -4,7 +4,7 @@
     <h1>{{"lang.list"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-
-    {% set create_path = 'lang_new' %}
-    {% include '::actionbuttons.html.twig' %}
+    <a href="{{ path('lang_new') }}" class="btn btn-success">
+        {{"c"|trans}}
+    </a>
 {% endblock %}

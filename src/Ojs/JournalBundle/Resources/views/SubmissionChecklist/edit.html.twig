@@ -2,7 +2,7 @@
 
 {% block  stylesheets %}
     {{parent()}}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
 {% block body -%}
@@ -10,9 +10,18 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'manager_submission_checklist' %}
-    {% set delete_path = 'manager_submission_checklist_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('manager_submission_checklist') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('manager_submission_checklist_delete', { 'id': entity.id }) }}">
+            Delete
+        </a>
+    </li>
+</ul>
 {% endblock %}
 
 {% block  javascripts %}

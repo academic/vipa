@@ -6,15 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FileType extends AbstractType {
-
+class FileType extends AbstractType
+{
     /**
-     * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param  FormBuilderInterface $builder
+     * @param  array                $options
+     * @return bool
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return FALSE;
+        return false;
     }
 
     /**
@@ -25,9 +26,8 @@ class FileType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\File',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -38,5 +38,4 @@ class FileType extends AbstractType {
     {
         return 'ojs_journalbundle_articlefile';
     }
-
 }

@@ -21,7 +21,7 @@ Ojs\JournalBundle\Entity\ArticleFile:
             joinColumn:
                 name: file_id
                 referencedColumnName: id
-        
+
     fields:
         type:
             type: integer

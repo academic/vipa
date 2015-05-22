@@ -2,12 +2,11 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Sums
  */
-class Sums {
+class Sums
+{
 
     /**
      * @var integer
@@ -27,7 +26,7 @@ class Sums {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -37,19 +36,20 @@ class Sums {
     /**
      * Set entity
      *
-     * @param string $entity
+     * @param  string $entity
      * @return Sums
      */
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
 
     /**
      * Get entity
      *
-     * @return string 
+     * @return string
      */
     public function getEntity()
     {
@@ -59,7 +59,7 @@ class Sums {
     /**
      * Set sum
      *
-     * @param integer $sum
+     * @param  integer $sum
      * @return Sums
      */
     public function setSum($sum)
@@ -72,11 +72,10 @@ class Sums {
     /**
      * Get sum
      *
-     * @return integer 
+     * @return integer
      */
     public function getSum()
     {
         return $this->sum;
     }
-
 }

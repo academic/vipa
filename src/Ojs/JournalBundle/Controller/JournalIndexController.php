@@ -35,8 +35,8 @@ class JournalIndexController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig',$data);
 
+        return $grid->getGridResponse('OjsJournalBundle:JournalIndex:index.html.twig', $data);
     }
     /**
      * Creates a new JournalIndex entity.
@@ -51,12 +51,13 @@ class JournalIndexController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $logo = $request->get('logo');
-            if($logo){
+            if ($logo) {
                 $entity->setLogoOptions(json_encode($logo));
             }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('admin_journalindex_show', ['id' => $entity->getId()]);
         }
 
@@ -79,7 +80,6 @@ class JournalIndexController extends Controller
             'action' => $this->generateUrl('admin_journalindex_create'),
             'method' => 'POST',
         ));
-
 
         return $form;
     }
@@ -114,7 +114,7 @@ class JournalIndexController extends Controller
         }
 
         return $this->render('OjsJournalBundle:JournalIndex:show.html.twig', array(
-            'entity'      => $entity
+            'entity'      => $entity,
         ));
     }
 
@@ -136,24 +136,23 @@ class JournalIndexController extends Controller
 
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a JournalIndex entity.
-    *
-    * @param JournalIndex $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a JournalIndex entity.
+     *
+     * @param JournalIndex $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(JournalIndex $entity)
     {
         $form = $this->createForm(new JournalIndexType(), $entity, array(
             'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
-
 
         return $form;
     }
@@ -165,6 +164,7 @@ class JournalIndexController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var JournalIndex $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalIndex')->find($id);
 
         if (!$entity) {
@@ -176,24 +176,25 @@ class JournalIndexController extends Controller
 
         if ($editForm->isValid()) {
             $logo = $request->get('logo');
-            if($logo){
+            if ($logo) {
                 $entity->setLogoOptions(json_encode($logo));
             }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a JournalIndex entity.
-     * @param JournalIndex $entity
+     * @param  JournalIndex                                       $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(JournalIndex $entity)
@@ -203,6 +204,7 @@ class JournalIndexController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_journalindex');
     }
 }

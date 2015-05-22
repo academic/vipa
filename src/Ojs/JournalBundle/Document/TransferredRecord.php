@@ -1,9 +1,7 @@
 <?php
 namespace Ojs\JournalBundle\Document;
 
-
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Class TransferredRecord
@@ -30,7 +28,6 @@ class TransferredRecord
      */
     protected $new_id;
 
-
     /**
      * @MongoDB\String
      * @var string
@@ -46,12 +43,13 @@ class TransferredRecord
     }
 
     /**
-     * @param int $id
+     * @param  int   $id
      * @return $this
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -64,12 +62,13 @@ class TransferredRecord
     }
 
     /**
-     * @param int $new_id
+     * @param  int   $new_id
      * @return $this
      */
     public function setNewId($new_id)
     {
         $this->new_id = $new_id;
+
         return $this;
     }
 
@@ -82,12 +81,13 @@ class TransferredRecord
     }
 
     /**
-     * @param int $old_id
+     * @param  int   $old_id
      * @return $this
      */
     public function setOldId($old_id)
     {
         $this->old_id = $old_id;
+
         return $this;
     }
 
@@ -100,15 +100,13 @@ class TransferredRecord
     }
 
     /**
-     * @param string $entity
+     * @param  string $entity
      * @return $this
      */
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
-
-
-
 }

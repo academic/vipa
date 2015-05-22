@@ -2,46 +2,46 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation as JMS;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Authors of article and orders
- * @ExclusionPolicy("all")
+ * @JMS\ExclusionPolicy("all")
  */
-class ArticleAuthor extends GenericExtendedEntity
+class ArticleAuthor implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var integer
-     * @Expose
+     * @JMS\Expose
      */
     private $authorOrder;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Author
-     * @Expose
+     * @var Author
+     * @JMS\Expose
      */
     private $author;
 
     /**
-     * @var \Ojs\JournalBundle\Entity\Article
+     * @var Article
      *
      */
     private $article;
 
     public function __construct($name = null, $value = null, $article = null)
     {
-        parent::__construct();
-        $name != null && $this->attribute = $name;
-        $value != null && $this->value = $value;
-        $article != null && $this->article = $article;
+        $this->attribute = $name;
+        $this->value = $value;
+        $this->article = $article;
     }
 
     /**
@@ -97,7 +97,7 @@ class ArticleAuthor extends GenericExtendedEntity
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Article
+     * @return Article
      */
     public function getArticle()
     {
@@ -106,10 +106,10 @@ class ArticleAuthor extends GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Article       $article
-     * @return \Ojs\JournalBundle\Entity\ArticleAuthor
+     * @param  Article       $article
+     * @return ArticleAuthor
      */
-    public function setArticle(\Ojs\JournalBundle\Entity\Article $article)
+    public function setArticle(Article $article)
     {
         $this->article = $article;
 
@@ -118,7 +118,7 @@ class ArticleAuthor extends GenericExtendedEntity
 
     /**
      *
-     * @return \Ojs\JournalBundle\Entity\Author
+     * @return Author
      */
     public function getAuthor()
     {
@@ -127,10 +127,10 @@ class ArticleAuthor extends GenericExtendedEntity
 
     /**
      *
-     * @param  \Ojs\JournalBundle\Entity\Author        $author
-     * @return \Ojs\JournalBundle\Entity\ArticleAuthor
+     * @param  Author        $author
+     * @return ArticleAuthor
      */
-    public function setAuthor(\Ojs\JournalBundle\Entity\Author $author)
+    public function setAuthor(Author $author)
     {
         $this->author = $author;
 
@@ -141,5 +141,4 @@ class ArticleAuthor extends GenericExtendedEntity
     {
         return $this->getAuthor()->getTitle().' '.$this->getAuthor()->getFirstName().' '.$this->getAuthor()->getLastName();
     }
-
 }

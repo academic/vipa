@@ -7,7 +7,6 @@ use Ojs\Common\Tests\BaseTestCase;
 class JournalControllerTest extends BaseTestCase
 {
 
-
     public function testStatus()
     {
         $this->logIn('admin', array('ROLE_SUPER_ADMIN'));
@@ -46,7 +45,6 @@ class JournalControllerTest extends BaseTestCase
 
         $crawler = $this->client->submit($form);
 
-        $this->assertEquals(1,$crawler->filter('html:contains("Redirect")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("Redirect")')->count());
     }
-
 }

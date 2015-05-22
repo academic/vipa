@@ -2,10 +2,13 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Form\CitationSettingType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * CitationSetting controller.
@@ -16,6 +19,7 @@ class CitationSettingController extends Controller
     /**
      * Lists all CitationSetting entities.
      *
+     * @return Response
      */
     public function indexAction()
     {
@@ -30,6 +34,8 @@ class CitationSettingController extends Controller
     /**
      * Creates a new CitationSetting entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -42,6 +48,7 @@ class CitationSettingController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('citationsetting_show', ['id' => $entity->getId()]);
         }
 
@@ -88,6 +95,8 @@ class CitationSettingController extends Controller
     /**
      * Finds and displays a CitationSetting entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -106,11 +115,14 @@ class CitationSettingController extends Controller
     /**
      * Displays a form to edit an existing CitationSetting entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var CitationSetting $entity */
         $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
 
         if (!$entity) {
@@ -130,7 +142,7 @@ class CitationSettingController extends Controller
      *
      * @param CitationSetting $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(CitationSetting $entity)
     {
@@ -147,11 +159,15 @@ class CitationSettingController extends Controller
     /**
      * Edits an existing CitationSetting entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var CitationSetting $entity */
         $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
 
         if (!$entity) {
@@ -163,6 +179,7 @@ class CitationSettingController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('citationsetting_edit', ['id' => $id]);
         }
 
@@ -173,8 +190,9 @@ class CitationSettingController extends Controller
     }
 
     /**
-     * Deletes a CitationSetting entity.
-     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -193,7 +211,21 @@ class CitationSettingController extends Controller
             $em->flush();
         }
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('citationsetting'));
     }
 
+    /**
+     * @param $id
+     * @return Form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('citationsetting_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm()
+            ;
+    }
 }

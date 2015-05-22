@@ -2,16 +2,17 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * JournalTheme
  * @GRID\Source(columns="id,journal.title,theme.title")
  */
-class JournalTheme extends GenericExtendedEntity
+class JournalTheme implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -43,15 +44,10 @@ class JournalTheme extends GenericExtendedEntity
      */
     private $theme;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,7 +57,7 @@ class JournalTheme extends GenericExtendedEntity
     /**
      * Set journalId
      *
-     * @param integer $journalId
+     * @param  integer      $journalId
      * @return JournalTheme
      */
     public function setJournalId($journalId)
@@ -74,7 +70,7 @@ class JournalTheme extends GenericExtendedEntity
     /**
      * Get journalId
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -84,7 +80,7 @@ class JournalTheme extends GenericExtendedEntity
     /**
      * Set themeId
      *
-     * @param integer $themeId
+     * @param  integer      $themeId
      * @return JournalTheme
      */
     public function setThemeId($themeId)
@@ -97,29 +93,29 @@ class JournalTheme extends GenericExtendedEntity
     /**
      * Get themeId
      *
-     * @return integer 
+     * @return integer
      */
     public function getThemeId()
     {
         return $this->themeId;
     }
 
-    
     /**
      * Set journal
-     * @param Journal $journal
+     * @param  Journal      $journal
      * @return JournalTheme
      */
     public function setJournal($journal)
     {
         $this->journal = $journal;
+
         return $this;
     }
 
     /**
      * Get journal
      *
-     * @return Journal 
+     * @return Journal
      */
     public function getJournal()
     {
@@ -129,19 +125,20 @@ class JournalTheme extends GenericExtendedEntity
     /**
      * Set theme
      *
-     * @param Theme $theme
+     * @param  Theme        $theme
      * @return JournalTheme
      */
     public function setTheme($theme)
     {
         $this->theme = $theme;
+
         return $this;
     }
 
     /**
      * Get theme
      *
-     * @return Theme 
+     * @return Theme
      */
     public function getTheme()
     {

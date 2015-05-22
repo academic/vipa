@@ -35,7 +35,8 @@ class JournalDesignController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:JournalDesign:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:JournalDesign:index.html.twig', $data);
     }
     /**
      * Creates a new JournalDesign entity.
@@ -52,6 +53,7 @@ class JournalDesignController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('admin_journaldesign_show', ['id' => $entity->getId()]);
         }
 
@@ -110,7 +112,7 @@ class JournalDesignController extends Controller
         }
 
         return $this->render('OjsJournalBundle:JournalDesign:show.html.twig', array(
-            'entity'      => $entity
+            'entity'      => $entity,
         ));
     }
 
@@ -132,17 +134,17 @@ class JournalDesignController extends Controller
 
         return $this->render('OjsJournalBundle:JournalDesign:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a JournalDesign entity.
-    *
-    * @param JournalDesign $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a JournalDesign entity.
+     *
+     * @param JournalDesign $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(JournalDesign $entity)
     {
         $form = $this->createForm(new JournalDesignType(), $entity, array(
@@ -174,18 +176,19 @@ class JournalDesignController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('admin_journaldesign_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:JournalDesign:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a JournalDesign entity.
-     * @param JournalDesign $entity
+     * @param  JournalDesign                                      $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(JournalDesign $entity)
@@ -195,6 +198,7 @@ class JournalDesignController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('admin_JournalDesign');
     }
 }

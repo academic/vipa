@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class JournalsIndexControllerTest extends BaseTestCase
 {

@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -36,6 +35,7 @@ class InstitutionController extends Controller
 
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsJournalBundle:Institution:index.html.twig', $data);
     }
 
@@ -52,15 +52,16 @@ class InstitutionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $header = $request->request->get('header');
             $cover = $request->request->get('logo');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setLogoOptions(json_encode($cover));
             }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('institution_show', ['id' => $entity->getId()]);
         }
 
@@ -82,7 +83,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType($this->container), $entity, array(
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
-            'helper' => $this->get('okulbilisim_location.form.helper')
+            'helper' => $this->get('okulbilisim_location.form.helper'),
         ));
 
         return $form;
@@ -114,7 +115,7 @@ class InstitutionController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Institution:show.html.twig', array(
-            'entity' => $entity,));
+            'entity' => $entity, ));
     }
 
     /**
@@ -146,7 +147,7 @@ class InstitutionController extends Controller
         $form = $this->createForm(new InstitutionType($this->container), $entity, array(
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'helper' => $this->get('okulbilisim_location.form.helper')
+            'helper' => $this->get('okulbilisim_location.form.helper'),
         ));
 
         return $form;
@@ -167,15 +168,16 @@ class InstitutionController extends Controller
         if ($editForm->isValid()) {
             $header = $request->request->get('header');
             $cover = $request->request->get('logo');
-            if($header){
+            if ($header) {
                 $entity->setHeaderOptions(json_encode($header));
             }
-            if($cover){
+            if ($cover) {
                 $entity->setLogoOptions(json_encode($cover));
             }
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('institution_edit', ['id' => $id]);
         }
 
@@ -197,7 +199,7 @@ class InstitutionController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirect($this->generateUrl('institution'));
     }
-
 }

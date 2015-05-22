@@ -37,7 +37,7 @@ class ArticleSubmissionProgress
 
     /** @MongoDb\String */
     protected $competingOfInterest;
-    
+
     /**
      * @MongoDb\Int
      * @GRID\Column(title="journalid",type="text")
@@ -96,12 +96,13 @@ class ArticleSubmissionProgress
     /**
      * Set currentStep
      *
-     * @param int $currentStep
+     * @param  int  $currentStep
      * @return self
      */
     public function setCurrentStep($currentStep)
     {
         $this->current_step = $currentStep;
+
         return $this;
     }
 
@@ -118,12 +119,13 @@ class ArticleSubmissionProgress
     /**
      * Set startedDate
      *
-     * @param \DateTime $startedDate
+     * @param  \DateTime $startedDate
      * @return self
      */
     public function setStartedDate($startedDate)
     {
         $this->started_date = $startedDate;
+
         return $this;
     }
 
@@ -140,12 +142,13 @@ class ArticleSubmissionProgress
     /**
      * Set lastResumeDate
      *
-     * @param \DateTime $lastResumeDate
+     * @param  \DateTime $lastResumeDate
      * @return self
      */
     public function setLastResumeDate($lastResumeDate)
     {
         $this->last_resume_date = $lastResumeDate;
+
         return $this;
     }
 
@@ -162,12 +165,13 @@ class ArticleSubmissionProgress
     /**
      * Set userId
      *
-     * @param int $userId
+     * @param  int  $userId
      * @return self
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
+
         return $this;
     }
 
@@ -184,12 +188,13 @@ class ArticleSubmissionProgress
     /**
      * Set articleId
      *
-     * @param int $articleId
+     * @param  int  $articleId
      * @return self
      */
     public function setArticleId($articleId)
     {
         $this->article_id = $articleId;
+
         return $this;
     }
 
@@ -206,12 +211,13 @@ class ArticleSubmissionProgress
     /**
      * Set languages
      *
-     * @param collection $languages
+     * @param  array $languages
      * @return self
      */
     public function setLanguages($languages)
     {
         $this->languages = $languages;
+
         return $this;
     }
 
@@ -228,12 +234,13 @@ class ArticleSubmissionProgress
     /**
      * Set articleData
      *
-     * @param hash $articleData
+     * @param  array $articleData
      * @return self
      */
     public function setArticleData($articleData)
     {
         $this->article_data = $articleData;
+
         return $this;
     }
 
@@ -250,12 +257,13 @@ class ArticleSubmissionProgress
     /**
      * Set authors
      *
-     * @param hash $authors
+     * @param  hash $authors
      * @return self
      */
     public function setAuthors($authors)
     {
         $this->authors = $authors;
+
         return $this;
     }
 
@@ -272,12 +280,13 @@ class ArticleSubmissionProgress
     /**
      * Set citations
      *
-     * @param hash $citations
+     * @param  hash $citations
      * @return self
      */
     public function setCitations($citations)
     {
         $this->citations = $citations;
+
         return $this;
     }
 
@@ -294,12 +303,13 @@ class ArticleSubmissionProgress
     /**
      * Set files
      *
-     * @param hash $files
+     * @param  hash $files
      * @return self
      */
     public function setFiles($files)
     {
         $this->files = $files;
+
         return $this;
     }
 
@@ -316,12 +326,13 @@ class ArticleSubmissionProgress
     /**
      * Set journalId
      *
-     * @param int $journalId
+     * @param  int  $journalId
      * @return self
      */
     public function setJournalId($journalId)
     {
         $this->journal_id = $journalId;
+
         return $this;
     }
 
@@ -338,12 +349,13 @@ class ArticleSubmissionProgress
     /**
      * Set primaryLanguage
      *
-     * @param string $primaryLanguage
+     * @param  string $primaryLanguage
      * @return self
      */
     public function setPrimaryLanguage($primaryLanguage)
     {
         $this->primary_language = $primaryLanguage;
+
         return $this;
     }
 
@@ -360,12 +372,13 @@ class ArticleSubmissionProgress
     /**
      * Set submitted
      *
-     * @param boolean $submitted
+     * @param  boolean $submitted
      * @return self
      */
     public function setSubmitted($submitted)
     {
         $this->submitted = $submitted;
+
         return $this;
     }
 
@@ -382,7 +395,7 @@ class ArticleSubmissionProgress
     /**
      * @MongoDB\String
      */
-    protected  $checklist;
+    protected $checklist;
 
     /**
      * @return mixed
@@ -421,16 +434,16 @@ class ArticleSubmissionProgress
         $this->section = $section;
     }
 
-
     /**
      * Set competingOfInterest
      *
-     * @param string $competingOfInterest
+     * @param  string $competingOfInterest
      * @return self
      */
     public function setCompetingOfInterest($competingOfInterest)
     {
         $this->competingOfInterest = $competingOfInterest;
+
         return $this;
     }
 

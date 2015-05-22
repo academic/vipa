@@ -2,34 +2,46 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * Journal key-value settings
  */
-class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
+class JournalSetting implements Translatable
 {
+    use GenericEntityTrait;
+
+    /**
+     * @var Journal
+     */
     private $journal;
+    /**
+     * @var string
+     */
     private $setting;
+    /**
+     * @var string
+     */
     private $value;
 
     /**
      *
-     * @param string                              $setting
-     * @param string                              $value
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param string  $setting
+     * @param string  $value
+     * @param Journal $journal
      */
     public function __construct($setting, $value, $journal)
     {
-        parent::__construct();
         $this->setting = $setting;
         $this->value = $value;
         $this->journal = $journal;
     }
 
-
     /**
      * Set setting
      *
-     * @param string $setting
+     * @param  string         $setting
      * @return JournalSetting
      */
     public function setSetting($setting)
@@ -42,7 +54,7 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get setting
      *
-     * @return string 
+     * @return string
      */
     public function getSetting()
     {
@@ -52,12 +64,12 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set value
      *
-     * @param string $value
+     * @param  string         $value
      * @return JournalSetting
      */
     public function setValue($value)
     {
-        $this->value = $value; 
+        $this->value = $value;
 
         return $this;
     }
@@ -65,7 +77,7 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -75,10 +87,10 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Set journal
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal        $journal
      * @return JournalSetting
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 
@@ -88,7 +100,7 @@ class JournalSetting extends \Ojs\Common\Entity\GenericExtendedEntity
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal 
+     * @return Journal
      */
     public function getJournal()
     {

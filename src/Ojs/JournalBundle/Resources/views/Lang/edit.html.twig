@@ -4,7 +4,10 @@
     <h1>{{"lang.edit"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
-    {% set back_path = 'lang' %}
-    {% set delete_path = 'lang_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <hr>
+    <div class="record_actions">
+        {% set back_path = 'lang' %}
+        {% set delete_path = 'lang_delete' %}
+        {% include '::actionbtns.html.twig' %}
+    </div>
 {% endblock %}

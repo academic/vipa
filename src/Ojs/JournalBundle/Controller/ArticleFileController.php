@@ -2,12 +2,15 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Ojs\Common\Controller\OjsController as Controller;
-
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Form\ArticleFileType;
 
@@ -21,6 +24,8 @@ class ArticleFileController extends Controller
     /**
      * Lists all ArticleFile entities.
      *
+     * @param Article $article
+     * @return Response
      */
     public function indexAction(Article $article)
     {
@@ -30,30 +35,32 @@ class ArticleFileController extends Controller
 
         return $this->render('OjsJournalBundle:ArticleFile:index.html.twig', array(
             'entities' => $entities,
-            'article'=>$article
+            'article' => $article,
         ));
     }
     /**
      * Creates a new ArticleFile entity.
      *
+     * @param Request $request
+     * @param Article $article
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request, Article $article)
     {
         $entity = new ArticleFile();
-        $form = $this->createCreateForm($entity,$article);
+        $form = $this->createCreateForm($entity, $article);
         $form->handleRequest($request);
-        $fileHelper = new \Ojs\Common\Helper\FileHelper();
-        /** @var \Doctrine\ORM\EntityManager $em */
+        $fileHelper = new FileHelper();
         $em = $this->getDoctrine()->getManager();
 
         $file_entity = new File();
         if ($form->isValid()) {
             $file = $request->request->get('file');
             $file_entity->setName($file);
-            $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
-            $file_entity->setSize(filesize($imagepath.$file));
-            $file_entity->setMimeType(mime_content_type($imagepath.$file));
-            $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
+            $imagePath = $this->get('kernel')->getRootDir().'/../web/uploads/articlefiles/'.$fileHelper->generatePath($file, false);
+            $file_entity->setSize(filesize($imagePath.$file));
+            $file_entity->setMimeType(mime_content_type($imagePath.$file));
+            $file_entity->setPath('/uploads/articlefiles/'.$fileHelper->generatePath($file, false));
             $em->persist($file_entity);
 
             $entity->setArticle($article);
@@ -69,6 +76,7 @@ class ArticleFileController extends Controller
             $em->flush();
 
             $this->successFlashBag('Successfully created.');
+
             return $this->redirect($this->generateUrl('articlefile', array('article' => $article->getId())));
         }
 
@@ -81,18 +89,17 @@ class ArticleFileController extends Controller
     /**
      * Creates a form to create a ArticleFile entity.
      *
-     * @param ArticleFile $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @param ArticleFile $entity
+     * @param $article
+     * @return Form
      */
-    private function createCreateForm(ArticleFile $entity,$article)
+    private function createCreateForm(ArticleFile $entity, $article)
     {
         $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
-            'action' => $this->generateUrl('articlefile_create',['article'=> $article]),
+            'action' => $this->generateUrl('articlefile_create', ['article' => $article]),
             'method' => 'POST',
-            'user'=>$this->getUser()
+            'user' => $this->getUser(),
         ));
-
 
         return $form;
     }
@@ -100,23 +107,27 @@ class ArticleFileController extends Controller
     /**
      * Displays a form to create a new ArticleFile entity.
      *
+     * @param Article $article
+     * @return Response
      */
     public function newAction(Article $article)
     {
         $entity = new ArticleFile();
         $entity->setArticle($article);
-        $form   = $this->createCreateForm($entity,$article->getId());
+        $form   = $this->createCreateForm($entity, $article->getId());
 
         return $this->render('OjsJournalBundle:ArticleFile:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-            'article'=> $article
+            'article' => $article,
         ));
     }
 
     /**
      * Finds and displays a ArticleFile entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -130,20 +141,23 @@ class ArticleFileController extends Controller
         }
 
         $type = ArticleFileParams::fileType($entity->getType());
+
         return $this->render('OjsJournalBundle:ArticleFile:show.html.twig', array(
             'entity'      => $entity,
-            'type' => $type
+            'type' => $type,
         ));
     }
 
     /**
      * Displays a form to edit an existing ArticleFile entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var ArticleFile $entity */
         $entity = $em->getRepository('OjsJournalBundle:ArticleFile')->find($id);
 
         if (!$entity) {
@@ -151,6 +165,7 @@ class ArticleFileController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
+
         return $this->render('OjsJournalBundle:ArticleFile:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -158,26 +173,28 @@ class ArticleFileController extends Controller
     }
 
     /**
-    * Creates a form to edit a ArticleFile entity.
-    *
-    * @param ArticleFile $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a ArticleFile entity.
+     *
+     * @param ArticleFile $entity The entity
+     *
+     * @return Form The form
+     */
     private function createEditForm(ArticleFile $entity)
     {
         $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
             'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'user'=>$this->getUser()
+            'user' => $this->getUser(),
         ));
-
 
         return $form;
     }
     /**
      * Edits an existing ArticleFile entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -192,42 +209,44 @@ class ArticleFileController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-        $fileHelper = new \Ojs\Common\Helper\FileHelper();
+        $fileHelper = new FileHelper();
 
         if ($editForm->isValid()) {
             $file = $request->request->get('file');
             $file_entity->setName($file);
             $file_entity->setName($file);
-            $imagepath = $this->get('kernel')->getRootDir() . '/../web/uploads/articlefiles/' . $fileHelper->generatePath($file, false);
-            $file_entity->setSize(filesize($imagepath.$file));
-            $file_entity->setMimeType(mime_content_type($imagepath.$file));
-            $file_entity->setPath('/uploads/articlefiles/' . $fileHelper->generatePath($file, false));
+            $imagePath = $this->get('kernel')->getRootDir().'/../web/uploads/articlefiles/'.$fileHelper->generatePath($file, false);
+            $file_entity->setSize(filesize($imagePath.$file));
+            $file_entity->setMimeType(mime_content_type($imagePath.$file));
+            $file_entity->setPath('/uploads/articlefiles/'.$fileHelper->generatePath($file, false));
             $em->persist($file_entity);
 
             $em->flush();
 
             $this->successFlashBag('Successfully updated.');
+
             return $this->redirect($this->generateUrl('articlefile_edit', array('id' => $id)));
         }
 
         return $this->render('OjsJournalBundle:ArticleFile:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView()
+            'edit_form'   => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a ArticleFile entity.
-     * @param ArticleFile $entity
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param  ArticleFile                                        $entity
+     * @return RedirectResponse
      */
     public function deleteAction(ArticleFile $entity)
     {
         $this->throw404IfNotFound($entity);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
-        return $this->redirectToRoute('articlefile', ['article'=>$entity->getArticleId()]);
+
+        return $this->redirectToRoute('articlefile', ['article' => $entity->getArticleId()]);
     }
 }

@@ -23,7 +23,7 @@ Ojs\JournalBundle\Entity\BoardMember:
               referencedColumnName: id
 #            inversedBy: boardMembers
             cascade: ["persist","merge"]
-    fields: 
+    fields:
         seq:
             type: integer
     lifecycleCallbacks: {  }

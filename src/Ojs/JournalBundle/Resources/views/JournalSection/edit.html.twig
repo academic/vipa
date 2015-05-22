@@ -5,7 +5,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-    {% set back_path = 'manager_journal_section' %} 
+
+    {% set back_path = 'manager_journal_section' %}
     {% set delete_path = 'manager_journal_section_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    {% include '::actionbtns.html.twig' %}
+
 {% endblock %}

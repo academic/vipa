@@ -9,7 +9,6 @@ use Ojs\JournalBundle\Entity\Design;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Form\DesignType;
-use Ojs\Common\Helper\CommonFormHelper as CommonFormHelper;
 
 /**
  * Design controller.
@@ -35,7 +34,8 @@ class DesignController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:Design:index.html.twig',$data);
+
+        return $grid->getGridResponse('OjsJournalBundle:Design:index.html.twig', $data);
     }
 
     /**
@@ -52,6 +52,7 @@ class DesignController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->successFlashBag('successful.create');
+
             return $this->redirectToRoute('design_show', ['id' => $entity->getId()]);
         }
 
@@ -70,7 +71,7 @@ class DesignController extends Controller
      */
     private function createCreateForm(Design $entity)
     {
-        $form = $this->createForm(new DesignType, $entity, array(
+        $form = $this->createForm(new DesignType(), $entity, array(
             'action' => $this->generateUrl('design_create'),
             'method' => 'POST',
         ));
@@ -105,7 +106,7 @@ class DesignController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Design:show.html.twig', array(
-                    'entity' => $entity
+                    'entity' => $entity,
             )
         );
     }
@@ -123,7 +124,7 @@ class DesignController extends Controller
 
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -159,18 +160,19 @@ class DesignController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirectToRoute('design_edit', ['id' => $id]);
         }
 
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView()
+                    'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a Design entity.
-     * @param Design $entity
+     * @param  Design                                             $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Design $entity)
@@ -180,6 +182,7 @@ class DesignController extends Controller
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
+
         return $this->redirectToRoute('design');
     }
 }

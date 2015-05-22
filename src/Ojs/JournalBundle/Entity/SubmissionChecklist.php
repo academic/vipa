@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * SubmissionChecklist
@@ -43,11 +42,10 @@ class SubmissionChecklist
      */
     private $deletedAt;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -57,7 +55,7 @@ class SubmissionChecklist
     /**
      * Set label
      *
-     * @param string $label
+     * @param  string              $label
      * @return SubmissionChecklist
      */
     public function setLabel($label)
@@ -70,7 +68,7 @@ class SubmissionChecklist
     /**
      * Get label
      *
-     * @return string 
+     * @return string
      */
     public function getLabel()
     {
@@ -80,7 +78,7 @@ class SubmissionChecklist
     /**
      * Set detail
      *
-     * @param string $detail
+     * @param  string              $detail
      * @return SubmissionChecklist
      */
     public function setDetail($detail)
@@ -93,7 +91,7 @@ class SubmissionChecklist
     /**
      * Get detail
      *
-     * @return string 
+     * @return string
      */
     public function getDetail()
     {
@@ -103,7 +101,7 @@ class SubmissionChecklist
     /**
      * Set journal_id
      *
-     * @param integer $journalId
+     * @param  integer             $journalId
      * @return SubmissionChecklist
      */
     public function setJournalId($journalId)
@@ -116,7 +114,7 @@ class SubmissionChecklist
     /**
      * Get journal_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getJournalId()
     {
@@ -126,7 +124,7 @@ class SubmissionChecklist
     /**
      * Set visible
      *
-     * @param boolean $visible
+     * @param  boolean             $visible
      * @return SubmissionChecklist
      */
     public function setVisible($visible)
@@ -139,7 +137,7 @@ class SubmissionChecklist
     /**
      * Get visible
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getVisible()
     {
@@ -149,7 +147,7 @@ class SubmissionChecklist
     /**
      * Set deletedAt
      *
-     * @param \DateTime $deletedAt
+     * @param  \DateTime           $deletedAt
      * @return SubmissionChecklist
      */
     public function setDeletedAt($deletedAt)
@@ -162,25 +160,24 @@ class SubmissionChecklist
     /**
      * Get deletedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
         return $this->deletedAt;
     }
     /**
-     * @var \Ojs\JournalBundle\Entity\Journal
+     * @var Journal
      */
     private $journal;
-
 
     /**
      * Set journal
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal             $journal
      * @return SubmissionChecklist
      */
-    public function setJournal(\Ojs\JournalBundle\Entity\Journal $journal = null)
+    public function setJournal(Journal $journal = null)
     {
         $this->journal = $journal;
 
@@ -190,7 +187,7 @@ class SubmissionChecklist
     /**
      * Get journal
      *
-     * @return \Ojs\JournalBundle\Entity\Journal 
+     * @return Journal
      */
     public function getJournal()
     {
@@ -202,11 +199,10 @@ class SubmissionChecklist
      */
     private $locale;
 
-
     /**
      * Set locale
      *
-     * @param string $locale
+     * @param  string              $locale
      * @return SubmissionChecklist
      */
     public function setLocale($locale)
@@ -219,7 +215,7 @@ class SubmissionChecklist
     /**
      * Get locale
      *
-     * @return string 
+     * @return string
      */
     public function getLocale()
     {

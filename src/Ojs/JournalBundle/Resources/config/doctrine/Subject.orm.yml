@@ -111,11 +111,10 @@ Ojs\JournalBundle\Entity\Subject:
                 onDelete: CASCADE
             gedmo:
               - treeParent
-            
+
     oneToMany:
         children:
             targetEntity: Subject
             mappedBy: parent
             orderBy:
                 lft: ASC
-     

@@ -2,17 +2,19 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Lang
  * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,code,name,rtl")
  */
-class Lang extends GenericExtendedEntity
+class Lang implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer
@@ -41,11 +43,6 @@ class Lang extends GenericExtendedEntity
      * @GRID\Column(title="lang.rtl")
      */
     private $rtl;
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Get id
@@ -126,7 +123,8 @@ class Lang extends GenericExtendedEntity
         return $this->rtl;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
 }
