@@ -2,12 +2,17 @@
 
 namespace Ojs\SearchBundle\Controller;
 
-use Elastica\Result;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    /**
+     * @param  Request  $request
+     * @param  int      $page
+     * @return Response
+     */
     public function indexAction(Request $request, $page = 1)
     {
         $data = [];
@@ -30,8 +35,13 @@ class DefaultController extends Controller
         return $this->render('OjsSiteBundle:Search:index.html.twig', $data);
     }
 
-
-    public function tagAction(Request $request, $tag, $page = 1)
+    /**
+     *
+     * @param $tag
+     * @param  int      $page
+     * @return Response
+     */
+    public function tagAction($tag, $page = 1)
     {
         $data = [];
         $searchManager = $this->get('ojs_search_manager');
@@ -42,6 +52,7 @@ class DefaultController extends Controller
 
         $data['tag'] = $tag;
         $data['total_count'] = $searchManager->getCount();
+
         return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
     }
 }

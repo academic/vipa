@@ -25,8 +25,7 @@ class SearchCommand extends ContainerAwareCommand
         $keyword = !$keywordArgument ?
                 $dialog->ask($output, '<question>Search phrase </question> ') :
                 $keywordArgument;
-        $output->writeln("Searching `" . $keyword . "`");
+        $output->writeln("Searching `".$keyword."`");
         $output->writeln("\nResults\n");
     }
-
 }
