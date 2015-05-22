@@ -26,7 +26,7 @@ class AnalyticsRestController extends FOSRestController
      * )
      * @Put("/analytics/view/{entity}/{id}")
      *
-     * @param Request $request
+     * @param  Request     $request
      * @param $id
      * @param $entity
      * @return ObjectViews
@@ -62,7 +62,8 @@ class AnalyticsRestController extends FOSRestController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectView')
-            ->findBy(['objectId'=>$id,'entity'=>$entity]);
+            ->findBy(['objectId' => $id, 'entity' => $entity]);
+
         return $data;
     }
 
@@ -73,15 +74,15 @@ class AnalyticsRestController extends FOSRestController
      * )
      * @Put("/analytics/download/{entity}/{id}/")
      *
-     * @param Request $request
+     * @param  Request         $request
      * @param $id
      * @param $entity
      * @return ObjectDownloads
      */
-    public function putObjectDownloadAction(Request $request, $id,$entity)
+    public function putObjectDownloadAction(Request $request, $id, $entity)
     {
         $filePath = $request->get('file_path');
-        $fileSize = $request->get('file_size')?$request->get('file_size'):0;
+        $fileSize = $request->get('file_size') ? $request->get('file_size') : 0;
         $dm = $this->get('doctrine_mongodb')->getManager();
         $objectDownload = new ObjectDownloads();
 
@@ -105,21 +106,22 @@ class AnalyticsRestController extends FOSRestController
      * )
      * @Get("/analytics/download/{entity}/{id}/")
      *
-     * @param Request $request
+     * @param  Request                                              $request
      * @param $id
      * @param $entity
      * @return array|\Ojs\AnalyticsBundle\Document\ObjectDownload[]
      */
-    public function getObjectDownloadAction(Request $request, $id,$entity)
+    public function getObjectDownloadAction(Request $request, $id, $entity)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $filePath = $request->get('file_path');
         $data = $dm->getRepository('OjsAnalyticsBundle:ObjectDownload')
             ->findBy([
-                'objectId'=>(int)$id, // very interesting {.-.} {-|-} {'-'}
-                'entity'=>$entity,
-                'filePath'=>$filePath
+                'objectId' => (int) $id, // very interesting {.-.} {-|-} {'-'}
+                'entity' => $entity,
+                'filePath' => $filePath,
             ]);
+
         return $data;
     }
 }

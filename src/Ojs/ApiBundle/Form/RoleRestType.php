@@ -28,10 +28,9 @@ class RoleRestType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\Role',
             'csrf_protection' => false,
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -42,5 +41,4 @@ class RoleRestType extends AbstractType
     {
         return '';
     }
-
 }

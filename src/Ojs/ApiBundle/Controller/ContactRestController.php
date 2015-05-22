@@ -8,7 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Get;
 
 class ContactRestController extends FOSRestController
 {
- /**
+    /**
      *
      * @ApiDoc(
      *  resource=true,

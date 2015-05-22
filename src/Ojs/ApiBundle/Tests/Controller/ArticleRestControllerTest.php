@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\ApiBundle\Tests\Controller;
-
 
 use Ojs\Common\Tests\BaseTestCase;
 
@@ -45,38 +43,38 @@ class ArticleRestControllerTest extends BaseTestCase
                 'orderNum' => 0,
                 'settings' => [
                     'address' => 'Adres demo',
-                    'author' => 'Sanatçının sanatı'
-                ]
+                    'author' => 'Sanatçının sanatı',
+                ],
             ], [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 1,
                 'settings' => [
                     'address' => 'Adres demo',
-                    'author' => 'Sanatçının sanatı'
-                ]
+                    'author' => 'Sanatçının sanatı',
+                ],
             ], [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 2,
                 'settings' => [
                     'address' => 'Adres demo',
-                    'author' => 'Sanatçının sanatı'
-                ]
+                    'author' => 'Sanatçının sanatı',
+                ],
             ], [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 3,
                 'settings' => [
                     'address' => 'Adres demo',
-                    'author' => 'Sanatçının sanatı'
-                ]
+                    'author' => 'Sanatçının sanatı',
+                ],
             ],
         ];
-        $response = $this->apiRequest('/api/articles/1/bulkcitations','POST',[
-            'cites'=>json_encode($citations)
+        $response = $this->apiRequest('/api/articles/1/bulkcitations', 'POST', [
+            'cites' => json_encode($citations),
         ]);
-        $this->assertEquals(204,$response->getStatusCode());
+        $this->assertEquals(204, $response->getStatusCode());
     }
     //@todo addCitation, postArticleCitation, postArticleBulkCitation test not here
 }

@@ -23,6 +23,7 @@ class MailTemplateRestController extends FOSRestController
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:MailTemplate')
             ->findBy(['journalId' => null]);
+
         return $templates;
     }
 
@@ -44,6 +45,7 @@ class MailTemplateRestController extends FOSRestController
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:MailTemplate')
             ->findBy(['journalId' => $journal]);
+
         return $templates;
     }
 
@@ -62,13 +64,11 @@ class MailTemplateRestController extends FOSRestController
      */
     public function getMailTemplateAction($id)
     {
-
         $template = $this
             ->getDoctrine()
             ->getRepository('OjsJournalBundle:MailTemplate')
             ->find($id);
+
         return $template;
     }
-
-
 }

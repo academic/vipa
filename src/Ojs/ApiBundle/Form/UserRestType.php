@@ -30,7 +30,7 @@ class UserRestType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ));
     }
 
@@ -44,8 +44,9 @@ class UserRestType extends AbstractType
 
         $options['validation_constraint'] = $collectionConstraint;
         $options['attr'] = [
-                'novalidate'=>'novalidate'
+                'novalidate' => 'novalidate',
         ];
+
         return $options;
     }
 
@@ -57,5 +58,4 @@ class UserRestType extends AbstractType
     {
         return '';
     }
-
 }

@@ -10,7 +10,8 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PublicUserRestController extends FOSRestController {
+class PublicUserRestController extends FOSRestController
+{
 
     /**
      *
@@ -28,7 +29,7 @@ class PublicUserRestController extends FOSRestController {
      * )
      * @Get("/public/user/checkusername/")
      *
-     * @param Request $request
+     * @param  Request $request
      * @return bool
      */
     public function getUsernameCheckAction(Request $request)
@@ -43,20 +44,18 @@ class PublicUserRestController extends FOSRestController {
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      * @ApiDoc(
-     *  resource=true,
-     *  description="get user by id"
-     * )
+     *                                                    resource=true,
+     *                                                    description="get user by id"
+     *                                                    )
      * @Get("/public/user/get/{id}")
      */
-
     public function getUserAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->find('OjsUserBundle:User', $id);
         if ($user) {
-            return JsonResponse::create(['id' => $id, 'text' => $user->getUsername() . " <" . $user->getEmail() . '>']);
+            return JsonResponse::create(['id' => $id, 'text' => $user->getUsername()." <".$user->getEmail().'>']);
         }
-        throw new NotFoundHttpException;
+        throw new NotFoundHttpException();
     }
-
 }
