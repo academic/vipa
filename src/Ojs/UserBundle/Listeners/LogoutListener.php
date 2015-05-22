@@ -17,14 +17,12 @@ class LogoutListener implements LogoutSuccessHandlerInterface
 {
     protected $em;
     protected $tokenStorage;
-    protected $request;
     protected $router;
 
-    public function __construct(EntityManager $em, TokenStorage $tokenStorage, Request $request, Router $router)
+    public function __construct(EntityManager $em, TokenStorage $tokenStorage, Router $router)
     {
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
-        $this->request = $request;
         $this->router = $router;
     }
 
@@ -44,7 +42,7 @@ class LogoutListener implements LogoutSuccessHandlerInterface
             //log as eventlog
             $event = new EventLog();
             $event->setEventInfo(UserEventLogParams::$USER_LOGOUT);
-            $event->setIp($this->request->getClientIp());
+            $event->setIp($request->getClientIp());
             $event->setUserId($user->getId());
             $this->em->persist($event);
 
