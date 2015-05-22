@@ -2,8 +2,8 @@
 
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-class AcceptedArticleCountUpdater implements UpdaterInterface{
+class AcceptedArticleCountUpdater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -13,5 +13,4 @@ class AcceptedArticleCountUpdater implements UpdaterInterface{
     {
         // TODO: Implement count() method.
     }
-
 }

@@ -2,8 +2,8 @@
 
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-class DailyReviewCountUpdater implements UpdaterInterface {
+class DailyReviewCountUpdater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -13,5 +13,4 @@ class DailyReviewCountUpdater implements UpdaterInterface {
     {
         // TODO: Implement count() method.
     }
-
 }

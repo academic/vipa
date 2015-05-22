@@ -94,6 +94,7 @@ class ObjectDownload
     public function setObjectId($id)
     {
         $this->objectId = $id;
+
         return $this;
     }
 
@@ -105,6 +106,7 @@ class ObjectDownload
     public function setEntity($entity)
     {
         $this->entity = $entity;
+
         return $this;
     }
 
@@ -116,9 +118,10 @@ class ObjectDownload
     public function setRawData($data)
     {
         $this->rawData = $data;
+
         return $this;
     }
-/** Jungle Boogie  */
+    /** Jungle Boogie  */
     public function getRawData()
     {
         return $this->rawData;

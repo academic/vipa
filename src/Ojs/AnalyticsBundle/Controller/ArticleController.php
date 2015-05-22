@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ArticleController extends Controller
 {
     /**
-     * @param null|int $id
+     * @param  null|int $id
      * @return Response
      */
     public function articleViewsAction($id = null)
@@ -19,7 +19,7 @@ class ArticleController extends Controller
 
             return $this->render('OjsAnalyticsBundle:Article:views_one.html.twig', array(
                         'article' => $article,
-                        'stats' => $stats
+                        'stats' => $stats,
             ));
         }
         // else get all journals
@@ -27,7 +27,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param null|int $id
+     * @param  null|int $id
      * @return Response
      */
     public function articleDownloadsAction($id = null)
@@ -38,11 +38,10 @@ class ArticleController extends Controller
 
             return $this->render('OjsAnalyticsBundle:Article:downloads_one.html.twig', array(
                         'article' => $article,
-                        'stats' => $stats
+                        'stats' => $stats,
             ));
         }
         // else get all journals
         return $this->render('OjsAnalyticsBundle:Article:downloads_all.html.twig');
     }
-
 }

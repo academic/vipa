@@ -2,11 +2,10 @@
 /**
  * www
  */
-
 namespace Ojs\AnalyticsBundle\Updater;
 
-
-class MemberCountUpdater implements UpdaterInterface {
+class MemberCountUpdater implements UpdaterInterface
+{
     public function update()
     {
         // TODO: Implement update() method.
@@ -16,5 +15,4 @@ class MemberCountUpdater implements UpdaterInterface {
     {
         // TODO: Implement count() method.
     }
-
 }
