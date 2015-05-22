@@ -10,5 +10,4 @@ class DefaultControllerTest extends BaseTestCase
     {
         $this->assertEquals(true, true);
     }
-
 }

@@ -5,15 +5,9 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\SearchBundle\Manager;
 
-
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Util\Debug;
-use Elastica\Aggregation\GlobalAggregation;
 use Elastica\Aggregation\Terms;
 use Elastica\Query;
 use Elastica\Query\Bool;
@@ -23,18 +17,17 @@ use Elastica\ResultSet;
 use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Debug\Exception\UndefinedMethodException;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class SearchManager
+ * Class $this
  * @package Ojs\SearchBundle\Manager
  */
 class SearchManager
 {
 
-    /** @var ContainerInterface */
+    /** @var Container */
     protected $container;
     private $term;
 
@@ -73,19 +66,20 @@ class SearchManager
         $results = $search->search($query);
         $count = 0;
         foreach ($results as $result) {
-            /** @var Result $result $x */
-            if (!isset($return_data[$result->getType()]))
+            /** @var Result $result  */
+            if (!isset($return_data[$result->getType()])) {
                 $return_data[$result->getType()] = ['type', 'data'];
+            }
             $return_data[$result->getType()]['type'] = $this->getTypeText($result->getType());
             if (isset($return_data[$result->getType()]['data'])):
-                $return_data[$result->getType()]['data'][] = $this->getObject($result);
-            else:
+                $return_data[$result->getType()]['data'][] = $this->getObject($result); else:
                 $return_data[$result->getType()]['data'] = [$this->getObject($result)];
             endif;
 
             $count = $count + count($result->getData());
         }
         $this->setCount($count);
+
         return $return_data;
     }
 
@@ -100,18 +94,21 @@ class SearchManager
             ->where($qb->expr()->eq('d.id', ':id'))
             ->setParameter('id', $result->getId());
         $cache = $data->getQuery()->getQueryCacheDriver();
-        if (!$cache->contains($result->getId() . "-" . $model))
-            $cache->save($result->getId() . "-" . $model, $data->getQuery()->getOneOrNullResult());
-        return $cache->fetch($result->getId() . "-" . $model);
+        if (!$cache->contains($result->getId()."-".$model)) {
+            $cache->save($result->getId()."-".$model, $data->getQuery()->getOneOrNullResult());
+        }
+
+        return $cache->fetch($result->getId()."-".$model);
     }
 
     public function getTypeText($type)
     {
         $translator = $this->container->get('translator');
+
         return $translator->trans($type);
     }
 
-    public function searchJournal($status = 3,$published=true)
+    public function searchJournal($status = 3, $published = true)
     {
         $em = $this->container->get('doctrine.orm.default_entity_manager');
         $searchObj = $this->container->get('fos_elastica.index.search.journal');
@@ -133,7 +130,7 @@ class SearchManager
 
         $query = new Query();
         $query->setQuery($bool);
-        $query->setFrom( ($this->getPage()-1) * $this->getLimit());
+        $query->setFrom(($this->getPage()-1) * $this->getLimit());
         $query->setSize($this->getLimit());
 
         $aggregation = new Terms('institution');
@@ -168,6 +165,7 @@ class SearchManager
         $this->setCount($search->getTotalHits());
         $this->addAggregation('institution', $this->transform($search->getAggregation('institution')['buckets'], 'OjsJournalBundle:InstitutionTypes'));
         $this->addAggregation('subject', $this->transform($search->getAggregation('subject')['buckets'], 'OjsJournalBundle:Subject'));
+
         return $this;
     }
 
@@ -242,6 +240,7 @@ class SearchManager
         $this->setCount($pagerFanta->getNbResults());
         $this->addAggregation('journal', $this->transform($search->getAggregation('journals')['buckets'], 'OjsJournalBundle:Journal'));
         $this->addAggregation('author', $this->transform($search->getAggregation('authors')['buckets'], 'OjsJournalBundle:Author'));
+
         return $this;
     }
 
@@ -266,11 +265,12 @@ class SearchManager
         foreach ($data as $value) {
             $_data[$value->getId()]['data'] = $value;
             foreach ($bucket as $val) {
-                if ((int)$val['key'] == (int)$value->getId()) {
+                if ((int) $val['key'] == (int) $value->getId()) {
                     $_data[$value->getId()]['bucket'] = $val;
                 }
             }
         }
+
         return $_data;
     }
 
@@ -284,11 +284,12 @@ class SearchManager
 
     /**
      * @param $term
-     * @return SearchManager
+     * @return $this
      */
     public function setTerm($term)
     {
         $this->term = $term;
+
         return $this;
     }
 
@@ -297,19 +298,19 @@ class SearchManager
      */
     public function getPage()
     {
-        return $this->page ;
+        return $this->page;
     }
 
     /**
-     * @param int $page
-     * @return SearchManager
+     * @param  int   $page
+     * @return $this
      */
     public function setPage($page)
     {
         $this->page = $page;
         $page < 1 && ($this->page = 1);
-        return $this;
 
+        return $this;
     }
 
     /**
@@ -321,12 +322,13 @@ class SearchManager
     }
 
     /**
-     * @param mixed $result
-     * @return SearchManager
+     * @param  mixed $result
+     * @return $this
      */
     public function setResult($result)
     {
         $this->result = $result;
+
         return $this;
     }
 
@@ -339,12 +341,13 @@ class SearchManager
     }
 
     /**
-     * @param int $limit
-     * @return SearchManager
+     * @param  int   $limit
+     * @return $this
      */
     public function setLimit($limit)
     {
         $this->limit = $limit;
+
         return $this;
     }
 
@@ -356,36 +359,39 @@ class SearchManager
         return $this->term;
     }
 
-
     /**
-     * @param string $key
+     * @param  string $key
      * @return array
      */
     public function getParam($key = null)
     {
-        if ($key)
+        if ($key) {
             return $this->param[$key];
+        }
+
         return $this->param;
     }
 
     /**
-     * @param array $param
-     * @return SearchManager
+     * @param  array $param
+     * @return $this
      */
     public function setParam($param)
     {
         $this->param = $param;
+
         return $this;
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
-     * @return SearchManager
+     * @param  string $key
+     * @param  mixed  $value
+     * @return $this
      */
     public function addParam($key, $value)
     {
         $this->param[$key] = $value;
+
         return $this;
     }
 
@@ -398,12 +404,13 @@ class SearchManager
     }
 
     /**
-     * @param int $count
-     * @return SearchManager
+     * @param  int   $count
+     * @return $this
      */
     public function setCount($count)
     {
         $this->count = $count;
+
         return $this;
     }
 
@@ -424,18 +431,35 @@ class SearchManager
         return $this->aggregations;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
     public function addFilter($key, $value)
     {
         $this->filter[$key] = $value;
+
         return $this;
     }
 
+    /**
+     * @param  array $filters
+     * @return $this
+     */
     public function addFilters(array $filters)
     {
         $this->filter = array_merge($this->filter, $filters);
+
         return $this;
     }
 
+    /**
+     * @param  Query\Match     $query
+     * @param $key
+     * @param $value
+     * @throws \ErrorException
+     */
     public function applyFilter(Query\Match &$query, $key, $value)
     {
         switch ($key) {
@@ -465,13 +489,13 @@ class SearchManager
     }
 
     /**
-     * @param Pagerfanta $pager
+     * @param  Pagerfanta $pager
      * @return $this
      */
     public function setPager($pager)
     {
         $this->pager = $pager;
+
         return $this;
     }
-
 }
