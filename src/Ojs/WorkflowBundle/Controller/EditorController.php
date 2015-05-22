@@ -2,10 +2,12 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
+use Ojs\Common\Controller\OjsController;
+
 /**
  * Editor Workflow Controller
  */
-class EditorController extends \Ojs\Common\Controller\OjsController
+class EditorController extends OjsController
 {
     /**
      * list published articles - Published
@@ -58,8 +60,7 @@ class EditorController extends \Ojs\Common\Controller\OjsController
         $articles = $this->getDoctrine()->getManager()
                         ->getRepository("OjsJournalBundle:Article")->findByStatus($status);
 
-        return $this->render('OjsWorkflowBundle:Editor:' . $view . '.html.twig', array(
-                    'entities' => $articles));
+        return $this->render('OjsWorkflowBundle:Editor:'.$view.'.html.twig', array(
+                    'entities' => $articles, ));
     }
-
 }

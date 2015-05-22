@@ -10,14 +10,14 @@ ojs_workflowsteps:
     resource: "@OjsWorkflowBundle/Resources/config/routing/workflow.yml"
     prefix: /editor/workflow/
 
-review_form_items: 
+review_form_items:
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_form_items.yml"
     prefix: /editor/
-     
-review_forms: 
+
+review_forms:
     resource: "@OjsWorkflowBundle/Resources/config/routing/review_forms.yml"
     prefix: /editor/
-     
+
 manage_workflowsteps:
     pattern:   /editor/workflow/manage/steps
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
@@ -51,19 +51,19 @@ editor_articles_published:
 articles_assigned_me:
     pattern:  /manager/workflow/articles/assigned/me
     defaults: { _controller: OjsWorkflowBundle:WorkflowStep:index }
-    
+
 article_step_preview:
     pattern:  /manager/workflow/article/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:article }
-    
+
 article_workflow_preview_working_step:
     pattern: /manager/workflow/article/working/preview/{id}
     defaults: {_controller: OjsWorkflowBundle:Manager:previewWorkingStep}
-    
+
 article_workflow_invitation_preview:
     pattern: /manager/workflow/article/invitation/preview/{id}
     defaults: {_controller: OjsWorkflowBundle:Manager:invitationPreview}
-    
+
 article_workflow_invitation_accept:
     pattern: /manager/workflow/article/invitation/accept/{id}
     defaults: {_controller: OjsWorkflowBundle:Manager:invitationAccept}
@@ -71,7 +71,7 @@ article_workflow_invitation_accept:
 article_workflow_invitation_decline:
     pattern: /manager/workflow/article/invitation/decline/{id}
     defaults: {_controller: OjsWorkflowBundle:Manager:invitationDecline}
-    
+
 articles_step_list:
     pattern:  /manager/workflow/articles/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:articles }
@@ -92,7 +92,7 @@ article_step_asssign_add_user:
   pattern: /manager/workflow/article/assign/{articleStepId}/add/user
   defaults: { _controller: OjsWorkflowBundle:Manager:assignAddUser }
   requirements: { _method: post }
-  
+
 update_review:
     pattern: /update_review/{id}
     defaults: { _controller: OjsWorkflowBundle:Manager:reviewUpdate }

@@ -4,7 +4,7 @@
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
     <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}  
+    {% endstylesheets %}
 {% endblock %}
 
 {% block breadcrumb %}
@@ -117,11 +117,9 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@apptour_js' output="c/apptour.js" %}
-    <script type="text/javascript" src="{{ asset_url }}"></script> 
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
     {% if app.user.setting('tour.admin.workflow.articles') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-        {% endjavascripts %} 
+        {% endjavascripts %}
         {% endblock %}
-
-

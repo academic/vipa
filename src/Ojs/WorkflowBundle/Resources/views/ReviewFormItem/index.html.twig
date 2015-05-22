@@ -9,20 +9,20 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
     <h1>{{ 'form.items'|trans }}<small>{{form.title}}</small> </h1>
     {% include '::flashbag.html.twig' %}
-    <hr> 
+    <hr>
     <div class='list-group'>
         {% for entity in formItems %}
-            <div class="list-group-item list-group-item-info"> 
+            <div class="list-group-item list-group-item-info">
                 <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}">{{entity.title}} <span class="badge">{{entity.fieldset}}</span></a>
                 <span class='pull-right'>
                     <span class="btn-group">
-                        <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}" 
+                        <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}"
                            class="btn btn-info btn-xs"><i class="fa fa-info-circle"> {{"details"|trans}}</i>
                         </a>
-                        <a href="{{path('ojs_review_form_items_edit',{'id':entity.id})}}" 
+                        <a href="{{path('ojs_review_form_items_edit',{'id':entity.id})}}"
                            class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
                         </a>
                         <a href="{{path('ojs_review_form_items_delete',{'id':entity.id})}}"
@@ -32,7 +32,7 @@
                 </span>
             </div>
         {% endfor %}
-    </div> 
+    </div>
 
     {% if isJournalManager() %}
         <a href="{{path('ojs_review_form_items_new',{'formId':form.id})}}" class="btn btn-success">
@@ -40,10 +40,10 @@
         </a>
         <a href="{{path('ojs_review_forms_preview',{'id':form.id})}}" class="btn btn-info">
             <i class="fa fa-eye"></i> {{"preview"|trans}}
-        </a> 
+        </a>
         <a class="btn btn-default"
            onclick="return confirm('{{ 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'|trans }}');"
            href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"template.loadDefault"|trans}}</a>
-    {% endif %}  
+    {% endif %}
 
 {% endblock %}

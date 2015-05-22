@@ -8,7 +8,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *
  * @MongoDb\Document(collection="review_form_items",repositoryClass="Ojs\WorkflowBundle\Repository\ReviewFormItemRepository")
  */
-class ReviewFormItem {
+class ReviewFormItem
+{
 
     /**
      * @MongoDb\Id
@@ -30,14 +31,14 @@ class ReviewFormItem {
     protected $confidential;
 
     /**
-     * @MongoDb\String 
+     * @MongoDb\String
      * Questions will be grouped with this under fieldset names
      */
     protected $fieldset;
 
     /**
-     * @MongoDb\String 
-     *  
+     * @MongoDb\String
+     *
      *  - textbox
      *  - textarea
      *  - checkboxes
@@ -50,10 +51,12 @@ class ReviewFormItem {
     /** @MongoDb\Hash */
     protected $fields;
 
+    protected $journalid;
+
     /**
      * Get id
      *
-     * @return id $id
+     * @return $id
      */
     public function getId()
     {
@@ -63,12 +66,13 @@ class ReviewFormItem {
     /**
      * Set journalid
      *
-     * @param int $journalid
+     * @param  int  $journalid
      * @return self
      */
     public function setJournalid($journalid)
     {
         $this->journalid = $journalid;
+
         return $this;
     }
 
@@ -85,12 +89,13 @@ class ReviewFormItem {
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return self
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -107,12 +112,13 @@ class ReviewFormItem {
     /**
      * Set mandatory
      *
-     * @param boolean $mandatory
+     * @param  boolean $mandatory
      * @return self
      */
     public function setMandatory($mandatory)
     {
         $this->mandatory = $mandatory;
+
         return $this;
     }
 
@@ -129,12 +135,13 @@ class ReviewFormItem {
     /**
      * Set inputType
      *
-     * @param string $inputType
+     * @param  string $inputType
      * @return self
      */
     public function setInputType($inputType)
     {
         $this->inputType = $inputType;
+
         return $this;
     }
 
@@ -151,19 +158,20 @@ class ReviewFormItem {
     /**
      * Set fields
      *
-     * @param hash $fields
+     * @param  $fields
      * @return self
      */
     public function setFields($fields)
     {
         $this->fields = $fields;
+
         return $this;
     }
 
     /**
      * Get fields
      *
-     * @return hash $fields
+     * @return $fields
      */
     public function getFields()
     {
@@ -173,7 +181,7 @@ class ReviewFormItem {
     /**
      * Get formId
      *
-     * @return id $formId
+     * @return $formId
      */
     public function getFormId()
     {
@@ -183,24 +191,26 @@ class ReviewFormItem {
     /**
      * Set formId
      *
-     * @param object_id $formId
+     * @param  $formId
      * @return self
      */
     public function setFormId($formId)
     {
         $this->formId = $formId;
+
         return $this;
     }
 
     /**
      * Set confidential
      *
-     * @param boolean $confidential
+     * @param  boolean $confidential
      * @return self
      */
     public function setConfidential($confidential)
     {
         $this->confidential = $confidential;
+
         return $this;
     }
 
@@ -214,16 +224,16 @@ class ReviewFormItem {
         return $this->confidential;
     }
 
-
     /**
      * Set fieldset
      *
-     * @param string $fieldset
+     * @param  string $fieldset
      * @return self
      */
     public function setFieldset($fieldset)
     {
         $this->fieldset = $fieldset;
+
         return $this;
     }
 

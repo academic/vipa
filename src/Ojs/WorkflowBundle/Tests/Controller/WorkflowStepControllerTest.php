@@ -10,5 +10,4 @@ class WorkflowStepControllerTest extends BaseTestCase
     {
         $this->assertEquals(true, true);
     }
-
 }

@@ -13,7 +13,7 @@
 
     {% include '::flashbag.html.twig' %}
 
-    <h1>{{template.title}}<br> 
+    <h1>{{template.title}}<br>
         <small>{{template.description}}</small>
     </h1>
     {% include '::flashbag.html.twig' %}
@@ -29,7 +29,7 @@
                         {%if entity.lastStep%}<span class="badge">{{"lastStep"|trans}}</span>{%endif%}
                         {{entity.title}}
                     </strong>
-                </a> 
+                </a>
                     <!-- color preview -->
                 <span style="width:20px;height:10px;display:inline-block;background-color: {{entity.color}}"></span>
                 {%for role in entity.roles%}
@@ -50,7 +50,7 @@
                         <a class="label label-success" href="{{path('workflow_template_step_show',{ 'stepId': step.id })}}">{{step.title}}</a>
                     {%endfor%}
                 {% endif %}
-            </span> 
+            </span>
 
             <span class="pull-right btn-group">
                 {% if isJournalManager() and (template.isSystemTemplate is defined) %}
@@ -65,7 +65,7 @@
                         </a>
                     {% endif %}
                 {% endif %}
-            </span> 
+            </span>
         </div>
     {% endfor %}
     <hr>
@@ -82,4 +82,4 @@
     {% endif %}
 
 
-{% endblock %} 
+{% endblock %}

@@ -5,13 +5,11 @@
  * Date: 17.03.15
  * Time: 21:54
  */
-
 namespace Ojs\WorkflowBundle\Hydrate;
 
-
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
+use OkulBilisim\CitationParser\Citation;
 use OkulBilisim\CitationParser\Parser as CitationParser;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class Article
@@ -19,18 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Article
 {
-    private $container;
-
     /**
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
-     * @param array $data
+     * @param array             $data
      * @param ArticleReviewStep $step
      */
     public function mapChanges(array $data, ArticleReviewStep &$step)
@@ -43,8 +31,9 @@ class Article
         }
         if (array_key_exists('author', $data['changes'])) {
             foreach ($data['changes']['author'] as $key => $author) {
-                if(empty($author['firstName']) || empty($author['lastName']))
+                if (empty($author['firstName']) || empty($author['lastName'])) {
                     continue;
+                }
                 $articleRevised['authors'][$key - 1] = array_merge($articleRevised['authors'][$key - 1], $author);
             }
         }
@@ -53,8 +42,9 @@ class Article
             foreach ($data['changes']['citation'] as $key => $citation) {
                 $parsedCitations = $citationParser->parse($citation)[0];
                 $citation = $this->grepCitation($parsedCitations, $citation);
-                if(empty($citation['title']))
+                if (empty($citation['title'])) {
                     continue;
+                }
                 $articleRevised['citation'][$key - 1] = array_merge($articleRevised['citation'][$key - 1], $citation);
             }
         }
@@ -84,11 +74,11 @@ class Article
     }
 
     /**
-     * @param $parsedCitations
+     * @param  Citation $parsedCitations
      * @param $citation
      * @return array
      */
-    private function grepCitation($parsedCitations, $citation)
+    private function grepCitation(Citation $parsedCitations, $citation)
     {
         $citation = [
             'type' => $parsedCitations->getType(),
@@ -99,13 +89,14 @@ class Article
             'pages' => $parsedCitations->getPages(),
             'year' => $parsedCitations->getYear(),
             'number' => $parsedCitations->getNumber(),
-            'raw' => $citation
+            'raw' => $citation,
         ];
+
         return $citation;
     }
 
     /**
-     * @param array $authors
+     * @param  array $authors
      * @return array
      */
     private function grepAuthors(array $authors)
@@ -121,11 +112,13 @@ class Article
             isset($authors['middleName']) && isset($authors['middleName'][$key]) && $_author['middleName'] = $authors['middleName'][$key];
             isset($authors['lastName']) && isset($authors['lastName'][$key]) && $_author['lastName'] = $authors['lastName'][$key];
             isset($authors['email']) && isset($authors['email'][$key]) && $_author['email'] = $authors['email'][$key];
-            if(!isset($_author['firstName']) || !isset($_author['lastName']) || empty($_author['firstName']) || empty($_author['lastName']))
+            if (!isset($_author['firstName']) || !isset($_author['lastName']) || empty($_author['firstName']) || empty($_author['lastName'])) {
                 continue;
+            }
 
-            $author[$key]=$_author;
+            $author[$key] = $_author;
         }
+
         return $author;
     }
-} 
+}

@@ -2,25 +2,27 @@
 
 namespace Ojs\WorkflowBundle\Document;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-
 /**
  *
  * @MongoDb\Document(collection="journal_workflow_steps",repositoryClass="Ojs\WorkflowBundle\Repository\JournalWorkflowStepRepository")
  */
-class JournalWorkflowStep {
+class JournalWorkflowStep
+{
 
     /**
      * @MongoDb\Id
      */
     protected $id;
-    
+
     /** @MongoDb\Boolean */
     protected $shouldFileCi;
-    
+
     /** @MongoDb\String */
     protected $ciText;
-    
+
     /** @MongoDb\Int */
     protected $journalid;
 
@@ -47,13 +49,13 @@ class JournalWorkflowStep {
 
     /** @MongoDb\Boolean */
     protected $canReview;
-    
-        /** @MongoDb\Boolean */
+
+    /** @MongoDb\Boolean */
     protected $canRejectSubmission;
 
     /** @MongoDb\Boolean */
     protected $mustBeAssigned;
-    
+
     /** @MongoDb\String */
     protected $introduction;
 
@@ -63,7 +65,8 @@ class JournalWorkflowStep {
     private $reviewForms;
 
     /**
-     *  @MongoDb\ReferenceMany(targetDocument="JournalWorkflowStep",nullable=true)
+     * @MongoDb\ReferenceMany(targetDocument="JournalWorkflowStep",nullable=true)
+     * @var Collection
      */
     private $nextSteps;
 
@@ -86,7 +89,7 @@ class JournalWorkflowStep {
     private $roles;
 
     /**
-     * Default maxdays for this step for review
+     * Default max days for this step for review
      * @MongoDB\Int
      */
     protected $maxdays;
@@ -99,9 +102,10 @@ class JournalWorkflowStep {
 
     /**
      * Document Id
-     * @return id $id
+     * @return $id
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -111,7 +115,8 @@ class JournalWorkflowStep {
      * @param  int  $journalid
      * @return self
      */
-    public function setJournalid($journalid) {
+    public function setJournalid($journalid)
+    {
         $this->journalid = $journalid;
 
         return $this;
@@ -122,7 +127,8 @@ class JournalWorkflowStep {
      *
      * @return int $journalid
      */
-    public function getJournalid() {
+    public function getJournalid()
+    {
         return $this->journalid;
     }
 
@@ -132,7 +138,8 @@ class JournalWorkflowStep {
      * @param  string $title
      * @return self
      */
-    public function setTitle($title) {
+    public function setTitle($title)
+    {
         $this->title = $title;
 
         return $this;
@@ -143,7 +150,8 @@ class JournalWorkflowStep {
      *
      * @return string $title
      */
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
@@ -153,7 +161,8 @@ class JournalWorkflowStep {
      * @param  string $status
      * @return self
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
 
         return $this;
@@ -164,7 +173,8 @@ class JournalWorkflowStep {
      *
      * @return string $status
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
@@ -174,7 +184,8 @@ class JournalWorkflowStep {
      * @param  boolean $firstStep
      * @return self
      */
-    public function setFirstStep($firstStep) {
+    public function setFirstStep($firstStep)
+    {
         $this->firstStep = $firstStep;
 
         return $this;
@@ -185,7 +196,8 @@ class JournalWorkflowStep {
      *
      * @return boolean $firstStep
      */
-    public function getFirstStep() {
+    public function getFirstStep()
+    {
         return $this->firstStep;
     }
 
@@ -195,7 +207,8 @@ class JournalWorkflowStep {
      * @param  boolean $lastStep
      * @return self
      */
-    public function setLastStep($lastStep) {
+    public function setLastStep($lastStep)
+    {
         $this->lastStep = $lastStep;
 
         return $this;
@@ -206,19 +219,19 @@ class JournalWorkflowStep {
      *
      * @return boolean $lastStep
      */
-    public function getLastStep() {
+    public function getLastStep()
+    {
         return $this->lastStep;
     }
-
-
 
     /**
      * Set roles in array format
      * $serializer->serialize($role, 'json')); can be used to generate array from document
-     * @param  hash $roles
+     * @param  $roles
      * @return self
      */
-    public function setRoles($roles) {
+    public function setRoles($roles)
+    {
         $this->roles = $roles;
 
         return $this;
@@ -227,9 +240,10 @@ class JournalWorkflowStep {
     /**
      * Get roles
      *
-     * @return hash $roles
+     * @return $roles
      */
-    public function getRoles() {
+    public function getRoles()
+    {
         return $this->roles;
     }
 
@@ -239,7 +253,8 @@ class JournalWorkflowStep {
      * @param  int  $maxdays
      * @return self
      */
-    public function setMaxdays($maxdays) {
+    public function setMaxdays($maxdays)
+    {
         $this->maxdays = $maxdays;
 
         return $this;
@@ -250,18 +265,21 @@ class JournalWorkflowStep {
      *
      * @return int $maxdays
      */
-    public function getMaxdays() {
+    public function getMaxdays()
+    {
         return $this->maxdays;
     }
 
     /**
      * Set onlyreply
      *
-     * @param boolean $onlyreply
+     * @param  boolean $onlyreply
      * @return self
      */
-    public function setOnlyreply($onlyreply) {
+    public function setOnlyreply($onlyreply)
+    {
         $this->onlyreply = $onlyreply;
+
         return $this;
     }
 
@@ -270,18 +288,21 @@ class JournalWorkflowStep {
      *
      * @return boolean $onlyreply
      */
-    public function getOnlyreply() {
+    public function getOnlyreply()
+    {
         return $this->onlyreply;
     }
 
     /**
      * Set canSeeAuthor
      *
-     * @param boolean $canSeeAuthor
+     * @param  boolean $canSeeAuthor
      * @return self
      */
-    public function setCanSeeAuthor($canSeeAuthor) {
+    public function setCanSeeAuthor($canSeeAuthor)
+    {
         $this->canSeeAuthor = $canSeeAuthor;
+
         return $this;
     }
 
@@ -290,18 +311,21 @@ class JournalWorkflowStep {
      *
      * @return boolean $canSeeAuthor
      */
-    public function getCanSeeAuthor() {
+    public function getCanSeeAuthor()
+    {
         return $this->canSeeAuthor;
     }
 
     /**
      * Set isVisible
      *
-     * @param boolean $isVisible
+     * @param  boolean $isVisible
      * @return self
      */
-    public function setIsVisible($isVisible) {
+    public function setIsVisible($isVisible)
+    {
         $this->isVisible = $isVisible;
+
         return $this;
     }
 
@@ -310,18 +334,21 @@ class JournalWorkflowStep {
      *
      * @return boolean $isVisible
      */
-    public function getIsVisible() {
+    public function getIsVisible()
+    {
         return $this->isVisible;
     }
 
     /**
      * Set canEdit
      *
-     * @param boolean $canEdit
+     * @param  boolean $canEdit
      * @return self
      */
-    public function setCanEdit($canEdit) {
+    public function setCanEdit($canEdit)
+    {
         $this->canEdit = $canEdit;
+
         return $this;
     }
 
@@ -330,18 +357,21 @@ class JournalWorkflowStep {
      *
      * @return boolean $canEdit
      */
-    public function getCanEdit() {
+    public function getCanEdit()
+    {
         return $this->canEdit;
     }
 
     /**
      * Set mustBeAssigned
      *
-     * @param boolean $mustBeAssigned
+     * @param  boolean $mustBeAssigned
      * @return self
      */
-    public function setMustBeAssigned($mustBeAssigned) {
+    public function setMustBeAssigned($mustBeAssigned)
+    {
         $this->mustBeAssigned = $mustBeAssigned;
+
         return $this;
     }
 
@@ -350,69 +380,80 @@ class JournalWorkflowStep {
      *
      * @return boolean $mustBeAssigned
      */
-    public function getMustBeAssigned() {
+    public function getMustBeAssigned()
+    {
         return $this->mustBeAssigned;
     }
 
-    public function __construct() {
-        $this->reviewForms = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct()
+    {
+        $this->reviewForms = new ArrayCollection();
     }
 
     /**
      * Add reviewForm
      *
-     * @param Ojs\WorkflowBundle\Document\ReviewForm $reviewForm
+     * @param ReviewForm $reviewForm
      */
-    public function addReviewForm(\Ojs\WorkflowBundle\Document\ReviewForm $reviewForm) {
+    public function addReviewForm(ReviewForm $reviewForm)
+    {
         $this->reviewForms[] = $reviewForm;
     }
 
     /**
      * Remove reviewForm
      *
-     * @param Ojs\WorkflowBundle\Document\ReviewForm $reviewForm
+     * @param ReviewForm $reviewForm
      */
-    public function removeReviewForm(\Ojs\WorkflowBundle\Document\ReviewForm $reviewForm) {
+    public function removeReviewForm(ReviewForm $reviewForm)
+    {
         $this->reviewForms->removeElement($reviewForm);
     }
 
     /**
      * Get reviewForms
      *
-     * @return Doctrine\Common\Collections\Collection $reviewForms
+     * @return Collection $reviewForms
      */
-    public function getReviewForms() {
+    public function getReviewForms()
+    {
         return $this->reviewForms;
     }
 
     /**
-     * 
-     * @param Ojs\WorkflowBundle\Document\ReviewForm $reviewForm
+     *
+     * @param  ReviewForm $reviewForm
      * @return boolean
      */
-    public function hasForm($reviewForm) {
+    public function hasForm($reviewForm)
+    {
         foreach ($this->getReviewForms() as $form) {
             if ($form->getId() === $reviewForm->getId()) {
                 return true;
             }
         }
+
+        return false;
     }
 
     /**
-     * 
+     *
      */
-    public function removeAllReviewForms() {
+    public function removeAllReviewForms()
+    {
         $this->reviewForms = [];
     }
 
     /**
      * Set color
      *
-     * @param string $color
+     * @param  string $color
      * @return self
      */
-    public function setColor($color) {
+    public function setColor($color)
+    {
         $this->color = $color;
+
         return $this;
     }
 
@@ -421,20 +462,21 @@ class JournalWorkflowStep {
      *
      * @return string $color
      */
-    public function getColor() {
+    public function getColor()
+    {
         return $this->color;
     }
-
 
     /**
      * Set canReview
      *
-     * @param boolean $canReview
+     * @param  boolean $canReview
      * @return self
      */
     public function setCanReview($canReview)
     {
         $this->canReview = $canReview;
+
         return $this;
     }
 
@@ -451,12 +493,13 @@ class JournalWorkflowStep {
     /**
      * Set canRejectSubmission
      *
-     * @param boolean $canRejectSubmission
+     * @param  boolean $canRejectSubmission
      * @return self
      */
     public function setCanRejectSubmission($canRejectSubmission)
     {
         $this->canRejectSubmission = $canRejectSubmission;
+
         return $this;
     }
 
@@ -470,33 +513,33 @@ class JournalWorkflowStep {
         return $this->canRejectSubmission;
     }
 
-
-
     /**
      * Add nextStep
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param JournalWorkflowStep $nextStep
      */
-    public function addNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep)
+    public function addNextStep(JournalWorkflowStep $nextStep)
     {
         $this->nextSteps[] = $nextStep;
     }
-    
-       /**
-     *  remove all nextsteps
+
+    /**
+     *  remove all next steps
      * @return self
      */
-    public function clearNextSteps() {
+    public function clearNextSteps()
+    {
         $this->nextSteps = null;
+
         return $this;
     }
 
     /**
      * Remove nextStep
      *
-     * @param Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep
+     * @param JournalWorkflowStep $nextStep
      */
-    public function removeNextStep(\Ojs\WorkflowBundle\Document\JournalWorkflowStep $nextStep)
+    public function removeNextStep(JournalWorkflowStep $nextStep)
     {
         $this->nextSteps->removeElement($nextStep);
     }
@@ -504,7 +547,7 @@ class JournalWorkflowStep {
     /**
      * Get nextSteps
      *
-     * @return Doctrine\Common\Collections\Collection $nextSteps
+     * @return Collection $nextSteps
      */
     public function getNextSteps()
     {
@@ -514,12 +557,13 @@ class JournalWorkflowStep {
     /**
      * Set introduction
      *
-     * @param string $introduction
+     * @param  string $introduction
      * @return self
      */
     public function setIntroduction($introduction)
     {
         $this->introduction = $introduction;
+
         return $this;
     }
 
@@ -536,12 +580,13 @@ class JournalWorkflowStep {
     /**
      * Set shouldFileCi
      *
-     * @param boolean $shouldFileCi
+     * @param  boolean $shouldFileCi
      * @return self
      */
     public function setShouldFileCi($shouldFileCi)
     {
         $this->shouldFileCi = $shouldFileCi;
+
         return $this;
     }
 
@@ -558,12 +603,13 @@ class JournalWorkflowStep {
     /**
      * Set ciText
      *
-     * @param string $ciText
+     * @param  string $ciText
      * @return self
      */
     public function setCiText($ciText)
     {
         $this->ciText = $ciText;
+
         return $this;
     }
 

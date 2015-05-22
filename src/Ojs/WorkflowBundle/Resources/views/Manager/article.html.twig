@@ -9,7 +9,7 @@
     {% stylesheets '@upload_css' output="c/upload_article_file.css" filter="cssrewrite" %}
     <link rel="stylesheet" href="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"/>
     {% endstylesheets %}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />   
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 
 {% endblock %}
 
@@ -128,12 +128,12 @@
                        title="{{ "searchon.pubmed"|trans }}"
                        href="http://www.ncbi.nlm.nih.gov/pubmed?term={{ articleRevised.title|url_encode }}&cmd=search">
                         PubMed
-                    </a> 
+                    </a>
                     <a id="article_search_pubmed" target="_blank" class="btn btn-xs btn-default"
                        title="{{ "searchon.doaj"|trans }}"
                        href="http://doaj.org/search?source={% raw %}{%22query%22:{%22filtered%22:{%22query%22:{%22query_string%22:{%22query%22:%22{% endraw %}{{ articleRevised.title|url_encode }}{% raw %}%22,%22default_operator%22:%22AND%22}},%22filter%22:{%22bool%22:{%22must%22:[{%22term%22:{%22_type%22:%22journal%22}}]}}}}}{% endraw %}">
                         Doaj
-                    </a> 
+                    </a>
                 </span>
         </h2>
 
@@ -582,7 +582,3 @@
         });
     </script>
 {% endblock %}
-
-
-
-

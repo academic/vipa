@@ -10,7 +10,7 @@
     {{breadcrumb(list)}}
 {% endblock %}
 
-{% block body -%} 
+{% block body -%}
 
     <h2><small>{{ 'title'|trans }}: </small> {{formItem.title}}</h2>
     {% include '::flashbag.html.twig' %}
@@ -24,7 +24,7 @@
                 {{ 'mandatory'|trans }}
             </td>
             <td>
-                {% if formItem.mandatory %}  
+                {% if formItem.mandatory %}
                     <span class="label label-warning">
                         {{ 'Yes'|trans }}
                         <i class="fa fa-warning"></i>
@@ -43,7 +43,7 @@
                 {{ 'confidentail'|trans }}
             </td>
             <td>
-                {% if formItem.confidential %}  
+                {% if formItem.confidential %}
                     <span class="label label-warning">Yes <i class="fa fa-warning"></i></span>
                     {%else%}
                     <span class="label label-info"> No <i class="fa fa-check"></i></span>

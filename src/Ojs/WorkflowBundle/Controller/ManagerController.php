@@ -2,34 +2,44 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
+use Ojs\Common\Controller\OjsController;
+use Ojs\Common\Helper\DateHelper;
+use Ojs\UserBundle\Entity\User;
+use Ojs\WorkflowBundle\Document\ArticleReviewStep;
+use Ojs\WorkflowBundle\Document\Invitation;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller for journal's all users
  * actions will check roles in their logic
  */
-class ManagerController extends \Ojs\Common\Controller\OjsController {
+class ManagerController extends OjsController
+{
 
     /**
      * Preview article's current data with given object id
-     * @param string $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  string   $id
+     * @return Response
      */
     public function articleAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->get('doctrine')->getManager();
-
+        /** @var ArticleReviewStep $articleStep */
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
-        list($daysRemaining, $daysOverDue) = \Ojs\Common\Helper\DateHelper::calculateDaysDiff(
+        list($daysRemaining, $daysOverDue) = DateHelper::calculateDaysDiff(
                         $articleStep->getStartedDate(), $articleStep->getReviewDeadline(), true
         );
         $invitations = $articleStep->getInvitations();
+
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -38,35 +48,36 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
                     'prevStep' => $articleStep->getFrom(),
                     'daysRemaining' => $daysRemaining,
                     'daysOverDue' => $daysOverDue,
-                    'invitations' => $invitations
+                    'invitations' => $invitations,
         ));
     }
 
     /**
-     * 
-     * @param string $id  article review step document id
+     *
+     * @param  string   $id article review step document id
      * @return Response
      */
     public function previewWorkingStepAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->get('doctrine')->getManager();
- 
+
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
+
         return $this->render('OjsWorkflowBundle:Manager:previewWorkingStep.html.twig', array(
                     'articleStep' => $articleStep,
-                    'article' => $article, 
+                    'article' => $article,
                     'step' => $step,
                     'prevStep' => $articleStep->getFrom(),
         ));
     }
-    
+
     /**
-     * 
-     * @param string $id invitation  document id
+     *
+     * @param  string   $id invitation  document id
      * @return Response
      */
     public function invitationPreviewAction($id)
@@ -79,6 +90,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
+
         return $this->render('OjsWorkflowBundle:Manager:invitationPreview.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -90,8 +102,8 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
     }
 
     /**
-     * 
-     * @param string $id invitation document id
+     *
+     * @param  string           $id invitation document id
      * @return RedirectResponse
      */
     public function invitationAcceptAction($id)
@@ -108,6 +120,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         return $this->redirect($this->generateUrl('article_step_preview', array('id' => $articleStep->getId())));
     }
 
+    /**
+     * @param $id
+     * @return Response
+     */
     public function invitationDeclineAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
@@ -117,6 +133,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleStep->getArticleId());
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                 ->find($articleStep->getStep()->getId());
+
         return $this->render('OjsWorkflowBundle:Manager:article.html.twig', array(
                     'articleStep' => $articleStep,
                     'article' => $article,
@@ -128,8 +145,8 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
 
     /**
      * list articles with given step objectid
-     * @param string $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param  string   $id
+     * @return Response
      */
     public function articlesAction($id)
     {
@@ -151,34 +168,36 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $query = $em->createQuery('SELECT a FROM OjsJournalBundle:Article a WHERE a.id IN (?1)')
                 ->setParameter(1, $ids);
         $articles = $query->getResult();
+
         return $this->render('OjsWorkflowBundle:Manager:articles.html.twig', array(
-                    'articles' => $articles, 'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id));
+                    'articles' => $articles, 'articlesStep' => $articlesStep, 'step' => $step, 'id' => $id, ));
     }
 
     /**
      * starting review means : fill "owneruser" attribute with current user data
-     * @param string $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @param  string                $id
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
      */
     public function startReviewAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-
+        /** @var ArticleReviewStep $articleStep */
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $this->throw404IfNotFound($articleStep);
         $articleStep->setOwnerUser($this->getUser());
         $dm->persist($articleStep);
         $dm->flush();
+
         return $this->redirect($this->generateUrl('article_step_preview', array('id' => $id)));
     }
 
     /**
      * next means: update article's reviewed data and duplicate article_workflow_step document
-     * @param Request $request
+     * @param  Request               $request
      * @param $id string
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
      */
     public function nextAction(Request $request, $id)
     {
@@ -189,11 +208,10 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         // this review may be an invited review.
         $isChild = (bool) $articleStep->getParentStep();
 
-
         if (!$articleStep) {
             throw $this->createNotFoundException($this->get('translator')->trans('Article review step not found'));
         }
-        /* @var $nextStep JournalWorkflowStep */
+        /* @var JournalWorkflowStep $nextStep */
         $nextStep = $dm->getRepository("OjsWorkflowBundle:JournalWorkflowStep")->find($nextStepId);
         if (!$nextStep) {
             throw $this->createNotFoundException($this->get('translator')->trans('Selected next step not found'));
@@ -212,13 +230,13 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $newStep->setStep($nextStep);
         $newStep->setStatusText($nextStep->getStatus());
         $deadline = new \DateTime();
-        $deadline->modify("+" . $nextStep->getMaxdays() . " day");
+        $deadline->modify("+".$nextStep->getMaxdays()." day");
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
         $newStep->setFrom($isChild ? $articleStep->getParentStep() : $articleStep);
         $newStep->setNote(null);
         $newStep->setReviewNotes($request->get('notes'));
-       if  ($request->get('competingOfInterest')) {
+        if ($request->get('competingOfInterest')) {
             $newStep->setCompetingOfInterest($request->get('competingOfInterest'));
         }
         //$newStep
@@ -229,7 +247,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep->setTo($isChild ? $articleStep->getParentStep() : $newStep);
         $articleStep->setFinishedDate(new \DateTime());
         $articleStep->setAction($request->get('reviewResultCode'));
-        
+
         /* generate reviewform and append to reviewNotes */
         $reviewFormResults = '';
         $reviewForm = $dm->getRepository("OjsWorkflowBundle:ReviewForm")->find($request->get('reviewFormId'));
@@ -238,13 +256,13 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         /* @var  $item      \Ojs\WorkflowBundle\Document\ReviewFormItem */
         foreach ($reviewFormItems as $item) {
             $reviewFormResults .= '<div class="reviewFormItemRow">';
-            $reviewFormResults .= '<strong class="reviewFormItemLabel">' . $item->getTitle() . '</strong> ';
+            $reviewFormResults .= '<strong class="reviewFormItemLabel">'.$item->getTitle().'</strong> ';
             if ($item->getInputType() == 'checkboxes') {
                 foreach ($request->get($item->getId()) as $value) {
-                    $reviewFormResults .= ' <span class="reviewFormItemValue">' . $value . '</span> ';
+                    $reviewFormResults .= ' <span class="reviewFormItemValue">'.$value.'</span> ';
                 }
             } else {
-                $reviewFormResults .= ' <span class="reviewFormItemValue">' . $request->get($item->getId()) . '</span>';
+                $reviewFormResults .= ' <span class="reviewFormItemValue">'.$request->get($item->getId()).'</span>';
             }
             $reviewFormResults .= '<br></div>';
         }
@@ -252,21 +270,23 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep->setReviewNotes($request->get('notes'));
         $dm->persist($articleStep);
         $dm->flush();
-        $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"' . $nextStep->getTitle() . '"</strong>');
+        $this->get('session')->getFlashBag()->add('success', 'Your review is saved. Next step is <strong>"'.$nextStep->getTitle().'"</strong>');
         $mustBeAssigned = $nextStep->getMustBeAssigned();
         if ($mustBeAssigned && !$isChild) {
             $newStep->setOwnerUser($this->getUser());
             $dm->persist($newStep);
             $dm->flush();
             $this->get('session')->getFlashBag()->add('warning', 'Now you should assign user to this step.');
+
             return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $newStep->getId())));
         }
+
         return $this->redirect($this->generateUrl('ojs_user_index'));
     }
 
     /**
-     * 
-     * @param string  $id article step id
+     *
+     * @param  string   $id article step id
      * @return Response
      */
     public function assignAction($id)
@@ -275,30 +295,32 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($id);
         $data['articleStep'] = $articleStep;
         $data['invitations'] = $articleStep->getInvitations();
+
         return $this->render('OjsWorkflowBundle:Manager:assign.html.twig', $data);
     }
 
     /**
-     * 
-     * @param string $articleStepId
+     *
+     * @param  string   $articleStepId
      * @return Response
      */
     public function assignAddUserAction(Request $request, $articleStepId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        //$invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId()))); 
+        //$invitations = $dm->getRepository('OjsWorkflowBundle:Invitation')->findBy(array('step.$id' => new \MongoId($data['articleStep']->getTo()->getId())));
         $em = $this->getDoctrine()->getManager();
         $articleStep = $dm->getRepository("OjsWorkflowBundle:ArticleReviewStep")->find($articleStepId);
-
 
         $users = $request->get('users');
 
         if (!empty($users)) {
             foreach (explode(',', $users) as $user) {
-                $user = (int)$user;
+                $user = (int) $user;
+                /** @var User $userObject */
                 $userObject = $em->getRepository('OjsUserBundle:User')->find($user);
-                if(!$userObject)
+                if (!$userObject) {
                     continue;
+                }
 
                 /* @var $copyStep \Ojs\WorkflowBundle\Document\ArticleReviewStep  */
                 $copyStep = clone $articleStep;
@@ -306,7 +328,7 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
                 $copyStep->setParentStep($articleStep);
                 $dm->persist($copyStep);
                 $dm->flush();
-                $invitation = new \Ojs\WorkflowBundle\Document\Invitation();
+                $invitation = new Invitation();
                 $invitation->setStep($copyStep);
                 $invitation->setUserId($user);
                 $invitation->setUserEmail($userObject->getEmail());
@@ -318,14 +340,15 @@ class ManagerController extends \Ojs\Common\Controller\OjsController {
             }
         }
 
-        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully for "' . $articleStep->getStep()->getTitle() . '"</strong>');
+        $this->get('session')->getFlashBag()->add('success', 'You have assigned users successfully for "'.$articleStep->getStep()->getTitle().'"</strong>');
+
         return $this->redirect($this->generateUrl('article_step_asssign', array('id' => $articleStepId)));
     }
 
     public function reviewUpdateAction(Request $request, $id)
     {
         $data = $request->request->all();
+
         return JsonResponse::create($data);
     }
-
 }

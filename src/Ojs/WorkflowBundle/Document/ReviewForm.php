@@ -25,7 +25,7 @@ class ReviewForm
     /**
      * Get id
      *
-     * @return id $id
+     * @return $id
      */
     public function getId()
     {
@@ -35,12 +35,13 @@ class ReviewForm
     /**
      * Set journalId
      *
-     * @param int $journalId
+     * @param  int  $journalId
      * @return self
      */
     public function setJournalId($journalId)
     {
         $this->journalId = $journalId;
+
         return $this;
     }
 
@@ -57,12 +58,13 @@ class ReviewForm
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return self
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -75,5 +77,4 @@ class ReviewForm
     {
         return $this->title;
     }
-
 }

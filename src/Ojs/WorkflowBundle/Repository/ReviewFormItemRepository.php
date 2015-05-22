@@ -10,5 +10,4 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
  */
 class ReviewFormItemRepository extends DocumentRepository
 {
-    
 }

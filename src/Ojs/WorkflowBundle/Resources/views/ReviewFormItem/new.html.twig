@@ -14,7 +14,7 @@
         <div class="panel-heading">
             <h1>{{ "review.form.item.new"|trans }}<small>{{form.title}}</small></h1>
         </div>
-        <div class="panel-body"> 
+        <div class="panel-body">
             <div class="panel-body">
                 <form method="post" class="form-row" action="{{path('ojs_review_form_items_create',{'formId':form.id})}}">
                     <div>
@@ -24,13 +24,13 @@
 
                     <div>
                         <label>{{ 'mandatory'|trans }}
-                            <input type="checkbox" name="mandatory" id="mandatoryinput" value="1"> 
+                            <input type="checkbox" name="mandatory" id="mandatoryinput" value="1">
                         </label>
                         <span class="help-block">{{ 'Is this question mandatory?'|trans }}</span>
                     </div>
                     <div>
                         <label>{{ 'confidential'|trans }}
-                            <input type="checkbox" name="confidential" id="confidentialinput" value="1"> 
+                            <input type="checkbox" name="confidential" id="confidentialinput" value="1">
                         </label>
                         <span class="help-block">{{ "If this question's answer may contain confidential data please check."|trans }}</span>
                     </div>
@@ -52,7 +52,7 @@
                         <label>{{ 'fields'|trans }}</label>
                         <textarea id="fieldsinput" class="form-control" name="fields" rows="10" placeholder="{{ 'Add each field text as one line'|trans }}" ></textarea>
                     </div>
-                    
+
                      <div>
                         <label>{{ 'fieldset'|trans }}</label>
                         <input  id="fieldsetinput" class="form-control" name="fieldset" >
