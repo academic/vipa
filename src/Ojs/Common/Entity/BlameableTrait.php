@@ -1,0 +1,37 @@
+<?php
+
+namespace Ojs\Common\Entity;
+
+
+trait BlameableTrait {
+
+    /** @var string  */
+    protected $createdBy = "";
+
+    /** @var string  */
+    protected $updatedBy = "";
+
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function setUpdatedBy($updatedBy)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+}

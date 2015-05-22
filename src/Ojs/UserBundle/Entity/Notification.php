@@ -2,11 +2,15 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
+
 /**
  * Notification
  */
-class Notification extends \Ojs\Common\Entity\GenericExtendedEntity
+class Notification implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      */

@@ -3,12 +3,15 @@
 namespace Ojs\CliBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * CliLog
  */
-class CliLog extends \Ojs\Common\Entity\GenericExtendedEntity
+class CliLog implements Translatable
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer

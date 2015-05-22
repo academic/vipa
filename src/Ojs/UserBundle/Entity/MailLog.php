@@ -2,13 +2,15 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * MailLog
  */
-class MailLog extends GenericExtendedEntity
+class MailLog implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      */
