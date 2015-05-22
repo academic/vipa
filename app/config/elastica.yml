@@ -146,3 +146,14 @@ fos_elastica:
                         finder: ~
                         provider:
                             debug_logging: false
+                location:
+                    mappings:
+                        name: ~
+                    persistence:
+                        driver: orm
+                        model: Okulbilisim\LocationBundle\Entity\Location
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                        provider:
+                            debug_logging: false

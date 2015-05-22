@@ -326,6 +326,75 @@ class PublicSearchRestController extends FOSRestController
      * @param  Request $request
      * @ApiDoc(
      *                          resource=true,
+     *                          description="search locations",
+     *                          parameters={
+     *                          {
+     *                          "name"="q",
+     *                          "dataType"="string",
+     *                          "required"="true",
+     *                          "description"="search term"
+     *                          },
+     *                          {
+     *                          "name"="page",
+     *                          "dataType"="integer",
+     *                          "required"="false",
+     *                          "description"="limit"
+     *                          }
+     *                          }
+     *                          )
+     * @Get("/public/search/location")
+     * @return array
+     */
+    public function getLocationsAction(Request $request)
+    {
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.location');
+
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('name', strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => $result->getData()['name'],
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @ApiDoc(
+     *                                                    resource=true,
+     *                                                    description="get location by id"
+     *                                                    )
+     * @Get("/public/location/get/{id}")
+     */
+    public function getLocationAction($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Journal  $journal */
+        $location = $em->find('OkulbilisimLocationBundle:Location', $id);
+        if ($location) {
+            return JsonResponse::create(['id' => $id, 'name' => $location->getName() ]);
+        }
+        throw new NotFoundHttpException();
+    }
+
+    /**
+     * @param  Request $request
+     * @ApiDoc(
+     *                          resource=true,
      *                          description="search articles",
      *                          parameters={
      *                          {
