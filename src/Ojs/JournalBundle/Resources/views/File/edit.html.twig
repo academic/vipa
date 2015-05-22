@@ -2,8 +2,27 @@
 
 {% block body -%}
     <h1>{{"file.edit"|trans}}</h1>
-    {% include '::flashbag.html.twig' %}
-    {{ form(edit_form) }}
+    <div class="col-md-12">
+        {% include '::flashbag.html.twig' %}
+        <form action="" enctype="multipart/form-data">
+            {{ form_widget(edit_form) }}
+            <span class="btn btn-success fileinput-button">
+                <i class="fa fa-plus"></i>
+                <span>{{"file.select"|trans}}</span>
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input name="file" id="file_input" value="" type="hidden" />
+            </span>
+            <div id="file_upload_progress" style="display: none" class="label label-info">
+
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <div class="form-group">
+                <button type="submit" id="ojs_journalbundle_articlefile_submit" name="ojs_journalbundle_articlefile[submit]" class="btn btn-primary">{{ 'c'|trans }}</button></div>
+        </form>
+    </div>
     {% set back_path = 'admin_file' %}
     {% set delete_path = 'admin_file_delete' %}
     {% include '::actionbuttons.html.twig' %}

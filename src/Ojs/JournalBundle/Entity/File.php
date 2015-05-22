@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * File
@@ -45,7 +46,7 @@ class File implements Translatable
     private $size;
 
     /**
-     * @var Collection
+     * @var \Doctrine\Common\Collections\Collection
      */
     private $articleFiles;
 
@@ -61,7 +62,7 @@ class File implements Translatable
 
     public function __construct()
     {
-        $this->articleFiles = new ArrayCollection();
+        $this->articleFiles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -166,10 +167,11 @@ class File implements Translatable
         return $this->articleFiles;
     }
 
+
     /**
      * Set articleFiles
      *
-     * @param  ArrayCollection $articleFiles
+     * @param \Doctrine\Common\Collections\ArrayCollection $articleFiles
      * @return File
      */
     public function setArticleFiles(ArrayCollection $articleFiles = null)
@@ -183,4 +185,6 @@ class File implements Translatable
     {
         return $this->getName();
     }
+
+
 }

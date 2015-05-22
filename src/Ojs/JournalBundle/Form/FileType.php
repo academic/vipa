@@ -15,7 +15,19 @@ class FileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        return false;
+        $builder
+            ->add('name','hidden',[
+                'label'=>'name'
+            ])
+            ->add('tags','text',[
+                'label'=>'tags'
+            ])
+            ->add('path','hidden',[
+                'label'=>'path'
+            ])
+            ->add('mimeType','hidden')
+            ->add('size','hidden')
+        ;
     }
 
     /**

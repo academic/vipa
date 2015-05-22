@@ -13,7 +13,9 @@
 {% block body -%}
     <h1>{{"file.new"|trans}}</h1>
     <div class="col-md-12">
-        <form action="" enctype="multipart/form-data">
+        {% include '::flashbag.html.twig' %}
+        <form action="{{ url('admin_file_create') }}" enctype="multipart/form-data">
+        {{ form_widget(form) }}
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
                 <span>{{"file.select"|trans}}</span>
@@ -25,12 +27,14 @@
             </div>
 
             <br>
-            <div class="form-row">
-
-                <a class="btn btn-default" href="{{ path('admin_file') }}">{{"back"|trans}}</a>
-            </div>
+            <br>
+            <br>
+            <div class="form-group">
+                <button type="submit" id="ojs_journalbundle_articlefile_submit" name="ojs_journalbundle_articlefile[submit]" class="btn btn-primary">{{ 'c'|trans }}</button></div>
         </form>
     </div>
+    {% set back_path = 'admin_file' %}
+
 {% endblock %}
 
 
@@ -49,7 +53,12 @@
                 $('#file_upload_progress').html("{{"uploading"|trans}}");
             }).bind('fileuploaddone', function (e, data) {
                 $('#file_upload_progress').html("{{"done"|trans}}");
-                $('#file_input').attr('value', JSON.parse(data.result).files.name);
+                console.dir( JSON.parse(data.result));
+                var file = JSON.parse(data.result)
+                $('#ojs_journalbundle_articlefile_name').attr('value', file.files.name);
+                $('#ojs_journalbundle_articlefile_path').attr('value', file.files.path);
+                $('#ojs_journalbundle_articlefile_size').attr('value', file.files.size);
+                $('#ojs_journalbundle_articlefile_mimeType').attr('value', file.files.mimeType);
             });
         });
     </script>
