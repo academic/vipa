@@ -2,8 +2,8 @@
 
 namespace Ojs\Common\Entity;
 
-
-trait TagsTrait {
+trait TagsTrait
+{
     protected $tags = '';
     /**
      * @return string

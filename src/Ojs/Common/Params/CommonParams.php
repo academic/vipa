@@ -91,12 +91,12 @@ class CommonParams
     }
 
     /**
-     * @param integer $statusNum
+     * @param  integer $statusNum
      * @return array
      */
     public static function journalApplicationStatus($statusNum)
     {
-        if(array_key_exists($statusNum, self::$journalApplicationStatusArray)) {
+        if (array_key_exists($statusNum, self::$journalApplicationStatusArray)) {
             return self::$journalApplicationStatusArray[$statusNum];
         } else {
             return self::$journalApplicationStatusArray;
@@ -104,12 +104,12 @@ class CommonParams
     }
 
     /**
-     * @param integer $statusNum
+     * @param  integer $statusNum
      * @return array
      */
     public static function institutionApplicationStatus($statusNum)
     {
-        if(array_key_exists($statusNum, self::$institutionApplicationStatusArray)) {
+        if (array_key_exists($statusNum, self::$institutionApplicationStatusArray)) {
             return self::$institutionApplicationStatusArray[$statusNum];
         } else {
             return self::$institutionApplicationStatusArray;

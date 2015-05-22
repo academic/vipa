@@ -38,15 +38,14 @@ class InstallTestCommand extends ContainerAwareCommand
         $application->run(new \Symfony\Component\Console\Input\StringInput($command3));
         $output->writeln("Locations inserted.");
 
-        $output->writeln($sb . 'Inserting roles to db' . $se);
+        $output->writeln($sb.'Inserting roles to db'.$se);
         $installCommand = new InstallCommand();
         $installCommand->insertRoles($this->getContainer(), $output);
-        $output->writeln($sb . 'Inserting system admin user to db' . $se);
+        $output->writeln($sb.'Inserting system admin user to db'.$se);
         $installCommand->insertAdmin($this->getContainer(), $admin_username, $admin_email, $admin_password);
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
-                . "<info>sudo php app/console ojs:install:initial-data</info> "
-                . "to add sample data\n");
+                ."<info>sudo php app/console ojs:install:initial-data</info> "
+                ."to add sample data\n");
     }
-
 }

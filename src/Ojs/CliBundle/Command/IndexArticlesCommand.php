@@ -31,9 +31,8 @@ class IndexArticlesCommand extends ContainerAwareCommand
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
-        $output->writeln('<info>Index ' . ($journalId ? 'of journal#' . $journalId : 'all') . ' articles</info>');
+        $output->writeln('<info>Index '.($journalId ? 'of journal#'.$journalId : 'all').' articles</info>');
 
         $output->writeln("\nDONE\n");
     }
-
 }

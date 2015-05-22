@@ -178,7 +178,7 @@ class ThemeController extends Controller
     public function deleteAction(Theme $entity)
     {
         $this->throw404IfNotFound($entity);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

@@ -36,7 +36,7 @@ class IssueManagerController extends Controller
 
     /**
      * show issue manager view page
-     * @param  integer                                    $issueId
+     * @param  integer               $issueId
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -59,8 +59,8 @@ class IssueManagerController extends Controller
 
     /**
      * show issue manager arrange issue page , arrange and update
-     * @param  Request                                    $request
-     * @param  integer                                    $issueId
+     * @param  Request               $request
+     * @param  integer               $issueId
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -145,7 +145,7 @@ class IssueManagerController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request                   $request
      * @param $issueId
      * @return RedirectResponse|Response
      */
@@ -183,8 +183,8 @@ class IssueManagerController extends Controller
 
     /**
      * Move an article's postion UP in an issue by updating "order" field of Article
-     * @param  integer                                            $id        issue id
-     * @param  integer                                            $articleId
+     * @param  integer               $id        issue id
+     * @param  integer               $articleId
      * @return RedirectResponse
      * @throws NotFoundHttpException
      */
@@ -197,8 +197,8 @@ class IssueManagerController extends Controller
 
     /**
      * Move an article's position DOWN in an issue by updating "order" field of Article
-     * @param  integer                                            $id        issue id
-     * @param  integer                                            $articleId
+     * @param  integer               $id        issue id
+     * @param  integer               $articleId
      * @return RedirectResponse
      * @throws NotFoundHttpException
      */
@@ -211,8 +211,8 @@ class IssueManagerController extends Controller
 
     /**
      *  Move an article's position in an issue by updating "order" field of Article
-     * @param  integer                                            $articleId
-     * @param  integer                                             $direction "1" or "-1" to specify the way of movement
+     * @param  integer               $articleId
+     * @param  integer               $direction "1" or "-1" to specify the way of movement
      * @return RedirectResponse
      * @throws NotFoundHttpException
      */
@@ -240,7 +240,7 @@ class IssueManagerController extends Controller
 
     /**
      * add article to this issue
-     * @param Request $r
+     * @param  Request               $r
      * @param $id
      * @param $articleId
      * @return RedirectResponse
@@ -276,7 +276,7 @@ class IssueManagerController extends Controller
 
     /**
      * Remove article fro this issue
-     * @param Request $request
+     * @param  Request               $request
      * @param $id
      * @param $articleId
      * @return RedirectResponse
@@ -300,7 +300,7 @@ class IssueManagerController extends Controller
 
     /**
      * Check if issue exists. If not throw exception. If so return issue
-     * @param  integer    $id
+     * @param  integer               $id
      * @return Issue
      * @throws NotFoundHttpException
      */

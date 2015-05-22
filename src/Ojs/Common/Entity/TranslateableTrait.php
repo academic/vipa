@@ -2,8 +2,8 @@
 
 namespace Ojs\Common\Entity;
 
-
-trait TranslateableTrait {
+trait TranslateableTrait
+{
     /**
      * Translateable locale field
      */

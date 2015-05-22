@@ -18,7 +18,8 @@ use Symfony\Component\Translation\Translator;
  *
  * @author Florian Voutzinos <florian@voutzinos.com>
  */
-class TranslateManageCommand extends ContainerAwareCommand {
+class TranslateManageCommand extends ContainerAwareCommand
+{
 
     const MESSAGE_MISSING = 0;
     const MESSAGE_UNUSED = 1;
@@ -27,7 +28,8 @@ class TranslateManageCommand extends ContainerAwareCommand {
     /**
      * {@inheritdoc}
      */
-    protected function configure() {
+    protected function configure()
+    {
         $this
                 ->setName('ojs:translate')
                 ->setDefinition(array(
@@ -67,26 +69,26 @@ EOF
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $locale = $input->getArgument('locale');
         $domain = $input->getOption('domain');
         $bundle_array = explode(",", $input->getArgument('bundle'));
 
         foreach ($bundle_array as $bundle_name) {
-
-            $bundle_name = "Ojs" . $bundle_name . "Bundle";
+            $bundle_name = "Ojs".$bundle_name."Bundle";
 
             $bundle = $this->getContainer()->get('kernel')->getBundle($bundle_name);
             $loader = $this->getContainer()->get('translation.loader');
 
             // Extract used messages
             $extractedCatalogue[$bundle_name] = new MessageCatalogue($locale);
-            $this->getContainer()->get('translation.extractor')->extract($bundle->getPath() . '/Resources/views', $extractedCatalogue[$bundle_name]);
+            $this->getContainer()->get('translation.extractor')->extract($bundle->getPath().'/Resources/views', $extractedCatalogue[$bundle_name]);
 
             // Load defined messages
             $currentCatalogue[$bundle_name] = new MessageCatalogue($locale);
-            if (is_dir($bundle->getPath() . '/Resources/translations')) {
-                $loader->loadMessages($bundle->getPath() . '/Resources/translations', $currentCatalogue[$bundle_name]);
+            if (is_dir($bundle->getPath().'/Resources/translations')) {
+                $loader->loadMessages($bundle->getPath().'/Resources/translations', $currentCatalogue[$bundle_name]);
             }
 
             // Merge defined and extracted messages to get all message ids
@@ -97,7 +99,6 @@ EOF
                     $allMessages[$bundle_name] = array($domain => $allMessages[$bundle_name]);
                 }
             }
-
 
             // No defined or extracted messages
             if (empty($allMessages) || null !== $domain && empty($allMessages[$bundle_name][$domain])) {
@@ -122,7 +123,7 @@ EOF
                     }
 
                     $fallbackCatalogue = new MessageCatalogue($fallbackLocale);
-                    $loader->loadMessages($bundle->getPath() . '/Resources/translations', $fallbackCatalogue);
+                    $loader->loadMessages($bundle->getPath().'/Resources/translations', $fallbackCatalogue);
                     $fallbackCatalogues[] = $fallbackCatalogue;
                 }
             }
@@ -141,7 +142,7 @@ EOF
         foreach ($allMessages as $bundle => $bundle_a) {
             foreach ($bundle_a as $domain => $messages) {
                 foreach (array_keys($messages) as $messageId) {
-                $value = $currentCatalogue[$bundle]->get($messageId, $domain);
+                    $value = $currentCatalogue[$bundle]->get($messageId, $domain);
                     $states = array();
 
                     if ($extractedCatalogue[$bundle]->defines($messageId, $domain)) {
@@ -183,7 +184,8 @@ EOF
         $output->writeln(sprintf(' %s Same as the fallback message', $this->formatState(self::MESSAGE_EQUALS_FALLBACK)));
     }
 
-    private function formatState($state) {
+    private function formatState($state)
+    {
         if (self::MESSAGE_MISSING === $state) {
             return '<fg=red>x</>';
         }
@@ -199,7 +201,8 @@ EOF
         return $state;
     }
 
-    private function formatStates(array $states) {
+    private function formatStates(array $states)
+    {
         $result = array();
         foreach ($states as $state) {
             $result[] = $this->formatState($state);
@@ -208,22 +211,23 @@ EOF
         return implode(' ', $result);
     }
 
-    private function formatId($id) {
+    private function formatId($id)
+    {
         return sprintf('<fg=cyan;options=bold>%s</fg=cyan;options=bold>', $id);
     }
 
-    private function sanitizeString($string, $length = 40) {
+    private function sanitizeString($string, $length = 40)
+    {
         $string = trim(preg_replace('/\s+/', ' ', $string));
 
         if (function_exists('mb_strlen') && false !== $encoding = mb_detect_encoding($string)) {
             if (mb_strlen($string, $encoding) > $length) {
-                return mb_substr($string, 0, $length - 3, $encoding) . '...';
+                return mb_substr($string, 0, $length - 3, $encoding).'...';
             }
         } elseif (strlen($string) > $length) {
-            return substr($string, 0, $length - 3) . '...';
+            return substr($string, 0, $length - 3).'...';
         }
 
         return $string;
     }
-
 }

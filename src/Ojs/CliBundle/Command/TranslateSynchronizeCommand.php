@@ -36,7 +36,7 @@ class TranslateSynchronizeCommand extends ContainerAwareCommand
                 new InputArgument('master', InputArgument::REQUIRED, 'The master language'),
                 new InputArgument('slave', InputArgument::REQUIRED, 'The slave language'),
                 new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle names with commas or use all'),
-                new InputOption('execute', null, InputOption::VALUE_NONE, 'Executes translation synchronize process')
+                new InputOption('execute', null, InputOption::VALUE_NONE, 'Executes translation synchronize process'),
             ))
             ->setDescription('Helps synchronize two translations.')
             ->setHelp(<<<EOF
@@ -63,7 +63,7 @@ EOF
 
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $this->loader = new YamlFileLoader;
+        $this->loader = new YamlFileLoader();
         $this->path = 'src/Ojs/';
     }
 
@@ -75,31 +75,30 @@ EOF
         $execute = $input->getOption('execute');
 
         if ($bundles == 'all') {
-            foreach (glob($this->path . '*', GLOB_ONLYDIR) as $bundle_name) {
+            foreach (glob($this->path.'*', GLOB_ONLYDIR) as $bundle_name) {
                 $bundle_name = str_replace($this->path, '', $bundle_name);
                 $bundle_array[] = $bundle_name;
             };
         } else {
             $bundle_array = explode(",", $input->getArgument('bundle'));
             foreach ($bundle_array as $key => $value) {
-                $bundle_name = $value . 'Bundle';
+                $bundle_name = $value.'Bundle';
                 $bundle_array[$key] = $bundle_name;
             }
         }
 
         foreach ($bundle_array as $bundle_name) {
-
-            $translationPath = $this->path . $bundle_name . '/Resources/translations';
+            $translationPath = $this->path.$bundle_name.'/Resources/translations';
 
             if (!is_dir($translationPath)) {
                 continue;
             }
-            $finder = Finder::create()->name('*.' . $masterLanguage . '.yml')->in($translationPath);
+            $finder = Finder::create()->name('*.'.$masterLanguage.'.yml')->in($translationPath);
 
             $output->writeln("------------------------------------------------------------");
             $output->writeln($bundle_name.' -> Will Scan');
             foreach ($finder as $filename) {
-                if (file_exists($filename)){
+                if (file_exists($filename)) {
                     $output->writeln($filename.' --> Master Translation File Founded.');
                     $this->synchronize($filename->getRealpath(), $masterLanguage, $slaveLanguage, $translationPath, $execute, $output);
                 }
@@ -110,9 +109,9 @@ EOF
     protected function synchronize($filename, $master, $slave, $translationPath, $execute, OutputInterface $output)
     {
         $matches = array();
-        preg_match('#^.*/(.*)\.' . $master . '\.yml$#', $filename, $matches);
+        preg_match('#^.*/(.*)\.'.$master.'\.yml$#', $filename, $matches);
         $domain = $matches[1];
-        $slaveFile = preg_replace('#\.' . $master . '\.yml$#', '.' . $slave . '.yml', $filename);
+        $slaveFile = preg_replace('#\.'.$master.'\.yml$#', '.'.$slave.'.yml', $filename);
 
         $catMasterFile = $this->loader->load($filename, $master, $domain);
 
@@ -138,13 +137,13 @@ EOF
             if ($execute === true) {
                 $dumper->dump($catSlaveFile, array('path' => $translationPath));
                 /*unlink created trash file*/
-                if(file_exists($slaveFile . '~'))
-                    unlink($slaveFile . '~');
+                if (file_exists($slaveFile.'~')) {
+                    unlink($slaveFile.'~');
+                }
                 $output->writeln($slaveFile.' --> <info>Slave file updated</info>');
-            }else{
+            } else {
                 $output->writeln($slaveFile.' --> <info>If you execute file will be updated</info>');
             }
         }
     }
-
 }

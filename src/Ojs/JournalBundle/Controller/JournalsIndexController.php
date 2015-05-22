@@ -60,7 +60,7 @@ class JournalsIndexController extends Controller
     /**
      * Creates a new JournalsIndex entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)

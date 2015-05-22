@@ -32,12 +32,11 @@ class JobManagerCommand extends ContainerAwareCommand
         $kernel = $this->getContainer()->get('kernel');
         $application = new \Symfony\Bundle\FrameworkBundle\Console\Application($kernel);
         $application->setAutoExit(false);
-        $output->writeln('<info>Adding command ' . $command . '</info>');
+        $output->writeln('<info>Adding command '.$command.'</info>');
         $job = new \JMS\JobQueueBundle\Entity\Job($command, $options);
         $em->persist($job);
         $em->flush($job);
 
         $output->writeln("\nDONE\n");
     }
-
 }

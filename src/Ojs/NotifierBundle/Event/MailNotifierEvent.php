@@ -3,9 +3,7 @@
  * Date: 26.01.15
  * Time: 15:30
  */
-
 namespace Ojs\NotifierBundle\Event;
-
 
 use Ojs\Common\Event\NotifierInterface;
 use Ojs\Common\Event\Item;
@@ -29,5 +27,4 @@ class MailNotifierEvent extends Event implements NotifierInterface
     {
         // TODO: Implement process() method.
     }
-
 }

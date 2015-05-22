@@ -11,10 +11,12 @@ use APY\DataGridBundle\Grid\Source\Vector;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\MailTemplateType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Parser;
 use Ojs\Common\Controller\OjsController as Controller;
 
@@ -28,6 +30,7 @@ class MailTemplateController extends Controller
     /**
      * Lists all MailTemplate entities.
      *
+     * @return Response
      */
     public function indexAction()
     {
@@ -42,7 +45,7 @@ class MailTemplateController extends Controller
         });
         /** @var User $user */
         $user = $this->getUser();
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $ta = $source->getTableAlias();
         $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $user, $isAdmin, $ta) {
             if ($isAdmin) {
@@ -145,12 +148,13 @@ class MailTemplateController extends Controller
     /**
      * Displays a form to create a new MailTemplate entity.
      *
+     * @return Response
      */
     public function newAction()
     {
         $entity = new MailTemplate();
         $form = $this->createCreateForm($entity);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         return $this->render('OjsJournalBundle:MailTemplate:'.($isAdmin ? 'admin/' : '').'new.html.twig', array(
             'entity' => $entity,
@@ -161,6 +165,8 @@ class MailTemplateController extends Controller
     /**
      * Finds and displays a MailTemplate entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -180,6 +186,8 @@ class MailTemplateController extends Controller
     /**
      * Displays a form to edit an existing MailTemplate entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
@@ -204,7 +212,7 @@ class MailTemplateController extends Controller
      *
      * @param MailTemplate $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(MailTemplate $entity)
     {
@@ -222,6 +230,9 @@ class MailTemplateController extends Controller
     /**
      * Edits an existing MailTemplate entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -253,7 +264,6 @@ class MailTemplateController extends Controller
     /**
      * Deletes a MailTemplate entity.
      *
-     * @param Request $request
      * @param $id
      * @return RedirectResponse
      */
@@ -261,7 +271,7 @@ class MailTemplateController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
@@ -275,10 +285,15 @@ class MailTemplateController extends Controller
         return $this->redirect($this->generateUrl($isAdmin ? 'mailtemplate' : 'mailtemplate_manager'));
     }
 
+    /**
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
+     */
     public function copyAction(Request $request, $id)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         $entity = new MailTemplate();
 
@@ -306,13 +321,13 @@ class MailTemplateController extends Controller
         $form = $this->createCreateForm($entity);
 
         $form->handleRequest($request);
-        $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPER_ADMIN');
+        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $isAdmin = $this->get('security.context')->isGranted('ROLE_SUPEr_ADMIN');
+            $isAdmin = $this->isGranted('ROLE_SUPEr_ADMIN');
 
             return $this->redirect($this->generateUrl('mailtemplate'.($isAdmin ? '' : '_manager').'_show', array('id' => $entity->getId())));
         }

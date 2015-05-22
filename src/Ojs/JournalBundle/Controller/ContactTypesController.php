@@ -45,7 +45,7 @@ class ContactTypesController extends Controller
     /**
      * Creates a new ContactTypes entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -159,7 +159,7 @@ class ContactTypesController extends Controller
     /**
      * Edits an existing ContactTypes entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -186,7 +186,7 @@ class ContactTypesController extends Controller
     /**
      * Deletes a ContactTypes entity.
      *
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */

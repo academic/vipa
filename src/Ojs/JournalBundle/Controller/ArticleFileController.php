@@ -24,7 +24,7 @@ class ArticleFileController extends Controller
     /**
      * Lists all ArticleFile entities.
      *
-     * @param Article $article
+     * @param  Article  $article
      * @return Response
      */
     public function indexAction(Article $article)
@@ -41,8 +41,8 @@ class ArticleFileController extends Controller
     /**
      * Creates a new ArticleFile entity.
      *
-     * @param Request $request
-     * @param Article $article
+     * @param  Request                   $request
+     * @param  Article                   $article
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request, Article $article)
@@ -89,7 +89,7 @@ class ArticleFileController extends Controller
     /**
      * Creates a form to create a ArticleFile entity.
      *
-     * @param ArticleFile $entity
+     * @param  ArticleFile $entity
      * @param $article
      * @return Form
      */
@@ -107,7 +107,7 @@ class ArticleFileController extends Controller
     /**
      * Displays a form to create a new ArticleFile entity.
      *
-     * @param Article $article
+     * @param  Article  $article
      * @return Response
      */
     public function newAction(Article $article)
@@ -192,7 +192,7 @@ class ArticleFileController extends Controller
     /**
      * Edits an existing ArticleFile entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -236,7 +236,7 @@ class ArticleFileController extends Controller
 
     /**
      * Deletes a ArticleFile entity.
-     * @param  ArticleFile                                        $entity
+     * @param  ArticleFile      $entity
      * @return RedirectResponse
      */
     public function deleteAction(ArticleFile $entity)
