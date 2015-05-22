@@ -4,7 +4,8 @@ namespace Ojs\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Ojs\Common\Entity\GenericExtendedEntity;
+use Gedmo\Translatable\Translatable;
+use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
@@ -24,8 +25,9 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  * @UniqueEntity(fields="email", message="That email is taken!")
  * @GRID\Source(columns="id,username,email,status")
  */
-class User extends GenericExtendedEntity implements UserInterface, \Serializable, AdvancedUserInterface
+class User implements Translatable, UserInterface, \Serializable, AdvancedUserInterface
 {
+    use GenericEntityTrait;
 
     /**
      * @var integer

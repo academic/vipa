@@ -2,15 +2,18 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
  * Proxy
  * @ExclusionPolicy("all")
  */
-class Proxy extends \Ojs\Common\Entity\GenericExtendedEntity
+class Proxy implements Translatable
 {
+    use GenericEntityTrait;
     /**
      * @var integer
      * @Expose
