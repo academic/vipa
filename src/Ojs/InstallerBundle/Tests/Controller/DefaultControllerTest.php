@@ -3,7 +3,6 @@
 namespace Ojs\InstallerBundle\Tests\Controller;
 
 use Ojs\Common\Tests\BaseTestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends BaseTestCase
 {
@@ -30,5 +29,4 @@ class DefaultControllerTest extends BaseTestCase
         $this->logIn();
         $this->isAccessible(['ojs_installer_summary']);
     }
-
 }

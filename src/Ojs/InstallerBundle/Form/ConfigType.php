@@ -10,7 +10,7 @@ class ConfigType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,7 +34,7 @@ class ConfigType extends AbstractType
             ->add('mongodb_host')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
@@ -42,10 +42,9 @@ class ConfigType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\InstallerBundle\Entity\Config',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 

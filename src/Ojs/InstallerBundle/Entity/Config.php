@@ -2,8 +2,6 @@
 
 namespace Ojs\InstallerBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Config
  */
@@ -99,11 +97,10 @@ class Config
      */
     private $mongodb_host;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -113,7 +110,7 @@ class Config
     /**
      * Set database_driver
      *
-     * @param string $databaseDriver
+     * @param  string $databaseDriver
      * @return Config
      */
     public function setDatabaseDriver($databaseDriver)
@@ -126,7 +123,7 @@ class Config
     /**
      * Get database_driver
      *
-     * @return string 
+     * @return string
      */
     public function getDatabaseDriver()
     {
@@ -136,7 +133,7 @@ class Config
     /**
      * Set database_host
      *
-     * @param string $databaseHost
+     * @param  string $databaseHost
      * @return Config
      */
     public function setDatabaseHost($databaseHost)
@@ -149,7 +146,7 @@ class Config
     /**
      * Get database_host
      *
-     * @return string 
+     * @return string
      */
     public function getDatabaseHost()
     {
@@ -159,7 +156,7 @@ class Config
     /**
      * Set database_port
      *
-     * @param string $databasePort
+     * @param  string $databasePort
      * @return Config
      */
     public function setDatabasePort($databasePort)
@@ -172,7 +169,7 @@ class Config
     /**
      * Get database_port
      *
-     * @return string 
+     * @return string
      */
     public function getDatabasePort()
     {
@@ -182,7 +179,7 @@ class Config
     /**
      * Set database_name
      *
-     * @param string $databaseName
+     * @param  string $databaseName
      * @return Config
      */
     public function setDatabaseName($databaseName)
@@ -195,7 +192,7 @@ class Config
     /**
      * Get database_name
      *
-     * @return string 
+     * @return string
      */
     public function getDatabaseName()
     {
@@ -205,7 +202,7 @@ class Config
     /**
      * Set database_user
      *
-     * @param string $databaseUser
+     * @param  string $databaseUser
      * @return Config
      */
     public function setDatabaseUser($databaseUser)
@@ -218,7 +215,7 @@ class Config
     /**
      * Get database_user
      *
-     * @return string 
+     * @return string
      */
     public function getDatabaseUser()
     {
@@ -228,7 +225,7 @@ class Config
     /**
      * Set database_password
      *
-     * @param string $databasePassword
+     * @param  string $databasePassword
      * @return Config
      */
     public function setDatabasePassword($databasePassword)
@@ -241,7 +238,7 @@ class Config
     /**
      * Get database_password
      *
-     * @return string 
+     * @return string
      */
     public function getDatabasePassword()
     {
@@ -251,7 +248,7 @@ class Config
     /**
      * Set system_email
      *
-     * @param string $systemEmail
+     * @param  string $systemEmail
      * @return Config
      */
     public function setSystemEmail($systemEmail)
@@ -264,7 +261,7 @@ class Config
     /**
      * Get system_email
      *
-     * @return string 
+     * @return string
      */
     public function getSystemEmail()
     {
@@ -274,7 +271,7 @@ class Config
     /**
      * Set mailer_transport
      *
-     * @param string $mailerTransport
+     * @param  string $mailerTransport
      * @return Config
      */
     public function setMailerTransport($mailerTransport)
@@ -287,7 +284,7 @@ class Config
     /**
      * Get mailer_transport
      *
-     * @return string 
+     * @return string
      */
     public function getMailerTransport()
     {
@@ -297,7 +294,7 @@ class Config
     /**
      * Set mailer_host
      *
-     * @param string $mailerHost
+     * @param  string $mailerHost
      * @return Config
      */
     public function setMailerHost($mailerHost)
@@ -310,7 +307,7 @@ class Config
     /**
      * Get mailer_host
      *
-     * @return string 
+     * @return string
      */
     public function getMailerHost()
     {
@@ -320,7 +317,7 @@ class Config
     /**
      * Set mailer_user
      *
-     * @param string $mailerUser
+     * @param  string $mailerUser
      * @return Config
      */
     public function setMailerUser($mailerUser)
@@ -333,7 +330,7 @@ class Config
     /**
      * Get mailer_user
      *
-     * @return string 
+     * @return string
      */
     public function getMailerUser()
     {
@@ -343,7 +340,7 @@ class Config
     /**
      * Set mailer_password
      *
-     * @param string $mailerPassword
+     * @param  string $mailerPassword
      * @return Config
      */
     public function setMailerPassword($mailerPassword)
@@ -356,7 +353,7 @@ class Config
     /**
      * Get mailer_password
      *
-     * @return string 
+     * @return string
      */
     public function getMailerPassword()
     {
@@ -366,7 +363,7 @@ class Config
     /**
      * Set locale
      *
-     * @param string $locale
+     * @param  string $locale
      * @return Config
      */
     public function setLocale($locale)
@@ -379,7 +376,7 @@ class Config
     /**
      * Get locale
      *
-     * @return string 
+     * @return string
      */
     public function getLocale()
     {
@@ -389,7 +386,7 @@ class Config
     /**
      * Set secret
      *
-     * @param string $secret
+     * @param  string $secret
      * @return Config
      */
     public function setSecret($secret)
@@ -402,7 +399,7 @@ class Config
     /**
      * Get secret
      *
-     * @return string 
+     * @return string
      */
     public function getSecret()
     {
@@ -412,7 +409,7 @@ class Config
     /**
      * Set base_host
      *
-     * @param string $baseHost
+     * @param  string $baseHost
      * @return Config
      */
     public function setBaseHost($baseHost)
@@ -425,7 +422,7 @@ class Config
     /**
      * Get base_host
      *
-     * @return string 
+     * @return string
      */
     public function getBaseHost()
     {
@@ -435,7 +432,7 @@ class Config
     /**
      * Set post_types
      *
-     * @param string $postTypes
+     * @param  string $postTypes
      * @return Config
      */
     public function setPostTypes($postTypes)
@@ -448,7 +445,7 @@ class Config
     /**
      * Get post_types
      *
-     * @return string 
+     * @return string
      */
     public function getPostTypes()
     {
@@ -458,7 +455,7 @@ class Config
     /**
      * Set elasticsearch_host
      *
-     * @param string $elasticsearchHost
+     * @param  string $elasticsearchHost
      * @return Config
      */
     public function setElasticsearchHost($elasticsearchHost)
@@ -471,7 +468,7 @@ class Config
     /**
      * Get elasticsearch_host
      *
-     * @return string 
+     * @return string
      */
     public function getElasticsearchHost()
     {
@@ -481,7 +478,7 @@ class Config
     /**
      * Set mongodb_host
      *
-     * @param string $mongodbHost
+     * @param  string $mongodbHost
      * @return Config
      */
     public function setMongodbHost($mongodbHost)
@@ -494,38 +491,40 @@ class Config
     /**
      * Get mongodb_host
      *
-     * @return string 
+     * @return string
      */
     public function getMongodbHost()
     {
         return $this->mongodb_host;
     }
 
-    public function toArray(){
-        $posttypes = json_decode($this->getPostTypes(),true);
-        if(!is_array($posttypes))
-            $posttypes = json_decode($posttypes,true); //@todo i can't understand why its need double decode.
+    public function toArray()
+    {
+        $posttypes = json_decode($this->getPostTypes(), true);
+        if (!is_array($posttypes)) {
+            $posttypes = json_decode($posttypes, true);
+        } //@todo i can't understand why its need double decode.
 
         return [
-            'parameters'=>[
-                'database_driver'=>$this->getDatabaseDriver(),
-                'database_host'=>$this->getDatabaseHost(),
-                'database_port'=>$this->getDatabasePort(),
-                'database_name'=>$this->getDatabaseName(),
-                'database_user'=>$this->getDatabaseUser(),
-                'database_password'=>$this->getDatabasePassword(),
-                'system_email'=>$this->getSystemEmail(),
-                'mailer_transport'=>$this->getMailerTransport(),
-                'mailer_host'=>$this->getMailerHost(),
-                'mailer_user'=>$this->getMailerUser(),
-                'mailer_password'=>$this->getMailerPassword(),
-                'locale'=>$this->getLocale(),
-                'secret'=>$this->getSecret(),
-                'base_host'=>$this->getBaseHost(),
-                'post_types'=>$posttypes?$posttypes:[],
-                'elasticsearch_host'=>$this->getElasticsearchHost(),
-                'mongodb_host'=>$this->getMongodbHost()
-            ]
+            'parameters' => [
+                'database_driver' => $this->getDatabaseDriver(),
+                'database_host' => $this->getDatabaseHost(),
+                'database_port' => $this->getDatabasePort(),
+                'database_name' => $this->getDatabaseName(),
+                'database_user' => $this->getDatabaseUser(),
+                'database_password' => $this->getDatabasePassword(),
+                'system_email' => $this->getSystemEmail(),
+                'mailer_transport' => $this->getMailerTransport(),
+                'mailer_host' => $this->getMailerHost(),
+                'mailer_user' => $this->getMailerUser(),
+                'mailer_password' => $this->getMailerPassword(),
+                'locale' => $this->getLocale(),
+                'secret' => $this->getSecret(),
+                'base_host' => $this->getBaseHost(),
+                'post_types' => $posttypes ? $posttypes : [],
+                'elasticsearch_host' => $this->getElasticsearchHost(),
+                'mongodb_host' => $this->getMongodbHost(),
+            ],
         ];
     }
 }
