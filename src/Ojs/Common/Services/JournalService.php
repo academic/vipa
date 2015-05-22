@@ -3,10 +3,11 @@
 namespace Ojs\Common\Services;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use \Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
@@ -15,90 +16,107 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
  */
 class JournalService
 {
-
+    /**
+     * @var EntityManager
+     */
     private $em;
-    /* @var \Symfony\Component\DependencyInjection\Container */
-    private $container;
+    /**
+     * @var Session
+     */
     private $session;
 
+    /**
+     * @var DocumentManager
+     */
     private $dm;
 
     /**
-     *
-     * @param ContainerInterface $container
-     * @param EntityManager $em
+     * @var Router
      */
-    public function __construct(ContainerInterface $container, EntityManager $em, DocumentManager $dm)
+    private $router;
+
+    /** @var  string */
+    private $defaultInstitutionSlug;
+
+    /**
+     * @param EntityManager   $em
+     * @param DocumentManager $dm
+     * @param Session         $session
+     * @param Router          $router
+     * @param string          $defaultInstitutionSlug
+     */
+    public function __construct(EntityManager $em, DocumentManager $dm, Session $session, Router $router, $defaultInstitutionSlug)
     {
-        $this->container = $container;
-        $this->session = $this->container->get('session');
+        $this->session = $session;
         $this->em = $em;
         $this->dm = $dm;
+        $this->router = $router;
+        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
     }
 
     /**
-     * get user's current selected journal
-     * @return \Ojs\JournalBundle\Entity\Journal
+     * @param  bool              $redirect
+     * @return bool|null|Journal
      * @throws HttpException
      */
     public function getSelectedJournal($redirect = true)
     {
-        $em = $this->container->get('doctrine')->getManager();
         $selectedJournalId = $this->session->get("selectedJournalId");
-        $selectedJournal = $selectedJournalId ? $em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
+        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
         if ($selectedJournal) {
             return $selectedJournal;
         }
         if ($redirect) {
             // this seems messy
             try {
-                header("Location: " . $this->container->get('router')->generate('user_join_journal'), TRUE, 302);
-            } catch (Exception $e) {
-
+                header("Location: ".$this->router->generate('user_join_journal'), true, 302);
+            } catch (\Exception $e) {
             }
             exit;
         }
+
         return false;
     }
 
     /**
      * get default institution record
-     * @return \Ojs\JournalBundle\Entity\Institution
+     * @return Institution
      */
-    public function getDefaultInstitution($redirect = true)
+    public function getDefaultInstitution()
     {
-        $em = $this->container->get('doctrine')->getManager();
-        $slug = $this->container->getParameter('defaultInstitutionSlug');
-        $intitution = $slug ? $em->getRepository('OjsJournalBundle:Institution')
-            ->findOneBy(array('slug' => $slug)) : null;
-        return $intitution;
+        $institution = $this->defaultInstitutionSlug ? $this->em->getRepository('OjsJournalBundle:Institution')
+            ->findOneBy(array('slug' => $this->defaultInstitutionSlug)) : null;
+
+        return $institution;
     }
 
     /**
      *
-     * @param \Ojs\JournalBundle\Entity\Journal $journal
+     * @param  Journal $journal
      * @return boolean
      */
     public function generateUrl($journal)
     {
         $institution = $journal->getInstitution();
-        $institutionSlug = $institution ? $institution->getSlug() : $this->container->getParameter('defaultInstitutionSlug');
-        return $this->container->get('router')
+        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+
+        return $this->router
             ->generate('ojs_journal_index', array('slug' => $journal->getSlug(), 'institution' => $institutionSlug), Router::ABSOLUTE_URL);
     }
 
     public function setSelectedJournal($journalId)
     {
         $this->session->set('selectedJournalId', $journalId);
+
         return $journalId;
     }
 
     /**
      *
-     * @param integer $journalId
-     * @param integer $page
-     * @param integer $limit
-     * @return mixed user list
+     * @param  integer $journalId
+     * @param  integer $page
+     * @param  integer $limit
+     * @return mixed   user list
      */
     public function getUsers($journalId, $page, $limit)
     {
@@ -111,6 +129,7 @@ class JournalService
             ->setFirstResult($page)
             ->getQuery()
             ->getResult();
+
         return $users;
     }
 
@@ -123,24 +142,23 @@ class JournalService
         $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
         $journal_stats = $object_view->findBy(['entity' => 'journal', 'objectId' => $journal->getId()]);
         $groupped_journal_stats = [];
-        $counted_article_stats=[];
+        $counted_article_stats = [];
         foreach ($journal_stats as $js) {
             /** @var ObjectViews $js */
             $dateKey = $js->getLogDate()->format('d-M-Y');
             $groupped_journal_stats[$dateKey] = isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
             foreach ($journal->getArticles() as $article) {
-                $article_stats = $object_view->findBy(['entity'=>'article','objectId'=>$article->getId()]);
+                $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]);
                 foreach ($article_stats as $article_stat) {
-                    if($article_stat->getLogDate()->format('d-M-Y')==$dateKey && !in_array($article_stat->getId(),$counted_article_stats)){
-                        $counted_article_stats[]=$article_stat->getId();
-                        $groupped_journal_stats[$dateKey]=isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
+                    if ($article_stat->getLogDate()->format('d-M-Y') == $dateKey && !in_array($article_stat->getId(), $counted_article_stats)) {
+                        $counted_article_stats[] = $article_stat->getId();
+                        $groupped_journal_stats[$dateKey] = isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
                     }
                 }
-
             }
-
         }
         ksort($groupped_journal_stats);
+
         return $groupped_journal_stats;
     }
 
@@ -148,35 +166,36 @@ class JournalService
     {
         $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');
         $stats = [];
-        $affetted_articles=[];
+        $affetted_articles = [];
         foreach ($journal->getArticles() as $article) {
             $articleStats = $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]);
-            if(!$articleStats)
+            if (!$articleStats) {
                 continue;
+            }
             foreach ($articleStats as $stat) {
                 $dateKey = $stat->getLogDate()->format("d-M-Y");
                 $stats[$dateKey][$article->getId()] = [
-                    'hit'=>isset($stats[$dateKey][$article->getId()]['hit']) ? $stats[$dateKey][$article->getId()]['hit'] + 1 : 1,
-                    'title'=>$article->getTitle()
+                    'hit' => isset($stats[$dateKey][$article->getId()]['hit']) ? $stats[$dateKey][$article->getId()]['hit'] + 1 : 1,
+                    'title' => $article->getTitle(),
                 ];
             }
-            $affetted_articles[]=['id'=>$article->getId(),'title'=>$article->getTitle()];
+            $affetted_articles[] = ['id' => $article->getId(),'title' => $article->getTitle()];
         }
-        foreach ($stats as $date=>$stat) {
+        foreach ($stats as $date => $stat) {
             foreach ($affetted_articles as $article) {
-                if(!isset($stats[$date][$article['id']])){
-                    $stats[$date][$article['id']]=[
-                        'hit'=>0,
-                        'title'=>$article['title']
+                if (!isset($stats[$date][$article['id']])) {
+                    $stats[$date][$article['id']] = [
+                        'hit' => 0,
+                        'title' => $article['title'],
                     ];
                 }
             }
-
         }
         ksort($stats);
+
         return [
-            'stats'=>$stats,
-            'articles'=>$affetted_articles
+            'stats' => $stats,
+            'articles' => $affetted_articles,
         ];
     }
 }

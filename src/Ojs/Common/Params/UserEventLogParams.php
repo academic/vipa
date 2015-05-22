@@ -14,5 +14,4 @@ class UserEventLogParams
     public static $ROLE_ADD = 'ROLE_ADD_EVENT';
     public static $ROLE_REMOVE = 'ROLE_REMOVE_EVENT';
     public static $PASSWORD_CHANGE = 'USER_PASSWORD_CHANGE';
-
 }

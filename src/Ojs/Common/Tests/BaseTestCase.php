@@ -5,9 +5,7 @@
  * Devs: [
  *   ]
  */
-
 namespace Ojs\Common\Tests;
-
 
 ini_set('session.save_handler', 'files');
 ini_set('session.save_path', '/tmp');
@@ -44,7 +42,6 @@ abstract class BaseTestCase extends WebTestCase
     /** @var  Router */
     protected $router;
 
-
     /** @var  Crawler */
     protected $crawler;
     public function setUp()
@@ -53,7 +50,6 @@ abstract class BaseTestCase extends WebTestCase
 
         $this->app = new Application($this->client->getKernel());
         $this->app->setAutoExit(false);
-
 
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
@@ -67,14 +63,14 @@ abstract class BaseTestCase extends WebTestCase
         $opts['-e'] = 'test';
         $opts['-q'] = null;
         $opts['command'] = $command;
+
         return $this->app->run(new ArrayInput($opts));
     }
-
 
     /**
      *
      * @param string $username
-     * @param array $role
+     * @param array  $role
      */
     protected function logIn($username = null, $role = null)
     {
@@ -88,11 +84,12 @@ abstract class BaseTestCase extends WebTestCase
             $user = $this->em->getRepository('OjsUserBundle:User')
                 ->findOneByRole($_role);
         }
-        if (!($user instanceof UserInterface))
-            throw new \Exception("User not find. " . get_class($user));
+        if (!($user instanceof UserInterface)) {
+            throw new \Exception("User not find. ".get_class($user));
+        }
 
         $token = new UsernamePasswordToken($user, null, $firewall, $role ? $role : array('ROLE_SUPER_ADMIN'));
-        $session->set('_security_' . $firewall, serialize($token));
+        $session->set('_security_'.$firewall, serialize($token));
         $session->save();
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
@@ -102,16 +99,16 @@ abstract class BaseTestCase extends WebTestCase
     {
         $this->client->request(
             $type,
-            $url . '?apikey=NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw==',
+            $url.'?apikey=NTg3YjljYmYzZDA0MDZjMWY4MTlkOTYwMWQyZmNlMTYwMzU0NjY0Yw==',
             $data,
             [],
             ['HTTP_ACCEPT' => 'application/json']
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
+
         return $response;
     }
-
 
     protected function getInputStream($input)
     {
@@ -122,7 +119,7 @@ abstract class BaseTestCase extends WebTestCase
         return $stream;
     }
 
-    protected function isAccessible($params, $data = [],$type='GET',$redirectOnSuccess=false)
+    protected function isAccessible($params, $data = [], $type = 'GET', $redirectOnSuccess = false)
     {
         $this->crawler = $this->client->request(
             $type,
@@ -131,11 +128,13 @@ abstract class BaseTestCase extends WebTestCase
         );
         /** @var Response $response */
         $response = $this->client->getResponse();
-        if($response->isServerError()){
+        if ($response->isServerError()) {
             echo $response->getContent();
         }
-        if($redirectOnSuccess)
+        if ($redirectOnSuccess) {
             return $response->isRedirection();
+        }
+
         return $response->isSuccessful();
     }
-} 
+}

@@ -2,20 +2,21 @@
 
 namespace Ojs\Common\Params;
 
-class ArticleFileParams {
+class ArticleFileParams
+{
 
-    const FULL_TEXT=0;
-    const SUPPLEMENTARY_FILE=1;
-    const RESEARCH_METARIALS=2;
-    const RESEARCH_RESULTS=3;
-    const TRANSCRIPTS=4;
-    const DATA_ANALYSIS=5;
-    const DATA_SET=6;
-    const SOURCE_TEXT=7;
-    const PICTURES=8;
-    const TABLES=9;
-    const COPYRIGHT_TRANSFER_FORM=10;
-    const COMPETING_OF_INSTEREST_FILE=11;
+    const FULL_TEXT = 0;
+    const SUPPLEMENTARY_FILE = 1;
+    const RESEARCH_METARIALS = 2;
+    const RESEARCH_RESULTS = 3;
+    const TRANSCRIPTS = 4;
+    const DATA_ANALYSIS = 5;
+    const DATA_SET = 6;
+    const SOURCE_TEXT = 7;
+    const PICTURES = 8;
+    const TABLES = 9;
+    const COPYRIGHT_TRANSFER_FORM = 10;
+    const COMPETING_OF_INSTEREST_FILE = 11;
     /**
      *
      * @var array
@@ -36,13 +37,12 @@ class ArticleFileParams {
     );
 
     /**
-     * 
-     * @param integer $typeNum
+     *
+     * @param  integer $typeNum
      * @return string
      */
     public static function fileType($typeNum)
     {
         return isset(self::$FILE_TYPES[$typeNum]) ? self::$FILE_TYPES[$typeNum] : null;
     }
-
 }

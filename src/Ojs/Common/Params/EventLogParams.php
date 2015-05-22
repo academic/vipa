@@ -5,8 +5,8 @@ namespace Ojs\Common\Params;
 class EventLogParams
 {
 
-    static function adminLevelEventLogs(){
-
+    public static function adminLevelEventLogs()
+    {
         return array(
             ArticleEventLogParams::$ARTICLE_REMOVE,
             ArticleEventLogParams::$ARTICLE_SUBMISSION,
@@ -21,8 +21,8 @@ class EventLogParams
         );
     }
 
-    static function editorLevelEventLogs(){
-
+    public static function editorLevelEventLogs()
+    {
         return array(
             ArticleEventLogParams::$ARTICLE_REMOVE,
             ArticleEventLogParams::$ARTICLE_SUBMISSION,
@@ -36,8 +36,8 @@ class EventLogParams
         );
     }
 
-    static function authorLevelEventLogs(){
-
+    public static function authorLevelEventLogs()
+    {
         return array(
             ArticleEventLogParams::$ARTICLE_REMOVE,
             ArticleEventLogParams::$ARTICLE_SUBMISSION,
@@ -51,8 +51,8 @@ class EventLogParams
         );
     }
 
-    static function userLevelEventLogs(){
-
+    public static function userLevelEventLogs()
+    {
         return array(
             ProxyEventLogParams::$PROXY_CREATE,
             ProxyEventLogParams::$PROXY_DROP,
