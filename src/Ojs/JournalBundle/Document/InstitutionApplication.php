@@ -12,7 +12,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * This collection holds resumable institute application data
  * @MongoDB\Document(collection="institution_application")
- * @GRID\Source(columns="id,name,country")
+ * @GRID\Source(columns="id,name,country,status")
  */
 class InstitutionApplication
 {
@@ -126,6 +126,13 @@ class InstitutionApplication
      * @var bool
      */
     protected $merged;
+
+    /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $status;
+
     /**
      * @return mixed
      */
@@ -460,5 +467,21 @@ class InstitutionApplication
     public function setMerged($merged)
     {
         $this->merged = $merged;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 }
