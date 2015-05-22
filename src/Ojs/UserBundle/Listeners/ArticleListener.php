@@ -3,33 +3,42 @@ namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use \Ojs\Common\Params\ArticleEventLogParams;
+use Ojs\Common\Params\ArticleEventLogParams;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ArticleListener
 {
-    protected $container;
+    /** @var TokenStorage  */
+    protected $tokenStorage;
+    /** @var Request  */
+    protected $request;
 
-
-    public function __construct(ContainerInterface $container = null)
+    /**
+     * @param TokenStorage $tokenStorage
+     * @param Request      $request
+     */
+    public function __construct(TokenStorage $tokenStorage, Request $request)
     {
-        $this->container = $container;
+        $this->tokenStorage = $tokenStorage;
+        $this->request = $request;
     }
 
     /**
      * Every article submission event, event log
-     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args
+     * @param  LifecycleEventArgs $args
      * @link http://docs.doctrine-project.org/en/latest/reference/events.html#postupdate-postremove-postpersist
      * @return null
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        if (php_sapi_name()!='cli') {
+        if (php_sapi_name() != 'cli') {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
 
-            $token = $this->container->get('security.context')->getToken();
+            $token = $this->tokenStorage->getToken();
             if (!$token) {
                 $user = $entityManager->getReference('OjsUserBundle:User', 1);
             } else {
@@ -44,10 +53,10 @@ class ArticleListener
             if ($entity instanceof Article) {
 
                 //log as eventlog
-                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event = new EventLog();
                 $event->setUserId($user->getId());
                 $event->setEventInfo(ArticleEventLogParams::$ARTICLE_SUBMISSION);
-                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setIp($this->request->getClientIp());
                 $entityManager->persist($event);
 
                 $entityManager->flush();
@@ -57,17 +66,17 @@ class ArticleListener
 
     /**
      * Article remove event event log function.
-     * @param LifecycleEventArgs $args
+     * @param  LifecycleEventArgs $args
      * @return null
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        if (php_sapi_name()!='cli') {
+        if (php_sapi_name() != 'cli') {
             $entity = $args->getEntity();
             $entityManager = $args->getEntityManager();
 
             /* @var $user User */
-            $user = $this->container->get('security.context')->getToken()->getUser();
+            $user = $this->tokenStorage->getToken()->getUser();
 
             /**
              * perhaps you only want to act on some "Article" entity
@@ -76,9 +85,9 @@ class ArticleListener
             if ($entity instanceof Article) {
 
                 //log as eventlog
-                $event = new \Ojs\UserBundle\Entity\EventLog();
+                $event = new EventLog();
                 $event->setEventInfo(ArticleEventLogParams::$ARTICLE_REMOVE);
-                $event->setIp($this->container->get('request')->getClientIp());
+                $event->setIp($this->request->getClientIp());
                 $event->setUserId($user->getId());
                 $event->setAffectedUserId($entity->getSubmitterId());
                 $entityManager->persist($event);

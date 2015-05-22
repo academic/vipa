@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RoleType extends AbstractType {
+class RoleType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -29,9 +30,8 @@ class RoleType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\Role',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -42,5 +42,4 @@ class RoleType extends AbstractType {
     {
         return 'ojs_userbundle_role';
     }
-
 }

@@ -5,9 +5,7 @@
  * Date: 6.02.15
  * Time: 16:09
  */
-
 namespace Ojs\UserBundle\Event;
-
 
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
@@ -26,4 +24,4 @@ class UserEvent extends Event
     {
         return $this->user;
     }
-} 
+}

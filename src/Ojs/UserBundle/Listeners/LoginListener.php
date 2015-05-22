@@ -2,24 +2,33 @@
 
 namespace Ojs\UserBundle\Listeners;
 
+use Doctrine\ORM\EntityManager;
+use Ojs\UserBundle\Entity\EventLog;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Ojs\UserBundle\Entity\User as User;
-use Symfony\Component\DependencyInjection\ContainerInterface as Container;
-use \Ojs\Common\Params\UserEventLogParams;
+use Ojs\Common\Params\UserEventLogParams;
 
 class LoginListener
 {
-    protected $em, $container;
+    /** @var EntityManager  */
+    protected $em;
+    /** @var Request  */
+    protected $request;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em, Container $container = null)
+    /**
+     * @param EntityManager $em
+     * @param Request       $request
+     */
+    public function __construct(EntityManager $em, Request $request)
     {
         $this->em = $em;
-        $this->container = $container;
+        $this->request = $request;
     }
 
     /**
      *
-     * @param  \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
+     * @param  InteractiveLoginEvent $event
      * @return void
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
@@ -33,14 +42,13 @@ class LoginListener
             $this->em->persist($user);
 
             //log as eventlog
-            $event = new \Ojs\UserBundle\Entity\EventLog();
+            $event = new EventLog();
             $event->setEventInfo(UserEventLogParams::$USER_LOGIN);
-            $event->setIp($this->container->get('request')->getClientIp());
+            $event->setIp($this->request->getClientIp());
             $event->setUserId($user->getId());
             $this->em->persist($event);
 
             $this->em->flush();
         }
     }
-
 }

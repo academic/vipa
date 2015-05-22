@@ -11,7 +11,6 @@ class UserJournalRoleControllerTest extends BaseTestCase
      */
     public function testStatus()
     {
-        $this->assertTrue(true,true);
+        $this->assertTrue(true, true);
     }
-
 }

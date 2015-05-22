@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EventLogType extends AbstractType {
+class EventLogType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -30,9 +31,8 @@ class EventLogType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\EventLog',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -43,5 +43,4 @@ class EventLogType extends AbstractType {
     {
         return 'ojs_userbundle_eventlog';
     }
-
 }

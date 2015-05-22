@@ -17,10 +17,10 @@ class CreatePasswordType extends AbstractType
     {
         $builder
             ->add('password', 'repeated', [
-                'attr'=>[
-                    'style' => 'color:#898989;font-size:80%'
+                'attr' => [
+                    'style' => 'color:#898989;font-size:80%',
                 ],
-                'type'=>'password',
+                'type' => 'password',
                 'invalid_message' => 'The password fields must match.',
                 'options' => array('attr' => array('class' => 'password-field')),
                 'required' => true,
@@ -36,10 +36,9 @@ class CreatePasswordType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -50,5 +49,4 @@ class CreatePasswordType extends AbstractType
     {
         return 'ojs_userbundle_createpassword';
     }
-
 }

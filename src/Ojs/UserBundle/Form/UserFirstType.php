@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserFirstType extends AbstractType {
+class UserFirstType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
@@ -32,9 +33,8 @@ class UserFirstType extends AbstractType {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\User',
             'attr' => [
-                'novalidate' => 'novalidate'
-                , 'class' => 'form-validate'
-            ]
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -45,5 +45,4 @@ class UserFirstType extends AbstractType {
     {
         return 'ojs_userbundle_user';
     }
-
 }

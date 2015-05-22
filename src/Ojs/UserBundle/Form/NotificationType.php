@@ -33,10 +33,9 @@ class NotificationType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\UserBundle\Entity\Notification',
-            'attr'=>[
-                'novalidate'=>'novalidate'
-,'class'=>'form-validate'
-            ]
+            'attr' => [
+                'novalidate' => 'novalidate', 'class' => 'form-validate',
+            ],
         ));
     }
 
@@ -47,5 +46,4 @@ class NotificationType extends AbstractType
     {
         return 'ojs_userbundle_notification';
     }
-
 }

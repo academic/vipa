@@ -5,47 +5,63 @@
  * Devs: [
  *   ]
  */
-
-namespace Ojs\UserBundle\Security;
-
+namespace Ojs\UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\ORMException;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class EmailUserProvider implements UserProviderInterface{
+class EmailUserProvider implements UserProviderInterface
+{
     /** @var EntityManager  */
-    private $e;
-    private $c;
-    public function __construct(ContainerInterface $container){
-        $this->c = $container;
-        $this->e = $container->get('doctrine.orm.entity_manager');
+    private $entityManager;
+
+    /**
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NoResultException
+     * @throws ORMException
+     */
     public function find($id)
     {
         $q = $this
-            ->e
+            ->entityManager
             ->createQueryBuilder()
             ->select('u, r')
-            ->from('OjsUserBundle:User','u')
+            ->from('OjsUserBundle:User', 'u')
             ->leftJoin('u.roles', 'r')
             ->where('u.id = :id')
-            ->setParameter('id',$id)
+            ->setParameter('id', $id)
             ->getQuery();
+
         return $q->getSingleResult();
     }
+
+    /**
+     * @param  string       $username
+     * @return mixed
+     * @throws ORMException
+     */
     public function loadUserByUsername($username)
     {
         $q = $this
-            ->e
+            ->entityManager
             ->createQueryBuilder()
             ->select('u, r')
-            ->from('OjsUserBundle:User','u')
+            ->from('OjsUserBundle:User', 'u')
             ->leftJoin('u.roles', 'r')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
@@ -63,8 +79,13 @@ class EmailUserProvider implements UserProviderInterface{
         return $user;
     }
 
+    /**
+     * @param  UserInterface $user
+     * @return User
+     */
     public function refreshUser(UserInterface $user)
     {
+        /** @var User $user */
         $class = get_class($user);
         if (!$this->supportsClass($class)) {
             throw new UnsupportedUserException(
@@ -79,5 +100,4 @@ class EmailUserProvider implements UserProviderInterface{
     {
         return 'Ojs\UserBundle\Entity\User' === $class || is_subclass_of($class, 'Ojs\UserBundle\Entity\User');
     }
-
 }
