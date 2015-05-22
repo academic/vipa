@@ -25,7 +25,6 @@
         </div>
     </fieldset>
 
-
     <div class="record_actions">
         {% if isSystemAdmin() %}
             {% set back_path = 'journalcontact' %}
@@ -36,7 +35,7 @@
             {% set edit_path = 'manager_journalcontact_edit' %}
             {% set delete_path = 'manager_journalcontact_delete' %}
         {% endif %}
-        {% include '::actionbtns.html.twig' %}
+        {% include '::actionbuttons.html.twig' %}
     </div>
 
 {% endblock %}
