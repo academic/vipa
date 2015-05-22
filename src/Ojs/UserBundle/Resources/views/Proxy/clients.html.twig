@@ -22,7 +22,7 @@
                         <a href="{{path('ojs_user_profile',{slug:entity.clientUser.username})}}">
                             {{ entity.clientUser.username }}
                         </a>
-                        <a href="/?_su={{ entity.clientUser.username }}" class="btn btn-xs btn-info">
+                        <a href="{{ path('ojs_public_index') }}?_su={{ entity.clientUser.username }}" class="btn btn-xs btn-info">
                             <i class="fa fa-sign-in"></i>
                         </a>
                     </td>
