@@ -52,11 +52,6 @@ class Contact implements Translatable
 
     /**
      * @var string
-     */
-    private $city;
-
-    /**
-     * @var string
      * @GRID\Column(title="phone")
      */
     private $phone;
@@ -74,6 +69,9 @@ class Contact implements Translatable
 
     /** @var  Location */
     protected $country;
+
+    /** @var  Location */
+    protected $city;
 
     /**
      * Get id
@@ -207,10 +205,8 @@ class Contact implements Translatable
     }
 
     /**
-     * Set city
-     *
-     * @param  string  $city
-     * @return Contact
+     * @param  Location $city
+     * @return $this
      */
     public function setCity($city)
     {
@@ -220,9 +216,7 @@ class Contact implements Translatable
     }
 
     /**
-     * Get city
-     *
-     * @return string
+     * @return Location
      */
     public function getCity()
     {
