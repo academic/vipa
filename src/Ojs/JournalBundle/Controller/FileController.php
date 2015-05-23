@@ -35,7 +35,7 @@ class FileController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
-        return $grid->getGridResponse('OjsJournalBundle:File:index.html.twig',$data);
+        return $grid->getGridResponse('OjsJournalBundle:File:index.html.twig', $data);
     }
 
     /**
@@ -47,14 +47,8 @@ class FileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $file = new File();
         $form = $this->createCreateForm($file);
-        if (isset($_FILES['file'])) {
-            $form->handleRequest($request);
-            //$listener->addEntityFileInfo($file, $fileInfo);
-            $listener = $this->get('stof_doctrine_extensions.listener.uploadable');
-            $listener->addEntityFileInfo($file, new FileInfoArray($_FILES['file']));
-            $em->persist($file);
-        }
-
+        $form->handleRequest($request);
+        $em->persist($file);
         $em->flush();
 //        $form = $this->createCreateForm($entity);
 //        $form->handleRequest($request);
@@ -155,7 +149,6 @@ class FileController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
