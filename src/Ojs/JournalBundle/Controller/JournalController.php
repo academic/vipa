@@ -141,7 +141,7 @@ class JournalController extends Controller
         $this->throw404IfNotFound($entity);
 
         $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager()) {
+        if (!$ext->isJournalManager() && !$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException("You not authorized for edit this journal!");
         }
 
@@ -177,7 +177,7 @@ class JournalController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $user = $this->getUser();
         $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager()) {
+        if (!$ext->isJournalManager() && !$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException("You not authorized for edit this journal!");
         }
         $this->throw404IfNotFound($entity);
