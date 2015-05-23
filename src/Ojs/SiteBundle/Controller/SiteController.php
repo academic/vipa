@@ -269,7 +269,7 @@ class SiteController extends Controller
         $dm->persist($objectDownload);
         $dm->flush();
 
-        return RedirectResponse::create($file->getPath().$file->getName());
+        return RedirectResponse::create('/uploads/journalfiles/'.$file->getPath().$file->getName());
     }
 
     public function journalPageDetailAction($slug, $journal_slug, $institution)
