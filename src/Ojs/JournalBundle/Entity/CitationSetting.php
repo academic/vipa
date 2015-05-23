@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
+use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
@@ -34,6 +35,7 @@ class CitationSetting implements Translatable
     /**
      *
      * @var Citation
+     * @AclParent
      */
     protected $citation;
 
