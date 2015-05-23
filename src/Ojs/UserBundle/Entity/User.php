@@ -154,7 +154,7 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     private $city;
 
     /**
-     * @var Collection
+     * @var Collection|UserJournalRole[]
      */
     private $userJournalRoles;
 
@@ -1179,11 +1179,14 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this;
     }
 
+    /**
+     * @param Journal $journal
+     * @return UserJournalRole[]
+     */
     public function getUserJournalRolesFromJournal(Journal $journal)
     {
         $journalRoles = array();
         foreach ($this->userJournalRoles as $journalRole) {
-            /** @var UserJournalRole $journalRole */
             if ($journalRole->getJournal() === $journal) {
                 $journalRoles[] = $journalRole;
             }

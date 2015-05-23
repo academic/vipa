@@ -28,6 +28,8 @@ class AppKernel extends Kernel {
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            new Problematic\AclManagerBundle\ProblematicAclManagerBundle(),
+            new GoDisco\AclTreeBundle\AclTreeBundle(),
             new Ojs\SearchBundle\OjsSearchBundle(),
             new Ojs\AnalyticsBundle\OjsAnalyticsBundle(),
             new Ojs\SiteBundle\OjsSiteBundle(),
@@ -54,8 +56,6 @@ class AppKernel extends Kernel {
             new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new Problematic\AclManagerBundle\ProblematicAclManagerBundle(),
-            new GoDisco\AclTreeBundle\AclTreeBundle(),
 
         );
 
