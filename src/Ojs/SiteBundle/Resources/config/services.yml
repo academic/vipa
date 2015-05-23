@@ -1,6 +1,6 @@
 parameters:
     problematic.acl_manager.class: Ojs\SiteBundle\Acl\AclChainManager
-    security.acl.dbal.provider.class: Ojs\SiteBundle\Acl\MutableAclProvider
+    security.acl.dbal.provider.class: Ojs\SiteBundle\Acl\Dbal\MutableAclProvider
     security.acl.security_identity_retrieval_strategy.class: Ojs\SiteBundle\Acl\SecurityIdentityRetrievalStrategy
 
 services:

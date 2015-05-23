@@ -50,6 +50,7 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
      */
     public function getSecurityIdentities(Token\TokenInterface $token)
     {
+
         $sids = array();
 
         // add user security identity
@@ -68,7 +69,8 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         // add journal roles
 
         $user = $token->getUser();
-        if ($user instanceof User) {
+
+        if ($user instanceof User && $this->selectedJournal !== false) {
             foreach ($user->getUserJournalRolesFromJournal($this->selectedJournal) as $journalRoles) {
                 $sids[] = JournalRoleSecurityIdentity::fromUserJournalRole($journalRoles);
             }

@@ -7,19 +7,18 @@ use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
-class JournalRoleSecurityIdentity implements SecurityIdentityInterface
+final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
 {
 
     /**
      * @var string
      */
-    protected $role;
+    private $role;
 
     /**
      * @var integer
      */
-    protected $journal;
-
+    private $journal;
     /**
      * @param $journal
      * @param $role
@@ -40,6 +39,21 @@ class JournalRoleSecurityIdentity implements SecurityIdentityInterface
         }
         $this->journal = $journal;
         $this->role = $role;
+    }
+
+    public function getIdentifier(){
+        return 'JournalRole-'.$this->role.'-'.$this->journal;
+    }
+
+    public static function determine($securityIdentifier) {
+        return (substr($securityIdentifier, 0, 11) === 'JournalRole');
+    }
+
+    public static function fromIdentifier($securityIdentifier)
+    {
+        list ($role, $journal) = explode('-', substr($securityIdentifier, 12));
+
+        return new self($journal, $role);
     }
 
     public static function fromUserJournalRole(UserJournalRole $userJournalRole)
@@ -76,7 +90,7 @@ class JournalRoleSecurityIdentity implements SecurityIdentityInterface
             return false;
         }
 
-        return ($this->role === $sid->getRole() && $this->journal === $sid->getJournal());
+        return ($this->role === $sid->getRole() && (int)$this->journal === (int)$sid->getJournal());
     }
 
     /**
@@ -88,6 +102,6 @@ class JournalRoleSecurityIdentity implements SecurityIdentityInterface
      */
     public function __toString()
     {
-        return sprintf('JournalRoleSecurityIdentity-(%s)-(%s)', $this->role, $this->journal);
+        return sprintf('JournalRoleSecurityIdentity-%s-%s', $this->role, $this->journal);
     }
 }
