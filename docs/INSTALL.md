@@ -20,7 +20,7 @@ Installing Dependencies
 -----------------------
 Right before installing dependencies, create a database for OJS because OJS's installation wizard will ask for a database name after dependencies are installed.
 
-To install dependencies you will need Composer and bower. If you don't have those installed, refer to [Composer's own installation guide](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) and [Bower's own installatiion guide](http://bower.io/#install-bower).
+To install dependencies you will need Composer and bower. If you don't have those installed, refer to [Composer's own installation guide](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx) and [Bower's own installation guide](http://bower.io/#install-bower).
 
 You might want to move Composer to a directory in PATH, so you can access Composer from anywhere. Run `# mv composer.phar /usr/local/bin/composer` to do that.
 
