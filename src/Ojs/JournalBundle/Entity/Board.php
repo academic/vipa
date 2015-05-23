@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
+use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
@@ -42,6 +43,7 @@ class Board implements Translatable
     /**
      * @var Journal
      * @GRID\Column(field="journal.title", title="journal")
+     * @AclParent
      */
     private $journal;
 

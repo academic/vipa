@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
+use GoDisco\AclTreeBundle\Annotation\AclParent;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
 
@@ -28,12 +29,13 @@ class ArticleAuthor implements Translatable
     /**
      * @var Author
      * @JMS\Expose
+     * @AclParent
      */
     private $author;
 
     /**
      * @var Article
-     *
+     * @AclParent
      */
     private $article;
 

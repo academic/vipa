@@ -35,6 +35,7 @@ class Institution implements Translatable
      * @var Institution
      * @Expose
      * @GRID\Column(title="parent")
+     * @AclParent
      */
     private $parent;
 

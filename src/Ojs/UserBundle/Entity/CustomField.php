@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use GoDisco\AclTreeBundle\Annotation\AclParent;
+
 /**
  * CustomField
  */
@@ -34,6 +36,7 @@ class CustomField
 
     /**
      * @var \Ojs\UserBundle\Entity\User
+     * @AclParent
      */
     private $user;
 

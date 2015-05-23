@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use GoDisco\AclTreeBundle\Annotation\AclParent;
+
 /**
  * UserArticleRole
  */
@@ -29,11 +31,13 @@ class UserArticleRole
 
     /**
      * @var \Ojs\UserBundle\Entity\User
+     * @AclParent
      */
     private $user;
 
     /**
      * @var \Ojs\JournalBundle\Entity\Article
+     * @AclParent
      */
     private $article;
 

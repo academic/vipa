@@ -2,6 +2,7 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\JournalBundle\Entity\Journal;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
@@ -35,12 +36,14 @@ class UserJournalRole
      * @var User
      * @GRID\Column(title="user.journalrole.user.username",field="user.username")
      * @GRID\Column(title="user.journalrole.email",field="user.email")
+     * @AclParent
      */
     private $user;
 
     /**
      * @var Journal
      * @GRID\Column(field="journal.title",title="Journal",type="text",visible="false")
+     * @AclParent
      */
     private $journal;
 

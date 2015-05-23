@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
+use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
@@ -14,6 +15,7 @@ class JournalSetting implements Translatable
 
     /**
      * @var Journal
+     * @AclParent
      */
     private $journal;
     /**

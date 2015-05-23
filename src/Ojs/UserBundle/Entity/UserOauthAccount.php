@@ -2,6 +2,8 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use GoDisco\AclTreeBundle\Annotation\AclParent;
+
 /**
  * UserOauthAccount
  */
@@ -39,6 +41,7 @@ class UserOauthAccount
 
     /**
      * @var \Ojs\UserBundle\Entity\User
+     * @AclParent
      */
     private $user;
 
