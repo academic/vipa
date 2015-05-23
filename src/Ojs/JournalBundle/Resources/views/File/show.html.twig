@@ -25,6 +25,10 @@
                 <th>{{"size"|trans}}</th>
                 <td>{{ entity.size }}</td>
             </tr>
+            <tr>
+                <th>{{"file"|trans}}</th>
+                <td><a href="{{ url('ojs_file_download',{id: entity.id}) }}" target="_blank">{{ entity.name }}</a></td>
+            </tr>
         </tbody>
     </table>
 

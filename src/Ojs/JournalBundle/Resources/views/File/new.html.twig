@@ -14,12 +14,12 @@
     <h1>{{"file.new"|trans}}</h1>
     <div class="col-md-12">
         {% include '::flashbag.html.twig' %}
-        <form action="{{ url('admin_file_create') }}" enctype="multipart/form-data">
+        <form action="{{ url('admin_file_create') }}" method="post" enctype="multipart/form-data">
         {{ form_widget(form) }}
             <span class="btn btn-success fileinput-button">
                 <i class="fa fa-plus"></i>
                 <span>{{"file.select"|trans}}</span>
-                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('generic') }}">
+                <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
                 <input name="file" id="file_input" value="" type="hidden" />
             </span>
             <div id="file_upload_progress" style="display: none" class="label label-info">
