@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Form\InstitutionType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Institution controller.
@@ -26,6 +27,8 @@ class InstitutionController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('institution_show', 'id');
         $rowAction[] = ActionHelper::editAction('institution_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('institution_delete', 'id');
@@ -188,14 +191,21 @@ class InstitutionController extends Controller
     }
 
     /**
-     * Deletes a Institution entity.
-     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('institution'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
