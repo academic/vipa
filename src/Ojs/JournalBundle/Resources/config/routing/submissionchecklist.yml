@@ -27,3 +27,4 @@ manager_submission_checklist_update:
 manager_submission_checklist_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:SubmissionChecklist:delete" }
+    methods: [DELETE]
