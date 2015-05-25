@@ -1,15 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'title': 'institution.manager'|trans, 'link' : path('institution')},
-    { 'title': 'institution.edit'|trans}])}}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('institution'),'title': 'institution.manager'|trans},
+        {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
-
 {% block body -%}
-
-
     {{ form_start(form, { 'attr': { 'enctype' :'multipart/form-data'} }) }}
     {% include '::flashbag.html.twig' %}
     {{ form_errors(form) }}
