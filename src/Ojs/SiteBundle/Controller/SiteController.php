@@ -99,8 +99,9 @@ class SiteController extends Controller
 
     public function institutionsIndexAction()
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->findAll();
+        $data['entities'] = $em->getRepository('OjsJournalBundle:Institution')->getOnlyNames();
         $data['page'] = 'institution';
 
         return $this->render('OjsSiteBundle::Institution/institutions_index.html.twig', $data);

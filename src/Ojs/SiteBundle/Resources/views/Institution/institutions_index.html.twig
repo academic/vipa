@@ -7,8 +7,8 @@
         <h1 class="page-header">{{ "institutions"|trans }}</h1>
         <ul class="list-group">
         {% for entity in entities %}
-            <a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}" class="list-group-item {% if entity.isVerified %}list-group-item-success{% endif %}">
-                {% if entity.isVerified %}
+            <a href="{{ url('ojs_institution_page',{slug: entity.slug}) }}" class="list-group-item {% if entity.verified %}list-group-item-success{% endif %}">
+                {% if entity.verified %}
                     <i class="badge fa fa-diamond"></i>
                 {% endif %}
                 {{ entity.name }}</a>
