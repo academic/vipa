@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\JournalSectionType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * JournalSection controller.
@@ -44,6 +45,8 @@ class JournalSectionController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('manager_journal_section_show', 'id');
         $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('manager_journal_section_delete', 'id');
@@ -228,6 +231,12 @@ class JournalSectionController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('manager_journal_section'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('Successfully removed.');
