@@ -27,3 +27,4 @@ admin_journalindex_update:
 admin_journalindex_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalIndex:delete" }
+    methods: [DELETE]
