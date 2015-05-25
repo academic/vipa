@@ -1,5 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('admin_board'),'title': 'board'|trans},
+        {'title': 'show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1>{{"board.detail"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
@@ -24,15 +33,8 @@
         </tbody>
     </table>
 
-
-    <a href="{{ path('admin_board') }}">
-        {{"b"|trans}}
-    </a>
-    <a href="{{ path('admin_board_edit', { 'id': entity.id }) }}">
-        {{"e"|trans}}
-    </a>
-    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
-        {{"d"|trans}}
-    </a>
-
+    {% set back_path = 'admin_board' %}
+    {% set edit_path = 'admin_board_edit' %}
+    {% set delete_path = 'admin_board_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
