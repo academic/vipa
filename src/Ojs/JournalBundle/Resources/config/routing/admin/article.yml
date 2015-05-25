@@ -47,7 +47,7 @@ article_update:
 article_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Article:delete" }
-    requirements: { _method: get|post|delete }
+    methods: [DELETE]
 
 article_citation:
     pattern: /citations/{id}

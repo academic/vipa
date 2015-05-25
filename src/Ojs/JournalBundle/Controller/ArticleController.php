@@ -21,6 +21,8 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Form\ArticleType;
 use Ojs\JournalBundle\Form\CitationType;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
  * Article controller.
@@ -65,6 +67,7 @@ class ArticleController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('article_show', 'id');
         $rowAction[] = ActionHelper::editAction('article_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
@@ -317,11 +320,17 @@ class ArticleController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('article'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
@@ -361,6 +370,7 @@ class ArticleController extends Controller
         }
 
         $actionsColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
         $actions[] = ActionHelper::showAction('citation_show', 'id');
         $actions[] = ActionHelper::editAction('citation_edit', 'id');
         $actions[] = ActionHelper::deleteAction('citation_delete', 'id');
