@@ -1,5 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        {'title': 'confirm.role'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <p>{{"Confirm to register yourself as author."|trans}}</p>
     <div class="well">
