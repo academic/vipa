@@ -1,4 +1,5 @@
-{% extends "::ojsbase.html.twig" %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.manager_dashboard'|trans }} {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1>{{"dashboard.admin"|trans}}</h1>

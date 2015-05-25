@@ -1,4 +1,5 @@
-{% extends "::ojsbase.html.twig" %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.view_issue'|trans }} {{ parent() }}{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
