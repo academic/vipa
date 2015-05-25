@@ -1,5 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
-
+{% block title %}{{ 'title.create_custom_field'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
     {'link': path('dashboard'), 'title': 'user'|trans},

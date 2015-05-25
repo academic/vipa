@@ -1,4 +1,5 @@
-{% extends "::ojsbase.html.twig" %}
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.journal_application'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 {% block breadcrumb %}{% endblock %}
 {% block body %}
