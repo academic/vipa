@@ -229,6 +229,26 @@ $(document).ready(function () {
         });
     };
 
+    $(".delete[data-token]").on('click',function(){
+        var form = $("<form/>").hide();
+        var action = $(this).attr('href');
+        var token = $(this).data('token');
+        form.attr({
+            action: action,
+            method: 'post'
+        });
+        form.append($("<input/>",{
+            type: "hidden",
+            name: "_method"
+        }).val('DELETE'));
+        form.append($("<input/>",{
+            type: "hidden",
+            name: "_token"
+        }).val(token));
+        $(this).parent().append(form);
+        form.submit();
+        return false;
+    });
 });
 
 
