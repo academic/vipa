@@ -1,5 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
+        {'title': 'new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <ul class="nav nav-tabs">
         <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
