@@ -27,3 +27,4 @@ admin_board_update:
 admin_board_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Board:delete" }
+    methods: [DELETE]
