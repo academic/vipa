@@ -23,6 +23,7 @@ use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Ojs\JournalBundle\Form\JournalApplicationType;
 use Okulbilisim\LocationBundle\Entity\Location;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Institution controller.
@@ -52,6 +53,7 @@ class ApplicationController extends Controller
             });
 
         $grid = $this->get('grid')->setSource($source);
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
 
         $rowAction[] = ActionHelper::editAction('application_institution_edit', 'id');
         $rowAction[] = ActionHelper::showAction('application_institution_show', 'id');
@@ -83,6 +85,7 @@ class ApplicationController extends Controller
         });
 
         $grid = $this->get('grid')->setSource($source);
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
 
         $rowAction[] = ActionHelper::editAction('application_journal_edit', 'id');
         $rowAction[] = ActionHelper::showAction('application_journal_show', 'id');
@@ -221,26 +224,36 @@ class ApplicationController extends Controller
         return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
     }
 
-    public function journalDeleteAction($id)
+    public function journalDeleteAction(Request $request,$id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException();
         }
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('application_journal'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $dm->remove($entity);
         $dm->flush();
 
         return $this->redirect($this->get('router')->generate('journal_application'));
     }
 
-    public function institutionDeleteAction($id)
+    public function institutionDeleteAction(Request $request, $id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $entity = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
         if (!$entity) {
             throw new NotFoundHttpException();
         }
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('application_institution'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $dm->remove($entity);
         $dm->flush();
 
