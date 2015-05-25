@@ -26,7 +26,7 @@ user_update:
 user_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsUserBundle:User:delete" }
-
+    methods: [DELETE]
 user_block:
     pattern: /{id}/block
     defaults: { _controller: "OjsUserBundle:User:block" }
