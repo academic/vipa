@@ -27,3 +27,4 @@ issue_update:
 issue_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Issue:delete" }
+    methods: [DELETE]
