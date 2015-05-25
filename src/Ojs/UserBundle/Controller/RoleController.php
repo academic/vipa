@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Form\RoleType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 class RoleController extends Controller
 {
@@ -25,21 +26,17 @@ class RoleController extends Controller
 
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('role_show', 'id');
         $rowAction[] = ActionHelper::editAction('role_edit', 'id');
+        $rowAction[] = ActionHelper::editAction('role_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
 
         return $grid->getGridResponse('OjsUserBundle:Role:index.html.twig', $data);
-        /*
-        $entities = $em->getRepository('OjsUserBundle:Role')->findAll();
-
-        return $this->render('OjsUserBundle:Role:index.html.twig', array(
-            'entities' => $entities,
-        ));
-        */
     }
 
     /**
@@ -195,10 +192,15 @@ class RoleController extends Controller
      * @param  Role             $entity
      * @return RedirectResponse
      */
-    public function deleteAction(Role $entity)
+    public function deleteAction(Request $request, Role $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('role'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
