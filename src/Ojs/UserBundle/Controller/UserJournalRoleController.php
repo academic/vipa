@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * UserJournalRole controller.
@@ -35,6 +36,8 @@ class UserJournalRoleController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['user.username'], 'ROLE_SUPER_ADMIN', 'user.username');
         $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
         $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
@@ -317,10 +320,16 @@ class UserJournalRoleController extends Controller
      * @param  UserJournalRole  $entity
      * @return RedirectResponse
      */
-    public function deleteAction(UserJournalRole $entity)
+    public function deleteAction(Request $request, UserJournalRole $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('ujr'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
