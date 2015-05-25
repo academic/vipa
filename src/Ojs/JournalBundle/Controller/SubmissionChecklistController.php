@@ -11,6 +11,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Form\SubmissionChecklistType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * SubmissionChecklist controller.
@@ -42,6 +43,8 @@ class SubmissionChecklistController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('manager_submission_checklist_show', 'id');
         $rowAction[] = ActionHelper::editAction('manager_submission_checklist_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('manager_submission_checklist_delete', 'id');
@@ -212,10 +215,16 @@ class SubmissionChecklistController extends Controller
      * @param  SubmissionChecklist                                $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(SubmissionChecklist $entity)
+    public function deleteAction(Request $request, SubmissionChecklist $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('manager_submission_checklist'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
