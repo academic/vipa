@@ -27,3 +27,4 @@ journalcontact_update:
 journalcontact_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalContact:delete" }
+    methods: [DELETE]

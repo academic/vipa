@@ -14,6 +14,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Form\JournalContactType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * JournalContact controller.
@@ -44,6 +45,8 @@ class JournalContactController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
@@ -257,7 +260,7 @@ class JournalContactController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
@@ -266,6 +269,18 @@ class JournalContactController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+            $token = $csrf->getToken('journalcontact'.$id);
+        } elseif ($this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+            $token = $csrf->getToken('manager_journalcontact'.$id);
+        }else{
+            $token = $csrf->getToken('journalcontact'.$id);
+        }
+
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('Successfully removed');
