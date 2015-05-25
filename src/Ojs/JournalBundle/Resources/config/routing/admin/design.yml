@@ -27,3 +27,4 @@ design_update:
 design_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Design:delete" }
+    methods: [DELETE]
