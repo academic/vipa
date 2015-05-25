@@ -12,6 +12,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Form\ContactTypesType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * ContactTypes controller.
@@ -30,6 +31,7 @@ class ContactTypesController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('contacttypes_show', 'id');
         $rowAction[] = ActionHelper::editAction('contacttypes_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('contacttypes_delete', 'id');
@@ -45,7 +47,7 @@ class ContactTypesController extends Controller
     /**
      * Creates a new ContactTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -63,8 +65,8 @@ class ContactTypesController extends Controller
         }
 
         return $this->render('OjsJournalBundle:ContactTypes:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -97,8 +99,8 @@ class ContactTypesController extends Controller
         $form = $this->createCreateForm($entity);
 
         return $this->render('OjsJournalBundle:ContactTypes:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -115,7 +117,7 @@ class ContactTypesController extends Controller
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:ContactTypes:show.html.twig', array(
-                    'entity' => $entity, ));
+            'entity' => $entity,));
     }
 
     /**
@@ -133,8 +135,8 @@ class ContactTypesController extends Controller
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:ContactTypes:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
@@ -159,7 +161,7 @@ class ContactTypesController extends Controller
     /**
      * Edits an existing ContactTypes entity.
      *
-     * @param  Request                   $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -178,45 +180,33 @@ class ContactTypesController extends Controller
         }
 
         return $this->render('OjsJournalBundle:ContactTypes:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
 
     /**
      * Deletes a ContactTypes entity.
      *
-     * @param  Request          $request
+     * @param  Request $request
      * @param $id
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
-            $this->throw404IfNotFound($entity);
-            $em->remove($entity);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
+        $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('contacttypes'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+        $em->remove($entity);
+        $em->flush();
         $this->successFlashBag('successful.remove');
 
         return $this->redirect($this->generateUrl('contacttypes'));
     }
 
-    /**
-     * @param $id
-     * @return Form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('contacttypes_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-            ;
-    }
 }
