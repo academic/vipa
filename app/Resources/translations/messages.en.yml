@@ -1257,68 +1257,96 @@ institution.wiki_url: "Wiki URL"
 institution.tags: "Tags"
 institution.country: "Country"
 institution.about: "About Institution"
-institution.manager: 'Institution Manager'
-institution.new: 'New Institution'
-institution.edit: 'Edit Institution'
-institution.detail: 'Institution Detail'
+institution.manager: "Institution Manager"
+institution.new: "New Institution"
+institution.edit: "Edit Institution"
+institution.detail: "Institution Detail"
 
 # Title strings
-title.article: 'Privacy'
-title.register: 'Register'
-title.login: 'Login'
-title.password_reset: 'Reset Password'
-title.password_change: 'Change Password'
-title.profile: 'Profile'
-title.profile_update: 'Update Profile'
-title.private_account: 'Private Account'
-title.password_forgot: 'Forgot Password'
-title.topics: 'Topics'
-title.tos: 'Terms of Service'
-title.privacy: 'Privacy'
-title.journal_application: 'Journal Application'
-title.institution_application: 'Institution Application'
-title.article: 'Privacy'
-title.block_create: 'Create Block'
-title.block_link_create: 'Create Block Link'
-title.institutions: 'Institutions'
-title.institution: 'Institution'
-title.issue_detail: 'Institution'
-title.announcements: 'Announcements'
-title.archives: 'Archives'
-title.journal: 'Journal'
-title.journals: 'Journals'
-title.journal_articles: 'Journal Articles'
-title.journal_contacts: 'Journal Contacts'
-title.last_articles: 'Last Articles'
-title.page_detail: 'Page Detail'
-title.page_edit: 'Edit Page'
-title.pages: 'Pages'
-title.page_new: 'New Page'
-title.page_show: 'Show Page'
-title.search: 'Search'
-title.search_tags: 'Search Tags'
-title.browse: 'Browse'
-title.categories: 'Categories'
-title.home: 'Home'
-title.custom_field: 'Custom Field'
-title.create_custom_field: 'Create Custom Field'
-title.connected_account: 'Connected Account'
-title.connected_account_add: 'Add Connected Account'
-title.manager_dashboard: 'Manager Dashboard'
-title.boards: 'Boards'
-title.board_new: 'New Board'
-title.board_edit: 'Edit Board'
-title.board_show: 'Show Board'
-title.editor_dashboard: 'Editor Dashboard'
-title.editor_myjournals: 'My Journals'
-title.issue_arrange: 'Arrange Issue'
-title.issues: 'Issues'
-title.issue_view: 'View Issues'
-title.journal_page_list: 'Page List'
-title.journal_settings_mail: 'Mail Settings'
-title.journal_settings_submission: 'Mail Settings'
-title.role_users: 'User Roles'
-title.users: 'Users'
-title.user_welcome: 'Welcome'
-
-
+title.article: "Privacy"
+title.register: "Register"
+title.login: "Login"
+title.password_reset: "Reset Password"
+title.password_change: "Change Password"
+title.profile: "Profile"
+title.profile_update: "Update Profile"
+title.private_account: "Private Account"
+title.password_forgot: "Forgot Password"
+title.topics: "Topics"
+title.tos: "Terms of Service"
+title.privacy: "Privacy"
+title.journal_application: "Journal Application"
+title.institution_application: "Institution Application"
+title.article: "Privacy"
+title.block_create: "Create Block"
+title.block_link_create: "Create Block Link"
+title.institutions: "Institutions"
+title.institution: "Institution"
+title.institution_detail: "Institution Detail"
+title.institution_edit: "Institution Edit"
+title.journal_detail: "Journal Detail"
+title.journal_edit: "Edit Journal"
+title.issue_detail: "Institution"
+title.announcements: "Announcements"
+title.archives: "Archives"
+title.journal: "Journal"
+title.journals: "Journals"
+title.journal_articles: "Journal Articles"
+title.journal_contacts: "Journal Contacts"
+title.last_articles: "Last Articles"
+title.page_detail: "Page Detail"
+title.page_edit: "Edit Page"
+title.pages: "Pages"
+title.page_new: "New Page"
+title.page_show: "Show Page"
+title.search: "Search"
+title.search_tags: "Search Tags"
+title.browse: "Browse"
+title.categories: "Categories"
+title.home: "Home"
+title.custom_field: "Custom Field"
+title.create_custom_field: "Create Custom Field"
+title.connected_account: "Connected Account"
+title.connected_account_add: "Add Connected Account"
+title.manager_dashboard: "Manager Dashboard"
+title.boards: "Boards"
+title.board_new: "New Board"
+title.board_edit: "Edit Board"
+title.board_show: "Show Board"
+title.editor_dashboard: "Editor Dashboard"
+title.editor_myjournals: "My Journals"
+title.issue_arrange: "Arrange Issue"
+title.issues: "Issues"
+title.issue_view: "View Issues"
+title.journal_page_list: "Page List"
+title.journal_settings_mail: "Mail Settings"
+title.journal_settings_submission: "Mail Settings"
+title.role_users: "User Roles"
+title.users: "Users"
+title.user_welcome: "Welcome"
+title.author_preview: "Author Preview"
+title.citation: "Citation"
+title.citations: "Citations"
+title.article_edit: "Edit Article"
+title.articles: "Articles"
+title.issue_articles: "Issue's Articles"
+title.citation_new: "New Citation"
+title.article_show: "Show Article"
+title.article_new: "New Article"
+title.article_authors: "Article's Authors"
+title.article_authors_new: "Add a new Author"
+title.article_authors_edit: "Edit Article's Authors"
+title.article_authors_show: "Show Article's Authors"
+title.article_files: "Article Files"
+title.article_files_new: "New Article File"
+title.article_files_edit: "Show Article "
+title.article_files_show: "Show Article's Authors"
+title.submission_author_confirm: "Authorship Confirmation"
+title.submission_edit: "Edit Submission"
+title.submissions: "Submissions"
+title.submission_new: "New Submission"
+title.submission_preview: "Submission Preview"
+title.authors: "Authors"
+title.author_new: "New Authors"
+title.author_edit: "Edit Authors"
+title.author_show: "Show Authors"
