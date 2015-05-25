@@ -4,8 +4,10 @@ namespace Ojs\SiteBundle\Acl;
 
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Problematic\AclManagerBundle\Domain\AclManager;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Model\ObjectIdentityInterface;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Role\RoleInterface;
@@ -41,6 +43,9 @@ class AclChainManager extends AclManager
      */
     public function on($domainObject)
     {
+        if (is_string($domainObject)) {
+            return $this->onClass(new ObjectIdentity('CLASS', $domainObject));
+        }
         $this->_onClass = null;
         $this->_on = $domainObject;
 
@@ -87,8 +92,8 @@ class AclChainManager extends AclManager
      */
     public function save($replace = false)
     {
-        if (!is_null($this->_onClass)) {
-            $this->addPermission($this->_onClass, $this->_field,  $this->_mask, $this->_to, 'class', $replace);
+        if (!is_null($this->_onClass) || ($this->_on instanceof ObjectIdentityInterface && $this->_on->getIdentifier() === 'CLASS')) {
+            $this->addClassPermission($this->_onClass, $this->_mask, $this->_to);
         } else {
             $this->addPermission($this->_on, $this->_field,  $this->_mask, $this->_to, 'object', $replace);
         }

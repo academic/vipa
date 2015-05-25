@@ -2,7 +2,7 @@ parameters:
     problematic.acl_manager.class: Ojs\SiteBundle\Acl\AclChainManager
     security.acl.dbal.provider.class: Ojs\SiteBundle\Acl\Dbal\MutableAclProvider
     security.acl.security_identity_retrieval_strategy.class: Ojs\SiteBundle\Acl\SecurityIdentityRetrievalStrategy
-
+    security.acl.object_identity_retrieval_strategy.class: Ojs\SiteBundle\Acl\ObjectIdentityRetrievalStrategy
 services:
     security.acl.security_identity_retrieval_strategy:
         class: %security.acl.security_identity_retrieval_strategy.class%
