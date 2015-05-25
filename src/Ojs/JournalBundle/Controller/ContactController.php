@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Form\ContactType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Contact controller.
@@ -27,6 +28,8 @@ class ContactController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('contact_show', 'id');
         $rowAction[] = ActionHelper::editAction('contact_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('contact_delete', 'id');
@@ -172,14 +175,21 @@ class ContactController extends Controller
     /**
      * Deletes a Contact entity.
      *
+     * @param $request
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('contact'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
