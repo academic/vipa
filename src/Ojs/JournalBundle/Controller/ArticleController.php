@@ -12,6 +12,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\ArticleFile;
+use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Form\ArticleType;
+use Ojs\JournalBundle\Form\CitationType;
 
 /**
  * Article controller.
@@ -200,6 +202,7 @@ class ArticleController extends Controller
     /**
      * Display an Article entity as author preview
      * @param integer $id
+     * @return Response
      */
     public function previewAction($id)
     {
@@ -364,8 +367,63 @@ class ArticleController extends Controller
         $actionsColumn->setRowActions($actions);
         $grid->addColumn($actionsColumn);
 
+        $data['id'] = $id;
         $data['grid'] = $grid;
 
         return $grid->getGridResponse('@OjsJournal/Article/citations.html.twig', $data);
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     */
+    public function articleNewCitationAction($id)
+    {
+        $citationEntity = new Citation();
+        $articleEntity = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($id);
+
+        $form = $this->createForm(new CitationType(), $citationEntity, array(
+            'action' => $this->generateUrl('article_citations_create', ['id' => $id]),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr'=> ['class' => 'btn btn-success pull-right']));
+
+        $data = ['form' => $form->createView(), 'entity' => $articleEntity];
+        return $this->render('OjsJournalBundle:Article:new_citation.html.twig', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function articleCreateCitationAction(Request $request, $id)
+    {
+        $citationEntity = new Citation();
+        /** @var Article $articleEntity */
+        $articleEntity = $this->getDoctrine()->getRepository('OjsJournalBundle:Article')->find($id);
+        $form = $this->createForm(new CitationType(), $citationEntity, array(
+            'action' => $this->generateUrl('article_citations_create', ['id' => $id]),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr'=> ['class' => 'btn btn-success pull-right']));
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($citationEntity);
+            $em->flush();
+
+            $articleEntity->addCitation($citationEntity);
+            $em->persist($articleEntity);
+            $em->flush();
+
+            return $this->redirectToRoute('article_citations', ['id' => $id]);
+        }
+
+        $data = ['form' => $form->createView(), 'entity' => $articleEntity];
+        return $this->render('OjsJournalBundle:Article:new_citation.html.twig', $data);
     }
 }

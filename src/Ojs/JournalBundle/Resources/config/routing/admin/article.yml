@@ -18,11 +18,17 @@ article_new:
     pattern:  /new
     defaults: { _controller: "OjsJournalBundle:Article:new" }
 
-
 article_citations:
-    pattern:  /{id}/citation
+    pattern:  /{id}/citations
     defaults: { _controller: "OjsJournalBundle:Article:articleCitations" }
 
+article_citations_new:
+    pattern:  /{id}/citations/new
+    defaults: { _controller: "OjsJournalBundle:Article:articleNewCitation" }
+
+article_citations_create:
+    pattern:  /{id}/citations/create
+    defaults: { _controller: "OjsJournalBundle:Article:articleCreateCitation" }
 
 article_create:
     pattern:  /create
