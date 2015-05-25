@@ -27,3 +27,4 @@ admin_journaltheme_update:
 admin_journaltheme_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalTheme:delete" }
+    methods: [DELETE]
