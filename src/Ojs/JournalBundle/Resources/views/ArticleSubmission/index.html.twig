@@ -1,15 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
 
-
 {% block breadcrumb %}
     {% set list = [
-    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-    { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
-
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
-
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
