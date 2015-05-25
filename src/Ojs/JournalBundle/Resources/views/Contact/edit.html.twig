@@ -1,9 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
+
 {% block breadcrumb %}
-    {{breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    { 'link': path('contact'), 'title': 'contact.manager'|trans},
-    { 'title' : 'contact.edit'|trans} ])}}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('contact'),'title': 'contact.manager'|trans},
+        {'title': 'contact.edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
+
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
@@ -11,5 +16,4 @@
     {% set back_path = 'contact' %}
     {% set delete_path = 'contact_delete' %}
     {% include '::actionbuttons.html.twig' %}
-
 {% endblock %}
