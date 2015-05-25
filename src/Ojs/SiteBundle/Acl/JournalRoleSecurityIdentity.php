@@ -35,23 +35,25 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
             $journal = $journal->getId();
         }
         if ($role instanceof Role) {
-            $role = $role->getName();
+            $role = $role->getRole();
         }
         $this->journal = $journal;
         $this->role = $role;
     }
 
-    public function getIdentifier(){
+    public function getIdentifier()
+    {
         return 'JournalRole-'.$this->role.'-'.$this->journal;
     }
 
-    public static function determine($securityIdentifier) {
+    public static function determine($securityIdentifier)
+    {
         return (substr($securityIdentifier, 0, 11) === 'JournalRole');
     }
 
     public static function fromIdentifier($securityIdentifier)
     {
-        list ($role, $journal) = explode('-', substr($securityIdentifier, 12));
+        list($role, $journal) = explode('-', substr($securityIdentifier, 12));
 
         return new self($journal, $role);
     }
@@ -90,7 +92,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
             return false;
         }
 
-        return ($this->role === $sid->getRole() && (int)$this->journal === (int)$sid->getJournal());
+        return ($this->role === $sid->getRole() && (int) $this->journal === (int) $sid->getJournal());
     }
 
     /**

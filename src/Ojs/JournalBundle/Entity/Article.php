@@ -184,6 +184,7 @@ class Article implements Translatable
     /**
      * @var Issue
      * @GRID\Column(field="issue.title", title="issue")
+     * AclParent
      */
     private $issue;
 

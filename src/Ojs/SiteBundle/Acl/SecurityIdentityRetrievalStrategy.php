@@ -50,7 +50,6 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
      */
     public function getSecurityIdentities(Token\TokenInterface $token)
     {
-
         $sids = array();
 
         // add user security identity
