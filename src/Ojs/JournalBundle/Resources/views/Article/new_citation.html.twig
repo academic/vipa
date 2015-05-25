@@ -1,9 +1,10 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'},
-    { 'link': path('article'), 'title': 'Article Manager'},
-    { 'title' : 'Edit Article'} ]) }}
+    {{ breadcrumb([
+        {'link': path('dashboard'), 'title': 'dashboard'},
+        { 'link': path('article'), 'title': 'Article Manager'},
+        { 'title' : 'Edit Article'}]) }}
 {% endblock %}
 
 {% block body -%}
@@ -14,9 +15,6 @@
         <li role="presentation" class="active"><a href="{{ url('article_citations', {id: entity.id}) }}">{{ "citation"|trans }}</a></li>
     </ul>
 
-    {{ grid(grid) }}
-
-    <a href="{{ path('article_citations_new', {'id': id}) }}">
-        <button class="btn btn-success pull-right">{{ "create"|trans }}</button>
-    </a>
+    <br>
+    {{ form(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
 {% endblock %}
