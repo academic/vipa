@@ -27,3 +27,4 @@ citation_update:
 citation_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Citation:delete" }
+    methods: [DELETE]
