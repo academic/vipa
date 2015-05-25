@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class WorkflowTemplateController extends OjsController
 {
@@ -209,7 +209,7 @@ class WorkflowTemplateController extends OjsController
 
         //control if is not system template
         if ($template->getIsSystemTemplate() == 1) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
 
         $form = $this->createForm(new TemplateType(), $template, array(
@@ -268,7 +268,7 @@ class WorkflowTemplateController extends OjsController
 
         //control if is not system template
         if ($template->getIsSystemTemplate() == 1) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
 
         $templateSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->createQueryBuilder()
@@ -397,7 +397,7 @@ class WorkflowTemplateController extends OjsController
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
         //control if steps template system template
         if ($step->getTemplate()->getIsSystemTemplate()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
@@ -482,7 +482,7 @@ class WorkflowTemplateController extends OjsController
         $entity = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->find($stepId);
         //control if steps template system template
         if ($entity->getTemplate()->getIsSystemTemplate()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
         $template = $entity->getTemplate();
         // get where entity added as next step
