@@ -1,5 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'title': 'board'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1> {{"boards"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
@@ -8,5 +16,4 @@
     </a>
     <hr>
     {{ grid(grid) }}
-
 {% endblock %}
