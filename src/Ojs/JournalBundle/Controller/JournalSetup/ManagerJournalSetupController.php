@@ -49,7 +49,7 @@ class ManagerJournalSetupController extends Controller
      * @param $stepCount
      * @return \Symfony\Component\Form\FormView
      */
-    public function createFormView($setup, $stepCount)
+    private function createFormView($setup, $stepCount)
     {
         $stepClassName  = 'Ojs\JournalBundle\Form\JournalSetup\Step'.$stepCount;
 
