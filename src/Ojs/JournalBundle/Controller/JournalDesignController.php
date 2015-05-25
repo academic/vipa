@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalDesign;
 use Ojs\JournalBundle\Form\JournalDesignType;
+use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
  * JournalDesign controller.
@@ -27,6 +28,8 @@ class JournalDesignController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('admin_journaldesign_show', 'id');
         $rowAction[] = ActionHelper::editAction('admin_journaldesign_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('admin_journaldesign_delete', 'id');
@@ -187,14 +190,20 @@ class JournalDesignController extends Controller
     }
 
     /**
-     * Deletes a JournalDesign entity.
-     * @param  JournalDesign                                      $entity
+     * @param Request $request
+     * @param JournalDesign $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws TokenNotFoundException
      */
-    public function deleteAction(JournalDesign $entity)
+    public function deleteAction(Request $request, JournalDesign $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('admin_journaldesign'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

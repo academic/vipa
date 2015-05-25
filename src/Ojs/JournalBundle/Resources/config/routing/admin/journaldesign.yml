@@ -27,4 +27,4 @@ admin_journaldesign_update:
 admin_journaldesign_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:JournalDesign:delete" }
-    requirements: { _method: post|delete }
+    methods: [DELETE]
