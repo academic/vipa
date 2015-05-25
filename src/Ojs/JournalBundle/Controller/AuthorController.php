@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Form\AuthorType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Author controller.
@@ -27,6 +28,7 @@ class AuthorController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('author_show', 'id');
         $rowAction[] = ActionHelper::editAction('author_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('author_delete', 'id');
@@ -175,11 +177,16 @@ class AuthorController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('author'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
