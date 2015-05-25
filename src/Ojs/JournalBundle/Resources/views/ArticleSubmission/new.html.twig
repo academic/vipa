@@ -1,5 +1,6 @@
-{% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.submission_new'|trans }} {{ parent() }}{% endblock %}
+{% set hideleft = 1 %}
 {% block title %}{{ 'article.submit'|trans }}{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
