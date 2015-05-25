@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\JournalType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Journal controller.
@@ -36,6 +37,8 @@ class JournalController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('journal_show', 'id');
         $rowAction[] = ActionHelper::editAction('journal_edit', 'id');
         $rowAction[] = ActionHelper::cmsAction();
@@ -219,9 +222,14 @@ class JournalController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $user = $this->getUser();
         if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
-            throw new AccessDeniedException("You not authorized for edit this journal!");
+            throw new AccessDeniedException("You not authorized for delete this journal!");
         }
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('journal'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
