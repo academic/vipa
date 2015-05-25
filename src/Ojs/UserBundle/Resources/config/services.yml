@@ -1,4 +1,5 @@
-ojs_user.soft_delete:
-    class: OkulBilisim\UserBundle\EventListener\SoftDeleteListener
-    tags:
-        - { name: doctrine.event_listener, event: preSoftDelete }
+services:
+    ojs_user.soft_delete:
+        class: Ojs\UserBundle\Listeners\SoftDeleteListener
+        tags:
+            - { name: doctrine.event_listener, event: preSoftDelete }
