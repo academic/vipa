@@ -9,6 +9,7 @@ use Ojs\JournalBundle\Form\BoardType;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Board controller.
@@ -26,6 +27,8 @@ class BoardController extends Controller
         $source = new Entity('OjsJournalBundle:Board');
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('amin_board_show', 'id');
         $rowAction[] = ActionHelper::editAction('amin_board_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('amin_board_delete', 'id');
@@ -186,13 +189,18 @@ class BoardController extends Controller
      * Deletes a Board entity.
      *
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Board')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('amin_board'.$id); //@todo amin_board \ admin_board
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
