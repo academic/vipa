@@ -2,6 +2,15 @@
 {#
 journal.show tpl for reviewers
 #}
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('journal'),'title': 'journal.manager'|trans},
+        {'title': 'show.reviewer'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <table class="record_properties  table">
 

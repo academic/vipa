@@ -2,6 +2,16 @@
 {#
 journal.show tpl for authors
 #}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('journal'),'title': 'journal.manager'|trans},
+        {'title': 'show.author'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <table class="record_properties  table">
         <tbody>
