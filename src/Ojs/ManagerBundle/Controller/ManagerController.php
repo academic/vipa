@@ -272,7 +272,7 @@ class ManagerController extends Controller
     /**
      * @return Response
      */
-    public function roleUser()
+    private function roleUser()
     {
         $em = $this->getDoctrine()->getManager();
         $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();

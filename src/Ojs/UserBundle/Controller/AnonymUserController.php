@@ -129,7 +129,7 @@ class AnonymUserController extends Controller
         return $this->render('OjsUserBundle:AnonymUser:create.html.twig', $data);
     }
 
-    public function createCreateForm(User $entity)
+    private function createCreateForm(User $entity)
     {
         $form = $this->createForm(
             new AnonymUserType(),
@@ -142,7 +142,7 @@ class AnonymUserController extends Controller
         return $form;
     }
 
-    public function createEditForm(User $entity)
+    private function createEditForm(User $entity)
     {
         $form = $this->createForm(
             new AnonymUserType(),

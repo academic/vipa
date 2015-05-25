@@ -103,7 +103,7 @@ class JournalSetupController extends Controller
      * @param $stepCount
      * @return FormView
      */
-    public function createFormView($setup, $stepCount)
+    private function createFormView($setup, $stepCount)
     {
         $stepClassName  = 'Ojs\JournalBundle\Form\JournalSetup\Step'.$stepCount;
 
