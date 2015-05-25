@@ -1,4 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'article.author'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1>{{"article_author_list"|trans}}</h1>
     <a class="btn btn-success" href="{{ path('articleauthor_new') }}">{{"articleauthor_new"|trans}}</a>
