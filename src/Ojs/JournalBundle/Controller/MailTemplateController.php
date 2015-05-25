@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\MailTemplate;
 use Ojs\JournalBundle\Form\MailTemplateType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Yaml\Parser;
 use Ojs\Common\Controller\OjsController as Controller;
 
@@ -64,6 +65,8 @@ class MailTemplateController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('mailtemplate_manager_show', 'id');
         $rowAction[] = ActionHelper::editAction('mailtemplate_manager_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('mailtemplate_manager_delete', 'id');
@@ -261,13 +264,13 @@ class MailTemplateController extends Controller
         ));
     }
 
+
     /**
-     * Deletes a MailTemplate entity.
-     *
+     * @param Request $request
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:MailTemplate')->find($id);
@@ -276,6 +279,11 @@ class MailTemplateController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('mailtemplate_manager'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
 
         $em->remove($entity);
         $em->flush();

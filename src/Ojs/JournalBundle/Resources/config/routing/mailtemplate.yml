@@ -27,6 +27,7 @@ mailtemplate_manager_update:
 mailtemplate_manager_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:MailTemplate:delete" }
+    methods: [DELETE]
 mailtemplate_manager_copy:
     path:  /{id}/copy
     defaults: { _controller: "OjsJournalBundle:MailTemplate:copy"}
