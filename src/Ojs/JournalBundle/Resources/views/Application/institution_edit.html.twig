@@ -1,7 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 
 {% block breadcrumb %}
-    {% set list = [{'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'application.journal'|trans }] %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('institution_application'),'title': 'application.institute'|trans},
+        {'title': 'edit'|trans}
+    ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
