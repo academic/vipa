@@ -27,3 +27,4 @@ lang_update:
 lang_delete:
     path:     /{id}/delete
     defaults: { _controller: "OjsJournalBundle:Lang:delete" }
+    methods: [DELETE]
