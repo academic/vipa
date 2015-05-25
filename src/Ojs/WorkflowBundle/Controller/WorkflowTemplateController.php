@@ -513,7 +513,7 @@ class WorkflowTemplateController extends OjsController
      * @param  array $roleIds
      * @return array
      */
-    public function prepareRoles($roleIds)
+    private function prepareRoles($roleIds)
     {
         $serializer = $this->get('serializer');
         $em = $this->get('doctrine')->getManager();

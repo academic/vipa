@@ -31,9 +31,10 @@ class ArticleController extends Controller
 
     /**
      * article view event log
+     * @param Request $request
      * @param $article
      */
-    public function articleViewLog(Request $request, Article $article)
+    private function articleViewLog(Request $request, Article $article)
     {
         $entity = new ArticleEventLog();
         $em = $this->getDoctrine()->getManager();

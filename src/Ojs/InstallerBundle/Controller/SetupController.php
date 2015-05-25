@@ -78,7 +78,7 @@ class SetupController extends Controller
         return new RedirectResponse($this->get('router')->generate('ojs_installer_setup'));
     }
 
-    public function insertRoles()
+    private function insertRoles()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();

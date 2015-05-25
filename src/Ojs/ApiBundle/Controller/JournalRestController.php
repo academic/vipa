@@ -22,7 +22,7 @@ class JournalRestController extends FOSRestController
      * @param $id
      * @return mixed
      */
-    public function getJournalIssues($id)
+    private function getJournalIssues($id)
     {
         return $id;
     }

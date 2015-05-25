@@ -50,7 +50,7 @@ class CheckController extends Controller
     /**
      * Prints a Requirement instance
      */
-    public function echo_requirement(\Requirement $requirement)
+    private function echo_requirement(\Requirement $requirement)
     {
         $result = $requirement->isFulfilled() ? 'OK' : ($requirement->isOptional() ? 'WARNING' : 'ERROR');
         $data = '';
