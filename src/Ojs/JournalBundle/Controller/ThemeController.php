@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Theme;
 use Ojs\JournalBundle\Form\ThemeType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Theme controller.
@@ -26,6 +27,8 @@ class ThemeController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('theme_show', 'id');
         $rowAction[] = ActionHelper::editAction('theme_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('theme_delete', 'id');
@@ -175,9 +178,14 @@ class ThemeController extends Controller
      * @param  Theme                                              $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Theme $entity)
+    public function deleteAction(Request $request, Theme $entity)
     {
         $this->throw404IfNotFound($entity);
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('theme'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
