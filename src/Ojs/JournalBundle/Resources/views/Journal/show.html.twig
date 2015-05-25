@@ -5,12 +5,11 @@ journal.show tpl for super admin users
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                { 'link': path('journal'), 'title': 'journal.manager'|trans},
-                { 'title': 'journal.detail'|trans},
-
-] %}
-    {{breadcrumb(list)}}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('journal'),'title': 'journal.manager'|trans},
+        {'title': 'show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
