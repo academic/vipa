@@ -18,6 +18,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Yaml;
@@ -40,6 +41,7 @@ class UserController extends Controller
         $source = new Entity("OjsUserBundle:User");
         $grid = $this->get('grid');
         $grid->setSource($source);
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'], 'ROLE_SUPER_ADMIN');
@@ -258,14 +260,20 @@ class UserController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
+            throw $this->createNotFoundException($this->get('translator')->trans('notFound'));
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('user'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $entity->setStatus(-1);
         $em->remove($entity);
         $em->flush();
