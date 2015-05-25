@@ -13,6 +13,7 @@ application_journal_update:
 application_journal_delete:
   pattern: /journal/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:journalDelete'}
+  methods: [DELETE]
 application_journal_saveasnew:
   pattern: /journal/{id}/save
   defaults: { _controller: 'OjsJournalBundle:Application:journalSave' }
@@ -33,6 +34,7 @@ application_institution_update:
 application_institution_delete:
   pattern: /institution/delete/{id}
   defaults: { _controller: 'OjsJournalBundle:Application:institutionDelete'}
+  methods: [DELETE]
 application_institution_saveasnew:
   pattern: /institution/{id}/save
   defaults: { _controller: 'OjsJournalBundle:Application:institutionSave' }
