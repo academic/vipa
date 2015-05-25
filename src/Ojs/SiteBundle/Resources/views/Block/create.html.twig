@@ -1,4 +1,5 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.block_create'|trans }} {{ parent() }}{% endblock %}
 {% block body -%}
     <h4>Create New Block</h4>
     {% for label, flashes in app.session.flashbag.all %}
