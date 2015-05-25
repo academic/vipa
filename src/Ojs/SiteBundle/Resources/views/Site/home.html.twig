@@ -52,8 +52,10 @@
                     <hr><br><br>
                     <div class="col-md-12">
                         <p class="text-center">
-                            <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
-                                    class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}</a>
+                            {% if not app.user %}
+                                <a href="{{ path("register") }}" class="btn btn-default btn-lg btn-labeled"><span
+                                        class="btn-label"><i class="fa fa-user"></i></span> {{ "register"|trans }}</a>
+                            {% endif %}
                             <!--
                             <a href="{{ url("ojs_apply_institution") }}" class="btn btn-default btn-lg btn-labeled"><span class="btn-label"><i
                                             class="fa fa-institution"></i></span> {{ 'institute.register'|trans }}</a>
