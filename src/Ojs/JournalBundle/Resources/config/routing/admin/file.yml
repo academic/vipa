@@ -27,4 +27,4 @@ admin_file_update:
 admin_file_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "OjsJournalBundle:File:delete" }
-    requirements: { _method: get|post|delete }
+    methods: [DELETE]

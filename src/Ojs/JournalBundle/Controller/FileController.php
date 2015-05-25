@@ -10,6 +10,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Form\FileType;
 use Gedmo\Uploadable\FileInfo\FileInfoArray;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * File controller.
@@ -27,6 +28,8 @@ class FileController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+
         $rowAction[] = ActionHelper::showAction('admin_file_show', 'id');
         $rowAction[] = ActionHelper::editAction('admin_file_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('admin_file_delete', 'id');
@@ -182,8 +185,9 @@ class FileController extends Controller
     }
 
     /**
-     * Deletes a File entity.
-     *
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -192,6 +196,11 @@ class FileController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('admin_file'.$id);
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
