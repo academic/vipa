@@ -3,30 +3,7 @@
 {% block body -%}
     <h1>{{ "proxy.list"|trans  }}</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="table records_list">
-        <thead>
-            <tr>
-                <th>{{ "proxy.id"|trans  }}</th>
-                <th>{{ "proxy.proxy.user.id"|trans  }}</th>
-                <th>{{ "proxy.client.user.id"|trans  }}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('admin_proxy_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.proxyUserId }}</td>
-                    <td>{{ entity.clientUserId }}</td>
-                    <td>
-                        <a href="{{ path('admin_proxy_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
-                        <a href="{{ path('admin_proxy_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    {{ grid(grid) }}
     {% set create_path = 'admin_proxy_new' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

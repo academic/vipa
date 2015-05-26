@@ -11,6 +11,10 @@ use Ojs\UserBundle\Entity\Proxy;
 use Ojs\UserBundle\Form\ProxyType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Proxy controller.
@@ -113,12 +117,19 @@ class ProxyController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:Proxy')->findAll();
-
-        return $this->render('OjsUserBundle:Proxy:admin/index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $source = new Entity('OjsUserBundle:Proxy');
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('admin_proxy_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_proxy_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_proxy_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:Proxy:admin/index.html.twig', $data);
     }
 
     /**
