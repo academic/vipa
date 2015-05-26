@@ -16,7 +16,6 @@ Ojs\JournalBundle\Entity\ArticleEventLog:
             type: datetime
             column: event_date
             nullable: true
-            columnDefinition: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ip:
             type: string
             length: '50'
