@@ -4,9 +4,11 @@ namespace Ojs\UserBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Notification
+ * @GRID\Source(columns="id,senderId,recipientId,entityId,entityName,isRead")
  */
 class Notification implements Translatable
 {

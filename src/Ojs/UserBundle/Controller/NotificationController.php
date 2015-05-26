@@ -9,6 +9,10 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\Notification;
 use Ojs\UserBundle\Form\NotificationType;
 use Symfony\Component\HttpFoundation\Response;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Notification controller.
@@ -22,12 +26,19 @@ class NotificationController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:Notification')->findAll();
-
-        return $this->render('OjsUserBundle:Notification:index.html.twig', array(
-                    'entities' => $entities,
-        ));
+        $source = new Entity('OjsUserBundle:Notification');
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('admin_notification_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_notification_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_notification_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:Notification:index.html.twig', $data);
     }
 
     /**
