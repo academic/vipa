@@ -149,7 +149,7 @@ class FileController extends Controller
     {
         $form = $this->createForm(new FileType(), $entity, array(
             'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
 
@@ -171,17 +171,12 @@ class FileController extends Controller
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
+        $em->persist($entity);
 
-        if ($editForm->isValid()) {
-            $em->flush();
-            $this->successFlashBag('successful.update');
-            return $this->redirectToRoute('admin_file_edit', ['id' => $id]);
-        }
+        $em->flush();
+        $this->successFlashBag('successful.update');
+        return $this->redirectToRoute('admin_file_edit', ['id' => $id]);
 
-        return $this->render('OjsJournalBundle:File:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
     }
 
     /**
@@ -198,8 +193,8 @@ class FileController extends Controller
         }
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('admin_file'.$id);
-        if($token!=$request->get('_token'))
+        $token = $csrf->getToken('admin_file' . $id);
+        if ($token != $request->get('_token'))
             throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
         $em->flush();

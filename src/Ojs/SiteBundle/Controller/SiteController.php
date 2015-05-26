@@ -5,6 +5,7 @@ namespace Ojs\SiteBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectDownloads;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Yaml\Parser;
 
 class SiteController extends Controller
 {
@@ -40,9 +42,9 @@ class SiteController extends Controller
             'childClose' => '</li>',
             'idField' => true,
             'nodeDecorator' => function ($node) {
-                return '<a href="'.$this->generateUrl('ojs_journals_index', ['filter' => ['subject' => $node['id']]]).'">'
-                .$node['subject'].' ('.$node['totalJournalCount'].')</a>';
-            }, ];
+                return '<a href="' . $this->generateUrl('ojs_journals_index', ['filter' => ['subject' => $node['id']]]) . '">'
+                . $node['subject'] . ' (' . $node['totalJournalCount'] . ')</a>';
+            },];
         $data['subjects'] = $repo->childrenHierarchy(null, false, $options);
         $data['page'] = 'index';
         $sumRepo = $em->getRepository('OjsJournalBundle:Sums');
@@ -94,7 +96,7 @@ class SiteController extends Controller
     {
         $data['page'] = $page;
 
-        return $this->render('OjsSiteBundle:Site:static/'.$page.'.html.twig', $data);
+        return $this->render('OjsSiteBundle:Site:static/' . $page . '.html.twig', $data);
     }
 
     public function institutionsIndexAction()
@@ -270,7 +272,31 @@ class SiteController extends Controller
         $dm->persist($objectDownload);
         $dm->flush();
 
-        return RedirectResponse::create('/uploads/journalfiles/'.$file->getPath().$file->getName());
+        $fileHelper = new FileHelper();
+
+        $file = $fileHelper->generatePath($file->getName(), false) . $file->getName();
+
+        $uploaddir = $this->get('kernel')->getRootDir() . '/../web/uploads/';
+
+
+        $yamlParser = new Parser();
+        $vars = $yamlParser->parse(file_get_contents(
+            $this->container->getParameter('kernel.root_dir') .
+            '/config/media.yml'
+        ));
+        $mappings = $vars['oneup_uploader']['mappings'];
+        $url = FALSE;
+        foreach ($mappings as $key => $value) {
+            if(is_file($uploaddir . $key . '/' . $file)){
+                $url =  '/uploads/'.$key . '/' . $file;
+                break;
+            }
+        }
+        if(!$url){
+            throw new NotFoundHttpException;
+        }
+
+        return RedirectResponse::create($url);
     }
 
     public function journalPageDetailAction($slug, $journal_slug, $institution)
