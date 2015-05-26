@@ -56,6 +56,7 @@ class ArticleController extends Controller
      */
     public function indexAction()
     {
+        $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
         $source = new Entity('OjsJournalBundle:Article');
         $source->manipulateRow(function (Row $row) {
            if ($row->getField("title") and strlen($row->getField('title'))>20) {
@@ -64,15 +65,29 @@ class ArticleController extends Controller
 
             return $row;
         });
+        $tableAlias = $source->getTableAlias();
+        $selectedJournalId = $this->get('session')->get("selectedJournalId");
+        //if user not admin show only selected journal articles
+        if(!$isAdmin){
+            $source->manipulateQuery(
+                function ($query) use ($tableAlias, $selectedJournalId)
+                {
+                    $query->andWhere($tableAlias . '.journalId = :selectedJournalId')
+                    ->setParameter('selectedJournalId', $selectedJournalId);
+                }
+            );
+        }
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('article_show', 'id');
-        $rowAction[] = ActionHelper::editAction('article_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
-        $rowAction[] = ActionHelper::userAnonymLoginAction();
-
+        //only admins can play on entity
+        if($isAdmin){
+            $rowAction[] = ActionHelper::editAction('article_edit', 'id');
+            $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
+            $rowAction[] = ActionHelper::userAnonymLoginAction();
+        }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 

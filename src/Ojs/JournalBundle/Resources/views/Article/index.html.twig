@@ -17,11 +17,13 @@
 {% endblock %}
 
 {% block body -%}
-    <p>
-        <a href="{{ path('article_new') }}" id="create-new-article" class="btn btn-success">
-            {{"article.new"|trans}}
-        </a>
-    </p>
+    {% if isSystemAdmin() %}
+        <p>
+            <a href="{{ path('article_new') }}" id="create-new-article" class="btn btn-success">
+                {{"article.new"|trans}}
+            </a>
+        </p>
+    {% endif %}
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
 {% endblock %}
