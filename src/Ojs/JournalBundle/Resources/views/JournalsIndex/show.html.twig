@@ -1,5 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('manager_journals_indexes',{journal: entity.journal.id}),'title': 'journals.index'|trans},
+        {'title': 'show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':2} only %}
     <h1>{{ 'journalsindex.plural'|trans }}</h1>
