@@ -77,7 +77,7 @@ class NotificationController extends Controller
      */
     private function createCreateForm(Notification $entity)
     {
-        $form = $this->createForm(new NotificationType(), $entity, array(
+        $form = $this->createForm(new NotificationType($this->container), $entity, array(
             'action' => $this->generateUrl('admin_notification_create'),
             'method' => 'POST',
         ));
@@ -158,7 +158,7 @@ class NotificationController extends Controller
      */
     private function createEditForm(Notification $entity)
     {
-        $form = $this->createForm(new NotificationType(), $entity, array(
+        $form = $this->createForm(new NotificationType($this->container), $entity, array(
             'action' => $this->generateUrl('admin_notification_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
