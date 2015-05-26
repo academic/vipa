@@ -15,7 +15,7 @@
                 <div class="col-md-9">
                     <ol class="breadcrumb">
                         <li><a href="{{ path('ojs_public_index') }}">Ojs</a></li>
-                        <li><a href="{{ path('ojs_journal_index', {'slug' : journal.slug}) }}">{{"journal_home"|trans}}</a></li>
+                        <li><a href="{{ path('ojs_journal_index', {'slug' : journal.slug,'institution':journal.institution.slug}) }}">{{"journal_home"|trans}}</a></li>
                         <li class="active">{{"announcements"|trans}}</li>
                     </ol>
                     {% for announcement in announcements %}
