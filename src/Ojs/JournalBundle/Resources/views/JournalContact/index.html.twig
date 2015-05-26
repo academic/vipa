@@ -1,5 +1,13 @@
 {% extends '::ojsbase.html.twig' %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'journal.contact'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1>{{ 'journalcontact.list'|trans }}
         {% if isSystemAdmin() %}
