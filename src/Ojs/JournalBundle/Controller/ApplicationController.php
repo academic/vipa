@@ -44,11 +44,16 @@ class ApplicationController extends Controller
             return $query;
         });
 
+        $repository = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('OjsJournalBundle:InstitutionApplication');
+
         $source->manipulateRow(
-            function (Row $row) {
+            function (Row $row) use ($repository) {
+                $row->setRepository($repository);
                 $status = $row->getField('status');
                 $text = $this->get('translator')->trans(CommonParams::institutionApplicationStatus($status));
                 $row->setField('status', $text);
+
                 return $row;
             });
 
@@ -71,16 +76,21 @@ class ApplicationController extends Controller
     {
         $source = new Document('OjsJournalBundle:JournalApplication');
         $source->manipulateQuery(
-            function(Builder $query) {
+            function (Builder $query) {
                 $query->where("typeof(this.merged) == 'undefined'");
+
                 return $query;
         });
+        $repository = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('OjsJournalBundle:JournalApplication');
 
         $source->manipulateRow(
-            function (Row $row) {
+            function (Row $row) use ($repository) {
+                //$row->setRepository($repository);
                 $status = $row->getField('status');
                 $text = $this->get('translator')->trans(CommonParams::journalApplicationStatus($status));
                 $row->setField('status', $text);
+
                 return $row;
         });
 
@@ -159,14 +169,14 @@ class ApplicationController extends Controller
         $document = $dm->find('OjsJournalBundle:JournalApplication', $id);
 
         if (!$document) {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException();
         }
 
         $form = $this->createForm(new JournalApplicationType(), $document, [
             'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
-            'em' => $this->getDoctrine()->getManager()]);
-        return $this->render('OjsJournalBundle:Application:journal_edit.html.twig', ['form' => $form->createView()]);
+            'em' => $this->getDoctrine()->getManager(), ]);
 
+        return $this->render('OjsJournalBundle:Application:journal_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function institutionEditAction($id)
@@ -175,15 +185,15 @@ class ApplicationController extends Controller
         $document = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
 
         if (!$document) {
-            throw new NotFoundHttpException;
+            throw new NotFoundHttpException();
         }
 
         $form = $this->createForm(new InstitutionApplicationType(), $document, [
             'em' => $this->getDoctrine()->getManager(),
             'helper' => $this->get('okulbilisim_location.form.helper'),
-            'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId()))]);
-        return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
+            'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId())), ]);
 
+        return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function journalUpdateAction(Request $request, $id)
@@ -198,6 +208,7 @@ class ApplicationController extends Controller
         if ($form->isValid()) {
             $dm->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('journal_application'));
         }
 
@@ -212,19 +223,20 @@ class ApplicationController extends Controller
 
         $form = $this->createForm(new InstitutionApplicationType(), $document, [
             'em' => $this->getDoctrine()->getManager(),
-            'helper' => $this->get('okulbilisim_location.form.helper')]);
+            'helper' => $this->get('okulbilisim_location.form.helper'), ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $dm->flush();
             $this->successFlashBag('successful.update');
+
             return $this->redirect($this->generateUrl('institution_application'));
         }
 
         return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
     }
 
-    public function journalDeleteAction(Request $request,$id)
+    public function journalDeleteAction(Request $request, $id)
     {
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $entity = $dm->find('OjsJournalBundle:JournalApplication', $id);
@@ -233,8 +245,9 @@ class ApplicationController extends Controller
         }
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('application_journal'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $dm->remove($entity);
         $dm->flush();
@@ -251,8 +264,9 @@ class ApplicationController extends Controller
         }
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('application_institution'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $dm->remove($entity);
         $dm->flush();
@@ -339,7 +353,6 @@ class ApplicationController extends Controller
             $assistantType = $em->find('OjsJournalBundle:ContactTypes', 1);
             /** @var \Ojs\JournalBundle\Entity\ContactTypes $techContactType */
             $techContactType = $em->find('OjsJournalBundle:ContactTypes', 1);
-
 
             $editorRelation = new JournalContact();
             $editorRelation->setJournal($journal);

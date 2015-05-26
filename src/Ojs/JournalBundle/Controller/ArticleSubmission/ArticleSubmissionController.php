@@ -9,7 +9,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Translatable\Entity\Translation;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
@@ -28,7 +27,6 @@ use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Ojs\Common\Services\OrcidService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
@@ -76,7 +74,11 @@ class ArticleSubmissionController extends Controller
         $source2 = new Document('OjsJournalBundle:ArticleSubmissionProgress');
         $em = $this->getDoctrine()->getManager();
         $router = $this->get('router');
-        $source2->manipulateRow(function (Row $row) use ($em, $router) {
+        $repository = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('OjsJournalBundle:InstitutionApplication');
+
+        $source2->manipulateRow(function (Row $row) use ($repository, $em, $router) {
+            $row->setRepository($repository);
             if ($row->getField('article_data')) {
                 $data = $row->getField('article_data');
                 $_d = [];
