@@ -210,7 +210,7 @@ class ProxyController extends Controller
      */
     private function createCreateForm(Proxy $entity)
     {
-        $form = $this->createForm(new ProxyType(), $entity, array(
+        $form = $this->createForm(new ProxyType($this->container), $entity, array(
             'action' => $this->generateUrl('admin_proxy_create'),
             'method' => 'POST',
         ));
@@ -290,7 +290,7 @@ class ProxyController extends Controller
      */
     private function createEditForm(Proxy $entity)
     {
-        $form = $this->createForm(new ProxyType(), $entity, array(
+        $form = $this->createForm(new ProxyType($this->container), $entity, array(
             'action' => $this->generateUrl('admin_proxy_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
