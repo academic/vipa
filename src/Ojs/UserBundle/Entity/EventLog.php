@@ -38,6 +38,14 @@ class EventLog
     private $affectedUserId;
 
     /**
+     *
+     */
+    function __construct()
+    {
+        $this->eventDate = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer

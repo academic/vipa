@@ -33,6 +33,14 @@ class ArticleEventLog
     private $articleId;
 
     /**
+     *
+     */
+    function __construct()
+    {
+        $this->eventDate = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer
