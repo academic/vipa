@@ -49,7 +49,7 @@ class Notification implements Translatable
     /**
      * @var boolean
      */
-    private $isRead = 0;
+    private $isRead = false;
 
     /**
      * @var string
