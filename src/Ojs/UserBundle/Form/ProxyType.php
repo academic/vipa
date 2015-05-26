@@ -5,9 +5,19 @@ namespace Ojs\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\EntityRepository;
 
 class ProxyType extends AbstractType
 {
+    /** @var ContainerInterface  */
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
 
     /**
      * @param FormBuilderInterface $builder
@@ -16,8 +26,26 @@ class ProxyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('proxyUserId')
-                ->add('clientUserId')
+                ->add('proxyUser', 'autocomplete', [
+                    'class' => 'Ojs\UserBundle\Entity\User',
+                    'label' => 'Proxy User',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'data-list' => $this->container->get('router')->generate('api_get_users'),
+                        'data-get' => $this->container->get('router')->generate('ojs_api_homepage').'public/user/get/',
+                        "placeholder" => "type a username",
+                    ],
+                ])
+                ->add('clientUser', 'autocomplete', [
+                    'class' => 'Ojs\UserBundle\Entity\User',
+                    'label' => 'Client User',
+                    'attr' => [
+                        'class' => 'autocomplete',
+                        'data-list' => $this->container->get('router')->generate('api_get_users'),
+                        'data-get' => $this->container->get('router')->generate('ojs_api_homepage').'public/user/get/',
+                        "placeholder" => "type a username",
+                    ],
+                ])
         ;
     }
 
