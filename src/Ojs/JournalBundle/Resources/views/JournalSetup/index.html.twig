@@ -1,6 +1,16 @@
 {% set hideleft = 1 %}
 {% extends '::ojsbase.html.twig' %}
+
 {% block title %}{{ 'journal.setup'|trans }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'title': 'journal.setup'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@submission_css' output="c/submission_css.css" filter="cssrewrite" %}
