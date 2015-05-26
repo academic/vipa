@@ -32,6 +32,9 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             column: size
             nullable: true
+        tags:
+            type: string
+            nullable: true
         created:
            type: datetime
            gedmo:
