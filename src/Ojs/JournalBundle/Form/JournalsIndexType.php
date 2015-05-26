@@ -73,7 +73,6 @@ class JournalsIndexType extends AbstractType
             'user' => null,
             'journal' => null,
             'attr' => [
-                'novalidate' => 'novalidate',
                 'class' => 'form-validate',
             ],
         ]);
