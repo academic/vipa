@@ -4,6 +4,15 @@
     <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('manager_submission_checklist'),'title': 'submission_checklist.show'|trans},
+        {'title': 'new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     {% include 'OjsJournalBundle:Journal:journal_settings_nav.html.twig' with {'active':4} only %}
 

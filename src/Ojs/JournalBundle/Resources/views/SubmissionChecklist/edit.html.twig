@@ -5,6 +5,15 @@
     <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('manager_submission_checklist'),'title': 'submission_checklist.show'|trans},
+        {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1>{{ 'submission_checklist.edit'|trans }}</h1>
     {% include '::flashbag.html.twig' %}
