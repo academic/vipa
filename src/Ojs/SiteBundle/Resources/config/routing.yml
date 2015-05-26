@@ -136,3 +136,7 @@ ojs_journal_contacts:
 ojs_file_download:
     pattern: /download/{id}
     defaults: { _controller: OjsSiteBundle:Site:downloadFile }
+
+ojs_people:
+    resource: "@OjsSiteBundle/Resources/config/routing/people.yml"
+    prefix: /people

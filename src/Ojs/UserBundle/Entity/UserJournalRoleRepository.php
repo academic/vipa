@@ -49,20 +49,29 @@ class UserJournalRoleRepository extends EntityRepository
     }
 
     /**
-     * @param $user_id
-     * @param  bool  $onlyJournalIds
-     * @return array
+     * @param int $user_id Use null for all
+     * @return array Array structrue: [user_id][journal_id]['roles']
      */
-    public function userJournalsWithRoles($user_id, $onlyJournalIds = false)
+    public function getUsersWithRoles($user_id = null)
     {
-        $data = $this->getEntityManager()->createQuery(
-            'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
-        )->setParameter('user_id', $user_id)->getResult();
+        if(is_null($user_id)) {
+            $data = $this->getEntityManager()
+                ->createQuery('SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id')
+                ->setParameter('user_id', $user_id)->getResult();
+        } else {
+            $data = $this->findAll();
+        }
+
         $entities = array();
+
         if ($data) {
             foreach ($data as $item) {
-                $entities[$item->getJournalId()]['journal'] = $onlyJournalIds ? $item->getJournal()->getId() : $item->getJournal();
-                $entities[$item->getJournalId()]['roles'][] = $item->getRole();
+                if(!$item->getRole()->getIsSystemRole()) {
+                    $entities[$item->getUser()->getId()]['id'] = $item->getUser()->getId();
+                    $entities[$item->getUser()->getId()]['entity'] = $item->getUser();
+                    $entities[$item->getUser()->getId()]['journals'][$item->getJournalId()]['entity'] = $item->getJournal();
+                    $entities[$item->getUser()->getId()]['journals'][$item->getJournalId()]['roles'][] = $item->getRole();
+                }
             }
         }
 
