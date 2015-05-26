@@ -1,4 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('mailtemplate'),'title': 'mail.template'|trans},
+        {'title': 'edit'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h1>Edit MailTemplate</h1>
     {% include '::flashbag.html.twig' %}
