@@ -5,9 +5,15 @@
         </a>
     {% endif %}
     {% if(back_path is defined) %}
-        <a class="btn btn-default btn-sm" href="{{ path(back_path, { 'id': entity.id }) }}" title="{{"b"|trans}}">
-            <i class="fa fa-arrow-left"></i>
-        </a>
+        {% if entity is defined %}
+            <a class="btn btn-default btn-sm" href="{{ path(back_path, { 'id': entity.id }) }}" title="{{"b"|trans}}">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+        {% else %}
+            <a class="btn btn-default btn-sm" href="{{ path(back_path) }}" title="{{"b"|trans}}">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+        {% endif %}
     {% endif %}
     {% if(show_path is defined) %}
         <a class="btn btn-success btn-sm" href="{{ path(show_path, { 'id': entity.id }) }}" title="{{"details"|trans}}">

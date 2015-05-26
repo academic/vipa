@@ -1,0 +1,3 @@
+manager_article_journal:
+    pattern:  /
+    defaults: { _controller: "OjsJournalBundle:Article:index" }

@@ -54,3 +54,7 @@ journal_apply:
 manager_journal_section:
     resource: "@OjsJournalBundle/Resources/config/routing/journalsection.yml"
     prefix:   /manager/journal/section
+
+manager_journal_article:
+    resource: "@OjsJournalBundle/Resources/config/routing/manager/article.yml"
+    prefix:   /manager/article/
