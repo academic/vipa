@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\MailLog;
 use Ojs\UserBundle\Form\MailLogType;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * MailLog controller.
@@ -21,12 +25,19 @@ class MailLogController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:MailLog')->findAll();
-
-        return $this->render('OjsUserBundle:MailLog:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $source = new Entity('OjsUserBundle:MailLog');
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('admin_maillog_show', 'id');
+        $rowAction[] = ActionHelper::editAction('admin_maillog_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('admin_maillog_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:MailLog:index.html.twig', $data);
     }
 
     /**
