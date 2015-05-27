@@ -13,38 +13,9 @@
 
     <div class="row">
         <div class="panel">
-            <h1>{{"issue.plural"|trans}} <small>{{journal.title}}</small></h1>
+            <h1>{{"issue.plural"|trans}}</h1>
             {% include '::flashbag.html.twig' %}
-            <table class="records_list table table-striped table-responsive">
-                <tbody>
-                    {% for entity in entities %}
-                        <tr>
-                            <td>
-
-                                <a href="{{path("issue_manager_issue_view", { "issueId": entity.id }) }}">
-                                    <h4>
-                                        {% if entity.special%}
-                                            <span class="label label-success">
-                                                <i class="fa fa-star" title="{{"special.issue"|trans}}"></i>
-                                                {{"special.issue"|trans}}
-                                            </span>
-                                        {% endif %}&nbsp;
-                                        {{entity.title}}
-                                    </h4>
-                                </a>
-                                <span class="label label-info">{{"issue.numer"|trans}} : {{entity.number}}</span>
-                                <span class="label label-default">{{"volume"|trans}} : {{entity.volume}}</span>
-                                <span class="label label-default">{{"year"|trans}} : {{entity.year}}</span>
-                                <span class="label label-default" title="{{"date.publish"|trans}}">{{entity.datePublished|date('Y-m-d')}}</span>
-                                {% if entity.description %}
-                                    <br>
-                                    <span>{{entity.description}}</span>
-                                {% endif%}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {{ grid(grid) }}
             <hr>
             <a href="{{path('issue_manager_issue_new')}}" class="btn btn-info">
                 <i class="fa fa-plus"></i> {{"create"|trans}}
