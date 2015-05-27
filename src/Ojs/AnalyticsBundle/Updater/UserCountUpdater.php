@@ -9,6 +9,7 @@ use Ojs\UserBundle\Entity\UserRepository;
 
 class UserCountUpdater extends Updater implements UpdaterInterface
 {
+    private $object;
     public function update()
     {
         // TODO: Implement update() method.
@@ -31,5 +32,14 @@ class UserCountUpdater extends Updater implements UpdaterInterface
         }
 
         return $journalUsers;
+    }
+
+    /**
+     * @param $id
+     * @return string
+     */
+    public function getObject($id)
+    {
+        return "Ojs\JournalBundle\Entity\Journal";
     }
 }
