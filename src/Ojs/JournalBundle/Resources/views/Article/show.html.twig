@@ -1,10 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.article_show'|trans }} {{ parent() }}{% endblock %}
 
+{% if isSystemAdmin() %}
+    {% set article_path = 'article' %}
+{% else %}
+    {% set article_path = 'manager_article_journal' %}
+{% endif %}
+
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('article'), 'title': 'article.manager'|trans},
+        {'link': path(article_path), 'title': 'article.manager'|trans},
         {'title' : 'article.detail'|trans}
     ] %}
     {{ breadcrumb(list) }}
@@ -162,14 +168,10 @@
         </tbody>
     </table>
 
+    <a class="btn btn-info" href="{{ path('article_citation', { 'id': entity.id }) }}"><i class="fa fa-asterisk"></i> {{"citation.editor"|trans}}</a>
 
-    <div class="record_actions">
-        {% set back_path = 'article' %}
-        {% if isSystemAdmin() %}
-            <a class="btn btn-info" href="{{ path('article_citation', { 'id': entity.id }) }}"><i class="fa fa-asterisk"></i> {{"citation.editor"|trans}}</a>
-            {% set edit_path = 'article_edit' %}
-            {% set delete_path = 'article_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
-    </div>
+    {% set back_path = article_path %}
+    {% set edit_path = 'article_edit' %}
+    {% set delete_path = 'article_delete' %}
+    {% include '::actionbuttons.html.twig' %}
 {% endblock %}
