@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/usr/bin/env bash
 echo "\nRunning composer install"
 composer install
 echo "\nRunning bower install"
