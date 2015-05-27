@@ -15,7 +15,16 @@ class CitationSettingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('citationId')
+            ->add('citation','autocomplete',[
+                'class' => 'Ojs\JournalBundle\Entity\Citation',
+                'attr' => [
+                    'class' => 'autocomplete',
+                    'style' => 'width:100%',
+                    'data-list' => '/api/public/search/citation',
+                    'data-get' => "/api/public/citation/get/",
+                    "placeholder" => "type a citation",
+                ],
+            ])
             ->add('setting')
             ->add('value')
         ;

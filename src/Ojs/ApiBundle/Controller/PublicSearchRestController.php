@@ -326,6 +326,74 @@ class PublicSearchRestController extends FOSRestController
      * @param  Request $request
      * @ApiDoc(
      *                          resource=true,
+     *                          description="search citation",
+     *                          parameters={
+     *                          {
+     *                          "name"="q",
+     *                          "dataType"="string",
+     *                          "required"="true",
+     *                          "description"="search term"
+     *                          },
+     *                          {
+     *                          "name"="page",
+     *                          "dataType"="integer",
+     *                          "required"="false",
+     *                          "description"="limit"
+     *                          }
+     *                          }
+     *                          )
+     * @Get("/public/search/citation")
+     * @return array
+     */
+    public function getCitationsAction(Request $request)
+    {
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search.citation');
+
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('raw', strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data = [];
+        foreach ($results as $result) {
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => $result->getData()['raw'],
+            ];
+        }
+
+        return $data;
+    }
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @ApiDoc(
+     *                                                    resource=true,
+     *                                                    description="get citation by id"
+     *                                                    )
+     * @Get("/public/citation/get/{id}")
+     */
+    public function getCitationAction($id)
+    {
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var Citation  $citation */
+        $citation = $em->find('OjsJournalBundle:Citation', $id);
+        if ($citation) {
+            return JsonResponse::create(['id' => $id, 'text' => $citation->getRaw() ]);
+        }
+        throw new NotFoundHttpException();
+    }
+
+    /**
+     * @param  Request $request
+     * @ApiDoc(
+     *                          resource=true,
      *                          description="search locations",
      *                          parameters={
      *                          {

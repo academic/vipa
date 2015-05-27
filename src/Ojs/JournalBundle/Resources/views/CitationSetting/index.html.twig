@@ -13,36 +13,5 @@
     {% include '::flashbag.html.twig' %}
     <a href="{{ path('citationsetting_new') }}">{{"citation.setting.new"|trans}}</a>
 
-    <table class="records_list  table">
-        <thead>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <th>{{"citation.id"|trans}}</th>
-                <th>{{"citation.setting"|trans}}</th>
-                <th>{{"value"|trans}}</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.citationId }}</td>
-                    <td>{{ entity.setting }}</td>
-                    <td>{{ entity.value }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('citationsetting_show', { 'id': entity.id }) }}">{{"s"|trans}}</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('citationsetting_edit', { 'id': entity.id }) }}">{{"e"|trans}}</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    {{ grid(grid) }}
 {% endblock %}
