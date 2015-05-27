@@ -12,5 +12,5 @@ interface UpdaterInterface
 
     public function count();
 
-    public function getObject($id);
+    public function getObject();
 }

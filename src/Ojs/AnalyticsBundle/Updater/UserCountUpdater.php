@@ -35,10 +35,9 @@ class UserCountUpdater extends Updater implements UpdaterInterface
     }
 
     /**
-     * @param $id
      * @return string
      */
-    public function getObject($id)
+    public function getObject()
     {
         return "Ojs\JournalBundle\Entity\Journal";
     }
