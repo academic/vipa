@@ -18,31 +18,37 @@
     </ul>
 </div>
 <div class="container">
+    <div class="col-sm-8 col-sm-offset-2">
     {% for person in people %}
-        <div class="col-sm-6 col-md-4">
-            <div class="well">
-                <div class="thumbnail">
-                    <a href="/@{{ person.user.username }}">
-                        <img class="img-circle" src="{{ ('/uploads/avatarfiles/'~imagePath(person.user.avatar)) }}"
-                             data-src="holder.js/200x200/random"  style="width: 200px; height: 200px;"
-                             alt="{{ person.user.username }}"></a>
-                </div>
-                <div>
-                    <h3><a href="/@{{ person.user.username }}">{{ person.user.firstName }} {{ person.user.lastName }}</a></h3>
-                    {% for journal in person.journals %}
-                        <h3 class="btn btn-success" style="width: 100%; white-space: normal;">
-                            {{ journal.journal.title }}
-                            {% for role in journal.roles %}
-                                <span class="badge">{{ role.name|trans }}</span>
-                            {% endfor %}
-                        </h3>
+        <div class="row well">
+            <div class="col-sm-4 text-center">
+                <a href="/@{{ person.user.username }}" class="thumbnail">
+                    <img class="img-circle" src="{{ ('/uploads/avatarfiles/'~imagePath(person.user.avatar)) }}"
+                         data-src="holder.js/100x100/random"  style="width: 100px; height: 100px;"
+                         alt="{{ person.user.username }}">
+                </a>
+                <h3><a href="/@{{ person.user.username }}">{{ person.user.firstName }} {{ person.user.lastName }}</a></h3>
+            </div>
+
+            <div class="col-sm-8">
+                <h4>
+                    {% for subject in person.user.subjects %}
+                        <span class="label label-primary">{{ subject.subject|trans }}</span>
                     {% endfor %}
-                    <p>
-                    </p>
-                </div>
+                </h4>
+
+                {% for journal in person.journals %}
+                    <h4 class="btn btn-success" style="white-space: normal;">
+                        {{ journal.journal.title }}
+                        {% for role in journal.roles %}
+                            <span class="badge">{{ role.name|trans }}</span>
+                        {% endfor %}
+                    </h4>
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
+    </div>
 </div>
 <div class="text-center">
     <ul class="pagination">
