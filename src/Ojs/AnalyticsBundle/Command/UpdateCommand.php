@@ -12,6 +12,7 @@ namespace Ojs\AnalyticsBundle\Command;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\Serializer;
+use Ojs\AnalyticsBundle\Document\ObjectCommonStat;
 use Ojs\AnalyticsBundle\Document\ObjectDownload;
 use Ojs\AnalyticsBundle\Document\ObjectView;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
@@ -187,35 +188,35 @@ class UpdateCommand extends ContainerAwareCommand
         }
     }
 
-    const DailyReviewCount = 1;
-    const AcceptedArticleCount = 2;
-    const DeclinedArticleCount = 3;
-    const RevisedArticleCount = 4;
-    const UserCount = 5;
-    const ReaderCount = 6;
-    const MemberCount = 7;
-    const PublishedIssueCount = 8;
-
     private function updateCommonData()
     {
         $updates = [
-            'DailyReviewCount',
-            'AcceptedArticleCount',
-            'DeclinedArticleCount',
-            'RevisedArticleCount',
+         //   'DailyReviewCount',
+         //   'AcceptedArticleCount',
+         //   'DeclinedArticleCount',
+         //   'RevisedArticleCount',
             'UserCount',
-            'ReaderCount',
-            'MemberCount',
-            'PublishedIssueCount',
+         //   'ReaderCount',
+         //   'MemberCount',
+         //   'PublishedIssueCount',
         ];
 
         foreach ($updates as $update) {
             $updater = 'Ojs\\AnalyticsBundle\\Updater\\'.$update.'Updater';
             /** @var UpdaterInterface $statObject */
             $statObject = new $updater($this->em, $this->dm);
-
-            var_dump($statObject->count());
+            foreach ($statObject->count() as $objectId=>$stat) {
+                $object = new ObjectCommonStat();
+                $object->setDate(new \DateTime())
+                    ->setCount(count($stat))
+                    ->setEntity($statObject->getObject($objectId))
+                    ->setObject($objectId)
+                    ->setStatType(constant("Ojs\\AnalyticsBundle\\Document\\ObjectCommonStat::".$update))
+                    ;
+                $this->dm->persist($object);
+                $this->dm->flush();
+            }
+            $this->output->writeln("<info>{$update} operation completed.</info>");
         }
-        exit;
     }
 }

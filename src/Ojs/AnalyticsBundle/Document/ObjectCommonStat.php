@@ -21,7 +21,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *   Okur sayısı / dergiye göre - ReaderCount
  *   Abone sayısı / dergiye göre - MemberCount
  *   Yayınlanmış sayılar - PublishedIssueCount
+ * @MongoDb\Document(collection="analytics_common_stats")
  */
+
 class ObjectCommonStat
 {
 
@@ -67,6 +69,13 @@ class ObjectCommonStat
      *          Object id in entity
      */
     public $object;
+
+    /**
+     * @var \DateTime
+     * @MongoDB\Date
+     *          Count date
+     */
+    public $date;
 
     /**
      * @return mixed
@@ -162,4 +171,23 @@ class ObjectCommonStat
 
         return $this;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     * @return $this
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
 }
