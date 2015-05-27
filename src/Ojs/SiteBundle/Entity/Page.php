@@ -1,9 +1,11 @@
 <?php
 
 namespace Ojs\SiteBundle\Entity;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Page
+ * @GRID\Source(columns="id,title,body,tags,image")
  */
 class Page
 {
