@@ -26,13 +26,4 @@ class PeopleController extends Controller
 
         return $this->render('OjsSiteBundle:People:index.html.twig', ['people' => $usersWithRoles, 'pagerfanta' => $pagerfanta]);
     }
-
-    /**
-     * @param int $id User ID
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function showAction($id)
-    {
-        return $this->render('OjsSiteBundle:People:show.html.twig');
-    }
 }
