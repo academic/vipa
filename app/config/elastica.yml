@@ -157,3 +157,13 @@ fos_elastica:
                         finder: ~
                         provider:
                             debug_logging: false
+                citation:
+                    mappings:
+                        raw: ~
+                        type: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Citation
+                        provider: ~
+                        listener: ~
+                        finder: ~

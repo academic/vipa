@@ -5,15 +5,18 @@ namespace Ojs\JournalBundle\Entity;
 use Gedmo\Translatable\Translatable;
 use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * CitationSetting
+ * @GRID\Source(columns="id,setting,value")
  */
 class CitationSetting implements Translatable
 {
     use GenericEntityTrait;
     /**
      * @var integer
+     * @GRID\Column(title="citation.id")
      */
     private $id;
 
@@ -24,11 +27,13 @@ class CitationSetting implements Translatable
 
     /**
      * @var string
+     * @GRID\Column(title="citation.setting")
      */
     private $setting;
 
     /**
      * @var string
+     * @GRID\Column(title="value")
      */
     private $value;
 
