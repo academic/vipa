@@ -8,8 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Ojs\UserBundle\Entity\User;
 
 /**
- *
- * @MongoDb\Document(collection="article_review_steps")
+ * @MongoDb\Document(collection="article_review_steps",repositoryClass="Ojs\WorkflowBundle\Document\ArticlereviewStepRepository")
  */
 class ArticleReviewStep
 {
