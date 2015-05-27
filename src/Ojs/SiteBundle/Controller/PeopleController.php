@@ -23,7 +23,8 @@ class PeopleController extends Controller
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
+        $people = $pagerfanta->getCurrentPageResults();
 
-        return $this->render('OjsSiteBundle:People:index.html.twig', ['people' => $usersWithRoles, 'pagerfanta' => $pagerfanta]);
+        return $this->render('OjsSiteBundle:People:index.html.twig', ['people' => $people, 'pagerfanta' => $pagerfanta]);
     }
 }
