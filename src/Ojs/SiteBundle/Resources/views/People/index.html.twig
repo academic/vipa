@@ -12,6 +12,11 @@
 {% endblock %}
 
 {% block body %}
+<div class="text-center">
+    <ul class="pagination">
+        {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+    </ul>
+</div>
 <div class="container">
     {% for person in people %}
         <div class="col-sm-6 col-md-4">
@@ -38,9 +43,9 @@
         </div>
     {% endfor %}
 </div>
-    <div class="text-center">
-        <ul class="pagination">
-            {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
-        </ul>
-    </div>
+<div class="text-center">
+    <ul class="pagination">
+        {{ pagerfanta(pagerfanta,'twitter_bootstrap3') }}
+    </ul>
+</div>
 {% endblock %}
