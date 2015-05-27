@@ -13,43 +13,5 @@
     <div class="col-sm-12">
         {% include '::flashbag.html.twig' %}
     </div>
-
-    <table class="records_list table">
-        <thead>
-        <tr>
-            <th>{{ "event.id"|trans }}</th>
-            <th>{{ "event.info"|trans }}</th>
-            <th>{{ "event.date"|trans }}</th>
-            {% if isSystemAdmin() %}
-            <th>{{ "event.ip"|trans }}</th>
-            {% endif %}
-            <th>{{ "event.user.id"|trans }}</th>
-            <th>{{ "actions"|trans }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('eventlog_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td><span class="badge">{{ entity.eventInfo }}</span></td>
-                <td>{% if entity.eventDate %}{{ entity.eventDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                {% if isSystemAdmin() %}
-                <td>{{ entity.ip }}</td>
-                {% endif %}
-                <td>{{ entity.userId }}</td>
-                <td>
-                    {% if isSystemAdmin() %}
-                        {%set eventlog_show_path = "eventlog_show" %}
-                    {%else%}
-                        {%set eventlog_show_path = "user_eventlog_show" %}
-                    {% endif %}
-                    <a class="btn btn-info" href="{{ path(eventlog_show_path, { 'id': entity.id }) }}">
-                        <i class="fa fa-info"></i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+    {{ grid(grid) }}
 {% endblock %}
