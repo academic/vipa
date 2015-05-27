@@ -86,7 +86,7 @@ class ApplicationController extends Controller
 
         $source->manipulateRow(
             function (Row $row) use ($repository) {
-                //$row->setRepository($repository);
+                $row->setRepository($repository);
                 $status = $row->getField('status');
                 $text = $this->get('translator')->trans(CommonParams::journalApplicationStatus($status));
                 $row->setField('status', $text);
