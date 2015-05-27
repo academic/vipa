@@ -2,5 +2,5 @@ people_index:
     path:     /{page}
     defaults: { _controller: OjsSiteBundle:People:index, page: 1 }
 people_show:
-    path:     /{id}
+    path:     /{id}/show
     defaults: { _controller: OjsSiteBundle:People:show }
