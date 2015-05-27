@@ -18,6 +18,7 @@ Ojs\JournalBundle\Entity\Author:
                 joinColumn:
                   name: user_id
                   referencedColumnName: id
+                inversedBy: authorDetails
           country:
                 targetEntity: Okulbilisim\LocationBundle\Entity\Location
                 joinColumn:
