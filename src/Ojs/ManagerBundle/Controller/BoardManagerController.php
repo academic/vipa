@@ -11,6 +11,10 @@ use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Form\BoardType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Board manager controller.
@@ -25,14 +29,28 @@ class BoardManagerController extends Controller
      */
     public function indexAction()
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Board')->findByJournalId($journal->getId());
-
-        return $this->render('OjsManagerBundle:BoardManager:index.html.twig', array(
-                    'entities' => $entities,
-                    'journal' => $journal,
-        ));
+        $selectedJournalId = $this->get('session')->get("selectedJournalId");
+        $source = new Entity('OjsJournalBundle:Board');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($ta, $selectedJournalId)
+            {
+                $query->andWhere($ta . '.journalId = :journalId')
+                    ->setParameter('journalId', $selectedJournalId);
+            }
+        );
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('board_manager_show', 'id');
+        $rowAction[] = ActionHelper::editAction('board_manager_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('board_manager_delete', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsManagerBundle:BoardManager:index.html.twig', $data);
     }
 
     /**
