@@ -6,10 +6,12 @@ use Gedmo\Translatable\Translatable;
 use GoDisco\AclTreeBundle\Annotation\AclParent;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Authors of article and orders
  * @JMS\ExclusionPolicy("all")
+ * @GRID\Source(columns="id,author.firstName,author.lastName,article.title")
  */
 class ArticleAuthor implements Translatable
 {
@@ -17,6 +19,7 @@ class ArticleAuthor implements Translatable
     /**
      * @var integer
      * @JMS\Expose
+     * @GRID\Column(title="id")
      */
     private $id;
 
@@ -30,12 +33,15 @@ class ArticleAuthor implements Translatable
      * @var Author
      * @JMS\Expose
      * @AclParent
+     * @GRID\Column(title="firstName",field="author.firstName")
+     * @GRID\Column(title="lastName",field="author.lastName")
      */
     private $author;
 
     /**
      * @var Article
      * @AclParent
+     * @GRID\Column(title="article",field="article.title")
      */
     private $article;
 
