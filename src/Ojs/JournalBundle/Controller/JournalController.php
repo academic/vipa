@@ -21,10 +21,11 @@ class JournalController extends Controller
 
     public function changeSelectedAction(Request $request, $journal_id)
     {
-        $referer = $request->headers->get('referer');
-        $request->getSession()->set('selectedJournalId', $journal_id);
         $route = $this->get('router')->generate('dashboard');
-
+        if($request->query->get('submission', false) === '1') {
+            $route = $this->get('router')->generate('article_submission_new');
+        }
+        $request->getSession()->set('selectedJournalId', $journal_id);
         return $this->redirect($route);
     }
 
