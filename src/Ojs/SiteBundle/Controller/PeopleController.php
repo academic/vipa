@@ -12,7 +12,7 @@ class PeopleController extends Controller
      * @param int $page
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($page)
+    public function indexAction($page = 1)
     {
         $em = $this->getDoctrine()->getManager();
         $usersWithRoles = $em
