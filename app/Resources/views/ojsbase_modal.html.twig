@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{% endblock %}</title>
+        <base href="{{ app.request.getBaseURL() }}/" />
         {% block stylesheets %}
         {% stylesheets
            '@admin_main_css' filter='uglifycss' filter='cssrewrite'  output="c/appmain.css" 

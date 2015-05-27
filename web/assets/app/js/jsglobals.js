@@ -1,4 +1,4 @@
-var REST_API_BASEURL = "/api/";
+var REST_API_BASEURL = "api/";
 
 var OjsApp;
 OjsApp = OjsApp || (function () {
@@ -11,7 +11,7 @@ var OjsCommon = {
     api: {
         userApikey: null,
         urls: {
-            citeParser: "/api/citation/parse",
+            citeParser: "api/citation/parse",
             userSearch: "",
             journalSearc: ""
         },
