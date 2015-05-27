@@ -3,7 +3,6 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use APY\DataGridBundle\Grid\Source\Vector;
 
 class PeopleController extends Controller
 {
@@ -12,38 +11,12 @@ class PeopleController extends Controller
      */
     public function indexAction()
     {
-        $source_array = [];
         $em = $this->getDoctrine()->getManager();
-        $usersWithRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->getUsersWithRoles(1);
+        $usersWithRoles = $em
+            ->getRepository('OjsUserBundle:UserJournalRole')
+            ->getUsersWithRoles();
 
-        foreach($usersWithRoles as $user) {
-            $journals = array();
-
-            foreach($user['journals'] as $journal) {
-                $roles = array();
-
-                foreach($journal['roles'] as $role) {
-                    $name = $this->get('translator')->trans($role->getName());
-                    $roles[] = $name;
-                }
-
-                $journals[] = sprintf("%s (%s)",
-                    $journal['entity']->getTitle(),
-                    implode(', ', $roles));
-            }
-
-            $source_array[] = [
-                'id' => $user['id'],
-                'username' => $user['entity']->getUsername(),
-                'journals' => implode('<br>&bull; ', $journals),
-            ];
-        }
-
-        $source = new Vector($source_array);
-        $grid = $this->get('grid');
-        $grid->setSource($source);
-
-        return $grid->getGridResponse('OjsSiteBundle:People:index.html.twig');
+        return $this->render('OjsSiteBundle:People:index.html.twig', ['people' => $usersWithRoles]);
     }
 
     /**

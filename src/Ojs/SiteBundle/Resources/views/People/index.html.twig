@@ -12,7 +12,29 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-    {{ grid(grid) }}
-    </div>
+<div class="container">
+    {% for person in people %}
+        <div class="col-sm-6 col-md-4">
+            <div class="well">
+                <div class="thumbnail">
+                    <img src="{{ ('/uploads/avatarfiles/'~imagePath(person.user.avatar)) }}" alt="{{ person.user.username }}">
+                </div>
+                <div>
+                    <h3>{{ person.user.firstName }} {{ person.user.lastName }}
+                        <a href="#" class="btn btn-primary" role="button">{{ 'profile'|trans }}</a></h3>
+                    {% for journal in person.journals %}
+                        <p class="btn btn-success">
+                            {{ journal.journal.title }}
+                            {% for role in journal.roles %}
+                                <span class="badge">{{ role.name|trans }}</span>
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+                    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

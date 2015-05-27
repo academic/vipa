@@ -54,27 +54,19 @@ class UserJournalRoleRepository extends EntityRepository
      */
     public function getUsersWithRoles($user_id = null)
     {
-        if(is_null($user_id)) {
-            $data = $this->getEntityManager()
-                ->createQuery('SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id')
-                ->setParameter('user_id', $user_id)->getResult();
-        } else {
-            $data = $this->findAll();
+        $array = array();
+
+        if ($user_id === null)
+            $roles = $this->findAll();
+        else
+            $roles = $this->findByUserId($user_id);
+
+        foreach ($roles as $role) {
+            $array[$role->getUserId()]['user'] = $role->getUser();
+            $array[$role->getUserId()]['journals'][$role->getJournalId()]['journal'] = $role->getJournal();
+            $array[$role->getUserId()]['journals'][$role->getJournalId()]['roles'][] = $role->getRole();
         }
 
-        $entities = array();
-
-        if ($data) {
-            foreach ($data as $item) {
-                if(!$item->getRole()->getIsSystemRole()) {
-                    $entities[$item->getUser()->getId()]['id'] = $item->getUser()->getId();
-                    $entities[$item->getUser()->getId()]['entity'] = $item->getUser();
-                    $entities[$item->getUser()->getId()]['journals'][$item->getJournalId()]['entity'] = $item->getJournal();
-                    $entities[$item->getUser()->getId()]['journals'][$item->getJournalId()]['roles'][] = $item->getRole();
-                }
-            }
-        }
-
-        return $entities;
+        return $array;
     }
 }
