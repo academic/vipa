@@ -19,6 +19,10 @@ dashboard_admin:
     pattern:  /admin/dashboard
     defaults: { _controller: OjsManagerBundle:Admin:dashboard }
 
+stats_admin:
+    pattern:  /admin/stats
+    defaults: { _controller: OjsManagerBundle:Admin:stats }
+
 dashboard_editor:
     pattern:  /editor/dashboard
     defaults: { _controller: OjsManagerBundle:Editor:dashboard }

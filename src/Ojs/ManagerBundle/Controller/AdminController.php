@@ -33,7 +33,20 @@ class AdminController extends Controller
     {
         $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
         if ($super_admin) {
-            return $this->render('OjsManagerBundle:Admin:dashboard.html.twig', [
+            return $this->render('OjsManagerBundle:Admin:dashboard.html.twig');
+        } else {
+            return $this->redirect($this->generateUrl('dashboard_editor'));
+        }
+    }
+
+    /**
+     * @return RedirectResponse|Response
+     */
+    public function statsAction()
+    {
+        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
+        if ($super_admin) {
+            return $this->render('OjsManagerBundle:Admin:stats.html.twig', [
                 'stats' => $this->getStats(),
             ]);
         } else {
