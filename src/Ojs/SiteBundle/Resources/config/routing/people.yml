@@ -1,6 +1,6 @@
 people_index:
-    path:     /
-    defaults: { _controller: OjsSiteBundle:People:index }
+    path:     /{page}
+    defaults: { _controller: OjsSiteBundle:People:index, page: 1 }
 people_show:
     path:     /{id}
     defaults: { _controller: OjsSiteBundle:People:show }
