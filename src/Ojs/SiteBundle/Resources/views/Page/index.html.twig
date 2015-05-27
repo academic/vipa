@@ -2,46 +2,17 @@
 {% block title %}{{ 'title.pages'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'},
-    {'title': 'pages.management'|trans },
-    { 'title': 'pages.all'|trans }
+        {'link': path('dashboard'), 'title': 'dashboard'},
+        {'title': 'pages.management'|trans },
+        { 'title': 'pages.all'|trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
-
 {% block body -%}
     <h1>All Pages</h1>
     {% include '::flashbag.html.twig' %}
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Tags</th>
-                <th>Image</th>
-                <th>{{"actions"|trans}}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('admin_page_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.title }}</td>
-                    <td>{{ entity.body }}</td>
-                    <td>{{ entity.tags }}</td>
-                    <td>{{ entity.image }}</td>
-                    <td>
-                        {% set back_path = 'admin_page_show' %}
-                        {% set edit_path = 'admin_page_edit' %}
-                        {% set delete_path = 'admin_page_delete' %}
-                        {% include '::actionbuttons.html.twig' %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    {{ grid(grid) }}
     {% set create_path = 'admin_page_new' %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
