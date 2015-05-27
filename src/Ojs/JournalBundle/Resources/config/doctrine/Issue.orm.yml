@@ -102,6 +102,12 @@ Ojs\JournalBundle\Entity\Issue:
             type: datetime
             column: date_published
             nullable: true
+        published:
+            type: boolean
+            nullable: true
+            options:
+                default: false
+
         created:
             type: datetime
             gedmo:

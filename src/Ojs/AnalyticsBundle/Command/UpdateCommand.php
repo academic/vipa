@@ -198,7 +198,7 @@ class UpdateCommand extends ContainerAwareCommand
             'UserCount',
             'ReaderCount',
             'MemberCount',
-         //   'PublishedIssueCount',
+            'PublishedIssueCount',
         ];
 
         foreach ($updates as $update) {
