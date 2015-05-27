@@ -5,9 +5,11 @@ namespace Ojs\JournalBundle\Entity;
 use Gedmo\Translatable\Translatable;
 use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * ArticleFile
+ * @GRID\Source(columns="id,title,type,version,langcode")
  */
 class ArticleFile implements Translatable
 {
@@ -15,11 +17,13 @@ class ArticleFile implements Translatable
 
     /**
      * @var integer
+     * @GRID\Column(title="articlefile.id")
      */
     private $id;
 
     /**
      * @var integer
+     * @GRID\Column(title="articlefile.type")
      */
     private $type;
 
@@ -35,6 +39,7 @@ class ArticleFile implements Translatable
 
     /**
      * @var integer
+     * @GRID\Column(title="articlefile.version")
      */
     private $version;
 
@@ -65,12 +70,14 @@ class ArticleFile implements Translatable
     /**
      *
      * @var string
+     * @GRID\Column(title="articlefile.title")
      */
     private $title = null;
 
     /**
      *
      * @var string
+     * @GRID\Column(title="articlefile.langcode")
      */
     private $langCode;
 

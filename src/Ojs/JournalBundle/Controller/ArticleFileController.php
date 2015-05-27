@@ -2,6 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
@@ -13,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Form\ArticleFileType;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * ArticleFile controller.
@@ -29,14 +34,33 @@ class ArticleFileController extends Controller
      */
     public function indexAction(Article $article)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('OjsJournalBundle:ArticleFile')->findByArticle($article);
+        $source = new Entity('OjsJournalBundle:ArticleFile');
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(function(QueryBuilder $qb)use($article,$tableAlias){
+            return $qb->where(
+                $qb->expr()->eq("$tableAlias.articleId",':id')
+            )
+                ->setParameter('id',$article->getId())
+                ;
+        });
+        $grid = $this->get('grid')->setSource($source);
 
-        return $this->render('OjsJournalBundle:ArticleFile:index.html.twig', array(
-            'entities' => $entities,
-            'article' => $article,
-        ));
+        $actionColumn = new ActionsColumn("actions", 'actions');
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('articlefile_show', 'id');
+        $rowAction[] = ActionHelper::editAction('articlefile_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('articlefile_delete', 'id');
+        $rowAction[] = ActionHelper::userAnonymLoginAction();
+
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+
+        $data = [];
+        $data['grid'] = $grid;
+        $data['article'] = $article;
+
+        return $grid->getGridResponse('OjsJournalBundle:ArticleFile:index.html.twig', $data);
     }
     /**
      * Creates a new ArticleFile entity.
@@ -239,10 +263,15 @@ class ArticleFileController extends Controller
      * @param  ArticleFile      $entity
      * @return RedirectResponse
      */
-    public function deleteAction(ArticleFile $entity)
+    public function deleteAction(Request $request, ArticleFile $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
+        $csrf = $this->get('security.csrf.token_manager');
+        $token = $csrf->getToken('articlefile'.$entity->getId());
+        if($token!=$request->get('_token'))
+            throw new TokenNotFoundException("Token Not Found!");
+
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
