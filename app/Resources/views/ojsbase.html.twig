@@ -9,6 +9,7 @@
     <head  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
         <meta charset="UTF-8" />
         <title>{% block title %}&raquo; OJS{% endblock %}</title>
+        <base href="{{ app.request.getBaseURL() }}/" />
         {% if schemaMetaTag is defined %}
             {{schemaMetaTag|raw }}
         {% endif %}

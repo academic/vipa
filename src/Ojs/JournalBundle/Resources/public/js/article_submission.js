@@ -5,7 +5,7 @@ var OjsArticleSubmission = {
     activatedSteps: {"step0": true, "step1": false, "step2": false, "step3": false, "step4": false},
     showResumeNote: function () {
 
-        var html = '<a href="/author/article/submit/resume/' + this.submissionId + '#' + this.step + '">' + this.submissionId + '</a>';
+        var html = '<a href="author/article/submit/resume/' + this.submissionId + '#' + this.step + '">' + this.submissionId + '</a>';
         $("#resumeNote").html(html);
     },
     loadStepTemplate: function (step) {
@@ -29,8 +29,8 @@ var OjsArticleSubmission = {
     },
     showStep: function (step) {
         $("#step" + step + "-container").removeClass("hide", 200, "easeInBack");
-        history.pushState({}, "Article Submission", "/author/article/submit/resume/" + $("input[name=submissionId]").val());
-        window.location.hash = step;
+        //history.pushState({}, "Article Submission", "author/article/submit/resume/" + $("input[name=submissionId]").val());
+        //window.location.hash = step;
         this.step = step;
         this.showResumeNote();
     },
@@ -71,7 +71,7 @@ var OjsArticleSubmission = {
                 }
             },
             ajax: {
-                url: '/api/public/search/institution', dataType: 'json', type: "GET", delay: 300,
+                url: 'api/public/search/institution', dataType: 'json', type: "GET", delay: 300,
                 data: function (params) {
                     return {q: params, verified: true};
                 },
@@ -341,7 +341,7 @@ var OjsArticleSubmission = {
         }).bind('fileuploaddone', function (e, data) {
             $('.upload_progress', $(this).parent().parent()).html("Done.");
             $obj = JSON.parse(data.result);
-            $('.previewLink', $(this).parent().parent()).attr('href', '/uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
+            $('.previewLink', $(this).parent().parent()).attr('href', 'uploads/journalfiles/' + $obj.files.path + $obj.files.name).removeClass('hide');
             $('.filename', $(this).parent()).attr('value', $obj.files.name);
             $('input[name="article_file_mime_type"]', $(this).parent()).attr('value', $obj.files.size);
             $('input[name="article_file_size"]', $(this).parent()).attr('value', $obj.files.mimeType);

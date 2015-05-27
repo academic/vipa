@@ -4,12 +4,12 @@ var analytics;
 analytics = {
   increase: function(entity, id) {
     var url;
-    url = "/view/" + entity + "/" + id;
+    url = "view/" + entity + "/" + id;
     return this.request(url, 'PUT');
   },
   request: function(url, type) {
     return $.ajax({
-      url: '/api/analytics' + url,
+      url: 'api/analytics' + url,
       dataType: 'json',
       data: 'page_url=' + document.location.href,
       type: type,

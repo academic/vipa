@@ -94,7 +94,7 @@ $(document).ready(function () {
             }
         },
         ajax: {
-            url: '/api/public/search/tags',
+            url: 'api/public/search/tags',
             dataType: 'json',
             type: "GET",
             delay: 300,
@@ -131,7 +131,7 @@ $(document).ready(function () {
         {
             var $that = $(this);
             $.ajax({
-                url:'/api/public/search/tagsByIds',
+                url:'api/public/search/tagsByIds',
                 data: 'ids='+value,
                 dataType: 'json',
                 success: function(data){
