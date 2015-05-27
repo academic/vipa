@@ -38,9 +38,6 @@ class UserController extends Controller
         $data = [];
         $data['user'] = $user;
         $data['me'] = $this->getUser();
-        $data['isProxy'] = (bool) $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-            array('proxyUserId' => $user->getId(), 'clientUserId' => $this->getUser()->getId())
-        );
         if ($user->isPrivacy()) {
             return $this->render('OjsSiteBundle:User:private_account.html.twig', $data);
         }
