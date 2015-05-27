@@ -29,6 +29,7 @@ class AuthorType extends AbstractType
                 ->add('institution')
                 ->add('country')
                 ->add('summary')
+                ->add('authorDetails')
         ;
     }
 
