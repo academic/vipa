@@ -36,5 +36,5 @@ issue_manager_issue_new:
     defaults: { _controller: OjsManagerBundle:IssueManager:new }
 
 issue_manager_issue_view:
-    pattern:  /issue/{issueId}
+    pattern:  /issue/{id}
     defaults: { _controller: OjsManagerBundle:IssueManager:view }

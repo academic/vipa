@@ -10,6 +10,10 @@ use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Form\IssueType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Issue manager controller.
@@ -25,26 +29,37 @@ class IssueManagerController extends Controller
     public function indexAction()
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsJournalBundle:Issue')->findByJournalId($journal->getId());
-
-        return $this->render('OjsManagerBundle:Issue:index.html.twig', array(
-                    'entities' => $entities,
-                    'journal' => $journal,
-        ));
+        $source = new Entity('OjsJournalBundle:Issue');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($ta, $journal)
+            {
+                $query->andWhere($ta . '.journalId = :journal_id')
+                ->setParameter('journal_id', $journal->getId());
+            }
+        );
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        $rowAction[] = ActionHelper::showAction('issue_manager_issue_view', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsManagerBundle:Issue:index.html.twig', $data);
     }
 
     /**
      * show issue manager view page
-     * @param  integer               $issueId
+     * @param  integer   $id
      * @return Response
      * @throws NotFoundHttpException
      */
-    public function viewAction($issueId)
+    public function viewAction($id)
     {
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
-        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
