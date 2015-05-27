@@ -82,12 +82,10 @@ class ArticleController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('article_show', 'id');
-        //only admins can play on entity
-        if($isAdmin){
-            $rowAction[] = ActionHelper::editAction('article_edit', 'id');
-            $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
+        $rowAction[] = ActionHelper::editAction('article_edit', 'id');
+        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
+        if($isAdmin)
             $rowAction[] = ActionHelper::userAnonymLoginAction();
-        }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
