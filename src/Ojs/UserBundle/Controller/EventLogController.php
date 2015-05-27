@@ -3,6 +3,11 @@
 namespace Ojs\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use Ojs\Common\Helper\ActionHelper;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * EventLog controller.
@@ -36,28 +41,31 @@ class EventLogController extends Controller
             //if unlisted user_role.
             $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();
         }
-
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->createQueryBuilder();
-        $entities = $qb
-            ->select('e')
-            ->from('OjsUserBundle:EventLog', 'e')
-            ->where($qb->expr()->in('e.eventInfo', ':logTypes'))
-            ->setParameter('logTypes', $logTypes);
-
-        //admin can see every user log. But other users can see only own considered logs
-        if (!$superAdmin) {
-            $entities = $entities
-                ->andWhere('e.userId = :userId OR e.affectedUserId = :userId')
-                ->setParameter('userId', $userId);
-        }
-        $entities = $entities
-            ->getQuery()
-            ->getResult();
-
-        return $this->render('OjsUserBundle:EventLog:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $source = new Entity('OjsUserBundle:EventLog');
+        $ta = $source->getTableAlias();
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($ta, $logTypes, $superAdmin, $userId) {
+                $qb->andWhere(
+                        $qb->expr()->in($ta.'.eventInfo', ':logTypes')
+                )
+                ->setParameters([
+                    'logTypes' => $logTypes,
+                    'userId'=>$userId
+                ]);
+            if(!$superAdmin){
+                $qb->andWhere("$ta.userId = :userId OR $ta.affectedUserId = :userId");
+            }
+            return $qb;
+        });
+        $grid = $this->get('grid')->setSource($source);
+        $actionColumn = new ActionsColumn("actions", "actions");
+        $rowAction = [];
+        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        $rowAction[] = ActionHelper::showAction('user_eventlog_show', 'id');
+        $actionColumn->setRowActions($rowAction);
+        $grid->addColumn($actionColumn);
+        $data = [];
+        $data['grid'] = $grid;
+        return $grid->getGridResponse('OjsUserBundle:EventLog:index.html.twig', $data);
     }
 
     /**
