@@ -17,11 +17,12 @@
         <div class="col-sm-6 col-md-4">
             <div class="well">
                 <div class="thumbnail">
-                    <img src="{{ ('/uploads/avatarfiles/'~imagePath(person.user.avatar)) }}" alt="{{ person.user.username }}">
+                    <a href="/@{{ person.user.username }}"><img class="img-circle" src="{{ ('/uploads/avatarfiles/'~imagePath(person.user.avatar)) }}" data-src="holder.js/200x200/random"  style="width: 200px; height: 200px;" alt="{{ person.user.username }}"></a>
                 </div>
                 <div>
-                    <h3>{{ person.user.firstName }} {{ person.user.lastName }}
-                        <a href="#" class="btn btn-primary" role="button">{{ 'profile'|trans }}</a></h3>
+                    <h3><a href="/@{{ person.user.username }}">
+                            {{ person.user.firstName }} {{ person.user.lastName }}
+                        {{ 'profile'|trans }}</a></h3>
                     {% for journal in person.journals %}
                         <p class="btn btn-success">
                             {{ journal.journal.title }}
