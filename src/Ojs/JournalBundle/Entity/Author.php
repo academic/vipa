@@ -104,6 +104,12 @@ class Author implements Translatable
     private $summary;
 
     /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $authorDetails;
+
+    /**
      * @var integer
      * @JMS\Expose
      */
@@ -721,5 +727,21 @@ class Author implements Translatable
         $this->url = $url;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthorDetails()
+    {
+        return $this->authorDetails;
+    }
+
+    /**
+     * @param string $authorDetails
+     */
+    public function setAuthorDetails($authorDetails)
+    {
+        $this->authorDetails = $authorDetails;
     }
 }

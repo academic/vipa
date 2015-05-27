@@ -108,6 +108,9 @@ Ojs\JournalBundle\Entity\Author:
             nullable: true
             column: institution_id
             nullable: TRUE
+        authorDetails:
+            type: text
+            nullable: true
         summary:
             type: text
             nullable: TRUE
