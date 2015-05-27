@@ -4,9 +4,11 @@ namespace Ojs\UserBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * MailLog
+ * @GRID\Source(columns="id,mailObject,recipientEmail")
  */
 class MailLog implements Translatable
 {
