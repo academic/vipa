@@ -197,7 +197,7 @@ class UpdateCommand extends ContainerAwareCommand
          //   'RevisedArticleCount',
             'UserCount',
             'ReaderCount',
-         //   'MemberCount',
+            'MemberCount',
          //   'PublishedIssueCount',
         ];
 
