@@ -84,8 +84,9 @@ class ArticleController extends Controller
         $rowAction[] = ActionHelper::showAction('article_show', 'id');
         $rowAction[] = ActionHelper::editAction('article_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
-        if($isAdmin)
+        if($isAdmin){
             $rowAction[] = ActionHelper::userAnonymLoginAction();
+        }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
