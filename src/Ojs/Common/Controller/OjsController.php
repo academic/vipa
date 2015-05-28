@@ -13,6 +13,24 @@ class OjsController extends Controller
 {
 
     /**
+     * Checks if the attributes are granted against the current authentication token and optionally supplied object.
+     *
+     * @param mixed $attributes The attributes
+     * @param mixed $object     The object
+     * @param $field
+     *
+     * @throws \LogicException
+     * @return bool
+     */
+    protected function isGranted($attributes, $object = null, $field = null)
+    {
+        if (!$this->container->has('security.authorization_checker')) {
+            throw new \LogicException('The SecurityBundle is not registered in your application.');
+        }
+
+        return $this->container->get('security.authorization_checker')->isGranted($attributes, $object, $field);
+    }
+    /**
      *
      * @param  mixed             $entity
      * @param  string            $message custom not found message
