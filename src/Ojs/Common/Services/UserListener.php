@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Security\Core\User\User as SecurityUser;
@@ -34,27 +34,26 @@ class UserListener
     protected $journalService;
     /** @var EncoderFactory  */
     protected $encoderFactory;
-    /** @var AuthorizationChecker  */
+    /** @var AuthorizationCheckerInterface  */
     protected $authorizationChecker;
     /** @var TokenStorage  */
     protected $tokenStorage;
 
     /**
-     * @param Router               $router
-     * @param Request              $request
-     * @param EntityManager        $em
+     * @param Router $router
+     * @param EntityManager $em
      * @param $rootDir
-     * @param JournalService       $journalService
-     * @param EncoderFactory       $encoderFactory
-     * @param AuthorizationChecker $authorizationChecker
-     * @param TokenStorage         $tokenStorage
+     * @param JournalService $journalService
+     * @param EncoderFactory $encoderFactory
+     * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param TokenStorage $tokenStorage
      */
     public function __construct(
         Router $router,
         EntityManager $em, $rootDir,
         JournalService $journalService,
         EncoderFactory $encoderFactory,
-        AuthorizationChecker $authorizationChecker,
+        AuthorizationCheckerInterface $authorizationChecker,
         TokenStorage $tokenStorage)
     {
         $this->router = $router;
