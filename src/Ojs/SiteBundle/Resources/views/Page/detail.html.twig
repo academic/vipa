@@ -21,3 +21,10 @@
     </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('post',{{ content.id }})
+    </script>
+{% endblock %}
