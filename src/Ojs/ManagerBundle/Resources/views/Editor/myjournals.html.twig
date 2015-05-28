@@ -1,6 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.editor_myjournals'|trans }} {{ parent() }}{% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'title': 'journal.my'|trans }
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
     <h1>{{ "journal.my"|trans }}</h1>
     {% if entities %}

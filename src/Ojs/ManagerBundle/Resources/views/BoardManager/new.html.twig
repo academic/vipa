@@ -1,6 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.board_new'|trans }} {{ parent() }}{% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'link': path('board_manager'), 'title': 'board.manager'|trans },
+        { 'title': 'new'|trans }
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
     <h1>{{"board.create"|trans}}</h1>
     {{ form(form) }}

@@ -1,6 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.issue_arrange'|trans }} {{ parent() }}{% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'link': path('issue_manager_index'), 'title': 'issue.manager'|trans },
+        { 'title': 'arrange'|trans }
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body %}
 
     <div class="row">

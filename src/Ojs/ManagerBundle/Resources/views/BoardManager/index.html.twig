@@ -1,6 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.boards'|trans }} {{ parent() }}{% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'title': 'board.manager'|trans }
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
+
 {% block body -%}
     <h1> {{"journal.boards"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
