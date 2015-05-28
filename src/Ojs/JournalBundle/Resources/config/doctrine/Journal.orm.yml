@@ -313,6 +313,16 @@ Ojs\JournalBundle\Entity\Journal:
         footer_text:
             type: text
             nullable: true
+        view_count:
+            type: integer
+            nullable: true
+            options:
+                default: 0
+        download_count:
+            type: integer
+            nullable: true
+            options:
+                default: 0
     gedmo:
         soft_deleteable:
           field_name: deletedAt
