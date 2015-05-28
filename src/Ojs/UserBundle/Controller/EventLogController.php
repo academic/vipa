@@ -2,7 +2,7 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;

@@ -2,7 +2,7 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\ArrayAdapter;
 

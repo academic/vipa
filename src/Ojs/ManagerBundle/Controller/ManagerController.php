@@ -9,7 +9,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Form\JournalType;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;

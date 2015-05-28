@@ -2,7 +2,7 @@
 
 namespace Ojs\SearchBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

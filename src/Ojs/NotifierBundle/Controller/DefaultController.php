@@ -2,7 +2,7 @@
 
 namespace Ojs\NotifierBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 
 class DefaultController extends Controller
 {

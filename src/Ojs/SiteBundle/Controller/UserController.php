@@ -14,7 +14,7 @@ use Ojs\UserBundle\Entity\UserRepository;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CustomFieldType;
 use Ojs\UserBundle\Form\UpdateUserType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

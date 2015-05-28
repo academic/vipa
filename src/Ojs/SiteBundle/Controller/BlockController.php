@@ -9,7 +9,7 @@ use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Ojs\SiteBundle\Form\BlockLinkType;
 use Ojs\SiteBundle\Form\BlockType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

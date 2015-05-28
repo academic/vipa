@@ -8,7 +8,7 @@ use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Ojs\UserBundle\Form\RegisterFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
