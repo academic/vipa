@@ -2,6 +2,14 @@
 {% block title %}{{ 'title.search_tags'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'title': 'search'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
     <div class="container-fluid">
         <hgroup class="page-header">
