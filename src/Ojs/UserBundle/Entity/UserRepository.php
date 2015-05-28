@@ -84,10 +84,10 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     }
 
     /**
-     *
-     * @param  \Ojs\UserBundle\Entity\Role       $role
-     * @param  \Ojs\JournalBundle\Entity\Journal $journal
-     * @return boolean
+     * @param User $user
+     * @param Role $role
+     * @param Journal $journal
+     * @return bool
      */
     public function hasJournalRole(User $user, Role $role, Journal $journal)
     {

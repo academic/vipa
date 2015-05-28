@@ -88,4 +88,27 @@ class UserJournalRoleRepository extends EntityRepository
 
         return $array;
     }
+    /**
+     * @param string|array $role
+     * @return UserJournalRole[]
+     */
+    public function findAllByJournalRole($role)
+    {
+        $query = $this->createQueryBuilder('ujr')
+            ->select('ujr')
+            ->join('ujr.user', 'u')
+            ->join('ujr.role', 'r')
+            ->join('ujr.journal', 'j');
+        if(is_array($role)) {
+            $query = $query->where('r.role IN (:role)');
+        }
+        else {
+            $query = $query->where('r.role = :role');
+        }
+        $query = $query
+            ->setParameter('role', $role)
+            ->getQuery();
+        return $query->getResult();
+    }
+
 }
