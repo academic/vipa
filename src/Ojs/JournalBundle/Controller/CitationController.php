@@ -224,19 +224,16 @@ class CitationController extends Controller
      * Deletes a Citation entity.
      *
      * @param $request
-     * @param $id
+     * @param Citation  $entity
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request,Citation $entity)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
-        }
+        $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('application_journal'.$id);
+        $token = $csrf->getToken('citation'.$entity->getId());
         if($token!=$request->get('_token'))
             throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
