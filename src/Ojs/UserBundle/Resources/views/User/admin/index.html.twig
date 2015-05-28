@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
-    {% block breadcrumb %}
-        {% set list = [
+{% block breadcrumb %}
+    {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
         { 'title': 'user.manager'|trans},
-        ] %}
-        {{ breadcrumb(list) }}
-    {% endblock %}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
 {% block body -%}
     <div class="row">
         <div class="col-sm-12">
