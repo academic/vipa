@@ -2,9 +2,9 @@
 {% block title %}{{ 'title.page_new'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'},
-    {'title': 'pages.management'|trans },
-    { 'title': 'pages.new'|trans }
+        {'link': path('dashboard'), 'title': 'dashboard'},
+        {'title': 'pages.management'|trans },
+        { 'title': 'pages.new'|trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
