@@ -4,7 +4,7 @@ namespace Okulbilisim\LocationBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Okulbilisim\LocationBundle\Entity\CityRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -2,7 +2,7 @@
 
 namespace Ojs\AnalyticsBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class JournalController extends Controller

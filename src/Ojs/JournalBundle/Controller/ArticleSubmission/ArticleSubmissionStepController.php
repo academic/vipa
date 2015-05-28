@@ -2,7 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * Article submission step controller common actions

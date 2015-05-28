@@ -7,7 +7,7 @@ use Ojs\JournalBundle\Document\InstitutionApplication;
 use Ojs\JournalBundle\Form\JournalApplicationType;
 use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 /**
  * Application controller.

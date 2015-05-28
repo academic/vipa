@@ -10,7 +10,7 @@ use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Issue;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Router;

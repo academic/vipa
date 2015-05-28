@@ -2,7 +2,7 @@
 
 namespace Ojs\ManagerBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

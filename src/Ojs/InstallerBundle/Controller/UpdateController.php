@@ -5,7 +5,7 @@
  */
 namespace Ojs\InstallerBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Ojs\Common\Controller\OjsController as Controller;
 
 class UpdateController extends Controller
 {

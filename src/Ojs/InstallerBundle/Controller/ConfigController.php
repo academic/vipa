@@ -4,7 +4,7 @@ namespace Ojs\InstallerBundle\Controller;
 
 use Ojs\InstallerBundle\Entity\Config;
 use Ojs\InstallerBundle\Form\ConfigType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
