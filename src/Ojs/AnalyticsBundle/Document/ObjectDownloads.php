@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and download action details *without total count*
  * There will be one record *foreach action*
- * @MongoDB\Document(collection="analytics_downloads_object")
+ * @MongoDB\Document(collection="analytics_downloads_object",repositoryClass="Ojs\AnalyticsBundle\Document\ObjectDownloadsRepository")
  */
 class ObjectDownloads extends ObjectStatsBase
 {
