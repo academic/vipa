@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-    {'link': path('dashboard'), 'title': 'dashboard'|trans},
-    {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
-    {'title': 'workflow.step.template.new'|trans}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
+        {'title': 'workflow.step.template.new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

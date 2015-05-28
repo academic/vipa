@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                {'link': path('ojs_review_form_items',{'formId': form.id}), 'title': 'review.forms'|trans},
-                {'title': 'review.form.item.update'|trans}
-] %}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_review_form_items',{'formId': form.id}), 'title': 'review.forms'|trans},
+        {'title': 'review.form.item.update'|trans}
+    ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
