@@ -14,9 +14,13 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {{ breadcrumb([ {'link': path('dashboard'), 'title': 'dashboard'|trans}, { 'title': 'workflow'|trans} ]) }}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'},
+        {'title': 'manager'|trans}
+        {'title': 'article'|trans}
+    ] %}
+    {{breadcrumb(list)}}
 {% endblock %}
-
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
