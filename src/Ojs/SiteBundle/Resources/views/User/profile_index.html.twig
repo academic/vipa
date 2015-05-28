@@ -1,7 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.profile'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'title': 'user.profile'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <div class="profile-container">
