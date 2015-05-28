@@ -205,7 +205,7 @@ class UpdateCommand extends ContainerAwareCommand
         foreach ($updates as $update) {
             $updater = 'Ojs\\AnalyticsBundle\\Updater\\'.$update.'Updater';
             /** @var UpdaterInterface $statObject */
-            $statObject = new $updater($this->em, $this->dm);
+            $statObject = new $updater($this->em, $this->dm,$this->getContainer()->get('okulbilisimcmsbundle.twig.post_extension'));
             foreach ($statObject->count() as $objectId=>$stat) {
                 $object = new ObjectCommonStat();
                 $object->setDate(new \DateTime())

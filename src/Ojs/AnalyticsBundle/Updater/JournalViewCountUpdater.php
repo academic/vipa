@@ -9,6 +9,7 @@
 namespace Ojs\AnalyticsBundle\Updater;
 
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Ojs\JournalBundle\Entity\Journal;
 
 class JournalViewCountUpdater extends Updater implements UpdaterInterface {
@@ -28,25 +29,31 @@ class JournalViewCountUpdater extends Updater implements UpdaterInterface {
             $views = [];
             /** @var Journal $r */
             //journal views
+            /** @var Cursor $journalviews */
             $journalviews = $obv->getAfterFrom($yesterday,'journal',$r->getId());
-            $views=array_merge($views,$journalviews);
+
+            $views=array_merge($views,$journalviews->toArray());
             //Article view
             foreach ($r->getArticles() as $article) {
                 $articleviews = $obv->getAfterFrom($yesterday,'article',$article->getId());
-                $views=array_merge($views,$articleviews);
+                $views=array_merge($views,$articleviews->toArray());
             }
-            foreach ($r->getIsues() as $issue) {
-                $articleviews = $obv->getAfterFrom($yesterday,'issue',$issue->getId());
-                $views=array_merge($views,$articleviews);
+            foreach ($r->getIssues() as $issue) {
+                $issueViews = $obv->getAfterFrom($yesterday,'issue',$issue->getId());
+                $views=array_merge($views,$issueViews->toArray());
             }
 
+            $postRepo = $this->em->getRepository("OkulbilisimCmsBundle:Post");
+            $posts = $postRepo->getByObject($this->post_extension->encode($r),$r->getId());
 
-            //Issue views
-            //page views
+            foreach ($posts as $post) {
+                $postViews = $obv->getAfterFrom($yesterday,'post',$post->getId());
+                $views = array_merge($views,$postViews->toArray());
+            }
 
-            if(count($journalviews)<1)
+            if(count($views)<1)
                 continue;
-            $journals[$r->getId()] = $journalviews;
+            $journals[$r->getId()] = $views;
         }
 
         return $journals;
