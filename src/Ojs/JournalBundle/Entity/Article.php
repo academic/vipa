@@ -9,7 +9,6 @@ use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\Common\Params\ArticleParams;
 use Ojs\UserBundle\Entity\UserArticleRole;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
@@ -184,7 +183,6 @@ class Article implements Translatable
     /**
      * @var Issue
      * @GRID\Column(field="issue.title", title="issue")
-     * AclParent
      */
     private $issue;
 
@@ -198,7 +196,6 @@ class Article implements Translatable
      * @var Journal
      * @JMS\Expose
      * @GRID\Column(field="journal.title", title="journal")
-     * @AclParent
      */
     private $journal;
 

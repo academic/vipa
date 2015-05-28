@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
@@ -233,7 +232,6 @@ class Journal implements Translatable
     /**
      * @var Institution
      * @Expose
-     * @AclParent
      */
     private $institution;
 
