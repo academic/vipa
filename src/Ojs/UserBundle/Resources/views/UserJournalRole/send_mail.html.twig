@@ -4,6 +4,15 @@
     <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
 {%endblock%}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ujr'),'title': 'user.journalrole'|trans},
+        {'title': 'user.journalrole.send_email'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
