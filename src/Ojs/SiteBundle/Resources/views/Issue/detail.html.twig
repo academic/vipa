@@ -59,3 +59,10 @@
         </div>
 
         {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        analytics.increase('issue',{{ issue.id }})
+    </script>
+{% endblock %}
