@@ -191,34 +191,6 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function userAnonymLoginAction($role = null)
-    {
-        global $kernel;
-        $route = 'user_create_anonym_login';
-
-        $rowAction = new RowAction('<i class="fa fa-users"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Anonym Login"]);
-        $postExtension = $kernel->getContainer()->get('okulbilisimcmsbundle.twig.post_extension');
-        $rowAction->setRouteParameters(['id', 'object']);
-        $rowAction->setRoute($route);
-        if ($role) {
-            $rowAction->setRole($role);
-        }
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($postExtension) {
-            $entity = $row->getEntity();
-            $object = $postExtension->cmsobject($entity);
-            $action->setRouteParameters(['id', 'object' => $object]);
-
-            return $action;
-        });
-
-        return $rowAction;
-    }
-
-    /**
-     * @param  null $role
-     * @return RowAction
-     */
     public static function cmsAction($role = null)
     {
         //        <a class="btn-xs btn-info" href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}">

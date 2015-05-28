@@ -51,7 +51,6 @@ class ArticleFileController extends Controller
         $rowAction[] = ActionHelper::showAction('articlefile_show', 'id');
         $rowAction[] = ActionHelper::editAction('articlefile_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('articlefile_delete', 'id');
-        $rowAction[] = ActionHelper::userAnonymLoginAction();
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
