@@ -191,7 +191,8 @@ class UpdateCommand extends ContainerAwareCommand
     private function updateCommonData()
     {
         $updates = [
-            'DailyReviewCount',
+            'JournalViewCount',
+         //   'DailyReviewCount',
          //   'AcceptedArticleCount',
          //   'DeclinedArticleCount',
          //   'RevisedArticleCount',
