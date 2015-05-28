@@ -2,6 +2,14 @@
 
 {% block title %}OjsSiteBundle:People:show{% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'title': 'people.show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
 <h1>Welcome to the People:show page</h1>
 {% endblock %}
