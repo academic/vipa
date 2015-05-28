@@ -5,12 +5,8 @@ security:
     acl:
         connection: default
     role_hierarchy:
-        ROLE_AUTHOR: [ROLE_USER]
-        ROLE_EDITOR: [ROLE_AUTHOR, ROLE_ALLOWED_TO_SWITCH]
-        ROLE_JOURNAL_MANAGER: [ROLE_EDITOR,ROLE_AUTHOR]
-        ROLE_ADMIN: [ROLE_JOURNAL_MANAGER]
+        ROLE_ADMIN: [ROLE_USER]
         ROLE_SUPER_ADMIN:  [ROLE_ADMIN]
-        ROLE_USER: [ROLE_AUTHOR]
     providers:
         user_db:
             id: ojs.user_provider.username_email
@@ -83,17 +79,17 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/article, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR] }
-        - { path: ^/admin/userjournalrole, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR,ROLE_JOURNAL_MANAGER] }
+        - { path: ^/admin/article, roles: [ROLE_USER] }
+        - { path: ^/admin/userjournalrole, roles: [ROLE_USER] }
         - { path: ^/admin/journal/new, roles: [ROLE_SUPER_ADMIN] }
-        - { path: ^/admin/journal, roles: [ROLE_SUPER_ADMIN, ROLE_EDITOR,ROLE_JOURNAL_MANAGER] }
-        - { path: ^/admin/design, roles: [ROLE_SUPER_ADMIN,ROLE_JOURNAL_MANAGER] }
+        - { path: ^/admin/journal, roles: [ROLE_USER] }
+        - { path: ^/admin/design, roles: [ROLE_USER] }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
-        - { path: /manager, roles: [ROLE_USER,ROLE_JOURNAL_MANAGER,ROLE_SUPER_ADMIN] }
+        - { path: /manager, roles: [ROLE_USER] }
         - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /user, roles: ROLE_USER }
-        - { path: ^/author, roles: ROLE_AUTHOR }
-        - { path: ^/editor, roles: ROLE_EDITOR }
+        - { path: ^/author, roles: ROLE_USER }
+        - { path: ^/editor, roles: ROLE_USER }
         - { path: ^/api/*, roles: ROLE_USER }
         - { path: ^/suggest, roles: ROLE_USER }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }

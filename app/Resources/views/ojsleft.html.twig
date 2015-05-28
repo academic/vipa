@@ -53,24 +53,17 @@
                         <i class="fa fa-dashboard"></i>
                         {{ "dashboard"|trans }}
                     </a>
-                    {% if( session('selectedJournalId')) and userjournals[session('selectedJournalId')] is defined %}
-                        {% set submitButton = 0 %}
-                        {% for submitRole in userjournals[session('selectedJournalId')].submitRoles %}
-                            {% if (hasRole(submitRole.role)) and (submitButton == 0) %}
-                                <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
-                                   href="{{ path('article_submission_new') }}">
-                                    <i class="fa fa-plus-circle"></i>
-                                    {{ "article.submit"|trans }}
-                                </a>
-                                {% set submitButton = 1 %}
-                            {% endif %}
-                        {% endfor %}
+                    {% if is_granted('CREATE', selectedJournal()) %}
+                        <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
+                           href="{{ path('article_submission_new') }}">
+                            <i class="fa fa-plus-circle"></i>
+                            {{ "article.submit"|trans }}
+                        </a>
                     {% endif %}
-                    {% if hasRole('ROLE_AUTHOR') %}
-                        {% if isSystemAdmin() or isJournalManager() %}
+                    {% if is_granted('VIEW', selectedJournal()) %}
+                        {% set submissions_path = "article_submissions_me" %}
+                        {% if is_granted('EDIT', selectedJournal()) %}
                             {% set submissions_path = "article_submissions_all" %}
-                        {% else %}
-                            {% set submissions_path = "article_submissions_me" %}
                         {% endif %}
                         <a class="list-group-item list-group-item-info" href="{{ path(submissions_path) }}">
                             <i class="fa fa-flag"></i>
@@ -79,17 +72,19 @@
                     {% endif %}
                 </div>
             </div>
-            {% if isJournalManager() or isEditor() %}
-
+            {% if is_granted('VIEW', selectedJournal()) %}
                 <div class="panel panel-default left-menu-bgcolor">
                     <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                     <div>
                         {# Links for journal manager  #}
                         {% if session('selectedJournalId') %}
-                            <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "settings"|trans }}
-                            </a>
+                            {% if is_granted('EDIT', selectedJournal()) %}
+                                <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
+                                    <i class="fa fa-cog"></i>
+                                    {{ "settings"|trans }}
+                                </a>
+                            {% endif %}
+
                             <a class="list-group-item" href="{{ path('board_manager') }}">
                                 <i class="fa fa-cog"></i>
                                 {{ "boards"|trans }}
