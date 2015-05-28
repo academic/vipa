@@ -1553,4 +1553,47 @@ class Journal implements Translatable
     {
         $this->footer_text = $footer_text;
     }
+
+    /** @var  int */
+    private $view_count;
+    /** @var  int */
+    private $download_count;
+
+    /**
+     * @return int
+     */
+    public function getDownloadCount()
+    {
+        return $this->download_count;
+    }
+
+    /**
+     * @param int $download_count
+     * @return $this
+     */
+    public function setDownloadCount($download_count)
+    {
+        $this->download_count = $download_count;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getViewCount()
+    {
+        return $this->view_count;
+    }
+
+    /**
+     * @param int $view_count
+     * @return $this
+     */
+    public function setViewCount($view_count)
+    {
+        $this->view_count = $view_count;
+        return $this;
+    }
+
+
 }
