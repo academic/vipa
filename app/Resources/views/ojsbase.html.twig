@@ -1,7 +1,6 @@
 {% set userjournals = userjournals() %}
 {% set userJournalRoles = userJournalRoles() %}
-{% if page is defined %}
-{% else %}
+{% if page is not defined %}
     {% set page = "index" %}
 {%endif%}
 <!DOCTYPE html>
@@ -99,19 +98,17 @@
                             </div>
                             <div class="panel-body">
                                 <div class="col-sm-12">
-                                    <!-- cccc -->
-                                {%endif%}
-                            {% block body %}{% endblock %}
-
-                            {% if app.user and hideleft is not defined  %}
-                                <!-- cccc -->
+                                    {% block body %}{% endblock %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {%endif%}
-
-
+                {%else%}
+                    <div class="col-sm-12">
+                        {{ block('body') }}
+                    </div>
+                {% endif %}
+            </div>
 
             {% if journal is defined %}
                 <div class="journal-footer">
