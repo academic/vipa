@@ -1,14 +1,18 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journals'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1 %}
-{% block breadcrumb %}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'link': path('ojs_journals_index'),'title': 'journal.plural'|trans},
+        {'title': 'list'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
     <div class="container">
-        <ol class="breadcrumb">
-            <li><a href="{{ path('ojs_public_index') }}">Ojs</a></li>
-            <li><a href="{{ url('ojs_journals_index') }}">{{ "journal.plural"|trans }}</a></li>
-            <li class="active">{{ "list"|trans }}</li>
-        </ol>
         <div class="row">
             <div class="col-sm-3 col-md-3">
                 <div class="panel-group">
