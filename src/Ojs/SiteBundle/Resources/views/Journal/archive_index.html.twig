@@ -1,7 +1,16 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.archives'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'link':generateJournalUrl(journal), 'title': journal.title},
+        {'title': "archive"|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
 
     <div class="container">
@@ -13,11 +22,6 @@
             </div>
             <div class="row">
                 <div class="col-md-9">
-                    <ol class="breadcrumb">
-                        <li><a href="{{ path('ojs_public_index') }}">Ojs</a></li>
-                        <li><a href="{{ generateJournalUrl(journal) }}">{{"journal_home"|trans}}</a></li>
-                        <li class="active">{{"archive"|trans}}</li>
-                    </ol>
                     {% for year in issues_grouped|keys %}
                         <div class="panel panel-default">
                             <div class="panel-heading toggle-list">
