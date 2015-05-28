@@ -35,6 +35,8 @@ class ObjectCommonStat
     const ReaderCount = 6;
     const MemberCount = 7;
     const PublishedIssueCount = 8;
+    const JournalViewCount = 9;
+    const JournalDownloadCount = 10;
 
     /**
      * @var int

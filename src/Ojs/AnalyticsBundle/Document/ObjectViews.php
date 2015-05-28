@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * This collection keeps page information and view action details *without total count*
  * There will be one record *foreach action*
- * @MongoDb\Document(collection="analytics_views_object")
+ * @MongoDb\Document(collection="analytics_views_object",repositoryClass="Ojs\AnalyticsBundle\Document\ObjectViewsRepository")
  */
 class ObjectViews extends ObjectStatsBase
 {
