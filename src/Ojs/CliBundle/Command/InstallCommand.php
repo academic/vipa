@@ -272,6 +272,10 @@ class InstallCommand extends ContainerAwareCommand
         $se = '</fg=black;bg=green>';
         $em = $this->getContainer()->get('doctrine')->getManager();
         $aclManager = $this->getContainer()->get('problematic.acl_manager');
+        $builder = new MaskBuilder();
+        $viewEdit = $builder
+            ->add('view')
+            ->add('edit')->get();
 
         /** @var Journal[] $journals */
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
@@ -279,45 +283,49 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln($sb.'Journal fix for : '.$journal->getTitle().$se);
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
-
-            $builder = new MaskBuilder();
-            $builder
-                ->add('view')
-                ->add('create');
-            $viewCreate = $builder->get();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
-                ->permit($viewCreate)->save();
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
+                ->permit(MaskBuilder::MASK_CREATE)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('boards')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+                ->permit($viewEdit)->save();
         }
         /** @var Article[] $articles */
         $articles = $em->getRepository('OjsJournalBundle:Article')->findAll();
         foreach ($articles as $article) {
             $output->writeln($sb.'Article fix for : '.$article->getTitle().$se);
             $journal = $article->getJournal();
-
-            $builder = new MaskBuilder();
-            $builder
-                ->add('view')
-                ->add('edit');
-            $viewEdit = $builder->get();
 
             $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();

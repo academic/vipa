@@ -15,35 +15,51 @@
     <h1 title="{{"board.name"|trans}}">{{ entity.name }}</h1>
     <p class="{{"description"|trans}}">{{ entity.description|raw }}</p>
     <br>
-    <form action="{{path('board_manager_add_member',{boardId: entity.id})}}" method="POST"
-          name="addMemberForm" class="form-inline">
-        <span class="help-block">
-            {{"You can add member from your journal's users only."|trans|raw}}
-            {{"You can <a href='%path%'>manage</a> journal's users."|trans({"%path%":path('manager_journal_users')})|raw}}
-        </span>
+    {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+        <form action="{{path('board_manager_add_member',{boardId: entity.id})}}" method="POST"
+              name="addMemberForm" class="form-inline">
+            <span class="help-block">
+                {{"You can add member from your journal's users only."|trans|raw}}
+                {{"You can <a href='%path%'>manage</a> journal's users."|trans({"%path%":path('manager_journal_users')})|raw}}
+            </span>
 
-        <div class="form-group">
-            <!-- <label for="userInput">{{"user"|trans}}</label> -->
-            <input type="text" class="form-control select2-element-user"
-                   style="min-width: 250px"
-                   name="userid" id="userInput" placeholder="{{"user"|trans}}">
-        </div>
-        <button type="submit" class="btn btn-default">{{"add"|trans}}</button>
-    </form>
+            <div class="form-group">
+                <!-- <label for="userInput">{{"user"|trans}}</label> -->
+                <input type="text" class="form-control select2-element-user"
+                       style="min-width: 250px"
+                       name="userid" id="userInput" placeholder="{{"user"|trans}}">
+            </div>
+            <button type="submit" class="btn btn-default">{{"add"|trans}}</button>
+        </form>
+    {% endif %}
     <hr>
     <h4>Members</h4>
     <table class="table">
         {% for member in members%}
             <tr>
                 <td>{{member.user.fullName}} ({{member.user.username}})</td>
-                <td><a href="{{path('board_manager_remove_member',{boardId:entity.id, userId: member.user.id})}}">{{"remove"|trans}}</a></td>
+                {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+                    <td><a href="{{path('board_manager_remove_member',{boardId:entity.id, userId: member.user.id})}}">{{"remove"|trans}}</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
-    {% set back_path = 'board_manager' %}
-    {% set edit_path = 'board_manager_edit' %}
-    {% set delete_path = 'board_manager_delete' %}
-    {% include '::actionbuttons.html.twig' %}
+    <div class="btn-group">
+        <a class="btn btn-default btn-sm" href="{{ path("board_manager", { 'id': entity.id }) }}" title="{{"b"|trans}}">
+            <i class="fa fa-arrow-left"></i>
+        </a>
+        {% if is_granted('EDIT', selectedJournal(), 'boards') %}
+            <a class="btn btn-warning btn-sm" href="{{ path("board_manager_edit", { 'id': entity.id }) }}" title="{{"edit"|trans}}">
+                <i class="fa fa-pencil"></i>
+            </a>
+        {% endif %}
+        {% if is_granted('DELETE', selectedJournal(), 'boards') %}
+            <a class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');"
+               href="{{ path("board_manager_delete", { 'id': entity.id}) }}" title="{{"delete"|trans}}">
+                <i class="fa fa-trash-o"></i>
+            </a>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

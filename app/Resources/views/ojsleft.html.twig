@@ -53,7 +53,7 @@
                         <i class="fa fa-dashboard"></i>
                         {{ "dashboard"|trans }}
                     </a>
-                    {% if is_granted('CREATE', selectedJournal()) %}
+                    {% if is_granted('CREATE', selectedJournal(), 'articles') %}
                         <a id="summissionLinkLeft" class="list-group-item list-group-item-success"
                            href="{{ path('article_submission_new') }}">
                             <i class="fa fa-plus-circle"></i>
@@ -84,11 +84,12 @@
                                     {{ "settings"|trans }}
                                 </a>
                             {% endif %}
-
-                            <a class="list-group-item" href="{{ path('board_manager') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "boards"|trans }}
-                            </a>
+                            {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                                <a class="list-group-item" href="{{ path('board_manager') }}">
+                                    <i class="fa fa-cog"></i>
+                                    {{ "boards"|trans }}
+                                </a>
+                            {% endif %}
                             <a class="list-group-item" href="{{ path('manager_journal_section') }}">
                                 <i class="fa fa-apple"></i>
                                 {{ "journalsection"|trans }}
