@@ -1,5 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.block_create'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'title': 'block'|trans},
+        {'title': "create"|trans }
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body -%}
     <h4>Create New Block</h4>
     {% for label, flashes in app.session.flashbag.all %}
