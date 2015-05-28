@@ -6,6 +6,13 @@
     <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set list = [
+        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+        { 'title': 'welcome'|trans }
+    ] %}
+    {{breadcrumb(list)}}
+{% endblock %}
 
 {% block body %}
 
