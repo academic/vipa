@@ -2,12 +2,20 @@
 
 namespace Ojs\CliBundle\Command;
 
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
+use Ojs\UserBundle\Entity\RoleRepository;
+use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\UserBundle\Entity\UserJournalRoleRepository;
+use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -31,6 +39,7 @@ class InstallCommand extends ContainerAwareCommand
             ->addOption('no-location', null, InputOption::VALUE_NONE, 'Whitout Location Data')
             ->addOption('no-theme', null, InputOption::VALUE_NONE, 'Whitout Theme')
             ->addOption('no-acl', null, InputOption::VALUE_NONE, 'Whitout ACL Data')
+            ->addOption('fix-acl', null, InputOption::VALUE_NONE, 'Fix Acl Structure')
         ;
     }
 
@@ -156,6 +165,10 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln($sb.'Inserting default ACL records'.$se);
             $this->insertAcls();
         }
+        if ($input->getOption('fix-acl')) {
+            $output->writeln($sb.'Fixing ACL Records'.$se);
+            $this->fixAcls($output);
+        }
 
         $output->writeln("\nDONE\n");
         $output->writeln("You can run "
@@ -252,6 +265,112 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
     }
+
+    protected function fixAcls(Output $output)
+    {
+        $sb = '<fg=black;bg=green>';
+        $se = '</fg=black;bg=green>';
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $aclManager = $this->getContainer()->get('problematic.acl_manager');
+
+        /** @var Journal[] $journals */
+        $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
+        foreach ($journals as $journal) {
+            $output->writeln($sb.'Journal fix for : '.$journal->getTitle().$se);
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $builder = new MaskBuilder();
+            $builder
+                ->add('view')
+                ->add('create');
+            $viewCreate = $builder->get();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
+                ->permit($viewCreate)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+        }
+        /** @var Article[] $articles */
+        $articles = $em->getRepository('OjsJournalBundle:Article')->findAll();
+        foreach ($articles as $article) {
+            $output->writeln($sb.'Article fix for : '.$article->getTitle().$se);
+            $journal = $article->getJournal();
+
+            $builder = new MaskBuilder();
+            $builder
+                ->add('view')
+                ->add('edit');
+            $viewEdit = $builder->get();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+                ->permit($viewEdit)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+                ->permit($viewEdit)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+                ->permit($viewEdit)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+                ->permit($viewEdit)->save();
+
+            $aclManager->on($article)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+                ->permit($viewEdit)->save();
+        }
+
+        // Every JOURNAL MANAGER and EDITOR must be AUTHOR
+        /** @var UserJournalRoleRepository $repo */
+        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
+
+        /** @var UserRepository $userRepo */
+        $userRepo = $em->getRepository('OjsUserBundle:User');
+
+        /** @var RoleRepository $roleRepo */
+        $roleRepo = $em->getRepository('OjsUserBundle:Role');
+        /** @var Role $authorRole */
+        $authorRole = $roleRepo->findOneBy(array('role' => 'ROLE_AUTHOR'));
+
+        $userJournalRoles = $repo->findAllByJournalRole(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
+        foreach ($userJournalRoles as $userJournalRole) {
+            if (!$userRepo->hasJournalRole($userJournalRole->getUser(), $authorRole, $userJournalRole->getJournal())) {
+                $newUserJournalRole = new UserJournalRole();
+                $newUserJournalRole->setRole($authorRole);
+                $newUserJournalRole->setUser($userJournalRole->getUser());
+                $newUserJournalRole->setJournal($userJournalRole->getJournal());
+                $em->persist($newUserJournalRole);
+                $output->writeln($sb.'Author added : '.$userJournalRole->getUser().' - '.$userJournalRole->getJournal().$se);
+            }
+        }
+
+        $em->flush();
+    }
+
     protected function printWelcome()
     {
         return '';
