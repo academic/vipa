@@ -11,14 +11,6 @@
     {{ breadcrumb(list) }}
 {% endblock %}
 
-{% block breadcrumb %}
-    {% set list = [
-        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
-        {'title': 'application.journal.apply'|trans}
-    ] %}
-    {{ breadcrumb(list) }}
-{% endblock %}
-
 {% block body %}
     <div class="container">
         <!-- Page Content -->

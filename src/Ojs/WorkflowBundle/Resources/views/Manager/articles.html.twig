@@ -10,7 +10,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'manager'|trans}
+        {'title': 'manager'|trans},
         {'title': 'article.plural'|trans}
     ] %}
     {{breadcrumb(list)}}
