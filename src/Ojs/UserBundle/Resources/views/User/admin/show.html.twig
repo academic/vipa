@@ -2,13 +2,12 @@
 
 
 {% block breadcrumb %}
-{% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                { 'link': path('user'), 'title': 'user.manager'|trans},
-                { 'title': 'user.show'|trans},
-
-] %}
-{{breadcrumb(list)}}
+    {% set list = [
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        { 'link': path('user'), 'title': 'user.manager'|trans},
+        { 'title': 'user.show'|trans},
+    ] %}
+    {{breadcrumb(list)}}
 {% endblock %}
 
 
