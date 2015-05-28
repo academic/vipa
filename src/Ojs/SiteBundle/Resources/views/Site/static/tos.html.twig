@@ -1,7 +1,15 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.tos'|trans }} {{ parent() }}{% endblock %}
 {% set hideleft = 1%}
-{%block breadcrumb %}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+        {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
+        {'title': 'terms.of.use'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
 {% block body %}
 
     <div class="container " style="margin-top:60px">
