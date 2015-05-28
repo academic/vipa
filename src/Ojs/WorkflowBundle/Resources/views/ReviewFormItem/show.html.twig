@@ -2,11 +2,11 @@
 
 {% block breadcrumb %}
     {% set list = [
-                {'link': path('dashboard'), 'title': 'dashboard'|trans},
-                {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
-                {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
-                {'title': 'review.form.item.detail'|trans}
-] %}
+        {'link': path('dashboard'), 'title': 'dashboard'|trans},
+        {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+        {'link': path('ojs_review_form_items',{'formId':form.id}),'title': 'form.items'|trans },
+        {'title': 'review.form.item.detail'|trans}
+    ] %}
     {{breadcrumb(list)}}
 {% endblock %}
 
