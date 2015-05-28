@@ -892,20 +892,8 @@ user.journalrole.mail.to: Alıcı
 user.journalrole.mail.subject: Konu
 user.journalrole.mail.body: Mesaj
 user.journalrole.mail.send: Gönder
-user.anonym.new: 'Anonim Giriş Oluştur'
-user.anonym.firstname: Ad
-user.anonym.lastname: Soyad
-user.anonym.email: E-posta
-user.anonym.role: Yetki
-user.anonym.has_logged: 'Giriş Yapıldı.'
-user.anonym.has_register: 'Kayıt Edildi'
-user.anonym.user: 'Kullanıcı ID'
-user.anonym.object: Nesne
-user.anonym.list: 'Anonim Girişleri Listele'
 orcid.login: 'ORCID Hesabı İle Giriş Yap'
 flush.all.log: 'Logları Sil'
-user.anonym: __user.anonym
-user.anonym.used: __user.anonym.used
 'You''ve invited to OJS': "Ojs'ye davet edildiniz"
 'Review invitation from': 'Değerlendirme davet formu'
 'Click link below for login to ojs if you are accept invitation': 'Eğer daveti kabul ediyorsanız aşağıdaki linke tıklayınız' 

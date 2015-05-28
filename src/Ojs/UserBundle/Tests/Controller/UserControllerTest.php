@@ -85,30 +85,4 @@ class UserControllerTest extends BaseTestCase
         $follow = $this->client->followRedirect();
         $this->assertEquals(1, $follow->filter('html:contains("User List")')->count());
     }
-
-    public function testAnonymLoginCreate()
-    {
-        $this->logIn();
-        $this->isAccessible(['user_create_anonym_login']);
-        $form = $this->crawler->selectButton('Create')->form();
-        $form['anonym_user[first_name]'] = 'Aybars';
-        $form['anonym_user[last_name]'] = 'Cengaver';
-        $form['anonym_user[email]'] = 'root@localhost.com';
-        $form['anonym_user[roles]'] = [1,2,4];
-        $this->client->submit($form);
-        $result = $this->client->followRedirect();
-        $this->assertEquals(1, $result->filter('html:contains("Create Anonym Login")')->count());
-    }
-
-    public function testAnonymLoginDelete()
-    {
-        $this->logIn();
-        $em = $this->app->getKernel()->getContainer()->get('doctrine.orm.entity_manager');
-        $user = $em->getRepository('OjsUserBundle:User')->findOneBy(['email' => 'root@localhost.com']);
-        $dm = $this->app->getKernel()->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $aut = $dm->getRepository('OjsUserBundle:AnonymUserToken')->findOneBy(['user_id' => $user->getId()]);
-        $this->isAccessible(['user_delete_anonym_login', ['id' => $aut->getId()]]);
-        $result = $this->client->followRedirect();
-        $this->assertEquals(1, $result->filter('html:contains("List Anonym Login")')->count());
-    }
 }

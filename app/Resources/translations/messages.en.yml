@@ -524,18 +524,6 @@ first_step: First Step
 last_step: Last Step 
 'Your existing workflow design will be overwritten! Are you sure?': 'Your existing workflow design will be overwritten! Are you sure?'
 user.manager: User Manager
-user.anonym: __user.anonym
-user.anonym.new: __user.anonym.new
-user.anonym.list: __user.anonym.list
-user.anonym.firstname: __user.anonym.firstname
-user.anonym.lastname: __user.anonym.lastname
-user.anonym.email: __user.anonym.email
-user.anonym.role: __user.anonym.role
-user.anonym.used: __user.anonym.used
-user.anonym.has_logged: "Logged"
-user.anonym.has_register: "Registered"
-user.anonym.user: "UserID"
-user.anonym.object: "Object" 
 event.user.id: __event.user.id
 event.affectedUser.id: __event.affectedUser.id
 flush.all.log: Flush all log

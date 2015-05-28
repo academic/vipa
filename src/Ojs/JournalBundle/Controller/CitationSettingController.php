@@ -36,7 +36,6 @@ class CitationSettingController extends Controller
         $rowAction[] = ActionHelper::showAction('citationsetting_show', 'id');
         $rowAction[] = ActionHelper::editAction('citationsetting_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('citationsetting_delete', 'id');
-        $rowAction[] = ActionHelper::userAnonymLoginAction();
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

@@ -102,78 +102,12 @@ class SecurityController extends Controller
         );
     }
 
-    public function anonymLoginAction(Request $request, $hash)
-    {
-        if (!$hash || empty($hash) || is_null($hash)) {
-            return $this->redirect($this->generateUrl('ojs_public_index'));
-        }
-        if ($this->getUser()) {
-            return $this->redirect($this->generateUrl('ojs_public_index'));
-        }
-        $session = $request->getSession();
-        // get the login error if there is one
-        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(
-                Security::AUTHENTICATION_ERROR
-            );
-        } else {
-            $error = $session->get(Security::AUTHENTICATION_ERROR);
-            $session->remove(Security::AUTHENTICATION_ERROR);
-        }
-        //find user on document by hash
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-        $anonymUserRepo = $dm->getRepository('OjsUserBundle:AnonymUserToken');
-        $token = $anonymUserRepo->findOneBy(['token' => $hash]);
-        if (!$token || $token->getUsed()) {
-            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans("Login hash is expired/incorrect!"));
-
-            return $this->render(
-                'OjsUserBundle:Security:login.html.twig', array(
-                    // last username entered by the user
-                    'last_username' => $session->get(Security::LAST_USERNAME),
-                    'error' => $error,
-                )
-            );
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        $userRepo = $em->getRepository('OjsUserBundle:User');
-        /** @var User $user */
-        $user = $userRepo->findOneBy(['id' => $token->getUserId()]);
-
-        $newuser = true;
-        //user is not new if logged already
-        if ($user->getLastlogin()) {
-            $newuser = false;
-        }
-
-        //Login
-        $this->authenticateUser($user);
-
-        //update used field
-        $token->setUsed(true);
-        $dm->persist($token);
-        $dm->flush();
-        if ($newuser) {
-            return new RedirectResponse($this->get('router')->generate('user_create_password'));
-        }
-
-        return new RedirectResponse($this->get('router')->generate('ojs_public_index'));
-    }
-
     private function encodePassword(User $user, $plainPassword)
     {
         $encoder = $this->container->get('security.encoder_factory')
             ->getEncoder($user);
 
         return $encoder->encodePassword($plainPassword, $user->getSalt());
-    }
-
-    private function authenticateUser(User $user)
-    {
-        $providerKey = 'main'; //  firewall name
-        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-        $this->get('security.token_storage')->setToken($token);
     }
 
     public function registerAction(Request $request)

@@ -34,21 +34,3 @@ user_unblock:
     pattern: /{id}/unblock
     defaults: { _controller: "OjsUserBundle:User:unblock" }
 
-user_create_anonym_login:
-    pattern: /anonym/create/{object}/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:create", object: null, id: 0}
-user_create_anonym_login_success:
-    pattern: /anonym/create_success
-    defaults: { _controller: "OjsUserBundle:AnonymUser:createSuccess" }
-user_list_anonym_login:
-    pattern: /anonym/list/{object}/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:list", object: null, id: 0 }
-user_edit_anonym_login:
-    pattern: /anonym/edit/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:edit" }
-user_edit_anonym_login_success:
-    pattern: /anonym/edit/success/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:editSuccess" }
-user_delete_anonym_login:
-    pattern: /anonym/delete/{id}
-    defaults: { _controller: "OjsUserBundle:AnonymUser:delete" }
