@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('manager_journals_indexes'}),'title': 'journals.index'|trans},
+        {'link': path('manager_journals_indexes'),'title': 'journals.index'|trans},
         {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
