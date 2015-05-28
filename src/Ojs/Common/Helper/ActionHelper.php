@@ -46,7 +46,7 @@ class ActionHelper
         $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($csrf, $route) {
             $route = str_replace('_delete', '', $route);
             if ($csrf instanceof CsrfTokenManagerInterface) {
-                $token = $csrf->refreshToken($route . $row->getEntity()->getId());
+                $token = $csrf->refreshToken($route . $row->getPrimaryFieldValue());
             } else {
                 $token = '';
             }
