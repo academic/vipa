@@ -6,7 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
@@ -179,7 +179,6 @@ class JournalController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-        $user = $this->getUser();
         $ext = $this->get('ojs.twig.ojs_extension');
         if (!$ext->isJournalManager() && !$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
             throw new AccessDeniedException("You not authorized for edit this journal!");

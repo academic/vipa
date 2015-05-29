@@ -9,13 +9,12 @@ use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Ojs\UserBundle\Form\RegisterFormType;
 use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends Controller
@@ -189,7 +188,7 @@ class SecurityController extends Controller
             /** @var User $user */
             $user = $this->getUser();
             if (!$user) {
-                throw new AccessDeniedException("Access Denied", 403);
+                throw new AccessDeniedException("Access Denied");
             }
             $user->generateApiKey();
             $user->setIsActive(true);
