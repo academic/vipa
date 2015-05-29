@@ -45,6 +45,7 @@ fos_elastica:
                                         lastName: ~
                                         middleName: ~
                                         email: ~
+                                        tags: ~
                         attributes:
                             type: "object"
                             properties:
@@ -164,6 +165,41 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Citation
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                contact:
+                    mappings:
+                        id: ~
+                        firstName: ~
+                        lastName: ~
+                        title: ~
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Contact
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                file:
+                    mappings:
+                        id: ~
+                        name: ~
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\File
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                page:
+                    mappings:
+                        id: ~
+                        title: ~
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\SiteBundle\Entity\Page
                         provider: ~
                         listener: ~
                         finder: ~
