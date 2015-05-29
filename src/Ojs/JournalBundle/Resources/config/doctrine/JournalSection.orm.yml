@@ -1,5 +1,6 @@
 Ojs\JournalBundle\Entity\JournalSection:
     type: entity
+    repositoryClass: Ojs\JournalBundle\Entity\JournalSectionRepository
     table: journal_section
     manyToOne:
        journal:
