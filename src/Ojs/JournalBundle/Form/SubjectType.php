@@ -18,6 +18,15 @@ class SubjectType extends AbstractType
         $builder
                 ->add('subject')
                 ->add('description')
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
                 ->add('parent');
     }
 

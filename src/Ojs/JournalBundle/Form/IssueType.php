@@ -68,6 +68,15 @@ class IssueType extends AbstractType
                     ],
                 )
             )
+            ->add('tags', 'text', array(
+                    'label' => 'keywords',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' =>  'tagsinput',
+                        'placeholder' => 'Comma-seperated tag list'
+                    ]
+                )
+            )
             ->add('published', 'checkbox', ['label' => 'published'])
             ->add('full_file', 'hidden')
             ->add('cover', 'hidden')

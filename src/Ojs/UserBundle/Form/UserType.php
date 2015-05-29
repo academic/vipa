@@ -73,6 +73,15 @@ class UserType extends AbstractType
                     'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
                     'required' => false,
                 ))
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
                 ->add('avatar', 'hidden')
                 ->add('header', 'hidden')
                 ->add('country', 'entity', [

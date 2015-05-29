@@ -53,6 +53,15 @@ class ContactType extends AbstractType
                 ->add('phone', 'text', ['label' => 'phone'])
                 ->add('fax', 'text', ['label' => 'fax'])
                 ->add('email', 'email', ['label' => 'email'])
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
         ;
     }
 
