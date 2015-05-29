@@ -93,7 +93,7 @@ class AclChainManager extends AclManager
     public function save($replace = false)
     {
         if (!is_null($this->_onClass) || ($this->_on instanceof ObjectIdentityInterface && $this->_on->getIdentifier() === 'CLASS')) {
-            $this->addClassPermission($this->_onClass, $this->_mask, $this->_to);
+            $this->addPermission($this->_onClass, $this->_field, $this->_mask, $this->_to, 'class', $replace);
         } else {
             $this->addPermission($this->_on, $this->_field,  $this->_mask, $this->_to, 'object', $replace);
         }
