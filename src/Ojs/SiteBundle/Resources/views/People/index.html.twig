@@ -30,9 +30,11 @@
                             {% else %}
                                 {% if subject.subject in filters %}
                                     {% set parameter = filters|pop(subject.subject) %}
+                                    {{ subject.subject }}
                                     <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">
-                                        {{ subject.subject }}
-                                        <span class="glyphicon glyphicon-remove"></span>
+                                        <span class="label label-danger">
+                                            <i class="glyphicon glyphicon-remove"></i>
+                                        </span>
                                     </a>
                                 {% else %}
                                     {% set parameter = filters|merge([subject.subject]) %}
