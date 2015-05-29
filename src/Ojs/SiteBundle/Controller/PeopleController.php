@@ -27,8 +27,6 @@ class PeopleController extends Controller
         $searcher = $this->get('fos_elastica.index.search.user');
         $query = new Query();
 
-        var_dump($request->query->get('filters')['subjects']);
-
         if(!empty($filters)) {
             $bool = new Query\Bool();
 
