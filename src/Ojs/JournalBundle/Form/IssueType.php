@@ -69,6 +69,7 @@ class IssueType extends AbstractType
                 )
             )
             ->add('published', 'checkbox', ['label' => 'published'])
+            ->add('full_file', 'hidden')
             ->add('cover', 'hidden')
             ->add('header', 'hidden');
     }

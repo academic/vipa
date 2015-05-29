@@ -21,7 +21,9 @@ oneup_uploader:
         userfiles:
             enable_progress: true
             frontend: blueimp
-
+        issuefiles:
+            enable_progress: true
+            frontend: blueimp
 liip_imagine:
     resolvers:
        default:
