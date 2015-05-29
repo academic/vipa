@@ -14,6 +14,7 @@ use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\JournalSectionType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -29,6 +30,9 @@ class JournalSectionController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+        }
         $source = new Entity('OjsJournalBundle:JournalSection');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $ta = $source->getTableAlias();
@@ -52,8 +56,12 @@ class JournalSectionController extends Controller
 
         ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('manager_journal_section_show', 'id');
-        $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('manager_journal_section_delete', 'id');
+        if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');
+        }
+        if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            $rowAction[] = ActionHelper::deleteAction('manager_journal_section_delete', 'id');
+        }
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -72,6 +80,9 @@ class JournalSectionController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for create section on this journal!");
+        }
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -122,6 +133,9 @@ class JournalSectionController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for create section on this journal!");
+        }
         $entity = new JournalSection();
         $form = $this->createCreateForm($entity);
 
@@ -139,6 +153,9 @@ class JournalSectionController extends Controller
      */
     public function showAction($id)
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's section!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
@@ -160,6 +177,9 @@ class JournalSectionController extends Controller
      */
     public function editAction($id)
     {
+        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for edit this journal's section!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
@@ -206,6 +226,9 @@ class JournalSectionController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for edit this journal's section!");
+        }
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
@@ -243,6 +266,9 @@ class JournalSectionController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        if(!$this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
+            throw new AccessDeniedException("You are not authorized for delete this journal's section!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalSection')->find($id);
         if (!$entity) {
