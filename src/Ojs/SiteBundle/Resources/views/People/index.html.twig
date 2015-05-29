@@ -22,9 +22,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4>{{ "subjects"|trans }}</h4></div>
                 <ul class="list-group">
-                {% for subject in subjects %}
-                    <li class="list-group-item">{{ subject.subject }}</li>
-                {% endfor %}
+                    {% for subject in subjects %}
+                        <li class="list-group-item">
+                            <a href="{{ path('people_index', {filters: filters|merge( {subjects: [subject.subject]} )}) }}">
+                                {{ subject.subject }}
+                            </a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
