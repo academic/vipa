@@ -323,6 +323,11 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: 0
+        printed:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     gedmo:
         soft_deleteable:
           field_name: deletedAt
