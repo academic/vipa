@@ -30,6 +30,15 @@ class AuthorType extends AbstractType
                 ->add('country')
                 ->add('summary')
                 ->add('authorDetails')
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
         ;
     }
 

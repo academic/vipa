@@ -19,9 +19,15 @@ class FileType extends AbstractType
             ->add('name','hidden',[
                 'label'=>'name'
             ])
-            ->add('tags','text',[
-                'label'=>'tags'
-            ])
+            ->add('tags', 'text', array(
+                    'label' => 'keywords',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' =>  'tagsinput',
+                        'placeholder' => 'Comma-seperated tag list'
+                    ]
+                )
+            )
             ->add('path','hidden',[
                 'label'=>'path'
             ])

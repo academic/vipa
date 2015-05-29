@@ -135,6 +135,15 @@ class ArticleType extends AbstractType
                 )
                 ->add('abstractTransliterated', 'textarea', array('label' => 'abstractTransliterated', 'required' => false, 'attr' => array('class' => ' form-control')))
                 ->add('header', 'hidden')
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
         ;
     }
 

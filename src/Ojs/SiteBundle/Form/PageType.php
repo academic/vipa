@@ -17,7 +17,15 @@ class PageType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
-            ->add('tags')
+            ->add('tags', 'text', array(
+                    'label' => 'keywords',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' =>  'tagsinput',
+                        'placeholder' => 'Comma-seperated tag list'
+                    ]
+                )
+            )
             ->add('image')
         ;
     }

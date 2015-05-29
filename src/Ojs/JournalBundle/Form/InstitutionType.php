@@ -69,6 +69,15 @@ class InstitutionType extends AbstractType
                 ->add('email', 'email', ['label' => 'email'])
                 ->add('url', 'url', ['label' => 'url'])
                 ->add('wiki')
+                ->add('tags', 'text', array(
+                        'label' => 'keywords',
+                        'attr' => [
+                            'class' => ' form-control input-xxl',
+                            'data-role' =>  'tagsinput',
+                            'placeholder' => 'Comma-seperated tag list'
+                        ]
+                    )
+                )
                 ->add('logo', 'hidden')
                 ->add('header', 'hidden')
                 ->add('verified', 'checkbox', [
