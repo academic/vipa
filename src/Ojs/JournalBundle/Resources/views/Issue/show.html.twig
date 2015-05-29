@@ -39,6 +39,10 @@
                 <td>{{ entity.cover }}</td>
             </tr>
             <tr>
+                <th>{{ "full_file"|trans }}</th>
+                <td>{{ entity.fullFile|download }}</td>
+            </tr>
+            <tr>
                 <th>{{"special"|trans}}</th>
                 <td>{{ entity.special }}</td>
             </tr>
@@ -66,6 +70,7 @@
                 <th>{{"deleted"|trans}}</th>
                 <td>{{ entity.deletedAt|date('Y-m-d') }}</td>
             </tr>
+
         </tbody>
     </table>
     <hr>

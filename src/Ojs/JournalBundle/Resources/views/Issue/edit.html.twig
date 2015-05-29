@@ -16,6 +16,18 @@
     {{ form_errors(edit_form) }}
     {{ form_widget(edit_form) }}
     <div class="form-group">
+        <label class="control-label" for="fileupload_full_file">{{ "full_file"|trans }}</label>
+        <span class="btn btn-success fileinput-button form-control">
+            <i class="fa fa-plus"></i>
+            <span>{{ "select.full.file"|trans }}</span>
+            <input id="fileupload_full_file" type="file" data-url="{{ oneup_uploader_endpoint('issuefiles') }}">
+        </span>
+
+        <div id="issue_full_file_upload_progress" style="display: none" class="label label-info">
+
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label" for="fileupload">{{ "cover"|trans }}</label>
         <div id="preview_image_cover" style="max-width: 200px;">
             <img src="{{ ('/uploads/journalfiles/'~imagePath(entity.cover)) | imagine_filter('wide_200') }}"
@@ -79,6 +91,16 @@
     {% endjavascripts %}
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#fileupload_full_file').fileupload({});
+            $('#fileupload_full_file').bind('fileuploadsend', function (e, data) {
+                $('#issue_full_file_upload_progress').show();
+                $('#issue_full_file_upload_progress').html("{{"uploading"|trans}}");
+            }).bind('fileuploaddone', function (e, data) {
+                var result = JSON.parse(data.result)
+
+                $('#issue_full_file_upload_progress').html("{{"done"|trans}}.");
+                $('#ojs_journalbundle_issue_full_file').attr('value', result.files.name);
+            });
             $('#fileupload').fileupload({});
             $('#fileupload').bind('fileuploadsend', function (e, data) {
                 $('#journal_cover_upload_progress').show();

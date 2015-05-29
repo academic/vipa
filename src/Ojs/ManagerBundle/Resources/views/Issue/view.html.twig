@@ -36,6 +36,7 @@
                 <li>{{"title"|trans}} : <strong>{{issue.title}}</strong></li>
                 <li>{{"year"|trans}} : <strong>{{issue.year}}</strong> </li>
                 <li>{{"date.publish"|trans}} : {{issue.datePublished|date('Y-m-d')}} </li>
+                <li>{{"full_file"|trans}} : <a href="/uploads/issuefiles/{{ filePath(issue.fullFile) }}" target="_blank">{{ issue.fullFile }}</a> </li>
             </ul>
                 <h4>{{"articles"|trans}}</h4>
             {% for article in articles %}

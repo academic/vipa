@@ -161,7 +161,7 @@ class IssueManagerController extends Controller
             $this->successFlashBag('Successfully created.');
 
             return $this->redirectToRoute('issue_manager_issue_view', [
-                    'issueId' => $issue->getId(),
+                    'id' => $issue->getId(),
                 ]
             );
         }

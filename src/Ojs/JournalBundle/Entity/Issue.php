@@ -521,4 +521,26 @@ class Issue implements Translatable
         return $this;
     }
 
+    /** @var  string */
+    private $full_file;
+
+    /**
+     * @return string
+     */
+    public function getFullFile()
+    {
+        return $this->full_file;
+    }
+
+    /**
+     * @param string $full_file
+     * @return $this
+     */
+    public function setFullFile($full_file)
+    {
+        $this->full_file = $full_file;
+        return $this;
+    }
+
+
 }

@@ -141,6 +141,10 @@ Ojs\JournalBundle\Entity\Issue:
             nullable: true
             options:
                 default: false
+        full_file:
+            type: string
+            nullable: true
+
     gedmo:
         soft_deleteable:
           field_name: deletedAt
