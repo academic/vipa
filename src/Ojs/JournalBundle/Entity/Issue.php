@@ -500,5 +500,25 @@ class Issue implements Translatable
         $this->published = $published;
         return $this;
     }
+    /** @var  boolean */
+    private $supplement;
+
+    /**
+     * @return boolean
+     */
+    public function isSupplement()
+    {
+        return $this->supplement;
+    }
+
+    /**
+     * @param boolean $supplement
+     * @return $this
+     */
+    public function setSupplement($supplement)
+    {
+        $this->supplement = $supplement;
+        return $this;
+    }
 
 }

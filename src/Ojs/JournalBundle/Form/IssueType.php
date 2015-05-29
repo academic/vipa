@@ -51,6 +51,7 @@ class IssueType extends AbstractType
             ->add('volume', 'text', array('label' => 'volume'))
             ->add('number', 'text', array('label' => 'number'))
             ->add('special', 'checkbox', array('label' => 'special'))
+            ->add('supplement', 'checkbox', array('label' => 'supplement'))
             ->add('title', 'text', array('label' => 'title'))
             ->add('description', 'text', array('label' => 'description'))
             ->add('year', 'text', array('label' => 'year'))
