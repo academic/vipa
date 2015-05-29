@@ -55,4 +55,10 @@ class DefaultController extends Controller
 
         return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
     }
+
+    public function advancedAction(Request $request)
+    {
+        $data = [];
+        return $this->render("OjsSiteBundle:Search:advanced.html.twig",$data);
+    }
 }
