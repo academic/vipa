@@ -84,6 +84,9 @@ Ojs\JournalBundle\Entity\Contact:
            gedmo:
              blameable:
                on: update
+        tags:
+            type: string
+            nullable: true
     gedmo:
         soft_deleteable:
           field_name: deletedAt
