@@ -5,10 +5,13 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Form\IssueType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -23,6 +26,9 @@ class IssueController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's issues!");
+        }
         $source = new Entity('OjsJournalBundle:Issue');
         $grid = $this->get('grid')->setSource($source);
 
@@ -30,8 +36,12 @@ class IssueController extends Controller
         ActionHelper::setup($this->get('security.csrf.token_manager'));
 
         $rowAction[] = ActionHelper::showAction('issue_show', 'id');
-        $rowAction[] = ActionHelper::editAction('issue_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('issue_delete', 'id');
+        if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            $rowAction[] = ActionHelper::editAction('issue_edit', 'id');
+        }
+        if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            $rowAction[] = ActionHelper::deleteAction('issue_delete', 'id');
+        }
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -44,9 +54,14 @@ class IssueController extends Controller
     /**
      * Creates a new Issue entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
+        }
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -99,6 +114,9 @@ class IssueController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
+        }
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
 
@@ -111,9 +129,14 @@ class IssueController extends Controller
     /**
      * Finds and displays a Issue entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's issue!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
@@ -126,9 +149,14 @@ class IssueController extends Controller
     /**
      * Displays a form to edit an existing Issue entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
@@ -160,9 +188,15 @@ class IssueController extends Controller
     /**
      * Edits an existing Issue entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
+        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
@@ -193,10 +227,13 @@ class IssueController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
+        if(!$this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
