@@ -90,10 +90,12 @@
                                     {{ "boards"|trans }}
                                 </a>
                             {% endif %}
-                            <a class="list-group-item" href="{{ path('manager_journal_section') }}">
-                                <i class="fa fa-apple"></i>
-                                {{ "journalsection"|trans }}
-                            </a>
+                            {% if is_granted('VIEW', selectedJournal(), 'sections') %}
+                                <a class="list-group-item" href="{{ path('manager_journal_section') }}">
+                                    <i class="fa fa-apple"></i>
+                                    {{ "journalsection"|trans }}
+                                </a>
+                            {% endif %}
                             <a class="list-group-item" href="{{ path('reports_index') }}">
                                 <i class="fa fa-th"></i>
                                 {{ "reports.title"|trans }}
