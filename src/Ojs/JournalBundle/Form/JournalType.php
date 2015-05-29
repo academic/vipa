@@ -110,6 +110,7 @@ class JournalType extends AbstractType
                 ],
             ])
             ->add('published', 'checkbox', ['label' => 'published'])
+            ->add('printed', 'checkbox', ['label' => 'printed'])
             ->add('status', 'choice', [
                 'label' => 'status',
                 'choices' => CommonParams::getStatusTexts(),

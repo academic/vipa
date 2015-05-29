@@ -1187,3 +1187,5 @@ institution.new: "Yeni Kurum"
 institution.edit: "Kurumu Düzenle"
 institution.detail: "Kurum Detayları"
 journal.articles: "Dergi Makaleleri"
+
+printed: "Basıldı mı?"

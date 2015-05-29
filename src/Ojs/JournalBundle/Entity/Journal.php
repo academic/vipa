@@ -1594,4 +1594,25 @@ class Journal implements Translatable
     }
 
 
+    /** @var  boolean */
+    private $printed;
+
+    /**
+     * @return boolean
+     */
+    public function isPrinted()
+    {
+        return $this->printed;
+    }
+
+    /**
+     * @param boolean $printed
+     * @return $this
+     */
+    public function setPrinted($printed)
+    {
+        $this->printed = $printed;
+        return $this;
+    }
+
 }
