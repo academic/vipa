@@ -60,6 +60,7 @@ class OjsExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFilter('issn', array($this, 'issnValidateFilter')),
             new \Twig_SimpleFilter('getDefinition', [$this, 'getDefinition']),
+            new \Twig_SimpleFilter('pop', array($this, 'popFilter')),
         );
     }
 
@@ -456,6 +457,22 @@ class OjsExtension extends \Twig_Extension
     public function downloadArticleFile(File $file)
     {
         return $this->router->generate('ojs_file_download', ['id' => $file->getId()]);
+    }
+
+    /**
+     * Removes specified element from a number indexed array
+     * @param array $array
+     * @param mixed $element
+     * @return array
+     */
+    public function popFilter($array, $element)
+    {
+        $position = array_search($element, $array);
+
+        if ($position !== false)
+            unset($array[$position]);
+
+        return $array;
     }
 
     public function getName()
