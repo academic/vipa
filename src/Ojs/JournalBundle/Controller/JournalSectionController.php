@@ -5,11 +5,15 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\JournalSection;
 use Ojs\JournalBundle\Form\JournalSectionType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -28,7 +32,7 @@ class JournalSectionController extends Controller
         $source = new Entity('OjsJournalBundle:JournalSection');
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (\Doctrine\ORM\QueryBuilder $qb) use ($journal, $ta) {
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $ta) {
             $qb->where(
                     $qb->expr()->eq($ta.'.journalId', $journal->getId())
             );
@@ -63,6 +67,8 @@ class JournalSectionController extends Controller
     /**
      * Creates a new JournalSection entity.
      *
+     * @param  Request                   $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -92,8 +98,8 @@ class JournalSectionController extends Controller
 
     /**
      * Creates a form to create a JournalSection entity.
-     * @param  JournalSection               $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @param  JournalSection $entity The entity
+     * @return Form           The form
      */
     private function createCreateForm(JournalSection $entity)
     {
@@ -112,6 +118,7 @@ class JournalSectionController extends Controller
     /**
      * Displays a form to create a new JournalSection entity.
      *
+     * @return Response
      */
     public function newAction()
     {
@@ -127,6 +134,8 @@ class JournalSectionController extends Controller
     /**
      * Finds and displays a JournalSection entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -146,6 +155,8 @@ class JournalSectionController extends Controller
     /**
      * Displays a form to edit an existing JournalSection entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
@@ -170,7 +181,7 @@ class JournalSectionController extends Controller
      *
      * @param JournalSection $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(JournalSection $entity)
     {
@@ -189,6 +200,9 @@ class JournalSectionController extends Controller
     /**
      * Edits an existing JournalSection entity.
      *
+     * @param  Request                   $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -223,6 +237,9 @@ class JournalSectionController extends Controller
     /**
      * Deletes a JournalSection entity.
      *
+     * @param  Request          $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -234,8 +251,9 @@ class JournalSectionController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('manager_journal_section'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $em->remove($entity);
         $em->flush();
