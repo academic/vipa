@@ -5,17 +5,13 @@ namespace Ojs\CliBundle\Command;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\SiteBundle\Acl\JournalRoleSecurityIdentity;
-use Ojs\UserBundle\Entity\RoleRepository;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Ojs\UserBundle\Entity\UserJournalRoleRepository;
-use Ojs\UserBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
-use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -187,7 +183,7 @@ class InstallCommand extends ContainerAwareCommand
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
         foreach ($roles as $role) {
             $new_role = new Role();
-            $check = $role_repo->findOneByRole($role['role']);
+            $check = $role_repo->findOneBy(array('role' => $role['role']));
             if (!empty($check)) {
                 $output->writeln('<error> This role record already exists on db </error> : <info>'.
                         $role['role'].'</info>');
@@ -236,10 +232,8 @@ class InstallCommand extends ContainerAwareCommand
         $user->generateApiKey();
 
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
-        $user->addRole($role_repo->findOneByRole('ROLE_SUPER_ADMIN'));
-        $user->addRole($role_repo->findOneByRole('ROLE_USER'));
-        $user->addRole($role_repo->findOneByRole('ROLE_EDITOR'));
-        $user->addRole($role_repo->findOneByRole('ROLE_REVIEWER'));
+        $user->addRole($role_repo->findOneBy(array('role' => 'ROLE_SUPER_ADMIN')));
+        $user->addRole($role_repo->findOneBy(array('role' => 'ROLE_USER')));
 
         $em->persist($user);
         $em->flush();
@@ -266,7 +260,7 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
     }
 
-    protected function fixAcls(Output $output)
+    protected function fixAcls(OutputInterface $output)
     {
         $sb = '<fg=black;bg=green>';
         $se = '</fg=black;bg=green>';
@@ -353,20 +347,13 @@ class InstallCommand extends ContainerAwareCommand
         }
 
         // Every JOURNAL MANAGER and EDITOR must be AUTHOR
-        /** @var UserJournalRoleRepository $repo */
-        $repo = $em->getRepository('OjsUserBundle:UserJournalRole');
 
-        /** @var UserRepository $userRepo */
-        $userRepo = $em->getRepository('OjsUserBundle:User');
 
-        /** @var RoleRepository $roleRepo */
-        $roleRepo = $em->getRepository('OjsUserBundle:Role');
-        /** @var Role $authorRole */
-        $authorRole = $roleRepo->findOneBy(array('role' => 'ROLE_AUTHOR'));
+        $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
 
-        $userJournalRoles = $repo->findAllByJournalRole(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
+        $userJournalRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->findAllByJournalRole(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
         foreach ($userJournalRoles as $userJournalRole) {
-            if (!$userRepo->hasJournalRole($userJournalRole->getUser(), $authorRole, $userJournalRole->getJournal())) {
+            if (!$em->getRepository('OjsUserBundle:User')->hasJournalRole($userJournalRole->getUser(), $authorRole, $userJournalRole->getJournal())) {
                 $newUserJournalRole = new UserJournalRole();
                 $newUserJournalRole->setRole($authorRole);
                 $newUserJournalRole->setUser($userJournalRole->getUser());

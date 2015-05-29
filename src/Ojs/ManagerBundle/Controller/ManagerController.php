@@ -11,7 +11,7 @@ use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
  use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Form\JournalType;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
