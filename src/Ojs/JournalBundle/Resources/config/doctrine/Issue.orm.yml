@@ -136,6 +136,11 @@ Ojs\JournalBundle\Entity\Issue:
         tags:
             type: string
             nullable: true
+        supplement:
+            type: boolean
+            nullable: true
+            options:
+                default: false
     gedmo:
         soft_deleteable:
           field_name: deletedAt
