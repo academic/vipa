@@ -1,3 +1,3 @@
 people_index:
     path:     /{page}
-    defaults: { _controller: OjsSiteBundle:People:index, page: 1, filter: null }
+    defaults: { _controller: OjsSiteBundle:People:index, page: 1 }
