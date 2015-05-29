@@ -61,9 +61,9 @@ class PeopleController extends Controller
         $people = $pagerfanta->getCurrentPageResults();
 
         $data = [
-            'filters' => $getQuery,
             'people' => $people,
             'subjects' => $subjects,
+            'filters' => $filters,
             'pagerfanta' => $pagerfanta,
         ];
 

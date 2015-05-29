@@ -26,12 +26,24 @@
                         <li class="list-group-item">
                             {% if filters is empty %}
                                 {% set parameter = subject.subject %}
+                                <a href="{{ path('people_index', {filters: subject.subject}) }}">{{ subject.subject }}</a>
                             {% else %}
-                                {% set parameter = filters ~ ',' ~ subject.subject %}
+                                {% if subject.subject in filters %}
+                                    {% set parameter = [] %}
+                                    {% for filter in filters %}
+                                        {% if filter != subject.subject %}
+                                            {% set parameter = parameter|merge([filter]) %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">
+                                        {{ subject.subject }}
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                {% else %}
+                                    {% set parameter = filters|merge([subject.subject]) %}
+                                    <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">{{ subject.subject }}</a>
+                                {% endif %}
                             {% endif %}
-                            <a href="{{ path('people_index', {filters: parameter}) }}">
-                                {{ subject.subject }}
-                            </a>
                         </li>
                     {% endfor %}
                 </ul>
