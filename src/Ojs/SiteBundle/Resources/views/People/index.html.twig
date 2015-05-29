@@ -29,12 +29,7 @@
                                 <a href="{{ path('people_index', {filters: subject.subject}) }}">{{ subject.subject }}</a>
                             {% else %}
                                 {% if subject.subject in filters %}
-                                    {% set parameter = [] %}
-                                    {% for filter in filters %}
-                                        {% if filter != subject.subject %}
-                                            {% set parameter = parameter|merge([filter]) %}
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% set parameter = filters|pop(subject.subject) %}
                                     <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">
                                         {{ subject.subject }}
                                         <span class="glyphicon glyphicon-remove"></span>
