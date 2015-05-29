@@ -23,31 +23,28 @@ class PeopleController extends Controller
      */
     public function indexAction(Request $request, $page = 1)
     {
-        $filters = $request->query->get('filters', array());
+        $getQuery = $request->query->get('filters');
+        $filters = !empty($getQuery) ?  explode(',', $getQuery) : null;
         $searcher = $this->get('fos_elastica.index.search.user');
-        $query = new Query();
+        $searchQuery = new Query();
 
         if(!empty($filters)) {
             $bool = new Query\Bool();
-
-            if (array_key_exists('subjects', $filters)) {
-                foreach ($filters['subjects'] as $subject) {
-                    $match = new Query\Match();
-                    $match->setField('subjects', $subject);
-                    $bool->addMust($match);
-                }
+            foreach ($filters as $subject) {
+                $match = new Query\Match();
+                $match->setField('subjects', $subject);
+                $bool->addMust($match);
             }
 
-            $query->setQuery($bool);
+            $searchQuery->setQuery($bool);
         }
 
         $aggregation = new Terms('subject');
         $aggregation->setField('subjects');
-        $query->addAggregation($aggregation);
+        $searchQuery->addAggregation($aggregation);
 
-        $search = $searcher->search($query);
+        $search = $searcher->search($searchQuery);
         $results = $search->getResults();
-        // $subjects = $search->getAggregation('subject')['buckets'];
         $subjects = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject')->findAll();
 
         $connection = $this->get('doctrine.orm.default_entity_manager')->getConnection();
@@ -64,9 +61,8 @@ class PeopleController extends Controller
         $people = $pagerfanta->getCurrentPageResults();
 
         $data = [
-            'filters' => $filters,
+            'filters' => $getQuery,
             'people' => $people,
-            // 'subjects' => $subjects,
             'subjects' => $subjects,
             'pagerfanta' => $pagerfanta,
         ];
