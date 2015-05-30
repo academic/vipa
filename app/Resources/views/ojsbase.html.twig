@@ -89,10 +89,12 @@
                             <div class="panel-heading">
                                 <div class="panel-title">
                                     {% block breadcrumb %}
-                                        <h5>
-                                            <a href="{{ url('dashboard') }}">{{"dashboard"|trans}}</a>
-                                            <small>{{"controlPanel"|trans}}</small>
-                                        </h5>
+                                        {% if app.user and hideleft is not defined  %}
+                                            <h5>
+                                                <a href="{{ url('dashboard') }}">{{"dashboard"|trans}}</a>
+                                                <small>{{"controlPanel"|trans}}</small>
+                                            </h5>
+                                        {% endif %}
                                     {% endblock %}  
                                 </div>
                             </div>
