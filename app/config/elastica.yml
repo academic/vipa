@@ -203,3 +203,17 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+                author:
+                    mappings:
+                        id: ~
+                        firstName: ~
+                        lastName: ~
+                        middleName: ~
+                        email: ~
+                        tags: ~
+                    persistence:
+                        driver: orm
+                        model: Ojs\JournalBundle\Entity\Author
+                        provider: ~
+                        listener: ~
+                        finder: ~
