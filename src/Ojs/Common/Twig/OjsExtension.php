@@ -14,6 +14,10 @@ use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\Subject;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Contact;
+use Ojs\JournalBundle\Entity\Issue;
+use Ojs\SiteBundle\Entity\Page;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -366,28 +370,62 @@ class OjsExtension extends \Twig_Extension
     /**
      * Get object definition field by object type.
      * @param $object
+     * @return string
      */
     public function getDefinition($object)
     {
-        $fields = [
-            'username',
-            'title',
-            'name',
-            'subject',
-            'id',
-        ];
-        foreach ($fields as $field) {
-            if (property_exists($object, $field)) {
-                return $object->{'get'.strtoupper($field)}();
-            }
+        /**
+         * find real class beside proxy class
+         * for regex visit: http://www.developwebsites.net/match-backslash-preg_match-php/
+         */
+        $objectClass = preg_replace('/Proxies\\\\__CG__\\\\/','',get_class($object));
+        switch ($objectClass) {
+            case 'Ojs\JournalBundle\Entity\Issue':
+                /** @var Issue $object */
+                return $object->getTitle();
+            case 'Ojs\JournalBundle\Entity\Journal':
+                /** @var Journal $object */
+                return $object->getTitle();
+            case 'Ojs\JournalBundle\Entity\Article':
+                /** @var Article $object */
+                return $object->getTitle();
+            case 'Ojs\JournalBundle\Entity\Subject':
+                /** @var Subject $object */
+                return $object->getSubject();
+            case 'Ojs\JournalBundle\Entity\Institution':
+                /** @var Institution $object */
+                return $object->getName();
+            case 'Ojs\UserBundle\Entity\User':
+                /** @var User $object */
+                return $object->getFullName();
+            case 'Ojs\JournalBundle\Entity\Author':
+                /** @var Author $object */
+                return $object->getFullName();
+            case 'Ojs\JournalBundle\Entity\Contact':
+                /** @var Contact $object */
+                return $object->getFullName();
+            case 'Ojs\JournalBundle\Entity\File':
+                /** @var File $object */
+                return $object->getName();
+            case 'Ojs\SiteBundle\Entity\Page':
+                /** @var Page $object */
+                return $object->getTitle();
+            default:
+                return '';
         }
     }
 
     public function getRoute($object)
     {
-        switch (get_class($object)) {
+        $objectClass = preg_replace('/Proxies\\\\__CG__\\\\/','',get_class($object));
+        switch ($objectClass) {
             case 'Ojs\JournalBundle\Entity\Issue':
-                return '#';
+                /** @var Issue $object */
+                return $this->router->generate('ojs_issue_page', [
+                    'id' => $object->getId(),
+                    'journal_slug' => $object->getJournal()->getSlug(),
+                    'institution' => $object->getJournal()->getInstitution()->getSlug(),
+                ],true);
             case 'Ojs\JournalBundle\Entity\Journal':
                 /** @var Journal $object */
                 return $this->router->generate('ojs_journal_index', [
@@ -399,19 +437,46 @@ class OjsExtension extends \Twig_Extension
                 return $this->router->generate('ojs_article_page', [
                     'slug' => $object->getJournal()->getSlug(),
                     'article_id' => $object->getId(),
+                    'issue_id' => $object->getIssueId(),
                     'institution' => $object->getJournal()->getInstitution()->getSlug(),
                 ]);
             case 'Ojs\JournalBundle\Entity\Subject':
                 /** @var Subject $object */
-                return $this->router->generate('ojs_journals_index', ['subject' => $object->getSlug()]);
+                return $this->router->generate('ojs_journals_index', [
+                    'subject' => $object->getSlug()
+                ]);
             case 'Ojs\JournalBundle\Entity\Institution':
                 /** @var Institution $object */
-                return $this->router->generate('ojs_institution_page', ['slug' => $object->getSlug()]);
+                return $this->router->generate('ojs_institution_page', [
+                    'slug' => $object->getSlug()
+                ]);
             case 'Ojs\UserBundle\Entity\User':
                 /** @var User $object */
-                return $this->router->generate('ojs_user_profile', ['slug' => $object->getUsername()]);
+                return $this->router->generate('ojs_user_profile', [
+                    'slug' => $object->getUsername()
+                ]);
+            case 'Ojs\JournalBundle\Entity\Author':
+                /** @var Author $object */
+                return $this->router->generate('author_show', [
+                    'id' => $object->getId()
+                ]);
+            case 'Ojs\JournalBundle\Entity\Contact':
+                /** @var Contact $object */
+                return $this->router->generate('contact_show', [
+                    'id' => $object->getId()
+                ]);
+            case 'Ojs\JournalBundle\Entity\File':
+                /** @var File $object */
+                return $this->router->generate('admin_file_show', [
+                    'id' => $object->getId()
+                ]);
+            case 'Ojs\SiteBundle\Entity\Page':
+                /** @var Page $object */
+                return $this->router->generate('admin_file_show', [
+                    'id' => $object->getId()
+                ]);
             default:
-                return '#';
+                return '###';
         }
     }
 

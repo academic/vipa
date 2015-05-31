@@ -44,6 +44,9 @@ class DefaultController extends Controller
     public function tagAction($tag, $page = 1)
     {
         $data = [];
+        /**
+         * @var \Ojs\SearchBundle\Manager\SearchManager $searchManager
+         */
         $searchManager = $this->get('ojs_search_manager');
         $searchManager->addParam('term', $tag);
         $searchManager->setPage($page);
@@ -52,7 +55,6 @@ class DefaultController extends Controller
 
         $data['tag'] = $tag;
         $data['total_count'] = $searchManager->getCount();
-
         return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
     }
 
