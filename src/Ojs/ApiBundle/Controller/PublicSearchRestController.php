@@ -169,45 +169,28 @@ class PublicSearchRestController extends FOSRestController
      *
      * @return array
      */
-    public function getTagsAction()
+    public function getTagsAction(Request $request)
     {
-        return [
+        #$limit = 12;
+        $q = $request->get('q');
+        $search = $this->container->get('fos_elastica.index.search');
 
-        ];
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('tags', strtolower($q));
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data = [];
+        foreach ($results as $result) {
+            foreach(explode(',',$result->getData()['tags']) as $tag){
+                $data[] = $tag;
+            }
+        }
+
+        return $data;
     }
-    /**
-     * @ApiDoc(
-     *  resource=true,
-     *  description="search Institutions",
-     *  parameters={
-     * {
-     *          "name"="q",
-     *          "dataType"="string",
-     *          "required"="true",
-     *          "description"="search term"
-     *      },
-     *      {
-     *          "name"="page",
-     *          "dataType"="integer",
-     *          "required"="false",
-     *          "description"="limit"
-     *      }
-     *  }
-     * )
-     * @Get("/public/search/tagsByIds")
-     * @return array
-     */
-    public function getTagsByIdsAction()
-    {
-        #$ids = $request->get('ids');
-        return [
-            ['id' => 1,'text' => 'tıp', 'slug' => 'tip'],
-            ['id' => 2,'text' => 'tahrib', 'slug' => 'tahrib'],
-            ['id' => 3,'text' => 'takip', 'slug' => 'takip'],
-            ['id' => 4,'text' => 'tahrif', 'slug' => 'tahrif'],
-            ['id' => 5,'text' => 'tahkim', 'slug' => 'tahkim'],
-        ];
-    }
+
     /**
      * @param  Request $request
      * @ApiDoc(
