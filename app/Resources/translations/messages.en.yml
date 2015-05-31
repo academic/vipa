@@ -500,7 +500,6 @@ fieldset: Fieldset
 optional: Optional 
 workflow.step.update: Update Workflow Update 
 role.plural: Roles
-ROLE_USER : Default registered user
 ROLE_SUPER_ADMIN : System Super Administrator
 ROLE_JOURNAL_MANAGER : Journal Manager
 ROLE_SUBSCRIPTION_MANAGER : Subscription Manager

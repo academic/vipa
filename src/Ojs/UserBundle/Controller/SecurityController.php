@@ -31,13 +31,7 @@ class SecurityController extends Controller
         if (!$user) {
             return $this->redirect($this->generateUrl('login'));
         }
-        if ($this->isGranted('ROLE_USER')) {
-            return $this->redirect($this->generateUrl('myprofile'));
-        }
-
-        return $this->render(
-            'OjsUserBundle:Security:unconfirmedUser.html.twig'
-        );
+        return $this->redirect($this->generateUrl('myprofile'));
     }
 
     /**
@@ -61,7 +55,6 @@ class SecurityController extends Controller
         $flashBag = $session->getFlashBag();
         //check confirmation code
         if ($user->getToken() == $code) {
-            // add ROLE_USER and ROLE_AUTHOR to new activated user
             $user->setToken(null);
             $user->setIsActive(true);
             $em->persist($user);
@@ -134,8 +127,6 @@ class SecurityController extends Controller
         if ($form->isValid()) {
             // check user name exists
             $em = $this->getDoctrine()->getManager();
-            /** @var Role $role */
-            $role = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_USER'));
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
             $user->addRole($role);

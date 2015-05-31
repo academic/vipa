@@ -27,16 +27,10 @@ class EventLogController extends Controller
         $user = $this->getUser();
         $userId = $user->getId();
         $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
-        $author = $this->isGranted('ROLE_AUTHOR');
-        $editor = $this->isGranted('ROLE_EDITOR');
 
         //get eventLog parameters according to user role
         if ($superAdmin) {
             $logTypes = \Ojs\Common\Params\EventLogParams::adminLevelEventLogs();
-        } elseif ($author) {
-            $logTypes = \Ojs\Common\Params\EventLogParams::authorLevelEventLogs();
-        } elseif ($editor) {
-            $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();
         } else {
             //if unlisted user_role.
             $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();

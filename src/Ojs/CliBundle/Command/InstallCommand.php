@@ -233,7 +233,6 @@ class InstallCommand extends ContainerAwareCommand
 
         $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
         $user->addRole($role_repo->findOneBy(array('role' => 'ROLE_SUPER_ADMIN')));
-        $user->addRole($role_repo->findOneBy(array('role' => 'ROLE_USER')));
 
         $em->persist($user);
         $em->flush();

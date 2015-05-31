@@ -37,11 +37,7 @@ class ApiKeyUserProvider implements UserProviderInterface
     {
         return new User(
             $username,
-            null,
-            /**
-             * @todo review here
-             */
-            array('ROLE_USER')
+            null
         );
     }
 

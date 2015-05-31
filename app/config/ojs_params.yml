@@ -24,18 +24,6 @@ parameters:
     roles:
         #dont modify
         - 
-            role: ROLE_USER
-            desc: Default registered user 
-            isSystemRole: True
-        - 
             role: ROLE_SUPER_ADMIN
             desc: System Super Administrator
             isSystemRole: True
-        -
-            role: ROLE_EDITOR
-            desc: Editor
-            isSystemRole: False
-        -
-            role: ROLE_REVIEWER
-            desc: Reviewer
-            isSystemRole: False
