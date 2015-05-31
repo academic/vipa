@@ -5,7 +5,7 @@
 {% block breadcrumb %}
     {% set list = [
         {'link': path('ojs_public_index'), 'title': 'Ojs'|trans},
-        {'title': 'search.results'|trans}
+        {'title': 'tag.search.results'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -13,13 +13,10 @@
 {% block body %}
     <div class="container-fluid">
         <hgroup class="page-header">
-            <h1>{{ "search.results"|trans }}</h1>
-
             <h2 class="lead">
                 {% trans with {'%total%':total_count, '%term%':tag} %}
-                <strong class="text-danger">%total%</strong> results were found for <strong class="text-danger">%term%</strong>
+                    <strong class="text-danger">%total%</strong> results tagged with <strong class="text-danger">%term%</strong>
                 {% endtrans %}
-
             </h2>
         </hgroup>
 
@@ -27,12 +24,15 @@
             <div role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                     {% for key,result in results %}
-                        <li role="presentation" class="{% if loop.first %}in active{% endif %}">
-                            <a href="#content_{{ key }}" aria-controls="content_{{ key }}" role="tab"
-                               data-toggle="tab">
-                                {{ result.type }}
-                            </a>
-                        </li>
+                        {% if result.data|length > 0 %}
+                            <li role="presentation" class="{% if loop.first %}in active{% endif %}">
+                                <a href="#content_{{ key }}" aria-controls="content_{{ key }}" role="tab"
+                                   data-toggle="tab">
+                                    {{ result.type }}
+                                    <span class="badge">{{ result.data|length }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
@@ -46,11 +46,18 @@
                             </thead>
                             <tbody>
                                 {% for res in result.data %}
-                                  <tr>
-                                      <td>
-                                          <a href="{{ getRoute(res) }}">{{ res|getDefinition }}</a>
-                                      </td>
-                                  </tr>
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                <a href="{{ getRoute(res) }}">{{ res|getDefinition }}</a>
+                                            </h4>
+                                            <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                                            {% set tags = res.tags|split(',') %}
+                                            {% for tag in tags %}
+                                                <a href="{{ path('ojs_search_tags', {tag:tag}) }}"><span class="badge">{{ tag }}</span></a>
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
