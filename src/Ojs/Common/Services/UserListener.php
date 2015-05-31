@@ -75,11 +75,6 @@ class UserListener
             $this->loadJournals();
             $this->loadJournalRoles();
             $this->loadClientUsers();
-            $check = $this->redirectUnconfirmed();
-            $routeName = $this->request->get('_route');
-            if ($check && !in_array($routeName, array('email_confirm', 'confirm_email_warning', 'logout'))) {
-                $event->setResponse(new RedirectResponse($check, 302));
-            }
         }
         // fill journal roles
     }
@@ -201,18 +196,6 @@ class UserListener
         $this->session->set('userJournals', $journals);
     }
 
-    /**
-     * Check if user is verified. If not redirect to warning page
-     */
-    public function redirectUnconfirmed()
-    {
-        $user = $this->checkUser();
-        if ($user && !$this->authorizationChecker->isGranted('ROLE_USER')) {
-            return $this->router->generate('confirm_email_warning');
-        }
-
-        return false;
-    }
 
     /**
      * @return bool|User

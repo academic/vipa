@@ -79,19 +79,14 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user_create, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/article, roles: [ROLE_USER] }
-        - { path: ^/admin/userjournalrole, roles: [ROLE_USER] }
-        - { path: ^/admin/journal/new, roles: [ROLE_SUPER_ADMIN] }
-        - { path: ^/admin/journal, roles: [ROLE_USER] }
-        - { path: ^/admin/design, roles: [ROLE_USER] }
-        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
-        - { path: /manager, roles: [ROLE_USER] }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
+        - { path: /manager, roles: [IS_AUTHENTICATED_FULLY] }
         - { path: /user/forgot_password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: /user, roles: ROLE_USER }
-        - { path: ^/author, roles: ROLE_USER }
-        - { path: ^/editor, roles: ROLE_USER }
-        - { path: ^/api/*, roles: ROLE_USER }
-        - { path: ^/suggest, roles: ROLE_USER }
+        - { path: /user, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/author, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/editor, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/*, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/suggest, roles: IS_AUTHENTICATED_FULLY }
         - { path: /.*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 #jms_security_extra:

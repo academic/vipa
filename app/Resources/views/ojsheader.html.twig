@@ -106,12 +106,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{path('myprofile')}}" title="{{"you"|trans}}"><b>{{app.user.username}}</b></a></li>
-                                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDITOR') %}
-                                    <li>
-                                        <a href="{{ path('dashboard') }}" title="{{ "dashboard"|trans }}"  data-placement="left"><i
-                                                class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
-                                    </li>
-                                {% endif %}
+                                <li>
+                                    <a href="{{ path('dashboard') }}" title="{{ "dashboard"|trans }}"  data-placement="left"><i
+                                            class="fa fa-shield"></i> {{ "dashboard"|trans }}</a>
+                                </li>
 
                                 <li>
                                     <a href="{{ path('ojs_user_index') }}">
