@@ -104,11 +104,12 @@ class JournalType extends AbstractType
             ->add('logo', 'hidden')
             ->add('slug', 'text', ['label' => 'journal.slug'])
             ->add('tags', 'text', array(
-                    'label' => 'keywords',
+                    'label' => 'tags',
                     'attr' => [
                         'class' => ' form-control input-xxl',
-                        'data-role' =>  'tagsinput',
-                        'placeholder' => 'Comma-seperated tag list'
+                        'data-role' =>  'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => '/api/public/search/tags'
                     ]
                 )
             )
