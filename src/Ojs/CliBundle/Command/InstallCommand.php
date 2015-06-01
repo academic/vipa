@@ -268,10 +268,13 @@ class InstallCommand extends ContainerAwareCommand
         $se = '</fg=black;bg=green>';
         $em = $this->getContainer()->get('doctrine')->getManager();
         $aclManager = $this->getContainer()->get('problematic.acl_manager');
-        $builder = new MaskBuilder();
-        $viewEdit = $builder
+        $viewEdit = (new MaskBuilder())
             ->add('view')
             ->add('edit')->get();
+        $viewEditDelete = (new MaskBuilder())
+            ->add('view')
+            ->add('edit')
+            ->add('delete')->get();
 
         /** @var Journal[] $journals */
         $journals = $em->getRepository('OjsJournalBundle:Journal')->findAll();
@@ -283,6 +286,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+                ->permit($viewEditDelete)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -292,6 +297,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit($viewEditDelete)->save();
 
             $aclManager->on($journal)->to(new JournalRoleSecurityIdentity($journal, 'ROLE_AUTHOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();

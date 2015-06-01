@@ -14,6 +14,7 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\File;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
@@ -45,16 +46,17 @@ class ArticleSubmissionController extends Controller
      */
     public function indexAction($all = false)
     {
-        if ($all &&
-            (!$this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER') ||
-                $this->get('user.helper')->hasJournalRole('ROLE_EDITOR'))
+        $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if (
+            ($all && !$this->isGranted('VIEW', $currentJournal, 'articles')) ||
+            (!$all && !$this->isGranted('CREATE', $currentJournal, 'articles'))
         ) {
             return $this->redirect($this->generateUrl('ojs_user_index'));
         }
         $source1 = new Entity('OjsJournalBundle:Article', 'submission');
         $dm = $this->get('doctrine_mongodb')->getManager();
         $ta = $source1->getTableAlias();
-        $currentJournal = $this->get('ojs.journal_service')->getSelectedJournal();
+
         $source1->manipulateRow(function (Row $row) use ($dm) {
             if (null !== ($row->getField('status'))) {
                 $articleId = $row->getField('id');
@@ -80,6 +82,7 @@ class ArticleSubmissionController extends Controller
         $source2->manipulateRow(function (Row $row) use ($repository, $em, $router) {
             $row->setRepository($repository);
             if ($row->getField('article_data')) {
+                /** @var Array $data */
                 $data = $row->getField('article_data');
                 $_d = [];
 
@@ -135,9 +138,9 @@ class ArticleSubmissionController extends Controller
         $submissionsGrid->setSource($source1);
         $drafts->setSource($source2);
 
-        $submissionsGrid->addRowAction(ActionHelper::showAction('article_show', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
-        $submissionsGrid->addRowAction(ActionHelper::editAction('article_edit', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
-        $submissionsGrid->addRowAction(ActionHelper::deleteAction('article_delete', 'id', array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR', 'ROLE_SUPER_ADMIN')));
+        $submissionsGrid->addRowAction(ActionHelper::showAction('article_show', 'id'));
+        $submissionsGrid->addRowAction(ActionHelper::editAction('article_edit', 'id'));
+        $submissionsGrid->addRowAction(ActionHelper::deleteAction('article_delete', 'id'));
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -160,7 +163,7 @@ class ArticleSubmissionController extends Controller
      * @param  Journal         $journal
      * @return UserJournalRole
      */
-    private function checkAndRegisterUserAuthorRole($journal)
+    private function checkAndRegisterUserAuthorRole(Journal $journal)
     {
         /**
          * Check if the user is an author of this journal.
@@ -187,10 +190,9 @@ class ArticleSubmissionController extends Controller
     /**
      * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
      * @param  Request                   $request
-     * @param $journalId
      * @return RedirectResponse|Response
      */
-    public function confirmRoleAction(Request $request, $journalId)
+    public function confirmRoleAction(Request $request)
     {
         $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
         if (!$checkRole && $request->get('confirm')) {
@@ -211,8 +213,7 @@ class ArticleSubmissionController extends Controller
     public function newWithJournalAction($journalId)
     {
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
-        $submitRoles = $journal->getSubmitRoles();
-        if ($this->get('user.helper')->hasAnyRole($submitRoles, $journal)) {
+        if ($this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_new'));
         }
         $this->throw404IfNotFound($journal);
@@ -220,7 +221,7 @@ class ArticleSubmissionController extends Controller
         $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
 
         return !$checkRole ?
-            $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId()))) :
+            $this->redirect($this->generateUrl('article_submission_confirm_author')) :
             $this->redirect($this->generateUrl('article_submission_new'));
     }
 
@@ -236,14 +237,8 @@ class ArticleSubmissionController extends Controller
          * If not, add author role for this journal
          */
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
-        if (!$checkRole) {
-            return $this->redirect($this->generateUrl('article_submission_confirm_author', array('journalId' => $journal->getId())));
-        }
-        // Journal may have different settings
-        $submitRoles = $journal->getSubmitRoles()->toArray();
-        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException("You don't have submission privilege.");
+        if (!$this->isGranted('CREATE', $journal, 'articles')) {
+            return $this->redirect($this->generateUrl('article_submission_confirm_author'));
         }
         $entity = new Article();
 
@@ -275,7 +270,7 @@ class ArticleSubmissionController extends Controller
         if (!$articleSubmission) {
             throw $this->createNotFoundException('No submission found');
         }
-        if (!method_exists($articleSubmission, 'getUserId') || $articleSubmission->getUserId() !== $this->getUser()->getId()) {
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
             throw $this->createAccessDeniedException("Access Denied");
         }
         $data = [
@@ -305,17 +300,11 @@ class ArticleSubmissionController extends Controller
      */
     public function previewAction($submissionId)
     {
-        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles()->toArray();
-        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException();
-        }
         $em = $this->getDoctrine()->getManager();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
-        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
-            throw
-
-            $this->createAccessDeniedException("Access Denied");
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
+            throw $this->createAccessDeniedException("Access Denied");
         }
         if ($articleSubmission->getSubmitted()) {
             throw $this->createAccessDeniedException("Access Denied This submission has already been submitted.");
@@ -333,15 +322,12 @@ class ArticleSubmissionController extends Controller
     /**
      * Finish action for an article submission.
      * This action moves article's data from mongodb to mysql
-     * @param  Request $request
-     * @throws 403     Acces Denied
+     * @param  Request                                     $request
+     * @return RedirectResponse
+     * @throws NotFoundHttpException|AccessDeniedException
      */
     public function finishAction(Request $request)
     {
-        $submitRoles = $this->get("ojs.journal_service")->getSelectedJournal()->getSubmitRoles();
-        if (!$this->get('user.helper')->hasAnyRole($submitRoles)) {
-            throw $this->createAccessDeniedException("Access Denied");
-        }
         $submissionId = $request->get('submissionId');
         if (!$submissionId) {
             throw $this->createNotFoundException('There is no submission with this Id.');
@@ -353,6 +339,9 @@ class ArticleSubmissionController extends Controller
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('Submission not found.');
+        }
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
+            throw $this->createAccessDeniedException("Access Denied");
         }
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
         if (!$journal) {
@@ -402,13 +391,9 @@ class ArticleSubmissionController extends Controller
      * @param $journal
      * @return Article
      */
-    private function saveArticleSubmission($articleSubmission, $journal)
+    private function saveArticleSubmission(ArticleSubmissionProgress $articleSubmission, $journal)
     {
-        // security check for submission owner and current user
-        if ($articleSubmission->getUserId() !== $this->getUser()->getId()) {
-            throw $this->createAccessDeniedException("Access Denied");
-        }
-        /* article submission data will be moved from mongdb to mysql */
+        /* article submission data will be moved from mongodb to mysql */
         $articleData = $articleSubmission->getArticleData();
         $articlePrimaryData = $articleData[$articleSubmission->getPrimaryLanguage()];
 
@@ -463,7 +448,7 @@ class ArticleSubmissionController extends Controller
      * @param array   $articleData
      * @param Article $article
      */
-    private function saveArticleTranslations($articleData, $article)
+    private function saveArticleTranslations($articleData, Article $article)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var TranslationRepository $translationRepository */
@@ -489,10 +474,10 @@ class ArticleSubmissionController extends Controller
 // check institution
             $institution = $em->getRepository('OjsJournalBundle:Institution')->find($authorData['institution']);
             if (!$institution) {
-                $institution = $em->getRepository('OjsJournalBundle:Institution')->findOneByName(trim($authorData['institution']));
+                $institution = $em->getRepository('OjsJournalBundle:Institution')->findOneBy(array('name' => trim($authorData['institution'])));
             }
             if (!$institution) {
-                $institution = new \Ojs\JournalBundle\Entity\Institution();
+                $institution = new Institution();
                 $institution->setName(trim($authorData['institution']));
                 $institution->setVerified(false);
                 $em->persist($institution);
@@ -596,6 +581,10 @@ class ArticleSubmissionController extends Controller
      */
     public function getOrcidAuthorAction(Request $request)
     {
+        $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+        if (!$this->isGranted('VIEW', $journal, 'articles')) {
+            throw $this->createAccessDeniedException("Access Denied");
+        }
         $getAuthor = null;
         if ($request->get('orcidAuthorId')) {
             $orcidAuthorId = $request->get('orcidAuthorId');
@@ -616,8 +605,8 @@ class ArticleSubmissionController extends Controller
         if (!$as) {
             throw new NotFoundHttpException();
         }
-        if ($as->getUserId() != $this->getUser()->getId()) {
-            throw new AccessDeniedException();
+        if (!$this->isGranted('EDIT', $as)) {
+            throw $this->createAccessDeniedException("Access Denied");
         }
         $dm->remove($as);
         $dm->flush();

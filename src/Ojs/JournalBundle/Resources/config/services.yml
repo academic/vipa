@@ -1,6 +1,11 @@
 services:
-    journal.event_listener:
-        class: Ojs\JournalBundle\Listeners\AclObjectListener
+    journal.orm_event_listener:
+        class: Ojs\JournalBundle\Listeners\AclOrmListener
         arguments: [@service_container]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+    journal.odm_event_listener:
+        class: Ojs\JournalBundle\Listeners\AclOdmListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine_mongodb.odm.event_listener, event: postPersist }
