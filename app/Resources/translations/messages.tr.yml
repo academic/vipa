@@ -113,6 +113,7 @@ journal.about: 'Dergi Hakkında'
 journal.all: 'Tüm Dergiler'
 journal.users: 'Dergi Kullanıcıları'
 journal.theme: 'Dergi Teması'
+journal.design: 'Dergi Yerleşimi'
 journal.manager: 'Dergi Yöneticisi'
 citation.citation: Referans
 citation.add: 'Referans Ekle'
@@ -320,6 +321,9 @@ journaltheme.edit: 'Dergi Teması Düzenle'
 journaltheme.list: 'Dergi Teması Listesi'
 theme: Tema
 theme.plural: Temalar
+design: Yerleşim
+design.list: Yerleşim Listesi
+design.new: Yeni Yerleşim
 journaltheme.new: 'Yeni Dergi Teması'
 journaltheme: 'Dergi Teması'
 lang.edit: 'Dil Düzenle'
