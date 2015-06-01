@@ -72,7 +72,7 @@
                     {% endif %}
                 </div>
             </div>
-            {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) and is_granted('VIEW', selectedJournal()) %}
+            {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) and is_granted('EDIT', selectedJournal()) %}
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                 <div>
