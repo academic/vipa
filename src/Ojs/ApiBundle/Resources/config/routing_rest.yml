@@ -1,4 +1,5 @@
 
+
 api_contacts:
   type: rest
   resource:     "OjsApiBundle:ContactRest"
@@ -12,6 +13,11 @@ api_authors:
 api_users:
   type: rest
   resource:     "OjsApiBundle:UserRest"
+  name_prefix:  api_
+
+api_issues:
+  type: rest
+  resource:     "OjsApiBundle:IssueRest"
   name_prefix:  api_
 
 api_test :

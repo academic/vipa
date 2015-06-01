@@ -8,9 +8,13 @@ use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
+use JMS\Serializer\Annotation\Groups;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Authors of article and orders
- * @JMS\ExclusionPolicy("all")
+ * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,author.firstName,author.lastName,article.title")
  */
 class ArticleAuthor implements Translatable
@@ -18,7 +22,8 @@ class ArticleAuthor implements Translatable
     use GenericEntityTrait;
     /**
      * @var integer
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
     private $id;
@@ -35,6 +40,8 @@ class ArticleAuthor implements Translatable
      * @AclParent
      * @GRID\Column(title="firstName",field="author.firstName")
      * @GRID\Column(title="lastName",field="author.lastName")
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $author;
 

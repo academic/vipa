@@ -8,10 +8,14 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
+use JMS\Serializer\Annotation\Groups;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Issue
  * @GRID\Source(columns="id,journal.title,volume,number,title,year,datePublished")
+ * @ExclusionPolicy("all")
  */
 class Issue implements Translatable
 {
@@ -20,6 +24,8 @@ class Issue implements Translatable
     /**
      * @var integer
      * @GRID\Column(title="id")
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $id;
 
@@ -33,68 +39,91 @@ class Issue implements Translatable
      * @var Journal
      * @GRID\Column(field="journal.title",title="Journal")
      * @AclParent
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $journal;
 
     /**
      * @var string
      * @GRID\Column(title="volume")
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $volume;
 
     /**
      * @var string
      * @GRID\Column(title="number")
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $number;
 
     /**
      * @var string
      * @GRID\Column(title="title")
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
 
     /**
      * @var string
      *             cover image path
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $cover;
 
     /**
      * @var boolean
      * @GRID\Column(title="special")
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $special;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $description;
 
     /**
      * @var string
      * @GRID\Column(title="year")
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $year;
 
     /**
      * @var \DateTime
      * @GRID\Column(title="publishdate")
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $datePublished;
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $header;
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $sections;
 
@@ -500,7 +529,11 @@ class Issue implements Translatable
         $this->published = $published;
         return $this;
     }
-    /** @var  boolean */
+    /**
+     * @var  boolean
+     * @Expose
+     * @Groups({"IssueDetail"})
+     */
     private $supplement;
 
     /**
@@ -521,7 +554,11 @@ class Issue implements Translatable
         return $this;
     }
 
-    /** @var  string */
+    /**
+     * @var  string
+     * @Expose
+     * @Groups({"IssueDetail"})
+     */
     private $full_file;
 
     /**
@@ -541,6 +578,7 @@ class Issue implements Translatable
         $this->full_file = $full_file;
         return $this;
     }
+
 
 
 }

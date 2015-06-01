@@ -11,9 +11,13 @@ use Okulbilisim\LocationBundle\Entity\Location;
 use JMS\Serializer\Annotation as JMS;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
+use JMS\Serializer\Annotation\Groups;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Author
- * @JMS\ExclusionPolicy("all")
+ * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,title,firstName,lastName,initials,email")
  */
 class Author implements Translatable
@@ -22,28 +26,32 @@ class Author implements Translatable
 
     /**
      * @var integer
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="id")
      */
     private $id;
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="firstname")
      */
     private $firstName;
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="middlename")
      */
     private $middleName;
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="lastname")
      */
     private $lastName;
@@ -75,7 +83,8 @@ class Author implements Translatable
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      * @GRID\Column(title="initials")
      */
     private $initials;
@@ -94,6 +103,8 @@ class Author implements Translatable
 
     /**
      * @var Institution
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $institution;
 
@@ -125,11 +136,15 @@ class Author implements Translatable
      * title + firstname + middlename + lastname
      * @var string
      * @GRID\Column(title="fullname",field="fullname")
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $fullName;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $orcid;
 

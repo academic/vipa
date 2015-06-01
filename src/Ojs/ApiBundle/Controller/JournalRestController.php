@@ -7,38 +7,20 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class JournalRestController extends FOSRestController
 {
-
     /**
      *
      * @ApiDoc(
      *  resource=true,
-     *  description="Get Journal Issues"
+     *  description="Get Journal detail"
      * )
-     * @Get("/journal/{id}/issues")
-     *
-     * @param $id
-     * @return mixed
+     * @Get("/journal/{id}/detail")
+     * @View(serializerGroups={"JournalDetail"})
      */
-    private function getJournalIssues($id)
-    {
-        return $id;
-    }
-
-    /**
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get Specific Journal"
-     * )
-     * @Get("/journal/{id}")
-     *
-     * @param $id
-     * @return object
-     */
-    public function getJournalAction($id)
+    public function getJournalDetailAction($id)
     {
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
         if (!is_object($journal)) {
@@ -47,6 +29,26 @@ class JournalRestController extends FOSRestController
 
         return $journal;
     }
+    /**
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Get Journal Issues"
+     * )
+     * @Get("/journal/{id}/issues")
+     *
+     */
+    public function getJournalIssuesAction($id)
+    {
+        $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($id);
+        if (!is_object($journal)) {
+            throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
+        }
+
+        return $journal->getIssues();
+    }
+
+
 
     /**
      *
