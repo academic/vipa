@@ -49,6 +49,7 @@
     "JVFloat": "*",
     "jQuery-Validation-Engine": "*",
     "MathJax": "*",
-    "noty": "~2.3.4"
+    "noty": "~2.3.4",
+    "typeahead.js": "*"
   }
 }
