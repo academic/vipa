@@ -5,12 +5,9 @@ namespace Ojs\SiteBundle\Controller;
 use Ojs\Common\Controller\OjsController as Controller;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\ArrayAdapter;
 use Elastica\Query;
 use Elastica\Aggregation\Terms;
-use FOS\ElasticaBundle\Doctrine\ORM\ElasticaToModelTransformer;
 
 class PeopleController extends Controller
 {
