@@ -27,6 +27,7 @@ services:
             - @user.helper
             - "%cms_show_routes%"
             - "%avatar_upload_base_url%"
+            - "%defaultInstitutionSlug%"
         tags:
             - { name: twig.extension }
     ojs.twig.oai_extension:
