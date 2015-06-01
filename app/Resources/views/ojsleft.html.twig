@@ -42,8 +42,8 @@
                         {% endif %}
                     </div>
                 {% else %}
-                    <a class="list-group-item" href="{{ path('user_join_journal') }}">
-                        <i class="fa fa-star"></i> {{ "journal.join"|trans }}
+                    <a class="list-group-item list-group-item-warning" href="{{ path('user_join_journal') }}">
+                        <i class="fa fa-exclamation-circle"></i> {{ "journal.join"|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -72,12 +72,11 @@
                     {% endif %}
                 </div>
             </div>
-
+            {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) and is_granted('VIEW', selectedJournal()) %}
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                 <div>
                     {# Links for journal manager  #}
-                    {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) and is_granted('VIEW', selectedJournal()) %}
                         {% if is_granted('EDIT', selectedJournal()) %}
                             <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
                                 <i class="fa fa-cog"></i>
@@ -135,15 +134,10 @@
                             <i class="fa fa-cogs"></i>
                             {{"journal.articles"|trans}}
                         </a>
-                    {% else %}
-                        <a class="list-group-item list-group-item-warning" href="#">
-                            <i class="fa fa-exclamation-circle"></i>
-                            {{ "haveNoJournals"|trans }} {{ "createOne"|trans }}
-                        </a>
-                    {% endif %}
                 </div>
             </div>
 
+            {% endif %}
             <div class="panel panel-default left-menu-bgcolor">
                 <a class="list-group-item" href="{{ path('user_show_my_journals') }}">
                     <i class="fa fa-list"></i>

@@ -23,6 +23,8 @@
             <a class="list-group-item" href="{{ path('role') }}">
                 <i class="fa fa-cogs"></i> {{ "roles"|trans }}
             </a>
+            <a class="list-group-item" href="{{path('journal')}}">
+                <i class="fa fa-asterisk"></i> {{ "user.journalrole.alljournals"|trans }}</a>
             <a class="list-group-item" href="{{ path('ujr') }}">
                 <i class="fa fa-cogs"></i> {{ "User Journal Roles"|trans }}
             </a>
@@ -63,6 +65,7 @@
             <a class="list-group-item" href="{{ path('theme') }}">{{ "theme.plural"|trans }}</a>
             <a class="list-group-item" href="{{ path('admin_journaltheme') }}">{{ "journal.theme"|trans }}</a>
             <a class="list-group-item" href="{{ path('admin_journaldesign') }}">{{ "journal.design"|trans }}</a>
+            <a class="list-group-item" href="{{ path('design') }}">{{ "design"|trans }}</a>
         </div>
     </div>
     <div class="col-md-6">
