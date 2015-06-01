@@ -1193,6 +1193,7 @@ institution.detail: "Kurum Detayları"
 journal.articles: "Dergi Makaleleri"
 
 tag.search.results: "Etiket Arama Sonuçları"
+tags.cloud: "Etiket Bulutu"
 printed: "Basıldı mı?"
 supplement: "Ek mi?"
 full_file: "Tam Sayı Dosyası"
