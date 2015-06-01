@@ -38,13 +38,13 @@ class PeopleController extends Controller
         $aggregation = new Terms('subject');
         $aggregation->setField('subjects');
         $searchQuery->addAggregation($aggregation);
-        $subjects = $searcher->search($searchQuery)->getAggregation('subject')['buckets'];
 
         $adapter = new ElasticaAdapter($searcher, $searchQuery);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
         $people = $pagerfanta->getCurrentPageResults();
+        $subjects = $adapter->getResultSet()->getAggregation('subject')['buckets'];
 
         $data = [
             'people' => $people,
