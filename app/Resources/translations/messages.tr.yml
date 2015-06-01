@@ -869,7 +869,7 @@ add.as.proxy: 'Vekil Olarak Ata'
 user.apikey: 'API Anahtarı'
 regenerate.apikey: 'API Anahtarını Güncelle'
 register.yourself.as.author: 'Yazar Olarak Kaydol'
-user.journalrole:'Dergi Rolleri'
+user.journalrole: 'Dergi Rolleri'
 user.journalrole.edit: 'Dergi Rolü Düzenle'
 user.journalrole.list: 'Dergi Rolleri Listesi'
 user.journalrole.id: ID
