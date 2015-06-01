@@ -1,63 +1,64 @@
-{%
-set currentPath = path(app.request.attributes.get('_route'),
-app.request.attributes.get('_route_params'))
-set log = getLogData(entity)
-%}
+{% set currentPath = path(app.request.attributes.get('_route'),
+app.request.attributes.get('_route_params')) %}
+{% set log = getLogData(entity) %}
 <hr/>
 <h2>{{ 'admin.log.history'|trans }}</h2>
 <ul class="accordion">
-    {% for log in logs  %}
-        <li id="{{ log.id }}" class="files">
+    {% if log is defined %}
+        {% for log in logs %}
+            <li id="{{ log.id }}" class="files">
 
-            <a href="{{ currentPath }}#{{ log.id }}">{{ log.loggedAt|localizeddate('long') }}<span>{{ log.username }}</span></a>
+                <a href="{{ currentPath }}#{{ log.id }}">{{ log.loggedAt|localizeddate('long') }}
+                    <span>{{ log.username }}</span></a>
 
-            <div class="sub-menu">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>{{ 'admin.log.field'|trans }}</th>
-                        <th>{{ 'admin.log.oldValue'|trans }}</th>
-                        <th>{{ 'admin.log.newValue'|trans }}</th>
-                    </tr>
-                    {% for data in log.data  %}
+                <div class="sub-menu">
+                    <table class="table table-bordered table-striped">
                         <tr>
-                            <th>{{ data.name }}</th>
-                            <td>
-                                {% if data.old is same as(true) %}
-                                    TRUE
-                                {% elseif data.old is same as(false) %}
-                                    FALSE
-                                {% elseif data.old is iterable %}
-                                    {% for subdata in data.old %}
-                                        {{ subdata|trans }}
-                                        {% if not loop.last %},{% endif %}
-                                    {% else %}
-                                        -
-                                    {% endfor %}
-                                {% else %}
-                                    {{ data.old|default('-') }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if data.new is same as(true) %}
-                                    TRUE
-                                {% elseif data.new is same as(false) %}
-                                    FALSE
-                                {% elseif data.new is iterable %}
-                                    {% for subdata in data.new %}
-                                        {{ subdata|trans }}
-                                        {% if not loop.last %},{% endif %}
-                                    {% else %}
-                                        -
-                                    {% endfor %}
-                                {% else %}
-                                    {{ data.new|default('-') }}
-                                {% endif %}
-                            </td>
+                            <th>{{ 'admin.log.field'|trans }}</th>
+                            <th>{{ 'admin.log.oldValue'|trans }}</th>
+                            <th>{{ 'admin.log.newValue'|trans }}</th>
                         </tr>
-                    {% endfor %}
-                </table>
-            </div>
+                        {% for data in log.data %}
+                            <tr>
+                                <th>{{ data.name }}</th>
+                                <td>
+                                    {% if data.old is same as(true) %}
+                                        TRUE
+                                    {% elseif data.old is same as(false) %}
+                                        FALSE
+                                    {% elseif data.old is iterable %}
+                                        {% for subdata in data.old %}
+                                            {{ subdata|trans }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% else %}
+                                            -
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ data.old|default('-') }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if data.new is same as(true) %}
+                                        TRUE
+                                    {% elseif data.new is same as(false) %}
+                                        FALSE
+                                    {% elseif data.new is iterable %}
+                                        {% for subdata in data.new %}
+                                            {{ subdata|trans }}
+                                            {% if not loop.last %},{% endif %}
+                                        {% else %}
+                                            -
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ data.new|default('-') }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
 
-        </li>
-    {% endfor %}
+            </li>
+        {% endfor %}
+    {% endif %}
 </ul>

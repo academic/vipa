@@ -109,30 +109,33 @@ class OjsExtension extends \Twig_Extension
      */
     public function getLogData($entity)
     {
-        $em = $this->getDoctrine()->getManager();
         /** @var LogEntryRepository $repo */
-        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $repo = $this->em->getRepository('Gedmo\Loggable\Entity\LogEntry');
         $logs = array_reverse($repo->getLogEntries($entity));
 
         $logsArray = array();
         $logLastData = array();
-        foreach ($logs as $log) {
-            /** @var LogEntry $log */
-            $logRow = new \stdClass();
-            $logRow->id = $log->getId();
-            $logRow->loggedAt = $log->getLoggedAt();
-            $logRow->username = $log->getUsername();
-            $logRow->action = $log->getAction();
-            $logRow->data = array();
-            foreach ($log->getData() as $name => $value) {
-                $dataRow = array('name' => $name, 'old' => null, 'new' => $value);
-                if (isset($logLastData[$name])) {
-                    $dataRow['old'] = $logLastData[$name];
+        if(is_array($logs)) {
+            foreach ($logs as $log) {
+                /** @var LogEntry $log */
+                $logRow = new \stdClass();
+                $logRow->id = $log->getId();
+                $logRow->loggedAt = $log->getLoggedAt();
+                $logRow->username = $log->getUsername();
+                $logRow->action = $log->getAction();
+                $logRow->data = array();
+                foreach ($log->getData() as $name => $value) {
+                    $dataRow = array('name' => $name, 'old' => null, 'new' => $value);
+                    if (isset($logLastData[$name])) {
+                        $dataRow['old'] = $logLastData[$name];
+                    }
+                    $logLastData[$name] = $value;
+                    $logRow->data[] = (object)$dataRow;
                 }
-                $logLastData[$name] = $value;
-                $logRow->data[] = (object) $dataRow;
+                $logsArray[] = $logRow;
             }
-            $logsArray[] = $logRow;
+        }else{
+            $logsArray = null;
         }
 
         return array_reverse($logsArray);
