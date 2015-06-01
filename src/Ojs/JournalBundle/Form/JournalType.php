@@ -139,7 +139,6 @@ class JournalType extends AbstractType
                 'novalidate' => 'novalidate',
                 'class' => 'validate-form',
             ],
-            'default_roles' => null,
             'translation_domain' => 'messages',
 
         ));

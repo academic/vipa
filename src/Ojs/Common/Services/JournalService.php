@@ -7,8 +7,8 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
@@ -56,8 +56,7 @@ class JournalService
 
     /**
      * @param  bool              $redirect
-     * @return bool|null|Journal
-     * @throws HttpException
+     * @return bool|Journal|RedirectResponse
      */
     public function getSelectedJournal($redirect = true)
     {
@@ -67,12 +66,7 @@ class JournalService
             return $selectedJournal;
         }
         if ($redirect) {
-            // this seems messy
-            try {
-                header("Location: ".$this->router->generate('user_join_journal'), true, 302);
-            } catch (\Exception $e) {
-            }
-            exit;
+            return new RedirectResponse($this->router->generate('user_join_journal'));
         }
 
         return false;

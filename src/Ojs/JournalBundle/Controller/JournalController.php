@@ -4,8 +4,10 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -19,6 +21,11 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 class JournalController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @param $journal_id
+     * @return RedirectResponse
+     */
     public function changeSelectedAction(Request $request, $journal_id)
     {
         $route = $this->get('router')->generate('dashboard');
@@ -30,7 +37,7 @@ class JournalController extends Controller
     }
 
     /**
-     * Lists all Journal entities.
+     * @return Response
      */
     public function indexAction()
     {
@@ -55,11 +62,15 @@ class JournalController extends Controller
     }
 
     /**
-     * Creates a new Journal entity.
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
         $entity = new Journal();
+        if (!$this->isGranted('CREATE', $entity)) {
+            throw new AccessDeniedException("You not authorized for create a journal!");
+        }
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -92,16 +103,13 @@ class JournalController extends Controller
     /**
      * Creates a form to create a Journal entity.
      * @param  Journal                      $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createCreateForm(Journal $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $roles = $em->getRepository('OjsUserBundle:Role')->findInIds([1, 11, 12]);
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
-            'method' => 'POST',
-            'default_roles' => $roles,
+            'method' => 'POST'
         ));
 
         return $form;
@@ -109,6 +117,8 @@ class JournalController extends Controller
 
     /**
      * Displays a form to create a new Journal entity.
+     *
+     * @return Response
      */
     public function newAction()
     {
@@ -123,6 +133,9 @@ class JournalController extends Controller
 
     /**
      * Finds and displays a Journal entity.
+     *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -136,6 +149,9 @@ class JournalController extends Controller
 
     /**
      * Displays a form to edit an existing Journal entity.
+     *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
@@ -144,8 +160,7 @@ class JournalController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
 
-        $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager() && !$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal())) {
             throw new AccessDeniedException("You not authorized for edit this journal!");
         }
 
@@ -160,7 +175,7 @@ class JournalController extends Controller
     /**
      * Creates a form to edit a Journal entity.
      * @param  Journal                      $entity The entity
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(Journal $entity)
     {
@@ -173,21 +188,23 @@ class JournalController extends Controller
     }
 
     /**
-     * Edits an existing Journal entity.
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Journal $entity */
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-        $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager() && !$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You not authorized for edit this journal!");
         }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
-            /** @var DocumentManager $dm */
             $header = $request->request->get('header');
             $cover = $request->request->get('cover');
             $logo = $request->request->get('logo');
@@ -214,14 +231,16 @@ class JournalController extends Controller
     }
 
     /**
-     * Deletes a Journal entity.
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
-        $user = $this->getUser();
-        if (!$user->hasRole('ROLE_SUPER_ADMIN')) {
+
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You not authorized for delete this journal!");
         }
         $this->throw404IfNotFound($entity);
@@ -237,6 +256,9 @@ class JournalController extends Controller
         return $this->redirectToRoute('journal');
     }
 
+    /**
+     * @return Response
+     */
     public function applyAction()
     {
         return $this->render('OjsJournalBundle:Journal:apply.html.twig', array());

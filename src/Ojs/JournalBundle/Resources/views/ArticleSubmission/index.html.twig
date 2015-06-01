@@ -15,7 +15,7 @@
            class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
     <div class="btn-group">
         <a class="btn btn-default" href="{{ path('article_submissions_me') }}">{{ "article.mysubmits"|trans }}</a>
-        {% if isSystemAdmin() or isJournalManager() %}
+        {% if is_granted('EDIT', selectedJournal()) %}
             <a class="btn {% if all %}btn-info{% else %}btn-default{% endif %}"
                href="{{ path('article_submissions_all') }}">{{ "article.all"|trans }}</a>
         {% endif %}
