@@ -67,6 +67,7 @@ assetic:
                     - %kernel.root_dir%/../web/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css
                     - %kernel.root_dir%/../web/vendor/jQuery-Validation-Engine/css/validationEngine.jquery.css
                     - %kernel.root_dir%/../web/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css
+                    - %kernel.root_dir%/../web/assets/app/css/_history.css
 
         apptour_css:
                inputs:
