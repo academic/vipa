@@ -574,6 +574,7 @@ user.email: Email
 user.roles: User Roles 
 user.isActive: Have the user completed the activation progress?
 user.apikey: Api Key
+user.journalrole: Journal Roles
 articlefile.new: New Article File
 Submissions: Submissions
 Drafts: Drafts
