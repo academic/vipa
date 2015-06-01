@@ -83,6 +83,24 @@ $(document).ready(function () {
         trimValue: true,
         confirmKeys: [13, 44, 188, 59]
     });
+    var tagAutocompleteInput = $('input[data-role=tagsinputautocomplete]');
+    var typeList = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: tagAutocompleteInput.attr('data-list')+'?q=%QUERY',
+            wildcard: '%QUERY'
+        }
+    });
+    typeList.initialize();
+    tagAutocompleteInput.tagsinput({
+        typeaheadjs: {
+            name: 'typeList',
+            displayKey: 'text',
+            valueKey: 'text',
+            source: typeList.ttAdapter()
+        }
+    });
     $(".select2-tags").select2({
         multiple: true,
         //Allow manually entered text in drop down.
