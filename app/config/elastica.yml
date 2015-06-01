@@ -14,6 +14,7 @@ fos_elastica:
                         email: ~
                         tags: ~
                         subjects: ~
+                        avatar: ~
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
