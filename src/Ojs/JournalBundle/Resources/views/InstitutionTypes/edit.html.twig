@@ -16,4 +16,6 @@
     {% set back_path = 'institution_types' %}
     {% set delete_path = 'institution_types_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

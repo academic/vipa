@@ -16,4 +16,6 @@
     {% set back_path = 'subject' %}
     {% set delete_path = 'subject_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

@@ -17,4 +17,6 @@
     {% set back_path = 'admin_journaltheme' %}
     {% set delete_path = 'admin_journaltheme_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

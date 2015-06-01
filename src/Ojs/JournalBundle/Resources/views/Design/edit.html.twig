@@ -98,6 +98,8 @@
     {% set back_path = 'design' %}
     {% set delete_path = 'design_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}
 
 {% block javascripts -%}

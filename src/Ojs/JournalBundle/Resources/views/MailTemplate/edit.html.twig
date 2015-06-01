@@ -17,4 +17,6 @@
     {% set back_path = 'mailtemplate_manager' %}
     {% set delete_path = 'mailtemplate_manager_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

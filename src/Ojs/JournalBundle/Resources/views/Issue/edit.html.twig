@@ -82,6 +82,8 @@
         {% include '::actionbuttons.html.twig' %}
     {% endif %}
 
+    {{ getLogs(entity) }}
+
 {% endblock %}
 
 {% block javascripts %}

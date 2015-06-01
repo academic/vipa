@@ -18,4 +18,6 @@
     {% set back_path = 'contacttypes' %}
     {% set delete_path = 'contacttypes_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

@@ -16,4 +16,6 @@
 
     {% set delete_path = 'admin_maillog_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}
