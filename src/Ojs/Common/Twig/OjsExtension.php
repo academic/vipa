@@ -112,7 +112,6 @@ class OjsExtension extends \Twig_Extension
         /** @var LogEntryRepository $repo */
         $repo = $this->em->getRepository('Gedmo\Loggable\Entity\LogEntry');
         $logs = array_reverse($repo->getLogEntries($entity));
-
         $logsArray = array();
         $logLastData = array();
         if(is_array($logs)) {
@@ -135,7 +134,7 @@ class OjsExtension extends \Twig_Extension
                 $logsArray[] = $logRow;
             }
         }else{
-            $logsArray = null;
+            $logsArray = array();
         }
 
         return array_reverse($logsArray);
