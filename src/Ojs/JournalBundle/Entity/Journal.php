@@ -10,7 +10,6 @@ use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
-use Ojs\UserBundle\Entity\Role;
 use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\Groups;
@@ -237,13 +236,6 @@ class Journal implements Translatable
     private $subjects;
 
     /**
-     * @var Collection|Role[]
-     * @Expose
-     * @Groups({"JournalDetail"})
-     */
-    private $submitRoles;
-
-    /**
      * @var Collection
      * @Groups({"JournalDetail"})
      */
@@ -252,7 +244,7 @@ class Journal implements Translatable
     /**
      *
      * arbitrary settings
-     * @var Collection|JournalSetting[]
+     * @var ArrayCollection|JournalSetting[]
      */
     private $settings;
 
@@ -302,7 +294,6 @@ class Journal implements Translatable
         $this->subjects = new ArrayCollection();
         $this->journalThemes = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
-        $this->submitRoles = new ArrayCollection();
     }
 
     /**
@@ -450,33 +441,6 @@ class Journal implements Translatable
     public function getLanguages()
     {
         return $this->languages;
-    }
-
-    /**
-     * @param  Role    $submitRole
-     * @return Journal
-     */
-    public function addSubmitRole(Role $submitRole)
-    {
-        $this->submitRoles[] = $submitRole;
-
-        return $this;
-    }
-
-    /**
-     * @param Role $submitRole
-     */
-    public function removeSubmitRole(Role $submitRole)
-    {
-        $this->submitRoles->removeElement($submitRole);
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getSubmitRoles()
-    {
-        return $this->submitRoles;
     }
 
     /**
