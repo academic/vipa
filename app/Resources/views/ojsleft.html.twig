@@ -77,7 +77,7 @@
                 <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                 <div>
                     {# Links for journal manager  #}
-                    {% if is_granted('VIEW', selectedJournal()) %}
+                    {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) and is_granted('VIEW', selectedJournal()) %}
                         {% if is_granted('EDIT', selectedJournal()) %}
                             <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
                                 <i class="fa fa-cog"></i>
