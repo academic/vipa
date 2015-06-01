@@ -25,22 +25,23 @@
                     {% for subject in subjects %}
                         <li class="list-group-item">
                             {% if filters is empty %}
-                                {% set parameter = subject.subject %}
-                                <a href="{{ path('people_index', {filters: subject.subject}) }}">{{ subject.subject }}</a>
+                                {% set parameter = subject.key %}
+                                <a href="{{ path('people_index', {filters: subject.key}) }}">{{ subject.key }}</a>
                             {% else %}
-                                {% if subject.subject in filters %}
-                                    {% set parameter = filters|pop(subject.subject) %}
-                                    {{ subject.subject }}
+                                {% if subject.key in filters %}
+                                    {% set parameter = filters|pop(subject.key) %}
+                                    {{ subject.key }}
                                     <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">
                                         <span class="label label-danger">
                                             <i class="glyphicon glyphicon-remove"></i>
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = filters|merge([subject.subject]) %}
-                                    <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">{{ subject.subject }}</a>
+                                    {% set parameter = filters|merge([subject.key]) %}
+                                    <a href="{{ path('people_index', {filters: parameter|join(',')}) }}">{{ subject.key }}</a>
                                 {% endif %}
                             {% endif %}
+                            <span class="badge">{{ subject.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
