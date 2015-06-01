@@ -61,7 +61,7 @@
                 {% set delete_path = 'user_delete' %}
                 {% include '::actionbuttons.html.twig' %}
 
-
+                {{ getLogs(entity) }}
             </div>
         </div>
     </div>
@@ -71,7 +71,6 @@
             margin-bottom: 30px
         }
     </style>
-    {#  include '::_history.html.twig' #}
 {% endblock %}
 
 

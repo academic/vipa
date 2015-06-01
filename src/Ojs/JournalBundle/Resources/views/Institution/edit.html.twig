@@ -73,6 +73,7 @@
     {% set delete_path = 'institution_delete' %}
     {% include '::actionbuttons.html.twig' %}
 
+    {{ getLogs(entity) }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

@@ -44,6 +44,8 @@
         {% include '::actionbuttons.html.twig' %}
     </div>
 
+    {{ getLogs(entity) }}
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

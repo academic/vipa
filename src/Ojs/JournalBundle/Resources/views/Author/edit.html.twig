@@ -16,4 +16,6 @@
     {% set back_path = 'author' %}
     {% set delete_path = 'author_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

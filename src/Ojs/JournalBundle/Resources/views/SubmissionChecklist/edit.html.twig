@@ -22,6 +22,8 @@
     {% set back_path = 'manager_submission_checklist' %}
     {% set delete_path = 'manager_submission_checklist_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}
 
 {% block  javascripts %}

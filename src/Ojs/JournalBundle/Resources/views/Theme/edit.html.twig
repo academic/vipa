@@ -17,4 +17,6 @@
     {% set back_path = 'theme' %}
     {% set delete_path = 'theme_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

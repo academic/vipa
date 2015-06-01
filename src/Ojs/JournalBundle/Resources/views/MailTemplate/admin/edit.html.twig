@@ -54,6 +54,8 @@
     {% set delete_path = 'mailtemplate_delete' %}
     {% include '::actionbuttons.html.twig' %}
 
+
+    {{ getLogs(entity) }}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

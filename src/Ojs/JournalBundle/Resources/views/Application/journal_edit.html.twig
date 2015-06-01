@@ -24,6 +24,8 @@
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
             <button type="submit" class="btn btn-success pull-right">{{ "update"|trans }}</button>
         {{ form_end(form) }}
+
+        {{ getLogs(entity) }}
     </div>
 </div>
 {% endblock %}

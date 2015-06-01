@@ -17,4 +17,6 @@
     {% set back_path = 'citation' %}
     {% set delete_path = 'citation_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

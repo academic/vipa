@@ -58,6 +58,8 @@
         {% set delete_path = 'article_delete' %}
         {% include '::actionbuttons.html.twig' %}
     </div>
+
+    {{ getLogs(entity) }}
 {% endblock %}
 
 {% block javascripts %}

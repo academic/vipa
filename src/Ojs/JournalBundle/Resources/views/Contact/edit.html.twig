@@ -16,4 +16,6 @@
     {% set back_path = 'contact' %}
     {% set delete_path = 'contact_delete' %}
     {% include '::actionbuttons.html.twig' %}
+
+    {{ getLogs(entity) }}
 {% endblock %}

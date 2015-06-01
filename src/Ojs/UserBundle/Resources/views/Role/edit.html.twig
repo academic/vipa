@@ -20,6 +20,8 @@
         {% set back_path = 'role' %}
         {% set delete_path = 'role_delete' %}
         {% include '::actionbuttons.html.twig' %}
+
+        {{ getLogs(entity) }}
     </div>
 </div>
 {% endblock %}
