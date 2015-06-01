@@ -2,9 +2,11 @@
 
 namespace Ojs\SearchBundle\Controller;
 
- use Ojs\Common\Controller\OjsController as Controller;
+use Elastica\Transport\Null;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Elastica\Query;
 
 class DefaultController extends Controller
 {
@@ -56,6 +58,24 @@ class DefaultController extends Controller
         $data['tag'] = $tag;
         $data['total_count'] = $searchManager->getCount();
         return $this->render('OjsSiteBundle:Search:tags.html.twig', $data);
+    }
+
+    public function tagCloudAction(Request $request)
+    {
+        $search = $this->container->get('fos_elastica.index.search');
+        $prefix = new Query\Prefix();
+        $prefix->setPrefix('tags', '');
+        $qe = new Query();
+        $qe->setQuery($prefix);
+
+        $results = $search->search($prefix);
+        $data['tags'] = [];
+        foreach ($results as $result) {
+            foreach(explode(',',$result->getData()['tags']) as $tag){
+                $data['tags'][] = $tag;
+            }
+        }
+        return $this->render('OjsSiteBundle:Search:tags_cloud.html.twig', $data);
     }
 
     public function advancedAction(Request $request)

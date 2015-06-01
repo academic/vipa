@@ -7,3 +7,7 @@ ojs_search_index:
 ojs_search_tags:
     path: /tag/{tag}
     defaults: { _controller: OjsSearchBundle:Default:tag, page: 1 }
+
+ojs_tags_cloud:
+    path: /tags/cloud
+    defaults: { _controller: OjsSearchBundle:Default:tagCloud }
