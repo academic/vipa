@@ -42,6 +42,8 @@ class OjsExtension extends \Twig_Extension
     private $cmsShowRoutes;
     /** @var  string */
     private $avatarUploadBaseUrl;
+    /** @var  string */
+    private $defaultInstitutionSlug;
 
     public function __construct(
         EntityManager $em = null,
@@ -50,7 +52,8 @@ class OjsExtension extends \Twig_Extension
         JournalService $journalService = null,
         UserListener $userListener = null,
         $cmsShowRoutes = null,
-        $avatarUploadBaseUrl = null)
+        $avatarUploadBaseUrl = null,
+        $defaultInstitutionSlug)
     {
         $this->em = $em;
         $this->router = $router;
@@ -59,6 +62,7 @@ class OjsExtension extends \Twig_Extension
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
         $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
+        $this->defaultInstitutionSlug = $defaultInstitutionSlug;
     }
 
     public function getFilters()
@@ -423,22 +427,13 @@ class OjsExtension extends \Twig_Extension
         switch ($objectClass) {
             case 'Ojs\JournalBundle\Entity\Issue':
                 /** @var Issue $object */
-                return $this->router->generate('ojs_issue_page', [
-                    'id' => $object->getId(),
-                    'journal_slug' => $object->getJournal()->getSlug(),
-                    'institution' => $object->getJournal()->getInstitution()->getSlug(),
-                ],true);
+                return $this->generateIssueUrl($object);
             case 'Ojs\JournalBundle\Entity\Journal':
                 /** @var Journal $object */
                 return $this->generateJournalUrl($object);
             case 'Ojs\JournalBundle\Entity\Article':
                 /** @var Article $object */
-                return $this->router->generate('ojs_article_page', [
-                    'slug' => $object->getJournal()->getSlug(),
-                    'article_id' => $object->getId(),
-                    'issue_id' => $object->getIssueId(),
-                    'institution' => $object->getJournal()->getInstitution()->getSlug(),
-                ]);
+                return $this->generateArticleUrl($object);
             case 'Ojs\JournalBundle\Entity\Subject':
                 /** @var Subject $object */
                 return $this->router->generate('ojs_journals_index', [
@@ -477,6 +472,31 @@ class OjsExtension extends \Twig_Extension
             default:
                 return '###';
         }
+    }
+
+    private function generateArticleUrl(Article $article)
+    {
+        $institution = $article->getJournal()->getInstitution();
+        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+        return $this->router
+            ->generate('ojs_article_page', [
+                'slug' => $article->getJournal()->getSlug(),
+                'article_id' => $article->getId(),
+                'issue_id' => $article->getIssueId(),
+                'institution' => $institutionSlug
+            ], Router::ABSOLUTE_URL);
+    }
+
+    private function generateIssueUrl(Issue $issue)
+    {
+        $institution = $issue->getJournal()->getInstitution();
+        $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+        return $this->router
+            ->generate('ojs_issue_page', [
+                'id' => $issue->getId(),
+                'journal_slug' => $issue->getJournal()->getSlug(),
+                'institution' => $institutionSlug
+            ], Router::ABSOLUTE_URL);
     }
 
     public function getObject($object, $id)
