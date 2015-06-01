@@ -34,15 +34,6 @@ class Step3 extends AbstractType
                         'class' => 'select2-element',
                     ],
                 ])
-                ->add('submitRoles', 'entity', array(
-                        'class' => 'Ojs\UserBundle\Entity\Role',
-                        'property' => 'name',
-                        'multiple' => true,
-                        'attr' => [
-                            'class' => 'select2-element',
-                        ],
-                    )
-                )
                 ->add('domain')
         ;
     }

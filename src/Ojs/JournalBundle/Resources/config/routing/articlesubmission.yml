@@ -19,7 +19,7 @@ article_submission_get_orcid_author:
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:getOrcidAuthor" }
 
 article_submission_confirm_author:
-    pattern:  /author/article/submit/confirmRole/{journalId}
+    pattern:  /author/article/submit/confirmRole/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:confirmRole" }
 
 article_submission_new:

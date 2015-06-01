@@ -53,22 +53,6 @@ class JournalType extends AbstractType
                     'class' => 'select2-element',
                 ],
             ]);
-        $role_options = [
-            'label' => 'submitRoles',
-            'class' => 'Ojs\UserBundle\Entity\Role',
-            'property' => 'name',
-            'multiple' => true,
-            'expanded' => false,
-            'required' => false,
-            'attr' => [
-                'class' => 'select2-element',
-            ],
-        ];
-        if ($options['default_roles'] !== null) {
-            $role_options['data'] = $options['default_roles'];
-        }
-
-        $builder->add('submitRoles', 'entity', $role_options);
 
         $builder->add('subtitle', 'hidden', ['label' => 'subtitle'])
             ->add('path', 'hidden', ['label' => 'journal.path'])

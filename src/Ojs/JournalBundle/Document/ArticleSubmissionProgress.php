@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Document;
 
+use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
@@ -86,7 +87,7 @@ class ArticleSubmissionProgress
     /**
      * Get id
      *
-     * @return id $id
+     * @return $id
      */
     public function getId()
     {
@@ -155,7 +156,7 @@ class ArticleSubmissionProgress
     /**
      * Get lastResumeDate
      *
-     * @return date $lastResumeDate
+     * @return \DateTime $lastResumeDate
      */
     public function getLastResumeDate()
     {
@@ -224,7 +225,7 @@ class ArticleSubmissionProgress
     /**
      * Get languages
      *
-     * @return collection $languages
+     * @return Collection $languages
      */
     public function getLanguages()
     {
@@ -247,7 +248,7 @@ class ArticleSubmissionProgress
     /**
      * Get articleData
      *
-     * @return hash $articleData
+     * @return array $articleData
      */
     public function getArticleData()
     {
@@ -257,7 +258,7 @@ class ArticleSubmissionProgress
     /**
      * Set authors
      *
-     * @param  hash $authors
+     * @param  array $authors
      * @return self
      */
     public function setAuthors($authors)
@@ -270,7 +271,7 @@ class ArticleSubmissionProgress
     /**
      * Get authors
      *
-     * @return hash $authors
+     * @return $authors
      */
     public function getAuthors()
     {
@@ -280,7 +281,7 @@ class ArticleSubmissionProgress
     /**
      * Set citations
      *
-     * @param  hash $citations
+     * @param  $citations
      * @return self
      */
     public function setCitations($citations)
@@ -293,7 +294,7 @@ class ArticleSubmissionProgress
     /**
      * Get citations
      *
-     * @return hash $citations
+     * @return $citations
      */
     public function getCitations()
     {
@@ -303,7 +304,7 @@ class ArticleSubmissionProgress
     /**
      * Set files
      *
-     * @param  hash $files
+     * @param $files
      * @return self
      */
     public function setFiles($files)
@@ -316,7 +317,7 @@ class ArticleSubmissionProgress
     /**
      * Get files
      *
-     * @return hash $files
+     * @return $files
      */
     public function getFiles()
     {
