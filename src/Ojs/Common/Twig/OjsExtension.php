@@ -23,6 +23,8 @@ use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\TranslatorInterface;
+use Gedmo\Loggable\Document\LogEntry;
+use Gedmo\Loggable\Entity\Repository\LogEntryRepository;
 
 class OjsExtension extends \Twig_Extension
 {
@@ -97,7 +99,43 @@ class OjsExtension extends \Twig_Extension
             'getObject' => new \Twig_Function_Method($this, 'getObject', []),
             'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
             'download' => new \Twig_Function_Method($this, 'downloadArticleFile'),
+            'getLogData' => new \Twig_Function_Method($this, 'getLogData'),
         );
+    }
+
+    /**
+     * @param $entity
+     * @return array
+     */
+    public function getLogData($entity)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var LogEntryRepository $repo */
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $logs = array_reverse($repo->getLogEntries($entity));
+
+        $logsArray = array();
+        $logLastData = array();
+        foreach ($logs as $log) {
+            /** @var LogEntry $log */
+            $logRow = new \stdClass();
+            $logRow->id = $log->getId();
+            $logRow->loggedAt = $log->getLoggedAt();
+            $logRow->username = $log->getUsername();
+            $logRow->action = $log->getAction();
+            $logRow->data = array();
+            foreach ($log->getData() as $name => $value) {
+                $dataRow = array('name' => $name, 'old' => null, 'new' => $value);
+                if (isset($logLastData[$name])) {
+                    $dataRow['old'] = $logLastData[$name];
+                }
+                $logLastData[$name] = $value;
+                $logRow->data[] = (object) $dataRow;
+            }
+            $logsArray[] = $logRow;
+        }
+
+        return array_reverse($logsArray);
     }
 
     public function generateJournalUrl($journal)
