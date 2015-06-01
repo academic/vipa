@@ -3,7 +3,7 @@ app.request.attributes.get('_route_params')) %}
 <hr/>
 <h2>{{ 'admin.log.history'|trans }}</h2>
 <ul class="accordion">
-    {% for getLogData(entity) in logs %}
+    {% for log in logEntities %}
         <li id="{{ log.id }}" class="files">
 
             <a href="{{ currentPath }}#{{ log.id }}">{{ log.loggedAt|localizeddate('long') }}
