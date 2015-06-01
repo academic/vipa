@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th>{{ "full_file"|trans }}</th>
-                <td>{{ entity.fullFile|download }}</td>
+                <td><a href="{{ asset('uploads/issuefiles/'~ filePath(entity.fullFile)) }}">{{ filePath(entity.fullFile) }}</a></td>
             </tr>
             <tr>
                 <th>{{"special"|trans}}</th>
