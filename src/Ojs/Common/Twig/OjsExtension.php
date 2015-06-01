@@ -430,10 +430,7 @@ class OjsExtension extends \Twig_Extension
                 ],true);
             case 'Ojs\JournalBundle\Entity\Journal':
                 /** @var Journal $object */
-                return $this->router->generate('ojs_journal_index', [
-                    'slug' => $object->getSlug(),
-                    'institution' => $object->getInstitution()->getSlug(),
-                ]);
+                return $this->generateJournalUrl($object);
             case 'Ojs\JournalBundle\Entity\Article':
                 /** @var Article $object */
                 return $this->router->generate('ojs_article_page', [
