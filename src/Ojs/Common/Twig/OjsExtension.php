@@ -399,7 +399,7 @@ class OjsExtension extends \Twig_Extension
                 return $object->getName();
             case 'Ojs\UserBundle\Entity\User':
                 /** @var User $object */
-                return $object->getFullName();
+                return $object->getUsername();
             case 'Ojs\JournalBundle\Entity\Author':
                 /** @var Author $object */
                 return $object->getFullName();
