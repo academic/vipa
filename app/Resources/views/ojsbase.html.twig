@@ -129,7 +129,7 @@
 
         {% javascripts '@main_js' filter='uglifyjs' output="c/appmain.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}  
+        {% endjavascripts %}
         {% if currentJournal is defined and journal.theme %}
             <script type="text/javascript" src="/assets/theme/{{ journal.theme.name }}/js/main.js"></script>
         {% endif %}
@@ -140,16 +140,13 @@
                     OjsCommon.api.userApikey = "{{apiKey()}}";
                 });
             {% endif%}
-            {% if app.user
-            and isJournalManager()
-            and userjournals[session('selectedJournalId')] is defined
-            and userjournals[session('selectedJournalId')].setupStatus != true %}
+            {% if app.user and selectedJournal()
+            and is_granted('EDIT', selectedJournal())
+            and selectedJournal().setupStatus != true %}
 
                 $(document).ready(function () {
-                        {% set path='manager_journal_setup' %}
                     if(!window.onSetup){
-                        notify("{{"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"|trans({"%setup_url%":path(path)})|raw}}", "information");
-
+                        notify("{{"It seems that you have not finished  <a href='%setup_url%'>Journal Setup</a>"|trans({"%setup_url%":path('manager_journal_setup')})|raw}}", "information");
                     }
                 });
             {% endif %}

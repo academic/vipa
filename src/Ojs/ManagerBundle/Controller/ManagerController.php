@@ -8,6 +8,7 @@ use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
  use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Form\JournalType;
@@ -25,15 +26,14 @@ class ManagerController extends Controller
      */
     public function journalSettingsAction($journalId = null)
     {
-        $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager()) {
-            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
-        }
         if (!$journalId) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         } else {
             $em = $this->getDoctrine()->getManager();
             $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journalId);
+        }
+        if(!$this->isGranted('EDIT', $journal)) {
+            throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         }
         $form = $this->createForm(new JournalType(), $journal, array(
             'action' => $this->generateUrl('journal_update', array('id' => $journal->getId())),
@@ -55,11 +55,11 @@ class ManagerController extends Controller
      */
     private function updateJournalSetting($journal, $settingName, $settingValue, $encoded = false)
     {
-        $ext = $this->get('ojs.twig.ojs_extension');
-        if (!$ext->isJournalManager()) {
+        if(!$this->isGranted('EDIT', $journal)) {
             throw new AccessDeniedException($this->get('translator')->trans("You cant view this page."));
         }
         $em = $this->getDoctrine()->getManager();
+        /** @var JournalSetting $setting */
         $setting = $em->
                 getRepository('OjsJournalBundle:JournalSetting')->
                 findOneBy(array('journal' => $journal, 'setting' => $settingName));
@@ -267,17 +267,5 @@ class ManagerController extends Controller
         $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
 
         return $this->render('OjsManagerBundle:Manager:users.html.twig', $data);
-    }
-
-    /**
-     * @return Response
-     */
-    private function roleUser()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
-        $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
-
-        return $this->render('OjsManagerBundle:Manager:role_users.html.twig', $data);
     }
 }

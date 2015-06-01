@@ -22,9 +22,8 @@ use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Gedmo\Loggable\Document\LogEntry;
-use Gedmo\Loggable\Entity\Repository\LogEntryRepository;
 
 class OjsExtension extends \Twig_Extension
 {
@@ -36,6 +35,10 @@ class OjsExtension extends \Twig_Extension
     private $journalService;
     /** @var UserListener  */
     private $userListener;
+    /** @var TokenStorageInterface  */
+    private $tokenStorage;
+    /** @var Session  */
+    private $session;
     /** @var TranslatorInterface  */
     private $translator;
     /** @var  string */
@@ -51,6 +54,8 @@ class OjsExtension extends \Twig_Extension
         TranslatorInterface $translator = null,
         JournalService $journalService = null,
         UserListener $userListener = null,
+        TokenStorageInterface $tokenStorage = null,
+        Session $session = null,
         $cmsShowRoutes = null,
         $avatarUploadBaseUrl = null,
         $defaultInstitutionSlug)
@@ -59,6 +64,8 @@ class OjsExtension extends \Twig_Extension
         $this->router = $router;
         $this->journalService = $journalService;
         $this->userListener = $userListener;
+        $this->tokenStorage = $tokenStorage;
+        $this->session = $session;
         $this->translator = $translator;
         $this->cmsShowRoutes = $cmsShowRoutes;
         $this->avatarUploadBaseUrl = $avatarUploadBaseUrl;
@@ -80,8 +87,6 @@ class OjsExtension extends \Twig_Extension
             //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
             'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin'),
-            'isJournalManager' => new \Twig_Function_Method($this, 'isJournalManager'),
-            'isEditor' => new \Twig_Function_Method($this, 'isEditor'),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userclients' => new \Twig_Function_Method($this, 'getUserClients', array('is_safe' => array('html'))),
             'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
@@ -169,9 +174,7 @@ class OjsExtension extends \Twig_Extension
 
     public function getSession($session_key)
     {
-        $session = new Session();
-
-        return $session->get($session_key);
+        return $this->session->get($session_key);
     }
 
     /**
@@ -180,9 +183,17 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournals()
     {
-        $session = new Session();
-
-        return $session->get('userJournals');
+        $user = $this->tokenStorage->getToken()->getUser();
+        /** @var UserJournalRole[] $userJournals */
+        $userJournals = $this->em->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('user' => $user));
+        $journals = array();
+        if (!is_array($userJournals)) {
+            return array();
+        }
+        foreach ($userJournals as $item) {
+            $journals[$item->getJournalId()] = $item->getJournal();
+        }
+        return $journals;
     }
 
     /**
@@ -191,9 +202,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserClients()
     {
-        $session = new Session();
-
-        return $session->get('userClients');
+        return $this->session->get('userClients');
     }
 
     /**
@@ -202,9 +211,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournalRoles()
     {
-        $session = new Session();
-
-        return $session->get('userJournalRoles');
+        return $this->session->get('userJournalRoles');
     }
 
     /**
@@ -245,22 +252,6 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
-     * @return bool
-     */
-    public function isJournalManager()
-    {
-        return $this->hasRole('ROLE_JOURNAL_MANAGER');
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEditor()
-    {
-        return $this->hasRole('ROLE_EDITOR');
-    }
-
-    /**
      * @todo reformat and validate given issn
      * @param  string $issn
      * @return string
@@ -272,9 +263,9 @@ class OjsExtension extends \Twig_Extension
 
     public function selectedJournal()
     {
-        $selectedJournalId = $this->getSession('selectedJournalId');
+        $selectedJournalId = $this->session->get('selectedJournalId', false);
 
-        return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
+        return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
     }
 
     public function generateAvatarPath($fileName)

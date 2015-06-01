@@ -8,7 +8,6 @@ use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -95,7 +94,7 @@ class UserListener
                         $this->rootDir.
                         '/../src/Ojs/UserBundle/Resources/data/reservedUsernames.yml'
         ));
-        $user = $this->em->getRepository('OjsUserBundle:User')->findOneByUsername($usernameLower);
+        $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $usernameLower));
 
         return (!$user && !in_array($usernameLower, $reservedUserNames));
     }
@@ -163,11 +162,13 @@ class UserListener
     }
 
     /**
-     *
      * @return void
      */
     public function loadJournals()
     {
+        if ($this->session->get("selectedJournalId", false)) {
+            return;
+        }
         /** @var User $user */
         $user = $this->checkUser();
         if (!$user) {
@@ -179,21 +180,14 @@ class UserListener
             $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
         }
 
-        $repo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
         /** @var UserJournalRole[] $userJournals */
-        $userJournals = $repo->findByUserId($user->getId());
-        if (!is_array($userJournals)) {
-            return;
+        $userJournals = $this->em->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('user' => $user));
+        if (is_array($userJournals)) {
+            foreach ($userJournals as $item) {
+                $this->journalService->setSelectedJournal($item->getJournalId());
+                break;
+            }
         }
-        $journals = array();
-        foreach ($userJournals as $item) {
-            $journals[$item->getJournalId()] = $item->getJournal();
-        }
-        if (!$this->journalService->getSelectedJournal(false)) {
-            // set selected journal id session key with first journal in list if no journal selected yet
-            $this->journalService->setSelectedJournal(key($journals));
-        }
-        $this->session->set('userJournals', $journals);
     }
 
 

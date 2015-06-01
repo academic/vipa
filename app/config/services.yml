@@ -25,6 +25,8 @@ services:
             - @translator
             - @ojs.journal_service
             - @user.helper
+            - @security.token_storage
+            - @session
             - "%cms_show_routes%"
             - "%avatar_upload_base_url%"
             - "%defaultInstitutionSlug%"

@@ -2,21 +2,21 @@
     <div class="col-sm-3 col-md-3">
         <div class="panel-group">
             <div class="panel panel-default">
-                {% if (session('selectedJournalId') and userjournals[session('selectedJournalId')] is defined and userjournals) %}
+                {% if selectedJournal() and userjournals %}
                     <div class="panel-heading">
-                        {{ userjournals[session('selectedJournalId')].title }}
+                        {{ selectedJournal().title }}
                     </div>
                     <div class="panel-bodyx">
                         <div class="dropdown">
                             <button class="dropdown-toggle btn btn-block text-center" type="button" id="dropdownMenu1"
                                     data-toggle="dropdown">
-                                {% if((userjournals[session('selectedJournalId')] is defined) and userjournals[session('selectedJournalId')].image) %}
-                                    {% set imageoptions=getImageOptions(userjournals[session('selectedJournalId')],'cover','journal_cover') %}
-                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(userjournals[session('selectedJournalId')].image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
+                                {% if selectedJournal().image %}
+                                    {% set imageoptions=getImageOptions(selectedJournal(),'cover','journal_cover') %}
+                                    <img src="{{ ('/uploads/journalfiles/'~imagePath(selectedJournal().image))|imagine_filter('journal_cover',{"crop":{"start":[imageoptions.x,imageoptions.y],"size":[imageoptions.width,imageoptions.height] }}) }}"
                                          width="96" height="96"
                                          class="avatar"/>
                                 {% else %}
-                                    <img src="holder.js/96x96/#459:#fff/text:{{ userjournals[session('selectedJournalId')].title }}" />
+                                    <img src="holder.js/96x96/#459:#fff/text:{{ selectedJournal().title }}" />
                                 {% endif %}
                                 <span class="caret"></span>
                             </button>
@@ -72,68 +72,67 @@
                     {% endif %}
                 </div>
             </div>
-            {% if (session('selectedJournalId')) and is_granted('EDIT', selectedJournal(), 'adminMenu') %}
+            {% if selectedJournal() and is_granted('VIEW', selectedJournal(), 'adminMenu') %}
             <div class="panel panel-default left-menu-bgcolor">
                 <div class="panel-heading">{{ "journal.manager"|trans }}</div>
                 <div>
-                    {# Links for journal manager  #}
-                        {% if is_granted('EDIT', selectedJournal()) %}
-                            <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "settings"|trans }}
-                            </a>
-                        {% endif %}
-                        {% if is_granted('VIEW', selectedJournal(), 'boards') %}
-                            <a class="list-group-item" href="{{ path('board_manager') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "boards"|trans }}
-                            </a>
-                        {% endif %}
-                        {% if is_granted('VIEW', selectedJournal(), 'sections') %}
-                            <a class="list-group-item" href="{{ path('manager_journal_section') }}">
-                                <i class="fa fa-apple"></i>
-                                {{ "journalsection"|trans }}
-                            </a>
-                        {% endif %}
-                        <a class="list-group-item" href="{{ path('reports_index') }}">
-                            <i class="fa fa-th"></i>
-                            {{ "reports.title"|trans }}
-                        </a>
-                        {% if is_granted('VIEW', selectedJournal(), 'issues') %}
-                            <a class="list-group-item" href="{{ path('issue_manager_index') }}">
-                                <i class="fa fa-cog"></i>
-                                {{ "issue.manager"|trans }}
-                            </a>
-                        {% endif %}
-                        <a class="list-group-item"
-                           href="{{ path('ujr_show_users_ofjournal',{'journal_id':session('selectedJournalId')}) }}">
-                            <i class="fa fa-users"></i>
-                            {{"journal.users"|trans}}
-                        </a>
-                        <a class="list-group-item" href="{{ path('manager_journalcontact') }}">
-                            <i class="fa fa-users"></i>
-                            {{ "contact.plural"|trans }}
-                        </a>
-                        <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
-                            <i class="fa fa-recycle"></i>
-                            {{ "workflow"|trans }}
-                        </a>
-                        <a class="list-group-item" href="{{ path('mailtemplate_manager') }}">
-                            <i class="fa fa-envelope-o"></i>
-                            {{"mail.templates"|trans}}
-                        </a>
-                        <a class="list-group-item" href="{{ path('ojs_review_forms') }}">
+                    {% if is_granted('EDIT', selectedJournal()) %}
+                        <a class="list-group-item" href="{{ path('manager_current_journal_settings') }}">
                             <i class="fa fa-cog"></i>
-                            {{ "review.forms"|trans }}
+                            {{ "settings"|trans }}
                         </a>
-                        <a class="list-group-item" href="{{ path('admin_journaldesign') }}">
+                    {% endif %}
+                    {% if is_granted('VIEW', selectedJournal(), 'boards') %}
+                        <a class="list-group-item" href="{{ path('board_manager') }}">
                             <i class="fa fa-cog"></i>
-                            {{ "journal.design"|trans }}
+                            {{ "boards"|trans }}
                         </a>
-                        <a class="list-group-item" href="{{ path('manager_article_journal') }}">
-                            <i class="fa fa-cogs"></i>
-                            {{"journal.articles"|trans}}
+                    {% endif %}
+                    {% if is_granted('VIEW', selectedJournal(), 'sections') %}
+                        <a class="list-group-item" href="{{ path('manager_journal_section') }}">
+                            <i class="fa fa-apple"></i>
+                            {{ "journalsection"|trans }}
                         </a>
+                    {% endif %}
+                    <a class="list-group-item" href="{{ path('reports_index') }}">
+                        <i class="fa fa-th"></i>
+                        {{ "reports.title"|trans }}
+                    </a>
+                    {% if is_granted('VIEW', selectedJournal(), 'issues') %}
+                        <a class="list-group-item" href="{{ path('issue_manager_index') }}">
+                            <i class="fa fa-cog"></i>
+                            {{ "issue.manager"|trans }}
+                        </a>
+                    {% endif %}
+                    <a class="list-group-item"
+                       href="{{ path('ujr_show_users_ofjournal',{'journal_id':selectedJournal().id}) }}">
+                        <i class="fa fa-users"></i>
+                        {{"journal.users"|trans}}
+                    </a>
+                    <a class="list-group-item" href="{{ path('manager_journalcontact') }}">
+                        <i class="fa fa-users"></i>
+                        {{ "contact.plural"|trans }}
+                    </a>
+                    <a class="list-group-item" href="{{ path('ojs_workflow_homepage') }}">
+                        <i class="fa fa-recycle"></i>
+                        {{ "workflow"|trans }}
+                    </a>
+                    <a class="list-group-item" href="{{ path('mailtemplate_manager') }}">
+                        <i class="fa fa-envelope-o"></i>
+                        {{"mail.templates"|trans}}
+                    </a>
+                    <a class="list-group-item" href="{{ path('ojs_review_forms') }}">
+                        <i class="fa fa-cog"></i>
+                        {{ "review.forms"|trans }}
+                    </a>
+                    <a class="list-group-item" href="{{ path('admin_journaldesign') }}">
+                        <i class="fa fa-cog"></i>
+                        {{ "journal.design"|trans }}
+                    </a>
+                    <a class="list-group-item" href="{{ path('manager_article_journal') }}">
+                        <i class="fa fa-cogs"></i>
+                        {{"journal.articles"|trans}}
+                    </a>
                 </div>
             </div>
 
