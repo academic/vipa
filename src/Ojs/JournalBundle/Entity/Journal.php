@@ -13,6 +13,7 @@ use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Entity\Role;
 use Okulbilisim\LocationBundle\Entity\Location;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Journal
@@ -26,102 +27,117 @@ class Journal implements Translatable
     /**
      * @var integer
      * @Expose
-     *
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $id;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $title;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $titleAbbr;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $titleTransliterated;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $subtitle;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $path;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $domain;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $issn;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
     private $eissn;
 
     /**
      * @var \DateTime
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $firstPublishDate;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $period;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $url;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $address;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $phone;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $email;
 
     /**
      * @var Location
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $country;
 
     /**
      * @var integer
-     * @Expose
      */
     private $country_id;
 
@@ -140,12 +156,14 @@ class Journal implements Translatable
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $image;
 
     /**
      * @var string
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $header;
 
@@ -170,6 +188,7 @@ class Journal implements Translatable
     /**
      * @var Theme
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $theme;
 
@@ -186,11 +205,15 @@ class Journal implements Translatable
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"IssueDetail"})
      */
     private $articles;
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $issues;
 
@@ -202,23 +225,27 @@ class Journal implements Translatable
     /**
      * @var Collection
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $languages;
 
     /**
      * @var Collection
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $subjects;
 
     /**
      * @var Collection|Role[]
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $submitRoles;
 
     /**
      * @var Collection
+     * @Groups({"JournalDetail"})
      */
     private $sections;
 
@@ -232,6 +259,7 @@ class Journal implements Translatable
     /**
      * @var Institution
      * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $institution;
 
@@ -243,7 +271,6 @@ class Journal implements Translatable
 
     /**
      * @var integer
-     * @Expose
      */
     private $institutionId;
 
@@ -254,9 +281,11 @@ class Journal implements Translatable
     private $userRoles;
 
     /**
-     * @var String
+     * @var string
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
      */
-    protected $description;
+    private $description;
 
     /**
      * Constructor
@@ -1316,6 +1345,8 @@ class Journal implements Translatable
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $logo;
 
@@ -1340,6 +1371,8 @@ class Journal implements Translatable
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $journals_indexs;
 
@@ -1401,6 +1434,8 @@ class Journal implements Translatable
 
     /**
      * @var Collection
+     * @Expose
+     * @Groups({"JournalDetail"})
      */
     private $submissionChecklist;
 
@@ -1552,9 +1587,18 @@ class Journal implements Translatable
         $this->footer_text = $footer_text;
     }
 
-    /** @var  int */
+    /**
+     * @var  int
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
     private $view_count;
-    /** @var  int */
+
+    /**
+     * @var  int
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
     private $download_count;
 
     /**
@@ -1594,7 +1638,11 @@ class Journal implements Translatable
     }
 
 
-    /** @var  boolean */
+    /**
+     * @var  boolean
+     * @Expose
+     * @Groups({"JournalDetail","IssueDetail"})
+     */
     private $printed;
 
     /**

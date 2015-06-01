@@ -9,8 +9,13 @@ use Gedmo\Translatable\Translatable;
 use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
+use JMS\Serializer\Annotation\Groups;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 /**
  * Citation
+ * @ExclusionPolicy("all")
  * @GRID\Source(columns="id,raw,type,articles")
  */
 class Citation implements Translatable
@@ -19,16 +24,22 @@ class Citation implements Translatable
     /**
      * @var integer
      * @GRID\Column(title="ID")
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $raw;
 
     /**
      * @var string
+     * @Expose
+     * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $type;
 
