@@ -1349,3 +1349,9 @@ journal.articles: "Journal Articles"
 printed: "Is Printed?"
 supplement: "Is Supplement?"
 full_file: "Full File"
+
+
+admin.log.history: "Changelog"
+admin.log.field: "Changed field"
+admin.log.oldValue: "old value"
+admin.log.newValue: "new value"

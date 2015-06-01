@@ -1197,3 +1197,8 @@ tags.cloud: "Etiket Bulutu"
 printed: "Basıldı mı?"
 supplement: "Ek mi?"
 full_file: "Tam Sayı Dosyası"
+
+admin.log.history: "Değişiklik Geçmişi"
+admin.log.field: "değişen alan"
+admin.log.oldValue: "eski değer"
+admin.log.newValue: "yeni değer"
