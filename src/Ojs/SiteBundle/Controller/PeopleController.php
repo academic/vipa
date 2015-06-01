@@ -38,8 +38,7 @@ class PeopleController extends Controller
         $aggregation = new Terms('subject');
         $aggregation->setField('subjects');
         $searchQuery->addAggregation($aggregation);
-
-        $subjects = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject')->findAll();
+        $subjects = $searcher->search($searchQuery)->getAggregation('subject')['buckets'];
 
         $adapter = new ElasticaAdapter($searcher, $searchQuery);
         $pagerfanta = new Pagerfanta($adapter);

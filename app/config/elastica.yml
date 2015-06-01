@@ -13,7 +13,9 @@ fos_elastica:
                         lastName: ~
                         email: ~
                         tags: ~
-                        subjects: ~
+                        subjects:
+                            type: string
+                            index: not_analyzed
                         avatar: ~
                     persistence: 
                         driver: orm
