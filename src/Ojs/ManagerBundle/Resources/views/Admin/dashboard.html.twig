@@ -14,8 +14,9 @@
 
     {% include '::flashbag.html.twig' %}
     <div class="col-md-6">
-        <a href="{{ path("dashboard_editor") }}"><strong>{{ "dashboard.editor"|trans }}</strong></a>
-
+        {% if selectedJournal() %}
+            <a href="{{ path("dashboard_editor") }}"><strong>{{ selectedJournal().title }} {{ "dashboard.editor"|trans }}</strong></a>
+        {% endif %}
         <h2>{{ "dashboard.objects"|trans }}</h2>
 
         <div class="list-group">

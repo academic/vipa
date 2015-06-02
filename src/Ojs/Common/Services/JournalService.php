@@ -78,8 +78,7 @@ class JournalService
             $selectedJournal = $this->setSelectedJournal();
         }
         if(!$selectedJournal instanceof Journal) {
-            get_call_stack();
-            die();
+            return false;
         }
         return $selectedJournal;
     }

@@ -32,6 +32,9 @@ class HistoryExtension extends \Twig_Extension
 
     public function getLogs($entity)
     {
+        if(!is_object($entity)) {
+            return '';
+        }
         return $this->twig->render($this->template, array('logEntities' => $this->logsFromEntity($entity)));
     }
     /**
