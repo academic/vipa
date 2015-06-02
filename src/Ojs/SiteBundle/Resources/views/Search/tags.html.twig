@@ -50,7 +50,7 @@
                                     <tr>
                                         <td>
                                             <h4>
-                                                <a href="{{ getRoute(res) }}">{{ res|getDefinition }}</a>
+                                                <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
                                             </h4>
                                             <i class="fa fa-tags"></i> {{ "tags"|trans }}
                                             {% set tags = res.tags|split(',') %}
