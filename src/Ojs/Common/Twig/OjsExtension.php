@@ -182,6 +182,10 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournals()
     {
+        //check if user exists
+        if(!$this->tokenStorage->getToken()){
+            return false;
+        }
         $user = $this->tokenStorage->getToken()->getUser();
         /** @var UserJournalRole[] $userJournals */
         $userJournals = $this->em->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('user' => $user));
