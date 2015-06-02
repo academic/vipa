@@ -105,7 +105,6 @@ services:
             - @session
             - @router
             - @security.token_storage
-            - @security.authorization_checker
             - "%defaultInstitutionSlug%"
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
