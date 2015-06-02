@@ -48,13 +48,6 @@ class PeopleController extends Controller
             $roleQuery->setQuery($bool);
         }
 
-        $roleAggr = new Terms('roles');
-        $journalAggr = new Terms('journals');
-        $roleAggr->setField('role.name');
-        $journalAggr->setField('journal.title');
-        $roleQuery->addAggregation($roleAggr);
-        $roleQuery->addAggregation($journalAggr);
-
         $roleSearch = $roleSearcher->search($roleQuery);
         $roleResults = $roleSearch->getResults();
 
@@ -62,10 +55,16 @@ class PeopleController extends Controller
         $subjectBool = new Query\Bool();
         $usernameTerms = new Query\Terms('username');
 
+        $roles = $journals = [];
         foreach ($roleResults as $result) {
+            $roles[] = $result->getData()['role']['name'];
+            $journals[] = $result->getData()['journal']['title'];
             $username = $result->getData()['user']['username'];
             $usernameTerms->addTerm($username);
         }
+
+        $roles = array_unique($roles);
+        $journals = array_unique($journals);
 
         foreach ($subjectFilters as $subject) {
             $match = new Query\Match();
@@ -80,20 +79,20 @@ class PeopleController extends Controller
 
         $userQuery->setQuery($queryBool);
 
-        $subjectAggr = new Terms('subjects');
-        $subjectAggr->setField('subjects');
-        $userQuery->addAggregation($subjectAggr);
-
-        $roles = $roleSearch->getAggregation('roles')['buckets'];
-        $journals = $roleSearch->getAggregation('journals')['buckets'];
-
         $adapter = new ElasticaAdapter($userSearcher, $userQuery);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
         $people = $pagerfanta->getCurrentPageResults();
 
-        $subjects = $adapter->getResultSet()->getAggregation('subjects')['buckets'];
+        $subjects = [];
+        $subjectResults = $adapter->getResultSet()->getResults();
+
+        foreach ($subjectResults as $result)
+            foreach($result->getSource()['subjects'] as $subject)
+                $subjects[] = $subject;
+
+        $subjects = array_unique($subjects);
 
         $data = [
             'people' => $people,
