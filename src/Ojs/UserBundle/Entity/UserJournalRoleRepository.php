@@ -3,6 +3,7 @@
 namespace Ojs\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Journal;
 
 /**
  * UserJournalRoleRepository
@@ -108,7 +109,30 @@ class UserJournalRoleRepository extends EntityRepository
         $query = $query
             ->setParameter('role', $role)
             ->getQuery();
-        return $query->getResult();
+        return $query;
     }
 
+    /**
+     * @param Journal $journal
+     * @param User $user
+     * @return array
+     */
+    public function findAllByJournalAndUser(Journal $journal, User $user)
+    {
+        /** @var UserJournalRole[] $query */
+        $query = $this->createQueryBuilder('ujr')
+            ->andWhere('ujr.user = :user')
+            ->andWhere('ujr.journal = :journal')
+            ->setParameter('journal', $journal)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+        $roles = array();
+        if($query) {
+            foreach($query as $userJournalRole) {
+                $roles[] = $userJournalRole->getRole()->getRole();
+            }
+        }
+        return $roles;
+    }
 }

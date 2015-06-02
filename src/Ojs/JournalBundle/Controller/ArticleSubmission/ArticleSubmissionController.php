@@ -169,7 +169,7 @@ class ArticleSubmissionController extends Controller
          * Check if the user is an author of this journal.
          * If not, add author role for this journal
          */
-        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
         $userJournalRole = null;
         if (!$checkRole) {
             $em = $this->getDoctrine()->getManager();
@@ -194,7 +194,7 @@ class ArticleSubmissionController extends Controller
      */
     public function confirmRoleAction(Request $request)
     {
-        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
         if (!$checkRole && $request->get('confirm')) {
             $journal = $this->get("ojs.journal_service")->getSelectedJournal();
             $checkRole = $this->checkAndRegisterUserAuthorRole($journal);
@@ -202,7 +202,7 @@ class ArticleSubmissionController extends Controller
 
         return $checkRole ?
             $this->redirect($this->generateUrl('article_submission_new')) :
-            $this->render('OjsJournalBundle:ArticleSubmission:confirmRole.html.twig', array('roles' => $this->get('user.helper')->getJournalRoles()));
+            $this->render('OjsJournalBundle:ArticleSubmission:confirmRole.html.twig', array('roles' => $this->get('ojs.journal_service')->getSelectedJournalRoles()));
     }
 
     /**
@@ -217,8 +217,8 @@ class ArticleSubmissionController extends Controller
             return $this->redirect($this->generateUrl('article_submission_new'));
         }
         $this->throw404IfNotFound($journal);
-        $this->get('ojs.journal_service')->setSelectedJournal($journalId);
-        $checkRole = $this->get('user.helper')->hasJournalRole('ROLE_AUTHOR');
+        $this->get('ojs.journal_service')->setSelectedJournal($journal);
+        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
 
         return !$checkRole ?
             $this->redirect($this->generateUrl('article_submission_confirm_author')) :

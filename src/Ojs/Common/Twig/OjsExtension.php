@@ -13,15 +13,16 @@ use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Entity\Issue;
 use Ojs\SiteBundle\Entity\Page;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -85,10 +86,10 @@ class OjsExtension extends \Twig_Extension
         return array(
             //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
             'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
+            'userJournalRoles' => new \Twig_Function_Method($this, 'userJournalRoles'),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin'),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
             'userclients' => new \Twig_Function_Method($this, 'getUserClients', array('is_safe' => array('html'))),
-            'userJournalRoles' => new \Twig_Function_Method($this, 'getUserJournalRoles', array('is_safe' => array('html'))),
             'session' => new \Twig_Function_Method($this, 'getSession', array('is_safe' => array('html'))),
             'hasid' => new \Twig_Function_Method($this, 'hasId', array('is_safe' => array('html'))),
             'hasIdInObjects' => new \Twig_Function_Method($this, 'hasIdInObjects', array('is_safe' => array('html'))),
@@ -182,19 +183,20 @@ class OjsExtension extends \Twig_Extension
      */
     public function getUserJournals()
     {
-        //check if user exists
-        if(!$this->tokenStorage->getToken()){
-            return false;
+        $token = $this->tokenStorage->getToken();
+        if($token instanceof AnonymousToken) {
+            return array();
         }
-        $user = $this->tokenStorage->getToken()->getUser();
-        /** @var UserJournalRole[] $userJournals */
-        $userJournals = $this->em->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('user' => $user));
+        $user = $token->getUser();
+        /** @var JournalRepository $journalRepo */
+        $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
+        $userJournals = $journalRepo->findAllByUser($user);
         $journals = array();
         if (!is_array($userJournals)) {
             return array();
         }
-        foreach ($userJournals as $item) {
-            $journals[$item->getJournalId()] = $item->getJournal();
+        foreach ($userJournals as $userJournal) {
+            $journals[$userJournal->getId()] = $userJournal;
         }
         return $journals;
     }
@@ -206,15 +208,6 @@ class OjsExtension extends \Twig_Extension
     public function getUserClients()
     {
         return $this->session->get('userClients');
-    }
-
-    /**
-     * get userJournalRoles session key
-     * @return mixed
-     */
-    public function getUserJournalRoles()
-    {
-        return $this->session->get('userJournalRoles');
     }
 
     /**
@@ -235,23 +228,22 @@ class OjsExtension extends \Twig_Extension
     }
 
     /**
+     * @return array
+     * @deprecated
+     */
+    public function userJournalRoles()
+    {
+        return $this->journalService->getSelectedJournalRoles();
+    }
+
+    /**
      * @param $roleCode
      * @return bool
+     * @deprecated
      */
     public function hasRole($roleCode)
     {
-        $userJournalRoles = $this->getSession('userJournalRoles');
-        $user = $this->userListener->checkUser();
-        if ($user && is_array($userJournalRoles)) {
-            foreach ($userJournalRoles as $role) {
-                /** @var UserJournalRole $role */
-                if ($roleCode == $role->getRole()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return $this->journalService->hasJournalRole($roleCode);
     }
 
     /**
@@ -266,9 +258,12 @@ class OjsExtension extends \Twig_Extension
 
     public function selectedJournal()
     {
-        $selectedJournalId = $this->session->get('selectedJournalId', false);
-
-        return $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
+        try {
+            return $this->journalService->getSelectedJournal();
+        }
+        catch(\Exception $e) {
+            return false;
+        }
     }
 
     public function generateAvatarPath($fileName)

@@ -31,8 +31,8 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
      */
     private $authenticationTrustResolver;
 
-    /** @var  Journal */
-    private $selectedJournal;
+    /** @var  JournalService */
+    private $journalService;
     /**
      * {@inheritdoc}
      */
@@ -43,7 +43,7 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
     ) {
         $this->roleHierarchy = $roleHierarchy;
         $this->authenticationTrustResolver = $authenticationTrustResolver;
-        $this->selectedJournal = $journalService->getSelectedJournal(false);
+        $this->journalService = $journalService;
     }
     /**
      * {@inheritdoc}
@@ -68,9 +68,15 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         // add journal roles
 
         $user = $token->getUser();
+        try {
+            $selectedJournal = $this->journalService->getSelectedJournal();
+        }
+        catch(\Exception $e) {
+            $selectedJournal = false;
+        }
 
-        if ($user instanceof User && $this->selectedJournal !== false) {
-            foreach ($user->getUserJournalRolesFromJournal($this->selectedJournal) as $journalRoles) {
+        if ($user instanceof User && $selectedJournal instanceof Journal) {
+            foreach ($user->getUserJournalRolesFromJournal($selectedJournal) as $journalRoles) {
                 $sids[] = JournalRoleSecurityIdentity::fromUserJournalRole($journalRoles);
             }
         }

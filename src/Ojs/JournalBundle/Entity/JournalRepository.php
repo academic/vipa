@@ -362,4 +362,37 @@ class JournalRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param User $user
+     * @return Journal[]
+     */
+    public function findAllByUser(User $user) {
+        $query = $this->createQueryBuilder('j')
+            ->join('j.userRoles', 'ujr')
+            ->andWhere('ujr.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $query;
+    }
+    /**
+     * @param User $user
+     * @return Journal|null
+     */
+    public function findOneByUser(User $user) {
+        $query = $this->createQueryBuilder('j')
+            ->join('j.userRoles', 'ujr')
+            ->andWhere('ujr.user = :user')
+            ->setParameter('user', $user)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+        if($query) {
+            return $query[0];
+        }
+        return $query;
+    }
 }

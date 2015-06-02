@@ -202,9 +202,9 @@ class ManagerController extends Controller
             // @todo we should query in a more elegant way
             // { roles : { $elemMatch : { role : "ROLE_EDITOR" }} })
             // Don't know how to query $elemMatch
-            $security = $this->get('user.helper');
+            $journalService = $this->get('ojs.journal_service');
             foreach ($allowedWorkflowSteps as $step) {
-                if (($security->hasJournalRole('ROLE_EDITOR') || $security->hasJournalRole('ROLE_JOURNAL_MANAGER')) || $this->checkStepAndUserRoles($step)) {
+                if (($journalService->hasJournalRole('ROLE_EDITOR') || $journalService->hasJournalRole('ROLE_JOURNAL_MANAGER')) || $this->checkStepAndUserRoles($step)) {
                     $mySteps[] = $step;
                 }
             }
@@ -239,7 +239,7 @@ class ManagerController extends Controller
      */
     private function checkStepAndUserRoles(JournalWorkflowStep $step)
     {
-        $myRoles = $this->get('session')->get('userJournalRoles');
+        $myRoles = $this->get('ojs.journal_service')->getSelectedJournalRoles();
         $stepRoles = $step->getRoles();
         foreach ($myRoles as $myRole) {
             foreach ((array) $stepRoles as $stepRole) {
@@ -247,7 +247,7 @@ class ManagerController extends Controller
                  * @var UserJournalRole $stepRole
                  * @var UserJournalRole $myRole
                  */
-                if ($stepRole['role'] === $myRole->getRole()) {
+                if ($stepRole['role'] === $myRole) {
                     return true;
                 }
             }
