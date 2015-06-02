@@ -29,10 +29,10 @@ class IssueController extends Controller
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         $isAdmin = $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
-        /*
-        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+
+        if(!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issues!");
-        }*/
+        }
         $source = new Entity('OjsJournalBundle:Issue');
         //if user is not admin show only selected journal
         if(!$isAdmin){
