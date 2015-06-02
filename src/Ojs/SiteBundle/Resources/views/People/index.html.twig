@@ -25,15 +25,15 @@
                     {% for subject in subjects %}
                         <li class="list-group-item">
                             {% if subject_filters is empty %}
-                                {% set parameter = subject.key %}
+                                {% set parameter = subject %}
                                 <a href="{{ path('people_index', {
-                                    subject_filters: subject.key,
+                                    subject_filters: subject,
                                     role_filters: app.request.get('role_filters'),
-                                    journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                    journal_filters: app.request.get('journal_filters')}) }}">{{ subject }}</a>
                             {% else %}
-                                {% if subject.key in subject_filters %}
-                                    {% set parameter = subject_filters|pop(subject.key) %}
-                                    {{ subject.key }}
+                                {% if subject in subject_filters %}
+                                    {% set parameter = subject_filters|pop(subject) %}
+                                    {{ subject }}
                                     <a href="{{ path('people_index', {
                                         subject_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
@@ -43,14 +43,13 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = subject_filters|merge([subject.key]) %}
+                                    {% set parameter = subject_filters|merge([subject]) %}
                                     <a href="{{ path('people_index', {
                                         subject_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
+                                        journal_filters: app.request.get('journal_filters')}) }}">{{ subject }}</a>
                                 {% endif %}
                             {% endif %}
-                            <span class="badge">{{ subject.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -62,15 +61,15 @@
                     {% for journal in journals %}
                         <li class="list-group-item">
                             {% if journal_filters is empty %}
-                                {% set parameter = journal.key %}
+                                {% set parameter = journal %}
                                 <a href="{{ path('people_index', {
-                                    journal_filters: journal.key,
+                                    journal_filters: journal,
                                     role_filters: app.request.get('role_filters'),
-                                    subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
+                                    subject_filters: app.request.get('subject_filters')}) }}">{{ journal }}</a>
                             {% else %}
-                                {% if journal.key in journal_filters %}
-                                    {% set parameter = journal_filters|pop(journal.key) %}
-                                    {{ journal.key }}
+                                {% if journal in journal_filters %}
+                                    {% set parameter = journal_filters|pop(journal) %}
+                                    {{ journal }}
                                     <a href="{{ path('people_index', {
                                         journal_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
@@ -80,14 +79,13 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = journal_filters|merge([journal.key]) %}
+                                    {% set parameter = journal_filters|merge([journal]) %}
                                     <a href="{{ path('people_index', {
                                         journal_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
-                                        subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
+                                        subject_filters: app.request.get('subject_filters')}) }}">{{ journal }}</a>
                                 {% endif %}
                             {% endif %}
-                            <span class="badge">{{ journal.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -99,15 +97,15 @@
                     {% for role in roles %}
                         <li class="list-group-item">
                             {% if role_filters is empty %}
-                                {% set parameter = role.key %}
+                                {% set parameter = role %}
                                 <a href="{{ path('people_index', {
-                                    role_filters: role.key,
+                                    role_filters: role,
                                     subject_filters: app.request.get('subject_filters'),
-                                    journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
+                                    journal_filters: app.request.get('journal_filters') }) }}">{{ role|trans }}</a>
                             {% else %}
-                                {% if role.key in role_filters %}
-                                    {% set parameter = role_filters|pop(role.key) %}
-                                    {{ role.key|trans }}
+                                {% if role in role_filters %}
+                                    {% set parameter = role_filters|pop(role) %}
+                                    {{ role|trans }}
                                     <a href="{{ path('people_index', {
                                         role_filters: parameter|join(','),
                                         subject_filters: app.request.get('subject_filters'),
@@ -117,14 +115,13 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = role_filters|merge([role.key]) %}
+                                    {% set parameter = role_filters|merge([role]) %}
                                     <a href="{{ path('people_index', {
                                         role_filters: parameter|join(','),
                                         subject_filters: app.request.get('subject_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
+                                        journal_filters: app.request.get('journal_filters')}) }}">{{ role|trans }}</a>
                                 {% endif %}
                             {% endif %}
-                            <span class="badge">{{ role.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -137,11 +134,22 @@
         <div class="well col-sm-3">
             <div class="text-center">
                 <a href="/@{{ person.username }}" class="thumbnail">
-                    <img class="img-circle" src="{{ ('/uploads/avatarfiles/'~imagePath(person.avatar)) }}"
-                         data-src="holder.js/100x100/random"  style="width: 100px; height: 100px;"
-                         alt="{{ person.username }}">
+                    <img class="img-circle"
+                         src="{{ person.avatar is defined ? '/uploads/avatarfiles/' ~ imagePath(person.avatar) : '#' }}"
+                         alt="{{ person.username|default('image'|trans) }}"
+                         data-src="holder.js/100x100/random"
+                         style="width: 100px; height: 100px;">
                 </a>
-                <h3><a href="/@{{ person.username }}">{{ person.firstName }} {{ person.lastName }}</a></h3>
+
+                <h3>
+                    <a href="/@{{ person.username|default('') }}">
+                    {% if person.firstName is defined and person.lastName is defined  %}
+                        {{ person.firstName|default('') }} {{ person.lastName|default('') }}
+                    {% else %}
+                        {{ person.username }}
+                    {% endif %}
+                    </a>
+                </h3>
             </div>
 
             <div>
