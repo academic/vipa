@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Common methods for journal
@@ -42,25 +43,32 @@ class JournalService
      */
     private $tokenStorage;
 
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authorizationChecker;
+
     /** @var  string */
     private $defaultInstitutionSlug;
 
     /**
-     * @param EntityManager $em
-     * @param DocumentManager $dm
-     * @param Session $session
-     * @param Router $router
-     * @param TokenStorageInterface $tokenStorage
+     * @param EntityManager                 $em
+     * @param DocumentManager               $dm
+     * @param Session                       $session
+     * @param Router                        $router
+     * @param TokenStorageInterface         $tokenStorage
+     * @param AuthorizationCheckerInterface $authorizationCheckerInterface
      * @param $defaultInstitutionSlug
      */
     public function __construct(EntityManager $em, DocumentManager $dm, Session $session, Router $router,
-        TokenStorageInterface $tokenStorage, $defaultInstitutionSlug)
+        TokenStorageInterface $tokenStorage, $authorizationCheckerInterface, $defaultInstitutionSlug)
     {
         $this->session = $session;
         $this->em = $em;
         $this->dm = $dm;
         $this->router = $router;
         $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationCheckerInterface;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
     }
 
@@ -73,24 +81,25 @@ class JournalService
         $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
         if ($selectedJournal) {
             return $selectedJournal;
-        }
-        else {
+        } else {
             $selectedJournal = $this->setSelectedJournal();
         }
-        if(!$selectedJournal instanceof Journal) {
+        if (!$selectedJournal instanceof Journal) {
             return false;
         }
+
         return $selectedJournal;
     }
 
     public function setSelectedJournal(Journal $journal = null)
     {
-        if($journal) {
+        if ($journal && $this->authorizationChecker->isGranted('VIEW', $journal)) {
             $this->session->set('selectedJournalId', $journal->getId());
+
             return $journal;
         }
         $token = $this->tokenStorage->getToken();
-        if($token instanceof AnonymousToken) {
+        if ($token instanceof AnonymousToken) {
             return false;
         }
         $user = $token->getUser();
@@ -98,7 +107,7 @@ class JournalService
         /** @var JournalRepository $journalRepo */
         $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
         $journal = $journalRepo->findOneByUser($user);
-        if (!$journal instanceof Journal) {
+        if (!$journal instanceof Journal || !$this->authorizationChecker->isGranted('VIEW', $journal)) {
             return false;
         }
         $this->session->set('selectedJournalId', $journal->getId());
@@ -107,7 +116,7 @@ class JournalService
     }
 
     /**
-     * @param Journal $journal
+     * @param  Journal $journal
      * @return array
      * @deprecated
      */
@@ -115,32 +124,36 @@ class JournalService
     {
         $journal = $journal ? $journal : $this->getSelectedJournal();
         $token = $this->tokenStorage->getToken();
-        if($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
+        if ($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
             return array();
         }
         $user = $token->getUser();
         $userJournalRoleRepo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
         $roles = $userJournalRoleRepo->findAllByJournalAndUser($journal, $user);
+
         return $roles;
     }
 
     /**
      * @param $checkRoles
-     * @param Journal $journal
+     * @param  Journal $journal
      * @return bool
      * @deprecated
      */
-    public function hasJournalRole($checkRoles, Journal $journal = null) {
+    public function hasJournalRole($checkRoles, Journal $journal = null)
+    {
         $journalRoles = $this->getSelectedJournalRoles($journal);
 
-        if(is_array($checkRoles)) {
-            foreach($checkRoles as $role) {
-                if(in_array($role, $journalRoles, true)) {
+        if (is_array($checkRoles)) {
+            foreach ($checkRoles as $role) {
+                if (in_array($role, $journalRoles, true)) {
                     return true;
                 }
             }
+
             return false;
         }
+
         return in_array($checkRoles, $journalRoles, true);
     }
 
