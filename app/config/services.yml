@@ -104,6 +104,7 @@ services:
             - @doctrine.odm.mongodb.document_manager
             - @session
             - @router
+            - @security.token_storage
             - "%defaultInstitutionSlug%"
     ojs.article_service:
         class: Ojs\Common\Services\ArticleService
@@ -136,8 +137,6 @@ services:
             - @security.encoder_factory
             - @security.authorization_checker
             - @security.token_storage
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     proxy.event_listener:
         class: Ojs\UserBundle\Listeners\ProxyListener
         arguments: [@request_stack]

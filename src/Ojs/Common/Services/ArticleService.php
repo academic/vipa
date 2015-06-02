@@ -129,15 +129,4 @@ class ArticleService
 
         return $journalUrl.'/'.$article->getSlug();
     }
-
-    /**
-     * @param $journalId
-     * @return mixed
-     */
-    public function setSelectedJournal($journalId)
-    {
-        $this->session->set('selectedJournalId', $journalId);
-
-        return $journalId;
-    }
 }

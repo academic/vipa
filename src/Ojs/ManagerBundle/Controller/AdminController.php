@@ -4,6 +4,7 @@ namespace Ojs\ManagerBundle\Controller;
 
 use Ojs\Common\Params\ArticleEventLogParams;
  use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,13 +14,10 @@ class AdminController extends Controller
      * @return RedirectResponse
      */
     public function dashboardCheckAction()
-    {;
-        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
-        $editor = $this->isGranted('ROLE_EDITOR');
-
-        if ($superAdmin) {
+    {
+        if ($this->isGranted('VIEW', new Journal())) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
-        } elseif ($editor) {
+        } elseif ($this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal())) {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         } else {
             return $this->redirect($this->generateUrl('ojs_user_index'));
@@ -31,8 +29,7 @@ class AdminController extends Controller
      */
     public function dashboardAction()
     {
-        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
-        if ($super_admin) {
+        if ($this->isGranted('VIEW', new Journal())) {
             return $this->render('OjsManagerBundle:Admin:dashboard.html.twig');
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
@@ -44,8 +41,7 @@ class AdminController extends Controller
      */
     public function statsAction()
     {
-        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
-        if ($super_admin) {
+        if ($this->isGranted('VIEW', new Journal())) {
             return $this->render('OjsManagerBundle:Admin:stats.html.twig', [
                 'stats' => $this->getStats(),
             ]);

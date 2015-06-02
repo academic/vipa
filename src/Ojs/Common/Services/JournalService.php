@@ -7,9 +7,11 @@ use Doctrine\ORM\EntityManager;
 use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Ojs\JournalBundle\Entity\JournalRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Common methods for journal
@@ -35,41 +37,112 @@ class JournalService
      */
     private $router;
 
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
     /** @var  string */
     private $defaultInstitutionSlug;
 
     /**
-     * @param EntityManager   $em
+     * @param EntityManager $em
      * @param DocumentManager $dm
-     * @param Session         $session
-     * @param Router          $router
-     * @param string          $defaultInstitutionSlug
+     * @param Session $session
+     * @param Router $router
+     * @param TokenStorageInterface $tokenStorage
+     * @param $defaultInstitutionSlug
      */
-    public function __construct(EntityManager $em, DocumentManager $dm, Session $session, Router $router, $defaultInstitutionSlug)
+    public function __construct(EntityManager $em, DocumentManager $dm, Session $session, Router $router,
+        TokenStorageInterface $tokenStorage, $defaultInstitutionSlug)
     {
         $this->session = $session;
         $this->em = $em;
         $this->dm = $dm;
         $this->router = $router;
+        $this->tokenStorage = $tokenStorage;
         $this->defaultInstitutionSlug = $defaultInstitutionSlug;
     }
 
     /**
-     * @param  bool              $redirect
-     * @return bool|Journal|RedirectResponse
+     * @return Journal
      */
-    public function getSelectedJournal($redirect = true)
+    public function getSelectedJournal()
     {
         $selectedJournalId = $this->session->get("selectedJournalId");
-        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : null;
+        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
         if ($selectedJournal) {
             return $selectedJournal;
         }
-        if ($redirect) {
-            return new RedirectResponse($this->router->generate('user_join_journal'));
+        else {
+            $selectedJournal = $this->setSelectedJournal();
         }
+        if(!$selectedJournal instanceof Journal) {
+            get_call_stack();
+            die();
+        }
+        return $selectedJournal;
+    }
 
-        return false;
+    public function setSelectedJournal(Journal $journal = null)
+    {
+        if($journal) {
+            $this->session->set('selectedJournalId', $journal->getId());
+            return $journal;
+        }
+        $token = $this->tokenStorage->getToken();
+        if($token instanceof AnonymousToken) {
+            return false;
+        }
+        $user = $token->getUser();
+        // set first journal if found
+        /** @var JournalRepository $journalRepo */
+        $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
+        $journal = $journalRepo->findOneByUser($user);
+        if (!$journal instanceof Journal) {
+            return false;
+        }
+        $this->session->set('selectedJournalId', $journal->getId());
+
+        return $journal;
+    }
+
+    /**
+     * @param Journal $journal
+     * @return array
+     * @deprecated
+     */
+    public function getSelectedJournalRoles(Journal $journal = null)
+    {
+        $journal = $journal ? $journal : $this->getSelectedJournal();
+        $token = $this->tokenStorage->getToken();
+        if($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
+            return array();
+        }
+        $user = $token->getUser();
+        $userJournalRoleRepo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
+        $roles = $userJournalRoleRepo->findAllByJournalAndUser($journal, $user);
+        return $roles;
+    }
+
+    /**
+     * @param $checkRoles
+     * @param Journal $journal
+     * @return bool
+     * @deprecated
+     */
+    public function hasJournalRole($checkRoles, Journal $journal = null) {
+        $journalRoles = $this->getSelectedJournalRoles($journal);
+
+        if(is_array($checkRoles)) {
+            foreach($checkRoles as $role) {
+                if(in_array($role, $journalRoles, true)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return in_array($checkRoles, $journalRoles, true);
     }
 
     /**
@@ -96,13 +169,6 @@ class JournalService
 
         return $this->router
             ->generate('ojs_journal_index', array('slug' => $journal->getSlug(), 'institution' => $institutionSlug), Router::ABSOLUTE_URL);
-    }
-
-    public function setSelectedJournal($journalId)
-    {
-        $this->session->set('selectedJournalId', $journalId);
-
-        return $journalId;
     }
 
     /**

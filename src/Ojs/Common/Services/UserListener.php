@@ -3,10 +3,7 @@
 namespace Ojs\Common\Services;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
-use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -71,11 +68,9 @@ class UserListener
         $this->session = $event->getRequest()->getSession();
 
         if ($event->isMasterRequest()) {
-            $this->loadJournals();
-            $this->loadJournalRoles();
+            $this->journalService->setSelectedJournal();
             $this->loadClientUsers();
         }
-        // fill journal roles
     }
 
     /**
@@ -97,46 +92,6 @@ class UserListener
         $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(array('username' => $usernameLower));
 
         return (!$user && !in_array($usernameLower, $reservedUserNames));
-    }
-
-    /**
-     * get user's roles for selected journal and save to userJournalRoles session key
-     * @return void
-     */
-    public function loadJournalRoles()
-    {
-        $userJournalRoles = $this->getJournalRoles();
-        $this->session->set('userJournalRoles', $userJournalRoles);
-    }
-
-    /**
-     * Get user's journal roles
-     * @param  Journal|bool      $journal
-     * @return UserJournalRole[]
-     */
-    public function getJournalRoles($journal = false)
-    {
-        $journalObject = $journal ? $journal : $this->journalService->getSelectedJournal(false);
-        $user = $this->checkUser();
-        $userJournalRoles = [];
-        if (!$user || !$journalObject) {
-            return [];
-        }
-        //for API_KEY based connection
-        if ($user instanceof SecurityUser) {
-            $user = $this->em->getRepository('OjsUserBundle:User')
-                    ->findOneBy(['username' => $user->getUsername()]);
-        }
-        $repo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
-        /** @var UserJournalRole[] $entities */
-        $entities = $repo->findBy(array('userId' => $user->getId(), 'journalId' => $journalObject->getId()));
-        if ($entities) {
-            foreach ($entities as $entity) {
-                $userJournalRoles[] = $entity->getRole();
-            }
-        }
-
-        return $userJournalRoles;
     }
 
     /**
@@ -162,36 +117,6 @@ class UserListener
     }
 
     /**
-     * @return void
-     */
-    public function loadJournals()
-    {
-        if ($this->session->get("selectedJournalId", false)) {
-            return;
-        }
-        /** @var User $user */
-        $user = $this->checkUser();
-        if (!$user) {
-            return;
-        }
-
-        //for API_KEY based connection
-        if ($user instanceof SecurityUser) {
-            $user = $this->em->getRepository('OjsUserBundle:User')->findOneBy(['username' => $user->getUsername()]);
-        }
-
-        /** @var UserJournalRole[] $userJournals */
-        $userJournals = $this->em->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('user' => $user));
-        if (is_array($userJournals)) {
-            foreach ($userJournals as $item) {
-                $this->journalService->setSelectedJournal($item->getJournalId());
-                break;
-            }
-        }
-    }
-
-
-    /**
      * @return bool|User
      */
     public function checkUser()
@@ -202,45 +127,6 @@ class UserListener
         }
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $token->getUser();
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $checkRoles
-     * @param  bool|Journal $journal
-     * @return bool
-     */
-    public function hasAnyRole($checkRoles, $journal = false)
-    {
-        /** @var Role[] $checkRoles */
-        foreach ($checkRoles as $checkRole) {
-            if ($this->hasJournalRole($checkRole->getRole(), $journal)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * @param  string       $roleCode
-     * @param  bool|Journal $journal
-     * @return boolean
-     */
-    public function hasJournalRole($roleCode, $journal = false)
-    {
-        $userJournalRoles = $this->getJournalRoles($journal);
-        $user = $this->checkUser();
-        if ($user && is_array($userJournalRoles)) {
-            foreach ($userJournalRoles as $role) {
-                /** @var UserJournalRole $role */
-                if ($roleCode == $role->getRole()) {
-                    return true;
-                }
-            }
         }
 
         return false;

@@ -51,7 +51,7 @@ class JournalContactController extends Controller
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
-        } elseif ($this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+        } elseif ($this->get('ojs.journal_service')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $rowAction[] = ActionHelper::showAction('manager_journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('manager_journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('manager_journalcontact_delete', 'id');
@@ -273,7 +273,7 @@ class JournalContactController extends Controller
         $csrf = $this->get('security.csrf.token_manager');
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             $token = $csrf->getToken('journalcontact'.$id);
-        } elseif ($this->get('user.helper')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
+        } elseif ($this->get('ojs.journal_service')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $token = $csrf->getToken('manager_journalcontact'.$id);
         }else{
             $token = $csrf->getToken('journalcontact'.$id);

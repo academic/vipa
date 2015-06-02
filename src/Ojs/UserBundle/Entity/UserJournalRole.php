@@ -52,14 +52,6 @@ class UserJournalRole
      * @GRID\Column(field="role.name",title="user.journalrole.role")
      */
     private $role;
-
-    public function __construct()
-    {
-        $this->user = new User();
-        $this->role = new Role();
-        $this->journal = new Journal();
-    }
-
     /**
      * Get id
      *
