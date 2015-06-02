@@ -1,4 +1,4 @@
-{% if isJournalManager() %}
+{% if isJournalManager is defined %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <a href="{{ url('ojs_block_new',{object: journal.id, type:'journal'}) }}">

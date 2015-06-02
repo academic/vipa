@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('user'), 'title': 'user.manager'|trans},
-        { 'title': 'user.edit'|trans},
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('user'), 'title': 'user.manager'|trans},
+    { 'title': 'user.edit'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -30,29 +30,33 @@
 
                 <div class="form-group">
                     <label class="control-label" for="fileupload_avatar">{{ "Avatar"|trans }}</label>
-                    <div id="preview_image_avatar"  style="width:200px">
+
+                    <div id="preview_image_avatar" style="width:200px">
                         {% if entity.avatar %}
-                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200")}}"
-                                 data-src="holder.js/960x200/random/text:{{entity.username}}" alt="" />
+                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200") }}"
+                                 data-src="holder.js/960x200/random/text:{{ entity.username }}" alt=""/>
                             {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
-                            <input id="avatar_height" name="avatar[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                            <input id="avatar_width"  name="avatar[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                            <input id="avatar_x"  name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                            <input id="avatar_y"  name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
+                            <input id="avatar_height" name="avatar[height]" type="hidden"
+                                   value="{{ imageoptions.height }}"/>
+                            <input id="avatar_width" name="avatar[width]" type="hidden"
+                                   value="{{ imageoptions.width }}"/>
+                            <input id="avatar_x" name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
+                            <input id="avatar_y" name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
                         {% endif %}
 
                     </div>
-    <span class="btn btn-success fileinput-button form-control">
-                <i class="fa fa-plus"></i>
-                <span>{{ "select.image.file"|trans }}</span>
-                <input id="fileupload_avatar" type="file" data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
-            </span>
+                    <span class="btn btn-success fileinput-button form-control">
+                        <i class="fa fa-plus"></i>
+                        <span>{{ "select.image.file"|trans }}</span>
+                        <input id="fileupload_avatar" type="file"
+                               data-url="{{ oneup_uploader_endpoint('avatarfiles') }}">
+                    </span>
 
                     <div id="user_avatar_upload_progress" style="display: none" class="label label-info">
 
                     </div>
                 </div>
-                <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary">
+                <button type="submit" id="ojs_userbundle_user_submit" class="btn btn-primary pull-right">
                     {{ "save"|trans }}
                 </button>
                 {{ form_end(edit_form) }}
@@ -93,19 +97,19 @@
             });
             $("#preview_image_avatar > img").cropper({
                 aspectRatio: 1,
-                maxWidth:200,
-                maxHeight:200,
+                maxWidth: 200,
+                maxHeight: 200,
 
                 {% if  entity.avatar %}
                 {% set imageoptions=getImageOptions(entity,'avatar',"avatar_thumb_crop") %}
-                data:{
+                data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
                 {% endif %}
-                done: function(data){
+                done: function (data) {
                     $("#avatar_height").val(data.height)
                     $("#avatar_width").val(data.width)
                     $("#avatar_x").val(data.x)
@@ -131,7 +135,7 @@
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style>
-        #preview_image_avatar,#preview_image_avatar div{
+        #preview_image_avatar, #preview_image_avatar div {
             margin: 0 !important;
         }
     </style>
