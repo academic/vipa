@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
@@ -61,6 +62,10 @@ class JournalController extends Controller
         $rowAction[] = ActionHelper::editAction('journal_edit', 'id');
         $rowAction[] = ActionHelper::cmsAction();
         $rowAction[] = ActionHelper::deleteAction('journal_delete', 'id');
+        $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
+            ->setRouteParameters('id')
+            ->setRouteParametersMapping(array('id' => 'journal_id'))
+            ->setAttributes(array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage"));
 
         $actionColumn->setRowActions($rowAction);
 
