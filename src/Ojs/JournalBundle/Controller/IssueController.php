@@ -168,7 +168,7 @@ class IssueController extends Controller
      */
     public function editAction($id)
     {
-        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -208,7 +208,7 @@ class IssueController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -341,6 +341,37 @@ class IssueController extends Controller
             'articlesUnissued' => $articlesUnissued, ];
 
         return $this->render('OjsJournalBundle:Issue:arrange.html.twig', $data);
+    }
+
+    /**
+     *  Move an article's position in an issue by updating "order" field of Article
+     * @param  integer               $articleId
+     * @param  integer               $direction "1" or "-1" to specify the way of movement
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
+     */
+    public function moveArticleAction($articleId, $direction = 1)
+    {
+        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
+        }
+        $doctrine = $this->getDoctrine();
+        $em = $doctrine->getmanager();
+        $article = $doctrine->getRepository('OjsJournalBundle:Article')->find($articleId);
+        /* @var $article Article */
+        $this->throw404IfNotFound($article);
+        // TODO : missing position getter setter
+        $currentPosition = $article->getPosition();
+        $nextPosition = 0;
+        if ($direction > 0) {
+            $nextPosition = $currentPosition + $direction;
+        } else {
+            $nextPosition = ($currentPosition - $direction) < 0 ? 0 : ($currentPosition - $direction);
+        }
+        $article->setPosition($nextPosition);
+        $em->persist($article);
+        $em->flush();
+        return $this->redirect($this->getRequest()->headers->get('referer'));
     }
 
     /**
