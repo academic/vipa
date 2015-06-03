@@ -46,10 +46,10 @@ class JournalService
     private $defaultInstitutionSlug;
 
     /**
-     * @param EntityManager $em
-     * @param DocumentManager $dm
-     * @param Session $session
-     * @param Router $router
+     * @param EntityManager         $em
+     * @param DocumentManager       $dm
+     * @param Session               $session
+     * @param Router                $router
      * @param TokenStorageInterface $tokenStorage
      * @param $defaultInstitutionSlug
      */
@@ -73,24 +73,29 @@ class JournalService
         $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
         if ($selectedJournal) {
             return $selectedJournal;
-        }
-        else {
+        } else {
             $selectedJournal = $this->setSelectedJournal();
         }
-        if(!$selectedJournal instanceof Journal) {
+        if (!$selectedJournal instanceof Journal) {
             return false;
         }
+
         return $selectedJournal;
     }
 
+    /**
+     * @param  Journal      $journal
+     * @return bool|Journal
+     */
     public function setSelectedJournal(Journal $journal = null)
     {
-        if($journal) {
+        if ($journal) {
             $this->session->set('selectedJournalId', $journal->getId());
+
             return $journal;
         }
         $token = $this->tokenStorage->getToken();
-        if($token instanceof AnonymousToken) {
+        if ($token instanceof AnonymousToken) {
             return false;
         }
         $user = $token->getUser();
@@ -107,40 +112,43 @@ class JournalService
     }
 
     /**
-     * @param Journal $journal
+     * @param  Journal $journal
      * @return array
-     * @deprecated
      */
     public function getSelectedJournalRoles(Journal $journal = null)
     {
         $journal = $journal ? $journal : $this->getSelectedJournal();
         $token = $this->tokenStorage->getToken();
-        if($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
+        if ($token instanceof AnonymousToken || (!$journal instanceof Journal)) {
             return array();
         }
         $user = $token->getUser();
         $userJournalRoleRepo = $this->em->getRepository('OjsUserBundle:UserJournalRole');
         $roles = $userJournalRoleRepo->findAllByJournalAndUser($journal, $user);
+
         return $roles;
     }
 
     /**
      * @param $checkRoles
-     * @param Journal $journal
+     * @param  Journal $journal
      * @return bool
      * @deprecated
      */
-    public function hasJournalRole($checkRoles, Journal $journal = null) {
+    public function hasJournalRole($checkRoles, Journal $journal = null)
+    {
         $journalRoles = $this->getSelectedJournalRoles($journal);
 
-        if(is_array($checkRoles)) {
-            foreach($checkRoles as $role) {
-                if(in_array($role, $journalRoles, true)) {
+        if (is_array($checkRoles)) {
+            foreach ($checkRoles as $role) {
+                if (in_array($role, $journalRoles, true)) {
                     return true;
                 }
             }
+
             return false;
         }
+
         return in_array($checkRoles, $journalRoles, true);
     }
 
@@ -221,6 +229,10 @@ class JournalService
         return $groupped_journal_stats;
     }
 
+    /**
+     * @param  Journal $journal
+     * @return array
+     */
     public function journalsArticlesStats(Journal $journal)
     {
         $object_view = $this->dm->getRepository('OjsAnalyticsBundle:ObjectViews');

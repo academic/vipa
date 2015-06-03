@@ -3,6 +3,7 @@
 namespace Ojs\Common\Twig;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 use Ojs\Common\Helper\DateHelper;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
@@ -49,6 +50,18 @@ class OjsExtension extends \Twig_Extension
     /** @var  string */
     private $defaultInstitutionSlug;
 
+    /**
+     * @param EntityManager         $em
+     * @param Router                $router
+     * @param TranslatorInterface   $translator
+     * @param JournalService        $journalService
+     * @param UserListener          $userListener
+     * @param TokenStorageInterface $tokenStorage
+     * @param Session               $session
+     * @param null                  $cmsShowRoutes
+     * @param null                  $avatarUploadBaseUrl
+     * @param $defaultInstitutionSlug
+     */
     public function __construct(
         EntityManager $em = null,
         Router $router = null,
@@ -84,8 +97,6 @@ class OjsExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            //'ojsuser' => new \Twig_Function_Method($this, 'checkUser', array('is_safe' => array('html'))),
-            'hasRole' => new \Twig_Function_Method($this, 'hasRole'),
             'userJournalRoles' => new \Twig_Function_Method($this, 'userJournalRoles'),
             'isSystemAdmin' => new \Twig_Function_Method($this, 'isSystemAdmin'),
             'userjournals' => new \Twig_Function_Method($this, 'getUserJournals', array('is_safe' => array('html'))),
@@ -107,7 +118,7 @@ class OjsExtension extends \Twig_Extension
             'getObject' => new \Twig_Function_Method($this, 'getObject', []),
             'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
             'download' => new \Twig_Function_Method($this, 'downloadArticleFile'),
-            'getTagDefinition' => new \Twig_Function_Method($this, 'getTagDefinition')
+            'getTagDefinition' => new \Twig_Function_Method($this, 'getTagDefinition'),
         );
     }
 
@@ -172,6 +183,10 @@ class OjsExtension extends \Twig_Extension
         return false;
     }
 
+    /**
+     * @param $session_key
+     * @return mixed
+     */
     public function getSession($session_key)
     {
         return $this->session->get($session_key);
@@ -184,7 +199,7 @@ class OjsExtension extends \Twig_Extension
     public function getUserJournals()
     {
         $token = $this->tokenStorage->getToken();
-        if($token instanceof AnonymousToken) {
+        if ($token instanceof AnonymousToken) {
             return array();
         }
         $user = $token->getUser();
@@ -192,12 +207,15 @@ class OjsExtension extends \Twig_Extension
         $journalRepo = $this->em->getRepository('OjsJournalBundle:Journal');
         $userJournals = $journalRepo->findAllByUser($user);
         $journals = array();
-        if (!is_array($userJournals)) {
+
+        if ($userJournals) {
+            foreach ($userJournals as $userJournal) {
+                $journals[$userJournal->getId()] = $userJournal;
+            }
+        } else {
             return array();
         }
-        foreach ($userJournals as $userJournal) {
-            $journals[$userJournal->getId()] = $userJournal;
-        }
+
         return $journals;
     }
 
@@ -229,21 +247,10 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * @return array
-     * @deprecated
      */
     public function userJournalRoles()
     {
         return $this->journalService->getSelectedJournalRoles();
-    }
-
-    /**
-     * @param $roleCode
-     * @return bool
-     * @deprecated
-     */
-    public function hasRole($roleCode)
-    {
-        return $this->journalService->hasJournalRole($roleCode);
     }
 
     /**
@@ -256,16 +263,22 @@ class OjsExtension extends \Twig_Extension
         return $issn;
     }
 
+    /**
+     * @return bool|Journal
+     */
     public function selectedJournal()
     {
         try {
             return $this->journalService->getSelectedJournal();
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
     }
 
+    /**
+     * @param $fileName
+     * @return string
+     */
     public function generateAvatarPath($fileName)
     {
         $fileHelper = new FileHelper();
@@ -273,6 +286,10 @@ class OjsExtension extends \Twig_Extension
         return $this->avatarUploadBaseUrl.$fileHelper->generatePath($fileName, false).'thumbnail2/'.$fileName;
     }
 
+    /**
+     * @param $file
+     * @return string
+     */
     public function generateImagePath($file)
     {
         $fileHelper = new FileHelper();
@@ -280,6 +297,10 @@ class OjsExtension extends \Twig_Extension
         return $fileHelper->generatePath($file, false).$file;
     }
 
+    /**
+     * @param $file
+     * @return string
+     */
     public function generateFilePath($file)
     {
         $fileHelper = new FileHelper();
@@ -373,7 +394,7 @@ class OjsExtension extends \Twig_Extension
          * find real class beside proxy class
          * for regex visit: http://www.developwebsites.net/match-backslash-preg_match-php/
          */
-        $objectClass = preg_replace('/Proxies\\\\__CG__\\\\/','',get_class($object));
+        $objectClass = preg_replace('/Proxies\\\\__CG__\\\\/', '', get_class($object));
         switch ($objectClass) {
             case 'Ojs\JournalBundle\Entity\Issue':
                 /** @var Issue $object */
@@ -430,34 +451,51 @@ class OjsExtension extends \Twig_Extension
                 $data['route'] = '#';
                 break;
         }
+
         return $data;
     }
 
+    /**
+     * @param  Article $article
+     * @return string
+     */
     private function generateArticleUrl(Article $article)
     {
         $institution = $article->getJournal()->getInstitution();
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+
         return $this->router
             ->generate('ojs_article_page', [
                 'slug' => $article->getJournal()->getSlug(),
                 'article_id' => $article->getId(),
                 'issue_id' => $article->getIssueId(),
-                'institution' => $institutionSlug
+                'institution' => $institutionSlug,
             ], Router::ABSOLUTE_URL);
     }
 
+    /**
+     * @param  Issue  $issue
+     * @return string
+     */
     private function generateIssueUrl(Issue $issue)
     {
         $institution = $issue->getJournal()->getInstitution();
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
+
         return $this->router
             ->generate('ojs_issue_page', [
                 'id' => $issue->getId(),
                 'journal_slug' => $issue->getJournal()->getSlug(),
-                'institution' => $institutionSlug
+                'institution' => $institutionSlug,
             ], Router::ABSOLUTE_URL);
     }
 
+    /**
+     * @param $object
+     * @param $id
+     * @return string
+     * @throws ORMException
+     */
     public function getObject($object, $id)
     {
         $objectClass = $this->decode($object);
@@ -497,6 +535,10 @@ class OjsExtension extends \Twig_Extension
         return $decoded;
     }
 
+    /**
+     * @param  File   $file
+     * @return string
+     */
     public function downloadArticleFile(File $file)
     {
         return $this->router->generate('ojs_file_download', ['id' => $file->getId()]);
@@ -504,16 +546,17 @@ class OjsExtension extends \Twig_Extension
 
     /**
      * Removes specified element from a number indexed array
-     * @param array $array
-     * @param mixed $element
+     * @param  array $array
+     * @param  mixed $element
      * @return array
      */
     public function popFilter($array, $element)
     {
         $position = array_search($element, $array);
 
-        if ($position !== false)
+        if ($position !== false) {
             unset($array[$position]);
+        }
 
         return $array;
     }
