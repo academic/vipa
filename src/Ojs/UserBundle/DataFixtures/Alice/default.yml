@@ -1,3 +1,9 @@
+\Ojs\JournalBundle\Entity\Subject:
+  random_subject_{1..50}:
+    subject: <word()>
+    totalJournalCount: 1
+    tags: "<word()>"
+
 \Ojs\UserBundle\Entity\User:
   user_author:
     username (unique): demo_author
@@ -57,4 +63,5 @@
     apikey (unique): <regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}')>
     status: 1
     roles: [@role*]
+    subjects: <numberBetween(1, 10)>x @random_subject_*
 
