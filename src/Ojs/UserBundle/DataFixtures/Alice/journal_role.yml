@@ -11,3 +11,7 @@ Ojs\UserBundle\Entity\UserJournalRole:
       user: @user_demo_editor
       role: @role14
       journal: @journal1
+  random_role_{1..75}:
+      user: @random_user_*
+      role: @role*
+      journal: @journal*

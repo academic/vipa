@@ -41,5 +41,5 @@
     isSystemRole: False
   role14:
     role: ROLE_EDITOR
-    name: Editör
+    name: Editor
     isSystemRole: False
