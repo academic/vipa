@@ -28,11 +28,18 @@ class JournalController extends Controller
      */
     public function changeSelectedAction(Request $request, $journal_id)
     {
+        $em =  $this->getDoctrine()->getManager();
         $route = $this->get('router')->generate('dashboard');
         if($request->query->get('submission', false) === '1') {
             $route = $this->get('router')->generate('article_submission_new');
         }
-        $request->getSession()->set('selectedJournalId', $journal_id);
+        /** @var Journal $journal */
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
+        $this->throw404IfNotFound($journal);
+        if(!$this->isGranted('VIEW', $journal)) {
+            throw new AccessDeniedException("You not authorized for view this journal!");
+        }
+        $this->get('ojs.journal_service')->setSelectedJournal($journal);
         return $this->redirect($route);
     }
 
@@ -41,6 +48,9 @@ class JournalController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedException("You not authorized for list journals!");
+        }
         $source = new Entity('OjsJournalBundle:Journal');
         $grid = $this->get('grid')->setSource($source);
 
@@ -142,6 +152,9 @@ class JournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You not authorized for view this journal!");
+        }
 
         return $this->render('OjsJournalBundle:Journal:show.html.twig', array(
             'entity' => $entity, ));
@@ -160,7 +173,7 @@ class JournalController extends Controller
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
 
-        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal())) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You not authorized for edit this journal!");
         }
 
