@@ -59,64 +59,95 @@ Ojs\JournalBundle\Entity\Author:
             type: string
             nullable: true
             length: 255
+            gedmo:
+                - versioned
         firstNameTransliterated:
             type: string
             length: 255
             column: first_name_transliterated
             nullable: TRUE
+            gedmo:
+                - versioned
         middleNameTransliterated:
             type: string
             length: 255
             column: middle_name_transliterated
             nullable: TRUE
+            gedmo:
+                - versioned
         lastNameTransliterated:
             type: string
             length: 255
             column: last_name_transliterated
             nullable: TRUE
+            gedmo:
+                - versioned
         initials:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                - versioned
         orcid:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                - versioned
         email:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - versioned
         url:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         phone:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         fax:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         address:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         billing_address:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         locales:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         institutionId:
             type: integer
             nullable: true
             column: institution_id
             nullable: TRUE
+            gedmo:
+                - versioned
         authorDetails:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         summary:
             type: text
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         created:
             type: datetime
             gedmo:
@@ -143,6 +174,8 @@ Ojs\JournalBundle\Entity\Author:
         tags:
             type: string
             nullable: true
+            gedmo:
+                - versioned
     gedmo:
         soft_deleteable:
           field_name: deletedAt

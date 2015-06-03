@@ -91,6 +91,8 @@ Ojs\JournalBundle\Entity\Article:
         options:
           default: 0
         nullable: TRUE
+        gedmo:
+          - versioned
     primaryLanguage:
         column: primary_language
         type: string
@@ -109,6 +111,8 @@ Ojs\JournalBundle\Entity\Article:
         options:
           default: 0
         nullable: TRUE
+        gedmo:
+          - versioned
     keywords:
         type: string
         nullable: TRUE
@@ -126,25 +130,27 @@ Ojs\JournalBundle\Entity\Article:
       type: text
       nullable: TRUE
       gedmo:
-          - versioned
+        - versioned
     doi:
       length: 255
       type: string
       nullable: TRUE
       gedmo:
-          - versioned
+        - versioned
     firstPage:
       column: first_page
       type: integer
       nullable: TRUE
       gedmo:
-          - versioned
+        - versioned
     isAnonymous:
       column: is_anonymous
       type: boolean
       options:
           default: 0
       nullable: TRUE
+      gedmo:
+         - versioned
     journalId:
       column: journal_id
       type: integer
@@ -162,12 +168,14 @@ Ojs\JournalBundle\Entity\Article:
       type: integer
       nullable: TRUE
       gedmo:
-          - versioned
+        - versioned
     otherId:
       column: other_id
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+        - versioned
     header:
       type: string
       length: 255
@@ -179,6 +187,8 @@ Ojs\JournalBundle\Entity\Article:
       length: 255
       type: string
       nullable: TRUE
+      gedmo:
+          - versioned
     submissionDate:
       column: submission_date
       type: datetime
@@ -212,6 +222,7 @@ Ojs\JournalBundle\Entity\Article:
       nullable: TRUE
       gedmo:
         - translatable
+        - versioned
     slug:
       type: string
       length: 40

@@ -92,6 +92,7 @@ Ojs\JournalBundle\Entity\Issue:
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         year:
             type: string
             length: 255
@@ -102,11 +103,15 @@ Ojs\JournalBundle\Entity\Issue:
             type: datetime
             column: date_published
             nullable: true
+            gedmo:
+                  - versioned
         published:
             type: boolean
             nullable: true
             options:
                 default: false
+            gedmo:
+                  - versioned
 
         created:
             type: datetime
@@ -136,14 +141,20 @@ Ojs\JournalBundle\Entity\Issue:
         tags:
             type: string
             nullable: true
+            gedmo:
+                  - versioned
         supplement:
             type: boolean
             nullable: true
             options:
                 default: false
+            gedmo:
+                  - versioned
         full_file:
             type: string
             nullable: true
+            gedmo:
+                  - versioned
 
     gedmo:
         soft_deleteable:

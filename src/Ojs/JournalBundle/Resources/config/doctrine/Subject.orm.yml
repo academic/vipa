@@ -45,6 +45,7 @@ Ojs\JournalBundle\Entity\Subject:
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         totalJournalCount:
             column: total_journal_count
             nullable: TRUE

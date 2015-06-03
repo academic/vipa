@@ -20,6 +20,8 @@ Ojs\JournalBundle\Entity\JournalTheme:
             joinColumn:
                 name: theme_id
                 referencedColumnName: id
+            gedmo:
+                - versioned
     fields:
         createdBy:
            type: string

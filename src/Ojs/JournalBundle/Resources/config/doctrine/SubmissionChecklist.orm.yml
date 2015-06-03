@@ -11,9 +11,13 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
   fields:
     label:
       type: string
+      gedmo:
+          - versioned
     detail:
       type: text
       nullable: true
+      gedmo:
+          - versioned
     journal_id:
       type: integer
     visible:

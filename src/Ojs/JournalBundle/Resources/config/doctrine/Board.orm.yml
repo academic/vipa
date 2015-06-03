@@ -25,9 +25,15 @@ Ojs\JournalBundle\Entity\Board:
         journalId:
             type: integer
             column: journal_id
+            gedmo:
+                - versioned
         name:
             type: string
             length: 255
+            gedmo:
+                - versioned
         description:
             type: text
+            gedmo:
+                - versioned
     lifecycleCallbacks: {  }

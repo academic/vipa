@@ -21,6 +21,7 @@ Ojs\JournalBundle\Entity\File:
             length: 255
             gedmo:
                 - translatable
+                - versioned
             nullable: true
         mimeType:
             type: string
@@ -35,6 +36,8 @@ Ojs\JournalBundle\Entity\File:
         tags:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         created:
            type: datetime
            gedmo:
