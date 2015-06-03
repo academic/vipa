@@ -34,3 +34,5 @@ Ojs\JournalBundle\Entity\JournalTheme:
              blameable:
                on: update
     lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

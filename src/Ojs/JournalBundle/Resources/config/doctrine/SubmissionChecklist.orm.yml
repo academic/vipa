@@ -37,5 +37,6 @@ Ojs\JournalBundle\Entity\SubmissionChecklist:
         name: journal_id
       inversedBy: submissionChecklist
   gedmo:
+    loggable: true
     soft_deleteable:
       field_name: deletedAt

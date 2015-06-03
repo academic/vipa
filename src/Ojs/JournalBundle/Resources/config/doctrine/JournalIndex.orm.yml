@@ -30,3 +30,5 @@ Ojs\JournalBundle\Entity\JournalIndex:
       mappedBy: journal_index
       cascade: ["all"]
       fetch: EXTRA_LAZY
+  gedmo:
+      loggable: true
