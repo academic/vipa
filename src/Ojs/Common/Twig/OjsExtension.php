@@ -199,7 +199,7 @@ class OjsExtension extends \Twig_Extension
     public function getUserJournals()
     {
         $token = $this->tokenStorage->getToken();
-        if ($token instanceof AnonymousToken) {
+        if ($token instanceof AnonymousToken || !is_object($token)) {
             return array();
         }
         $user = $token->getUser();
