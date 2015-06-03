@@ -66,3 +66,11 @@ ojs_manager_issue:
 ojs_journal_board:
     resource: "@OjsJournalBundle/Resources/config/routing/manager/board.yml"
     prefix:   /manager/board
+
+manager_actions:
+    resource: "@OjsJournalBundle/Resources/config/routing/manager_routing.yml"
+    prefix:   /manager
+
+dashboard_routing:
+    resource: "@OjsJournalBundle/Resources/config/routing/dashboard.yml"
+    prefix:   /

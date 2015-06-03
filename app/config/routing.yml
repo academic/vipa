@@ -26,10 +26,6 @@ OkulbilisimMessageBundle:
     resource: "@OkulbilisimMessageBundle/Resources/config/routing.yml"
     prefix: /
 
-ojs_manager:
-    resource: "@OjsManagerBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ojs_journal:
     resource: "@OjsJournalBundle/Resources/config/routing.yml"
     prefix:   / 
