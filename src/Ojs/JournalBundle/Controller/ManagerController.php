@@ -1,6 +1,6 @@
 <?php
 
-namespace Ojs\ManagerBundle\Controller;
+namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
@@ -40,7 +40,7 @@ class ManagerController extends Controller
             'method' => 'PUT',
         ));
 
-        return $this->render('OjsManagerBundle:Manager:journal_settings.html.twig', array(
+        return $this->render('OjsJournalBundle:Manager:journal_settings.html.twig', array(
                     'journal' => $journal,
                     'form' => $form->createView(),
         ));
@@ -123,7 +123,7 @@ class ManagerController extends Controller
             'allLanguages' => $journal->getLanguages(),
         );
 
-        return $this->render('OjsManagerBundle:Manager:journal_settings_submission.html.twig', $data);
+        return $this->render('OjsJournalBundle:Manager:journal_settings_submission.html.twig', $data);
     }
 
     /**
@@ -143,7 +143,7 @@ class ManagerController extends Controller
         }
         $emailSignature = $journal->getSetting('emailSignature') ? $journal->getSetting('emailSignature')->getValue() : null;
 
-        return $this->render('OjsManagerBundle:Manager:journal_settings_mail.html.twig', array(
+        return $this->render('OjsJournalBundle:Manager:journal_settings_mail.html.twig', array(
                     'journal' => $journal,
                     'emailSignature' => $emailSignature,
         ));
@@ -184,7 +184,7 @@ class ManagerController extends Controller
         $data['grid'] = $grid;
         $data['journal'] = $journal;
 
-        return $grid->getGridResponse('OjsManagerBundle:Manager:journal_settings_pages/list.html.twig', $data);
+        return $grid->getGridResponse('OjsJournalBundle:Manager:journal_settings_pages/list.html.twig', $data);
     }
 
     /**
@@ -227,7 +227,7 @@ class ManagerController extends Controller
             return $this->redirect($this->generateUrl('dashboard_admin'));
         }
 
-        return $this->render('OjsManagerBundle:User:userwelcome.html.twig', array(
+        return $this->render('OjsJournalBundle:User:userwelcome.html.twig', array(
                     'mySteps' => $mySteps,
                     'waitingCount' => $waitingTasksCount,
                     'invitedSteps' => $invitedWorkflowSteps, ));
@@ -266,6 +266,6 @@ class ManagerController extends Controller
         $data['journal'] = $this->get("ojs.journal_service")->getSelectedJournal();
         $data['entities'] = $em->getRepository('OjsUserBundle:UserJournalRole')->findAll();
 
-        return $this->render('OjsManagerBundle:Manager:users.html.twig', $data);
+        return $this->render('OjsJournalBundle:Manager:users.html.twig', $data);
     }
 }

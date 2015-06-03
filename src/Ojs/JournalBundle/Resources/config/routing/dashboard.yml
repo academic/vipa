@@ -1,0 +1,28 @@
+dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: OjsJournalBundle:Admin:dashboardCheck }
+
+dashboard_admin:
+    pattern:  /admin/dashboard
+    defaults: { _controller: OjsJournalBundle:Admin:dashboard }
+
+stats_admin:
+    pattern:  /admin/stats
+    defaults: { _controller: OjsJournalBundle:Admin:stats }
+
+dashboard_editor:
+    pattern:  /editor/dashboard
+    defaults: { _controller: OjsJournalBundle:Editor:dashboard }
+
+
+editor_show_my_journals:
+    pattern:  /editor/myjournals
+    defaults: { _controller: OjsJournalBundle:Editor:myJournals}
+
+editor_journal_show:
+    pattern: /editor/journal/{id}
+    defaults: { _controller: OjsJournalBundle:Editor:showJournal}
+
+ojs_user_index:
+    pattern:  /user
+    defaults: { _controller: OjsJournalBundle:Manager:userIndex }
