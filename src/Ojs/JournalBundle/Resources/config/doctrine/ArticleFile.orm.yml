@@ -29,6 +29,8 @@ Ojs\JournalBundle\Entity\ArticleFile:
         fileId:
             type: integer
             column: file_id
+            gedmo:
+                - versioned
         articleId:
             type: integer
             column: article_id
@@ -40,22 +42,27 @@ Ojs\JournalBundle\Entity\ArticleFile:
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         description:
             type: text
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         title:
             type: string
             length: 255
             nullable: TRUE
             gedmo:
                 - translatable
+                - versioned
         langCode:
             column: lang_code
             type: string
             length: 50
             nullable: TRUE
+            gedmo:
+                - versioned
         updated:
             type: datetime
             gedmo:

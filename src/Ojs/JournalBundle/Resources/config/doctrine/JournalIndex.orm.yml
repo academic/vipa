@@ -16,6 +16,8 @@ Ojs\JournalBundle\Entity\JournalIndex:
       nullable: true
     status:
       type: boolean
+      gedmo:
+          - versioned
   id:
      id:
        generator:

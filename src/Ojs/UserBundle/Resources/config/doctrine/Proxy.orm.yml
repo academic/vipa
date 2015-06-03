@@ -29,9 +29,13 @@ Ojs\UserBundle\Entity\Proxy:
         proxyUserId:
             type: integer
             column: proxy_user_id
+            gedmo:
+                - versioned
         clientUserId:
             type: integer
             column: client_user_id
+            gedmo:
+                - versioned
         created:
            type: datetime
            gedmo:

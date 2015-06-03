@@ -31,6 +31,8 @@ Ojs\JournalBundle\Entity\JournalContact:
         contactId:
             type: integer
             column: contact_id
+            gedmo:
+                  - versioned
         contactTypeId:
             type: integer
             column: contact_type_id

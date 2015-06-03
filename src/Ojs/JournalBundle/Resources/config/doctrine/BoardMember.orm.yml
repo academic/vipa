@@ -26,4 +26,6 @@ Ojs\JournalBundle\Entity\BoardMember:
     fields:
         seq:
             type: integer
+            gedmo:
+                - versioned
     lifecycleCallbacks: {  }

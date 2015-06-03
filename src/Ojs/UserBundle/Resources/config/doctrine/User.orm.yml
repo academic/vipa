@@ -19,11 +19,15 @@ Ojs\UserBundle\Entity\User:
             length: 255
             unique: true
             nullable: false
+            gedmo:
+                - versioned
         password:
             type: string
             length: 255
             unique: false
             nullable: true
+            gedmo:
+                - versioned
         token:
             type: string
             length: 255
@@ -34,28 +38,38 @@ Ojs\UserBundle\Entity\User:
             length: 255
             unique: true
             nullable: true
+            gedmo:
+                - versioned
         email:
             type: string
             length: 255
             unique: true
             nullable: true
+            gedmo:
+                - versioned
         title:
             type: string
             length: 255
             unique: false
             nullable: true
+            gedmo:
+                - versioned
         firstName:
             column: first_name
             type: string
             length: 255
             unique: false
             nullable: true
+            gedmo:
+                - versioned
         lastName:
             column: last_name
             type: string
             length: 255
             unique: false
             nullable: true
+            gedmo:
+                - versioned
         gender:
             column: gender
             type: string
@@ -64,30 +78,48 @@ Ojs\UserBundle\Entity\User:
         initials:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         url:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         phone:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         fax:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         address:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         billing_address:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         locales:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         city_id:
             type: integer
             nullable: true
+            gedmo:
+                - versioned
         country_id:
             type: integer
             nullable: true
+            gedmo:
+                - versioned
         isActive:
             type: boolean
             length: null
@@ -95,9 +127,13 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             options:
                 default: 0
+            gedmo:
+                - versioned
         disable_reason:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         status:
             type: integer
             length: 5
@@ -105,12 +141,18 @@ Ojs\UserBundle\Entity\User:
             nullable: true
             options:
                 default: 0
+            gedmo:
+                - versioned
         privacy:
             type: boolean
             nullable: true
+            gedmo:
+                - versioned
         settings:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         lastlogin:
             type: datetime
             unique: false
@@ -118,12 +160,16 @@ Ojs\UserBundle\Entity\User:
         avatar:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         avatar_options:
             type: string
             nullable: true
         header:
             type: string
             nullable: true
+            gedmo:
+                - versioned
         header_options:
             type: string
             nullable: true
@@ -143,6 +189,8 @@ Ojs\UserBundle\Entity\User:
         tags:
             type: string
             nullable: true
+            gedmo:
+                - versioned
     oneToMany:
         customFields:
           targetEntity: Ojs\UserBundle\Entity\CustomField

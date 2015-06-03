@@ -129,11 +129,15 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             column: title_abbr
             nullable: true
+            gedmo:
+                  - versioned
         titleTransliterated:
             type: string
             length: 255
             column: title_transliterated
             nullable: true
+            gedmo:
+                  - versioned
         path:
             type: string
             length: 255
@@ -177,25 +181,37 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         url:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         address:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         phone:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         email:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         country_id:
             type: integer
             nullable: true
+            gedmo:
+                  - versioned
         published:
             type: boolean
             column: published
@@ -216,6 +232,8 @@ Ojs\JournalBundle\Entity\Journal:
             length: 255
             column: image
             nullable: true
+            gedmo:
+                  - versioned
         image_options:
             type: string
             nullable: true
@@ -223,6 +241,8 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         header_options:
             type: string
             nullable: true
@@ -230,6 +250,8 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             length: 255
             nullable: true
+            gedmo:
+                  - versioned
         logo_options:
             type: string
             nullable: true
@@ -246,24 +268,31 @@ Ojs\JournalBundle\Entity\Journal:
                     seperator: _
                     fields:
                       - title
+                - versioned
         themeId:
             type: integer
             column: theme_id
             nullable: true
             options:
                 default: 0
+            gedmo:
+                  - versioned
         institutionId:
             type: integer
             column: institution_id
             nullable: true
             options:
                 default: 0
+            gedmo:
+                  - versioned
         isConfigured:
             column: is_configured
             type: boolean
             options:
                 default: 0
             nullable: TRUE
+            gedmo:
+                  - versioned
         created:
             type: datetime
             gedmo:
@@ -293,15 +322,21 @@ Ojs\JournalBundle\Entity\Journal:
         tags:
             type: string
             nullable: true
+            gedmo:
+                  - versioned
         description:
             type: text
             nullable: true
+            gedmo:
+                  - versioned
         setup_status:
             type: boolean
             nullable: true
         footer_text:
             type: text
             nullable: true
+            gedmo:
+                  - versioned
         view_count:
             type: integer
             nullable: true
@@ -317,6 +352,8 @@ Ojs\JournalBundle\Entity\Journal:
             nullable: true
             options:
                 default: false
+            gedmo:
+                  - versioned
     gedmo:
         soft_deleteable:
           field_name: deletedAt

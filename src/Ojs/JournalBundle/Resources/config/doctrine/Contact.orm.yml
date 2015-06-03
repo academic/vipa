@@ -28,6 +28,8 @@ Ojs\JournalBundle\Entity\Contact:
         affiliation:
             type: text
             nullable: true
+            gedmo:
+                - versioned
         firstName:
             type: string
             length: 255
@@ -45,6 +47,8 @@ Ojs\JournalBundle\Entity\Contact:
         address:
             type: text
             nullable: TRUE
+            gedmo:
+                - versioned
         phone:
             type: string
             length: 255
@@ -55,6 +59,8 @@ Ojs\JournalBundle\Entity\Contact:
             type: string
             length: 255
             nullable: TRUE
+            gedmo:
+                - versioned
         email:
             type: string
             length: 255
@@ -87,6 +93,8 @@ Ojs\JournalBundle\Entity\Contact:
         tags:
             type: string
             nullable: true
+            gedmo:
+                - versioned
     gedmo:
         soft_deleteable:
           field_name: deletedAt
