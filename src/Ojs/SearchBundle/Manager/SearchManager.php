@@ -63,8 +63,10 @@ class SearchManager
         $must->setField('tags', $this->getParam('term'));
         $query->addMust($must);
         $return_data = [];
+        /**
+         * @var ResultSet $results
+         */
         $results = $search->search($query);
-        $count = 0;
         foreach ($results as $result) {
             /** @var Result $result  */
             if (!isset($return_data[$result->getType()])) {
@@ -75,10 +77,8 @@ class SearchManager
                 $return_data[$result->getType()]['data'][] = $this->getObject($result); else:
                 $return_data[$result->getType()]['data'] = [$this->getObject($result)];
             endif;
-
-            $count = $count + count($result->getData());
         }
-        $this->setCount($count);
+        $this->setCount($results->getTotalHits());
 
         return $return_data;
     }
