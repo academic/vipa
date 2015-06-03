@@ -82,11 +82,10 @@ Ojs\JournalBundle\Entity\Institution:
             unique: true
             gedmo:
                 - versioned
-                versioned: ~
-                slug:
-                  seperator: _
-                  fields:
-                    - name
+                - slug:
+                    seperator: _
+                    fields:
+                      - name
         address:
             type: text
             nullable: TRUE

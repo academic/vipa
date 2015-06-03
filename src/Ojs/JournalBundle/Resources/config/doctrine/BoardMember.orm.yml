@@ -29,3 +29,5 @@ Ojs\JournalBundle\Entity\BoardMember:
             gedmo:
                 - versioned
     lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

@@ -37,3 +37,5 @@ Ojs\JournalBundle\Entity\ArticleAuthor:
                 name: article_id
                 referencedColumnName: id
     lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

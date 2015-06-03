@@ -53,6 +53,7 @@ Ojs\JournalBundle\Entity\Theme:
              blameable:
                on: update
     gedmo:
+        loggable: true
         soft_deleteable:
           field_name: deletedAt
           time_aware: false

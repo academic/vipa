@@ -47,3 +47,5 @@ Ojs\JournalBundle\Entity\JournalContact:
              blameable:
                on: update
     lifecycleCallbacks: {  }
+    gedmo:
+        loggable: true

@@ -264,7 +264,7 @@ Ojs\JournalBundle\Entity\Journal:
             type: string
             nullable: true
             gedmo:
-                slug:
+                - slug:
                     seperator: _
                     fields:
                       - title
