@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation\Groups;
 /**
  * Journal
  * @ExclusionPolicy("all")
- * @GRID\Source(columns="id,title,issn,eissn,country.name,institution")
+ * @GRID\Source(columns="id,title,issn,eissn,country.name,institution.name")
  */
 class Journal implements Translatable
 {
@@ -132,6 +132,7 @@ class Journal implements Translatable
      * @var Location
      * @Expose
      * @Groups({"JournalDetail"})
+     * @Grid\Column(field="country.name", title="country")
      */
     private $country;
 
@@ -252,6 +253,7 @@ class Journal implements Translatable
      * @var Institution
      * @Expose
      * @Groups({"JournalDetail"})
+     * @Grid\Column(field="institution.name", title="institution")
      */
     private $institution;
 
