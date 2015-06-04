@@ -5,11 +5,13 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\SubjectRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Form\SubjectType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
 
 /**
@@ -39,6 +41,7 @@ class SubjectController extends Controller
 
         $data = [];
         $data['grid'] = $grid;
+        /** @var SubjectRepository $repo */
         $repo = $this->getDoctrine()->
                 getRepository('OjsJournalBundle:Subject');
         $options =  array(
@@ -59,6 +62,8 @@ class SubjectController extends Controller
     /**
      * Creates a new Subject entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -92,6 +97,7 @@ class SubjectController extends Controller
     {
         $form = $this->createForm(new SubjectType(), $entity, array(
             'action' => $this->generateUrl('subject_create'),
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -117,6 +123,8 @@ class SubjectController extends Controller
     /**
      * Finds and displays a Subject entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -131,10 +139,13 @@ class SubjectController extends Controller
     /**
      * Displays a form to edit an existing Subject entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Subject $entity */
         $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -156,6 +167,7 @@ class SubjectController extends Controller
     {
         $form = $this->createForm(new SubjectType(), $entity, array(
             'action' => $this->generateUrl('subject_update', array('id' => $entity->getId())),
+            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -166,10 +178,14 @@ class SubjectController extends Controller
     /**
      * Edits an existing Subject entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Subject $entity */
         $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);

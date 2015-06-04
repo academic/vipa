@@ -3,20 +3,12 @@
 namespace Ojs\JournalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\ORM\EntityRepository;
 
 class ContactType extends AbstractType
 {
-    /** @var  ContainerInterface */
-    private $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -45,8 +37,8 @@ class ContactType extends AbstractType
                     'label' => 'city',
                     'attr' => [
                         'class' => 'autocomplete',
-                        'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/location",
-                        'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/location/get/",
+                        'data-list' => $options['apiRoot']."public/search/location",
+                        'data-get' => $options['apiRoot']."public/location/get/",
                         "placeholder" => "type a journal name",
                     ],
                 ])
@@ -73,6 +65,7 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Contact',
+            'apiRoot' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

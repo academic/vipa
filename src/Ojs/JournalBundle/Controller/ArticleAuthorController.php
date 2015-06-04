@@ -2,10 +2,15 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Author;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Form\ArticleAuthorType;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * ArticleAuthor controller.
@@ -30,6 +35,8 @@ class ArticleAuthorController extends Controller
     /**
      * Creates a new ArticleAuthor entity.
      *
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -37,12 +44,12 @@ class ArticleAuthorController extends Controller
         $form = $this->createCreateForm($entity);
         $data = $request->request->get($form->getName());
         $em = $this->getDoctrine()->getManager();
-        $entity->setArticle(
-                $em->getRepository('OjsJournalBundle:Article')->find($data['articleId'])
-        );
-        $entity->setAuthor(
-                $em->getRepository('OjsJournalBundle:Author')->find($data['authorId'])
-        );
+        /** @var Article $article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['articleId']);
+        /** @var Author $author */
+        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['authorId']);
+        $entity->setArticle($article);
+        $entity->setAuthor($author);
         $entity->setAuthorOrder($data['authorOrder']);
         $em->persist($entity);
         $em->flush();
@@ -64,7 +71,7 @@ class ArticleAuthorController extends Controller
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_create'),
             'method' => 'POST',
-            'journal_id' => $journal,
+            'journal' => $journal,
         ));
         $form->add('submit', 'submit', array('label' => 'Create New'));
 
@@ -89,6 +96,8 @@ class ArticleAuthorController extends Controller
     /**
      * Finds and displays a ArticleAuthor entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -106,10 +115,13 @@ class ArticleAuthorController extends Controller
     /**
      * Displays a form to edit an existing ArticleAuthor entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var ArticleAuthor $entity */
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
@@ -127,7 +139,7 @@ class ArticleAuthorController extends Controller
      *
      * @param ArticleAuthor $entity The entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createEditForm(ArticleAuthor $entity)
     {
@@ -135,8 +147,8 @@ class ArticleAuthorController extends Controller
 
         $form = $this->createForm(new ArticleAuthorType(), $entity, array(
             'action' => $this->generateUrl('articleauthor_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
             'journal_id' => $journal,
+            'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -146,6 +158,9 @@ class ArticleAuthorController extends Controller
     /**
      * Edits an existing ArticleAuthor entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -158,16 +173,14 @@ class ArticleAuthorController extends Controller
         $editForm = $this->createEditForm($entity);
         //$editForm->handleRequest($request);
         $data = $request->request->get($editForm->getName());
-        $articleId = $data['articleId'];
-        $authorId = $data['authorId'];
+        /** @var Article $article */
+        $article = $em->getRepository('OjsJournalBundle:Article')->find($data['articleId']);
+        /** @var Author $author */
+        $author = $em->getRepository('OjsJournalBundle:Author')->find($data['authorId']);
         $authorOrder = $data['authorOrder'];
-        if ($articleId && $authorId) {
-            $entity->setArticle(
-                    $em->getRepository('OjsJournalBundle:Article')->find($articleId)
-            );
-            $entity->setAuthor(
-                    $em->getRepository('OjsJournalBundle:Author')->find($authorId)
-            );
+        if ($article && $author) {
+            $entity->setArticle($article);
+            $entity->setAuthor($author);
             $entity->setAuthorOrder($authorOrder);
             $em->persist($entity);
             $em->flush();
@@ -186,8 +199,10 @@ class ArticleAuthorController extends Controller
     /**
      * Deletes a ArticleAuthor entity.
      *
+     * @param $id
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ArticleAuthor')->find($id);

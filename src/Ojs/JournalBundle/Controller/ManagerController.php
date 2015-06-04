@@ -37,6 +37,7 @@ class ManagerController extends Controller
         }
         $form = $this->createForm(new JournalType(), $journal, array(
             'action' => $this->generateUrl('journal_update', array('id' => $journal->getId())),
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'method' => 'PUT',
         ));
 
@@ -197,6 +198,7 @@ class ManagerController extends Controller
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $mySteps = [];
         if ($journal) {
+            /** @var JournalWorkflowStep[] $allowedWorkflowSteps */
             $allowedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                     ->findBy(array('journalid' => $journal->getId()));
             // @todo we should query in a more elegant way
@@ -211,6 +213,7 @@ class ManagerController extends Controller
         }
         $waitingTasksCount = [];
         foreach ($mySteps as $step) {
+            /** @var JournalWorkflowStep $step */
             // TODO : this should be in repository
             $countQuery = $dm->getRepository('OjsWorkflowBundle:ArticleReviewStep')
                     ->createQueryBuilder('ars');

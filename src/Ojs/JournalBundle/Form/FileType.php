@@ -25,7 +25,7 @@ class FileType extends AbstractType
                         'class' => ' form-control input-xxl',
                         'data-role' =>  'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags'
+                        'data-list' => $options['apiRoot'].'api/public/search/tags'
                     ]
                 )
             )
@@ -44,6 +44,7 @@ class FileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\File',
+            'apiRoot' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

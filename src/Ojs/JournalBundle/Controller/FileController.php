@@ -5,11 +5,12 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Form\FileType;
-use Gedmo\Uploadable\FileInfo\FileInfoArray;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -44,6 +45,8 @@ class FileController extends Controller
     /**
      * Creates a new File entity.
      *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -78,6 +81,7 @@ class FileController extends Controller
     {
         $form = $this->createForm(new FileType(), $entity, array(
             'action' => $this->generateUrl('admin_file_create'),
+            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
             'method' => 'POST',
         ));
 
@@ -102,6 +106,8 @@ class FileController extends Controller
     /**
      * Finds and displays a File entity.
      *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction($id)
     {
@@ -119,11 +125,13 @@ class FileController extends Controller
     /**
      * Displays a form to edit an existing File entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
 
         if (!$entity) {
@@ -149,6 +157,7 @@ class FileController extends Controller
     {
         $form = $this->createForm(new FileType(), $entity, array(
             'action' => $this->generateUrl('admin_file_update', array('id' => $entity->getId())),
+            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
             'method' => 'POST',
         ));
 
@@ -159,11 +168,14 @@ class FileController extends Controller
     /**
      * Edits an existing File entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
 
         if (!$entity) {
@@ -182,7 +194,7 @@ class FileController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
@@ -194,8 +206,9 @@ class FileController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('admin_file' . $id);
-        if ($token != $request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
+use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,7 +16,6 @@ class ArticleAuthorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $journal = $options['journal_id'];
         $builder
             ->add('authorOrder')
             ->add('author', 'entity', [
@@ -23,12 +23,10 @@ class ArticleAuthorType extends AbstractType
             ])
             ->add('article', 'entity', [
                 'class' => 'Ojs\JournalBundle\Entity\Article',
-                'query_builder' => function (EntityRepository $er) use ($journal) {
+                'query_builder' => function (EntityRepository $er) use ($options) {
                     $qb = $er->createQueryBuilder('a');
-                    $qb->where(
-                        $qb->expr()->eq('a.journalId', ':journal')
-                    );
-                    $qb->setParameter('journal', $journal);
+                    $qb->where('a.journal = :journal');
+                    $qb->setParameter('journal', $options['journal']);
 
                     return $qb;
                 },
@@ -42,7 +40,7 @@ class ArticleAuthorType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
-            'journal_id' => 0,
+            'journal' => new Journal(),
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

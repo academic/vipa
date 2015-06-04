@@ -6,21 +6,12 @@ use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Institution;
 use Okulbilisim\LocationBundle\Entity\Location;
 use Okulbilisim\LocationBundle\Helper\FormHelper;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class InstitutionType extends AbstractType
 {
-
-    /** @var ContainerInterface  */
-    private $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -55,8 +46,8 @@ class InstitutionType extends AbstractType
                     'attr' => [
                             'class' => 'autocomplete',
                             'style' => 'width:100%',
-                            'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/institute",
-                            'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/institution/get/",
+                            'data-list' => $options['institutionsEndPoint'],
+                            'data-get' => $options['institutionEndPoint'],
                             "placeholder" => "type a institution name",
                      ],
                 ])
@@ -75,7 +66,7 @@ class InstitutionType extends AbstractType
                             'class' => ' form-control input-xxl',
                             'data-role' =>  'tagsinputautocomplete',
                             'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => '/api/public/search/tags'
+                            'data-list' => $options['apiRoot']
                         ]
                     )
                 )
@@ -110,6 +101,9 @@ class InstitutionType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Institution',
             'helper' => null,
+            'tagEndPoint' => '/',
+            'institutionsEndPoint' => '/',
+            'institutionEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate',
                 'class' => 'validate-form',

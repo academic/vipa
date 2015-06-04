@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Form\Form;
@@ -86,6 +85,8 @@ class CitationSettingController extends Controller
         $form = $this->createForm(new CitationSettingType(), $entity, array(
             'action' => $this->generateUrl('citationsetting_create'),
             'method' => 'POST',
+            'citationsEndPoint' => $this->generateUrl('api_get_citations'),
+            'citationEndPoint' => $this->generateUrl('api_get_citation'),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -165,6 +166,8 @@ class CitationSettingController extends Controller
         $form = $this->createForm(new CitationSettingType(), $entity, array(
             'action' => $this->generateUrl('citationsetting_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            'citationsEndPoint' => $this->generateUrl('api_get_citations'),
+            'citationEndPoint' => $this->generateUrl('api_get_citation'),
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

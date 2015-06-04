@@ -3,20 +3,12 @@
 namespace Ojs\JournalBundle\Form;
 
 use Ojs\Common\Params\ArticleFileParams;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ArticleFileType extends AbstractType
 {
-    /** @var  ContainerInterface */
-    private $container;
-
-    public function __construct($container)
-    {
-        $this->container = $container;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -24,6 +16,7 @@ class ArticleFileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('title')
             ->add('keywords')
@@ -36,8 +29,8 @@ class ArticleFileType extends AbstractType
                 'attr' => [
                     'class' => 'autocomplete',
                     'style' => 'width:100%',
-                    'data-list' => $this->container->get('router')->generate('ojs_api_homepage')."public/search/article",
-                    'data-get' => $this->container->get('router')->generate('ojs_api_homepage')."public/article/get/",
+                    'data-list' => $options['articlesEndPoint']."public/search/article",
+                    'data-get' => $options['articleEndPoint']."public/article/get/",
                     "placeholder" => "type a journal name",
                 ],
             ])
@@ -52,7 +45,8 @@ class ArticleFileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\ArticleFile',
-            'user' => null,
+            'articlesEndPoint' => '/',
+            'articleEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

@@ -124,10 +124,11 @@ class ArticleFileController extends Controller
      */
     private function createCreateForm(ArticleFile $entity, $article)
     {
-        $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
+        $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_create', ['article' => $article]),
             'method' => 'POST',
-            'user' => $this->getUser(),
+            'articlesEndPoint' => $this->generateUrl('api_get_articles'),
+            'articleEndPoint' => $this->generateUrl('api_get_article')
         ));
 
         return $form;
@@ -219,10 +220,11 @@ class ArticleFileController extends Controller
      */
     private function createEditForm(ArticleFile $entity)
     {
-        $form = $this->createForm(new ArticleFileType($this->container), $entity, array(
+        $form = $this->createForm(new ArticleFileType(), $entity, array(
             'action' => $this->generateUrl('articlefile_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'user' => $this->getUser(),
+            'articlesEndPoint' => $this->generateUrl('api_get_articles'),
+            'articleEndPoint' => $this->generateUrl('api_get_article')
         ));
 
         return $form;

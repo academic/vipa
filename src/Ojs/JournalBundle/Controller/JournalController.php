@@ -124,6 +124,7 @@ class JournalController extends Controller
     {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_create'),
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'method' => 'POST'
         ));
 
@@ -199,6 +200,7 @@ class JournalController extends Controller
     {
         $form = $this->createForm(new JournalType(), $entity, array(
             'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'method' => 'POST',
         ));
 

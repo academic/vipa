@@ -2,7 +2,7 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            {% if session('selectedJournalId') %}
+            {% if selectedJournal() %}
                 <div class="col-md-3 col-xs-12"><label> {%trans%}Select journal to submit{%endtrans%}</label></div>
                 <div class="col-md-9 col-xs-12">{% if journal.id %}{% set selected_journal_id = journal.id %}{% endif %}
                     <select id="changeSelectedJournal" class="form-control select2-element">

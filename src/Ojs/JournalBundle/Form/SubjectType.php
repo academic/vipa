@@ -24,7 +24,7 @@ class SubjectType extends AbstractType
                             'class' => ' form-control input-xxl',
                             'data-role' =>  'tagsinputautocomplete',
                             'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => '/api/public/search/tags'
+                            'data-list' => $options['tagEndPoint']
                         ]
                     )
                 )
@@ -38,6 +38,7 @@ class SubjectType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Subject',
+            'tagEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

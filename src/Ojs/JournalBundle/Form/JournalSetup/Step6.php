@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Form\JournalSetup;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -25,7 +26,7 @@ class Step6 extends AbstractType
                     'attr' => [
                         'class' => 'validate[required]',
                     ],
-                    'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('t')
                             ->where('t.isPublic IS NULL OR t.isPublic = TRUE');
                     }, )
