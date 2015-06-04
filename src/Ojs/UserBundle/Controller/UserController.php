@@ -401,27 +401,6 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a form to delete a User entity by id.
-     * @param  mixed $id The entity id
-     * @return Form  The form
-     */
-    private function createDeleteForm($id)
-    {
-        $t = $this->get('translator');
-
-        return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array(
-                            'label' => $t->trans('Delete User Record'),
-                            'attr' => array(
-                                'class' => 'button alert',
-                                'onclick' => 'return confirm("'.$t->trans('Are you sure?').'"); ', ),
-                        ))
-                        ->getForm();
-    }
-
-    /**
      * @param  Request                   $request
      * @param  User                      $user
      * @return RedirectResponse|Response
