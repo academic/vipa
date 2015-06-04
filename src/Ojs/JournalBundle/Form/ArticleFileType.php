@@ -29,8 +29,8 @@ class ArticleFileType extends AbstractType
                 'attr' => [
                     'class' => 'autocomplete',
                     'style' => 'width:100%',
-                    'data-list' => $options['articlesEndPoint']."public/search/article",
-                    'data-get' => $options['articleEndPoint']."public/article/get/",
+                    'data-list' => $options['articlesEndPoint'],
+                    'data-get' => $options['articleEndPoint'],
                     "placeholder" => "type a journal name",
                 ],
             ])
