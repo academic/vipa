@@ -41,13 +41,11 @@ class UserController extends Controller
         if(!$this->isGranted('VIEW', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('OjsUserBundle:User')->findAll();
+
         $source = new Entity("OjsUserBundle:User");
         $grid = $this->get('grid');
         $grid->setSource($source);
         ActionHelper::setup($this->get('security.csrf.token_manager'));
-
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'], 'ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::showAction('user_show', 'id');
@@ -58,7 +56,7 @@ class UserController extends Controller
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
-        return $grid->getGridResponse('OjsUserBundle:User:admin/index.html.twig', ['grid' => $grid, 'entities' => $entities]);
+        return $grid->getGridResponse('OjsUserBundle:User:admin/index.html.twig', ['grid' => $grid]);
     }
 
     /**
