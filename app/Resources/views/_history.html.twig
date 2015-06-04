@@ -24,6 +24,8 @@ app.request.attributes.get('_route_params')) %}
                                     TRUE
                                 {% elseif data.old is same as(false) %}
                                     FALSE
+                                {% elseif data.old.timezone is defined %}
+                                    {{ data.old|localizeddate('long') }}
                                 {% elseif data.old is iterable %}
                                     {% for subdata in data.old %}
                                         {{ subdata|trans }}
@@ -40,6 +42,8 @@ app.request.attributes.get('_route_params')) %}
                                     TRUE
                                 {% elseif data.new is same as(false) %}
                                     FALSE
+                                {% elseif data.new.timezone is defined %}
+                                    {{ data.new|localizeddate('long') }}
                                 {% elseif data.new is iterable %}
                                     {% for subdata in data.new %}
                                         {{ subdata|trans }}
