@@ -7,7 +7,6 @@ use Pagerfanta\Adapter\ElasticaAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta;
 use Elastica\Query;
-use Elastica\Aggregation\Terms;
 
 class PeopleController extends Controller
 {
@@ -21,63 +20,36 @@ class PeopleController extends Controller
         $getRoles = $request->query->get('role_filters');
         $getSubjects = $request->query->get('subject_filters');
         $getJournals = $request->query->get('journal_filters');
-        $roleFilters = !empty($getRoles) ?  explode(',', $getRoles) : [];
-        $subjectFilters = !empty($getSubjects) ?  explode(',', $getSubjects) : [];
-        $journalFilters = !empty($getJournals) ?  explode(',', $getJournals) : [];
+        $roleFilters = !empty($getRoles) ? explode(',', $getRoles) : [];
+        $subjectFilters = !empty($getSubjects) ? explode(',', $getSubjects) : [];
+        $journalFilters = !empty($getJournals) ? explode(',', $getJournals) : [];
 
-        $roleSearcher = $this->get('fos_elastica.index.search.role');
         $userSearcher = $this->get('fos_elastica.index.search.user');
-        $roleQuery = new Query();
-        $userQuery = new Query();
+        $userQuery = new Query('*');
 
-        if (!empty($roleFilters) || !empty($journalFilters)) {
-            $bool = new Query\Bool();
+        if (!empty($roleFilters) || !empty($subjectFilters) || !empty($journalFilters)) {
+            $boolQuery = new Query\Bool();
 
             foreach ($roleFilters as $role) {
                 $match = new Query\Match();
-                $match->setField('role.name', $role);
-                $bool->addMust($match);
+                $match->setField('userJournalRoles.role.name', $role);
+                $boolQuery->addMust($match);
+            }
+
+            foreach ($subjectFilters as $subject) {
+                $match = new Query\Match();
+                $match->setField('subjects', $subject);
+                $boolQuery->addMust($match);
             }
 
             foreach ($journalFilters as $journal) {
                 $match = new Query\Match();
-                $match->setField('journal.title', $journal);
-                $bool->addMust($match);
+                $match->setField('userJournalRoles.journal.title', $journal);
+                $boolQuery->addMust($match);
             }
 
-            $roleQuery->setQuery($bool);
+            $userQuery->setQuery($boolQuery);
         }
-
-        $roleSearch = $roleSearcher->search($roleQuery);
-        $roleResults = $roleSearch->getResults();
-
-        $queryBool = new Query\Bool();
-        $subjectBool = new Query\Bool();
-        $usernameTerms = new Query\Terms('username');
-
-        $roles = $journals = [];
-        foreach ($roleResults as $result) {
-            $roles[] = $result->getData()['role']['name'];
-            $journals[] = $result->getData()['journal']['title'];
-            $username = $result->getData()['user']['username'];
-            $usernameTerms->addTerm($username);
-        }
-
-        $roles = array_unique($roles);
-        $journals = array_unique($journals);
-
-        foreach ($subjectFilters as $subject) {
-            $match = new Query\Match();
-            $match->setField('subjects', $subject);
-            $subjectBool->addMust($match);
-        }
-
-        if (!empty($roleResults))
-            $queryBool->addMust($usernameTerms);
-        if (!empty($subjectFilters))
-            $queryBool->addMust($subjectBool);
-
-        $userQuery->setQuery($queryBool);
 
         $adapter = new ElasticaAdapter($userSearcher, $userQuery);
         $pagerfanta = new Pagerfanta($adapter);
@@ -85,24 +57,33 @@ class PeopleController extends Controller
         $pagerfanta->setCurrentPage($page);
         $people = $pagerfanta->getCurrentPageResults();
 
-        $subjects = [];
-        $subjectResults = $adapter->getResultSet()->getResults();
+        $roles = $subjects = $journals = [];
 
-        foreach ($subjectResults as $result)
+
+        foreach ($adapter->getResultSet()->getResults() as $result)
+            foreach ($result->getSource()['userJournalRoles'] as $journalRole) {
+                $roles[] = $journalRole['role']['name'];
+                $journals[] = $journalRole['journal']['title'];
+            }
+
+        foreach ($adapter->getResultSet()->getResults() as $result)
             foreach($result->getSource()['subjects'] as $subject)
                 $subjects[] = $subject;
 
+
+        $roles = array_unique($roles);
         $subjects = array_unique($subjects);
+        $journals = array_unique($journals);
 
         $data = [
             'people' => $people,
             'roles' => $roles,
-            'journals' => $journals,
             'subjects' => $subjects,
+            'journals' => $journals,
             'pagerfanta' => $pagerfanta,
             'role_filters' => $roleFilters,
-            'journal_filters' => $journalFilters,
             'subject_filters' => $subjectFilters,
+            'journal_filters' => $journalFilters,
         ];
 
         return $this->render('OjsSiteBundle:People:index.html.twig', $data);
