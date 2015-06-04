@@ -1180,6 +1180,23 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     }
 
     /**
+     * @return Collection|UserJournalRole[]
+     */
+    public function getUserJournalRoles()
+    {
+        return $this->userJournalRoles;
+    }
+
+    /**
+     * @param Collection|UserJournalRole[] $userJournalRoles
+     */
+    public function setUserJournalRoles($userJournalRoles)
+    {
+        $this->userJournalRoles = $userJournalRoles;
+    }
+
+
+    /**
      * @param Journal $journal
      * @return UserJournalRole[]
      */

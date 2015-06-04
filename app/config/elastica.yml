@@ -15,6 +15,12 @@ fos_elastica:
                         tags: ~
                         subjects: {"index": "not_analyzed"}
                         avatar: ~
+                        userJournalRoles:
+                            type: object
+                            properties:
+                                journal: {type: object, properties: {id: ~, title: {"index": "not_analyzed"}}}
+                                role: {type: object, properties: {id: ~, name: {"index": "not_analyzed"}}}
+
                     persistence: 
                         driver: orm
                         model: Ojs\UserBundle\Entity\User
@@ -215,18 +221,6 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Ojs\JournalBundle\Entity\Author
-                        provider: ~
-                        listener: ~
-                        finder: ~
-                role:
-                    mappings:
-                        user: {type: object, properties: {id: ~, username: {"index": "not_analyzed"}, first_name: {"index": "not_analyzed"}, last_name: {"index": "not_analyzed"}}}
-                        journal: {type: object, properties: {id: ~, title: {"index": "not_analyzed"}}}
-                        role: {type: object, properties: {id: ~, name: {"index": "not_analyzed"}}}
-
-                    persistence:
-                        driver: orm
-                        model: Ojs\UserBundle\Entity\UserJournalRole
                         provider: ~
                         listener: ~
                         finder: ~
