@@ -13,7 +13,6 @@ use Ojs\UserBundle\Form\RoleType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Ojs\JournalBundle\Entity\Journal;
 
 class RoleController extends Controller
 {
@@ -22,7 +21,7 @@ class RoleController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Journal())) {
+        if(!$this->isGranted('VIEW', new Role())) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $source = new Entity('OjsUserBundle:Role');
@@ -52,7 +51,7 @@ class RoleController extends Controller
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new Journal())) {
+        if(!$this->isGranted('CREATE', new Role())) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $entity = new Role();
@@ -96,7 +95,7 @@ class RoleController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new Journal())) {
+        if(!$this->isGranted('CREATE', new Role())) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $entity = new Role();
@@ -116,11 +115,11 @@ class RoleController extends Controller
      */
     public function showAction($id)
     {
-        if(!$this->isGranted('VIEW', new Journal())) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
@@ -138,11 +137,11 @@ class RoleController extends Controller
      */
     public function editAction($id)
     {
-        if(!$this->isGranted('EDIT', new Journal())) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
@@ -182,12 +181,12 @@ class RoleController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        if(!$this->isGranted('EDIT', new Journal())) {
-            throw new AccessDeniedException("You not authorized for this page!");
-        }
         $em = $this->getDoctrine()->getManager();
         /** @var Role $entity */
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
@@ -214,7 +213,7 @@ class RoleController extends Controller
      */
     public function deleteAction(Request $request, Role $entity)
     {
-        if(!$this->isGranted('DELETE', new Journal())) {
+        if(!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
