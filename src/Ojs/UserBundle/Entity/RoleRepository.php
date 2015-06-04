@@ -3,6 +3,7 @@
 namespace Ojs\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * RoleRepository
@@ -25,5 +26,15 @@ class RoleRepository extends EntityRepository
             ->setParameter('ids', $ids);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllNames() {
+        $result = $this->createQueryBuilder('role')
+            ->select('role.name')->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+        return $result;
     }
 }

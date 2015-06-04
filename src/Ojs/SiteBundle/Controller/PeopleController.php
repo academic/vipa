@@ -3,6 +3,8 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Entity\SubjectRepository;
+use Ojs\UserBundle\Entity\RoleRepository;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta;
@@ -57,23 +59,9 @@ class PeopleController extends Controller
         $pagerfanta->setCurrentPage($page);
         $people = $pagerfanta->getCurrentPageResults();
 
-        $roles = $subjects = $journals = [];
-
-
-        foreach ($adapter->getResultSet()->getResults() as $result)
-            foreach ($result->getSource()['userJournalRoles'] as $journalRole) {
-                $roles[] = $journalRole['role']['name'];
-                $journals[] = $journalRole['journal']['title'];
-            }
-
-        foreach ($adapter->getResultSet()->getResults() as $result)
-            foreach($result->getSource()['subjects'] as $subject)
-                $subjects[] = $subject;
-
-
-        $roles = array_unique($roles);
-        $subjects = array_unique($subjects);
-        $journals = array_unique($journals);
+        $roles = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->getAllNames();
+        $subjects = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject')->getAllSubjects();
+        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->getAllTitles();
 
         $data = [
             'people' => $people,
