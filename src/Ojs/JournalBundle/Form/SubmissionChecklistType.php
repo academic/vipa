@@ -2,7 +2,6 @@
 
 namespace Ojs\JournalBundle\Form;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,30 +12,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class SubmissionChecklistType extends AbstractType
 {
-
-    private $container;
-
-    public function __construct(ContainerInterface $serviceContainer)
-    {
-        $this->container = $serviceContainer;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $languages = $this->container->getParameter('languages');
-        $langs = [];
-        foreach ($languages as $key => $lang) {
-            $langs[$lang['code']] = $lang['name'];
-        }
         $builder
             ->add('label', 'text', ['label' => 'submission_checklist.label'])
             ->add('detail', 'textarea', ['label' => 'submission_checklist.detail'])
             ->add('locale', 'choice', [
-                'choices' => $langs,
+                'choices' => $options['languages'],
             ])
             ->add('visible', 'checkbox', ['label' => 'submission_checklist.visible']);
     }
@@ -48,6 +34,10 @@ class SubmissionChecklistType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\SubmissionChecklist',
+            'languages' => array(
+                array('tr' => 'Türkçe'),
+                array('en' => 'English')
+            ),
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

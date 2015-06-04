@@ -109,7 +109,7 @@ class JournalType extends AbstractType
                         'class' => ' form-control input-xxl',
                         'data-role' =>  'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags'
+                        'data-list' => $options['tagEndPoint']
                     ]
                 )
             )
@@ -135,6 +135,7 @@ class JournalType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Journal',
+            'tagEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate',
                 'class' => 'validate-form',

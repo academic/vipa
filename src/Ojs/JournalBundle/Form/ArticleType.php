@@ -155,7 +155,7 @@ class ArticleType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\Article',
-            'journal' => 0,
+            'journal' => array('all' => false, 'selected' => 0),
             'user' => null,
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',

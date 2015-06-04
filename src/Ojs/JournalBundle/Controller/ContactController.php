@@ -82,8 +82,9 @@ class ContactController extends Controller
      */
     private function createCreateForm(Contact $entity)
     {
-        $form = $this->createForm(new ContactType($this->container), $entity, array(
+        $form = $this->createForm(new ContactType(), $entity, array(
             'action' => $this->generateUrl('contact_create'),
+            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -155,8 +156,9 @@ class ContactController extends Controller
      */
     private function createEditForm(Contact $entity)
     {
-        $form = $this->createForm(new ContactType($this->container), $entity, array(
+        $form = $this->createForm(new ContactType(), $entity, array(
             'action' => $this->generateUrl('contact_update', array('id' => $entity->getId())),
+            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
             'method' => 'PUT',
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));

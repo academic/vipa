@@ -74,7 +74,7 @@ class IssueType extends AbstractType
                         'class' => ' form-control input-xxl',
                         'data-role' =>  'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags'
+                        'data-list' => $options['tagEndPoint']
                     ]
                 )
             )
@@ -93,6 +93,7 @@ class IssueType extends AbstractType
             'data_class' => 'Ojs\JournalBundle\Entity\Issue',
             'user' => null,
             'journal' => null,
+            'tagEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

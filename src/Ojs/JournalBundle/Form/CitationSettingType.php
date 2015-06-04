@@ -20,8 +20,8 @@ class CitationSettingType extends AbstractType
                 'attr' => [
                     'class' => 'autocomplete',
                     'style' => 'width:100%',
-                    'data-list' => '/api/public/search/citation',
-                    'data-get' => "/api/public/citation/get/",
+                    'data-list' => $options['citationsEndPoint'],
+                    'data-get' => $options['citationEndPoint'],
                     "placeholder" => "type a citation",
                 ],
             ])
@@ -37,6 +37,8 @@ class CitationSettingType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Ojs\JournalBundle\Entity\CitationSetting',
+            'citationsEndPoint' => '/',
+            'citationEndPoint' => '/',
             'attr' => [
                 'novalidate' => 'novalidate', 'class' => 'form-validate',
             ],

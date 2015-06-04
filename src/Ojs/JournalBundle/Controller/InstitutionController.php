@@ -90,9 +90,12 @@ class InstitutionController extends Controller
      */
     private function createCreateForm(Institution $entity)
     {
-        $form = $this->createForm(new InstitutionType($this->container), $entity, array(
+        $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_create'),
             'method' => 'POST',
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
+            'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
+            'institutionEndPoint' => $this->generateUrl('api_get_institution'),
             'helper' => $this->get('okulbilisim_location.form.helper'),
         ));
 
@@ -163,9 +166,12 @@ class InstitutionController extends Controller
      */
     private function createEditForm(Institution $entity)
     {
-        $form = $this->createForm(new InstitutionType($this->container), $entity, array(
+        $form = $this->createForm(new InstitutionType(), $entity, array(
             'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
             'method' => 'POST',
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
+            'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
+            'institutionEndPoint' => $this->generateUrl('api_get_institution'),
             'helper' => $this->get('okulbilisim_location.form.helper'),
         ));
 

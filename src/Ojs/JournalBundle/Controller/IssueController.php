@@ -5,6 +5,7 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -116,6 +117,7 @@ class IssueController extends Controller
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_create'),
             'method' => 'POST',
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'user' => $user,
         ));
 
@@ -193,6 +195,7 @@ class IssueController extends Controller
         $form = $this->createForm(new IssueType(), $entity, array(
             'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
             'method' => 'POST',
+            'tagEndPoint' => $this->generateUrl('api_get_tags'),
             'user' => $user,
         ));
 
@@ -357,8 +360,8 @@ class IssueController extends Controller
         }
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getmanager();
+        /** @var Article $article */
         $article = $doctrine->getRepository('OjsJournalBundle:Article')->find($articleId);
-        /* @var $article Article */
         $this->throw404IfNotFound($article);
         // TODO : missing position getter setter
         $currentPosition = $article->getPosition();

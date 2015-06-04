@@ -7,7 +7,6 @@ use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Ojs\UserBundle\Entity\User;
 
 class BoardType extends AbstractType
 {
@@ -26,7 +25,6 @@ class BoardType extends AbstractType
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($journal) {
-                /** @var User $user $qb */
                 $qb = $er->createQueryBuilder('j');
                 if ($journal) {
                     $qb->where(
@@ -49,7 +47,6 @@ class BoardType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'user' => null,
             'journal' => null,
             'data_class' => 'Ojs\JournalBundle\Entity\Board',
         ));

@@ -95,8 +95,17 @@ class SubmissionChecklistController extends Controller
      */
     private function createCreateForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new SubmissionChecklistType($this->container), $entity, array(
+        $languages = [];
+        if(is_array($this->container->getParameter('languages'))) {
+            foreach ($this->container->getParameter('languages') as $key => $language) {
+                if(array_key_exists('code', $language)) {
+                    $languages[$language['code']] = $language['name'];
+                }
+            }
+        }
+        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
             'action' => $this->generateUrl('manager_submission_checklist_create'),
+            'languages' => $languages,
             'method' => 'POST',
         ));
 
@@ -170,8 +179,18 @@ class SubmissionChecklistController extends Controller
      */
     private function createEditForm(SubmissionChecklist $entity)
     {
-        $form = $this->createForm(new SubmissionChecklistType($this->container), $entity, array(
+        $languages = [];
+        if(is_array($this->container->getParameter('languages'))) {
+            foreach ($this->container->getParameter('languages') as $key => $language) {
+                if(array_key_exists('code', $language)) {
+                    $languages[$language['code']] = $language['name'];
+                }
+            }
+        }
+
+        $form = $this->createForm(new SubmissionChecklistType(), $entity, array(
             'action' => $this->generateUrl('manager_submission_checklist_update', array('id' => $entity->getId())),
+            'languages' => $languages,
             'method' => 'PUT',
         ));
 
