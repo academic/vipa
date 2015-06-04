@@ -27,14 +27,14 @@ class ArticleType extends AbstractType
                     'class' => 'Ojs\JournalBundle\Entity\Issue',
                     'required' => false,
                     'attr' => array('class' => ' form-control select2-element'),
-                    'query_builder' => function (EntityRepository $er) use ($journal, $user) {
+                    'query_builder' => function (EntityRepository $er) use ($journal) {
                         $qb = $er->createQueryBuilder('i');
-                        if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                        if ($journal['all']) {
                             return $qb;
                         }
                         $qb->where(
-                                $qb->expr()->eq('i.journalId', ':journal')
-                        )->setParameter('journal', $journal);
+                                $qb->expr()->eq('i.journal', ':journal')
+                        )->setParameter('journal', $journal['selected']);
 
                         return $qb;
                     },
@@ -63,7 +63,7 @@ class ArticleType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($journal, $user) {
                         $qb = $er->createQueryBuilder('j');
 
-                        if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+                        if ($journal['all']) {
                             return $qb;
                         }
 
