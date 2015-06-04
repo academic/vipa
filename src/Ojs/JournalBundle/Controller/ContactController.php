@@ -26,7 +26,7 @@ class ContactController extends Controller
     public function indexAction()
     {
         if(!$this->isGranted('VIEW', new Contact())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:Contact');
         $grid = $this->get('grid')->setSource($source);
@@ -53,7 +53,7 @@ class ContactController extends Controller
     public function createAction(Request $request)
     {
         if(!$this->isGranted('CREATE', new Contact())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Contact();
         $form = $this->createCreateForm($entity);
@@ -98,7 +98,7 @@ class ContactController extends Controller
     public function newAction()
     {
         if(!$this->isGranted('CREATE', new Contact())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Contact();
         $form = $this->createCreateForm($entity);
@@ -118,7 +118,7 @@ class ContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         if(!$this->isGranted('VIEW', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 
@@ -135,7 +135,7 @@ class ContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -173,7 +173,7 @@ class ContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -203,7 +203,7 @@ class ContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         if(!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 

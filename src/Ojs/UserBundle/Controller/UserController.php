@@ -39,7 +39,7 @@ class UserController extends Controller
     public function indexAction()
     {
         if(!$this->isGranted('VIEW', new User())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:User')->findAll();
@@ -70,7 +70,7 @@ class UserController extends Controller
     public function createAction(Request $request)
     {
         if(!$this->isGranted('CREATE', new User())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
         $form = $this->createCreateForm($entity);
@@ -123,7 +123,7 @@ class UserController extends Controller
     public function newAction()
     {
         if(!$this->isGranted('CREATE', new User())) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
         $form = $this->createCreateForm($entity);
@@ -145,7 +145,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if(!$this->isGranted('CREATE', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
@@ -196,7 +196,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
@@ -234,7 +234,7 @@ class UserController extends Controller
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $oldPassword = $entity->getPassword();
         if (!$entity) {
@@ -286,7 +286,7 @@ class UserController extends Controller
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if(!$this->isGranted('DELETE', $entity)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$entity) {
             throw $this->createNotFoundException($this->get('translator')->trans('notFound'));
@@ -316,7 +316,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
         if(!$this->isGranted('EDIT', $user)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
@@ -339,7 +339,7 @@ class UserController extends Controller
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
         if(!$this->isGranted('EDIT', $user)) {
-            throw new AccessDeniedException("You not authorized for this page!");
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$user) {
             throw new NotFoundResourceException("User not found.");
