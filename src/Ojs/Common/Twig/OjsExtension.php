@@ -25,6 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Util\ClassUtils;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class OjsExtension extends \Twig_Extension
@@ -390,11 +391,7 @@ class OjsExtension extends \Twig_Extension
      */
     public function getTagDefinition($object)
     {
-        /**
-         * find real class beside proxy class
-         * for regex visit: http://www.developwebsites.net/match-backslash-preg_match-php/
-         */
-        $objectClass = preg_replace('/Proxies\\\\__CG__\\\\/', '', get_class($object));
+        $objectClass = ClassUtils::getRealClass($object);
         switch ($objectClass) {
             case 'Ojs\JournalBundle\Entity\Issue':
                 /** @var Issue $object */
