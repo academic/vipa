@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
@@ -41,5 +42,15 @@ class SubjectRepository extends NestedTreeRepository
             ->setParameter('data', $data);
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllSubjects() {
+        $result = $this->createQueryBuilder('subject')
+            ->select('subject.subject')->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+        return $result;
     }
 }

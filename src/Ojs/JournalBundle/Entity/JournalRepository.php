@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query;
 
 class JournalRepository extends EntityRepository
 {
@@ -394,5 +395,15 @@ class JournalRepository extends EntityRepository
             return $query[0];
         }
         return $query;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAllTitles() {
+        $result = $this->createQueryBuilder('journal')
+            ->select('journal.title')->getQuery()
+            ->getResult(Query::HYDRATE_ARRAY);
+        return $result;
     }
 }
