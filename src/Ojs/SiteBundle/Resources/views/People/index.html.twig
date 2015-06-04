@@ -25,15 +25,15 @@
                     {% for subject in subjects %}
                         <li class="list-group-item">
                             {% if subject_filters is empty %}
-                                {% set parameter = subject.subject %}
+                                {% set parameter = subject.key %}
                                 <a href="{{ path('people_index', {
-                                    subject_filters: subject.subject,
+                                    subject_filters: subject.key,
                                     role_filters: app.request.get('role_filters'),
-                                    journal_filters: app.request.get('journal_filters')}) }}">{{ subject.subject }}</a>
+                                    journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
                             {% else %}
-                                {% if subject.subject in subject_filters %}
-                                    {% set parameter = subject_filters|pop(subject.subject) %}
-                                    {{ subject.subject }}
+                                {% if subject.key in subject_filters %}
+                                    {% set parameter = subject_filters|pop(subject.key) %}
+                                    {{ subject.key }}
                                     <a href="{{ path('people_index', {
                                         subject_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
@@ -43,13 +43,14 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = subject_filters|merge([subject.subject]) %}
+                                    {% set parameter = subject_filters|merge([subject.key]) %}
                                     <a href="{{ path('people_index', {
                                         subject_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">{{ subject.subject }}</a>
+                                        journal_filters: app.request.get('journal_filters')}) }}">{{ subject.key }}</a>
                                 {% endif %}
                             {% endif %}
+                            <span class="badge">{{ subject.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -61,15 +62,15 @@
                     {% for journal in journals %}
                         <li class="list-group-item">
                             {% if journal_filters is empty %}
-                                {% set parameter = journal.title %}
+                                {% set parameter = journal.key %}
                                 <a href="{{ path('people_index', {
-                                    journal_filters: journal.title,
+                                    journal_filters: journal.key,
                                     role_filters: app.request.get('role_filters'),
-                                    subject_filters: app.request.get('subject_filters')}) }}">{{ journal.title }}</a>
+                                    subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
                             {% else %}
-                                {% if journal.title in journal_filters %}
-                                    {% set parameter = journal_filters|pop(journal.title) %}
-                                    {{ journal.title }}
+                                {% if journal.key in journal_filters %}
+                                    {% set parameter = journal_filters|pop(journal.key) %}
+                                    {{ journal.key }}
                                     <a href="{{ path('people_index', {
                                         journal_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
@@ -79,13 +80,14 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = journal_filters|merge([journal.title]) %}
+                                    {% set parameter = journal_filters|merge([journal.key]) %}
                                     <a href="{{ path('people_index', {
                                         journal_filters: parameter|join(','),
                                         role_filters: app.request.get('role_filters'),
-                                        subject_filters: app.request.get('subject_filters')}) }}">{{ journal.title }}</a>
+                                        subject_filters: app.request.get('subject_filters')}) }}">{{ journal.key }}</a>
                                 {% endif %}
                             {% endif %}
+                            <span class="badge">{{ journal.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -97,15 +99,15 @@
                     {% for role in roles %}
                         <li class="list-group-item">
                             {% if role_filters is empty %}
-                                {% set parameter = role.name %}
+                                {% set parameter = role.key %}
                                 <a href="{{ path('people_index', {
-                                    role_filters: role.name,
+                                    role_filters: role.key,
                                     subject_filters: app.request.get('subject_filters'),
-                                    journal_filters: app.request.get('journal_filters') }) }}">{{ role.name|trans }}</a>
+                                    journal_filters: app.request.get('journal_filters') }) }}">{{ role.key|trans }}</a>
                             {% else %}
-                                {% if role.name in role_filters %}
-                                    {% set parameter = role_filters|pop(role.name) %}
-                                    {{ role.name|trans }}
+                                {% if role.key in role_filters %}
+                                    {% set parameter = role_filters|pop(role.key) %}
+                                    {{ role.key|trans }}
                                     <a href="{{ path('people_index', {
                                         role_filters: parameter|join(','),
                                         subject_filters: app.request.get('subject_filters'),
@@ -115,13 +117,14 @@
                                         </span>
                                     </a>
                                 {% else %}
-                                    {% set parameter = role_filters|merge([role.name]) %}
+                                    {% set parameter = role_filters|merge([role.key]) %}
                                     <a href="{{ path('people_index', {
                                         role_filters: parameter|join(','),
                                         subject_filters: app.request.get('subject_filters'),
-                                        journal_filters: app.request.get('journal_filters')}) }}">{{ role.name|trans }}</a>
+                                        journal_filters: app.request.get('journal_filters')}) }}">{{ role.key|trans }}</a>
                                 {% endif %}
                             {% endif %}
+                            <span class="badge">{{ role.doc_count }}</span>
                         </li>
                     {% endfor %}
                 </ul>

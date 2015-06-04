@@ -3,12 +3,11 @@
 namespace Ojs\SiteBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\SubjectRepository;
-use Ojs\UserBundle\Entity\RoleRepository;
 use Pagerfanta\Adapter\ElasticaAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta;
 use Elastica\Query;
+use Elastica\Aggregation;
 
 class PeopleController extends Controller
 {
@@ -53,15 +52,33 @@ class PeopleController extends Controller
             $userQuery->setQuery($boolQuery);
         }
 
+        $roleAgg = new Aggregation\Terms('roles');
+        $roleAgg->setField('userJournalRoles.role.name');
+        $roleAgg->setOrder('_term', 'asc');
+        $roleAgg->setSize(0);
+        $userQuery->addAggregation($roleAgg);
+
+        $subjectAgg = new Aggregation\Terms('subjects');
+        $subjectAgg->setField('subjects');
+        $subjectAgg->setOrder('_term', 'asc');
+        $subjectAgg->setSize(0);
+        $userQuery->addAggregation($subjectAgg);
+
+        $journalAgg = new Aggregation\Terms('journals');
+        $journalAgg->setField('userJournalRoles.journal.title');
+        $journalAgg->setOrder('_term', 'asc');
+        $journalAgg->setSize(0);
+        $userQuery->addAggregation($journalAgg);
+
         $adapter = new ElasticaAdapter($userSearcher, $userQuery);
         $pagerfanta = new Pagerfanta($adapter);
         $pagerfanta->setMaxPerPage(20);
         $pagerfanta->setCurrentPage($page);
         $people = $pagerfanta->getCurrentPageResults();
 
-        $roles = $this->getDoctrine()->getRepository('OjsUserBundle:Role')->getAllNames();
-        $subjects = $this->getDoctrine()->getRepository('OjsJournalBundle:Subject')->getAllSubjects();
-        $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->getAllTitles();
+        $roles = $adapter->getResultSet()->getAggregation('roles')['buckets'];
+        $subjects = $adapter->getResultSet()->getAggregation('subjects')['buckets'];
+        $journals = $adapter->getResultSet()->getAggregation('journals')['buckets'];
 
         $data = [
             'people' => $people,
