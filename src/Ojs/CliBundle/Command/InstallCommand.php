@@ -397,17 +397,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit($viewEdit)->save();
         }
 
-        /** @var User[] $users */
-        $users = $em->getRepository('OjsUserBundle:User')->findAll();
-        foreach ($users as $user) {
-            $output->writeln($sb.'User fix for : '.$user->getUsername().$se);
-
-            $aclManager->on($user)->to('ROLE_ADMIN')->permit($viewEditDelete)->save();
-        }
-
         // Every JOURNAL MANAGER and EDITOR must be AUTHOR
-
-
+        
         $authorRole = $em->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
 
         $userJournalRoles = $em->getRepository('OjsUserBundle:UserJournalRole')->findAllByJournalRole(array('ROLE_JOURNAL_MANAGER', 'ROLE_EDITOR'));
