@@ -11,6 +11,7 @@ use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\JournalBundle\Entity\File;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,14 +35,16 @@ class ArticleFileController extends Controller
      */
     public function indexAction(Article $article)
     {
-
+        if(!$this->isGranted('VIEW', $article->getJournal(), 'articles') && !$this->isGranted('VIEW', $article)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:ArticleFile');
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(function(QueryBuilder $qb)use($article,$tableAlias){
             return $qb->where(
-                $qb->expr()->eq("$tableAlias.articleId",':id')
+                $qb->expr()->eq("$tableAlias.article",':article')
             )
-                ->setParameter('id',$article->getId())
+                ->setParameter('id',$article)
                 ;
         });
         $grid = $this->get('grid')->setSource($source);
@@ -70,6 +73,9 @@ class ArticleFileController extends Controller
      */
     public function createAction(Request $request, Article $article)
     {
+        if(!$this->isGranted('EDIT', $article->getJournal(), 'articles') && !$this->isGranted('EDIT', $article)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $entity = new ArticleFile();
         $form = $this->createCreateForm($entity, $article);
         $form->handleRequest($request);
@@ -135,6 +141,9 @@ class ArticleFileController extends Controller
      */
     public function newAction(Article $article)
     {
+        if(!$this->isGranted('EDIT', $article->getJournal(), 'articles') && !$this->isGranted('EDIT', $article)) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $entity = new ArticleFile();
         $entity->setArticle($article);
         $form   = $this->createCreateForm($entity, $article->getId());
@@ -162,6 +171,9 @@ class ArticleFileController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+        if(!$this->isGranted('VIEW', $entity->getArticle()->getJournal(), 'articles') && !$this->isGranted('VIEW', $entity->getArticle())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
 
         $type = ArticleFileParams::fileType($entity->getType());
 
@@ -185,6 +197,9 @@ class ArticleFileController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
+        }
+        if(!$this->isGranted('EDIT', $entity->getArticle()->getJournal(), 'articles') && !$this->isGranted('EDIT', $entity->getArticle())) {
+            throw new AccessDeniedException("You not authorized for this page!");
         }
 
         $editForm = $this->createEditForm($entity);
@@ -229,6 +244,9 @@ class ArticleFileController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
+        if(!$this->isGranted('EDIT', $entity->getArticle()->getJournal(), 'articles') && !$this->isGranted('EDIT', $entity->getArticle())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
 
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -259,7 +277,9 @@ class ArticleFileController extends Controller
 
     /**
      * Deletes a ArticleFile entity.
-     * @param  ArticleFile      $entity
+     *
+     * @param Request $request
+     * @param ArticleFile $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, ArticleFile $entity)
@@ -268,8 +288,12 @@ class ArticleFileController extends Controller
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('articlefile'.$entity->getId());
-        if($token!=$request->get('_token'))
+        if($token!=$request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
+        if(!$this->isGranted('EDIT', $entity->getArticle()->getJournal(), 'articles') && !$this->isGranted('EDIT', $entity->getArticle())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
 
         $em->remove($entity);
         $em->flush();
