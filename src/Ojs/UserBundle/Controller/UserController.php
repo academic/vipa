@@ -142,7 +142,7 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
-        if(!$this->isGranted('CREATE', $entity)) {
+        if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$entity) {
