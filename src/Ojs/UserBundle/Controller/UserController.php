@@ -22,6 +22,8 @@ use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Yaml;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 /**
  * User controller.
  *
@@ -36,6 +38,9 @@ class UserController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('OjsUserBundle:User')->findAll();
         $source = new Entity("OjsUserBundle:User");
@@ -64,6 +69,9 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -114,6 +122,9 @@ class UserController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $entity = new User();
         $form = $this->createCreateForm($entity);
 
@@ -131,6 +142,9 @@ class UserController extends Controller
      */
     public function showAction($id)
     {
+        if(!$this->isGranted('CREATE', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -179,6 +193,9 @@ class UserController extends Controller
      */
     public function editAction($id)
     {
+        if(!$this->isGranted('EDIT', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         if (!$entity) {
@@ -213,6 +230,9 @@ class UserController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        if(!$this->isGranted('EDIT', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
@@ -262,6 +282,9 @@ class UserController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        if(!$this->isGranted('DELETE', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
@@ -289,6 +312,9 @@ class UserController extends Controller
      */
     public function blockAction($id)
     {
+        if(!$this->isGranted('EDIT', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
@@ -309,6 +335,9 @@ class UserController extends Controller
      */
     public function unblockAction($id)
     {
+        if(!$this->isGranted('EDIT', new Journal())) {
+            throw new AccessDeniedException("You not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
