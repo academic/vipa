@@ -256,7 +256,7 @@ class InstallCommand extends ContainerAwareCommand
         $journalClass = $em->getRepository('OjsJournalBundle:Journal')->getClassName();
         $userClass = $em->getRepository('OjsUserBundle:User')->getClassName();
         $institutionClass = $em->getRepository('OjsJournalBundle:Institution')->getClassName();
-        $roleClass = $em->getRepository('OjsUserBundle:User')->getClassName();
+        $roleClass = $em->getRepository('OjsUserBundle:Role')->getClassName();
         $contactClass = $em->getRepository('OjsJournalBundle:Contact')->getClassName();
         $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('adminMenu')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
