@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Form\FileType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * File controller.
@@ -25,6 +26,9 @@ class FileController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new File())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:File');
         $grid = $this->get('grid')->setSource($source);
 
@@ -50,6 +54,9 @@ class FileController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new File())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $file = new File();
         $form = $this->createCreateForm($file);
@@ -95,6 +102,9 @@ class FileController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new File())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $form = $this->createCreateForm(new File());
 
         return $this->render('OjsJournalBundle:File:new.html.twig', array(
@@ -113,11 +123,10 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $this->throw404IfNotFound($entity);
         return $this->render('OjsJournalBundle:File:show.html.twig', array(
             'entity' => $entity));
     }
@@ -131,13 +140,11 @@ class FileController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:File:edit.html.twig', array(
@@ -175,12 +182,11 @@ class FileController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $em->persist($entity);
@@ -200,10 +206,10 @@ class FileController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $this->throw404IfNotFound($entity);
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('admin_file' . $id);
         if ($token != $request->get('_token')) {
