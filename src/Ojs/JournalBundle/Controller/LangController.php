@@ -201,7 +201,6 @@ class LangController extends Controller
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
-        $this->throw404IfNotFound($entity);
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('lang'.$entity->getId());
         if($token!=$request->get('_token'))
