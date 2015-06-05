@@ -62,9 +62,7 @@ class UpdateUserType extends AbstractType
             'data_class' => 'Ojs\UserBundle\Entity\User',
             'attr' => [
                 'class' => 'validate-form',
-                'attr' => [
-                    'novalidate' => 'novalidate',
-                ],
+                'novalidate' => 'novalidate',
             ],
         ));
     }
