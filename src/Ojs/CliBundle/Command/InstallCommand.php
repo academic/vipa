@@ -255,6 +255,7 @@ class InstallCommand extends ContainerAwareCommand
 
         $journalClass = $em->getRepository('OjsJournalBundle:Journal')->getClassName();
         $userClass = $em->getRepository('OjsUserBundle:User')->getClassName();
+        $institutionClass = $em->getRepository('OjsJournalBundle:Institution')->getClassName();
         $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('adminMenu')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('boards')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -262,6 +263,7 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('issues')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('articles')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
     }
 
     protected function fixAcls(OutputInterface $output)
@@ -368,6 +370,7 @@ class InstallCommand extends ContainerAwareCommand
         }
         /** @var Article[] $articles */
         $articles = $em->getRepository('OjsJournalBundle:Article')->findAll();
+        $articles = [];
         foreach ($articles as $article) {
             $output->writeln($sb.'Article fix for : '.$article->getTitle().$se);
             $journal = $article->getJournal();
