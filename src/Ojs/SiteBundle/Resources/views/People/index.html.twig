@@ -134,7 +134,7 @@
 
     <div class="col-sm-9">
     {% for person in people %}
-        <div class="well col-sm-3">
+        <div class="well col-sm-3" style="height: 20em; margin: 0 0 10px 10px;">
             <div class="text-center">
                 <a href="/@{{ person.username }}" class="thumbnail">
                     <img class="img-circle"
@@ -153,14 +153,6 @@
                     {% endif %}
                     </a>
                 </h3>
-            </div>
-
-            <div>
-                <h4>
-                    {% for subject in person.subjects %}
-                        <span class="label label-primary">{{ subject|trans }}</span>
-                    {% endfor %}
-                </h4>
             </div>
         </div>
     {% endfor %}
