@@ -256,6 +256,8 @@ class InstallCommand extends ContainerAwareCommand
         $journalClass = $em->getRepository('OjsJournalBundle:Journal')->getClassName();
         $userClass = $em->getRepository('OjsUserBundle:User')->getClassName();
         $institutionClass = $em->getRepository('OjsJournalBundle:Institution')->getClassName();
+        $roleClass = $em->getRepository('OjsUserBundle:User')->getClassName();
+        $contactClass = $em->getRepository('OjsJournalBundle:Contact')->getClassName();
         $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('adminMenu')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('boards')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -264,6 +266,8 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('articles')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($roleClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($contactClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
     }
 
     protected function fixAcls(OutputInterface $output)
