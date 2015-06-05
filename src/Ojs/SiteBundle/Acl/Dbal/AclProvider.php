@@ -93,7 +93,18 @@ class AclProvider implements AclProviderInterface
      */
     public function findAcl(ObjectIdentityInterface $oid, array $sids = array())
     {
-        return $this->findAcls(array($oid), $sids)->offsetGet($oid);
+        try {
+            $acl = $this->findAcls(array($oid), $sids)->offsetGet($oid);
+        }
+        catch(AclNotFoundException $e) {
+            if($oid->getIdentifier() === 'CLASS') {
+                throw $e;
+            }
+            $new = new ObjectIdentity('CLASS', $oid->getType());
+            $acl = $this->findAcls(array($new), $sids)->offsetGet($new);
+        }
+
+        return $acl;
     }
 
     /**
