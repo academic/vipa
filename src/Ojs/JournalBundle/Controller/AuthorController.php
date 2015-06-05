@@ -11,6 +11,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Form\AuthorType;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Author controller.
@@ -24,6 +25,9 @@ class AuthorController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Author())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:Author');
         $grid = $this->get('grid')->setSource($source);
 
@@ -47,6 +51,9 @@ class AuthorController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Author())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Author();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -89,6 +96,9 @@ class AuthorController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Author())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Author();
         $form = $this->createCreateForm($entity);
 
@@ -106,6 +116,9 @@ class AuthorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Author:show.html.twig', array(
@@ -120,6 +133,9 @@ class AuthorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -155,6 +171,9 @@ class AuthorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -181,6 +200,9 @@ class AuthorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
