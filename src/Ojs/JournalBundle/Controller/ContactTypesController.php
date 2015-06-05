@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\ContactTypes;
 use Ojs\JournalBundle\Form\ContactTypesType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * ContactTypes controller.
@@ -27,6 +28,9 @@ class ContactTypesController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new ContactTypes())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:ContactTypes');
         $grid = $this->get('grid')->setSource($source);
 
@@ -52,6 +56,9 @@ class ContactTypesController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new ContactTypes())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -95,6 +102,9 @@ class ContactTypesController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new ContactTypes())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new ContactTypes();
         $form = $this->createCreateForm($entity);
 
@@ -114,6 +124,9 @@ class ContactTypesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:ContactTypes:show.html.twig', array(
@@ -129,8 +142,10 @@ class ContactTypesController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var ContactTypes $entity */
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
@@ -169,6 +184,9 @@ class ContactTypesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -196,6 +214,9 @@ class ContactTypesController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:ContactTypes')->find($id);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
