@@ -13,6 +13,10 @@ Ojs\UserBundle\Entity\User:
             - NotBlank: ~
             - Email: ~
 Ojs\UserBundle\Entity\UserJournalRole:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [role, user, journal]
+            message: "User Journal Role already registered!"
     properties:
         user:
             - NotBlank: ~
