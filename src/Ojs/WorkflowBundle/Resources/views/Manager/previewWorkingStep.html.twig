@@ -84,7 +84,7 @@
     </div>
     <hr/>
 
-    {% if  isJournalManager() == true or step.canSeeAuthor %}
+    {% if  is_granted('VIEW', selectedJournal()) or step.canSeeAuthor %}
         <h2>{{ 'Authors'|trans }}</h2>
 
         <table class="table">

@@ -30,6 +30,10 @@ class JournalContactController extends Controller
      */
     public function indexAction($journal = null)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('VIEW', $journal, 'contact')) {
+            throw new AccessDeniedException("You are not authorized for view this journal's sections!");
+        }
         $source = new Entity('OjsJournalBundle:JournalContact');
         if ($journal) {
             $tableAlias = $source->getTableAlias();
@@ -85,6 +89,9 @@ class JournalContactController extends Controller
     {
         $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $entity = new JournalContact();
+        if (!$this->isGranted('CREATE', $entity)) {
+            throw new AccessDeniedException("You not authorized for create a journal control!");
+        }
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -147,6 +154,9 @@ class JournalContactController extends Controller
         $options['user'] = $this->getUser();
         $options['journal'] = $journal ?: null;
         $entity = new JournalContact();
+        if (!$this->isGranted('CREATE', $entity)) {
+            throw new AccessDeniedException("You not authorized for create a journal contact!");
+        }
         $form = $this->createCreateForm($entity, $options);
 
         return $this->render('OjsJournalBundle:JournalContact:new.html.twig', array(
@@ -164,7 +174,9 @@ class JournalContactController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
-
+        if (!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You not authorized for view a journal contact!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
@@ -185,6 +197,9 @@ class JournalContactController extends Controller
         /** @var JournalContact $entity */
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You not authorized for edit a journal contact!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
@@ -231,6 +246,9 @@ class JournalContactController extends Controller
 
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
 
+        if (!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You not authorized for edit a journal contact!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
@@ -265,6 +283,10 @@ class JournalContactController extends Controller
         $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:JournalContact')->find($id);
+
+        if (!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You not authorized for delete a journal contact!");
+        }
 
         if (!$entity) {
             throw $this->createNotFoundException('notFound');

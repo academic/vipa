@@ -2,30 +2,33 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
-        {'link': path('ojs_review_form_items',{'formId':form.id}),'title': form.title }
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('ojs_review_forms'), 'title': 'review.forms'|trans},
+    {'link': path('ojs_review_form_items',{'formId':form.id}),'title': form.title }
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ 'form.items'|trans }}<small>{{form.title}}</small> </h1>
+    <h1>{{ 'form.items'|trans }}
+        <small>{{ form.title }}</small>
+    </h1>
     {% include '::flashbag.html.twig' %}
     <hr>
     <div class='list-group'>
         {% for entity in formItems %}
             <div class="list-group-item list-group-item-info">
-                <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}">{{entity.title}} <span class="badge">{{entity.fieldset}}</span></a>
+                <a href="{{ path('ojs_review_form_items_show',{'id':entity.id}) }}">{{ entity.title }} <span
+                            class="badge">{{ entity.fieldset }}</span></a>
                 <span class='pull-right'>
                     <span class="btn-group">
-                        <a href="{{path('ojs_review_form_items_show',{'id':entity.id})}}"
-                           class="btn btn-info btn-xs"><i class="fa fa-info-circle"> {{"details"|trans}}</i>
+                        <a href="{{ path('ojs_review_form_items_show',{'id':entity.id}) }}"
+                           class="btn btn-info btn-xs"><i class="fa fa-info-circle"> {{ "details"|trans }}</i>
                         </a>
-                        <a href="{{path('ojs_review_form_items_edit',{'id':entity.id})}}"
+                        <a href="{{ path('ojs_review_form_items_edit',{'id':entity.id}) }}"
                            class="btn btn-warning btn-xs"><i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{path('ojs_review_form_items_delete',{'id':entity.id})}}"
+                        <a href="{{ path('ojs_review_form_items_delete',{'id':entity.id}) }}"
                            class="btn btn-danger btn-xs"><i class="fa fa-trash"></i>
                         </a>
                     </span>
@@ -34,16 +37,20 @@
         {% endfor %}
     </div>
 
-    {% if isJournalManager() %}
-        <a href="{{path('ojs_review_form_items_new',{'formId':form.id})}}" class="btn btn-success">
-            <i class="fa fa-plus"></i> {{"create"|trans}}
+    {% if is_granted('CREATE', selectedJournal()) %}
+        <a href="{{ path('ojs_review_form_items_new',{'formId':form.id}) }}" class="btn btn-success">
+            <i class="fa fa-plus"></i> {{ "create"|trans }}
         </a>
-        <a href="{{path('ojs_review_forms_preview',{'id':form.id})}}" class="btn btn-info">
-            <i class="fa fa-eye"></i> {{"preview"|trans}}
+    {% endif %}
+    {% if is_granted('VIEW', selectedJournal()) %}
+        <a href="{{ path('ojs_review_forms_preview',{'id':form.id}) }}" class="btn btn-info">
+            <i class="fa fa-eye"></i> {{ "preview"|trans }}
         </a>
+    {% endif %}
+    {% if is_granted('DELETE', selectedJournal()) %}
         <a class="btn btn-default"
            onclick="return confirm('{{ 'All your form items for this form will be deleted and default items will be inserted. Are you sure?'|trans }}');"
-           href="{{path('ojs_review_form_load_default_items',{formId:form.id})}}"> {{"template.loadDefault"|trans}}</a>
+           href="{{ path('ojs_review_form_load_default_items',{formId:form.id}) }}"> {{ "template.loadDefault"|trans }}</a>
     {% endif %}
 
 {% endblock %}

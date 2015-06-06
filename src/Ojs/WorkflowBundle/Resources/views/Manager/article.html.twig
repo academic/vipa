@@ -28,7 +28,7 @@
     {% if articleStep.ownerUser %}
         <div class="alert alert-warning " id="article_workflow_someone_working">
             <i class="fa fa-cog"></i>
-            {% if isJournalManager() == true or step.isVisible %}
+            {% if is_granted('EDIT', selectedJournal()) == true or step.isVisible %}
                 <a
                         href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
                     {{ articleStep.ownerUser.username }}
@@ -103,7 +103,7 @@
 
         </div>
     {% endif %}
-    {% if (isJournalManager() or isEditor()) and articleStep.step.mustBeAssigned and articleStep.parentStep == false %}
+    {% if (is_granted('EDIT', selectedJournal())) and articleStep.step.mustBeAssigned and articleStep.parentStep == false %}
         <a href="{{ path('article_step_asssign',{'id':articleStep.id}) }}" class="btn btn-info">
             <i class="fa fa-plus-circle"></i> Assign more</a>
     {% endif %}
@@ -180,7 +180,7 @@
         </div>
         <hr/>
 
-        {% if  isJournalManager() == true or step.canSeeAuthor %}
+        {% if  is_granted('EDIT', selectedJournal()) == true or step.canSeeAuthor %}
             <h2>{{ 'Authors'|trans }}</h2>
 
             <table class="table">

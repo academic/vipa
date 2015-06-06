@@ -29,9 +29,9 @@
     {% endif %}
 
     <div class="record_actions">
-        {% if isSystemAdmin() %}
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
             {% set back_path = 'journalcontact' %}
-        {%elseif isJournalManager() %}
+        {% elsif is_granted('EDIT', selectedJournal()) %}
             {% set back_path = 'manager_journalcontact' %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
