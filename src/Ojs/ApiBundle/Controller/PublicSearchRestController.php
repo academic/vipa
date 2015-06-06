@@ -263,14 +263,12 @@ class PublicSearchRestController extends FOSRestController
     public function getJournalsAction(Request $request)
     {
         $q = $request->get('q');
+
         $search = $this->container->get('fos_elastica.index.search.journal');
+        $match = new Query\Match();
+        $match->setField('title', $q);
+        $results = $search->search($match);
 
-        $prefix = new Query\Prefix();
-        $prefix->setPrefix('title', strtolower($q));
-        $qe = new Query();
-        $qe->setQuery($prefix);
-
-        $results = $search->search($prefix);
         $data = [];
         foreach ($results as $result) {
             $data[] = [
