@@ -53,7 +53,7 @@
             </span>
 
             <span class="pull-right btn-group">
-                {% if isJournalManager() and (template.isSystemTemplate is defined) %}
+                {% if is_granted('EDIT') and (template.isSystemTemplate is defined) %}
                     {% if template.isSystemTemplate == false %}
                         <a class="btn btn-warning btn-xs" href="{{path('workflow_template_step_edit',{ 'stepId': entity.id })}}">
                             <i class="fa fa-pencil"></i>
@@ -69,10 +69,12 @@
         </div>
     {% endfor %}
     <hr>
+    {% if is_granted('EDIT', selectedJournal()) %}
     <a href="{{path('workflow_template_use',{'id':template.id})}}" class="btn btn-warning btn-lg pull-right"
        onclick="return confirm('{{ 'Your existing workflow design will be overwritten! Are you sure?'|trans }}');">
         <i class="fa fa-check"></i> {{"useThisTemplate"|trans}}
     </a>
+    {% endif %}
     {% if template.isSystemTemplate is defined %}
         {% if template.isSystemTemplate == false %}
             <a href="{{path('workflow_template_new_step',{'templateId':template.id})}}" class="btn btn-warning">

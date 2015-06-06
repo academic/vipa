@@ -35,7 +35,7 @@
         {% endfor %}
     </div>
 
-    {% if isJournalManager() %}
+    {% if is_granted('CREATE', selectedJournal()) %}
         <a href="{{path('ojs_review_forms_new')}}" class="btn btn-success">
             <i class="fa fa-plus"></i> {{"create"|trans}}
         </a>

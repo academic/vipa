@@ -59,7 +59,7 @@
                                     {% endif %}
                                     {{ daysDiff(articleStep.startedDate, articleStep.reviewDeadline) }}
                                 </h4>
-                                {% if  isJournalManager() == true or step.canSeeAuthor %}
+                                {% if  is_granted('EDIT', selectedJournal()) == true or step.canSeeAuthor %}
                                     <small>
                                         {% for articleAuthor in articles[0].articleAuthors %}
                                             {{ articleAuthor.author.firstName }} {{ articleAuthor.author.middleName }} {{ articleAuthor.author.lastName }}
@@ -89,7 +89,7 @@
                                     {% if  articleStep.ownerUser.username == app.user.username %}
                                         <a href="{{ path('article_step_preview',{"id":articleStep.id}) }}" class="btn btn-info">Resume Review</a>
                                     {%endif%}
-                                    {% if isJournalManager() or step.isVisible %}
+                                    {% if is_granted('EDIT', selectedJournal()) or step.isVisible %}
                                         <br>
                                         <a class="btn btn-link btn-xs"
                                            href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">

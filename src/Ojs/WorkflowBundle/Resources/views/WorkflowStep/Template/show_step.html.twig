@@ -111,7 +111,7 @@
             </table>
             <div class="btn-group">
                 <a class="btn btn-default" href="{{path('workflow_template_show', {id: step.template.id})}}">Back to Template</a>
-                {% if isJournalManager() and (step.template.isSystemTemplate is defined)%}
+                {% if is_granted('EDIT') and (step.template.isSystemTemplate is defined)%}
                     {% if step.template.isSystemTemplate == false %}
                         {% set userTemplate = 1 %}
                         <a class="btn btn-primary" href="{{path('workflow_template_new_step', {templateId: step.template.id})}}"> <i class="fa fa-plus"></i> {{"c"|trans}}</a>
