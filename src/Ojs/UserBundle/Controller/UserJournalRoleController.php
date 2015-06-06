@@ -317,18 +317,20 @@ class UserJournalRoleController extends Controller
 
     /**
      * Deletes a UserJournalRole entity.
-     * @param  UserJournalRole  $entity
-     * @return RedirectResponse
+     * @param   Request $request
+     * @param   UserJournalRole  $entity
+     * @return  RedirectResponse
      */
     public function deleteAction(Request $request, UserJournalRole $entity)
     {
         $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
 
-        $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('ujr'.$entity->getId());
-        if($token!=$request->get('_token'))
-            throw new TokenNotFoundException("Token Not Found!");
+        // TODO: Protect against CSRF
+        // $csrf = $this->get('security.csrf.token_manager');
+        // $token = $csrf->getToken('ujr'.$entity->getId());
+        // if($token!=$request->get('_token'))
+        //    throw new TokenNotFoundException("Token Not Found!");
 
         $em->remove($entity);
         $em->flush();

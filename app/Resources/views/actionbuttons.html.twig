@@ -31,11 +31,13 @@
             <i class="fa fa-anchor"></i>
         </a>
     {% endif %}
-    {% if(delete_path is defined) %}
-        <a class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-           href="{{ path(delete_path, { 'id': entity.id}) }}" title="{{"delete"|trans}}">
-            <i class="fa fa-trash-o"></i>
-        </a>
+    {% if delete_path is defined %}
+        <form action="{{ path(delete_path, { 'id': entity.id}) }}" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');">
+                <i class="fa fa-trash-o"></i>
+            </button>
+        </form>
     {% endif %}
     {% if invite_user_path is defined %}
         <a class="btn btn-danger btn-sm" href="{{ url(invite_user_path,{'id':entity.id,'object':entity|cmsobject}) }}">
