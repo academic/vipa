@@ -263,6 +263,7 @@ class InstallCommand extends ContainerAwareCommand
         $fileClass = $em->getRepository('OjsJournalBundle:File')->getClassName();
         $langClass = $em->getRepository('OjsJournalBundle:Lang')->getClassName();
         $mailLogClass = $em->getRepository('OjsUserBundle:MailLog')->getClassName();
+        $designClass = $em->getRepository('OjsJournalBundle:Design')->getClassName();
         $aclManager->on($journalClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('adminMenu')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('boards')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -278,6 +279,7 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($fileClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($langClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($mailLogClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($designClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
     }
 
     protected function fixAcls(OutputInterface $output)
