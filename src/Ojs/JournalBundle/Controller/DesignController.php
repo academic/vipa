@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Form\DesignType;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Design controller.
@@ -23,6 +24,9 @@ class DesignController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:Design');
         $grid = $this->get('grid')->setSource($source);
 
@@ -43,10 +47,14 @@ class DesignController extends Controller
 
     /**
      * Creates a new Design entity.
-     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Design();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -89,6 +97,9 @@ class DesignController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Design();
         $form = $this->createCreateForm($entity);
 
@@ -100,14 +111,15 @@ class DesignController extends Controller
 
     /**
      * Finds and displays a Design entity.
-     *
+     * @param Design $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
+    public function showAction(Design $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
-
+        if(!$this->isGranted('VIEW', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         return $this->render('OjsJournalBundle:Design:show.html.twig', array(
                     'entity' => $entity,
             )
@@ -116,15 +128,16 @@ class DesignController extends Controller
 
     /**
      * Displays a form to edit an existing Design entity.
-     *
+     * @param Design $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($id)
+    public function editAction(Design $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -151,22 +164,25 @@ class DesignController extends Controller
 
     /**
      * Edits an existing Design entity.
-     *
+     * @param Request $request
+     * @param Design $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Design $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Design')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('design_edit', ['id' => $id]);
+            return $this->redirectToRoute('design_edit', ['id' => $entity->getId()]);
         }
-
         return $this->render('OjsJournalBundle:Design:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -182,8 +198,10 @@ class DesignController extends Controller
     public function deleteAction(Request $request, Design $entity)
     {
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', new Design())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $em = $this->getDoctrine()->getManager();
-
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('design'.$entity->getId());
         if($token!=$request->get('_token'))
