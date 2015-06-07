@@ -21,6 +21,7 @@ use Composer\Script\CommandEvent;
 use Ojs\JournalBundle\Entity\Theme;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Ojs\SiteBundle\Acl\AclChainManager;
 
 class InstallCommand extends ContainerAwareCommand
 {
@@ -251,6 +252,9 @@ class InstallCommand extends ContainerAwareCommand
     protected function insertAcls()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
+        /**
+         * @var AclChainManager $aclManager
+         */
         $aclManager = $this->getContainer()->get('problematic.acl_manager');
 
         $journalClass = $em->getRepository('OjsJournalBundle:Journal')->getClassName();
@@ -273,6 +277,7 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('articles')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('design')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('contacts')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($journalClass)->field('theme')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($roleClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
@@ -316,6 +321,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_JOURNAL_MANAGER'))
                 ->permit($viewEditDelete)->save();
 
@@ -332,6 +339,8 @@ class InstallCommand extends ContainerAwareCommand
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
+                ->permit(MaskBuilder::MASK_OWNER)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit(MaskBuilder::MASK_OWNER)->save();
             $aclManager->on($journal)->field('articles')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_EDITOR'))
                 ->permit($viewEditDelete)->save();
@@ -351,6 +360,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_PROOFREADER'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
@@ -363,6 +374,8 @@ class InstallCommand extends ContainerAwareCommand
             $aclManager->on($journal)->field('sections')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_COPYEDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
@@ -379,6 +392,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_LAYOUT_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
 
@@ -394,6 +409,8 @@ class InstallCommand extends ContainerAwareCommand
                 ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
                 ->permit(MaskBuilder::MASK_VIEW)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
+                ->permit(MaskBuilder::MASK_VIEW)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SECTION_EDITOR'))
                 ->permit($viewEdit)->save();
 
@@ -408,6 +425,8 @@ class InstallCommand extends ContainerAwareCommand
             $aclManager->on($journal)->field('contacts')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
                 ->permit($viewEdit)->save();
             $aclManager->on($journal)->field('design')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
+                ->permit($viewEdit)->save();
+            $aclManager->on($journal)->field('theme')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
                 ->permit($viewEdit)->save();
             $aclManager->on($journal)->field('issues')->to(new JournalRoleSecurityIdentity($journal, 'ROLE_SUBSCRIPTION_MANAGER'))
                 ->permit($viewEdit)->save();
