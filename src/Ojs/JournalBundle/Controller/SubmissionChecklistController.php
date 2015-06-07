@@ -12,6 +12,7 @@ use Ojs\JournalBundle\Entity\SubmissionChecklist;
 use Ojs\JournalBundle\Form\SubmissionChecklistType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * SubmissionChecklist controller.
@@ -26,7 +27,10 @@ class SubmissionChecklistController extends Controller
      */
     public function indexAction()
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('VIEW', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $source = new Entity('OjsJournalBundle:SubmissionChecklist');
         if ($journal) {
             $ta = $source->getTableAlias();
@@ -34,7 +38,7 @@ class SubmissionChecklistController extends Controller
                 $qb->andWhere(
                     $qb->expr()->eq("$ta.journal_id", ':journal')
                 )
-                    ->setParameter('journal', $journal);
+                    ->setParameter('journal', $journal->getId());
             });
         }
         if (!$journal) {
@@ -61,16 +65,21 @@ class SubmissionChecklistController extends Controller
     /**
      * Creates a new SubmissionChecklist entity.
      *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('CREATE', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $entity = new SubmissionChecklist();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
             $entity->setJournal($journal);
             $entity->setJournalId($journal->getId());
             $em->persist($entity);
@@ -117,12 +126,16 @@ class SubmissionChecklistController extends Controller
     /**
      * Displays a form to create a new SubmissionChecklist entity.
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newAction()
     {
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('CREATE', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $entity = new SubmissionChecklist();
         $form = $this->createCreateForm($entity);
-
         return $this->render('OjsJournalBundle:SubmissionChecklist:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -132,17 +145,16 @@ class SubmissionChecklistController extends Controller
     /**
      * Finds and displays a SubmissionChecklist entity.
      *
+     * @param SubmissionChecklist $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
+    public function showAction(SubmissionChecklist $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('VIEW', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
         return $this->render('OjsJournalBundle:SubmissionChecklist:show.html.twig', array(
             'entity' => $entity,
         ));
@@ -151,19 +163,17 @@ class SubmissionChecklistController extends Controller
     /**
      * Displays a form to edit an existing SubmissionChecklist entity.
      *
+     * @param SubmissionChecklist $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($id)
+    public function editAction(SubmissionChecklist $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('EDIT', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -202,27 +212,25 @@ class SubmissionChecklistController extends Controller
     /**
      * Edits an existing SubmissionChecklist entity.
      *
+     * @param Request $request
+     * @param SubmissionChecklist $entity
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, SubmissionChecklist $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:SubmissionChecklist')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('EDIT', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
-
-            return $this->redirect($this->generateUrl('manager_submission_checklist_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('manager_submission_checklist_edit', array('id' => $entity->getId())));
         }
-
         return $this->render('OjsJournalBundle:SubmissionChecklist:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -231,14 +239,19 @@ class SubmissionChecklistController extends Controller
 
     /**
      * Deletes a SubmissionChecklist entity.
-     * @param  SubmissionChecklist                                $entity
+     *
+     * @param Request $request
+     * @param SubmissionChecklist $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, SubmissionChecklist $entity)
     {
         $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('DELETE', $journal, 'checklist')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $em = $this->getDoctrine()->getManager();
-
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('manager_submission_checklist'.$entity->getId());
         if($token!=$request->get('_token'))
