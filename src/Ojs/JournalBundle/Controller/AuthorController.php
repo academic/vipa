@@ -34,10 +34,10 @@ class AuthorController extends Controller
         $actionColumn = new ActionsColumn("actions", 'actions');
         ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction('author_show', 'id');
-        if(!$this->isGranted('EDIT', new Author())) {
+        if($this->isGranted('EDIT', new Author())) {
             $rowAction[] = ActionHelper::editAction('author_edit', 'id');
         }
-        if(!$this->isGranted('DELETE', new Author())) {
+        if($this->isGranted('DELETE', new Author())) {
             $rowAction[] = ActionHelper::deleteAction('author_delete', 'id');
         }
 
