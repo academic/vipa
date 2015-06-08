@@ -129,7 +129,6 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user->setPassword($this->encodePassword($user, $user->getPassword()));
             $user->setToken($user->generateToken());
-            $user->addRole($role);
             $user->generateApiKey();
             $user->setStatus(1);
             $user->setIsActive(0);
