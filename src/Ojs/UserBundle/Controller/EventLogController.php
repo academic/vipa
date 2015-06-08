@@ -53,7 +53,7 @@ class EventLogController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction('user_eventlog_show', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

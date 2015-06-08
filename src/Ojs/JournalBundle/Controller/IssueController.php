@@ -49,7 +49,7 @@ class IssueController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction($isAdmin?'issue_show':'issue_manager_issue_view', 'id');
         if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             $rowAction[] = ActionHelper::editAction('issue_edit', 'id');

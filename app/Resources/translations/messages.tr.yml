@@ -859,6 +859,7 @@ user.status: Durum
 user.roles: Roller
 user.isActive: Kullanıcı aktivasyonunu tamamladı mı?
 Is Active?: Aktif mi?
+block: Engelle
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
 user.show: 'Kullanıcıyı Göster'

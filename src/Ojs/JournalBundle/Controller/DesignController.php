@@ -31,7 +31,7 @@ class DesignController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::showAction('design_show', 'id');
         $rowAction[] = ActionHelper::editAction('design_edit', 'id');

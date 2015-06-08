@@ -54,7 +54,7 @@ class JournalSectionController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction('manager_journal_section_show', 'id');
         if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
             $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');

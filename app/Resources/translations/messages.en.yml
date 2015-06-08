@@ -977,6 +977,7 @@ user.username: Username
 user.email: Email
 user.status: Status
 user.roles: Roles
+block: Block
 sure.ban: 'You will ban this user. Are you sure?'
 select.image.file: 'Select Image File...'
 user.show: 'Show User'

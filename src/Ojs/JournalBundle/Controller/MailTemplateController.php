@@ -69,7 +69,7 @@ class MailTemplateController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::showAction('mailtemplate_manager_show', 'id');
         $rowAction[] = ActionHelper::editAction('mailtemplate_manager_edit', 'id');

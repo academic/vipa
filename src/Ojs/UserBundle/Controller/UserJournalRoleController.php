@@ -45,7 +45,7 @@ class UserJournalRoleController extends Controller
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['user.username'], 'ROLE_SUPER_ADMIN', 'user.username');
         $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
