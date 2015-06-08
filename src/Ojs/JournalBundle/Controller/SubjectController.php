@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\Subject;
 use Ojs\JournalBundle\Form\SubjectType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Subject controller.
@@ -27,6 +28,9 @@ class SubjectController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Subject())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity("OjsJournalBundle:Subject");
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
@@ -34,7 +38,7 @@ class SubjectController extends Controller
         ActionHelper::setup($this->get('security.csrf.token_manager'));
         $rowAction[] = ActionHelper::showAction('subject_show', 'id');
         $rowAction[] = ActionHelper::editAction('subject_edit', 'id');
-        $rowAction[] = ActionHelper::showAction('subject_delete', 'id');
+        $rowAction[] = ActionHelper::deleteAction('subject_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -67,6 +71,9 @@ class SubjectController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Subject())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Subject();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -111,6 +118,9 @@ class SubjectController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Subject())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Subject();
         $form = $this->createCreateForm($entity);
 
@@ -123,33 +133,34 @@ class SubjectController extends Controller
     /**
      * Finds and displays a Subject entity.
      *
-     * @param $id
+     * @param Subject $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Subject $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
-
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         return $this->render('OjsJournalBundle:Subject:show.html.twig', array(
-                    'entity' => $entity, ));
+                    'entity' => $entity
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing Subject entity.
      *
-     * @param $id
+     * @param Subject $entity
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(Subject $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Subject $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:Subject:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -179,22 +190,23 @@ class SubjectController extends Controller
      * Edits an existing Subject entity.
      *
      * @param Request $request
-     * @param $id
+     * @param Subject $entity
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Subject $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Subject $entity */
-        $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('subject_edit', ['id' => $id]);
+            return $this->redirectToRoute('subject_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Subject:edit.html.twig', array(
@@ -205,18 +217,19 @@ class SubjectController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
+     * @param Subject $entity
      * @return RedirectResponse
-     * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, Subject $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Subject')->find($id);
         $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('subject'.$id);
+        $token = $csrf->getToken('subject'.$entity->getId());
         if($token!=$request->get('_token'))
             throw new TokenNotFoundException("Token Not Found!");
 
