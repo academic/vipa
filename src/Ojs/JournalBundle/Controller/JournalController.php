@@ -37,9 +37,6 @@ class JournalController extends Controller
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
         $this->throw404IfNotFound($journal);
-        if(!$this->isGranted('VIEW', $journal)) {
-            throw new AccessDeniedException("You not authorized for view this journal!");
-        }
         $this->get('ojs.journal_service')->setSelectedJournal($journal);
         return $this->redirect($route);
     }
