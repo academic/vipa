@@ -980,6 +980,7 @@ user.roles: Roles
 block: Block
 sure.ban: 'You will ban this user. Are you sure?'
 select.image.file: 'Select Image File...'
+show: Göster
 user.show: 'Show User'
 user.id: ID
 user.subjects: Subjects

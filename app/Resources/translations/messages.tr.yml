@@ -862,6 +862,7 @@ Is Active?: Aktif mi?
 block: Engelle
 sure.ban: 'Bu kullanıcıyı engellemek istediğinize emin misiniz?'
 select.image.file: 'Resim dosyası seç...'
+show: Göster
 user.show: 'Kullanıcıyı Göster'
 user.id: ID
 user.subjects: Konular
