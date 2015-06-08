@@ -15,6 +15,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Proxy controller.
@@ -117,6 +118,9 @@ class ProxyController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Proxy())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsUserBundle:Proxy');
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
@@ -182,6 +186,9 @@ class ProxyController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Proxy())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -226,6 +233,9 @@ class ProxyController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Proxy())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Proxy();
         $form = $this->createCreateForm($entity);
 
@@ -238,19 +248,15 @@ class ProxyController extends Controller
     /**
      * Finds and displays a Proxy entity.
      *
-     * @param $id
+     * @param Proxy $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Proxy $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         return $this->render('OjsUserBundle:Proxy:admin/show.html.twig', array(
                     'entity' => $entity,
         ));
@@ -259,26 +265,21 @@ class ProxyController extends Controller
     /**
      * Displays a form to edit an existing Proxy entity.
      *
-     * @param $id
+     * @param Proxy $entity
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(Proxy $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var Proxy $entity */
-        $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsUserBundle:Proxy:admin/edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-        ));
+            )
+        );
     }
 
     /**
@@ -303,19 +304,17 @@ class ProxyController extends Controller
     /**
      * Edits an existing Proxy entity.
      *
-     * @param  Request                   $request
-     * @param $id
+     * @param Request $request
+     * @param Proxy $entity
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Proxy $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Proxy $entity */
-        $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -335,17 +334,16 @@ class ProxyController extends Controller
     /**
      * Deletes a Proxy entity.
      *
-     * @param $id
+     * @param Proxy $entity
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Proxy $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsUserBundle:Proxy')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
