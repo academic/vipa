@@ -40,9 +40,8 @@ class EmailUserProvider implements UserProviderInterface
         $q = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('u, r')
+            ->select('u')
             ->from('OjsUserBundle:User', 'u')
-            ->leftJoin('u.roles', 'r')
             ->where('u.id = :id')
             ->setParameter('id', $id)
             ->getQuery();
@@ -60,9 +59,8 @@ class EmailUserProvider implements UserProviderInterface
         $q = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('u, r')
+            ->select('u')
             ->from('OjsUserBundle:User', 'u')
-            ->leftJoin('u.roles', 'r')
             ->where('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
             ->setParameter('email', $username)

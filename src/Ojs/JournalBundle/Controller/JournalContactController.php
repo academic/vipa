@@ -6,8 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalDesign;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,12 +26,13 @@ class JournalContactController extends Controller
 
     /**
      * Lists all JournalContact entities.
-     * @param  Journal  $journal if not set list all contacts. if set list only contacts for that journal
      * @return Response
      */
-    public function indexAction(Journal $journal = null)
+    public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        /** @var User $user */
+        $user = $this->getUser();
         if(!$this->isGranted('VIEW', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
@@ -53,7 +53,7 @@ class JournalContactController extends Controller
         $rowAction = [];
         ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+        if ($user->isAdmin()) {
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
             $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
             $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
@@ -90,10 +90,12 @@ class JournalContactController extends Controller
     public function createAction(Request $request)
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+
+        /** @var User $user */
+        $user = $this->getUser();
         if(!$this->isGranted('CREATE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $entity = new JournalContact();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -105,7 +107,7 @@ class JournalContactController extends Controller
 
             $this->successFlashBag('Successfully created');
 
-            return $this->redirectToRoute($isAdmin ? 'journalcontact_show' : 'manager_journalcontact_show', [
+            return $this->redirectToRoute($user->isAdmin() ? 'journalcontact_show' : 'manager_journalcontact_show', [
                 'id' => $entity->getId(),
                 ]
             );
@@ -126,9 +128,10 @@ class JournalContactController extends Controller
      */
     private function createCreateForm(JournalContact $entity, $optionsArray = array())
     {
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+        /** @var User $user */
+        $user = $this->getUser();
         $options = array_merge(array(
-            'action' => $this->generateUrl($isAdmin ? 'journalcontact_create' : 'manager_journalcontact_create'),
+            'action' => $this->generateUrl($user->isAdmin() ? 'journalcontact_create' : 'manager_journalcontact_create'),
             'method' => 'POST',
             'user' => $this->getUser(),
                 ), $optionsArray);
@@ -149,10 +152,9 @@ class JournalContactController extends Controller
     /**
      * Displays a form to create a new JournalContact entity.
      *
-     * @param  null|Journal $journal
      * @return Response
      */
-    public function newAction($journal = null)
+    public function newAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('CREATE', $journal, 'contacts')) {
@@ -237,12 +239,14 @@ class JournalContactController extends Controller
      */
     public function updateAction(Request $request, JournalContact $entity)
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('EDIT', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
+
         $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -251,7 +255,7 @@ class JournalContactController extends Controller
             $em->flush();
             $this->successFlashBag('Successfully updated');
 
-            return $this->redirectToRoute($isAdmin ? 'journalcontact_edit' : 'manager_journalcontact_edit', [
+            return $this->redirectToRoute($user->isAdmin() ? 'journalcontact_edit' : 'manager_journalcontact_edit', [
                 'id' => $entity->getId(),
                 ]
             );
@@ -271,15 +275,16 @@ class JournalContactController extends Controller
      */
     public function deleteAction(Request $request, JournalContact $entity)
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('DELETE', $journal, 'contacts')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        $isAdmin =  $this->isGranted('ROLE_SUPER_ADMIN');
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+        if ($user->isAdmin()) {
             $token = $csrf->getToken('journalcontact'.$entity->getId());
         } elseif ($this->get('ojs.journal_service')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
             $token = $csrf->getToken('manager_journalcontact'.$entity->getId());
@@ -287,12 +292,13 @@ class JournalContactController extends Controller
             $token = $csrf->getToken('journalcontact'.$entity->getId());
         }
 
-        if($token!=$request->get('_token'))
+        if($token!=$request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('Successfully removed');
 
-        return $this->redirectToRoute($isAdmin ? 'journalcontact' : 'manager_journalcontact');
+        return $this->redirectToRoute($user->isAdmin() ? 'journalcontact' : 'manager_journalcontact');
     }
 }

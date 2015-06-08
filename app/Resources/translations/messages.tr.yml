@@ -687,7 +687,6 @@ tubitak_journals: 'TÜBİTAK Dergileri'
 Yes: Evet
 No: Hayır
 role.plural: Roller
-ROLE_SUPER_ADMIN : Sistem Yöneticisi
 ROLE_JOURNAL_MANAGER : Dergi Yöneticisi
 ROLE_SUBSCRIPTION_MANAGER : Abonelik Yöneticisi
 ROLE_SECTION_EDITOR : Bölüm Editörü

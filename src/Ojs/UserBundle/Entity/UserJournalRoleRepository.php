@@ -21,27 +21,25 @@ class UserJournalRoleRepository extends EntityRepository
      */
     public function getUsers($journal_id, $grouppedByRole = false)
     {
-        $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findByJournalId($journal_id);
-        $entites = array();
+        /** @var UserJournalRole[] $user_journal_roles */
+        $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('journalId' => $journal_id));
+        $entities = array();
         if (!is_array($user_journal_roles)) {
             return false;
         }
         foreach ($user_journal_roles as $item) {
-            $entites[] = $item->getUser();
+            $entities[] = $item->getUser();
         }
 
         if (!$grouppedByRole) {
-            return $entites;
+            return $entities;
         }
 
         $users = [];
-        foreach ($entites as $user) {
+        foreach ($entities as $user) {
             /** @var User $user */
             foreach ($user->getRoles() as $role) {
                 /** @var Role $role */
-                if ($role->getIsSystemRole()) {
-                    continue;
-                }
                 $users[$role->getName()][] = $user;
             }
         }
@@ -55,6 +53,7 @@ class UserJournalRoleRepository extends EntityRepository
      */
     public function userJournalsWithRoles($user_id, $onlyJournalIds = false)
     {
+        /** @var UserJournalRole[] $data */
         $data = $this->getEntityManager()->createQuery(
             'SELECT u FROM OjsUserBundle:UserJournalRole u WHERE u.userId = :user_id '
         )->setParameter('user_id', $user_id)->getResult();
@@ -68,27 +67,7 @@ class UserJournalRoleRepository extends EntityRepository
 
         return $entities;
     }
-    /**
-     * @param int $user_id Use null for all
-     * @return array Array structrue: [user_id][journal_id]['roles']
-     */
-    public function getUsersWithRoles($user_id = null)
-    {
-        $array = array();
 
-        if ($user_id === null)
-            $roles = $this->findAll();
-        else
-            $roles = $this->findByUserId($user_id);
-
-        foreach ($roles as $role) {
-            $array[$role->getUserId()]['user'] = $role->getUser();
-            $array[$role->getUserId()]['journals'][$role->getJournalId()]['journal'] = $role->getJournal();
-            $array[$role->getUserId()]['journals'][$role->getJournalId()]['roles'][] = $role->getRole();
-        }
-
-        return $array;
-    }
     /**
      * @param string|array $role
      * @return UserJournalRole[]
@@ -130,7 +109,7 @@ class UserJournalRoleRepository extends EntityRepository
         $roles = array();
         if($query) {
             foreach($query as $userJournalRole) {
-                $roles[] = $userJournalRole->getRole()->getRole();
+                $roles[] = (string)$userJournalRole->getRole();
             }
         }
         return $roles;

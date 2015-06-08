@@ -29,7 +29,7 @@ class JournalContactType extends AbstractType
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($user, $journal) {
                 $qb = $er->createQueryBuilder('j');
-                if ($user && !$user->hasRole('ROLE_SUPER_ADMIN')) {
+                if ($user && !$user->isAdmin()) {
                     // if user is super admin get all journals
                     $qb
                     ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')

@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
-use Ojs\UserBundle\Entity\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,12 +27,8 @@ class IssueType extends AbstractType
                     'query_builder' => function (EntityRepository $er) use ($user, $journal) {
                         /** @var User $user $qb */
                         $qb = $er->createQueryBuilder('j');
-                        foreach ($user->getRoles() as $role) {
-                            /** @var Role $role */
-                            if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                                return $qb;
-                                break;
-                            }
+                        if($user->isAdmin()) {
+                            return $qb;
                         }
                         if ($journal) {
                             $qb->where(

@@ -129,6 +129,12 @@ Ojs\UserBundle\Entity\User:
                 default: 0
             gedmo:
                 - versioned
+        isAdmin:
+            type: boolean
+            gedmo:
+                - versioned
+        roles:
+            type: json_array
         disable_reason:
             type: text
             nullable: true
@@ -231,24 +237,6 @@ Ojs\UserBundle\Entity\User:
                 inverseJoinColumns:
                     -
                         name: subject_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-            orderBy: null
-        roles:
-            targetEntity: Ojs\UserBundle\Entity\Role
-            cascade: {  }
-            mappedBy: null
-            inversedBy: users
-            joinTable:
-                name: user_role
-                joinColumns:
-                    -
-                        name: user_id
-                        referencedColumnName: id
-                        onDelete: CASCADE
-                inverseJoinColumns:
-                    -
-                        name: role_id
                         referencedColumnName: id
                         onDelete: CASCADE
             orderBy: null

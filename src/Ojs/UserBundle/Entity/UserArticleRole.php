@@ -170,10 +170,10 @@ class UserArticleRole
     /**
      * Set role
      *
-     * @param  \Ojs\UserBundle\Entity\Role $role
+     * @param  Role $role
      * @return UserArticleRole
      */
-    public function setRole(\Ojs\UserBundle\Entity\Role $role = null)
+    public function setRole(Role $role = null)
     {
         $this->role = $role;
 
@@ -183,7 +183,7 @@ class UserArticleRole
     /**
      * Get role
      *
-     * @return \Ojs\UserBundle\Entity\Role
+     * @return Role
      */
     public function getRole()
     {

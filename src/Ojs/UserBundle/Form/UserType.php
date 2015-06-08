@@ -56,14 +56,6 @@ class UserType extends AbstractType
                     'label' => 'status',
                     'choices' => CommonParams::$userStatusArray,
                 ])
-                ->add('roles', 'entity', array(
-                    'label' => 'user.roles',
-                    'class' => 'Ojs\UserBundle\Entity\Role',
-                    'property' => 'name',
-                    'multiple' => true,
-                    'expanded' => false,
-                    'attr' => array('class' => 'select2-element', 'style' => 'width:100%'),
-                ))
                 ->add('subjects', 'entity', array(
                     'label' => 'subjects',
                     'class' => 'Ojs\JournalBundle\Entity\Subject',

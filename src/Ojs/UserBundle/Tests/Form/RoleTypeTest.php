@@ -16,8 +16,7 @@ class RoleTypeTest extends BaseTypeTestcase
             new RoleType(),
             [
                 'name' => $this->faker->word,
-                'role' => $this->faker->word,
-                'isSystemRole' => $this->faker->boolean(),
+                'role' => $this->faker->word
             ],
             'Ojs\UserBundle\Entity\Role');
     }

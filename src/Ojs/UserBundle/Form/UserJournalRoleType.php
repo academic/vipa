@@ -4,6 +4,7 @@ namespace Ojs\UserBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +26,8 @@ class UserJournalRoleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
+        /** @var User $user */
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $journal = $this->container->get("ojs.journal_service")->getSelectedJournal();
 
         $builder->add('user', 'autocomplete', [
@@ -45,13 +47,12 @@ class UserJournalRoleType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('ujr')
-                            ->where('ujr.isSystemRole = 0');
+                        return $er->createQueryBuilder('ujr');
                     },
                     'attr' => array("class" => "select2-element"),
                 ]
             );
-        if ($isAdmin) {
+        if ($user->isAdmin()) {
             $builder->add('journal', 'autocomplete', [
                 'class' => 'Ojs\JournalBundle\Entity\Journal',
                 'label' => 'journal.singular',

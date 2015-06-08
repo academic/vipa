@@ -50,10 +50,9 @@ class MailTemplateController extends Controller
         });
         /** @var User $user */
         $user = $this->getUser();
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $user, $isAdmin, $ta) {
-            if ($isAdmin) {
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($journal, $user, $ta) {
+            if ($user->isAdmin()) {
                 return $qb;
             }
 
@@ -163,15 +162,16 @@ class MailTemplateController extends Controller
      */
     public function newAction()
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('CREATE', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new MailTemplate();
         $form = $this->createCreateForm($entity);
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
-        return $this->render('OjsJournalBundle:MailTemplate:'.($isAdmin ? 'admin/' : '').'new.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:'.($user->isAdmin() ? 'admin/' : '').'new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -277,25 +277,27 @@ class MailTemplateController extends Controller
      */
     public function deleteAction(Request $request, MailTemplate $entity)
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $this->throw404IfNotFound($entity);
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('DELETE', $journal, 'mailTemplate')) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('mailtemplate_manager'.$entity->getId());
-        if($token!=$request->get('_token'))
+        if($token!=$request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $em->remove($entity);
         $em->flush();
 
         $this->successFlashBag('successful.remove');
 
-        return $this->redirect($this->generateUrl($isAdmin ? 'mailtemplate' : 'mailtemplate_manager'));
+        return $this->redirect($this->generateUrl($user->isAdmin() ? 'mailtemplate' : 'mailtemplate_manager'));
     }
 
     /**
@@ -305,8 +307,9 @@ class MailTemplateController extends Controller
      */
     public function copyAction(Request $request, $id)
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         $entity = new MailTemplate();
 
@@ -328,24 +331,22 @@ class MailTemplateController extends Controller
             ->setSubject($template['subject'])
             ->setTemplate(str_replace('<br>', "\n", $template['template']))
             ->setType($template['type']);
-        if (!$isAdmin) {
+        if (!$user->isAdmin()) {
             $entity->setJournal($journal);
         }
         $form = $this->createCreateForm($entity);
 
         $form->handleRequest($request);
-        $isAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $isAdmin = $this->isGranted('ROLE_SUPEr_ADMIN');
 
-            return $this->redirect($this->generateUrl('mailtemplate'.($isAdmin ? '' : '_manager').'_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('mailtemplate'.($user->isAdmin() ? '' : '_manager').'_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsJournalBundle:MailTemplate:'.($isAdmin ? 'admin/' : '').'new.html.twig', array(
+        return $this->render('OjsJournalBundle:MailTemplate:'.($user->isAdmin() ? 'admin/' : '').'new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));

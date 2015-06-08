@@ -193,7 +193,6 @@ class InstallCommand extends ContainerAwareCommand
             $output->writeln('<info>Added : '.$role['role'].'</info>');
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
-            $new_role->setIsSystemRole($role['isSystemRole']);
 
             $em->persist($new_role);
         }
@@ -232,8 +231,7 @@ class InstallCommand extends ContainerAwareCommand
         $user->setStatus(1);
         $user->generateApiKey();
 
-        $role_repo = $doctrine->getRepository('OjsUserBundle:Role');
-        $user->addRole($role_repo->findOneBy(array('role' => 'ROLE_SUPER_ADMIN')));
+        $user->setAdmin(true);
 
         $em->persist($user);
         $em->flush();

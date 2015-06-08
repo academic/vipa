@@ -55,10 +55,8 @@ class SetupController extends Controller
             $user->setPassword($password);
             $user->setIsActive(true);
             $user->generateApiKey();
-            $role_repo = $em->getRepository('OjsUserBundle:Role');
-            $role_sys_admin = $role_repo->findOneByRole('ROLE_SUPER_ADMIN');
 
-            $user->addRole($role_sys_admin);
+            $user->setAdmin(true);
 
             $em->persist($user);
             $em->flush();
@@ -81,14 +79,13 @@ class SetupController extends Controller
         $return = [];
         foreach ($roles as $role) {
             $new_role = new Role();
-            $check = $role_repo->findOneByRole($role['role']);
+            $check = $role_repo->findOneBy(array('role' => $role['role']));
             if (!empty($check)) {
                 continue;
             }
             $return[] = "Added :   {$role['role']}";
             $new_role->setName($role['desc']);
             $new_role->setRole($role['role']);
-            $new_role->setIsSystemRole($role['isSystemRole']);
             $em->persist($new_role);
         }
 

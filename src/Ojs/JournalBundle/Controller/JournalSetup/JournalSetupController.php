@@ -22,14 +22,13 @@ class JournalSetupController extends Controller
      */
     public function indexAction()
     {
-        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
-        if (!$superAdmin) {
+        if (!$this->isGranted('CREATE', new Journal())) {
             throw new AccessDeniedException();
         }
         $user = $this->getUser();
         $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var JournalSetupProgress $userSetup */
-        $userSetup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneByUserId($user->getId());
+        $userSetup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneBy(array('userId' => $user->getId()));
 
         //if user have an journal setup progress resume journal setup. Else create an journal setup progress
         if ($userSetup) {
@@ -77,7 +76,7 @@ class JournalSetupController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
+        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
 
         $stepsForms = array();
