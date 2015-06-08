@@ -399,7 +399,10 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function getRoles()
     {
-        return $this->roles->toArray();
+
+        $roleArray = $this->roles->toArray();
+        $roleArray[] = (new Role())->setRole('ROLE_USER');
+        return array_unique($roleArray);
     }
 
     /**
@@ -410,6 +413,10 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function addRole(Role $role)
     {
+        if($role->getRole() === 'ROLE_USER') {
+            return $this;
+        }
+
         $this->roles[] = $role;
 
         return $this;
