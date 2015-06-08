@@ -290,6 +290,7 @@ class InstallCommand extends ContainerAwareCommand
         $aclManager->on($journalClass)->field('report')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($journalClass)->field('userRole')->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($userClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
+        $aclManager->on($userClass)->to('ROLE_JOURNAL_MANAGER')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($institutionClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($roleClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
         $aclManager->on($contactClass)->to('ROLE_ADMIN')->permit(MaskBuilder::MASK_OWNER)->save();
