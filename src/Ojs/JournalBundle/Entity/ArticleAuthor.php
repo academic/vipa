@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
@@ -37,7 +36,6 @@ class ArticleAuthor implements Translatable
     /**
      * @var Author
      * @JMS\Expose
-     * @AclParent
      * @GRID\Column(title="firstName",field="author.firstName")
      * @GRID\Column(title="lastName",field="author.lastName")
      * @Expose
@@ -47,12 +45,11 @@ class ArticleAuthor implements Translatable
 
     /**
      * @var Article
-     * @AclParent
      * @GRID\Column(title="article",field="article.title")
      */
     private $article;
 
-    public function __construct($name = null, $value = null, $article = null)
+    public function __construct($name = null, $value = null, Article $article = null)
     {
         $this->attribute = $name;
         $this->value = $value;

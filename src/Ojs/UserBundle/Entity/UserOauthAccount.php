@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 
 /**
  * UserOauthAccount
@@ -40,8 +39,7 @@ class UserOauthAccount
     private $provider_refresh_token;
 
     /**
-     * @var \Ojs\UserBundle\Entity\User
-     * @AclParent
+     * @var User
      */
     private $user;
 
@@ -173,10 +171,10 @@ class UserOauthAccount
     /**
      * Set user
      *
-     * @param  \Ojs\UserBundle\Entity\User $user
+     * @param  User $user
      * @return UserOauthAccount
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -186,7 +184,7 @@ class UserOauthAccount
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {

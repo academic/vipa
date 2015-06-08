@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
@@ -13,9 +12,6 @@ class ArticleAttribute implements Translatable
 {
     use GenericEntityTrait;
 
-    /**
-     * @AclParent
-     */
     private $article;
     private $attribute;
     private $value;

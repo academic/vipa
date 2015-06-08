@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 
 /**
@@ -53,7 +52,6 @@ class MailTemplate implements Translatable
      *
      * @var Journal
      * @GRID\Column(title="mailtemplate.journal", field="journal.title")
-     * @AclParent
      */
     private $journal;
 

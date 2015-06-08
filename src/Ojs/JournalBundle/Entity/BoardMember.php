@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 
@@ -36,7 +35,6 @@ class BoardMember implements Translatable
 
     /**
      * @var Board
-     * @AclParent
      */
     private $board;
 

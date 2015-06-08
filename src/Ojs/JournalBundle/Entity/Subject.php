@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use JMS\Serializer\Annotation\ExclusionPolicy;
@@ -36,7 +35,6 @@ class Subject implements Translatable
      * @var Subject
      * @Expose
      * @GRID\Column(title="parent")
-     * @AclParent
      */
     private $parent;
     private $children;
