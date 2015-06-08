@@ -86,14 +86,13 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_FULLY);
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED);
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
-            $sids[] = new RoleSecurityIdentity('ROLE_USER');
         } elseif ($this->authenticationTrustResolver->isRememberMe($token)) {
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED);
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
-            $sids[] = new RoleSecurityIdentity('ROLE_USER');
         } elseif ($this->authenticationTrustResolver->isAnonymous($token)) {
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
         }
+
 
         return $sids;
     }
