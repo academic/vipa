@@ -45,7 +45,7 @@ class UserController extends Controller
         $source = new Entity("OjsUserBundle:User");
         $grid = $this->get('grid');
         $grid->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username'], 'ROLE_SUPER_ADMIN');
         $rowAction[] = ActionHelper::showAction('user_show', 'id');

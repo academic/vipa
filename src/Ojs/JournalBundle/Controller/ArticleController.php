@@ -91,7 +91,7 @@ class ArticleController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction('article_show', 'id');
         $rowAction[] = ActionHelper::editAction('article_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
@@ -435,7 +435,7 @@ class ArticleController extends Controller
         }
 
         $actionsColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $actions[] = ActionHelper::showAction('citation_show', 'id');
         $actions[] = ActionHelper::editAction('citation_edit', 'id');
         $actions[] = ActionHelper::deleteAction('citation_delete', 'id');

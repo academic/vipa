@@ -51,7 +51,7 @@ class JournalsIndexController extends Controller
         $grid = $this->get('grid')->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::showAction('manager_journals_indexes_show', 'id');
         $rowAction[] = ActionHelper::editAction('manager_journals_indexes_edit', 'id');

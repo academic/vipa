@@ -30,7 +30,7 @@ class RoleController extends Controller
 
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::showAction('role_show', 'id');
         $rowAction[] = ActionHelper::editAction('role_edit', 'id');

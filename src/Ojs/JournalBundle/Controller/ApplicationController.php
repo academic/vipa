@@ -58,7 +58,7 @@ class ApplicationController extends Controller
             });
 
         $grid = $this->get('grid')->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::editAction('application_institution_edit', 'id');
         $rowAction[] = ActionHelper::showAction('application_institution_show', 'id');
@@ -95,7 +95,7 @@ class ApplicationController extends Controller
         });
 
         $grid = $this->get('grid')->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         $rowAction[] = ActionHelper::editAction('application_journal_edit', 'id');
         $rowAction[] = ActionHelper::showAction('application_journal_show', 'id');

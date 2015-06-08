@@ -51,7 +51,7 @@ class JournalContactController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         if ($this->isGranted('ROLE_SUPER_ADMIN')) {
             $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');

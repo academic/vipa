@@ -1,7 +1,5 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: emreyilmaz
  * Date: 27.02.15
  * Time: 15:47
  */
@@ -25,9 +23,12 @@ class ActionHelper
      */
     private static $csrf;
 
-    public static function setup(CsrfTokenManagerInterface $csrfProvider)
+    private static $translator;
+
+    public static function setup(CsrfTokenManagerInterface $csrfProvider, $translator)
     {
         self::$csrf = $csrfProvider;
+        self::$translator = $translator;
     }
 
     /**
@@ -41,7 +42,7 @@ class ActionHelper
         $rowAction = new RowAction('<i class="fa fa-trash-o"></i>', $route);
         $rowAction->setRouteParameters($key);
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage("Do you want delete this row?");
+        $rowAction->setConfirmMessage(self::$translator->trans("sure"));
         $csrf = self::$csrf;
         $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($csrf, $route) {
             $route = str_replace('_delete', '', $route);
@@ -53,7 +54,7 @@ class ActionHelper
             $action->setAttributes([
                     'class' => 'btn btn-danger btn-xs delete',
                     'data-toggle' => 'tooltip',
-                    'title' => "Delete",
+                    'title' => self::$translator->trans("delete"),
                     'data-token' => $token
                 ]
             );
@@ -74,10 +75,10 @@ class ActionHelper
     public static function userBanAction($role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-ban"></i>', 'user_block');
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Block User"]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('block')]);
         $rowAction->setRouteParameters('id');
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage("Do you want ban this user?");
+        $rowAction->setConfirmMessage(self::$translator->trans('block'));
         if ($role) {
             $rowAction->setRole($role);
         }
@@ -85,7 +86,7 @@ class ActionHelper
             if (!$row->getField('status')) {
                 $action->setRoute('user_unblock');
                 $action->setTitle('<i class="fa fa-check"></i>');
-                $action->setConfirmMessage("Do you want unban this user?");
+                $action->setConfirmMessage(self::$translator->trans('sure.ban'));
             }
 
             return $action;
@@ -104,7 +105,7 @@ class ActionHelper
     public static function switchUserAction($route, $key, $role = null, $mapping_key = 'username')
     {
         $rowAction = new RowAction('<i class="fa fa-sign-in"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Switch User"]);
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('login_as')]);
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping([$mapping_key => '_su']);
         if ($role) {
@@ -123,7 +124,7 @@ class ActionHelper
     public static function showAction($route, $key, $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-info-circle"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-success btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Show"]);
+        $rowAction->setAttributes(['class' => 'btn btn-success btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("show")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -141,7 +142,7 @@ class ActionHelper
     public static function editAction($route, $key, $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-pencil"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Edit"]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("edit")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -159,7 +160,7 @@ class ActionHelper
     public static function copyAction($route, $key, $role = '')
     {
         $rowAction = new RowAction('<i class="fa fa-copy"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Copy"]);
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("copy")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -177,7 +178,7 @@ class ActionHelper
     public static function submissionResumeAction($route, $key, $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-reply"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "Resume Submission"]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('Back & Continue Editing')]);
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
         if ($role) {
@@ -216,3 +217,4 @@ class ActionHelper
         return $rowAction;
     }
 }
+

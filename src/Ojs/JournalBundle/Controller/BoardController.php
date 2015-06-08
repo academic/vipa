@@ -48,7 +48,7 @@ class BoardController extends Controller
         }
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'));
+        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
         $rowAction[] = ActionHelper::showAction('admin_board_show', 'id');
         if ($this->isGranted('EDIT', $journal, 'boards')) {
             $rowAction[] = ActionHelper::editAction('admin_board_edit', 'id');
