@@ -9,6 +9,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
+use Gedmo\Sluggable\Util as Sluggable;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
@@ -479,6 +480,7 @@ class ArticleSubmissionController extends Controller
             if (!$institution) {
                 $institution = new Institution();
                 $institution->setName(trim($authorData['institution']));
+                $institution->setSlug(Sluggable\Urlizer::urlize($authorData['institution'], '-'));
                 $institution->setVerified(false);
                 $em->persist($institution);
                 $em->flush();
