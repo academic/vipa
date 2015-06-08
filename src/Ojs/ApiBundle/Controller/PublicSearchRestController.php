@@ -4,6 +4,7 @@ namespace Ojs\ApiBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Ojs\JournalBundle\Entity\Institution;
@@ -167,6 +168,7 @@ class PublicSearchRestController extends FOSRestController
      * )
      * @Get("/public/search/tags")
      *
+     * @param Request $request
      * @return array
      */
     public function getTagsAction(Request $request)
@@ -363,7 +365,7 @@ class PublicSearchRestController extends FOSRestController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Citation  $citation */
+        /** @var Citation $citation */
         $citation = $em->find('OjsJournalBundle:Citation', $id);
         if ($citation) {
             return JsonResponse::create(['id' => $id, 'text' => $citation->getRaw() ]);
@@ -480,7 +482,7 @@ class PublicSearchRestController extends FOSRestController
 
         #$articleRepo = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Article');
         foreach ($results as $result) {
-            /*   if($user->hasRole('ROLE_SUPER_ADMIN'))
+            /*   if($user->isAdmin())
             {*/
                 $data[] = [
                     'id' => $result->getId(),
@@ -525,7 +527,7 @@ class PublicSearchRestController extends FOSRestController
         $article = $em->find('OjsJournalBundle:Article', $id);
         //$user = $this->getUser();
         //$data = [];
-        //if($user->hasRole('ROLE_SUPER_ADMIN'))
+        //if($user->isAdmin())
         //{
             $data = [
                 'id' => $article->getId(),

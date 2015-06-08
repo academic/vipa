@@ -2,6 +2,7 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
@@ -31,13 +32,14 @@ class BoardController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
+        /** @var User $user */
+        $user = $this->getUser();
         if (!$this->isGranted('VIEW', $journal, 'boards')) {
             throw new AccessDeniedException("You not authorized for view this journal's boards!");
         }
         $source = new Entity('OjsJournalBundle:Board');
         //if user is not admin show only selected journal
-        if (!$isAdmin) {
+        if (!$user->isAdmin()) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(
                 function (QueryBuilder $query) use ($ta, $journal) {

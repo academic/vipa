@@ -10,6 +10,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Form\UserJournalRoleType;
 use Symfony\Component\Form\Form;
@@ -18,7 +19,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -33,12 +33,13 @@ class UserJournalRoleController extends Controller
      */
     public function indexAction()
     {
+        /** @var User $user */
+        $user = $this->getUser();
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
         if(!$this->isGranted('VIEW', $journal, 'userRole')) {
             throw new AccessDeniedException("You are not authorized for view this page");
         }
-        $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
-        if(!$isAdmin) {
+        if(!$user->isAdmin()) {
             return $this->redirectToRoute('ujr_show_users_ofjournal',['journal_id'=>$journal->getId()]);
         }
         $source = new Entity('OjsUserBundle:UserJournalRole');
@@ -47,7 +48,7 @@ class UserJournalRoleController extends Controller
         $rowAction = [];
         ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['user.username'], 'ROLE_SUPER_ADMIN', 'user.username');
+        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['user.username'], null, 'user.username');
         $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
         $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
         $rowAction[] = ActionHelper::deleteAction('ujr_delete', 'id');
@@ -327,11 +328,10 @@ class UserJournalRoleController extends Controller
     /**
      * Deletes a UserJournalRole entity.
      *
-     * @param   Request $request
      * @param   UserJournalRole  $entity
      * @return  RedirectResponse
      */
-    public function deleteAction(Request $request, UserJournalRole $entity)
+    public function deleteAction(UserJournalRole $entity)
     {
         $this->throw404IfNotFound($entity);
         $journal = $entity->getJournal();

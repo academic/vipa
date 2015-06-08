@@ -7,6 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
+use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
@@ -193,6 +194,7 @@ class ManagerController extends Controller
      */
     public function userIndexAction()
     {
+        /** @var User $user */
         $user = $this->getUser();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
@@ -225,8 +227,7 @@ class ManagerController extends Controller
         $invitedWorkflowSteps = $dm->getRepository('OjsWorkflowBundle:Invitation')
                 ->findBy(array('userId' => $user->getId(), 'accept' => null));
 
-        $super_admin = $this->isGranted('ROLE_SUPER_ADMIN');
-        if ($super_admin) {
+        if ($user->isAdmin()) {
             return $this->redirect($this->generateUrl('dashboard_admin'));
         }
 

@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -29,14 +30,15 @@ class IssueController extends Controller
     public function indexAction()
     {
         $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        $isAdmin = $isAdmin = $this->container->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN');
+        /** @var User $user */
+        $user = $this->getUser();
 
         if(!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issues!");
         }
         $source = new Entity('OjsJournalBundle:Issue');
         //if user is not admin show only selected journal
-        if(!$isAdmin){
+        if(!$user->isAdmin()){
             $ta = $source->getTableAlias();
             $source->manipulateQuery(
                 function (QueryBuilder $query) use ($ta, $journal)
@@ -50,7 +52,7 @@ class IssueController extends Controller
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction($isAdmin?'issue_show':'issue_manager_issue_view', 'id');
+        $rowAction[] = ActionHelper::showAction($user->isAdmin()?'issue_show':'issue_manager_issue_view', 'id');
         if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             $rowAction[] = ActionHelper::editAction('issue_edit', 'id');
         }

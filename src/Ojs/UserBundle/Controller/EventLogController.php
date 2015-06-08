@@ -4,10 +4,13 @@ namespace Ojs\UserBundle\Controller;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use Ojs\Common\Helper\ActionHelper;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Params\EventLogParams;
+use Ojs\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * EventLog controller.
@@ -24,28 +27,27 @@ class EventLogController extends Controller
      */
     public function indexAction()
     {
+        /** @var User $user */
         $user = $this->getUser();
-        $userId = $user->getId();
-        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
 
         //get eventLog parameters according to user role
-        if ($superAdmin) {
-            $logTypes = \Ojs\Common\Params\EventLogParams::adminLevelEventLogs();
+        if ($user->isAdmin()) {
+            $logTypes = EventLogParams::adminLevelEventLogs();
         } else {
             //if unlisted user_role.
-            $logTypes = \Ojs\Common\Params\EventLogParams::editorLevelEventLogs();
+            $logTypes = EventLogParams::editorLevelEventLogs();
         }
         $source = new Entity('OjsUserBundle:EventLog');
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $qb) use ($ta, $logTypes, $superAdmin, $userId) {
+        $source->manipulateQuery(function (QueryBuilder $qb) use ($ta, $logTypes, $user) {
                 $qb->andWhere(
                         $qb->expr()->in($ta.'.eventInfo', ':logTypes')
                 )
                 ->setParameters([
                     'logTypes' => $logTypes,
-                    'userId'=>$userId
+                    'userId'=> $user->getId()
                 ]);
-            if(!$superAdmin){
+            if(!$user->isAdmin()){
                 $qb->andWhere("$ta.userId = :userId OR $ta.affectedUserId = :userId");
             }
             return $qb;
@@ -65,24 +67,25 @@ class EventLogController extends Controller
     /**
      * Finds and displays a EventLog entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
-        $superAdmin = $this->isGranted('ROLE_SUPER_ADMIN');
+        /** @var User $user */
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:EventLog')->find($id);
         if (!$entity) {
             throw $this->createNotFoundException('notFound');
         }
-        $user = $this->getUser();
-        $userId = $user->getId();
 
         //if event isn't consider user throw 403
-        if ($entity->getUserId() !== $userId && $entity->getAffectedUserId() !== $userId && !$superAdmin) {
+        if ($entity->getUserId() !== $user->getId() && $entity->getAffectedUserId() !== $user->getId() && !$user->isAdmin()) {
             throw $this->createNotFoundException('You have not permission to see this activity.');
         }
 
-        if ($superAdmin) {
+        if ($user->isAdmin()) {
             $tpl = 'OjsUserBundle:EventLog:admin/show.html.twig';
         } else {
             $tpl = 'OjsUserBundle:EventLog:show.html.twig';
@@ -96,7 +99,7 @@ class EventLogController extends Controller
      * Removes all EventLog records.
      * Function only open for admin users.
      *
-     * @return redirect
+     * @return RedirectResponse
      */
     public function flushAction()
     {

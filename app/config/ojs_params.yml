@@ -20,10 +20,3 @@ parameters:
         ar:
             name: Arabic
             code: ar
-        
-    roles:
-        #dont modify
-        - 
-            role: ROLE_SUPER_ADMIN
-            desc: System Super Administrator
-            isSystemRole: True

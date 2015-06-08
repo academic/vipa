@@ -6,7 +6,6 @@ Ojs has 14 types of role definition.
 
 | Role Name 					| Role Description          |
 |-------------------------------|-------------------------------------------|
-| ROLE_SUPER_ADMIN				| System Administrator      |
 | ROLE_JOURNAL_MANAGER                          | Journal Manager           |
 | ROLE_SUBSCRIPTION_MANAGER                     | Subscription Manager      |
 | ROLE_EDITOR 				 	| Editor                    |

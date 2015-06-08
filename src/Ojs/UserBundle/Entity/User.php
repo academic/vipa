@@ -29,6 +29,9 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 {
     use GenericEntityTrait;
 
+    const ROLE_DEFAULT = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @var integer
      * @Expose
@@ -78,7 +81,13 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @var boolean
      * @Expose
      */
-    protected $isActive;
+    protected $isActive = true;
+
+    /**
+     * @var boolean
+     * @Expose
+     */
+    protected $isAdmin =  false;
 
     /**
      * @var string
@@ -111,10 +120,37 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     protected $restrictedJournals;
 
     /**
-     * @var Collection
+     * @var array
      * @Expose
      */
     protected $roles;
+
+    protected $avatar_options;
+
+    /** @var  string */
+    protected $gender;
+    /** @var  string */
+    protected $initials;
+    /** @var  string */
+    protected $url;
+    /** @var  string */
+    protected $phone;
+    /** @var  string */
+    protected $fax;
+    /** @var  string */
+    protected $address;
+    /** @var  string */
+    protected $billing_address;
+    /** @var  string */
+    protected $locales;
+    /** @var  string */
+    protected $disable_reason;
+    /** @var  ArrayCollection */
+    protected $authorDetails;
+
+    protected $header_options;
+
+    private $title;
 
     /**
      * @var Collection
@@ -160,8 +196,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
     public function __construct()
     {
-        $this->isActive = true;
-        $this->roles = new ArrayCollection();
         $this->subjects = new ArrayCollection();
         $this->oauthAccounts = new ArrayCollection();
         $this->authorDetails = new ArrayCollection();
@@ -399,10 +433,11 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      */
     public function getRoles()
     {
-
-        $roleArray = $this->roles->toArray();
-        $roleArray[] = (new Role())->setRole('ROLE_USER');
-        return array_unique($roleArray);
+        $this->roles[] = static::ROLE_DEFAULT;
+        if($this->isAdmin()) {
+            $this->roles[] = static::ROLE_ADMIN;
+        }
+        return array_unique($this->roles);
     }
 
     /**
@@ -411,23 +446,46 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
      * @param  Role $role
      * @return User
      */
-    public function addRole(Role $role)
+    public function addRole($role)
     {
-        if($role->getRole() === 'ROLE_USER') {
+        if($role === static::ROLE_DEFAULT) {
             return $this;
         }
-
-        $this->roles[] = $role;
+        if($role === static::ROLE_ADMIN) {
+            $this->setAdmin(true);
+            return $this;
+        }
+        if(!in_array($role, $this->roles, true)) {
+            $this->roles[] = strtoupper($role);
+        }
 
         return $this;
     }
+    /**
+     *
+     * @param  string  $role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
 
     /**
-     * @param Role $role
+     * @param $role
+     * @return $this
      */
-    public function removeRole(Role $role)
+    public function removeRole($role)
     {
-        $this->roles->removeElement($role);
+        if($role === static::ROLE_ADMIN) {
+            $this->setAdmin(false);
+        }
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+
+        return $this;
     }
 
     /**
@@ -643,12 +701,28 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         return $this->getIsActive();
     }
 
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param boolean $isAdmin
+     * @return boolean $this
+     */
+    public function setAdmin($isAdmin) {
+        $this->isAdmin = !!$isAdmin;
+        return $this;
+    }
+
     public function getFullName()
     {
         return $this->getFirstName().' '.$this->getLastName();
     }
 
-    private $title;
 
     /**
      * @return mixed
@@ -759,8 +833,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         $this->oauthAccounts->removeElement($oauthAccounts);
     }
 
-    protected $avatar_options;
-
     /**
      * @return mixed
      */
@@ -792,7 +864,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     {
         $this->header_options = $header_options;
     }
-    protected $header_options;
 
     /**
      * Get oauthAccounts
@@ -802,33 +873,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
     public function getOauthAccounts()
     {
         return $this->oauthAccounts;
-    }
-
-    public function __toString()
-    {
-        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
-    }
-
-    public function toJson()
-    {
-        $data = [
-            'username' => $this->getUsername(),
-            'avatar' => $this->getAvatar(),
-            'email' => $this->getEmail(),
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'full_name' => $this->getFullName(),
-            'header' => $this->getHeader(),
-            'title' => $this->getTitle(),
-        ];
-        if ($this->getCountry() instanceof Location) {
-            $data['country'] = $this->getCountry()->getName();
-        }
-        if ($this->getCity() instanceof Location) {
-            $data['city'] = $this->getCity()->getName();
-        }
-
-        return json_encode($data);
     }
 
     /**
@@ -928,44 +972,6 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
 
         return $this;
     }
-
-    /**
-     *
-     * @param  string  $role
-     * @return boolean
-     */
-    public function hasRole($role)
-    {
-        $roles = $this->getRoles();
-        foreach ($roles as $roleObject) {
-            if ($roleObject->getRole() == $role) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /** @var  string */
-    protected $gender;
-    /** @var  string */
-    protected $initials;
-    /** @var  string */
-    protected $url;
-    /** @var  string */
-    protected $phone;
-    /** @var  string */
-    protected $fax;
-    /** @var  string */
-    protected $address;
-    /** @var  string */
-    protected $billing_address;
-    /** @var  string */
-    protected $locales;
-    /** @var  string */
-    protected $disable_reason;
-    /** @var  ArrayCollection */
-    protected $authorDetails;
 
     /**
      * @return string
@@ -1217,5 +1223,32 @@ class User implements Translatable, UserInterface, \Serializable, AdvancedUserIn
         }
 
         return $journalRoles;
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername().'( '.$this->getFullName().' ~ '.$this->getEmail().' ) ';
+    }
+
+    public function toJson()
+    {
+        $data = [
+            'username' => $this->getUsername(),
+            'avatar' => $this->getAvatar(),
+            'email' => $this->getEmail(),
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'full_name' => $this->getFullName(),
+            'header' => $this->getHeader(),
+            'title' => $this->getTitle(),
+        ];
+        if ($this->getCountry() instanceof Location) {
+            $data['country'] = $this->getCountry()->getName();
+        }
+        if ($this->getCity() instanceof Location) {
+            $data['city'] = $this->getCity()->getName();
+        }
+
+        return json_encode($data);
     }
 }

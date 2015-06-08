@@ -18,7 +18,6 @@ class RoleType extends AbstractType
         $builder
                 ->add('name', 'text', ['label' => 'name'])
                 ->add('role', 'text', ['label' => 'role.singular'])
-                ->add('isSystemRole', 'checkbox', ['label' => 'role.issystemrole'])
         ;
     }
 

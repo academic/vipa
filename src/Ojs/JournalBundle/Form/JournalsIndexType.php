@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Form;
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalsIndex;
-use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,21 +39,17 @@ class JournalsIndexType extends AbstractType
                     'label' => 'journal',
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($user) {
-                /** @var User $user $qb */
-                $qb = $er->createQueryBuilder('j');
-                foreach ($user->getRoles() as $role) {
-                    /** @var Role $role */
-                    if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                        return $qb;
-                        break;
-                    }
-                }
-                $qb
-                        ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                        ->setParameter('user', $user);
+                        /** @var User $user $qb */
+                        $qb = $er->createQueryBuilder('j');
+                        if($user->isAdmin()) {
+                            return $qb;
+                        }
+                        $qb
+                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                            ->setParameter('user', $user);
 
-                return $qb;
-            },
+                            return $qb;
+                        },
                 ]);
             } else {
                 $form->add('journal_id', 'hidden');

@@ -236,11 +236,7 @@ class OjsExtension extends \Twig_Extension
     {
         $user = $this->userListener->checkUser();
         if ($user) {
-            foreach ($user->getRoles() as $role) {
-                if ($role->getRole() == 'ROLE_SUPER_ADMIN') {
-                    return true;
-                }
-            }
+            return $user->isAdmin();
         }
 
         return false;
