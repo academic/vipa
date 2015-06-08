@@ -13,6 +13,7 @@ use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Form\CitationSettingType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * CitationSetting controller.
@@ -27,6 +28,9 @@ class CitationSettingController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new CitationSetting())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:CitationSetting');
         $grid = $this->get('grid')->setSource($source);
 
@@ -54,6 +58,9 @@ class CitationSettingController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new CitationSetting())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new CitationSetting();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -100,6 +107,9 @@ class CitationSettingController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new CitationSetting())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new CitationSetting();
         $form = $this->createCreateForm($entity);
 
@@ -112,19 +122,15 @@ class CitationSettingController extends Controller
     /**
      * Finds and displays a CitationSetting entity.
      *
-     * @param $id
+     * @param CitationSetting $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(CitationSetting $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         return $this->render('OjsJournalBundle:CitationSetting:show.html.twig', array(
             'entity' => $entity,));
     }
@@ -132,22 +138,16 @@ class CitationSettingController extends Controller
     /**
      * Displays a form to edit an existing CitationSetting entity.
      *
-     * @param $id
+     * @param CitationSetting $entity
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(CitationSetting $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var CitationSetting $entity */
-        $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:CitationSetting:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -178,20 +178,17 @@ class CitationSettingController extends Controller
     /**
      * Edits an existing CitationSetting entity.
      *
-     * @param  Request $request
-     * @param $id
+     * @param Request $request
+     * @param CitationSetting $entity
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, CitationSetting $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var CitationSetting $entity */
-        $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -199,9 +196,8 @@ class CitationSettingController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('citationsetting_edit', ['id' => $id]);
+            return $this->redirectToRoute('citationsetting_edit', ['id' => $entity->getId()]);
         }
-
         return $this->render('OjsJournalBundle:CitationSetting:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -209,23 +205,21 @@ class CitationSettingController extends Controller
     }
 
     /**
-     * @param  Request $request
-     * @param $id
+     * @param Request $request
+     * @param CitationSetting $entity
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, CitationSetting $entity)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:CitationSetting')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $form = $this->createDeleteForm($entity->getId());
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('citationsetting'.$id);
+        $token = $csrf->getToken('citationsetting'.$entity->getId());
         if($token!=$request->get('_token'))
             throw new TokenNotFoundException("Token Not Found!");
 
