@@ -13,6 +13,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Notification controller.
@@ -26,6 +27,9 @@ class NotificationController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Notification())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsUserBundle:Notification');
         $grid = $this->get('grid')->setSource($source);
         $actionColumn = new ActionsColumn("actions", "actions");
@@ -49,6 +53,9 @@ class NotificationController extends Controller
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Notification())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Notification();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -94,6 +101,9 @@ class NotificationController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Notification())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Notification();
         $form = $this->createCreateForm($entity);
 
@@ -106,19 +116,15 @@ class NotificationController extends Controller
     /**
      * Finds and displays a Notification entity.
      *
-     * @param $id
+     * @param Notification $entity
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Notification $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         return $this->render('OjsUserBundle:Notification:show.html.twig', array(
                     'entity' => $entity,
         ));
@@ -127,26 +133,21 @@ class NotificationController extends Controller
     /**
      * Displays a form to edit an existing Notification entity.
      *
-     * @param $id
+     * @param Notification $entity
      * @return Response
      */
-    public function editAction($id)
+    public function editAction(Notification $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var Notification $entity */
-        $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsUserBundle:Notification:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-        ));
+            )
+        );
     }
 
     /**
@@ -171,20 +172,17 @@ class NotificationController extends Controller
     /**
      * Edits an existing Notification entity.
      *
-     * @param  Request                   $request
-     * @param $id
+     * @param Request $request
+     * @param Notification $entity
      * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Notification $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var Notification $entity */
-        $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -204,18 +202,16 @@ class NotificationController extends Controller
     /**
      * Deletes a Notification entity.
      *
-     * @param $id
+     * @param Notification $entity
      * @return RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Notification $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsUserBundle:Notification')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
+        $em = $this->getDoctrine()->getManager();
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
