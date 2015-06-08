@@ -357,7 +357,7 @@ class PublicSearchRestController extends FOSRestController
      *                                                    resource=true,
      *                                                    description="get citation by id"
      *                                                    )
-     * @Get("/public/citation/get/{id}")
+     * @Get("/public/citation/get/{id}", defaults={"id" = null})
      */
     public function getCitationAction($id)
     {
