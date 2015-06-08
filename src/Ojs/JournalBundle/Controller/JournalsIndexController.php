@@ -6,6 +6,8 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Helper\ActionHelper;
+use Ojs\JournalBundle\Entity\Journal;
+use Ojs\JournalBundle\Entity\JournalIndex;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -14,6 +16,7 @@ use Ojs\JournalBundle\Form\JournalsIndexType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * JournalsIndex controller.
@@ -28,7 +31,10 @@ class JournalsIndexController extends Controller
      */
     public function indexAction()
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('VIEW', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $source = new Entity('OjsJournalBundle:JournalsIndex');
         if ($journal) {
             $ta = $source->getTableAlias();
@@ -36,7 +42,7 @@ class JournalsIndexController extends Controller
                 $qb->andWhere(
                                 $qb->expr()->eq("$ta.journal_id", ':journal')
                         )
-                        ->setParameter('journal', $journal);
+                        ->setParameter('journal', $journal->getId());
             });
         }
         if (!$journal) {
@@ -68,13 +74,15 @@ class JournalsIndexController extends Controller
      */
     public function createAction(Request $request)
     {
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('CREATE', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
+        }
         $em = $this->getDoctrine()->getManager();
         $entity = new JournalsIndex();
         if ($journal) {
-            $journalObj = $em->find('OjsJournalBundle:Journal', $journal);
-            $entity->setJournalId($journal);
-            $entity->setJournal($journalObj);
+            $entity->setJournalId($journal->getId());
+            $entity->setJournal($journal);
         }
         if (!$journal) {
             throw new NotFoundHttpException("Journal not found!");
@@ -124,12 +132,14 @@ class JournalsIndexController extends Controller
      */
     public function newAction()
     {
-        $entity = new JournalsIndex();
-        $journal = $this->get("ojs.journal_service")->getSelectedJournal()->getId();
-        if ($journal) {
-            $entity->setJournalId($journal);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('CREATE', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        if (!$journal) {
+        $entity = new JournalsIndex();
+        if ($journal) {
+            $entity->setJournalId($journal->getId());
+        }else{
             throw new NotFoundHttpException('Journal not found!');
         }
         $form = $this->createCreateForm($entity);
@@ -143,17 +153,16 @@ class JournalsIndexController extends Controller
     /**
      * Finds and displays a JournalsIndex entity.
      *
+     * @param JournalsIndex $entity
+     * @return Response
      */
-    public function showAction($id)
+    public function showAction(JournalsIndex $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:JournalsIndex')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('VIEW', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
         return $this->render('OjsJournalBundle:JournalsIndex:show.html.twig', array(
                     'entity' => $entity,
         ));
@@ -162,19 +171,17 @@ class JournalsIndexController extends Controller
     /**
      * Displays a form to edit an existing JournalsIndex entity.
      *
+     * @param JournalsIndex $entity
+     * @return Response
      */
-    public function editAction($id)
+    public function editAction(JournalsIndex $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:JournalsIndex')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('EDIT', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:JournalsIndex:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -204,17 +211,18 @@ class JournalsIndexController extends Controller
     /**
      * Edits an existing JournalsIndex entity.
      *
+     * @param Request $request
+     * @param JournalsIndex $entity
+     * @return RedirectResponse|Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, JournalsIndex $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:JournalsIndex')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('EDIT', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -222,7 +230,7 @@ class JournalsIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('manager_journals_indexes_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('manager_journals_indexes_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsJournalBundle:JournalsIndex:edit.html.twig', array(
@@ -233,20 +241,19 @@ class JournalsIndexController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
+     * @param JournalsIndex $entity
      * @return RedirectResponse
-     * @throws TokenNotFoundException
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, JournalsIndex $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:JournalsIndex')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
+        if(!$this->isGranted('DELETE', $journal, 'index')) {
+            throw new AccessDeniedException("You are not authorized for view this page!");
         }
-
+        $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
-        $token = $csrf->getToken('manager_journals_indexes'.$id);
+        $token = $csrf->getToken('manager_journals_indexes'.$entity->getId());
         if($token!=$request->get('_token'))
             throw new TokenNotFoundException("Token Not Found!");
         $em->remove($entity);
