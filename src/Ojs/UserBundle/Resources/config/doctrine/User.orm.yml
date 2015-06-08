@@ -135,6 +135,7 @@ Ojs\UserBundle\Entity\User:
                 - versioned
         roles:
             type: json_array
+            nullable: true
         disable_reason:
             type: text
             nullable: true
