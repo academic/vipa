@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 
 /**
  * CustomField
@@ -35,8 +34,7 @@ class CustomField
     private $user_id;
 
     /**
-     * @var \Ojs\UserBundle\Entity\User
-     * @AclParent
+     * @var User
      */
     private $user;
 
@@ -145,10 +143,10 @@ class CustomField
     /**
      * Set user
      *
-     * @param  \Ojs\UserBundle\Entity\User $user
+     * @param  User $user
      * @return CustomField
      */
-    public function setUser(\Ojs\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
 
@@ -158,7 +156,7 @@ class CustomField
     /**
      * Get user
      *
-     * @return \Ojs\UserBundle\Entity\User
+     * @return User
      */
     public function getUser()
     {

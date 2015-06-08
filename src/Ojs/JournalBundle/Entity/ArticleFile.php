@@ -3,7 +3,6 @@
 namespace Ojs\JournalBundle\Entity;
 
 use Gedmo\Translatable\Translatable;
-use GoDisco\AclTreeBundle\Annotation\AclParent;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
@@ -45,8 +44,8 @@ class ArticleFile implements Translatable
 
     /**
      * @var Article
-     * @AclParent
      */
+
     private $article;
 
     /**
