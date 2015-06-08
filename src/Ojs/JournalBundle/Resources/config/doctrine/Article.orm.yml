@@ -226,6 +226,7 @@ Ojs\JournalBundle\Entity\Article:
     slug:
       type: string
       length: 40
+      nullable: TRUE
       gedmo:
         slug:
           seperator: _
