@@ -25,8 +25,7 @@ class JournalIndexController extends Controller
      */
     public function indexAction()
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('VIEW', $journal, 'index')) {
+        if(!$this->isGranted('VIEW', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalIndex');
@@ -55,8 +54,7 @@ class JournalIndexController extends Controller
      */
     public function createAction(Request $request)
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('CREATE', $journal, 'index')) {
+        if(!$this->isGranted('CREATE', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
@@ -105,13 +103,11 @@ class JournalIndexController extends Controller
      */
     public function newAction()
     {
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('CREATE', $journal, 'index')) {
+        if(!$this->isGranted('CREATE', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
         $form   = $this->createCreateForm($entity);
-
         return $this->render('OjsJournalBundle:JournalIndex:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -127,8 +123,7 @@ class JournalIndexController extends Controller
     public function showAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('VIEW', $journal, 'index')) {
+        if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         return $this->render('OjsJournalBundle:JournalIndex:show.html.twig', array(
@@ -146,12 +141,10 @@ class JournalIndexController extends Controller
     public function editAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'index')) {
+        if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -185,8 +178,7 @@ class JournalIndexController extends Controller
     public function updateAction(Request $request, JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('EDIT', $journal, 'index')) {
+        if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -202,9 +194,8 @@ class JournalIndexController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $entity->getId())));
         }
-
         return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
@@ -221,8 +212,7 @@ class JournalIndexController extends Controller
     public function deleteAction(Request $request, JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        $journal = $this->get('ojs.journal_service')->getSelectedJournal();
-        if(!$this->isGranted('DELETE', $journal, 'index')) {
+        if(!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
