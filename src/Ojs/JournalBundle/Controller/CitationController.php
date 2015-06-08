@@ -13,6 +13,7 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Citation controller.
@@ -26,6 +27,9 @@ class CitationController extends Controller
      */
     public function indexAction()
     {
+        if(!$this->isGranted('VIEW', new Citation())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $source = new Entity('OjsJournalBundle:Citation');
         $router = $this->get('router');
         $source->manipulateRow(function (Row $row) use ($router) {
@@ -56,16 +60,19 @@ class CitationController extends Controller
         $grid->addColumn($actionColumn);
 
         return $grid->getGridResponse('OjsJournalBundle:Citation:index.html.twig', array('grid' => $grid));
-
-       // $entities = $em->getRepository('OjsJournalBundle:Citation')->findAll();
     }
 
     /**
      * Creates a new Citation entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
+        if(!$this->isGranted('CREATE', new Citation())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Citation();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -110,6 +117,9 @@ class CitationController extends Controller
      */
     public function newAction()
     {
+        if(!$this->isGranted('CREATE', new Citation())) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
         $entity = new Citation();
         $form = $this->createCreateForm($entity);
 
@@ -143,44 +153,45 @@ class CitationController extends Controller
     /**
      * Finds and displays a Citation entity.
      *
+     * @param Citation $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction($id)
+    public function showAction(Citation $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('VIEW', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
-
         return $this->render('OjsJournalBundle:Citation:show.html.twig', array(
-                    'entity' => $entity, ));
+                    'entity' => $entity
+            )
+        );
     }
 
     /**
      * Displays a form to edit an existing Citation entity.
      *
+     * @param Citation $entity
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($id)
+    public function editAction(Citation $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
-
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+                    'edit_form' => $editForm->createView()
+            )
+        );
     }
 
     /**
      * Creates a form to edit a Citation entity.
      *
-     * @param  Citation                     $entity The entity
+     * @param  Citation $entity
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Citation $entity)
@@ -197,21 +208,24 @@ class CitationController extends Controller
     /**
      * Edits an existing Citation entity.
      *
+     * @param Request $request
+     * @param Citation $entity
+     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Citation $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('OjsJournalBundle:Citation')->find($id);
-        if (!$entity) {
-            throw $this->createNotFoundException('notFound');
+        $this->throw404IfNotFound($entity);
+        if(!$this->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
         }
+        $em = $this->getDoctrine()->getManager();
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('citation_edit', ['id' => $id]);
+            return $this->redirectToRoute('citation_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Citation:edit.html.twig', array(
@@ -229,9 +243,11 @@ class CitationController extends Controller
      */
     public function deleteAction(Request $request,Citation $entity)
     {
-        $em = $this->getDoctrine()->getManager();
         $this->throw404IfNotFound($entity);
-
+        if(!$this->isGranted('DELETE', $entity)) {
+            throw new AccessDeniedException("You are not authorized for this page!");
+        }
+        $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('citation'.$entity->getId());
         if($token!=$request->get('_token'))
