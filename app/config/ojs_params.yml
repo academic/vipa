@@ -20,3 +20,31 @@ parameters:
         ar:
             name: Arabic
             code: ar
+    roles:
+        - 
+            role: ROLE_JOURNAL_MANAGER
+            desc: Journal Manager
+        - 
+            role: ROLE_SUBSCRIPTION_MANAGER
+            desc: Subscription Manager
+        - 
+            role: ROLE_EDITOR
+            desc: Editor
+        - 
+            role: ROLE_SECTION_EDITOR
+            desc: Section Editor
+        - 
+            role: ROLE_LAYOUT_EDITOR
+            desc: Layout Editor
+        - 
+            role: ROLE_COPYEDITOR
+            desc: Copyeditor
+        - 
+            role: ROLE_PROOFREADER
+            desc: Proofreader
+        - 
+            role: ROLE_AUTHOR
+            desc: Author
+        - 
+            role: ROLE_READER
+            desc: Reader
