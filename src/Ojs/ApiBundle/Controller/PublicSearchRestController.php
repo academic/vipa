@@ -132,7 +132,7 @@ class PublicSearchRestController extends FOSRestController
      *                                    resource=true,
      *                                    description="get institution by id"
      *                                    )
-     * @Get("/public/institution/get/{id}")
+     * @Get("/public/institution/get/{id}", defaults={"id" = null})
      */
     public function getInstitutionAction($id)
     {
