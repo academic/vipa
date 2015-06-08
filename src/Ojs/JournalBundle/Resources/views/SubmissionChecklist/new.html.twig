@@ -1,4 +1,6 @@
 {% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.submission_checklist_new'|trans }} {{ parent() }}{% endblock %}
+
 {% block  stylesheets %}
     {{parent()}}
     <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
