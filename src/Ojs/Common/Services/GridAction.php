@@ -46,13 +46,15 @@ class GridAction
         $rowAction->setRouteParameters($key);
         $rowAction->setConfirm(true);
         $rowAction->setConfirmMessage($this->translator->trans("sure"));
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($this, $route) {
+        $translator = $this->translator;
+        $csrfTokenManager = $this->csrfTokenManager;
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($translator, $csrfTokenManager, $route) {
             $route = str_replace('_delete', '', $route);
-            $token = $this->csrfTokenManager->refreshToken($route . $row->getPrimaryFieldValue());
+            $token = $csrfTokenManager->refreshToken($route . $row->getPrimaryFieldValue());
             $action->setAttributes([
                     'class' => 'btn btn-danger btn-xs delete',
                     'data-toggle' => 'tooltip',
-                    'title' => $this->translator->trans("delete"),
+                    'title' => $translator->trans("delete"),
                     'data-token' => $token
                 ]
             );
@@ -80,11 +82,12 @@ class GridAction
         if ($role) {
             $rowAction->setRole($role);
         }
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) {
+        $translator = $this->translator;
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($translator) {
             if (!$row->getField('status')) {
                 $action->setRoute('user_unblock');
                 $action->setTitle('<i class="fa fa-check"></i>');
-                $action->setConfirmMessage($this->translator->trans('sure.ban'));
+                $action->setConfirmMessage($translator->trans('sure.ban'));
             }
 
             return $action;
@@ -201,9 +204,10 @@ class GridAction
         if ($role) {
             $rowAction->setRole($role);
         }
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($this) {
+        $postExtension = $this->postExtension;
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($postExtension) {
             $entity = $row->getEntity();
-            $object = $this->postExtension->cmsobject($entity);
+            $object = $postExtension->cmsobject($entity);
             $action->setRouteParameters(['id', 'object' => $object]);
 
             return $action;
