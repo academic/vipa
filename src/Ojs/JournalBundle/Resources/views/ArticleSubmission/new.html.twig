@@ -18,12 +18,18 @@
     <div class="panel panel-default panel-steps">
         <div class="panel-heading">
             <ul class="nav nav-wizard submission-progress" id="article-submission-steps">
-                <li id="submission-progress-step0" class="active"><a href="#0"><span class="badge">1</span> {{ "submission.starting"|trans }}</a></li>
-                <li id="submission-progress-step1"><a href="#1"><span class="badge">2</span> {{ "article.singular"|trans }}</a></li>
-                <li id="submission-progress-step2"><a href="#2"><span class="badge">3</span> {{ "author.plural"|trans }}</a></li>
-                <li id="submission-progress-step3"><a href="#3"><span class="badge">4</span> {{ "article.citations"|trans }}</a></li>
-                <li id="submission-progress-step4"><a href="#4"><span class="badge">5</span>  {{ "article.files"|trans }}</a></li>
-                <li id="submission-progress-step5 last-step"><a href="#"><span class="badge">6</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
+                <li id="submission-progress-step0" class="active"><a href="#0"><span
+                                class="badge">1</span> {{ "submission.starting"|trans }}</a></li>
+                <li id="submission-progress-step1"><a href="#1"><span
+                                class="badge">2</span> {{ "article.singular"|trans }}</a></li>
+                <li id="submission-progress-step2"><a href="#2"><span class="badge">3</span> {{ "author.plural"|trans }}
+                    </a></li>
+                <li id="submission-progress-step3"><a href="#3"><span
+                                class="badge">4</span> {{ "article.citations"|trans }}</a></li>
+                <li id="submission-progress-step4"><a href="#4"><span
+                                class="badge">5</span>  {{ "article.files"|trans }}</a></li>
+                <li id="submission-progress-step5 last-step"><a href="#"><span
+                                class="badge">6</span> {{ "preview"|trans }} & {{ "submit"|trans }}</a></li>
                 <li id="resumeNote" class="text-right"></li>
             </ul>
         </div>
@@ -33,11 +39,15 @@
             </div>
             <div id="step1-container" class="step hide">
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.1</span> {{ "article.language.primary"|trans }}</label></div>
+                    <div class="col-md-3 col-xs-12"><label><span
+                                    class="badge">1.1</span> {{ "article.language.primary"|trans }}</label></div>
                     <div class="col-md-9 col-xs-12">
                         <select name="primaryLanguage" class="form-control select2-element">
                             {% for lang in journal.languages %}
-                                <option value="{{ lang.code }}" {% if loop.first %}selected="selected" {% endif %}>{{ lang.name }} [{{ lang.code }}]</option>
+                                <option value="{{ lang.code }}"
+                                        {% if loop.first %}selected="selected" {% endif %}>{{ lang.name }}
+                                    [{{ lang.code }}]
+                                </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -55,31 +65,34 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.metadata"|trans }}</label></div>
+                    <div class="col-md-3 col-xs-12"><label><span class="badge">1.3</span> {{ "article.metadata"|trans }}
+                        </label></div>
                     <div class="col-md-9 col-xs-12">
 
 
                         <div class="btn-group clear">
                             {% for lang in  journal.languages %}
-                                <a class="btn btn-xs btn-link" onclick="OjsArticleSubmission.step1ScrollToLangPanel('{{lang.code}}')">{{lang.name}}</a>
-                            {%endfor%}
+                                <a class="btn btn-xs btn-link"
+                                   onclick="OjsArticleSubmission.step1ScrollToLangPanel('{{ lang.code }}')">{{ lang.name }}</a>
+                            {% endfor %}
                         </div>
                         <br>
-                            <div id="step1">
-                                {% for lang in  journal.languages %}
-                                    {%if submissionData  is defined and submissionData.articleData is defined and submissionData.articleData[lang.code] is defined%}
-                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':submissionData.articleData[lang.code],'lang':lang } %}
-                                    {%else%}
-                                        {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'lang':lang } %}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
+
+                        <div id="step1">
+                            {% for lang in  journal.languages %}
+                                {% if submissionData  is defined and submissionData.articleData is defined and submissionData.articleData[lang.code] is defined %}
+                                    {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'article':submissionData.articleData[lang.code],'lang':lang } %}
+                                {% else %}
+                                    {% include 'OjsJournalBundle:ArticleSubmission:step1.html.twig' with {'lang':lang } %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="step1_actions record_actions">
                         <div class="col-sm-12">
-                            <hr />
+                            <hr/>
                             <a class="btn btn-danger btn-lg" onclick="return confirm('{{ "sure"|trans }} ');"
                                href="{{ path('article_submission_new') }}">
                                 <i class="fa fa-repeat"></i>
@@ -97,20 +110,23 @@
             </div>
             <div id="step2-container" class="step hide">
                 <h2>{{ "article.authors"|trans }}</h2>
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">{{"authors.count"|trans}} :</label>
+                                <label class="col-md-2 control-label">{{ "authors.count"|trans }} :</label>
+
                                 <div class="col-md-10 ">
-                                    <input class="form-control input-sm" id="submissionAuthorCount" type="number" min="0" max="400">
+                                    <input class="form-control input-sm" id="submissionAuthorCount" type="number"
+                                           min="0" max="400">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <button class="pull-right btn btn-danger btn-xs" id="removeAllAuthorForms">
                                         <i class="fa fa-trash-o"></i>
-                                        {%trans%}Remove all author forms!{%endtrans%}
+                                        {% trans %}Remove all author forms!{% endtrans %}
                                     </button>
                                 </div>
                             </div>
@@ -125,21 +141,22 @@
                     {% endif %}
 
                 </div>
-                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i class="fa fa-plus-circle"></i> {{"author"|trans}}</a>
+                <a class="btn btn-block btn-primary" onclick="OjsArticleSubmission.addAuthorForm();"><i
+                            class="fa fa-plus-circle"></i> {{ "author"|trans }}</a>
 
                 <div class="step2_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                            <a class="btn btn-danger btn-lg"
-                               onclick="javascript:OjsArticleSubmission.backTo(1);">
-                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                            </a>
-                            <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
-                                <i class="fa fa-save"></i>
-                                {{ "save.next"|trans }}
-                                <i class="fa fa-chevron-right"></i>
-                            </a>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(1);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step2('{{ path('article_submission_step2') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -159,16 +176,18 @@
                             </button>
                         </div>
                         <hr>
-                            <div class="col-sm-12">
-                                <div id="citationPasteField" style="display: none!important">
-                                    <div class="form-row well">
-                                        <textarea class="form-control citationPasteTextArea" rows="5" placeholder=" {{ "citation.paste_extract"|trans }}"></textarea>
-                                        <br> <a class="btn btn-info btn-sm citationPasteActionBtn"><i class="fa fa-bolt"></i> {{ "citation.paste_extract"|trans }}</a>
-                                    </div>
-
+                        <div class="col-sm-12">
+                            <div id="citationPasteField" style="display: none!important">
+                                <div class="form-row well">
+                                    <textarea class="form-control citationPasteTextArea" rows="5"
+                                              placeholder=" {{ "citation.paste_extract"|trans }}"></textarea>
+                                    <br> <a class="btn btn-info btn-sm citationPasteActionBtn"><i
+                                                class="fa fa-bolt"></i> {{ "citation.paste_extract"|trans }}</a>
                                 </div>
 
                             </div>
+
+                        </div>
                     </div>
 
                     <div id="citationContainer">
@@ -182,16 +201,16 @@
                 <div class="step3_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                            <a class="btn btn-danger btn-lg"
-                               onclick="javascript:OjsArticleSubmission.backTo(2);">
-                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                            </a>
-                            <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
-                                <i class="fa fa-save"></i>
-                                {{ "save.next"|trans }}
-                                <i class="fa fa-chevron-right"></i>
-                            </a>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(2);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step3('{{ path('article_submission_step3') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -199,6 +218,7 @@
 
             <div id="step4-container" class="step hide">
                 <h3>{{ 'article.files'|trans }}</h3>
+
                 <div id="step4">
                     {% if submissionData is defined and submissionData.files is defined %}
                         {% for file in submissionData.files %}
@@ -206,20 +226,21 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-                <button onclick="OjsArticleSubmission.addFileForm();"class="btn btn-block btn-primary"><i class="fa fa-plus"></i> {{"file.new"|trans}}</button>
+                <button onclick="OjsArticleSubmission.addFileForm();" class="btn btn-block btn-primary"><i
+                            class="fa fa-plus"></i> {{ "file.new"|trans }}</button>
                 <div class="step4_actions record_actions">
                     <div class="col-sm-12">
                         <hr>
-                            <a class="btn btn-danger btn-lg"
-                               onclick="javascript:OjsArticleSubmission.backTo(3);">
-                                <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
-                            </a>
-                            <a class="btn btn-success btn-lg pull-right"
-                               onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
-                                <i class="fa fa-save"></i>
-                                {{ "save.next"|trans }}
-                                <i class="fa fa-chevron-right"></i>
-                            </a>
+                        <a class="btn btn-danger btn-lg"
+                           onclick="javascript:OjsArticleSubmission.backTo(3);">
+                            <i class="fa fa-chevron-left"></i> {{ "b"|trans }}
+                        </a>
+                        <a class="btn btn-success btn-lg pull-right"
+                           onclick="javascript: OjsArticleSubmission.step4('{{ path('article_submission_step4') }}');">
+                            <i class="fa fa-save"></i>
+                            {{ "save.next"|trans }}
+                            <i class="fa fa-chevron-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -231,20 +252,25 @@
 
     <script id="step2_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step2.html.twig' %}
+
     </script>
 
     <script id="step3_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step3.html.twig' %}
+
     </script>
 
     <script id="step4_tpl" type="x-tmplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:step4.html.twig' %}
+
     </script>
     <script id="step3_cite_item_must_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemMust.html.twig' with {'field':'','value':''} only %}
+
     </script>
     <script id="step3_cite_item_should_tpl" type="x-tplmustache">
         {% include 'OjsJournalBundle:ArticleSubmission:citeItemShould.html.twig' with {'field':'','value':''} only %}
+
     </script>
 
 {% endblock %}
@@ -262,59 +288,62 @@
 
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/article_submission_tour.js' output="c/article_submission_tour.js" %}
     {% if app.user.setting('tour.admin.article-submit') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-        {% endjavascripts %}
+    {% endjavascripts %}
 
-        <script type="text/javascript">
-            OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+    <script type="text/javascript">
+        OjsCommon.api.userApikey = "{{app.user.apiKey}}";
+        var currentStep = parseInt(window.location.hash.replace("#", ""));
+        window.onbeforeunload = function () {
+            //return "{{"sure_data_lost"|trans}}";
+        };
+        function loadCurrentStep(currentStep) {
+            OjsArticleSubmission.hideAllSteps();
+            console.dir("step" + currentStep);
+            OjsArticleSubmission.prepareStep["step" + currentStep]();
+        }
+        $(window).on("hashchange", function (event) {
             var currentStep = parseInt(window.location.hash.replace("#", ""));
-            window.onbeforeunload = function () {
-                //return "{{"sure_data_lost"|trans}}";
-            };
-            function loadCurrentStep(currentStep) {
-                OjsArticleSubmission.hideAllSteps();
-                console.dir("step" + currentStep);
-                OjsArticleSubmission.prepareStep["step" + currentStep]();
+            if (window.currentStep !== currentStep) {
+                window.currentStep = currentStep;
+                loadCurrentStep(currentStep);
             }
-            $(window).on("hashchange", function (event) {
-                var currentStep = parseInt(window.location.hash.replace("#", ""));
-                if (window.currentStep !== currentStep) {
-                    window.currentStep = currentStep;
-                    loadCurrentStep(currentStep);
-                }
+        });
+        $(document).ready(function () {
+            $('.submission-progress li a').click(function(event){
+                event.preventDefault();
+            })
+            OjsArticleSubmission.setupUi();
+            $("div#step2-container").on("click", "#removeAllAuthorForms", function () {
+                confirm("{{"sure"|trans}}") && OjsArticleSubmission.removeAllAuthorForms();
             });
-            $(document).ready(function () {
-                OjsArticleSubmission.setupUi();
-                $("div#step2-container").on("click", "#removeAllAuthorForms", function () {
-                    confirm("{{"sure"|trans}}") && OjsArticleSubmission.removeAllAuthorForms();
-                });
-                $("#submissionAuthorCount").change(
-                        function () {
-                            $count = $(this).val();
-                            $current = OjsArticleSubmission.authorFormCount();
-                            if ($count > $current) {
-                                for (i = 0; i < ($count - $current); i++) {
-                                    OjsArticleSubmission.addAuthorForm();
-                                }
-                            } else if ($count < $current) {
-                                $(this).val($current);
-                                window.notify("{%trans%}You should remove author forms by clicking 'Remove' button on left bottom corner of every form.{%endtrans%}", "warning");
+            $("#submissionAuthorCount").change(
+                    function () {
+                        $count = $(this).val();
+                        $current = OjsArticleSubmission.authorFormCount();
+                        if ($count > $current) {
+                            for (i = 0; i < ($count - $current); i++) {
+                                OjsArticleSubmission.addAuthorForm();
                             }
-                        });
-                var currentStep = parseInt(window.location.hash.replace("#", ""));
-                if (currentStep) {
-                    loadCurrentStep(currentStep);
-                }
+                        } else if ($count < $current) {
+                            $(this).val($current);
+                            window.notify("{%trans%}You should remove author forms by clicking 'Remove' button on left bottom corner of every form.{%endtrans%}", "warning");
+                        }
+                    });
+            var currentStep = parseInt(window.location.hash.replace("#", ""));
+            if (currentStep) {
+                loadCurrentStep(currentStep);
+            }
             {%if submissionId is defined %}
-                    OjsArticleSubmission.submissionId = "{{submissionId}}";
-                    OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
-                {#
-                Load submission steps with data
-                #}
-                        $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
-                        OjsArticleSubmission.activatedSteps["step1"] = true;
+            OjsArticleSubmission.submissionId = "{{submissionId}}";
+            OjsArticleSubmission.showResumeNote(OjsArticleSubmission.submissionId);
+            {#
+            Load submission steps with data
+            #}
+            $("select[name=primaryLanguage]").select2("val", "{{submissionData.primaryLanguage}}");
+            OjsArticleSubmission.activatedSteps["step1"] = true;
             {% endif %}
-                });
-        </script>
-        {% endblock %}
+        });
+    </script>
+{% endblock %}
