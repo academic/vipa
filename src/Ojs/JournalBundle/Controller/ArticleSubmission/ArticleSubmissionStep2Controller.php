@@ -32,6 +32,12 @@ class ArticleSubmissionStep2Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('No submission found');
+        }
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
+            throw $this->createAccessDeniedException("Access Denied");
+        }
         $articleSubmission->setAuthors($authorsData);
         $dm->persist($articleSubmission);
         $dm->flush();

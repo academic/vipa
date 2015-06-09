@@ -43,21 +43,28 @@ class ArticleSubmissionStep1Controller extends Controller
             $articleSubmission = new ArticleSubmissionProgress();
         } else {
             $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($articleData["submissionId"]);
+            if (!$articleSubmission) {
+                throw $this->createNotFoundException('No submission found');
+            }
+            if (!$this->isGranted('EDIT', $articleSubmission)) {
+                throw $this->createAccessDeniedException("Access Denied");
+            }
         }
-        $articleSubmission->setArticleData($articleSubmissionData);
-        $articleSubmission->setUserId($this->getUser()->getId());
-        $articleSubmission->setJournalId($articleData["journalId"]);
-        $articleSubmission->setPrimaryLanguage($articleData["primaryLanguage"]);
-        $articleSubmission->setStartedDate(new \DateTime());
-        $articleSubmission->setLastResumeDate(new \DateTime());
-        $articleSubmission->setLanguages($languages);
-        $articleSubmission->setSection($articleData['section']);
+        $articleSubmission->setArticleData($articleSubmissionData)
+            ->setUserId($this->getUser()->getId())
+            ->setJournalId($articleData["journalId"])
+            ->setPrimaryLanguage($articleData["primaryLanguage"])
+            ->setStartedDate(new \DateTime())
+            ->setLastResumeDate(new \DateTime())
+            ->setLanguages($languages)
+            ->setSection($articleData['section']);
         $dm->persist($articleSubmission);
         $dm->flush();
 
         return new JsonResponse(array(
             'submissionId' => $articleSubmission->getId(),
-            'locale' => $locale, ));
+            'locale' => $locale
+        ));
     }
 
     /**

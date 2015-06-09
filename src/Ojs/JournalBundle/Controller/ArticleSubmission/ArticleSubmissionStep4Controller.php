@@ -24,6 +24,12 @@ class ArticleSubmissionStep4Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('No submission found');
+        }
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
+            throw $this->createAccessDeniedException("Access Denied");
+        }
         if (empty($filesData) || !$submissionId || !$articleSubmission) {
             return new Response('Missing argument', 400);
         }

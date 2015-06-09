@@ -428,11 +428,14 @@ class ArticleSubmissionProgress
     }
 
     /**
-     * @param mixed $section
+     * @param $section
+     * @return $this
      */
     public function setSection($section)
     {
         $this->section = $section;
+
+        return $this;
     }
 
     /**
