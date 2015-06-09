@@ -311,7 +311,8 @@
             }
         });
         $(document).ready(function () {
-            $('.submission-progress li a').click(function(event){
+            $('.submission-progress>li>a').click(function(event){
+                window.location.hash = $(this).prop('href');
                 event.preventDefault();
             })
             OjsArticleSubmission.setupUi();
