@@ -312,7 +312,7 @@
         });
         $(document).ready(function () {
             $('.submission-progress>li>a').click(function(event){
-                window.location.hash = $(this).prop('href');
+                window.location.hash.replace(/^#/,$(this).prop('href'));
                 event.preventDefault();
             })
             OjsArticleSubmission.setupUi();
