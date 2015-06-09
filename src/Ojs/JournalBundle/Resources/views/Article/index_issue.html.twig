@@ -17,6 +17,8 @@
 
     {% include "OjsJournalBundle:Article:index_list_block.html.twig" %}
     {% set back_path = 'article' %}
-    {% set create_path = 'article_new' %}
+    {% if is_granted('CREATE', selectedJournal(), 'articles') %}
+        {% set create_path = 'article_new' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}

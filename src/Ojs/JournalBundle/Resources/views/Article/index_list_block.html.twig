@@ -41,10 +41,13 @@
                         </span>
                     </td>
                     <td>
-
                         {% set show_path = 'article_show' %}
-                        {% set edit_path = 'article_edit' %}
-                        {% set delete_path = 'article_delete' %}
+                        {% if is_granted('EDIT', entity.journal, 'articles') %}
+                            {% set edit_path = 'article_edit' %}
+                        {% endif %}
+                        {% if is_granted('DELETE', entity.journal, 'articles') %}
+                            {% set delete_path = 'article_delete' %}
+                        {% endif %}
                         {% include '::actionbuttons.html.twig' %}
                     </td>
                 </tr>
