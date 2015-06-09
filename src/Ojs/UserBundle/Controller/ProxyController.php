@@ -12,9 +12,7 @@ use Ojs\UserBundle\Form\ProxyType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -123,12 +121,12 @@ class ProxyController extends Controller
         }
         $source = new Entity('OjsUserBundle:Proxy');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('admin_proxy_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_proxy_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_proxy_delete', 'id');
+        $rowAction[] = $gridAction->showAction('admin_proxy_show', 'id');
+        $rowAction[] = $gridAction->editAction('admin_proxy_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('admin_proxy_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
@@ -322,7 +320,7 @@ class ProxyController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('admin_proxy_edit', array('id' => $entity->getId())));
         }
 
         return $this->render('OjsUserBundle:Proxy:admin/edit.html.twig', array(

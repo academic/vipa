@@ -589,6 +589,7 @@ api_motto: __api_motto
 edit: Düzenle
 cms: İçerik Yönetim Sistemi
 delete: Sil
+copy: Kopyala
 'Order by': 'Sırala'
 Filters: Filtrele
 collapse: +/-

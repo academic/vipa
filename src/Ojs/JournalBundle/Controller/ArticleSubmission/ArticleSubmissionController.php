@@ -10,7 +10,6 @@ use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Sluggable\Util as Sluggable;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -138,15 +137,16 @@ class ArticleSubmissionController extends Controller
         $drafts = $gridManager->createGrid('drafts');
         $submissionsGrid->setSource($source1);
         $drafts->setSource($source2);
+        $gridAction = $this->get('grid_action');
 
-        $submissionsGrid->addRowAction(ActionHelper::showAction('article_show', 'id'));
-        $submissionsGrid->addRowAction(ActionHelper::editAction('article_edit', 'id'));
-        $submissionsGrid->addRowAction(ActionHelper::deleteAction('article_delete', 'id'));
+        $submissionsGrid->addRowAction($gridAction->showAction('article_show', 'id'));
+        $submissionsGrid->addRowAction($gridAction->editAction('article_edit', 'id'));
+        $submissionsGrid->addRowAction($gridAction->deleteAction('article_delete', 'id'));
 
         $rowAction = [];
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::submissionResumeAction('article_submission_resume', 'id');
-        $rowAction[] = ActionHelper::deleteAction('article_submission_cancel', 'id');
+        $rowAction[] = $gridAction->submissionResumeAction('article_submission_resume', 'id');
+        $rowAction[] = $gridAction->deleteAction('article_submission_cancel', 'id');
         $actionColumn->setRowActions($rowAction);
         $drafts->addColumn($actionColumn);
 
@@ -369,7 +369,7 @@ class ArticleSubmissionController extends Controller
                 'files' => $articleSubmission->getFiles(), ));
 
             $deadline = new \DateTime();
-            $deadline->modify("+".$firstStep->getMaxdays()." day");
+            $deadline->modify("+".$firstStep->getMaxDays()." day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
             $reviewStep->setStep($firstStep);

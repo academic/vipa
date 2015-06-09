@@ -4,11 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\InstitutionTypes;
 use Ojs\JournalBundle\Form\InstitutionTypesType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -29,13 +30,13 @@ class InstitutionTypesController extends Controller
         }
         $source = new Entity('OjsJournalBundle:InstitutionTypes');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('institution_types_show', 'id');
-        $rowAction[] = ActionHelper::editAction('institution_types_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('institution_types_delete', 'id');
+        $rowAction[] = $gridAction->showAction('institution_types_show', 'id');
+        $rowAction[] = $gridAction->editAction('institution_types_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('institution_types_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -48,6 +49,8 @@ class InstitutionTypesController extends Controller
     /**
      * Creates a new InstitutionTypes entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -111,15 +114,17 @@ class InstitutionTypesController extends Controller
     /**
      * Finds and displays a InstitutionTypes entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:InstitutionTypes')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:InstitutionTypes:show.html.twig', array(
                     'entity' => $entity,
@@ -130,15 +135,18 @@ class InstitutionTypesController extends Controller
     /**
      * Displays a form to edit an existing InstitutionTypes entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var InstitutionTypes $entity */
         $entity = $em->getRepository('OjsJournalBundle:InstitutionTypes')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:InstitutionTypes:edit.html.twig', array(
@@ -168,15 +176,19 @@ class InstitutionTypesController extends Controller
     /**
      * Edits an existing InstitutionTypes entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var InstitutionTypes $entity */
         $entity = $em->getRepository('OjsJournalBundle:InstitutionTypes')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {

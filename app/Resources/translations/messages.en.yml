@@ -632,6 +632,7 @@ api_motto: __api_motto
 edit: Edit
 cms: CMS
 delete: Delete
+copy: Copy
 'Order by': 'Order by'
 Filters: Filters
 collapse: Collapse

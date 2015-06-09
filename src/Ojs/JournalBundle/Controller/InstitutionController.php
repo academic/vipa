@@ -4,11 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Form\InstitutionType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -29,13 +30,13 @@ class InstitutionController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Institution');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('institution_show', 'id');
-        $rowAction[] = ActionHelper::editAction('institution_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('institution_delete', 'id');
+        $rowAction[] = $gridAction->showAction('institution_show', 'id');
+        $rowAction[] = $gridAction->editAction('institution_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('institution_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -49,6 +50,8 @@ class InstitutionController extends Controller
     /**
      * Creates a new Institution entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -123,6 +126,8 @@ class InstitutionController extends Controller
     /**
      * Finds and displays a Institution entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -140,15 +145,18 @@ class InstitutionController extends Controller
     /**
      * Displays a form to edit an existing Institution entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
@@ -181,6 +189,9 @@ class InstitutionController extends Controller
     /**
      * Edits an existing Institution entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {

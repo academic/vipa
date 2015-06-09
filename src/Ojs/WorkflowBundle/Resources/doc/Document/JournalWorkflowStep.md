@@ -34,7 +34,7 @@
          "role" : "ROLE_COPYEDITOR"
      }
     }````
-- **maxdays** : `@MongoDB\Int`  Default maxdays for this step for review
+- **maxDays** : `@MongoDB\Int`  Default maxDays for this step for review
 - **canSeeAuthor** : `@MongoDb\Boolean` `default: true` if false user that works on this step can't see the author
 - **isVisible** : `@MongoDb\Boolean`  `default: true` if false user that works on this step can't be seen by anybody except editor and journal manager.
 

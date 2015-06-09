@@ -4,12 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Form\ContactType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -30,13 +30,12 @@ class ContactController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Contact');
         $grid = $this->get('grid')->setSource($source);
-
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('contact_show', 'id');
-        $rowAction[] = ActionHelper::editAction('contact_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('contact_delete', 'id');
+        $rowAction[] = $gridAction->showAction('contact_show', 'id');
+        $rowAction[] = $gridAction->editAction('contact_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('contact_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -49,6 +48,8 @@ class ContactController extends Controller
     /**
      * Creates a new Contact entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -113,15 +114,17 @@ class ContactController extends Controller
     /**
      * Finds and displays a Contact entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
 
         return $this->render('OjsJournalBundle:Contact:show.html.twig', array(
             'entity' => $entity, ));
@@ -130,15 +133,18 @@ class ContactController extends Controller
     /**
      * Displays a form to edit an existing Contact entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Contact $entity */
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
@@ -169,15 +175,19 @@ class ContactController extends Controller
     /**
      * Edits an existing Contact entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Contact $entity */
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {

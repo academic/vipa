@@ -9,7 +9,6 @@ use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Row;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ORM\EntityManager;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Document\JournalApplication;
 use Ojs\JournalBundle\Document\InstitutionApplication;
 use Ojs\JournalBundle\Entity\Contact;
@@ -58,11 +57,11 @@ class ApplicationController extends Controller
             });
 
         $grid = $this->get('grid')->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
+        $gridAction = $this->get('grid_action');
 
-        $rowAction[] = ActionHelper::editAction('application_institution_edit', 'id');
-        $rowAction[] = ActionHelper::showAction('application_institution_show', 'id');
-        $rowAction[] = ActionHelper::deleteAction('application_institution_delete', 'id');
+        $rowAction[] = $gridAction->editAction('application_institution_edit', 'id');
+        $rowAction[] = $gridAction->showAction('application_institution_show', 'id');
+        $rowAction[] = $gridAction->deleteAction('application_institution_delete', 'id');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 
@@ -95,11 +94,11 @@ class ApplicationController extends Controller
         });
 
         $grid = $this->get('grid')->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
+        $gridAction = $this->get('grid_action');
 
-        $rowAction[] = ActionHelper::editAction('application_journal_edit', 'id');
-        $rowAction[] = ActionHelper::showAction('application_journal_show', 'id');
-        $rowAction[] = ActionHelper::deleteAction('application_journal_delete', 'id');
+        $rowAction[] = $gridAction->editAction('application_journal_edit', 'id');
+        $rowAction[] = $gridAction->showAction('application_journal_show', 'id');
+        $rowAction[] = $gridAction->deleteAction('application_journal_delete', 'id');
         $actionColumn = new ActionsColumn("actions", 'actions');
         $actionColumn->setRowActions($rowAction);
 
@@ -319,6 +318,7 @@ class ApplicationController extends Controller
             }
 
             foreach ($entity->getLanguages() as $l) {
+                /** @var Lang $lang */
                 $lang = $em->find('OjsJournalBundle:Lang', $l);
                 $journal->addLanguage($lang);
             }

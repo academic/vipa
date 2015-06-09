@@ -1,34 +1,37 @@
 <?php
-/**
- * Date: 27.02.15
- * Time: 15:47
- */
-namespace Ojs\Common\Helper;
+
+namespace Ojs\Common\Services;
 
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Row;
 use Okulbilisim\CmsBundle\Twig\PostExtension;
-use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Class ActionHelper
- * @package Ojs\Common\Helper
+ * Class GridAction
+ * @package Ojs\Common\Services
  */
-class ActionHelper
+class GridAction
 {
+    /** @var  CsrfTokenManager */
+    private $csrfTokenManager;
+
+    /** @var  TranslatorInterface */
+    private $translator;
+
+    /** @var  PostExtension */
+    private $postExtension;
+
     /**
-     * @var CsrfTokenManager
+     * @param CsrfTokenManager $csrfTokenManager
+     * @param TranslatorInterface $translator
+     * @param PostExtension $postExtension
      */
-    private static $csrf;
-
-    private static $translator;
-
-    public static function setup(CsrfTokenManagerInterface $csrfProvider, $translator)
-    {
-        self::$csrf = $csrfProvider;
-        self::$translator = $translator;
+    public function __construct(CsrfTokenManager $csrfTokenManager, TranslatorInterface $translator, PostExtension $postExtension) {
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->translator = $translator;
+        $this->postExtension = $postExtension;
     }
 
     /**
@@ -37,24 +40,19 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function deleteAction($route, $key, $role = null)
+    public function deleteAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-trash-o"></i>', $route);
         $rowAction->setRouteParameters($key);
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage(self::$translator->trans("sure"));
-        $csrf = self::$csrf;
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($csrf, $route) {
+        $rowAction->setConfirmMessage($this->translator->trans("sure"));
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($this, $route) {
             $route = str_replace('_delete', '', $route);
-            if ($csrf instanceof CsrfTokenManagerInterface) {
-                $token = $csrf->refreshToken($route . $row->getPrimaryFieldValue());
-            } else {
-                $token = '';
-            }
+            $token = $this->csrfTokenManager->refreshToken($route . $row->getPrimaryFieldValue());
             $action->setAttributes([
                     'class' => 'btn btn-danger btn-xs delete',
                     'data-toggle' => 'tooltip',
-                    'title' => self::$translator->trans("delete"),
+                    'title' => $this->translator->trans("delete"),
                     'data-token' => $token
                 ]
             );
@@ -72,13 +70,13 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function userBanAction($role = null)
+    public function userBanAction($role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-ban"></i>', 'user_block');
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('block')]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('block')]);
         $rowAction->setRouteParameters('id');
         $rowAction->setConfirm(true);
-        $rowAction->setConfirmMessage(self::$translator->trans('block'));
+        $rowAction->setConfirmMessage($this->translator->trans('block'));
         if ($role) {
             $rowAction->setRole($role);
         }
@@ -86,7 +84,7 @@ class ActionHelper
             if (!$row->getField('status')) {
                 $action->setRoute('user_unblock');
                 $action->setTitle('<i class="fa fa-check"></i>');
-                $action->setConfirmMessage(self::$translator->trans('sure.ban'));
+                $action->setConfirmMessage($this->translator->trans('sure.ban'));
             }
 
             return $action;
@@ -102,10 +100,10 @@ class ActionHelper
      * @param $mapping_key
      * @return RowAction
      */
-    public static function switchUserAction($route, $key, $role = null, $mapping_key = 'username')
+    public function switchUserAction($route, $key = 'id', $role = null, $mapping_key = 'username')
     {
         $rowAction = new RowAction('<i class="fa fa-sign-in"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('login_as')]);
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('login_as')]);
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping([$mapping_key => '_su']);
         if ($role) {
@@ -121,10 +119,10 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function showAction($route, $key, $role = null)
+    public function showAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-info-circle"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-success btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("show")]);
+        $rowAction->setAttributes(['class' => 'btn btn-success btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("show")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -139,10 +137,10 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function editAction($route, $key, $role = null)
+    public function editAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-pencil"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("edit")]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("edit")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -157,10 +155,10 @@ class ActionHelper
      * @param $role
      * @return RowAction
      */
-    public static function copyAction($route, $key, $role = '')
+    public function copyAction($route, $key = 'id', $role = '')
     {
         $rowAction = new RowAction('<i class="fa fa-copy"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans("copy")]);
+        $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans("copy")]);
         $rowAction->setRouteParameters($key);
         if ($role) {
             $rowAction->setRole($role);
@@ -175,10 +173,10 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function submissionResumeAction($route, $key, $role = null)
+    public function submissionResumeAction($route, $key = 'id', $role = null)
     {
         $rowAction = new RowAction('<i class="fa fa-reply"></i>', $route);
-        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => self::$translator->trans('Back & Continue Editing')]);
+        $rowAction->setAttributes(['class' => 'btn btn-warning btn-xs  ', 'data-toggle' => 'tooltip', 'title' => $this->translator->trans('Back & Continue Editing')]);
         $rowAction->setRouteParameters($key);
         $rowAction->setRouteParametersMapping(['id' => 'submissionId']);
         if ($role) {
@@ -192,23 +190,20 @@ class ActionHelper
      * @param  null $role
      * @return RowAction
      */
-    public static function cmsAction($role = null)
+    public function cmsAction($role = null)
     {
-        //        <a class="btn-xs btn-info" href="{{ path(cms_path, {'id': entity.id, 'object': entity|cmsobject }) }}">
-        global $kernel;
         $route = 'okulbilisim_cms_admin';
         $rowAction = new RowAction('<i class="fa fa-anchor"></i>', $route);
         $rowAction->setAttributes(['class' => 'btn btn-info btn-xs  ', 'data-toggle' => 'tooltip', 'title' => "CMS"]);
-        /** @var PostExtension $postExtension */
-        $postExtension = $kernel->getContainer()->get('okulbilisimcmsbundle.twig.post_extension');
+
         $rowAction->setRouteParameters(['id', 'object']);
         $rowAction->setRoute($route);
         if ($role) {
             $rowAction->setRole($role);
         }
-        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($postExtension) {
+        $rowAction->manipulateRender(function (RowAction $action, Row $row) use ($this) {
             $entity = $row->getEntity();
-            $object = $postExtension->cmsobject($entity);
+            $object = $this->postExtension->cmsobject($entity);
             $action->setRouteParameters(['id', 'object' => $object]);
 
             return $action;

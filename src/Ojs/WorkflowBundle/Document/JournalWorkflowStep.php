@@ -92,7 +92,7 @@ class JournalWorkflowStep
      * Default max days for this step for review
      * @MongoDB\Int
      */
-    protected $maxdays;
+    protected $maxDays;
 
     /** @MongoDb\Boolean */
     protected $canSeeAuthor = true;
@@ -248,26 +248,26 @@ class JournalWorkflowStep
     }
 
     /**
-     * Set maxdays
+     * Set maxDays
      *
-     * @param  int  $maxdays
+     * @param  int  $maxDays
      * @return self
      */
-    public function setMaxdays($maxdays)
+    public function setMaxDays($maxDays)
     {
-        $this->maxdays = $maxdays;
+        $this->maxDays = $maxDays;
 
         return $this;
     }
 
     /**
-     * Get maxdays
+     * Get maxDays
      *
-     * @return int $maxdays
+     * @return int $maxDays
      */
-    public function getMaxdays()
+    public function getMaxDays()
     {
-        return $this->maxdays;
+        return $this->maxDays;
     }
 
     /**
@@ -425,7 +425,7 @@ class JournalWorkflowStep
      * @param  ReviewForm $reviewForm
      * @return boolean
      */
-    public function hasForm($reviewForm)
+    public function hasForm(ReviewForm $reviewForm)
     {
         foreach ($this->getReviewForms() as $form) {
             if ($form->getId() === $reviewForm->getId()) {

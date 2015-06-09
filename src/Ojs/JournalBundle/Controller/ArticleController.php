@@ -17,7 +17,6 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Source\Vector;
 use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\JournalBundle\Entity\ArticleFile;
 use Ojs\JournalBundle\Entity\Citation;
@@ -89,12 +88,12 @@ class ArticleController extends Controller
             );
         }
         $grid = $this->get('grid')->setSource($source);
-
+        $gridAction = $this->get('grid_action');
+        
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('article_show', 'id');
-        $rowAction[] = ActionHelper::editAction('article_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('article_delete', 'id');
+        $rowAction[] = $gridAction->showAction('article_show', 'id');
+        $rowAction[] = $gridAction->editAction('article_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('article_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
 
@@ -424,6 +423,7 @@ class ArticleController extends Controller
 
         $source = new Vector($citations);
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $columns = [
             new NumberColumn(["id" => "id", "field" => "id", "primary" => true, "title" => "ID"]),
@@ -435,10 +435,9 @@ class ArticleController extends Controller
         }
 
         $actionsColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $actions[] = ActionHelper::showAction('citation_show', 'id');
-        $actions[] = ActionHelper::editAction('citation_edit', 'id');
-        $actions[] = ActionHelper::deleteAction('citation_delete', 'id');
+        $actions[] = $gridAction->showAction('citation_show', 'id');
+        $actions[] = $gridAction->editAction('citation_edit', 'id');
+        $actions[] = $gridAction->deleteAction('citation_delete', 'id');
         $actionsColumn->setRowActions($actions);
         $grid->addColumn($actionsColumn);
 

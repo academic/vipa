@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -49,15 +48,15 @@ class IssueController extends Controller
             );
         }
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction($user->isAdmin()?'issue_show':'issue_manager_issue_view', 'id');
+        $rowAction[] = $gridAction->showAction($user->isAdmin()?'issue_show':'issue_manager_issue_view', 'id');
         if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = ActionHelper::editAction('issue_edit', 'id');
+            $rowAction[] = $gridAction->editAction('issue_edit', 'id');
         }
         if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            $rowAction[] = ActionHelper::deleteAction('issue_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('issue_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);

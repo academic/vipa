@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Design;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -29,13 +28,12 @@ class DesignController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Design');
         $grid = $this->get('grid')->setSource($source);
-
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('design_show', 'id');
-        $rowAction[] = ActionHelper::editAction('design_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('design_delete', 'id');
+        $rowAction[] = $gridAction->showAction('design_show', 'id');
+        $rowAction[] = $gridAction->editAction('design_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('design_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

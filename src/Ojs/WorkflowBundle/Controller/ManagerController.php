@@ -230,7 +230,7 @@ class ManagerController extends OjsController
         $newStep->setStep($nextStep);
         $newStep->setStatusText($nextStep->getStatus());
         $deadline = new \DateTime();
-        $deadline->modify("+".$nextStep->getMaxdays()." day");
+        $deadline->modify("+".$nextStep->getMaxDays()." day");
         $newStep->setReviewDeadline($deadline);
         $newStep->setOwnerUser(false);
         $newStep->setFrom($isChild ? $articleStep->getParentStep() : $articleStep);

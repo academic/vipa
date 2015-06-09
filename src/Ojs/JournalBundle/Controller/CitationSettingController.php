@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,12 +32,13 @@ class CitationSettingController extends Controller
         }
         $source = new Entity('OjsJournalBundle:CitationSetting');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('citationsetting_show', 'id');
-        $rowAction[] = ActionHelper::editAction('citationsetting_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('citationsetting_delete', 'id');
+        
+        $rowAction[] = $gridAction->showAction('citationsetting_show', 'id');
+        $rowAction[] = $gridAction->editAction('citationsetting_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('citationsetting_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

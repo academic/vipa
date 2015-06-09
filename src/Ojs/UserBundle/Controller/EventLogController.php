@@ -5,7 +5,6 @@ namespace Ojs\UserBundle\Controller;
 use Ojs\Common\Controller\OjsController as Controller;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use Ojs\Common\Helper\ActionHelper;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Params\EventLogParams;
 use Ojs\UserBundle\Entity\User;
@@ -53,10 +52,11 @@ class EventLogController extends Controller
             return $qb;
         });
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('user_eventlog_show', 'id');
+
+        $rowAction[] = $gridAction->showAction('user_eventlog_show', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];

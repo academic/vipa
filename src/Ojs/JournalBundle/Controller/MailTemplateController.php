@@ -9,7 +9,6 @@ use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Source\Vector;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -62,17 +61,17 @@ class MailTemplateController extends Controller
                 ->setParameter('journal', $journal->getId());
         });
         $grid = $this->get('grid.manager');
+        $gridAction = $this->get('grid_action');
 
         $db_templates = $grid->createGrid('db_templates');
         $db_templates->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('mailtemplate_manager_show', 'id');
-        $rowAction[] = ActionHelper::editAction('mailtemplate_manager_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('mailtemplate_manager_delete', 'id');
+        $rowAction[] = $gridAction->showAction('mailtemplate_manager_show', 'id');
+        $rowAction[] = $gridAction->editAction('mailtemplate_manager_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('mailtemplate_manager_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $db_templates->addColumn($actionColumn);
 
@@ -95,7 +94,7 @@ class MailTemplateController extends Controller
         $defaultTemplates->setSource($source);
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        $rowAction[] = ActionHelper::copyAction('mailtemplate_manager_copy', 'id');
+        $rowAction[] = $gridAction->copyAction('mailtemplate_manager_copy', 'id');
         $actionColumn->setRowActions($rowAction);
         $defaultTemplates->addColumn($actionColumn);
 
@@ -107,6 +106,8 @@ class MailTemplateController extends Controller
     /**
      * Creates a new MailTemplate entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {

@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalSetting;
 use Ojs\UserBundle\Entity\User;
@@ -178,9 +177,10 @@ class ManagerController extends Controller
         $grid->setSource($source);
         $grid->setHiddenColumns(['post_type', 'content', 'object', 'createdAt', 'updatedAt', 'deletedAt', 'objectId']);
         $grid->getColumn('title')->setSafe(false);
+        $gridAction = $this->get('grid_action');
 
-        $grid->addRowAction(ActionHelper::editAction('post_edit', 'id'));
-        $grid->addRowAction(ActionHelper::deleteAction('post_delete', 'id'));
+        $grid->addRowAction($gridAction->editAction('post_edit', 'id'));
+        $grid->addRowAction($gridAction->deleteAction('post_delete', 'id'));
 
         $data = [];
         $data['grid'] = $grid;

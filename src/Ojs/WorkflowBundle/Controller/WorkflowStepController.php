@@ -52,7 +52,7 @@ class WorkflowStepController extends OjsController
         $em = $this->getDoctrine();
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findByJournalid($selectedJournal->getId());
+                ->findBy(array('journalid' => $selectedJournal->getId()));
         $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
         $yamlParser = new Yaml\Parser();
         $ciTemplates = $yamlParser->parse(file_get_contents(
@@ -82,7 +82,7 @@ class WorkflowStepController extends OjsController
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $step = new JournalWorkflowStep();
-        $step->setMaxdays($request->get('maxdays'));
+        $step->setMaxDays($request->get('maxDays'));
         $step->setFirststep($request->get('firstStep') ? true : false);
         $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setJournalid($request->get('journalId'));
@@ -137,7 +137,7 @@ class WorkflowStepController extends OjsController
         $rolesArray = array();
         if ($roleIds) {
             foreach ($roleIds as $roleId) {
-                $roles[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
+                $roles[] = $em->getRepository("OjsUserBundle:Role")->find($roleId);
             }
         }
         if ($roles) {
@@ -158,10 +158,10 @@ class WorkflowStepController extends OjsController
         $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
 
         $step = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')->find($id);
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
-                ->findByJournalid($selectedJournal->getId());
+                ->findBy(array('journalid' => $selectedJournal->getId()));
         $yamlParser = new Yaml\Parser();
 
         return $this->render('OjsWorkflowBundle:WorkflowStep:edit.html.twig', array(
@@ -224,7 +224,7 @@ class WorkflowStepController extends OjsController
         $step->setTitle($request->get('title'));
         $step->setFirststep($request->get('firstStep') ? true : false);
         $step->setLaststep($request->get('lastStep') ? true : false);
-        $step->setMaxdays($request->get('maxdays'));
+        $step->setMaxDays($request->get('maxDays'));
         $step->setJournalid($request->get('journalId'));
         $step->setColor($request->get('color'));
         $step->setStatus($request->get('status'));
