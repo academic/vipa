@@ -38,15 +38,6 @@ article_submission_preview:
     pattern:  /author/article/submit/preview/{submissionId}/
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmission:preview" }
 
-
-article_submission_addlocale:
-    pattern:  /author/article/submit/addlocale/
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep:addlocale" }
-
-article_submission_removelocale:
-    pattern:  /author/article/submit/removelocale/
-    defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticleSubmissionStep:removelocale" }
-
 article_pre_submission:
     pattern: /author/article/submit/checklist/{locale}
     defaults: { _controller: "OjsJournalBundle:ArticleSubmission/ArticlePreSubmission:save"}

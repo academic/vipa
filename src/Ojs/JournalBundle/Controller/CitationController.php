@@ -130,29 +130,6 @@ class CitationController extends Controller
     }
 
     /**
-     * Displays a form to create a new Citation for an Article
-     *
-     * @param null $article_id
-     * @return Response
-     */
-    public function articleAction($article_id = null)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $article = !empty($article_id) ?
-                $em->getRepository('OjsJournalBundle:Article')->find($article_id) :
-                null;
-        $entity = new Citation();
-        $entity->addArticle($article);
-        $form = $this->createForm(new \Ojs\JournalBundle\Form\ArticleCitationType(), $entity);
-
-        return $this->render('OjsJournalBundle:Citation:article.html.twig', array(
-                    'entity' => $entity,
-                    'article' => $article,
-                    'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a Citation entity.
      *
      * @param Citation $entity
@@ -212,7 +189,7 @@ class CitationController extends Controller
      *
      * @param Request $request
      * @param Citation $entity
-     * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, Citation $entity)
     {
