@@ -8,30 +8,30 @@ use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
-use Gedmo\Translatable\Entity\Repository\TranslationRepository;
 use Gedmo\Sluggable\Util\Urlizer;
+use Gedmo\Translatable\Entity\Repository\TranslationRepository;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
+use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleAuthor;
 use Ojs\JournalBundle\Entity\ArticleFile;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Entity\CitationSetting;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\WorkflowBundle\Document\ArticleReviewStep;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Article;
-use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Entity\Citation;
-use Ojs\JournalBundle\Entity\CitationSetting;
-use Ojs\JournalBundle\Entity\ArticleAuthor;
-use Ojs\WorkflowBundle\Document\ArticleReviewStep;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Article Submission controller.
@@ -42,7 +42,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Lists all new Article submissions entities.
-     * @param  bool     $all
+     * @param  bool $all
      * @return Response
      */
     public function indexAction($all = false)
@@ -66,8 +66,8 @@ class ArticleSubmissionController extends Controller
                 if ($currentStep) {
                     // in case of error if submission is not on mongodb
                     $row->setColor($currentStep->getStep()->getColor());
-                    $row->setField('status', "<span style='display:block;background: ".
-                        ";display: block'>".$currentStep->getStep()->getStatus()."</span>");
+                    $row->setField('status', "<span style='display:block;background: " .
+                        ";display: block'>" . $currentStep->getStep()->getStatus() . "</span>");
                 }
             }
 
@@ -88,13 +88,13 @@ class ArticleSubmissionController extends Controller
                 $_d = [];
 
                 foreach ($data as $key => $value) {
-                    $_d[] = $key.": ".$value['title'];
+                    $_d[] = $key . ": " . $value['title'];
                 }
                 $row->setField('article_data', $_d);
             }
             if ($row->getField('journal_id')) {
                 $journal = $em->find('OjsJournalBundle:Journal', $row->getField('journal_id'));
-                $row->setField('journal_id', (string) $journal->getTitle());
+                $row->setField('journal_id', (string)$journal->getTitle());
             }
 
             return $row;
@@ -103,13 +103,13 @@ class ArticleSubmissionController extends Controller
 
         if ($all) {
             $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $currentJournal) {
-                $qb->where($ta.'.status = 0');
-                $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
+                $qb->where($ta . '.status = 0');
+                $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
 
                 return $qb;
             });
             $source2->manipulateQuery(function (Builder $query) use ($ta, $currentJournal) {
-                $query->where("typeof(this.submitted)=='undefined' || this.submitted===false ".
+                $query->where("typeof(this.submitted)=='undefined' || this.submitted===false " .
                     "&& this.journal_id == {$currentJournal->getId()}");
 
                 return $query;
@@ -118,15 +118,15 @@ class ArticleSubmissionController extends Controller
             $source1->manipulateQuery(function (QueryBuilder $qb) use ($ta, $user, $currentJournal) {
                 $qb->where(
                     $qb->expr()->andX(
-                        $qb->expr()->eq($ta.'.status', '0'), $qb->expr()->eq($ta.'.submitterId', $user->getId())
+                        $qb->expr()->eq($ta . '.status', '0'), $qb->expr()->eq($ta . '.submitterId', $user->getId())
                     )
                 );
-                $qb->andWhere($ta.'.journalId = '.$currentJournal->getId());
+                $qb->andWhere($ta . '.journalId = ' . $currentJournal->getId());
 
                 return $qb;
             });
             $source2->manipulateQuery(function (Builder $query) use ($user, $currentJournal) {
-                $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) ".
+                $query->where("(typeof(this.submitted)=='undefined' || this.submitted===false) " .
                     "&& this.userId=={$user->getId()} && this.journal_id == {$currentJournal->getId()}");
 
                 return $query;
@@ -155,14 +155,32 @@ class ArticleSubmissionController extends Controller
         $data = ['page' => 'submission',
             'submissions' => $submissionsGrid,
             'drafts' => $drafts,
-            'all' => $all, ];
+            'all' => $all,];
 
         return $gridManager->getGridManagerResponse('OjsJournalBundle:ArticleSubmission:index.html.twig', $data);
     }
 
     /**
+     * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
+     * @param  Request $request
+     * @return RedirectResponse|Response
+     */
+    public function confirmRoleAction(Request $request)
+    {
+        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
+        if (!$checkRole && $request->get('confirm')) {
+            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
+            $checkRole = $this->checkAndRegisterUserAuthorRole($journal);
+        }
+
+        return $checkRole ?
+            $this->redirect($this->generateUrl('article_submission_new')) :
+            $this->render('OjsJournalBundle:ArticleSubmission:confirmRole.html.twig', array('roles' => $this->get('ojs.journal_service')->getSelectedJournalRoles()));
+    }
+
+    /**
      *
-     * @param  Journal         $journal
+     * @param  Journal $journal
      * @return UserJournalRole
      */
     private function checkAndRegisterUserAuthorRole(Journal $journal)
@@ -190,26 +208,8 @@ class ArticleSubmissionController extends Controller
     }
 
     /**
-     * Show a confirmation to user if he/she wants to register himself as AUTHOR (if he is not).
-     * @param  Request                   $request
-     * @return RedirectResponse|Response
-     */
-    public function confirmRoleAction(Request $request)
-    {
-        $checkRole = $this->get('ojs.journal_service')->hasJournalRole('ROLE_AUTHOR');
-        if (!$checkRole && $request->get('confirm')) {
-            $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-            $checkRole = $this->checkAndRegisterUserAuthorRole($journal);
-        }
-
-        return $checkRole ?
-            $this->redirect($this->generateUrl('article_submission_new')) :
-            $this->render('OjsJournalBundle:ArticleSubmission:confirmRole.html.twig', array('roles' => $this->get('ojs.journal_service')->getSelectedJournalRoles()));
-    }
-
-    /**
      *
-     * @param  integer          $journalId
+     * @param  integer $journalId
      * @return RedirectResponse
      */
     public function newWithJournalAction($journalId)
@@ -282,7 +282,7 @@ class ArticleSubmissionController extends Controller
             'entity' => $entity,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $articleSubmission->getCitations(),
-            'citationTypes' => $this->container->getParameter('citation_types'), ];
+            'citationTypes' => $this->container->getParameter('citation_types'),];
         $data['checklist'] = json_decode($articleSubmission->getChecklist(), true);
         if ($articleSubmission->getJournalId()) {
             $data['journal'] = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
@@ -325,7 +325,7 @@ class ArticleSubmissionController extends Controller
     /**
      * Finish action for an article submission.
      * This action moves article's data from mongodb to mysql
-     * @param  Request                                     $request
+     * @param  Request $request
      * @return RedirectResponse
      * @throws NotFoundHttpException|AccessDeniedException
      */
@@ -367,10 +367,10 @@ class ArticleSubmissionController extends Controller
                 'articleData' => $articleSubmission->getArticleData(),
                 'authors' => $articleSubmission->getAuthors(),
                 'citation' => $articleSubmission->getCitations(),
-                'files' => $articleSubmission->getFiles(), ));
+                'files' => $articleSubmission->getFiles(),));
 
             $deadline = new \DateTime();
-            $deadline->modify("+".$firstStep->getMaxDays()." day");
+            $deadline->modify("+" . $firstStep->getMaxDays() . " day");
             $reviewStep->setReviewDeadline($deadline);
             $reviewStep->setRootNode(true);
             $reviewStep->setStep($firstStep);
@@ -422,7 +422,7 @@ class ArticleSubmissionController extends Controller
      *
      * @param array $articlePrimaryData
      * @param Journal $journal
-     * @param string" $lang
+     * @param string " $lang
      * @return Article
      */
     private function saveArticlePrimaryData($articlePrimaryData, Journal $journal, $lang)
@@ -447,7 +447,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      *
-     * @param array   $articleData
+     * @param array $articleData
      * @param Article $article
      */
     private function saveArticleTranslations($articleData, Article $article)
@@ -578,7 +578,7 @@ class ArticleSubmissionController extends Controller
 
     /**
      * Returns requested orcid user profile details
-     * @param  Request      $request
+     * @param  Request $request
      * @return JsonResponse
      * @throws \Exception
      */
