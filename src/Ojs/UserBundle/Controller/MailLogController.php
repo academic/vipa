@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\UserBundle\Entity\Model\Mail;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -11,9 +10,7 @@ use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\MailLog;
 use Ojs\UserBundle\Form\MailLogType;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -32,12 +29,13 @@ class MailLogController extends Controller
         }
         $source = new Entity('OjsUserBundle:MailLog');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('admin_maillog_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_maillog_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_maillog_delete', 'id');
+        
+        $rowAction[] = $gridAction->showAction('admin_maillog_show', 'id');
+        $rowAction[] = $gridAction->editAction('admin_maillog_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('admin_maillog_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];

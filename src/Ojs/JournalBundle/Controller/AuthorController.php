@@ -4,12 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Author;
 use Ojs\JournalBundle\Form\AuthorType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -30,15 +30,15 @@ class AuthorController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Author');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('author_show', 'id');
+        $rowAction[] = $gridAction->showAction('author_show', 'id');
         if($this->isGranted('EDIT', new Author())) {
-            $rowAction[] = ActionHelper::editAction('author_edit', 'id');
+            $rowAction[] = $gridAction->editAction('author_edit', 'id');
         }
         if($this->isGranted('DELETE', new Author())) {
-            $rowAction[] = ActionHelper::deleteAction('author_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('author_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);
@@ -52,6 +52,8 @@ class AuthorController extends Controller
     /**
      * Creates a new Author entity.
      *
+     * @param Request $request
+     * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
@@ -97,6 +99,7 @@ class AuthorController extends Controller
     /**
      * Displays a form to create a new Author entity.
      *
+     * @return Response
      */
     public function newAction()
     {
@@ -115,6 +118,8 @@ class AuthorController extends Controller
     /**
      * Finds and displays a Author entity.
      *
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
@@ -132,10 +137,13 @@ class AuthorController extends Controller
     /**
      * Displays a form to edit an existing Author entity.
      *
+     * @param $id
+     * @return Response
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Author $entity */
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -170,10 +178,14 @@ class AuthorController extends Controller
     /**
      * Edits an existing Author entity.
      *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var Author $entity */
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
@@ -197,10 +209,11 @@ class AuthorController extends Controller
     /**
      * Deletes a Author entity.
      *
+     * @param Request $request
      * @param $id
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request,$id)
+    public function deleteAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Author')->find($id);

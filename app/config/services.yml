@@ -149,3 +149,6 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: preRemove }
+    grid_action:
+        class: Ojs\Common\Services\GridAction
+        arguments: [@security.csrf.token_manager, @translator, @okulbilisimcmsbundle.twig.post_extension]

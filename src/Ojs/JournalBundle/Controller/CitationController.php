@@ -11,7 +11,7 @@ use Ojs\JournalBundle\Entity\Citation;
 use Ojs\JournalBundle\Form\CitationType;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -49,12 +49,12 @@ class CitationController extends Controller
             return $row;
         });
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('citation_show', 'id');
-        $rowAction[] = ActionHelper::editAction('citation_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('citation_delete', 'id');
+        $rowAction[] = $gridAction->showAction('citation_show', 'id');
+        $rowAction[] = $gridAction->editAction('citation_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('citation_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -132,6 +132,8 @@ class CitationController extends Controller
     /**
      * Displays a form to create a new Citation for an Article
      *
+     * @param null $article_id
+     * @return Response
      */
     public function articleAction($article_id = null)
     {

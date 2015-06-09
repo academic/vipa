@@ -6,7 +6,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,16 +50,17 @@ class JournalSectionController extends Controller
             return $row;
         });
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
 
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('manager_journal_section_show', 'id');
+        
+        $rowAction[] = $gridAction->showAction('manager_journal_section_show', 'id');
         if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = ActionHelper::editAction('manager_journal_section_edit', 'id');
+            $rowAction[] = $gridAction->editAction('manager_journal_section_edit', 'id');
         }
         if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'sections')) {
-            $rowAction[] = ActionHelper::deleteAction('manager_journal_section_delete', 'id');
+            $rowAction[] = $gridAction->deleteAction('manager_journal_section_delete', 'id');
         }
 
         $actionColumn->setRowActions($rowAction);

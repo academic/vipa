@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\Common\Helper\FileHelper;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Entity\Article;
@@ -48,12 +47,13 @@ class ArticleFileController extends Controller
                 ;
         });
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('articlefile_show', 'id');
-        $rowAction[] = ActionHelper::editAction('articlefile_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('articlefile_delete', 'id');
+
+        $rowAction[] = $gridAction->showAction('articlefile_show', 'id');
+        $rowAction[] = $gridAction->editAction('articlefile_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('articlefile_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

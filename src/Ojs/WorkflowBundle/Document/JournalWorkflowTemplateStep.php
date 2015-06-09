@@ -16,7 +16,7 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep
     {
         $this->setCanEdit(true);
         $this->setIsVisible(true);
-        $this->setMaxdays(15);
+        $this->setMaxDays(15);
         $this->setJournalid(null);
     }
 

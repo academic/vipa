@@ -4,7 +4,6 @@ namespace Ojs\UserBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +25,15 @@ class RoleController extends Controller
         }
         $source = new Entity('OjsUserBundle:Role');
         $grid = $this->get('grid');
+        $gridAction = $this->get('grid_action');
         $grid->setSource($source);
 
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('role_show', 'id');
-        $rowAction[] = ActionHelper::editAction('role_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('role_delete', 'id');
+        $rowAction[] = $gridAction->showAction('role_show', 'id');
+        $rowAction[] = $gridAction->editAction('role_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('role_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];
@@ -117,11 +116,9 @@ class RoleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
 
         return $this->render('OjsUserBundle:Role:show.html.twig', array(
@@ -139,11 +136,9 @@ class RoleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
         $editForm = $this->createEditForm($entity);
 
@@ -166,7 +161,7 @@ class RoleController extends Controller
             'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
-        $form->add('submit', 'submit', array('attr' => array('label ' => $this->get('translator')->trans('Update')),
+        $form->add('submit', 'submit', array('attr' => array('label ' => $this->get('translator')->trans('update')),
         ));
 
         return $form;
@@ -184,11 +179,9 @@ class RoleController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Role $entity */
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
-        }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
         }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -208,21 +201,24 @@ class RoleController extends Controller
 
     /**
      * Deletes a Role entity.
-     * @param  Role             $entity
+     *
+     * @param Request $request
+     * @param Role $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Role $entity)
     {
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('role'.$entity->getId());
-        if($token!=$request->get('_token'))
+        if($token!=$request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

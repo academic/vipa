@@ -5,9 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
-use Ojs\JournalBundle\Entity\Journal;
-use Ojs\JournalBundle\Entity\JournalIndex;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -49,13 +46,13 @@ class JournalsIndexController extends Controller
             throw new NotFoundHttpException("Journal not found!");
         }
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('manager_journals_indexes_show', 'id');
-        $rowAction[] = ActionHelper::editAction('manager_journals_indexes_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('manager_journals_indexes_delete', 'id');
+        $rowAction[] = $gridAction->showAction('manager_journals_indexes_show', 'id');
+        $rowAction[] = $gridAction->editAction('manager_journals_indexes_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('manager_journals_indexes_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

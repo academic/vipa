@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,14 +50,14 @@ class JournalController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Journal');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('journal_show', 'id');
-        $rowAction[] = ActionHelper::editAction('journal_edit', 'id');
-        $rowAction[] = ActionHelper::cmsAction();
-        $rowAction[] = ActionHelper::deleteAction('journal_delete', 'id');
+        $rowAction[] = $gridAction->showAction('journal_show', 'id');
+        $rowAction[] = $gridAction->editAction('journal_edit', 'id');
+        $rowAction[] = $gridAction->cmsAction();
+        $rowAction[] = $gridAction->deleteAction('journal_delete', 'id');
         $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journal_id'))

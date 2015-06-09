@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -31,13 +30,13 @@ class FileController extends Controller
         }
         $source = new Entity('OjsJournalBundle:File');
         $grid = $this->get('grid')->setSource($source);
-
+        $gridAction = $this->get('grid_action');
+        
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('admin_file_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_file_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_file_delete', 'id');
+        $rowAction[] = $gridAction->showAction('admin_file_show', 'id');
+        $rowAction[] = $gridAction->editAction('admin_file_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('admin_file_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -140,11 +139,12 @@ class FileController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsJournalBundle:File:edit.html.twig', array(
@@ -182,11 +182,12 @@ class FileController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var File $entity */
         $entity = $em->getRepository('OjsJournalBundle:File')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $em->persist($entity);

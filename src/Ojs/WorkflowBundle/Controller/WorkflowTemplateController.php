@@ -125,7 +125,7 @@ class WorkflowTemplateController extends OjsController
         $step->setFirststep($tplStep->getFirststep());
         $step->setIsVisible($tplStep->getIsVisible());
         $step->setLaststep($tplStep->getLaststep());
-        $step->setMaxdays($tplStep->getMaxdays());
+        $step->setMaxDays($tplStep->getMaxDays());
         $step->setMustBeAssigned($tplStep->getMustBeAssigned());
         $step->setOnlyreply($tplStep->getOnlyreply());
         $step->setRoles($tplStep->getRoles());
@@ -255,13 +255,11 @@ class WorkflowTemplateController extends OjsController
 
     /**
      * Deletes created template. If user try edit system template throws forbidden exception.
-     * @param  Request                                            $request
      * @param $templateId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $templateId)
+    public function deleteAction($templateId)
     {
-        $session = $request->getSession();
         $dm = $this->get('doctrine_mongodb')->getManager();
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
         $dm->remove($template);
@@ -329,7 +327,7 @@ class WorkflowTemplateController extends OjsController
         $template = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->find($templateId);
         $step = new JournalWorkflowTemplateStep();
         $step->setTemplate($template);
-        $step->setMaxdays($request->get('maxdays'));
+        $step->setMaxDays($request->get('maxDays'));
         $step->setFirststep($request->get('firstStep') ? true : false);
         $step->setLaststep($request->get('lastStep') ? true : false);
         $step->setJournalid($request->get('journalId'));
@@ -399,10 +397,10 @@ class WorkflowTemplateController extends OjsController
         if ($step->getTemplate()->getIsSystemTemplate()) {
             throw new AccessDeniedException();
         }
-        $journal = $em->getRepository('OjsJournalBundle:Journal')->findOneById($step->getJournalId());
+        $journal = $em->getRepository('OjsJournalBundle:Journal')->find($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')
-            ->findByJournalid($selectedJournal->getId());
+            ->findBy(array('journalId' => $selectedJournal->getId()  ));
 
         return $this->render('OjsWorkflowBundle:WorkflowStep/Template:edit_step.html.twig', array(
                 'roles' => $roles,
@@ -429,7 +427,7 @@ class WorkflowTemplateController extends OjsController
         $step->setTitle($request->get('title'));
         $step->setFirststep($request->get('firstStep') ? true : false);
         $step->setLaststep($request->get('lastStep') ? true : false);
-        $step->setMaxdays($request->get('maxdays'));
+        $step->setMaxDays($request->get('maxDays'));
         $step->setJournalid($request->get('journalId'));
         $step->setColor($request->get('color'));
         $step->setStatus($request->get('status'));
@@ -471,11 +469,10 @@ class WorkflowTemplateController extends OjsController
 
     /**
      * removes given template step. Also removes element where added as nextStep
-     * @param  Request          $request
      * @param $stepId
      * @return RedirectResponse
      */
-    public function deleteStepAction(Request $request, $stepId)
+    public function deleteStepAction($stepId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var JournalWorkflowTemplateStep $entity */
@@ -521,7 +518,7 @@ class WorkflowTemplateController extends OjsController
         $rolesArray = array();
         if ($roleIds) {
             foreach ($roleIds as $roleId) {
-                $roles[] = $em->getRepository("OjsUserBundle:Role")->findOneById($roleId);
+                $roles[] = $em->getRepository("OjsUserBundle:Role")->find($roleId);
             }
         }
         if ($roles) {

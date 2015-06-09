@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Theme;
@@ -29,13 +28,13 @@ class ThemeController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Theme');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
-        $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
+        $actionColumn = new ActionsColumn("actions", 'actions');        
 
-        $rowAction[] = ActionHelper::showAction('theme_show', 'id');
-        $rowAction[] = ActionHelper::editAction('theme_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('theme_delete', 'id');
+        $rowAction[] = $gridAction->showAction('theme_show', 'id');
+        $rowAction[] = $gridAction->editAction('theme_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('theme_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -185,7 +184,7 @@ class ThemeController extends Controller
             $em->flush();
             $this->successFlashBag('successful.update');
 
-            return $this->redirectToRoute('theme_edit', ['id' => $id]);
+            return $this->redirectToRoute('theme_edit', ['id' => $entity->getId()]);
         }
 
         return $this->render('OjsJournalBundle:Theme:edit.html.twig', array(

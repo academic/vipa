@@ -10,9 +10,7 @@ use Ojs\SiteBundle\Form\PageType;
 use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Response;
 use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use Ojs\Common\Helper\ActionHelper;
 
 /**
  * Page controller.
@@ -29,12 +27,12 @@ class PageController extends Controller
     {
         $source = new Entity('OjsSiteBundle:Page');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('admin_page_show', 'id');
-        $rowAction[] = ActionHelper::editAction('admin_page_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('admin_page_delete', 'id');
+        $rowAction[] = $gridAction->showAction('admin_page_show', 'id');
+        $rowAction[] = $gridAction->editAction('admin_page_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('admin_page_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $data = [];

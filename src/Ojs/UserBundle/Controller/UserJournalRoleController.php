@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -44,14 +43,14 @@ class UserJournalRoleController extends Controller
         }
         $source = new Entity('OjsUserBundle:UserJournalRole');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['user.username'], null, 'user.username');
-        $rowAction[] = ActionHelper::showAction('ujr_show', 'id');
-        $rowAction[] = ActionHelper::editAction('ujr_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('ujr_delete', 'id');
+        $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['user.username'], null, 'user.username');
+        $rowAction[] = $gridAction->showAction('ujr_show', 'id');
+        $rowAction[] = $gridAction->editAction('ujr_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('ujr_delete', 'id');
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
         $grid->showColumns(['journal.title']);

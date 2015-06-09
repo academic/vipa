@@ -4,7 +4,6 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Ojs\Common\Helper\ActionHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Form\LangType;
@@ -30,13 +29,13 @@ class LangController extends Controller
         }
         $source = new Entity('OjsJournalBundle:Lang');
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
-        $rowAction[] = ActionHelper::showAction('lang_show', 'id');
-        $rowAction[] = ActionHelper::editAction('lang_edit', 'id');
-        $rowAction[] = ActionHelper::deleteAction('lang_delete', 'id');
+        $rowAction[] = $gridAction->showAction('lang_show', 'id');
+        $rowAction[] = $gridAction->editAction('lang_edit', 'id');
+        $rowAction[] = $gridAction->deleteAction('lang_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -49,6 +48,8 @@ class LangController extends Controller
     /**
      * Creates a new Lang entity.
      *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {

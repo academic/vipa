@@ -5,7 +5,6 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -48,19 +47,19 @@ class JournalContactController extends Controller
 
         $grid = $this->get('grid');
         $grid->setSource($source);
+        $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction = [];
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
 
         if ($user->isAdmin()) {
-            $rowAction[] = ActionHelper::showAction('journalcontact_show', 'id');
-            $rowAction[] = ActionHelper::editAction('journalcontact_edit', 'id');
-            $rowAction[] = ActionHelper::deleteAction('journalcontact_delete', 'id');
+            $rowAction[] = $gridAction->showAction('journalcontact_show', 'id');
+            $rowAction[] = $gridAction->editAction('journalcontact_edit', 'id');
+            $rowAction[] = $gridAction->deleteAction('journalcontact_delete', 'id');
         } elseif ($this->get('ojs.journal_service')->hasJournalRole('ROLE_JOURNAL_MANAGER')) {
-            $rowAction[] = ActionHelper::showAction('manager_journalcontact_show', 'id');
-            $rowAction[] = ActionHelper::editAction('manager_journalcontact_edit', 'id');
-            $rowAction[] = ActionHelper::deleteAction('manager_journalcontact_delete', 'id');
+            $rowAction[] = $gridAction->showAction('manager_journalcontact_show', 'id');
+            $rowAction[] = $gridAction->editAction('manager_journalcontact_edit', 'id');
+            $rowAction[] = $gridAction->deleteAction('manager_journalcontact_delete', 'id');
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

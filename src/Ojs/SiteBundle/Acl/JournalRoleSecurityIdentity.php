@@ -3,7 +3,7 @@
 namespace Ojs\SiteBundle\Acl;
 
 use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Component\Security\Core\Role\RoleInterface;
+use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Symfony\Component\Security\Acl\Model\SecurityIdentityInterface;
 
@@ -34,7 +34,7 @@ final class JournalRoleSecurityIdentity implements SecurityIdentityInterface
         if ($journal instanceof Journal) {
             $journal = $journal->getId();
         }
-        if ($role instanceof RoleInterface) {
+        if ($role instanceof Role) {
             $role = (string)$role;
         }
         $this->journal = $journal;

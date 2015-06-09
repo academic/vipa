@@ -7,7 +7,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -44,14 +43,15 @@ class UserController extends Controller
 
         $source = new Entity("OjsUserBundle:User");
         $grid = $this->get('grid');
+        $gridAction = $this->get('grid_action');
         $grid->setSource($source);
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
+        
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = ActionHelper::switchUserAction('ojs_public_index', ['username']);
-        $rowAction[] = ActionHelper::showAction('user_show', 'id');
-        $rowAction[] = ActionHelper::editAction('user_edit', 'id');
-        $rowAction[] = ActionHelper::userBanAction();
-        $rowAction[] = ActionHelper::deleteAction('user_delete', 'id');
+        $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['username']);
+        $rowAction[] = $gridAction->showAction('user_show', 'id');
+        $rowAction[] = $gridAction->editAction('user_edit', 'id');
+        $rowAction[] = $gridAction->userBanAction();
+        $rowAction[] = $gridAction->deleteAction('user_delete', 'id');
 
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);
@@ -145,9 +145,7 @@ class UserController extends Controller
         if(!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
 
         return $this->render('OjsUserBundle:User:admin/show.html.twig', array(
                     'entity' => $entity, ));
@@ -164,13 +162,11 @@ class UserController extends Controller
         $sessionUser = $this->getUser();
         /** @var User $user */
         $user = $username ?
-                $userRepo->findOneByUsername($username) :
+                $userRepo->findOneBy(array('username' => $username)) :
                 $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($user->getId());
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+        $this->throw404IfNotFound($entity);
 
         $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
                 array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
@@ -193,12 +189,11 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
+
         $editForm = $this->createEditForm($entity);
 
         return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
@@ -225,19 +220,21 @@ class UserController extends Controller
 
     /**
      * Edits an existing User entity.
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
+        $this->throw404IfNotFound($entity);
         if(!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $oldPassword = $entity->getPassword();
-        if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans('Not Found'));
-        }
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         /** @var DocumentManager $dm */
@@ -275,6 +272,7 @@ class UserController extends Controller
     /**
      * Deletes a User entity.
      *
+     * @param Request $request
      * @param $id
      * @return RedirectResponse
      */
@@ -439,7 +437,7 @@ class UserController extends Controller
         $data['templates'] = $templates;
         $data['user'] = $user;
         $data['parameters'] = $request->query->all();
-        array_walk($data['parameters'], function (&$val, $key) {
+        array_walk($data['parameters'], function (&$val) {
             $val = urldecode($val);
         });
 

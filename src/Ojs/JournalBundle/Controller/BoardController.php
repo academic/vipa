@@ -15,7 +15,6 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Board;
 use Ojs\JournalBundle\Form\BoardType;
-use Ojs\Common\Helper\ActionHelper;
 use Ojs\JournalBundle\Entity\BoardMember;
 
 /**
@@ -49,12 +48,13 @@ class BoardController extends Controller
             );
         }
         $grid = $this->get('grid')->setSource($source);
+        $gridAction = $this->get('grid_action');
+        
         $actionColumn = new ActionsColumn("actions", 'actions');
-        ActionHelper::setup($this->get('security.csrf.token_manager'), $this->get('translator'));
-        $rowAction[] = ActionHelper::showAction('admin_board_show', 'id');
+        $rowAction[] = $gridAction->showAction('admin_board_show', 'id');
         if ($this->isGranted('EDIT', $journal, 'boards')) {
-            $rowAction[] = ActionHelper::editAction('admin_board_edit', 'id');
-            $rowAction[] = ActionHelper::deleteAction('admin_board_delete', 'id');
+            $rowAction[] = $gridAction->editAction('admin_board_edit', 'id');
+            $rowAction[] = $gridAction->deleteAction('admin_board_delete', 'id');
         }
         $actionColumn->setRowActions($rowAction);
         $grid->addColumn($actionColumn);

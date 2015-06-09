@@ -38,15 +38,15 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
             return;
         }
         $roleRepo = $em->getRepository('OjsUserBundle:Role');
-        $roleEditor = $roleRepo->findOneByRole('ROLE_EDITOR');
+        $roleEditor = $roleRepo->findOneBy(array('role' => 'ROLE_EDITOR'));
         //$roleAuthor = $roleRepo->findOneByRole('ROLE_AUTHOR');
-        $roleJournalManager = $roleRepo->findOneByRole('ROLE_JOURNAL_MANAGER');
+        $roleJournalManager = $roleRepo->findOneBy(array('role' => 'ROLE_JOURNAL_MANAGER'));
         $serializer = $this->container->get('serializer');
 
         $step1 = new JournalWorkflowStep();
         $step1->setFirststep(true);
         $step1->setJournalid($journal->getId());
-        $step1->setMaxdays(15);
+        $step1->setMaxDays(15);
         $step1->setStatus('First Review');
         $step1->setTitle('First Review');
         $step1->setRoles(array(
@@ -59,7 +59,7 @@ class LoadWorkflowData extends AbstractFixture implements FixtureInterface, Cont
         $step2 = new JournalWorkflowStep();
         $step2->setLaststep(true);
         $step2->setJournalid($journal->getId());
-        $step2->setMaxdays(15);
+        $step2->setMaxDays(15);
         $step2->setStatus('Publish');
         $step2->setTitle('Publish');
         $step2->addNextStep($step1);
