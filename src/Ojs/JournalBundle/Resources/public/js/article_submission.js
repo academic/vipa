@@ -33,6 +33,7 @@ var OjsArticleSubmission = {
         //window.location.hash = step;
         this.step = step;
         this.showResumeNote();
+
     },
     hideStep: function (step) {
         $("#step" + step + "-container").slideUp("fast", 200, "easeInBack");
