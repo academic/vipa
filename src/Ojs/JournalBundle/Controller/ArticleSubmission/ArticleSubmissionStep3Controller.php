@@ -29,6 +29,12 @@ class ArticleSubmissionStep3Controller extends Controller
         /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
                 ->find($submissionId);
+        if (!$articleSubmission) {
+            throw $this->createNotFoundException('No submission found');
+        }
+        if (!$this->isGranted('EDIT', $articleSubmission)) {
+            throw $this->createAccessDeniedException("Access Denied");
+        }
         for ($i = 0; $i < count($citeData); $i++) {
             if (strlen($citeData[$i]->raw) < 1) {
                 unset($citeData[$i]);

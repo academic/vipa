@@ -42,6 +42,12 @@ class ArticlePreSubmissionController extends Controller
             $articleSubmission = new ArticleSubmissionProgress();
         } else {
             $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($submissionId);
+            if (!$articleSubmission) {
+                throw $this->createNotFoundException('No submission found');
+            }
+            if (!$this->isGranted('EDIT', $articleSubmission)) {
+                throw $this->createAccessDeniedException("Access Denied");
+            }
         }
         $articleSubmission->setUserId($this->getUser()->getId());
         $articleSubmission->setStartedDate(new \DateTime());
