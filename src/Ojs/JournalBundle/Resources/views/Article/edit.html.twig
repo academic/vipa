@@ -55,7 +55,9 @@
     {{ form_end(edit_form) }}
     <div class="record_actions">
         {% set back_path = 'article' %}
-        {% set delete_path = 'article_delete' %}
+        {% if is_granted('DELETE', selectedJournal(), 'articles') %}
+            {% set delete_path = 'article_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
 
