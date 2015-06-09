@@ -2,10 +2,10 @@
 
 namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Article submission step controller
@@ -17,7 +17,7 @@ class ArticleSubmissionStep1Controller extends Controller
 
     /**
      * submit new article - step1 - get article base data without author info.
-     * @param  Request      $request
+     * @param  Request $request
      * @param $locale
      * @return JsonResponse
      */
@@ -26,8 +26,8 @@ class ArticleSubmissionStep1Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $articleData = $request->request->all();
         $articleData['translations'] = isset($articleData['translations']) ?
-                json_decode($articleData['translations'], true) :
-                false;
+            json_decode($articleData['translations'], true) :
+            false;
         $languages = array();
         $articleSubmissionData = array();
         $article = $this->generateArticleArray($articleData, $locale);
@@ -69,7 +69,7 @@ class ArticleSubmissionStep1Controller extends Controller
 
     /**
      * @param $data
-     * @param  null  $locale
+     * @param  null $locale
      * @return mixed
      */
     private function generateArticleArray($data, $locale = null)
