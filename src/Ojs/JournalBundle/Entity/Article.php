@@ -10,9 +10,7 @@ use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\Common\Params\ArticleParams;
 use Ojs\UserBundle\Entity\UserArticleRole;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use JMS\Serializer\Annotation\Groups;
-
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 /**
@@ -202,7 +200,7 @@ class Article implements Translatable
     private $subjects;
 
     /**
-     * @var Collection
+     * @var Collection|Lang[]
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
@@ -215,7 +213,7 @@ class Article implements Translatable
     private $issue;
 
     /**
-     * @var Collection
+     * @var Collection|Citation[]
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
@@ -248,14 +246,14 @@ class Article implements Translatable
     private $attributes;
 
     /**
-     * @var Collection
+     * @var Collection|ArticleAuthor[]
      * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $articleAuthors;
 
     /**
-     * @var Collection
+     * @var Collection|ArticleFile[]
      */
     private $articleFiles;
 
@@ -263,6 +261,48 @@ class Article implements Translatable
      * @var string
      */
     private $header;
+
+    /**
+     * (optional) English transliterated abstract
+     * @var string
+     * @JMS\Expose
+     */
+    protected $abstractTransliterated;
+
+    /**
+     * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
+     */
+    protected $header_options;
+
+    /** @var ArrayCollection|UserArticleRole[] */
+    private $userRoles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->citations = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->articleAuthors = new ArrayCollection();
+        $this->articleFiles = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -284,22 +324,21 @@ class Article implements Translatable
     }
 
     /**
-     * Constructor
+     * @param $name
+     * @param $value
+     * @return $this
      */
-    public function __construct()
-    {
-        $this->citations = new ArrayCollection();
-        $this->languages = new ArrayCollection();
-        $this->articleAuthors = new ArrayCollection();
-        $this->articleFiles = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
-    }
-
     public function addAttribute($name, $value)
     {
         $this->attributes[$name] = new ArticleAttribute($name, $value, $this);
+
+        return $this;
     }
 
+    /**
+     * @param $name
+     * @return bool|ArticleAttribute
+     */
     public function getAttribute($name)
     {
         return isset($this->attributes[$name]) ? $this->attributes[$name] : false;
@@ -318,8 +357,8 @@ class Article implements Translatable
     /**
      * Set subjects
      *
-     * @param  string  $subjects
-     * @return Article
+     * @param  string $subjects
+     * @return $this
      */
     public function setSubjects($subjects = null)
     {
@@ -329,8 +368,8 @@ class Article implements Translatable
     }
 
     /**
-     * @param  Lang    $language
-     * @return Article
+     * @param  Lang  $language
+     * @return $this
      */
     public function addLanguage(Lang $language)
     {
@@ -340,15 +379,18 @@ class Article implements Translatable
     }
 
     /**
-     * @param Lang $language
+     * @param  Lang  $language
+     * @return $this
      */
     public function removeLanguage(Lang $language)
     {
         $this->languages->removeElement($language);
+
+        return $this;
     }
 
     /**
-     * @return Collection
+     * @return Collection|Lang[]
      */
     public function getLanguages()
     {
@@ -357,8 +399,8 @@ class Article implements Translatable
 
     /**
      *
-     * @param  Issue   $issue
-     * @return Article
+     * @param  Issue $issue
+     * @return $this
      */
     public function setIssue(Issue $issue)
     {
@@ -376,7 +418,7 @@ class Article implements Translatable
     }
 
     /**
-     * @return Collection
+     * @return Collection|ArticleAuthor[]
      */
     public function getArticleAuthors()
     {
@@ -384,9 +426,9 @@ class Article implements Translatable
     }
 
     /**
-     * @return Collection
+     * @return Collection|ArticleFile[]
      */
-    public function getArticlefiles()
+    public function getArticleFiles()
     {
         return $this->articleFiles;
     }
@@ -395,11 +437,11 @@ class Article implements Translatable
      * Add citation
      *
      * @param  Citation $citation
-     * @return Article
+     * @return $this
      */
     public function addCitation(Citation $citation)
     {
-        $this->citations[] = $citation;
+        $this->citations->add($citation);
 
         return $this;
     }
@@ -407,31 +449,24 @@ class Article implements Translatable
     /**
      * Remove citation
      *
-     * @param Citation $citation
+     * @param  Citation $citation
+     * @return $this
      */
     public function removeCitation(Citation $citation)
     {
         $this->citations->removeElement($citation);
+
+        return $this;
     }
 
     /**
      * Get citations
      *
-     * @return Collection
+     * @return Collection|Citation[]
      */
     public function getCitations()
     {
         return $this->citations;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -452,11 +487,18 @@ class Article implements Translatable
         return ArticleParams::statusColor($this->status);
     }
 
+    /**
+     * @return int
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param  int   $status
+     * @return $this
+     */
     public function setStatus($status)
     {
         $this->status = $status;
@@ -476,7 +518,7 @@ class Article implements Translatable
     /**
      *
      * @param  integer $orderNum
-     * @return Article
+     * @return $this
      */
     public function setOrderNum($orderNum)
     {
@@ -496,8 +538,8 @@ class Article implements Translatable
 
     /**
      *
-     * @param  string  $primaryLanguage
-     * @return Article
+     * @param  string $primaryLanguage
+     * @return $this
      */
     public function setPrimaryLanguage($primaryLanguage)
     {
@@ -506,42 +548,49 @@ class Article implements Translatable
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSubmitterId()
     {
         return $this->submitterId;
     }
 
+    /**
+     * @param $submitterId
+     * @return $this
+     */
     public function setSubmitterId($submitterId)
     {
         $this->submitterId = $submitterId;
 
-        return $submitterId;
+        return $this;
     }
 
     /**
-     * (optional) English transliterated abstract
-     * @var string
-     * @JMS\Expose
+     * @return string
      */
-    protected $abstractTransliterated;
-
     public function getKeywords()
     {
         return $this->keywords;
     }
 
+    /**
+     * @param $keywords
+     * @return $this
+     */
     public function setKeywords($keywords)
     {
         $this->keywords = $keywords;
 
-        return $keywords;
+        return $this;
     }
 
     /**
      * Set doi
      *
-     * @param  string  $doi
-     * @return Article
+     * @param  string $doi
+     * @return $this
      */
     public function setDoi($doi)
     {
@@ -563,8 +612,8 @@ class Article implements Translatable
     /**
      * Set otherId
      *
-     * @param  string  $otherId
-     * @return Article
+     * @param  string $otherId
+     * @return $this
      */
     public function setOtherId($otherId)
     {
@@ -587,7 +636,7 @@ class Article implements Translatable
      * Set issueId
      *
      * @param  integer $issueId
-     * @return Article
+     * @return $this
      */
     public function setIssueId($issueId)
     {
@@ -609,7 +658,7 @@ class Article implements Translatable
      * Set journalId
      *
      * @param  integer $journalId
-     * @return Article
+     * @return $this
      */
     public function setJournalId($journalId)
     {
@@ -631,9 +680,9 @@ class Article implements Translatable
     /**
      * Set journal
      * @param  Journal $journal
-     * @return Article
+     * @return $this
      */
-    public function setJournal($journal)
+    public function setJournal(Journal $journal)
     {
         $this->journal = $journal;
 
@@ -654,7 +703,7 @@ class Article implements Translatable
      * Set sectionId
      *
      * @param  integer $sectionId
-     * @return Article
+     * @return $this
      */
     public function setSectionId($sectionId)
     {
@@ -676,7 +725,7 @@ class Article implements Translatable
     /**
      * Set section
      * @param  JournalSection $section
-     * @return Article
+     * @return $this
      */
     public function setSection($section)
     {
@@ -698,8 +747,8 @@ class Article implements Translatable
     /**
      * Set title
      *
-     * @param  string  $title
-     * @return Article
+     * @param  string $title
+     * @return $this
      */
     public function setTitle($title)
     {
@@ -721,8 +770,8 @@ class Article implements Translatable
     /**
      * Set titleTransliterated
      *
-     * @param  string  $titleTransliterated
-     * @return Article
+     * @param  string $titleTransliterated
+     * @return $this
      */
     public function setTitleTransliterated($titleTransliterated)
     {
@@ -744,8 +793,8 @@ class Article implements Translatable
     /**
      * Set subtitle
      *
-     * @param  string  $subtitle
-     * @return Article
+     * @param  string $subtitle
+     * @return $this
      */
     public function setSubtitle($subtitle)
     {
@@ -768,7 +817,7 @@ class Article implements Translatable
      * Set isAnonymous
      *
      * @param  boolean $isAnonymous
-     * @return Article
+     * @return $this
      */
     public function setIsAnonymous($isAnonymous)
     {
@@ -791,7 +840,7 @@ class Article implements Translatable
      * Set pubdate
      *
      * @param  \DateTime $pubdate
-     * @return Article
+     * @return $this
      */
     public function setPubdate($pubdate)
     {
@@ -814,7 +863,7 @@ class Article implements Translatable
      * Set submissionDate
      *
      * @param  \DateTime $submissionDate
-     * @return Article
+     * @return $this
      */
     public function setSubmissionDate($submissionDate)
     {
@@ -836,8 +885,8 @@ class Article implements Translatable
     /**
      * Set pubDateSeason
      *
-     * @param  string  $pubDateSeason
-     * @return Article
+     * @param  string $pubDateSeason
+     * @return $this
      */
     public function setPubdateSeason($pubDateSeason)
     {
@@ -859,8 +908,8 @@ class Article implements Translatable
     /**
      * Set part
      *
-     * @param  string  $part
-     * @return Article
+     * @param  string $part
+     * @return $this
      */
     public function setPart($part)
     {
@@ -883,7 +932,7 @@ class Article implements Translatable
      * Set firstPage
      *
      * @param  integer $firstPage
-     * @return Article
+     * @return $this
      */
     public function setFirstPage($firstPage)
     {
@@ -906,7 +955,7 @@ class Article implements Translatable
      * Set lastPage
      *
      * @param  integer $lastPage
-     * @return Article
+     * @return $this
      */
     public function setLastPage($lastPage)
     {
@@ -928,8 +977,8 @@ class Article implements Translatable
     /**
      * Set uri
      *
-     * @param  string  $uri
-     * @return Article
+     * @param  string $uri
+     * @return $this
      */
     public function setUri($uri)
     {
@@ -951,8 +1000,8 @@ class Article implements Translatable
     /**
      * Set abstract
      *
-     * @param  string  $abstract
-     * @return Article
+     * @param  string $abstract
+     * @return $this
      */
     public function setAbstract($abstract)
     {
@@ -974,8 +1023,8 @@ class Article implements Translatable
     /**
      * Set abstractTransliterated
      *
-     * @param  string  $abstractTransliterated
-     * @return Article
+     * @param  string $abstractTransliterated
+     * @return $this
      */
     public function setAbstractTransliterated($abstractTransliterated)
     {
@@ -1018,7 +1067,7 @@ class Article implements Translatable
      * Add articleAuthors
      *
      * @param  ArticleAuthor $articleAuthors
-     * @return Article
+     * @return $this
      */
     public function addArticleAuthor(ArticleAuthor $articleAuthors)
     {
@@ -1041,7 +1090,7 @@ class Article implements Translatable
      * Add articleFiles
      *
      * @param  ArticleFile $articleFiles
-     * @return Article
+     * @return $this
      */
     public function addArticleFile(ArticleFile $articleFiles)
     {
@@ -1060,10 +1109,8 @@ class Article implements Translatable
         $this->articleFiles->removeElement($articleFiles);
     }
 
-    private $slug;
-
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -1080,14 +1127,6 @@ class Article implements Translatable
 
         return $this;
     }
-
-    public function __toString()
-    {
-        return $this->getTitle()."[#{$this->getId()}]";
-    }
-
-    /** @var ArrayCollection */
-    private $userRoles;
 
     /**
      * @return ArrayCollection
@@ -1120,11 +1159,6 @@ class Article implements Translatable
     }
 
     /**
-     * @var string
-     */
-    protected $header_options;
-
-    /**
      * @return string
      */
     public function getHeaderOptions()
@@ -1141,5 +1175,10 @@ class Article implements Translatable
         $this->header_options = $header_options;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle()."[#{$this->getId()}]";
     }
 }

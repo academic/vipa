@@ -88,7 +88,7 @@ class AnalyticsExtension extends \Twig_Extension
 
     public function fileStatsOfArticle(Article $article)
     {
-        $files = $article->getArticlefiles();
+        $files = $article->getArticleFiles();
         foreach ($files as $file) {
             //@todo github.com/okulbilisim/ojs/issues/572
         }

@@ -6,9 +6,7 @@ use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation as JMS;
 use Ojs\Common\Entity\GenericEntityTrait;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-
 use JMS\Serializer\Annotation\Groups;
-
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 /**
@@ -87,8 +85,8 @@ class ArticleAuthor implements Translatable
     /**
      * Set authorOrder
      *
-     * @param  integer       $authorOrder
-     * @return ArticleAuthor
+     * @param  integer $authorOrder
+     * @return $this
      */
     public function setAuthorOrder($authorOrder)
     {
@@ -118,8 +116,8 @@ class ArticleAuthor implements Translatable
 
     /**
      *
-     * @param  Article       $article
-     * @return ArticleAuthor
+     * @param  Article $article
+     * @return $this
      */
     public function setArticle(Article $article)
     {
@@ -139,8 +137,8 @@ class ArticleAuthor implements Translatable
 
     /**
      *
-     * @param  Author        $author
-     * @return ArticleAuthor
+     * @param  Author $author
+     * @return $this
      */
     public function setAuthor(Author $author)
     {

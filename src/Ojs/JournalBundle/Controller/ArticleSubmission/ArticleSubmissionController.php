@@ -9,7 +9,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\MongoDB\Query\Builder;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Translatable\Entity\Repository\TranslationRepository;
-use Gedmo\Sluggable\Util as Sluggable;
+use Gedmo\Sluggable\Util\Urlizer;
 use Ojs\Common\Params\ArticleFileParams;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
 use Ojs\JournalBundle\Entity\ArticleFile;
@@ -18,6 +18,7 @@ use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\UserJournalRole;
+use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
@@ -213,6 +214,7 @@ class ArticleSubmissionController extends Controller
      */
     public function newWithJournalAction($journalId)
     {
+        /** @var Journal $journal */
         $journal = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->find($journalId);
         if ($this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_new'));
@@ -344,15 +346,14 @@ class ArticleSubmissionController extends Controller
         if (!$this->isGranted('EDIT', $articleSubmission)) {
             throw $this->createAccessDeniedException("Access Denied");
         }
+        /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($articleSubmission->getJournalId());
-        if (!$journal) {
-            throw $this->createNotFoundException('Journal not found');
-        }
 
         $article = $this->saveArticleSubmission($articleSubmission, $journal);
 
-// get journal's first workflow step
-        $firstStep = $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
+        // get journal's first workflow step
+        /** @var JournalWorkflowStep $firstStep */
+        $firstStep = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
             ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true));
         if ($firstStep) {
             $reviewStep = new ArticleReviewStep();
@@ -389,10 +390,10 @@ class ArticleSubmissionController extends Controller
      * Article submission data will be kept on mongodb as archive data
      *
      * @param  ArticleSubmissionProgress $articleSubmission
-     * @param $journal
+     * @param Journal $journal
      * @return Article
      */
-    private function saveArticleSubmission(ArticleSubmissionProgress $articleSubmission, $journal)
+    private function saveArticleSubmission(ArticleSubmissionProgress $articleSubmission, Journal $journal)
     {
         /* article submission data will be moved from mongodb to mysql */
         $articleData = $articleSubmission->getArticleData();
@@ -419,24 +420,24 @@ class ArticleSubmissionController extends Controller
      *
      * @return Article
      *
-     * @param $articlePrimaryData
-     * @param $journal
-     * @param $lang
+     * @param array $articlePrimaryData
+     * @param Journal $journal
+     * @param string" $lang
      * @return Article
      */
-    private function saveArticlePrimaryData($articlePrimaryData, $journal, $lang)
+    private function saveArticlePrimaryData($articlePrimaryData, Journal $journal, $lang)
     {
         $em = $this->getDoctrine()->getManager();
         $article = new Article();
-        $article->setPrimaryLanguage($lang);
-        $article->setJournal($journal);
-        $article->setTitle($articlePrimaryData['title']);
-        $article->setAbstract($articlePrimaryData['abstract']);
-        $article->setKeywords($articlePrimaryData['keywords']);
-        $article->setSubjects($articlePrimaryData['subjects']);
-        $article->setSubtitle($articlePrimaryData ['title']);
-        $article->setSubmitterId($this->getUser()->getId());
-        $article->setStatus(0);
+        $article->setPrimaryLanguage($lang)
+            ->setJournal($journal)
+            ->setTitle($articlePrimaryData['title'])
+            ->setAbstract($articlePrimaryData['abstract'])
+            ->setKeywords($articlePrimaryData['keywords'])
+            ->setSubjects($articlePrimaryData['subjects'])
+            ->setSubtitle($articlePrimaryData ['title'])
+            ->setSubmitterId($this->getUser()->getId())
+            ->setStatus(0);
 
         $em->persist($article);
         $em->flush();
@@ -467,7 +468,7 @@ class ArticleSubmissionController extends Controller
      * @param $authors
      * @param $article
      */
-    private function saveAuthorsData($authors, $article)
+    private function saveAuthorsData($authors, Article $article)
     {
         $em = $this->getDoctrine()->getManager();
         foreach ($authors as $authorData) {
@@ -480,7 +481,7 @@ class ArticleSubmissionController extends Controller
             if (!$institution) {
                 $institution = new Institution();
                 $institution->setName(trim($authorData['institution']));
-                $institution->setSlug(Sluggable\Urlizer::urlize($authorData['institution'], '-'));
+                $institution->setSlug(Urlizer::urlize($authorData['institution'], '-'));
                 $institution->setVerified(false);
                 $em->persist($institution);
                 $em->flush();
