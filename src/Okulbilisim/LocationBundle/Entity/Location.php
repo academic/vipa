@@ -2,23 +2,33 @@
 
 namespace Okulbilisim\LocationBundle\Entity;
 
+
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+
 /**
  * Location
+ * @ExclusionPolicy("all")
  */
 class Location
 {
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @Expose
      */
     private $name;
 
     /**
      * @var integer
+     * @Expose
      */
     private $type;
 
@@ -31,8 +41,10 @@ class Location
      * @var \Okulbilisim\LocationBundle\Entity\Location
      */
     private $parent;
+
     /**
      * @var integer
+     * @Expose
      */
     private $parent_id;
 
