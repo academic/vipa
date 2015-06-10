@@ -120,6 +120,7 @@ class OjsExtension extends \Twig_Extension
             'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
             'download' => new \Twig_Function_Method($this, 'downloadArticleFile'),
             'getTagDefinition' => new \Twig_Function_Method($this, 'getTagDefinition'),
+            'getEntity' => new \Twig_Function_Method($this, 'getEntityObject'),
         );
     }
 
@@ -552,6 +553,18 @@ class OjsExtension extends \Twig_Extension
         }
 
         return $array;
+    }
+
+    /**
+     * Returns entity object from entity name
+     *
+     * @param $entityObjectName
+     * @return object
+     */
+    public function getEntityObject($entityObjectName)
+    {
+        $entityClassName = $this->em->getClassMetadata($entityObjectName)->name;
+        return new $entityClassName;
     }
 
     public function getName()
