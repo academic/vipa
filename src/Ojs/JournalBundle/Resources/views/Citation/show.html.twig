@@ -44,8 +44,12 @@
         </tbody>
     </table>
 
-    {% set edit_path = 'citation_edit' %}
+    {% if is_granted('EDIT', entity) %}
+        {% set edit_path = 'citation_edit' %}
+    {% endif %}
     {% set back_path = 'citation' %}
-    {% set delete_path = 'citation_delete' %}
+    {% if is_granted('DELETE', entity) %}
+        {% set delete_path = 'citation_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
