@@ -12,9 +12,11 @@
 {% block body -%}
     <h1> {{"boards"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
-    <a href="{{ path('admin_board_new') }}">
-        {{"c"| trans}}
-    </a>
+    {% if is_granted('CREATE', selectedJournal(), 'boards') %}
+        <a href="{{ path('admin_board_new') }}">
+            {{"c"| trans}}
+        </a>
+    {% endif %}
     <hr>
     {{ grid(grid) }}
 {% endblock %}
