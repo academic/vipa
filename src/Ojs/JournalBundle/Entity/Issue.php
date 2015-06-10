@@ -37,7 +37,6 @@ class Issue implements Translatable
      *
      * @var Journal
      * @GRID\Column(field="journal.title",title="Journal")
-     * @Expose
      * @Groups({"IssueDetail"})
      */
     private $journal;
@@ -106,7 +105,6 @@ class Issue implements Translatable
 
     /**
      * @var Collection
-     * @Expose
      * @Groups({"IssueDetail","JournalDetail"})
      */
     private $articles;
@@ -120,7 +118,6 @@ class Issue implements Translatable
 
     /**
      * @var Collection
-     * @Expose
      * @Groups({"IssueDetail"})
      */
     private $sections;
