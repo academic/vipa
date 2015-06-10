@@ -21,7 +21,9 @@
     {{ form(edit_form) }}
 
     {% set back_path = 'manager_submission_checklist' %}
-    {% set delete_path = 'manager_submission_checklist_delete' %}
+    {% if is_granted('DELETE', selectedJournal(), 'checklist') %}
+        {% set delete_path = 'manager_submission_checklist_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}

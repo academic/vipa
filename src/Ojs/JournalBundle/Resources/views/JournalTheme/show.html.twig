@@ -30,10 +30,10 @@
         </tbody>
     </table>
     {% set back_path = 'admin_journaltheme' %}
-    {% if is_granted('EDIT', getEntity('OjsJournalBundle:Journal'), 'theme') %}
+    {% if is_granted('EDIT', selectedJournal(), 'theme') %}
         {% set edit_path = 'admin_journaltheme_edit' %}
     {% endif %}
-    {% if is_granted('DELETE', getEntity('OjsJournalBundle:Journal'), 'theme') %}
+    {% if is_granted('DELETE', selectedJournal(), 'theme') %}
         {% set delete_path = 'admin_journaltheme_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}

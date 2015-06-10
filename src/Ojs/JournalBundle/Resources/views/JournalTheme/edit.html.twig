@@ -16,7 +16,7 @@
     {{ form(edit_form) }}
 
     {% set back_path = 'admin_journaltheme' %}
-    {% if is_granted('DELETE', getEntity('OjsJournalBundle:Journal'), 'theme') %}
+    {% if is_granted('DELETE', selectedJournal(), 'theme') %}
         {% set delete_path = 'admin_journaltheme_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
