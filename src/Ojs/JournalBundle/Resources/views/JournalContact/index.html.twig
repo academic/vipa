@@ -12,9 +12,13 @@
 {% block body -%}
     <h1>{{ 'journalcontact.list'|trans }}
         {% if isSystemAdmin() %}
-            {% set create_path = 'journalcontact_new' %}
+            {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
+                {% set create_path = 'journalcontact_new' %}
+            {% endif %}
         {%else %}
-            {% set create_path = 'manager_journalcontact_new' %}
+            {% if is_granted('CREATE', selectedJournal(), 'contacts') %}
+                {% set create_path = 'manager_journalcontact_new' %}
+            {% endif %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </h1>

@@ -24,10 +24,14 @@
     <div class="record_actions">
         {% if isSystemAdmin() %}
             {% set back_path = 'journalcontact' %}
-            {% set delete_path = 'journalcontact_delete' %}
+            {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
+                {% set delete_path = 'journalcontact_delete' %}
+            {% endif %}
         {%else %}
             {% set back_path = 'manager_journalcontact' %}
-            {% set delete_path = 'manager_journalcontact_delete' %}
+            {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
+                {% set delete_path = 'manager_journalcontact_delete' %}
+            {% endif %}
         {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
