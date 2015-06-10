@@ -12,7 +12,9 @@
 {% block body -%}
     <h1>{{ "file.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
-    <a href="{{path('admin_file_new')}}">{{"c"|trans}}</a>
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:File')) %}
+        <a href="{{path('admin_file_new')}}">{{"c"|trans}}</a>
+    {% endif %}
     {{ grid(grid) }}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
