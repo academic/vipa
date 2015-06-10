@@ -16,7 +16,6 @@ use Ojs\UserBundle\Entity\UserArticleRole;
 
 /**
  * Article
- * @JMS\ExclusionPolicy("all")
  * @GRID\Source(columns="id ,title, issue.title, doi, journal.title, pubdate, section.title")
  * @GRID\Source(columns="id ,status,title, journal.title",groups={"submission"})
  * @ExclusionPolicy("all")
@@ -26,9 +25,7 @@ class Article implements Translatable
     use GenericEntityTrait;
     /**
      * auto-incremented article unique id
-     * @var integer
      * @GRID\Column(title="id")
-     *
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -37,13 +34,13 @@ class Article implements Translatable
     /**
      *
      * @var integer
-     * @JMS\Expose
+     * @Expose
      */
     private $issueId;
 
     /**
      * @var integer
-     * @JMS\Expose
+     * @Expose
      * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
@@ -51,7 +48,7 @@ class Article implements Translatable
     /**
      * user id of the owner of this article
      * @var integer
-     * @JMS\Expose
+     * @Expose
      */
     private $submitterId;
 
@@ -72,14 +69,13 @@ class Article implements Translatable
 
     /**
      * @var integer
-     * @JMS\Expose
+     * @Expose
      */
     private $journalId;
 
     /**
      * Original article title
      * @var string
-     * @JMS\Expose
      * @GRID\Column(title="title")
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
@@ -89,7 +85,6 @@ class Article implements Translatable
     /**
      * Roman transliterated title
      * @var string
-     * @JMS\Expose
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -97,7 +92,6 @@ class Article implements Translatable
 
     /**
      * @var string
-     * @JMS\Expose
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -105,7 +99,6 @@ class Article implements Translatable
 
     /**
      * @var string
-     * @JMS\Expose
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -114,7 +107,6 @@ class Article implements Translatable
     /**
      * Some articles carries no authorship
      * @var boolean
-     * @JMS\Expose
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -122,7 +114,6 @@ class Article implements Translatable
 
     /**
      * @var \DateTime
-     * @JMS\Expose
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
      */
@@ -130,7 +121,6 @@ class Article implements Translatable
 
     /**
      * @var \DateTime
-     * @JMS\Expose
      * @GRID\Column(title="pubdate")
      * @Expose
      * @Groups({"JournalDetail","IssueDetail","ArticleDetail"})
@@ -139,7 +129,7 @@ class Article implements Translatable
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
      */
     private $pubdateSeason;
 
@@ -196,7 +186,7 @@ class Article implements Translatable
 
     /**
      * @var string
-     * @JMS\Expose
+     * @Expose
      */
     private $subjects;
 
@@ -222,20 +212,19 @@ class Article implements Translatable
 
     /**
      * @var Journal
-     * @JMS\Expose
      * @GRID\Column(field="journal.title", title="journal")
      */
     private $journal;
 
     /**
      * @var JournalSection
-     * @JMS\Expose
      */
     private $section;
 
     /**
      *
      * @var int
+     * @Expose
      */
     private $sectionId;
 
@@ -248,13 +237,13 @@ class Article implements Translatable
 
     /**
      * @var Collection|ArticleAuthor[]
-     * @Expose
      * @Groups({"IssueDetail","ArticleDetail"})
      */
     private $articleAuthors;
 
     /**
      * @var Collection|ArticleFile[]
+     * @Expose
      */
     private $articleFiles;
 
@@ -266,7 +255,7 @@ class Article implements Translatable
     /**
      * (optional) English transliterated abstract
      * @var string
-     * @JMS\Expose
+     * @Expose
      */
     protected $abstractTransliterated;
 
