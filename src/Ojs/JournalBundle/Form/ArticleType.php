@@ -44,6 +44,15 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
+                'articleType',
+                'entity',
+                array(
+                    'label' => 'article.type',
+                    'class' => 'Ojs\JournalBundle\Entity\ArticleTypes',
+                    'required' => false
+                )
+            )
+            ->add(
                 'status',
                 'choice',
                 array(
