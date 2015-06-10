@@ -13,6 +13,8 @@
     <h1>{{ "maillog.list" }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-    {% set create_path = 'admin_maillog_new' %}
+    {% if is_granted('CREATE', getEntity('OjsUserBundle:MailLog')) %}
+        {% set create_path = 'admin_maillog_new' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 {% endblock %}
