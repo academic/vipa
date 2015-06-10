@@ -47,6 +47,10 @@ ojs_contacttypes_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/contacttypes.yml"
     prefix:   /admin/contacttypes
 
+ojs_articletypes_crud:
+    resource: "@OjsJournalBundle/Resources/config/routing/admin/articletypes.yml"
+    prefix:   /admin/articletypes
+
 ojs_article_crud:
     resource: "@OjsJournalBundle/Resources/config/routing/admin/article.yml"
     prefix:   /admin/article
