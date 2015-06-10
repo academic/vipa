@@ -37,11 +37,15 @@
     <a href="{{ path('manager_journals_indexes',{journal: entity.journal.id}) }}">
         {{ 'b'|trans }}
     </a>
-    <a href="{{ path('manager_journals_indexes_edit', { 'id': entity.id }) }}">
-        {{ 'e'|trans }}
-    </a>
-     <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
-        {{ 'd'|trans }}
-    </a>
+    {% if is_granted('EDIT', selectedJournal(), 'index') %}
+        <a href="{{ path('manager_journals_indexes_edit', { 'id': entity.id }) }}">
+            {{ 'e'|trans }}
+        </a>
+    {% endif %}
+    {% if is_granted('DELETE', selectedJournal(), 'index') %}
+         <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
+            {{ 'd'|trans }}
+        </a>
+    {% endif %}
 
 {% endblock %}

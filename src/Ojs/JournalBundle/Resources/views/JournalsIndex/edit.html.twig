@@ -20,9 +20,11 @@
     <a href="{{ path('manager_journals_indexes') }}">
         {{ 'b'|trans }}
     </a>
-    <a href="{{ path('manager_journals_indexes') }}">
-        {{ 'd'|trans }}
-    </a>
+    {% if is_granted('DELETE', selectedJournal(), 'index') %}
+        <a href="{{ path('manager_journals_indexes') }}">
+            {{ 'd'|trans }}
+        </a>
+    {% endif %}
 
     {{ getLogs(entity) }}
 {% endblock %}
