@@ -15,7 +15,9 @@
     {{ form(edit_form) }}
 
     {% set back_path = 'contact' %}
-    {% set delete_path = 'contact_delete' %}
+    {% if is_granted('DELETE', entity) %}
+        {% set delete_path = 'contact_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
