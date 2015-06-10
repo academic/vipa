@@ -79,7 +79,9 @@
     <hr>
     {% if isSystemAdmin() %}
         {% set back_path = 'issue' %}
-        {% set delete_path = 'issue_delete' %}
+        {% if is_granted('DELETE', edit_form.vars.data) %}
+            {% set delete_path = 'issue_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
     {% endif %}
 
