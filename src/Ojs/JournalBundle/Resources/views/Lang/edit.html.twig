@@ -16,7 +16,9 @@
     {{ form(edit_form) }}
     <hr>
     {% set back_path = 'lang' %}
-    {% set delete_path = 'lang_delete' %}
+    {% if is_granted('DELETE', edit_form.vars.data) %}
+        {% set delete_path = 'lang_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
