@@ -51,7 +51,9 @@
     {{ form_end(edit_form) }}
 
     {% set back_path = 'mailtemplate' %}
-    {% set delete_path = 'mailtemplate_delete' %}
+    {% if is_granted('DELETE', selectedJournal(), 'mailTemplate') %}
+        {% set delete_path = 'mailtemplate_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
 
