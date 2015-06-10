@@ -2,7 +2,6 @@
 
 namespace Ojs\WorkflowBundle\Controller;
 
-
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
 use Ojs\Common\Controller\OjsController;
@@ -63,10 +62,10 @@ class EditorController extends OjsController
         $source = new Entity('OjsJournalBundle:Article');
         $alias = $source->getTableAlias();
         $source->manipulateQuery(
-        function (QueryBuilder $query) use ($status, $alias)
-        {
-            $query->andWhere($alias.'.status = '.$status);
-        });
+            function (QueryBuilder $query) use ($status, $alias) {
+                $query->andWhere($alias.'.status = '.$status);
+            }
+        );
 
         $grid = $this->get('grid');
         $grid->setSource($source);

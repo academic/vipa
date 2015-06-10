@@ -2,9 +2,10 @@
 
 namespace Ojs\UserBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Role
  * @ExclusionPolicy("all")

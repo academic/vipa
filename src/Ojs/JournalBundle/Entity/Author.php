@@ -2,19 +2,18 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
+use JMS\Serializer\Annotation as JMS;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Okulbilisim\LocationBundle\Entity\Location;
-use JMS\Serializer\Annotation as JMS;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
-use JMS\Serializer\Annotation\Groups;
-
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
 /**
  * Author
  * @ExclusionPolicy("all")
@@ -547,7 +546,8 @@ class Author implements Translatable
     public function getFullName()
     {
         $this->fullName = /* $this->title . ' ' . */
-                $this->title.' '.$this->firstName.' '.$this->middleName.' '.$this->lastName;
+            $this->title.' '.$this->firstName.' '.$this->middleName.' '.$this->lastName;
+
         // not sure if title should be added to fullname
         return $this->fullName;
     }

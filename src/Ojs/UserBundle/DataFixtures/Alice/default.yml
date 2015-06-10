@@ -64,4 +64,3 @@
     status: 1
     roles: [@role*]
     subjects: <numberBetween(1, 10)>x @random_subject_*
-

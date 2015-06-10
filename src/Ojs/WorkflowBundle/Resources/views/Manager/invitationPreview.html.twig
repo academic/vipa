@@ -3,10 +3,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'invitation.preview'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'invitation.preview'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
@@ -43,41 +43,41 @@
         </h2>
 
         <div class="panel-body">
-            <table class="table">
+        <table class="table">
 
-                <tr>
-                    <td>{{ 'Subjects'|trans }}</td>
-                    <td>
+            <tr>
+                <td>{{ 'Subjects'|trans }}</td>
+                <td>
                         <span class="" data-type="text"
                               data-name="article[{{ lang }}][subjects]">{{ article.subjects }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Keywords'|trans }}</td>
-                    <td>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Keywords'|trans }}</td>
+                <td>
                         <span class="" data-type="text"
                               data-name="article[{{ lang }}][keywords]">{{ article.keywords }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Abstract'|trans }}</td>
-                    <td>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Abstract'|trans }}</td>
+                <td>
                         <span class="" data-type="textarea"
                               data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Section'|trans }}</td>
-                    <td>
-                        {% if article.section is defined and article.section %}
-                            <span class="" data-type="text"
-                                  data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        {% endfor %}
-        <hr>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Section'|trans }}</td>
+                <td>
+                    {% if article.section is defined and article.section %}
+                        <span class="" data-type="text"
+                              data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+    <hr>
     </div>
     <hr/>
 
@@ -116,27 +116,27 @@
                 <tr>
                     <td>
                         {% if author.orcid is defined %}
-                        <span class="" data-type="text"
-                              data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
+                            <span class="" data-type="text"
+                                  data-name="author[{{ loop.index }}][orcid]">{{ author.orcid }}</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if author.order is defined %}
-                        <span class="" data-type="text"
-                              data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
+                            <span class="" data-type="text"
+                                  data-name="author[{{ loop.index }}][order]">{{ author.order }}</span>
                         {% endif %}
 
                     </td>
                     <td>
                         {% if author.title is defined %}
-                        <span class="" data-type="text"
-                              data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
+                            <span class="" data-type="text"
+                                  data-name="author[{{ loop.index }}][title]">{{ author.title }}</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if author.initials is defined %}
-                        <span class="" data-type="text"
-                              data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
+                            <span class="" data-type="text"
+                                  data-name="author[{{ loop.index }}][initials]">{{ author.initials }}</span>
                         {% endif %}
 
                     </td>
@@ -146,8 +146,8 @@
                     </td>
                     <td>
                         {% if author.middleName is defined %}
-                        <span class="" data-type="text"
-                              data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
+                            <span class="" data-type="text"
+                                  data-name="author[{{ loop.index }}][middleName]">{{ author.middleName }}</span>
                         {% endif %}
                     </td>
                     <td>
@@ -156,16 +156,16 @@
                     </td>
                     <td>
                         {% if author.email is defined %}
-                        <span class=" label label-default" data-name="author[{{ loop.index }}][email]"
-                              data-type="email">{{ author.email }}</span>
+                            <span class=" label label-default" data-name="author[{{ loop.index }}][email]"
+                                  data-type="email">{{ author.email }}</span>
                         {% endif %}
                     </td>
                     <td>
                         {% if author.middleName is defined %}
-                        {% set fullname=author.firstName ~ " "~author.middleName ~" "~ author.lastName %}
-                    {% else %}
-                        {% set fullname=author.firstName ~ " "~ author.lastName %}
-                    {% endif %}
+                            {% set fullname=author.firstName ~ " "~author.middleName ~" "~ author.lastName %}
+                        {% else %}
+                            {% set fullname=author.firstName ~ " "~ author.lastName %}
+                        {% endif %}
                         <span class="btn-group">
                             <a class="btn btn-xs btn-default" title="{{ "searchon.google"|trans }}"
                                href="http://scholar.google.com.tr/scholar?q={{ (fullname)|url_encode }}">
@@ -249,10 +249,10 @@
 
         <div class="form-inline">
             <div class="btn-group pull-right">
-                <a class="btn btn-danger btn-lg"  href="{{path("article_workflow_invitation_decline",{'id':id})}}" >
+                <a class="btn btn-danger btn-lg" href="{{ path("article_workflow_invitation_decline",{'id':id}) }}">
                     <i class="fa fa-warning"></i> Decline
                 </a>
-                <a class="btn btn-success  btn-lg" href="{{path("article_workflow_invitation_accept",{'id':id})}}">
+                <a class="btn btn-success  btn-lg" href="{{ path("article_workflow_invitation_accept",{'id':id}) }}">
                     <i class="fa fa-check-circle"></i> Accept
                 </a>
             </div>

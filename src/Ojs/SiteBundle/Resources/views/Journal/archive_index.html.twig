@@ -1,12 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.archives'|trans }} {{ parent() }}{% endblock %}
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'link':generateJournalUrl(journal), 'title': journal.title},
-        {'title': "archive"|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'link':generateJournalUrl(journal), 'title': journal.title},
+    {'title': "archive"|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -17,24 +17,25 @@
         <div class="row">
             <!-- The carousel -->
             <div class="page-header">
-                <h1>{{journal.title}}</h1>
-                <h6>{{journal.subtitle}}</h6>
+                <h1>{{ journal.title }}</h1>
+                <h6>{{ journal.subtitle }}</h6>
             </div>
             <div class="row">
                 <div class="col-md-9">
-                    {% for year in issues_grouped|keys %}
+                    {% for year in groupedIssues|keys %}
                         <div class="panel panel-default">
                             <div class="panel-heading toggle-list">
-                                <h3 class="panel-title archive-year-title btn-link">{{year}} <span class="pull-right fa fa-list"></span></h3>
+                                <h3 class="panel-title archive-year-title btn-link">{{ year }} <span
+                                            class="pull-right fa fa-list"></span></h3>
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-default">
-                                    {% for issue in issues_grouped[year] %}
+                                    {% for issue in groupedIssues[year] %}
                                         <li class="col-md-12">
                                             <a href="{{ url('ojs_issue_page',{journal_slug:journal.slug,institution:journal.institution.slug,id:issue.id}) }}">
-                                                {{"volume"|trans}} : {{issue.volume}}
-                                                {{"issue"|trans}} : {{issue.number}}
-                                                {% if issue.title %}-  {{issue.title}} {%endif%}
+                                                {{ "volume"|trans }} : {{ issue.volume }}
+                                                {{ "issue"|trans }} : {{ issue.number }}
+                                                {% if issue.title %}-  {{ issue.title }} {% endif %}
                                                 <span class="badge pull-right">4</span>
                                             </a>
                                         </li>
@@ -49,7 +50,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
+                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
                 </div>
             </div>
         </div>
@@ -59,6 +60,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }} )
+        analytics.increase('journal', {{ journal.id }})
     </script>
 {% endblock %}

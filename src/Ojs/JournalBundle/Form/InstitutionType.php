@@ -21,64 +21,90 @@ class InstitutionType extends AbstractType
         /** @var FormHelper $helper */
         $helper = $options['helper'];
         $builder
-                ->add('name', 'text', [
+            ->add(
+                'name',
+                'text',
+                [
                     'label' => 'name',
                     'required' => true,
                     'attr' => [
                         'class' => "validate[required]",
                     ],
-                ])
-                ->add('slug', 'text', [
+                ]
+            )
+            ->add(
+                'slug',
+                'text',
+                [
                     'label' => 'institution.slug',
                     'attr' => [
                         'class' => "validate[required]",
                     ],
-                ])
-                ->add('institution_type', 'entity', [
+                ]
+            )
+            ->add(
+                'institution_type',
+                'entity',
+                [
                     'label' => 'institutiontype',
                     'class' => 'Ojs\JournalBundle\Entity\InstitutionTypes',
                     'attr' => [
                         'class' => "validate[required]",
                     ],
-                ])
-                ->add('parent', 'autocomplete', [
+                ]
+            )
+            ->add(
+                'parent',
+                'autocomplete',
+                [
                     'class' => 'Ojs\JournalBundle\Entity\Institution',
                     'attr' => [
-                            'class' => 'autocomplete',
-                            'style' => 'width:100%',
-                            'data-list' => $options['institutionsEndPoint'],
-                            'data-get' => $options['institutionEndPoint'],
-                            "placeholder" => "type a institution name",
-                     ],
-                ])
-                ->add('about', 'textarea', ['label' => 'about'])
-                ->add('address', 'textarea', ['label' => 'address'])
-                ->add('addressLat', 'text', ['label' => 'addressLat'])
-                ->add('addressLong', 'text', ['label' => 'addressLong'])
-                ->add('phone', 'text', ['label' => 'phone'])
-                ->add('fax', 'text', ['label' => 'fax'])
-                ->add('email', 'email', ['label' => 'email'])
-                ->add('url', 'url', ['label' => 'url'])
-                ->add('wiki')
-                ->add('tags', 'text', array(
-                        'label' => 'tags',
-                        'attr' => [
-                            'class' => ' form-control input-xxl',
-                            'data-role' =>  'tagsinputautocomplete',
-                            'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => $options['apiRoot']
-                        ]
-                    )
+                        'class' => 'autocomplete',
+                        'style' => 'width:100%',
+                        'data-list' => $options['institutionsEndPoint'],
+                        'data-get' => $options['institutionEndPoint'],
+                        "placeholder" => "type a institution name",
+                    ],
+                ]
+            )
+            ->add('about', 'textarea', ['label' => 'about'])
+            ->add('address', 'textarea', ['label' => 'address'])
+            ->add('addressLat', 'text', ['label' => 'addressLat'])
+            ->add('addressLong', 'text', ['label' => 'addressLong'])
+            ->add('phone', 'text', ['label' => 'phone'])
+            ->add('fax', 'text', ['label' => 'fax'])
+            ->add('email', 'email', ['label' => 'email'])
+            ->add('url', 'url', ['label' => 'url'])
+            ->add('wiki')
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => $options['apiRoot'],
+                    ],
                 )
-                ->add('logo', 'hidden')
-                ->add('header', 'hidden')
-                ->add('verified', 'checkbox', [
+            )
+            ->add('logo', 'hidden')
+            ->add('header', 'hidden')
+            ->add(
+                'verified',
+                'checkbox',
+                [
                     'label' => 'verified',
                     'attr' => [
                         'class' => "checkbox",
                     ],
-                ])
-                ->add('country', 'entity', [
+                ]
+            )
+            ->add(
+                'country',
+                'entity',
+                [
                     'label' => 'country',
                     'class' => 'Okulbilisim\LocationBundle\Entity\Location',
                     'attr' => [
@@ -89,7 +115,8 @@ class InstitutionType extends AbstractType
                         return $em->createQueryBuilder('c')
                             ->where("c.type=0");
                     },
-        ]);
+                ]
+            );
         $helper->addCityField($builder, 'Ojs\JournalBundle\Entity\Institution');
     }
 
@@ -98,17 +125,19 @@ class InstitutionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Institution',
-            'helper' => null,
-            'tagEndPoint' => '/',
-            'institutionsEndPoint' => '/',
-            'institutionEndPoint' => '/',
-            'attr' => [
-                'novalidate' => 'novalidate',
-                'class' => 'validate-form',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Institution',
+                'helper' => null,
+                'tagEndPoint' => '/',
+                'institutionsEndPoint' => '/',
+                'institutionEndPoint' => '/',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'validate-form',
+                ],
+            )
+        );
     }
 
     /**

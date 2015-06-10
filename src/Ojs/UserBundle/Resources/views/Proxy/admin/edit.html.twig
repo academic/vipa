@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('admin_proxy'),'title': 'proxy'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('admin_proxy'),'title': 'proxy'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,14 +14,14 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_proxy') }}">
-            {{"b"|trans}}
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_proxy') }}">
+                {{ "b"|trans }}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 
     {{ getLogs(entity) }}
 {% endblock %}

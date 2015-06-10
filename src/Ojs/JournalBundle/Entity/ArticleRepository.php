@@ -15,10 +15,10 @@ class ArticleRepository extends EntityRepository
     public function getArticlesUnissued($status = 3)
     {
         $q = $this->createQueryBuilder('a')
-                ->select('a')
-                ->where('a.issueId IS NULL AND a.status = :status')
-                ->setParameter('status', $status)
-                ->getQuery();
+            ->select('a')
+            ->where('a.issueId IS NULL AND a.status = :status')
+            ->setParameter('status', $status)
+            ->getQuery();
         $articles = $q->getResult();
 
         return $articles;
@@ -34,12 +34,12 @@ class ArticleRepository extends EntityRepository
     public function getOrderedArticlesByIssue(Issue $issue, $asc = false, $status = 3)
     {
         $q = $this->createQueryBuilder('a')
-                ->select('a')
-                ->where('a.issueId = :issue_id AND a.status = :status')
-                ->orderBy('a.orderNum', $asc ? 'ASC' : 'DESC')
-                ->setParameter('issue_id', $issue->getId())
-                ->setParameter('status', $status)
-                ->getQuery();
+            ->select('a')
+            ->where('a.issueId = :issue_id AND a.status = :status')
+            ->orderBy('a.orderNum', $asc ? 'ASC' : 'DESC')
+            ->setParameter('issue_id', $issue->getId())
+            ->setParameter('status', $status)
+            ->getQuery();
 
         $articles = $q->getResult();
 

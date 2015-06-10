@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'institution.manager'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'institution.manager'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -12,7 +12,7 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Institution')) %}
-        <a href="{{ path('institution_new') }}"  class="btn btn-success">{{"c"|trans}}</a>
+        <a href="{{ path('institution_new') }}" class="btn btn-success">{{ "c"|trans }}</a>
     {% endif %}
     {{ grid(grid) }}
 

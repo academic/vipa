@@ -13,18 +13,18 @@ use Doctrine\ORM\EntityManager;
  */
 class Updater
 {
-    /** @var DocumentManager  */
+    /** @var DocumentManager */
     protected $dm;
-    /** @var EntityManager  */
+    /** @var EntityManager */
     protected $em;
 
-    /** @var \Twig_Extension  */
+    /** @var \Twig_Extension */
     protected $post_extension;
-    public function __construct(EntityManager $em, DocumentManager $dm,\Twig_Extension $postExtension)
+
+    public function __construct(EntityManager $em, DocumentManager $dm, \Twig_Extension $postExtension)
     {
         $this->dm = $dm;
         $this->em = $em;
         $this->post_extension = $postExtension;
     }
-
 }

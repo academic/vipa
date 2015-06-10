@@ -4,9 +4,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'application.journal.apply'|trans},
-        {'title': 'success'}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'application.journal.apply'|trans},
+    {'title': 'success'}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -15,6 +15,7 @@
     <div class="container">
         <!-- Page Content -->
         <h1 class="page-header">{{ "success"|trans }}</h1>
+
         <div class="jumbotron">
             {{ "Your application saved successfully."|trans }}
         </div>

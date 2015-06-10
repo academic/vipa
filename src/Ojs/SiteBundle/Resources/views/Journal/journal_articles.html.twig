@@ -4,9 +4,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'link':generateJournalUrl(journal), 'title': journal.title},
-        {'title': "articles"|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'link':generateJournalUrl(journal), 'title': journal.title},
+    {'title': "articles"|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -65,7 +65,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }})
+        analytics.increase('journal', {{ journal.id }})
     </script>
 {% endblock %}
-

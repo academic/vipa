@@ -4,12 +4,12 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\JournalIndex;
 use Ojs\JournalBundle\Form\JournalIndexType;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * JournalIndex controller.
@@ -24,7 +24,7 @@ class JournalIndexController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new JournalIndex())) {
+        if (!$this->isGranted('VIEW', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $source = new Entity('OjsJournalBundle:JournalIndex');
@@ -48,12 +48,12 @@ class JournalIndexController extends Controller
     /**
      * Creates a new JournalIndex entity.
      *
-     * @param Request $request
+     * @param  Request                                                                                       $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new JournalIndex())) {
+        if (!$this->isGranted('CREATE', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
@@ -73,10 +73,13 @@ class JournalIndexController extends Controller
             return $this->redirectToRoute('admin_journalindex_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:JournalIndex:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:JournalIndex:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -88,10 +91,14 @@ class JournalIndexController extends Controller
      */
     private function createCreateForm(JournalIndex $entity)
     {
-        $form = $this->createForm(new JournalIndexType(), $entity, array(
-            'action' => $this->generateUrl('admin_journalindex_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new JournalIndexType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_journalindex_create'),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -102,31 +109,38 @@ class JournalIndexController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new JournalIndex())) {
+        if (!$this->isGranted('CREATE', new JournalIndex())) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $entity = new JournalIndex();
-        $form   = $this->createCreateForm($entity);
-        return $this->render('OjsJournalBundle:JournalIndex:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        $form = $this->createCreateForm($entity);
+
+        return $this->render(
+            'OjsJournalBundle:JournalIndex:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Finds and displays a JournalIndex entity.
      *
-     * @param JournalIndex $entity
+     * @param  JournalIndex                               $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
-        return $this->render('OjsJournalBundle:JournalIndex:show.html.twig', array(
-                'entity'=> $entity,
+
+        return $this->render(
+            'OjsJournalBundle:JournalIndex:show.html.twig',
+            array(
+                'entity' => $entity,
             )
         );
     }
@@ -134,20 +148,24 @@ class JournalIndexController extends Controller
     /**
      * Displays a form to edit an existing JournalIndex entity.
      *
-     * @param JournalIndex $entity
+     * @param  JournalIndex                               $entity
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $editForm = $this->createEditForm($entity);
-        return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+
+        return $this->render(
+            'OjsJournalBundle:JournalIndex:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -159,10 +177,14 @@ class JournalIndexController extends Controller
      */
     private function createEditForm(JournalIndex $entity)
     {
-        $form = $this->createForm(new JournalIndexType(), $entity, array(
-            'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new JournalIndexType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_journalindex_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -170,14 +192,14 @@ class JournalIndexController extends Controller
     /**
      * Edits an existing JournalIndex entity.
      *
-     * @param Request $request
-     * @param JournalIndex $entity
+     * @param  Request                                                                                       $request
+     * @param  JournalIndex                                                                                  $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -195,30 +217,35 @@ class JournalIndexController extends Controller
 
             return $this->redirect($this->generateUrl('admin_journalindex_edit', array('id' => $entity->getId())));
         }
-        return $this->render('OjsJournalBundle:JournalIndex:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
+
+        return $this->render(
+            'OjsJournalBundle:JournalIndex:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Deletes a JournalIndex entity.
      *
-     * @param Request $request
-     * @param JournalIndex $entity
+     * @param  Request                                            $request
+     * @param  JournalIndex                                       $entity
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, JournalIndex $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for view this page!");
         }
         $em = $this->getDoctrine()->getManager();
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('admin_journalindex'.$entity->getId());
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

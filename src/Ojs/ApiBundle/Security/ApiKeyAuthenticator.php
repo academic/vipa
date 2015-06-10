@@ -2,15 +2,15 @@
 
 namespace Ojs\ApiBundle\Security;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\SimplePreAuthenticatorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
@@ -35,7 +35,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         }
 
         return new PreAuthenticatedToken(
-                'anon.', $apiKey, $providerKey
+            'anon.', $apiKey, $providerKey
         );
     }
 
@@ -46,14 +46,14 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         if (!$username) {
             throw new AuthenticationException(
-            sprintf('API Key "%s" does not exist.', $apiKey)
+                sprintf('API Key "%s" does not exist.', $apiKey)
             );
         }
 
         $user = $this->userProvider->loadUserByUsername($username);
 
         return new PreAuthenticatedToken(
-                $user, $apiKey, $providerKey, $user->getRoles()
+            $user, $apiKey, $providerKey, $user->getRoles()
         );
     }
 

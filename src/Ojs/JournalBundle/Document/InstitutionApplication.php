@@ -7,8 +7,9 @@
  */
 namespace Ojs\JournalBundle\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
 /**
  * This collection holds resumable institute application data
  * @MongoDB\Document(collection="institution_application")

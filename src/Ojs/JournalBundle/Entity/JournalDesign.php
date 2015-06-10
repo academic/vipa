@@ -156,6 +156,7 @@ class JournalDesign implements Translatable
     {
         return $this->design;
     }
+
     /**
      * Set title
      *

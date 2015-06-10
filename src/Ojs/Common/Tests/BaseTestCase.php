@@ -12,10 +12,10 @@ ini_set('session.save_path', '/tmp');
 session_start();
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DomCrawler\Crawler;
@@ -44,6 +44,7 @@ abstract class BaseTestCase extends WebTestCase
 
     /** @var  Crawler */
     protected $crawler;
+
     public function setUp()
     {
         $this->client = $this->createClient();

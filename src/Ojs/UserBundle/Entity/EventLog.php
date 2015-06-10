@@ -40,7 +40,7 @@ class EventLog
     /**
      *
      */
-    function __construct()
+    public function __construct()
     {
         $this->eventDate = new \DateTime();
     }
@@ -53,6 +53,16 @@ class EventLog
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get eventInfo
+     *
+     * @return string
+     */
+    public function getEventInfo()
+    {
+        return $this->eventInfo;
     }
 
     /**
@@ -69,13 +79,13 @@ class EventLog
     }
 
     /**
-     * Get eventInfo
+     * Get eventDate
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getEventInfo()
+    public function getEventDate()
     {
-        return $this->eventInfo;
+        return $this->eventDate;
     }
 
     /**
@@ -92,13 +102,13 @@ class EventLog
     }
 
     /**
-     * Get eventDate
+     * Get ip
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getEventDate()
+    public function getIp()
     {
-        return $this->eventDate;
+        return $this->ip;
     }
 
     /**
@@ -115,13 +125,13 @@ class EventLog
     }
 
     /**
-     * Get ip
+     * Get userId
      *
-     * @return string
+     * @return integer
      */
-    public function getIp()
+    public function getUserId()
     {
-        return $this->ip;
+        return $this->userId;
     }
 
     /**
@@ -138,13 +148,13 @@ class EventLog
     }
 
     /**
-     * Get userId
+     * Get affectedUserId
      *
      * @return integer
      */
-    public function getUserId()
+    public function getAffectedUserId()
     {
-        return $this->userId;
+        return $this->affectedUserId;
     }
 
     /**
@@ -158,15 +168,5 @@ class EventLog
         $this->affectedUserId = $affectedUserId;
 
         return $this;
-    }
-
-    /**
-     * Get affectedUserId
-     *
-     * @return integer
-     */
-    public function getAffectedUserId()
-    {
-        return $this->affectedUserId;
     }
 }

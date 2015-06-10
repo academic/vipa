@@ -11,14 +11,14 @@ use Ojs\Common\Params\CommonParams;
 use Ojs\Common\Services\JournalService;
 use Ojs\Common\Services\UserListener;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\Author;
+use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Entity\File;
 use Ojs\JournalBundle\Entity\Institution;
+use Ojs\JournalBundle\Entity\Issue;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\JournalBundle\Entity\Author;
-use Ojs\JournalBundle\Entity\Contact;
-use Ojs\JournalBundle\Entity\Issue;
 use Ojs\SiteBundle\Entity\Page;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -30,19 +30,19 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class OjsExtension extends \Twig_Extension
 {
-    /** @var EntityManager  */
+    /** @var EntityManager */
     private $em;
-    /** @var Router  */
+    /** @var Router */
     private $router;
-    /** @var JournalService  */
+    /** @var JournalService */
     private $journalService;
-    /** @var UserListener  */
+    /** @var UserListener */
     private $userListener;
-    /** @var TokenStorageInterface  */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
-    /** @var Session  */
+    /** @var Session */
     private $session;
-    /** @var TranslatorInterface  */
+    /** @var TranslatorInterface */
     private $translator;
     /** @var  string */
     private $cmsShowRoutes;
@@ -73,8 +73,8 @@ class OjsExtension extends \Twig_Extension
         Session $session = null,
         $cmsShowRoutes = null,
         $avatarUploadBaseUrl = null,
-        $defaultInstitutionSlug)
-    {
+        $defaultInstitutionSlug
+    ) {
         $this->em = $em;
         $this->router = $router;
         $this->journalService = $journalService;
@@ -107,7 +107,11 @@ class OjsExtension extends \Twig_Extension
             'hasIdInObjects' => new \Twig_Function_Method($this, 'hasIdInObjects', array('is_safe' => array('html'))),
             'breadcrumb' => new \Twig_Function_Method($this, 'generateBreadcrumb', array('is_safe' => array('html'))),
             'selectedJournal' => new \Twig_Function_Method($this, 'selectedJournal', array('is_safe' => array('html'))),
-            'generateAvatarPath' => new \Twig_Function_Method($this, 'generateAvatarPath', array('is_safe' => array('html'))),
+            'generateAvatarPath' => new \Twig_Function_Method(
+                $this,
+                'generateAvatarPath',
+                array('is_safe' => array('html'))
+            ),
             'imagePath' => new \Twig_Function_Method($this, 'generateImagePath'),
             'filePath' => new \Twig_Function_Method($this, 'generateFilePath'),
             'printYesNo' => new \Twig_Function_Method($this, 'printYesNo', array('is_safe' => array('html'))),
@@ -117,7 +121,11 @@ class OjsExtension extends \Twig_Extension
             'daysDiff' => new \Twig_Function_Method($this, 'daysDiff', array('is_safe' => array('html'))),
             'apiKey' => new \Twig_Function_Method($this, 'apiKey', array('is_safe' => array('html'))),
             'getObject' => new \Twig_Function_Method($this, 'getObject', []),
-            'generateJournalUrl' => new \Twig_Function_Method($this, 'generateJournalUrl', array('is_safe' => array('html'))),
+            'generateJournalUrl' => new \Twig_Function_Method(
+                $this,
+                'generateJournalUrl',
+                array('is_safe' => array('html'))
+            ),
             'download' => new \Twig_Function_Method($this, 'downloadArticleFile'),
             'getTagDefinition' => new \Twig_Function_Method($this, 'getTagDefinition'),
             'getEntity' => new \Twig_Function_Method($this, 'getEntityObject'),
@@ -314,7 +322,9 @@ class OjsExtension extends \Twig_Extension
     public function printYesNo($arg)
     {
         return ''.
-        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> '.$this->translator->trans('yes').'</i></span>' :
+        ($arg ? '<span class="label label-success"><i class="fa fa-check-circle"> '.$this->translator->trans(
+                'yes'
+            ).'</i></span>' :
             '<span class="label label-danger"><i class="fa fa-ban"> '.$this->translator->trans('no').'</i></span>');
     }
 
@@ -459,12 +469,16 @@ class OjsExtension extends \Twig_Extension
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
 
         return $this->router
-            ->generate('ojs_article_page', [
-                'slug' => $article->getJournal()->getSlug(),
-                'article_id' => $article->getId(),
-                'issue_id' => $article->getIssueId(),
-                'institution' => $institutionSlug,
-            ], Router::ABSOLUTE_URL);
+            ->generate(
+                'ojs_article_page',
+                [
+                    'slug' => $article->getJournal()->getSlug(),
+                    'article_id' => $article->getId(),
+                    'issue_id' => $article->getIssueId(),
+                    'institution' => $institutionSlug,
+                ],
+                Router::ABSOLUTE_URL
+            );
     }
 
     /**
@@ -477,11 +491,15 @@ class OjsExtension extends \Twig_Extension
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
 
         return $this->router
-            ->generate('ojs_issue_page', [
-                'id' => $issue->getId(),
-                'journal_slug' => $issue->getJournal()->getSlug(),
-                'institution' => $institutionSlug,
-            ], Router::ABSOLUTE_URL);
+            ->generate(
+                'ojs_issue_page',
+                [
+                    'id' => $issue->getId(),
+                    'journal_slug' => $issue->getJournal()->getSlug(),
+                    'institution' => $institutionSlug,
+                ],
+                Router::ABSOLUTE_URL
+            );
     }
 
     /**
@@ -564,7 +582,8 @@ class OjsExtension extends \Twig_Extension
     public function getEntityObject($entityObjectName)
     {
         $entityClassName = $this->em->getClassMetadata($entityObjectName)->name;
-        return new $entityClassName;
+
+        return new $entityClassName();
     }
 
     public function getName()

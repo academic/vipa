@@ -17,7 +17,7 @@ class ArticleSubmissionStep1Controller extends Controller
 
     /**
      * submit new article - step1 - get article base data without author info.
-     * @param  Request $request
+     * @param  Request      $request
      * @param $locale
      * @return JsonResponse
      */
@@ -35,14 +35,20 @@ class ArticleSubmissionStep1Controller extends Controller
         if ($articleData['translations']) {
             foreach ($articleData['translations'] as $params) {
                 $languages[] = $params['data']['locale'];
-                $articleSubmissionData[$params['data']['locale']] = $this->generateArticleArray($params['data'], $params['data']['locale'], $article);
+                $articleSubmissionData[$params['data']['locale']] = $this->generateArticleArray(
+                    $params['data'],
+                    $params['data']['locale'],
+                    $article
+                );
             }
         }
         // save submission data to mongodb for resume action
         if (!$articleData["submissionId"]) {
             $articleSubmission = new ArticleSubmissionProgress();
         } else {
-            $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find($articleData["submissionId"]);
+            $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')->find(
+                $articleData["submissionId"]
+            );
             if (!$articleSubmission) {
                 throw $this->createNotFoundException('No submission found');
             }
@@ -61,15 +67,17 @@ class ArticleSubmissionStep1Controller extends Controller
         $dm->persist($articleSubmission);
         $dm->flush();
 
-        return new JsonResponse(array(
-            'submissionId' => $articleSubmission->getId(),
-            'locale' => $locale
-        ));
+        return new JsonResponse(
+            array(
+                'submissionId' => $articleSubmission->getId(),
+                'locale' => $locale,
+            )
+        );
     }
 
     /**
      * @param $data
-     * @param  null $locale
+     * @param  null  $locale
      * @return mixed
      */
     private function generateArticleArray($data, $locale = null)

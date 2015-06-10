@@ -3,9 +3,9 @@
 namespace Ojs\JournalBundle\Form;
 
 use Doctrine\ORM\EntityManager;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\JournalBundle\Entity\Institution;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -55,39 +55,65 @@ class JournalApplicationType extends AbstractType
             ->add('titleTransliterated', null, ['label' => 'journal.titleTransliterated'])
             ->add('subtitle', null, ['label' => 'journal.subtitle'])
             ->add('domain', null, ['label' => 'journal.domain'])
-            ->add('country', 'choice', [
-                'choices' => $choices['countries'],
-                'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.country', ])
+            ->add(
+                'country',
+                'choice',
+                [
+                    'choices' => $choices['countries'],
+                    'attr' => ['class' => 'select2-element'],
+                    'label' => 'journal.country',
+                ]
+            )
             ->add('issn', null, ['label' => 'journal.issn'])
             ->add('eissn', null, ['label' => 'journal.eissn'])
-            ->add('firstPublishDate', 'collot_datetime', [
-                'label' => 'journal.firstPublishDate',
-                'date_format' => 'dd-MM-yyyy',
-                'pickerOptions' => [
-                    'format' => 'dd-mm-yyyy',
-                    'startView' => 'month',
-                    'minView' => 'month',
-                    'todayBtn' => 'true',
-                    'todayHighlight' => 'true',
-                    'autoclose' => 'true', ], ])
+            ->add(
+                'firstPublishDate',
+                'collot_datetime',
+                [
+                    'label' => 'journal.firstPublishDate',
+                    'date_format' => 'dd-MM-yyyy',
+                    'pickerOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'startView' => 'month',
+                        'minView' => 'month',
+                        'todayBtn' => 'true',
+                        'todayHighlight' => 'true',
+                        'autoclose' => 'true',
+                    ],
+                ]
+            )
             ->add('period', null, ['label' => 'journal.period'])
             ->add('tags', null, ['attr' => ['class' => 'tags form-control', 'label' => 'journal.tags']])
             ->add('url', null, ['label' => 'journal.url'])
-            ->add('institution', 'choice', [
-                'choices' => $choices['institutions'],
-                'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.institution', ])
-            ->add('languages', 'choice', [
-                'choices' => $choices['languages'],
-                'multiple' => true,
-                'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.languages', ])
-            ->add('subjects', 'choice', [
-                'choices' => $choices['subjects'],
-                'multiple' => true,
-                'attr' => ['class' => 'select2-element'],
-                'label' => 'journal.subjects', ])
+            ->add(
+                'institution',
+                'choice',
+                [
+                    'choices' => $choices['institutions'],
+                    'attr' => ['class' => 'select2-element'],
+                    'label' => 'journal.institution',
+                ]
+            )
+            ->add(
+                'languages',
+                'choice',
+                [
+                    'choices' => $choices['languages'],
+                    'multiple' => true,
+                    'attr' => ['class' => 'select2-element'],
+                    'label' => 'journal.languages',
+                ]
+            )
+            ->add(
+                'subjects',
+                'choice',
+                [
+                    'choices' => $choices['subjects'],
+                    'multiple' => true,
+                    'attr' => ['class' => 'select2-element'],
+                    'label' => 'journal.subjects',
+                ]
+            )
             ->add('coverimage', 'hidden')
             ->add('headerimage', 'hidden')
             ->add('address', null, ['label' => 'journal.address'])
@@ -112,14 +138,16 @@ class JournalApplicationType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
-            'em' => null,
-            'attr' => [
-                'novalidate' => 'novalidate',
-                'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Document\JournalApplication',
+                'em' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

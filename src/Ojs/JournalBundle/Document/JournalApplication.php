@@ -7,9 +7,9 @@
  */
 namespace Ojs\JournalBundle\Document;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * This collection holds journal application data
@@ -792,7 +792,6 @@ class JournalApplication
     {
         $this->techContactSurname = $techContactSurname;
     }
-
 
     /**
      * @return string

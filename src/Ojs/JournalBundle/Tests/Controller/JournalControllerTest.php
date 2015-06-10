@@ -26,7 +26,7 @@ class JournalControllerTest extends BaseTestCase
         $form['ojs_journalbundle_journal[title]'] = "Test Content";
         $form['ojs_journalbundle_journal[titleAbbr]'] = 'Content';
         $form['ojs_journalbundle_journal[titleTransliterated]'] = 'Content';
-        $form['ojs_journalbundle_journal[languages]'] = [1,2];
+        $form['ojs_journalbundle_journal[languages]'] = [1, 2];
         $form['ojs_journalbundle_journal[subtitle]'] = 'Content';
         $form['ojs_journalbundle_journal[path]'] = 'Content';
         $form['ojs_journalbundle_journal[domain]'] = 'Content';

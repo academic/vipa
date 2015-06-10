@@ -5,11 +5,11 @@
  */
 namespace Ojs\SiteBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\SiteBundle\Entity\Block;
 use Ojs\SiteBundle\Entity\BlockLink;
 use Ojs\SiteBundle\Form\BlockLinkType;
 use Ojs\SiteBundle\Form\BlockType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ class BlockController extends Controller
         $form = $this->createForm(new BlockType(), $Block, ['object_id' => $object, 'object_type' => $type]);
         switch ($type) {
             case 'journal':
-               $object = $em->find('OjsJournalBundle:Journal', $object);
+                $object = $em->find('OjsJournalBundle:Journal', $object);
                 break;
             default:
                 throw new NotFoundHttpException();

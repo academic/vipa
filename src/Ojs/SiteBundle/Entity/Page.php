@@ -1,6 +1,7 @@
 <?php
 
 namespace Ojs\SiteBundle\Entity;
+
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
@@ -33,6 +34,18 @@ class Page
      * @var string
      */
     private $image;
+    /**
+     * @var \DateTime
+     */
+    private $created;
+    /**
+     * @var \DateTime
+     */
+    private $updated;
+    /**
+     * @var \DateTime
+     */
+    private $deletedAt;
 
     /**
      * Get id
@@ -42,6 +55,16 @@ class Page
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -58,13 +81,13 @@ class Page
     }
 
     /**
-     * Get title
+     * Get body
      *
      * @return string
      */
-    public function getTitle()
+    public function getBody()
     {
-        return $this->title;
+        return $this->body;
     }
 
     /**
@@ -81,13 +104,13 @@ class Page
     }
 
     /**
-     * Get body
+     * Get tags
      *
      * @return string
      */
-    public function getBody()
+    public function getTags()
     {
-        return $this->body;
+        return $this->tags;
     }
 
     /**
@@ -104,13 +127,13 @@ class Page
     }
 
     /**
-     * Get tags
+     * Get image
      *
      * @return string
      */
-    public function getTags()
+    public function getImage()
     {
-        return $this->tags;
+        return $this->image;
     }
 
     /**
@@ -127,28 +150,14 @@ class Page
     }
 
     /**
-     * Get image
+     * Get created
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getImage()
+    public function getCreated()
     {
-        return $this->image;
+        return $this->created;
     }
-    /**
-     * @var \DateTime
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     */
-    private $updated;
-
-    /**
-     * @var \DateTime
-     */
-    private $deletedAt;
 
     /**
      * Set created
@@ -164,13 +173,13 @@ class Page
     }
 
     /**
-     * Get created
+     * Get updated
      *
      * @return \DateTime
      */
-    public function getCreated()
+    public function getUpdated()
     {
-        return $this->created;
+        return $this->updated;
     }
 
     /**
@@ -187,13 +196,13 @@ class Page
     }
 
     /**
-     * Get updated
+     * Get deletedAt
      *
      * @return \DateTime
      */
-    public function getUpdated()
+    public function getDeletedAt()
     {
-        return $this->updated;
+        return $this->deletedAt;
     }
 
     /**
@@ -207,15 +216,5 @@ class Page
         $this->deletedAt = $deletedAt;
 
         return $this;
-    }
-
-    /**
-     * Get deletedAt
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }

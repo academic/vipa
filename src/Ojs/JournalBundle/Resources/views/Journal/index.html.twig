@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'title': 'journal.manager'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'title': 'journal.manager'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -12,22 +12,22 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 
 {% block body -%}
     <div class="large-12 columns">
         <div class="panel">
-            <h1>{{"journal.list"|trans}}</h1>
+            <h1>{{ "journal.list"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
             <div class="panel">
-                <a class="btn btn-info" href="{{path('journal')}}">
-                    <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{"journal.all"|trans}}</a>
-                <a class="btn btn-default" id="link-admin-my-journals" href="{{path('user_show_my_journals')}}">
-                    <i class="fa fa-user"></i> {{"journal.my"|trans}}</a>
+                <a class="btn btn-info" href="{{ path('journal') }}">
+                    <i class="fa fa-asterisk" id="link-admin-all-journals"></i> {{ "journal.all"|trans }}</a>
+                <a class="btn btn-default" id="link-admin-my-journals" href="{{ path('user_show_my_journals') }}">
+                    <i class="fa fa-user"></i> {{ "journal.my"|trans }}</a>
                 <a href="{{ path('journal_new') }}" class="btn btn-success">
-                    {{"c"|trans}}
+                    {{ "c"|trans }}
                 </a>
             </div>
 
@@ -46,7 +46,7 @@
     {% endjavascripts %}
     {% javascripts '@OjsJournalBundle/Resources/public/js/tour/journal_admin_tour.js' output="c/journal_admin_tour.js" %}
     {% if app.user.setting('tour.admin.journal') == FALSE %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+        <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endif %}
-        {% endjavascripts %}
-        {% endblock %}
+    {% endjavascripts %}
+{% endblock %}

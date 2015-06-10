@@ -2,12 +2,12 @@
 
 namespace Ojs\SiteBundle\Controller;
 
-use Ojs\JournalBundle\Document\JournalApplication;
-use Ojs\JournalBundle\Document\InstitutionApplication;
-use Ojs\JournalBundle\Form\JournalApplicationType;
-use Ojs\JournalBundle\Form\InstitutionApplicationType;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\JournalBundle\Document\InstitutionApplication;
+use Ojs\JournalBundle\Document\JournalApplication;
+use Ojs\JournalBundle\Form\InstitutionApplicationType;
+use Ojs\JournalBundle\Form\JournalApplicationType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Application controller.
@@ -23,7 +23,11 @@ class ApplicationController extends Controller
     {
         $data = [];
         $application = new JournalApplication();
-        $form = $this->createForm(new JournalApplicationType(), $application, ['em' => $this->getDoctrine()->getManager()]);
+        $form = $this->createForm(
+            new JournalApplicationType(),
+            $application,
+            ['em' => $this->getDoctrine()->getManager()]
+        );
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -38,7 +42,10 @@ class ApplicationController extends Controller
             }
             $session = $this->get('session');
             $session->getFlashBag()
-                ->add('error', $this->get('translator')->trans('An error has occured. Please check form and resubmit.'));
+                ->add(
+                    'error',
+                    $this->get('translator')->trans('An error has occured. Please check form and resubmit.')
+                );
             $session->save();
         }
         $data['form'] = $form->createView();
@@ -50,10 +57,14 @@ class ApplicationController extends Controller
     {
         $data = [];
         $application = new InstitutionApplication();
-        $form = $this->createForm(new InstitutionApplicationType(), $application, [
-            'em' => $this->getDoctrine()->getManager(),
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-        ]);
+        $form = $this->createForm(
+            new InstitutionApplicationType(),
+            $application,
+            [
+                'em' => $this->getDoctrine()->getManager(),
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            ]
+        );
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
@@ -68,7 +79,10 @@ class ApplicationController extends Controller
             }
             $session = $this->get('session');
             $session->getFlashBag()
-                ->add('error', $this->get('translator')->trans('An error has occured. Please check form and resubmit.'));
+                ->add(
+                    'error',
+                    $this->get('translator')->trans('An error has occured. Please check form and resubmit.')
+                );
             $session->save();
         }
         $data['form'] = $form->createView();
@@ -80,6 +94,7 @@ class ApplicationController extends Controller
     {
         return $this->render('OjsSiteBundle:Application:institution_success.html.twig');
     }
+
     public function journalSuccessAction()
     {
         return $this->render('OjsSiteBundle:Application:journal_success.html.twig');

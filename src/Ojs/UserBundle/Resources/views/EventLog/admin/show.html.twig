@@ -2,18 +2,18 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('eventlog'),'title': 'eventlog'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('eventlog'),'title': 'eventlog'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<h1>{{ "eventlog"|trans }}</h1>
+    <h1>{{ "eventlog"|trans }}</h1>
 
-<table class="record_properties  table">
-    <tbody>
+    <table class="record_properties  table">
+        <tbody>
         <tr>
             <th>{{ "event.id"|trans }}</th>
             <td>{{ entity.id }}</td>
@@ -35,16 +35,16 @@
             <td>{{ entity.userId }}</td>
         </tr>
         {% if entity.affectedUserId is not null %}
-        <tr>
-            <th>{{ "event.affectedUser.id"|trans }}</th>
-            <td>{{ entity.affectedUserId }}</td>
-        </tr>
+            <tr>
+                <th>{{ "event.affectedUser.id"|trans }}</th>
+                <td>{{ entity.affectedUserId }}</td>
+            </tr>
         {% endif %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 
-<a class="btn btn-default" href="{{ path('eventlog') }}">
-    {{"b"|trans}}
-</a>
+    <a class="btn btn-default" href="{{ path('eventlog') }}">
+        {{ "b"|trans }}
+    </a>
 {% endblock %}

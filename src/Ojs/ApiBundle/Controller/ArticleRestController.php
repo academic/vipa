@@ -2,15 +2,14 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Ojs\UserBundle\Entity\Article;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\View as RestView;
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Ojs\UserBundle\Entity\Article;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ArticleRestController extends FOSRestController
 {
@@ -30,10 +29,10 @@ class ArticleRestController extends FOSRestController
     public function getArticlesAction($page = 0, $limit = 10)
     {
         $articles = $this->getDoctrine()->getManager()
-                ->createQuery('SELECT a FROM OjsJournalBundle:Article a')
-                ->setFirstResult($page)
-                ->setMaxResults($limit)
-                ->getResult();
+            ->createQuery('SELECT a FROM OjsJournalBundle:Article a')
+            ->setFirstResult($page)
+            ->setMaxResults($limit)
+            ->getResult();
         if (!is_array($articles)) {
             throw new HttpException(404, 'Not found. The record is not found or route is not defined.');
         }
@@ -158,7 +157,7 @@ class ArticleRestController extends FOSRestController
         $em->flush();
         $citationSettingKeys = $this->container->getParameter('citation_setting_keys');
         // check and insert citation
-        /* @var $article \Ojs\JournalBundle\Entity\Article  */
+        /* @var $article \Ojs\JournalBundle\Entity\Article */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($id);
         if (!$article) {
             return;
@@ -167,7 +166,9 @@ class ArticleRestController extends FOSRestController
         $em->persist($citation);
         $em->flush();
         foreach ($citationSettingKeys as $key => $desc) {
-            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get('setting_'.$key);
+            $param = is_array($request) ? (isset($request[$key]) ? $request[$key] : null) : $request->get(
+                'setting_'.$key
+            );
             if (!empty($param)) {
                 $citationSetting = new \Ojs\JournalBundle\Entity\CitationSetting();
                 $citationSetting->setCitation($citation);

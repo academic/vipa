@@ -18,19 +18,27 @@ class ArticleAuthorType extends AbstractType
     {
         $builder
             ->add('authorOrder')
-            ->add('author', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
-            ])
-            ->add('article', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\Article',
-                'query_builder' => function (EntityRepository $er) use ($options) {
-                    $qb = $er->createQueryBuilder('a');
-                    $qb->where('a.journal = :journal');
-                    $qb->setParameter('journal', $options['journal']);
+            ->add(
+                'author',
+                'entity',
+                [
+                    'class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
+                ]
+            )
+            ->add(
+                'article',
+                'entity',
+                [
+                    'class' => 'Ojs\JournalBundle\Entity\Article',
+                    'query_builder' => function (EntityRepository $er) use ($options) {
+                        $qb = $er->createQueryBuilder('a');
+                        $qb->where('a.journal = :journal');
+                        $qb->setParameter('journal', $options['journal']);
 
-                    return $qb;
-                },
-            ]);
+                        return $qb;
+                    },
+                ]
+            );
     }
 
     /**
@@ -38,13 +46,16 @@ class ArticleAuthorType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
-            'journal' => new Journal(),
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\ArticleAuthor',
+                'journal' => new Journal(),
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

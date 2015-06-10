@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journal_application'|trans }} {{ parent() }}{% endblock %}
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'application.journal.apply'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'application.journal.apply'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -58,7 +58,7 @@
                             <div class="panel-heading"><h4>{{ "journal.editor"|trans }}</h4></div>
                             <div class="panel-body">
                                 {% for field in [form.editorName, form.editorSurname,
-                                                 form.editorPhone, form.editorEmail] %}
+                                form.editorPhone, form.editorEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
@@ -68,7 +68,7 @@
                             <div class="panel-heading"><h4>{{ "journal.assistant_editor"|trans }}</h4></div>
                             <div class="panel-body">
                                 {% for field in [form.assistantEditorName, form.assistantEditorSurname,
-                                                 form.assistantEditorPhone, form.assistantEditorEmail] %}
+                                form.assistantEditorPhone, form.assistantEditorEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
@@ -78,7 +78,7 @@
                             <div class="panel-heading"><h4>{{ "journal.tech_contact"|trans }}</h4></div>
                             <div class="panel-body">
                                 {% for field in [form.techContactName, form.techContactSurname,
-                                                 form.techContactPhone, form.techContactEmail] %}
+                                form.techContactPhone, form.techContactEmail] %}
                                     {{ form_row(field) }}
                                 {% endfor %}
                             </div>
@@ -90,27 +90,34 @@
                     <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="fileupload">{{"Cover Image"|trans}}</label>
+                            <label class="col-sm-2 control-label" for="fileupload">{{ "Cover Image"|trans }}</label>
+
                             <div class="col-sm-4">
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
-                                    <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                                    <span>{{ "file.select"|trans }}</span>
+                                    <input id="fileupload" type="file"
+                                           data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
                                 </span>
                             </div>
-                            <span id="journal_logo_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+                            <span id="journal_logo_upload_progress" style="display: none"
+                                  class="col-sm-4 btn btn-success"></span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+                            <label class="col-sm-2 control-label"
+                                   for="fileupload_header">{{ "Header Image"|trans }}</label>
+
                             <div class="col-sm-4">
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
-                                    <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
+                                    <span>{{ "file.select"|trans }}</span>
+                                    <input id="fileupload_header" type="file"
+                                           data-url="{{ oneup_uploader_endpoint('journalfiles') }}">
                                 </span>
                             </div>
-                            <span id="journal_header_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+                            <span id="journal_header_upload_progress" style="display: none"
+                                  class="col-sm-4 btn btn-success"></span>
                         </div>
                     </div>
                 </div>

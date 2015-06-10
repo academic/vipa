@@ -3,10 +3,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'preview.working.step'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'preview.working.step'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 
@@ -14,7 +14,7 @@
     {% include '::flashbag.html.twig' %}
 
 
-    <h4>Review Result :   {{articleStep.action }} </h4>
+    <h4>Review Result :   {{ articleStep.action }} </h4>
 
     {% for lang, articleRevised in articleStep.articleRevised.articleData %}
         <h2>
@@ -47,40 +47,40 @@
         </h2>
 
         <div class="panel-body">
-            <table class="table">
-                <tr>
-                    <td>{{ 'Subjects'|trans }}</td>
-                    <td>
+        <table class="table">
+            <tr>
+                <td>{{ 'Subjects'|trans }}</td>
+                <td>
                         <span class="" data-type="text"
                               data-name="article[{{ lang }}][subjects]">{{ article.subjects }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Keywords'|trans }}</td>
-                    <td>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Keywords'|trans }}</td>
+                <td>
                         <span class="" data-type="text"
                               data-name="article[{{ lang }}][keywords]">{{ article.keywords }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Abstract'|trans }}</td>
-                    <td>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Abstract'|trans }}</td>
+                <td>
                         <span class="" data-type="textarea"
                               data-name="article[{{ lang }}][abstract]">{{ article.abstract|raw }}</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{ 'Section'|trans }}</td>
-                    <td>
-                        {% if article.section is defined and article.section %}
-                            <span class="" data-type="text"
-                                  data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-        {% endfor %}
-        <hr>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'Section'|trans }}</td>
+                <td>
+                    {% if article.section is defined and article.section %}
+                        <span class="" data-type="text"
+                              data-name="article[{{ lang }}][section][title]">{{ article.section.title|raw }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    {% endfor %}
+    <hr>
     </div>
     <hr/>
 

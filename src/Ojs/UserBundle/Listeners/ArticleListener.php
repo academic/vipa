@@ -2,23 +2,23 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Ojs\Common\Params\ArticleEventLogParams;
 use Ojs\JournalBundle\Entity\Article;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\User;
-use Ojs\Common\Params\ArticleEventLogParams;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ArticleListener
 {
-    /** @var TokenStorage  */
+    /** @var TokenStorage */
     protected $tokenStorage;
-    /** @var RequestStack  */
+    /** @var RequestStack */
     protected $request;
 
     /**
      * @param TokenStorage $tokenStorage
-     * @param RequestStack      $request
+     * @param RequestStack $request
      */
     public function __construct(TokenStorage $tokenStorage, RequestStack $request)
     {

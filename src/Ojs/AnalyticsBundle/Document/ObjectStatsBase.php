@@ -42,6 +42,16 @@ class ObjectStatsBase
     }
 
     /**
+     * Get ipAddress
+     *
+     * @return string $ipAddress
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
+    }
+
+    /**
      * Set ipAddress
      *
      * @param  string $ipAddress
@@ -55,13 +65,13 @@ class ObjectStatsBase
     }
 
     /**
-     * Get ipAddress
+     * Get referer
      *
-     * @return string $ipAddress
+     * @return string $referer
      */
-    public function getIpAddress()
+    public function getReferer()
     {
-        return $this->ipAddress;
+        return $this->referer;
     }
 
     /**
@@ -78,13 +88,13 @@ class ObjectStatsBase
     }
 
     /**
-     * Get referer
+     * Get logDate
      *
-     * @return string $referer
+     * @return \DateTime $logDate
      */
-    public function getReferer()
+    public function getLogDate()
     {
-        return $this->referer;
+        return $this->logDate;
     }
 
     /**
@@ -101,13 +111,11 @@ class ObjectStatsBase
     }
 
     /**
-     * Get logDate
-     *
-     * @return \DateTime $logDate
+     * @return int
      */
-    public function getLogDate()
+    public function getObjectId()
     {
-        return $this->logDate;
+        return $this->objectId;
     }
 
     /**
@@ -122,11 +130,11 @@ class ObjectStatsBase
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getObjectId()
+    public function getEntity()
     {
-        return $this->objectId;
+        return $this->entity;
     }
 
     /**
@@ -138,13 +146,5 @@ class ObjectStatsBase
         $this->entity = $entity;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntity()
-    {
-        return $this->entity;
     }
 }

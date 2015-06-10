@@ -4,14 +4,14 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Contact;
 use Ojs\JournalBundle\Form\ContactType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Contact controller.
@@ -25,7 +25,7 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Contact())) {
+        if (!$this->isGranted('VIEW', new Contact())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:Contact');
@@ -48,12 +48,12 @@ class ContactController extends Controller
     /**
      * Creates a new Contact entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new Contact())) {
+        if (!$this->isGranted('CREATE', new Contact())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Contact();
@@ -68,10 +68,13 @@ class ContactController extends Controller
             return $this->redirectToRoute('contact_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Contact:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Contact:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -83,11 +86,15 @@ class ContactController extends Controller
      */
     private function createCreateForm(Contact $entity)
     {
-        $form = $this->createForm(new ContactType(), $entity, array(
-            'action' => $this->generateUrl('contact_create'),
-            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new ContactType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('contact_create'),
+                'apiRoot' => $this->generateUrl('ojs_api_homepage'),
+                'method' => 'POST',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -99,16 +106,19 @@ class ContactController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new Contact())) {
+        if (!$this->isGranted('CREATE', new Contact())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Contact();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:Contact:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Contact:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -122,12 +132,16 @@ class ContactController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        return $this->render('OjsJournalBundle:Contact:show.html.twig', array(
-            'entity' => $entity, ));
+        return $this->render(
+            'OjsJournalBundle:Contact:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -142,15 +156,18 @@ class ContactController extends Controller
         /** @var Contact $entity */
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Contact:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -162,11 +179,15 @@ class ContactController extends Controller
      */
     private function createEditForm(Contact $entity)
     {
-        $form = $this->createForm(new ContactType(), $entity, array(
-            'action' => $this->generateUrl('contact_update', array('id' => $entity->getId())),
-            'apiRoot' => $this->generateUrl('ojs_api_homepage'),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new ContactType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('contact_update', array('id' => $entity->getId())),
+                'apiRoot' => $this->generateUrl('ojs_api_homepage'),
+                'method' => 'PUT',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -175,7 +196,7 @@ class ContactController extends Controller
     /**
      * Edits an existing Contact entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -185,7 +206,7 @@ class ContactController extends Controller
         /** @var Contact $entity */
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
@@ -197,10 +218,13 @@ class ContactController extends Controller
             return $this->redirectToRoute('contact_edit', ['id' => $id]);
         }
 
-        return $this->render('OjsJournalBundle:Contact:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Contact:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -214,15 +238,16 @@ class ContactController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Contact')->find($id);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('contact'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $em->remove($entity);
         $em->flush();

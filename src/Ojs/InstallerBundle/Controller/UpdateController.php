@@ -5,7 +5,7 @@
  */
 namespace Ojs\InstallerBundle\Controller;
 
- use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 
 class UpdateController extends Controller
 {

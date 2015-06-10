@@ -2,14 +2,14 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
-use Ojs\Common\Entity\GenericEntityTrait;
-use Ojs\UserBundle\Entity\User;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+use Ojs\Common\Entity\GenericEntityTrait;
+use Ojs\UserBundle\Entity\User;
 
 /**
  * Subject
@@ -216,7 +216,7 @@ class Subject implements Translatable
 
     /**
      * Get subjects
-     * @return Collection
+     * @return Collection|Journal[]
      */
     public function getJournals()
     {

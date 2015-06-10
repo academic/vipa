@@ -17,11 +17,11 @@ class DateHelper
         $dateDiffRemaining = $date1->diff($date2);
         if ($both) {
             $daysRemaining = $dateDiffRemaining->format('%R') == '+' || $dateDiffRemaining->format('%a') == 0 ?
-                    $dateDiffRemaining->format('%a') :
-                    false;
+                $dateDiffRemaining->format('%a') :
+                false;
             $daysOverDue = $dateDiffRemaining->format('%R') == '-' ?
-                    $dateDiffRemaining->format('%a') :
-                    false;
+                $dateDiffRemaining->format('%a') :
+                false;
 
             return array($daysRemaining, $daysOverDue);
         }

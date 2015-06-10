@@ -2,25 +2,25 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Ojs\Common\Params\CommonParams;
-use Symfony\Component\HttpFoundation\Request;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Source\Document;
 use APY\DataGridBundle\Grid\Row;
+use APY\DataGridBundle\Grid\Source\Document;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Doctrine\ORM\EntityManager;
-use Ojs\JournalBundle\Document\JournalApplication;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Params\CommonParams;
 use Ojs\JournalBundle\Document\InstitutionApplication;
+use Ojs\JournalBundle\Document\JournalApplication;
 use Ojs\JournalBundle\Entity\Contact;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalContact;
 use Ojs\JournalBundle\Entity\Lang;
 use Ojs\JournalBundle\Entity\Subject;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Form\InstitutionApplicationType;
 use Ojs\JournalBundle\Form\JournalApplicationType;
 use Okulbilisim\LocationBundle\Entity\Location;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
@@ -37,11 +37,13 @@ class ApplicationController extends Controller
     public function institutionIndexAction()
     {
         $source = new Document('OjsJournalBundle:InstitutionApplication');
-        $source->manipulateQuery(function (Builder $query) {
-            $query->where("typeof(this.merged) == 'undefined'");
+        $source->manipulateQuery(
+            function (Builder $query) {
+                $query->where("typeof(this.merged) == 'undefined'");
 
-            return $query;
-        });
+                return $query;
+            }
+        );
 
         $repository = $this->get('doctrine_mongodb')->getManager()
             ->getRepository('OjsJournalBundle:InstitutionApplication');
@@ -54,7 +56,8 @@ class ApplicationController extends Controller
                 $row->setField('status', $text);
 
                 return $row;
-            });
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -79,7 +82,8 @@ class ApplicationController extends Controller
                 $query->where("typeof(this.merged) == 'undefined'");
 
                 return $query;
-        });
+            }
+        );
         $repository = $this->get('doctrine_mongodb')->getManager()
             ->getRepository('OjsJournalBundle:JournalApplication');
 
@@ -91,7 +95,8 @@ class ApplicationController extends Controller
                 $row->setField('status', $text);
 
                 return $row;
-        });
+            }
+        );
 
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
@@ -171,9 +176,14 @@ class ApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(new JournalApplicationType(), $document, [
-            'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
-            'em' => $this->getDoctrine()->getManager(), ]);
+        $form = $this->createForm(
+            new JournalApplicationType(),
+            $document,
+            [
+                'action' => $this->generateUrl('application_journal_update', array('id' => $document->getId())),
+                'em' => $this->getDoctrine()->getManager(),
+            ]
+        );
 
         return $this->render('OjsJournalBundle:Application:journal_edit.html.twig', ['form' => $form->createView()]);
     }
@@ -187,12 +197,20 @@ class ApplicationController extends Controller
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(new InstitutionApplicationType(), $document, [
-            'em' => $this->getDoctrine()->getManager(),
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-            'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId())), ]);
+        $form = $this->createForm(
+            new InstitutionApplicationType(),
+            $document,
+            [
+                'em' => $this->getDoctrine()->getManager(),
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+                'action' => $this->generateUrl('application_institution_update', array('id' => $document->getId())),
+            ]
+        );
 
-        return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'OjsJournalBundle:Application:institution_edit.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     public function journalUpdateAction(Request $request, $id)
@@ -201,7 +219,11 @@ class ApplicationController extends Controller
         $document = $dm->find('OjsJournalBundle:JournalApplication', $id);
         $this->throw404IfNotFound($document);
 
-        $form = $this->createForm(new JournalApplicationType(), $document, ['em' => $this->getDoctrine()->getManager()]);
+        $form = $this->createForm(
+            new JournalApplicationType(),
+            $document,
+            ['em' => $this->getDoctrine()->getManager()]
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -220,9 +242,14 @@ class ApplicationController extends Controller
         $document = $dm->find('OjsJournalBundle:InstitutionApplication', $id);
         $this->throw404IfNotFound($document);
 
-        $form = $this->createForm(new InstitutionApplicationType(), $document, [
-            'em' => $this->getDoctrine()->getManager(),
-            'helper' => $this->get('okulbilisim_location.form.helper'), ]);
+        $form = $this->createForm(
+            new InstitutionApplicationType(),
+            $document,
+            [
+                'em' => $this->getDoctrine()->getManager(),
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            ]
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -232,7 +259,10 @@ class ApplicationController extends Controller
             return $this->redirect($this->generateUrl('institution_application'));
         }
 
-        return $this->render('OjsJournalBundle:Application:institution_edit.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'OjsJournalBundle:Application:institution_edit.html.twig',
+            ['form' => $form->createView()]
+        );
     }
 
     public function journalDeleteAction(Request $request, $id)

@@ -7,6 +7,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\Role;
 use Ojs\UserBundle\Entity\User;
@@ -14,14 +15,13 @@ use Ojs\UserBundle\Entity\UserJournalRole;
 use Ojs\UserBundle\Entity\UserRepository;
 use Ojs\UserBundle\Form\UserType;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Yaml;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * User controller.
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new User())) {
+        if (!$this->isGranted('VIEW', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
@@ -45,7 +45,7 @@ class UserController extends Controller
         $grid = $this->get('grid');
         $gridAction = $this->get('grid_action');
         $grid->setSource($source);
-        
+
         $actionColumn = new ActionsColumn("actions", 'actions');
         $rowAction[] = $gridAction->switchUserAction('ojs_public_index', ['username']);
         $rowAction[] = $gridAction->showAction('user_show', 'id');
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new User())) {
+        if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
@@ -85,16 +85,21 @@ class UserController extends Controller
 
             $this->successFlashBag('successful.create');
 
-            return $this->redirectToRoute('user_show', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                'user_show',
+                [
+                    'id' => $entity->getId(),
                 ]
             );
         }
 
-        return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:User:admin/new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -104,11 +109,15 @@ class UserController extends Controller
      */
     private function createCreateForm(User $entity)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_create'),
-            'method' => 'POST',
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-        ));
+        $form = $this->createForm(
+            new UserType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('user_create'),
+                'method' => 'POST',
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            )
+        );
 
         return $form;
     }
@@ -120,16 +129,19 @@ class UserController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new User())) {
+        if (!$this->isGranted('CREATE', new User())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new User();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsUserBundle:User:admin/new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:User:admin/new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -142,13 +154,17 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 
-        return $this->render('OjsUserBundle:User:admin/show.html.twig', array(
-                    'entity' => $entity, ));
+        return $this->render(
+            'OjsUserBundle:User:admin/show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -162,21 +178,25 @@ class UserController extends Controller
         $sessionUser = $this->getUser();
         /** @var User $user */
         $user = $username ?
-                $userRepo->findOneBy(array('username' => $username)) :
-                $sessionUser;
+            $userRepo->findOneBy(array('username' => $username)) :
+            $sessionUser;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($user->getId());
         $this->throw404IfNotFound($entity);
 
         $check = $this->getDoctrine()->getRepository('OjsUserBundle:Proxy')->findBy(
-                array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
+            array('proxyUserId' => $user->getId(), 'clientUserId' => $sessionUser->getId())
         );
 
-        return $this->render('OjsUserBundle:User:profile.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => array(),
-                    'me' => ($sessionUser == $user),
-                    'isProxy' => (bool) $check, ));
+        return $this->render(
+            'OjsUserBundle:User:profile.html.twig',
+            array(
+                'entity' => $entity,
+                'delete_form' => array(),
+                'me' => ($sessionUser == $user),
+                'isProxy' => (bool) $check,
+            )
+        );
     }
 
     /**
@@ -190,16 +210,19 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:User:admin/edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -209,11 +232,15 @@ class UserController extends Controller
      */
     private function createEditForm(User $entity)
     {
-        $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
-            'method' => 'POST',
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-        ));
+        $form = $this->createForm(
+            new UserType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            )
+        );
 
         return $form;
     }
@@ -221,7 +248,7 @@ class UserController extends Controller
     /**
      * Edits an existing User entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -231,7 +258,7 @@ class UserController extends Controller
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $oldPassword = $entity->getPassword();
@@ -263,16 +290,19 @@ class UserController extends Controller
             return $this->redirectToRoute('user_edit', ['id' => $id]);
         }
 
-        return $this->render('OjsUserBundle:User:admin/edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:User:admin/edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Deletes a User entity.
      *
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */
@@ -281,7 +311,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var User $entity */
         $entity = $em->getRepository('OjsUserBundle:User')->find($id);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$entity) {
@@ -290,8 +320,9 @@ class UserController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('user'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $entity->setStatus(-1);
         $em->remove($entity);
@@ -311,7 +342,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
-        if(!$this->isGranted('EDIT', $user)) {
+        if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$user) {
@@ -334,7 +365,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var User $user */
         $user = $em->find('OjsUserBundle:User', $id);
-        if(!$this->isGranted('EDIT', $user)) {
+        if (!$this->isGranted('EDIT', $user)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         if (!$user) {
@@ -365,11 +396,13 @@ class UserController extends Controller
             /** @var Role $role */
             $role = $doc->getRepository('OjsUserBundle:Role')->findOneBy(array('role' => 'ROLE_AUTHOR'));
             // check that we have already have the link
-            $ujr = $doc->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(array(
-                'userId' => $user->getId(),
-                'journalId' => $journal->getId(),
-                'roleId' => $role->getId(),
-            ));
+            $ujr = $doc->getRepository('OjsUserBundle:UserJournalRole')->findOneBy(
+                array(
+                    'userId' => $user->getId(),
+                    'journalId' => $journal->getId(),
+                    'roleId' => $role->getId(),
+                )
+            );
             $ujr = !$ujr ? new UserJournalRole() : $ujr;
             $ujr->setUser($user);
             $ujr->setJournal($journal);
@@ -381,7 +414,7 @@ class UserController extends Controller
         }
         /** @var Journal[] $myJournals */
         $myJournals = $doc->getRepository('OjsUserBundle:UserJournalRole')
-                ->userJournalsWithRoles($userId, true); // only ids
+            ->userJournalsWithRoles($userId, true); // only ids
         $entities = array();
         /** @var Journal[] $journals */
         $journals = $this->getDoctrine()->getRepository('OjsJournalBundle:Journal')->findAll();
@@ -391,9 +424,12 @@ class UserController extends Controller
             $entities[] = array('journal' => $journal, 'roles' => $roles);
         }
 
-        return $this->render('OjsUserBundle:User:registerAuthor.html.twig', array(
-                    'entities' => $entities,
-        ));
+        return $this->render(
+            'OjsUserBundle:User:registerAuthor.html.twig',
+            array(
+                'entities' => $entities,
+            )
+        );
     }
 
     /**
@@ -412,49 +448,62 @@ class UserController extends Controller
             $mailData = $request->get('mail');
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
-                    ->setFrom($this->container->getParameter('system_email'))
-                    ->setTo($user->getEmail())
-                    ->setSubject($mailData['subject'])
-                    ->setBody($mailData['body'])
-                    ->setContentType('text/html');
+                ->setFrom($this->container->getParameter('system_email'))
+                ->setTo($user->getEmail())
+                ->setSubject($mailData['subject'])
+                ->setBody($mailData['body'])
+                ->setContentType('text/html');
             $mailer->send($message);
             $session->getFlashBag()->add('success', $this->get('translator')->trans('Email sending succefully.'));
             $session->save();
 
-            return $this->redirect($this->get('router')->generate('ujr_show_users_ofjournal', ['journal_id' => $journal->getId()]));
+            return $this->redirect(
+                $this->get('router')->generate('ujr_show_users_ofjournal', ['journal_id' => $journal->getId()])
+            );
         }
         /** @var QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
         $qb->select('t')
-                ->from('OjsJournalBundle:MailTemplate', 't')
-                ->where(
-                        $qb->expr()->orX(
-                                $qb->expr()->isNull('t.journalId'), $qb->expr()->eq('t.journalId', ':journal')
-                        )
+            ->from('OjsJournalBundle:MailTemplate', 't')
+            ->where(
+                $qb->expr()->orX(
+                    $qb->expr()->isNull('t.journalId'),
+                    $qb->expr()->eq('t.journalId', ':journal')
                 )
-                ->setParameter('journal', $journal->getId());
+            )
+            ->setParameter('journal', $journal->getId());
         $templates = $qb->getQuery()->getResult();
         $data['templates'] = $templates;
         $data['user'] = $user;
         $data['parameters'] = $request->query->all();
-        array_walk($data['parameters'], function (&$val) {
-            $val = urldecode($val);
-        });
+        array_walk(
+            $data['parameters'],
+            function (&$val) {
+                $val = urldecode($val);
+            }
+        );
 
         $data['templateVars'] = json_encode(
-                array_merge(array(
-            'journal' => json_decode($serializer->serialize($journal, 'json')),
-            'user' => json_decode($serializer->serialize($this->getUser(), 'json')),
-                        ), $data['parameters'])
+            array_merge(
+                array(
+                    'journal' => json_decode($serializer->serialize($journal, 'json')),
+                    'user' => json_decode($serializer->serialize($this->getUser(), 'json')),
+                ),
+                $data['parameters']
+            )
         );
 
         $yamlParser = new Yaml\Parser();
-        $defaultTemplates = $yamlParser->parse(file_get_contents(
-                        $this->container->getParameter('kernel.root_dir').
-                        '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
-        ));
+        $defaultTemplates = $yamlParser->parse(
+            file_get_contents(
+                $this->container->getParameter('kernel.root_dir').
+                '/../src/Ojs/JournalBundle/Resources/data/mailtemplates.yml'
+            )
+        );
         $tplKey = $request->get('template');
-        $data['selectedTemplate'] = $tplKey ? (isset($defaultTemplates[$tplKey]) ? json_encode($defaultTemplates[$tplKey]) : null) : null;
+        $data['selectedTemplate'] = $tplKey ? (isset($defaultTemplates[$tplKey]) ? json_encode(
+            $defaultTemplates[$tplKey]
+        ) : null) : null;
 
         return $this->render('OjsUserBundle:UserJournalRole:send_mail.html.twig', $data);
     }

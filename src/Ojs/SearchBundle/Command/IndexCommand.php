@@ -12,10 +12,9 @@ class IndexCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:search:index')
-                ->setDescription('Index articles')
-                ->addArgument('articleId', InputArgument::OPTIONAL, 'Only index given article')
-        ;
+            ->setName('ojs:search:index')
+            ->setDescription('Index articles')
+            ->addArgument('articleId', InputArgument::OPTIONAL, 'Only index given article');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

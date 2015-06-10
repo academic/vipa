@@ -3,10 +3,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('journal_application'),'title': 'application.journal'|trans},
-        {'title': 'show'|trans},
-        {'title': entity.title}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('journal_application'),'title': 'application.journal'|trans},
+    {'title': 'show'|trans},
+    {'title': entity.title}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -33,11 +33,11 @@
                 <tr>
                     <th>{{ "journal.title"|trans }}</th>
                     <td>{{ entity.title }}</td>
-                    </tr>
+                </tr>
                 <tr>
                     <th>{{ "journal.subtitle"|trans }}</th>
                     <td>{{ entity.subtitle }}</td>
-                    </tr>
+                </tr>
                 <tr>
                     <th>{{ 'journal.titleAbbr'|trans }}</th>
                     <td>{{ entity.titleAbbr }}</td>
@@ -111,7 +111,8 @@
                     <td>{{ entity.user|user }}</td>
                 </tr>
             </table>
-            <a class="btn btn-primary" href="{{ url('application_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
+            <a class="btn btn-primary"
+               href="{{ url('application_journal_saveasnew',{id: entity.id}) }}">{{ "journal.merge_as_new_journal"|trans }}</a>
         </div>
     </div>
 {% endblock %}

@@ -3,8 +3,8 @@
 namespace Ojs\Common\Services;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class DomainListener
 {

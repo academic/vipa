@@ -2,15 +2,15 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Ojs\Common\Params\ProxyEventLogParams;
 use Ojs\UserBundle\Entity\EventLog;
 use Ojs\UserBundle\Entity\Proxy;
-use Ojs\Common\Params\ProxyEventLogParams;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProxyListener
 {
-    /** @var RequestStack  */
+    /** @var RequestStack */
     protected $request;
 
     /**

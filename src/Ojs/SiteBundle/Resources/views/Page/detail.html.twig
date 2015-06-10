@@ -4,27 +4,27 @@
 
 {% block body -%}
 
-<div class="container">
-    {% set list = [
+    <div class="container">
+        {% set list = [
         {'link': path('ojs_journal_index',{'slug':journal.slug,'institution':journal.institution.slug}), 'title': journal.title},
         {'title': content.title }
-    ] %}
-    {{ breadcrumb(list) }}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h1>{{ content.title }}</h1>
-            {% include '::flashbag.html.twig' %}
+        ] %}
+        {{ breadcrumb(list) }}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1>{{ content.title }}</h1>
+                {% include '::flashbag.html.twig' %}
+            </div>
+            <div class="panel-body">
+                {{ content.content|raw }}
+            </div>
         </div>
-        <div class="panel-body">
-            {{ content.content|raw }}
-        </div>
-    </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('post',{{ content.id }})
+        analytics.increase('post', {{ content.id }})
     </script>
 {% endblock %}

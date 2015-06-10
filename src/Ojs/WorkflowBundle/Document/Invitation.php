@@ -43,6 +43,16 @@ class Invitation
     protected $reject;
 
     /**
+     * Get id
+     *
+     * @return $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set id
      *
      * @param  $id
@@ -56,13 +66,13 @@ class Invitation
     }
 
     /**
-     * Get id
+     * Get step
      *
-     * @return $id
+     * @return ArticleReviewStep $step
      */
-    public function getId()
+    public function getStep()
     {
-        return $this->id;
+        return $this->step;
     }
 
     /**
@@ -79,13 +89,13 @@ class Invitation
     }
 
     /**
-     * Get step
+     * Get userId
      *
-     * @return ArticleReviewStep $step
+     * @return int $userId
      */
-    public function getStep()
+    public function getUserId()
     {
-        return $this->step;
+        return $this->userId;
     }
 
     /**
@@ -102,13 +112,13 @@ class Invitation
     }
 
     /**
-     * Get userId
+     * Get userEmail
      *
-     * @return int $userId
+     * @return string $userEmail
      */
-    public function getUserId()
+    public function getUserEmail()
     {
-        return $this->userId;
+        return $this->userEmail;
     }
 
     /**
@@ -125,13 +135,13 @@ class Invitation
     }
 
     /**
-     * Get userEmail
+     * Get accept
      *
-     * @return string $userEmail
+     * @return \DateTime $accept
      */
-    public function getUserEmail()
+    public function getAccept()
     {
-        return $this->userEmail;
+        return $this->accept;
     }
 
     /**
@@ -148,13 +158,13 @@ class Invitation
     }
 
     /**
-     * Get accept
+     * Get reject
      *
-     * @return \DateTime $accept
+     * @return \DateTime $reject
      */
-    public function getAccept()
+    public function getReject()
     {
-        return $this->accept;
+        return $this->reject;
     }
 
     /**
@@ -168,15 +178,5 @@ class Invitation
         $this->reject = $reject;
 
         return $this;
-    }
-
-    /**
-     * Get reject
-     *
-     * @return \DateTime $reject
-     */
-    public function getReject()
-    {
-        return $this->reject;
     }
 }

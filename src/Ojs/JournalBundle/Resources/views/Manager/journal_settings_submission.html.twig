@@ -1,14 +1,14 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.journal_settings_submission'|trans }} {{ parent() }}{% endblock %}
 {% block  stylesheets %}
-    {{parent()}}
-    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}" />
-{%endblock%}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.css') }}"/>
+{% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'journal.settings.submission'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'journal.settings.submission'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <fieldset>
-                    <legend>1. {{"journal.settings.submission.language"|trans}}</legend>
+                    <legend>1. {{ "journal.settings.submission.language"|trans }}</legend>
                     <div class="form-row">
                         <div class="form-group">
                             {% for lang in settings.submissionMandatoryLanguages %}
@@ -31,7 +31,8 @@
                         <label>{{ "journal.settings.submission.language.text"|trans }}</label>
                         <select name="submissionMandatoryLanguages[]" class="select2-element form-control" multiple>
                             {% for lang in allLanguages %}
-                                <option value="{{ lang.code }}" {% if lang.code in settings.submissionMandatoryLanguages %}selected{% endif %}>
+                                <option value="{{ lang.code }}"
+                                        {% if lang.code in settings.submissionMandatoryLanguages %}selected{% endif %}>
                                     {{ lang.name }}
                                 </option>
                             {% endfor %}
@@ -39,42 +40,44 @@
                     </div>
                     <br>
 
-                    <legend>2. {{"journal.settings.submission.abstractTemplate"|trans}}</legend>
+                    <legend>2. {{ "journal.settings.submission.abstractTemplate"|trans }}</legend>
                     <div class="form-row">
                         <div class="btn-group">
                             {% for template in abstractTemplates %}
-                                <a href="#" class="btn btn-default" id="abstractTemplateBtn{{template.id}}"
-                                   onclick="$('textarea#absTemplate').data('wysihtml5').editor.setValue($('#abstractTemplate{{template.id}}').html());
+                                <a href="#" class="btn btn-default" id="abstractTemplateBtn{{ template.id }}"
+                                   onclick="$('textarea#absTemplate').data('wysihtml5').editor.setValue($('#abstractTemplate{{ template.id }}').html());
                                            return false;">
-                                    <span class="badge">{{template.id}}</span> {{template.type|trans}}
+                                    <span class="badge">{{ template.id }}</span> {{ template.type|trans }}
                                 </a>
-                                <div class="hide" id="abstractTemplate{{template.id}}">{{template.template|raw}}</div>
+                                <div class="hide"
+                                     id="abstractTemplate{{ template.id }}">{{ template.template|raw }}</div>
                             {% endfor %}
                         </div>
-                        <p class="help-block">{{"journal.settings.abstractTemplate.desc"|trans}}</p>
+                        <p class="help-block">{{ "journal.settings.abstractTemplate.desc"|trans }}</p>
                         <br>
-                        <textarea id="absTemplate" class="editor form-control"  style="width:100%"
-                                  name="submissionAbstractTemplate">{{settings.submissionAbstractTemplate}}</textarea>
+                        <textarea id="absTemplate" class="editor form-control" style="width:100%"
+                                  name="submissionAbstractTemplate">{{ settings.submissionAbstractTemplate }}</textarea>
                     </div>
                     <br>
-                    <legend>3. {{"journal.settings.submission.copyrightnotice"|trans}}</legend>
+                    <legend>3. {{ "journal.settings.submission.copyrightnotice"|trans }}</legend>
                     <div class="form-row">
                         <div class="btn-group">
                             {% for template in copyrightTemplates %}
-                                {% if app.request.locale == template.lang%}
-                                    <a href="#" class="btn btn-default" id="copyrightTemplateBtn{{template.id}}"
-                                       onclick="$('textarea#cpyTemplate').data('wysihtml5').editor.setValue($('#copyrightTemplate{{template.id}}').html());
-                                           return false;">
-                                        <span class="badge">{{template.id}}</span> {{template.type|trans}}
+                                {% if app.request.locale == template.lang %}
+                                    <a href="#" class="btn btn-default" id="copyrightTemplateBtn{{ template.id }}"
+                                       onclick="$('textarea#cpyTemplate').data('wysihtml5').editor.setValue($('#copyrightTemplate{{ template.id }}').html());
+                                               return false;">
+                                        <span class="badge">{{ template.id }}</span> {{ template.type|trans }}
                                     </a>
-                                    <div class="hide" id="copyrightTemplate{{template.id}}">{{template.template|raw}}</div>
+                                    <div class="hide"
+                                         id="copyrightTemplate{{ template.id }}">{{ template.template|raw }}</div>
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <p class="help-block">{{"journal.settings.submission.copyrightnotice.desc"|trans|raw}}</p>
+                        <p class="help-block">{{ "journal.settings.submission.copyrightnotice.desc"|trans|raw }}</p>
                         <br>
-                        <textarea id="cpyTemplate" class="editor form-control"  style="width:100%"
-                                  name="copyrightStatement">{{settings.copyrightStatement}}</textarea>
+                        <textarea id="cpyTemplate" class="editor form-control" style="width:100%"
+                                  name="copyrightStatement">{{ settings.copyrightStatement }}</textarea>
                     </div>
                 </fieldset>
             </div>
@@ -85,13 +88,24 @@
     </div>
 {% endblock %}
 {% block  javascripts %}
-    {{parent()}}
-    <script type="text/javascript" src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
+    {{ parent() }}
+    <script type="text/javascript"
+            src="{{ asset('/vendor/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             $("textarea.editor").wysihtml5({
-                toolbar: {"fa": true, "font-styles": false, "emphasis": true, "lists": false, "html": false, "link": true, "image": false, "color": false, "blockquote": true}
+                toolbar: {
+                    "fa": true,
+                    "font-styles": false,
+                    "emphasis": true,
+                    "lists": false,
+                    "html": false,
+                    "link": true,
+                    "image": false,
+                    "color": false,
+                    "blockquote": true
+                }
             });
         });
     </script>
-{%endblock%}
+{% endblock %}

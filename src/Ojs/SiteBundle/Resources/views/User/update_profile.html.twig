@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'user'|trans},
-        { 'link': path('user'), 'title': 'user.update_profile'|trans},
-        { 'title': 'user.update_profile'|trans},
+    {'link': path('dashboard'), 'title': 'user'|trans},
+    { 'link': path('user'), 'title': 'user.update_profile'|trans},
+    { 'title': 'user.update_profile'|trans},
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -33,14 +33,17 @@
 
                     <div class="form-group">
                         <label class="control-label" for="fileupload_avatar">{{ "Avatar"|trans }}</label>
-                        <div id="preview_image_avatar"  style="width:200px">
-                                <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200")}}"
-                                     data-src="holder.js/200x200/random/text:{{entity.username}}" alt="" />
-                                {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
-                                <input id="avatar_height" name="avatar[height]" type="hidden" value="{{ imageoptions.height }}"/>
-                                <input id="avatar_width"  name="avatar[width]" type="hidden" value="{{ imageoptions.width }}"/>
-                                <input id="avatar_x"  name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
-                                <input id="avatar_y"  name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
+
+                        <div id="preview_image_avatar" style="width:200px">
+                            <img src="{{ ('/uploads/avatarfiles/'~imagePath(entity.avatar))|imagine_filter("wide_200") }}"
+                                 data-src="holder.js/200x200/random/text:{{ entity.username }}" alt=""/>
+                            {% set imageoptions=getImageOptions(entity,'avatar',"wide_200") %}
+                            <input id="avatar_height" name="avatar[height]" type="hidden"
+                                   value="{{ imageoptions.height }}"/>
+                            <input id="avatar_width" name="avatar[width]" type="hidden"
+                                   value="{{ imageoptions.width }}"/>
+                            <input id="avatar_x" name="avatar[x]" type="hidden" value="{{ imageoptions.x }}"/>
+                            <input id="avatar_y" name="avatar[y]" type="hidden" value="{{ imageoptions.y }}"/>
 
                         </div>
     <span class="btn btn-success fileinput-button form-control">
@@ -105,17 +108,17 @@
             });
             $("#preview_image_avatar > img").cropper({
                 aspectRatio: 1,
-                maxWidth:200,
-                maxHeight:200,
+                maxWidth: 200,
+                maxHeight: 200,
 
                 {% set imageoptions=getImageOptions(entity,'avatar',"avatar_thumb_crop") %}
-                data:{
+                data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                done: function(data){
+                done: function (data) {
                     $("#avatar_height").val(data.height)
                     $("#avatar_width").val(data.width)
                     $("#avatar_x").val(data.x)
@@ -124,18 +127,18 @@
 
             })
             $("#preview_image_header > img").cropper({
-                aspectRatio: 585/390,
-                maxWidth:585,
-                maxHeight:390,
+                aspectRatio: 585 / 390,
+                maxWidth: 585,
+                maxHeight: 390,
 
                 {% set imageoptions=getImageOptions(entity,'header',"user_header") %}
-                data:{
+                data: {
                     x: {{ imageoptions.x }},
                     y: {{ imageoptions.y }},
                     height: {{ imageoptions.height }},
                     width: {{ imageoptions.width }}
                 },
-                done: function(data){
+                done: function (data) {
                     $("#header_height").val(data.height)
                     $("#header_width").val(data.width)
                     $("#header_x").val(data.x)
@@ -159,7 +162,7 @@
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     <style>
-        #preview_image_avatar,#preview_image_avatar div,#preview_image_header, #preview_image_header div{
+        #preview_image_avatar, #preview_image_avatar div, #preview_image_header, #preview_image_header div {
             margin: 0 !important;
         }
     </style>

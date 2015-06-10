@@ -64,6 +64,16 @@ class ReviewFormItem
     }
 
     /**
+     * Get journalid
+     *
+     * @return int $journalid
+     */
+    public function getJournalid()
+    {
+        return $this->journalid;
+    }
+
+    /**
      * Set journalid
      *
      * @param  int  $journalid
@@ -77,13 +87,13 @@ class ReviewFormItem
     }
 
     /**
-     * Get journalid
+     * Get title
      *
-     * @return int $journalid
+     * @return string $title
      */
-    public function getJournalid()
+    public function getTitle()
     {
-        return $this->journalid;
+        return $this->title;
     }
 
     /**
@@ -100,13 +110,13 @@ class ReviewFormItem
     }
 
     /**
-     * Get title
+     * Get mandatory
      *
-     * @return string $title
+     * @return boolean $mandatory
      */
-    public function getTitle()
+    public function getMandatory()
     {
-        return $this->title;
+        return $this->mandatory;
     }
 
     /**
@@ -123,13 +133,13 @@ class ReviewFormItem
     }
 
     /**
-     * Get mandatory
+     * Get inputType
      *
-     * @return boolean $mandatory
+     * @return string $inputType
      */
-    public function getMandatory()
+    public function getInputType()
     {
-        return $this->mandatory;
+        return $this->inputType;
     }
 
     /**
@@ -146,13 +156,13 @@ class ReviewFormItem
     }
 
     /**
-     * Get inputType
+     * Get fields
      *
-     * @return string $inputType
+     * @return $fields
      */
-    public function getInputType()
+    public function getFields()
     {
-        return $this->inputType;
+        return $this->fields;
     }
 
     /**
@@ -166,16 +176,6 @@ class ReviewFormItem
         $this->fields = $fields;
 
         return $this;
-    }
-
-    /**
-     * Get fields
-     *
-     * @return $fields
-     */
-    public function getFields()
-    {
-        return $this->fields;
     }
 
     /**
@@ -202,6 +202,16 @@ class ReviewFormItem
     }
 
     /**
+     * Get confidential
+     *
+     * @return boolean $confidential
+     */
+    public function getConfidential()
+    {
+        return $this->confidential;
+    }
+
+    /**
      * Set confidential
      *
      * @param  boolean $confidential
@@ -215,13 +225,13 @@ class ReviewFormItem
     }
 
     /**
-     * Get confidential
+     * Get fieldset
      *
-     * @return boolean $confidential
+     * @return string $fieldset
      */
-    public function getConfidential()
+    public function getFieldset()
     {
-        return $this->confidential;
+        return $this->fieldset;
     }
 
     /**
@@ -235,15 +245,5 @@ class ReviewFormItem
         $this->fieldset = $fieldset;
 
         return $this;
-    }
-
-    /**
-     * Get fieldset
-     *
-     * @return string $fieldset
-     */
-    public function getFieldset()
-    {
-        return $this->fieldset;
     }
 }

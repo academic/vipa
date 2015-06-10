@@ -3,17 +3,17 @@
 namespace Ojs\ApiBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Elastica\Query;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Ojs\JournalBundle\Entity\Citation;
+use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
-use Ojs\JournalBundle\Entity\Institution;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Controller\Annotations\Get;
-use Elastica\Query;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -72,7 +72,9 @@ class PublicSearchRestController extends FOSRestController
         }
 
         return $data;
-    }    /**
+    }
+
+    /**
      *
      * @ApiDoc(
      *  resource=true,
@@ -125,6 +127,7 @@ class PublicSearchRestController extends FOSRestController
 
         return $data;
     }
+
     /**
      * @param $id
      * @return Response
@@ -139,7 +142,7 @@ class PublicSearchRestController extends FOSRestController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Institution  $institution */
+        /** @var Institution $institution */
         $institution = $em->find('OjsJournalBundle:Institution', $id);
         if ($institution) {
             return JsonResponse::create(['id' => $id, 'text' => $institution->getName()]);
@@ -168,7 +171,7 @@ class PublicSearchRestController extends FOSRestController
      * )
      * @Get("/public/search/tags")
      *
-     * @param Request $request
+     * @param  Request $request
      * @return array
      */
     public function getTagsAction(Request $request)
@@ -185,8 +188,8 @@ class PublicSearchRestController extends FOSRestController
         $results = $search->search($prefix);
         $data = [];
         foreach ($results as $result) {
-            foreach(explode(',',$result->getData()['tags']) as $tag){
-                $data[] = ['text'=>$tag];
+            foreach (explode(',', $result->getData()['tags']) as $tag) {
+                $data[] = ['text' => $tag];
             }
         }
 
@@ -281,6 +284,7 @@ class PublicSearchRestController extends FOSRestController
 
         return $data;
     }
+
     /**
      * @param $id
      * @return Response
@@ -297,10 +301,10 @@ class PublicSearchRestController extends FOSRestController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Journal  $journal */
+        /** @var Journal $journal */
         $journal = $em->find('OjsJournalBundle:Journal', $id);
         if ($journal) {
-            return JsonResponse::create(['id' => $id, 'text' => $journal->getTitle() ]);
+            return JsonResponse::create(['id' => $id, 'text' => $journal->getTitle()]);
         }
         throw new NotFoundHttpException();
     }
@@ -349,6 +353,7 @@ class PublicSearchRestController extends FOSRestController
 
         return $data;
     }
+
     /**
      * @param $id
      * @return Response
@@ -368,7 +373,7 @@ class PublicSearchRestController extends FOSRestController
         /** @var Citation $citation */
         $citation = $em->find('OjsJournalBundle:Citation', $id);
         if ($citation) {
-            return JsonResponse::create(['id' => $id, 'text' => $citation->getRaw() ]);
+            return JsonResponse::create(['id' => $id, 'text' => $citation->getRaw()]);
         }
         throw new NotFoundHttpException();
     }
@@ -434,10 +439,10 @@ class PublicSearchRestController extends FOSRestController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Journal  $journal */
+        /** @var Journal $journal */
         $location = $em->find('OkulbilisimLocationBundle:Location', $id);
         if ($location) {
-            return JsonResponse::create(['id' => $id, 'name' => $location->getName() ]);
+            return JsonResponse::create(['id' => $id, 'name' => $location->getName()]);
         }
         throw new NotFoundHttpException();
     }
@@ -478,35 +483,36 @@ class PublicSearchRestController extends FOSRestController
         $results = $search->search($prefix);
         $data = [];
 /** @var User $user */
-       # $user = $this->getUser();
+        # $user = $this->getUser();
 
         #$articleRepo = $this->getDoctrine()->getManager()->getRepository('OjsJournalBundle:Article');
         foreach ($results as $result) {
             /*   if($user->isAdmin())
             {*/
-                $data[] = [
-                    'id' => $result->getId(),
-                    'text' => $result->getData()['title'],
-                ];
-           /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
-                /** @var Article $article
-                $article = $articleRepo->find($result->getId());
-                $roles = $article->getJournal()->getUserRoles();
-                foreach ($roles as $role) {
-                    /** @var UserJournalRole $role
-                    if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
-                        $data[] = [
-                            'id'=>$result->getId(),
-                            'text'=>$result->getData()['title'],
-                        ];
-                        break;
-                    }
-                }
-            }*/
+            $data[] = [
+                'id' => $result->getId(),
+                'text' => $result->getData()['title'],
+            ];
+            /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
+                 /** @var Article $article
+                 $article = $articleRepo->find($result->getId());
+                 $roles = $article->getJournal()->getUserRoles();
+                 foreach ($roles as $role) {
+                     /** @var UserJournalRole $role
+                     if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
+                         $data[] = [
+                             'id'=>$result->getId(),
+                             'text'=>$result->getData()['title'],
+                         ];
+                         break;
+                     }
+                 }
+             }*/
         }
 
         return $data;
     }
+
     /**
      * @param $id
      * @return Response
@@ -523,29 +529,29 @@ class PublicSearchRestController extends FOSRestController
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var Journal  $journal */
+        /** @var Journal $journal */
         $article = $em->find('OjsJournalBundle:Article', $id);
         //$user = $this->getUser();
         //$data = [];
         //if($user->isAdmin())
         //{
-            $data = [
-                'id' => $article->getId(),
-                'text' => $article->getTitle(),
-            ];
-       /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
-            $roles = $article->getJournal()->getUserRoles();
-            foreach ($roles as $role) {
-                /** @var UserJournalRole $role *
-                if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
-                    $data = [
-                        'id'=>$article->getId(),
-                        'text'=>$article->getTitle(),
-                    ];
-                    break;
-                }
-            }
-        }*/
+        $data = [
+            'id' => $article->getId(),
+            'text' => $article->getTitle(),
+        ];
+        /* }elseif($user->hasRole('ROLE_JOURNAL_MANAGER') || $user->hasRole('ROLE_EDITOR')){
+             $roles = $article->getJournal()->getUserRoles();
+             foreach ($roles as $role) {
+                 /** @var UserJournalRole $role *
+                 if($role->getRole()->getRole()=='ROLE_JOURNAL_MANAGER' || $role->getRole()->getRole()=='ROLE_EDITOR'){
+                     $data = [
+                         'id'=>$article->getId(),
+                         'text'=>$article->getTitle(),
+                     ];
+                     break;
+                 }
+             }
+         }*/
         if ($data) {
             return JsonResponse::create($data);
         }

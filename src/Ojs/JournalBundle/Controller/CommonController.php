@@ -2,8 +2,8 @@
 
 namespace Ojs\JournalBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Common controller.

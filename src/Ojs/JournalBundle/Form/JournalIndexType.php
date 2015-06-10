@@ -17,8 +17,7 @@ class JournalIndexType extends AbstractType
         $builder
             ->add('name', 'text', array('label' => 'name'))
             ->add('logo', 'hidden')
-            ->add('status', 'checkbox', ['label' => 'Is Active?'])
-        ;
+            ->add('status', 'checkbox', ['label' => 'Is Active?']);
     }
 
     /**
@@ -26,12 +25,15 @@ class JournalIndexType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalIndex',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalIndex',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

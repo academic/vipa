@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'tag.search.results'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'tag.search.results'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -15,7 +15,8 @@
         <hgroup class="page-header">
             <h2 class="lead">
                 {% trans with {'%total%':total_count, '%term%':tag} %}
-                    <strong class="text-danger">%total%</strong> results tagged with <strong class="text-danger">%term%</strong>
+                <strong class="text-danger">%total%</strong> results tagged with <strong
+                        class="text-danger">%term%</strong>
                 {% endtrans %}
             </h2>
             <a href="{{ path('ojs_tags_cloud') }}" class="btn btn-default">{{ 'tags.cloud'|trans }}</a>
@@ -40,26 +41,28 @@
 
             <div class="tab-content">
                 {% for key,result in results %}
-                    <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}" id="content_{{ key }}">
+                    <div role="tabpanel" class="tab-pane fade {% if loop.first %}in active{% endif %}"
+                         id="content_{{ key }}">
                         <table class="table table-bordered">
                             <thead>
 
                             </thead>
                             <tbody>
-                                {% for res in result.data %}
-                                    <tr>
-                                        <td>
-                                            <h4>
-                                                <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
-                                            </h4>
-                                            <i class="fa fa-tags"></i> {{ "tags"|trans }}
-                                            {% set tags = res.tags|split(',') %}
-                                            {% for tag in tags %}
-                                                <a href="{{ path('ojs_search_tags', {tag:tag}) }}"><span class="badge">{{ tag }}</span></a>
-                                            {% endfor %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
+                            {% for res in result.data %}
+                                <tr>
+                                    <td>
+                                        <h4>
+                                            <a href="{{ getTagDefinition(res)['route'] }}">{{ getTagDefinition(res)['name'] }}</a>
+                                        </h4>
+                                        <i class="fa fa-tags"></i> {{ "tags"|trans }}
+                                        {% set tags = res.tags|split(',') %}
+                                        {% for tag in tags %}
+                                            <a href="{{ path('ojs_search_tags', {tag:tag}) }}"><span
+                                                        class="badge">{{ tag }}</span></a>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

@@ -2,10 +2,10 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\Common\Controller\OjsController as Controller;
-use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\EventLogParams;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -38,19 +38,24 @@ class EventLogController extends Controller
         }
         $source = new Entity('OjsUserBundle:EventLog');
         $ta = $source->getTableAlias();
-        $source->manipulateQuery(function (QueryBuilder $qb) use ($ta, $logTypes, $user) {
+        $source->manipulateQuery(
+            function (QueryBuilder $qb) use ($ta, $logTypes, $user) {
                 $qb->andWhere(
-                        $qb->expr()->in($ta.'.eventInfo', ':logTypes')
+                    $qb->expr()->in($ta.'.eventInfo', ':logTypes')
                 )
-                ->setParameters([
-                    'logTypes' => $logTypes,
-                    'userId'=> $user->getId()
-                ]);
-            if(!$user->isAdmin()){
-                $qb->andWhere("$ta.userId = :userId OR $ta.affectedUserId = :userId");
+                    ->setParameters(
+                        [
+                            'logTypes' => $logTypes,
+                            'userId' => $user->getId(),
+                        ]
+                    );
+                if (!$user->isAdmin()) {
+                    $qb->andWhere("$ta.userId = :userId OR $ta.affectedUserId = :userId");
+                }
+
+                return $qb;
             }
-            return $qb;
-        });
+        );
         $grid = $this->get('grid')->setSource($source);
         $gridAction = $this->get('grid_action');
         $actionColumn = new ActionsColumn("actions", "actions");
@@ -61,6 +66,7 @@ class EventLogController extends Controller
         $grid->addColumn($actionColumn);
         $data = [];
         $data['grid'] = $grid;
+
         return $grid->getGridResponse('OjsUserBundle:EventLog:index.html.twig', $data);
     }
 
@@ -81,7 +87,9 @@ class EventLogController extends Controller
         }
 
         //if event isn't consider user throw 403
-        if ($entity->getUserId() !== $user->getId() && $entity->getAffectedUserId() !== $user->getId() && !$user->isAdmin()) {
+        if ($entity->getUserId() !== $user->getId() && $entity->getAffectedUserId() !== $user->getId(
+            ) && !$user->isAdmin()
+        ) {
             throw $this->createNotFoundException('You have not permission to see this activity.');
         }
 
@@ -91,8 +99,12 @@ class EventLogController extends Controller
             $tpl = 'OjsUserBundle:EventLog:show.html.twig';
         }
 
-        return $this->render($tpl, array(
-            'entity' => $entity, ));
+        return $this->render(
+            $tpl,
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -119,7 +131,10 @@ class EventLogController extends Controller
         }
         $em->flush();
 
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('All records removed successfully!'));
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            $this->get('translator')->trans('All records removed successfully!')
+        );
 
         return $this->redirect($this->generateUrl('eventlog'));
     }

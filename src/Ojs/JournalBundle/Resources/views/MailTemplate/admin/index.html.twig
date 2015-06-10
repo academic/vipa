@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('mailtemplate'),'title': 'mail.template'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('mailtemplate'),'title': 'mail.template'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,35 +14,35 @@
     {% include '::flashbag.html.twig' %}
     <table class="table records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>{{"journal"|trans}}</th>
-                <th>Type</th>
-                <th>Subject</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>{{ "journal"|trans }}</th>
+            <th>Type</th>
+            <th>Subject</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            {% for entity in entities %}
-                <tr>
-                    <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                        {% if entity.journal %}
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('mailtemplate_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                {% if entity.journal %}
 
-                        <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
-                    {% else %}
-                        <td>Default Template</td>
-                    {% endif %}
-                    <td>{{ entity.type }}</td>
-                    <td>{{ entity.subject }}</td>
-                    <td>
-                        {% set show_path = 'mailtemplate_show' %}
-                        {% set edit_path = 'mailtemplate_edit' %}
-                        {% set delete_path = 'mailtemplate_delete' %}
-                        {% include '::actionbuttons.html.twig' %}
+                    <td>{{ entity.journal.title }} #{{ entity.journal.id }}</td>
+                {% else %}
+                    <td>Default Template</td>
+                {% endif %}
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.subject }}</td>
+                <td>
+                    {% set show_path = 'mailtemplate_show' %}
+                    {% set edit_path = 'mailtemplate_edit' %}
+                    {% set delete_path = 'mailtemplate_delete' %}
+                    {% include '::actionbuttons.html.twig' %}
 
-                    </td>
-                </tr>
-            {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 

@@ -25,36 +25,47 @@ class JournalsIndexType extends AbstractType
         $user = $options['user'];
         //$journal = $options['journal'];
         $builder
-                ->add('journal_index', 'entity', [
+            ->add(
+                'journal_index',
+                'entity',
+                [
                     'class' => 'Ojs\JournalBundle\Entity\JournalIndex',
                     'attr' => ['class' => ' form-control select2-element'],
-        ]);
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($user) {
-            /** @var JournalsIndex $journalsindex */
-            $journalsindex = $event->getData();
-            $form = $event->getForm();
-            if (null === $journalsindex->getJournalId()) {
-                $form->add('journal', 'entity', [
-                    'attr' => ['class' => ' form-control select2-element'],
-                    'label' => 'journal',
-                    'class' => 'Ojs\JournalBundle\Entity\Journal',
-                    'query_builder' => function (EntityRepository $er) use ($user) {
-                        /** @var User $user $qb */
-                        $qb = $er->createQueryBuilder('j');
-                        if($user->isAdmin()) {
-                            return $qb;
-                        }
-                        $qb
-                            ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
-                            ->setParameter('user', $user);
+                ]
+            );
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($user) {
+                /** @var JournalsIndex $journalsindex */
+                $journalsindex = $event->getData();
+                $form = $event->getForm();
+                if (null === $journalsindex->getJournalId()) {
+                    $form->add(
+                        'journal',
+                        'entity',
+                        [
+                            'attr' => ['class' => ' form-control select2-element'],
+                            'label' => 'journal',
+                            'class' => 'Ojs\JournalBundle\Entity\Journal',
+                            'query_builder' => function (EntityRepository $er) use ($user) {
+                                /** @var User $user $qb */
+                                $qb = $er->createQueryBuilder('j');
+                                if ($user->isAdmin()) {
+                                    return $qb;
+                                }
+                                $qb
+                                    ->join('j.userRoles', 'user_role', 'WITH', 'user_role.user=:user')
+                                    ->setParameter('user', $user);
 
-                            return $qb;
-                        },
-                ]);
-            } else {
-                $form->add('journal_id', 'hidden');
+                                return $qb;
+                            },
+                        ]
+                    );
+                } else {
+                    $form->add('journal_id', 'hidden');
+                }
             }
-        });
+        );
         $builder->add('link', 'text', array('label' => 'journalsindex.link'));
     }
 
@@ -63,14 +74,16 @@ class JournalsIndexType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class' => 'Ojs\JournalBundle\Entity\JournalsIndex',
-            'user' => null,
-            'journal' => null,
-            'attr' => [
-                'class' => 'form-validate',
-            ],
-        ]);
+        $resolver->setDefaults(
+            [
+                'data_class' => 'Ojs\JournalBundle\Entity\JournalsIndex',
+                'user' => null,
+                'journal' => null,
+                'attr' => [
+                    'class' => 'form-validate',
+                ],
+            ]
+        );
     }
 
     /**

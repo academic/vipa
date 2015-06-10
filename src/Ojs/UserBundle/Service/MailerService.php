@@ -4,9 +4,9 @@ namespace Ojs\UserBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Ojs\JournalBundle\Entity\Journal;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Ojs\UserBundle\Entity\MailLog;
 use Ojs\UserBundle\Entity\Model\Mail;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * Mail controller.
@@ -14,11 +14,11 @@ use Ojs\UserBundle\Entity\Model\Mail;
  */
 class MailerService
 {
-    /** @var \Swift_Mailer  */
+    /** @var \Swift_Mailer */
     protected $mailer;
-    /** @var EngineInterface  */
+    /** @var EngineInterface */
     protected $templating;
-    /** @var EntityManager  */
+    /** @var EntityManager */
     protected $em;
     /** @var  string */
     protected $systemEmail;
@@ -57,11 +57,11 @@ class MailerService
         }
         $mailLog = new MailLog();
         $message = \Swift_Message::newInstance()
-                ->setSubject($mail->subject)
-                ->setFrom($mail->from)
-                ->setTo($mail->to)
-                ->setBody($mail->body)
-                ->setContentType('text/html');
+            ->setSubject($mail->subject)
+            ->setFrom($mail->from)
+            ->setTo($mail->to)
+            ->setBody($mail->body)
+            ->setContentType('text/html');
 
         $mailLog->setMailObject($message->toString());
         $mailLog->setRecipientEmail($mail->to);

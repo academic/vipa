@@ -93,6 +93,7 @@ class AnalyticsExtension extends \Twig_Extension
             //@todo github.com/okulbilisim/ojs/issues/572
         }
     }
+
     public function getName()
     {
         return "ojs_analytics_extension";

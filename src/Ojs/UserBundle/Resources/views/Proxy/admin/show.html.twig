@@ -2,30 +2,30 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('admin_proxy'),'title': 'proxy'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('admin_proxy'),'title': 'proxy'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{ "proxy.singular"|trans  }}</h1>
+    <h1>{{ "proxy.singular"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>{{ "proxy.id"|trans  }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{ "proxy.proxy.user.id"|trans  }}</th>
-                <td>{{ entity.proxyUserId }}</td>
-            </tr>
-            <tr>
-                <th>{{ "proxy.client.user.id"|trans  }}</th>
-                <td>{{ entity.clientUserId }}</td>
-            </tr>
+        <tr>
+            <th>{{ "proxy.id"|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "proxy.proxy.user.id"|trans }}</th>
+            <td>{{ entity.proxyUserId }}</td>
+        </tr>
+        <tr>
+            <th>{{ "proxy.client.user.id"|trans }}</th>
+            <td>{{ entity.clientUserId }}</td>
+        </tr>
 
         </tbody>
     </table>

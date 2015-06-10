@@ -4,10 +4,10 @@ namespace Ojs\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Ojs\JournalBundle\Entity\Journal;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
@@ -22,16 +22,21 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                 ->createQueryBuilder('u')
                 ->select('u')
                 ->where('u.username = :username OR u.email = :email')
-                ->setParameters([
-                    'username' => $username,
-                    'email' => $username,
-                ])
+                ->setParameters(
+                    [
+                        'username' => $username,
+                        'email' => $username,
+                    ]
+                )
                 ->getQuery();
             $user = $q->getSingleResult();
 
             return $user;
         } catch (\Exception $e) {
-            $message = sprintf('Unable to find an active admin OjsUserBundle:User object identified by "%s".', $username);
+            $message = sprintf(
+                'Unable to find an active admin OjsUserBundle:User object identified by "%s".',
+                $username
+            );
             throw new UsernameNotFoundException($message, 0, $e);
         }
     }
@@ -55,9 +60,9 @@ class UserRepository extends EntityRepository implements UserProviderInterface
     }
 
     /**
-     * @param User $user
-     * @param Role $role
-     * @param Journal $journal
+     * @param  User    $user
+     * @param  Role    $role
+     * @param  Journal $journal
      * @return bool
      */
     public function hasJournalRole(User $user, Role $role, Journal $journal)
@@ -67,7 +72,8 @@ class UserRepository extends EntityRepository implements UserProviderInterface
               WHERE u.userId = :user_id
               AND u.roleId = :role_id
               AND u.journalId = :journal_id
-              ')
+              '
+        )
             ->setParameter('user_id', $user->getId())
             ->setParameter('role_id', $role->getId())
             ->setParameter('journal_id', $journal->getId())
@@ -92,10 +98,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface
                     $qb->expr()->eq('oa.provider_user_id', ':user_id')
                 )
             )
-            ->setParameters([
-                'provider' => $provider,
-                'user_id' => $id,
-            ]);
+            ->setParameters(
+                [
+                    'provider' => $provider,
+                    'user_id' => $id,
+                ]
+            );
         $result = $qb->getQuery()->getOneOrNullResult();
 
         return $result;

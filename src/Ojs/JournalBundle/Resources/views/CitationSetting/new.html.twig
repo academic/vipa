@@ -3,16 +3,16 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('citationsetting'),'title': 'citation.settings'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('citationsetting'),'title': 'citation.settings'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"citation.setting.new"|trans}}</h1>
-    <a href="{{ path('citationsetting') }}">{{"b"|trans}}</a>
+    <h1>{{ "citation.setting.new"|trans }}</h1>
+    <a href="{{ path('citationsetting') }}">{{ "b"|trans }}</a>
 
     {{ form(form) }}
 

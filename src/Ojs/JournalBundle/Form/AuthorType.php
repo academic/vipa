@@ -16,31 +16,33 @@ class AuthorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('title')
-                ->add('firstName')
-                ->add('middleName')
-                ->add('lastName')
-                ->add('firstNameTransliterated')
-                ->add('middleNameTransliterated')
-                ->add('lastNameTransliterated')
-                ->add('initials')
-                ->add('email')
-                ->add('address')
-                ->add('institution')
-                ->add('country')
-                ->add('summary')
-                ->add('authorDetails')
-                ->add('tags', 'text', array(
-                        'label' => 'tags',
-                        'attr' => [
-                            'class' => ' form-control input-xxl',
-                            'data-role' =>  'tagsinputautocomplete',
-                            'placeholder' => 'Comma-seperated tag list',
-                            'data-list' => '/api/public/search/tags'
-                        ]
-                    )
+            ->add('title')
+            ->add('firstName')
+            ->add('middleName')
+            ->add('lastName')
+            ->add('firstNameTransliterated')
+            ->add('middleNameTransliterated')
+            ->add('lastNameTransliterated')
+            ->add('initials')
+            ->add('email')
+            ->add('address')
+            ->add('institution')
+            ->add('country')
+            ->add('summary')
+            ->add('authorDetails')
+            ->add(
+                'tags',
+                'text',
+                array(
+                    'label' => 'tags',
+                    'attr' => [
+                        'class' => ' form-control input-xxl',
+                        'data-role' => 'tagsinputautocomplete',
+                        'placeholder' => 'Comma-seperated tag list',
+                        'data-list' => '/api/public/search/tags',
+                    ],
                 )
-        ;
+            );
     }
 
     /**
@@ -48,12 +50,15 @@ class AuthorType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\Author',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\Author',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

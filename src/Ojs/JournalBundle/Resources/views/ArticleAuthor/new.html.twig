@@ -3,15 +3,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('articleauthor'),'title': 'article.author'|trans},
-        {'title': 'create'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('articleauthor'),'title': 'article.author'|trans},
+    {'title': 'create'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"articleauthor_create"|trans}}</h1>
+    <h1>{{ "articleauthor_create"|trans }}</h1>
 
     {{ form(form) }}
     {% set back_path = 'articleauthor' %}

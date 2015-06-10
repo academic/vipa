@@ -2,19 +2,18 @@
 
 namespace Ojs\UserBundle\Controller;
 
-use Ojs\UserBundle\Entity\Role;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserOauthAccount;
 use Ojs\UserBundle\Event\UserEvent;
 use Ojs\UserBundle\Form\CreatePasswordType;
 use Ojs\UserBundle\Form\RegisterFormType;
-use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends Controller
@@ -31,6 +30,7 @@ class SecurityController extends Controller
         if (!$user) {
             return $this->redirect($this->generateUrl('login'));
         }
+
         return $this->redirect($this->generateUrl('myprofile'));
     }
 
@@ -63,8 +63,11 @@ class SecurityController extends Controller
 
             return $this->redirect($this->generateUrl('myprofile'));
         }
-        $flashBag->add('error', 'There is an error while confirming your email address.'.
-            '<br>Your confirmation link may be expired.');
+        $flashBag->add(
+            'error',
+            'There is an error while confirming your email address.'.
+            '<br>Your confirmation link may be expired.'
+        );
 
         return $this->redirect($this->generateUrl('confirm_email_warning'));
     }
@@ -86,7 +89,8 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'OjsUserBundle:Security:login.html.twig', array(
+            'OjsUserBundle:Security:login.html.twig',
+            array(
                 // last username entered by the user
                 'last_username' => $session->get(Security::LAST_USERNAME),
                 'error' => $error,
@@ -118,8 +122,7 @@ class SecurityController extends Controller
             $user
                 ->setFirstName($firstName)
                 ->setLastName($lastName)
-                ->setUsername($this->slugify($oauth_login['full_name']))
-            ;
+                ->setUsername($this->slugify($oauth_login['full_name']));
         }
         $form = $this->createForm(new RegisterFormType(), $user);
         $form->handleRequest($request);
@@ -162,7 +165,8 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'OjsUserBundle:Security:register.html.twig', array(
+            'OjsUserBundle:Security:register.html.twig',
+            array(
                 'form' => $form->createView(),
                 'errors' => $form->getErrors(),
             )
@@ -186,18 +190,22 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return JsonResponse::create([
-                'status' => true,
-                'message' => 'API key regenerated.',
-                'apikey' => $user->getApiKey(),
-                'callback' => 'regenerateAPI',
-            ]);
+            return JsonResponse::create(
+                [
+                    'status' => true,
+                    'message' => 'API key regenerated.',
+                    'apikey' => $user->getApiKey(),
+                    'callback' => 'regenerateAPI',
+                ]
+            );
         } catch (\Exception $q) {
-            return JsonResponse::create([
-                'status' => false,
-                'message' => $q->getMessage(),
-                'code' => $q->getCode(),
-            ]);
+            return JsonResponse::create(
+                [
+                    'status' => false,
+                    'message' => $q->getMessage(),
+                    'code' => $q->getCode(),
+                ]
+            );
         }
     }
 
@@ -222,6 +230,7 @@ class SecurityController extends Controller
 
         return $this->render('OjsUserBundle:Security:create_password.html.twig', $data);
     }
+
     private function slugify($text)
     {
         // replace non letter or digits by -

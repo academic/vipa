@@ -3,6 +3,7 @@
 namespace Ojs\JournalBundle\Entity;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * SubmissionChecklist
  * @GRID\Source(columns="id,label,locale,visible")
@@ -41,6 +42,15 @@ class SubmissionChecklist
      * @var \DateTime
      */
     private $deletedAt;
+    /**
+     * @var Journal
+     */
+    private $journal;
+    /**
+     * @var string
+     * @GRID\Column(title="Locale")
+     */
+    private $locale;
 
     /**
      * Get id
@@ -50,6 +60,16 @@ class SubmissionChecklist
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get label
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**
@@ -66,13 +86,13 @@ class SubmissionChecklist
     }
 
     /**
-     * Get label
+     * Get detail
      *
      * @return string
      */
-    public function getLabel()
+    public function getDetail()
     {
-        return $this->label;
+        return $this->detail;
     }
 
     /**
@@ -89,13 +109,13 @@ class SubmissionChecklist
     }
 
     /**
-     * Get detail
+     * Get journal_id
      *
-     * @return string
+     * @return integer
      */
-    public function getDetail()
+    public function getJournalId()
     {
-        return $this->detail;
+        return $this->journal_id;
     }
 
     /**
@@ -112,13 +132,13 @@ class SubmissionChecklist
     }
 
     /**
-     * Get journal_id
+     * Get visible
      *
-     * @return integer
+     * @return boolean
      */
-    public function getJournalId()
+    public function getVisible()
     {
-        return $this->journal_id;
+        return $this->visible;
     }
 
     /**
@@ -135,13 +155,13 @@ class SubmissionChecklist
     }
 
     /**
-     * Get visible
+     * Get deletedAt
      *
-     * @return boolean
+     * @return \DateTime
      */
-    public function getVisible()
+    public function getDeletedAt()
     {
-        return $this->visible;
+        return $this->deletedAt;
     }
 
     /**
@@ -158,18 +178,14 @@ class SubmissionChecklist
     }
 
     /**
-     * Get deletedAt
+     * Get journal
      *
-     * @return \DateTime
+     * @return Journal
      */
-    public function getDeletedAt()
+    public function getJournal()
     {
-        return $this->deletedAt;
+        return $this->journal;
     }
-    /**
-     * @var Journal
-     */
-    private $journal;
 
     /**
      * Set journal
@@ -185,19 +201,14 @@ class SubmissionChecklist
     }
 
     /**
-     * Get journal
+     * Get locale
      *
-     * @return Journal
+     * @return string
      */
-    public function getJournal()
+    public function getLocale()
     {
-        return $this->journal;
+        return $this->locale;
     }
-    /**
-     * @var string
-     * @GRID\Column(title="Locale")
-     */
-    private $locale;
 
     /**
      * Set locale
@@ -210,15 +221,5 @@ class SubmissionChecklist
         $this->locale = $locale;
 
         return $this;
-    }
-
-    /**
-     * Get locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 }

@@ -3,12 +3,12 @@
 namespace Ojs\CliBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Translation\Catalogue\MergeOperation;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Translation\Catalogue\MergeOperation;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Translator;
 
@@ -31,17 +31,20 @@ class TranslateManageCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:translate')
-                ->setDefinition(array(
+            ->setName('ojs:translate')
+            ->setDefinition(
+                array(
                     new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                     new InputArgument('bundle', InputArgument::REQUIRED, 'The bundle names with commas'),
                     new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'The messages domain'),
                     new InputOption('only-missing', null, InputOption::VALUE_NONE, 'Displays only missing messages'),
                     new InputOption('only-unused', null, InputOption::VALUE_NONE, 'Displays only unused messages'),
-                ))
-                ->setDescription('Displays translation messages informations')
-                ->setHelp(<<<EOF
-The <info>%command.name%</info> command helps finding unused or missing translation
+                )
+            )
+            ->setDescription('Displays translation messages informations')
+            ->setHelp(
+                <<<EOF
+                The <info>%command.name%</info> command helps finding unused or missing translation
 messages and comparing them with the fallback ones by inspecting the
 templates and translation files of a given bundle.
 
@@ -62,8 +65,7 @@ You can only display unused messages:
 <info>php %command.full_name% --only-unused en AcmeDemoBundle</info>
 
 EOF
-                )
-        ;
+            );
     }
 
     /**
@@ -83,7 +85,10 @@ EOF
 
             // Extract used messages
             $extractedCatalogue[$bundle_name] = new MessageCatalogue($locale);
-            $this->getContainer()->get('translation.extractor')->extract($bundle->getPath().'/Resources/views', $extractedCatalogue[$bundle_name]);
+            $this->getContainer()->get('translation.extractor')->extract(
+                $bundle->getPath().'/Resources/views',
+                $extractedCatalogue[$bundle_name]
+            );
 
             // Load defined messages
             $currentCatalogue[$bundle_name] = new MessageCatalogue($locale);
@@ -153,19 +158,31 @@ EOF
                         $states[] = self::MESSAGE_UNUSED;
                     }
 
-                    if (!in_array(self::MESSAGE_UNUSED, $states) && true === $input->getOption('only-unused') || !in_array(self::MESSAGE_MISSING, $states) && true === $input->getOption('only-missing')) {
+                    if (!in_array(self::MESSAGE_UNUSED, $states) && true === $input->getOption(
+                            'only-unused'
+                        ) || !in_array(self::MESSAGE_MISSING, $states) && true === $input->getOption('only-missing')
+                    ) {
                         continue;
                     }
 
                     foreach ($fallbackCatalogues as $fallbackCatalogue) {
-                        if ($fallbackCatalogue->defines($messageId, $domain) && $value === $fallbackCatalogue->get($messageId, $domain)) {
+                        if ($fallbackCatalogue->defines($messageId, $domain) && $value === $fallbackCatalogue->get(
+                                $messageId,
+                                $domain
+                            )
+                        ) {
                             $states[] = self::MESSAGE_EQUALS_FALLBACK;
 
                             break;
                         }
                     }
 
-                    $row = array($bundle, $this->formatStates($states), $this->formatId($messageId), $this->sanitizeString($value));
+                    $row = array(
+                        $bundle,
+                        $this->formatStates($states),
+                        $this->formatId($messageId),
+                        $this->sanitizeString($value),
+                    );
                     foreach ($fallbackCatalogues as $fallbackCatalogue) {
                         $row[] = $this->sanitizeString($fallbackCatalogue->get($messageId, $domain));
                     }
@@ -181,7 +198,9 @@ EOF
         $output->writeln('<info>Legend:</info>');
         $output->writeln(sprintf(' %s Missing message', $this->formatState(self::MESSAGE_MISSING)));
         $output->writeln(sprintf(' %s Unused message', $this->formatState(self::MESSAGE_UNUSED)));
-        $output->writeln(sprintf(' %s Same as the fallback message', $this->formatState(self::MESSAGE_EQUALS_FALLBACK)));
+        $output->writeln(
+            sprintf(' %s Same as the fallback message', $this->formatState(self::MESSAGE_EQUALS_FALLBACK))
+        );
     }
 
     private function formatState($state)

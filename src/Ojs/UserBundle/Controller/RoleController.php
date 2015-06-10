@@ -4,14 +4,14 @@ namespace Ojs\UserBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\UserBundle\Entity\Role;
+use Ojs\UserBundle\Form\RoleType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\UserBundle\Entity\Role;
-use Ojs\UserBundle\Form\RoleType;
-use Ojs\Common\Controller\OjsController as Controller;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 class RoleController extends Controller
 {
@@ -20,7 +20,7 @@ class RoleController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Role())) {
+        if (!$this->isGranted('VIEW', new Role())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsUserBundle:Role');
@@ -50,7 +50,7 @@ class RoleController extends Controller
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new Role())) {
+        if (!$this->isGranted('CREATE', new Role())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Role();
@@ -80,10 +80,14 @@ class RoleController extends Controller
      */
     private function createCreateForm(Role $entity)
     {
-        $form = $this->createForm(new RoleType(), $entity, array(
-            'action' => $this->generateUrl('role_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new RoleType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('role_create'),
+                'method' => 'POST',
+            )
+        );
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -94,16 +98,19 @@ class RoleController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new Role())) {
+        if (!$this->isGranted('CREATE', new Role())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Role();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsUserBundle:Role:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:Role:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -117,13 +124,16 @@ class RoleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
 
-        return $this->render('OjsUserBundle:Role:show.html.twig', array(
-            'entity' => $entity,
-        ));
+        return $this->render(
+            'OjsUserBundle:Role:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -137,15 +147,18 @@ class RoleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsUserBundle:Role:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsUserBundle:Role:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -157,12 +170,21 @@ class RoleController extends Controller
      */
     private function createEditForm(Role $entity)
     {
-        $form = $this->createForm(new RoleType(), $entity, array(
-            'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-        $form->add('submit', 'submit', array('attr' => array('label ' => $this->get('translator')->trans('update')),
-        ));
+        $form = $this->createForm(
+            new RoleType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('role_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+            )
+        );
+        $form->add(
+            'submit',
+            'submit',
+            array(
+                'attr' => array('label ' => $this->get('translator')->trans('update')),
+            )
+        );
 
         return $form;
     }
@@ -180,7 +202,7 @@ class RoleController extends Controller
         /** @var Role $entity */
         $entity = $em->getRepository('OjsUserBundle:Role')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
@@ -202,21 +224,21 @@ class RoleController extends Controller
     /**
      * Deletes a Role entity.
      *
-     * @param Request $request
-     * @param Role $entity
+     * @param  Request          $request
+     * @param  Role             $entity
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, Role $entity)
     {
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $em = $this->getDoctrine()->getManager();
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('role'.$entity->getId());
-        if($token!=$request->get('_token')) {
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
         }
         $em->remove($entity);

@@ -2,11 +2,12 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use Ojs\Common\Entity\GenericEntityTrait;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * Lang
  * @ExclusionPolicy("all")

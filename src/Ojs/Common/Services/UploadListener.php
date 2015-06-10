@@ -3,8 +3,8 @@
 namespace Ojs\Common\Services;
 
 use Ojs\Common\Helper\FileHelper;
-use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Ojs\Common\Helper\ImageResizeHelper;
+use Oneup\UploaderBundle\Event\PostPersistEvent;
 use Symfony\Component\HttpFoundation\File\File;
 
 class UploadListener
@@ -38,11 +38,12 @@ class UploadListener
         $fileDir = $uploadRootPath.$nestedDirs;
         $uploadUrl = str_replace($uploadRootPath, $uploadType, $fileDir);
         if ($uploadType === 'avatarfiles') {
-            $helper = new ImageResizeHelper(array(
-                'image_name' => $fileName,
-                'upload_dir' => $fileDir,
-                'upload_url' => $uploadUrl,
-                    )
+            $helper = new ImageResizeHelper(
+                array(
+                    'image_name' => $fileName,
+                    'upload_dir' => $fileDir,
+                    'upload_url' => $uploadUrl,
+                )
             );
             $helper->resize();
         }
@@ -52,7 +53,10 @@ class UploadListener
             'size' => $fileSize,
             'url' => '',
             'mimeType' => $fileMimeType,
-            'fullpath' => DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath($file->getFileName(), false),
+            'fullpath' => DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.$uploadType.DIRECTORY_SEPARATOR.$fileHelper->generatePath(
+                    $file->getFileName(),
+                    false
+                ),
         );
 
         return $response;

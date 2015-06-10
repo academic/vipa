@@ -2,16 +2,16 @@
 {% block title %}{{ 'title.user_welcome'|trans }} {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
-    {{parent()}}
+    {{ parent() }}
     <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
 {% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-        { 'title': 'welcome'|trans }
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'title': 'welcome'|trans }
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
@@ -19,7 +19,8 @@
     {% include '::flashbag.html.twig' %}
     <div class="panel panel panel-success">
         <div class="panel-heading toggle-body">
-            <i class="fa fa-bar-chart-o fa-fw"></i> {{"articles.needAction"|trans}} <i class="pull-right fa fa-angle-double-up"></i>
+            <i class="fa fa-bar-chart-o fa-fw"></i> {{ "articles.needAction"|trans }} <i
+                    class="pull-right fa fa-angle-double-up"></i>
         </div>
         <div class="panel-body">
 
@@ -27,35 +28,37 @@
                 <h4>Invited Steps</h4>
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Operation</th>
-                            <th>Article Title</th>
-                            <th>Action</th>
-                        </tr>
+                    <tr>
+                        <th>Operation</th>
+                        <th>Article Title</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for key,invitation in invitedSteps %}
-                            <tr>
-                                <td>
-                                    {{ invitation.step.step.title }}
-                                </td>
-                                <td>
-                                    <a href="{{path('article_workflow_invitation_preview',{id:invitation.id})}}" >
-                                        <span>{{invitation.step.articleRevised.articleData[invitation.step.primaryLanguage].title}}</span>
-                                    </a>
-                                </td>
-                                <td>
+                    {% for key,invitation in invitedSteps %}
+                        <tr>
+                            <td>
+                                {{ invitation.step.step.title }}
+                            </td>
+                            <td>
+                                <a href="{{ path('article_workflow_invitation_preview',{id:invitation.id}) }}">
+                                    <span>{{ invitation.step.articleRevised.articleData[invitation.step.primaryLanguage].title }}</span>
+                                </a>
+                            </td>
+                            <td>
                                     <span class="btn-group pull-right">
-                                        <a href="{{path('article_workflow_invitation_preview',{'id':invitation.id})}}"
-                                           class="btn btn-xs btn-default"  >Details</a>
-                                        <a href="{{path('article_workflow_invitation_accept',{'id':invitation.id})}}"
-                                           onclick="return confirm('{{"sure"|trans}}');" class="btn btn-xs btn-success">Accept</a>
-                                        <a href="{{path('article_workflow_invitation_decline',{'id':invitation.id})}}"
-                                           onclick="return confirm('{{"sure"|trans}}');" class="btn btn-xs btn-warning">Decline</a>
+                                        <a href="{{ path('article_workflow_invitation_preview',{'id':invitation.id}) }}"
+                                           class="btn btn-xs btn-default">Details</a>
+                                        <a href="{{ path('article_workflow_invitation_accept',{'id':invitation.id}) }}"
+                                           onclick="return confirm('{{ "sure"|trans }}');"
+                                           class="btn btn-xs btn-success">Accept</a>
+                                        <a href="{{ path('article_workflow_invitation_decline',{'id':invitation.id}) }}"
+                                           onclick="return confirm('{{ "sure"|trans }}');"
+                                           class="btn btn-xs btn-warning">Decline</a>
                                     </span>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </table>
             {% endif %}
 
@@ -65,9 +68,10 @@
                 <div>
                     {% for key,step in mySteps %}
 
-                        <a class="list-group-item {%if waitingCount[step.id]>0%}list-group-item-warning{%else%}list-group-item-default{%endif%}" href="{{ path('articles_step_list', {'id': step.id}) }}">
-                            <h4>{{step.title}}
-                                <span class="pull-right label {%if waitingCount[step.id]>0%}label-warning{%else%}label-default{%endif%}">{{waitingCount[step.id]}}</span>
+                        <a class="list-group-item {% if waitingCount[step.id]>0 %}list-group-item-warning{% else %}list-group-item-default{% endif %}"
+                           href="{{ path('articles_step_list', {'id': step.id}) }}">
+                            <h4>{{ step.title }}
+                                <span class="pull-right label {% if waitingCount[step.id]>0 %}label-warning{% else %}label-default{% endif %}">{{ waitingCount[step.id] }}</span>
                             </h4>
                         </a>
                     {% endfor %}
@@ -139,7 +143,9 @@
     </div>
     -->
     <style>
-        #articles-action-chart path{ cursor:pointer}
+        #articles-action-chart path {
+            cursor: pointer
+        }
     </style>
 
 {% endblock %}
@@ -147,49 +153,50 @@
 
 
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     <script src="/vendor/raphael/raphael-min.js"></script>
     <script src="/vendor/morrisjs/morris.min.js"></script>
 
     <script>
-                                                       $(function () {
+        $(function () {
 
-                                                       Morris.Donut({
-                                                       element: 'articles-action-chart',
-                                                               data: [
-        {% for key,step in mySteps %}
-                            {
-                            objectid:  "{{step.id}}",
-                                    color:{% if step.color %}"{{step.color}}"{%else%} "#" + (~~(Math.random() * (1 << 24))).toString(16){%endif%},
-                                    label: "{{step.title}}",
-                                    value:{{waitingCount[step.id]}}
-                            }
-        {% if loop.last == false %},{% endif %}{% endfor %}
-                            ],
-                            resize: true
-                    }).on('click', function (i, row) {
-                    console.log(row);
-                            OjsCommon.waitModal();
-                            window.location.href = "/manager/workflow/articles/" + row.objectid;
-                    });
-                            /*
-                            new Morris.Line({
-                            element: 'analytics-chart',
-                                    data: [
-                                    {day: '2014-01-01', value: 20},
-                                    {day: '2014-01-02', value: 10},
-                                    {day: '2014-01-03', value: 12},
-                                    {day: '2014-01-04', value: 15},
-                                    {day: '2014-01-05', value: 20},
-                                    {day: '2014-01-06', value: 25},
-                                    {day: '2014-01-07', value: 18},
-                                    {day: '2014-01-08', value: 20}
-                                    ],
-                                    xkey: 'day',
-                                    ykeys: ['value'],
-                                    labels: ['Value']
-                            });
-                             */
-                    });
+            Morris.Donut({
+                element: 'articles-action-chart',
+                data: [
+                    {% for key,step in mySteps %}
+                    {
+                        objectid: "{{step.id}}",
+                        color: {% if step.color %}"{{step.color}}"{%else%}
+                        "#" +(~~(Math.random() * (1 << 24))).toString(16){%endif%},
+                        label: "{{step.title}}",
+                        value:{{waitingCount[step.id]}}
+                    }
+                    {% if loop.last == false %}, {% endif %}{% endfor %}
+                ],
+                resize: true
+            }).on('click', function (i, row) {
+                console.log(row);
+                OjsCommon.waitModal();
+                window.location.href = "/manager/workflow/articles/" + row.objectid;
+            });
+            /*
+             new Morris.Line({
+             element: 'analytics-chart',
+             data: [
+             {day: '2014-01-01', value: 20},
+             {day: '2014-01-02', value: 10},
+             {day: '2014-01-03', value: 12},
+             {day: '2014-01-04', value: 15},
+             {day: '2014-01-05', value: 20},
+             {day: '2014-01-06', value: 25},
+             {day: '2014-01-07', value: 18},
+             {day: '2014-01-08', value: 20}
+             ],
+             xkey: 'day',
+             ykeys: ['value'],
+             labels: ['Value']
+             });
+             */
+        });
     </script>
 {% endblock %}

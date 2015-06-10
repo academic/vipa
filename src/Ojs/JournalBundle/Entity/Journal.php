@@ -2,17 +2,17 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
 use Ojs\Common\Entity\GenericEntityTrait;
 use Ojs\UserBundle\Entity\User;
 use Ojs\UserBundle\Entity\UserJournalRole;
 use Okulbilisim\LocationBundle\Entity\Location;
-use APY\DataGridBundle\Grid\Mapping as GRID;
-use JMS\Serializer\Annotation\Groups;
 
 /**
  * Journal
@@ -1554,14 +1554,14 @@ class Journal implements Translatable
     }
 
     /**
-     * @var  int
+     * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
     private $view_count;
 
     /**
-     * @var  int
+     * @var int
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
@@ -1576,12 +1576,13 @@ class Journal implements Translatable
     }
 
     /**
-     * @param int $download_count
+     * @param  int   $download_count
      * @return $this
      */
     public function setDownloadCount($download_count)
     {
         $this->download_count = $download_count;
+
         return $this;
     }
 
@@ -1594,18 +1595,18 @@ class Journal implements Translatable
     }
 
     /**
-     * @param int $view_count
+     * @param  int   $view_count
      * @return $this
      */
     public function setViewCount($view_count)
     {
         $this->view_count = $view_count;
+
         return $this;
     }
 
-
     /**
-     * @var  boolean
+     * @var boolean
      * @Expose
      * @Groups({"JournalDetail","IssueDetail"})
      */
@@ -1620,13 +1621,13 @@ class Journal implements Translatable
     }
 
     /**
-     * @param boolean $printed
+     * @param  boolean $printed
      * @return $this
      */
     public function setPrinted($printed)
     {
         $this->printed = $printed;
+
         return $this;
     }
-
 }

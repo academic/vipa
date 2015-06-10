@@ -2,7 +2,6 @@
 
 namespace Ojs\UserBundle\Entity;
 
-
 /**
  * UserOauthAccount
  */
@@ -54,6 +53,16 @@ class UserOauthAccount
     }
 
     /**
+     * Get user_id
+     *
+     * @return integer
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
      * Set user_id
      *
      * @param  integer          $userId
@@ -67,13 +76,13 @@ class UserOauthAccount
     }
 
     /**
-     * Get user_id
+     * Get provider
      *
-     * @return integer
+     * @return string
      */
-    public function getUserId()
+    public function getProvider()
     {
-        return $this->user_id;
+        return $this->provider;
     }
 
     /**
@@ -90,13 +99,13 @@ class UserOauthAccount
     }
 
     /**
-     * Get provider
+     * Get provider_user_id
      *
      * @return string
      */
-    public function getProvider()
+    public function getProviderUserId()
     {
-        return $this->provider;
+        return $this->provider_user_id;
     }
 
     /**
@@ -113,13 +122,13 @@ class UserOauthAccount
     }
 
     /**
-     * Get provider_user_id
+     * Get provider_access_token
      *
      * @return string
      */
-    public function getProviderUserId()
+    public function getProviderAccessToken()
     {
-        return $this->provider_user_id;
+        return $this->provider_access_token;
     }
 
     /**
@@ -136,13 +145,13 @@ class UserOauthAccount
     }
 
     /**
-     * Get provider_access_token
+     * Get provider_refresh_token
      *
      * @return string
      */
-    public function getProviderAccessToken()
+    public function getProviderRefreshToken()
     {
-        return $this->provider_access_token;
+        return $this->provider_refresh_token;
     }
 
     /**
@@ -159,29 +168,6 @@ class UserOauthAccount
     }
 
     /**
-     * Get provider_refresh_token
-     *
-     * @return string
-     */
-    public function getProviderRefreshToken()
-    {
-        return $this->provider_refresh_token;
-    }
-
-    /**
-     * Set user
-     *
-     * @param  User $user
-     * @return UserOauthAccount
-     */
-    public function setUser(User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
      * Get user
      *
      * @return User
@@ -189,5 +175,18 @@ class UserOauthAccount
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set user
+     *
+     * @param  User             $user
+     * @return UserOauthAccount
+     */
+    public function setUser(User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

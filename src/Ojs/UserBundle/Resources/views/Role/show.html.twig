@@ -2,21 +2,21 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('role'),'title': 'role'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('role'),'title': 'role'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{{ "role.singular"|trans }} #{{ entity.id }}</h1>
-        {% include '::flashbag.html.twig' %}
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "role.singular"|trans }} #{{ entity.id }}</h1>
+            {% include '::flashbag.html.twig' %}
 
-        <table class="record_properties  table">
-            <tbody>
+            <table class="record_properties  table">
+                <tbody>
                 <tr>
                     <th>{{ "role.id"|trans }}</th>
                     <td>{{ entity.id }}</td>
@@ -33,28 +33,29 @@
                 <tr>
                     <th>{{ "role.users"|trans }}</th>
                     <td>
-                {% for user in entity.users %}
-                        <a href="{{ path('user_show', { 'id': user.id }) }}">
-                     {{user.username}}</a>
-                        <a href="mailto:{{user.email}}">
-                            (<strong>{{user.email}}</strong>)
-                        </a><hr>
+                        {% for user in entity.users %}
+                            <a href="{{ path('user_show', { 'id': user.id }) }}">
+                                {{ user.username }}</a>
+                            <a href="mailto:{{ user.email }}">
+                                (<strong>{{ user.email }}</strong>)
+                            </a>
+                            <hr>
 
-                {% endfor %}
+                        {% endfor %}
                     </td>
 
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        {% set back_path = 'role' %}
-        {% if is_granted('EDIT', entity) %}
-            {% set edit_path = 'role_edit' %}
-        {% endif %}
-        {% if is_granted('DELETE', entity) %}
-            {% set delete_path = 'role_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+            {% set back_path = 'role' %}
+            {% if is_granted('EDIT', entity) %}
+                {% set edit_path = 'role_edit' %}
+            {% endif %}
+            {% if is_granted('DELETE', entity) %}
+                {% set delete_path = 'role_delete' %}
+            {% endif %}
+            {% include '::actionbuttons.html.twig' %}
+        </div>
     </div>
-</div>
 {% endblock %}

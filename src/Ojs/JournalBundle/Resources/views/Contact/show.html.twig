@@ -3,59 +3,59 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('contact'),'title': 'contact.manager'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('contact'),'title': 'contact.manager'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"contact"|trans}}</h1>
+    <h1>{{ "contact"|trans }}</h1>
 
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"title"|trans}}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{"firstname"|trans}}</th>
-                <td>{{ entity.firstName }}</td>
-            </tr>
-            <tr>
-                <th>{{"lastname"|trans}}</th>
-                <td>{{ entity.lastName }}</td>
-            </tr>
-            <tr>
-                <th>{{"adress"|trans}}</th>
-                <td>{{ entity.address }}</td>
-            </tr>
-            <tr>
-                <th>{{"country"|trans}}</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>{{"city"|trans}}</th>
-                <td>{{ entity.city }}</td>
-            </tr>
-            <tr>
-                <th>{{"phone"|trans}}</th>
-                <td>{{ entity.phone }}</td>
-            </tr>
-            <tr>
-                <th>{{"fax"|trans}}</th>
-                <td>{{ entity.fax }}</td>
-            </tr>
-            <tr>
-                <th>{{"email"|trans}}</th>
-                <td>{{ entity.email }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "title"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "firstname"|trans }}</th>
+            <td>{{ entity.firstName }}</td>
+        </tr>
+        <tr>
+            <th>{{ "lastname"|trans }}</th>
+            <td>{{ entity.lastName }}</td>
+        </tr>
+        <tr>
+            <th>{{ "adress"|trans }}</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>{{ "country"|trans }}</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>{{ "city"|trans }}</th>
+            <td>{{ entity.city }}</td>
+        </tr>
+        <tr>
+            <th>{{ "phone"|trans }}</th>
+            <td>{{ entity.phone }}</td>
+        </tr>
+        <tr>
+            <th>{{ "fax"|trans }}</th>
+            <td>{{ entity.fax }}</td>
+        </tr>
+        <tr>
+            <th>{{ "email"|trans }}</th>
+            <td>{{ entity.email }}</td>
+        </tr>
         </tbody>
     </table>
 

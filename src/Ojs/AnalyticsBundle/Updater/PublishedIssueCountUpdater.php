@@ -16,7 +16,7 @@ class PublishedIssueCountUpdater extends Updater implements UpdaterInterface
     public function count()
     {
         $ie = $this->em->getRepository('OjsJournalBundle:Issue');
-        $all = $ie->findBy(['published'=>true]);
+        $all = $ie->findBy(['published' => true]);
         $issues = [];
         foreach ($all as $r) {
             /** @var Issue $r */
@@ -27,6 +27,7 @@ class PublishedIssueCountUpdater extends Updater implements UpdaterInterface
             }
             $issues[$r->getJournalId()][] = $r->getId();
         }
+
         return $issues;
     }
 

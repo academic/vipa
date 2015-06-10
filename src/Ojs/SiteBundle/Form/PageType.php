@@ -17,18 +17,20 @@ class PageType extends AbstractType
         $builder
             ->add('title')
             ->add('body')
-            ->add('tags', 'text', array(
+            ->add(
+                'tags',
+                'text',
+                array(
                     'label' => 'tags',
                     'attr' => [
                         'class' => ' form-control input-xxl',
-                        'data-role' =>  'tagsinputautocomplete',
+                        'data-role' => 'tagsinputautocomplete',
                         'placeholder' => 'Comma-seperated tag list',
-                        'data-list' => '/api/public/search/tags'
-                    ]
+                        'data-list' => '/api/public/search/tags',
+                    ],
                 )
             )
-            ->add('image')
-        ;
+            ->add('image');
     }
 
     /**
@@ -36,12 +38,15 @@ class PageType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\SiteBundle\Entity\Page',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\SiteBundle\Entity\Page',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

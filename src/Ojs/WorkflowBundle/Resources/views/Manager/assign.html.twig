@@ -3,47 +3,48 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'assign'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'assign'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     <h3>Assign/Invite
         <small class="label label-info">
-            You will assign users for this step :   <strong>{{articleStep.step.title}}</strong>
+            You will assign users for this step : <strong>{{ articleStep.step.title }}</strong>
         </small>
     </h3>
 
     <div class="list-group">
         {% for invite in invitations %}
             <div class="list-group-item">
-                #{{invite.userId}} {{invite.userEmail}}
+                #{{ invite.userId }} {{ invite.userEmail }}
                 {% if invite.accept %}
-                    <span class="label label-success">{{"accepted"|trans}}</span>
+                    <span class="label label-success">{{ "accepted"|trans }}</span>
                 {% elseif invite.reject %}
-                    <span class="label label-danger">{{"rejected"|trans}}</span>
+                    <span class="label label-danger">{{ "rejected"|trans }}</span>
                 {% else %}
-                    <span class="label label-default">{{"waiting"|trans}}</span>
-                {%endif%}
+                    <span class="label label-default">{{ "waiting"|trans }}</span>
+                {% endif %}
 
                 <a class="btn btn-info btn-xs  pull-right"
-                   href="{{path("user_send_mail",{"user":invite.userId,'template':'invitation', 'acceptLink':( "http://"~base_host~path("article_workflow_invitation_accept",{'id':invite.id})|url_encode), 'declineLink':( "http://"~base_host~path("article_workflow_invitation_decline",{'id':invite.id})|url_encode)})}}">
-                    <i class="fa fa-envelope-square"></i> {{"sendmail"|trans}}
+                   href="{{ path("user_send_mail",{"user":invite.userId,'template':'invitation', 'acceptLink':( "http://"~base_host~path("article_workflow_invitation_accept",{'id':invite.id})|url_encode), 'declineLink':( "http://"~base_host~path("article_workflow_invitation_decline",{'id':invite.id})|url_encode)}) }}">
+                    <i class="fa fa-envelope-square"></i> {{ "sendmail"|trans }}
                 </a>
             </div>
-        {%endfor%}
+        {% endfor %}
     </div>
 
-    <form class="form" action="{{path("article_step_asssign_add_user",{'articleStepId':articleStep.id})}}" method="POST">
+    <form class="form" action="{{ path("article_step_asssign_add_user",{'articleStepId':articleStep.id}) }}"
+          method="POST">
         <input class=" select2-element-user" name="users" style="min-width: 250px"/>
 
         <button type="submit" class="btn btn-primary">Invite User</button>
@@ -53,22 +54,23 @@
     <div class="panel panel-warning">
         <div class="panel-heading"><h3 class="panel-title">Notes</h3></div>
         <div class="panel-body">
-            According to this journal's workflow settings, you should assign users for this step. Your review and note will send to all invited users. <br>
+            According to this journal's workflow settings, you should assign users for this step. Your review and note
+            will send to all invited users. <br>
             You can not invite more then 200 user.
         </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     <script>
         $(document).ready(function () {
             $(".select2-element-user").select2({
                 multiple: true,
                 createSearchChoice: function (term, data) {
                     if ($(data).filter(function () {
-                        return this.text.localeCompare(term) === 0;
-                    }).length === 0) {
+                                return this.text.localeCompare(term) === 0;
+                            }).length === 0) {
                         return {id: term, text: term};
                     }
                 },

@@ -3,19 +3,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'design'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'design'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"design.list"|trans}}</h1>
+    <h1>{{ "design.list"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
     {% if is_granted('CREATE', getEntity('OjsJournalBundle:Design')) %}
         <a href="{{ path('design_new') }}" class="btn btn-success">
-            {{"c"|trans}}
+            {{ "c"|trans }}
         </a>
     {% endif %}
 {% endblock %}

@@ -8,9 +8,9 @@
         {% set index_path = 'manager_journalcontact' %}
     {% endif %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path(index_path),'title': 'journal.contact'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path(index_path),'title': 'journal.contact'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

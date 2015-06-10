@@ -3,44 +3,44 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('citation'),'title': 'citation'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('citation'),'title': 'citation'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"citation"|trans}}</h1>
+    <h1>{{ "citation"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"source"|trans}}</th>
-                <td>{{ entity.raw }}</td>
-            </tr>
-            <tr>
-                <th>{{"type"|trans}}</th>
-                <td>{{ entity.type }}</td>
-            </tr>
-            <tr>
-                <th>{{"order"|trans}}</th>
-                <td>{{ entity.orderNum }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "source"|trans }}</th>
+            <td>{{ entity.raw }}</td>
+        </tr>
+        <tr>
+            <th>{{ "type"|trans }}</th>
+            <td>{{ entity.type }}</td>
+        </tr>
+        <tr>
+            <th>{{ "order"|trans }}</th>
+            <td>{{ entity.orderNum }}</td>
+        </tr>
 
-            <tr>
-                <th>{{"setting"|trans}}</th>
-                <td>
+        <tr>
+            <th>{{ "setting"|trans }}</th>
+            <td>
 
-                    {% for setting in entity.settings %}
-                        {{setting.setting}} - {{setting.value}}
-                    {% endfor %}
-                </td>
-            </tr>
+                {% for setting in entity.settings %}
+                    {{ setting.setting }} - {{ setting.value }}
+                {% endfor %}
+            </td>
+        </tr>
         </tbody>
     </table>
 

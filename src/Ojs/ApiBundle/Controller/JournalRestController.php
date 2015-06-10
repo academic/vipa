@@ -2,12 +2,12 @@
 
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class JournalRestController extends FOSRestController
 {
@@ -29,6 +29,7 @@ class JournalRestController extends FOSRestController
 
         return $journal;
     }
+
     /**
      *
      * @ApiDoc(
@@ -47,8 +48,6 @@ class JournalRestController extends FOSRestController
 
         return $journal->getIssues();
     }
-
-
 
     /**
      *

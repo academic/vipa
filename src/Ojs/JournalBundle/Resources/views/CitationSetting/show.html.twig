@@ -3,34 +3,34 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        { 'link': path('citationsetting'),'title': 'citation.settings'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('citationsetting'),'title': 'citation.settings'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"citation.setting"|trans}}</h1>
+    <h1>{{ "citation.setting"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"citation.id"|trans}}</th>
-                <td>{{ entity.citationId }}</td>
-            </tr>
-            <tr>
-                <th>{{"citation.setting"|trans}}</th>
-                <td>{{ entity.setting }}</td>
-            </tr>
-            <tr>
-                <th>{{"value"|trans}}</th>
-                <td>{{ entity.value }}</td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "citation.id"|trans }}</th>
+            <td>{{ entity.citationId }}</td>
+        </tr>
+        <tr>
+            <th>{{ "citation.setting"|trans }}</th>
+            <td>{{ entity.setting }}</td>
+        </tr>
+        <tr>
+            <th>{{ "value"|trans }}</th>
+            <td>{{ entity.value }}</td>
+        </tr>
         </tbody>
     </table>
     {% set back_path = 'citationsetting' %}

@@ -2,7 +2,7 @@
 
 namespace Ojs\OAIBundle\Controller;
 
- use Ojs\Common\Controller\OjsController as Controller;
+use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,16 +58,14 @@ class DefaultController extends Controller
         $until = $request->get('until', false);
         $qb = $em->createQueryBuilder();
         $qb->select("a")
-            ->from("OjsJournalBundle:Article", 'a')
-        ;
+            ->from("OjsJournalBundle:Article", 'a');
         if ($from) {
             $_from = new \DateTime();
             $_from->setTimestamp(strtotime($from));
             $qb->where(
                 $qb->expr()->gte('a.created', ':from')
             )
-                ->setParameter('from', $_from)
-            ;
+                ->setParameter('from', $_from);
         }
         if ($until) {
             $_until = new \DateTime();
@@ -103,16 +101,14 @@ class DefaultController extends Controller
         $until = $request->get('until', false);
         $qb = $em->createQueryBuilder();
         $qb->select("j")
-            ->from("OjsJournalBundle:Journal", 'j')
-        ;
+            ->from("OjsJournalBundle:Journal", 'j');
         if ($from) {
             $_from = new \DateTime();
             $_from->setTimestamp(strtotime($from));
             $qb->where(
                 $qb->expr()->gte('j.created', ':from')
             )
-                ->setParameter('from', $_from)
-            ;
+                ->setParameter('from', $_from);
         }
         if ($until) {
             $_until = new \DateTime();

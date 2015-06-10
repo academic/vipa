@@ -12,6 +12,17 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 class JournalWorkflowTemplateStep extends JournalWorkflowStep
 {
 
+    /**
+     * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowTemplate")
+     */
+    protected $template;
+    /**
+     * @MongoDb\ReferenceMany(targetDocument="JournalWorkflowTemplateStep",nullable=true)
+     *
+     * @var Collection
+     */
+    private $nextSteps;
+
     public function __construct()
     {
         $this->setCanEdit(true);
@@ -19,18 +30,6 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep
         $this->setMaxDays(15);
         $this->setJournalid(null);
     }
-
-    /**
-     * @MongoDb\ReferenceOne(targetDocument="JournalWorkflowTemplate")
-     */
-    protected $template;
-
-    /**
-     * @MongoDb\ReferenceMany(targetDocument="JournalWorkflowTemplateStep",nullable=true)
-     *
-     * @var Collection
-     */
-    private $nextSteps;
 
     /**
      * Add nextStep
@@ -63,14 +62,14 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep
     }
 
     /**
-     * Set template
+     * Set nextSteps
      *
-     * @param  JournalWorkflowTemplate $template
-     * @return self
+     * @param $nextSteps
+     * @return $this
      */
-    public function setTemplate(JournalWorkflowTemplate $template)
+    public function setNextSteps($nextSteps)
     {
-        $this->template = $template;
+        $this->nextSteps = $nextSteps;
 
         return $this;
     }
@@ -86,14 +85,14 @@ class JournalWorkflowTemplateStep extends JournalWorkflowStep
     }
 
     /**
-     * Set nextSteps
+     * Set template
      *
-     * @param $nextSteps
-     * @return $this
+     * @param  JournalWorkflowTemplate $template
+     * @return self
      */
-    public function setNextSteps($nextSteps)
+    public function setTemplate(JournalWorkflowTemplate $template)
     {
-        $this->nextSteps = $nextSteps;
+        $this->template = $template;
 
         return $this;
     }

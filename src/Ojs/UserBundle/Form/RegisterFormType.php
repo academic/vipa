@@ -16,28 +16,47 @@ class RegisterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('username', 'text', array(
+            ->add(
+                'username',
+                'text',
+                array(
                     'label' => 'username',
                     'required' => true,
-                ))
-                ->add('email', 'email', array(
+                )
+            )
+            ->add(
+                'email',
+                'email',
+                array(
                     'label' => 'email',
                     'required' => true,
-                ))
-                ->add('password', 'repeated', array(
+                )
+            )
+            ->add(
+                'password',
+                'repeated',
+                array(
                     'label' => 'email',
                     'type' => 'password',
                     'required' => true,
-                ))
-                ->add('firstName', 'text', array(
+                )
+            )
+            ->add(
+                'firstName',
+                'text',
+                array(
                     'label' => 'firstname',
                     'required' => true,
-                ))
-                ->add('lastName', 'text', array(
+                )
+            )
+            ->add(
+                'lastName',
+                'text',
+                array(
                     'label' => 'lastname',
                     'required' => true,
-                        )
-        );
+                )
+            );
     }
 
     /**
@@ -45,12 +64,15 @@ class RegisterFormType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\User',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\User',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

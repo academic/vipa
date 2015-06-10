@@ -2,10 +2,10 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
-        {'link': path('workflow_template_show', {id: template.id}), 'title': template.title},
-        {'title': 'workflow.template.edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('workflow_templates'), 'title': 'workflow.templates'|trans},
+    {'link': path('workflow_template_show', {id: template.id}), 'title': template.title},
+    {'title': 'workflow.template.edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}

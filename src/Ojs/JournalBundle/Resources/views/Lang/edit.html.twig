@@ -3,15 +3,15 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('lang'),'title': 'language'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('lang'),'title': 'language'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"lang.edit"|trans}}</h1>
+    <h1>{{ "lang.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     <hr>

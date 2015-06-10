@@ -12,10 +12,9 @@ class SearchCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:search')
-                ->setDescription('basic search in all articles')
-                ->addArgument('keyword', InputArgument::OPTIONAL, 'Search phrase')
-        ;
+            ->setName('ojs:search')
+            ->setDescription('basic search in all articles')
+            ->addArgument('keyword', InputArgument::OPTIONAL, 'Search phrase');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -23,8 +22,8 @@ class SearchCommand extends ContainerAwareCommand
         $dialog = $this->getHelperSet()->get('dialog');
         $keywordArgument = $input->getArgument('keyword');
         $keyword = !$keywordArgument ?
-                $dialog->ask($output, '<question>Search phrase </question> ') :
-                $keywordArgument;
+            $dialog->ask($output, '<question>Search phrase </question> ') :
+            $keywordArgument;
         $output->writeln("Searching `".$keyword."`");
         $output->writeln("\nResults\n");
     }

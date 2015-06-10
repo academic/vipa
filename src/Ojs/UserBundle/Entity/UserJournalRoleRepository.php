@@ -22,7 +22,9 @@ class UserJournalRoleRepository extends EntityRepository
     public function getUsers($journal_id, $grouppedByRole = false)
     {
         /** @var UserJournalRole[] $user_journal_roles */
-        $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findBy(array('journalId' => $journal_id));
+        $user_journal_roles = $this->getEntityManager()->getRepository('OjsUserBundle:UserJournalRole')->findBy(
+            array('journalId' => $journal_id)
+        );
         $entities = array();
         if (!is_array($user_journal_roles)) {
             return false;
@@ -46,6 +48,7 @@ class UserJournalRoleRepository extends EntityRepository
 
         return $users;
     }
+
     /**
      * @param $user_id
      * @param  bool  $onlyJournalIds
@@ -60,7 +63,8 @@ class UserJournalRoleRepository extends EntityRepository
         $entities = array();
         if ($data) {
             foreach ($data as $item) {
-                $entities[$item->getJournalId()]['journal'] = $onlyJournalIds ? $item->getJournal()->getId() : $item->getJournal();
+                $entities[$item->getJournalId()]['journal'] = $onlyJournalIds ? $item->getJournal()->getId(
+                ) : $item->getJournal();
                 $entities[$item->getJournalId()]['roles'][] = $item->getRole();
             }
         }
@@ -69,7 +73,7 @@ class UserJournalRoleRepository extends EntityRepository
     }
 
     /**
-     * @param string|array $role
+     * @param  string|array      $role
      * @return UserJournalRole[]
      */
     public function findAllByJournalRole($role)
@@ -79,21 +83,21 @@ class UserJournalRoleRepository extends EntityRepository
             ->join('ujr.user', 'u')
             ->join('ujr.role', 'r')
             ->join('ujr.journal', 'j');
-        if(is_array($role)) {
+        if (is_array($role)) {
             $query = $query->where('r.role IN (:role)');
-        }
-        else {
+        } else {
             $query = $query->where('r.role = :role');
         }
         $query = $query
             ->setParameter('role', $role)
             ->getQuery();
+
         return $query;
     }
 
     /**
-     * @param Journal $journal
-     * @param User $user
+     * @param  Journal $journal
+     * @param  User    $user
      * @return array
      */
     public function findAllByJournalAndUser(Journal $journal, User $user)
@@ -107,11 +111,12 @@ class UserJournalRoleRepository extends EntityRepository
             ->getQuery()
             ->getResult();
         $roles = array();
-        if($query) {
-            foreach($query as $userJournalRole) {
-                $roles[] = (string)$userJournalRole->getRole();
+        if ($query) {
+            foreach ($query as $userJournalRole) {
+                $roles[] = (string) $userJournalRole->getRole();
             }
         }
+
         return $roles;
     }
 }

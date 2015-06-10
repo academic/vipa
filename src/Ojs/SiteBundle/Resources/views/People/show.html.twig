@@ -4,19 +4,19 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'people.show'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'people.show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body %}
-<h1>Welcome to the People:show page</h1>
+    <h1>Welcome to the People:show page</h1>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('people',{{ people.id }})
+        analytics.increase('people', {{ people.id }})
     </script>
 {% endblock %}

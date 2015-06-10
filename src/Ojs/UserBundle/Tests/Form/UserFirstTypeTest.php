@@ -22,6 +22,7 @@ class UserFirstTypeTest extends BaseTypeTestcase
                 'password' => $this->faker->word,
                 'email' => $this->faker->email,
             ],
-            'Ojs\UserBundle\Entity\User');
+            'Ojs\UserBundle\Entity\User'
+        );
     }
 }

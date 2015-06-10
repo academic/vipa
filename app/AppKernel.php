@@ -5,9 +5,11 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class AppKernel extends Kernel {
+class AppKernel extends Kernel
+{
 
-    public function registerBundles() {
+    public function registerBundles()
+    {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
@@ -67,12 +69,13 @@ class AppKernel extends Kernel {
         return $bundles;
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader) {
-        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
+    public function registerContainerConfiguration(LoaderInterface $loader)
+    {
+        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    protected function getContainerBuilder() {
+    protected function getContainerBuilder()
+    {
         return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));
     }
-
 }

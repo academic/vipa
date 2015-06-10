@@ -44,11 +44,16 @@ class RedirectController extends Controller
         $article = $doctrine->getRepository('OjsJournalBundle:Article')->find($id);
         $this->throw404IfNotFound($article);
 
-        return $this->redirect($this->generateUrl('ojs_article_page', array(
-                            'slug' => $article->getJournal()->getSlug(),
-                            'article_id' => $article->getId(),
-                            'institution' => $article->getJournal()->getInstitution()->getSlug(), )
-        ));
+        return $this->redirect(
+            $this->generateUrl(
+                'ojs_article_page',
+                array(
+                    'slug' => $article->getJournal()->getSlug(),
+                    'article_id' => $article->getId(),
+                    'institution' => $article->getJournal()->getInstitution()->getSlug(),
+                )
+            )
+        );
     }
 
     /**

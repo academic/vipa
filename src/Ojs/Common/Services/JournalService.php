@@ -8,8 +8,8 @@ use Ojs\AnalyticsBundle\Document\ObjectViews;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Entity\JournalRepository;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -53,9 +53,14 @@ class JournalService
      * @param TokenStorageInterface $tokenStorage
      * @param $defaultInstitutionSlug
      */
-    public function __construct(EntityManager $em, DocumentManager $dm, Session $session, Router $router,
-        TokenStorageInterface $tokenStorage, $defaultInstitutionSlug)
-    {
+    public function __construct(
+        EntityManager $em,
+        DocumentManager $dm,
+        Session $session,
+        Router $router,
+        TokenStorageInterface $tokenStorage,
+        $defaultInstitutionSlug
+    ) {
         $this->session = $session;
         $this->em = $em;
         $this->dm = $dm;
@@ -70,7 +75,9 @@ class JournalService
     public function getSelectedJournal()
     {
         $selectedJournalId = $this->session->get("selectedJournalId");
-        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find($selectedJournalId) : false;
+        $selectedJournal = $selectedJournalId ? $this->em->getRepository('OjsJournalBundle:Journal')->find(
+            $selectedJournalId
+        ) : false;
         if ($selectedJournal) {
             return $selectedJournal;
         } else {
@@ -175,7 +182,11 @@ class JournalService
         $institutionSlug = $institution ? $institution->getSlug() : $this->defaultInstitutionSlug;
 
         return $this->router
-            ->generate('ojs_journal_index', array('slug' => $journal->getSlug(), 'institution' => $institutionSlug), Router::ABSOLUTE_URL);
+            ->generate(
+                'ojs_journal_index',
+                array('slug' => $journal->getSlug(), 'institution' => $institutionSlug),
+                Router::ABSOLUTE_URL
+            );
     }
 
     /**
@@ -217,7 +228,11 @@ class JournalService
             foreach ($journal->getArticles() as $article) {
                 $article_stats = $object_view->findBy(['entity' => 'article', 'objectId' => $article->getId()]);
                 foreach ($article_stats as $article_stat) {
-                    if ($article_stat->getLogDate()->format('d-M-Y') == $dateKey && !in_array($article_stat->getId(), $counted_article_stats)) {
+                    if ($article_stat->getLogDate()->format('d-M-Y') == $dateKey && !in_array(
+                            $article_stat->getId(),
+                            $counted_article_stats
+                        )
+                    ) {
                         $counted_article_stats[] = $article_stat->getId();
                         $groupped_journal_stats[$dateKey] = isset($groupped_journal_stats[$dateKey]) ? $groupped_journal_stats[$dateKey] + 1 : 1;
                     }
@@ -246,11 +261,12 @@ class JournalService
             foreach ($articleStats as $stat) {
                 $dateKey = $stat->getLogDate()->format("d-M-Y");
                 $stats[$dateKey][$article->getId()] = [
-                    'hit' => isset($stats[$dateKey][$article->getId()]['hit']) ? $stats[$dateKey][$article->getId()]['hit'] + 1 : 1,
+                    'hit' => isset($stats[$dateKey][$article->getId()]['hit']) ? $stats[$dateKey][$article->getId(
+                        )]['hit'] + 1 : 1,
                     'title' => $article->getTitle(),
                 ];
             }
-            $affetted_articles[] = ['id' => $article->getId(),'title' => $article->getTitle()];
+            $affetted_articles[] = ['id' => $article->getId(), 'title' => $article->getTitle()];
         }
         foreach ($stats as $date => $stat) {
             foreach ($affetted_articles as $article) {

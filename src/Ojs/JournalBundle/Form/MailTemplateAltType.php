@@ -18,7 +18,10 @@ class MailTemplateAltType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('journal', 'entity', array(
+            ->add(
+                'journal',
+                'entity',
+                array(
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'property' => 'title',
                     'multiple' => false,
@@ -26,10 +29,11 @@ class MailTemplateAltType extends AbstractType
                     'required' => true,
                     'query_builder' => function (EntityRepository $er) use ($options) {
                         $qb = $er->createQueryBuilder('j');
-                        if($options['journal'] instanceof Journal) {
+                        if ($options['journal'] instanceof Journal) {
                             $qb->andWhere('j.id = :journalId')
                                 ->setParameter('journalId', $options['journal']->getId());
                         }
+
                         return $qb;
                     },
                 )
@@ -37,8 +41,7 @@ class MailTemplateAltType extends AbstractType
             ->add('template')
             ->add('type')
             ->add('subject')
-            ->add('lang')
-        ;
+            ->add('lang');
     }
 
     /**
@@ -46,13 +49,16 @@ class MailTemplateAltType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
-            'journal' => false,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
+                'journal' => false,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

@@ -2,9 +2,9 @@
 
 namespace Ojs\InstallerBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\InstallerBundle\Entity\Config;
 use Ojs\InstallerBundle\Form\ConfigType;
-use Ojs\Common\Controller\OjsController as Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,17 +29,27 @@ class ConfigController extends Controller
             $formDataFile = $parser->parse(file_get_contents($parametersFileDist));
         }
         foreach ($formDataFile['parameters'] as $key => $value) {
-            $setter = 'set'.implode('', array_map(function ($s) {
-                    return ucfirst($s);
-                }, explode('_', $key)));
+            $setter = 'set'.implode(
+                    '',
+                    array_map(
+                        function ($s) {
+                            return ucfirst($s);
+                        },
+                        explode('_', $key)
+                    )
+                );
             if (method_exists($formData, $setter)) {
                 $formData->{$setter}($value);
             }
         }
-        $form = $this->createForm(new ConfigType(), $formData, [
-            'method' => 'post',
-            'action' => $this->get('router')->generate('ojs_installer_save_configure'),
-        ]);
+        $form = $this->createForm(
+            new ConfigType(),
+            $formData,
+            [
+                'method' => 'post',
+                'action' => $this->get('router')->generate('ojs_installer_save_configure'),
+            ]
+        );
         $data['form'] = $form->createView();
 
         return $this->render("OjsInstallerBundle:Default:configure.html.twig", $data);
@@ -48,10 +58,14 @@ class ConfigController extends Controller
     public function saveAction(Request $request)
     {
         $entity = new Config();
-        $form = $this->createForm(new ConfigType(), $entity, [
-            'method' => 'post',
-            'action' => $this->get('router')->generate('ojs_installer_save_configure'),
-        ]);
+        $form = $this->createForm(
+            new ConfigType(),
+            $entity,
+            [
+                'method' => 'post',
+                'action' => $this->get('router')->generate('ojs_installer_save_configure'),
+            ]
+        );
         $form->handleRequest($request);
         if ($form->isValid()) {
             $dumper = new Dumper();

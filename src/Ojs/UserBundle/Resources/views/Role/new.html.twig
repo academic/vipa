@@ -2,21 +2,21 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('role'),'title': 'role'|trans},
-        {'title': 'create'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('role'),'title': 'role'|trans},
+    {'title': 'create'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        <h1>{{ "role.new"|trans }}</h1>
+    <div class="large-12 columns">
+        <div class="panel">
+            <h1>{{ "role.new"|trans }}</h1>
 
-        {{ form(form) }}
-        {% set back_path = 'role' %}
-        {% include '::actionbuttons.html.twig' %}
+            {{ form(form) }}
+            {% set back_path = 'role' %}
+            {% include '::actionbuttons.html.twig' %}
+        </div>
     </div>
-</div>
 {% endblock %}

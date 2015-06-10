@@ -2,11 +2,11 @@
 
 namespace Ojs\SiteBundle\Acl;
 
-use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy as BaseSecurityIdentityRetrievalStrategy;
 use Ojs\Common\Services\JournalService;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\SecurityIdentityRetrievalStrategy as BaseSecurityIdentityRetrievalStrategy;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
 use Symfony\Component\Security\Core\Authentication\Token;
@@ -33,6 +33,7 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
 
     /** @var  JournalService */
     private $journalService;
+
     /**
      * {@inheritdoc}
      */
@@ -45,6 +46,7 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         $this->authenticationTrustResolver = $authenticationTrustResolver;
         $this->journalService = $journalService;
     }
+
     /**
      * {@inheritdoc}
      */
@@ -70,8 +72,7 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         $user = $token->getUser();
         try {
             $selectedJournal = $this->journalService->getSelectedJournal();
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             $selectedJournal = false;
         }
 
@@ -92,7 +93,6 @@ class SecurityIdentityRetrievalStrategy extends BaseSecurityIdentityRetrievalStr
         } elseif ($this->authenticationTrustResolver->isAnonymous($token)) {
             $sids[] = new RoleSecurityIdentity(AuthenticatedVoter::IS_AUTHENTICATED_ANONYMOUSLY);
         }
-
 
         return $sids;
     }

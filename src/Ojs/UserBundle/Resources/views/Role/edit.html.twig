@@ -2,28 +2,28 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('role'),'title': 'role'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('role'),'title': 'role'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-<div class="large-12 columns">
-    <div class="panel">
-        {% include '::flashbag.html.twig' %}
-        <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
+    <div class="large-12 columns">
+        <div class="panel">
+            {% include '::flashbag.html.twig' %}
+            <h1>{{ "role.edit"|trans }} #{{ entity.id }}</h1>
 
-        {{ form(edit_form) }}
+            {{ form(edit_form) }}
 
-        {% set back_path = 'role' %}
-        {% if is_granted('DELETE', edit_form.vars.data) %}
-            {% set delete_path = 'role_delete' %}
-        {% endif %}
-        {% include '::actionbuttons.html.twig' %}
+            {% set back_path = 'role' %}
+            {% if is_granted('DELETE', edit_form.vars.data) %}
+                {% set delete_path = 'role_delete' %}
+            {% endif %}
+            {% include '::actionbuttons.html.twig' %}
 
-        {{ getLogs(entity) }}
+            {{ getLogs(entity) }}
+        </div>
     </div>
-</div>
 {% endblock %}

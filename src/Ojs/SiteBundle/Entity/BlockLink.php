@@ -39,6 +39,20 @@ class BlockLink
 
     /** @var  integer */
     private $post_id;
+    /**
+     * @var integer
+     */
+    private $link_order;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set id
@@ -54,13 +68,13 @@ class BlockLink
     }
 
     /**
-     * Get id
+     * Get block_id
      *
      * @return integer
      */
-    public function getId()
+    public function getBlockId()
     {
-        return $this->id;
+        return $this->block_id;
     }
 
     /**
@@ -77,13 +91,13 @@ class BlockLink
     }
 
     /**
-     * Get block_id
+     * Get text
      *
-     * @return integer
+     * @return string
      */
-    public function getBlockId()
+    public function getText()
     {
-        return $this->block_id;
+        return $this->text;
     }
 
     /**
@@ -100,13 +114,13 @@ class BlockLink
     }
 
     /**
-     * Get text
+     * Get url
      *
      * @return string
      */
-    public function getText()
+    public function getUrl()
     {
-        return $this->text;
+        return $this->url;
     }
 
     /**
@@ -123,13 +137,13 @@ class BlockLink
     }
 
     /**
-     * Get url
+     * Get block
      *
-     * @return string
+     * @return \Ojs\SiteBundle\Entity\Block
      */
-    public function getUrl()
+    public function getBlock()
     {
-        return $this->url;
+        return $this->block;
     }
 
     /**
@@ -146,19 +160,14 @@ class BlockLink
     }
 
     /**
-     * Get block
+     * Get link_order
      *
-     * @return \Ojs\SiteBundle\Entity\Block
+     * @return integer
      */
-    public function getBlock()
+    public function getLinkOrder()
     {
-        return $this->block;
+        return $this->link_order;
     }
-
-    /**
-     * @var integer
-     */
-    private $link_order;
 
     /**
      * Set link_order
@@ -171,16 +180,6 @@ class BlockLink
         $this->link_order = $linkOrder;
 
         return $this;
-    }
-
-    /**
-     * Get link_order
-     *
-     * @return integer
-     */
-    public function getLinkOrder()
-    {
-        return $this->link_order;
     }
 
     /**

@@ -30,6 +30,7 @@ class OjsController extends Controller
 
         return $this->container->get('security.authorization_checker')->isGranted($attributes, $object, $field);
     }
+
     /**
      *
      * @param  mixed             $entity

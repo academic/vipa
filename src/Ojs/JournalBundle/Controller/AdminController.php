@@ -2,8 +2,8 @@
 
 namespace Ojs\JournalBundle\Controller;
 
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\Common\Params\ArticleEventLogParams;
- use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,9 +42,12 @@ class AdminController extends Controller
     public function statsAction()
     {
         if ($this->isGranted('VIEW', new Journal())) {
-            return $this->render('OjsJournalBundle:Admin:stats.html.twig', [
-                'stats' => $this->getStats(),
-            ]);
+            return $this->render(
+                'OjsJournalBundle:Admin:stats.html.twig',
+                [
+                    'stats' => $this->getStats(),
+                ]
+            );
         } else {
             return $this->redirect($this->generateUrl('dashboard_editor'));
         }
@@ -87,7 +90,9 @@ class AdminController extends Controller
         $now = new \DateTime('-30 days');
         $last30Day = $now->format("Y-m-d H:i:s");
         $mostViewedArticleLog = $em
-            ->createQuery('SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC')
+            ->createQuery(
+                'SELECT a.articleId,COUNT(a) AS viewCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY viewCount DESC'
+            )
             ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_VIEW)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)
@@ -100,7 +105,9 @@ class AdminController extends Controller
         }
 
         $mostDownloadedArticleLog = $em
-            ->createQuery('SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC')
+            ->createQuery(
+                'SELECT a.articleId,COUNT(a) AS downloadCount FROM OjsJournalBundle:ArticleEventLog a WHERE a.eventInfo = :event_info AND a.eventDate > :date GROUP BY a.articleId ORDER BY downloadCount DESC'
+            )
             ->setParameter('event_info', ArticleEventLogParams::$ARTICLE_DOWNLOAD)
             ->setParameter('date', $last30Day)
             ->setMaxResults(1)

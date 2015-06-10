@@ -16,11 +16,10 @@ class EventLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('eventInfo', 'text', ['label' => 'event.info'])
-                ->add('eventDate', 'text', ['label' => 'event.date'])
-                ->add('ip', 'text', ['label' => 'event.ip'])
-                ->add('userId', 'text', ['label' => 'event.user.id'])
-        ;
+            ->add('eventInfo', 'text', ['label' => 'event.info'])
+            ->add('eventDate', 'text', ['label' => 'event.date'])
+            ->add('ip', 'text', ['label' => 'event.ip'])
+            ->add('userId', 'text', ['label' => 'event.user.id']);
     }
 
     /**
@@ -28,12 +27,15 @@ class EventLogType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\UserBundle\Entity\EventLog',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\UserBundle\Entity\EventLog',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

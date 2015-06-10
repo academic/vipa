@@ -19,10 +19,10 @@ class MemberCountUpdater extends Updater implements UpdaterInterface
      */
     public function count()
     {
-        $readerRole = $this->em->getRepository("OjsUserBundle:Role")->findOneBy(['role'=>'ROLE_AUTHOR']);
+        $readerRole = $this->em->getRepository("OjsUserBundle:Role")->findOneBy(['role' => 'ROLE_AUTHOR']);
         /** @var UserRepository $ue */
         $ue = $this->em->getRepository('Ojs\UserBundle\Entity\UserJournalRole');
-        $all = $ue->findBy(['roleId'=>$readerRole->getId()]);
+        $all = $ue->findBy(['roleId' => $readerRole->getId()]);
         $journalUsers = [];
         foreach ($all as $r) {
             /** @var UserJournalRole $r */

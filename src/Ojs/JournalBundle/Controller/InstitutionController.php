@@ -4,14 +4,14 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Institution;
 use Ojs\JournalBundle\Form\InstitutionType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
  * Institution controller.
@@ -25,7 +25,7 @@ class InstitutionController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Institution())) {
+        if (!$this->isGranted('VIEW', new Institution())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $source = new Entity('OjsJournalBundle:Institution');
@@ -50,12 +50,12 @@ class InstitutionController extends Controller
     /**
      * Creates a new Institution entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', new Institution())) {
+        if (!$this->isGranted('CREATE', new Institution())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Institution();
@@ -78,10 +78,13 @@ class InstitutionController extends Controller
             return $this->redirectToRoute('institution_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Institution:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Institution:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -93,14 +96,18 @@ class InstitutionController extends Controller
      */
     private function createCreateForm(Institution $entity)
     {
-        $form = $this->createForm(new InstitutionType(), $entity, array(
-            'action' => $this->generateUrl('institution_create'),
-            'method' => 'POST',
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
-            'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-        ));
+        $form = $this->createForm(
+            new InstitutionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('institution_create'),
+                'method' => 'POST',
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
+                'institutionEndPoint' => $this->generateUrl('api_get_institution'),
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            )
+        );
 
         return $form;
     }
@@ -111,16 +118,19 @@ class InstitutionController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', new Institution())) {
+        if (!$this->isGranted('CREATE', new Institution())) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $entity = new Institution();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:Institution:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Institution:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -133,13 +143,17 @@ class InstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 
-        return $this->render('OjsJournalBundle:Institution:show.html.twig', array(
-            'entity' => $entity, ));
+        return $this->render(
+            'OjsJournalBundle:Institution:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -154,15 +168,18 @@ class InstitutionController extends Controller
         /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
-            'entity' => $entity,
-            'form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Institution:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -174,14 +191,18 @@ class InstitutionController extends Controller
      */
     private function createEditForm(Institution $entity)
     {
-        $form = $this->createForm(new InstitutionType(), $entity, array(
-            'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
-            'method' => 'POST',
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
-            'institutionEndPoint' => $this->generateUrl('api_get_institution'),
-            'helper' => $this->get('okulbilisim_location.form.helper'),
-        ));
+        $form = $this->createForm(
+            new InstitutionType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('institution_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'institutionsEndPoint' => $this->generateUrl('api_get_institutions'),
+                'institutionEndPoint' => $this->generateUrl('api_get_institution'),
+                'helper' => $this->get('okulbilisim_location.form.helper'),
+            )
+        );
 
         return $form;
     }
@@ -189,7 +210,7 @@ class InstitutionController extends Controller
     /**
      * Edits an existing Institution entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -198,7 +219,7 @@ class InstitutionController extends Controller
         $em = $this->getDoctrine()->getManager();
         /** @var Institution $entity */
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if(!$this->isGranted('EDIT', $entity)) {
+        if (!$this->isGranted('EDIT', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
@@ -220,14 +241,17 @@ class InstitutionController extends Controller
             return $this->redirectToRoute('institution_edit', ['id' => $id]);
         }
 
-        return $this->render('OjsJournalBundle:Institution:edit.html.twig', array(
-            'entity' => $entity,
-            'form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Institution:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-     * @param Request $request
+     * @param  Request                                            $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -235,15 +259,16 @@ class InstitutionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Institution')->find($id);
-        if(!$this->isGranted('DELETE', $entity)) {
+        if (!$this->isGranted('DELETE', $entity)) {
             throw new AccessDeniedException("You are not authorized for this page!");
         }
         $this->throw404IfNotFound($entity);
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('institution'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
 
         $em->remove($entity);
         $em->flush();

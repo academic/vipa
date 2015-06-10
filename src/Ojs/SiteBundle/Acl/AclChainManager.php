@@ -92,10 +92,12 @@ class AclChainManager extends AclManager
      */
     public function save($replace = false)
     {
-        if (!is_null($this->_onClass) || ($this->_on instanceof ObjectIdentityInterface && $this->_on->getIdentifier() === 'CLASS')) {
+        if (!is_null($this->_onClass) || ($this->_on instanceof ObjectIdentityInterface && $this->_on->getIdentifier(
+                ) === 'CLASS')
+        ) {
             $this->addPermission($this->_onClass, $this->_field, $this->_mask, $this->_to, 'class', $replace);
         } else {
-            $this->addPermission($this->_on, $this->_field,  $this->_mask, $this->_to, 'object', $replace);
+            $this->addPermission($this->_on, $this->_field, $this->_mask, $this->_to, 'object', $replace);
         }
 
         $this->_to = $this->_on = $this->_onClass = $this->_field = $this->_mask = null;
@@ -126,9 +128,15 @@ class AclChainManager extends AclManager
             !$identity instanceof TokenInterface &&
             !$identity instanceof UserJournalRole &&
             !$identity instanceof RoleInterface &&
-            !is_string($identity)) {
-            throw new \InvalidArgumentException(sprintf('$identity must implement one of: UserInterface, '.
-                'TokenInterface, RoleInterface, UserJournalRole (%s given)', get_class($identity)));
+            !is_string($identity)
+        ) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    '$identity must implement one of: UserInterface, '.
+                    'TokenInterface, RoleInterface, UserJournalRole (%s given)',
+                    get_class($identity)
+                )
+            );
         }
 
         $securityIdentity = null;
@@ -143,7 +151,9 @@ class AclChainManager extends AclManager
         }
 
         if (!$securityIdentity instanceof SecurityIdentityInterface) {
-            throw new \InvalidArgumentException('Couldn\'t create a valid SecurityIdentity with the provided identity information');
+            throw new \InvalidArgumentException(
+                'Couldn\'t create a valid SecurityIdentity with the provided identity information'
+            );
         }
 
         return $securityIdentity;

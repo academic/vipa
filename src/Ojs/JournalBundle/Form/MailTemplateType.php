@@ -20,13 +20,16 @@ class MailTemplateType extends AbstractType
         /** @var User $user */
         $user = $options['user'];
         $builder
-            ->add('journal', 'entity', [
+            ->add(
+                'journal',
+                'entity',
+                [
                     'attr' => ['class' => ' form-control select2-element'],
                     'class' => 'Ojs\JournalBundle\Entity\Journal',
                     'query_builder' => function (EntityRepository $er) use ($user) {
                         /** @var User $user */
                         $qb = $er->createQueryBuilder('j');
-                        if($user->isAdmin()) {
+                        if ($user->isAdmin()) {
                             return $qb;
                         }
 
@@ -42,11 +45,15 @@ class MailTemplateType extends AbstractType
             ->add('template', 'textarea', ['label' => 'mailtemplate.template', 'attr' => ['style' => 'height:200px']])
             ->add('type', 'text', ['label' => 'mailtemplate.type'])
             ->add('subject', 'text', ['label' => 'mailtemplate.subject'])
-            ->add('lang', 'entity', [
-                'class' => 'Ojs\JournalBundle\Entity\Lang',
-                'property' => 'name',
-                'label' => 'mailtemplate.language',
-            ]);
+            ->add(
+                'lang',
+                'entity',
+                [
+                    'class' => 'Ojs\JournalBundle\Entity\Lang',
+                    'property' => 'name',
+                    'label' => 'mailtemplate.language',
+                ]
+            );
     }
 
     /**
@@ -54,13 +61,16 @@ class MailTemplateType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
-            'user' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\JournalBundle\Entity\MailTemplate',
+                'user' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

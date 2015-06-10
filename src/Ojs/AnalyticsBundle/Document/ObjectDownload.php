@@ -44,6 +44,16 @@ class ObjectDownload
     }
 
     /**
+     * Get total
+     *
+     * @return string $total
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
      * Page full url with domain
      * Set total
      *
@@ -58,13 +68,13 @@ class ObjectDownload
     }
 
     /**
-     * Get total
+     * Get filePath
      *
-     * @return string $total
+     * @return string $filePath
      */
-    public function getTotal()
+    public function getFilePath()
     {
-        return $this->total;
+        return $this->filePath;
     }
 
     /**
@@ -81,14 +91,9 @@ class ObjectDownload
         return $this;
     }
 
-    /**
-     * Get filePath
-     *
-     * @return string $filePath
-     */
-    public function getFilePath()
+    public function getObjectId()
     {
-        return $this->filePath;
+        return $this->objectId;
     }
 
     public function setObjectId($id)
@@ -98,9 +103,9 @@ class ObjectDownload
         return $this;
     }
 
-    public function getObjectId()
+    public function getEntity()
     {
-        return $this->objectId;
+        return $this->entity;
     }
 
     public function setEntity($entity)
@@ -110,9 +115,10 @@ class ObjectDownload
         return $this;
     }
 
-    public function getEntity()
+    /** Jungle Boogie  */
+    public function getRawData()
     {
-        return $this->entity;
+        return $this->rawData;
     }
 
     public function setRawData($data)
@@ -120,10 +126,5 @@ class ObjectDownload
         $this->rawData = $data;
 
         return $this;
-    }
-    /** Jungle Boogie  */
-    public function getRawData()
-    {
-        return $this->rawData;
     }
 }

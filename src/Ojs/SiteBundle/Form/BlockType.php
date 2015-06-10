@@ -16,29 +16,43 @@ class BlockType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('type', 'choice', [
-                'label' => 'Type',
-                'choices' => [
-                    'html' => 'HTML Content',
-                    'link' => 'Link List',
-                ],
-            ])
-            ->add('content', 'textarea', [
-                'label' => 'Content',
-                'required' => false,
-            ])
+            ->add(
+                'type',
+                'choice',
+                [
+                    'label' => 'Type',
+                    'choices' => [
+                        'html' => 'HTML Content',
+                        'link' => 'Link List',
+                    ],
+                ]
+            )
+            ->add(
+                'content',
+                'textarea',
+                [
+                    'label' => 'Content',
+                    'required' => false,
+                ]
+            )
             ->add('object_id', 'hidden', ['data' => $options['object_id']])
             ->add('object_type', 'hidden', ['data' => $options['object_type']])
-            ->add('color', 'choice', ['label' => 'Block Color', 'choices' => [
-                'default' => 'Grey',
-                'primary' => 'Blue',
-                'success' => 'Green',
-                'info' => 'Light Blue',
-                'warning' => 'Yellow',
-                'danger' => 'Red',
+            ->add(
+                'color',
+                'choice',
+                [
+                    'label' => 'Block Color',
+                    'choices' => [
+                        'default' => 'Grey',
+                        'primary' => 'Blue',
+                        'success' => 'Green',
+                        'info' => 'Light Blue',
+                        'warning' => 'Yellow',
+                        'danger' => 'Red',
 
-            ]])
-        ;
+                    ],
+                ]
+            );
     }
 
     /**
@@ -46,14 +60,17 @@ class BlockType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\SiteBundle\Entity\Block',
-            'object_id' => null,
-            'object_type' => null,
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\SiteBundle\Entity\Block',
+                'object_id' => null,
+                'object_type' => null,
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

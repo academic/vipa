@@ -4,8 +4,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'instution'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'instution'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -60,7 +60,7 @@
             <ul class="list-group">
                 {% for journal in entity.journals %}
                     <li class="list-group-item"><a
-                                href="{{ generateJournalUrl(journal)}}">{{ journal.title }}</a>
+                                href="{{ generateJournalUrl(journal) }}">{{ journal.title }}</a>
                     </li>
                 {% endfor %}
             </ul>

@@ -8,6 +8,8 @@ namespace Ojs\Common\Event;
 interface NotifierInterface
 {
     public function addQueue(Item $item);
+
     public function getQueue();
+
     public function process();
 }

@@ -2,9 +2,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('mailtemplate'),'title': 'mail.template'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('mailtemplate'),'title': 'mail.template'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -23,7 +23,7 @@
                 <th>Journal</th>
                 <td>{{ entity.journal.title }}</td>
             </tr>
-            {% else %}
+        {% else %}
             <tr>
                 <th>Default Template</th>
                 <td>Yes</td>

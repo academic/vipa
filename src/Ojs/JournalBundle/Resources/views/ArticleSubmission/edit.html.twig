@@ -2,16 +2,16 @@
 {% block title %}{{ 'title.submission_edit'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-        { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans },
-        {'title': 'edit'|trans}
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans },
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 
 {% block body -%}
-    <h1>{{"e"|trans}}</h1>
+    <h1>{{ "e"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 

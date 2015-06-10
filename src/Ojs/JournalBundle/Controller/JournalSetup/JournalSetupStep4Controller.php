@@ -3,10 +3,10 @@
 namespace Ojs\JournalBundle\Controller\JournalSetup;
 
 use Ojs\Common\Controller\OjsController as Controller;
-use Okulbilisim\CmsBundle\Entity\Post;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Ojs\JournalBundle\Document\JournalSetupProgress;
+use Okulbilisim\CmsBundle\Entity\Post;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class JournalSetupStep4Controller extends Controller
 {
@@ -21,7 +21,7 @@ class JournalSetupStep4Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         /** @var JournalSetupProgress $setup */
-        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->findOneById($setupId);
+        $setup = $dm->getRepository('OjsJournalBundle:JournalSetupProgress')->find($setupId);
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($setup->getJournalId());
         $setup->setCurrentStep(2);
         $data = $request->request->all();
@@ -29,9 +29,11 @@ class JournalSetupStep4Controller extends Controller
         $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
         foreach ($pages as $page) {
             if (empty($page['title'])) {
-                return new JsonResponse([
-                    'success' => "0",
-                ]);
+                return new JsonResponse(
+                    [
+                        'success' => "0",
+                    ]
+                );
             }
             $page_ = new Post();
             $page_
@@ -46,8 +48,11 @@ class JournalSetupStep4Controller extends Controller
         }
         $dm->flush();
 
-        return new JsonResponse(array(
-            'success' => '1', ));
+        return new JsonResponse(
+            array(
+                'success' => '1',
+            )
+        );
     }
 
     /**
@@ -64,9 +69,11 @@ class JournalSetupStep4Controller extends Controller
         $twig = $this->get('okulbilisimcmsbundle.twig.post_extension');
         foreach ($pages as $page) {
             if (empty($page['title'])) {
-                return new JsonResponse([
-                    'success' => "0",
-                ]);
+                return new JsonResponse(
+                    [
+                        'success' => "0",
+                    ]
+                );
             }
             $page_ = new Post();
             $page_
@@ -80,7 +87,10 @@ class JournalSetupStep4Controller extends Controller
             $em->flush();
         }
 
-        return new JsonResponse(array(
-            'success' => '1', ));
+        return new JsonResponse(
+            array(
+                'success' => '1',
+            )
+        );
     }
 }

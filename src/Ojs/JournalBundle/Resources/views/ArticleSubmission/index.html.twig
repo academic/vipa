@@ -2,8 +2,8 @@
 {% block title %}{{ 'title.submissions'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        { 'link': path('dashboard'), 'title': 'dashboard'|trans },
-        { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
+    { 'link': path('dashboard'), 'title': 'dashboard'|trans },
+    { 'link': path('article_submissions_me'), 'title': 'article.mysubmits'|trans }
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -11,8 +11,8 @@
 {% block body -%}
     {% include '::flashbag.html.twig' %}
     <h2>{{ 'Submissions'|trans }}</h2>
-        <a href="{{ path('article_submission_new') }}"
-           class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
+    <a href="{{ path('article_submission_new') }}"
+       class="btn btn-success pull-right"> {{ "article.submit"|trans }}</a>
     <div class="btn-group">
         <a class="btn btn-default" href="{{ path('article_submissions_me') }}">{{ "article.mysubmits"|trans }}</a>
         {% if is_granted('EDIT', selectedJournal()) %}

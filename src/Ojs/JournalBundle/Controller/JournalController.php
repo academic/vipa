@@ -5,14 +5,14 @@ namespace Ojs\JournalBundle\Controller;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\HttpFoundation\Request;
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Journal;
 use Ojs\JournalBundle\Form\JournalType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
 
 /**
@@ -22,21 +22,22 @@ class JournalController extends Controller
 {
 
     /**
-     * @param Request $request
+     * @param  Request          $request
      * @param $journal_id
      * @return RedirectResponse
      */
     public function changeSelectedAction(Request $request, $journal_id)
     {
-        $em =  $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $route = $this->get('router')->generate('dashboard');
-        if($request->query->get('submission', false) === '1') {
+        if ($request->query->get('submission', false) === '1') {
             $route = $this->get('router')->generate('article_submission_new');
         }
         /** @var Journal $journal */
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($journal_id);
         $this->throw404IfNotFound($journal);
         $this->get('ojs.journal_service')->setSelectedJournal($journal);
+
         return $this->redirect($route);
     }
 
@@ -45,7 +46,7 @@ class JournalController extends Controller
      */
     public function indexAction()
     {
-        if(!$this->isGranted('VIEW', new Journal())) {
+        if (!$this->isGranted('VIEW', new Journal())) {
             throw new AccessDeniedException("You not authorized for list journals!");
         }
         $source = new Entity('OjsJournalBundle:Journal');
@@ -61,7 +62,9 @@ class JournalController extends Controller
         $rowAction[] = (new RowAction('Manage', 'change_selected_journal'))
             ->setRouteParameters('id')
             ->setRouteParametersMapping(array('id' => 'journal_id'))
-            ->setAttributes(array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage"));
+            ->setAttributes(
+                array('class' => 'btn btn-success btn-xs', 'data-toggle' => 'tooltip', 'title' => "Manage")
+            );
 
         $actionColumn->setRowActions($rowAction);
 
@@ -73,7 +76,7 @@ class JournalController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
@@ -105,24 +108,31 @@ class JournalController extends Controller
             return $this->redirect($this->generateUrl('journal_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('OjsJournalBundle:Journal:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Journal:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
      * Creates a form to create a Journal entity.
-     * @param  Journal                      $entity The entity
-     * @return Form The form
+     * @param  Journal $entity The entity
+     * @return Form    The form
      */
     private function createCreateForm(Journal $entity)
     {
-        $form = $this->createForm(new JournalType(), $entity, array(
-            'action' => $this->generateUrl('journal_create'),
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'method' => 'POST'
-        ));
+        $form = $this->createForm(
+            new JournalType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('journal_create'),
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
@@ -137,10 +147,13 @@ class JournalController extends Controller
         $entity = new Journal();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:Journal:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Journal:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -154,12 +167,16 @@ class JournalController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Journal')->find($id);
         $this->throw404IfNotFound($entity);
-        if(!$this->isGranted('VIEW', $entity)) {
+        if (!$this->isGranted('VIEW', $entity)) {
             throw new AccessDeniedException("You not authorized for view this journal!");
         }
 
-        return $this->render('OjsJournalBundle:Journal:show.html.twig', array(
-            'entity' => $entity, ));
+        return $this->render(
+            'OjsJournalBundle:Journal:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -181,30 +198,37 @@ class JournalController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:Journal:edit.html.twig', array(
-            'entity' => $entity,
-            'form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Journal:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
      * Creates a form to edit a Journal entity.
-     * @param  Journal                      $entity The entity
-     * @return Form The form
+     * @param  Journal $entity The entity
+     * @return Form    The form
      */
     private function createEditForm(Journal $entity)
     {
-        $form = $this->createForm(new JournalType(), $entity, array(
-            'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new JournalType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('journal_update', array('id' => $entity->getId())),
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'method' => 'POST',
+            )
+        );
 
         return $form;
     }
 
     /**
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
@@ -240,14 +264,17 @@ class JournalController extends Controller
             return $this->redirect($this->generateUrl('journal_edit', array('id' => $id)));
         }
 
-        return $this->render('OjsJournalBundle:Journal:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Journal:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */
@@ -263,8 +290,9 @@ class JournalController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('journal'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');

@@ -5,8 +5,8 @@
  */
 namespace Ojs\NotifierBundle\Event;
 
-use Ojs\Common\Event\NotifierInterface;
 use Ojs\Common\Event\Item;
+use Ojs\Common\Event\NotifierInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class MailNotifierEvent extends Event implements NotifierInterface

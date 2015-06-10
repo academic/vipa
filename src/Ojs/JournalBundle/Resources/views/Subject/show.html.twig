@@ -3,46 +3,46 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('subject'),'title': 'subject'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('subject'),'title': 'subject'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"subject"|trans}}</h1>
+    <h1>{{ "subject"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties  table">
         <tbody>
+        <tr>
+            <th width="200px">{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "subject"|trans }}</th>
+            <td>{{ entity.subject }}</td>
+        </tr>
+        <tr>
+            <th>{{ "description"|trans }}</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        {% if entity.parent %}
             <tr>
-                <th width="200px">{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
+                <th>{{ "parent"|trans }}</th>
+                <td><a href="{{ path('subject_show', {id: entity.parent.id}) }}">{{ entity.parent }}</a></td>
             </tr>
+        {% endif %}
+        {% if  entity.children|length >0 %}
             <tr>
-                <th>{{"subject"|trans}}</th>
-                <td>{{ entity.subject }}</td>
+                <th>{{ "children"|trans }}</th>
+                <td>
+                    {% for c in entity.children %}
+                        <a class="badge" href="{{ path('subject_show', {id: c.id}) }}">{{ c }}</a>
+                    {% endfor %}
+                </td>
             </tr>
-            <tr>
-                <th>{{"description"|trans}}</th>
-                <td>{{ entity.description }}</td>
-            </tr>
-            {% if entity.parent %}
-                <tr>
-                    <th>{{"parent"|trans}}</th>
-                    <td><a href="{{ path('subject_show', {id: entity.parent.id})}}">{{ entity.parent}}</a></td>
-                </tr>
-            {% endif %}
-            {% if  entity.children|length >0 %}
-                <tr>
-                    <th>{{"children"|trans}}</th>
-                    <td>
-                        {% for c in entity.children %}
-                            <a  class="badge" href="{{ path('subject_show', {id: c.id})}}">{{ c }}</a>
-                        {% endfor%}
-                    </td>
-                </tr>
-            {% endif %}
+        {% endif %}
 
         </tbody>
     </table>

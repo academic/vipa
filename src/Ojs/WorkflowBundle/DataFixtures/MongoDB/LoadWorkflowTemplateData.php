@@ -2,14 +2,14 @@
 
 namespace Ojs\UserBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ojs\WorkflowBundle\Document\JournalWorkflowTemplate;
+use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
-use Ojs\WorkflowBundle\Document\JournalWorkflowTemplate;
-use Doctrine\Common\DataFixtures\AbstractFixture;
 
 /**
  * @todo
@@ -35,7 +35,7 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
     {
         $em = $this->container->get('doctrine')->getManager();
         $journal = $em->createQuery('SELECT c FROM OjsJournalBundle:Journal c')
-                        ->setMaxResults(1)->getResult();
+            ->setMaxResults(1)->getResult();
         if (!isset($journal)) {
             return;
         }
@@ -71,10 +71,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step1->setCanReview(true);
         $step1->setCanEdit(true);
         $step1->setTemplate($template);
-        $step1->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step1->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step2 = new JournalWorkflowTemplateStep();
         $step2->setColor('#611');
@@ -82,11 +84,13 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step2->setTitle('Author Revision');
         $step2->setCanEdit(true);
         $step2->setTemplate($template);
-        $step2->setRoles(array(
-            json_decode($serializer->serialize($roleAuthor, 'json')),
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step2->setRoles(
+            array(
+                json_decode($serializer->serialize($roleAuthor, 'json')),
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step3 = new JournalWorkflowTemplateStep();
         $step3->setcolor('#393');
@@ -96,10 +100,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step3->setCanReview(true);
         $step3->setCanEdit(true);
         $step3->setTemplate($template);
-        $step3->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step3->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $dm->persist($step1);
         $dm->persist($step2);
@@ -148,10 +154,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step1->setCanReview(true);
         $step1->setCanEdit(true);
         $step1->setTemplate($template);
-        $step1->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step1->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step2 = new JournalWorkflowTemplateStep();
         $step2->setStatus('Author is updating');
@@ -159,11 +167,13 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step2->setCanEdit(true);
         $step2->setOnlyreply(true);
         $step2->setTemplate($template);
-        $step2->setRoles(array(
-            json_decode($serializer->serialize($roleAuthor, 'json')),
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step2->setRoles(
+            array(
+                json_decode($serializer->serialize($roleAuthor, 'json')),
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step3 = new JournalWorkflowTemplateStep();
         $step3->setOnlyreply(true);
@@ -172,11 +182,13 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step3->setCanReview(true);
         $step3->setCanEdit(true);
         $step3->setTemplate($template);
-        $step3->setRoles(array(
-            json_decode($serializer->serialize($roleReviewer, 'json')),
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step3->setRoles(
+            array(
+                json_decode($serializer->serialize($roleReviewer, 'json')),
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step4 = new JournalWorkflowTemplateStep();
         $step4->setLaststep(true);
@@ -185,10 +197,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step4->setCanReview(true);
         $step4->setCanEdit(true);
         $step4->setTemplate($template);
-        $step4->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step4->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $dm->persist($step1);
         $dm->persist($step2);
@@ -227,7 +241,9 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
 
         $template = new JournalWorkflowTemplate();
         $template->setTitle('Extended Academic Workflow');
-        $template->setDescription('Academic Workflow with extra steps. Contains "Redaction" and "Language Review" steps.');
+        $template->setDescription(
+            'Academic Workflow with extra steps. Contains "Redaction" and "Language Review" steps.'
+        );
         $template->setIsSystemTemplate(1);
         $dm->persist($template);
 
@@ -237,10 +253,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step1->setTitle('Secretary');
         $step1->setTemplate($template);
         $step1->setCanRejectSubmission(true);
-        $step1->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step1->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step2 = new JournalWorkflowTemplateStep();
         $step2->setStatus('Author is updating');
@@ -248,11 +266,13 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step2->setOnlyreply(true);
         $step2->setCanEdit(true);
         $step2->setTemplate($template);
-        $step2->setRoles(array(
-            json_decode($serializer->serialize($roleAuthor, 'json')),
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step2->setRoles(
+            array(
+                json_decode($serializer->serialize($roleAuthor, 'json')),
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step3 = new JournalWorkflowTemplateStep();
         $step3->setStatus('Editor is reviewing');
@@ -261,10 +281,12 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step3->setCanEdit(true);
         $step3->setCanRejectSubmission(true);
         $step3->setTemplate($template);
-        $step3->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step3->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step4 = new JournalWorkflowTemplateStep();
         $step4->setStatus('Language Review');
@@ -272,31 +294,37 @@ class LoadWorkflowTemplateData extends AbstractFixture implements FixtureInterfa
         $step4->setCanReview(true);
         $step4->setCanEdit(true);
         $step4->setTemplate($template);
-        $step4->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step4->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step5 = new JournalWorkflowTemplateStep();
         $step5->setOnlyreply(true);
         $step5->setStatus('In Review');
         $step5->setTitle('Review');
         $step5->setTemplate($template);
-        $step5->setRoles(array(
-            json_decode($serializer->serialize($roleReviewer, 'json')),
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step5->setRoles(
+            array(
+                json_decode($serializer->serialize($roleReviewer, 'json')),
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $step6 = new JournalWorkflowTemplateStep();
         $step6->setLaststep(true);
         $step6->setStatus('Ready to publish');
         $step6->setTemplate($template);
         $step6->setTitle('Ready to Publish');
-        $step6->setRoles(array(
-            json_decode($serializer->serialize($roleEditor, 'json')),
-            json_decode($serializer->serialize($roleJournalManager, 'json')),
-        ));
+        $step6->setRoles(
+            array(
+                json_decode($serializer->serialize($roleEditor, 'json')),
+                json_decode($serializer->serialize($roleJournalManager, 'json')),
+            )
+        );
 
         $dm->persist($step1);
         $dm->persist($step2);

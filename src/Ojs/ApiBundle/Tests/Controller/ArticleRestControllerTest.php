@@ -45,7 +45,8 @@ class ArticleRestControllerTest extends BaseTestCase
                     'address' => 'Adres demo',
                     'author' => 'Sanatçının sanatı',
                 ],
-            ], [
+            ],
+            [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 1,
@@ -53,7 +54,8 @@ class ArticleRestControllerTest extends BaseTestCase
                     'address' => 'Adres demo',
                     'author' => 'Sanatçının sanatı',
                 ],
-            ], [
+            ],
+            [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 2,
@@ -61,7 +63,8 @@ class ArticleRestControllerTest extends BaseTestCase
                     'address' => 'Adres demo',
                     'author' => 'Sanatçının sanatı',
                 ],
-            ], [
+            ],
+            [
                 'raw' => 'Demo',
                 'type' => 'test',
                 'orderNum' => 3,
@@ -71,9 +74,13 @@ class ArticleRestControllerTest extends BaseTestCase
                 ],
             ],
         ];
-        $response = $this->apiRequest('/api/articles/1/bulkcitations', 'POST', [
-            'cites' => json_encode($citations),
-        ]);
+        $response = $this->apiRequest(
+            '/api/articles/1/bulkcitations',
+            'POST',
+            [
+                'cites' => json_encode($citations),
+            ]
+        );
         $this->assertEquals(204, $response->getStatusCode());
     }
     //@todo addCitation, postArticleCitation, postArticleBulkCitation test not here

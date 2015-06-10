@@ -6,7 +6,8 @@ var tour = new Tour({
                 content: "You can watch your setup proccess",
                 placement: "bottom"
             }
-        ]}
+        ]
+    }
 );
 tour.init();
 tour.start();

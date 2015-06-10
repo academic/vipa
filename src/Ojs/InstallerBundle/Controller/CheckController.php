@@ -17,8 +17,11 @@ class CheckController extends Controller
         $iniPath = $symfonyRequirements->getPhpIniConfigPath();
         $data['result'] = '
         <div class="alert alert-warning"><ul>
-        '.($iniPath ? sprintf("<li>Configuration file used by PHP: %s</li>", $iniPath) : "<li>WARNING: No configuration file (php.ini) used by PHP!</li>").
-                '<li>The PHP CLI can use a different php.ini file</li>
+        '.($iniPath ? sprintf(
+                "<li>Configuration file used by PHP: %s</li>",
+                $iniPath
+            ) : "<li>WARNING: No configuration file (php.ini) used by PHP!</li>").
+            '<li>The PHP CLI can use a different php.ini file</li>
         <li>than the one used with your web server.</li>';
         if ('\\' == DIRECTORY_SEPARATOR) {
             $data['result'] .= '<li>(especially on the Windows platform)</li>';

@@ -55,6 +55,7 @@ var OjsArticleSubmission = {
         function formatResult(item) {
             return item.name;
         }
+
         function formatSelection(item) {
             return '<b>' + item.name + '</b>';
         }
@@ -66,8 +67,8 @@ var OjsArticleSubmission = {
             //Allow manually entered text in drop down.
             createSearchChoice: function (term, data) {
                 if ($(data).filter(function () {
-                    return this.text.localeCompare(term) === 0;
-                }).length === 0) {
+                        return this.text.localeCompare(term) === 0;
+                    }).length === 0) {
                     return {id: term, text: term};
                 }
             },
@@ -226,7 +227,10 @@ var OjsArticleSubmission = {
         }
 
         OjsCommon.waitModal();
-        $.post(actionUrl, {"authorsData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+        $.post(actionUrl, {
+            "authorsData": JSON.stringify(dataArray),
+            "submissionId": OjsArticleSubmission.submissionId
+        }, function (response) {
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step3();
@@ -244,11 +248,14 @@ var OjsArticleSubmission = {
             forms.each(function () {
                 dataArray.push($(this).serializeObject());
             });
-        }else{
-             dataArray.push([{"orderNum":"","raw":"","type":""}]);
+        } else {
+            dataArray.push([{"orderNum": "", "raw": "", "type": ""}]);
         }
         OjsCommon.waitModal();
-        $.post(actionUrl, {"citeData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+        $.post(actionUrl, {
+            "citeData": JSON.stringify(dataArray),
+            "submissionId": OjsArticleSubmission.submissionId
+        }, function (response) {
             OjsCommon.hideallModals();
             OjsArticleSubmission.hideAllSteps();
             OjsArticleSubmission.prepareStep.step4();
@@ -266,7 +273,10 @@ var OjsArticleSubmission = {
                 dataArray.push($(this).serializeObject());
             });
             OjsCommon.waitModal();
-            $.post(actionUrl, {"filesData": JSON.stringify(dataArray), "submissionId": OjsArticleSubmission.submissionId}, function (response) {
+            $.post(actionUrl, {
+                "filesData": JSON.stringify(dataArray),
+                "submissionId": OjsArticleSubmission.submissionId
+            }, function (response) {
                 OjsArticleSubmission.hideAllSteps();
                 if (response.redirect) {
                     window.onbeforeunload = null;
@@ -370,7 +380,8 @@ var OjsArticleSubmission = {
                     "link": true,
                     "image": false,
                     "color": false,
-                    "blockquote": true}
+                    "blockquote": true
+                }
             });
         }
         window.editorsReady = true;
@@ -397,7 +408,7 @@ var OjsArticleSubmission = {
         $.post($actionUrl, {'orcidAuthorId': $orcid}, function (response) {
             OjsCommon.hideallModals();
             if (typeof response['error-desc'] == 'object') {
-                if(response['error-desc'] !== null){
+                if (response['error-desc'] !== null) {
                     OjsCommon.errorModal(response['error-desc'].value);
                     return;
                 }
@@ -422,7 +433,7 @@ var OjsArticleSubmission = {
             }
             if (typeof $contactDetail !== 'undefined') {
                 if (typeof $contactDetail['email'] !== 'undefined'
-                        && $contactDetail['email'].length > 0) {
+                    && $contactDetail['email'].length > 0) {
                     $parent.find('input[name=email]').val($contactDetail['email'][0].value);
                 }
             }

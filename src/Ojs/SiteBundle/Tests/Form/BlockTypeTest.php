@@ -22,6 +22,7 @@ class BlockTypeTest extends BaseTypeTestcase
                 //'object_type' => $this->faker->word,
                 'color' => 'default',
             ],
-            'Ojs\SiteBundle\Entity\Block');
+            'Ojs\SiteBundle\Entity\Block'
+        );
     }
 }

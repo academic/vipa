@@ -2,17 +2,19 @@
 {% block title %}{{ 'title.article_files_new'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
     <ul class="nav nav-tabs">
-        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
+        <li role="presentation" class=""><a href="{{ url('article_edit',{id: article.id}) }}">{{ "Info"|trans }}</a>
+        </li>
+        <li role="presentation" class="active"><a
+                    href="{{ url('articlefile',{article: article.id}) }}">{{ "Article Files"|trans }}</a></li>
     </ul>
     <h1>ArticleFile creation</h1>
 
@@ -35,7 +37,7 @@
                        data-url="{{ oneup_uploader_endpoint('articlefiles') }}">
             </span>
 
-        <progress id="articlefilesprogress" value="0" max="100" ></progress>
+        <progress id="articlefilesprogress" value="0" max="100"></progress>
         <div id="files"></div>
         <input name="file" id="file" type="hidden" value=""/>
 
@@ -46,12 +48,12 @@
     </button>
     {{ form_end(form) }}
     <ul class="record_actions">
-    <li>
-        <a href="{{ path('articlefile',{article: article.id}) }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+        <li>
+            <a href="{{ path('articlefile',{article: article.id}) }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
@@ -63,7 +65,7 @@
             $("#articlefileupload").fileupload({
                 done: function (e, data) {
                     var result = $.parseJSON(data.result);
-                    for(var i= 0;i<data.files.length;i++){
+                    for (var i = 0; i < data.files.length; i++) {
                         $('#files').text(data.files[i].name);
                         $('#file').val(result.files.name);
                     }

@@ -20,11 +20,15 @@ class JournalController extends Controller
             $journal = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Journal")->find($id);
             $stats = array();
 
-            return $this->render('OjsAnalyticsBundle:Journal:summary_one.html.twig', array(
-                        'journal' => $journal,
-                        'stats' => $stats,
-            ));
+            return $this->render(
+                'OjsAnalyticsBundle:Journal:summary_one.html.twig',
+                array(
+                    'journal' => $journal,
+                    'stats' => $stats,
+                )
+            );
         }
+
         // else get all journals
         return $this->render('OjsAnalyticsBundle:Journal:summary_all.html.twig');
     }
@@ -39,11 +43,15 @@ class JournalController extends Controller
             $journal = $this->getDoctrine()->getManager()->getRepository("OjsJournalBundle:Journal")->find($id);
             $stats = array();
 
-            return $this->render('OjsAnalyticsBundle:Journal:views_one.html.twig', array(
-                        'journal' => $journal,
-                        'stats' => $stats,
-            ));
+            return $this->render(
+                'OjsAnalyticsBundle:Journal:views_one.html.twig',
+                array(
+                    'journal' => $journal,
+                    'stats' => $stats,
+                )
+            );
         }
+
         // else get all journals
         return $this->render('OjsAnalyticsBundle:Journal:views_all.html.twig');
     }

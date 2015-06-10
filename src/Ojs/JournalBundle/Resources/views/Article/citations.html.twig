@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('article'), 'title': 'Article Manager'},
-        {'title': 'citations'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('article'), 'title': 'Article Manager'},
+    {'title': 'citations'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -14,8 +14,10 @@
 
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="{{ url('article_edit', {id: entity.id}) }}">{{ "Info"|trans }}</a></li>
-        <li role="presentation"><a href="{{ url('articlefile', {article: entity.id}) }}">{{ "Article Files"|trans }}</a></li>
-        <li role="presentation" class="active"><a href="{{ url('article_citations', {id: entity.id}) }}">{{ "citation"|trans }}</a></li>
+        <li role="presentation"><a href="{{ url('articlefile', {article: entity.id}) }}">{{ "Article Files"|trans }}</a>
+        </li>
+        <li role="presentation" class="active"><a
+                    href="{{ url('article_citations', {id: entity.id}) }}">{{ "citation"|trans }}</a></li>
     </ul>
 
     {{ grid(grid) }}

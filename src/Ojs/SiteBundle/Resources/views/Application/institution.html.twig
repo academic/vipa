@@ -1,11 +1,11 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.institution_application'|trans }} {{ parent() }}{% endblock %}
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'title': 'application.institution.apply'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'title': 'application.institution.apply'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -13,7 +13,7 @@
 {% block body %}
     <div class="container">
         <!-- Page Content -->
-        <h1 class="page-header">{{"application.institution.apply"|trans}}</h1>
+        <h1 class="page-header">{{ "application.institution.apply"|trans }}</h1>
         {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}, 'style': 'horizontal'}) }}
         {% for label, flashes in app.session.flashbag.all %}
             {% for flash in flashes %}
@@ -40,7 +40,7 @@
                     <div class="panel-heading"><h4>{{ "application.contact"|trans }}</h4></div>
                     <div class="panel-body">
                         {% for field in [form.phone, form.fax, form.email, form.address, form.country, form.city,
-                                         form.lat, form.lon, form.url, form.wiki_url,] %}
+                        form.lat, form.lon, form.url, form.wiki_url,] %}
                             {{ form_row(field) }}
                         {% endfor %}
                     </div>
@@ -50,29 +50,36 @@
                     <div class="panel-heading"><h4>{{ "application.graphics"|trans }}</h4></div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="fileupload">{{"logo"|trans}}</label>
+                            <label class="col-sm-2 control-label" for="fileupload">{{ "logo"|trans }}</label>
+
                             <div class="col-sm-4">
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
-                                    <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
+                                    <span>{{ "file.select"|trans }}</span>
+                                    <input id="fileupload" type="file"
+                                           data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
                                 </span>
                             </div>
 
-                            <span id="institution_logo_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+                            <span id="institution_logo_upload_progress" style="display: none"
+                                  class="col-sm-4 btn btn-success"></span>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label" for="fileupload_header">{{"Header Image"|trans}}</label>
+                            <label class="col-sm-2 control-label"
+                                   for="fileupload_header">{{ "Header Image"|trans }}</label>
+
                             <div class="col-sm-4">
                                 <span class="btn btn-info fileinput-button form-control">
                                     <i class="fa fa-plus"></i>
-                                    <span>{{"file.select"|trans}}</span>
-                                    <input id="fileupload_header" type="file" data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
+                                    <span>{{ "file.select"|trans }}</span>
+                                    <input id="fileupload_header" type="file"
+                                           data-url="{{ oneup_uploader_endpoint('institutionfiles') }}">
                                 </span>
                             </div>
 
-                            <span id="institution_header_upload_progress" style="display: none" class="col-sm-4 btn btn-success"></span>
+                            <span id="institution_header_upload_progress" style="display: none"
+                                  class="col-sm-4 btn btn-success"></span>
                         </div>
                     </div>
                 </div>

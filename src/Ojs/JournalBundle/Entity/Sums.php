@@ -34,6 +34,16 @@ class Sums
     }
 
     /**
+     * Get entity
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
      * Set entity
      *
      * @param  string $entity
@@ -47,13 +57,13 @@ class Sums
     }
 
     /**
-     * Get entity
+     * Get sum
      *
-     * @return string
+     * @return integer
      */
-    public function getEntity()
+    public function getSum()
     {
-        return $this->entity;
+        return $this->sum;
     }
 
     /**
@@ -67,15 +77,5 @@ class Sums
         $this->sum = $sum;
 
         return $this;
-    }
-
-    /**
-     * Get sum
-     *
-     * @return integer
-     */
-    public function getSum()
-    {
-        return $this->sum;
     }
 }

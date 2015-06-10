@@ -3,57 +3,59 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('manager_journal_section'),'title': 'journal.section'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('manager_journal_section'),'title': 'journal.section'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"journalsection"|trans}}</h1>
+    <h1>{{ "journalsection"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>{{ 'id'|trans }}</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{"journalsection.title"|trans}}</th>
-                <td>{{ entity.title }}</td>
-            </tr>
-            <tr>
-                <th>{{"journalsection.allow_index"|trans}}</th>
-                <td>{{ entity.allowIndex }}</td>
-            </tr>
-            <tr>
-                <th>{{"journalsection.hide_title"|trans}}</th>
-                <td>{{ entity.hideTitle }}</td>
-            </tr>
-            <tr>
-                <th>{{"journalsection.journal"|trans}}</th>
-                <td>
-                    <a href="#">
-                        <strong class="badge">{% if entity.journal%}{{ entity.journal.title }}{%endif%}</strong>
-                    </a>
-                </td>
-            </tr>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journalsection.title"|trans }}</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journalsection.allow_index"|trans }}</th>
+            <td>{{ entity.allowIndex }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journalsection.hide_title"|trans }}</th>
+            <td>{{ entity.hideTitle }}</td>
+        </tr>
+        <tr>
+            <th>{{ "journalsection.journal"|trans }}</th>
+            <td>
+                <a href="#">
+                    <strong class="badge">{% if entity.journal %}{{ entity.journal.title }}{% endif %}</strong>
+                </a>
+            </td>
+        </tr>
         </tbody>
     </table>
 
     <div class="btn-group">
-        <a class="btn btn-default btn-sm" href="{{ path("manager_journal_section", { 'id': entity.id }) }}" title="{{"b"|trans}}">
+        <a class="btn btn-default btn-sm" href="{{ path("manager_journal_section", { 'id': entity.id }) }}"
+           title="{{ "b"|trans }}">
             <i class="fa fa-arrow-left"></i>
         </a>
         {% if is_granted('EDIT', selectedJournal(), 'sections') %}
-            <a class="btn btn-warning btn-sm" href="{{ path("manager_journal_section_edit", { 'id': entity.id }) }}" title="{{"edit"|trans}}">
+            <a class="btn btn-warning btn-sm" href="{{ path("manager_journal_section_edit", { 'id': entity.id }) }}"
+               title="{{ "edit"|trans }}">
                 <i class="fa fa-pencil"></i>
             </a>
         {% endif %}
         {% if is_granted('DELETE', selectedJournal(), 'sections') %}
             <a class="btn btn-danger btn-sm" onclick="return confirm('{% trans %}sure{% endtrans %}');"
-               href="{{ path("manager_journal_section_delete", { 'id': entity.id}) }}" title="{{"delete"|trans}}">
+               href="{{ path("manager_journal_section_delete", { 'id': entity.id}) }}" title="{{ "delete"|trans }}">
                 <i class="fa fa-trash-o"></i>
             </a>
         {% endif %}

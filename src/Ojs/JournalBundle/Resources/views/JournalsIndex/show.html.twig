@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('manager_journals_indexes',{journal: entity.journal.id}),'title': 'journals.index'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('manager_journals_indexes',{journal: entity.journal.id}),'title': 'journals.index'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -16,22 +16,22 @@
     {% include '::flashbag.html.twig' %}
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>ID</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalsindex.journalindex'|trans }}</th>
-                <td>{{ entity.journalIndex }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalsindex.journal'|trans }}</th>
-                <td>{{ entity.journal }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'journalsindex.link'|trans }}</th>
-                <td>{{ entity.link }}</td>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'journalsindex.journalindex'|trans }}</th>
+            <td>{{ entity.journalIndex }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'journalsindex.journal'|trans }}</th>
+            <td>{{ entity.journal }}</td>
+        </tr>
+        <tr>
+            <th>{{ 'journalsindex.link'|trans }}</th>
+            <td>{{ entity.link }}</td>
+        </tr>
         </tbody>
     </table>
     <a href="{{ path('manager_journals_indexes',{journal: entity.journal.id}) }}">
@@ -43,7 +43,7 @@
         </a>
     {% endif %}
     {% if is_granted('DELETE', selectedJournal(), 'index') %}
-         <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
+        <a href="{{ path('manager_journals_indexes_delete', { 'id': entity.id }) }}">
             {{ 'd'|trans }}
         </a>
     {% endif %}

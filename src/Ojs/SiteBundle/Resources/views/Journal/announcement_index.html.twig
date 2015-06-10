@@ -1,12 +1,12 @@
 {% extends '::ojsbase.html.twig' %}
 {% block title %}{{ 'title.announcements'|trans }} {{ parent() }}{% endblock %}
-{% set hideleft = 1%}
+{% set hideleft = 1 %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'link':generateJournalUrl(journal), 'title': journal.title},
-        {'title': "announcements"|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'link':generateJournalUrl(journal), 'title': journal.title},
+    {'title': "announcements"|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -17,8 +17,8 @@
         <div class="row">
             <!-- The carousel -->
             <div class="page-header">
-                <h1>{{journal.title}}</h1>
-                <h6>{{journal.subtitle}}</h6>
+                <h1>{{ journal.title }}</h1>
+                <h6>{{ journal.subtitle }}</h6>
             </div>
             <div class="row">
                 <div class="col-md-9">
@@ -38,7 +38,7 @@
                     {% endfor %}
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    {%include 'OjsSiteBundle:Journal:journal_right_block.html.twig'%}
+                    {% include 'OjsSiteBundle:Journal:journal_right_block.html.twig' %}
                 </div>
             </div>
         </div>
@@ -48,6 +48,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }} )
+        analytics.increase('journal', {{ journal.id }})
     </script>
 {% endblock %}

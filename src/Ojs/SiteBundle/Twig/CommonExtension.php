@@ -89,7 +89,8 @@ class CommonExtension extends \Twig_Extension
         if (
             !$options ||
             ((array_key_exists('height', $options) && $options['height'] < 1) ||
-                (array_key_exists('width', $options) && $options['width'] < 1))) {
+                (array_key_exists('width', $options) && $options['width'] < 1))
+        ) {
             $defaultConfig = [
                 'height' => 0,
                 'width' => 0,

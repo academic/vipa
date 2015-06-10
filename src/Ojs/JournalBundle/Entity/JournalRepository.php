@@ -4,9 +4,9 @@ namespace Ojs\JournalBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\Query;
 
 class JournalRepository extends EntityRepository
 {
@@ -164,17 +164,17 @@ class JournalRepository extends EntityRepository
 
         $qb = $this->createQueryBuilder('j');
         $qb->select('count(j.id)')
-                ->where(
-                        $qb->expr()->eq('j.status', ':status')
-                )
-                ->setParameter('status', 3);
+            ->where(
+                $qb->expr()->eq('j.status', ':status')
+            )
+            ->setParameter('status', 3);
 
         if (isset($this->getFilter()['subject'])) {
             $subjects = $this->getFilter()['subject'];
             foreach ($subjects as $key => $subject) {
                 $qb
-                        ->join('j.subjects', 's_'.$key, 'WITH', 's_'.$key.'.slug=:subject_'.$key)
-                        ->setParameter('subject_'.$key, $subject);
+                    ->join('j.subjects', 's_'.$key, 'WITH', 's_'.$key.'.slug=:subject_'.$key)
+                    ->setParameter('subject_'.$key, $subject);
             }
         }
 
@@ -182,22 +182,27 @@ class JournalRepository extends EntityRepository
             $institutions = $this->getFilter()['institution_type'];
             foreach ($institutions as $key => $institution) {
                 $qb
-                        ->join('j.institution', 'i_'.$key)
-                        ->join('i_'.$key.'.institution_type', 'it_'.$key, 'WITH', 'it_'.$key.'.slug=:institution_type_slug_'.$key)
-                        ->setParameter('institution_type_slug_'.$key, $institution);
+                    ->join('j.institution', 'i_'.$key)
+                    ->join(
+                        'i_'.$key.'.institution_type',
+                        'it_'.$key,
+                        'WITH',
+                        'it_'.$key.'.slug=:institution_type_slug_'.$key
+                    )
+                    ->setParameter('institution_type_slug_'.$key, $institution);
             }
         }
         if ($this->getInstitution()) {
             $qb
-                    ->join('j.institution', 'inst', 'WITH', 'inst.slug=:institution')
-                    ->setParameter('institution', $this->getInstitution());
+                ->join('j.institution', 'inst', 'WITH', 'inst.slug=:institution')
+                ->setParameter('institution', $this->getInstitution());
         }
 
         $this->setCount($qb->getQuery()->getSingleScalarResult());
         $qb
-                ->select('j')
-                ->setFirstResult($this->getStart())
-                ->setMaxResults($this->getOffset());
+            ->select('j')
+            ->setFirstResult($this->getStart())
+            ->setMaxResults($this->getOffset());
 
         return $qb->getQuery()->getResult();
     }
@@ -280,10 +285,12 @@ class JournalRepository extends EntityRepository
     public function getLastIssueId($journal)
     {
         $q = $this->_em
-                ->createQuery('SELECT i FROM OjsJournalBundle:Issue i WHERE i.journalId =:j '
-                        .'AND i.datePublished IS NOT NULL ORDER BY i.datePublished DESC')
-                ->setMaxResults(1)
-                ->setParameter('j', $journal->getId());
+            ->createQuery(
+                'SELECT i FROM OjsJournalBundle:Issue i WHERE i.journalId =:j '
+                .'AND i.datePublished IS NOT NULL ORDER BY i.datePublished DESC'
+            )
+            ->setMaxResults(1)
+            ->setParameter('j', $journal->getId());
         try {
             $issue = $q->getOneOrNullResult();
 
@@ -299,10 +306,10 @@ class JournalRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('j');
         $qb
-                ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
-                ->join('j.subjects', 's', 'WITH', 's.id=:subject')
-                ->setParameter('institution', $institution)
-                ->setParameter('subject', $subject->getId());
+            ->join('j.institution', 'i', 'WITH', 'i.slug=:institution')
+            ->join('j.subjects', 's', 'WITH', 's.id=:subject')
+            ->setParameter('institution', $institution)
+            ->setParameter('subject', $subject->getId());
 
         return $qb->getQuery()->getResult();
     }
@@ -316,7 +323,7 @@ class JournalRepository extends EntityRepository
     {
         $issues = $journal->getIssues();
         $years = [];
-        /* @var $issue Issue  */
+        /* @var $issue Issue */
         $count = 0;
         foreach ($issues as $issue) {
             if ($count++ > $maxYearCount) {
@@ -327,7 +334,7 @@ class JournalRepository extends EntityRepository
         }
         krsort($years);
 
-        return  $years;
+        return $years;
     }
 
     /**
@@ -340,7 +347,7 @@ class JournalRepository extends EntityRepository
         $issues = $journal->getIssues();
         $volumes = [];
         foreach ($issues as $issue) {
-            /* @var $issue Issue  */
+            /* @var $issue Issue */
             $volume = $issue->getVolume();
             $volumes[$volume]['issues'][] = $issue;
             $volumes[$volume]['volume'] = $volume;
@@ -357,53 +364,58 @@ class JournalRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('j');
         $qb->where(
-                        $qb->expr()->in('j.id', ':data')
-                )
-                ->setParameter('data', $data);
+            $qb->expr()->in('j.id', ':data')
+        )
+            ->setParameter('data', $data);
 
         return $qb->getQuery()->getResult();
     }
 
     /**
-     * @param User $user
+     * @param  User      $user
      * @return Journal[]
      */
-    public function findAllByUser(User $user) {
+    public function findAllByUser(User $user)
+    {
         $query = $this->createQueryBuilder('j')
             ->join('j.userRoles', 'ujr')
             ->andWhere('ujr.user = :user')
             ->setParameter('user', $user)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
+
         return $query;
     }
+
     /**
-     * @param User $user
+     * @param  User         $user
      * @return Journal|null
      */
-    public function findOneByUser(User $user) {
+    public function findOneByUser(User $user)
+    {
         $query = $this->createQueryBuilder('j')
             ->join('j.userRoles', 'ujr')
             ->andWhere('ujr.user = :user')
             ->setParameter('user', $user)
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
-        if($query) {
+            ->getResult();
+        if ($query) {
             return $query[0];
         }
+
         return $query;
     }
 
     /**
      * @return array
      */
-    public function getAllTitles() {
+    public function getAllTitles()
+    {
         $result = $this->createQueryBuilder('journal')
             ->select('journal.title')->getQuery()
             ->getResult(Query::HYDRATE_ARRAY);
+
         return $result;
     }
 }

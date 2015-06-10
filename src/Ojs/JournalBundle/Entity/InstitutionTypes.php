@@ -2,8 +2,8 @@
 
 namespace Ojs\JournalBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
 

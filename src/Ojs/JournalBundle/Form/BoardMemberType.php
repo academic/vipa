@@ -20,28 +20,34 @@ class BoardMemberType extends AbstractType
         /** @var Board $board */
         $board = $options['board'];
         $builder
-                ->add('board', 'entity', array(
+            ->add(
+                'board',
+                'entity',
+                array(
                     'attr' => array('class' => ' form-control select2-element'),
                     'label' => 'board',
                     'class' => 'Ojs\JournalBundle\Entity\Board',
                     'query_builder' => function (EntityRepository $er) use ($board) {
-                            $qb = $er->createQueryBuilder('b');
-                            if ($board) {
-                                $qb->where(
-                                        $qb->expr()->eq('b.id', ':board')
-                                )->setParameter('board', $board->getId());
-                            }
+                        $qb = $er->createQueryBuilder('b');
+                        if ($board) {
+                            $qb->where(
+                                $qb->expr()->eq('b.id', ':board')
+                            )->setParameter('board', $board->getId());
+                        }
 
-                            return $qb;
-                        },
-                    )
+                        return $qb;
+                    },
                 )
-                ->add('user', 'entity', [
+            )
+            ->add(
+                'user',
+                'entity',
+                [
                     'label' => 'user',
                     'class' => 'Ojs\UserBundle\Entity\User',
-                ])
-                ->add('seq', 'number', ['label' => 'order'])
-        ;
+                ]
+            )
+            ->add('seq', 'number', ['label' => 'order']);
     }
 
     /**
@@ -49,10 +55,12 @@ class BoardMemberType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'board' => null,
-            'data_class' => 'Ojs\JournalBundle\Entity\BoardMember',
-        ));
+        $resolver->setDefaults(
+            array(
+                'board' => null,
+                'data_class' => 'Ojs\JournalBundle\Entity\BoardMember',
+            )
+        );
     }
 
     /**

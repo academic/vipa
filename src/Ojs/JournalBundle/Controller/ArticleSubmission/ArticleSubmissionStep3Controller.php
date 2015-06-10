@@ -4,8 +4,8 @@ namespace Ojs\JournalBundle\Controller\ArticleSubmission;
 
 use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Document\ArticleSubmissionProgress;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -28,7 +28,7 @@ class ArticleSubmissionStep3Controller extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         /** @var ArticleSubmissionProgress $articleSubmission */
         $articleSubmission = $dm->getRepository('OjsJournalBundle:ArticleSubmissionProgress')
-                ->find($submissionId);
+            ->find($submissionId);
         if (!$articleSubmission) {
             throw $this->createNotFoundException('No submission found');
         }

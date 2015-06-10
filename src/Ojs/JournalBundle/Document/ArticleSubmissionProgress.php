@@ -2,9 +2,10 @@
 
 namespace Ojs\JournalBundle\Document;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use APY\DataGridBundle\Grid\Mapping as GRID;
+
 /**
  * This collection holds resumable article submission data
  * @MongoDb\Document(collection="article_submission_progress")

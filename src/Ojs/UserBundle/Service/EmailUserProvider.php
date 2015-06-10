@@ -13,12 +13,12 @@ use Doctrine\ORM\ORMException;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class EmailUserProvider implements UserProviderInterface
 {
-    /** @var EntityManager  */
+    /** @var EntityManager */
     private $entityManager;
 
     /**
@@ -70,7 +70,10 @@ class EmailUserProvider implements UserProviderInterface
             // if there is no record matching the criteria.
             $user = $q->getSingleResult();
         } catch (NoResultException $e) {
-            $message = sprintf('Unable to find an active admin OjsUserBundle:User object identified by "%s".', $username);
+            $message = sprintf(
+                'Unable to find an active admin OjsUserBundle:User object identified by "%s".',
+                $username
+            );
             throw new UsernameNotFoundException($message, 0, $e);
         }
 

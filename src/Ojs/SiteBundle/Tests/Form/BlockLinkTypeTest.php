@@ -15,10 +15,11 @@ class BlockLinkTypeTest extends BaseTypeTestcase
         $this->basicSubmitTest(
             new BlockLinkType(),
             [
-              //  'block_id' => 1,
+                //  'block_id' => 1,
                 'text' => $this->faker->text(),
                 'url' => $this->faker->url,
             ],
-            'Ojs\SiteBundle\Entity\BlockLink');
+            'Ojs\SiteBundle\Entity\BlockLink'
+        );
     }
 }

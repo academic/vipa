@@ -2,9 +2,9 @@
 {% block title %}{{ 'title.article_files_show'|trans }} {{ parent() }}{% endblock %}
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
-        {'title': 'show'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('articlefile', {article: entity.article.id}),'title': 'article.file'|trans},
+    {'title': 'show'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -38,7 +38,8 @@
         </tr>
         <tr>
             <th>{{ "file"|trans }}</th>
-            <td><a href="{{ asset(entity.file.path~entity.file.name) }}" target="_blank"> {{ entity.file.name }} </a></td>
+            <td><a href="{{ asset(entity.file.path~entity.file.name) }}" target="_blank"> {{ entity.file.name }} </a>
+            </td>
         </tr>
         <tr>
             <th>{{ "description"|trans }}</th>

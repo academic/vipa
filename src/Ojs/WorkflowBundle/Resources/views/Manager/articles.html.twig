@@ -3,17 +3,17 @@
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@apptour_css' output="c/apptour.css" %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'},
-        {'title': 'manager'|trans},
-        {'title': 'article.plural'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'},
+    {'title': 'manager'|trans},
+    {'title': 'article.plural'|trans}
     ] %}
-    {{breadcrumb(list)}}
+    {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
@@ -27,23 +27,24 @@
         <div class="panel-body">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th>Article Detail</th>
-                        <th>Reviewer</th>
-                    </tr>
+                <tr>
+                    <th>Article Detail</th>
+                    <th>Reviewer</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {% for articleStep in articlesStep %}
+                {% for articleStep in articlesStep %}
 
-                        <tr>
-                            <td>
-                                <h4>
-                                    {% if articleStep.parentStep %}
-                                        <span class="label" style="background-color: #f69;font-size:10px"><i class="fa fa-angle-double-right"></i> Assigned Step</span>
-                                    {% endif %}
-                                    <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
-                                        {{ articleStep.articleRevised.articleData[articleStep.primaryLanguage].title }}
-                                    </a>
+                    <tr>
+                        <td>
+                            <h4>
+                                {% if articleStep.parentStep %}
+                                    <span class="label" style="background-color: #f69;font-size:10px"><i
+                                                class="fa fa-angle-double-right"></i> Assigned Step</span>
+                                {% endif %}
+                                <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">
+                                    {{ articleStep.articleRevised.articleData[articleStep.primaryLanguage].title }}
+                                </a>
                                     <span class="btn-group">
                                         <a class="btn btn-xs btn-default" title="Search on google"
                                            href="http://scholar.google.com.tr/scholar?q={{ articles[0].title|url_encode }}">
@@ -54,63 +55,64 @@
                                             W
                                         </a>
                                     </span>
-                                    {% if articles[0].submissionDate %}
-                                        <span class="badge">{{ articles[0].submissionDate|date('Y-m-d') }}</span>
-                                    {% endif %}
-                                    {{ daysDiff(articleStep.startedDate, articleStep.reviewDeadline) }}
-                                </h4>
-                                {% if  is_granted('EDIT', selectedJournal()) == true or step.canSeeAuthor %}
-                                    <small>
-                                        {% for articleAuthor in articles[0].articleAuthors %}
-                                            {{ articleAuthor.author.firstName }} {{ articleAuthor.author.middleName }} {{ articleAuthor.author.lastName }}
-                                            {% if loop.last == false %},{% endif %}
-                                        {% endfor %}
-                                    </small>
+                                {% if articles[0].submissionDate %}
+                                    <span class="badge">{{ articles[0].submissionDate|date('Y-m-d') }}</span>
                                 {% endif %}
+                                {{ daysDiff(articleStep.startedDate, articleStep.reviewDeadline) }}
+                            </h4>
+                            {% if  is_granted('EDIT', selectedJournal()) == true or step.canSeeAuthor %}
+                                <small>
+                                    {% for articleAuthor in articles[0].articleAuthors %}
+                                        {{ articleAuthor.author.firstName }} {{ articleAuthor.author.middleName }} {{ articleAuthor.author.lastName }}
+                                        {% if loop.last == false %},{% endif %}
+                                    {% endfor %}
+                                </small>
+                            {% endif %}
+                            <br>
+
+                            <small>
+                                <strong>Submission Refenrece Number :</strong>
+                                <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">{{ articleStep.id }}</a>
                                 <br>
 
-                                <small>
-                                    <strong>Submission Refenrece Number :</strong>
-                                    <a href="{{ path('article_step_preview',{'id':articleStep.id}) }}">{{ articleStep.id }}</a>
-                                    <br>
-
-                                    <strong>Article Reference Number : </strong>
-                                    <a href="{{ path('article_preview',{'id':articleStep.articleId}) }}">
-                                        <span class="badge">{{ articleStep.articleId }}</span>
-                                    </a>
-                                    <br>
-                                    <strong>Start Date : </strong>
-                                    {{ articleStep.startedDate.date }}
-                                    <br>
-                                </small>
-                            </td>
-                            <td>
-                                {% if articleStep.ownerUser %}
-                                    {% if  articleStep.ownerUser.username == app.user.username %}
-                                        <a href="{{ path('article_step_preview',{"id":articleStep.id}) }}" class="btn btn-info">Resume Review</a>
-                                    {%endif%}
-                                    {% if is_granted('EDIT', selectedJournal()) or step.isVisible %}
-                                        <br>
-                                        <a class="btn btn-link btn-xs"
-                                           href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
-                                            <i class="fa fa-cog"></i>
-                                            {{ articleStep.ownerUser.username }}
-                                        </a>
-
-                                    {% else %}
-                                        Someone
-                                    {% endif %}
-                                    <!-- is working on this step -->
-                                {% else %}
-                                    <a class="btn btn-danger"
-                                       onclick="return confirm('{{ "sure"|trans }}');"
-                                       href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
-                                        <i class="fa fa-clock-o"></i> Start Review
-                                    </a>
+                                <strong>Article Reference Number : </strong>
+                                <a href="{{ path('article_preview',{'id':articleStep.articleId}) }}">
+                                    <span class="badge">{{ articleStep.articleId }}</span>
+                                </a>
+                                <br>
+                                <strong>Start Date : </strong>
+                                {{ articleStep.startedDate.date }}
+                                <br>
+                            </small>
+                        </td>
+                        <td>
+                            {% if articleStep.ownerUser %}
+                                {% if  articleStep.ownerUser.username == app.user.username %}
+                                    <a href="{{ path('article_step_preview',{"id":articleStep.id}) }}"
+                                       class="btn btn-info">Resume Review</a>
                                 {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
+                                {% if is_granted('EDIT', selectedJournal()) or step.isVisible %}
+                                    <br>
+                                    <a class="btn btn-link btn-xs"
+                                       href="{{ path("user_profile",{"username":articleStep.ownerUser.username}) }}">
+                                        <i class="fa fa-cog"></i>
+                                        {{ articleStep.ownerUser.username }}
+                                    </a>
+
+                                {% else %}
+                                    Someone
+                                {% endif %}
+                                <!-- is working on this step -->
+                            {% else %}
+                                <a class="btn btn-danger"
+                                   onclick="return confirm('{{ "sure"|trans }}');"
+                                   href="{{ path('article_step_start_review',{"id":articleStep.id}) }}">
+                                    <i class="fa fa-clock-o"></i> Start Review
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
             <hr>
@@ -124,6 +126,7 @@
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% javascripts  '@OjsWorkflowBundle/Resources/public/js/tour/workflow_article_tour.js' output="c/article_workflow_tour.js" %}
-    {% if app.user.setting('tour.admin.workflow.articles') == FALSE %}<script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
-        {% endjavascripts %}
-        {% endblock %}
+    {% if app.user.setting('tour.admin.workflow.articles') == FALSE %}
+        <script type="text/javascript" src="{{ asset_url }}"></script> {% endif %}
+    {% endjavascripts %}
+{% endblock %}

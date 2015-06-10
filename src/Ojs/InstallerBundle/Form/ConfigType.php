@@ -31,8 +31,7 @@ class ConfigType extends AbstractType
             ->add('base_host')
             ->add('post_types')
             ->add('elasticsearch_host')
-            ->add('mongodb_host')
-        ;
+            ->add('mongodb_host');
     }
 
     /**
@@ -40,12 +39,15 @@ class ConfigType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Ojs\InstallerBundle\Entity\Config',
-            'attr' => [
-                'novalidate' => 'novalidate', 'class' => 'form-validate',
-            ],
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Ojs\InstallerBundle\Entity\Config',
+                'attr' => [
+                    'novalidate' => 'novalidate',
+                    'class' => 'form-validate',
+                ],
+            )
+        );
     }
 
     /**

@@ -2,15 +2,15 @@
 
 namespace Ojs\JournalBundle\Entity;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Translatable\Translatable;
 use Ojs\Common\Entity\GenericEntityTrait;
-use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * Board
- *  @GRID\Source(columns="id , journal.title, name, description")
+ * @GRID\Source(columns="id , journal.title, name, description")
  */
 class Board implements Translatable
 {

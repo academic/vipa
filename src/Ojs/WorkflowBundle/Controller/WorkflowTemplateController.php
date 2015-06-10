@@ -4,11 +4,11 @@ namespace Ojs\WorkflowBundle\Controller;
 
 use Ojs\Common\Controller\OjsController;
 use Ojs\WorkflowBundle\Document\JournalWorkflowStep;
-use Ojs\WorkflowBundle\Form\TemplateType;
 use Ojs\WorkflowBundle\Document\JournalWorkflowTemplate;
+use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
+use Ojs\WorkflowBundle\Form\TemplateType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\WorkflowBundle\Document\JournalWorkflowTemplateStep;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -30,13 +30,18 @@ class WorkflowTemplateController extends OjsController
          * @link http://docs.mongodb.org/manual/reference/operator/query/and/#op._S_and
          */
         $templates = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplate')->createQueryBuilder()
-            ->where("function() { return this.isSystemTemplate == true || this.journalId == ".$selectedJournal->getId()." }")
+            ->where(
+                "function() { return this.isSystemTemplate == true || this.journalId == ".$selectedJournal->getId()." }"
+            )
             ->getQuery()
             ->execute();
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:Template/templates.html.twig', array(
-            'templates' => $templates,
-        ));
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:Template/templates.html.twig',
+            array(
+                'templates' => $templates,
+            )
+        );
     }
 
     /**
@@ -55,7 +60,10 @@ class WorkflowTemplateController extends OjsController
             ->getQuery()
             ->execute();
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:Template/template.html.twig', array('template' => $template, 'steps' => $steps));
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:Template/template.html.twig',
+            array('template' => $template, 'steps' => $steps)
+        );
     }
 
     /**
@@ -98,10 +106,12 @@ class WorkflowTemplateController extends OjsController
             $dm->persist($entity);
             $dm->flush();
         }
+
         /**
          * @todo
          * clone new steps and relate them
          */
+
         return $this->redirect($this->generateUrl('ojs_workflow_homepage'));
     }
 
@@ -150,14 +160,21 @@ class WorkflowTemplateController extends OjsController
     {
         $entity = new JournalWorkflowTemplate();
 
-        $form = $this->createForm(new TemplateType(), $entity, array(
-            'action' => $this->generateUrl('workflow_template_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new TemplateType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('workflow_template_create'),
+                'method' => 'POST',
+            )
+        );
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:Template/new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:Template/new.html.twig',
+            array(
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -182,8 +199,10 @@ class WorkflowTemplateController extends OjsController
 
             $this->successFlashBag('Template created successfully. Now you can add steps');
 
-            return $this->redirectToRoute('workflow_template_new_step', [
-                'templateId' => $entity->getId(),
+            return $this->redirectToRoute(
+                'workflow_template_new_step',
+                [
+                    'templateId' => $entity->getId(),
                 ]
             );
         }
@@ -212,15 +231,22 @@ class WorkflowTemplateController extends OjsController
             throw new AccessDeniedException();
         }
 
-        $form = $this->createForm(new TemplateType(), $template, array(
-            'action' => $this->generateUrl('workflow_template_update', array('templateId' => $templateId)),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new TemplateType(),
+            $template,
+            array(
+                'action' => $this->generateUrl('workflow_template_update', array('templateId' => $templateId)),
+                'method' => 'POST',
+            )
+        );
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep:Template/edit.html.twig', array(
-            'form' => $form->createView(),
-            'template' => $template,
-        ));
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep:Template/edit.html.twig',
+            array(
+                'form' => $form->createView(),
+                'template' => $template,
+            )
+        );
     }
 
     /**
@@ -240,15 +266,19 @@ class WorkflowTemplateController extends OjsController
 
             $this->successFlashBag('Template updated successfully.');
 
-            return $this->redirectToRoute('workflow_template_show', [
-                'id' => $entity->getId(),
+            return $this->redirectToRoute(
+                'workflow_template_show',
+                [
+                    'id' => $entity->getId(),
                 ]
             );
         }
         $this->errorFlashBag('Please recheck your submission');
 
-        return $this->redirectToRoute('workflow_template_edit', [
-            'templateId' => $entity->getId(),
+        return $this->redirectToRoute(
+            'workflow_template_edit',
+            [
+                'templateId' => $entity->getId(),
             ]
         );
     }
@@ -305,15 +335,20 @@ class WorkflowTemplateController extends OjsController
             ->getQuery()
             ->execute();
 
-        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms(
+            $selectedJournal->getId()
+        );
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep/Template:new_step.html.twig', array(
-            'roles' => $roles,
-            'nextSteps' => $nextSteps,
-            'journal' => $selectedJournal,
-            'forms' => $journalReviewForms,
-            'template' => $template,
-        ));
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep/Template:new_step.html.twig',
+            array(
+                'roles' => $roles,
+                'nextSteps' => $nextSteps,
+                'journal' => $selectedJournal,
+                'forms' => $journalReviewForms,
+                'template' => $template,
+            )
+        );
     }
 
     /**
@@ -360,8 +395,10 @@ class WorkflowTemplateController extends OjsController
 
         $this->successFlashBag('Successfully created');
 
-        return $this->redirectToRoute('workflow_template_show', [
-            'id' => $templateId,
+        return $this->redirectToRoute(
+            'workflow_template_show',
+            [
+                'id' => $templateId,
             ]
         );
     }
@@ -387,7 +424,9 @@ class WorkflowTemplateController extends OjsController
         $dm = $this->get('doctrine_mongodb')->getManager();
         $em = $this->getDoctrine()->getManager();
         $selectedJournal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms($selectedJournal->getId());
+        $journalReviewForms = $dm->getRepository('OjsWorkflowBundle:ReviewForm')->getJournalForms(
+            $selectedJournal->getId()
+        );
 
         /**
          * @var JournalWorkflowTemplateStep $step
@@ -400,9 +439,11 @@ class WorkflowTemplateController extends OjsController
         $journal = $em->getRepository('OjsJournalBundle:Journal')->find($step->getJournalId());
         $roles = $em->getRepository('OjsUserBundle:Role')->findAll();
         $nextSteps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')
-            ->findBy(array('journalId' => $selectedJournal->getId()  ));
+            ->findBy(array('journalId' => $selectedJournal->getId()));
 
-        return $this->render('OjsWorkflowBundle:WorkflowStep/Template:edit_step.html.twig', array(
+        return $this->render(
+            'OjsWorkflowBundle:WorkflowStep/Template:edit_step.html.twig',
+            array(
                 'roles' => $roles,
                 'nextSteps' => $nextSteps,
                 'journal' => $journal,
@@ -461,8 +502,10 @@ class WorkflowTemplateController extends OjsController
 
         $this->successFlashBag('Template step updated successfully');
 
-        return $this->redirectToRoute('workflow_template_step_show', [
-            'stepId' => $stepId,
+        return $this->redirectToRoute(
+            'workflow_template_step_show',
+            [
+                'stepId' => $stepId,
             ]
         );
     }
@@ -485,10 +528,10 @@ class WorkflowTemplateController extends OjsController
         // get where entity added as next step
         /** @var JournalWorkflowTemplateStep[] $steps */
         $steps = $dm->getRepository('OjsWorkflowBundle:JournalWorkflowTemplateStep')->createQueryBuilder()
-                ->field('nextSteps.$id')
-                ->equals(new \MongoId($entity->getId()))
-                ->getQuery()
-                ->execute();
+            ->field('nextSteps.$id')
+            ->equals(new \MongoId($entity->getId()))
+            ->getQuery()
+            ->execute();
         //remove where step is added as next step.
         foreach ($steps as $step) {
             $step->getNextSteps()->removeElement($entity);
@@ -499,8 +542,10 @@ class WorkflowTemplateController extends OjsController
 
         $this->successFlashBag('Step removed successfully');
 
-        return $this->redirectToRoute('workflow_template_show', [
-            'id' => $template->getId(),
+        return $this->redirectToRoute(
+            'workflow_template_show',
+            [
+                'id' => $template->getId(),
             ]
         );
     }
@@ -524,7 +569,8 @@ class WorkflowTemplateController extends OjsController
         if ($roles) {
             foreach ($roles as $role) {
                 $rolesArray[] = json_decode(
-                    $serializer->serialize($role, 'json'));
+                    $serializer->serialize($role, 'json')
+                );
             }
         }
 

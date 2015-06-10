@@ -46,6 +46,16 @@ class ObjectView
     }
 
     /**
+     * Get total
+     *
+     * @return string $total
+     */
+    public function getTotal()
+    {
+        return $this->total;
+    }
+
+    /**
      * Page full url with domain
      * Set total
      *
@@ -60,13 +70,13 @@ class ObjectView
     }
 
     /**
-     * Get total
+     * Get pageUrl
      *
-     * @return string $total
+     * @return string $pageUrl
      */
-    public function getTotal()
+    public function getPageUrl()
     {
-        return $this->total;
+        return $this->pageUrl;
     }
 
     /**
@@ -84,13 +94,11 @@ class ObjectView
     }
 
     /**
-     * Get pageUrl
-     *
-     * @return string $pageUrl
+     * @return int
      */
-    public function getPageUrl()
+    public function getObjectId()
     {
-        return $this->pageUrl;
+        return $this->objectId;
     }
 
     /**
@@ -105,11 +113,11 @@ class ObjectView
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getObjectId()
+    public function getEntity()
     {
-        return $this->objectId;
+        return $this->entity;
     }
 
     /**
@@ -121,14 +129,6 @@ class ObjectView
         $this->entity = $entity;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntity()
-    {
-        return $this->entity;
     }
 
     public function getRawData()

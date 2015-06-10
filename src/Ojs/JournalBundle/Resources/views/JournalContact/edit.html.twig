@@ -8,15 +8,15 @@
         {% set index_path = 'manager_journalcontact' %}
     {% endif %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path(index_path),'title': 'journal.contact'|trans},
-        {'title': 'edit'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path(index_path),'title': 'journal.contact'|trans},
+    {'title': 'edit'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
 
 {% block body -%}
-    <h1>{{"journalContact.edit"|trans}}</h1>
+    <h1>{{ "journalContact.edit"|trans }}</h1>
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
 
@@ -27,7 +27,7 @@
             {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
                 {% set delete_path = 'journalcontact_delete' %}
             {% endif %}
-        {%else %}
+        {% else %}
             {% set back_path = 'manager_journalcontact' %}
             {% if is_granted('DELETE', selectedJournal(), 'contacts') %}
                 {% set delete_path = 'manager_journalcontact_delete' %}

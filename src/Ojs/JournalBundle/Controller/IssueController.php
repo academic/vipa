@@ -4,18 +4,20 @@ namespace Ojs\JournalBundle\Controller;
 
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use APY\DataGridBundle\Grid\Source\Entity;
+use Doctrine\ORM\QueryBuilder;
+use Ojs\Common\Controller\OjsController as Controller;
 use Ojs\JournalBundle\Entity\Article;
+use Ojs\JournalBundle\Entity\ArticleRepository;
+use Ojs\JournalBundle\Entity\Issue;
+use Ojs\JournalBundle\Entity\JournalSection;
+use Ojs\JournalBundle\Form\IssueType;
 use Ojs\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Ojs\Common\Controller\OjsController as Controller;
-use Ojs\JournalBundle\Entity\Issue;
-use Ojs\JournalBundle\Form\IssueType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\TokenNotFoundException;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Issue controller.
@@ -32,17 +34,16 @@ class IssueController extends Controller
         /** @var User $user */
         $user = $this->getUser();
 
-        if(!$this->isGranted('VIEW', $journal, 'issues')) {
+        if (!$this->isGranted('VIEW', $journal, 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issues!");
         }
         $source = new Entity('OjsJournalBundle:Issue');
         //if user is not admin show only selected journal
-        if(!$user->isAdmin()){
+        if (!$user->isAdmin()) {
             $ta = $source->getTableAlias();
             $source->manipulateQuery(
-                function (QueryBuilder $query) use ($ta, $journal)
-                {
-                    $query->andWhere($ta . '.journalId = :journal_id')
+                function (QueryBuilder $query) use ($ta, $journal) {
+                    $query->andWhere($ta.'.journalId = :journal_id')
                         ->setParameter('journal_id', $journal->getId());
                 }
             );
@@ -51,11 +52,11 @@ class IssueController extends Controller
         $gridAction = $this->get('grid_action');
 
         $actionColumn = new ActionsColumn("actions", 'actions');
-        $rowAction[] = $gridAction->showAction($user->isAdmin()?'issue_show':'issue_manager_issue_view', 'id');
-        if($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        $rowAction[] = $gridAction->showAction($user->isAdmin() ? 'issue_show' : 'issue_manager_issue_view', 'id');
+        if ($this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             $rowAction[] = $gridAction->editAction('issue_edit', 'id');
         }
-        if($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if ($this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             $rowAction[] = $gridAction->deleteAction('issue_delete', 'id');
         }
 
@@ -70,12 +71,12 @@ class IssueController extends Controller
     /**
      * Creates a new Issue entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @return RedirectResponse|Response
      */
     public function createAction(Request $request)
     {
-        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
         }
         $entity = new Issue();
@@ -99,10 +100,13 @@ class IssueController extends Controller
             return $this->redirectToRoute('issue_show', ['id' => $entity->getId()]);
         }
 
-        return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -115,12 +119,16 @@ class IssueController extends Controller
     private function createCreateForm(Issue $entity)
     {
         $user = $this->getUser();
-        $form = $this->createForm(new IssueType(), $entity, array(
-            'action' => $this->generateUrl('issue_create'),
-            'method' => 'POST',
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'user' => $user,
-        ));
+        $form = $this->createForm(
+            new IssueType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('issue_create'),
+                'method' => 'POST',
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'user' => $user,
+            )
+        );
 
         return $form;
     }
@@ -131,16 +139,19 @@ class IssueController extends Controller
      */
     public function newAction()
     {
-        if(!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('CREATE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for create a issue on this journal!");
         }
         $entity = new Issue();
         $form = $this->createCreateForm($entity);
 
-        return $this->render('OjsJournalBundle:Issue:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -151,16 +162,19 @@ class IssueController extends Controller
      */
     public function showAction($id)
     {
-        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
 
-        return $this->render('OjsJournalBundle:Issue:show.html.twig', array(
-                    'entity' => $entity,
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:show.html.twig',
+            array(
+                'entity' => $entity,
+            )
+        );
     }
 
     /**
@@ -171,18 +185,22 @@ class IssueController extends Controller
      */
     public function editAction($id)
     {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
+        /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
@@ -193,12 +211,16 @@ class IssueController extends Controller
     private function createEditForm(Issue $entity)
     {
         $user = $this->getUser();
-        $form = $this->createForm(new IssueType(), $entity, array(
-            'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
-            'method' => 'POST',
-            'tagEndPoint' => $this->generateUrl('api_get_tags'),
-            'user' => $user,
-        ));
+        $form = $this->createForm(
+            new IssueType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('issue_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+                'tagEndPoint' => $this->generateUrl('api_get_tags'),
+                'user' => $user,
+            )
+        );
 
         return $form;
     }
@@ -206,16 +228,17 @@ class IssueController extends Controller
     /**
      * Edits an existing Issue entity.
      *
-     * @param Request $request
+     * @param  Request                   $request
      * @param $id
      * @return RedirectResponse|Response
      */
     public function updateAction(Request $request, $id)
     {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
+        /** @var Issue $entity */
         $entity = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         $this->throw404IfNotFound($entity);
         $editForm = $this->createEditForm($entity);
@@ -236,20 +259,23 @@ class IssueController extends Controller
             return $this->redirectToRoute('issue_edit', ['id' => $id]);
         }
 
-        return $this->render('OjsJournalBundle:Issue:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+            )
+        );
     }
 
     /**
-     * @param Request $request
+     * @param  Request          $request
      * @param $id
      * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
-        if(!$this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('DELETE', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for delete this journal's issue!");
         }
         $em = $this->getDoctrine()->getManager();
@@ -258,8 +284,9 @@ class IssueController extends Controller
 
         $csrf = $this->get('security.csrf.token_manager');
         $token = $csrf->getToken('issue'.$id);
-        if($token!=$request->get('_token'))
+        if ($token != $request->get('_token')) {
             throw new TokenNotFoundException("Token Not Found!");
+        }
         $em->remove($entity);
         $em->flush();
         $this->successFlashBag('successful.remove');
@@ -269,28 +296,34 @@ class IssueController extends Controller
 
     /**
      * show issue manager view page
-     * @param  integer   $id
+     * @param  integer               $id
      * @return Response
      * @throws NotFoundHttpException
      */
     public function viewAction($id)
     {
-        if(!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('VIEW', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for view this journal's issue!");
         }
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
         $em = $this->getDoctrine()->getManager();
+        /** @var Issue $issue */
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
-        $articles = $em->getRepository('OjsJournalBundle:Article')->getOrderedArticlesByIssue($issue, true);
+        /** @var ArticleRepository $repo */
+        $repo = $em->getRepository('OjsJournalBundle:Article');
+        $articles = $repo->getOrderedArticlesByIssue($issue, true);
 
-        return $this->render('OjsJournalBundle:Issue:view.html.twig', array(
-            'articles' => $articles,
-            'journal' => $journal,
-            'issue' => $issue,
-        ));
+        return $this->render(
+            'OjsJournalBundle:Issue:view.html.twig',
+            array(
+                'articles' => $articles,
+                'journal' => $journal,
+                'issue' => $issue,
+            )
+        );
     }
 
     /**
@@ -302,18 +335,19 @@ class IssueController extends Controller
      */
     public function arrangeAction(Request $request, $issueId)
     {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $journal = $this->get("ojs.journal_service")->getSelectedJournal();
-        $doctrine = $this->getDoctrine();
-        $issue = $doctrine->getRepository('OjsJournalBundle:Issue')->find($issueId);
+        $em = $this->getDoctrine()->getManager();
+        /** @var Issue $issue */
+        $issue = $em->getRepository('OjsJournalBundle:Issue')->find($issueId);
         if (!$issue) {
             throw $this->createNotFoundException('Issue not found!');
         }
-
+        /** @var ArticleRepository $articleRepo */
+        $articleRepo = $em->getRepository('OjsJournalBundle:Article');
         if ($request->isMethod('POST') && $request->get('articleId')) {
-            $em = $doctrine->getManager();
             // update with with new values
             $articleIds = $request->get('articleId');
             $orders = $request->get('order');
@@ -321,8 +355,7 @@ class IssueController extends Controller
             $lastPages = $request->get('lastPage');
 
             foreach ($articleIds as $i => $articleId) {
-                $article = $doctrine->getRepository('OjsJournalBundle:Article')
-                    ->find($articleId);
+                $article = $articleRepo->find($articleId);
                 $this->throw404IfNotFound($article);
                 $article->setOrderNum($orders[$i]);
                 $article->setFirstPage($firstPages[$i]);
@@ -332,105 +365,41 @@ class IssueController extends Controller
             }
         }
 
-        $articles = $doctrine->getRepository('OjsJournalBundle:Article')
-            ->getOrderedArticlesByIssue($issue, true);
-        $articlesUnissued = $doctrine->getRepository('OjsJournalBundle:Article')
-            ->getArticlesUnissued();
+        $articles = $articleRepo->getOrderedArticlesByIssue($issue, true);
+        $articlesUnissued = $articleRepo->getArticlesUnissued();
         $sections = $journal->getSections();
 
-        $data = ['articles' => $articles,
+        $data = [
+            'articles' => $articles,
             'journal' => $journal,
             'issue' => $issue,
             'sections' => $sections,
-            'articlesUnissued' => $articlesUnissued, ];
+            'articlesUnissued' => $articlesUnissued,
+        ];
 
         return $this->render('OjsJournalBundle:Issue:arrange.html.twig', $data);
     }
 
     /**
-     *  Move an article's position in an issue by updating "order" field of Article
-     * @param  integer               $articleId
-     * @param  integer               $direction "1" or "-1" to specify the way of movement
-     * @return RedirectResponse
-     * @throws NotFoundHttpException
-     */
-    public function moveArticleAction($articleId, $direction = 1)
-    {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-        $doctrine = $this->getDoctrine();
-        $em = $doctrine->getmanager();
-        /** @var Article $article */
-        $article = $doctrine->getRepository('OjsJournalBundle:Article')->find($articleId);
-        $this->throw404IfNotFound($article);
-        // TODO : missing position getter setter
-        $currentPosition = $article->getPosition();
-        $nextPosition = 0;
-        if ($direction > 0) {
-            $nextPosition = $currentPosition + $direction;
-        } else {
-            $nextPosition = ($currentPosition - $direction) < 0 ? 0 : ($currentPosition - $direction);
-        }
-        $article->setPosition($nextPosition);
-        $em->persist($article);
-        $em->flush();
-        return $this->redirect($this->getRequest()->headers->get('referer'));
-    }
-
-    /**
-     * Move an article's postion UP in an issue by updating "order" field of Article
-     * @param  integer               $id        issue id
-     * @param  integer               $articleId
-     * @return RedirectResponse
-     * @throws NotFoundHttpException
-     */
-    public function moveArticleUpAction($id, $articleId)
-    {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-        $this->checkIssue($id);
-
-        return $this->moveArticleAction($articleId, 1);
-    }
-
-    /**
-     * Move an article's position DOWN in an issue by updating "order" field of Article
-     * @param  integer               $id        issue id
-     * @param  integer               $articleId
-     * @return RedirectResponse
-     * @throws NotFoundHttpException
-     */
-    public function moveArticleDownAction($id, $articleId)
-    {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
-            throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
-        }
-        $this->checkIssue($id);
-
-        return $this->moveArticleAction($articleId, -1);
-    }
-
-    /**
      * add article to this issue
-     * @param  Request               $r
+     * @param  Request               $request
      * @param $id
      * @param $articleId
      * @return RedirectResponse
      * @throws NotFoundHttpException
      */
-    public function addArticleAction(Request $r, $id, $articleId)
+    public function addArticleAction(Request $request, $id, $articleId)
     {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
-        $selectedSection = $r->get('section', null);
+        $selectedSection = $request->get('section', null);
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
         $this->checkIssue($id);
         /** @var Article $article */
         $article = $em->getRepository('OjsJournalBundle:Article')->find($articleId);
+        /** @var JournalSection $section */
         $section = $em->getRepository('OjsJournalBundle:JournalSection')->find($selectedSection);
         /** @var Issue $issue */
         $issue = $em->getRepository('OjsJournalBundle:Issue')->find($id);
@@ -448,7 +417,7 @@ class IssueController extends Controller
         $em->persist($article);
         $em->flush();
 
-        return $this->redirect($this->getRequest()->headers->get('referer'));
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -461,7 +430,7 @@ class IssueController extends Controller
      */
     public function removeArticleAction(Request $request, $id, $articleId)
     {
-        if(!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
+        if (!$this->isGranted('EDIT', $this->get('ojs.journal_service')->getSelectedJournal(), 'issues')) {
             throw new AccessDeniedException("You are not authorized for edit this journal's issue!");
         }
         $referrer = $request->headers->get('referer');

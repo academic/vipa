@@ -5,19 +5,16 @@
  * Date: 1.06.15
  * Time: 10:22
  */
-
 namespace Ojs\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\FOSRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-
-class IssueRestController extends FOSRestController {
+class IssueRestController extends FOSRestController
+{
     /**
      *
      * @ApiDoc(
@@ -30,9 +27,11 @@ class IssueRestController extends FOSRestController {
     public function getIssueDetailAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $issue = $em->find('OjsJournalBundle:Issue',$id);
-        if(!$issue)
+        $issue = $em->find('OjsJournalBundle:Issue', $id);
+        if (!$issue) {
             throw new NotFoundHttpException("Issue not exists");
+        }
+
         return $issue;
     }
-} 
+}

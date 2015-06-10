@@ -3,8 +3,8 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'title': 'dashboard'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'title': 'dashboard'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -24,7 +24,7 @@
             <a class="list-group-item" href="{{ path('role') }}">
                 <i class="fa fa-cogs"></i> {{ "roles"|trans }}
             </a>
-            <a class="list-group-item" href="{{path('journal')}}">
+            <a class="list-group-item" href="{{ path('journal') }}">
                 <i class="fa fa-asterisk"></i> {{ "user.journalrole.alljournals"|trans }}</a>
             <a class="list-group-item" href="{{ path('ujr') }}">
                 <i class="fa fa-cogs"></i> {{ "User Journal Roles"|trans }}

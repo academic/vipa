@@ -3,9 +3,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('dashboard'), 'title': 'dashboard'|trans},
-        {'link': path('admin_journalindex'),'title': 'journal.index'|trans},
-        {'title': 'new'|trans}
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('admin_journalindex'),'title': 'journal.index'|trans},
+    {'title': 'new'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -41,6 +41,7 @@
             <span>{{ "select.image.file"|trans }}</span>
             <input id="fileupload_logo" type="file" data-url="{{ oneup_uploader_endpoint('journalindexfiles') }}">
         </span>
+
         <div id="file_logo_upload_progress" style="display: none" class="label label-info">
         </div>
     </div>
@@ -50,9 +51,9 @@
     </button>
     {{ form_end(form) }}
 
-        <a href="{{ path('admin_journalindex') }}" class="btn btn-warning">
-            <i class="fa fa-arrow-left"></i> {{ 'b'|trans }}
-        </a>
+    <a href="{{ path('admin_journalindex') }}" class="btn btn-warning">
+        <i class="fa fa-arrow-left"></i> {{ 'b'|trans }}
+    </a>
 
 {% endblock %}
 {% block javascripts %}
@@ -62,7 +63,7 @@
     {% endjavascripts %}
 
     <script>
-        $(function(){
+        $(function () {
             $('#fileupload_logo').fileupload({});
             $('#fileupload_logo').bind('fileuploadsend', function (e, data) {
                 $('#file_logo_upload_progress').show();

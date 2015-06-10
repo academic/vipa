@@ -44,6 +44,14 @@ class Block
      * @var Collection|BlockLink[]
      */
     private $links;
+    /**
+     * @var string
+     */
+    private $color;
+    /**
+     * @var integer
+     */
+    private $block_order;
 
     /**
      * Constructor
@@ -64,6 +72,16 @@ class Block
     }
 
     /**
+     * Get object_type
+     *
+     * @return string
+     */
+    public function getObjectType()
+    {
+        return $this->object_type;
+    }
+
+    /**
      * Set object_type
      *
      * @param  string $objectType
@@ -77,13 +95,13 @@ class Block
     }
 
     /**
-     * Get object_type
+     * Get object_id
      *
-     * @return string
+     * @return integer
      */
-    public function getObjectType()
+    public function getObjectId()
     {
-        return $this->object_type;
+        return $this->object_id;
     }
 
     /**
@@ -100,13 +118,13 @@ class Block
     }
 
     /**
-     * Get object_id
+     * Get title
      *
-     * @return integer
+     * @return string
      */
-    public function getObjectId()
+    public function getTitle()
     {
-        return $this->object_id;
+        return $this->title;
     }
 
     /**
@@ -123,13 +141,13 @@ class Block
     }
 
     /**
-     * Get title
+     * Get type
      *
      * @return string
      */
-    public function getTitle()
+    public function getType()
     {
-        return $this->title;
+        return $this->type;
     }
 
     /**
@@ -146,13 +164,13 @@ class Block
     }
 
     /**
-     * Get type
+     * Get content
      *
      * @return string
      */
-    public function getType()
+    public function getContent()
     {
-        return $this->type;
+        return $this->content;
     }
 
     /**
@@ -166,16 +184,6 @@ class Block
         $this->content = $content;
 
         return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
     }
 
     /**
@@ -210,10 +218,16 @@ class Block
     {
         return $this->links;
     }
+
     /**
-     * @var string
+     * Get color
+     *
+     * @return string
      */
-    private $color;
+    public function getColor()
+    {
+        return $this->color;
+    }
 
     /**
      * Set color
@@ -229,18 +243,14 @@ class Block
     }
 
     /**
-     * Get color
+     * Get block_order
      *
-     * @return string
+     * @return integer
      */
-    public function getColor()
+    public function getBlockOrder()
     {
-        return $this->color;
+        return $this->block_order;
     }
-    /**
-     * @var integer
-     */
-    private $block_order;
 
     /**
      * Set block_order
@@ -253,15 +263,5 @@ class Block
         $this->block_order = $blockOrder;
 
         return $this;
-    }
-
-    /**
-     * Get block_order
-     *
-     * @return integer
-     */
-    public function getBlockOrder()
-    {
-        return $this->block_order;
     }
 }

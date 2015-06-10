@@ -4,9 +4,9 @@
 
 {% block breadcrumb %}
     {% set list = [
-        {'link': path('ojs_public_index'), 'title': ojs.title|trans},
-        {'link': generateJournalUrl(journal),'title': journal.title},
-        {'title': 'journalcontact.singular'|trans}
+    {'link': path('ojs_public_index'), 'title': ojs.title|trans},
+    {'link': generateJournalUrl(journal),'title': journal.title},
+    {'title': 'journalcontact.singular'|trans}
     ] %}
     {{ breadcrumb(list) }}
 {% endblock %}
@@ -15,6 +15,7 @@
 
     <div class="container">
         <br>
+
         <div class="row">
             <!-- The carousel -->
             <div class="page-header row">
@@ -35,11 +36,13 @@
                         {% for contact in contacts %}
                             <div class="panel-heading">{{ contact.contactType.name }}</div>
                             <div class="panel-body">
-                                <strong>{{ "name"|trans }}:</strong> {{ contact.contact.title }} {{ contact.contact.firstName }} {{ contact.contact.lastName }} <br/>
+                                <strong>{{ "name"|trans }}
+                                    :</strong> {{ contact.contact.title }} {{ contact.contact.firstName }} {{ contact.contact.lastName }}
+                                <br/>
                                 <strong>{{ "email"|trans }}:</strong> {{ contact.contact.email }} <br/>
-                                <strong>{{ "phone"|trans }}:</strong> {{ contact.contact.phone}} <br/>
-                                <strong>{{ "fax"|trans }}:</strong> {{ contact.contact.fax}} <br/>
-                                <strong>{{ "address"|trans }}:</strong> {{ contact.contact.address}} <br/>
+                                <strong>{{ "phone"|trans }}:</strong> {{ contact.contact.phone }} <br/>
+                                <strong>{{ "fax"|trans }}:</strong> {{ contact.contact.fax }} <br/>
+                                <strong>{{ "address"|trans }}:</strong> {{ contact.contact.address }} <br/>
                             </div>
                         {% endfor %}
 
@@ -57,6 +60,6 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-        analytics.increase('journal',{{ journal.id }})
+        analytics.increase('journal', {{ journal.id }})
     </script>
 {% endblock %}

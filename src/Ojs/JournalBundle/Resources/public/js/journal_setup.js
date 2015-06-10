@@ -35,7 +35,7 @@ var OjsJournalSetup = {
     },
     step1: function (actionUrl) {
         form = $("#step1 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }
@@ -57,7 +57,7 @@ var OjsJournalSetup = {
     },
     step2: function (actionUrl) {
         form = $("#step2 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }
@@ -79,7 +79,7 @@ var OjsJournalSetup = {
     },
     step3: function (actionUrl) {
         form = $("#step3 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }
@@ -101,7 +101,7 @@ var OjsJournalSetup = {
     },
     step4: function (actionUrl) {
         form = $("#step4 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }
@@ -123,7 +123,7 @@ var OjsJournalSetup = {
     },
     step5: function (actionUrl) {
         form = $("#step5 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }
@@ -145,7 +145,7 @@ var OjsJournalSetup = {
     },
     step6: function (actionUrl) {
         form = $("#step6 form");
-        if(!form.validationEngine('validate')){
+        if (!form.validationEngine('validate')) {
             hasError = true;
             return;
         }

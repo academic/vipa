@@ -4,8 +4,8 @@ namespace Ojs\CliBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class SampleDataCommand extends ContainerAwareCommand
 {
@@ -13,8 +13,8 @@ class SampleDataCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-                ->setName('ojs:install:initial-data')
-                ->setDescription('Add initial data');
+            ->setName('ojs:install:initial-data')
+            ->setDescription('Add initial data');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

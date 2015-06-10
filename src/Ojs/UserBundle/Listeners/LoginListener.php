@@ -3,14 +3,14 @@
 namespace Ojs\UserBundle\Listeners;
 
 use Doctrine\ORM\EntityManager;
-use Ojs\UserBundle\Entity\EventLog;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use Ojs\UserBundle\Entity\User as User;
 use Ojs\Common\Params\UserEventLogParams;
+use Ojs\UserBundle\Entity\EventLog;
+use Ojs\UserBundle\Entity\User as User;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginListener
 {
-    /** @var EntityManager  */
+    /** @var EntityManager */
     protected $em;
 
     /**
