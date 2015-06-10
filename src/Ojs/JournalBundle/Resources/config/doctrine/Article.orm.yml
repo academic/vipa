@@ -30,6 +30,13 @@ Ojs\JournalBundle\Entity\Article:
             referencedColumnName: id
           inversedBy: articles
           fetch: EAGER
+      articleType:
+          targetEntity: Ojs\JournalBundle\Entity\ArticleTypes
+          joinColumn:
+            name: article_type_id
+            referencedColumnName: id
+          inversedBy: articles
+          fetch: EXTRA_LAZY
   oneToMany:
     attributes:
       targetEntity: ArticleAttribute
@@ -90,6 +97,12 @@ Ojs\JournalBundle\Entity\Article:
         type: integer
         options:
           default: 0
+        nullable: TRUE
+        gedmo:
+          - versioned
+    articleTypeId:
+        column: article_type_id
+        type: integer
         nullable: TRUE
         gedmo:
           - versioned

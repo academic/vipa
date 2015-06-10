@@ -41,6 +41,12 @@ class Article implements Translatable
     /**
      * @var integer
      * @Expose
+     */
+    private $articleTypeId;
+
+    /**
+     * @var integer
+     * @Expose
      * @GRID\Column(type="text", groups={"submission"})
      */
     private $status;
@@ -202,6 +208,11 @@ class Article implements Translatable
      * @GRID\Column(field="issue.title", title="issue")
      */
     private $issue;
+
+    /**
+     * @var ArticleTypes
+     */
+    private $articleType;
 
     /**
      * @var Collection|Citation[]
@@ -405,6 +416,26 @@ class Article implements Translatable
     public function getIssue()
     {
         return $this->issue;
+    }
+
+    /**
+     *
+     * @param  ArticleTypes $articleType
+     * @return $this
+     */
+    public function setArticleType(ArticleTypes $articleType)
+    {
+        $this->articleType = $articleType;
+
+        return $this;
+    }
+
+    /**
+     * @return ArticleTypes
+     */
+    public function getArticleType()
+    {
+        return $this->articleType;
     }
 
     /**
@@ -642,6 +673,28 @@ class Article implements Translatable
     public function getIssueId()
     {
         return $this->issueId;
+    }
+
+    /**
+     * Set articleTypeId
+     *
+     * @param  integer $articleTypeId
+     * @return $this
+     */
+    public function setArticleTypeId($articleTypeId)
+    {
+        $this->articleTypeId = $articleTypeId;
+
+        return $this;
+    }
+
+    /**
+     * Get articleTypeId
+     * @return integer
+     */
+    public function getArticleTypeId()
+    {
+        return $this->articleTypeId;
     }
 
     /**
