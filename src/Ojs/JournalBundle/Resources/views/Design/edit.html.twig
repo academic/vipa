@@ -97,7 +97,7 @@
     {% endblock %}
 
     {% set back_path = 'design' %}
-    {% if is_granted('DELETE', entity) %}
+    {% if is_granted('DELETE', edit_form.vars.data) %}
         {% set delete_path = 'design_delete' %}
     {% endif %}
     {% include '::actionbuttons.html.twig' %}
