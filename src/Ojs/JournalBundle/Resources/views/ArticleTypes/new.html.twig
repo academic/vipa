@@ -1,0 +1,19 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.article_type_new'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    { 'link': path('articletypes'),'title': 'article.types'|trans},
+    {'title': 'new'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "article.type.new"|trans }}</h1>
+
+    {{ form(form) }}
+    {% set back_path = 'articletypes' %}
+    {% include '::actionbuttons.html.twig' %}
+{% endblock %}

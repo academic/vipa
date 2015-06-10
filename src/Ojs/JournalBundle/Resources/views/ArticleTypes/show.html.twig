@@ -1,0 +1,37 @@
+{% extends '::ojsbase.html.twig' %}
+{% block title %}{{ 'title.article_type_show'|trans }} {{ parent() }}{% endblock %}
+
+{% block breadcrumb %}
+    {% set list = [
+    {'link': path('dashboard'), 'title': 'dashboard'|trans},
+    {'link': path('articletypes'),'title': 'article.types'|trans},
+    {'title': 'show'|trans}
+    ] %}
+    {{ breadcrumb(list) }}
+{% endblock %}
+
+{% block body -%}
+    <h1>{{ "article.type"|trans }}</h1>
+    {% include '::flashbag.html.twig' %}
+    <table class="record_properties  table">
+        <tbody>
+        <tr>
+            <th>{{ 'id'|trans }}</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>{{ "name"|trans }}</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>{{ "description"|trans }}</th>
+            <td>{{ entity.description }}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% set back_path = 'articletypes' %}
+    {% if is_granted('DELETE', entity) %}
+        {% set delete_path = 'articletypes_delete' %}
+    {% endif %}
+    {% include '::actionbuttons.html.twig' %}
+{% endblock %}
