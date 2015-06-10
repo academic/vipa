@@ -62,7 +62,9 @@
                 {{ form_end(edit_form) }}
 
                 {% set show_path = 'user' %}
-                {% set delete_path = 'user_delete' %}
+                {% if is_granted('DELETE', edit_form.vars.data) %}
+                    {% set delete_path = 'user_delete' %}
+                {% endif %}
                 {% include '::actionbuttons.html.twig' %}
 
                 {{ getLogs(entity) }}

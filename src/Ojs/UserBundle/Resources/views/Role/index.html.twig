@@ -15,8 +15,9 @@
         <h1>{{ "role.list"|trans }}</h1>
         {% include '::flashbag.html.twig' %}
         {{ grid(grid) }}
-
-        {% set create_path = 'role_new' %}
+        {% if is_granted('CREATE', getEntity('OjsUserBundle:Role')) %}
+            {% set create_path = 'role_new' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
