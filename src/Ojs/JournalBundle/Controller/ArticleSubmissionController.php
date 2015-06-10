@@ -268,7 +268,9 @@ class ArticleSubmissionController extends Controller
         if (!$this->isGranted('CREATE', $journal, 'articles')) {
             return $this->redirect($this->generateUrl('article_submission_confirm_author'));
         }
+        $em = $this->getDoctrine()->getManager();
         $entity = new Article();
+        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
 
         return $this->render(
             'OjsJournalBundle:ArticleSubmission:new.html.twig',
@@ -279,6 +281,7 @@ class ArticleSubmissionController extends Controller
                 'submissionData' => null,
                 'fileTypes' => ArticleFileParams::$FILE_TYPES,
                 'citationTypes' => $this->container->getParameter('citation_types'),
+                'articleTypes' => $articleTypes,
                 'checklist' => [],
                 'firstStep' => $this->get('doctrine_mongodb')->getRepository('OjsWorkflowBundle:JournalWorkflowStep')
                     ->findOneBy(array('journalid' => $journal->getId(), 'firstStep' => true)),
@@ -304,12 +307,14 @@ class ArticleSubmissionController extends Controller
         if (!$this->isGranted('EDIT', $articleSubmission)) {
             throw $this->createAccessDeniedException("Access Denied");
         }
+        $articleTypes = $em->getRepository('OjsJournalBundle:ArticleTypes')->findAll();
         $data = [
             'submissionId' => $articleSubmission->getId(),
             'submissionData' => $articleSubmission,
             'entity' => $entity,
             'fileTypes' => ArticleFileParams::$FILE_TYPES,
             'citations' => $articleSubmission->getCitations(),
+            'articleTypes' => $articleTypes,
             'citationTypes' => $this->container->getParameter('citation_types'),
         ];
         $data['checklist'] = json_decode($articleSubmission->getChecklist(), true);
@@ -766,7 +771,8 @@ class ArticleSubmissionController extends Controller
             ->setStartedDate(new \DateTime())
             ->setLastResumeDate(new \DateTime())
             ->setLanguages($languages)
-            ->setSection($articleData['section']);
+            ->setSection($articleData['section'])
+            ->setArticleTypeId($articleData['article_type']);
         $dm->persist($articleSubmission);
         $dm->flush();
 

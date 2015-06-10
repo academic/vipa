@@ -47,6 +47,12 @@ class ArticleSubmissionProgress
     protected $journal_id;
 
     /**
+     * @MongoDb\Int
+     * @GRID\Column(title="articletypeid",type="text")
+     */
+    protected $article_type_id;
+
+    /**
      * @MongoDb\String
      */
     protected $primary_language;
@@ -346,6 +352,29 @@ class ArticleSubmissionProgress
     public function getJournalId()
     {
         return $this->journal_id;
+    }
+
+    /**
+     * Set articleTypeId
+     *
+     * @param  int  $articleTypeId
+     * @return self
+     */
+    public function setArticleTypeId($articleTypeId)
+    {
+        $this->article_type_id = $articleTypeId;
+
+        return $this;
+    }
+
+    /**
+     * Get articleTypeId
+     *
+     * @return int $articleTypeId
+     */
+    public function getArticleTypeId()
+    {
+        return $this->article_type_id;
     }
 
     /**
