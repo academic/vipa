@@ -15,8 +15,9 @@
             <h1>{{ "user.journalrole.list"|trans }}</h1>
             {% include '::flashbag.html.twig' %}
             {{ grid(grid) }}
-
-            {% set create_path = 'ujr_new' %}
+            {% if is_granted('CREATE', selectedJournal(), 'userRole') %}
+                {% set create_path = 'ujr_new' %}
+            {% endif %}
             {% include '::actionbuttons.html.twig' %}
         </div>
     </div>

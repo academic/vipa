@@ -17,7 +17,9 @@
         {{ form(edit_form) }}
 
         {% set back_path = 'ujr' %}
-        {% set delete_path = 'ujr_delete' %}
+        {% if is_granted('DELETE', selectedJournal(), 'userRole') %}
+            {% set delete_path = 'ujr_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
 
         {{ getLogs(entity) }}

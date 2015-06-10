@@ -36,8 +36,12 @@
         </table>
 
         {% set back_path = 'ujr' %}
-        {% set edit_path = 'ujr_edit' %}
-        {% set delete_path = 'ujr_delete' %}
+        {% if is_granted('EDIT', selectedJournal(), 'userRole') %}
+            {% set edit_path = 'ujr_edit' %}
+        {% endif %}
+        {% if is_granted('DELETE', selectedJournal(), 'userRole') %}
+            {% set delete_path = 'ujr_delete' %}
+        {% endif %}
         {% include '::actionbuttons.html.twig' %}
     </div>
 </div>
