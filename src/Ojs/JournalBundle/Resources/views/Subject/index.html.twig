@@ -19,8 +19,10 @@
     {{grid(grid)}}
     <div class="tree" style="display:none">{{htmlTree|raw}}</div>
     <div>
-        <a href="{{ path('subject_new') }}" class="btn btn-success">
-            {{"c"|trans}}
-        </a>
+        {% if is_granted('CREATE', getEntity('OjsJournalBundle:Subject')) %}
+            <a href="{{ path('subject_new') }}" class="btn btn-success">
+                {{"c"|trans}}
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
