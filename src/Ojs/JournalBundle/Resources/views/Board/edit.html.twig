@@ -22,9 +22,11 @@
     <a href="{{ path('admin_board') }}">
         {{"b"|trans}}
     </a>
-    <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
-        {{"d"|trans}}
-    </a>
+    {% if is_granted('DELETE', selectedJournal(), 'boards') %}
+        <a href="{{ path('admin_board_delete',{id: entity.id}) }}">
+            {{"d"|trans}}
+        </a>
+    {% endif %}
 
     {{ getLogs(entity) }}
 
