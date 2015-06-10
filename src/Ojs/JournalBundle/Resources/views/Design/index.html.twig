@@ -13,7 +13,9 @@
     <h1>{{"design.list"|trans}}</h1>
     {% include '::flashbag.html.twig' %}
     {{ grid(grid) }}
-    <a href="{{ path('design_new') }}" class="btn btn-success">
-        {{"c"|trans}}
-    </a>
+    {% if is_granted('CREATE', getEntity('OjsJournalBundle:Design')) %}
+        <a href="{{ path('design_new') }}" class="btn btn-success">
+            {{"c"|trans}}
+        </a>
+    {% endif %}
 {% endblock %}
