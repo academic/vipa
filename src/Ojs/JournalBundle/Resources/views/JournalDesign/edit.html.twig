@@ -15,7 +15,9 @@
     {% include '::flashbag.html.twig' %}
     {{ form(edit_form) }}
     {% set back_path = 'admin_journaldesign' %}
-    {% set delete_path = 'admin_journaldesign_delete' %}
+    {% if is_granted('DELETE', selectedJournal(), 'design') %}
+        {% set delete_path = 'admin_journaldesign_delete' %}
+    {% endif %}
     {% include '::actionbuttons.html.twig' %}
 
     {{ getLogs(entity) }}
