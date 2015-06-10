@@ -182,12 +182,14 @@ var OjsArticleSubmission = {
         }
         articleParams.data.submissionId = $("input[name=submissionId]").val();
         articleParams.data.section = $("select[name=section]").val();
+        articleParams.data.article_type = $("select[name=article_type]").val();
 
-        if (!$("#section").val()) {
-            OjsCommon.errorModal("Please select a section for article.");
+        if (!$("#article_type").val()) {
+            OjsCommon.errorModal("Please select a article type for article.");
             return;
         }
         articleParams.data.section = $("#section").val();
+        articleParams.data.article_type = $("#article_type").val();
         $.post(articleParams.postUrl, articleParams.data, function (response) {
             OjsCommon.hideallModals();
             if (response.submissionId) {
